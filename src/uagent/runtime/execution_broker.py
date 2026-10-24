@@ -305,8 +305,8 @@ def current_sandbox_enabled() -> bool:
 
 
 def is_trusted_local_web(bind_host: str, identity_mode: str) -> bool:
-    """Allow legacy Host routing only for the exact local-only startup pair."""
-    return bind_host == "127.0.0.1" and identity_mode == "local"
+    """Allow trusted local Web only for exact loopback and local/guest mode."""
+    return bind_host == "127.0.0.1" and identity_mode in {"local", "browser"}
 
 
 def required_sandbox_capabilities(

@@ -61,7 +61,7 @@ def _local_web_sandbox_scope(turn, room_id: str, room_generation: str):
         or turn.entry_point != "web"
         or turn.room_id != room_id
         or not turn.authenticated
-        or turn.authn_kind != "local"
+        or turn.authn_kind not in {"local", "browser"}
     ):
         return None
     from ..runtime.mxc_backend import local_web_room_scope

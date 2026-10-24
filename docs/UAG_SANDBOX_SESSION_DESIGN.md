@@ -7,8 +7,9 @@
 > ProcessContainer を既定で使う。これはVM隔離やEnterprise E0完了の主張ではない。
 > VM級が必要なデプロイは `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` を設定し、現行
 > backendが満たさない場合はfail-closedとする。Remote Webは既定`auto`、A2Aは
-> 起動済みMXCをtaskごとのscopeで使う。信頼済みlocalhost/local identity Webは
-> 引き続きSandbox offが既定。下記の古い初期方針・計画記述と衝突する箇所はこの更新を優先。
+> 起動済みMXCをtaskごとのscopeで使う。Web Identityの既定は`browser`の署名付き
+> anonymous guest cookieで、ブラウザーごとに履歴とprivate Projectを分ける（本人認証ではない）。
+> 厳密な`127.0.0.1` bindでは既定`browser`または明示Identity=`local`をtrusted local WebとしてSandbox offで利用できる。browser cookieは履歴分離用であり、同一local server上の敵対ユーザーに対する認可境界ではない。その他のbindはRemote/MXC扱い。下記の古い初期方針・計画記述と衝突する箇所はこの更新を優先。
 > 詳細は[Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)。
 
 - Scope: CLI / GUI / Web / A2A、最終対応候補は Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）。**実装は Windows を先行し、Linux・macOS は後続 PR で有効化**
@@ -82,7 +83,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 | --- | --- | --- | --- |
 | CLI (uag) | CLI runtime session UUID | local: off | CLI Session 終了、明示破棄 |
 | GUI (uagg) | 現在の GUI Session / 会話 ID + runtime 所有情報 | local: off | 現在のSessionの終了・破棄で回収。既存のSession切替／履歴復帰経路がある場合のみ切替先へ |
-| Web (uagw) | **room_id + principal_id** | Remoteは`auto`（MXC ProcessContainer）。厳密な`127.0.0.1` + Identity=`local`のlocal-only Webはoff。remote offはHost実行を許可しない | 認可済み Room の存続中に Principal ごとに保持。削除・Private Room TTL・認可取消で破棄 |
+| Web (uagw) | **room_id + principal_id** | Identity既定は`browser`（署名付き匿名guest cookie、本人認証ではない）。厳密な`127.0.0.1` bindではtrusted local WebとしてSandbox off。その他のbindはRemote profileで既定`auto`（MXC ProcessContainer） | 認可済み Room の存続中に Principal ごとに保持。削除・Private Room TTL・認可取消で破棄 |
 | A2A (uaga) | **task_id** | remote tools: required | Task の完了・取消・期限切れで破棄 |
 
 - Web の一時的な WebSocket 切断は Room 終了ではない。再接続しても同一 Scope の健全な Sandbox を再利用する。
@@ -92,7 +93,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 - **現行GUIでは現在の会話/Sessionに1つのSandbox Leaseを割り当て、Function Call間で再利用する。Sandboxのために会話一覧・会話切替・会話削除の専用画面を新設しない。** 既存のSession新規作成・履歴ロード・終了などの操作が実際に提供される場合に限り、変更先Scopeを再検証してLeaseを選択・新規作成し、旧Scopeの破棄条件を適用する。将来GUIに複数会話切替機能が追加された場合も同じScope分離規則を適用するが、今回のSandbox実装の前提条件にしない。
 - CLI/GUIと**信頼済みlocal-only Web**でSandboxがoffのときはSessionManagerにSandboxリソースを作らず、不要なBackend Probe/導入を行わない。Remote Webは既定`auto`でMXCを初期化し、明示`off`またはBackend不足時は一般Tool実行を拒否する（Host実行へfallbackしない）。tool-enabled A2Aも起動時にMXCを要求し、`UAGENT_USE_TOOL=off`ならtool-lessで起動する。
 - Sub-Agent / background Job は親 Scope と権限の縮小を基本とし、長寿命 Job は親終了後の孤立実行を許可しない。独立 Scope が必要な場合は別途定義する。
-- ローカルからの接続でも、認証付き Multi-user Web（社内ネットワークのみを含む）や外部公開 Web / Remote A2A には E0 隔離を強制する。**隔離を有効化するか、Tool実行を拒否するかの二択**であり、opt-in=OFFがRemoteにHost実行許可を与えるわけではない。**Local-only WebのHost直接実行は、起動時に確定する実効Bind Addressが厳密に`127.0.0.1`、かつ`UAGENT_IDENTITY_MODE=local`（単独利用）で、外部へ公開・転送しない構成に限定**する。新しい`--local-trusted`等の設定は設けず、既存`uagw --host 127.0.0.1`（既定）とIdentity設定を使う。`0.0.0.0`・`::`・LANアドレス・ホスト名・IPv6 loopback等はこのローカル直接実行の自動許可対象外とし、Sandbox OFFならToolを拒否。**重要:** Reverse Proxy、Port Forward、SSHトンネルはLoopbackへの接続を外部から中継できるため、Bind Address/Identity/リクエストIP・Host・Forwardedヘッダだけでそれらの不在を証明できない。従って外部へ中継しないことを管理者の必須運用条件とし、外部公開する場合は必ずRemote Profileとして強隔離をONにするか、Sandbox OFFのTool実行を無効化する。プロキシ・トンネル環境を自動判定して安全だと宣言しない。
+- ローカルからの接続でも、認証付き Multi-user Web（社内ネットワークのみを含む）や外部公開 Web / Remote A2A には E0 隔離を強制する。**隔離を有効化するか、Tool実行を拒否するかの二択**であり、opt-in=OFFがRemoteにHost実行許可を与えるわけではない。**Local-only WebのHost直接実行は、起動時に確定する実効Bind Addressが厳密に`127.0.0.1`、かつIdentity=`browser`（既定guest cookie、本人認証ではない）または明示Identity=`local`で、外部へ公開・転送しない構成に限定**する。`browser`はブラウザー履歴を分ける匿名識別子であって本人認証ではない。新しい`--local-trusted`等の設定は設けず、既存`uagw --host 127.0.0.1`（既定）とIdentity設定を使う。`0.0.0.0`・`::`・LANアドレス・ホスト名・IPv6 loopback等はこのローカル直接実行の自動許可対象外とし、Sandbox OFFならToolを拒否。**重要:** Reverse Proxy、Port Forward、SSHトンネルはLoopbackへの接続を外部から中継できるため、Bind Address/Identity/リクエストIP・Host・Forwardedヘッダだけでそれらの不在を証明できない。従って外部へ中継しないことを管理者の必須運用条件とし、外部公開する場合は必ずRemote Profileとして強隔離をONにするか、Sandbox OFFのTool実行を無効化する。プロキシ・トンネル環境を自動判定して安全だと宣言しない。
 
 ### 4.1 実行スコープの厳密な識別
 
@@ -471,7 +472,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 1. Local Sandbox off の CLI/GUI/**明示的local-onlyの信頼済み単独利用Web**で既存動作に回帰が無い。Web offではProbe/導入・Sandbox Lease生成を行わない。
 1. 平文 Credential が注入された Lease は即座に tainted となって他の Tool と Snapshot を拒否する一方、**その Credential を必要とする実行中 Tool が完了するまでは継続可能**。操作終了直後の Credential 撤去・Lease 破棄が次 Tool の前に完了することを確認する。Cancel と Timeout 時も同じ境界を守り、Workspace を含めて完全に再生成される。
 1. 監査データと Telemetry に秘密・会話本文・Tool 引数が漏れない。
-1. **WebはSandbox offが初期既定**。`--host 127.0.0.1`とIdentity=`local`の**非公開単独利用**だけOFFで既存Function Callが動くことを確認する。起動時の実効Bind Addressが`0.0.0.0`、`::`、LANアドレス、ホスト名等、またはIdentityが`local`以外の場合はOFFでTool拒否。リクエストのIP・Host・Forwardedヘッダの細工で判定を緩めない。**Remote Web offではHTTP/WebSocket/Streaming等の全Tool経路がHost Runnerに届かず拒否**され、ONでも適合Backendが無ければ拒否。Toolなし運用が不可能なら起動拒否。**Reverse Proxy/Port Forward/SSHトンネルで`127.0.0.1`へ外部転送したケースはBind値だけでは検出できない**ため、この構成は直接Host実行を許すLocal-only運用では**禁止**と明記し、起動時に完全検出できるという誤ったテスト条件を設けない。
+1. **Web Identityの既定は`browser` cookie**で、cookieごとにguest principal/private Projectを分離する。これは本人認証ではなく、cookieを紛失すれば履歴の回復手段はない。`--host 127.0.0.1`のloopback単独利用はBrowser/explicit `local`のどちらでもSandbox offの既存Function Callを維持する。`0.0.0.0`、`::`、LAN/host bindではRemote Profileとし、Sandbox offではToolを拒否し、既定`auto`でも必要Backendがなければ拒否する。リクエストのIP・Host・Forwardedヘッダの細工で判定を緩めない。**Remote Web offではHTTP/WebSocket/Streaming等の全Tool経路がHost Runnerに届かず拒否**され、Toolなし運用が保証できなければ起動拒否。**Reverse Proxy/Port Forward/SSHトンネルで`127.0.0.1`へ外部転送したケースはBind値だけでは検出できない**ため、この構成は直接Host実行を許すLocal-only運用では**禁止**と明記し、起動時に完全検出できるという誤ったテスト条件を設けない。実ユーザー認証を要するRemote運用はOIDCまたは信頼済みidentity adapterを使う。
 1. CLI :cd / GUI Workspace / Web Project を変更した場合、前の Sandbox が新しい Host Path を読み書きできず、作業ファイルの export が競合検出と明示許可なしで Host へ反映されない。
 1. Worker の Session 中クラッシュと再起動では状態消失を利用者へ通知し、以前の Tool を自動再実行しない。
 1. 未隔離 Helper 直接呼出し、MCP / Plugin 内部 subprocess、Sub-Agent の越境を拒否し、Host-pure への Remote 第4経路がない。

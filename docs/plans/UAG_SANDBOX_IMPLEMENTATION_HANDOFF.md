@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態（2026-10-24更新）: Remote WebはMXC ProcessContainerを既定`auto`、tool-enabled A2Aは起動時MXC必須とする実装が完了。全pytest、Ruff、Black、変更Python compile、対象mdformat、`git diff --check`を確認済み。Windows 11 Home x64で実ProcessContainerを通したA2A Remote `python_exec` dispatchとA2A MXC startup/cleanupも成功。実認証付きRemote Webのend-to-end入口試験は未実施。ProcessContainer既定はVM隔離やEnterprise E0完了を意味しない。VM級は`UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm`で後日要求可能とするが、現在のWindows Sandbox VM Backendは未接続・未受け入れ。以下の2026-10-18以前の記録は、その時点の設計・実装状態を示す履歴。PR 5は未着手、Linux PR 6・macOS PR 7は後続。
+- 状態（2026-10-24更新）: Remote WebはMXC ProcessContainerを既定`auto`、tool-enabled A2Aは起動時MXC必須とする実装が完了。Web Identityの既定は署名付きbrowser guest cookieでブラウザーごとに履歴を分離する（本人認証ではない）。全pytest、Ruff、Black、変更Python compile、対象mdformat、`git diff --check`を確認済み。Windows 11 Home x64で実ProcessContainerを通したA2A Remote `python_exec` dispatchとA2A MXC startup/cleanupも成功。実認証付きRemote Webのend-to-end入口試験は未実施。ProcessContainer既定はVM隔離やEnterprise E0完了を意味しない。VM級は`UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm`で後日要求可能とするが、現在のWindows Sandbox VM Backendは未接続・未受け入れ。以下の2026-10-18以前の記録は、その時点の設計・実装状態を示す履歴。PR 5は未着手、Linux PR 6・macOS PR 7は後続。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)

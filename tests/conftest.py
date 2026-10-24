@@ -13,8 +13,9 @@ TEST_TMP_ROOT = REPO_ROOT / "tests" / "_tmp"
 
 @pytest.fixture(autouse=True)
 def isolate_uagent_state(monkeypatch, tmp_path):
-    """Keep tests from writing artifacts and databases into the real user state."""
+    """Keep tests isolated and pin legacy Web tests to explicit local identity."""
     monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / ".uag-state"))
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
 
 
 def iter_tool_module_paths() -> Iterable[Path]:

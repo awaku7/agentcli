@@ -51,8 +51,24 @@ def _request_identity(request: Request):
     return identity
 
 
+def _browser_guest_project_id(identity) -> str:
+    """Return the private synthetic Project assigned to one browser cookie."""
+    if getattr(identity, "authn_kind", "") != "browser":
+        return ""
+    principal = str(getattr(identity, "principal_id", "") or "")
+    prefix, separator, digest = principal.partition(":")
+    if prefix != "browser" or not separator or len(digest) != 64:
+        return ""
+    if any(char not in "0123456789abcdef" for char in digest.lower()):
+        return ""
+    return f"browser-{digest.lower()}"
+
+
 def _workspace_default_project(identity) -> str:
-    """Resolve a non-OIDC default only from the trusted server workspace."""
+    """Resolve a default Project from the trusted Host, never browser input."""
+    browser_project = _browser_guest_project_id(identity)
+    if browser_project:
+        return browser_project
     if identity.authn_kind in {"local", "oidc"}:
         return ""
     from ..runtime.memory_scope import resolve_server_workspace_project
@@ -61,6 +77,8 @@ def _workspace_default_project(identity) -> str:
 
 
 def _project_context_project(identity, request: Request, store=None) -> str:
+    if getattr(identity, "authn_kind", "") == "browser":
+        return ""
     token = str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "").strip()
     if not token or identity.authn_kind in {"local", "oidc"}:
         return ""
@@ -75,6 +93,13 @@ def _project_context_project(identity, request: Request, store=None) -> str:
 
 def _project_id(value: str, request: Request | None = None) -> str:
     project = str(value or "").strip()
+    if request is not None:
+        identity = _request_identity(request)
+        browser_project = _browser_guest_project_id(identity)
+        if browser_project:
+            if project and project != browser_project:
+                raise MemoryAccessError("project is not bound to this browser session")
+            return browser_project
     bound = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
     if not bound and request is not None:
         token = str(request.cookies.get("uag_oidc_session") or "").strip()
@@ -451,15 +476,21 @@ async def create_my_private_room(request: Request):
                 raise ValueError("session was not imported from a portable package")
             portable_payload = snapshot(session_store, portable_id)
         requested_project = str(body.get("project_id", "") or "").strip()
+        browser_project = _browser_guest_project_id(identity)
         configured_project = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
         oidc_token = str(request.cookies.get("uag_oidc_session") or "").strip()
         oidc_project = (
             get_oidc_session_store().project_id(oidc_token) if oidc_token else ""
         )
         project_context = _project_context_project(identity, request)
-        bound_project = configured_project or oidc_project or project_context or ""
-        if not bound_project and not requested_project:
-            bound_project = _workspace_default_project(identity)
+        if browser_project:
+            if requested_project and requested_project != browser_project:
+                raise MemoryAccessError("project is not bound to this browser session")
+            bound_project = browser_project
+        else:
+            bound_project = configured_project or oidc_project or project_context or ""
+            if not bound_project and not requested_project:
+                bound_project = _workspace_default_project(identity)
 
         room_id = uuid4().hex
         from ..runtime.runtime_workdir import get_captured_startup_workdir
@@ -525,7 +556,7 @@ async def create_my_private_room(request: Request):
                 policy.sync_directory_policy(identity)
                 policy.require_access(identity.principal_id, project_id, "viewer")
                 if (
-                    identity.authn_kind != "oidc"
+                    identity.authn_kind not in {"oidc", "browser"}
                     and not configured_project
                     and not oidc_project
                 ):
@@ -782,6 +813,13 @@ async def get_my_projects(request: Request):
     """List only projects available to the authenticated principal."""
     try:
         identity = _request_identity(request)
+        browser_project = _browser_guest_project_id(identity)
+        if browser_project:
+            return {
+                "ok": True,
+                "projects": [browser_project],
+                "bound_project": browser_project,
+            }
         store = _memory_store()
         try:
             policy = ProjectAccessPolicy(store)
@@ -1440,6 +1478,11 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15):
             )
         )
         rows = [r for r in rows if r["session_id"] != current_id]
+        if identity.authn_kind != "local":
+            # Authenticated sidebar entries reopen their original authorized
+            # Room. Detached/imported sessions without a Room binding are not
+            # candidates for the legacy :load command in authenticated Web.
+            rows = [r for r in rows if str(r.get("room_id") or "").strip()]
         items = []
         for row in rows:
             state = store.latest_response_state(row["session_id"])
@@ -1447,6 +1490,7 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15):
                 {
                     "path": row["session_id"],
                     "name": row["session_id"],
+                    "room_id": row.get("room_id") or "",
                     "project": row.get("project"),
                     "entry_point": row.get("entry_point"),
                     "summary": row.get("summary") or "",

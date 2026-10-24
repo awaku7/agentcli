@@ -37,14 +37,17 @@ def _remote_scope() -> TrustedSandboxScope:
     )
 
 
-def test_local_web_requires_exact_loopback_and_local_identity():
+def test_local_web_requires_exact_loopback_and_local_or_guest_identity():
     assert is_trusted_local_web("127.0.0.1", "local")
+    assert is_trusted_local_web("127.0.0.1", "browser")
     for bind_host, identity_mode in (
         ("0.0.0.0", "local"),
         ("::", "local"),
         ("192.168.1.20", "local"),
         ("127.0.0.1", "oidc"),
         ("localhost", "local"),
+        ("0.0.0.0", "browser"),
+        ("localhost", "browser"),
     ):
         assert not is_trusted_local_web(bind_host, identity_mode)
 

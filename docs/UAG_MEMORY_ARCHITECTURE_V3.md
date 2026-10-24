@@ -193,6 +193,7 @@ UAG v3 は認証方式を固定しない。運用環境ごとに identity mode �
 初期候補:
 
 ```text
+browser (anonymous per-browser cookie; Web default, not human authentication)
 local
 OIDC
 oauth
@@ -202,7 +203,9 @@ token
 external
 ```
 
-設定例:
+Webの既定は匿名ブラウザーCookie modeです（`UAGENT_IDENTITY_MODE` 未設定時）。これは人物認証ではなく、Cookieごとのguest principalを作ります。`local` は複数ブラウザーを同一principalにまとめる旧single-user modeです。
+
+明示的なsingle-user設定例:
 
 ```env
 UAGENT_IDENTITY_MODE=local

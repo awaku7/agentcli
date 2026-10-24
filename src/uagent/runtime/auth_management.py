@@ -34,6 +34,11 @@ class AuthenticationStatus:
 
 
 _MODE_SETTINGS = {
+    "browser": (
+        "UAGENT_BROWSER_SESSION_TTL",
+        "UAGENT_BROWSER_COOKIE_SECURE",
+        "UAGENT_BROWSER_SESSION_SECRET",
+    ),
     "local": (),
     "oidc": (
         "UAGENT_OIDC_ISSUER",
@@ -71,7 +76,11 @@ def _value(name: str) -> str:
 
 def _fingerprint_value(name: str) -> str:
     value = str(env_get(name, "") or "")
-    if name in {"UAGENT_OIDC_CLIENT_SECRET", "UAGENT_OAUTH_CLIENT_SECRET"}:
+    if name in {
+        "UAGENT_OIDC_CLIENT_SECRET",
+        "UAGENT_OAUTH_CLIENT_SECRET",
+        "UAGENT_BROWSER_SESSION_SECRET",
+    }:
         return value
     return value.strip()
 
@@ -148,7 +157,30 @@ def validate_authentication_configuration(
 
     diagnostics: list[str] = []
     provider = ""
-    if selected == "local":
+    if selected == "browser":
+        provider = "anonymous browser cookie"
+        try:
+            positive_integer_setting("UAGENT_BROWSER_SESSION_TTL", 31536000)
+        except IdentityConfigurationError as exc:
+            diagnostics.append(str(exc))
+        secret = _value("UAGENT_BROWSER_SESSION_SECRET")
+        if secret and len(secret.encode("utf-8")) < 32:
+            diagnostics.append(
+                "UAGENT_BROWSER_SESSION_SECRET must contain at least 32 bytes"
+            )
+        secure = _value("UAGENT_BROWSER_COOKIE_SECURE").lower()
+        if secure and secure not in {
+            "0",
+            "1",
+            "false",
+            "true",
+            "no",
+            "yes",
+            "off",
+            "on",
+        }:
+            diagnostics.append("UAGENT_BROWSER_COOKIE_SECURE must be a boolean")
+    elif selected == "local":
         provider = "local"
     elif selected == "oidc":
         required = (

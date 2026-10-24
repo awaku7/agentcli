@@ -9,6 +9,8 @@ import os
 import threading
 from typing import Any
 
+from ..runtime.browser_identity import BrowserIdentityCookieMiddleware
+
 try:
     from fastapi import FastAPI, Request
     from fastapi.responses import JSONResponse
@@ -68,6 +70,7 @@ async def _web_lifespan(_app):
 
 
 app = FastAPI(title="uag Web", lifespan=_web_lifespan)
+app.add_middleware(BrowserIdentityCookieMiddleware)
 
 # web.py used to live directly under src/uagent; this module is one level
 # deeper (src/uagent/web_impl/), so step up one extra directory.

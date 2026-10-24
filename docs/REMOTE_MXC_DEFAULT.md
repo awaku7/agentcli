@@ -6,11 +6,17 @@
 
 ## Defaults
 
-- `uagw` identifies the ingress from trusted startup configuration. The exact
-  `127.0.0.1` bind plus `UAGENT_IDENTITY_MODE=local` remains `local_trusted` and
-  keeps its existing Sandbox-off default. Other Web deployments are Remote and
-  default to `--sandbox auto` (or `UAGENT_SANDBOX_MODE=auto`). An explicit CLI
-  or environment setting overrides that default.
+- `UAGENT_IDENTITY_MODE` defaults to `browser`: each browser profile receives
+  an opaque HttpOnly guest cookie and a separate principal/private Project. This
+  is not human authentication; see the guest-session warning below.
+- `uagw` identifies the ingress from trusted startup configuration. An exact
+  `127.0.0.1` bind with `browser` (default guest-cookie identity) or explicit
+  `local` identity remains `local_trusted` and keeps Sandbox off by default.
+  Other Web binds are Remote and default to `--sandbox auto` (or
+  `UAGENT_SANDBOX_MODE=auto`). An explicit CLI or environment setting overrides
+  the Sandbox default, never the trust profile. The browser cookie separates
+  local browser histories, but is not human authentication or a multi-user
+  authorization boundary.
 - The A2A server is always Remote. With tool sending enabled (the default), it
   initializes the already-installed MXC backend at server startup. It does not
   interactively install dependencies. `--no-use-tool` / `UAGENT_USE_TOOL=off`
@@ -20,6 +26,23 @@
   runner. Local/remote ambiguity never opts into trusted-local behavior.
 - Remote `--sandbox off` is not an escape hatch to Host execution: tools remain
   disabled or denied.
+
+## Browser-cookie guest identity is not login
+
+The default `browser` mode mints a random signed bearer cookie and uses its hash
+as the browser's guest principal. It keeps separate sidebar histories/private
+Memory per browser profile and survives refresh/restart until its signed expiry
+or deletion. It does not identify a person; anyone who copies the cookie can
+impersonate that guest until expiry. Losing the cookie means there is no
+account-based recovery, and clearing it does not revoke copied tokens. Remote
+public deployments that need identified users or confidential shared data must
+configure OIDC or a properly secured `trusted_proxy`; do not treat guest cookies
+as human authentication. Anonymous browser guests are restricted to their own
+synthetic private Project and cannot receive administrator roles. The cookie
+uses `HttpOnly`, `SameSite=Lax`, Secure on HTTPS, and a one-year default lifetime.
+Its signing key is persisted under UAG's protected state directory; deployments
+sharing browser sessions across processes must configure the same
+`UAGENT_BROWSER_SESSION_SECRET` (at least 32 bytes).
 
 ## Deliberate baseline and deferred high assurance
 

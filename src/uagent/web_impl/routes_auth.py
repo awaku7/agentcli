@@ -213,6 +213,9 @@ async def oidc_logout(request: Request):
     response = JSONResponse({"ok": True})
     response.delete_cookie(OIDC_SESSION_COOKIE, path="/")
     response.delete_cookie(OIDC_BINDING_COOKIE, path="/")
+    from ..runtime.browser_identity import BROWSER_SESSION_COOKIE
+
+    response.delete_cookie(BROWSER_SESSION_COOKIE, path="/")
     return response
 
 

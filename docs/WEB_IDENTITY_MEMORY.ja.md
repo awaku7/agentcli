@@ -1,20 +1,36 @@
 # Web認証とMemory
 
-このガイドでは、uag v0.7.14で利用できる認証付きマルチユーザーWebの動作を説明します。対象は、ユーザー識別、Project / Roomのアクセス制御、Personal Memory、共有Memory、Profileの分離です。
+このガイドでは、既定のブラウザーごとの匿名guest sessionと、認証付きmulti-user Webのidentity modeを説明します。対象はユーザー識別、Project / Roomのアクセス制御、Personal Memory、共有Memory、Profileの分離です。
 
 内部設計とsecurity invariantは [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md)、オンプレミスActive Directory / IIS Windows認証を使う場合は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md)、現行の実装・セキュリティ境界は [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照してください。
 
 ## 1. 利用形態を選ぶ
 
-### Local / single-user
+### 既定: ブラウザーごとの匿名セッション
 
-既定のidentity modeは `local` です。
+既定のidentity modeは `browser` です。UAGはブラウザープロファイルごとにランダムな署名付きbearer Cookieを発行し、Cookieから別々のguest principalと専用Projectを導出します。CookieはHttpOnly / SameSite=Laxで、HTTPSでは既定でSecure、既定有効期間は1年です。署名鍵はUAG state directoryの `browser_session.key` に保存し、必要なら `UAGENT_BROWSER_SESSION_SECRET` で固定できます。
+
+```env
+# 既定値。通常は指定不要
+UAGENT_IDENTITY_MODE=browser
+# Cookie有効期間（秒、既定: 31536000）
+UAGENT_BROWSER_SESSION_TTL=31536000
+# 複数プロセスで同じCookieを検証する場合の任意共有鍵（32 byte以上）
+# 未指定ならUAG state directoryにランダム鍵を作成
+UAGENT_BROWSER_SESSION_SECRET=
+# TLS終端プロキシの背後でアプリがHTTPSを認識できない場合に指定
+UAGENT_BROWSER_COOKIE_SECURE=1
+```
+
+これにより左側の履歴とprivate Memoryはブラウザープロファイルごとに分離されます。Cookieが有効でPrivate Roomが保持されていれば、ページ再読み込みや通常のブラウザー再起動後も同じRoomを再表示できます。Webサーバー再起動後も、idle TTL内でPrivate RoomとSQLite sessionが残っていれば、会話履歴を復元します。ただし、idle TTL（既定24時間、設定可能範囲60秒〜30日）を過ぎてPrivate Roomが削除されると、関連するWeb session履歴も削除されます。Cookieの有効期間だけでは削除済み履歴を復元できません。履歴一覧の選択ではセッションIDで`:load`を行わず、セッションに結び付いた元のRoomを再表示します。履歴一覧自体も現在のprincipalが所有し、元のRoomに結び付いたセッションに限定されます。これは**ログインや実在人物の認証ではありません**。Cookieをコピーされた相手は有効期限までそのguest identityを使えます。Cookieを紛失・削除するとそのブラウザーから以前の履歴へ戻れず、ブラウザー側からCookieを消してもコピー済みCookieは失効しません。実ユーザーの識別や機密性の高いmulti-user運用にはOIDCまたは適切に保護した `trusted_proxy` を使ってください。匿名guest identityを機密Projectのアクセス制御境界として扱わないでください。
+
+従来の単一principal動作が必要な場合は、明示的に指定します。
 
 ```env
 UAGENT_IDENTITY_MODE=local
 ```
 
-local resolverは、信頼された1人のローカルprincipalとして動作します。既存のローカルMemory/Profileコマンドと、互換用Web APIの `/api/memories`、`/api/profile` はこのmodeで引き続き利用できます。
+`local`では全ブラウザーが同一principalとなり、履歴も共有されます。Cookie identity導入前の既存sessionは`local` principalに結び付いている場合があり、guest cookieへ自動移行されません。外部proxy/tunnelで中継しない信頼済み単独利用に限定してください。厳密な`127.0.0.1` bindでは、既定`browser`または明示Identity=`local`のどちらもtrusted local WebとしてSandbox offを維持します。その他のbind/identity構成はRemote profileとなりMXC policyを使います。browser cookieはローカルブラウザー間の履歴分離用であり、同じlocal serverを使う敵対ユーザー間の認可境界ではありません。
 
 ### 認証付きmulti-user Web
 
@@ -34,7 +50,7 @@ UAGENT_OIDC_COOKIE_SECURE=1
 UAGENT_OIDC_SESSION_TTL=28800
 
 # WebSocket handshakeで許可するbrowser Originをexact指定する
-# non-local identity modeでは必須。wildcardは使用できない
+# ネットワーク公開する場合に指定。wildcardは使用できない
 UAGENT_WEB_ALLOWED_ORIGINS=https://uag.example.com
 
 # Memory V3のmulti-user APIはSQLite Memoryを使用する

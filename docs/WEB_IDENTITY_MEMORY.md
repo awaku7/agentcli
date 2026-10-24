@@ -1,20 +1,36 @@
 # Web identity and Memory
 
-This guide explains the authenticated multi-user Web behavior available in uag v0.7.14. It focuses on identity, project/room access, Personal Memory, shared Memory, and Profile isolation.
+This guide explains Web identity modes, including default anonymous per-browser guest sessions and authenticated multi-user deployments. It focuses on identity, project/room access, Personal Memory, shared Memory, and Profile isolation.
 
 For the internal design and security invariants, see [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md). For current implementation and security boundaries, see [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md).
 
 ## 1. Choose the deployment mode
 
-### Local / single-user
+### Default: anonymous browser sessions
 
-The default identity mode is `local`:
+The default identity mode is `browser`. UAG mints a random, signed bearer cookie for each browser profile and derives a separate guest principal and private Project from it. The cookie is HttpOnly, SameSite=Lax and Secure on HTTPS by default; its default lifetime is one year. The signing key is kept in the protected UAG state directory (`browser_session.key`) unless `UAGENT_BROWSER_SESSION_SECRET` is configured.
+
+```env
+# Optional: browser guest identity is the default.
+UAGENT_IDENTITY_MODE=browser
+# Optional lifetime in seconds (default: 31536000).
+UAGENT_BROWSER_SESSION_TTL=31536000
+# Optional shared signing secret for multi-process deployments (>=32 bytes).
+# Otherwise a random key is created under UAGENT_STATE_DIR.
+UAGENT_BROWSER_SESSION_SECRET=
+# Set explicitly behind TLS-terminating proxies if the app does not see HTTPS.
+UAGENT_BROWSER_COOKIE_SECURE=1
+```
+
+This separates the sidebar's session history and private Memory between browser profiles. While the cookie is valid and the Private Room is retained, page refreshes and ordinary browser restarts reopen the same Room. After a Web server restart, the conversation is rehydrated from SQLite when the Private Room and session remain within the idle TTL. However, idle Private Rooms are deleted with their associated Web session history after the idle TTL (24 hours by default, configurable from 60 seconds to 30 days); cookie validity alone cannot recover deleted history. Selecting a sidebar entry reopens its original bound Room rather than invoking `:load`; the list is limited to sessions owned by the current principal and bound to an original Room. It is **not login or proof of a person's identity**: anyone possessing a copied cookie can use that browser identity until expiry. Deleting/losing the cookie makes its history inaccessible through that browser; clearing the cookie does not revoke copies held elsewhere. Use OIDC or a properly secured `trusted_proxy` deployment for identified users and sensitive multi-user services. Do not treat anonymous guest sessions as an access-control boundary for confidential shared Projects.
+
+For the legacy single-principal local behavior, explicitly select:
 
 ```env
 UAGENT_IDENTITY_MODE=local
 ```
 
-The local resolver uses one trusted local principal. Existing local Memory/Profile commands and the legacy Web `/api/memories` and `/api/profile` compatibility APIs remain available in this mode.
+`local` makes all browser clients the same principal, so histories are shared. Legacy sessions created before browser-cookie identity may remain bound to `local` and are not automatically reassigned to a browser guest. Use `local` only for trusted single-user use on loopback without external proxy/tunnel forwarding. The exact `127.0.0.1` bind with `browser` (default) or explicit `local` identity retains the trusted local Web profile. Other bind/identity combinations use the Remote profile and MXC policy. The browser cookie is for local browser history separation, not authorization between hostile users of the same local server.
 
 ### Authenticated multi-user Web
 
@@ -34,7 +50,7 @@ UAGENT_OIDC_COOKIE_SECURE=1
 UAGENT_OIDC_SESSION_TTL=28800
 
 # Exact browser Origin allowlist for WebSocket handshakes.
-# Required for non-local identity modes; wildcards are not accepted.
+# Required for network-exposed deployments; wildcards are not accepted.
 UAGENT_WEB_ALLOWED_ORIGINS=https://uag.example.com
 
 # Memory V3 multi-user APIs require SQLite Memory.

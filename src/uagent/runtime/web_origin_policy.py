@@ -141,7 +141,10 @@ def configured_websocket_origins(mode: str | None = None) -> frozenset[str]:
         return frozenset(origins)
 
     selected = resolve_identity_mode(mode)
-    if selected == "local":
+    if selected in {"local", "browser"}:
+        # Anonymous browser-cookie mode defaults to the same loopback-only
+        # origins. A network-exposed guest deployment must explicitly enumerate
+        # its browser origin just like other non-local profiles.
         return _DEFAULT_LOCAL_ORIGINS
     raise IdentityConfigurationError(
         "UAGENT_WEB_ALLOWED_ORIGINS is required for non-local WebSocket access"

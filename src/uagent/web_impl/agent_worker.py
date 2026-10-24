@@ -210,7 +210,7 @@ def _web_turn_execution_context(
             turn_context is None
             or identity_context is None
             or not identity_context.authenticated
-            or identity_context.authn_kind != "local"
+            or identity_context.authn_kind not in {"local", "browser"}
             or turn_context.entry_point != "web"
             or turn_context.room_id != str(room.room_id)
             or turn_context.principal_id != identity_context.principal_id

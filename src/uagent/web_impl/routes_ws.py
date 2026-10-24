@@ -31,7 +31,10 @@ from .process_workers import bind_room_auto_pilot
 from .connection_identity import resolve_web_connection
 from .app import app
 from .helpers import _enrich_message_attachments, _load_input_history
-from .history import _bootstrap_room_on_connect
+from .history import (
+    _bootstrap_room_on_connect,
+    _restore_private_room_session,
+)
 from .io import _web_server_log
 from .rooms import (
     _broadcast_modes_all,
@@ -107,6 +110,13 @@ async def websocket_endpoint(websocket: WebSocket):
     except Exception:
         pass
     try:
+        session_store = getattr(core, "session_store", None)
+        if connection.private_session and session_store is not None:
+            _restore_private_room_session(
+                room,
+                store=session_store,
+                principal_id=connection.identity.principal_id,
+            )
         await room.connect(websocket, connection)
     except (IdentityConfigurationError, IdentityResolutionError):
         if room_created:

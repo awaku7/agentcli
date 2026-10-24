@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import locale
 import os
 import shlex
 import subprocess
@@ -81,21 +82,72 @@ def _blocked_result(reason: str) -> dict[str, Any]:
     }
 
 
+def _decode_process_output(value: Any, preferred_encoding: str) -> str:
+    """Decode subprocess bytes without trusting the host console code page.
+
+    On Windows, Python child processes may emit UTF-8 while the parent locale
+    still reports CP932. Prefer the configured encoding, then UTF-8, then the
+    locale encoding; never let malformed output crash the reader thread.
+    """
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if not isinstance(value, (bytes, bytearray)):
+        return str(value)
+    if not value:
+        return ""
+
+    candidates = [
+        str(preferred_encoding or "utf-8"),
+        "utf-8-sig",
+        locale.getpreferredencoding(False) or "utf-8",
+    ]
+    attempted: set[str] = set()
+    for encoding in candidates:
+        normalized = encoding.casefold()
+        if normalized in attempted:
+            continue
+        attempted.add(normalized)
+        try:
+            return bytes(value).decode(encoding)
+        except (LookupError, UnicodeDecodeError):
+            continue
+    return bytes(value).decode("utf-8", errors="replace")
+
+
+def _command_output_encoding(
+    command: str, configured_encoding: str, *, is_windows: bool
+) -> str:
+    """Match decoding to the encoding selected for command output."""
+    if is_windows and not command.startswith(("python -c ", "python3 -c ")):
+        # _run prefixes shell commands with `chcp 65001`, so their output is UTF-8
+        # even if the parent process was started under a CP932 locale.
+        return "utf-8"
+    return str(configured_encoding or "utf-8")
+
+
 def _run(
     command: str, cwd: Optional[str], timeout_ms: Optional[int] = None
 ) -> dict[str, Any]:
+    encoding = "utf-8"
     try:
         from .context import get_callbacks
 
         cb = get_callbacks()
+        encoding = _command_output_encoding(
+            command,
+            str(getattr(cb, "cmd_encoding", "utf-8") or "utf-8"),
+            is_windows=os.name == "nt",
+        )
         timeout_ms = timeout_ms or getattr(cb, "cmd_exec_timeout_ms", 60_000)
         timeout_sec = max(0.001, float(timeout_ms) / 1000.0)
         run_kwargs: dict[str, Any] = {
             "stdin": subprocess.DEVNULL,
+            # Capture bytes, then decode explicitly. TextIOWrapper can otherwise
+            # raise in subprocess' reader thread when child output is UTF-8 but
+            # the Windows locale encoding is CP932.
             "capture_output": True,
-            "text": True,
-            "encoding": getattr(cb, "cmd_encoding", "utf-8"),
-            "errors": "replace",
             "cwd": cwd,
             "timeout": timeout_sec,
         }
@@ -122,25 +174,22 @@ def _run(
             run_kwargs["args"] = ["sh", "-lc", command]
             p = subprocess.run(**run_kwargs)
 
+        stdout = _decode_process_output(p.stdout, encoding)
+        stderr = _decode_process_output(p.stderr, encoding)
         result: dict[str, Any] = {
             "ok": p.returncode == 0,
             "returncode": p.returncode,
-            "stdout": p.stdout,
-            "stderr": p.stderr,
+            "stdout": stdout,
+            "stderr": stderr,
         }
         if not result["ok"]:
-            result["error"] = (p.stderr or "").strip() or _(
+            result["error"] = stderr.strip() or _(
                 "error.exit_code", default="command exited with code %(returncode)s"
             ) % {"returncode": p.returncode}
         return result
     except subprocess.TimeoutExpired as e:
-        stdout = e.stdout or ""
-        stderr = e.stderr or ""
-        encoding = getattr(get_callbacks(), "cmd_encoding", "utf-8")
-        if isinstance(stdout, bytes):
-            stdout = stdout.decode(encoding, errors="replace")
-        if isinstance(stderr, bytes):
-            stderr = stderr.decode(encoding, errors="replace")
+        stdout = _decode_process_output(e.stdout, encoding)
+        stderr = _decode_process_output(e.stderr, encoding)
         return {
             "ok": False,
             "timeout": True,

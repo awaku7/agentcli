@@ -9,10 +9,70 @@ import time
 from ..i18n import _, set_thread_lang
 from .. import core
 from ..runtime import runtime_init as _runtime_init
-from ..runtime.identity_context import resolve_identity_mode
+from ..runtime.identity_context import (
+    IdentityResolutionError,
+    resolve_identity_mode,
+)
 from .. import util_tools as tools_util
 from .io import _web_server_log
 from .rooms import WebRoom, _thread_ctx, web_manager
+
+
+def _restore_private_room_session(room: WebRoom, *, store, principal_id: str) -> bool:
+    """Rehydrate a server-restarted private Room from its bound SQLite session.
+
+    The RoomAccessPolicy binding supplies the session ID; this extra check keeps
+    the persisted transcript bound to the same principal and Room. Tool catalog
+    restoration is intentionally omitted here: Remote Web must not import Host
+    plugins merely to display/continue a recovered transcript.
+    """
+    session_id = str(getattr(room, "session_id", "") or "").strip()
+    if not session_id or getattr(room, "history_initialized", False):
+        return False
+    try:
+        saved = store.get_session(session_id)
+    except Exception as exc:
+        raise IdentityResolutionError("private Room session is unavailable") from exc
+    if str(saved.get("principal_id") or "") != str(principal_id or "") or str(
+        saved.get("room_id") or ""
+    ) != str(room.room_id):
+        raise IdentityResolutionError("private Room session binding does not match")
+
+    messages = store.list_messages(session_id)
+    if not messages:
+        return False
+    sanitize = getattr(core, "sanitize_messages_for_tools", None)
+    if callable(sanitize):
+        messages = sanitize(messages)
+
+    from ..runtime.agent_state import AgentStateManager
+    from ..runtime.session_command_service import SessionCommandService
+    from ..runtime.session_restore import apply_persisted_state
+    from ..util_cmd_session import _extract_last_cwd_from_messages
+
+    restore_plan = SessionCommandService(store).build_restore_plan(
+        session_id,
+        messages,
+        system_prompt=getattr(core, "SYSTEM_PROMPT", None),
+    )
+    room.history = restore_plan.messages
+    room.responses_state = {}
+    room.tool_context = {}
+    room.agent_state_manager = AgentStateManager()
+    room.mcp_request_generation = 0
+    apply_persisted_state(room, restore_plan)
+
+    workdir_plan = SessionCommandService.plan_workdir(
+        session_id,
+        message_workdir=_extract_last_cwd_from_messages(restore_plan.messages),
+        session_project_path=saved.get("project_path"),
+        current_workdir=room.base_dir,
+    )
+    if workdir_plan is not None:
+        room.base_dir = workdir_plan.target_path
+    room.history_initialized = True
+    room.welcome_shown = True
+    return True
 
 
 def _ensure_room_history_initialized(room: WebRoom) -> None:

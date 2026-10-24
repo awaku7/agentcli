@@ -17,6 +17,7 @@ from typing import Any, Callable, Iterator, TypeVar
 from ..env_utils import env_get
 
 KNOWN_IDENTITY_MODES = (
+    "browser",
     "local",
     "oidc",
     "oauth",
@@ -37,7 +38,7 @@ class IdentityResolutionError(RuntimeError):
 
 @dataclass(frozen=True)
 class IdentityContext:
-    """Authenticated principal metadata normalized for UAG runtime use."""
+    """Resolved principal metadata for authenticated users and browser guests."""
 
     principal_id: str
     authenticated: bool
@@ -152,6 +153,19 @@ class IdentityResolver(ABC):
         raise NotImplementedError
 
 
+class BrowserIdentityResolver(IdentityResolver):
+    """Resolve an anonymous guest identity from an opaque browser cookie."""
+
+    mode = "browser"
+
+    def resolve(self, request_context: Any = None) -> IdentityContext:
+        cookies = getattr(request_context, "cookies", None)
+        token = str((cookies or {}).get("uag_browser_session") or "").strip()
+        from .browser_identity import browser_identity_from_token
+
+        return browser_identity_from_token(token)
+
+
 class LocalIdentityResolver(IdentityResolver):
     """Single-user/local resolver used by CLI, GUI, and local deployments."""
 
@@ -186,22 +200,25 @@ class OIDCIdentityResolver(IdentityResolver):
 
 
 def resolve_identity_mode(mode: str | None = None) -> str:
-    """Return one explicitly selected identity mode without silent fallback."""
-    raw = mode if mode is not None else env_get("UAGENT_IDENTITY_MODE", "local")
-    selected = str(raw or "local").strip().lower()
+    """Return the selected identity mode; Web defaults to browser guest cookies."""
+    raw = mode if mode is not None else env_get("UAGENT_IDENTITY_MODE", "browser")
+    selected = str(raw or "browser").strip().lower()
     if selected not in KNOWN_IDENTITY_MODES:
         raise IdentityConfigurationError(f"unsupported identity mode: {selected}")
     return selected
 
 
 def create_identity_resolver(mode: str | None = None) -> IdentityResolver:
-    """Create the configured resolver without implicit local fallback.
+    """Create the configured resolver without implicit fallback.
 
-    ``local`` resolves the process-local principal. ``oidc`` resolves a
-    server-side browser session cookie. Enterprise modes delegate credential
-    validation to their selected adapter without fallback.
+    ``browser`` resolves a signed anonymous guest cookie, ``local`` resolves the
+    process-local principal, and ``oidc`` resolves an authenticated server-side
+    browser session cookie. Enterprise modes delegate credential validation to
+    their selected adapter without fallback.
     """
     selected = resolve_identity_mode(mode)
+    if selected == "browser":
+        return BrowserIdentityResolver()
     if selected == "local":
         return LocalIdentityResolver()
     if selected == "oidc":
@@ -224,7 +241,16 @@ def resolve_turn_context(
     """Resolve identity and create the immutable context for one turn."""
     if resolver is not None and mode is not None:
         raise ValueError("resolver and mode are mutually exclusive")
-    active_resolver = resolver or create_identity_resolver(mode)
+    active_mode = mode
+    if (
+        resolver is None
+        and active_mode is None
+        and str(entry_point).strip().lower() != "web"
+    ):
+        # Browser-cookie identity is the Web default only; CLI, GUI, A2A and
+        # other host-only contexts retain the single-user local principal.
+        active_mode = "local"
+    active_resolver = resolver or create_identity_resolver(active_mode)
     identity = active_resolver.resolve(request_context)
     turn = TurnContext.from_identity(
         identity,
@@ -316,6 +342,7 @@ __all__ = [
     "IdentityContext",
     "IdentityResolutionError",
     "IdentityResolver",
+    "BrowserIdentityResolver",
     "LocalIdentityResolver",
     "OIDCIdentityResolver",
     "TurnContext",

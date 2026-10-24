@@ -396,6 +396,9 @@ def test_authenticated_logs_are_filtered_to_the_current_principal(
     store = SessionStore(tmp_path / "sessions.sqlite3")
     alice = store.create_session(project="demo", entry_point="web")
     bob = store.create_session(project="demo", entry_point="web")
+    detached = store.create_session(project="demo", entry_point="web")
+    store.bind_identity_context(detached.session_id, principal_id="alice", room_id="")
+    store.append_message(detached.session_id, "user", "detached portable session")
     store.bind_identity_context(
         alice.session_id, principal_id="alice", room_id="private-a"
     )
@@ -408,6 +411,7 @@ def test_authenticated_logs_are_filtered_to_the_current_principal(
 
     alice_logs = client.get("/api/logs").json()["logs"]
     assert [row["path"] for row in alice_logs] == [alice.session_id]
+    assert alice_logs[0]["room_id"] == "private-a"
     assert (
         client.get(
             "/api/logs/preview-by-path", params={"path": bob.session_id}

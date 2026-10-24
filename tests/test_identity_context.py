@@ -9,6 +9,7 @@ from uagent.runtime.identity_context import (
     IdentityConfigurationError,
     IdentityContext,
     IdentityResolutionError,
+    BrowserIdentityResolver,
     LocalIdentityResolver,
     OIDCIdentityResolver,
     TurnContext,
@@ -22,19 +23,17 @@ from uagent.runtime.identity_context import (
 )
 
 
-def test_local_identity_is_default_and_stable(monkeypatch) -> None:
+def test_browser_cookie_identity_is_default_and_local_is_explicit(monkeypatch) -> None:
     monkeypatch.delenv("UAGENT_IDENTITY_MODE", raising=False)
 
+    assert resolve_identity_mode() == "browser"
+    assert isinstance(create_identity_resolver(), BrowserIdentityResolver)
+
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     assert resolve_identity_mode() == "local"
     resolver = create_identity_resolver()
     assert isinstance(resolver, LocalIdentityResolver)
-
-    identity = resolver.resolve()
-    assert identity == IdentityContext(
-        principal_id="local",
-        authenticated=True,
-        authn_kind="local",
-    )
+    assert resolver.resolve().principal_id == "local"
 
 
 def test_unknown_identity_mode_fails_fast(monkeypatch) -> None:

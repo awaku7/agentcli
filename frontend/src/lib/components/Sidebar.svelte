@@ -31,15 +31,23 @@
     }
   }
 
-  function openSession(path) {
-    if (!path) return;
-    window.dispatchEvent(new CustomEvent('uag-load-session', { detail: { path } }));
+  function openSession(session) {
+    if (!session?.path) return;
+    if (session.room_id) {
+      // Reopen the original authorized Web Room. Do not send :load with a
+      // session ID: authenticated rooms intentionally block cross-room loads.
+      window.location.href = `/room/${encodeURIComponent(session.room_id)}`;
+    } else {
+      // Legacy local JSONL sessions have no durable Room binding.
+      window.dispatchEvent(new CustomEvent('uag-load-session', { detail: { path: session.path } }));
+    }
     onClose?.();
   }
 
   function newSession() {
-    const id = crypto.randomUUID().slice(0, 8);
-    window.location.href = `/room/${id}`;
+    // Start without a room ID so the app creates an authorized private Room
+    // through /api/me/private-room instead of opening an unregistered URL.
+    window.location.href = '/';
   }
 
   function formatTime(ts) {
@@ -92,7 +100,7 @@
       <div class="empty-state error">{error}</div>
     {:else if filteredSessions.length}
       {#each filteredSessions as session}
-        <button class="session-item" class:active={session.path?.includes(roomId)} onclick={() => openSession(session.path)} title={session.path || ''}>
+        <button class="session-item" class:active={session.room_id === roomId} onclick={() => openSession(session)} title={session.path || ''}>
           <span class="session-dot"></span>
           <span class="session-body">
             <span class="session-name">{sessionTitle(session)}</span>

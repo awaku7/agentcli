@@ -1283,10 +1283,14 @@ and the Remote minimum isolation setting. The common `tools.run_tool()`
 dispatcher consults it before a Host runner can be invoked. Remote Web defaults
 to `--sandbox auto` (MXC ProcessContainer); tool-enabled A2A initializes the
 already-installed MXC backend at startup and binds each task to a server-created
-scope. The exact startup combination of bind address `127.0.0.1` and identity
-mode `local` remains trusted local Web and defaults to Sandbox off. All other Web
-deployments are Remote regardless of the connecting client's address or
-headers. Missing backend/capabilities fail closed; there is no Host fallback or
+scope. The default Web identity mode is `browser`: an opaque signed HttpOnly cookie
+provides a separate anonymous guest principal/private Project per browser
+profile. It is not human authentication; OIDC or a secured identity adapter is
+required for identified users. Exact `127.0.0.1` bind with `browser` (default)
+or explicit `local` identity remains trusted local Web with Sandbox off. The
+browser cookie is history separation, not authentication between hostile local
+users. Other Web binds are Remote regardless of the connecting client's address
+or headers and use the MXC baseline by default. Missing backend/capabilities fail closed; there is no Host fallback or
 non-interactive dependency installation. `--no-use-tool` / `UAGENT_USE_TOOL=off`
 keeps A2A tool-less without initializing MXC.
 

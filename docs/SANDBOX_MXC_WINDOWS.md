@@ -9,19 +9,21 @@ for the current decision and explicit limits.
 
 ## Usage
 
-- Trusted local CLI/GUI and trusted local-only Web retain Sandbox-off behavior
+- Trusted local CLI/GUI and Web with exact `127.0.0.1` bind plus `browser`
+  (default guest cookie) or explicit `local` identity retain Sandbox-off behavior
   unless explicitly enabled; when off, they do not probe MXC or install
-  dependencies.
+  dependencies. The browser cookie separates history but is not authentication.
+  Other Web binds use the Remote policy even with browser guest identity.
 - Remote Web defaults to `--sandbox auto`; tool-enabled A2A initializes MXC at
   startup. Both use only an already-installed supported backend and fail closed
   if Node, the SDK, the host capability probe, or resource controls are
   unavailable. Remote startup never prompts to install dependencies and never
   falls back to Host tool execution. Remote Web is determined from trusted
   startup bind/identity configuration, not request headers or the client's IP.
-- `uag --sandbox auto`, `uagg --sandbox auto`, and explicit local Web
+- `uag --sandbox auto`, `uagg --sandbox auto`, and explicit trusted local Web
   `--sandbox auto` also use an already-installed supported backend. The
-  `--sandbox mxc` option on CLI/GUI or trusted local-only Web opts into Windows
-  MXC ProcessContainer. On first interactive local use, UAG asks before
+  `--sandbox mxc` option on CLI/GUI or trusted local Web opts into Windows MXC
+  ProcessContainer. On first interactive local use, UAG asks before
   installing the pinned SDK in the current user's profile (about 105 MB). Web
   startup refuses to install in non-interactive mode. Installation uses the Node
   runtime already available to the user and does not request elevation. If

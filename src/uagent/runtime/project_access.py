@@ -57,6 +57,18 @@ class ProjectAccessPolicy:
             raise ValueError("invalid project role")
         if self.is_global_admin(principal_id):
             return True
+        # Anonymous browser-cookie principals receive access only to their own
+        # synthetic guest Project. This is intentionally not an admin grant and
+        # cannot expose configured/shared Projects to unauthenticated guests.
+        prefix, separator, guest_digest = str(principal_id or "").partition(":")
+        if (
+            prefix == "browser"
+            and separator
+            and len(guest_digest) == 64
+            and all(char in "0123456789abcdef" for char in guest_digest.lower())
+            and project_id == f"browser-{guest_digest.lower()}"
+        ):
+            return role in {"viewer", "editor"}
         membership = self.membership(principal_id, project_id)
         return (
             membership is not None and _ROLE_RANK[membership.role] >= _ROLE_RANK[role]
