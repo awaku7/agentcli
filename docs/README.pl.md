@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Dlaczego uag?
+**Dlaczego uag?**
 
 uag to lokalny agent AI, który łączy preferowany przez Ciebie model z narzędziami, których faktycznie używasz.
 Zapewnia jeden, rozszerzalny runtime do obsługi plików, przeglądarek, baz kodu, komunikacji, API chmurowych,
@@ -42,153 +42,7 @@ urządzeń IoT, serwerów MCP i przepływów pracy wielu agentów.
 > **W skrócie:** uag to płaszczyzna sterowania między Twoimi modelami AI a rzeczywistym środowiskiem.
 
 > **🧠 Wyniki narzędzi uwzględniające kontekst** — W miarę możliwości obszerne wyniki narzędzi są wykluczane z kontekstu aktywnego modelu. uag przechowuje je jako artefakty i zamiast tego przekazuje modelowi ograniczony podgląd ze stabilnym odwołaniem do Artifact. Może to znacznie zmniejszyć liczbę tokenów wejściowych wymaganych w kolejnych turach, gdy narzędzie generuje obszerny wynik.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.pl.md) を参照してください。
-
-## Miejsce uag w systemie
-
-uag znajduje się między ludźmi i interfejsami z jednej strony a modelami, narzędziami i systemami świata rzeczywistego z drugiej.
-Koordynuje rozmowę, wybiera możliwości, stosuje reguły bezpieczeństwa i pozwala wznawiać przepływ pracy.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Tożsamość i zasady<br/>OIDC · grupy Entra · adaptery AD · potwierdzenie]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag nie jest dostawcą modeli ani tylko interfejsem czatu.** To wspólna warstwa wykonywania, która pozwala modelom,
-narzędziom, interfejsom i politykom współpracować.
-
-## Najważniejsze możliwości
-
-### 🧠 Jeden agent, każdy model
-
-Korzystaj z modeli hostowanych lub lokalnych przez jeden spójny interfejs narzędzi. Przełączaj dostawców za pomocą
-`UAGENT_PROVIDER` — bez zmian w kodzie, migracji ani oddzielnego przepływu pracy.
-
-### 🔐 OIDC i tożsamość przedsiębiorstwa
-
-Interfejs webowy zawiera logowanie OIDC przy użyciu Authorization Code + PKCE, zweryfikowane tokeny ID, sesje po stronie serwera oraz kontrolę dostępu do projektów/pokoi. Zweryfikowane roszczenia grup Microsoft Entra ID mogą zasilać politykę dostępu opartą na katalogu, jeśli są skonfigurowane. Wdrożenia Windows Active Directory, OAuth i trusted-proxy mogą integrować się za pomocą jawnych, zweryfikowanych adapterów tożsamości; Windows AD wymaga wdrożeniowego weryfikatora Kerberos/Negotiate i nie jest domyślnie włączony.
-
-Zobacz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) oraz [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry obserwowalność
-
-uag obejmuje opcjonalne, neutralne dla dostawcy śledzenie OpenTelemetry i metryki dla Agent, LLM, narzędzi, Context, Memory i operacji pobierania. Obserwowalność jest domyślnie wyłączona.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Obsługa zaufanej propagacji jest dostępna dla odwrotnych serwerów proxy Sub-Agent, A2A, MCP HTTP i jawnie zaufanych Web.
-
-Po włączeniu brakujące zależności OpenTelemetry Python można zainstalować za pomocą istniejących zasad automatycznej instalacji uag. Eksporter, punkt końcowy, protokół i zachowanie próbkowania korzystają ze standardowych ustawień OTEL\_\*. Zaawansowane przechwytywanie treści, korelacja pseudonimowa, diagnostyka zestawu SDK dostawcy i zapytanie o śledzenie zwykłego użytkownika to osobne funkcje wyrażające zgodę.
-
-Trasa zapytań śledzenia Phase 4D uwzględnia autoryzację, ale celowo nie ma wbudowanego ogólnego adaptera zapytań dostawcy: sprawdzona integracja aplikacji musi zarejestrować adapter zaplecza. Punkt końcowy eksportu OTLP nigdy nie jest traktowany jako zapytanie API.
-
-Zobacz [projekt OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md), [konfigurację środowiska](ENVIRONMENT.md#opentelemetry-observability) i [umowę dotyczącą obserwowalności programisty](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Równoległe wykonywanie narzędzi
-
-Niezależne operacje tylko do odczytu działają współbieżnie, gdy jest to bezpieczne. Wyszukiwanie w sieci, inspekcja plików,
-analiza repozytorium i podobne zadania mogą kończyć się równolegle dzięki konfigurowalnej puli roboczej
-(`UAGENT_PARALLEL_WORKERS`). Operacje zapisu pozostają szeregowane lub wymagają potwierdzenia.
-
-### 🧩 Zaprojektowany z myślą o rozszerzaniu
-
-- **Ponad 200 narzędzi** do plików, sieci, mediów, dokumentów, kodu, chmury, komunikacji i IoT
-- **Dynamiczne wyszukiwanie i ładowanie** — użyj `tool_catalog`, aby znaleźć możliwości, oraz `tool_load`, aby włączyć je tylko wtedy, gdy są potrzebne
-- **Inteligencja kodu** — `code_map`, nawigatory `idx` dla konkretnych języków, przegląd Git, wykonywanie testów, linting, kompilacja i pokrycie kodu
-- **Pluginy zgodne z Claude Code** z umiejętnościami, agentami, serwerami MCP, hookami, poleceniami i marketplace'ami
-- **Agent Skills** z SkillsMP i ClawHub
-- **Niestandardowe narzędzia Python** z `TOOL_SPEC` i `run_tool()`
-- **Narzędzia oparte na Rust** dla lekkich natywnych rozszerzeń
-
-### 🔄 Niezawodna praca długotrwała
-
-Ciągłość sesji, buforowanie wyników narzędzi, stan zadań wsadowych, odzyskiwanie po restarcie, planowanie DAG
-i orkiestracja wielu agentów sprawiają, że złożoną pracę można wznawiać zamiast wykonywać ją tylko jednorazowo.
-
-- `set_timer` obsługuje trwałe, zaplanowane uruchomienia LLM, ochronę wymaganych narzędzi, bezpośrednie uruchamianie jednego zatwierdzonego narzędzia, ponowne próby oraz limity czasu.
-
-### 🧠 Wyniki narzędzi uwzględniające kontekst
-
-W miarę możliwości obszerne wyniki narzędzi są wykluczane z kontekstu aktywnego modelu. uag przechowuje je jako artefakty i zamiast tego przekazuje modelowi ograniczony podgląd ze stabilnym odwołaniem do Artifact. Może to znacznie zmniejszyć liczbę tokenów wejściowych wymaganych w kolejnych turach, gdy narzędzie generuje obszerny wynik.
-
-Użyj `artifact_read`, aby pobrać tylko potrzebne wiersze lub zakres znaków:
-
-```text
-> Odczytaj artifact://<artifact-id> wiersze 100–140
-```
-
-Nowe artefakty są przechowywane w:
-
-```text
-~/.uag/artifacts/
-```
-
-Aktywny kontekst jest ograniczony przez `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` i `UAGENT_TOOL_RESULT_MAX_CHARS`. Dane binarne, takie jak obrazy, pliki audio i osadzone dane Base64, nie są zapisywane w trwałej historii, natomiast interfejs użytkownika i klienci zdalni mogą nadal odbierać załączniki przechowywane w pamięci.
-
-Istniejące starsze ścieżki Artifact pozostają dostępne do odczytu ze względu na kompatybilność. Zobacz [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md), aby zapoznać się z granicami pamięci, zachowaniem w zakresie trwałości oraz aktualnym stanem implementacji.
-
-[Kompresja kontekstu i ograniczony kontekst modelu](CONTEXT_COMPRESSION.pl.md)
-
-### 🌍 Tłumaczenie wielojęzyczne
-
-- `translate_text` obsługuje Google Translate oraz oficjalny klient DeepL dla języka Python poprzez ustawienia `provider=auto`, `provider=deepl` lub `provider=google`.
-- Definicje narzędzi są dostępne w 37 lokalizacjach oraz w języku angielskim (łącznie 38), z zachowaniem symboli zastępczych i identyfikatorów technicznych.
-
-Zobacz [Zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia tłumaczenia](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) oraz [dokumentację `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Głos w czasie rzeczywistym
-
-Głos pełnodupleksowy jest dostępny przez OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-i Bedrock Nova Sonic, z opcjonalnym tłumieniem echa AEC3 oraz ograniczonym bezpieczeństwem wywoływaniem funkcji w czasie rzeczywistym.
-
-### 🌍 Prywatność, wielojęzyczność i polityki
-
-Używaj uag po japońsku, angielsku, chińsku, koreańsku, hiszpańsku, francusku, rosyjsku i w innych językach. Dane uwierzytelniające mogą
-być przechowywane w natywnym pęku kluczy systemu operacyjnego lub w zaszyfrowanym backendzie plikowym. Polityki przedsiębiorstwa mogą
-zarządzać narzędziami, dostawcami, sieciami, danymi uwierzytelniającymi, pluginami, umiejętnościami i serwerami MCP.
-
-Zobacz [zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[politykę przedsiębiorstwa](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) oraz
-[przewodnik twórcy narzędzi](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Uwagi dotyczące platformy sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Domyślne ustawienia MXC dla Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Szczegółowy przewodnik po kompresji kontekstu](CONTEXT_COMPRESSION.pl.md)
 
 ## Szybki start
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Integracje platformowe są opcjonalne. Zainstaluj tylko to, czego potrzebuje Twój system operacyjny; zobacz
 > [konfigurację platformy](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Wybór dostawcy
 
@@ -257,7 +107,7 @@ Kompletna macierz dostawców znajduje się w [zmiennych środowiskowych](https:/
 
 Wszystkie interfejsy współdzielą tę samą konfigurację dostawcy, rejestr narzędzi, reguły bezpieczeństwa i dane sesji.
 
-## Co potrafi
+## Co możesz zbudować
 
 ### Praca ze środowiskiem
 
@@ -323,23 +173,169 @@ Runtime zawiera obecnie obszerny katalog narzędzi. Dokładne narzędzia dostęp
 :tools
 ```
 
-## Konfiguracja platformy
+### Miejsce uag w systemie
+
+uag znajduje się między ludźmi i interfejsami z jednej strony a modelami, narzędziami i systemami świata rzeczywistego z drugiej.
+Koordynuje rozmowę, wybiera możliwości, stosuje reguły bezpieczeństwa i pozwala wznawiać przepływ pracy.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Tożsamość i zasady<br/>OIDC · grupy Entra · adaptery AD · potwierdzenie]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag nie jest dostawcą modeli ani tylko interfejsem czatu.** To wspólna warstwa wykonywania, która pozwala modelom,
+narzędziom, interfejsom i politykom współpracować.
+
+### Najważniejsze możliwości
+
+#### 🧠 Jeden agent, każdy model
+
+Korzystaj z modeli hostowanych lub lokalnych przez jeden spójny interfejs narzędzi. Przełączaj dostawców za pomocą
+`UAGENT_PROVIDER` — bez zmian w kodzie, migracji ani oddzielnego przepływu pracy.
+
+#### 🔐 OIDC i tożsamość przedsiębiorstwa
+
+Interfejs webowy zawiera logowanie OIDC przy użyciu Authorization Code + PKCE, zweryfikowane tokeny ID, sesje po stronie serwera oraz kontrolę dostępu do projektów/pokoi. Zweryfikowane roszczenia grup Microsoft Entra ID mogą zasilać politykę dostępu opartą na katalogu, jeśli są skonfigurowane. Wdrożenia Windows Active Directory, OAuth i trusted-proxy mogą integrować się za pomocą jawnych, zweryfikowanych adapterów tożsamości; Windows AD wymaga wdrożeniowego weryfikatora Kerberos/Negotiate i nie jest domyślnie włączony.
+
+Zobacz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) oraz [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry obserwowalność
+
+uag obejmuje opcjonalne, neutralne dla dostawcy śledzenie OpenTelemetry i metryki dla Agent, LLM, narzędzi, Context, Memory i operacji pobierania. Obserwowalność jest domyślnie wyłączona.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Obsługa zaufanej propagacji jest dostępna dla odwrotnych serwerów proxy Sub-Agent, A2A, MCP HTTP i jawnie zaufanych Web.
+
+Po włączeniu brakujące zależności OpenTelemetry Python można zainstalować za pomocą istniejących zasad automatycznej instalacji uag. Eksporter, punkt końcowy, protokół i zachowanie próbkowania korzystają ze standardowych ustawień OTEL\_\*. Zaawansowane przechwytywanie treści, korelacja pseudonimowa, diagnostyka zestawu SDK dostawcy i zapytanie o śledzenie zwykłego użytkownika to osobne funkcje wyrażające zgodę.
+
+Trasa zapytań śledzenia Phase 4D uwzględnia autoryzację, ale celowo nie ma wbudowanego ogólnego adaptera zapytań dostawcy: sprawdzona integracja aplikacji musi zarejestrować adapter zaplecza. Punkt końcowy eksportu OTLP nigdy nie jest traktowany jako zapytanie API.
+
+Zobacz [projekt OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md), [konfigurację środowiska](ENVIRONMENT.md#opentelemetry-observability) i [umowę dotyczącą obserwowalności programisty](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Równoległe wykonywanie narzędzi
+
+Niezależne operacje tylko do odczytu działają współbieżnie, gdy jest to bezpieczne. Wyszukiwanie w sieci, inspekcja plików,
+analiza repozytorium i podobne zadania mogą kończyć się równolegle dzięki konfigurowalnej puli roboczej
+(`UAGENT_PARALLEL_WORKERS`). Operacje zapisu pozostają szeregowane lub wymagają potwierdzenia.
+
+#### 🧩 Zaprojektowany z myślą o rozszerzaniu
+
+- **Ponad 200 narzędzi** do plików, sieci, mediów, dokumentów, kodu, chmury, komunikacji i IoT
+- **Dynamiczne wyszukiwanie i ładowanie** — użyj `tool_catalog`, aby znaleźć możliwości, oraz `tool_load`, aby włączyć je tylko wtedy, gdy są potrzebne
+- **Inteligencja kodu** — `code_map`, nawigatory `idx` dla konkretnych języków, przegląd Git, wykonywanie testów, linting, kompilacja i pokrycie kodu
+- **Pluginy zgodne z Claude Code** z umiejętnościami, agentami, serwerami MCP, hookami, poleceniami i marketplace'ami
+- **Agent Skills** z SkillsMP i ClawHub
+- **Niestandardowe narzędzia Python** z `TOOL_SPEC` i `run_tool()`
+- **Narzędzia oparte na Rust** dla lekkich natywnych rozszerzeń
+
+#### 🔄 Niezawodna praca długotrwała
+
+Ciągłość sesji, buforowanie wyników narzędzi, stan zadań wsadowych, odzyskiwanie po restarcie, planowanie DAG
+i orkiestracja wielu agentów sprawiają, że złożoną pracę można wznawiać zamiast wykonywać ją tylko jednorazowo.
+
+- `set_timer` obsługuje trwałe, zaplanowane uruchomienia LLM, ochronę wymaganych narzędzi, bezpośrednie uruchamianie jednego zatwierdzonego narzędzia, ponowne próby oraz limity czasu.
+
+#### 🧠 Wyniki narzędzi uwzględniające kontekst
+
+W miarę możliwości obszerne wyniki narzędzi są wykluczane z kontekstu aktywnego modelu. uag przechowuje je jako artefakty i zamiast tego przekazuje modelowi ograniczony podgląd ze stabilnym odwołaniem do Artifact. Może to znacznie zmniejszyć liczbę tokenów wejściowych wymaganych w kolejnych turach, gdy narzędzie generuje obszerny wynik.
+
+Użyj `artifact_read`, aby pobrać tylko potrzebne wiersze lub zakres znaków:
+
+```text
+> Odczytaj artifact://<artifact-id> wiersze 100–140
+```
+
+Nowe artefakty są przechowywane w:
+
+```text
+~/.uag/artifacts/
+```
+
+Aktywny kontekst jest ograniczony przez `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` i `UAGENT_TOOL_RESULT_MAX_CHARS`. Dane binarne, takie jak obrazy, pliki audio i osadzone dane Base64, nie są zapisywane w trwałej historii, natomiast interfejs użytkownika i klienci zdalni mogą nadal odbierać załączniki przechowywane w pamięci.
+
+Istniejące starsze ścieżki Artifact pozostają dostępne do odczytu ze względu na kompatybilność. Zobacz [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md), aby zapoznać się z granicami pamięci, zachowaniem w zakresie trwałości oraz aktualnym stanem implementacji.
+
+[Kompresja kontekstu i ograniczony kontekst modelu](CONTEXT_COMPRESSION.pl.md)
+
+#### 🌍 Tłumaczenie wielojęzyczne
+
+- `translate_text` obsługuje Google Translate oraz oficjalny klient DeepL dla języka Python poprzez ustawienia `provider=auto`, `provider=deepl` lub `provider=google`.
+- Definicje narzędzi są dostępne w 37 lokalizacjach oraz w języku angielskim (łącznie 38), z zachowaniem symboli zastępczych i identyfikatorów technicznych.
+
+Zobacz [Zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia tłumaczenia](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) oraz [dokumentację `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Głos w czasie rzeczywistym
+
+Głos pełnodupleksowy jest dostępny przez OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+i Bedrock Nova Sonic, z opcjonalnym tłumieniem echa AEC3 oraz ograniczonym bezpieczeństwem wywoływaniem funkcji w czasie rzeczywistym.
+
+#### 🌍 Prywatność, wielojęzyczność i polityki
+
+Używaj uag po japońsku, angielsku, chińsku, koreańsku, hiszpańsku, francusku, rosyjsku i w innych językach. Dane uwierzytelniające mogą
+być przechowywane w natywnym pęku kluczy systemu operacyjnego lub w zaszyfrowanym backendzie plikowym. Polityki przedsiębiorstwa mogą
+zarządzać narzędziami, dostawcami, sieciami, danymi uwierzytelniającymi, pluginami, umiejętnościami i serwerami MCP.
+
+Zobacz [zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[politykę przedsiębiorstwa](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) oraz
+[przewodnik twórcy narzędzi](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [Uwagi dotyczące platformy sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Domyślne ustawienia MXC dla Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Konfiguracja platformy
 
 Pakiet podstawowy jest wieloplatformowy. Zależności specyficzne dla platformy należy instalować selektywnie.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Niektóre integracje mają dodatkowe wymagania systemowe, takie jak binaria przeglądarki, uprawnienia Bluetooth,
 dane uwierzytelniające chmury lub serwer MQTT/OPC UA. Odpowiednie narzędzie zgłosi brakujące elementy podczas uruchomienia.
 
-## Sesje, automatyzacja i bezpieczeństwo
+### Rozszerzenia
+
+#### Agent Skills i pluginy
+
+Instaluj społecznościowe umiejętności z SkillsMP lub ClawHub albo instaluj pluginy zgodne z Claude Code, zawierające
+umiejętności, agentów, serwery MCP, hooki, polecenia i style wyjścia.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Zobacz [rozwój pluginów](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) oraz [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Tworzenie narzędzia
+
+Narzędzie może być pojedynczym plikiem Python z `TOOL_SPEC` i `run_tool()`. Umieść go w
+`UAGENT_EXTERNAL_TOOLS_DIR` i przeładuj katalog. Programiści Rust mogą dostarczyć gotowy moduł natywny
+z cienkim wrapperem Python.
+
+Zobacz [przewodnik twórcy narzędzi](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### Serwery MCP
+
+Łącz się z zewnętrznymi serwerami MCP z CLI lub pliku konfiguracyjnego. Wskazówki dotyczące OAuth i proxy są dostępne
+w [przewodniku MCP OAuth / Proxy](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Stworzone z myślą o rzeczywistych procesach pracy
 
 ### Ciągłość sesji
 
@@ -362,10 +386,8 @@ Ustawienia Session Store:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Korzystaj z magazynu danych uwierzytelniających zamiast umieszczać długotrwa�
 Magazyn może używać Windows Credential Manager, macOS Keychain, Linux Secret Service lub zaszyfrowanego backendu plikowego.
 Szczegóły konfiguracji znajdziesz w [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
 
-## Rozszerzenia
-
-### Agent Skills i pluginy
-
-Instaluj społecznościowe umiejętności z SkillsMP lub ClawHub albo instaluj pluginy zgodne z Claude Code, zawierające
-umiejętności, agentów, serwery MCP, hooki, polecenia i style wyjścia.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Zobacz [rozwój pluginów](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) oraz [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Tworzenie narzędzia
-
-Narzędzie może być pojedynczym plikiem Python z `TOOL_SPEC` i `run_tool()`. Umieść go w
-`UAGENT_EXTERNAL_TOOLS_DIR` i przeładuj katalog. Programiści Rust mogą dostarczyć gotowy moduł natywny
-z cienkim wrapperem Python.
-
-Zobacz [przewodnik twórcy narzędzi](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### Serwery MCP
-
-Łącz się z zewnętrznymi serwerami MCP z CLI lub pliku konfiguracyjnego. Wskazówki dotyczące OAuth i proxy są dostępne
-w [przewodniku MCP OAuth / Proxy](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Głos w czasie rzeczywistym
+### Głos w czasie rzeczywistym
 
 Opcjonalne integracje głosu w czasie rzeczywistym obsługują OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live i Amazon Bedrock Nova Sonic. Zainstaluj odpowiednie zależności audio i uruchom:
@@ -448,7 +442,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Konfiguracja i dokumentacja
+## Dokumentacja
 
 | Temat | Dokumentacja |
 |---|---|
@@ -464,7 +458,7 @@ python scheck.py realtime
 | Przewodnik deweloperski | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Przepływ narzędzi | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Programowanie
+## Rozwój i współtworzenie
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -482,7 +476,7 @@ python -m pytest -q .
 
 Pełny przepływ pracy deweloperskiej opisano w [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
-## Zasady projektu
+### Zasady projektu
 
 - **Local-first** — runtime należy do Ciebie.
 - **Niezależność od dostawcy** — modele są wymienną infrastrukturą.
@@ -490,7 +484,7 @@ Pełny przepływ pracy deweloperskiej opisano w [DEVELOP.md](https://github.com/
 - **Bezpieczeństwo domyślnie** — wrażliwe operacje pozostają widoczne i możliwe do kontrolowania.
 - **Otwartość na współpracę** — mile widziane są kod, narzędzia, umiejętności, tłumaczenia i dokumentacja.
 
-## Współtworzenie
+### Współtworzenie
 
 Zgłoszenia błędów, pomysły na funkcje, ulepszenia dokumentacji, tłumaczenia, narzędzia, umiejętności i pull requesty są mile widziane.
 Przed dużymi zmianami otwórz issue lub dyskusję. Przeczytaj [przewodnik deweloperski](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

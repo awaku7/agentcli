@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Tại sao chọn uag?
+**Tại sao chọn uag?**
 
 uag là một agent AI ưu tiên cục bộ, kết nối mô hình bạn ưa thích với những công cụ bạn thực sự sử dụng.
 Nó cung cấp cho bạn một runtime duy nhất, có thể mở rộng, dành cho tệp, trình duyệt, codebase, giao tiếp, API đám mây,
@@ -42,153 +42,7 @@ thiết bị IoT, máy chủ MCP và các quy trình làm việc đa agent.
 > **Tóm lại:** uag là mặt phẳng điều khiển nằm giữa các mô hình AI và môi trường thực tế của bạn.
 
 > **🧠 Kết quả của công cụ dựa trên ngữ cảnh** — Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.vi.md) を参照してください。
-
-## Vị trí của uag
-
-Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
-Nó điều phối cuộc hội thoại, lựa chọn khả năng, áp dụng các quy tắc an toàn và giữ cho quy trình có thể tiếp tục.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Danh tính và chính sách<br/>OIDC · nhóm Entra · bộ chuyển đổi AD · xác nhận]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag không phải là một provider mô hình và cũng không chỉ là một giao diện trò chuyện.** Đây là lớp thực thi dùng chung giúp các mô hình,
-công cụ, giao diện và chính sách phối hợp với nhau.
-
-## Các khả năng nổi bật
-
-### 🧠 Một agent, mọi mô hình
-
-Sử dụng các mô hình lưu trữ hoặc cục bộ thông qua một giao diện công cụ nhất quán. Chuyển đổi provider bằng
-`UAGENT_PROVIDER`—không cần thay đổi code, di chuyển hay quy trình riêng biệt.
-
-### 🔐 OIDC và nhận dạng doanh nghiệp
-
-Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
-
-Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry khả năng quan sát
-
-uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Hỗ trợ truyền bá đáng tin cậy hiện có sẵn cho Sub-Agent, A2A, MCP HTTP và proxy ngược Web được tin cậy rõ ràng.
-
-Khi được bật, các phần phụ thuộc OpenTelemetry Python bị thiếu có thể được cài đặt thông qua chính sách tự động cài đặt hiện có của uag. Hành vi của nhà xuất khẩu, điểm cuối, giao thức và lấy mẫu sử dụng cài đặt OTEL\_\* tiêu chuẩn. Ghi lại nội dung nâng cao, tương quan biệt danh, chẩn đoán SDK của nhà cung cấp và truy vấn theo dõi người dùng thông thường là các tính năng chọn tham gia riêng biệt.
-
-Tuyến truy vấn theo dõi Phase 4D nhận biết ủy quyền nhưng cố ý không tích hợp bộ điều hợp truy vấn chung của nhà cung cấp: tích hợp ứng dụng được xem xét phải đăng ký bộ điều hợp phụ trợ. Điểm cuối xuất OTLP không bao giờ được coi là truy vấn API.
-
-Xem [OpenTelemetry thiết kế](UAG_OPENTELEMETRY_DESIGN.md), [cấu hình môi trường](ENVIRONMENT.md#opentelemetry-observability) và [hợp đồng quan sát của nhà phát triển](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Thực thi công cụ song song
-
-Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
-phân tích repository và các tác vụ tương tự có thể hoàn tất song song với một pool worker có thể cấu hình
-(`UAGENT_PARALLEL_WORKERS`). Các thao tác ghi vẫn được tuần tự hóa hoặc yêu cầu xác nhận.
-
-### 🧩 Được xây dựng để mở rộng
-
-- **Hơn 200 công cụ** cho tệp, web, phương tiện, tài liệu, code, đám mây, giao tiếp và IoT
-- **Khám phá và tải động** — dùng `tool_catalog` để tìm khả năng và `tool_load` để chỉ bật chúng khi cần
-- **Tình báo code** — `code_map`, các trình điều hướng `idx` theo ngôn ngữ, rà soát Git, thực thi kiểm thử, lint, biên dịch và đo độ bao phủ
-- **Plugin tương thích với Claude Code** cùng skills, agents, máy chủ MCP, hooks, commands và marketplace
-- **Agent Skills** từ SkillsMP và ClawHub
-- **Công cụ Python tùy chỉnh** với `TOOL_SPEC` và `run_tool()`
-- **Công cụ chạy trên Rust** cho các phần mở rộng native nhẹ
-
-### 🔄 Công việc dài hạn đáng tin cậy
-
-Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
-điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
-
-- `set_timer` hỗ trợ các tác vụ LLM được lên lịch và duy trì liên tục, bảo vệ công cụ bắt buộc, thực thi trực tiếp một công cụ được phê duyệt, thử lại và thời gian chờ.
-
-### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
-
-Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
-
-Sử dụng `artifact_read` để chỉ truy xuất các dòng hoặc phạm vi ký tự cần thiết:
-
-```text
-> Đọc artifact://<artifact-id> các dòng 100-140
-```
-
-Các Artifact mới được lưu trữ tại:
-
-```text
-~/.uag/artifacts/
-```
-
-Bối cảnh hoạt động được giới hạn bởi `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` và `UAGENT_TOOL_RESULT_MAX_CHARS`. Các tải trọng nhị phân như hình ảnh, âm thanh và dữ liệu nhúng Base64 không được lưu trữ trong lịch sử lưu trữ, trong khi giao diện người dùng (UI) và các khách hàng từ xa vẫn có thể tiếp tục nhận các tệp đính kèm trong bộ nhớ.
-
-Các đường dẫn Artifact cũ vẫn có thể đọc được để đảm bảo tương thích. Xem [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) để biết về giới hạn lưu trữ, hành vi lưu trữ lâu dài và tình trạng triển khai hiện tại.
-
-[Nén bối cảnh và bối cảnh mô hình có giới hạn](CONTEXT_COMPRESSION.vi.md)
-
-### 🌍 Bản dịch đa ngôn ngữ
-
-- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
-- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
-
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Phương pháp dịch thuật](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) và [Tài liệu hướng dẫn về `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Thoại thời gian thực
-
-Thoại song công hoàn toàn khả dụng thông qua OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-và Bedrock Nova Sonic, cùng tính năng khử tiếng vọng AEC3 tùy chọn và gọi hàm thời gian thực bị giới hạn bởi an toàn.
-
-### 🌍 Riêng tư, đa ngôn ngữ và nhận biết chính sách
-
-Sử dụng uag bằng tiếng Nhật, tiếng Anh, tiếng Trung, tiếng Hàn, tiếng Tây Ban Nha, tiếng Pháp, tiếng Nga và nhiều ngôn ngữ khác. Thông tin xác thực có thể
-được lưu trong keychain gốc của hệ điều hành hoặc backend tệp mã hóa. Các chính sách doanh nghiệp có thể quản lý công cụ,
-provider, mạng, thông tin xác thực, plugin, skill và máy chủ MCP.
-
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Chính sách doanh nghiệp](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) và
-[Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Ghi chú về nền tảng sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Thiết lập mặc định MXC cho Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Hướng dẫn chi tiết về nén ngữ cảnh](CONTEXT_COMPRESSION.vi.md)
 
 ## Bắt đầu nhanh
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Các tích hợp nền tảng là tùy chọn. Chỉ cài đặt những gì hệ điều hành của bạn cần; xem
 > [Thiết lập nền tảng](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Chọn provider
 
@@ -257,7 +107,7 @@ Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/EN
 
 Tất cả giao diện dùng chung cấu hình provider, registry công cụ, quy tắc an toàn và dữ liệu phiên.
 
-## Có thể làm gì
+## Bạn có thể tạo gì
 
 ### Làm việc với môi trường của bạn
 
@@ -323,23 +173,169 @@ Runtime hiện bao gồm một danh mục công cụ lớn. Khám phá chính x�
 :tools
 ```
 
-## Thiết lập nền tảng
+### Vị trí của uag
+
+Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
+Nó điều phối cuộc hội thoại, lựa chọn khả năng, áp dụng các quy tắc an toàn và giữ cho quy trình có thể tiếp tục.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Danh tính và chính sách<br/>OIDC · nhóm Entra · bộ chuyển đổi AD · xác nhận]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag không phải là một provider mô hình và cũng không chỉ là một giao diện trò chuyện.** Đây là lớp thực thi dùng chung giúp các mô hình,
+công cụ, giao diện và chính sách phối hợp với nhau.
+
+### Các khả năng nổi bật
+
+#### 🧠 Một agent, mọi mô hình
+
+Sử dụng các mô hình lưu trữ hoặc cục bộ thông qua một giao diện công cụ nhất quán. Chuyển đổi provider bằng
+`UAGENT_PROVIDER`—không cần thay đổi code, di chuyển hay quy trình riêng biệt.
+
+#### 🔐 OIDC và nhận dạng doanh nghiệp
+
+Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
+
+Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry khả năng quan sát
+
+uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Hỗ trợ truyền bá đáng tin cậy hiện có sẵn cho Sub-Agent, A2A, MCP HTTP và proxy ngược Web được tin cậy rõ ràng.
+
+Khi được bật, các phần phụ thuộc OpenTelemetry Python bị thiếu có thể được cài đặt thông qua chính sách tự động cài đặt hiện có của uag. Hành vi của nhà xuất khẩu, điểm cuối, giao thức và lấy mẫu sử dụng cài đặt OTEL\_\* tiêu chuẩn. Ghi lại nội dung nâng cao, tương quan biệt danh, chẩn đoán SDK của nhà cung cấp và truy vấn theo dõi người dùng thông thường là các tính năng chọn tham gia riêng biệt.
+
+Tuyến truy vấn theo dõi Phase 4D nhận biết ủy quyền nhưng cố ý không tích hợp bộ điều hợp truy vấn chung của nhà cung cấp: tích hợp ứng dụng được xem xét phải đăng ký bộ điều hợp phụ trợ. Điểm cuối xuất OTLP không bao giờ được coi là truy vấn API.
+
+Xem [OpenTelemetry thiết kế](UAG_OPENTELEMETRY_DESIGN.md), [cấu hình môi trường](ENVIRONMENT.md#opentelemetry-observability) và [hợp đồng quan sát của nhà phát triển](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Thực thi công cụ song song
+
+Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
+phân tích repository và các tác vụ tương tự có thể hoàn tất song song với một pool worker có thể cấu hình
+(`UAGENT_PARALLEL_WORKERS`). Các thao tác ghi vẫn được tuần tự hóa hoặc yêu cầu xác nhận.
+
+#### 🧩 Được xây dựng để mở rộng
+
+- **Hơn 200 công cụ** cho tệp, web, phương tiện, tài liệu, code, đám mây, giao tiếp và IoT
+- **Khám phá và tải động** — dùng `tool_catalog` để tìm khả năng và `tool_load` để chỉ bật chúng khi cần
+- **Tình báo code** — `code_map`, các trình điều hướng `idx` theo ngôn ngữ, rà soát Git, thực thi kiểm thử, lint, biên dịch và đo độ bao phủ
+- **Plugin tương thích với Claude Code** cùng skills, agents, máy chủ MCP, hooks, commands và marketplace
+- **Agent Skills** từ SkillsMP và ClawHub
+- **Công cụ Python tùy chỉnh** với `TOOL_SPEC` và `run_tool()`
+- **Công cụ chạy trên Rust** cho các phần mở rộng native nhẹ
+
+#### 🔄 Công việc dài hạn đáng tin cậy
+
+Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
+điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
+
+- `set_timer` hỗ trợ các tác vụ LLM được lên lịch và duy trì liên tục, bảo vệ công cụ bắt buộc, thực thi trực tiếp một công cụ được phê duyệt, thử lại và thời gian chờ.
+
+#### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
+
+Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
+
+Sử dụng `artifact_read` để chỉ truy xuất các dòng hoặc phạm vi ký tự cần thiết:
+
+```text
+> Đọc artifact://<artifact-id> các dòng 100-140
+```
+
+Các Artifact mới được lưu trữ tại:
+
+```text
+~/.uag/artifacts/
+```
+
+Bối cảnh hoạt động được giới hạn bởi `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` và `UAGENT_TOOL_RESULT_MAX_CHARS`. Các tải trọng nhị phân như hình ảnh, âm thanh và dữ liệu nhúng Base64 không được lưu trữ trong lịch sử lưu trữ, trong khi giao diện người dùng (UI) và các khách hàng từ xa vẫn có thể tiếp tục nhận các tệp đính kèm trong bộ nhớ.
+
+Các đường dẫn Artifact cũ vẫn có thể đọc được để đảm bảo tương thích. Xem [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) để biết về giới hạn lưu trữ, hành vi lưu trữ lâu dài và tình trạng triển khai hiện tại.
+
+[Nén bối cảnh và bối cảnh mô hình có giới hạn](CONTEXT_COMPRESSION.vi.md)
+
+#### 🌍 Bản dịch đa ngôn ngữ
+
+- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
+- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
+
+Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Phương pháp dịch thuật](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) và [Tài liệu hướng dẫn về `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Thoại thời gian thực
+
+Thoại song công hoàn toàn khả dụng thông qua OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+và Bedrock Nova Sonic, cùng tính năng khử tiếng vọng AEC3 tùy chọn và gọi hàm thời gian thực bị giới hạn bởi an toàn.
+
+#### 🌍 Riêng tư, đa ngôn ngữ và nhận biết chính sách
+
+Sử dụng uag bằng tiếng Nhật, tiếng Anh, tiếng Trung, tiếng Hàn, tiếng Tây Ban Nha, tiếng Pháp, tiếng Nga và nhiều ngôn ngữ khác. Thông tin xác thực có thể
+được lưu trong keychain gốc của hệ điều hành hoặc backend tệp mã hóa. Các chính sách doanh nghiệp có thể quản lý công cụ,
+provider, mạng, thông tin xác thực, plugin, skill và máy chủ MCP.
+
+Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Chính sách doanh nghiệp](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) và
+[Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [Ghi chú về nền tảng sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Thiết lập mặc định MXC cho Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Thiết lập nền tảng
 
 Gói lõi đa nền tảng. Nên cài đặt có chọn lọc các dependency dành riêng cho từng nền tảng.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Một số tích hợp có thêm yêu cầu hệ thống, chẳng hạn binary trình duyệt, quyền Bluetooth,
 thông tin xác thực đám mây hoặc máy chủ MQTT/OPC UA. Công cụ liên quan sẽ báo những gì còn thiếu khi chạy.
 
-## Phiên, tự động hóa và an toàn
+### Phần mở rộng
+
+#### Agent Skills và plugin
+
+Cài đặt skill cộng đồng từ SkillsMP hoặc ClawHub, hoặc cài plugin tương thích Claude Code chứa
+skill, agent, máy chủ MCP, hook, command và kiểu đầu ra.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Xem [Phát triển Plugin](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) và [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Tạo một công cụ
+
+Một công cụ có thể là một tệp Python duy nhất với `TOOL_SPEC` và `run_tool()`. Đặt tệp đó vào
+`UAGENT_EXTERNAL_TOOLS_DIR` rồi tải lại catalog. Các nhà phát triển Rust có thể cung cấp một module native dựng sẵn
+với một wrapper Python mỏng.
+
+Xem [Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### Máy chủ MCP
+
+Kết nối với các máy chủ MCP bên ngoài từ CLI hoặc tệp cấu hình. Hướng dẫn về OAuth và proxy có tại
+[Hướng dẫn MCP OAuth / Proxy](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Được xây dựng cho quy trình làm việc thực tế
 
 ### Tính liên tục của phiên
 
@@ -362,10 +386,8 @@ Cài đặt Session Store:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Sử dụng kho thông tin xác thực thay vì đặt các bí mật có thời
 Kho có thể sử dụng Windows Credential Manager, macOS Keychain, Linux Secret Service hoặc backend tệp mã hóa.
 Xem [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) để biết chi tiết cấu hình.
 
-## Phần mở rộng
-
-### Agent Skills và plugin
-
-Cài đặt skill cộng đồng từ SkillsMP hoặc ClawHub, hoặc cài plugin tương thích Claude Code chứa
-skill, agent, máy chủ MCP, hook, command và kiểu đầu ra.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Xem [Phát triển Plugin](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) và [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Tạo một công cụ
-
-Một công cụ có thể là một tệp Python duy nhất với `TOOL_SPEC` và `run_tool()`. Đặt tệp đó vào
-`UAGENT_EXTERNAL_TOOLS_DIR` rồi tải lại catalog. Các nhà phát triển Rust có thể cung cấp một module native dựng sẵn
-với một wrapper Python mỏng.
-
-Xem [Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### Máy chủ MCP
-
-Kết nối với các máy chủ MCP bên ngoài từ CLI hoặc tệp cấu hình. Hướng dẫn về OAuth và proxy có tại
-[Hướng dẫn MCP OAuth / Proxy](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Thoại thời gian thực
+### Thoại thời gian thực
 
 Các tích hợp thoại thời gian thực tùy chọn hỗ trợ OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live và Amazon Bedrock Nova Sonic. Cài đặt các dependency âm thanh liên quan rồi chạy:
@@ -447,7 +441,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Cấu hình và tài liệu
+## Tài liệu
 
 | Chủ đề | Tài liệu |
 |---|---|
@@ -463,7 +457,7 @@ python scheck.py realtime
 | Hướng dẫn nhà phát triển | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Luồng công cụ | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Phát triển
+## Phát triển và đóng góp
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -481,7 +475,7 @@ python -m pytest -q .
 
 Để xem toàn bộ quy trình phát triển, hãy xem [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
-## Nguyên tắc dự án
+### Nguyên tắc dự án
 
 - **Ưu tiên cục bộ** — runtime thuộc về bạn.
 - **Trung lập với provider** — mô hình là hạ tầng có thể thay thế.
@@ -489,7 +483,7 @@ python -m pytest -q .
 - **An toàn theo mặc định** — các thao tác nhạy cảm vẫn hiển thị và có thể kiểm soát.
 - **Mở cửa đóng góp** — hoan nghênh code, công cụ, skill, bản dịch và tài liệu.
 
-## Đóng góp
+### Đóng góp
 
 Hoan nghênh báo cáo lỗi, ý tưởng tính năng, cải thiện tài liệu, bản dịch, công cụ, skill và pull request.
 Vui lòng mở issue hoặc discussion trước khi thực hiện thay đổi lớn. Đọc [Hướng dẫn nhà phát triển](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

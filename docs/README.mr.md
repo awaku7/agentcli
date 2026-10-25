@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## uag का?
+**uag का?**
 
 uag हा स्थानिकतेला प्राधान्य देणारा AI एजंट आहे, जो तुम्हाला पसंत असलेले मॉडेल तुम्ही प्रत्यक्षात वापरत असलेल्या साधनांशी जोडतो.
 तो फाइल्स, ब्राउझर, कोडबेस, संवाद, क्लाउड API, IoT उपकरणे, MCP सर्व्हर आणि बहु-एजंट कार्यप्रवाहांसाठी
@@ -42,151 +42,7 @@ uag हा स्थानिकतेला प्राधान्य दे�
 > **थोडक्यात:** uag हा तुमच्या AI models आणि प्रत्यक्ष वातावरणामधील control plane आहे.
 
 > **🧠 संदर्भ-जागरूक साधन निकाल** — मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.mr.md) を参照してください。
-
-## uag कुठे बसतो
-
-एका बाजूला लोक आणि interfaces, तर दुसऱ्या बाजूला models, tools आणि वास्तविक-जगातील systems यांच्या मध्ये uag काम करतो.
-तो संवाद समन्वयित करतो, क्षमता निवडतो, safety rules लागू करतो आणि workflow पुन्हा सुरू करता येईल याची खात्री करतो.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[ओळख आणि धोरण<br/>OIDC · Entra गट · AD अडॅप्टर · पुष्टीकरण]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag हे model provider नाही आणि केवळ chat UI देखील नाही.** Models, tools, interfaces आणि policies यांना एकत्र काम करू देणारा
-हा सामायिक execution layer आहे.
-
-## प्रमुख क्षमता
-
-### 🧠 एक एजंट, प्रत्येक मॉडेल
-
-एका सुसंगत tool interface मधून hosted किंवा local models वापरा. `UAGENT_PROVIDER` वापरून providers बदला—कोडमध्ये बदल,
-migration किंवा वेगळा workflow आवश्यक नाही.
-
-### 🔐 OIDC आणि एंटरप्राइझ ओळख
-
-वेब UI मध्ये Authorization Code + PKCE वापरून OIDC साइन-इन, पडताळणी केलेले ID टोकन्स, सर्व्हर-साइड सत्रे, आणि प्रोजेक्ट/रूम प्रवेश नियंत्रणांचा समावेश आहे. कॉन्फिगर केल्यावर पडताळणी केलेले Microsoft Entra ID ग्रुप क्लेम्स डायरेक्टरी-आधारित प्रवेश धोरणाला पुरवू शकतात. Windows Active Directory, OAuth, आणि trusted-proxy डिप्लॉयमेंट्स स्पष्टपणे पडताळणी केलेल्या ओळख अडॅप्टरद्वारे एकत्रित होऊ शकतात; Windows AD साठी डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate पडताळणी करणारा आवश्यक आहे आणि तो डीफॉल्टने सक्षम नाही.
-
-[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) आणि [Enterprise Policy](ENTERPRISE_POLICY.md) पहा.
-
-### 📈 OpenTelemetry निरीक्षणक्षमता
-
-uag मध्ये Agent, LLM, टूल, Context, Memory, आणि पुनर्प्राप्ती ऑपरेशन्ससाठी ऑप्ट-इन, प्रदाता-तटस्थ OpenTelemetry ट्रेसिंग आणि मेट्रिक्स समाविष्ट आहेत. निरीक्षणक्षमता डीफॉल्टनुसार अक्षम केली जाते.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-विश्वसनीय प्रसार समर्थन Sub-Agent, A2A, MCP HTTP, आणि स्पष्टपणे विश्वसनीय Web रिव्हर्स प्रॉक्सीसाठी उपलब्ध आहे.
-
-सक्षम केल्यावर, गहाळ OpenTelemetry Python अवलंबन uag च्या विद्यमान स्वयं-स्थापना धोरणाद्वारे स्थापित केले जाऊ शकतात. एक्सपोर्टर, एंडपॉइंट, प्रोटोकॉल आणि सॅम्पलिंग वर्तन मानक OTEL\_\* सेटिंग्ज वापरतात. प्रगत सामग्री कॅप्चर, छद्मनावी सहसंबंध, प्रदाता SDK डायग्नोस्टिक्स आणि सामान्य-वापरकर्ता ट्रेस क्वेरी ही स्वतंत्र निवड वैशिष्ट्ये आहेत.
-
-Phase 4D ट्रेस-क्वेरी मार्ग अधिकृतता-जागरूक आहे परंतु हेतुपुरस्सर कोणतेही सामान्य विक्रेता क्वेरी ॲडॉप्टर तयार केलेले नाही: पुनरावलोकन केलेल्या अनुप्रयोग एकत्रीकरणाने बॅकएंड ॲडॉप्टरची नोंदणी करणे आवश्यक आहे. OTLP निर्यात एंडपॉइंट कधीही क्वेरी API म्हणून मानला जात नाही.
-
-पहा [OpenTelemetry डिझाइन](UAG_OPENTELEMETRY_DESIGN.md), [पर्यावरण कॉन्फिगरेशन](ENVIRONMENT.md#opentelemetry-observability), आणि [डेव्हलपर निरीक्षणता करार](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ समांतर tool execution
-
-सुरक्षित असल्यास स्वतंत्र, केवळ-वाचन प्रक्रिया एकाच वेळी चालतात. Web searches, file inspection, repository analysis आणि तत्सम कामे
-configurable worker pool (`UAGENT_PARALLEL_WORKERS`) वापरून समांतर पूर्ण होऊ शकतात. Write operations क्रमाने होतात किंवा पुष्टीकरण आवश्यक असते.
-
-### 🧩 विस्तारासाठी तयार
-
-- **200+ tools** — files, web, media, documents, code, cloud, communication आणि IoT साठी
-- **Dynamic discovery and loading** — क्षमता शोधण्यासाठी `tool_catalog` आणि गरज असेल तेव्हाच सक्षम करण्यासाठी `tool_load` वापरा
-- **Code intelligence** — `code_map`, भाषानिहाय `idx` navigators, Git review, test execution, linting, compilation आणि coverage
-- **Claude Code-compatible plugins** — skills, agents, MCP servers, hooks, commands आणि marketplaces सह
-- **Agent Skills** — SkillsMP आणि ClawHub मधून
-- **Custom Python tools** — `TOOL_SPEC` आणि `run_tool()` सह
-- **Rust-backed tools** — हलक्या native extensions साठी
-
-### 🔄 दीर्घकाळ चालणारे विश्वसनीय काम
-
-Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling आणि multi-agent orchestration यांमुळे
-कठीण कामे one-shot न राहता पुन्हा सुरू करता येतात.
-
-- `set_timer` कायमस्वरूपी नियोजित LLM धावांना, आवश्यक-साधन संरक्षणाला, एका मंजूर साधनाची थेट अंमलबजावणी, पुन्हा प्रयत्न आणि टाइमआउट्सना समर्थन देते.
-
-### 🧠 संदर्भ-जागरूक साधन निकाल
-
-मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
-
-फक्त आवश्यक ओळी किंवा अक्षरांची श्रेणी मिळविण्यासाठी `artifact_read` वापरा:
-
-```text
-> Read artifact://<artifact-id> lines 100-140
-```
-
-नवीन आर्टिफॅक्ट्स खाली संग्रहित केले जातात:
-
-```text
-~/.uag/artifacts/
-```
-
-सक्रिय संदर्भ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` आणि `UAGENT_TOOL_RESULT_MAX_CHARS` द्वारे मर्यादित आहे. प्रतिमा, ऑडिओ आणि एम्बेडेड Base64 डेटा यांसारख्या बायनरी पेलोड्सना कायमस्वरूपी इतिहासातून वगळले जाते, तर UI आणि रिमोट क्लायंट्स त्यांच्या मेमरीतील अटॅचमेंट्स प्राप्त करत राहू शकतात.
-
-विद्यमान लेगसी Artifact पाथ्स सुसंगततेसाठी वाचनीय राहतात. संग्रहण सीमा, टिकाऊपणा वर्तन आणि वर्तमान अंमलबजावणी स्थितीसाठी [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) पहा.
-
-[संदर्भ संकुचन आणि मर्यादित मॉडेल संदर्भ](CONTEXT_COMPRESSION.mr.md)
-
-### 🌍 बहुभाषिक भाषांतर
-
-- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
-- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
-
-[पर्यावरण चल](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) आणि [अनुवाद पद्धत](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), आणि [`set_timer` दस्तऐवजीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Realtime voice
-
-OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live आणि Bedrock Nova Sonic द्वारे full-duplex voice उपलब्ध आहे;
-यात पर्यायी AEC3 echo cancellation आणि safety-limited realtime function calling आहे.
-
-### 🌍 Private, multilingual आणि policy-aware
-
-uag Japanese, English, Chinese, Korean, Spanish, French, Russian आणि इतर भाषांमध्ये वापरा. Credentials native OS keychain किंवा
-encrypted file backend मध्ये साठवता येतात. Enterprise policies tools, providers, networks, credentials, plugins, skills आणि MCP servers नियंत्रित करू शकतात.
-
-[Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) आणि
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) पहा.
-
-- [MXC सँडबॉक्स प्लॅटफॉर्मविषयी नोंदी](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Remote Web / A2A साठी MXC ची डीफॉल्ट सेटिंग्ज](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [संदर्भ संकुचनासाठी सविस्तर मार्गदर्शक](CONTEXT_COMPRESSION.mr.md)
 
 ## झटपट सुरुवात
 
@@ -206,10 +62,6 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > Platform integrations पर्यायी आहेत. तुमच्या operating system ला आवश्यक तेवढेच install करा; [Platform setup](#platform-setup) पहा.
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Provider निवडा
 
@@ -253,7 +105,7 @@ Windows PowerShell मध्ये `export NAME=value` ऐवजी `$env:NAME =
 
 सर्व interfaces समान provider configuration, tool registry, safety rules आणि session data सामायिक करतात.
 
-## हे काय करू शकते
+## तुम्ही काय तयार करू शकता
 
 ### तुमच्या environment सोबत काम
 
@@ -318,23 +170,167 @@ Runtime मध्ये सध्या tools चा मोठा catalog आह
 :tools
 ```
 
-## Platform setup
+### uag कुठे बसतो
+
+एका बाजूला लोक आणि interfaces, तर दुसऱ्या बाजूला models, tools आणि वास्तविक-जगातील systems यांच्या मध्ये uag काम करतो.
+तो संवाद समन्वयित करतो, क्षमता निवडतो, safety rules लागू करतो आणि workflow पुन्हा सुरू करता येईल याची खात्री करतो.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[ओळख आणि धोरण<br/>OIDC · Entra गट · AD अडॅप्टर · पुष्टीकरण]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag हे model provider नाही आणि केवळ chat UI देखील नाही.** Models, tools, interfaces आणि policies यांना एकत्र काम करू देणारा
+हा सामायिक execution layer आहे.
+
+### प्रमुख क्षमता
+
+#### 🧠 एक एजंट, प्रत्येक मॉडेल
+
+एका सुसंगत tool interface मधून hosted किंवा local models वापरा. `UAGENT_PROVIDER` वापरून providers बदला—कोडमध्ये बदल,
+migration किंवा वेगळा workflow आवश्यक नाही.
+
+#### 🔐 OIDC आणि एंटरप्राइझ ओळख
+
+वेब UI मध्ये Authorization Code + PKCE वापरून OIDC साइन-इन, पडताळणी केलेले ID टोकन्स, सर्व्हर-साइड सत्रे, आणि प्रोजेक्ट/रूम प्रवेश नियंत्रणांचा समावेश आहे. कॉन्फिगर केल्यावर पडताळणी केलेले Microsoft Entra ID ग्रुप क्लेम्स डायरेक्टरी-आधारित प्रवेश धोरणाला पुरवू शकतात. Windows Active Directory, OAuth, आणि trusted-proxy डिप्लॉयमेंट्स स्पष्टपणे पडताळणी केलेल्या ओळख अडॅप्टरद्वारे एकत्रित होऊ शकतात; Windows AD साठी डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate पडताळणी करणारा आवश्यक आहे आणि तो डीफॉल्टने सक्षम नाही.
+
+[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) आणि [Enterprise Policy](ENTERPRISE_POLICY.md) पहा.
+
+#### 📈 OpenTelemetry निरीक्षणक्षमता
+
+uag मध्ये Agent, LLM, टूल, Context, Memory, आणि पुनर्प्राप्ती ऑपरेशन्ससाठी ऑप्ट-इन, प्रदाता-तटस्थ OpenTelemetry ट्रेसिंग आणि मेट्रिक्स समाविष्ट आहेत. निरीक्षणक्षमता डीफॉल्टनुसार अक्षम केली जाते.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+विश्वसनीय प्रसार समर्थन Sub-Agent, A2A, MCP HTTP, आणि स्पष्टपणे विश्वसनीय Web रिव्हर्स प्रॉक्सीसाठी उपलब्ध आहे.
+
+सक्षम केल्यावर, गहाळ OpenTelemetry Python अवलंबन uag च्या विद्यमान स्वयं-स्थापना धोरणाद्वारे स्थापित केले जाऊ शकतात. एक्सपोर्टर, एंडपॉइंट, प्रोटोकॉल आणि सॅम्पलिंग वर्तन मानक OTEL\_\* सेटिंग्ज वापरतात. प्रगत सामग्री कॅप्चर, छद्मनावी सहसंबंध, प्रदाता SDK डायग्नोस्टिक्स आणि सामान्य-वापरकर्ता ट्रेस क्वेरी ही स्वतंत्र निवड वैशिष्ट्ये आहेत.
+
+Phase 4D ट्रेस-क्वेरी मार्ग अधिकृतता-जागरूक आहे परंतु हेतुपुरस्सर कोणतेही सामान्य विक्रेता क्वेरी ॲडॉप्टर तयार केलेले नाही: पुनरावलोकन केलेल्या अनुप्रयोग एकत्रीकरणाने बॅकएंड ॲडॉप्टरची नोंदणी करणे आवश्यक आहे. OTLP निर्यात एंडपॉइंट कधीही क्वेरी API म्हणून मानला जात नाही.
+
+पहा [OpenTelemetry डिझाइन](UAG_OPENTELEMETRY_DESIGN.md), [पर्यावरण कॉन्फिगरेशन](ENVIRONMENT.md#opentelemetry-observability), आणि [डेव्हलपर निरीक्षणता करार](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ समांतर tool execution
+
+सुरक्षित असल्यास स्वतंत्र, केवळ-वाचन प्रक्रिया एकाच वेळी चालतात. Web searches, file inspection, repository analysis आणि तत्सम कामे
+configurable worker pool (`UAGENT_PARALLEL_WORKERS`) वापरून समांतर पूर्ण होऊ शकतात. Write operations क्रमाने होतात किंवा पुष्टीकरण आवश्यक असते.
+
+#### 🧩 विस्तारासाठी तयार
+
+- **200+ tools** — files, web, media, documents, code, cloud, communication आणि IoT साठी
+- **Dynamic discovery and loading** — क्षमता शोधण्यासाठी `tool_catalog` आणि गरज असेल तेव्हाच सक्षम करण्यासाठी `tool_load` वापरा
+- **Code intelligence** — `code_map`, भाषानिहाय `idx` navigators, Git review, test execution, linting, compilation आणि coverage
+- **Claude Code-compatible plugins** — skills, agents, MCP servers, hooks, commands आणि marketplaces सह
+- **Agent Skills** — SkillsMP आणि ClawHub मधून
+- **Custom Python tools** — `TOOL_SPEC` आणि `run_tool()` सह
+- **Rust-backed tools** — हलक्या native extensions साठी
+
+#### 🔄 दीर्घकाळ चालणारे विश्वसनीय काम
+
+Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling आणि multi-agent orchestration यांमुळे
+कठीण कामे one-shot न राहता पुन्हा सुरू करता येतात.
+
+- `set_timer` कायमस्वरूपी नियोजित LLM धावांना, आवश्यक-साधन संरक्षणाला, एका मंजूर साधनाची थेट अंमलबजावणी, पुन्हा प्रयत्न आणि टाइमआउट्सना समर्थन देते.
+
+#### 🧠 संदर्भ-जागरूक साधन निकाल
+
+मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
+
+फक्त आवश्यक ओळी किंवा अक्षरांची श्रेणी मिळविण्यासाठी `artifact_read` वापरा:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+नवीन आर्टिफॅक्ट्स खाली संग्रहित केले जातात:
+
+```text
+~/.uag/artifacts/
+```
+
+सक्रिय संदर्भ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` आणि `UAGENT_TOOL_RESULT_MAX_CHARS` द्वारे मर्यादित आहे. प्रतिमा, ऑडिओ आणि एम्बेडेड Base64 डेटा यांसारख्या बायनरी पेलोड्सना कायमस्वरूपी इतिहासातून वगळले जाते, तर UI आणि रिमोट क्लायंट्स त्यांच्या मेमरीतील अटॅचमेंट्स प्राप्त करत राहू शकतात.
+
+विद्यमान लेगसी Artifact पाथ्स सुसंगततेसाठी वाचनीय राहतात. संग्रहण सीमा, टिकाऊपणा वर्तन आणि वर्तमान अंमलबजावणी स्थितीसाठी [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) पहा.
+
+[संदर्भ संकुचन आणि मर्यादित मॉडेल संदर्भ](CONTEXT_COMPRESSION.mr.md)
+
+#### 🌍 बहुभाषिक भाषांतर
+
+- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
+- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
+
+[पर्यावरण चल](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) आणि [अनुवाद पद्धत](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), आणि [`set_timer` दस्तऐवजीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Realtime voice
+
+OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live आणि Bedrock Nova Sonic द्वारे full-duplex voice उपलब्ध आहे;
+यात पर्यायी AEC3 echo cancellation आणि safety-limited realtime function calling आहे.
+
+#### 🌍 Private, multilingual आणि policy-aware
+
+uag Japanese, English, Chinese, Korean, Spanish, French, Russian आणि इतर भाषांमध्ये वापरा. Credentials native OS keychain किंवा
+encrypted file backend मध्ये साठवता येतात. Enterprise policies tools, providers, networks, credentials, plugins, skills आणि MCP servers नियंत्रित करू शकतात.
+
+[Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) आणि
+[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) पहा.
+
+- [MXC सँडबॉक्स प्लॅटफॉर्मविषयी नोंदी](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A साठी MXC ची डीफॉल्ट सेटिंग्ज](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Platform setup
 
 Core package cross-platform आहे. Platform-specific dependencies निवडकपणे install करा.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -342,7 +338,31 @@ python -m pip install PySide6 ewmh dbus-next
 
 काही integrations साठी browser binaries, Bluetooth permissions, cloud credentials किंवा MQTT/OPC UA server यांसारख्या अतिरिक्त system requirements असतात. संबंधित tool चालल्यावर काय missing आहे ते सांगतो.
 
-## Sessions, automation आणि safety
+### Extensions
+
+#### Agent Skills आणि plugins
+
+SkillsMP किंवा ClawHub मधून community skills install करा किंवा skills, agents, MCP servers, hooks, commands आणि output styles असलेले Claude Code-compatible plugins install करा.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+[Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) आणि [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills) पहा.
+
+#### Tool तयार करा
+
+`TOOL_SPEC` आणि `run_tool()` असलेली single Python file एक tool असू शकते. ती `UAGENT_EXTERNAL_TOOLS_DIR` मध्ये ठेवा आणि catalog reload करा. Rust developers thin Python wrapper सह pre-built native module वितरित करू शकतात.
+
+[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) पहा.
+
+#### MCP servers
+
+CLI किंवा configuration file मधून external MCP servers शी connect करा. OAuth आणि proxy guidance [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) मध्ये उपलब्ध आहे.
+
+## वास्तविक कार्यप्रवाहांसाठी तयार
 
 ### Session continuity
 
@@ -355,10 +375,8 @@ Session Store सेटिंग्ज:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -394,31 +412,7 @@ Prompts मध्ये दीर्घकाळ टिकणारी secrets �
 
 Store Windows Credential Manager, macOS Keychain, Linux Secret Service किंवा encrypted file backend वापरू शकतो. Configuration details साठी [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) पहा.
 
-## Extensions
-
-### Agent Skills आणि plugins
-
-SkillsMP किंवा ClawHub मधून community skills install करा किंवा skills, agents, MCP servers, hooks, commands आणि output styles असलेले Claude Code-compatible plugins install करा.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-[Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) आणि [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills) पहा.
-
-### Tool तयार करा
-
-`TOOL_SPEC` आणि `run_tool()` असलेली single Python file एक tool असू शकते. ती `UAGENT_EXTERNAL_TOOLS_DIR` मध्ये ठेवा आणि catalog reload करा. Rust developers thin Python wrapper सह pre-built native module वितरित करू शकतात.
-
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) पहा.
-
-### MCP servers
-
-CLI किंवा configuration file मधून external MCP servers शी connect करा. OAuth आणि proxy guidance [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) मध्ये उपलब्ध आहे.
-
-## Realtime voice
+### Realtime voice
 
 Optional realtime voice integrations OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice, Google Gemini Live आणि Amazon Bedrock Nova Sonic ला support करतात. संबंधित audio dependencies install करून चालवा:
 
@@ -433,7 +427,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Configuration आणि documentation
+## दस्तऐवजीकरण
 
 | Topic | Documentation |
 |---|---|
@@ -449,7 +443,7 @@ python scheck.py realtime
 | Developer guide | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Tool flow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Development
+## विकास आणि योगदान
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -467,7 +461,7 @@ python -m pytest -q .
 
 पूर्ण development workflow साठी [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) पहा.
 
-## Project principles
+### Project principles
 
 - **Local-first** — runtime तुमचा आहे.
 - **Provider-neutral** — models बदलता येणारी infrastructure आहेत.
@@ -475,7 +469,7 @@ python -m pytest -q .
 - **Safe by default** — sensitive operations दृश्यमान आणि नियंत्रित राहतात.
 - **Open to contribution** — code, tools, skills, translations आणि documentation चे स्वागत आहे.
 
-## Contributing
+### Contributing
 
 Bug reports, feature ideas, documentation improvements, translations, tools, skills आणि pull requests चे स्वागत आहे.
 मोठे बदल करण्यापूर्वी issue किंवा discussion उघडा. [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) वाचा

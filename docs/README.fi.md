@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Miksi uag?
+**Miksi uag?**
 
 uag on paikallisuutta painottava tekoälyagentti, joka yhdistää haluamasi mallin tosiasiassa käyttämiisi työkaluihin.
 Se tarjoaa yhden laajennettavan ajonaikaisen ympäristön tiedostoille, selaimille, koodikannoille, viestinnälle,
@@ -42,153 +42,7 @@ pilvi-API:en, IoT-laitteiden, MCP-palvelimien ja moniagenttisten työnkulkujen k
 > **Lyhyesti:** uag on ohjaustaso tekoälymalliesi ja todellisen ympäristösi välillä.
 
 > **🧠 Kontekstia huomioivat työkalun tulokset** — Suuria työkalun tuloksia pidetään mahdollisuuksien mukaan pois aktiivisesta mallikontekstista. uag tallentaa ne artefakteiksi ja välittää mallille sen sijaan rajatun esikatselun, jossa on vakaa Artifact-viite. Tämä voi vähentää huomattavasti seuraavissa vuoroissa tarvittavien syöttötunnusten määrää, kun työkalu tuottaa laajan tuloksen.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.fi.md) を参照してください。
-
-## Mihin uag sijoittuu?
-
-uag toimii ihmisten ja käyttöliittymien toisella puolella sekä mallien, työkalujen ja reaalimaailman järjestelmien toisella puolella.
-Se koordinoi keskustelua, valitsee kyvykkyydet, soveltaa turvallisuussääntöjä ja pitää työnkulun jatkettavana.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identiteetti ja käytännöt<br/>OIDC · Entra-ryhmät · AD-sovittimet · vahvistus]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag ei ole mallipalveluntarjoaja eikä vain keskustelukäyttöliittymä.** Se on jaettu suorituskerros, joka saa mallit,
-työkalut, käyttöliittymät ja käytännöt toimimaan yhdessä.
-
-## Keskeiset ominaisuudet
-
-### 🧠 Yksi agentti, jokainen malli
-
-Käytä isännöityjä tai paikallisia malleja yhdenmukaisen työkalukäyttöliittymän kautta. Vaihda palveluntarjoajaa
-muuttamalla asetusta `UAGENT_PROVIDER` — koodia, siirtoa tai erillistä työnkulkua ei tarvita.
-
-### 🔐 OIDC ja yritystunnistus
-
-Verkkokäyttöliittymä sisältää OIDC-kirjautumisen Authorization Code + PKCE -menetelmällä, varmennetut ID-tokenit, palvelinpuolen istunnot sekä projektien/huoneiden käyttöoikeuksien hallinnan. Varmennetut Microsoft Entra ID -ryhmäväitteet voivat syöttää hakemistopohjaista käyttöoikeuspolitiikkaa, kun ne on määritetty. Windows Active Directory-, OAuth- ja trusted-proxy-järjestelmät voidaan integroida eksplisiittisten varmennettujen tunnistusadapterien kautta; Windows AD vaatii käyttöönottoon räätälöidyn Kerberos/Negotiate-varmentimen eikä ole oletuksena käytössä.
-
-Katso [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ja [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry havaittavuus
-
-uag sisältää valinnaisen, toimittajaneutraalin OpenTelemetry-seurannan ja mittarit kohteille Agent, LLM, työkalu, Context, Memory ja hakutoiminnot. Havainnointi on oletuksena pois käytöstä.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Luotettu levitystuki on saatavilla Sub-Agent, A2A, MCP HTTP ja nimenomaisesti luotetuille Web käänteisille välityspalvelimille.
-
-Kun tämä on käytössä, puuttuvat OpenTelemetry Python riippuvuutta voidaan asentaa uag:n olemassa olevan automaattisen asennuksen käytännön avulla. Viejä, päätepiste, protokolla ja otantakäyttäytyminen käyttävät vakioasetuksia OTEL\_\*. Edistynyt sisällön sieppaus, pseudonyymikorrelaatio, tarjoajan SDK-diagnostiikka ja tavallisen käyttäjän jäljityskysely ovat erillisiä valinnaisia ​​ominaisuuksia.
-
-Jäljityskyselyreitti Phase 4D on valtuutustietoinen, mutta siinä ei tarkoituksella ole sisäänrakennettua yleistä toimittajan kyselysovitinta: tarkistetun sovellusintegraation on rekisteröitävä taustasovitin. Viennin päätepistettä OTLP ei koskaan käsitellä kyselynä API.
-
-Katso [OpenTelemetry-suunnittelu](UAG_OPENTELEMETRY_DESIGN.md), [ympäristön määritys](ENVIRONMENT.md#opentelemetry-observability) ja [kehittäjän tarkkailusopimus](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Rinnakkainen työkalujen suoritus
-
-Toisistaan riippumattomat vain luku -operaatiot suoritetaan turvallisissa tilanteissa samanaikaisesti. Verkkohaut, tiedostojen tarkastelu,
-repositoryn analyysi ja vastaavat työkuormat voidaan suorittaa rinnakkain määritettävän työpoolin
-(`UAGENT_PARALLEL_WORKERS`) avulla. Kirjoitusoperaatiot pysyvät sarjallistettuina tai vaativat vahvistuksen.
-
-### 🧩 Rakennettu laajennettavaksi
-
-- **200+ työkalua** tiedostoille, verkolle, medialle, dokumenteille, koodille, pilvipalveluille, viestinnälle ja IoT:lle
-- **Dynaaminen etsintä ja lataus** — etsi kyvykkyyksiä `tool_catalog`-komennolla ja ota ne käyttöön `tool_load`-komennolla vain tarvittaessa
-- **Koodiäly** — `code_map`, kielikohtaiset `idx`-navigaattorit, Git-tarkastelu, testien suoritus, linttaus, käännös ja kattavuus
-- **Claude Code -yhteensopivat liitännäiset**, joissa on taitoja, agentteja, MCP-palvelimia, koukkuja, komentoja ja markkinapaikkoja
-- **Agent Skills** SkillsMP:stä ja ClawHubista
-- **Mukautetut Python-työkalut**, joissa käytetään `TOOL_SPEC`-määritystä ja `run_tool()`-funktiota
-- **Rust-pohjaiset työkalut** kevyisiin natiivilaajennuksiin
-
-### 🔄 Luotettava pitkäkestoinen työ
-
-Istunnon jatkuvuus, työkalutulosten välimuisti, erätila, uudelleenkäynnistyksen palautuminen, DAG-ajastus ja
-moniagenttinen orkestrointi tekevät monimutkaisesta työstä jatkettavaa kertaluonteisen sijaan.
-
-- `set_timer` tukee pysyviä, aikataulutettuja LLM-ajokertoja, pakollisten työkalujen suojausta, yhden hyväksytyn työkalun suoraa suorittamista, uudelleenkokeiluja ja aikakatkaisuja.
-
-### 🧠 Kontekstia huomioivat työkalun tulokset
-
-Suuria työkalun tuloksia pidetään mahdollisuuksien mukaan pois aktiivisesta mallikontekstista. uag tallentaa ne artefakteiksi ja välittää mallille sen sijaan rajatun esikatselun, jossa on vakaa Artifact-viite. Tämä voi vähentää huomattavasti seuraavissa vuoroissa tarvittavien syöttötunnusten määrää, kun työkalu tuottaa laajan tuloksen.
-
-Käytä `artifact_read`:ää hakeaksesi vain tarvittavat rivit tai merkkialueen:
-
-```text
-> Lue artifact://<artifact-id> rivit 100–140
-```
-
-Uudet artefaktit tallennetaan seuraavaan kohtaan:
-
-```text
-~/.uag/artifacts/
-```
-
-Aktiivinen konteksti rajoittuu `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`:n ja `UAGENT_TOOL_RESULT_MAX_CHARS`:n välille. Binääriset hyötykuormat, kuten kuvat, ääni ja upotetut Base64-tiedot, jätetään pois pysyvästä historiasta, kun taas käyttöliittymä ja etäasiakkaat voivat edelleen vastaanottaa niiden muistissa olevia liitteitä.
-
-Olemassa olevat vanhat Artifact-polut pysyvät luettavina yhteensopivuuden vuoksi. Katso [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) tallennusrajoista, pysyvyyden toiminnasta ja nykyisestä toteutustilanteesta.
-
-[Kontekstin pakkaus ja rajattu mallikonteksti](CONTEXT_COMPRESSION.fi.md)
-
-### 🌍 Monikielinen käännös
-
-- `translate_text` tukee Google Translate:aa ja virallista DeepL-Python-asiakasohjelmaa asetuksilla `provider=auto`, `provider=deepl` tai `provider=google`.
-- Työkalumääritelmät ovat saatavilla 37 kieliversiossa sekä englanniksi (yhteensä 38), ja paikkamerkit sekä tekniset tunnisteet säilytetään.
-
-Katso [Ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Käännösmenetelmä](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sekä [`set_timer`-dokumentaatio](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Reaaliaikainen ääni
-
-Täysdupleksiääni on saatavilla OpenAI Realtime-, Azure OpenAI-, xAI Grok Voice-, Gemini Live-
-ja Bedrock Nova Sonic -palvelujen kautta. Saatavilla on myös valinnainen AEC3-kaikupoisto ja turvallisuusrajoitettu reaaliaikainen funktiokutsu.
-
-### 🌍 Yksityinen, monikielinen ja käytäntötietoinen
-
-Käytä uagia japaniksi, englanniksi, kiinaksi, koreaksi, espanjaksi, ranskaksi, venäjäksi ja muilla kielillä. Tunnistetiedot voidaan
-tallentaa käyttöjärjestelmän natiiviin avainketjuun tai salattuun tiedostotaustajärjestelmään. Yrityksen käytännöt voivat ohjata työkaluja,
-palveluntarjoajia, verkkoja, tunnistetietoja, liitännäisiä, taitoja ja MCP-palvelimia.
-
-Katso [ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[yrityksen käytäntö](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) ja
-[työkalujen luojan opas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [MXC-hiekkalaatikkoympäristön alustahuomiot](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Remote Web / A2A:n MXC-oletusasetukset](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Yksityiskohtainen kontekstin pakkausopas](CONTEXT_COMPRESSION.fi.md)
 
 ## Pika-aloitus
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Alustaintegraatiot ovat valinnaisia. Asenna vain käyttöjärjestelmäsi tarvitsemat osat; katso
 > [alustan määritys](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Palveluntarjoajan valinta
 
@@ -257,7 +107,7 @@ Katso [ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/E
 
 Kaikki käyttöliittymät jakavat saman palveluntarjoajan määrityksen, työkalurekisterin, turvallisuussäännöt ja istuntotiedot.
 
-## Mitä sillä voi tehdä?
+## Mitä voit rakentaa
 
 ### Työskentele ympäristösi kanssa
 
@@ -323,23 +173,169 @@ Ajonaikainen ympäristö sisältää tällä hetkellä laajan työkaluluettelon.
 :tools
 ```
 
-## Alustan määritys
+### Mihin uag sijoittuu?
+
+uag toimii ihmisten ja käyttöliittymien toisella puolella sekä mallien, työkalujen ja reaalimaailman järjestelmien toisella puolella.
+Se koordinoi keskustelua, valitsee kyvykkyydet, soveltaa turvallisuussääntöjä ja pitää työnkulun jatkettavana.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Identiteetti ja käytännöt<br/>OIDC · Entra-ryhmät · AD-sovittimet · vahvistus]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag ei ole mallipalveluntarjoaja eikä vain keskustelukäyttöliittymä.** Se on jaettu suorituskerros, joka saa mallit,
+työkalut, käyttöliittymät ja käytännöt toimimaan yhdessä.
+
+### Keskeiset ominaisuudet
+
+#### 🧠 Yksi agentti, jokainen malli
+
+Käytä isännöityjä tai paikallisia malleja yhdenmukaisen työkalukäyttöliittymän kautta. Vaihda palveluntarjoajaa
+muuttamalla asetusta `UAGENT_PROVIDER` — koodia, siirtoa tai erillistä työnkulkua ei tarvita.
+
+#### 🔐 OIDC ja yritystunnistus
+
+Verkkokäyttöliittymä sisältää OIDC-kirjautumisen Authorization Code + PKCE -menetelmällä, varmennetut ID-tokenit, palvelinpuolen istunnot sekä projektien/huoneiden käyttöoikeuksien hallinnan. Varmennetut Microsoft Entra ID -ryhmäväitteet voivat syöttää hakemistopohjaista käyttöoikeuspolitiikkaa, kun ne on määritetty. Windows Active Directory-, OAuth- ja trusted-proxy-järjestelmät voidaan integroida eksplisiittisten varmennettujen tunnistusadapterien kautta; Windows AD vaatii käyttöönottoon räätälöidyn Kerberos/Negotiate-varmentimen eikä ole oletuksena käytössä.
+
+Katso [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ja [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry havaittavuus
+
+uag sisältää valinnaisen, toimittajaneutraalin OpenTelemetry-seurannan ja mittarit kohteille Agent, LLM, työkalu, Context, Memory ja hakutoiminnot. Havainnointi on oletuksena pois käytöstä.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Luotettu levitystuki on saatavilla Sub-Agent, A2A, MCP HTTP ja nimenomaisesti luotetuille Web käänteisille välityspalvelimille.
+
+Kun tämä on käytössä, puuttuvat OpenTelemetry Python riippuvuutta voidaan asentaa uag:n olemassa olevan automaattisen asennuksen käytännön avulla. Viejä, päätepiste, protokolla ja otantakäyttäytyminen käyttävät vakioasetuksia OTEL\_\*. Edistynyt sisällön sieppaus, pseudonyymikorrelaatio, tarjoajan SDK-diagnostiikka ja tavallisen käyttäjän jäljityskysely ovat erillisiä valinnaisia ​​ominaisuuksia.
+
+Jäljityskyselyreitti Phase 4D on valtuutustietoinen, mutta siinä ei tarkoituksella ole sisäänrakennettua yleistä toimittajan kyselysovitinta: tarkistetun sovellusintegraation on rekisteröitävä taustasovitin. Viennin päätepistettä OTLP ei koskaan käsitellä kyselynä API.
+
+Katso [OpenTelemetry-suunnittelu](UAG_OPENTELEMETRY_DESIGN.md), [ympäristön määritys](ENVIRONMENT.md#opentelemetry-observability) ja [kehittäjän tarkkailusopimus](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Rinnakkainen työkalujen suoritus
+
+Toisistaan riippumattomat vain luku -operaatiot suoritetaan turvallisissa tilanteissa samanaikaisesti. Verkkohaut, tiedostojen tarkastelu,
+repositoryn analyysi ja vastaavat työkuormat voidaan suorittaa rinnakkain määritettävän työpoolin
+(`UAGENT_PARALLEL_WORKERS`) avulla. Kirjoitusoperaatiot pysyvät sarjallistettuina tai vaativat vahvistuksen.
+
+#### 🧩 Rakennettu laajennettavaksi
+
+- **200+ työkalua** tiedostoille, verkolle, medialle, dokumenteille, koodille, pilvipalveluille, viestinnälle ja IoT:lle
+- **Dynaaminen etsintä ja lataus** — etsi kyvykkyyksiä `tool_catalog`-komennolla ja ota ne käyttöön `tool_load`-komennolla vain tarvittaessa
+- **Koodiäly** — `code_map`, kielikohtaiset `idx`-navigaattorit, Git-tarkastelu, testien suoritus, linttaus, käännös ja kattavuus
+- **Claude Code -yhteensopivat liitännäiset**, joissa on taitoja, agentteja, MCP-palvelimia, koukkuja, komentoja ja markkinapaikkoja
+- **Agent Skills** SkillsMP:stä ja ClawHubista
+- **Mukautetut Python-työkalut**, joissa käytetään `TOOL_SPEC`-määritystä ja `run_tool()`-funktiota
+- **Rust-pohjaiset työkalut** kevyisiin natiivilaajennuksiin
+
+#### 🔄 Luotettava pitkäkestoinen työ
+
+Istunnon jatkuvuus, työkalutulosten välimuisti, erätila, uudelleenkäynnistyksen palautuminen, DAG-ajastus ja
+moniagenttinen orkestrointi tekevät monimutkaisesta työstä jatkettavaa kertaluonteisen sijaan.
+
+- `set_timer` tukee pysyviä, aikataulutettuja LLM-ajokertoja, pakollisten työkalujen suojausta, yhden hyväksytyn työkalun suoraa suorittamista, uudelleenkokeiluja ja aikakatkaisuja.
+
+#### 🧠 Kontekstia huomioivat työkalun tulokset
+
+Suuria työkalun tuloksia pidetään mahdollisuuksien mukaan pois aktiivisesta mallikontekstista. uag tallentaa ne artefakteiksi ja välittää mallille sen sijaan rajatun esikatselun, jossa on vakaa Artifact-viite. Tämä voi vähentää huomattavasti seuraavissa vuoroissa tarvittavien syöttötunnusten määrää, kun työkalu tuottaa laajan tuloksen.
+
+Käytä `artifact_read`:ää hakeaksesi vain tarvittavat rivit tai merkkialueen:
+
+```text
+> Lue artifact://<artifact-id> rivit 100–140
+```
+
+Uudet artefaktit tallennetaan seuraavaan kohtaan:
+
+```text
+~/.uag/artifacts/
+```
+
+Aktiivinen konteksti rajoittuu `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`:n ja `UAGENT_TOOL_RESULT_MAX_CHARS`:n välille. Binääriset hyötykuormat, kuten kuvat, ääni ja upotetut Base64-tiedot, jätetään pois pysyvästä historiasta, kun taas käyttöliittymä ja etäasiakkaat voivat edelleen vastaanottaa niiden muistissa olevia liitteitä.
+
+Olemassa olevat vanhat Artifact-polut pysyvät luettavina yhteensopivuuden vuoksi. Katso [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) tallennusrajoista, pysyvyyden toiminnasta ja nykyisestä toteutustilanteesta.
+
+[Kontekstin pakkaus ja rajattu mallikonteksti](CONTEXT_COMPRESSION.fi.md)
+
+#### 🌍 Monikielinen käännös
+
+- `translate_text` tukee Google Translate:aa ja virallista DeepL-Python-asiakasohjelmaa asetuksilla `provider=auto`, `provider=deepl` tai `provider=google`.
+- Työkalumääritelmät ovat saatavilla 37 kieliversiossa sekä englanniksi (yhteensä 38), ja paikkamerkit sekä tekniset tunnisteet säilytetään.
+
+Katso [Ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Käännösmenetelmä](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sekä [`set_timer`-dokumentaatio](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Reaaliaikainen ääni
+
+Täysdupleksiääni on saatavilla OpenAI Realtime-, Azure OpenAI-, xAI Grok Voice-, Gemini Live-
+ja Bedrock Nova Sonic -palvelujen kautta. Saatavilla on myös valinnainen AEC3-kaikupoisto ja turvallisuusrajoitettu reaaliaikainen funktiokutsu.
+
+#### 🌍 Yksityinen, monikielinen ja käytäntötietoinen
+
+Käytä uagia japaniksi, englanniksi, kiinaksi, koreaksi, espanjaksi, ranskaksi, venäjäksi ja muilla kielillä. Tunnistetiedot voidaan
+tallentaa käyttöjärjestelmän natiiviin avainketjuun tai salattuun tiedostotaustajärjestelmään. Yrityksen käytännöt voivat ohjata työkaluja,
+palveluntarjoajia, verkkoja, tunnistetietoja, liitännäisiä, taitoja ja MCP-palvelimia.
+
+Katso [ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[yrityksen käytäntö](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) ja
+[työkalujen luojan opas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [MXC-hiekkalaatikkoympäristön alustahuomiot](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A:n MXC-oletusasetukset](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Alustan määritys
 
 Ydinpaketti on alustariippumaton. Alustakohtaiset riippuvuudet tulee asentaa valikoivasti.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Jotkin integraatiot vaativat lisäksi järjestelmäkohtaisia edellytyksiä, kuten selaimen binääritiedostoja, Bluetooth-oikeuksia,
 pilvitunnistetietoja tai MQTT/OPC UA -palvelimen. Asiaankuuluva työkalu ilmoittaa puuttuvista osista suoritettaessa.
 
-## Istunnot, automaatio ja turvallisuus
+### Laajennukset
+
+#### Agent Skills -taidot ja liitännäiset
+
+Asenna yhteisön taitoja SkillsMP:stä tai ClawHubista tai asenna Claude Code -yhteensopivia liitännäisiä, jotka sisältävät
+taitoja, agentteja, MCP-palvelimia, koukkuja, komentoja ja tulostustyylejä.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Katso [liitännäisten kehitys](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) ja [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Työkalun luominen
+
+Työkalu voi olla yksittäinen Python-tiedosto, jossa on `TOOL_SPEC` ja `run_tool()`. Sijoita se hakemistoon
+`UAGENT_EXTERNAL_TOOLS_DIR` ja lataa luettelo uudelleen. Rust-kehittäjät voivat toimittaa valmiiksi käännetyn natiivimoduulin
+ohuella Python-kääreellä.
+
+Katso [työkalujen luojan opas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### MCP-palvelimet
+
+Yhdistä ulkoisiin MCP-palvelimiin CLI:stä tai määritystiedostosta. OAuth- ja välityspalvelinohjeet ovat saatavilla
+[MCP OAuth / Proxy -oppaassa](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Suunniteltu todellisiin työnkulkuihin
 
 ### Istunnon jatkuvuus
 
@@ -362,10 +386,8 @@ Session Storen asetukset:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Käytä tunnistetietovarastoa sen sijaan, että sijoittaisit pitkäkestoisia sal
 Varasto voi käyttää Windows Credential Manageria, macOS Keychainia, Linux Secret Serviceä tai salattua tiedostotaustajärjestelmää.
 Katso [tunnistetietovarasto](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) määritystietoja varten.
 
-## Laajennukset
-
-### Agent Skills -taidot ja liitännäiset
-
-Asenna yhteisön taitoja SkillsMP:stä tai ClawHubista tai asenna Claude Code -yhteensopivia liitännäisiä, jotka sisältävät
-taitoja, agentteja, MCP-palvelimia, koukkuja, komentoja ja tulostustyylejä.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Katso [liitännäisten kehitys](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) ja [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Työkalun luominen
-
-Työkalu voi olla yksittäinen Python-tiedosto, jossa on `TOOL_SPEC` ja `run_tool()`. Sijoita se hakemistoon
-`UAGENT_EXTERNAL_TOOLS_DIR` ja lataa luettelo uudelleen. Rust-kehittäjät voivat toimittaa valmiiksi käännetyn natiivimoduulin
-ohuella Python-kääreellä.
-
-Katso [työkalujen luojan opas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### MCP-palvelimet
-
-Yhdistä ulkoisiin MCP-palvelimiin CLI:stä tai määritystiedostosta. OAuth- ja välityspalvelinohjeet ovat saatavilla
-[MCP OAuth / Proxy -oppaassa](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Reaaliaikainen ääni
+### Reaaliaikainen ääni
 
 Valinnaiset reaaliaikaiset ääni-integraatiot tukevat OpenAI Realtimea, Azure OpenAI GPT Realtimea, xAI Grok Voicea,
 Google Gemini Livea ja Amazon Bedrock Nova Sonicia. Asenna tarvittavat ääniriippuvuudet ja suorita:
@@ -448,7 +442,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Määritys ja dokumentaatio
+## Dokumentaatio
 
 | Aihe | Dokumentaatio |
 |---|---|
@@ -464,7 +458,7 @@ python scheck.py realtime
 | Kehittäjän opas | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Työkalujen kulku | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Kehitys
+## Kehitys ja osallistuminen
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -482,7 +476,7 @@ python -m pytest -q .
 
 Katso koko kehitystyönkulku [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)-tiedostosta.
 
-## Projektin periaatteet
+### Projektin periaatteet
 
 - **Paikallisuus etusijalla** — ajonaikainen ympäristö kuuluu sinulle.
 - **Palveluntarjoajariippumaton** — mallit ovat vaihdettavaa infrastruktuuria.
@@ -490,7 +484,7 @@ Katso koko kehitystyönkulku [DEVELOP.md](https://github.com/awaku7/agentcli/blo
 - **Turvallinen oletusarvoisesti** — arkaluonteiset operaatiot pysyvät näkyvinä ja hallittavina.
 - **Avoin osallistumiselle** — koodi, työkalut, taidot, käännökset ja dokumentaatio ovat tervetulleita.
 
-## Osallistuminen
+### Osallistuminen
 
 Vikaraportit, ominaisuusideat, dokumentaation parannukset, käännökset, työkalut, taidot ja pull requestit ovat tervetulleita.
 Avaa issue tai keskustelu ennen suuria muutoksia. Lue [kehittäjän opas](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

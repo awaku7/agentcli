@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Mengapa uag?
+**Mengapa uag?**
 
 uag adalah agen AI local-first yang menghubungkan model pilihan Anda dengan alat yang benar-benar Anda gunakan.
 Agen ini menyediakan satu runtime yang dapat diperluas untuk file, browser, basis kode, komunikasi, API cloud,
@@ -42,153 +42,7 @@ perangkat IoT, server MCP, dan alur kerja multi-agen.
 > **Singkatnya:** uag adalah bidang kendali antara model AI Anda dan lingkungan nyata Anda.
 
 > **🧠 Hasil alat yang peka konteks** — Hasil alat yang berukuran besar disimpan di luar konteks model aktif jika memungkinkan. uag menyimpannya sebagai Artifak dan memberikan pratinjau terbatas kepada model dengan referensi Artifact yang stabil sebagai gantinya. Hal ini dapat secara signifikan mengurangi jumlah token masukan yang diperlukan untuk giliran berikutnya ketika sebuah alat menghasilkan hasil yang besar.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.id.md) を参照してください。
-
-## Posisi uag
-
-uag berada di antara manusia dan antarmuka di satu sisi, serta model, alat, dan sistem dunia nyata di sisi lain.
-Agen ini mengoordinasikan percakapan, memilih kapabilitas, menerapkan aturan keamanan, dan menjaga agar alur kerja dapat dilanjutkan.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identitas dan kebijakan<br/>OIDC · grup Entra · adaptor AD · konfirmasi]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag bukan provider model dan bukan sekadar UI chat.** uag adalah lapisan eksekusi bersama yang membuat model,
-alat, antarmuka, dan kebijakan bekerja bersama.
-
-## Kapabilitas unggulan
-
-### 🧠 Satu agen, setiap model
-
-Gunakan model hosted atau lokal melalui satu antarmuka alat yang konsisten. Ganti provider dengan
-`UAGENT_PROVIDER`—tanpa perubahan kode, migrasi, atau alur kerja terpisah.
-
-### 🔐 OIDC dan identitas perusahaan
-
-Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yang terverifikasi, sesi sisi server, dan kontrol akses proyek/ruang. Klaim grup Microsoft Entra ID yang terverifikasi dapat mendukung kebijakan akses berbasis direktori saat dikonfigurasi. Deployment Windows Active Directory, OAuth, dan trusted-proxy dapat terintegrasi melalui adapter identitas terverifikasi yang eksplisit; Windows AD memerlukan verifier Kerberos/Negotiate spesifik deployment dan tidak diaktifkan secara default.
-
-Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry kemampuan observasi
-
-uag mencakup penelusuran dan metrik OpenTelemetry netral penyedia untuk Agent, LLM, alat, Context, Memory, dan operasi pengambilan. Observabilitas dinonaktifkan secara default.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Dukungan propagasi tepercaya tersedia untuk Sub-Agent, A2A, MCP HTTP, dan Web reverse proxy yang dipercaya secara eksplisit.
-
-Jika diaktifkan, dependensi OpenTelemetry Python yang hilang dapat dipasang melalui kebijakan pemasangan otomatis uag yang ada. Eksportir, titik akhir, protokol, dan perilaku pengambilan sampel menggunakan setelan OTEL\_\* standar. Pengambilan konten tingkat lanjut, korelasi nama samaran, diagnostik SDK penyedia, dan kueri pelacakan pengguna biasa merupakan fitur keikutsertaan yang terpisah.
-
-Rute kueri penelusuran Phase 4D sadar akan otorisasi tetapi sengaja tidak memiliki adaptor kueri vendor umum yang terpasang di dalamnya: integrasi aplikasi yang ditinjau harus mendaftarkan adaptor backend. Titik akhir ekspor OTLP tidak pernah diperlakukan sebagai kueri API.
-
-Lihat [OpenTelemetry desain](UAG_OPENTELEMETRY_DESIGN.md), [konfigurasi lingkungan](ENVIRONMENT.md#opentelemetry-observability), dan [kontrak observabilitas pengembang](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Eksekusi alat secara paralel
-
-Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,
-analisis repositori, dan beban kerja serupa dapat diselesaikan secara paralel dengan pool pekerja yang dapat dikonfigurasi
-(`UAGENT_PARALLEL_WORKERS`). Operasi penulisan tetap diserialkan atau memerlukan konfirmasi.
-
-### 🧩 Dibuat untuk diperluas
-
-- **200+ alat** untuk file, web, media, dokumen, kode, cloud, komunikasi, dan IoT
-- **Penemuan dan pemuatan dinamis** — gunakan `tool_catalog` untuk menemukan kapabilitas dan `tool_load` untuk mengaktifkannya hanya saat diperlukan
-- **Inteligensi kode** — `code_map`, navigator `idx` khusus bahasa, peninjauan Git, eksekusi pengujian, linting, kompilasi, dan cakupan
-- **Plugin yang kompatibel dengan Claude Code** dengan skill, agen, server MCP, hook, perintah, dan marketplace
-- **Agent Skills** dari SkillsMP dan ClawHub
-- **Alat Python khusus** dengan `TOOL_SPEC` dan `run_tool()`
-- **Alat berbasis Rust** untuk ekstensi native yang ringan
-
-### 🔄 Pekerjaan jangka panjang yang andal
-
-Kontinuitas sesi, caching hasil alat, status batch, pemulihan setelah mulai ulang, penjadwalan DAG, dan
-orkestrasi multi-agen membuat pekerjaan kompleks dapat dilanjutkan, bukan hanya dijalankan sekali.
-
-- `set_timer` mendukung eksekusi LLM terjadwal yang berkelanjutan, perlindungan alat yang wajib, eksekusi langsung satu alat yang disetujui, upaya ulang, dan batas waktu.
-
-### 🧠 Hasil alat yang peka konteks
-
-Hasil alat yang berukuran besar disimpan di luar konteks model aktif jika memungkinkan. uag menyimpannya sebagai Artifak dan memberikan pratinjau terbatas kepada model dengan referensi Artifact yang stabil sebagai gantinya. Hal ini dapat secara signifikan mengurangi jumlah token masukan yang diperlukan untuk giliran berikutnya ketika sebuah alat menghasilkan hasil yang besar.
-
-Gunakan `artifact_read` untuk mengambil hanya baris atau rentang karakter yang diperlukan:
-
-```text
-> Baca artifact://<artifact-id> baris 100-140
-```
-
-Artefak baru disimpan di bawah:
-
-```text
-~/.uag/artifacts/
-```
-
-Konteks aktif dibatasi oleh `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` dan `UAGENT_TOOL_RESULT_MAX_CHARS`. Payload biner seperti gambar, audio, dan data Base64 yang disematkan tidak disimpan dalam riwayat yang disimpan, sementara antarmuka pengguna (UI) dan klien jarak jauh dapat terus menerima lampiran dalam memori mereka.
-
-Jalur Artifact warisan yang sudah ada tetap dapat dibaca demi kompatibilitas. Lihat [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) untuk batasan penyimpanan, perilaku penyimpanan permanen, dan status implementasi saat ini.
-
-[Kompresi konteks dan konteks model yang dibatasi](CONTEXT_COMPRESSION.id.md)
-
-### 🌍 Terjemahan multibahasa
-
-- `translate_text` mendukung Google Translate dan klien Python resmi DeepL melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
-- Definisi alat tersedia dalam 37 bahasa lokal ditambah bahasa Inggris (total 38), dengan penanda tempat dan pengenal teknis tetap dipertahankan.
-
-Lihat [Variabel lingkungan](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologi terjemahan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), dan [dokumentasi `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Suara realtime
-
-Suara full-duplex tersedia melalui OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,
-dan Bedrock Nova Sonic, dengan pembatalan gema AEC3 opsional dan pemanggilan fungsi realtime yang dibatasi demi keamanan.
-
-### 🌍 Privat, multibahasa, dan sadar kebijakan
-
-Gunakan uag dalam bahasa Jepang, Inggris, Mandarin, Korea, Spanyol, Prancis, Rusia, dan lainnya. Kredensial dapat
-disimpan di keychain OS native atau backend file terenkripsi. Kebijakan enterprise dapat mengatur alat,
-provider, jaringan, kredensial, plugin, skill, dan server MCP.
-
-Lihat [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md), dan
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Catatan platform sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Default MXC untuk Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Panduan lengkap kompresi konteks](CONTEXT_COMPRESSION.id.md)
 
 ## Mulai cepat
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Integrasi platform bersifat opsional. Instal hanya yang dibutuhkan sistem operasi Anda; lihat
 > [Penyiapan platform](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Pilih provider
 
@@ -257,7 +107,7 @@ Lihat [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/
 
 Semua antarmuka menggunakan konfigurasi provider, registri alat, aturan keamanan, dan data sesi yang sama.
 
-## Yang dapat dilakukan
+## Apa yang dapat Anda bangun
 
 ### Bekerja dengan lingkungan Anda
 
@@ -323,23 +173,169 @@ Runtime saat ini mencakup katalog alat yang besar. Temukan alat persis yang ters
 :tools
 ```
 
-## Penyiapan platform
+### Posisi uag
+
+uag berada di antara manusia dan antarmuka di satu sisi, serta model, alat, dan sistem dunia nyata di sisi lain.
+Agen ini mengoordinasikan percakapan, memilih kapabilitas, menerapkan aturan keamanan, dan menjaga agar alur kerja dapat dilanjutkan.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Identitas dan kebijakan<br/>OIDC · grup Entra · adaptor AD · konfirmasi]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag bukan provider model dan bukan sekadar UI chat.** uag adalah lapisan eksekusi bersama yang membuat model,
+alat, antarmuka, dan kebijakan bekerja bersama.
+
+### Kapabilitas unggulan
+
+#### 🧠 Satu agen, setiap model
+
+Gunakan model hosted atau lokal melalui satu antarmuka alat yang konsisten. Ganti provider dengan
+`UAGENT_PROVIDER`—tanpa perubahan kode, migrasi, atau alur kerja terpisah.
+
+#### 🔐 OIDC dan identitas perusahaan
+
+Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yang terverifikasi, sesi sisi server, dan kontrol akses proyek/ruang. Klaim grup Microsoft Entra ID yang terverifikasi dapat mendukung kebijakan akses berbasis direktori saat dikonfigurasi. Deployment Windows Active Directory, OAuth, dan trusted-proxy dapat terintegrasi melalui adapter identitas terverifikasi yang eksplisit; Windows AD memerlukan verifier Kerberos/Negotiate spesifik deployment dan tidak diaktifkan secara default.
+
+Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry kemampuan observasi
+
+uag mencakup penelusuran dan metrik OpenTelemetry netral penyedia untuk Agent, LLM, alat, Context, Memory, dan operasi pengambilan. Observabilitas dinonaktifkan secara default.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Dukungan propagasi tepercaya tersedia untuk Sub-Agent, A2A, MCP HTTP, dan Web reverse proxy yang dipercaya secara eksplisit.
+
+Jika diaktifkan, dependensi OpenTelemetry Python yang hilang dapat dipasang melalui kebijakan pemasangan otomatis uag yang ada. Eksportir, titik akhir, protokol, dan perilaku pengambilan sampel menggunakan setelan OTEL\_\* standar. Pengambilan konten tingkat lanjut, korelasi nama samaran, diagnostik SDK penyedia, dan kueri pelacakan pengguna biasa merupakan fitur keikutsertaan yang terpisah.
+
+Rute kueri penelusuran Phase 4D sadar akan otorisasi tetapi sengaja tidak memiliki adaptor kueri vendor umum yang terpasang di dalamnya: integrasi aplikasi yang ditinjau harus mendaftarkan adaptor backend. Titik akhir ekspor OTLP tidak pernah diperlakukan sebagai kueri API.
+
+Lihat [OpenTelemetry desain](UAG_OPENTELEMETRY_DESIGN.md), [konfigurasi lingkungan](ENVIRONMENT.md#opentelemetry-observability), dan [kontrak observabilitas pengembang](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Eksekusi alat secara paralel
+
+Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,
+analisis repositori, dan beban kerja serupa dapat diselesaikan secara paralel dengan pool pekerja yang dapat dikonfigurasi
+(`UAGENT_PARALLEL_WORKERS`). Operasi penulisan tetap diserialkan atau memerlukan konfirmasi.
+
+#### 🧩 Dibuat untuk diperluas
+
+- **200+ alat** untuk file, web, media, dokumen, kode, cloud, komunikasi, dan IoT
+- **Penemuan dan pemuatan dinamis** — gunakan `tool_catalog` untuk menemukan kapabilitas dan `tool_load` untuk mengaktifkannya hanya saat diperlukan
+- **Inteligensi kode** — `code_map`, navigator `idx` khusus bahasa, peninjauan Git, eksekusi pengujian, linting, kompilasi, dan cakupan
+- **Plugin yang kompatibel dengan Claude Code** dengan skill, agen, server MCP, hook, perintah, dan marketplace
+- **Agent Skills** dari SkillsMP dan ClawHub
+- **Alat Python khusus** dengan `TOOL_SPEC` dan `run_tool()`
+- **Alat berbasis Rust** untuk ekstensi native yang ringan
+
+#### 🔄 Pekerjaan jangka panjang yang andal
+
+Kontinuitas sesi, caching hasil alat, status batch, pemulihan setelah mulai ulang, penjadwalan DAG, dan
+orkestrasi multi-agen membuat pekerjaan kompleks dapat dilanjutkan, bukan hanya dijalankan sekali.
+
+- `set_timer` mendukung eksekusi LLM terjadwal yang berkelanjutan, perlindungan alat yang wajib, eksekusi langsung satu alat yang disetujui, upaya ulang, dan batas waktu.
+
+#### 🧠 Hasil alat yang peka konteks
+
+Hasil alat yang berukuran besar disimpan di luar konteks model aktif jika memungkinkan. uag menyimpannya sebagai Artifak dan memberikan pratinjau terbatas kepada model dengan referensi Artifact yang stabil sebagai gantinya. Hal ini dapat secara signifikan mengurangi jumlah token masukan yang diperlukan untuk giliran berikutnya ketika sebuah alat menghasilkan hasil yang besar.
+
+Gunakan `artifact_read` untuk mengambil hanya baris atau rentang karakter yang diperlukan:
+
+```text
+> Baca artifact://<artifact-id> baris 100-140
+```
+
+Artefak baru disimpan di bawah:
+
+```text
+~/.uag/artifacts/
+```
+
+Konteks aktif dibatasi oleh `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` dan `UAGENT_TOOL_RESULT_MAX_CHARS`. Payload biner seperti gambar, audio, dan data Base64 yang disematkan tidak disimpan dalam riwayat yang disimpan, sementara antarmuka pengguna (UI) dan klien jarak jauh dapat terus menerima lampiran dalam memori mereka.
+
+Jalur Artifact warisan yang sudah ada tetap dapat dibaca demi kompatibilitas. Lihat [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) untuk batasan penyimpanan, perilaku penyimpanan permanen, dan status implementasi saat ini.
+
+[Kompresi konteks dan konteks model yang dibatasi](CONTEXT_COMPRESSION.id.md)
+
+#### 🌍 Terjemahan multibahasa
+
+- `translate_text` mendukung Google Translate dan klien Python resmi DeepL melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
+- Definisi alat tersedia dalam 37 bahasa lokal ditambah bahasa Inggris (total 38), dengan penanda tempat dan pengenal teknis tetap dipertahankan.
+
+Lihat [Variabel lingkungan](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologi terjemahan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), dan [dokumentasi `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Suara realtime
+
+Suara full-duplex tersedia melalui OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,
+dan Bedrock Nova Sonic, dengan pembatalan gema AEC3 opsional dan pemanggilan fungsi realtime yang dibatasi demi keamanan.
+
+#### 🌍 Privat, multibahasa, dan sadar kebijakan
+
+Gunakan uag dalam bahasa Jepang, Inggris, Mandarin, Korea, Spanyol, Prancis, Rusia, dan lainnya. Kredensial dapat
+disimpan di keychain OS native atau backend file terenkripsi. Kebijakan enterprise dapat mengatur alat,
+provider, jaringan, kredensial, plugin, skill, dan server MCP.
+
+Lihat [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md), dan
+[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [Catatan platform sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Default MXC untuk Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Penyiapan platform
 
 Paket inti bersifat lintas platform. Dependensi khusus platform sebaiknya diinstal secara selektif.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Beberapa integrasi memiliki persyaratan sistem tambahan, seperti binary browser, izin Bluetooth,
 kredensial cloud, atau server MQTT/OPC UA. Alat terkait akan melaporkan hal yang kurang saat dijalankan.
 
-## Sesi, otomatisasi, dan keamanan
+### Ekstensi
+
+#### Agent Skills dan plugin
+
+Instal skill komunitas dari SkillsMP atau ClawHub, atau instal plugin yang kompatibel dengan Claude Code dan berisi
+skill, agen, server MCP, hook, perintah, dan gaya keluaran.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Lihat [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) dan [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Membuat alat
+
+Sebuah alat dapat berupa satu file Python dengan `TOOL_SPEC` dan `run_tool()`. Letakkan di
+`UAGENT_EXTERNAL_TOOLS_DIR` lalu muat ulang katalog. Pengembang Rust dapat mengirim modul native yang telah dibangun
+sebelumnya dengan wrapper Python tipis.
+
+Lihat [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### Server MCP
+
+Hubungkan ke server MCP eksternal dari CLI atau file konfigurasi. Panduan OAuth dan proxy tersedia di
+[MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Dibuat untuk alur kerja nyata
 
 ### Kontinuitas sesi
 
@@ -362,10 +386,8 @@ Pengaturan Session Store:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Gunakan penyimpanan kredensial alih-alih menempatkan rahasia jangka panjang di d
 Penyimpanan ini dapat menggunakan Windows Credential Manager, macOS Keychain, Linux Secret Service, atau backend file
 terenkripsi. Lihat [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) untuk detail konfigurasi.
 
-## Ekstensi
-
-### Agent Skills dan plugin
-
-Instal skill komunitas dari SkillsMP atau ClawHub, atau instal plugin yang kompatibel dengan Claude Code dan berisi
-skill, agen, server MCP, hook, perintah, dan gaya keluaran.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Lihat [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) dan [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Membuat alat
-
-Sebuah alat dapat berupa satu file Python dengan `TOOL_SPEC` dan `run_tool()`. Letakkan di
-`UAGENT_EXTERNAL_TOOLS_DIR` lalu muat ulang katalog. Pengembang Rust dapat mengirim modul native yang telah dibangun
-sebelumnya dengan wrapper Python tipis.
-
-Lihat [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### Server MCP
-
-Hubungkan ke server MCP eksternal dari CLI atau file konfigurasi. Panduan OAuth dan proxy tersedia di
-[MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Suara realtime
+### Suara realtime
 
 Integrasi suara realtime opsional mendukung OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live, dan Amazon Bedrock Nova Sonic. Instal dependensi audio yang relevan lalu jalankan:
@@ -448,7 +442,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Konfigurasi dan dokumentasi
+## Dokumentasi
 
 | Topik | Dokumentasi |
 |---|---|
@@ -464,7 +458,7 @@ python scheck.py realtime
 | Panduan pengembang | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Alur alat | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Pengembangan
+## Pengembangan dan kontribusi
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -482,7 +476,7 @@ python -m pytest -q .
 
 Untuk alur kerja pengembangan lengkap, lihat [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
-## Prinsip proyek
+### Prinsip proyek
 
 - **Local-first** — runtime ini milik Anda.
 - **Netral terhadap provider** — model adalah infrastruktur yang dapat diganti.
@@ -490,7 +484,7 @@ Untuk alur kerja pengembangan lengkap, lihat [DEVELOP.md](https://github.com/awa
 - **Aman secara default** — operasi sensitif tetap terlihat dan dapat dikendalikan.
 - **Terbuka untuk kontribusi** — kode, alat, skill, terjemahan, dan dokumentasi dipersilakan.
 
-## Berkontribusi
+### Berkontribusi
 
 Laporan bug, ide fitur, perbaikan dokumentasi, terjemahan, alat, skill, dan pull request dipersilakan.
 Harap buka issue atau diskusi sebelum melakukan perubahan besar. Baca [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

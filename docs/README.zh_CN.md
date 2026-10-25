@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## 为什么选择 uag？
+**为什么选择 uag？**
 
 uag 是一个本地优先的 AI 代理，可将你偏好的模型连接到你实际使用的工具。
 它为文件、浏览器、代码库、通信、云 API、IoT 设备、MCP 服务器和多代理工作流提供单一且可扩展的运行时。
@@ -41,143 +41,7 @@ uag 是一个本地优先的 AI 代理，可将你偏好的模型连接到你实
 > **简而言之：** uag 是你的 AI 模型与真实环境之间的控制平面。
 
 > **🧠 基于上下文的工具结果** — 在可能的情况下，大型工具结果不会被纳入当前模型上下文。 uag 将其存储为“工件”，并向模型传递一个带有稳定 Artifact 引用且范围受限的预览。当工具生成大量结果时，这可以大幅减少后续轮次所需的输入令牌数量。
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.zh_CN.md) を参照してください。
-
-## uag 的定位
-
-一侧是人员和界面，另一侧是模型、工具和现实世界系统，uag 位于两者之间。
-它协调对话、选择能力、应用安全规则，并使工作流能够恢复。
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[身份与策略<br/>OIDC · Entra 组 · AD 适配器 · 确认]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag 不是模型提供商，也不只是聊天 UI。** 它是共享的执行层，让模型、工具、界面和策略协同工作。
-
-## 核心能力
-
-### 🧠 一个代理，适用于每个模型
-
-通过统一的工具接口使用托管模型或本地模型。使用 `UAGENT_PROVIDER` 切换提供商——无需修改代码、迁移或另建工作流。
-
-### 🔐 OIDC 与企业身份
-
-Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登录、已验证的 ID 令牌、服务器端会话以及项目/房间访问控制。配置后，已验证的 Microsoft Entra ID 组声明可用于目录支持的访问策略。Windows Active Directory、OAuth 和 trusted-proxy 部署可通过明确的已验证身份适配器集成；Windows AD 需要特定部署的 Kerberos/Negotiate 验证器，且默认未启用。
-
-参见 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
-
-### 📈 OpenTelemetry 可观察性
-
-uag 提供可选启用、与提供商无关的 OpenTelemetry 跟踪和指标，覆盖 Agent、LLM、工具、Context、Memory 和检索操作。可观察性默认关闭。
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-可信传播支持适用于 Sub-Agent、A2A、MCP HTTP 和明确可信的 Web 反向代理。
-
-启用后，可以通过 uag 的现有自动安装策略安装缺少的 OpenTelemetry Python 依赖项。导出器、端点、协议和采样行为使用标准 OTEL\_\* 设置。高级内容捕获、假名关联、提供商 SDK 诊断和普通用户跟踪查询是单独的选择加入功能。
-
-Phase 4D 跟踪查询路由是授权感知的，但故意没有内置通用供应商查询适配器：经过审核的应用程序集成必须注册后端适配器。 OTLP 导出端点永远不会被视为查询 API。
-
-请参阅[OpenTelemetry 设计](UAG_OPENTELEMETRY_DESIGN.md)、[环境配置](ENVIRONMENT.md#opentelemetry-observability) 和[开发者可观察性合约](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)。
-
-### ⚡ 并行工具执行
-
-在安全的情况下，独立的只读操作会并发运行。Web 搜索、文件检查、仓库分析及类似工作负载可以通过可配置的工作池（`UAGENT_PARALLEL_WORKERS`）并行完成。写入操作仍会串行执行，或需要确认。
-
-### 🧩 为扩展而构建
-
-- **200+ 个工具**，覆盖文件、Web、媒体、文档、代码、云、通信和 IoT
-- **动态发现和加载** — 使用 `tool_catalog` 查找能力，并在需要时通过 `tool_load` 启用
-- **代码智能** — `code_map`、特定语言的 `idx` 导航器、Git 审查、测试执行、代码检查、编译和覆盖率
-- **兼容 Claude Code 的插件**，支持 skills、agents、MCP 服务器、hooks、commands 和 marketplaces
-- **Agent Skills**，来自 SkillsMP 和 ClawHub
-- **自定义 Python 工具**，使用 `TOOL_SPEC` 和 `run_tool()`
-- **Rust 支持的工具**，用于轻量级原生扩展
-
-### 🔄 可靠的长时运行工作
-
-会话连续性、工具结果缓存、批处理状态、重启恢复、DAG 调度和多代理编排，让复杂工作可以恢复，而不是只能一次性完成。
-
-- `set_timer` 支持持久的定时 LLM 运行、必需工具保护、直接执行一个已批准的工具、重试和超时。
-
-### 🧠 基于上下文的工具结果
-
-在可能的情况下，大型工具结果不会被纳入当前模型上下文。 uag 将其存储为“工件”，并向模型传递一个带有稳定 Artifact 引用且范围受限的预览。当工具生成大量结果时，这可以大幅减少后续轮次所需的输入令牌数量。
-
-使用 `artifact_read` 仅检索所需的行或字符范围：
-
-```text
-> 读取 artifact://<artifact-id> 的第 100-140 行
-```
-
-新生成内容存储在：
-
-```text
-~/.uag/artifacts/
-```
-
-活动上下文由 `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` 和 `UAGENT_TOOL_RESULT_MAX_CHARS` 界定。 图像、音频和嵌入式 Base64 数据等二进制有效载荷不会被纳入持久化历史记录，但用户界面和远程客户端仍可继续接收其内存中的附件。
-
-出于兼容性考虑，现有的旧版 Artifact 路径仍可读取。 有关存储边界、持久化行为和当前实现状态，请参阅 [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md)。
-
-[上下文压缩与有界模型上下文](CONTEXT_COMPRESSION.zh_CN.md)
-
-### 🌍 多语言翻译
-
-- `translate_text` 支持通过 `provider=auto`、`provider=deepl` 或 `provider=google` 调用 `Google Translate` 以及官方 DeepL Python 客户端。
-- 工具定义支持 37 种语言环境以及英语（共计 38 种），同时保留了占位符和技术标识符。
-
-参见 [环境变量](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻译方法论](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) 以及 [`set_timer` 文档](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)。
-
-### 🎙 实时语音
-
-可通过 OpenAI Realtime、Azure OpenAI、xAI Grok Voice、Gemini Live 和 Bedrock Nova Sonic 使用全双工语音，并支持可选的 AEC3 回声消除以及受安全限制的实时函数调用。
-
-### 🌍 私密、多语言且具备策略意识
-
-使用 uag 支持日语、英语、中文、韩语、西班牙语、法语、俄语等。凭据可以存储在原生操作系统密钥链或加密文件后端中。企业策略可以管理工具、提供商、网络、凭据、插件、skills 和 MCP 服务器。
-
-参见 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) 和 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)。
-
-- [MXC 沙盒平台说明](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Remote Web / A2A 的 MXC 默认设置](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [详细的上下文压缩指南](CONTEXT_COMPRESSION.zh_CN.md)
 
 ## 快速开始
 
@@ -197,10 +61,6 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > 平台集成是可选的。只安装操作系统所需的部分；参见 [Platform setup](#platform-setup)。
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### 选择提供商
 
@@ -244,7 +104,7 @@ Windows PowerShell 使用 `$env:NAME = "value"`，而不是 `export NAME=value`�
 
 所有界面共享相同的提供商配置、工具注册表、安全规则和会话数据。
 
-## 它能做什么
+## 你可以构建什么
 
 ### 操作你的环境
 
@@ -309,23 +169,159 @@ uag 将对话式工作流连接到真实设备，同时让写入操作保持明�
 :tools
 ```
 
-## 平台设置
+### uag 的定位
+
+一侧是人员和界面，另一侧是模型、工具和现实世界系统，uag 位于两者之间。
+它协调对话、选择能力、应用安全规则，并使工作流能够恢复。
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[身份与策略<br/>OIDC · Entra 组 · AD 适配器 · 确认]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag 不是模型提供商，也不只是聊天 UI。** 它是共享的执行层，让模型、工具、界面和策略协同工作。
+
+### 核心能力
+
+#### 🧠 一个代理，适用于每个模型
+
+通过统一的工具接口使用托管模型或本地模型。使用 `UAGENT_PROVIDER` 切换提供商——无需修改代码、迁移或另建工作流。
+
+#### 🔐 OIDC 与企业身份
+
+Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登录、已验证的 ID 令牌、服务器端会话以及项目/房间访问控制。配置后，已验证的 Microsoft Entra ID 组声明可用于目录支持的访问策略。Windows Active Directory、OAuth 和 trusted-proxy 部署可通过明确的已验证身份适配器集成；Windows AD 需要特定部署的 Kerberos/Negotiate 验证器，且默认未启用。
+
+参见 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
+
+#### 📈 OpenTelemetry 可观察性
+
+uag 提供可选启用、与提供商无关的 OpenTelemetry 跟踪和指标，覆盖 Agent、LLM、工具、Context、Memory 和检索操作。可观察性默认关闭。
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+可信传播支持适用于 Sub-Agent、A2A、MCP HTTP 和明确可信的 Web 反向代理。
+
+启用后，可以通过 uag 的现有自动安装策略安装缺少的 OpenTelemetry Python 依赖项。导出器、端点、协议和采样行为使用标准 OTEL\_\* 设置。高级内容捕获、假名关联、提供商 SDK 诊断和普通用户跟踪查询是单独的选择加入功能。
+
+Phase 4D 跟踪查询路由是授权感知的，但故意没有内置通用供应商查询适配器：经过审核的应用程序集成必须注册后端适配器。 OTLP 导出端点永远不会被视为查询 API。
+
+请参阅[OpenTelemetry 设计](UAG_OPENTELEMETRY_DESIGN.md)、[环境配置](ENVIRONMENT.md#opentelemetry-observability) 和[开发者可观察性合约](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)。
+
+#### ⚡ 并行工具执行
+
+在安全的情况下，独立的只读操作会并发运行。Web 搜索、文件检查、仓库分析及类似工作负载可以通过可配置的工作池（`UAGENT_PARALLEL_WORKERS`）并行完成。写入操作仍会串行执行，或需要确认。
+
+#### 🧩 为扩展而构建
+
+- **200+ 个工具**，覆盖文件、Web、媒体、文档、代码、云、通信和 IoT
+- **动态发现和加载** — 使用 `tool_catalog` 查找能力，并在需要时通过 `tool_load` 启用
+- **代码智能** — `code_map`、特定语言的 `idx` 导航器、Git 审查、测试执行、代码检查、编译和覆盖率
+- **兼容 Claude Code 的插件**，支持 skills、agents、MCP 服务器、hooks、commands 和 marketplaces
+- **Agent Skills**，来自 SkillsMP 和 ClawHub
+- **自定义 Python 工具**，使用 `TOOL_SPEC` 和 `run_tool()`
+- **Rust 支持的工具**，用于轻量级原生扩展
+
+#### 🔄 可靠的长时运行工作
+
+会话连续性、工具结果缓存、批处理状态、重启恢复、DAG 调度和多代理编排，让复杂工作可以恢复，而不是只能一次性完成。
+
+- `set_timer` 支持持久的定时 LLM 运行、必需工具保护、直接执行一个已批准的工具、重试和超时。
+
+#### 🧠 基于上下文的工具结果
+
+在可能的情况下，大型工具结果不会被纳入当前模型上下文。 uag 将其存储为“工件”，并向模型传递一个带有稳定 Artifact 引用且范围受限的预览。当工具生成大量结果时，这可以大幅减少后续轮次所需的输入令牌数量。
+
+使用 `artifact_read` 仅检索所需的行或字符范围：
+
+```text
+> 读取 artifact://<artifact-id> 的第 100-140 行
+```
+
+新生成内容存储在：
+
+```text
+~/.uag/artifacts/
+```
+
+活动上下文由 `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` 和 `UAGENT_TOOL_RESULT_MAX_CHARS` 界定。 图像、音频和嵌入式 Base64 数据等二进制有效载荷不会被纳入持久化历史记录，但用户界面和远程客户端仍可继续接收其内存中的附件。
+
+出于兼容性考虑，现有的旧版 Artifact 路径仍可读取。 有关存储边界、持久化行为和当前实现状态，请参阅 [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md)。
+
+[上下文压缩与有界模型上下文](CONTEXT_COMPRESSION.zh_CN.md)
+
+#### 🌍 多语言翻译
+
+- `translate_text` 支持通过 `provider=auto`、`provider=deepl` 或 `provider=google` 调用 `Google Translate` 以及官方 DeepL Python 客户端。
+- 工具定义支持 37 种语言环境以及英语（共计 38 种），同时保留了占位符和技术标识符。
+
+参见 [环境变量](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻译方法论](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) 以及 [`set_timer` 文档](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)。
+
+#### 🎙 实时语音
+
+可通过 OpenAI Realtime、Azure OpenAI、xAI Grok Voice、Gemini Live 和 Bedrock Nova Sonic 使用全双工语音，并支持可选的 AEC3 回声消除以及受安全限制的实时函数调用。
+
+#### 🌍 私密、多语言且具备策略意识
+
+使用 uag 支持日语、英语、中文、韩语、西班牙语、法语、俄语等。凭据可以存储在原生操作系统密钥链或加密文件后端中。企业策略可以管理工具、提供商、网络、凭据、插件、skills 和 MCP 服务器。
+
+参见 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) 和 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)。
+
+- [MXC 沙盒平台说明](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A 的 MXC 默认设置](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### 平台设置
 
 核心软件包支持跨平台。应有选择地安装特定平台的依赖项。
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -333,7 +329,31 @@ python -m pip install PySide6 ewmh dbus-next
 
 某些集成还有额外的系统要求，例如浏览器二进制文件、蓝牙权限、云凭据或 MQTT/OPC UA 服务器。相关工具运行时会报告缺少的内容。
 
-## 会话、自动化与安全
+### 扩展
+
+#### Agent Skills 和插件
+
+从 SkillsMP 或 ClawHub 安装社区 skills，或安装包含 skills、agents、MCP 服务器、hooks、commands 和输出样式的兼容 Claude Code 插件。
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+参见 [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) 和 [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills)。
+
+#### 创建工具
+
+工具可以是包含 `TOOL_SPEC` 和 `run_tool()` 的单个 Python 文件。将其放入 `UAGENT_EXTERNAL_TOOLS_DIR`，然后重新加载目录。Rust 开发者可以通过一个轻量级 Python 包装器发布预构建的原生模块。
+
+参见 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)。
+
+#### MCP 服务器
+
+从 CLI 或配置文件连接外部 MCP 服务器。[MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) 中提供 OAuth 和代理配置指导。
+
+## 为真实工作流而构建
 
 ### 会话连续性
 
@@ -346,10 +366,8 @@ Session Store 设置：
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -385,31 +403,7 @@ UAGENT_MEMORY_DB=
 
 该存储可以使用 Windows Credential Manager、macOS Keychain、Linux Secret Service 或加密文件后端。配置详情请参见 [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)。
 
-## 扩展
-
-### Agent Skills 和插件
-
-从 SkillsMP 或 ClawHub 安装社区 skills，或安装包含 skills、agents、MCP 服务器、hooks、commands 和输出样式的兼容 Claude Code 插件。
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-参见 [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) 和 [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills)。
-
-### 创建工具
-
-工具可以是包含 `TOOL_SPEC` 和 `run_tool()` 的单个 Python 文件。将其放入 `UAGENT_EXTERNAL_TOOLS_DIR`，然后重新加载目录。Rust 开发者可以通过一个轻量级 Python 包装器发布预构建的原生模块。
-
-参见 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)。
-
-### MCP 服务器
-
-从 CLI 或配置文件连接外部 MCP 服务器。[MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) 中提供 OAuth 和代理配置指导。
-
-## 实时语音
+### 实时语音
 
 可选的实时语音集成支持 OpenAI Realtime、Azure OpenAI GPT Realtime、xAI Grok Voice、Google Gemini Live 和 Amazon Bedrock Nova Sonic。安装相关音频依赖后运行：
 
@@ -424,7 +418,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## 配置和文档
+## 文档
 
 | 主题 | 文档 |
 |---|---|
@@ -440,7 +434,7 @@ python scheck.py realtime
 | 开发者指南 | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | 工具流程 | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## 开发
+## 开发与贡献
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -458,7 +452,7 @@ python -m pytest -q .
 
 完整的开发工作流请参见 [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)。
 
-## 项目原则
+### 项目原则
 
 - **本地优先** — 运行时属于你。
 - **提供商中立** — 模型是可替换的基础设施。
@@ -466,7 +460,7 @@ python -m pytest -q .
 - **默认安全** — 敏感操作始终可见且可控。
 - **欢迎贡献** — 欢迎贡献代码、工具、skills、翻译和文档。
 
-## 贡献
+### 贡献
 
 欢迎提交错误报告、功能想法、文档改进、翻译、工具、skills 和拉取请求。
 进行较大改动前，请先创建 issue 或 discussion。阅读 [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)，并在提交拉取请求前运行上述检查。

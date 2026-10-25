@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Hvorfor uag?
+**Hvorfor uag?**
 
 uag er en lokal-først AI-agent, der forbinder den model, du foretrækker, med de værktøjer, du faktisk bruger.
 Den giver dig et enkelt, udvideligt runtime-miljø til filer, browsere, kodebaser, kommunikation, cloud-API'er,
@@ -42,153 +42,7 @@ IoT-enheder, MCP-servere og arbejdsgange med flere agenter.
 > **Kort sagt:** uag er kontrolplanet mellem dine AI-modeller og dit virkelige miljø.
 
 > **🧠 Kontekstbevidste værktøjsresultater** — Store værktøjsresultater holdes så vidt muligt uden for den aktive modelkontekst. uag gemmer dem som artefakter og sender i stedet en afgrænset forhåndsvisning med en stabil Artifact-reference til modellen. Dette kan reducere antallet af input-tokens, der kræves til opfølgende runder, betydeligt, når et værktøj genererer et stort resultat.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.da.md) を参照してください。
-
-## Hvor passer uag ind?
-
-uag befinder sig mellem mennesker og grænseflader på den ene side og modeller, værktøjer og systemer i den virkelige verden på den anden.
-Den koordinerer samtalen, vælger funktioner, anvender sikkerhedsregler og holder arbejdsgangen genoptagelig.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identitet og politik<br/>OIDC · Entra-grupper · AD-adaptere · bekræftelse]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag er ikke en modeludbyder og heller ikke blot en chatbrugerflade.** Det er det fælles udførelseslag, der får modeller,
-værktøjer, grænseflader og politikker til at fungere sammen.
-
-## Vigtigste funktioner
-
-### 🧠 Én agent, alle modeller
-
-Brug hostede eller lokale modeller gennem én ensartet værktøjsgrænseflade. Skift udbyder med
-`UAGENT_PROVIDER`—uden kodeændringer, migrering eller en separat arbejdsgang.
-
-### 🔐 OIDC og virksomhedens identitet
-
-Web UI inkluderer OIDC-login ved brug af Authorization Code + PKCE, verificerede ID-tokens, server-side sessioner og adgangskontrol til projekter/rum. Verificerede Microsoft Entra ID-gruppekrav kan bruges til mappebaseret adgangspolitik, når det er konfigureret. Windows Active Directory, OAuth og trusted-proxy-implementeringer kan integreres via eksplicit verificerede identitetsadaptere; Windows AD kræver en implementeringsspecifik Kerberos/Negotiate-verifikator og er ikke aktiveret som standard.
-
-Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) og [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry observerbarhed
-
-uag inkluderer opt-in, udbyderneutral OpenTelemetry-sporing og metrics for Agent, LLM, værktøj, Context, Memory og hentning. Observerbarhed er deaktiveret som standard.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Understøttelse af betroet udbredelse er tilgængelig for Sub-Agent, A2A, MCP HTTP og eksplicit betroede Web omvendte proxyer.
-
-Når det er aktiveret, kan manglende OpenTelemetry Python afhængigheder installeres via uags eksisterende politik for automatisk installation. Eksportør-, slutpunkt-, protokol- og prøveudtagningsadfærd bruger standard OTEL\_\*-indstillinger. Avanceret indholdsfangst, pseudonym korrelation, udbyders SDK-diagnostik og sporingsforespørgsler for almindelige brugere er separate opt-in-funktioner.
-
-Ruten til Phase 4D-sporingsforespørgsler tager højde for autorisation, men har med vilje ingen indbygget generisk leverandøradapter til forespørgsler: En gennemgået applikationsintegration skal registrere backend-adapteren. OTLP-eksportendepunktet behandles aldrig som et forespørgsels-API.
-
-Se [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [miljøkonfiguration](ENVIRONMENT.md#opentelemetry-observability) og [observationskontrakt for udviklere](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Parallel værktøjsudførelse
-
-Uafhængige skrivebeskyttede operationer kører samtidigt, når det er sikkert. Websøgninger, filinspektion,
-repository-analyse og lignende arbejdsbelastninger kan fuldføres parallelt med en konfigurerbar worker-
-pool (`UAGENT_PARALLEL_WORKERS`). Skriveoperationer forbliver serialiserede eller kræver bekræftelse.
-
-### 🧩 Bygget til udvidelse
-
-- **200+ værktøjer** til filer, web, medier, dokumenter, kode, cloud, kommunikation og IoT
-- **Dynamisk opdagelse og indlæsning** — brug `tool_catalog` til at finde funktioner og `tool_load` til kun at aktivere dem, når der er brug for dem
-- **Kodeintelligens** — `code_map`, sprogspecifikke `idx`-navigatorer, Git-gennemgang, testkørsel, linting, kompilering og dækningsmåling
-- **Claude Code-kompatible plugins** med skills, agenter, MCP-servere, hooks, kommandoer og markedspladser
-- **Agent Skills** fra SkillsMP og ClawHub
-- **Brugerdefinerede Python-værktøjer** med `TOOL_SPEC` og `run_tool()`
-- **Rust-baserede værktøjer** til lette native udvidelser
-
-### 🔄 Pålideligt langvarigt arbejde
-
-Sessionskontinuitet, caching af værktøjsresultater, batchtilstand, genstartsgendannelse, DAG-planlægning og
-orkestrering af flere agenter gør komplekst arbejde genoptageligt i stedet for engangsbaseret.
-
-- `set_timer` understøtter vedvarende planlagte kørsler af `LLM`, beskyttelse af påkrævede værktøjer, direkte udførelse af ét godkendt værktøj, gentagelser og timeouts.
-
-### 🧠 Kontekstbevidste værktøjsresultater
-
-Store værktøjsresultater holdes så vidt muligt uden for den aktive modelkontekst. uag gemmer dem som artefakter og sender i stedet en afgrænset forhåndsvisning med en stabil Artifact-reference til modellen. Dette kan reducere antallet af input-tokens, der kræves til opfølgende runder, betydeligt, når et værktøj genererer et stort resultat.
-
-Brug `artifact_read` til kun at hente de nødvendige linjer eller det nødvendige tegninterval:
-
-```text
-> Læs artifact://<artifact-id> linjer 100-140
-```
-
-Nye artefakter gemmes under:
-
-```text
-~/.uag/artifacts/
-```
-
-Den aktive kontekst afgrænses af `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` og `UAGENT_TOOL_RESULT_MAX_CHARS`. Binære data såsom billeder, lyd og indlejrede Base64-data opbevares ikke i den permanente historik, mens brugergrænsefladen og fjernklienter fortsat kan modtage deres vedhæftede filer i hukommelsen.
-
-Eksisterende ældre Artifact-stier forbliver læsbare af hensyn til kompatibilitet. Se [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) for opbevaringsgrænser, lagringsadfærd og den aktuelle implementeringsstatus.
-
-[Kontekstkomprimering og afgrænset modelkontekst](CONTEXT_COMPRESSION.da.md)
-
-### 🌍 Flersproget oversættelse
-
-- `translate_text` understøtter Google Translate og den officielle DeepL Python-klient via `provider=auto`, `provider=deepl` eller `provider=google`.
-- Værktøjsdefinitioner er tilgængelige på 37 sprog samt engelsk (i alt 38), hvor pladsholdere og tekniske identifikatorer bevares.
-
-Se [Miljøvariabler](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Oversættelsesmetodologi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) samt [`set_timer`-dokumentation](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Realtidsstemme
-
-Fuldt tovejs-stemmelyd er tilgængelig via OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,
-og Bedrock Nova Sonic, med valgfri AEC3-ekkoannullering og sikkerhedsbegrænset realtime-funktionskald.
-
-### 🌍 Privat, flersproget og politikbevidst
-
-Brug uag på japansk, engelsk, kinesisk, koreansk, spansk, fransk, russisk og flere sprog. Legitimationsoplysninger kan
-lagres i operativsystemets native nøglering eller i en krypteret filbackend. Enterprise-politikker kan styre værktøjer,
-udbydere, netværk, legitimationsoplysninger, plugins, skills og MCP-servere.
-
-Se [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) og
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Noter om MXC-sandboxplatformen](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [MXC-standardindstillinger for Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Detaljeret guide til kontekstkomprimering](CONTEXT_COMPRESSION.da.md)
 
 ## Hurtig start
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Plattformsspecifikke integrationer er valgfri. Installér kun det, dit operativsystem har brug for; se
 > [Platform setup](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Vælg en udbyder
 
@@ -257,7 +107,7 @@ Se [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENV
 
 Alle grænseflader deler den samme udbyderkonfiguration, værktøjsregistrering, sikkerhedsregler og sessionsdata.
 
-## Hvad kan den?
+## Hvad du kan bygge
 
 ### Arbejd med dit miljø
 
@@ -323,23 +173,169 @@ Runtime-miljøet indeholder aktuelt et stort katalog af værktøjer. Find de pr�
 :tools
 ```
 
-## Plattformopsætning
+### Hvor passer uag ind?
+
+uag befinder sig mellem mennesker og grænseflader på den ene side og modeller, værktøjer og systemer i den virkelige verden på den anden.
+Den koordinerer samtalen, vælger funktioner, anvender sikkerhedsregler og holder arbejdsgangen genoptagelig.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Identitet og politik<br/>OIDC · Entra-grupper · AD-adaptere · bekræftelse]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag er ikke en modeludbyder og heller ikke blot en chatbrugerflade.** Det er det fælles udførelseslag, der får modeller,
+værktøjer, grænseflader og politikker til at fungere sammen.
+
+### Vigtigste funktioner
+
+#### 🧠 Én agent, alle modeller
+
+Brug hostede eller lokale modeller gennem én ensartet værktøjsgrænseflade. Skift udbyder med
+`UAGENT_PROVIDER`—uden kodeændringer, migrering eller en separat arbejdsgang.
+
+#### 🔐 OIDC og virksomhedens identitet
+
+Web UI inkluderer OIDC-login ved brug af Authorization Code + PKCE, verificerede ID-tokens, server-side sessioner og adgangskontrol til projekter/rum. Verificerede Microsoft Entra ID-gruppekrav kan bruges til mappebaseret adgangspolitik, når det er konfigureret. Windows Active Directory, OAuth og trusted-proxy-implementeringer kan integreres via eksplicit verificerede identitetsadaptere; Windows AD kræver en implementeringsspecifik Kerberos/Negotiate-verifikator og er ikke aktiveret som standard.
+
+Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) og [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry observerbarhed
+
+uag inkluderer opt-in, udbyderneutral OpenTelemetry-sporing og metrics for Agent, LLM, værktøj, Context, Memory og hentning. Observerbarhed er deaktiveret som standard.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Understøttelse af betroet udbredelse er tilgængelig for Sub-Agent, A2A, MCP HTTP og eksplicit betroede Web omvendte proxyer.
+
+Når det er aktiveret, kan manglende OpenTelemetry Python afhængigheder installeres via uags eksisterende politik for automatisk installation. Eksportør-, slutpunkt-, protokol- og prøveudtagningsadfærd bruger standard OTEL\_\*-indstillinger. Avanceret indholdsfangst, pseudonym korrelation, udbyders SDK-diagnostik og sporingsforespørgsler for almindelige brugere er separate opt-in-funktioner.
+
+Ruten til Phase 4D-sporingsforespørgsler tager højde for autorisation, men har med vilje ingen indbygget generisk leverandøradapter til forespørgsler: En gennemgået applikationsintegration skal registrere backend-adapteren. OTLP-eksportendepunktet behandles aldrig som et forespørgsels-API.
+
+Se [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [miljøkonfiguration](ENVIRONMENT.md#opentelemetry-observability) og [observationskontrakt for udviklere](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Parallel værktøjsudførelse
+
+Uafhængige skrivebeskyttede operationer kører samtidigt, når det er sikkert. Websøgninger, filinspektion,
+repository-analyse og lignende arbejdsbelastninger kan fuldføres parallelt med en konfigurerbar worker-
+pool (`UAGENT_PARALLEL_WORKERS`). Skriveoperationer forbliver serialiserede eller kræver bekræftelse.
+
+#### 🧩 Bygget til udvidelse
+
+- **200+ værktøjer** til filer, web, medier, dokumenter, kode, cloud, kommunikation og IoT
+- **Dynamisk opdagelse og indlæsning** — brug `tool_catalog` til at finde funktioner og `tool_load` til kun at aktivere dem, når der er brug for dem
+- **Kodeintelligens** — `code_map`, sprogspecifikke `idx`-navigatorer, Git-gennemgang, testkørsel, linting, kompilering og dækningsmåling
+- **Claude Code-kompatible plugins** med skills, agenter, MCP-servere, hooks, kommandoer og markedspladser
+- **Agent Skills** fra SkillsMP og ClawHub
+- **Brugerdefinerede Python-værktøjer** med `TOOL_SPEC` og `run_tool()`
+- **Rust-baserede værktøjer** til lette native udvidelser
+
+#### 🔄 Pålideligt langvarigt arbejde
+
+Sessionskontinuitet, caching af værktøjsresultater, batchtilstand, genstartsgendannelse, DAG-planlægning og
+orkestrering af flere agenter gør komplekst arbejde genoptageligt i stedet for engangsbaseret.
+
+- `set_timer` understøtter vedvarende planlagte kørsler af `LLM`, beskyttelse af påkrævede værktøjer, direkte udførelse af ét godkendt værktøj, gentagelser og timeouts.
+
+#### 🧠 Kontekstbevidste værktøjsresultater
+
+Store værktøjsresultater holdes så vidt muligt uden for den aktive modelkontekst. uag gemmer dem som artefakter og sender i stedet en afgrænset forhåndsvisning med en stabil Artifact-reference til modellen. Dette kan reducere antallet af input-tokens, der kræves til opfølgende runder, betydeligt, når et værktøj genererer et stort resultat.
+
+Brug `artifact_read` til kun at hente de nødvendige linjer eller det nødvendige tegninterval:
+
+```text
+> Læs artifact://<artifact-id> linjer 100-140
+```
+
+Nye artefakter gemmes under:
+
+```text
+~/.uag/artifacts/
+```
+
+Den aktive kontekst afgrænses af `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` og `UAGENT_TOOL_RESULT_MAX_CHARS`. Binære data såsom billeder, lyd og indlejrede Base64-data opbevares ikke i den permanente historik, mens brugergrænsefladen og fjernklienter fortsat kan modtage deres vedhæftede filer i hukommelsen.
+
+Eksisterende ældre Artifact-stier forbliver læsbare af hensyn til kompatibilitet. Se [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) for opbevaringsgrænser, lagringsadfærd og den aktuelle implementeringsstatus.
+
+[Kontekstkomprimering og afgrænset modelkontekst](CONTEXT_COMPRESSION.da.md)
+
+#### 🌍 Flersproget oversættelse
+
+- `translate_text` understøtter Google Translate og den officielle DeepL Python-klient via `provider=auto`, `provider=deepl` eller `provider=google`.
+- Værktøjsdefinitioner er tilgængelige på 37 sprog samt engelsk (i alt 38), hvor pladsholdere og tekniske identifikatorer bevares.
+
+Se [Miljøvariabler](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Oversættelsesmetodologi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) samt [`set_timer`-dokumentation](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Realtidsstemme
+
+Fuldt tovejs-stemmelyd er tilgængelig via OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,
+og Bedrock Nova Sonic, med valgfri AEC3-ekkoannullering og sikkerhedsbegrænset realtime-funktionskald.
+
+#### 🌍 Privat, flersproget og politikbevidst
+
+Brug uag på japansk, engelsk, kinesisk, koreansk, spansk, fransk, russisk og flere sprog. Legitimationsoplysninger kan
+lagres i operativsystemets native nøglering eller i en krypteret filbackend. Enterprise-politikker kan styre værktøjer,
+udbydere, netværk, legitimationsoplysninger, plugins, skills og MCP-servere.
+
+Se [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) og
+[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [Noter om MXC-sandboxplatformen](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [MXC-standardindstillinger for Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Plattformopsætning
 
 Kernepakken fungerer på tværs af platforme. Plattformsspecifikke afhængigheder bør installeres selektivt.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Nogle integrationer har yderligere systemkrav, såsom browserbinære filer, Bluetooth-tilladelser,
 cloud-legitimationsoplysninger eller en MQTT/OPC UA-server. Det relevante værktøj rapporterer, hvad der mangler, når det kører.
 
-## Sessioner, automatisering og sikkerhed
+### Udvidelser
+
+#### Agent Skills og plugins
+
+Installér community-skills fra SkillsMP eller ClawHub, eller installér Claude Code-kompatible plugins med
+skills, agenter, MCP-servere, hooks, kommandoer og outputstile.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Se [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) og [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Opret et værktøj
+
+Et værktøj kan være en enkelt Python-fil med `TOOL_SPEC` og `run_tool()`. Placér den i
+`UAGENT_EXTERNAL_TOOLS_DIR`, og genindlæs kataloget. Rust-udviklere kan levere et forudbygget native-modul
+med en tynd Python-wrapper.
+
+Se [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### MCP-servere
+
+Forbind til eksterne MCP-servere fra CLI'en eller konfigurationsfilen. Vejledning om OAuth og proxy findes
+i [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Bygget til virkelige arbejdsgange
 
 ### Sessionskontinuitet
 
@@ -362,10 +386,8 @@ Indstillinger for Session Store:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Brug legitimationsoplysningslageret i stedet for at placere langtidsholdbare hem
 Lageret kan bruge Windows Credential Manager, macOS Keychain, Linux Secret Service eller den krypterede fil-
 backend. Se [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) for konfigurationsdetaljer.
 
-## Udvidelser
-
-### Agent Skills og plugins
-
-Installér community-skills fra SkillsMP eller ClawHub, eller installér Claude Code-kompatible plugins med
-skills, agenter, MCP-servere, hooks, kommandoer og outputstile.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Se [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) og [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Opret et værktøj
-
-Et værktøj kan være en enkelt Python-fil med `TOOL_SPEC` og `run_tool()`. Placér den i
-`UAGENT_EXTERNAL_TOOLS_DIR`, og genindlæs kataloget. Rust-udviklere kan levere et forudbygget native-modul
-med en tynd Python-wrapper.
-
-Se [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### MCP-servere
-
-Forbind til eksterne MCP-servere fra CLI'en eller konfigurationsfilen. Vejledning om OAuth og proxy findes
-i [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Realtidsstemme
+### Realtidsstemme
 
 Valgfrie realtidsstemmeintegrationer understøtter OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live og Amazon Bedrock Nova Sonic. Installér de relevante lydafhængigheder, og kør:
@@ -448,7 +442,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Konfiguration og dokumentation
+## Dokumentation
 
 | Emne | Dokumentation |
 |---|---|
@@ -464,7 +458,7 @@ python scheck.py realtime
 | Udviklervejledning | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Værktøjsflow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Udvikling
+## Udvikling og bidrag
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -482,7 +476,7 @@ python -m pytest -q .
 
 Se [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for den komplette udviklingsarbejdsgang.
 
-## Projektprincipper
+### Projektprincipper
 
 - **Lokal-først** — runtime-miljøet tilhører dig.
 - **Udbyderneutral** — modeller kan udskiftes som infrastruktur.
@@ -490,7 +484,7 @@ Se [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEV
 - **Sikker som standard** — følsomme operationer forbliver synlige og kontrollerbare.
 - **Åben for bidrag** — kode, værktøjer, skills, oversættelser og dokumentation er velkomne.
 
-## Bidrag
+### Bidrag
 
 Fejlrapporter, idéer til funktioner, forbedringer af dokumentationen, oversættelser, værktøjer, skills og pull requests er velkomne.
 Opret venligst en issue eller diskussion før større ændringer. Læs [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

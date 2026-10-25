@@ -26,7 +26,7 @@
 
 ______________________________________________________________________
 
-## Waarom uag?
+**Waarom uag?**
 
 uag is een local-first AI-agent die het model van jouw voorkeur verbindt met de tools die je daadwerkelijk gebruikt.
 Het biedt één uitbreidbare runtime voor bestanden, browsers, codebases, communicatie, cloud-API's,
@@ -42,153 +42,7 @@ IoT-apparaten, MCP-servers en workflows met meerdere agents.
 > **Kort gezegd:** uag is het besturingsvlak tussen je AI-modellen en je echte omgeving.
 
 > **🧠 Contextbewuste toolresultaten** — Grote toolresultaten worden waar mogelijk buiten de actieve modelcontext gehouden. uag slaat ze op als artefacten en geeft het model in plaats daarvan een begrensd voorbeeld met een stabiele Artifact-referentie. Dit kan het aantal invoertokens dat nodig is voor vervolgbeurten aanzienlijk verminderen wanneer een tool een groot resultaat oplevert.
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.nl.md) を参照してください。
-
-## Waar past uag?
-
-uag bevindt zich aan de ene kant tussen mensen en interfaces, en aan de andere kant tussen modellen, tools en systemen uit de echte wereld.
-Het coördineert het gesprek, selecteert mogelijkheden, past veiligheidsregels toe en houdt de workflow hervatbaar.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identiteit en beleid<br/>OIDC · Entra-groepen · AD-adapters · Bevestiging]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag is geen modelprovider en ook niet alleen een chatinterface.** Het is de gedeelde uitvoeringslaag die ervoor zorgt dat modellen,
-tools, interfaces en beleidsregels samenwerken.
-
-## Belangrijkste mogelijkheden
-
-### 🧠 Eén agent, elk model
-
-Gebruik gehoste of lokale modellen via één consistente toolinterface. Wissel van provider met
-`UAGENT_PROVIDER`—zonder codewijzigingen, migratie of afzonderlijke workflow.
-
-### 🔐 OIDC en bedrijfsidentiteit
-
-De web-UI bevat OIDC-aanmelding met Authorization Code + PKCE, geverifieerde ID-tokens, server-side sessies en toegangscontroles voor projecten/ruimtes. Geverifieerde Microsoft Entra ID-groepclaims kunnen, wanneer geconfigureerd, toegangsbeleid op basis van directory ondersteunen. Windows Active Directory-, OAuth- en trusted-proxy-implementaties kunnen worden geïntegreerd via expliciete geverifieerde identiteitsadapters; Windows AD vereist een implementatiespecifieke Kerberos/Negotiate-verifier en is standaard niet ingeschakeld.
-
-Zie [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) en [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-### 📈 OpenTelemetry waarneembaarheid
-
-uag omvat opt-in, provider-neutrale OpenTelemetry tracering en statistieken voor Agent, LLM, tool, Context, Memory en ophaalbewerkingen. Waarneembaarheid is standaard uitgeschakeld.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Ondersteuning voor vertrouwde verspreiding is beschikbaar voor Sub-Agent, A2A, MCP HTTP en expliciet vertrouwde Web reverse proxy's.
-
-Indien ingeschakeld kunnen ontbrekende OpenTelemetry Python afhankelijkheden worden geïnstalleerd via het bestaande automatische installatiebeleid van uag. Exporteur, eindpunt, protocol en steekproefgedrag gebruiken standaard OTEL\_\*-instellingen. Geavanceerde contentregistratie, pseudonieme correlatie, SDK-diagnostiek van de provider en traceringsquery's voor gewone gebruikers zijn afzonderlijke aanmeldingsfuncties.
-
-De Phase 4D traceringsqueryroute is autorisatiebewust, maar heeft opzettelijk geen generieke leverancierqueryadapter ingebouwd: een beoordeelde applicatie-integratie moet de backend-adapter registreren. Het exporteindpunt OTLP wordt nooit behandeld als een query API.
-
-Zie [OpenTelemetry ontwerp](UAG_OPENTELEMETRY_DESIGN.md), [omgevingsconfiguratie](ENVIRONMENT.md#opentelemetry-observability) en [observatiecontract voor ontwikkelaars](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-### ⚡ Parallelle uitvoering van tools
-
-Onafhankelijke alleen-lezenbewerkingen worden, wanneer dat veilig is, gelijktijdig uitgevoerd. Webzoekopdrachten, bestandsinspectie,
-repositoryanalyse en vergelijkbare workloads kunnen parallel worden voltooid met een configureerbare workerpool
-(`UAGENT_PARALLEL_WORKERS`). Schrijfbewerkingen blijven geserialiseerd of vereisen bevestiging.
-
-### 🧩 Gebouwd om uit te breiden
-
-- **200+ tools** voor bestanden, web, media, documenten, code, cloud, communicatie en IoT
-- **Dynamische ontdekking en laden** — gebruik `tool_catalog` om mogelijkheden te vinden en `tool_load` om ze alleen in te schakelen wanneer dat nodig is
-- **Code-intelligentie** — `code_map`, taalspecifieke `idx`-navigators, Git-review, testuitvoering, linting, compilatie en coverage
-- **Claude Code-compatibele plugins** met skills, agents, MCP-servers, hooks, commando's en marketplaces
-- **Agent Skills** van SkillsMP en ClawHub
-- **Aangepaste Python-tools** met `TOOL_SPEC` en `run_tool()`
-- **Door Rust ondersteunde tools** voor lichtgewicht native uitbreidingen
-
-### 🔄 Betrouwbaar langdurig werk
-
-Sessiebehoud, caching van toolresultaten, batchstatus, herstel na herstart, DAG-planning en
-orkestratie van meerdere agents maken complex werk hervatbaar in plaats van eenmalig.
-
-- `set_timer` ondersteunt permanente geplande LLM-uitvoeringen, bescherming van vereiste tools, directe uitvoering van één goedgekeurde tool, herhalingspogingen en time-outs.
-
-### 🧠 Contextbewuste toolresultaten
-
-Grote toolresultaten worden waar mogelijk buiten de actieve modelcontext gehouden. uag slaat ze op als artefacten en geeft het model in plaats daarvan een begrensd voorbeeld met een stabiele Artifact-referentie. Dit kan het aantal invoertokens dat nodig is voor vervolgbeurten aanzienlijk verminderen wanneer een tool een groot resultaat oplevert.
-
-Gebruik `artifact_read` om alleen de benodigde regels of het benodigde tekenbereik op te halen:
-
-```text
-> Lees artifact://<artifact-id> regels 100-140
-```
-
-Nieuwe artefacten worden opgeslagen onder:
-
-```text
-~/.uag/artifacts/
-```
-
-De actieve context wordt begrensd door `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` en `UAGENT_TOOL_RESULT_MAX_CHARS`. Binaire payloads zoals afbeeldingen, audio en ingebedde Base64-gegevens worden niet opgenomen in de permanente geschiedenis, terwijl de gebruikersinterface en externe clients hun bijlagen in het geheugen kunnen blijven ontvangen.
-
-Bestaande verouderde Artifact-paden blijven leesbaar omwille van de compatibiliteit. Zie [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) voor opslaggrenzen, persistentiegedrag en de huidige implementatiestatus.
-
-[Contextcompressie en begrensde modelcontext](CONTEXT_COMPRESSION.nl.md)
-
-### 🌍 Meertalige vertaling
-
-- `translate_text` ondersteunt Google Translate en de officiële DeepL Python-client via `provider=auto`, `provider=deepl` of `provider=google`.
-- Tooldefinities zijn beschikbaar in 37 locales plus het Engels (38 in totaal), waarbij plaatshouders en technische identificatiecodes behouden blijven.
-
-Zie [Omgevingsvariabelen](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Vertaalmethodologie](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) en [de documentatie over `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-### 🎙 Realtime spraak
-
-Full-duplex-spraak is beschikbaar via OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-en Bedrock Nova Sonic, met optionele AEC3-echocancellatie en veiligheidsbeperkte realtime functieaanroepen.
-
-### 🌍 Privé, meertalig en beleidsbewust
-
-Gebruik uag in het Japans, Engels, Chinees, Koreaans, Spaans, Frans, Russisch en meer. Inloggegevens kunnen
-worden opgeslagen in de native sleutelhangertoepassing van het besturingssysteem of in een versleutelde bestandsbackend. Enterprisebeleid kan tools,
-providers, netwerken, inloggegevens, plugins, skills en MCP-servers beheren.
-
-Zie [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) en
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Notities over het MXC-sandboxplatform](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [MXC-standaardinstellingen voor Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+> [Uitgebreide gids voor contextcompressie](CONTEXT_COMPRESSION.nl.md)
 
 ## Snel starten
 
@@ -210,10 +64,6 @@ python -m pip install "uag[core,providers,tools]"
 
 > Platformintegraties zijn optioneel. Installeer alleen wat je besturingssysteem nodig heeft; zie
 > [Platform setup](#platform-setup).
-
-# Unset: user state directory/sessions/sessions.sqlite3
-
-# Unset: user state directory/memory.sqlite3
 
 ### Een provider kiezen
 
@@ -257,7 +107,7 @@ Zie [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/EN
 
 Alle interfaces delen dezelfde providerconfiguratie, toolregistry, veiligheidsregels en sessiegegevens.
 
-## Wat het kan
+## Wat je kunt bouwen
 
 ### Werken met je omgeving
 
@@ -323,23 +173,169 @@ De runtime bevat momenteel een uitgebreide catalogus met tools. Ontdek de exacte
 :tools
 ```
 
-## Platforminstellingen
+### Waar past uag?
+
+uag bevindt zich aan de ene kant tussen mensen en interfaces, en aan de andere kant tussen modellen, tools en systemen uit de echte wereld.
+Het coördineert het gesprek, selecteert mogelijkheden, past veiligheidsregels toe en houdt de workflow hervatbaar.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Identiteit en beleid<br/>OIDC · Entra-groepen · AD-adapters · Bevestiging]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag is geen modelprovider en ook niet alleen een chatinterface.** Het is de gedeelde uitvoeringslaag die ervoor zorgt dat modellen,
+tools, interfaces en beleidsregels samenwerken.
+
+### Belangrijkste mogelijkheden
+
+#### 🧠 Eén agent, elk model
+
+Gebruik gehoste of lokale modellen via één consistente toolinterface. Wissel van provider met
+`UAGENT_PROVIDER`—zonder codewijzigingen, migratie of afzonderlijke workflow.
+
+#### 🔐 OIDC en bedrijfsidentiteit
+
+De web-UI bevat OIDC-aanmelding met Authorization Code + PKCE, geverifieerde ID-tokens, server-side sessies en toegangscontroles voor projecten/ruimtes. Geverifieerde Microsoft Entra ID-groepclaims kunnen, wanneer geconfigureerd, toegangsbeleid op basis van directory ondersteunen. Windows Active Directory-, OAuth- en trusted-proxy-implementaties kunnen worden geïntegreerd via expliciete geverifieerde identiteitsadapters; Windows AD vereist een implementatiespecifieke Kerberos/Negotiate-verifier en is standaard niet ingeschakeld.
+
+Zie [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) en [Enterprise Policy](ENTERPRISE_POLICY.md).
+
+#### 📈 OpenTelemetry waarneembaarheid
+
+uag omvat opt-in, provider-neutrale OpenTelemetry tracering en statistieken voor Agent, LLM, tool, Context, Memory en ophaalbewerkingen. Waarneembaarheid is standaard uitgeschakeld.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Ondersteuning voor vertrouwde verspreiding is beschikbaar voor Sub-Agent, A2A, MCP HTTP en expliciet vertrouwde Web reverse proxy's.
+
+Indien ingeschakeld kunnen ontbrekende OpenTelemetry Python afhankelijkheden worden geïnstalleerd via het bestaande automatische installatiebeleid van uag. Exporteur, eindpunt, protocol en steekproefgedrag gebruiken standaard OTEL\_\*-instellingen. Geavanceerde contentregistratie, pseudonieme correlatie, SDK-diagnostiek van de provider en traceringsquery's voor gewone gebruikers zijn afzonderlijke aanmeldingsfuncties.
+
+De Phase 4D traceringsqueryroute is autorisatiebewust, maar heeft opzettelijk geen generieke leverancierqueryadapter ingebouwd: een beoordeelde applicatie-integratie moet de backend-adapter registreren. Het exporteindpunt OTLP wordt nooit behandeld als een query API.
+
+Zie [OpenTelemetry ontwerp](UAG_OPENTELEMETRY_DESIGN.md), [omgevingsconfiguratie](ENVIRONMENT.md#opentelemetry-observability) en [observatiecontract voor ontwikkelaars](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+#### ⚡ Parallelle uitvoering van tools
+
+Onafhankelijke alleen-lezenbewerkingen worden, wanneer dat veilig is, gelijktijdig uitgevoerd. Webzoekopdrachten, bestandsinspectie,
+repositoryanalyse en vergelijkbare workloads kunnen parallel worden voltooid met een configureerbare workerpool
+(`UAGENT_PARALLEL_WORKERS`). Schrijfbewerkingen blijven geserialiseerd of vereisen bevestiging.
+
+#### 🧩 Gebouwd om uit te breiden
+
+- **200+ tools** voor bestanden, web, media, documenten, code, cloud, communicatie en IoT
+- **Dynamische ontdekking en laden** — gebruik `tool_catalog` om mogelijkheden te vinden en `tool_load` om ze alleen in te schakelen wanneer dat nodig is
+- **Code-intelligentie** — `code_map`, taalspecifieke `idx`-navigators, Git-review, testuitvoering, linting, compilatie en coverage
+- **Claude Code-compatibele plugins** met skills, agents, MCP-servers, hooks, commando's en marketplaces
+- **Agent Skills** van SkillsMP en ClawHub
+- **Aangepaste Python-tools** met `TOOL_SPEC` en `run_tool()`
+- **Door Rust ondersteunde tools** voor lichtgewicht native uitbreidingen
+
+#### 🔄 Betrouwbaar langdurig werk
+
+Sessiebehoud, caching van toolresultaten, batchstatus, herstel na herstart, DAG-planning en
+orkestratie van meerdere agents maken complex werk hervatbaar in plaats van eenmalig.
+
+- `set_timer` ondersteunt permanente geplande LLM-uitvoeringen, bescherming van vereiste tools, directe uitvoering van één goedgekeurde tool, herhalingspogingen en time-outs.
+
+#### 🧠 Contextbewuste toolresultaten
+
+Grote toolresultaten worden waar mogelijk buiten de actieve modelcontext gehouden. uag slaat ze op als artefacten en geeft het model in plaats daarvan een begrensd voorbeeld met een stabiele Artifact-referentie. Dit kan het aantal invoertokens dat nodig is voor vervolgbeurten aanzienlijk verminderen wanneer een tool een groot resultaat oplevert.
+
+Gebruik `artifact_read` om alleen de benodigde regels of het benodigde tekenbereik op te halen:
+
+```text
+> Lees artifact://<artifact-id> regels 100-140
+```
+
+Nieuwe artefacten worden opgeslagen onder:
+
+```text
+~/.uag/artifacts/
+```
+
+De actieve context wordt begrensd door `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` en `UAGENT_TOOL_RESULT_MAX_CHARS`. Binaire payloads zoals afbeeldingen, audio en ingebedde Base64-gegevens worden niet opgenomen in de permanente geschiedenis, terwijl de gebruikersinterface en externe clients hun bijlagen in het geheugen kunnen blijven ontvangen.
+
+Bestaande verouderde Artifact-paden blijven leesbaar omwille van de compatibiliteit. Zie [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) voor opslaggrenzen, persistentiegedrag en de huidige implementatiestatus.
+
+[Contextcompressie en begrensde modelcontext](CONTEXT_COMPRESSION.nl.md)
+
+#### 🌍 Meertalige vertaling
+
+- `translate_text` ondersteunt Google Translate en de officiële DeepL Python-client via `provider=auto`, `provider=deepl` of `provider=google`.
+- Tooldefinities zijn beschikbaar in 37 locales plus het Engels (38 in totaal), waarbij plaatshouders en technische identificatiecodes behouden blijven.
+
+Zie [Omgevingsvariabelen](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Vertaalmethodologie](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) en [de documentatie over `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
+
+#### 🎙 Realtime spraak
+
+Full-duplex-spraak is beschikbaar via OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+en Bedrock Nova Sonic, met optionele AEC3-echocancellatie en veiligheidsbeperkte realtime functieaanroepen.
+
+#### 🌍 Privé, meertalig en beleidsbewust
+
+Gebruik uag in het Japans, Engels, Chinees, Koreaans, Spaans, Frans, Russisch en meer. Inloggegevens kunnen
+worden opgeslagen in de native sleutelhangertoepassing van het besturingssysteem of in een versleutelde bestandsbackend. Enterprisebeleid kan tools,
+providers, netwerken, inloggegevens, plugins, skills en MCP-servers beheren.
+
+Zie [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) en
+[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+- [Notities over het MXC-sandboxplatform](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [MXC-standaardinstellingen voor Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
+
+### Platforminstellingen
 
 Het core-pakket is platformonafhankelijk. Platformspecificieke afhankelijkheden moeten selectief worden geïnstalleerd.
 
-### Windows
+#### Windows
 
 ```powershell
 python -m pip install PySide6 winrt-Windows.Devices.Geolocation
 ```
 
-### macOS
+#### macOS
 
 ```bash
 python -m pip install PySide6 pyobjc-framework-CoreLocation
 ```
 
-### Linux
+#### Linux
 
 ```bash
 python -m pip install PySide6 ewmh dbus-next
@@ -348,7 +344,35 @@ python -m pip install PySide6 ewmh dbus-next
 Sommige integraties hebben aanvullende systeemvereisten, zoals browserbinaries, Bluetooth-machtigingen,
 cloudreferenties of een MQTT/OPC UA-server. De betreffende tool meldt wat er ontbreekt wanneer deze wordt uitgevoerd.
 
-## Sessies, automatisering en veiligheid
+### Extensies
+
+#### Agent Skills en plugins
+
+Installeer communityskills van SkillsMP of ClawHub, of installeer Claude Code-compatibele plugins met
+skills, agents, MCP-servers, hooks, commando's en uitvoerstijlen.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Zie [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) en [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+#### Een tool maken
+
+Een tool kan één Python-bestand zijn met `TOOL_SPEC` en `run_tool()`. Plaats het in
+`UAGENT_EXTERNAL_TOOLS_DIR` en laad de catalogus opnieuw. Rust-ontwikkelaars kunnen een vooraf gebouwde native module leveren
+met een dunne Python-wrapper.
+
+Zie [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+#### MCP-servers
+
+Maak verbinding met externe MCP-servers vanuit de CLI of het configuratiebestand. Richtlijnen voor OAuth en proxy's zijn beschikbaar
+in [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Gebouwd voor echte workflows
 
 ### Sessiebehoud
 
@@ -362,10 +386,8 @@ Session Store-instellingen:
 ```text
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
 UAGENT_SESSION_STORE_PATH=
 UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
 UAGENT_MEMORY_DB=
 ```
 
@@ -403,35 +425,7 @@ Gebruik de credential store in plaats van langdurig geldige geheimen in prompts 
 De store kan Windows Credential Manager, macOS Keychain, Linux Secret Service of de versleutelde bestandsbackend gebruiken.
 Zie [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) voor configuratiedetails.
 
-## Extensies
-
-### Agent Skills en plugins
-
-Installeer communityskills van SkillsMP of ClawHub, of installeer Claude Code-compatibele plugins met
-skills, agents, MCP-servers, hooks, commando's en uitvoerstijlen.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Zie [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) en [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-### Een tool maken
-
-Een tool kan één Python-bestand zijn met `TOOL_SPEC` en `run_tool()`. Plaats het in
-`UAGENT_EXTERNAL_TOOLS_DIR` en laad de catalogus opnieuw. Rust-ontwikkelaars kunnen een vooraf gebouwde native module leveren
-met een dunne Python-wrapper.
-
-Zie [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### MCP-servers
-
-Maak verbinding met externe MCP-servers vanuit de CLI of het configuratiebestand. Richtlijnen voor OAuth en proxy's zijn beschikbaar
-in [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
-
-## Realtime spraak
+### Realtime spraak
 
 Optionele realtime-spraakintegraties ondersteunen OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live en Amazon Bedrock Nova Sonic. Installeer de relevante audioafhankelijkheden en voer uit:
@@ -448,7 +442,7 @@ export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Configuratie en documentatie
+## Documentatie
 
 | Topic | Documentation |
 |---|---|
@@ -464,7 +458,7 @@ python scheck.py realtime
 | Developer guide | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Tool flow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Ontwikkeling
+## Ontwikkeling en bijdragen
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -482,7 +476,7 @@ python -m pytest -q .
 
 Zie voor de volledige ontwikkelworkflow [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
-## Projectprincipes
+### Projectprincipes
 
 - **Local-first** — de runtime is van jou.
 - **Providerneutraal** — modellen zijn vervangbare infrastructuur.
@@ -490,7 +484,7 @@ Zie voor de volledige ontwikkelworkflow [DEVELOP.md](https://github.com/awaku7/a
 - **Standaard veilig** — gevoelige bewerkingen blijven zichtbaar en beheersbaar.
 - **Open voor bijdragen** — code, tools, skills, vertalingen en documentatie zijn welkom.
 
-## Bijdragen
+### Bijdragen
 
 Bugmeldingen, ideeën voor functies, verbeteringen van documentatie, vertalingen, tools, skills en pull requests zijn welkom.
 Open vóór grote wijzigingen een issue of discussion. Lees de [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
