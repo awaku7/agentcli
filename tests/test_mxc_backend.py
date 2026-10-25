@@ -41,7 +41,7 @@ def test_mxc_host_paths_ignore_project_dotenv_values(monkeypatch, tmp_path):
     project.mkdir()
     project_node = project / "node.exe"
     project_runtime = project / "mxc-runtime"
-    monkeypatch.setenv("LOCALAPPDATA", str(local_app_data))
+    monkeypatch.setattr(mxc_backend, "_local_app_data", lambda: local_app_data)
     monkeypatch.setenv("UAGENT_MXC_NODE", str(project_node))
     monkeypatch.setenv("UAGENT_MXC_RUNTIME_DIR", str(project_runtime))
     monkeypatch.setattr(runtime_init, "get_startup_uagent_env_snapshot", lambda: {})
@@ -89,6 +89,7 @@ def test_prepare_mxc_runtime_rejects_project_as_helper_root(monkeypatch, tmp_pat
 
 
 def test_node_version_uses_only_the_node_and_system_directories(monkeypatch, tmp_path):
+    monkeypatch.setattr(mxc_backend.sys, "platform", "win32")
     node = tmp_path / "toolchain" / "node.exe"
     system_root = tmp_path / "windows"
     project_path = tmp_path / "project-bin"
