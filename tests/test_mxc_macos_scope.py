@@ -82,9 +82,7 @@ def test_macos_pid_reuse_cannot_inherit_previous_cpu_identity():
 
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
     """A detached parent can fork between two ps snapshots during cleanup."""
-    scope = mxc_macos_scope.MacosProcessGroup.__new__(
-        mxc_macos_scope.MacosProcessGroup
-    )
+    scope = mxc_macos_scope.MacosProcessGroup.__new__(mxc_macos_scope.MacosProcessGroup)
     scope.process = SimpleNamespace(pid=100)
     scope.pgid = 100
     scope._known = {100: "root", 101: "parent"}
@@ -109,7 +107,9 @@ def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch
         lambda: next(observations, {100: root}),
     )
     killed = []
-    monkeypatch.setattr(mxc_macos_scope.os, "kill", lambda pid, _sig: killed.append(pid))
+    monkeypatch.setattr(
+        mxc_macos_scope.os, "kill", lambda pid, _sig: killed.append(pid)
+    )
     monkeypatch.setattr(mxc_macos_scope.time, "sleep", lambda _seconds: None)
     scope.reap_since(frozenset({(100, "root")}))
     assert 101 in killed
@@ -117,12 +117,9 @@ def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch
     assert scope._known[102] == "child"
 
 
-
 def test_macos_watchdog_cannot_overwrite_newer_reap_identity(monkeypatch):
     """The watcher may observe a stale PID before a replacement exists."""
-    scope = mxc_macos_scope.MacosProcessGroup.__new__(
-        mxc_macos_scope.MacosProcessGroup
-    )
+    scope = mxc_macos_scope.MacosProcessGroup.__new__(mxc_macos_scope.MacosProcessGroup)
     scope.process = SimpleNamespace(pid=100)
     scope.pgid = 100
     scope._known = {100: "root", 101: "old"}
@@ -142,9 +139,7 @@ def test_macos_watchdog_cannot_overwrite_newer_reap_identity(monkeypatch):
             assert allow_old_ps.wait(timeout=5)
             return {100: root, 101: old}
         observations[0] += 1
-        return {100: root, 101: replacement} if observations[0] == 1 else {
-            100: root
-        }
+        return {100: root, 101: replacement} if observations[0] == 1 else {100: root}
 
     monkeypatch.setattr(mxc_macos_scope, "_process_table", fake_ps)
     monkeypatch.setattr(
