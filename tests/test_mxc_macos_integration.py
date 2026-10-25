@@ -201,3 +201,47 @@ def test_macos_seatbelt_cli_gui_web_and_remote_a2a(backend, tmp_path):
         scope_id="mac-a2a-task",
     )
     _assert_full_scope(backend, a2a, tmp_path)
+
+
+def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
+    backend, tmp_path
+):
+    """A new process group must not let a Python descendant escape SDK reaping."""
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id="mac-detached-test",
+    )
+    backend.activate_scope(scope)
+    try:
+        child_script = (
+            "import pathlib,time\n"
+            "p=pathlib.Path('detached-child.txt')\n"
+            "for i in range(40):\n"
+            "    p.write_text(str(i))\n"
+            "    time.sleep(0.05)\n"
+        )
+        code = (
+            "import pathlib,subprocess,sys,time\n"
+            "subprocess.Popen([sys.executable, '-c', "
+            f"{child_script!r}], start_new_session=True)\n"
+            "for _ in range(100):\n"
+            "    p=pathlib.Path('detached-child.txt')\n"
+            "    if p.is_file() and p.read_text().strip().isdigit():\n"
+            "        break\n"
+            "    time.sleep(0.02)\n"
+            "else:\n"
+            "    raise RuntimeError('detached child did not execute')\n"
+            "print('DETACHED_CHILD_READY')\n"
+        )
+        result = json.loads(backend.run_tool(scope, "python_exec", {"code": code}))
+        assert result["returncode"] == 0, result
+        assert "DETACHED_CHILD_READY" in result["stdout"], result
+        first = backend.run_tool(scope, "read_file", {"path": "detached-child.txt"})
+        assert first.strip().isdigit(), first
+        time.sleep(0.35)
+        second = backend.run_tool(scope, "read_file", {"path": "detached-child.txt"})
+        assert second.strip().isdigit(), second
+        assert first == second, f"detached Python child survived MXC wait: {first} -> {second}"
+    finally:
+        backend.close_scope(scope)
