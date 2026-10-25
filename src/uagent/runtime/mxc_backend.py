@@ -1240,7 +1240,11 @@ class MxcSessionManager:
         self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._active_a2a_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
-        if os.name == "nt" or sys.platform.startswith("linux") or sys.platform == "darwin":
+        if (
+            os.name == "nt"
+            or sys.platform.startswith("linux")
+            or sys.platform == "darwin"
+        ):
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
         atexit.register(self.close_all)
 
