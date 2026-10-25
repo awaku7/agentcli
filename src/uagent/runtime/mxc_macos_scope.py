@@ -181,6 +181,45 @@ class MacosProcessGroup:
             _process_table(),
         )
 
+    def snapshot(self) -> frozenset[tuple[int, str]]:
+        """Snapshot pre-existing persistent worker PIDs before one-shot tools."""
+        self._inspect()
+        table = _process_table()
+        return frozenset(
+            (pid, row.started)
+            for pid, row in table.items()
+            if self._known.get(pid) == row.started
+        )
+
+    def reap_since(self, baseline: frozenset[tuple[int, str]]) -> None:
+        """Reap observed ephemeral tool descendants, including setsid children.
+
+        The persistent worker was present in baseline and must stay alive.
+        Any uncertain child state is an error: callers terminate the session
+        and retain its workspace lease rather than returning success.
+        """
+        for attempt in range(12):
+            self._inspect()
+            table = _process_table()
+            fresh = [
+                row
+                for pid, row in table.items()
+                if self._known.get(pid) == row.started
+                and (pid, row.started) not in baseline
+                and "Z" not in row.state
+            ]
+            if not fresh:
+                return
+            for row in fresh:
+                try:
+                    os.kill(row.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            time.sleep(0.08)
+        raise RuntimeError(
+            "macOS MXC detached tool subprocess cleanup could not be verified"
+        )
+
     def _terminate_observed(self) -> None:
         # Use the process start identity to avoid killing a reused PID.
         table = _process_table()
