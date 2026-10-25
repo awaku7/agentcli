@@ -9,6 +9,7 @@ cleanup must never release a workspace lease.
 from __future__ import annotations
 
 import os
+import selectors
 import signal
 import subprocess
 import threading
@@ -198,6 +199,54 @@ class MacosProcessGroup:
         """
         with self._tracking_lock:
             return self.process.poll()
+
+    def communicate_bounded(
+        self, *, timeout: float, output_limit: int = 2 * 1024 * 1024
+    ) -> tuple[bytes, bytes]:
+        """Drain probe pipes without holding the tracking lock.
+
+        subprocess.Popen.communicate() can call wait() internally and reap the
+        helper outside the watchdog's lock. Read stdout/stderr via selectors,
+        then poll/reap only under _tracking_lock, without ever blocking that
+        lock while waiting for data or process exit.
+        """
+        deadline = time.monotonic() + timeout
+        streams = (self.process.stdout, self.process.stderr)
+        buffers = [bytearray(), bytearray()]
+        if self.process.stdin is not None:
+            try:
+                self.process.stdin.close()
+            except BrokenPipeError:
+                pass
+
+        with selectors.DefaultSelector() as selector:
+            for index, stream in enumerate(streams):
+                if stream is not None:
+                    selector.register(stream, selectors.EVENT_READ, index)
+            while selector.get_map():
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(self.process.args, timeout)
+                for key, _events in selector.select(timeout=min(remaining, 0.25)):
+                    data = os.read(key.fd, 65536)
+                    if not data:
+                        selector.unregister(key.fileobj)
+                        key.fileobj.close()
+                        continue
+                    destination = buffers[key.data]
+                    if len(destination) + len(data) > output_limit:
+                        raise RuntimeError("macOS MXC probe output exceeded its bound")
+                    destination.extend(data)
+
+        while True:
+            with self._tracking_lock:
+                # poll() is nonblocking. Watchdog identity verification and
+                # killpg() cannot interleave with this Popen reaping operation.
+                if self.process.poll() is not None:
+                    return bytes(buffers[0]), bytes(buffers[1])
+            if time.monotonic() >= deadline:
+                raise subprocess.TimeoutExpired(self.process.args, timeout)
+            time.sleep(0.01)
 
     def snapshot(self) -> frozenset[tuple[int, str]]:
         """Snapshot pre-existing persistent worker PIDs before one-shot tools."""
