@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.7.34] - 2026-10-25
+
+### Changed
+
+- Expand MXC sandbox and Remote Web/A2A policy documentation, and link these guides from the English and localized READMEs.
+- Align localized README chapter structure and headings with the English README.
+
+### Fixed
+
+- Harden Linux MXC Bubblewrap startup and cgroup-v2 resource checks: remove incompatible systemd scope options, improve probe diagnostics, validate the single-CPU quota, and monitor aggregate CPU usage through `cpu.stat`.
+- Configure Ubuntu CI to grant Bubblewrap user-namespace access through AppArmor without disabling the host-wide restriction.
+- Make MXC path tests portable to Linux.
+
 ## [0.7.33] - 2026-10-25
 
 ### Added

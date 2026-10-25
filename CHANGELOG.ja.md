@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.7.34] - 2026-10-25
+
+### 変更
+
+- MXCサンドボックスとRemote Web／A2Aのポリシー文書を拡充し、英語版・各国語版READMEから参照できるようにした。
+- 各国語READMEの章立てと見出しを英語版READMEに合わせた。
+
+### 修正
+
+- Linux MXC Bubblewrapの起動とcgroup v2のリソース検証を強化。systemd scopeで非対応のオプションを削除し、probeの診断情報を改善。単一CPU相当のquotaを検証し、`cpu.stat`から集計CPU使用量を監視するよう変更。
+- ホスト全体の制限を無効化せず、AppArmorでBubblewrapのuser namespace利用を許可するようUbuntu CIを設定。
+- MXCのパス関連テストをLinuxでも実行できるよう修正。
+
 ## [0.7.33] - 2026-10-25
 
 ### 追加
