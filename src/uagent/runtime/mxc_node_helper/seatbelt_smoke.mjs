@@ -103,7 +103,7 @@ async function reachableFromHost(port) {
 
 async function main() {
   assert.equal(process.platform, "darwin", "macOS is required");
-  assert.ok(["arm64", "x64"].includes(process.arch), "64-bit macOS is required");
+  assert.equal(process.arch, "arm64", "Apple Silicon (arm64) is required for Seatbelt smoke");
   const support = getPlatformSupport();
   assert.equal(support.isSupported, true, "MXC must support this host");
   assert.ok(support.availableMethods?.includes("seatbelt"), "MXC Seatbelt is unavailable");
