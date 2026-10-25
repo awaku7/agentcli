@@ -262,9 +262,9 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
             if not child_running(child_pid):
                 break
             time.sleep(0.05)
-        assert not child_running(child_pid), (
-            f"MXC did not terminate its detached child PID {child_pid}"
-        )
+        assert not child_running(
+            child_pid
+        ), f"MXC did not terminate its detached child PID {child_pid}"
         first = backend.run_tool(scope, "read_file", {"path": "detached-child.txt"})
         assert first.strip().isdigit(), first
         time.sleep(0.35)
