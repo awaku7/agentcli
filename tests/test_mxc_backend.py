@@ -201,9 +201,7 @@ def test_macos_apple_silicon_host_node_lookup_is_not_from_project_dotenv(
     monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
     monkeypatch.setattr(mxc_backend.os, "name", "posix")
     monkeypatch.setattr(mxc_backend, "_local_app_data", lambda: tmp_path)
-    monkeypatch.setattr(
-        runtime_init, "get_startup_uagent_env_snapshot", lambda: {}
-    )
+    monkeypatch.setattr(runtime_init, "get_startup_uagent_env_snapshot", lambda: {})
     monkeypatch.setenv("UAGENT_MXC_NODE", str(tmp_path / "untrusted-node"))
     candidates = mxc_backend._node_candidates()
     assert tmp_path / "untrusted-node" not in candidates
