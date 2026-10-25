@@ -525,7 +525,14 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             proc.stdin.write('{"probe":true}' + chr(10))
         proc.stdin.flush()
         try:
-            stdout, stderr = proc.communicate(timeout=PROBE_TIMEOUT_SECONDS)
+            if mac_scope is not None:
+                # Popen.communicate() may reap the helper outside the macOS
+                # watchdog lock. Drain pipes independently; lock only poll.
+                stdout, stderr = mac_scope.communicate_bounded(
+                    timeout=PROBE_TIMEOUT_SECONDS
+                )
+            else:
+                stdout, stderr = proc.communicate(timeout=PROBE_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired as exc:
             if linux_scope is not None:
                 linux_scope.close()
