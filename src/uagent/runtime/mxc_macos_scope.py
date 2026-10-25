@@ -196,8 +196,18 @@ class MacosProcessGroup:
         and retain its workspace lease rather than returning success.
         """
         for attempt in range(12):
-            self._inspect()
+            # Discover and register descendants from the EXACT snapshot being
+            # used for cleanup. Taking another process-table snapshot after
+            # _inspect() can lose a newly forked child when its detached
+            # parent is killed and the child becomes reparented.
             table = _process_table()
+            _summarize(
+                self.process.pid,
+                self.pgid,
+                self._known,
+                self._cpu_ledger,
+                table,
+            )
             fresh = [
                 row
                 for pid, row in table.items()
