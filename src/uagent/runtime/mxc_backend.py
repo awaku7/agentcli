@@ -445,6 +445,7 @@ def _assign_job_object(proc: subprocess.Popen[bytes]):
 def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     helper = runtime / "mxc_adapter.mjs"
     linux_scope = None
+    mac_scope = None
     if sys.platform.startswith("linux"):
         from .mxc_linux_scope import LinuxSystemdScope
 
@@ -463,6 +464,23 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             unit_prefix="uagent-mxc-probe",
         )
         proc = linux_scope.process
+    elif sys.platform == "darwin":
+        from .mxc_macos_scope import MacosProcessGroup
+
+        temp = runtime / ".tmp"
+        temp.mkdir(parents=True, exist_ok=True, mode=0o700)
+        env = {
+            "PATH": os.pathsep.join(
+                (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+            ),
+            "HOME": str(_trusted_home()),
+            "TMPDIR": str(temp),
+            "LANG": "C",
+        }
+        mac_scope = MacosProcessGroup.launch(
+            [str(node), str(helper), "probe"], cwd=runtime, env=env
+        )
+        proc = mac_scope.process
     else:
         system_root = os.environ.get("SystemRoot", "C:/Windows")
         safe_path = os.pathsep.join(
@@ -492,7 +510,7 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
         )
     job_api = None
     job = None
-    if linux_scope is None:
+    if linux_scope is None and mac_scope is None:
         try:
             job_api, job = _assign_job_object(proc)
         except Exception:
@@ -501,7 +519,7 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             raise
     try:
         assert proc.stdin is not None
-        if linux_scope is not None:
+        if linux_scope is not None or mac_scope is not None:
             proc.stdin.write(b'{"probe":true}' + bytes([10]))
         else:
             proc.stdin.write('{"probe":true}' + chr(10))
@@ -511,6 +529,8 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
         except subprocess.TimeoutExpired as exc:
             if linux_scope is not None:
                 linux_scope.close()
+            elif mac_scope is not None:
+                mac_scope.close()
             elif job is not None:
                 job_api.CloseHandle(job)
                 job = None
@@ -525,6 +545,8 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     finally:
         if linux_scope is not None:
             linux_scope.close()
+        elif mac_scope is not None:
+            mac_scope.close()
         else:
             if job is not None:
                 job_api.CloseHandle(job)
@@ -860,6 +882,7 @@ class _MxcSession:
         resume_workspace: bool = False,
     ) -> None:
         self._linux_scope = None
+        self._mac_scope = None
         if os.name == "nt":
             try:
                 import win32api
@@ -873,6 +896,12 @@ class _MxcSession:
         elif sys.platform.startswith("linux") and platform.machine().lower() in {
             "amd64",
             "x86_64",
+        }:
+            self._win32api = None
+            self._win32job = None
+        elif sys.platform == "darwin" and platform.machine().lower() in {
+            "arm64",
+            "aarch64",
         }:
             self._win32api = None
             self._win32job = None
@@ -950,7 +979,10 @@ class _MxcSession:
                 self._workspace_lease = None
                 raise
         else:
-            from .mxc_linux_scope import LinuxSystemdScope
+            if sys.platform.startswith("linux"):
+                from .mxc_linux_scope import LinuxSystemdScope
+            else:
+                from .mxc_macos_scope import MacosProcessGroup
 
             helper_tmp = runtime / ".tmp"
             helper_tmp.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -962,14 +994,26 @@ class _MxcSession:
                 "TMPDIR": str(helper_tmp),
                 "LANG": "C.UTF-8",
             }
-            try:
-                self._linux_scope = LinuxSystemdScope.launch(
-                    [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
-                    cwd=runtime,
-                    env=helper_env,
-                    unit=f"uagent-mxc-{_scope_key(scope)}.scope",
+            if sys.platform == "darwin":
+                helper_env["PATH"] = os.pathsep.join(
+                    (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
                 )
-                self._proc = self._linux_scope.process
+            try:
+                if sys.platform.startswith("linux"):
+                    self._linux_scope = LinuxSystemdScope.launch(
+                        [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                        cwd=runtime,
+                        env=helper_env,
+                        unit=f"uagent-mxc-{_scope_key(scope)}.scope",
+                    )
+                    self._proc = self._linux_scope.process
+                else:
+                    self._mac_scope = MacosProcessGroup.launch(
+                        [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                        cwd=runtime,
+                        env=helper_env,
+                    )
+                    self._proc = self._mac_scope.process
                 self._job = None
             except Exception as exc:
                 unreaped_scope = getattr(exc, "scope", None)
@@ -1074,6 +1118,10 @@ class _MxcSession:
             ) from exc
         if raw is None:
             stderr = self._stderr.decode("utf-8", errors="replace")
+            if self._mac_scope is not None and self._mac_scope.error:
+                raise RuntimeError(
+                    f"macOS MXC process-group watchdog failed closed: {self._mac_scope.error}"
+                )
             if self._linux_scope is not None and self._linux_scope.cpu_exceeded:
                 raise RuntimeError(
                     "Linux MXC aggregate CPU budget exceeded; the cgroup was stopped"
@@ -1132,9 +1180,12 @@ class _MxcSession:
             except OSError:
                 pass
             cleanup_verified = True
-            if self._linux_scope is not None:
+            if self._linux_scope is not None or self._mac_scope is not None:
                 try:
-                    self._linux_scope.close()
+                    if self._linux_scope is not None:
+                        self._linux_scope.close()
+                    else:
+                        self._mac_scope.close()
                 except Exception:
                     # Keep the scope object and workspace lease alive. Releasing
                     # either after an unverified cgroup stop could let a live
@@ -1189,7 +1240,7 @@ class MxcSessionManager:
         self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._active_a2a_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
-        if os.name == "nt" or sys.platform.startswith("linux"):
+        if os.name == "nt" or sys.platform.startswith("linux") or sys.platform == "darwin":
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
         atexit.register(self.close_all)
 
