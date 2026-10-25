@@ -109,10 +109,9 @@ def _summarize(
         changed = len(active) != size
     for pid in active:
         row = table[pid]
-        previous = known.get(pid)
-        if previous is not None and previous != row.started:
-            # A recycled PID is not evidence that the old process survived.
-            continue
+        # Group membership or a verified parent proves that this current
+        # process belongs to the sandbox even when the numeric PID was reused.
+        # Keep the old (PID, start time) CPU ledger entry independently.
         known[pid] = row.started
         key = (pid, row.started)
         cpu_ledger[key] = max(cpu_ledger.get(key, 0.0), row.cpu_seconds)
