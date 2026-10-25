@@ -7,6 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import net from "node:net";
+import { spawnSync } from "node:child_process";
 
 const TIMEOUT_MS = 10_000;
 const MAX_OUTPUT_BYTES = 64 * 1024;
@@ -65,6 +66,15 @@ async function runContained(command, workspace, deniedPaths = []) {
   }
 }
 
+function assertNormallyExited(probe, description) {
+  assert.ok(probe && probe.result, description + ": MXC returned no terminal result");
+  assert.notEqual(probe.result.timedOut, true, description + ": process timed out");
+  assert.ok(
+    Number.isInteger(probe.result.exitCode) && probe.result.exitCode >= 0,
+    description + ": process did not complete with a normal exit code",
+  );
+}
+
 async function localServer() {
   const server = net.createServer((socket) => {
     // The host reachability probe intentionally disconnects immediately.
@@ -111,29 +121,48 @@ async function main() {
       workspace,
       [canary],
     );
+    assertNormallyExited(allowed, "workspace read/write");
     assert.equal(allowed.result.exitCode, 0, "workspace write/read must succeed");
     assert.equal(allowed.stdout.trim(), "seatbelt-ok");
     assert.equal(fs.readFileSync(path.join(workspace, "output.txt"), "utf8"), "seatbelt-ok");
     console.log("PASS: scoped workspace file read/write");
 
     const denied = await runContained(
-      "/bin/sh -c " + shellQuote("/bin/cat " + shellQuote(canary)),
+      "/bin/sh -c " + shellQuote("printf canary-probe-start; /bin/cat " + shellQuote(canary)),
       workspace,
       [canary],
     );
+    assertNormallyExited(denied, "denied host canary");
     assert.notEqual(denied.result.exitCode, 0, "host-only canary must be inaccessible");
+    assert.ok(denied.stdout.includes("canary-probe-start"), "canary probe did not start");
     assert.ok(!denied.stdout.includes(secret), "canary content leaked");
+    assert.match(
+      denied.stderr,
+      /operation not permitted|permission denied/i,
+      "canary probe did not report a filesystem access denial",
+    );
     console.log("PASS: host-only canary read denied");
 
     server = await localServer();
     const address = server.address();
     assert.ok(address && typeof address !== "string");
     await reachableFromHost(address.port);
+    // The exact nc binary/arguments must work without the sandbox, so missing
+    // tools and invalid flags cannot masquerade as a denied connection.
+    const hostNc = spawnSync(
+      "/usr/bin/nc", ["-z", "-w", "2", "127.0.0.1", String(address.port)],
+      { encoding: "utf8", timeout: 3000 },
+    );
+    assert.ifError(hostNc.error);
+    assert.equal(hostNc.signal, null, "host nc was terminated");
+    assert.equal(hostNc.status, 0, "host nc must reach the listener: " + hostNc.stderr);
     const networking = await runContained(
-      "/bin/sh -c " + shellQuote("/usr/bin/nc -z -w 2 127.0.0.1 " + address.port),
+      "/bin/sh -c " + shellQuote("printf network-probe-start; /usr/bin/nc -z -w 2 127.0.0.1 " + address.port),
       workspace,
       [canary],
     );
+    assertNormallyExited(networking, "denied host loopback");
+    assert.ok(networking.stdout.includes("network-probe-start"), "network probe did not start");
     assert.notEqual(networking.result.exitCode, 0, "sandbox must deny host loopback");
     console.log("PASS: loopback connection denied with reachable host listener");
     console.log("MXC macOS Seatbelt host smoke passed for " + process.arch);
