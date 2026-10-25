@@ -1110,7 +1110,12 @@ class _MxcSession:
                     self._stderr.extend(chunk[:remaining])
 
     def _write_line(self, value: dict[str, Any]) -> None:
-        if self._closed or self._proc.poll() is not None or self._proc.stdin is None:
+        stopped = (
+            self._mac_scope.poll() is not None
+            if self._mac_scope is not None
+            else self._proc.poll() is not None
+        )
+        if self._closed or stopped or self._proc.stdin is None:
             raise RuntimeError("MXC session process is not running")
         payload = (
             json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -1233,7 +1238,11 @@ class _MxcSession:
             preserve_workspace = bool(
                 cleanup_verified
                 and preserve_workspace
-                and self._proc.poll() is not None
+                and (
+                    self._mac_scope.poll() is not None
+                    if self._mac_scope is not None
+                    else self._proc.poll() is not None
+                )
             )
             self._workspace_preserved = preserve_workspace
             if cleanup_verified:
@@ -1284,7 +1293,13 @@ class MxcSessionManager:
     def _prune_inactive_sessions(self) -> None:
         """Release exited workers, parking live Web Room workspaces for reuse."""
         for key, session in list(self._sessions.items()):
-            if session._closed or session._proc.poll() is not None:
+            mac_scope = getattr(session, "_mac_scope", None)
+            exited = (
+                mac_scope.poll() is not None
+                if mac_scope is not None
+                else session._proc.poll() is not None
+            )
+            if session._closed or exited:
                 self._sessions.pop(key, None)
                 self._session_last_used.pop(key, None)
                 scope = getattr(session, "_scope", None)
