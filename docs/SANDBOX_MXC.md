@@ -27,13 +27,14 @@ for the current decision and explicit limits.
 - `uag --sandbox auto`, `uagg --sandbox auto`, and explicit trusted local Web
   `--sandbox auto` also use an already-installed supported backend. The
   `--sandbox mxc` option on CLI/GUI or trusted local Web opts into the native
-  MXC backend for the supported host (Windows ProcessContainer or Linux
-  Bubblewrap). On first interactive local use, UAG asks before
+  MXC backend for the supported host (Windows ProcessContainer, Linux
+  Bubblewrap or macOS Apple Silicon Seatbelt). On first interactive local use,
+  UAG asks before
   installing the pinned SDK in the current user's profile (about 105 MB). Web
   startup refuses to install in non-interactive mode. Installation uses the Node
   runtime already available to the user and does not request elevation. If
-  Node.js 24.21+ x64 or 26.8+ x64 is unavailable, startup stops; UAG does not
-  install Node at machine scope.
+  a supported Node.js 24.21+ or 26.8+ runtime is unavailable, startup
+  stops; UAG does not install Node at machine scope.
 - `--sandbox off` on Remote Web does not enable Host tools. `--no-use-tool` /
   `UAGENT_USE_TOOL=off` is the explicit tool-less mode for A2A and avoids MXC
   initialization.
@@ -235,8 +236,9 @@ scope and closes it at task completion. The MXC manager caps active sessions.
 Sandbox mode also blocks Host plugin imports, Host hooks, tool-genre changes,
 general Web commands, and non-allowlisted tools.
 
-Remote Web and tool-enabled A2A now use ProcessContainer by default. This is a
-process/container boundary, **not** VM isolation and not a claim of completed
+Remote Web and tool-enabled A2A now use the same supported MXC backend as
+local opt-in sessions (Windows ProcessContainer, Linux Bubblewrap, or macOS
+ARM64 Seatbelt). This is a process/container boundary, **not** VM isolation and not a claim of completed
 Enterprise E0 acceptance. The high-assurance VM tier remains deferred; setting
 `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` requires a future VM-capable backend and
 fails closed with the current ProcessContainer. The recorded Windows 11 Home
