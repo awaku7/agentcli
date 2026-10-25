@@ -270,7 +270,9 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
         time.sleep(0.35)
         second = backend.run_tool(scope, "read_file", {"path": "detached-child.txt"})
         assert second.strip().isdigit(), second
-        assert first == second, f"detached Python child survived MXC wait: {first} -> {second}"
+        assert (
+            first == second
+        ), f"detached Python child survived MXC wait: {first} -> {second}"
     finally:
         if child_pid is not None and child_running(child_pid):
             os.kill(child_pid, signal.SIGKILL)
