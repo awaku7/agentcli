@@ -28,6 +28,8 @@
 
 | 2026-10-25 | Real-host check after exact permission-denial fix | [Latest run `40184164368`](https://github.com/awaku7/agentcli/actions/runs/40184164368) on `369be001`: macOS 15 ARM64 **success** using verbose host and contained `nc`, with an explicit `connect/connectx` denial diagnostic. macOS 15 Intel **failure** due to the unchanged missing pinned MXC native `libmxc_ffi.dylib` before Seatbelt launches. Both outcomes observed in completed job results, not inferred from static code. | Reply on Codex P2 review thread, request a fresh review, and keep the PR draft with Intel unsupported. |
 
+| 2026-10-25 | Codex independent follow-up complete | Codex review of `e890a856` **completed with no findings**, and both P2 inline threads (negative-probe timeout and network errno proof) were resolved after successful ARM64 CI. [Review summary](https://github.com/awaku7/agentcli/pull/277#issuecomment-6395994673). | Keep PR Draft and Intel Seatbelt CI red until pinned x64 FFI is available or a separate accepted scope change is agreed. Do not infer two-architecture acceptance. |
+
 ## Required gates before any production UAG macOS sandbox implementation
 
 1. Both architecture jobs must execute the real Seatbelt subprocess and pass all assertions; successful installation or syntax check alone is insufficient.
