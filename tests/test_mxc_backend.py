@@ -1419,9 +1419,7 @@ def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_pa
     assert not workspace.exists()
 
 
-def test_macos_scavenger_preserves_unverified_crash_workspaces(
-    monkeypatch, tmp_path
-):
+def test_macos_scavenger_preserves_unverified_crash_workspaces(monkeypatch, tmp_path):
     """macOS cannot infer process-tree termination from an unlocked lease."""
     monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
     root = tmp_path / "sandboxes"
