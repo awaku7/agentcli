@@ -1,0 +1,38 @@
+name: macOS MXC Seatbelt smoke
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/mxc-seatbelt-macos.yml"
+      - "src/uagent/runtime/mxc_node_helper/seatbelt_smoke.mjs"
+      - "src/uagent/runtime/mxc_node_helper/package.json"
+      - "src/uagent/runtime/mxc_node_helper/package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  seatbelt-real-host:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.22.0"
+
+      - name: Install pinned MXC SDK without lifecycle scripts
+        run: npm ci --prefix src/uagent/runtime/mxc_node_helper --ignore-scripts --no-audit --no-fund
+
+      - name: Check Seatbelt smoke JavaScript syntax
+        run: node --check src/uagent/runtime/mxc_node_helper/seatbelt_smoke.mjs
+
+      - name: Execute real macOS Seatbelt smoke
+        run: node src/uagent/runtime/mxc_node_helper/seatbelt_smoke.mjs
