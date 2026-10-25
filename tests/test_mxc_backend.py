@@ -1373,7 +1373,10 @@ def test_cli_session_transition_releases_previous_worker(monkeypatch, tmp_path):
     assert set(manager._sessions) == {mxc_backend._scope_key(second)}
 
 
-def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
+def test_workspace_scavenger_removes_only_unleased_workspaces(monkeypatch, tmp_path):
+    # Exercise Linux/Windows reclamation independent of the CI host's OS.
+    # macOS deliberately keeps crash-orphan workspaces, even if leases unlock.
+    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
     key = "a" * 64
     root = tmp_path / "sandboxes"
     workspace = root / key
@@ -1394,6 +1397,7 @@ def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
 
 
 def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_path):
+    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
     key = "b" * 64
     root = tmp_path / "sandboxes"
     workspace = root / key
@@ -1413,6 +1417,26 @@ def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_pa
     assert mxc_backend._workspace_lease_path(root, key).exists()
     mxc_backend._scavenge_orphaned_workspaces(root)
     assert not workspace.exists()
+
+
+def test_macos_scavenger_preserves_unverified_crash_workspaces(
+    monkeypatch, tmp_path
+):
+    """macOS cannot infer process-tree termination from an unlocked lease."""
+    monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
+    root = tmp_path / "sandboxes"
+    key = "c" * 64
+    workspace = root / key
+    workspace.mkdir(parents=True)
+    secret = workspace / "secret.txt"
+    secret.write_text("not safe to delete", encoding="utf-8")
+    lease = mxc_backend._acquire_workspace_lease(root, key)
+    assert lease is not None
+    mxc_backend._release_workspace_lease(lease)
+
+    mxc_backend._scavenge_orphaned_workspaces(root)
+    assert secret.read_text(encoding="utf-8") == "not safe to delete"
+    assert mxc_backend._workspace_lease_path(root, key).exists()
 
 
 def test_python_prefix_cannot_contain_the_selected_work_directory(
