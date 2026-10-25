@@ -1146,10 +1146,20 @@ class _MxcSession:
         with self._lock:
             if self._revoked.is_set():
                 raise PermissionError("sandbox scope has been revoked")
+            mac_baseline = (
+                self._mac_scope.snapshot()
+                if self._mac_scope is not None and name == "python_exec"
+                else None
+            )
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
             response = self._read_response(timeout=60 if name == "python_exec" else 45)
+            if mac_baseline is not None:
+                # Native MXC process-group kill alone may miss setsid children.
+                # Fail closed if observed detached descendants cannot be reaped
+                # before the tool result is made visible to the caller.
+                self._mac_scope.reap_since(mac_baseline)
             if response.get("terminate"):
                 self.close()
                 error = response.get("error")
