@@ -174,13 +174,42 @@ def all_local_capabilities() -> SandboxCapabilities:
 def test_mxc_backend_rejects_unsupported_platform_without_node_lookup(monkeypatch):
     monkeypatch.setattr(mxc_backend.os, "name", "posix")
     monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
+    monkeypatch.setattr(mxc_backend.platform, "machine", lambda: "x86_64")
     monkeypatch.setattr(
         mxc_backend,
         "_find_node",
         lambda: (_ for _ in ()).throw(AssertionError("Node lookup must not run")),
     )
-    with pytest.raises(RuntimeError, match="Windows or Linux x86_64"):
+    with pytest.raises(RuntimeError, match="macOS Apple Silicon ARM64"):
         mxc_backend.prepare_mxc_runtime(allow_install=True)
+
+
+def test_macos_uses_trusted_user_application_support(monkeypatch, tmp_path):
+    monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
+    monkeypatch.setattr(mxc_backend.os, "name", "posix")
+    monkeypatch.setattr(mxc_backend, "_trusted_home", lambda: tmp_path)
+    assert mxc_backend._local_app_data() == (
+        tmp_path / "Library" / "Application Support"
+    )
+
+
+def test_macos_apple_silicon_host_node_lookup_is_not_from_project_dotenv(
+    monkeypatch, tmp_path
+):
+    from uagent.runtime import runtime_init
+
+    monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
+    monkeypatch.setattr(mxc_backend.os, "name", "posix")
+    monkeypatch.setattr(mxc_backend, "_local_app_data", lambda: tmp_path)
+    monkeypatch.setattr(
+        runtime_init, "get_startup_uagent_env_snapshot", lambda: {}
+    )
+    monkeypatch.setenv("UAGENT_MXC_NODE", str(tmp_path / "untrusted-node"))
+    candidates = mxc_backend._node_candidates()
+    assert tmp_path / "untrusted-node" not in candidates
+    assert (
+        tmp_path / "uagent" / "toolchains" / "node-v24.22.0" / "bin" / "node"
+    ) in candidates
 
 
 def test_remote_profile_defaults_to_container_and_can_require_vm(monkeypatch):
