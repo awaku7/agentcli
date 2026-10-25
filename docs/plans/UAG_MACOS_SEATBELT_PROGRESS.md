@@ -19,10 +19,12 @@
 | 2026-10-25 | ARM64 verified | In run [`40180599384`](https://github.com/awaku7/agentcli/actions/runs/40180599384), macOS 15 ARM64 **passed** the real Seatbelt SDK smoke: workspace read/write, host canary read denied, and live host-loopback listener denied. | Intel must pass independently before a two-architecture claim. |
 | 2026-10-25 | Intel native binary blocker | Same run, macOS 15 Intel **failed** before executing a Seatbelt subprocess: pinned `@microsoft/mxc-sdk@1.0.0` searched for `bin/x64/libmxc_ffi.dylib` and alternate x86_64-apple-darwin paths; none were present. This is a missing runtime binary in the installed pinned package, not evidence of a Seatbelt policy defect. | Investigate separately whether a trusted official x64 artifact exists, and validate any SDK bump in a dedicated review; **do not** copy binaries from the ARM64 package or relax the fail-closed gate. |
 | 2026-10-25 | Codex review P2 | [Finding](https://github.com/awaku7/agentcli/pull/277#discussion_r4370354642): denied canary and network probes accepted nonzero or null exit codes even when MXC timed out, making test success a false positive. | Assert normal terminal result and actual command execution, not just nonzero status. |
-| 2026-10-25 | Tighten negative probes | Commit `c75f55fd` rejects timed-out and non-integer-exit probes; requires both denied tests to emit a shell-start sentinel; requires canary stderr to report access denied, and proves `nc` reaches the same test listener outside the sandbox before asserting its sandbox failure. **CI acceptance pending**. | Verify macOS ARM64 still passes the stricter negative checks; Intel SDK native FFI is separately blocked. |
-
+| 2026-10-25 | Tighten negative probes | Commit `c75f55fd` rejects timed-out and non-integer-exit probes; requires both denied tests to emit a shell-start sentinel; requires canary stderr to report access denied, and proves `nc` reaches the same test listener outside the sandbox before asserting its sandbox failure. Passed macOS ARM64 in run `40183351203`. | Verify macOS ARM64 still passes the stricter negative checks; Intel SDK native FFI is separately blocked. |
 | 2026-10-25 | Stricter ARM64 verification | [Run `40183351203`](https://github.com/awaku7/agentcli/actions/runs/40183351203) passed the `macos-15` ARM64 Seatbelt job **with** normal-exit assertions, the shell-start sentinels, filesystem denial stderr, and a host-side `nc` positive control. | Ask Codex to independently re-review the P2 fix before resolving the thread. |
 | 2026-10-25 | Intel blocker reproduced | Same run `40183351203`: `macos-15-intel` failed again at MXC FFI load because `@microsoft/mxc-sdk@1.0.0` contains no discoverable Intel `libmxc_ffi.dylib` at expected paths. Real Seatbelt behavior remains **unverified** on Intel. | Leave the Intel job red and PR Draft until trusted official x64 runtime dependency is available; do not hide this in optional skips. |
+
+| 2026-10-25 | Codex re-review P2 | [Review finding](https://github.com/awaku7/agentcli/pull/277#discussion_r4370457627) on `87da3286`: network probe still accepted any ordinary nonzero exit even if `nc` could not run or the connection was refused; the host-side positive control alone did not establish permission denial inside Seatbelt. | Require the sandboxed `nc` stderr to identify a failed connect/connectx to the exact loopback listener with a permissions error. |
+| 2026-10-25 | Network denial evidence strengthened | Commit `b5efe436` uses verbose `nc` on both host positive control and contained probe, and asserts a platform-standard `connect/connectx to 127.0.0.1 port <same port> ... Operation not permitted/Permission denied` failure diagnostic. This fails closed if `nc` is missing, options are invalid, the listener refuses the connection, or output is ambiguous. **Real-host acceptance pending new macOS CI**. | Check ARM64 result and fix only grounded diagnostic differences. Intel remains blocked independently by missing SDK 1.0.0 FFI. |
 
 ## Required gates before any production UAG macOS sandbox implementation
 
@@ -35,7 +37,7 @@
 ## Verification ledger
 
 - Node syntax check: **passed** in both macOS jobs, run `40180599384`.
-- macOS 15 ARM64 real Seatbelt: **passed with P2 stricter checks**, run `40183351203`.
+- macOS 15 ARM64 real Seatbelt: **passed prior stricter checks** in run `40183351203`; latest exact-errno network check **pending real-host CI**.
 - macOS 15 x86-64 real Seatbelt: **still blocked** by missing pinned SDK 1.0.0 native `libmxc_ffi.dylib`, confirmed in run `40183351203`.
 - Local Mac/SDK execution: **not available**.
 - Python Black/Ruff/pytest: **not applicable yet**; no Python code edited in this PoC.
