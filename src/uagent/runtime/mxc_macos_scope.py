@@ -1,8 +1,9 @@
-"""Bounded local-only macOS ARM64 MXC helper process group.
+"""Bounded macOS ARM64 MXC host helper for shared CLI, GUI, Web, and A2A.
 
-This watchdog is a best-effort host-side guard, NOT a cgroup/Job Object and
-never qualifies as Remote/VM acceptance. Native Seatbelt isolation applies
-separately to individual MXC SDK-spawned commands.
+This host watchdog is a soft resource guard, NOT a cgroup or Windows Job
+Object. Remote and local entrypoints use the same backend and must pass the
+same host capability probe; a stronger VM tier remains unavailable. Native
+Seatbelt isolation is enforced independently by MXC-spawned processes.
 """
 
 from __future__ import annotations
