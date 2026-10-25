@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 from uagent.runtime import mxc_macos_scope
 
 
@@ -75,3 +77,39 @@ def test_macos_pid_reuse_cannot_inherit_previous_cpu_identity():
     count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, detached)
     assert count == 1
     assert cpu == 1.4
+
+
+def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
+    """A detached parent can fork between two ps snapshots during cleanup."""
+    scope = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    scope.process = SimpleNamespace(pid=100)
+    scope.pgid = 100
+    scope._known = {100: "root", 101: "parent"}
+    scope._cpu_ledger = {}
+
+    root = _process(100, 1, 100, 0.1, "root")
+    parent = _process(101, 1, 900, 0.1, "parent")
+    child = _process(102, 101, 901, 0.1, "child")
+    reparented = _process(102, 1, 901, 0.2, "child")
+    observations = iter(
+        [
+            {100: root, 101: parent},
+            {100: root, 101: parent, 102: child},
+            {100: root, 102: reparented},
+            {100: root},
+        ]
+    )
+    monkeypatch.setattr(
+        mxc_macos_scope,
+        "_process_table",
+        lambda: next(observations, {100: root}),
+    )
+    killed = []
+    monkeypatch.setattr(mxc_macos_scope.os, "kill", lambda pid, _sig: killed.append(pid))
+    monkeypatch.setattr(mxc_macos_scope.time, "sleep", lambda _seconds: None)
+    scope.reap_since(frozenset({(100, "root")}))
+    assert 101 in killed
+    assert 102 in killed
+    assert scope._known[102] == "child"
