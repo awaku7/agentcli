@@ -17,6 +17,8 @@
 | 2026-10-25 | macOS CI added | Commit `937027639`: workflow jobs on `macos-15` (ARM64) and `macos-15-intel` (Intel) install CLI/Desktop/Web dependencies, import entrypoints, and exercise session and MXC regression tests. **Not yet executed**. | Open a draft PR and inspect GitHub Actions results. |
 | 2026-10-25 | First PR CI (run `40178469555`) | macOS ARM64 install and Python compile passed, but combined entrypoint import step exited 1 without a traceback in captured output; root cause not yet known. Other jobs continued. | Split imports into distinct processes with explicit stderr tracebacks. |
 | 2026-10-25 | Diagnostic patch | Commit `37d37373`: independent macOS CLI/GUI/Web import probes with traceback output; this is instrumentation, **not a fix or acceptance result**. | Inspect second CI run and make the narrowest required code change. |
+| 2026-10-25 | Root cause: missing Web extra | Diagnostic GitHub Actions run [`40178668150`](https://github.com/awaku7/agentcli/actions/runs/40178668150) proves `uagent.cli_entry` and `uagent.gui` import on macOS ARM64; `uagent.web` fails: `ModuleNotFoundError: No module named 'mcp'` through `web_impl.routes_auth` → OIDC → `tools.mcp.client`. The `web` extra omitted `mcp` although the Web import requires it. | Add the missing Web dependency; retest. |
+| 2026-10-25 | Web extra correction | Commit `64e7a249`: add `mcp` to `[project.optional-dependencies].web`. No Python source changed. **Acceptance pending subsequent macOS CI**, including GUI import and tests. | Check fresh ARM64/Intel CI and any subsequent missing packages. |
 | 2026-10-25 | Execution environment | The current GitHub connector can read/write the repository; this assistant's execution container cannot resolve github.com and is not a Mac. | Use GitHub Actions for macOS tests and report that local macOS testing has not occurred. |
 
 ## Stages and acceptance gates
@@ -28,8 +30,8 @@
 
 ## Validation ledger
 
-- macOS ARM64: **failed initial import smoke**; run [`40178469555`](https://github.com/awaku7/agentcli/actions/runs/40178469555), diagnostic rerun pending.
-- macOS x86-64: **not yet verified**.
+- macOS ARM64: **Web import failed in diagnostic run** (missing `mcp`); corrective commit `64e7a249` awaiting validation.
+- macOS x86-64: **first smoke failed**; corrective commit `64e7a249` awaiting validation.
 - Local Black/Ruff/pytest: **not run**; repository cannot be cloned into the available execution container.
 - GitHub CI: macOS matrix executed; initial ARM64 failed at import smoke. Further results pending.
 
