@@ -283,7 +283,6 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
         backend.close_scope(scope)
 
 
-
 def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
     """Exercise unsafe requests through the real UAG manager, not a mock."""
     scope = startup_scope(
@@ -311,9 +310,7 @@ def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
             denied = backend.run_tool(scope, name, args)
             assert denied.startswith("[sandbox error]"), (name, args, denied)
 
-        forbidden = backend.run_tool(
-            scope, "cmd_exec", {"command": "echo forbidden"}
-        )
+        forbidden = backend.run_tool(scope, "cmd_exec", {"command": "echo forbidden"})
         assert forbidden.startswith("[sandbox policy]"), forbidden
 
         workspace = _workspace_for_scope(scope)
@@ -388,7 +385,9 @@ def test_macos_workspace_cannot_cross_cli_and_web_scopes(backend, tmp_path):
         backend.close_scope(cli)
 
 
-def test_macos_remote_vm_requirement_remains_fail_closed(backend, tmp_path, monkeypatch):
+def test_macos_remote_vm_requirement_remains_fail_closed(
+    backend, tmp_path, monkeypatch
+):
     """VM-required Remote requests must not be downgraded to Seatbelt."""
     scope = TrustedSandboxScope(
         deployment_id="a2a",
