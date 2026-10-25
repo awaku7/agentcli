@@ -76,5 +76,14 @@ def test_macos_pid_reuse_cannot_inherit_previous_cpu_identity():
     count, _, cpu = mxc_macos_scope._summarize(
         100, 100, known, ledger, after
     )
-    assert count == 0
+    assert count == 1
+    assert known[100] == "replacement"
     assert cpu == 1.0
+
+    # A recycled sandbox PID that later changes group must remain tracked.
+    detached = {100: _process(100, 1, 900, 0.4, "replacement")}
+    count, _, cpu = mxc_macos_scope._summarize(
+        100, 100, known, ledger, detached
+    )
+    assert count == 1
+    assert cpu == 1.4
