@@ -66,7 +66,12 @@ async function runContained(command, workspace, deniedPaths = []) {
 }
 
 async function localServer() {
-  const server = net.createServer((socket) => socket.end("host-listener"));
+  const server = net.createServer((socket) => {
+    // The host reachability probe intentionally disconnects immediately.
+    // A reset on this disposable test connection is not a Seatbelt failure.
+    socket.on("error", () => {});
+    socket.end("host-listener");
+  });
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(0, "127.0.0.1", resolve);
