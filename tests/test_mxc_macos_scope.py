@@ -5,7 +5,7 @@ from __future__ import annotations
 import threading
 from types import SimpleNamespace
 
-from uagent.runtime import mxc_macos_scope
+from uagent.runtime import mxc_backend, mxc_macos_scope
 
 
 def _process(pid, ppid, pgid, cpu, started):
@@ -151,7 +151,7 @@ def test_macos_only_kills_verified_live_original_helper_group(monkeypatch):
     )
     supervisor._terminate_observed()
     assert ("group", 100) in killed
-    assert ("pid", 100) in killed
+    assert ("pid", 100) not in killed
 
 
 def test_macos_poll_reaped_helper_never_gets_stale_pid_signal(monkeypatch):
@@ -219,6 +219,69 @@ def test_macos_zombie_snapshot_is_not_a_kill_target(monkeypatch):
     )
     supervisor._terminate_observed()
     assert signaled == []
+
+
+def test_macos_manager_prune_cannot_trigger_duplicate_helper_pid_kill(monkeypatch):
+    """Manager polling/reaping during group SIGKILL must not permit stale PID kill."""
+
+    class ReapedProcess:
+        pid = 100
+        reaped = False
+
+        def poll(self):
+            return 0 if self.reaped else None
+
+    process = ReapedProcess()
+
+    class FakeSession:
+        _closed = False
+        _scope = None
+        _proc = process
+
+        def close(self):
+            self._closed = True
+
+    manager = mxc_backend.MxcSessionManager.__new__(
+        mxc_backend.MxcSessionManager
+    )
+    manager._sessions = {"existing": FakeSession()}
+    manager._session_last_used = {"existing": 0}
+    manager._active_web_scopes = set()
+    manager._dormant_web_scopes = {}
+
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = process
+    supervisor.pgid = 100
+    supervisor._known = {100: "genuine-helper", 102: "verified-child"}
+    supervisor._cpu_ledger = {}
+    supervisor._tracking_lock = threading.RLock()
+    table = {
+        100: _process(100, 1, 100, 0.1, "genuine-helper"),
+        102: _process(102, 100, 100, 0.1, "verified-child"),
+    }
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: table)
+    signaled = []
+
+    def kill_group(group_id, _sig):
+        signaled.append(("group", group_id))
+        process.reaped = True
+        # The manager sees exit and reaps the PID while the watcher still
+        # holds its prior (valid) process-table snapshot.
+        manager._prune_inactive_sessions()
+
+    monkeypatch.setattr(mxc_macos_scope.os, "killpg", kill_group)
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "kill",
+        lambda pid, _sig: signaled.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert ("group", 100) in signaled
+    assert ("pid", 100) not in signaled
+    assert ("pid", 102) in signaled
+    assert manager._sessions == {}
 
 
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
