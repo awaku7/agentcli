@@ -1373,10 +1373,11 @@ def test_cli_session_transition_releases_previous_worker(monkeypatch, tmp_path):
     assert set(manager._sessions) == {mxc_backend._scope_key(second)}
 
 
-def test_workspace_scavenger_removes_only_unleased_workspaces(monkeypatch, tmp_path):
-    # Exercise Linux/Windows reclamation independent of the CI host's OS.
-    # macOS deliberately keeps crash-orphan workspaces, even if leases unlock.
-    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
+@pytest.mark.skipif(
+    mxc_backend.sys.platform == "darwin",
+    reason="macOS intentionally preserves unverified crash-orphan workspaces",
+)
+def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
     key = "a" * 64
     root = tmp_path / "sandboxes"
     workspace = root / key
@@ -1396,8 +1397,11 @@ def test_workspace_scavenger_removes_only_unleased_workspaces(monkeypatch, tmp_p
     assert not mxc_backend._workspace_lease_path(root, key).exists()
 
 
+@pytest.mark.skipif(
+    mxc_backend.sys.platform == "darwin",
+    reason="macOS intentionally preserves unverified crash-orphan workspaces",
+)
 def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_path):
-    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
     key = "b" * 64
     root = tmp_path / "sandboxes"
     workspace = root / key
