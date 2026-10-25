@@ -180,6 +180,8 @@ backend. The Web UI supports configured OIDC sign-in and access controls.
 OpenTelemetry tracing and metrics are **opt-in**.
 
 - [Enterprise policies](docs/ENTERPRISE_POLICY.md)
+- [MXC sandbox platform notes](docs/SANDBOX_MXC.md)
+- [Remote Web / A2A MXC defaults](docs/REMOTE_MXC_DEFAULT.md)
 - [Web identity and rooms](docs/WEB_IDENTITY_MEMORY.md)
 - [OpenTelemetry design](docs/UAG_OPENTELEMETRY_DESIGN.md)
 - [Developer observability guide](src/uagent/docs/DEVELOP_OBSERVABILITY.md)
