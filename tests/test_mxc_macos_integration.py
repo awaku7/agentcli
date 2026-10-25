@@ -144,19 +144,27 @@ def _assert_full_scope(manager, scope, tmp_path):
             "    time.sleep(0.05)\n"
         )
         child_code = (
-            "import subprocess,sys,time\n"
+            "import pathlib,subprocess,sys,time\n"
             f"subprocess.Popen([sys.executable, '-c', {child_script!r}])\n"
-            "time.sleep(0.2)\n"
-            "print('SPAWNED')\n"
+            "for _ in range(100):\n"
+            "    p = pathlib.Path('child.txt')\n"
+            "    if p.is_file() and p.read_text().strip().isdigit():\n"
+            "        break\n"
+            "    time.sleep(0.02)\n"
+            "else:\n"
+            "    raise RuntimeError('child did not write its ready marker')\n"
+            "print('CHILD_READY')\n"
         )
         result = json.loads(
             manager.run_tool(scope, "python_exec", {"code": child_code})
         )
         assert result["returncode"] == 0, result
-        assert "SPAWNED" in result["stdout"], result
+        assert "CHILD_READY" in result["stdout"], result
         first = manager.run_tool(scope, "read_file", {"path": "child.txt"})
+        assert first.strip().isdigit(), f"child never executed: {first}"
         time.sleep(0.35)
         second = manager.run_tool(scope, "read_file", {"path": "child.txt"})
+        assert second.strip().isdigit(), f"child file not readable: {second}"
         assert first == second, f"orphan MXC sandbox child: {first} -> {second}"
     finally:
         manager.close_scope(scope)
