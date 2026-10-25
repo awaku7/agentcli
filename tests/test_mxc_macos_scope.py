@@ -154,6 +154,73 @@ def test_macos_only_kills_verified_live_original_helper_group(monkeypatch):
     assert ("pid", 100) in killed
 
 
+def test_macos_poll_reaped_helper_never_gets_stale_pid_signal(monkeypatch):
+    """Popen.poll() can reap the helper after ps but before os.kill(pid)."""
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = SimpleNamespace(pid=100, poll=lambda: 0)
+    supervisor.pgid = 100
+    supervisor._known = {100: "original-helper", 102: "detached-owned"}
+    supervisor._cpu_ledger = {}
+    supervisor._tracking_lock = threading.RLock()
+    table = {
+        100: _process(100, 1, 100, 0.1, "original-helper"),
+        102: _process(102, 1, 900, 0.2, "detached-owned"),
+    }
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: table)
+    signaled = []
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "killpg",
+        lambda gid, sig: signaled.append(("group", gid)),
+    )
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "kill",
+        lambda pid, sig: signaled.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert ("group", 100) not in signaled
+    assert ("pid", 100) not in signaled
+    assert ("pid", 102) in signaled
+
+
+def test_macos_zombie_snapshot_is_not_a_kill_target(monkeypatch):
+    """A zombie still visible in ps is not evidence of a live group owner."""
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = SimpleNamespace(pid=100, poll=lambda: None)
+    supervisor.pgid = 100
+    supervisor._known = {100: "original-helper"}
+    supervisor._cpu_ledger = {}
+    supervisor._tracking_lock = threading.RLock()
+    zombie = mxc_macos_scope._Process(
+        pid=100,
+        ppid=1,
+        pgid=100,
+        rss_kib=0,
+        cpu_seconds=0.1,
+        state="Z",
+        started="original-helper",
+    )
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: {100: zombie})
+    signaled = []
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "killpg",
+        lambda gid, sig: signaled.append(("group", gid)),
+    )
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "kill",
+        lambda pid, sig: signaled.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert signaled == []
+
+
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
     """A detached parent can fork between two ps snapshots during cleanup."""
     scope = mxc_macos_scope.MacosProcessGroup.__new__(mxc_macos_scope.MacosProcessGroup)
