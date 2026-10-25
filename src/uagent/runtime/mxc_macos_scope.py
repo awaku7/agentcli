@@ -1,9 +1,9 @@
-"""Bounded macOS ARM64 MXC host helper for shared CLI, GUI, Web, and A2A.
+"""macOS ARM64 MXC host helper lifecycle and monitored resource bounds.
 
-This host watchdog is a soft resource guard, NOT a cgroup or Windows Job
-Object. Remote and local entrypoints use the same backend and must pass the
-same host capability probe; a stronger VM tier remains unavailable. Native
-Seatbelt isolation is enforced independently by MXC-spawned processes.
+CLI, GUI, Web and A2A share this supervisor. Its resource monitoring is
+sampled and is not a hard cgroup/Job Object equivalent. MXC Seatbelt is the
+kernel-enforced boundary for the individual tool processes. Unverified child
+cleanup must never release a workspace lease.
 """
 
 from __future__ import annotations
@@ -12,12 +12,25 @@ import os
 import signal
 import subprocess
 import threading
+import time
+from dataclasses import dataclass
 from pathlib import Path
 
 MEMORY_LIMIT_KIB = 1_048_576
 PROCESS_LIMIT = 64
 CPU_LIMIT_SECONDS = 4 * 60 * 60
-INTERVAL_SECONDS = 0.5
+INTERVAL_SECONDS = 0.15
+
+
+@dataclass(frozen=True)
+class _Process:
+    pid: int
+    ppid: int
+    pgid: int
+    rss_kib: int
+    cpu_seconds: float
+    state: str
+    started: str
 
 
 def _cpu_seconds(value: str) -> float:
@@ -35,37 +48,100 @@ def _cpu_seconds(value: str) -> float:
     return days * 86400 + hours * 3600 + minutes * 60 + seconds
 
 
-def _group_usage(pgid: int) -> tuple[int, int, float]:
+def _process_table() -> dict[int, _Process]:
     report = subprocess.run(
-        ["/bin/ps", "-axo", "pgid=,rss=,time=,stat="],
+        ["/bin/ps", "-axo", "pid=,ppid=,pgid=,rss=,time=,stat=,lstart="],
         capture_output=True,
         text=True,
         check=True,
         timeout=5,
         env={"PATH": "/usr/bin:/bin", "LANG": "C"},
     )
-    count, rss_kib, cpu = 0, 0, 0.0
+    result: dict[int, _Process] = {}
     for line in report.stdout.splitlines():
-        parts = line.split()
-        if len(parts) != 4 or int(parts[0]) != pgid:
+        parts = line.split(maxsplit=6)
+        if len(parts) != 7:
             continue
-        # Reaped-but-not-yet-collected zombies consume no active resources.
-        if "Z" in parts[3]:
+        try:
+            pid, ppid, pgid, rss = (int(v) for v in parts[:4])
+            cpu = _cpu_seconds(parts[4])
+        except ValueError as exc:
+            raise RuntimeError("invalid macOS process accounting output") from exc
+        result[pid] = _Process(
+            pid=pid,
+            ppid=ppid,
+            pgid=pgid,
+            rss_kib=rss,
+            cpu_seconds=cpu,
+            state=parts[5],
+            started=parts[6],
+        )
+    return result
+
+
+def _summarize(
+    root_pid: int,
+    group_id: int,
+    known: dict[int, str],
+    cpu_ledger: dict[tuple[int, str], float],
+    table: dict[int, _Process],
+) -> tuple[int, int, float]:
+    """Track observed descendants even if they switch process groups.
+
+    Keep each observed process' CPU high-water mark after it exits. A process
+    that lived entirely between samples remains unobserved; this is explicitly
+    NOT a hard aggregate CPU guarantee.
+    """
+    active = {
+        pid
+        for pid, row in table.items()
+        if row.pgid == group_id or (pid in known and known[pid] == row.started)
+    }
+    root = table.get(root_pid)
+    if root is not None and (root_pid not in known or known[root_pid] == root.started):
+        active.add(root_pid)
+    changed = True
+    while changed:
+        size = len(active)
+        active.update(
+            pid for pid, row in table.items() if row.ppid in active
+        )
+        changed = len(active) != size
+    for pid in active:
+        row = table[pid]
+        previous = known.get(pid)
+        if previous is not None and previous != row.started:
+            # A recycled PID is not evidence that the old process survived.
             continue
-        count += 1
-        rss_kib += int(parts[1])
-        cpu += _cpu_seconds(parts[2])
-    return count, rss_kib, cpu
+        known[pid] = row.started
+        key = (pid, row.started)
+        cpu_ledger[key] = max(cpu_ledger.get(key, 0.0), row.cpu_seconds)
+    valid = [
+        row
+        for pid, row in table.items()
+        if known.get(pid) == row.started and "Z" not in row.state
+    ]
+    return (
+        len(valid),
+        sum(row.rss_kib for row in valid),
+        sum(cpu_ledger.values()),
+    )
 
 
 class MacosProcessGroup:
-    """Owned private POSIX session with verified group cleanup and soft quotas."""
+    """Supervise the host helper plus observed descendants across PGID changes."""
 
     def __init__(self, process: subprocess.Popen):
         self.process = process
         self.pgid = process.pid
         self.error: str | None = None
         self._stop = threading.Event()
+        self._known: dict[int, str] = {}
+        self._cpu_ledger: dict[tuple[int, str], float] = {}
+        self._started = time.monotonic()
+        self._inspect()
+        if process.pid not in self._known:
+            raise RuntimeError("macOS MXC helper exited before process supervision")
         self._watcher = threading.Thread(
             target=self._watch, daemon=True, name="mxc-macos-quota"
         )
@@ -96,40 +172,72 @@ class MacosProcessGroup:
             process.wait(timeout=5)
             raise
 
+    def _inspect(self) -> tuple[int, int, float]:
+        return _summarize(
+            self.process.pid,
+            self.pgid,
+            self._known,
+            self._cpu_ledger,
+            _process_table(),
+        )
+
+    def _terminate_observed(self) -> None:
+        # Use the process start identity to avoid killing a reused PID.
+        table = _process_table()
+        _summarize(self.process.pid, self.pgid, self._known, self._cpu_ledger, table)
+        try:
+            os.killpg(self.pgid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        for pid, started in list(self._known.items()):
+            row = table.get(pid)
+            if row is None or row.started != started:
+                continue
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+
     def _watch(self) -> None:
         while not self._stop.is_set():
             try:
-                count, rss, cpu = _group_usage(self.pgid)
+                count, rss, cpu = self._inspect()
                 if count > PROCESS_LIMIT:
-                    raise RuntimeError("macOS MXC process group task limit exceeded")
+                    raise RuntimeError("macOS MXC observed process count exceeded")
                 if rss > MEMORY_LIMIT_KIB:
-                    raise RuntimeError("macOS MXC process group memory budget exceeded")
+                    raise RuntimeError("macOS MXC observed process RSS exceeded")
                 if cpu > CPU_LIMIT_SECONDS:
-                    raise RuntimeError("macOS MXC process group CPU budget exceeded")
+                    raise RuntimeError("macOS MXC observed cumulative CPU exceeded")
+                if time.monotonic() - self._started > CPU_LIMIT_SECONDS:
+                    raise RuntimeError("macOS MXC maximum session duration exceeded")
             except Exception as exc:
                 self.error = f"{type(exc).__name__}: {exc}"
                 try:
-                    os.killpg(self.pgid, signal.SIGKILL)
-                except ProcessLookupError:
+                    self._terminate_observed()
+                except Exception:
                     pass
                 return
             self._stop.wait(INTERVAL_SECONDS)
 
     def close(self) -> None:
         self._stop.set()
-        try:
-            os.killpg(self.pgid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
-        try:
-            self.process.wait(timeout=5)
-        except subprocess.TimeoutExpired:
-            raise RuntimeError("macOS MXC adapter did not stop") from None
-        self._watcher.join(timeout=6)
+        self._watcher.join(timeout=7)
         if self._watcher.is_alive():
             raise RuntimeError("macOS MXC quota watchdog did not stop")
-        count, _rss, _cpu = _group_usage(self.pgid)
-        if count:
-            raise RuntimeError("macOS MXC process group cleanup is unverified")
+        self._terminate_observed()
+        try:
+            self.process.wait(timeout=5)
+        except subprocess.TimeoutExpired as exc:
+            raise RuntimeError("macOS MXC adapter did not stop") from exc
+        # Recheck after killing the entire recorded lineage, including any
+        # group-escaped children. Never release a lease if cleanup is unknown.
+        for _ in range(5):
+            count, _rss, _cpu = self._inspect()
+            if not count:
+                break
+            self._terminate_observed()
+            time.sleep(0.1)
+        else:
+            raise RuntimeError("macOS MXC descendant cleanup could not be verified")
         if self.error:
-            raise RuntimeError(f"macOS MXC quota watcher failed closed: {self.error}")
+            raise RuntimeError(f"macOS MXC host watchdog failed closed: {self.error}")
