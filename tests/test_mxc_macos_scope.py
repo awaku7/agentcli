@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import threading
 from types import SimpleNamespace
 
 from uagent.runtime import mxc_macos_scope
@@ -88,6 +89,7 @@ def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch
     scope.pgid = 100
     scope._known = {100: "root", 101: "parent"}
     scope._cpu_ledger = {}
+    scope._tracking_lock = threading.RLock()
 
     root = _process(100, 1, 100, 0.1, "root")
     parent = _process(101, 1, 900, 0.1, "parent")
@@ -113,3 +115,58 @@ def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch
     assert 101 in killed
     assert 102 in killed
     assert scope._known[102] == "child"
+
+
+
+def test_macos_watchdog_cannot_overwrite_newer_reap_identity(monkeypatch):
+    """The watcher may observe a stale PID before a replacement exists."""
+    scope = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    scope.process = SimpleNamespace(pid=100)
+    scope.pgid = 100
+    scope._known = {100: "root", 101: "old"}
+    scope._cpu_ledger = {}
+    scope._tracking_lock = threading.RLock()
+    root = _process(100, 1, 100, 0.1, "root")
+    old = _process(101, 100, 100, 0.1, "old")
+    replacement = _process(101, 100, 100, 0.2, "new")
+    watcher_inside_ps = threading.Event()
+    allow_old_ps = threading.Event()
+    killed = []
+    observations = [0]
+
+    def fake_ps():
+        if threading.current_thread().name == "stale-watcher":
+            watcher_inside_ps.set()
+            assert allow_old_ps.wait(timeout=5)
+            return {100: root, 101: old}
+        observations[0] += 1
+        return {100: root, 101: replacement} if observations[0] == 1 else {
+            100: root
+        }
+
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", fake_ps)
+    monkeypatch.setattr(
+        mxc_macos_scope.os, "kill", lambda pid, _sig: killed.append(pid)
+    )
+    monkeypatch.setattr(mxc_macos_scope.time, "sleep", lambda _seconds: None)
+
+    watcher = threading.Thread(target=scope._inspect, name="stale-watcher")
+    watcher.start()
+    assert watcher_inside_ps.wait(timeout=5)
+    result = []
+
+    def reap():
+        scope.reap_since(frozenset({(100, "root")}))
+        result.append("complete")
+
+    reaper = threading.Thread(target=reap, name="one-shot-reaper")
+    reaper.start()
+    allow_old_ps.set()
+    watcher.join(timeout=5)
+    reaper.join(timeout=5)
+    assert not watcher.is_alive() and not reaper.is_alive()
+    assert result == ["complete"]
+    assert scope._known[101] == "new"
+    assert 101 in killed
