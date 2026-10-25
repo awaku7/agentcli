@@ -185,6 +185,7 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 
 اطّلع على [متغيرات البيئة](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)،
 و[سياسة المؤسسة](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)، و[دليل منشئ الأدوات](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [ملاحظات منصة العزل MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [الإعدادات الافتراضية لـ Remote Web / A2A MXC](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

@@ -187,6 +187,7 @@ provider, сүлжээ, итгэмжлэл, plugin, skill болон MCP server-
 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) болон
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)-г үзнэ үү.
+
 - [MXC хамгаалагдсан орчны платформын тэмдэглэл](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [Remote Web / A2A-д зориулсан MXC өгөгдмөл тохиргоо](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

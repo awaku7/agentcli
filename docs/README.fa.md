@@ -184,6 +184,7 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 می‌توانند بر ابزارها، ارائه‌دهندگان، شبکه‌ها، اعتبارنامه‌ها، افزونه‌ها، مهارت‌ها و سرورهای MCP حاکم باشند.
 
 [متغیرهای محیطی](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)، [سیاست سازمانی](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) و [راهنمای سازندهٔ ابزار](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) را ببینید.
+
 - [یادداشت‌های پلتفرم سندباکس MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [پیش‌فرض‌های MXC برای Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

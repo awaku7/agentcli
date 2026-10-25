@@ -186,6 +186,7 @@ providers, netwerken, inloggegevens, plugins, skills en MCP-servers beheren.
 Zie [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) en
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [Notities over het MXC-sandboxplatform](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [MXC-standaardinstellingen voor Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

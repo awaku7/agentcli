@@ -186,6 +186,7 @@ udbydere, netværk, legitimationsoplysninger, plugins, skills og MCP-servere.
 Se [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) og
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [Noter om MXC-sandboxplatformen](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [MXC-standardindstillinger for Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

@@ -186,6 +186,7 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 Див. [Змінні середовища](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Корпоративна політика](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) і
 [Посібник зі створення інструментів](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [Примітки щодо платформи пісочниці MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [Типові налаштування MXC для Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

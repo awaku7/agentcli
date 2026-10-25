@@ -186,6 +186,7 @@ zarządzać narzędziami, dostawcami, sieciami, danymi uwierzytelniającymi, plu
 Zobacz [zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [politykę przedsiębiorstwa](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) oraz
 [przewodnik twórcy narzędzi](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [Uwagi dotyczące platformy sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [Domyślne ustawienia MXC dla Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

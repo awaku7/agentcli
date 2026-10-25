@@ -185,6 +185,7 @@ networks, credentials, plugins, skills और MCP servers को नियंत
 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) और
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) देखें।
+
 - [MXC सैंडबॉक्स प्लेटफ़ॉर्म नोट्स](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [Remote Web / A2A के लिए MXC की डिफ़ॉल्ट सेटिंग](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 

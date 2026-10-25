@@ -175,6 +175,7 @@ Tam çift yönlü ses; OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Liv
 uag'ı Japonca, İngilizce, Çince, Korece, İspanyolca, Fransızca, Rusça ve daha birçok dilde kullanın. Kimlik bilgileri yerel işletim sistemi anahtar zincirinde veya şifrelenmiş dosya arka ucunda saklanabilir. Kurumsal politikalar araçları, sağlayıcıları, ağları, kimlik bilgilerini, eklentileri, becerileri ve MCP sunucularını yönetebilir.
 
 Bkz. [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) ve [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 - [MXC korumalı alan platformu notları](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
 - [Remote Web / A2A için MXC varsayılanları](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
