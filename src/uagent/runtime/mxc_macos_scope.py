@@ -97,11 +97,7 @@ def _summarize(
     # Trust a group only while a member with a previously VERIFIED process
     # identity still exists in that exact group. The initial snapshot is
     # anchored by the just-launched helper (launch checks its own PGID).
-    trusted = {
-        pid
-        for pid, row in table.items()
-        if known.get(pid) == row.started
-    }
+    trusted = {pid for pid, row in table.items() if known.get(pid) == row.started}
     root = table.get(root_pid)
     bootstrap = not known and root is not None and root.pgid == group_id
     group_owned = bootstrap or any(table[pid].pgid == group_id for pid in trusted)
