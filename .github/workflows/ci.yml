@@ -330,6 +330,72 @@ jobs:
           UAGENT_RUN_MXC_LINUX_INTEGRATION: "1"
         run: python -m pytest -q tests/test_mxc_linux_scope.py tests/test_mxc_linux_integration.py
 
+  macos-platform-smoke:
+    needs: changes
+    if: needs.changes.outputs.run-python == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install CLI, Desktop, and Web dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,platform,web]" pytest fastapi uvicorn
+          python -m pip check
+
+      - name: Compile Python sources
+        run: python -m compileall -q src
+
+      - name: Smoke test macOS CLI, Desktop, and Web imports
+        env:
+          PYTHONPATH: src
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          for module in uagent.cli_entry uagent.cli uagent.gui uagent.web uagent.scheckgui_impl.main; do
+            UAG_IMPORT_MODULE="$module" python - <<'PY'
+          import importlib
+          import os
+          import platform
+          import sys
+          import traceback
+
+          name = os.environ["UAG_IMPORT_MODULE"]
+          print(f"Checking {name} on {platform.platform()} ({platform.machine()})", file=sys.__stdout__, flush=True)
+          try:
+              importlib.import_module(name)
+          except BaseException:
+              traceback.print_exc(file=sys.__stderr__)
+              raise
+          print(f"Imported {name}", file=sys.__stdout__, flush=True)
+          PY
+          done
+          uag session --help
+
+      - name: Verify platform and session regressions
+        env:
+          PYTHONPATH: src
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          # macOS MXC is currently unsupported: the trusted host-path override
+          # test assumes a Windows/Linux runtime root. Keep its existing coverage
+          # on those hosts while checking all other MXC contracts on macOS.
+          python -m pytest -q \
+            tests/test_session_portability.py \
+            tests/test_web_session_portability.py \
+            tests/test_mxc_backend.py \
+            -k 'not test_mxc_host_paths_accept_only_pre_dotenv_overrides'
+
   compatibility-tests:
     needs: changes
     if: needs.changes.outputs.run-python == 'true'

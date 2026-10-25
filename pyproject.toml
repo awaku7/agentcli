@@ -124,6 +124,7 @@ platform = [
 web = [
     "pydantic",
     "PyJWT[crypto]>=2.10,<3",
+    "mcp",
 ]
 test = [
     # SDKs imported directly by provider and compatibility tests.
