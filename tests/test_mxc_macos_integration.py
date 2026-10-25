@@ -281,3 +281,130 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
         if child_pid is not None and child_running(child_pid):
             os.kill(child_pid, signal.SIGKILL)
         backend.close_scope(scope)
+
+
+
+def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
+    """Exercise unsafe requests through the real UAG manager, not a mock."""
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id="mac-negative-operations",
+    )
+    backend.activate_scope(scope)
+    canary = tmp_path / "outside-canary.txt"
+    canary.write_text("unchanged-on-host", encoding="utf-8")
+    try:
+        created = backend.run_tool(
+            scope,
+            "create_file",
+            {"filename": "inside.txt", "content": "inside"},
+        )
+        assert "Created" in created, created
+
+        for name, args in (
+            ("create_file", {"filename": "../outside-canary.txt", "content": "BAD"}),
+            ("create_file", {"filename": str(canary), "content": "BAD"}),
+            ("read_file", {"path": str(canary)}),
+            ("file_exists", {"path": "../outside-canary.txt"}),
+        ):
+            denied = backend.run_tool(scope, name, args)
+            assert denied.startswith("[sandbox error]"), (name, args, denied)
+
+        with pytest.raises(PermissionError):
+            backend.run_tool(scope, "cmd_exec", {"command": "echo forbidden"})
+
+        workspace = _workspace_for_scope(scope)
+        (workspace / "host-link").symlink_to(canary)
+        denied = backend.run_tool(scope, "read_file", {"path": "host-link"})
+        assert denied.startswith("[sandbox error]"), denied
+
+        # A confined Python process must be unable to change a file in a
+        # writable host directory that was not granted to the sandbox.
+        code = (
+            "from pathlib import Path\n"
+            f"canary = Path({str(canary)!r})\n"
+            "try:\n"
+            "    canary.write_text('ESCAPED', encoding='utf-8')\n"
+            "except OSError:\n"
+            "    print('HOST_WRITE_BLOCKED')\n"
+            "else:\n"
+            "    print('HOST_WRITE_ALLOWED')\n"
+        )
+        result = json.loads(backend.run_tool(scope, "python_exec", {"code": code}))
+        assert result["returncode"] == 0, result
+        assert result["timeout"] is False, result
+        assert "HOST_WRITE_BLOCKED" in result["stdout"], result
+        assert "HOST_WRITE_ALLOWED" not in result["stdout"], result
+        assert canary.read_text(encoding="utf-8") == "unchanged-on-host"
+    finally:
+        backend.close_scope(scope)
+
+
+def test_macos_workspace_cannot_cross_cli_and_web_scopes(backend, tmp_path):
+    """Different entrypoints use distinct, inaccessible workspace roots."""
+    cli = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id="mac-cross-scope-cli",
+    )
+    web = local_web_room_scope(
+        principal_id="mac-other-principal",
+        project_id="mac-other-project",
+        room_id="mac-cross-scope-room",
+        room_generation="mac-other-generation",
+    )
+    assert _workspace_for_scope(cli) != _workspace_for_scope(web)
+    backend.activate_scope(cli)
+    backend.activate_scope(web)
+    try:
+        created = backend.run_tool(
+            cli,
+            "create_file",
+            {"filename": "private-marker.txt", "content": "CLI_ONLY_SECRET"},
+        )
+        assert "Created" in created, created
+        other = backend.run_tool(web, "file_exists", {"path": "private-marker.txt"})
+        assert json.loads(other)["exists"] is False, other
+
+        code = (
+            "from pathlib import Path\n"
+            f"p = Path({str(_workspace_for_scope(cli) / 'private-marker.txt')!r})\n"
+            "try:\n"
+            "    data = p.read_text(encoding='utf-8')\n"
+            "except OSError:\n"
+            "    print('OTHER_SCOPE_BLOCKED')\n"
+            "else:\n"
+            "    print('OTHER_SCOPE_READ=' + data)\n"
+        )
+        result = json.loads(backend.run_tool(web, "python_exec", {"code": code}))
+        assert result["returncode"] == 0, result
+        assert "OTHER_SCOPE_BLOCKED" in result["stdout"], result
+        assert "CLI_ONLY_SECRET" not in result["stdout"], result
+    finally:
+        backend.close_scope(web)
+        backend.close_scope(cli)
+
+
+def test_macos_remote_vm_requirement_remains_fail_closed(backend, tmp_path, monkeypatch):
+    """VM-required Remote requests must not be downgraded to Seatbelt."""
+    scope = TrustedSandboxScope(
+        deployment_id="a2a",
+        principal_id="mac-vm-required-user",
+        project_id="mac-vm-required-project",
+        scope_kind="a2a-task",
+        scope_id="mac-vm-required-operation",
+    )
+    monkeypatch.setenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", "vm")
+    with execution_profile(SecurityProfile.REMOTE, sandbox_enabled=True, scope=scope):
+        decision = route_tool(
+            "python_exec",
+            {},
+            profile=SecurityProfile.REMOTE,
+            sandbox_enabled=True,
+            backend_available=True,
+            backend_capabilities=backend.capabilities,
+            known_tool=True,
+        )
+        assert not decision.allowed, decision
+        assert "capabilities" in decision.reason or "acceptance" in decision.reason
