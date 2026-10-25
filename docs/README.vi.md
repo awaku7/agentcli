@@ -186,6 +186,8 @@ provider, mạng, thông tin xác thực, plugin, skill và máy chủ MCP.
 Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Chính sách doanh nghiệp](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) và
 [Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Ghi chú về nền tảng sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Thiết lập mặc định MXC cho Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Bắt đầu nhanh
 

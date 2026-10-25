@@ -186,6 +186,8 @@ a szolgáltatókat, a hálózatokat, a hitelesítő adatokat, a bővítményeket
 Lásd: [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) és
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Megjegyzések az MXC sandboxplatformhoz](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Az MXC alapértelmezett beállításai Remote Web / A2A esetén](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Gyors kezdés
 

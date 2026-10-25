@@ -185,6 +185,8 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 
 ראו [משתני סביבה](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [מדיניות ארגונית](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) ו-[מדריך יוצרי כלים](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [הערות על פלטפורמת ארגז החול של MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [ברירות המחדל של MXC עבור Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## התחלה מהירה
 

@@ -186,6 +186,8 @@ controlar ferramentas, provedores, redes, credenciais, plugins, skills e servido
 Consulte [Variáveis de ambiente](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Política corporativa](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) e
 [Guia do criador de ferramentas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Notas sobre a plataforma de sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Configurações padrão do MXC para Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Início rápido
 

@@ -186,6 +186,8 @@ herramientas, proveedores, redes, credenciales, plugins, skills y servidores MCP
 Consulta [Variables de entorno](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Política empresarial](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) y
 [Guía del creador de herramientas](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Notas de la plataforma de sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Valores predeterminados de MXC para Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Inicio rápido
 

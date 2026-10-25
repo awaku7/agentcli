@@ -186,6 +186,8 @@ provider เครือข่าย ข้อมูลรับรอง ปล
 ดู [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) และ
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
+- [หมายเหตุเกี่ยวกับแพลตฟอร์มแซนด์บ็อกซ์ MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [ค่าเริ่มต้นของ MXC สำหรับ Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## เริ่มต้นอย่างรวดเร็ว
 

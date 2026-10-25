@@ -186,6 +186,8 @@ watoa huduma, mitandao, vitambulisho, programu-jalizi, skills, na seva za MCP.
 Tazama [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md), na
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Maelezo ya jukwaa la sandbox la MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Mipangilio chaguomsingi ya MXC ya Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Anza haraka
 

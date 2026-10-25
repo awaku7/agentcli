@@ -186,6 +186,8 @@ provider, reti, credenziali, plugin, skill e server MCP.
 Vedi [Variabili d'ambiente](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Policy aziendale](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) e
 [Guida alla creazione degli strumenti](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Note sulla piattaforma sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Impostazioni predefinite MXC per Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Avvio rapido
 

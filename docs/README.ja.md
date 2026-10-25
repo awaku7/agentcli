@@ -185,8 +185,8 @@ uagは日本語、英語、中国語、韓国語、スペイン語、フラン�
 
 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)、
-[MXC sandbox platform notes](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)、
-[Remote Web / A2A MXC defaults](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)、
+[MXC サンドボックスのプラットフォーム情報](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)、
+[Remote Web／A2A の MXC 既定設定](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)、
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)を参照してください。
 
 ## クイックスタート

@@ -190,6 +190,8 @@ keychain বা encrypted file backend-এ সংরক্ষণ করা য�
 দেখুন [পরিবেশ চলক](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) এবং
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)।
+- [MXC স্যান্ডবক্স প্ল্যাটফর্মের নোট](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A-এর জন্য MXC-এর ডিফল্ট সেটিংস](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## দ্রুত শুরু
 

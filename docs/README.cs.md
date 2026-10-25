@@ -186,6 +186,8 @@ poskytovatele, sítě, přihlašovací údaje, pluginy, skills a MCP servery.
 Viz [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) a
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Poznámky k platformě sandboxu MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Výchozí nastavení MXC pro Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Rychlý start
 

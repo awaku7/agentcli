@@ -175,6 +175,8 @@ Phase 4D 跟踪查询路由是授权感知的，但故意没有内置通用供�
 使用 uag 支持日语、英语、中文、韩语、西班牙语、法语、俄语等。凭据可以存储在原生操作系统密钥链或加密文件后端中。企业策略可以管理工具、提供商、网络、凭据、插件、skills 和 MCP 服务器。
 
 参见 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) 和 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)。
+- [MXC 沙盒平台说明](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A 的 MXC 默认设置](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## 快速开始
 

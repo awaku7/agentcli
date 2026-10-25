@@ -186,6 +186,8 @@ uag를 일본어, 영어, 중국어, 한국어, 스페인어, 프랑스어, 러�
 [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md),
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)를 참조하세요.
+- [MXC 샌드박스 플랫폼 참고 사항](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Remote Web / A2A용 MXC 기본 설정](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## 빠른 시작
 

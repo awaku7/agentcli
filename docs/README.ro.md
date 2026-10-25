@@ -186,6 +186,8 @@ furnizorii, rețelele, acreditările, pluginurile, skill-urile și serverele MCP
 Vezi [Variabile de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Politica enterprise](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) și
 [Ghidul creatorului de instrumente](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+- [Note despre platforma sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
+- [Setările implicite MXC pentru Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
 
 ## Pornire rapidă
 
