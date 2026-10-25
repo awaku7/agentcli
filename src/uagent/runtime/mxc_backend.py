@@ -766,7 +766,12 @@ def _release_workspace_lease(lease) -> None:
 
 
 def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
-    """Remove abandoned workspaces only when their OS owner lease is unlocked."""
+    """Remove abandoned workspaces only when cleanup is actually provable."""
+    if sys.platform == "darwin":
+        # Unlike Job Objects or cgroup scopes, a POSIX process group has no
+        # kernel-owned stale scope to query after the controlling host exits.
+        # Never reclaim a potentially still-writable workspace after a crash.
+        return
     sandbox_root = Path(sandbox_root)
     if not sandbox_root.exists():
         return
@@ -929,6 +934,14 @@ class _MxcSession:
         # Web Room sessions may be parked by the owning manager. Only that
         # trusted in-process path opts into resuming its still-leased scope.
         if not resume_workspace and any(self.workspace.iterdir()):
+            if sys.platform == "darwin":
+                # A stale workspace can still be written by an orphan after a
+                # host crash. Preserve evidence and refuse reuse or deletion.
+                _release_workspace_lease(self._workspace_lease)
+                self._workspace_lease = None
+                raise RuntimeError(
+                    "macOS MXC cannot safely reuse an unverified stale workspace"
+                )
             _remove_workspace_tree(self.workspace)
             self.workspace.mkdir(parents=True, mode=0o700)
         if sys.platform.startswith("linux"):
