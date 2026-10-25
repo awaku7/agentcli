@@ -66,16 +66,34 @@ system package manager:
 sudo apt-get install bubblewrap iptables iproute2 slirp4netns util-linux
 ```
 
-The host must permit unprivileged Bubblewrap/user namespaces and provide a
-unified cgroup-v2 hierarchy with the `cpu`, `memory`, and `pids` controllers. A
-running systemd user manager and its D-Bus socket (`/run/user/<uid>/bus`) are
-required; `systemd-run --user` and `systemctl --user` must be able to create,
-inspect, stop, and kill transient user scopes. The user manager must be delegated
-the cgroup controllers required to apply the scope limits. MXC startup performs
-a real Bubblewrap probe and verifies those resource controls; missing packages,
-permissions, controllers, user bus, or properties disable MXC with no host or
-weaker-isolation fallback. Containers/WSL environments that do not expose these
-facilities are unsupported.
+The host must permit unprivileged Bubblewrap/user namespaces. On Ubuntu
+24.04+ with `kernel.apparmor_restrict_unprivileged_userns=1`, AppArmor must
+load a profile granting `userns` permission to the Bubblewrap executable. Do
+not disable this host-wide restriction. For the standard `/usr/bin/bwrap` path,
+a host administrator can install a scoped profile like this:
+
+```bash
+sudo tee /etc/apparmor.d/bwrap >/dev/null <<'EOF'
+abi <abi/4.0>,
+include <tunables/global>
+profile bwrap /usr/bin/bwrap flags=(unconfined) {
+  userns,
+}
+EOF
+sudo apparmor_parser -r /etc/apparmor.d/bwrap
+```
+
+The profile must match the installed Bubblewrap path; have the host's security
+administrator review local AppArmor policy before enabling MXC. The host must
+also provide a unified cgroup-v2 hierarchy with the `cpu`, `memory`, and `pids`
+controllers. A running systemd user manager and its D-Bus socket
+(`/run/user/<uid>/bus`) are required; `systemd-run --user` and
+`systemctl --user` must be able to create, inspect, stop, and kill transient
+user scopes. The user manager must be delegated the cgroup controllers required
+to apply the scope limits. MXC startup performs a real Bubblewrap probe and
+verifies those resource controls; missing packages, permissions, controllers,
+user bus, or properties disable MXC with no host or weaker-isolation fallback.
+Containers/WSL environments that do not expose these facilities are unsupported.
 
 The user-local runtime defaults to `~/.local/share/uagent/mxc_runtime`; Node and
 npm are resolved only from the trusted startup override or explicit system

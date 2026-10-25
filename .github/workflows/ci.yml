@@ -275,7 +275,21 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y \
-            bubblewrap iptables iproute2 slirp4netns util-linux
+            apparmor bubblewrap iptables iproute2 slirp4netns util-linux
+
+      - name: Allow Bubblewrap user namespaces under AppArmor
+        shell: bash
+        run: |
+          # Ubuntu restricts unprivileged user namespaces by default. Permit
+          # Bubblewrap only; do not weaken the host-wide AppArmor sysctl.
+          sudo tee /etc/apparmor.d/bwrap >/dev/null <<'EOF'
+          abi <abi/4.0>,
+          include <tunables/global>
+          profile bwrap /usr/bin/bwrap flags=(unconfined) {
+            userns,
+          }
+          EOF
+          sudo apparmor_parser -r /etc/apparmor.d/bwrap
 
       - name: Start delegated systemd user manager
         shell: bash
