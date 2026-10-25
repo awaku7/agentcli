@@ -169,8 +169,14 @@ class MacosProcessGroup:
                 raise RuntimeError("macOS MXC process group was not isolated")
             return cls(process)
         except Exception:
+            # If the launched helper has already exited, its numerical PGID
+            # must not be signalled: a later unrelated group can reuse it.
             try:
-                os.killpg(process.pid, signal.SIGKILL)
+                if (
+                    process.poll() is None
+                    and os.getpgid(process.pid) == process.pid
+                ):
+                    os.killpg(process.pid, signal.SIGKILL)
             except ProcessLookupError:
                 pass
             process.wait(timeout=5)
