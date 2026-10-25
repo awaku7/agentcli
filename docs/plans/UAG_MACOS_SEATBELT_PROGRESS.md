@@ -4,6 +4,7 @@
 - Work branch: `feat/macos-seatbelt-smoke`; baseline: `main` commit `5e0e6885`.
 - Prior Mac baseline PR: [#276](https://github.com/awaku7/agentcli/pull/276) — **merged into main**, commit `9d7687d7` on 2026-10-25. This PR's branch was cut before the merge; keep its changes separate.
 - Windows VM-grade isolation: **deferred until explicitly needed**; keep [#274](https://github.com/awaku7/agentcli/pull/274) independent.
+- Support decision (2026-10-25): **Apple Silicon (ARM64) only** for this macOS Seatbelt work. Intel Mac / x86-64 is explicitly **out of scope**, not silently passing or considered supported. Already-merged PR #276 still has separate Intel basic-platform CI coverage, which this PR does not change.
 - This stage is **only a non-production host verification** of the pinned Microsoft MXC SDK's macOS Seatbelt backend. It does not enable the UAG Sandbox toggle, Remote Web/A2A, or Enterprise high-isolation guarantees.
 
 ## Evidence and work log
@@ -30,9 +31,11 @@
 
 | 2026-10-25 | Codex independent follow-up complete | Codex review of `e890a856` **completed with no findings**, and both P2 inline threads (negative-probe timeout and network errno proof) were resolved after successful ARM64 CI. [Review summary](https://github.com/awaku7/agentcli/pull/277#issuecomment-6395994673). | Keep PR Draft and Intel Seatbelt CI red until pinned x64 FFI is available or a separate accepted scope change is agreed. Do not infer two-architecture acceptance. |
 
+| 2026-10-25 | Scope decision: Apple Silicon only | Intel Mac support is **not required** for the current UAG macOS Seatbelt feature. Commit `2059ea3e` removes the Intel runner from the Seatbelt workflow (rather than reporting the missing native FFI as an accepted or skipped test). Commit `e9cc1a71` makes the test explicitly reject non-ARM64 hosts. Historical Intel failures remain recorded above. The already-merged baseline PR #276 stays untouched. | Require a fresh successful Apple Silicon real-host CI and a new review for this scope-only follow-up; production macOS sandbox is still not enabled. |
+
 ## Required gates before any production UAG macOS sandbox implementation
 
-1. Both architecture jobs must execute the real Seatbelt subprocess and pass all assertions; successful installation or syntax check alone is insufficient.
+1. The **Apple Silicon/macOS ARM64** job must execute the real Seatbelt subprocess and pass all assertions; successful installation or syntax check alone is insufficient. Intel Mac is not an acceptance criterion for this PR.
 2. A future production host adapter must enforce a bounded process-tree stop, maximum execution/CPU/memory and workspace usage, and verify cleanup before reusing a scope. Seatbelt does not itself provide a persistent container or cgroup-style resource lifecycle.
 3. No credential, arbitrary host path, network, home-folder, or other scope leakage. Run real denied-action tests, cancellation and crash tests, and session transitions.
 4. CLI/GUI/local Web should remain opt-in for Sandbox; unsupported macOS Sandbox currently remains fail-closed. Remote Web and A2A must not automatically rely on this PoC.
@@ -40,9 +43,9 @@
 
 ## Verification ledger
 
-- Node syntax check: **passed** in both macOS jobs, run `40180599384`.
+- Node syntax check: **passed** on supported ARM64, run `40184164368`.
 - macOS 15 ARM64 real Seatbelt: **passed with exact-denial assertion**, run `40184164368`.
-- macOS 15 x86-64 real Seatbelt: **still blocked** by missing pinned SDK 1.0.0 native `libmxc_ffi.dylib`, confirmed again in run `40184164368`.
+- macOS 15 Intel/x86-64 real Seatbelt: **not supported by this PR by decision**, rather than counted as passed or silently skipped. Historical attempts found the missing pinned SDK 1.0.0 native `libmxc_ffi.dylib` in run `40184164368`.
 - Local Mac/SDK execution: **not available**.
 - Python Black/Ruff/pytest: **not applicable yet**; no Python code edited in this PoC.
 - Strong isolation: **deferred**, not claimed.
