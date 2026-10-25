@@ -301,14 +301,34 @@ def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
         )
         assert "Created" in created, created
 
-        for name, args in (
-            ("create_file", {"filename": "../outside-canary.txt", "content": "BAD"}),
-            ("create_file", {"filename": str(canary), "content": "BAD"}),
-            ("read_file", {"path": str(canary)}),
-            ("file_exists", {"path": "../outside-canary.txt"}),
+        for name, args, expected in (
+            (
+                "create_file",
+                {"filename": "../outside-canary.txt", "content": "BAD"},
+                "ValueError: path traversal is not accepted",
+            ),
+            (
+                "create_file",
+                {
+                    "filename": str(canary),
+                    "content": "BAD",
+                    "overwrite": True,
+                },
+                "ValueError: absolute paths and Windows path separators are not accepted",
+            ),
+            (
+                "read_file",
+                {"path": str(canary)},
+                "ValueError: absolute paths and Windows path separators are not accepted",
+            ),
+            (
+                "file_exists",
+                {"path": "../outside-canary.txt"},
+                "ValueError: path traversal is not accepted",
+            ),
         ):
             denied = backend.run_tool(scope, name, args)
-            assert denied.startswith("[sandbox error]"), (name, args, denied)
+            assert denied == f"[sandbox error] {expected}", (name, args, denied)
 
         forbidden = backend.run_tool(scope, "cmd_exec", {"command": "echo forbidden"})
         assert forbidden.startswith("[sandbox policy]"), forbidden
@@ -316,7 +336,10 @@ def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
         workspace = _workspace_for_scope(scope)
         (workspace / "host-link").symlink_to(canary)
         denied = backend.run_tool(scope, "read_file", {"path": "host-link"})
-        assert denied.startswith("[sandbox error]"), denied
+        assert denied in {
+            "[sandbox error] ValueError: path escapes the isolated workspace",
+            "[sandbox error] ValueError: symbolic links are not accepted",
+        }, denied
 
         # A confined Python process must be unable to change a file in a
         # writable host directory that was not granted to the sandbox.
