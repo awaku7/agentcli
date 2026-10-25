@@ -133,6 +133,9 @@ class MacosProcessGroup:
         self.pgid = process.pid
         self.error: str | None = None
         self._stop = threading.Event()
+        # Serialize ps snapshots, identity updates and cleanup target selection.
+        # A stale watchdog observation must not overwrite a newer reap record.
+        self._tracking_lock = threading.RLock()
         self._known: dict[int, str] = {}
         self._cpu_ledger: dict[tuple[int, str], float] = {}
         self._started = time.monotonic()
@@ -170,36 +173,18 @@ class MacosProcessGroup:
             raise
 
     def _inspect(self) -> tuple[int, int, float]:
-        return _summarize(
-            self.process.pid,
-            self.pgid,
-            self._known,
-            self._cpu_ledger,
-            _process_table(),
-        )
+        with self._tracking_lock:
+            return _summarize(
+                self.process.pid,
+                self.pgid,
+                self._known,
+                self._cpu_ledger,
+                _process_table(),
+            )
 
     def snapshot(self) -> frozenset[tuple[int, str]]:
         """Snapshot pre-existing persistent worker PIDs before one-shot tools."""
-        self._inspect()
-        table = _process_table()
-        return frozenset(
-            (pid, row.started)
-            for pid, row in table.items()
-            if self._known.get(pid) == row.started
-        )
-
-    def reap_since(self, baseline: frozenset[tuple[int, str]]) -> None:
-        """Reap observed ephemeral tool descendants, including setsid children.
-
-        The persistent worker was present in baseline and must stay alive.
-        Any uncertain child state is an error: callers terminate the session
-        and retain its workspace lease rather than returning success.
-        """
-        for attempt in range(12):
-            # Discover and register descendants from the EXACT snapshot being
-            # used for cleanup. Taking another process-table snapshot after
-            # _inspect() can lose a newly forked child when its detached
-            # parent is killed and the child becomes reparented.
+        with self._tracking_lock:
             table = _process_table()
             _summarize(
                 self.process.pid,
@@ -208,41 +193,69 @@ class MacosProcessGroup:
                 self._cpu_ledger,
                 table,
             )
-            fresh = [
-                row
+            return frozenset(
+                (pid, row.started)
                 for pid, row in table.items()
                 if self._known.get(pid) == row.started
-                and (pid, row.started) not in baseline
-                and "Z" not in row.state
-            ]
-            if not fresh:
-                return
-            for row in fresh:
-                try:
-                    os.kill(row.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
+            )
+
+    def reap_since(self, baseline: frozenset[tuple[int, str]]) -> None:
+        """Reap observed ephemeral tool descendants, including setsid children.
+
+        The persistent worker was present in baseline and must stay alive.
+        Any uncertain child state is an error: callers terminate the session
+        and retain its workspace lease rather than returning success.
+        """
+        for _attempt in range(12):
+            with self._tracking_lock:
+                # The same ordered observation registers descendants and
+                # chooses kill targets; a watchdog cannot revert PID identity.
+                table = _process_table()
+                _summarize(
+                    self.process.pid,
+                    self.pgid,
+                    self._known,
+                    self._cpu_ledger,
+                    table,
+                )
+                fresh = [
+                    row
+                    for pid, row in table.items()
+                    if self._known.get(pid) == row.started
+                    and (pid, row.started) not in baseline
+                    and "Z" not in row.state
+                ]
+                if not fresh:
+                    return
+                for row in fresh:
+                    try:
+                        os.kill(row.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
             time.sleep(0.08)
         raise RuntimeError(
             "macOS MXC detached tool subprocess cleanup could not be verified"
         )
 
     def _terminate_observed(self) -> None:
-        # Use the process start identity to avoid killing a reused PID.
-        table = _process_table()
-        _summarize(self.process.pid, self.pgid, self._known, self._cpu_ledger, table)
-        try:
-            os.killpg(self.pgid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
-        for pid, started in list(self._known.items()):
-            row = table.get(pid)
-            if row is None or row.started != started:
-                continue
+        # Use one synchronized process-table observation and start identity.
+        with self._tracking_lock:
+            table = _process_table()
+            _summarize(
+                self.process.pid, self.pgid, self._known, self._cpu_ledger, table
+            )
             try:
-                os.kill(pid, signal.SIGKILL)
+                os.killpg(self.pgid, signal.SIGKILL)
             except ProcessLookupError:
                 pass
+            for pid, started in list(self._known.items()):
+                row = table.get(pid)
+                if row is None or row.started != started:
+                    continue
+                try:
+                    os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
 
     def _watch(self) -> None:
         while not self._stop.is_set():
