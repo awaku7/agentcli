@@ -92,14 +92,30 @@ def _summarize(
     that lived entirely between samples remains unobserved; this is explicitly
     NOT a hard aggregate CPU guarantee.
     """
-    active = {
+    # PID/PGID numbers can be recycled. A matching group number alone
+    # proves NOTHING once the original helper and its owned group have died.
+    # Trust a group only while a member with a previously VERIFIED process
+    # identity still exists in that exact group. The initial snapshot is
+    # anchored by the just-launched helper (launch checks its own PGID).
+    trusted = {
         pid
         for pid, row in table.items()
-        if row.pgid == group_id or (pid in known and known[pid] == row.started)
+        if known.get(pid) == row.started
     }
     root = table.get(root_pid)
-    if root is not None and (root_pid not in known or known[root_pid] == root.started):
-        active.add(root_pid)
+    bootstrap = (
+        not known
+        and root is not None
+        and root.pgid == group_id
+    )
+    group_owned = bootstrap or any(
+        table[pid].pgid == group_id for pid in trusted
+    )
+    active = set(trusted)
+    if group_owned:
+        active.update(
+            pid for pid, row in table.items() if row.pgid == group_id
+        )
     changed = True
     while changed:
         size = len(active)
@@ -244,10 +260,20 @@ class MacosProcessGroup:
             _summarize(
                 self.process.pid, self.pgid, self._known, self._cpu_ledger, table
             )
-            try:
-                os.killpg(self.pgid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
+            # Never signal the numeric group after its original leader
+            # exited. An unrelated session may eventually reuse that PGID.
+            # Other verified descendants are signalled individually below.
+            leader = table.get(self.pgid)
+            if (
+                leader is not None
+                and leader.pgid == self.pgid
+                and self._known.get(self.pgid) == leader.started
+                and self.process.poll() is None
+            ):
+                try:
+                    os.killpg(self.pgid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
             for pid, started in list(self._known.items()):
                 row = table.get(pid)
                 if row is None or row.started != started:
