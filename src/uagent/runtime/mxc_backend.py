@@ -1,4 +1,4 @@
-"""Windows x64 MXC ProcessContainer adapter for explicitly opted-in local sessions.
+"""MXC sandbox adapter for supported Windows, Linux and macOS sessions.
 
 This adapter is deliberately unavailable to Remote profiles.  The SDK and the
 persistent worker protocol stay behind this module; tool functions receive only
@@ -119,7 +119,7 @@ def sandbox_tool_specs() -> list[dict[str, Any]]:
 
 
 def _trusted_home() -> Path:
-    if sys.platform.startswith("linux"):
+    if sys.platform.startswith("linux") or sys.platform == "darwin":
         try:
             import pwd
 
@@ -145,6 +145,8 @@ def _local_app_data() -> Path:
     if sys.platform.startswith("linux"):
         # Ignore XDG_DATA_HOME/HOME from project dotenv; use the passwd entry.
         return _trusted_home() / ".local" / "share"
+    if sys.platform == "darwin":
+        return _trusted_home() / "Library" / "Application Support"
     raise RuntimeError("MXC runtime paths are unsupported on this operating system")
 
 
@@ -186,6 +188,15 @@ def _node_candidates() -> list[Path]:
         system_node = shutil.which("node", path="/usr/local/bin:/usr/bin:/bin")
         if system_node:
             candidates.append(Path(system_node))
+    elif sys.platform == "darwin":
+        candidates.append(
+            local / "uagent" / "toolchains" / "node-v24.22.0" / "bin" / "node"
+        )
+        system_node = shutil.which(
+            "node", path="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+        )
+        if system_node:
+            candidates.append(Path(system_node))
     return candidates
 
 
@@ -204,6 +215,12 @@ def _find_node() -> Path:
             "system path or user-local toolchain, or set the trusted startup override "
             "UAGENT_MXC_NODE; no host-level installation is attempted."
         )
+    if sys.platform == "darwin":
+        raise RuntimeError(
+            "Node.js 24.21+ ARM64 is required for macOS MXC Seatbelt. "
+            "Install trusted Node.js in /opt/homebrew/bin, /usr/local/bin, "
+            "or set UAGENT_MXC_NODE at process startup."
+        )
     raise RuntimeError(
         "Node.js 24.21+ x64 is required for MXC. Install a user-local Node 24 runtime "
         "or set UAGENT_MXC_NODE to node.exe; no host-level installation is attempted."
@@ -211,7 +228,7 @@ def _find_node() -> Path:
 
 
 def _node_version(node: Path) -> tuple[int, int, int]:
-    if sys.platform.startswith("linux"):
+    if sys.platform.startswith("linux") or sys.platform == "darwin":
         safe_path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
         home = str(_trusted_home())
         env = {"PATH": safe_path, "HOME": home, "LANG": "C.UTF-8"}
@@ -267,9 +284,13 @@ def _npm_command(node: Path) -> list[str]:
             )
         return [str(npm)]
     path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
+    if sys.platform == "darwin":
+        path = os.pathsep.join(
+            (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+        )
     npm = shutil.which("npm", path=path)
     if not npm:
-        raise RuntimeError("npm is required to provision the pinned Linux MXC SDK")
+        raise RuntimeError("npm is required to provision the pinned MXC SDK")
     return [str(Path(npm).resolve())]
 
 
@@ -277,10 +298,14 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     """Prepare the per-user helper and, only with opt-in consent, install the pinned SDK."""
     machine = platform.machine().lower()
     is_windows_x64 = os.name == "nt" and machine in {"amd64", "x86_64"}
-    is_linux_x64 = sys.platform.startswith("linux") and machine in {"amd64", "x86_64"}
-    if not (is_windows_x64 or is_linux_x64):
+    is_linux_x64 = sys.platform.startswith("linux") and machine in {
+        "amd64",
+        "x86_64",
+    }
+    is_macos_arm64 = sys.platform == "darwin" and machine in {"arm64", "aarch64"}
+    if not (is_windows_x64 or is_linux_x64 or is_macos_arm64):
         raise RuntimeError(
-            "MXC is supported only on verified Windows or Linux x86_64 in this release"
+            "MXC requires Windows/Linux x86_64 or macOS Apple Silicon ARM64"
         )
     node = _find_node()
     node_version = _node_version(node)
@@ -289,16 +314,21 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     )
     if not version_supported:
         raise RuntimeError(
-            "MXC requires Node.js 24.21.0+ or 26.8.0+ on Windows/Linux x86_64"
+            "MXC requires Node.js 24.21.0+ or 26.8.0+ on the supported host"
         )
     runtime = _validate_sandbox_read_root(
         _runtime_dir(), require_existing_directory=False
     )
     runtime.mkdir(parents=True, exist_ok=True, mode=0o700)
-    if is_linux_x64:
+    if is_linux_x64 or is_macos_arm64:
         runtime.chmod(0o700)
     source = _helper_source_dir()
-    for filename in ("mxc_adapter.mjs", "package.json", "package-lock.json"):
+    for filename in (
+        "mxc_adapter.mjs",
+        "seatbelt_smoke.mjs",
+        "package.json",
+        "package-lock.json",
+    ):
         src = source / filename
         if not src.is_file():
             raise RuntimeError(f"MXC helper package is incomplete: missing {filename}")
@@ -353,6 +383,10 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
                 "npm_config_cache": str(npm_cache),
                 "LANG": "C.UTF-8",
             }
+            if is_macos_arm64:
+                install_env["PATH"] = os.pathsep.join(
+                    (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+                )
         install = subprocess.run(
             [*npm, "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
             cwd=str(runtime),
