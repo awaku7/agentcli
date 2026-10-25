@@ -21,6 +21,9 @@
 | 2026-10-25 | Codex review P2 | [Finding](https://github.com/awaku7/agentcli/pull/277#discussion_r4370354642): denied canary and network probes accepted nonzero or null exit codes even when MXC timed out, making test success a false positive. | Assert normal terminal result and actual command execution, not just nonzero status. |
 | 2026-10-25 | Tighten negative probes | Commit `c75f55fd` rejects timed-out and non-integer-exit probes; requires both denied tests to emit a shell-start sentinel; requires canary stderr to report access denied, and proves `nc` reaches the same test listener outside the sandbox before asserting its sandbox failure. **CI acceptance pending**. | Verify macOS ARM64 still passes the stricter negative checks; Intel SDK native FFI is separately blocked. |
 
+| 2026-10-25 | Stricter ARM64 verification | [Run `40183351203`](https://github.com/awaku7/agentcli/actions/runs/40183351203) passed the `macos-15` ARM64 Seatbelt job **with** normal-exit assertions, the shell-start sentinels, filesystem denial stderr, and a host-side `nc` positive control. | Ask Codex to independently re-review the P2 fix before resolving the thread. |
+| 2026-10-25 | Intel blocker reproduced | Same run `40183351203`: `macos-15-intel` failed again at MXC FFI load because `@microsoft/mxc-sdk@1.0.0` contains no discoverable Intel `libmxc_ffi.dylib` at expected paths. Real Seatbelt behavior remains **unverified** on Intel. | Leave the Intel job red and PR Draft until trusted official x64 runtime dependency is available; do not hide this in optional skips. |
+
 ## Required gates before any production UAG macOS sandbox implementation
 
 1. Both architecture jobs must execute the real Seatbelt subprocess and pass all assertions; successful installation or syntax check alone is insufficient.
@@ -32,8 +35,8 @@
 ## Verification ledger
 
 - Node syntax check: **passed** in both macOS jobs, run `40180599384`.
-- macOS 15 ARM64 real Seatbelt: **passed** with the original test in run `40180599384`; stricter P2 fix **pending CI**.
-- macOS 15 x86-64 real Seatbelt: **blocked** by missing pinned SDK 1.0.0 native `libmxc_ffi.dylib`, run `40180599384`.
+- macOS 15 ARM64 real Seatbelt: **passed with P2 stricter checks**, run `40183351203`.
+- macOS 15 x86-64 real Seatbelt: **still blocked** by missing pinned SDK 1.0.0 native `libmxc_ffi.dylib`, confirmed in run `40183351203`.
 - Local Mac/SDK execution: **not available**.
 - Python Black/Ruff/pytest: **not applicable yet**; no Python code edited in this PoC.
 - Strong isolation: **deferred**, not claimed.
