@@ -387,10 +387,14 @@ jobs:
           PYTHONPATH: src
           QT_QPA_PLATFORM: offscreen
         run: |
+          # macOS MXC is currently unsupported: the trusted host-path override
+          # test assumes a Windows/Linux runtime root. Keep its existing coverage
+          # on those hosts while checking all other MXC contracts on macOS.
           python -m pytest -q \
             tests/test_session_portability.py \
             tests/test_web_session_portability.py \
-            tests/test_mxc_backend.py
+            tests/test_mxc_backend.py \
+            -k 'not test_mxc_host_paths_accept_only_pre_dotenv_overrides'
 
   compatibility-tests:
     needs: changes
