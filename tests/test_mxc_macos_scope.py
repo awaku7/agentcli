@@ -282,6 +282,79 @@ def test_macos_manager_prune_cannot_trigger_duplicate_helper_pid_kill(monkeypatc
     assert manager._sessions == {}
 
 
+def test_macos_prune_poll_waits_for_identity_checked_group_signal(monkeypatch):
+    """Manager cannot reap and recycle the helper PGID before killpg runs."""
+
+    class FakeProcess:
+        pid = 100
+        reaped = False
+
+        def poll(self):
+            return 0 if self.reaped else None
+
+    process = FakeProcess()
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = process
+    supervisor.pgid = 100
+    supervisor._known = {100: "original-helper"}
+    supervisor._cpu_ledger = {}
+    supervisor._tracking_lock = threading.RLock()
+
+    class FakeSession:
+        _closed = False
+        _scope = None
+        _proc = process
+        _mac_scope = supervisor
+
+        def close(self):
+            self._closed = True
+
+    manager = mxc_backend.MxcSessionManager.__new__(mxc_backend.MxcSessionManager)
+    manager._sessions = {"session": FakeSession()}
+    manager._session_last_used = {"session": 0}
+    manager._active_web_scopes = set()
+    manager._dormant_web_scopes = {}
+
+    own = {100: _process(100, 1, 100, 0.1, "original-helper")}
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: own)
+    signals = []
+    prune_started = threading.Event()
+    prune_finished = threading.Event()
+    pruning = []
+
+    def prune():
+        prune_started.set()
+        manager._prune_inactive_sessions()
+        prune_finished.set()
+
+    def kill_group(group_id, _sig):
+        signals.append(("group", group_id))
+        thread = threading.Thread(target=prune, name="concurrent-pruner")
+        pruning.append(thread)
+        thread.start()
+        assert prune_started.wait(timeout=5)
+        # _terminate_observed() still owns the tracker lock during signal
+        # delivery; the concurrent manager poll must remain blocked.
+        assert not prune_finished.wait(timeout=0.05)
+        process.reaped = True
+
+    monkeypatch.setattr(mxc_macos_scope.os, "killpg", kill_group)
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "kill",
+        lambda pid, _sig: signals.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert len(pruning) == 1
+    pruning[0].join(timeout=5)
+    assert prune_finished.is_set()
+    assert ("group", 100) in signals
+    assert ("pid", 100) not in signals
+    assert manager._sessions == {}
+
+
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
     """A detached parent can fork between two ps snapshots during cleanup."""
     scope = mxc_macos_scope.MacosProcessGroup.__new__(mxc_macos_scope.MacosProcessGroup)
