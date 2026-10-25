@@ -103,9 +103,7 @@ def _summarize(
     changed = True
     while changed:
         size = len(active)
-        active.update(
-            pid for pid, row in table.items() if row.ppid in active
-        )
+        active.update(pid for pid, row in table.items() if row.ppid in active)
         changed = len(active) != size
     for pid in active:
         row = table[pid]
