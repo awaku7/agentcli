@@ -82,30 +82,6 @@ def _parse_bytes(value: str) -> int | None:
         return None
 
 
-def _parse_systemd_duration_us(value: str) -> int | None:
-    value = value.strip().lower()
-    multipliers = {
-        "usec": 1,
-        "us": 1,
-        "msec": 1_000,
-        "ms": 1_000,
-        "sec": 1_000_000,
-        "s": 1_000_000,
-        "min": 60_000_000,
-        "h": 3_600_000_000,
-    }
-    for suffix, multiplier in multipliers.items():
-        if value.endswith(suffix):
-            try:
-                return int(float(value[: -len(suffix)]) * multiplier)
-            except ValueError:
-                return None
-    try:
-        return int(value)
-    except ValueError:
-        return None
-
-
 def systemd_scope_command(systemd_run: str, unit: str, command: list[str]) -> list[str]:
     """Return the auditable, no-shell command used to create an MXC scope."""
     return [
@@ -117,7 +93,6 @@ def systemd_scope_command(systemd_run: str, unit: str, command: list[str]) -> li
         f"--property=MemoryMax={MEMORY_LIMIT_BYTES}",
         "--property=MemorySwapMax=0",
         f"--property=TasksMax={TASK_LIMIT}",
-        "--property=CPUAccounting=yes",
         "--property=CPUQuota=100%",
         "--",
         *command,
@@ -335,25 +310,56 @@ class LinuxSystemdScope:
         memory = _parse_bytes(self._show("MemoryMax"))
         swap = _parse_bytes(self._show("MemorySwapMax"))
         tasks = _parse_bytes(self._show("TasksMax"))
-        cpu_accounting = self._show("CPUAccounting").lower()
-        cpu_quota = _parse_systemd_duration_us(self._show("CPUQuotaPerSecUSec"))
         if memory is None or memory > MEMORY_LIMIT_BYTES:
             raise RuntimeError("Linux MXC scope did not enforce the 1 GiB memory limit")
         if swap != 0:
             raise RuntimeError("Linux MXC scope did not disable swap")
         if tasks is None or tasks > TASK_LIMIT:
             raise RuntimeError("Linux MXC scope did not enforce the 64-task limit")
-        if cpu_accounting != "yes":
-            raise RuntimeError("Linux MXC scope did not enable CPU accounting")
-        if cpu_quota is None or cpu_quota > 1_000_000:
+        if self._cgroup_path is None:
+            raise RuntimeError("Linux MXC scope has no verifiable cgroup path")
+        try:
+            quota, period = (
+                (self._cgroup_path / "cpu.max").read_text(encoding="ascii").split()
+            )
+            quota_value = int(quota)
+            period_value = int(period)
+        except (OSError, ValueError) as exc:
+            raise RuntimeError(
+                "Linux MXC scope has no verifiable cgroup CPU quota"
+            ) from exc
+        if quota_value <= 0 or period_value <= 0 or quota_value > period_value:
             raise RuntimeError("Linux MXC scope did not enforce the single-CPU quota")
+        # cgroup v2 exposes aggregate CPU usage in cpu.stat without relying on
+        # systemd's optional CPUAccounting property being enabled/reported.
+        self._read_cpu_usage_ns()
+
+    def _read_cpu_usage_ns(self) -> int:
+        if self._cgroup_path is None:
+            raise RuntimeError("Linux MXC scope has no verifiable cgroup path")
+        try:
+            stats = (self._cgroup_path / "cpu.stat").read_text(encoding="ascii")
+        except OSError as exc:
+            raise RuntimeError(
+                "could not read Linux MXC cgroup CPU accounting"
+            ) from exc
+        for line in stats.splitlines():
+            key, separator, value = line.partition(" ")
+            if key == "usage_usec" and separator:
+                try:
+                    return int(value) * 1_000
+                except ValueError as exc:
+                    raise RuntimeError(
+                        "Linux MXC cgroup returned invalid CPU usage"
+                    ) from exc
+        raise RuntimeError("Linux MXC cgroup did not report aggregate CPU usage")
 
     def _monitor_cpu(self) -> None:
         while not self._monitor_stop.wait(CPU_POLL_INTERVAL_SECONDS):
             if self.process.poll() is not None:
                 return
             try:
-                usage = int(self._show("CPUUsageNSec"))
+                usage = self._read_cpu_usage_ns()
             except (ValueError, RuntimeError) as exc:
                 self._watchdog_error = str(exc)
                 try:
@@ -625,7 +631,7 @@ def verify_linux_host_support() -> dict[str, Any]:
             "memory_limit_bytes": MEMORY_LIMIT_BYTES,
             "task_limit": TASK_LIMIT,
             "cpu_budget_ns": CPU_BUDGET_NS,
-            "cpu_accounting": "watchdog at 500ms intervals with one CPU quota",
+            "cpu_accounting": "cgroup-v2 cpu.stat watchdog at 500ms intervals with one CPU quota",
         }
     finally:
         scope.close()

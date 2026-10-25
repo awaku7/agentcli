@@ -54,7 +54,7 @@ user decision is to defer VM setup until a deployment explicitly requires it.
 Windows 11 Home can use the ProcessContainer path when its runtime prerequisites
 are installed; this does **not** mean Windows Sandbox VM is available on Home.
 Linux must satisfy the Bubblewrap, cgroup-v2, and systemd-user prerequisites in
-[MXC Sandbox platform notes](SANDBOX_MXC_WINDOWS.md); the backend fails closed if
+[MXC Sandbox platform notes](SANDBOX_MXC.md); the backend fails closed if
 the host probe cannot verify isolation and resource limits.
 
 Set `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` to demand VM-level isolation. The
@@ -92,5 +92,5 @@ service endpoints, not the main chat interface.
 Unit tests cover the routing, scope binding, fail-closed paths, Web worker RPC,
 and A2A lifecycle. Real MXC integration must be run on each supported host
 before claiming that host's ProcessContainer behavior; VM acceptance is a
-separate, deferred gate. See [Windows MXC Sandbox notes](SANDBOX_MXC_WINDOWS.md)
+separate, deferred gate. See [MXC Sandbox platform notes](SANDBOX_MXC.md)
 for the recorded Windows Home ProcessContainer smoke test and its limits.

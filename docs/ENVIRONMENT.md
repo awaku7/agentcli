@@ -17,7 +17,7 @@ UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=container
 
 The default ProcessContainer is not VM isolation and does not by itself mean
 Enterprise E0 acceptance is complete. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
-and [MXC Sandbox platform notes](SANDBOX_MXC_WINDOWS.md).
+and [MXC Sandbox platform notes](SANDBOX_MXC.md).
 
 `uag` uses environment variables to manage LLM provider credentials and control agent behavior. These variables are typically stored in a `.env` file in your current working directory.
 

@@ -1,4 +1,4 @@
-# MXC ProcessContainer and Bubblewrap Sandbox
+# MXC Sandbox Platform Notes
 
 The MXC backend is the default baseline for Remote Web and tool-enabled A2A;
 trusted local CLI/GUI and local-only Web remain opt-in or off as documented
@@ -56,14 +56,15 @@ no fallback to Host execution.
 
 ## Linux x86_64 prerequisites and controls
 
-The Linux implementation targets Ubuntu 24.04 and 26.04 x86_64. Its real-host
-integration job is configured for both versions; this checkout has not yet
-received those remote CI results. It requires Node.js `24.21.0+` (or `26.8.0+`), npm, the pinned
-MXC SDK, and working MXC Bubblewrap support. Install the host tools with the
-system package manager:
+The Linux implementation targets Ubuntu 24.04 and 26.04 x86_64. The real-host
+integration job runs on both versions, but passing on a GitHub-hosted runner
+only validates that runner's configuration; it does not certify every
+installation. The host requires Node.js `24.21.0+` (or `26.8.0+`), npm, the
+pinned MXC SDK, and working MXC Bubblewrap support. Install the host tools with
+the system package manager:
 
 ```bash
-sudo apt-get install bubblewrap iptables iproute2 slirp4netns util-linux
+sudo apt-get install apparmor bubblewrap iptables iproute2 slirp4netns util-linux
 ```
 
 The host must permit unprivileged Bubblewrap/user namespaces. On Ubuntu

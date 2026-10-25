@@ -20,7 +20,6 @@ def test_systemd_scope_command_requests_host_enforced_group_limits():
     assert "--property=MemoryMax=1073741824" in command
     assert "--property=MemorySwapMax=0" in command
     assert "--property=TasksMax=64" in command
-    assert "--property=CPUAccounting=yes" in command
     assert "--property=CPUQuota=100%" in command
     assert command[-4:] == [
         "--",
@@ -34,9 +33,6 @@ def test_linux_resource_limit_parsers_are_conservative():
     assert mxc_linux_scope._parse_bytes("1073741824") == 1_073_741_824
     assert mxc_linux_scope._parse_bytes("1G") == 1_073_741_824
     assert mxc_linux_scope._parse_bytes("infinity") is None
-    assert mxc_linux_scope._parse_systemd_duration_us("1s") == 1_000_000
-    assert mxc_linux_scope._parse_systemd_duration_us("500ms") == 500_000
-    assert mxc_linux_scope._parse_systemd_duration_us("infinity") is None
 
 
 def test_stop_escalates_to_killing_the_entire_scope_after_stop_timeout(monkeypatch):
@@ -91,8 +87,8 @@ def test_cpu_watchdog_stops_scope_at_the_aggregate_budget(monkeypatch):
     )
     monkeypatch.setattr(
         scope,
-        "_show",
-        lambda name: str(mxc_linux_scope.CPU_BUDGET_NS),
+        "_read_cpu_usage_ns",
+        lambda: mxc_linux_scope.CPU_BUDGET_NS,
     )
     stopped = []
     monkeypatch.setattr(scope, "stop", lambda: stopped.append(True))
@@ -101,6 +97,59 @@ def test_cpu_watchdog_stops_scope_at_the_aggregate_budget(monkeypatch):
 
     assert scope.cpu_exceeded
     assert stopped == [True]
+
+
+def test_cgroup_v2_cpu_usage_and_quota_are_verified_without_systemd_accounting(
+    tmp_path,
+):
+    cgroup = tmp_path / "scope"
+    cgroup.mkdir()
+    (cgroup / "cpu.max").write_text("100000 100000\n", encoding="ascii")
+    (cgroup / "cpu.stat").write_text(
+        "usage_usec 12345\nuser_usec 9000\nsystem_usec 3345\n", encoding="ascii"
+    )
+
+    class RunningProcess:
+        def poll(self):
+            return None
+
+    scope = mxc_linux_scope.LinuxSystemdScope(
+        RunningProcess(),
+        unit="uagent-mxc-test.scope",
+        environment={},
+        systemctl="/usr/bin/systemctl",
+    )
+    scope._cgroup_path = cgroup
+    values = {"MemoryMax": "1G", "MemorySwapMax": "0", "TasksMax": "64"}
+    scope._show = lambda name: values[name]
+
+    scope._verify_resource_properties()
+
+    assert scope._read_cpu_usage_ns() == 12_345_000
+
+
+def test_cgroup_v2_rejects_cpu_quota_above_one_core(tmp_path):
+    cgroup = tmp_path / "scope"
+    cgroup.mkdir()
+    (cgroup / "cpu.max").write_text("200000 100000\n", encoding="ascii")
+    (cgroup / "cpu.stat").write_text("usage_usec 0\n", encoding="ascii")
+
+    class RunningProcess:
+        def poll(self):
+            return None
+
+    scope = mxc_linux_scope.LinuxSystemdScope(
+        RunningProcess(),
+        unit="uagent-mxc-test.scope",
+        environment={},
+        systemctl="/usr/bin/systemctl",
+    )
+    scope._cgroup_path = cgroup
+    values = {"MemoryMax": "1G", "MemorySwapMax": "0", "TasksMax": "64"}
+    scope._show = lambda name: values[name]
+
+    with pytest.raises(RuntimeError, match="single-CPU quota"):
+        scope._verify_resource_properties()
 
 
 def test_stopped_scope_checks_saved_cgroup_when_systemd_forgets_the_unit(
