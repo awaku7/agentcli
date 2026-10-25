@@ -103,19 +103,11 @@ def _summarize(
         if known.get(pid) == row.started
     }
     root = table.get(root_pid)
-    bootstrap = (
-        not known
-        and root is not None
-        and root.pgid == group_id
-    )
-    group_owned = bootstrap or any(
-        table[pid].pgid == group_id for pid in trusted
-    )
+    bootstrap = not known and root is not None and root.pgid == group_id
+    group_owned = bootstrap or any(table[pid].pgid == group_id for pid in trusted)
     active = set(trusted)
     if group_owned:
-        active.update(
-            pid for pid, row in table.items() if row.pgid == group_id
-        )
+        active.update(pid for pid, row in table.items() if row.pgid == group_id)
     changed = True
     while changed:
         size = len(active)
