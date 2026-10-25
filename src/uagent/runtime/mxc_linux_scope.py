@@ -113,7 +113,6 @@ def systemd_scope_command(systemd_run: str, unit: str, command: list[str]) -> li
         "--user",
         "--scope",
         "--quiet",
-        "--pipe",
         "--wait",
         f"--unit={unit}",
         f"--property=MemoryMax={MEMORY_LIMIT_BYTES}",

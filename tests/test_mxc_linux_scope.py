@@ -14,7 +14,8 @@ def test_systemd_scope_command_requests_host_enforced_group_limits():
 
     assert command[:2] == ["/usr/bin/systemd-run", "--user"]
     assert "--scope" in command
-    assert "--pipe" in command
+    # systemd-run forbids --pipe with --scope; scope commands inherit these fds.
+    assert "--pipe" not in command
     assert "--wait" in command
     assert "--property=MemoryMax=1073741824" in command
     assert "--property=MemorySwapMax=0" in command
