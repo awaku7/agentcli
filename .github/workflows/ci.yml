@@ -362,7 +362,7 @@ jobs:
           PYTHONPATH: src
           QT_QPA_PLATFORM: offscreen
         run: |
-          for module in uagent.cli_entry uagent.gui uagent.web uagent.scheckgui_impl.main; do
+          for module in uagent.cli_entry uagent.cli uagent.gui uagent.web uagent.scheckgui_impl.main; do
             UAG_IMPORT_MODULE="$module" python - <<'PY'
           import importlib
           import os
