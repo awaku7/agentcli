@@ -311,8 +311,10 @@ def test_macos_denies_workspace_escape_and_unlisted_tools(backend, tmp_path):
             denied = backend.run_tool(scope, name, args)
             assert denied.startswith("[sandbox error]"), (name, args, denied)
 
-        with pytest.raises(PermissionError):
-            backend.run_tool(scope, "cmd_exec", {"command": "echo forbidden"})
+        forbidden = backend.run_tool(
+            scope, "cmd_exec", {"command": "echo forbidden"}
+        )
+        assert forbidden.startswith("[sandbox policy]"), forbidden
 
         workspace = _workspace_for_scope(scope)
         (workspace / "host-link").symlink_to(canary)
