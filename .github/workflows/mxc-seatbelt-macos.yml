@@ -14,11 +14,8 @@ permissions:
 
 jobs:
   seatbelt-real-host:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-15, macos-15-intel]
-    runs-on: ${{ matrix.os }}
+    # Apple Silicon only. Intel macOS Seatbelt is not in this project's support target.
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v5
