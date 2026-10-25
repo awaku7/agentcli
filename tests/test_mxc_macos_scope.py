@@ -241,9 +241,7 @@ def test_macos_manager_prune_cannot_trigger_duplicate_helper_pid_kill(monkeypatc
         def close(self):
             self._closed = True
 
-    manager = mxc_backend.MxcSessionManager.__new__(
-        mxc_backend.MxcSessionManager
-    )
+    manager = mxc_backend.MxcSessionManager.__new__(mxc_backend.MxcSessionManager)
     manager._sessions = {"existing": FakeSession()}
     manager._session_last_used = {"existing": 0}
     manager._active_web_scopes = set()
