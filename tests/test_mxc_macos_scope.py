@@ -2,8 +2,13 @@
 
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
 import threading
 from types import SimpleNamespace
+
+import pytest
 
 from uagent.runtime import mxc_backend, mxc_macos_scope
 
@@ -440,3 +445,48 @@ def test_macos_watchdog_cannot_overwrite_newer_reap_identity(monkeypatch):
     assert result == ["complete"]
     assert scope._known[101] == "new"
     assert 101 in killed
+
+
+@pytest.mark.skipif(
+    os.name == "nt",
+    reason="POSIX selectors are required for bounded subprocess pipe drainage",
+)
+def test_macos_bounded_probe_drain_reaps_without_communicate(monkeypatch):
+    """Probe output drains without calling Popen.communicate's unlocked wait."""
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import sys,time\n"
+                "sys.stdout.buffer.write(b'probe stdout\\n')\n"
+                "sys.stderr.buffer.write(b'probe stderr\\n')\n"
+                "sys.stdout.flush()\n"
+                "sys.stderr.flush()\n"
+                "time.sleep(0.1)\n"
+            ),
+        ],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        start_new_session=True,
+    )
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = process
+    supervisor._tracking_lock = threading.RLock()
+
+    def disallow_communicate(*_args, **_kwargs):
+        raise AssertionError("unlocked Popen.communicate() must not be called")
+
+    monkeypatch.setattr(process, "communicate", disallow_communicate)
+    try:
+        stdout, stderr = supervisor.communicate_bounded(timeout=5)
+        assert stdout == b"probe stdout\n"
+        assert stderr == b"probe stderr\n"
+        assert process.returncode == 0
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait(timeout=5)
