@@ -254,12 +254,17 @@ class MacosProcessGroup:
             # Never signal the numeric group after its original leader
             # exited. An unrelated session may eventually reuse that PGID.
             # Other verified descendants are signalled individually below.
+            # poll() can reap the original Popen PID after the ps snapshot.
+            # Never signal that stale PID after reaping, even if ps showed a
+            # matching start identity prior to the poll() operation.
+            original_helper_alive = self.process.poll() is None
             leader = table.get(self.pgid)
             if (
-                leader is not None
+                original_helper_alive
+                and leader is not None
+                and "Z" not in leader.state
                 and leader.pgid == self.pgid
                 and self._known.get(self.pgid) == leader.started
-                and self.process.poll() is None
             ):
                 try:
                     os.killpg(self.pgid, signal.SIGKILL)
@@ -267,7 +272,12 @@ class MacosProcessGroup:
                     pass
             for pid, started in list(self._known.items()):
                 row = table.get(pid)
-                if row is None or row.started != started:
+                if (
+                    row is None
+                    or row.started != started
+                    or "Z" in row.state
+                    or (pid == self.process.pid and not original_helper_alive)
+                ):
                     continue
                 try:
                     os.kill(pid, signal.SIGKILL)
