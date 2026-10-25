@@ -126,6 +126,34 @@ def test_macos_recycled_helper_group_is_not_adopted_or_signaled(monkeypatch):
     assert known[100] == "original-helper"
 
 
+def test_macos_only_kills_verified_live_original_helper_group(monkeypatch):
+    """Retain group teardown when the genuine helper owns the current PGID."""
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = SimpleNamespace(pid=100, poll=lambda: None)
+    supervisor.pgid = 100
+    supervisor._known = {100: "original-helper"}
+    supervisor._cpu_ledger = {}
+    supervisor._tracking_lock = threading.RLock()
+    own = {100: _process(100, 1, 100, 0.1, "original-helper")}
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: own)
+    killed = []
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "killpg",
+        lambda gid, sig: killed.append(("group", gid)),
+    )
+    monkeypatch.setattr(
+        mxc_macos_scope.os,
+        "kill",
+        lambda pid, sig: killed.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert ("group", 100) in killed
+    assert ("pid", 100) in killed
+
+
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
     """A detached parent can fork between two ps snapshots during cleanup."""
     scope = mxc_macos_scope.MacosProcessGroup.__new__(mxc_macos_scope.MacosProcessGroup)
