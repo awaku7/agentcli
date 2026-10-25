@@ -142,7 +142,9 @@ def _assert_full_scope(manager, scope, tmp_path):
             "p=pathlib.Path('child.txt')\n"
             "i=0\n"
             "while True:\n"
-            "    p.write_text(str(i))\n"
+            "    temporary=p.with_suffix('.tmp')\n"
+            "    temporary.write_text(str(i))\n"
+            "    temporary.replace(p)\n"
             "    i += 1\n"
             "    time.sleep(0.05)\n"
         )
@@ -234,7 +236,9 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
             "p=pathlib.Path('detached-child.txt')\n"
             "i=0\n"
             "while True:\n"
-            "    p.write_text(str(i))\n"
+            "    temporary=p.with_suffix('.tmp')\n"
+            "    temporary.write_text(str(i))\n"
+            "    temporary.replace(p)\n"
             "    i+=1\n"
             "    time.sleep(0.05)\n"
         )
