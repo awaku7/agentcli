@@ -65,6 +65,42 @@ async function probeHost() {
   if (!handshake || handshake.probe !== true) {
     throw new Error("MXC probe requires the bounded host-adapter handshake");
   }
+  if (process.platform === "darwin" && process.arch === "arm64") {
+    const { getPlatformSupport, getAvailableBackends } = await import("@microsoft/mxc-sdk/v1");
+    const support = getPlatformSupport();
+    const backends = getAvailableBackends();
+    if (!support.isSupported || !support.availableMethods?.includes("seatbelt")) {
+      throw new Error("MXC SDK does not report macOS ARM64 Seatbelt support");
+    }
+    // The verified SDK smoke performs real positive and negative filesystem,
+    // network and subprocess checks. Never accept metadata-only support.
+    const helper = path.join(import.meta.dirname, "seatbelt_smoke.mjs");
+    const evidence = await execFileAsync(process.execPath, [helper], {
+      cwd: import.meta.dirname,
+      env: {
+        PATH: "/usr/bin:/bin",
+        HOME: process.env.HOME,
+        TMPDIR: process.env.TMPDIR || "/tmp",
+        LANG: "C",
+      },
+      timeout: 30_000,
+      maxBuffer: 32 * 1024,
+    });
+    const passed = evidence.stdout.includes("MXC macOS Seatbelt host smoke passed for arm64");
+    if (!passed) throw new Error("macOS Seatbelt host smoke did not prove the required isolation");
+    writeHost({
+      ok: true,
+      sdk: "@microsoft/mxc-sdk@1.0.0",
+      node: process.versions.node,
+      platform: process.platform,
+      arch: process.arch,
+      backend: "seatbelt",
+      support,
+      backends,
+      proof: "filesystem-deny,workspace-readwrite,loopback-connect-permission-denied",
+    });
+    return;
+  }
   if (process.platform === "linux" && process.arch === "x64") {
     const { getAvailableBackends, getPlatformSupport, spawn } = await import("@microsoft/mxc-sdk/v1");
     const support = getPlatformSupport();
@@ -122,7 +158,7 @@ async function probeHost() {
     return;
   }
   if (process.platform !== "win32" || process.arch !== "x64") {
-    writeHost({ ok: false, error: "MXC supports verified Windows x64 and Linux x64 in this release" });
+    writeHost({ ok: false, error: "MXC supports Windows/Linux x64 or macOS ARM64 in this release" });
     process.exitCode = 2;
     return;
   }
@@ -655,6 +691,10 @@ async function serveWorker() {
     readonlyPaths.push(path.join(process.env.SystemRoot || "C:/Windows", "System32"));
   } else if (process.platform === "linux" && process.arch === "x64") {
     readonlyPaths.push("/usr", "/lib", "/lib64", "/etc/ld.so.cache");
+  } else if (process.platform === "darwin" && process.arch === "arm64") {
+    // Darwin dyld and Python must read the system's code resources; never
+    // recursively expose user home, arbitrary /Library or /opt/homebrew.
+    readonlyPaths.push("/System/Library", "/usr/lib", "/usr/bin", "/bin");
   } else {
     throw new Error("MXC worker is unsupported on this host platform");
   }
@@ -699,7 +739,11 @@ async function serveWorker() {
   }
   const baseRequest = {
     workingDirectory: workspace,
-    containment: { type: process.platform === "win32" ? "processcontainer" : "process" },
+    containment: {
+      type: process.platform === "win32"
+        ? "processcontainer"
+        : process.platform === "darwin" ? "seatbelt" : "process",
+    },
     ...(process.platform === "win32" ? { fallback: { allowDaclMutation: false } } : {}),
     filesystem: { readwritePaths, readonlyPaths, deniedPaths },
     network: {
@@ -744,7 +788,12 @@ async function serveWorker() {
     await stopWorker();
     throw error;
   }
-  writeHost({ ready: true, backend: process.platform === "win32" ? "mxc-processcontainer" : "mxc-bubblewrap" });
+  writeHost({
+    ready: true,
+    backend: process.platform === "win32"
+      ? "mxc-processcontainer"
+      : process.platform === "darwin" ? "mxc-seatbelt" : "mxc-bubblewrap",
+  });
   const hostLines = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
   process.stdin.on("close", () => { void stopWorker(); });
   process.stdin.on("error", () => { void stopWorker(); });
