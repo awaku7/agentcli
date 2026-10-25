@@ -475,6 +475,12 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     "def __uag_emit_marker():",
     "    __uag_stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
     "    __uag_stdout.flush()",
+    // On Darwin, keep the Python root alive after the completion marker
+    // long enough for the host's descendant supervisor to observe children
+    // even after setsid(). This does not replace kernel process isolation.
+    ...(process.platform === "darwin"
+      ? ["    import time as __uag_time", "    __uag_time.sleep(1.5)"]
+      : []),
     "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
@@ -600,6 +606,12 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       // The marker is emitted only after user atexit handlers have completed.
       // Use MXC's native kill/wait path to stop the isolated process tree.
       if (outcome.kind === "timeout") timedOut = true;
+      if (process.platform === "darwin" && outcome.kind === "complete") {
+        // The completion marker is emitted while the root is still alive.
+        // Let the host sampler record detached descendants with a verifiable
+        // parent before killing the MXC one-shot process.
+        await new Promise((resolve) => setTimeout(resolve, 600));
+      }
       await stopThroughMxc();
     }
     if (processStopped && terminal?.timedOut) timedOut = true;
