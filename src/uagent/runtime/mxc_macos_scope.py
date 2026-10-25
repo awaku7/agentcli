@@ -271,13 +271,15 @@ class MacosProcessGroup:
                 except ProcessLookupError:
                     pass
             for pid, started in list(self._known.items()):
+                # The original Popen PID must never receive a redundant
+                # numeric SIGKILL here. Another manager thread may reap it
+                # between our poll() and this loop, immediately permitting
+                # PID reuse. Group termination above owns the helper signal;
+                # if that cannot be verified, close() fails closed instead.
+                if pid == self.process.pid:
+                    continue
                 row = table.get(pid)
-                if (
-                    row is None
-                    or row.started != started
-                    or "Z" in row.state
-                    or (pid == self.process.pid and not original_helper_alive)
-                ):
+                if row is None or row.started != started or "Z" in row.state:
                     continue
                 try:
                     os.kill(pid, signal.SIGKILL)
