@@ -65,19 +65,65 @@ def test_macos_tracks_descendants_after_setsid_and_parent_exit():
 def test_macos_pid_reuse_cannot_inherit_previous_cpu_identity():
     known: dict[int, str] = {}
     ledger: dict[tuple[int, str], float] = {}
-    before = {100: _process(100, 1, 100, 1.0, "original")}
+    before = {
+        100: _process(100, 1, 100, 0.1, "root"),
+        101: _process(101, 100, 100, 1.0, "original"),
+    }
     mxc_macos_scope._summarize(100, 100, known, ledger, before)
-    after = {100: _process(100, 1, 100, 0.0, "replacement")}
+    # The genuine root is still alive, so a replacement group member is
+    # provably within the original sandbox despite recycling its numeric PID.
+    after = {
+        100: _process(100, 1, 100, 0.2, "root"),
+        101: _process(101, 100, 100, 0.0, "replacement"),
+    }
     count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, after)
-    assert count == 1
-    assert known[100] == "replacement"
-    assert cpu == 1.0
+    assert count == 2
+    assert known[101] == "replacement"
+    assert cpu == 1.2
 
-    # A recycled sandbox PID that later changes group must remain tracked.
-    detached = {100: _process(100, 1, 900, 0.4, "replacement")}
+    # The verified replacement stays tracked after detachment and root exit.
+    detached = {101: _process(101, 1, 900, 0.4, "replacement")}
     count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, detached)
     assert count == 1
-    assert cpu == 1.4
+    assert cpu == 1.6
+
+
+def test_macos_recycled_helper_group_is_not_adopted_or_signaled(monkeypatch):
+    """The numeric PGID may be reused by an unrelated process after exit."""
+    known = {100: "original-helper", 101: "detached-child"}
+    ledger = {}
+    unrelated = {
+        100: _process(100, 1, 100, 0.1, "unrelated-leader"),
+        102: _process(102, 100, 100, 0.2, "unrelated-child"),
+    }
+    count, rss, cpu = mxc_macos_scope._summarize(
+        100, 100, known, ledger, unrelated
+    )
+    assert (count, rss, cpu) == (0, 0, 0.0)
+    assert known[100] == "original-helper"
+    assert 102 not in known
+
+    supervisor = mxc_macos_scope.MacosProcessGroup.__new__(
+        mxc_macos_scope.MacosProcessGroup
+    )
+    supervisor.process = SimpleNamespace(pid=100, poll=lambda: 0)
+    supervisor.pgid = 100
+    supervisor._known = known
+    supervisor._cpu_ledger = ledger
+    supervisor._tracking_lock = threading.RLock()
+    monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: unrelated)
+    signaled = []
+    monkeypatch.setattr(
+        mxc_macos_scope.os, "killpg",
+        lambda gid, sig: signaled.append(("group", gid)),
+    )
+    monkeypatch.setattr(
+        mxc_macos_scope.os, "kill",
+        lambda pid, sig: signaled.append(("pid", pid)),
+    )
+    supervisor._terminate_observed()
+    assert signaled == []
+    assert known[100] == "original-helper"
 
 
 def test_reap_uses_same_snapshot_to_register_new_detached_grandchild(monkeypatch):
