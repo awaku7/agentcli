@@ -24,9 +24,7 @@ def test_macos_cpu_ledger_retains_exited_children():
         100: _process(100, 1, 100, 0.2, "root"),
         101: _process(101, 100, 100, 0.8, "child-a"),
     }
-    count, rss, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, first
-    )
+    count, rss, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, first)
     assert (count, rss) == (2, 20)
     assert cpu == 1.0
 
@@ -34,9 +32,7 @@ def test_macos_cpu_ledger_retains_exited_children():
         100: _process(100, 1, 100, 0.4, "root"),
         102: _process(102, 100, 100, 0.9, "child-b"),
     }
-    count, rss, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, second
-    )
+    count, rss, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, second)
     assert (count, rss) == (2, 20)
     assert cpu > 2.0
     # Neither short-lived child reached this illustrative 1.5-second budget,
@@ -51,18 +47,14 @@ def test_macos_tracks_descendants_after_setsid_and_parent_exit():
         100: _process(100, 1, 100, 0.2, "root"),
         101: _process(101, 100, 900, 0.1, "detached"),
     }
-    count, _, _ = mxc_macos_scope._summarize(
-        100, 100, known, ledger, before
-    )
+    count, _, _ = mxc_macos_scope._summarize(100, 100, known, ledger, before)
     assert count == 2
     assert known[101] == "detached"
 
     after = {
         101: _process(101, 1, 900, 0.5, "detached"),
     }
-    count, _, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, after
-    )
+    count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, after)
     assert count == 1
     assert cpu >= 0.7
 
@@ -73,17 +65,13 @@ def test_macos_pid_reuse_cannot_inherit_previous_cpu_identity():
     before = {100: _process(100, 1, 100, 1.0, "original")}
     mxc_macos_scope._summarize(100, 100, known, ledger, before)
     after = {100: _process(100, 1, 100, 0.0, "replacement")}
-    count, _, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, after
-    )
+    count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, after)
     assert count == 1
     assert known[100] == "replacement"
     assert cpu == 1.0
 
     # A recycled sandbox PID that later changes group must remain tracked.
     detached = {100: _process(100, 1, 900, 0.4, "replacement")}
-    count, _, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, detached
-    )
+    count, _, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, detached)
     assert count == 1
     assert cpu == 1.4
