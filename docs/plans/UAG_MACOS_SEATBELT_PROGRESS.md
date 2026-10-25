@@ -33,6 +33,8 @@
 
 | 2026-10-25 | Scope decision: Apple Silicon only | Intel Mac support is **not required** for the current UAG macOS Seatbelt feature. Commit `2059ea3e` removes the Intel runner from the Seatbelt workflow (rather than reporting the missing native FFI as an accepted or skipped test). Commit `e9cc1a71` makes the test explicitly reject non-ARM64 hosts. Historical Intel failures remain recorded above. The already-merged baseline PR #276 stays untouched. | Require a fresh successful Apple Silicon real-host CI and a new review for this scope-only follow-up; production macOS sandbox is still not enabled. |
 
+| 2026-10-25 | Apple Silicon-only real-host CI verified | [Run `40184632787`](https://github.com/awaku7/agentcli/actions/runs/40184632787), HEAD `f4c1729a`: the sole macOS 15 ARM64 Seatbelt job **completed successfully** after the Intel matrix removal and explicit architecture assertion. This is verification of the SDK smoke, **not** proof of an integrated UAG macOS Sandbox. | Request independent review of new support scope; regular PR CI and review must pass before merging. |
+
 ## Required gates before any production UAG macOS sandbox implementation
 
 1. The **Apple Silicon/macOS ARM64** job must execute the real Seatbelt subprocess and pass all assertions; successful installation or syntax check alone is insufficient. Intel Mac is not an acceptance criterion for this PR.
@@ -44,7 +46,7 @@
 ## Verification ledger
 
 - Node syntax check: **passed** on supported ARM64, run `40184164368`.
-- macOS 15 ARM64 real Seatbelt: **passed with exact-denial assertion**, run `40184164368`.
+- macOS 15 ARM64 real Seatbelt: **passed under ARM64-only scope**, run `40184632787`.
 - macOS 15 Intel/x86-64 real Seatbelt: **not supported by this PR by decision**, rather than counted as passed or silently skipped. Historical attempts found the missing pinned SDK 1.0.0 native `libmxc_ffi.dylib` in run `40184164368`.
 - Local Mac/SDK execution: **not available**.
 - Python Black/Ruff/pytest: **not applicable yet**; no Python code edited in this PoC.
