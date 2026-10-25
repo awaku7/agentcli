@@ -189,6 +189,16 @@ class MacosProcessGroup:
                 _process_table(),
             )
 
+    def poll(self) -> int | None:
+        """Reap/check this helper only under the same lock as group signals.
+
+        Session management may prune the helper concurrently with a quota
+        violation. Its poll must never release the original PGID for reuse
+        between the supervisor's identity verification and killpg().
+        """
+        with self._tracking_lock:
+            return self.process.poll()
+
     def snapshot(self) -> frozenset[tuple[int, str]]:
         """Snapshot pre-existing persistent worker PIDs before one-shot tools."""
         with self._tracking_lock:
