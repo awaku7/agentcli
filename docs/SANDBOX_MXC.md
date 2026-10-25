@@ -3,9 +3,12 @@
 The MXC backend is the default baseline for Remote Web and tool-enabled A2A;
 trusted local CLI/GUI and local-only Web remain opt-in or off as documented
 below. Windows x64 uses MXC ProcessContainer; Linux x86_64 uses MXC's Bubblewrap
-backend plus a host-enforced systemd/cgroup-v2 scope. Neither is VM isolation,
-and neither establishes Enterprise E0 completion or a production multi-tenant
-security guarantee. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
+backend plus a host-enforced systemd/cgroup-v2 scope. macOS 15+ Apple Silicon
+ARM64 uses MXC Seatbelt with a monitored POSIX process group. All four entry
+points (CLI, GUI, Web, A2A) share the same tool execution manager. None of
+these backends is VM isolation, and none establishes Enterprise E0 completion
+or a production multi-tenant security guarantee. macOS resource monitoring
+uses periodic host sampling rather than hard Job Object/cgroup limits. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
 for the current decision and explicit limits.
 
 ## Usage
@@ -24,13 +27,14 @@ for the current decision and explicit limits.
 - `uag --sandbox auto`, `uagg --sandbox auto`, and explicit trusted local Web
   `--sandbox auto` also use an already-installed supported backend. The
   `--sandbox mxc` option on CLI/GUI or trusted local Web opts into the native
-  MXC backend for the supported host (Windows ProcessContainer or Linux
-  Bubblewrap). On first interactive local use, UAG asks before
+  MXC backend for the supported host (Windows ProcessContainer, Linux
+  Bubblewrap or macOS Apple Silicon Seatbelt). On first interactive local use,
+  UAG asks before
   installing the pinned SDK in the current user's profile (about 105 MB). Web
   startup refuses to install in non-interactive mode. Installation uses the Node
   runtime already available to the user and does not request elevation. If
-  Node.js 24.21+ x64 or 26.8+ x64 is unavailable, startup stops; UAG does not
-  install Node at machine scope.
+  a supported Node.js 24.21+ or 26.8+ runtime is unavailable, startup
+  stops; UAG does not install Node at machine scope.
 - `--sandbox off` on Remote Web does not enable Host tools. `--no-use-tool` /
   `UAGENT_USE_TOOL=off` is the explicit tool-less mode for A2A and avoids MXC
   initialization.
@@ -53,6 +57,51 @@ requirements, and missing deny-path support. Linux x86_64 uses the pinned SDK's
 Bubblewrap backend; the host probe also verifies a live cgroup-v2 systemd scope
 with the required limits before enabling it. Both platforms fail closed, with
 no fallback to Host execution.
+
+## macOS Apple Silicon (ARM64) prerequisites and controls
+
+macOS 15+ on Apple Silicon is a supported MXC Seatbelt target in the same
+execution manager used by CLI, GUI, Web and A2A. Intel Mac is **not supported
+for Seatbelt**. A trusted Node.js ARM64 24.21+ (or 26.8+) runtime and npm
+are required. macOS discovers Node only from trusted process-startup override
+`UAGENT_MXC_NODE`, the user-local UAG toolchain, or system paths
+`/opt/homebrew/bin` and `/usr/local/bin`, and installs the pinned MXC SDK
+under `~/Library/Application Support/uagent/mxc_runtime`. Untrusted
+project dotenv overrides cannot choose the Node executable or helper.
+
+`uag --sandbox mxc`, `uagg --sandbox mxc`, local Web with explicit
+Sandbox opt-in, Remote Web, and tool-enabled A2A use the **same Seatbelt
+runtime** on Apple Silicon. Remote startup never silently installs the SDK
+and never falls back to Host execution; the prerequisite must be provisioned
+before starting Remote services. No entry-point allowlist is artificially
+limited just because it runs on macOS.
+
+The runtime performs a real Seatbelt probe before enabling tools. It proves
+workspace read/write, explicit host-canary denial, and explicit permission
+denial of a loopback connection to a live test listener. Each tool worker and
+one-shot Python execution uses SDK `containment.type=seatbelt` and the same
+filesystem, network, and tool allowlist contracts. The trusted host runs the
+adapter in a fresh private POSIX process group with a sampling watchdog
+(default 1 GiB group RSS, 64 processes, four aggregate CPU hours) and verifies
+group cleanup before releasing the per-session workspace lease. Individual
+tool execution and workspace limits remain enforced by the existing adapter.
+
+**Important security difference:** macOS process-group sampling is not a hard
+kernel-enforced cgroup/Job Object quota. A burst may temporarily exceed
+memory/process limits before the watchdog samples it. Seatbelt subprocess
+reaping and process-group cleanup require real-host acceptance tests. Treat
+the backend as the documented lightweight process isolation tier, not VM-grade
+or Enterprise E0 isolation. As with Windows/Linux, use independent security
+acceptance before claiming suitability for an adversarial multi-tenant
+production environment. If a host probe, watchdog, process cleanup, or other
+required capability fails, startup/execution is denied rather than using
+unconfined Host tools.
+
+The `macOS MXC Seatbelt smoke` GitHub Actions workflow now runs both the
+standalone SDK host smoke and integrated CLI/GUI/Web/A2A tool-scope tests on
+macOS ARM64. Those tests verify the registered tool catalog, denied host
+file/network access and child process lifetime. A CI pass is evidence for its
+particular macOS runner, not a guarantee for every Mac.
 
 ## Linux x86_64 prerequisites and controls
 
@@ -187,8 +236,9 @@ scope and closes it at task completion. The MXC manager caps active sessions.
 Sandbox mode also blocks Host plugin imports, Host hooks, tool-genre changes,
 general Web commands, and non-allowlisted tools.
 
-Remote Web and tool-enabled A2A now use ProcessContainer by default. This is a
-process/container boundary, **not** VM isolation and not a claim of completed
+Remote Web and tool-enabled A2A now use the same supported MXC backend as
+local opt-in sessions (Windows ProcessContainer, Linux Bubblewrap, or macOS
+ARM64 Seatbelt). This is a process/container boundary, **not** VM isolation and not a claim of completed
 Enterprise E0 acceptance. The high-assurance VM tier remains deferred; setting
 `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` requires a future VM-capable backend and
 fails closed with the current ProcessContainer. The recorded Windows 11 Home

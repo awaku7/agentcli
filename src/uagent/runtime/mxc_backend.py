@@ -1,4 +1,4 @@
-"""Windows x64 MXC ProcessContainer adapter for explicitly opted-in local sessions.
+"""MXC sandbox adapter for supported Windows, Linux and macOS sessions.
 
 This adapter is deliberately unavailable to Remote profiles.  The SDK and the
 persistent worker protocol stay behind this module; tool functions receive only
@@ -119,7 +119,7 @@ def sandbox_tool_specs() -> list[dict[str, Any]]:
 
 
 def _trusted_home() -> Path:
-    if sys.platform.startswith("linux"):
+    if sys.platform.startswith("linux") or sys.platform == "darwin":
         try:
             import pwd
 
@@ -145,6 +145,8 @@ def _local_app_data() -> Path:
     if sys.platform.startswith("linux"):
         # Ignore XDG_DATA_HOME/HOME from project dotenv; use the passwd entry.
         return _trusted_home() / ".local" / "share"
+    if sys.platform == "darwin":
+        return _trusted_home() / "Library" / "Application Support"
     raise RuntimeError("MXC runtime paths are unsupported on this operating system")
 
 
@@ -186,6 +188,15 @@ def _node_candidates() -> list[Path]:
         system_node = shutil.which("node", path="/usr/local/bin:/usr/bin:/bin")
         if system_node:
             candidates.append(Path(system_node))
+    elif sys.platform == "darwin":
+        candidates.append(
+            local / "uagent" / "toolchains" / "node-v24.22.0" / "bin" / "node"
+        )
+        system_node = shutil.which(
+            "node", path="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+        )
+        if system_node:
+            candidates.append(Path(system_node))
     return candidates
 
 
@@ -204,6 +215,12 @@ def _find_node() -> Path:
             "system path or user-local toolchain, or set the trusted startup override "
             "UAGENT_MXC_NODE; no host-level installation is attempted."
         )
+    if sys.platform == "darwin":
+        raise RuntimeError(
+            "Node.js 24.21+ ARM64 is required for macOS MXC Seatbelt. "
+            "Install trusted Node.js in /opt/homebrew/bin, /usr/local/bin, "
+            "or set UAGENT_MXC_NODE at process startup."
+        )
     raise RuntimeError(
         "Node.js 24.21+ x64 is required for MXC. Install a user-local Node 24 runtime "
         "or set UAGENT_MXC_NODE to node.exe; no host-level installation is attempted."
@@ -211,7 +228,7 @@ def _find_node() -> Path:
 
 
 def _node_version(node: Path) -> tuple[int, int, int]:
-    if sys.platform.startswith("linux"):
+    if sys.platform.startswith("linux") or sys.platform == "darwin":
         safe_path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
         home = str(_trusted_home())
         env = {"PATH": safe_path, "HOME": home, "LANG": "C.UTF-8"}
@@ -267,9 +284,13 @@ def _npm_command(node: Path) -> list[str]:
             )
         return [str(npm)]
     path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
+    if sys.platform == "darwin":
+        path = os.pathsep.join(
+            (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+        )
     npm = shutil.which("npm", path=path)
     if not npm:
-        raise RuntimeError("npm is required to provision the pinned Linux MXC SDK")
+        raise RuntimeError("npm is required to provision the pinned MXC SDK")
     return [str(Path(npm).resolve())]
 
 
@@ -277,10 +298,14 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     """Prepare the per-user helper and, only with opt-in consent, install the pinned SDK."""
     machine = platform.machine().lower()
     is_windows_x64 = os.name == "nt" and machine in {"amd64", "x86_64"}
-    is_linux_x64 = sys.platform.startswith("linux") and machine in {"amd64", "x86_64"}
-    if not (is_windows_x64 or is_linux_x64):
+    is_linux_x64 = sys.platform.startswith("linux") and machine in {
+        "amd64",
+        "x86_64",
+    }
+    is_macos_arm64 = sys.platform == "darwin" and machine in {"arm64", "aarch64"}
+    if not (is_windows_x64 or is_linux_x64 or is_macos_arm64):
         raise RuntimeError(
-            "MXC is supported only on verified Windows or Linux x86_64 in this release"
+            "MXC requires Windows/Linux x86_64 or macOS Apple Silicon ARM64"
         )
     node = _find_node()
     node_version = _node_version(node)
@@ -289,16 +314,21 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     )
     if not version_supported:
         raise RuntimeError(
-            "MXC requires Node.js 24.21.0+ or 26.8.0+ on Windows/Linux x86_64"
+            "MXC requires Node.js 24.21.0+ or 26.8.0+ on the supported host"
         )
     runtime = _validate_sandbox_read_root(
         _runtime_dir(), require_existing_directory=False
     )
     runtime.mkdir(parents=True, exist_ok=True, mode=0o700)
-    if is_linux_x64:
+    if is_linux_x64 or is_macos_arm64:
         runtime.chmod(0o700)
     source = _helper_source_dir()
-    for filename in ("mxc_adapter.mjs", "package.json", "package-lock.json"):
+    for filename in (
+        "mxc_adapter.mjs",
+        "seatbelt_smoke.mjs",
+        "package.json",
+        "package-lock.json",
+    ):
         src = source / filename
         if not src.is_file():
             raise RuntimeError(f"MXC helper package is incomplete: missing {filename}")
@@ -353,6 +383,10 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
                 "npm_config_cache": str(npm_cache),
                 "LANG": "C.UTF-8",
             }
+            if is_macos_arm64:
+                install_env["PATH"] = os.pathsep.join(
+                    (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+                )
         install = subprocess.run(
             [*npm, "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
             cwd=str(runtime),
@@ -411,6 +445,7 @@ def _assign_job_object(proc: subprocess.Popen[bytes]):
 def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     helper = runtime / "mxc_adapter.mjs"
     linux_scope = None
+    mac_scope = None
     if sys.platform.startswith("linux"):
         from .mxc_linux_scope import LinuxSystemdScope
 
@@ -429,6 +464,23 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             unit_prefix="uagent-mxc-probe",
         )
         proc = linux_scope.process
+    elif sys.platform == "darwin":
+        from .mxc_macos_scope import MacosProcessGroup
+
+        temp = runtime / ".tmp"
+        temp.mkdir(parents=True, exist_ok=True, mode=0o700)
+        env = {
+            "PATH": os.pathsep.join(
+                (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
+            ),
+            "HOME": str(_trusted_home()),
+            "TMPDIR": str(temp),
+            "LANG": "C",
+        }
+        mac_scope = MacosProcessGroup.launch(
+            [str(node), str(helper), "probe"], cwd=runtime, env=env
+        )
+        proc = mac_scope.process
     else:
         system_root = os.environ.get("SystemRoot", "C:/Windows")
         safe_path = os.pathsep.join(
@@ -458,7 +510,7 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
         )
     job_api = None
     job = None
-    if linux_scope is None:
+    if linux_scope is None and mac_scope is None:
         try:
             job_api, job = _assign_job_object(proc)
         except Exception:
@@ -467,16 +519,25 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             raise
     try:
         assert proc.stdin is not None
-        if linux_scope is not None:
+        if linux_scope is not None or mac_scope is not None:
             proc.stdin.write(b'{"probe":true}' + bytes([10]))
         else:
             proc.stdin.write('{"probe":true}' + chr(10))
         proc.stdin.flush()
         try:
-            stdout, stderr = proc.communicate(timeout=PROBE_TIMEOUT_SECONDS)
+            if mac_scope is not None:
+                # Popen.communicate() may reap the helper outside the macOS
+                # watchdog lock. Drain pipes independently; lock only poll.
+                stdout, stderr = mac_scope.communicate_bounded(
+                    timeout=PROBE_TIMEOUT_SECONDS
+                )
+            else:
+                stdout, stderr = proc.communicate(timeout=PROBE_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired as exc:
             if linux_scope is not None:
                 linux_scope.close()
+            elif mac_scope is not None:
+                mac_scope.close()
             elif job is not None:
                 job_api.CloseHandle(job)
                 job = None
@@ -491,6 +552,8 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     finally:
         if linux_scope is not None:
             linux_scope.close()
+        elif mac_scope is not None:
+            mac_scope.close()
         else:
             if job is not None:
                 job_api.CloseHandle(job)
@@ -710,7 +773,12 @@ def _release_workspace_lease(lease) -> None:
 
 
 def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
-    """Remove abandoned workspaces only when their OS owner lease is unlocked."""
+    """Remove abandoned workspaces only when cleanup is actually provable."""
+    if sys.platform == "darwin":
+        # Unlike Job Objects or cgroup scopes, a POSIX process group has no
+        # kernel-owned stale scope to query after the controlling host exits.
+        # Never reclaim a potentially still-writable workspace after a crash.
+        return
     sandbox_root = Path(sandbox_root)
     if not sandbox_root.exists():
         return
@@ -826,6 +894,7 @@ class _MxcSession:
         resume_workspace: bool = False,
     ) -> None:
         self._linux_scope = None
+        self._mac_scope = None
         if os.name == "nt":
             try:
                 import win32api
@@ -839,6 +908,12 @@ class _MxcSession:
         elif sys.platform.startswith("linux") and platform.machine().lower() in {
             "amd64",
             "x86_64",
+        }:
+            self._win32api = None
+            self._win32job = None
+        elif sys.platform == "darwin" and platform.machine().lower() in {
+            "arm64",
+            "aarch64",
         }:
             self._win32api = None
             self._win32job = None
@@ -866,6 +941,14 @@ class _MxcSession:
         # Web Room sessions may be parked by the owning manager. Only that
         # trusted in-process path opts into resuming its still-leased scope.
         if not resume_workspace and any(self.workspace.iterdir()):
+            if sys.platform == "darwin":
+                # A stale workspace can still be written by an orphan after a
+                # host crash. Preserve evidence and refuse reuse or deletion.
+                _release_workspace_lease(self._workspace_lease)
+                self._workspace_lease = None
+                raise RuntimeError(
+                    "macOS MXC cannot safely reuse an unverified stale workspace"
+                )
             _remove_workspace_tree(self.workspace)
             self.workspace.mkdir(parents=True, mode=0o700)
         if sys.platform.startswith("linux"):
@@ -916,7 +999,10 @@ class _MxcSession:
                 self._workspace_lease = None
                 raise
         else:
-            from .mxc_linux_scope import LinuxSystemdScope
+            if sys.platform.startswith("linux"):
+                from .mxc_linux_scope import LinuxSystemdScope
+            else:
+                from .mxc_macos_scope import MacosProcessGroup
 
             helper_tmp = runtime / ".tmp"
             helper_tmp.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -928,14 +1014,26 @@ class _MxcSession:
                 "TMPDIR": str(helper_tmp),
                 "LANG": "C.UTF-8",
             }
-            try:
-                self._linux_scope = LinuxSystemdScope.launch(
-                    [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
-                    cwd=runtime,
-                    env=helper_env,
-                    unit=f"uagent-mxc-{_scope_key(scope)}.scope",
+            if sys.platform == "darwin":
+                helper_env["PATH"] = os.pathsep.join(
+                    (str(node.parent), "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin")
                 )
-                self._proc = self._linux_scope.process
+            try:
+                if sys.platform.startswith("linux"):
+                    self._linux_scope = LinuxSystemdScope.launch(
+                        [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                        cwd=runtime,
+                        env=helper_env,
+                        unit=f"uagent-mxc-{_scope_key(scope)}.scope",
+                    )
+                    self._proc = self._linux_scope.process
+                else:
+                    self._mac_scope = MacosProcessGroup.launch(
+                        [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                        cwd=runtime,
+                        env=helper_env,
+                    )
+                    self._proc = self._mac_scope.process
                 self._job = None
             except Exception as exc:
                 unreaped_scope = getattr(exc, "scope", None)
@@ -1019,7 +1117,14 @@ class _MxcSession:
                     self._stderr.extend(chunk[:remaining])
 
     def _write_line(self, value: dict[str, Any]) -> None:
-        if self._closed or self._proc.poll() is not None or self._proc.stdin is None:
+        if self._closed or self._proc.stdin is None:
+            raise RuntimeError("MXC session process is not running")
+        stopped = (
+            self._mac_scope.poll() is not None
+            if self._mac_scope is not None
+            else self._proc.poll() is not None
+        )
+        if stopped:
             raise RuntimeError("MXC session process is not running")
         payload = (
             json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -1040,6 +1145,10 @@ class _MxcSession:
             ) from exc
         if raw is None:
             stderr = self._stderr.decode("utf-8", errors="replace")
+            if self._mac_scope is not None and self._mac_scope.error:
+                raise RuntimeError(
+                    f"macOS MXC process-group watchdog failed closed: {self._mac_scope.error}"
+                )
             if self._linux_scope is not None and self._linux_scope.cpu_exceeded:
                 raise RuntimeError(
                     "Linux MXC aggregate CPU budget exceeded; the cgroup was stopped"
@@ -1064,10 +1173,20 @@ class _MxcSession:
         with self._lock:
             if self._revoked.is_set():
                 raise PermissionError("sandbox scope has been revoked")
+            mac_baseline = (
+                self._mac_scope.snapshot()
+                if self._mac_scope is not None and name == "python_exec"
+                else None
+            )
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
             response = self._read_response(timeout=60 if name == "python_exec" else 45)
+            if mac_baseline is not None:
+                # Native MXC process-group kill alone may miss setsid children.
+                # Fail closed if observed detached descendants cannot be reaped
+                # before the tool result is made visible to the caller.
+                self._mac_scope.reap_since(mac_baseline)
             if response.get("terminate"):
                 self.close()
                 error = response.get("error")
@@ -1098,9 +1217,12 @@ class _MxcSession:
             except OSError:
                 pass
             cleanup_verified = True
-            if self._linux_scope is not None:
+            if self._linux_scope is not None or self._mac_scope is not None:
                 try:
-                    self._linux_scope.close()
+                    if self._linux_scope is not None:
+                        self._linux_scope.close()
+                    else:
+                        self._mac_scope.close()
                 except Exception:
                     # Keep the scope object and workspace lease alive. Releasing
                     # either after an unverified cgroup stop could let a live
@@ -1125,7 +1247,11 @@ class _MxcSession:
             preserve_workspace = bool(
                 cleanup_verified
                 and preserve_workspace
-                and self._proc.poll() is not None
+                and (
+                    self._mac_scope.poll() is not None
+                    if self._mac_scope is not None
+                    else self._proc.poll() is not None
+                )
             )
             self._workspace_preserved = preserve_workspace
             if cleanup_verified:
@@ -1155,7 +1281,11 @@ class MxcSessionManager:
         self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._active_a2a_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
-        if os.name == "nt" or sys.platform.startswith("linux"):
+        if (
+            os.name == "nt"
+            or sys.platform.startswith("linux")
+            or sys.platform == "darwin"
+        ):
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
         atexit.register(self.close_all)
 
@@ -1172,7 +1302,16 @@ class MxcSessionManager:
     def _prune_inactive_sessions(self) -> None:
         """Release exited workers, parking live Web Room workspaces for reuse."""
         for key, session in list(self._sessions.items()):
-            if session._closed or session._proc.poll() is not None:
+            if session._closed:
+                exited = True
+            else:
+                mac_scope = getattr(session, "_mac_scope", None)
+                exited = (
+                    mac_scope.poll() is not None
+                    if mac_scope is not None
+                    else session._proc.poll() is not None
+                )
+            if exited:
                 self._sessions.pop(key, None)
                 self._session_last_used.pop(key, None)
                 scope = getattr(session, "_scope", None)
