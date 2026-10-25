@@ -87,8 +87,16 @@ async function probeHost() {
     };
     let processHandle;
     let terminal;
+    let stderrText = "";
     try {
       processHandle = await spawn(request);
+      const stderrStream = processHandle.standardError;
+      if (stderrStream) {
+        stderrStream.setEncoding("utf8");
+        stderrStream.on("data", (chunk) => {
+          stderrText = (stderrText + chunk).slice(-4096);
+        });
+      }
       terminal = await processHandle.wait();
     } finally {
       try { processHandle?.dispose(); } catch {}
@@ -103,7 +111,11 @@ async function probeHost() {
       backend: "bubblewrap",
       support,
       backends,
-      probe: { exitCode: terminal?.exitCode, timedOut: terminal?.timedOut === true },
+      probe: {
+        exitCode: terminal?.exitCode,
+        timedOut: terminal?.timedOut === true,
+        stderr: stderrText,
+      },
       error: accepted ? undefined : "MXC Bubblewrap probe did not complete successfully",
     });
     if (!accepted) process.exitCode = 2;

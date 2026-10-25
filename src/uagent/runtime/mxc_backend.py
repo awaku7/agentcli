@@ -513,7 +513,15 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             f"MXC host probe returned invalid JSON: {stderr[-1000:]}"
         ) from exc
     if proc.returncode != 0 or report.get("ok") is not True:
-        raise RuntimeError(str(report.get("error") or "MXC backend probe failed"))
+        error = str(report.get("error") or "MXC backend probe failed")
+        probe_details = report.get("probe")
+        if isinstance(probe_details, dict):
+            error += (
+                " (probe details: "
+                + json.dumps(probe_details, ensure_ascii=False)
+                + ")"
+            )
+        raise RuntimeError(error)
     return report
 
 
