@@ -134,14 +134,20 @@ def _assert_full_scope(manager, scope, tmp_path):
             thread.join(timeout=2)
 
         # Native SDK kill/wait must reap a child spawned inside python_exec.
+        child_script = (
+            "import pathlib,time\\n"
+            "p=pathlib.Path('child.txt')\\n"
+            "i=0\\n"
+            "while True:\\n"
+            "    p.write_text(str(i))\\n"
+            "    i += 1\\n"
+            "    time.sleep(0.05)\\n"
+        )
         child_code = (
-            "import subprocess,sys,time\n"
-            "code = 'import pathlib,time; p=pathlib.Path(\\\"child.txt\\\"); "
-            "i=0; exec(\\\"while True: p.write_text(str(i)); i+=1; "
-            "time.sleep(0.05)\\\")'\n"
-            "subprocess.Popen([sys.executable,'-c',code])\n"
-            "time.sleep(0.2)\n"
-            "print('SPAWNED')\n"
+            "import subprocess,sys,time\\n"
+            f"subprocess.Popen([sys.executable, '-c', {child_script!r}])\\n"
+            "time.sleep(0.2)\\n"
+            "print('SPAWNED')\\n"
         )
         result = json.loads(
             manager.run_tool(scope, "python_exec", {"code": child_code})
