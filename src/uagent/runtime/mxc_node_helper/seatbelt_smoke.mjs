@@ -150,20 +150,35 @@ async function main() {
     // The exact nc binary/arguments must work without the sandbox, so missing
     // tools and invalid flags cannot masquerade as a denied connection.
     const hostNc = spawnSync(
-      "/usr/bin/nc", ["-z", "-w", "2", "127.0.0.1", String(address.port)],
+      "/usr/bin/nc", ["-z", "-v", "-w", "2", "127.0.0.1", String(address.port)],
       { encoding: "utf8", timeout: 3000 },
     );
     assert.ifError(hostNc.error);
     assert.equal(hostNc.signal, null, "host nc was terminated");
     assert.equal(hostNc.status, 0, "host nc must reach the listener: " + hostNc.stderr);
     const networking = await runContained(
-      "/bin/sh -c " + shellQuote("printf network-probe-start; /usr/bin/nc -z -w 2 127.0.0.1 " + address.port),
+      "/bin/sh -c " + shellQuote("printf network-probe-start; /usr/bin/nc -z -v -w 2 127.0.0.1 " + address.port),
       workspace,
       [canary],
     );
     assertNormallyExited(networking, "denied host loopback");
     assert.ok(networking.stdout.includes("network-probe-start"), "network probe did not start");
     assert.notEqual(networking.result.exitCode, 0, "sandbox must deny host loopback");
+    // On macOS nc reports an actual denied connectx/connect syscall as
+    // "connectx to 127.0.0.1 port N (tcp) failed: Operation not permitted".
+    // A nonzero exit alone also includes "nc: not found", "Connection refused",
+    // DNS/option errors, and timeouts; none prove the Seatbelt network rule.
+    const deniedConnect = new RegExp(
+      "connect(?:x)?\\s+to\\s+127\\.0\\.0\\.1\\s+port\\s+"
+        + address.port
+        + "\\b[^\\n]*?(?:operation not permitted|permission denied)",
+      "i",
+    );
+    assert.match(
+      networking.stderr,
+      deniedConnect,
+      "network probe did not prove a permission-denied connect to the test listener",
+    );
     console.log("PASS: loopback connection denied with reachable host listener");
     console.log("MXC macOS Seatbelt host smoke passed for " + process.arch);
   } finally {
