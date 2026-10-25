@@ -96,9 +96,7 @@ def test_macos_recycled_helper_group_is_not_adopted_or_signaled(monkeypatch):
         100: _process(100, 1, 100, 0.1, "unrelated-leader"),
         102: _process(102, 100, 100, 0.2, "unrelated-child"),
     }
-    count, rss, cpu = mxc_macos_scope._summarize(
-        100, 100, known, ledger, unrelated
-    )
+    count, rss, cpu = mxc_macos_scope._summarize(100, 100, known, ledger, unrelated)
     assert (count, rss, cpu) == (0, 0, 0.0)
     assert known[100] == "original-helper"
     assert 102 not in known
@@ -114,11 +112,13 @@ def test_macos_recycled_helper_group_is_not_adopted_or_signaled(monkeypatch):
     monkeypatch.setattr(mxc_macos_scope, "_process_table", lambda: unrelated)
     signaled = []
     monkeypatch.setattr(
-        mxc_macos_scope.os, "killpg",
+        mxc_macos_scope.os,
+        "killpg",
         lambda gid, sig: signaled.append(("group", gid)),
     )
     monkeypatch.setattr(
-        mxc_macos_scope.os, "kill",
+        mxc_macos_scope.os,
+        "kill",
         lambda pid, sig: signaled.append(("pid", pid)),
     )
     supervisor._terminate_observed()
