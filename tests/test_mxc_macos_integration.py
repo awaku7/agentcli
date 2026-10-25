@@ -8,7 +8,10 @@ from __future__ import annotations
 import json
 import os
 import platform
+import re
+import signal
 import socket
+import subprocess
 import stat
 import sys
 import threading
@@ -213,17 +216,31 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
         session_id="mac-detached-test",
     )
     backend.activate_scope(scope)
+    child_pid = None
+
+    def child_running(pid: int) -> bool:
+        proc = subprocess.run(
+            ["/bin/ps", "-p", str(pid), "-o", "stat="],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=3,
+        )
+        return proc.returncode == 0 and not proc.stdout.strip().startswith("Z")
+
     try:
         child_script = (
             "import pathlib,time\n"
             "p=pathlib.Path('detached-child.txt')\n"
-            "for i in range(40):\n"
+            "i=0\n"
+            "while True:\n"
             "    p.write_text(str(i))\n"
+            "    i+=1\n"
             "    time.sleep(0.05)\n"
         )
         code = (
             "import pathlib,subprocess,sys,time\n"
-            "subprocess.Popen([sys.executable, '-c', "
+            "child = subprocess.Popen([sys.executable, '-c', "
             f"{child_script!r}], start_new_session=True)\n"
             "for _ in range(100):\n"
             "    p=pathlib.Path('detached-child.txt')\n"
@@ -233,10 +250,21 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
             "else:\n"
             "    raise RuntimeError('detached child did not execute')\n"
             "print('DETACHED_CHILD_READY')\n"
+            "print('DETACHED_CHILD_PID=' + str(child.pid))\n"
         )
         result = json.loads(backend.run_tool(scope, "python_exec", {"code": code}))
         assert result["returncode"] == 0, result
         assert "DETACHED_CHILD_READY" in result["stdout"], result
+        match = re.search(r"DETACHED_CHILD_PID=(\d+)", result["stdout"])
+        assert match is not None, result
+        child_pid = int(match.group(1))
+        for _ in range(60):
+            if not child_running(child_pid):
+                break
+            time.sleep(0.05)
+        assert not child_running(child_pid), (
+            f"MXC did not terminate its detached child PID {child_pid}"
+        )
         first = backend.run_tool(scope, "read_file", {"path": "detached-child.txt"})
         assert first.strip().isdigit(), first
         time.sleep(0.35)
@@ -244,4 +272,6 @@ def test_macos_detached_python_child_does_not_outlive_one_shot_sandbox(
         assert second.strip().isdigit(), second
         assert first == second, f"detached Python child survived MXC wait: {first} -> {second}"
     finally:
+        if child_pid is not None and child_running(child_pid):
+            os.kill(child_pid, signal.SIGKILL)
         backend.close_scope(scope)
