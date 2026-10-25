@@ -2,7 +2,7 @@
 
 - Started: 2026-10-25 (JST).
 - Work branch: `feat/macos-seatbelt-smoke`; baseline: `main` commit `5e0e6885`.
-- Prior Mac baseline PR: [#276](https://github.com/awaku7/agentcli/pull/276) — still independent and not merged into this branch.
+- Prior Mac baseline PR: [#276](https://github.com/awaku7/agentcli/pull/276) — **merged into main**, commit `9d7687d7` on 2026-10-25. This PR's branch was cut before the merge; keep its changes separate.
 - Windows VM-grade isolation: **deferred until explicitly needed**; keep [#274](https://github.com/awaku7/agentcli/pull/274) independent.
 - This stage is **only a non-production host verification** of the pinned Microsoft MXC SDK's macOS Seatbelt backend. It does not enable the UAG Sandbox toggle, Remote Web/A2A, or Enterprise high-isolation guarantees.
 
@@ -18,6 +18,8 @@
 | 2026-10-25 | Test harness correction | Commit `9efa3847` handles the disposable listener's reset event. | Recheck real host results; do not change UAG sandbox policy. |
 | 2026-10-25 | ARM64 verified | In run [`40180599384`](https://github.com/awaku7/agentcli/actions/runs/40180599384), macOS 15 ARM64 **passed** the real Seatbelt SDK smoke: workspace read/write, host canary read denied, and live host-loopback listener denied. | Intel must pass independently before a two-architecture claim. |
 | 2026-10-25 | Intel native binary blocker | Same run, macOS 15 Intel **failed** before executing a Seatbelt subprocess: pinned `@microsoft/mxc-sdk@1.0.0` searched for `bin/x64/libmxc_ffi.dylib` and alternate x86_64-apple-darwin paths; none were present. This is a missing runtime binary in the installed pinned package, not evidence of a Seatbelt policy defect. | Investigate separately whether a trusted official x64 artifact exists, and validate any SDK bump in a dedicated review; **do not** copy binaries from the ARM64 package or relax the fail-closed gate. |
+| 2026-10-25 | Codex review P2 | [Finding](https://github.com/awaku7/agentcli/pull/277#discussion_r4370354642): denied canary and network probes accepted nonzero or null exit codes even when MXC timed out, making test success a false positive. | Assert normal terminal result and actual command execution, not just nonzero status. |
+| 2026-10-25 | Tighten negative probes | Commit `c75f55fd` rejects timed-out and non-integer-exit probes; requires both denied tests to emit a shell-start sentinel; requires canary stderr to report access denied, and proves `nc` reaches the same test listener outside the sandbox before asserting its sandbox failure. **CI acceptance pending**. | Verify macOS ARM64 still passes the stricter negative checks; Intel SDK native FFI is separately blocked. |
 
 ## Required gates before any production UAG macOS sandbox implementation
 
@@ -30,7 +32,7 @@
 ## Verification ledger
 
 - Node syntax check: **passed** in both macOS jobs, run `40180599384`.
-- macOS 15 ARM64 real Seatbelt: **passed** in run `40180599384`.
+- macOS 15 ARM64 real Seatbelt: **passed** with the original test in run `40180599384`; stricter P2 fix **pending CI**.
 - macOS 15 x86-64 real Seatbelt: **blocked** by missing pinned SDK 1.0.0 native `libmxc_ffi.dylib`, run `40180599384`.
 - Local Mac/SDK execution: **not available**.
 - Python Black/Ruff/pytest: **not applicable yet**; no Python code edited in this PoC.
