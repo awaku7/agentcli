@@ -21,6 +21,7 @@
 | 2026-10-25 | Web extra correction | Commit `64e7a249`: add `mcp` to `[project.optional-dependencies].web`. No Python source changed. **Acceptance pending subsequent macOS CI**, including GUI import and tests. | Check fresh ARM64/Intel CI and any subsequent missing packages. |
 | 2026-10-25 | ARM64 corrected Web smoke | Run [`40178785266`](https://github.com/awaku7/agentcli/actions/runs/40178785266): editable install, compilation, CLI/Web/GUI imports and `uag session --help` **passed** on macOS ARM64 after the Web extras fix. The broad selected regression tests had 1 failure: `test_mxc_host_paths_accept_only_pre_dotenv_overrides` assumes Windows/Linux runtime paths, which macOS MXC explicitly lacks today. | Do not alter production MXC safety fallback; scope the Mac test to the supported contracts and record the omitted case. |
 | 2026-10-25 | OS-specific test scope | Commit `e7943fec`: retain macOS session regression tests and the other MXC contract tests while excluding the **single Windows/Linux-only host runtime paths test** via an explicit pytest filter. This test continues to run in Linux CI; it must be reconsidered when implementing Seatbelt. | Check fresh ARM64 and Intel jobs before accepting the PR. |
+| 2026-10-25 | Baseline verification accepted | GitHub Actions run [`40178979641`](https://github.com/awaku7/agentcli/actions/runs/40178979641), head `1f8fbd5d`: macOS 15 ARM64 and macOS 15 Intel both **success** (CLI/Web/GUI imports and selected regressions). The PR's quality, pull-request-tests, Python 3.11/3.13/3.14, Ubuntu 24.04/26.04 MXC jobs also succeeded. `full-tests` and `nightly-full-tests` were intentionally skipped by event conditions; neither was executed. | Seek review for baseline PR; proceed to Seatbelt as an isolated follow-up stage. |
 | 2026-10-25 | Execution environment | The current GitHub connector can read/write the repository; this assistant's execution container cannot resolve github.com and is not a Mac. | Use GitHub Actions for macOS tests and report that local macOS testing has not occurred. |
 
 ## Stages and acceptance gates
@@ -32,9 +33,9 @@
 
 ## Validation ledger
 
-- macOS ARM64: **CLI/Web/GUI imports passed** after Web extras fix; the selected suite found one Windows/Linux-only MXC path test, adjusted in `e7943fec` pending rerun.
-- macOS x86-64: **initial Web dependency failure confirmed**; awaiting verification after Mac test-scope adjustment.
+- macOS ARM64: **verified by CI success**, run `40178979641` (macOS 15 ARM64).
+- macOS x86-64: **verified by CI success**, run `40178979641` (macOS 15 Intel).
 - Local Black/Ruff/pytest: **not run**; repository cannot be cloned into the available execution container.
-- GitHub CI: macOS matrix executed; initial ARM64 failed at import smoke. Further results pending.
+- GitHub CI: **completed successfully** on head `1f8fbd5d` (both macOS architectures, Linux MXC, Linux quality, and PR tests). The subsequent record-only commit is not itself evidence of another successful run.
 
 Update this record with concrete run URLs, failures, fixes, and outstanding gaps at every milestone. No result counts as passing without a completed CI job.
