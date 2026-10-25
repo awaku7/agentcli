@@ -362,7 +362,24 @@ jobs:
           PYTHONPATH: src
           QT_QPA_PLATFORM: offscreen
         run: |
-          python -c 'import platform, uagent.cli_entry, uagent.gui, uagent.web; from uagent.scheckgui_impl import main as gui_main; print(platform.platform(), platform.machine())'
+          for module in uagent.cli_entry uagent.gui uagent.web uagent.scheckgui_impl.main; do
+            UAG_IMPORT_MODULE="$module" python - <<'PY'
+          import importlib
+          import os
+          import platform
+          import sys
+          import traceback
+
+          name = os.environ["UAG_IMPORT_MODULE"]
+          print(f"Checking {name} on {platform.platform()} ({platform.machine()})", file=sys.__stdout__, flush=True)
+          try:
+              importlib.import_module(name)
+          except BaseException:
+              traceback.print_exc(file=sys.__stderr__)
+              raise
+          print(f"Imported {name}", file=sys.__stdout__, flush=True)
+          PY
+          done
           uag session --help
 
       - name: Verify platform and session regressions
