@@ -73,15 +73,14 @@ def _assert_full_scope(manager, scope, tmp_path):
                 known_tool=True,
             )
             assert decision.allowed, decision
-        scope_workspace = _workspace_for_scope(scope)
-        assert stat.S_IMODE(scope_workspace.stat().st_mode) == 0o700
-
         created = manager.run_tool(
             scope,
             "create_file",
             {"filename": "hello.txt", "content": "macos-seatbelt"},
         )
         assert "sandbox error" not in created, created
+        scope_workspace = _workspace_for_scope(scope)
+        assert stat.S_IMODE(scope_workspace.stat().st_mode) == 0o700
         text = manager.run_tool(scope, "read_file", {"path": "hello.txt"})
         assert "macos-seatbelt" in text, text
 
