@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.7.35] - 2026-10-26
+
+### Added
+
+- Add macOS Seatbelt sandbox support with integration smoke coverage and CI validation.
+
+### Changed
+
+- Improve memory retrieval correctness and performance by correcting session-search aggregation and `LIKE` matching, reusing n-gram document frequencies, and prefiltering authorized candidates before scoring while preserving result ordering and diagnostics.
+- Strengthen memory-evaluation scope provenance checks and report long-memory backend read failures.
+- Expand sandbox and memory-retrieval documentation with validation results and limitations.
+
 ## [0.7.34] - 2026-10-25
 
 ### Changed

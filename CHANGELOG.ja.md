@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.7.35] - 2026-10-26
+
+### 追加
+
+- macOS Seatbeltサンドボックスに対応し、統合スモークテストとCI検証を追加。
+
+### 変更
+
+- セッション検索の集約処理と`LIKE`照合を修正し、n-gramの文書頻度を再利用。認可済み候補のスコアリング前にprefilterを適用し、結果順序とdiagnosticsを維持しながらMemory retrievalの正確性と性能を改善。
+- Memory evaluationのscope provenance検証を強化し、long-memory backendの読み取り失敗を報告。
+- sandboxおよびmemory retrievalの文書に検証結果と制約を追記。
+
 ## [0.7.34] - 2026-10-25
 
 ### 変更
