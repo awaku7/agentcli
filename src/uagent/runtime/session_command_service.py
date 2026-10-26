@@ -220,6 +220,7 @@ class SessionCommandService:
         *,
         project: str | None = None,
         sort_keys: tuple[str, ...] = ("date", "matches"),
+        limit: int = 20,
     ) -> list[SessionSearchResult]:
         """Search, collapse, enrich, and sort message hits by session.
 
@@ -228,26 +229,41 @@ class SessionCommandService:
         leaves formatting and translation of the matching message to the caller.
         Derived system context is intentionally excluded from episodic search.
         """
-        results = [
-            row
-            for row in self._store.search(query, project=project)
-            if str(row.get("role") or "") != "system"
-        ]
-        if not results:
-            return []
+        aggregate_search = getattr(self._store, "search_sessions", None)
+        if callable(aggregate_search):
+            results = aggregate_search(query, project=project)
+            session_rows = {row["session_id"]: row for row in results}
+            session_match_counts = {
+                row["session_id"]: int(row.get("match_count", 0)) for row in results
+            }
+            session_latest_dates = {
+                row["session_id"]: str(
+                    row.get("latest_match_at") or row.get("created_at") or ""
+                )
+                for row in results
+            }
+        else:
+            # Keep compatibility with lightweight stores and older adapters.
+            results = [
+                row
+                for row in self._store.search(query, project=project)
+                if str(row.get("role") or "") != "system"
+            ]
+            session_rows = {}
+            session_match_counts = {}
+            session_latest_dates = {}
+            for row in results:
+                session_id = row["session_id"]
+                session_rows.setdefault(session_id, row)
+                session_match_counts[session_id] = (
+                    session_match_counts.get(session_id, 0) + 1
+                )
+                created_at = row.get("created_at") or ""
+                if created_at > session_latest_dates.get(session_id, ""):
+                    session_latest_dates[session_id] = created_at
 
-        session_rows: dict[str, dict[str, Any]] = {}
-        session_match_counts: dict[str, int] = {}
-        session_latest_dates: dict[str, str] = {}
-        for row in results:
-            session_id = row["session_id"]
-            session_rows.setdefault(session_id, row)
-            session_match_counts[session_id] = (
-                session_match_counts.get(session_id, 0) + 1
-            )
-            created_at = row.get("created_at") or ""
-            if created_at > session_latest_dates.get(session_id, ""):
-                session_latest_dates[session_id] = created_at
+        if not session_rows:
+            return []
 
         search_sessions = list(session_rows.values())
         search_sessions.sort(
@@ -261,6 +277,7 @@ class SessionCommandService:
             ),
             reverse=True,
         )
+        search_sessions = search_sessions[: max(0, int(limit))]
 
         session_details: dict[str, dict[str, Any]] = {}
         try:

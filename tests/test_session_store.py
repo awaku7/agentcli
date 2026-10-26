@@ -386,6 +386,76 @@ def test_search_finds_messages_and_filters_by_project(tmp_path):
     assert store.search("project", project="alpha") == []
 
 
+def test_session_search_aggregates_before_session_result_limit(tmp_path):
+    from uagent.runtime.session_command_service import SessionCommandService
+
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    busy = store.create_session(project="demo", entry_point="cli")
+    sparse = store.create_session(project="demo", entry_point="cli")
+    for index in range(30):
+        store.append_message(busy.session_id, "user", f"needle busy {index}")
+    store.append_message(sparse.session_id, "user", "needle sparse")
+
+    results = SessionCommandService(store).search("needle")
+
+    by_id = {result.row["session_id"]: result for result in results}
+    assert set(by_id) == {busy.session_id, sparse.session_id}
+    assert by_id[busy.session_id].matches == 30
+    assert by_id[busy.session_id].hit_content == "needle busy 0"
+    assert by_id[sparse.session_id].matches == 1
+
+
+def test_session_search_excludes_system_context_before_aggregation(tmp_path):
+    from uagent.runtime.session_command_service import SessionCommandService
+
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store.append_message(session.session_id, "system", "needle derived context")
+    store.append_message(session.session_id, "user", "needle user message")
+
+    results = SessionCommandService(store).search("needle")
+
+    assert len(results) == 1
+    assert results[0].matches == 1
+    assert results[0].hit_content == "needle user message"
+
+
+def test_session_search_limit_applies_to_sessions(tmp_path):
+    from uagent.runtime.session_command_service import SessionCommandService
+
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    for _ in range(21):
+        session = store.create_session(project="demo", entry_point="cli")
+        store.append_message(session.session_id, "user", "needle")
+
+    results = SessionCommandService(store).search("needle", limit=20)
+
+    assert len(results) == 20
+
+
+@pytest.mark.parametrize(
+    ("query", "matching", "nonmatching"),
+    [
+        ("%", "literal % percent", "wildcard word"),
+        ("_", "literal _ underscore", "literal x underscore"),
+        ("!", "literal ! bang", "ordinary bang"),
+        ("a_b", "a_b", "aXb"),
+        ("100%", "100% complete", "1000 complete"),
+    ],
+)
+def test_search_treats_like_wildcards_as_literals(
+    tmp_path, query, matching, nonmatching
+):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store.append_message(session.session_id, "user", matching)
+    store.append_message(session.session_id, "user", nonmatching)
+
+    results = store.search(query)
+
+    assert [row["content"] for row in results] == [matching]
+
+
 def test_binary_fields_are_stripped_only_from_tool_message_content(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")
