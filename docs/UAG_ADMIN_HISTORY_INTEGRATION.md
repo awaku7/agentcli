@@ -22,3 +22,29 @@ Only the session ID, project ID, `recorded` state and UTC creation/update times 
 Unconfigured reads return 404, malformed configuration returns 503, missing/wrong bearer returns 401, project mismatch or denied membership returns 403, and invalid cursors return 400. A database or policy outage fails closed. The authorization database is opened with SQLite `mode=ro` for every read, without triggering MemoryStore schema initialization/migrations or modifying permissions. If the access database is absent, the API denies the request. Project membership can be provisioned/revoked via existing trusted project administration APIs. This credential does not authorize user/admin UAG endpoints or project membership writes.
 
 The task history store does not yet provide a guaranteed project ownership key, so **no task-history capability** is advertised in this phase. The API is opt-in and disabled by default.
+
+## Project membership metadata (read only)
+
+When the independent management read credential is configured, the manifest
+advertises `project.membership.read`. The fixed service principal must have an
+explicit, active **admin** membership in the configured active project. Neither
+`UAGENT_ADMIN_PRINCIPALS` nor a cached directory-policy membership can replace
+that grant.
+
+```http
+GET /api/admin/integration/v1/projects/<configured-project-id>/members?limit=50
+Authorization: Bearer <separate-read-token>
+```
+
+The response contains `api_version`, `instance_id`, `project_id`,
+`members`, and `next_cursor`. Every member contains only `principal_id`,
+`role` and `revision`. Pagination is sorted by principal ID and limited to
+100 items per request. The opaque-in-purpose `cursor` equals the previous
+page's final principal ID and does not grant access.
+
+Directory-policy rows reflect the last trusted directory sync and may become
+stale; this endpoint does not claim to refresh directory authorization. The
+SQLite store is opened read-only, and the endpoint cannot write permissions.
+Failures are fail-closed: absent read config 404, malformed config 503,
+invalid bearer 401, unauthorized project/admin 403, and database failure 503.
+No UAG Admin screen or permission-writing API is added in this phase.

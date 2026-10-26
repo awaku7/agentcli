@@ -252,3 +252,145 @@ def test_management_auth_refuses_revoked_project(membership_db):
     finally:
         conn.close()
     assert routes_integration._authorized_project("owner-a", "project-a") is False
+
+
+@pytest.fixture
+def members_client(read_client, membership_db):
+    client, _ = read_client
+    with sqlite3.connect(membership_db) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET role='admin' "
+            "WHERE project_id='project-a' AND principal_id='owner-a'"
+        )
+        conn.execute(
+            "INSERT INTO project_memberships "
+            "(project_id, principal_id, role, status, revision, granted_by, "
+            "created_at, updated_at) VALUES "
+            "('project-a', 'editor-a', 'editor', 'active', 2, 'owner-a', 1, 1)"
+        )
+        conn.commit()
+    return client, membership_db
+
+
+def _get_members(client, project="project-a", token=TOKEN, **params):
+    return client.get(
+        f"/api/admin/integration/v1/projects/{project}/members",
+        params=params,
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+
+def test_members_only_return_metadata(members_client):
+    client, _ = members_client
+    response = _get_members(client)
+    assert response.status_code == 200
+    payload = response.json()
+    assert set(payload) == {
+        "api_version",
+        "instance_id",
+        "project_id",
+        "members",
+        "next_cursor",
+    }
+    assert payload["instance_id"] == INSTANCE_ID
+    assert payload["project_id"] == "project-a"
+    assert {member["principal_id"] for member in payload["members"]} == {
+        "owner-a",
+        "editor-a",
+        "directory-user",
+    }
+    assert all(
+        set(member) == {"principal_id", "role", "revision"}
+        for member in payload["members"]
+    )
+    assert "granted_by" not in response.text
+    assert "private-a" not in response.text
+
+
+def test_members_paginated_and_bounded(members_client):
+    client, _ = members_client
+    first = _get_members(client, limit=2)
+    assert first.status_code == 200
+    assert len(first.json()["members"]) == 2
+    cursor = first.json()["next_cursor"]
+    assert cursor
+    second = _get_members(client, cursor=cursor, limit=2)
+    assert second.status_code == 200
+    assert len(second.json()["members"]) == 1
+    assert second.json()["next_cursor"] is None
+    assert _get_members(client, limit=101).status_code == 400
+    assert _get_members(client, cursor="x" * 257).status_code == 200
+
+
+def test_members_cursor_can_resume_after_long_principal_id(members_client):
+    client, path = members_client
+    principal_id = "b" * 257
+    with sqlite3.connect(path) as conn:
+        conn.execute(
+            "INSERT INTO project_memberships "
+            "(project_id, principal_id, role, status, granted_by, "
+            "created_at, updated_at) VALUES "
+            "(?, ?, 'viewer', 'active', 'owner-a', 1, 1)",
+            ("project-a", principal_id),
+        )
+        conn.commit()
+    first = _get_members(client, limit=1)
+    assert first.status_code == 200
+    assert first.json()["members"][0]["principal_id"] == principal_id
+    assert first.json()["next_cursor"] == principal_id
+    second = _get_members(client, limit=1, cursor=principal_id)
+    assert second.status_code == 200
+    assert second.json()["members"][0]["principal_id"] == "directory-user"
+
+
+def test_members_credential_scope_and_project_binding(members_client):
+    client, _ = members_client
+    assert _get_members(client, token=MANIFEST_TOKEN).status_code == 401
+    missing_token = client.get("/api/admin/integration/v1/projects/project-a/members")
+    assert missing_token.status_code == 401
+    assert _get_members(client, project="project-b").status_code == 403
+
+
+def test_members_require_explicit_nondirectory_admin(members_client):
+    client, path = members_client
+    with sqlite3.connect(path) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET role='viewer' "
+            "WHERE project_id='project-a' AND principal_id='owner-a'"
+        )
+        conn.commit()
+    assert _get_members(client).status_code == 403
+    with sqlite3.connect(path) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET role='admin', granted_by='directory-policy' "
+            "WHERE project_id='project-a' AND principal_id='owner-a'"
+        )
+        conn.commit()
+    assert _get_members(client).status_code == 403
+
+
+def test_members_revoke_and_failure_closed(members_client, monkeypatch):
+    client, path = members_client
+    with sqlite3.connect(path) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET status='revoked' "
+            "WHERE project_id='project-a' AND principal_id='owner-a'"
+        )
+        conn.commit()
+    assert _get_members(client).status_code == 403
+    missing = path.with_name("missing.sqlite3")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(missing))
+    assert _get_members(client).status_code == 503
+    assert not missing.exists()
+
+
+def test_members_capability_requires_config(members_client, monkeypatch):
+    client, _ = members_client
+    url = "/api/admin/integration/v1/manifest"
+    headers = {"Authorization": f"Bearer {MANIFEST_TOKEN}"}
+    response = client.get(url, headers=headers)
+    assert "project.membership.read" in response.json()["capabilities"]
+    monkeypatch.delenv("UAGENT_MANAGEMENT_READ_TOKEN")
+    response = client.get(url, headers=headers)
+    assert "project.membership.read" not in response.json()["capabilities"]
+    assert _get_members(client).status_code == 503

@@ -69,6 +69,9 @@ async def get_integration_manifest():
     }:
         capabilities.append("session.metadata.read")
 
+    if configured is not None:
+        capabilities.append("project.membership.read")
+
     return {
         "api_version": INTEGRATION_API_VERSION,
         "instance": {
@@ -136,6 +139,54 @@ def _authorized_project(principal: str, project_id: str) -> bool:
         return ProjectAccessPolicy(SimpleNamespace(db=connection)).can_access(
             principal, project_id, "viewer"
         )
+
+
+def _read_members_page(
+    principal: str, project_id: str, cursor: str, limit: int
+) -> tuple[list[dict[str, Any]], str | None]:
+    """Read one project's membership snapshot with a fixed manual admin grant."""
+    if not _long_memory_mod.is_sqlite_backend():
+        raise FileNotFoundError("membership store unavailable")
+    path = Path(_long_memory_mod._sqlite_path())
+    if not path.is_file():
+        raise FileNotFoundError("membership store unavailable")
+    with closing(
+        sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0)
+    ) as connection:
+        connection.row_factory = sqlite3.Row
+        connection.execute("BEGIN")
+        grant = connection.execute(
+            "SELECT pm.role, pm.granted_by FROM project_memberships pm "
+            "JOIN projects p ON p.project_id = pm.project_id "
+            "WHERE pm.project_id = ? AND pm.principal_id = ? "
+            "AND pm.status = 'active' AND p.status = 'active'",
+            (project_id, principal),
+        ).fetchone()
+        if (
+            grant is None
+            or grant["role"] != "admin"
+            or grant["granted_by"] == "directory-policy"
+            or not ProjectAccessPolicy(SimpleNamespace(db=connection)).can_access(
+                principal, project_id, "admin"
+            )
+        ):
+            raise PermissionError("explicit project admin required")
+        rows = connection.execute(
+            "SELECT principal_id, role, revision FROM project_memberships "
+            "WHERE project_id = ? AND status = 'active' AND principal_id > ? "
+            "ORDER BY principal_id LIMIT ?",
+            (project_id, cursor, limit + 1),
+        ).fetchall()
+        members = [
+            {
+                "principal_id": str(row["principal_id"]),
+                "role": str(row["role"]),
+                "revision": int(row["revision"]),
+            }
+            for row in rows[:limit]
+        ]
+        next_cursor = members[-1]["principal_id"] if len(rows) > limit else None
+        return members, next_cursor
 
 
 def _open_session_store() -> sqlite3.Connection | None:
@@ -325,5 +376,57 @@ async def get_integration_sessions(
         "api_version": INTEGRATION_API_VERSION,
         "instance_id": instance_id,
         "items": items,
+        "next_cursor": next_cursor,
+    }
+
+
+@app.get(
+    "/api/admin/integration/v1/projects/{project_id}/members",
+    include_in_schema=False,
+)
+async def get_integration_project_members(
+    request: Request, project_id: str, cursor: str = "", limit: int = 50
+):
+    """Read only the preconfigured project's members; never modify policy."""
+    try:
+        config = _read_config()
+    except ValueError:
+        return JSONResponse(
+            status_code=503, content={"error": "read API misconfigured"}
+        )
+    if config is None:
+        return JSONResponse(status_code=404, content={"error": "not supported"})
+    token, principal, allowed_project = config
+    scheme, separator, provided = (
+        str(request.headers.get("authorization", "") or "").strip().partition(" ")
+    )
+    if (
+        scheme.lower() != "bearer"
+        or not separator
+        or not hmac.compare_digest(
+            token.encode("utf-8"), provided.strip().encode("utf-8")
+        )
+    ):
+        return JSONResponse(status_code=401, content={"error": "invalid credential"})
+    if project_id != allowed_project or not 1 <= len(project_id) <= 128:
+        return JSONResponse(status_code=403, content={"error": "project not permitted"})
+    if not 1 <= limit <= 100:
+        return JSONResponse(status_code=400, content={"error": "invalid pagination"})
+    try:
+        members, next_cursor = await asyncio.to_thread(
+            _read_members_page, principal, project_id, cursor, limit
+        )
+        instance_id = get_instance_id()
+    except PermissionError:
+        return JSONResponse(status_code=403, content={"error": "project not permitted"})
+    except (OSError, RuntimeError, ValueError, sqlite3.DatabaseError):
+        return JSONResponse(
+            status_code=503, content={"error": "project policy unavailable"}
+        )
+    return {
+        "api_version": INTEGRATION_API_VERSION,
+        "instance_id": instance_id,
+        "project_id": project_id,
+        "members": members,
         "next_cursor": next_cursor,
     }
