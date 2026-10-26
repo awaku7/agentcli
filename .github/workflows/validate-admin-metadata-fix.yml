@@ -1,0 +1,36 @@
+name: Validate management history review fix
+
+on:
+  push:
+    branches: [feature/admin-session-metadata-read-v1]
+    paths: [.github/workflows/validate-admin-metadata-fix.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  precommit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Load review fix candidates
+        shell: bash
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/9c56ac651d41ad6464ed1dcf2b3e851ed54e794f" --jq .content | tr -d '\n' | base64 -d > src/uagent/web_impl/routes_integration.py
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/86841f4a92dc23bc6c4ec88139f6d91cdd6a54c9" --jq .content | tr -d '\n' | base64 -d > tests/test_integration_management_history.py
+      - name: Install dependencies
+        run: python -m pip install -e ".[core,providers,test,quality]"
+      - name: Check Black
+        run: python -m black --check --diff src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Check Ruff
+        run: python -m ruff check src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Run targeted tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_integration_management_api.py tests/test_integration_management_history.py
