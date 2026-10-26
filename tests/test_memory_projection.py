@@ -478,3 +478,32 @@ def test_add_long_memory_keeps_local_snapshot_valid(tmp_path, monkeypatch) -> No
         store.close()
 
     assert memory_projection_access_is_current(snapshot, core)
+
+
+def test_memory_read_failure_fails_closed_with_type_only_diagnostic(
+    tmp_path, monkeypatch
+) -> None:
+    from types import SimpleNamespace
+
+    from uagent.runtime import memory_projection
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_OWNER", "alice")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
+
+    def fail_to_load():
+        raise long_memory.MemoryLoadError("OperationalError")
+
+    monkeypatch.setattr(long_memory, "load_long_memory_records", fail_to_load)
+    snapshot = memory_projection.prepare_memory_projection(
+        [{"role": "user", "content": "database"}],
+        SimpleNamespace(workdir=str(tmp_path), memory_owner="alice"),
+    )
+
+    assert snapshot is not None
+    assert snapshot.evidence_items == ()
+    assert snapshot.profile_content == ""
+    assert snapshot.diagnostics["error"] == "OperationalError"

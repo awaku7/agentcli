@@ -287,6 +287,14 @@ def load_long_memory_raw() -> str:
     return data + truncated_note
 
 
+class MemoryLoadError(RuntimeError):
+    """A backend read failed; the error message intentionally contains no data."""
+
+    def __init__(self, cause_type: str):
+        self.cause_type = cause_type
+        super().__init__(cause_type)
+
+
 def load_long_memory_records() -> list[dict[str, Any]]:
     """Load personal memory records from the configured backend."""
     if _use_sqlite():
@@ -304,8 +312,8 @@ def load_long_memory_records() -> list[dict[str, Any]]:
                 ]
             finally:
                 store.close()
-        except Exception:
-            return []
+        except Exception as exc:
+            raise MemoryLoadError(type(exc).__name__) from None
     memory_file = get_memory_file_path()
     records: list[dict[str, Any]] = []
     try:
@@ -316,21 +324,26 @@ def load_long_memory_records() -> list[dict[str, Any]]:
                     continue
                 try:
                     obj = json.loads(line)
-                except Exception:
-                    continue
+                except Exception as exc:
+                    raise MemoryLoadError(type(exc).__name__) from None
                 if isinstance(obj, dict) and "note" in obj:
                     records.append(obj)
     except FileNotFoundError:
         pass
-    except Exception:
-        pass
+    except MemoryLoadError:
+        raise
+    except Exception as exc:
+        raise MemoryLoadError(type(exc).__name__) from None
     return records
 
 
 def update_long_memory_entry(index: int, note: str) -> bool:
     """Update one record by index. Returns True on success."""
     if _use_sqlite():
-        records = load_long_memory_records()
+        try:
+            records = load_long_memory_records()
+        except MemoryLoadError:
+            return False
         if index < 0 or index >= len(records):
             return False
         target = records[index]
@@ -352,7 +365,10 @@ def update_long_memory_entry(index: int, note: str) -> bool:
             return updated is not None
         except Exception:
             return False
-    records = load_long_memory_records()
+    try:
+        records = load_long_memory_records()
+    except MemoryLoadError:
+        return False
     if index < 0 or index >= len(records):
         return False
     memory_file = get_memory_file_path()
@@ -400,7 +416,10 @@ def delete_long_memory_entry(index: int, *, core: Any | None = None) -> bool:
         if deleted:
             _propagate_memory_forget(core)
         return deleted
-    records = load_long_memory_records()
+    try:
+        records = load_long_memory_records()
+    except MemoryLoadError:
+        return False
     if index < 0 or index >= len(records):
         return False
     memory_file = get_memory_file_path()

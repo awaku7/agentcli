@@ -3475,6 +3475,63 @@ class SessionStore:
         return [dict(row) for row in rows]
 
     @_db_locked
+    def search_sessions(
+        self, query: str, *, project: str | None = None
+    ) -> list[dict[str, Any]]:
+        """Return aggregated non-system message hits, one row per session.
+
+        The command service applies its result limit only after this SQL-level
+        aggregation, so a busy session cannot consume the entire hit window.
+        ``search`` remains a message-level API with its existing contract.
+        """
+        if not query.strip():
+            return []
+        escaped_query = query.replace("!", "!!").replace("%", "!%").replace("_", "!_")
+        query_like = f"%{escaped_query}%"
+        fts_query = '"' + query.replace('"', '""') + '"'
+        parameters: list[Any] = [fts_query, query_like, query_like]
+        project_clause = ""
+        if project is not None:
+            project_clause = " AND s.project = ?"
+            parameters.append(project)
+        rows = self._execute(
+            """
+            WITH matched AS (
+                SELECT m.session_id, s.project, s.entry_point, m.message_id,
+                       m.role, m.content, m.created_at,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY m.session_id ORDER BY m.message_id
+                       ) AS hit_rank,
+                       COUNT(*) OVER (PARTITION BY m.session_id) AS match_count,
+                       MAX(m.created_at) OVER (
+                           PARTITION BY m.session_id
+                       ) AS latest_match_at
+                FROM messages m
+                JOIN sessions s ON s.session_id = m.session_id
+                WHERE m.role != 'system'
+                  AND (
+                      m.message_id IN (
+                          SELECT message_id FROM message_search
+                          WHERE message_search MATCH ?
+                      )
+                      OR m.content LIKE ? ESCAPE '!'
+                      OR m.payload_json LIKE ? ESCAPE '!'
+                  )
+            """
+            + project_clause
+            + """
+            )
+            SELECT session_id, project, entry_point, message_id,
+                   role, content, created_at, match_count, latest_match_at
+            FROM matched
+            WHERE hit_rank = 1
+            ORDER BY message_id
+            """,
+            tuple(parameters),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+    @_db_locked
     def record_tool_call(
         self,
         session_id: str,
@@ -3632,7 +3689,8 @@ class SessionStore:
     ) -> list[dict[str, Any]]:
         if not query.strip():
             return []
-        query_like = f"%{query}%"
+        escaped_query = query.replace("!", "!!").replace("%", "!%").replace("_", "!_")
+        query_like = f"%{escaped_query}%"
         # MATCH accepts a query language. Quote user input so punctuation
         # (for example ``new-1``) cannot become an FTS operator or column
         # reference and turn an ordinary search into an OperationalError.
@@ -3651,7 +3709,7 @@ class SessionStore:
             WHERE (
                 m.message_id IN (
                     SELECT message_id FROM message_search WHERE message_search MATCH ?
-                ) OR m.content LIKE ? OR m.payload_json LIKE ?
+                ) OR m.content LIKE ? ESCAPE '!' OR m.payload_json LIKE ? ESCAPE '!'
             )
             """ + project_clause + " ORDER BY m.message_id LIMIT ?",
             tuple(parameters),

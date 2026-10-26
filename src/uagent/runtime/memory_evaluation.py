@@ -90,6 +90,73 @@ def _notes(result: MemoryShadowResult) -> tuple[str, ...]:
     )
 
 
+def _returned_scope_violations(
+    result: MemoryShadowResult,
+    records: Sequence[Any],
+    *,
+    scope: str,
+    owner: str,
+    project: str,
+    strict_scope: bool,
+    authorized_memory_revisions: Mapping[str, Any] | None = None,
+) -> int:
+    """Independently verify returned candidate provenance against fixture records."""
+    source_index_by_id = {
+        diagnostic.item_id: diagnostic.index for diagnostic in result.diagnostics
+    }
+    violations = 0
+    for candidate in result.candidates:
+        source_index = source_index_by_id.get(candidate.item_id)
+        if (
+            source_index is None
+            or source_index < 0
+            or source_index >= len(records)
+            or not isinstance(records[source_index], Mapping)
+        ):
+            violations += 1
+            continue
+        record = records[source_index]
+        if authorized_memory_revisions is not None:
+            memory_id = str(record.get("memory_id") or "")
+            authorized_revision = authorized_memory_revisions.get(memory_id)
+            if authorized_revision is None or str(record.get("revision")) != str(
+                authorized_revision
+            ):
+                violations += 1
+                continue
+        record_scope = str(record.get("scope") or "").strip()
+        record_owner = next(
+            (
+                str(record.get(key) or "").strip()
+                for key in ("owner", "owner_id", "user", "user_id")
+                if str(record.get(key) or "").strip()
+            ),
+            "",
+        )
+        record_project = next(
+            (
+                str(record.get(key) or "").strip()
+                for key in ("project", "project_id")
+                if str(record.get(key) or "").strip()
+            ),
+            "",
+        )
+        if (
+            (record_scope and record_scope.casefold() != scope.casefold())
+            or (owner and record_owner and record_owner.casefold() != owner.casefold())
+            or (
+                project
+                and record_project
+                and record_project.casefold() != project.casefold()
+            )
+            or (strict_scope and (not record_owner or not record_project))
+            or " ".join(str(record.get("note") or "").split()).casefold()
+            != " ".join(str(candidate.content or "").split()).casefold()
+        ):
+            violations += 1
+    return violations
+
+
 def evaluate_retrieval_case(case: Mapping[str, Any]) -> MemoryEvaluationResult:
     """Evaluate one case without LLM calls, persistence, or model judging."""
     case_id = str(case.get("id") or "case")
@@ -99,8 +166,9 @@ def evaluate_retrieval_case(case: Mapping[str, Any]) -> MemoryEvaluationResult:
         if str(note).strip()
     }
     strict_scope = bool(case.get("strict_scope", False))
+    records = case.get("records") or ()
     result = shadow_retrieve_memories(
-        case.get("records") or (),
+        records,
         query=str(case.get("query") or ""),
         scope=str(case.get("scope") or "personal"),
         owner=str(case.get("owner") or ""),
@@ -114,11 +182,18 @@ def evaluate_retrieval_case(case: Mapping[str, Any]) -> MemoryEvaluationResult:
     unexpected = len(returned_set - expected)
     recall = hits / len(expected) if expected else 1.0
     injection_rate = unexpected / len(returned_set) if returned_set else 0.0
-    scope_violations = sum(
-        1
-        for diagnostic in result.diagnostics
-        if diagnostic.action == "candidate"
-        and diagnostic.scope_status in {"mismatch", "scope_unknown"}
+    scope_violations = _returned_scope_violations(
+        result,
+        records,
+        scope=str(case.get("scope") or "personal"),
+        owner=str(case.get("owner") or ""),
+        project=str(case.get("project") or ""),
+        strict_scope=strict_scope,
+        authorized_memory_revisions=(
+            case.get("authorized_memory_revisions")
+            if isinstance(case.get("authorized_memory_revisions"), Mapping)
+            else None
+        ),
     )
     failures: list[str] = []
     if expected - returned_set:

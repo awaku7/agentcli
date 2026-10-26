@@ -2347,7 +2347,14 @@ def _handle_cmd_tokens(
 
 
 def _handle_cmd_mem_list(*, tr: Any) -> bool:
-    records = personal_long_memory.load_long_memory_records()
+    try:
+        records = personal_long_memory.load_long_memory_records()
+    except personal_long_memory.MemoryLoadError as exc:
+        print(
+            _("[mem error] Memory records are unavailable (%(error_type)s).")
+            % {"error_type": type(exc).__name__}
+        )
+        return True
     if not records:
         print(_("No long-term memory entries."))
         return True
