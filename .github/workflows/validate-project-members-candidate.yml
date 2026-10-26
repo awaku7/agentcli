@@ -1,0 +1,63 @@
+name: Validate uncommitted project-membership candidate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/validate-project-members-candidate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Overlay candidate blobs without committing implementation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          blobs = {
+              "src/uagent/web_impl/routes_integration.py": "5ae8b77656056ca21601fd3e3a97068e2d84812a",
+              "tests/test_integration_management_history.py": "83c60ffb13ba9f1ff0946dc1fd73f6bf43ec03f8",
+              "docs/UAG_ADMIN_HISTORY_INTEGRATION.md": "e2bdb75a1f3415e59a325b69bde47170dc7905f9",
+          }
+          for path, sha in blobs.items():
+              request = Request(
+                  f"https://api.github.com/repos/awaku7/agentcli/git/blobs/{sha}",
+                  headers={
+                      "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                      "Accept": "application/vnd.github+json",
+                  },
+              )
+              with urlopen(request, timeout=30) as response:
+                  data = json.load(response)
+              assert data["sha"] == sha
+              content = base64.b64decode(data["content"])
+              Path(path).write_bytes(content)
+              print(f"candidate {path}: {sha}")
+          PY
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,test,quality]"
+      - name: Black check
+        run: python -m black --check --diff src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Ruff
+        run: python -m ruff check src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Targeted regression tests
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m pytest -q tests/test_integration_management_history.py tests/test_integration_management_api.py tests/test_project_access.py
