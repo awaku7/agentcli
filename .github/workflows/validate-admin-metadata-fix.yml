@@ -22,7 +22,7 @@ jobs:
       - name: Load review fix candidates
         shell: bash
         run: |
-          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/9c56ac651d41ad6464ed1dcf2b3e851ed54e794f" --jq .content | tr -d '\n' | base64 -d > src/uagent/web_impl/routes_integration.py
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/aca1eb228f559d726881915e712209a1d4909b86" --jq .content | tr -d '\n' | base64 -d > src/uagent/web_impl/routes_integration.py
           gh api "repos/${GITHUB_REPOSITORY}/git/blobs/86841f4a92dc23bc6c4ec88139f6d91cdd6a54c9" --jq .content | tr -d '\n' | base64 -d > tests/test_integration_management_history.py
       - name: Install dependencies
         run: python -m pip install -e ".[core,providers,test,quality]"
