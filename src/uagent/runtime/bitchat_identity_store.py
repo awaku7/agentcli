@@ -136,7 +136,7 @@ def load_identity(*, fallback_path: str | Path) -> str | None:
     if not path.exists():
         return None
     try:
-        from uag_envsec.secret_core import decrypt_text
+        from uag_envsec import decrypt_text
 
         return decrypt_text(path.read_text(encoding="utf-8").strip())
     except Exception:
@@ -147,14 +147,18 @@ def save_identity(plaintext: str, *, fallback_path: str | Path) -> str:
     """Save identity to native storage, falling back to AES-GCM file storage."""
     if _native_save(plaintext):
         return "native"
-    from uag_envsec.secret_core import encrypt_text, ensure_key_file
+    from uag_envsec import encrypt_text, ensure_key_file
 
     ensure_key_file()
     path = Path(fallback_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(path.name + ".tmp")
     try:
-        tmp.write_text(encrypt_text(plaintext) + "\n", encoding="utf-8", newline="\n")
+        tmp.write_text(
+            encrypt_text(plaintext, format_version=0) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
         tmp.replace(path)
     finally:
         if tmp.exists():

@@ -50,7 +50,7 @@ ______________________________________________________________________
 
 ### Scope
 
-Files covered: `core.py`, `cli.py`, `gui.py`, `web.py`, `a2a/*.py`, `utils/*.py`, `providers/*.py`, `runtime/*.py`, `scheduler/*.py`, `docs/*.py`, `uag_envsec/*.py`.
+Files covered: `core.py`, `cli.py`, `gui.py`, `web.py`, `a2a/*.py`, `utils/*.py`, `providers/*.py`, `runtime/*.py`, `scheduler/*.py`, `docs/*.py`.
 
 ### Translator setup
 

@@ -62,7 +62,7 @@ def load_dotenv_custom() -> None:
     """
 
     try:
-        from uag_envsec.secret_core import migrate_key_file_to_keyring
+        from uag_envsec import migrate_key_file_to_keyring
 
         if migrate_key_file_to_keyring():
             print(
@@ -98,7 +98,7 @@ def load_dotenv_custom() -> None:
     if sec_path.exists():
         try:
             # Local import to avoid dependency issues if not used.
-            from uag_envsec.secret_core import decrypt_text
+            from uag_envsec import decrypt_text
 
             body = sec_path.read_text(encoding="utf-8").strip()
             if body:

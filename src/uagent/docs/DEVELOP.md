@@ -1098,7 +1098,7 @@ flowchart TD
         SCHED["scheduler/<br/>タイマー/定期実行"]
         A2A_PROTO["a2a/<br/>A2A Protocol (server/client)"]
         WS["ws_server.py<br/>WebSocket Server"]
-        SECRET["uag_envsec/<br/>.env.sec 暗号化"]
+        SECRET["PyPI dependency: uag-envsec<br/>.env.sec 暗号化"]
         UTILS["utils/<br/>paths, scan_filters"]
     end
 
@@ -1132,7 +1132,7 @@ flowchart TD
 | `src/uagent/runtime/` | ランタイム (env/workdir/memory/banner) | 6 |
 | `src/uagent/scheduler/` | スケジューラー | 4 |
 | `src/uagent/utils/` | ユーティリティ | 3 |
-| `src/uag_envsec/` | .env.sec 暗号化 | 3 |
+| `uag-envsec` (PyPI) | .env.sec 暗号化ライブラリ／CLI | 外部依存 |
 | `scripts/` | ビルド/管理スクリプト | 7 |
 | `tests/` | テスト | 30+ |
 | `vscode-extension/` | VSCode拡張 (TypeScript) | 5 |

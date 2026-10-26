@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Use the standalone PyPI `uag-envsec` package for encrypted environment files, while retaining the legacy ciphertext format for compatibility with prior uag releases.
+
 ## [0.7.35] - 2026-10-26
 
 ### Added

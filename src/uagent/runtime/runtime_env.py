@@ -6,7 +6,7 @@ import sys
 from collections.abc import Mapping
 from pathlib import Path
 
-from uag_envsec.secret_core import decrypt_text, encrypt_text, ensure_key_file
+from uag_envsec import decrypt_text, encrypt_text, ensure_key_file
 
 from ..env_validate import format_missing_env_message, validate_startup_env
 from ..i18n import _
@@ -141,7 +141,7 @@ def save_uagent_envsec(*, env: Mapping[str, str] | None = None) -> Path:
     snapshot = _snapshot_uagent_env(env)
     ensure_key_file()
     plaintext = _build_uagent_env_text(snapshot)
-    _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+    _write_text_atomic(sec_path, encrypt_text(plaintext, format_version=0) + "\n")
     return sec_path
 
 
@@ -223,7 +223,9 @@ def _maybe_offer_envsec_sync(
                 merged_values = dict(sec_values)
                 merged_values.update(snapshot)
                 plaintext = _build_uagent_env_text(merged_values)
-                _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+                _write_text_atomic(
+                    sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+                )
                 print(
                     _("Updated .env.sec: %(path)s", path=sec_path),
                     file=sys.__stderr__,
@@ -241,7 +243,9 @@ def _maybe_offer_envsec_sync(
             merged_values = dict(sec_values)
             merged_values.update(snapshot)
             plaintext = _build_uagent_env_text(merged_values)
-            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+            _write_text_atomic(
+                sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+            )
             print(_("Updated .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
             return True
         except Exception as e:
@@ -282,7 +286,9 @@ def _maybe_offer_envsec_sync(
         try:
             ensure_key_file()
             plaintext = _build_uagent_env_text(snapshot)
-            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+            _write_text_atomic(
+                sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+            )
             print(
                 _("Created .env.sec: %(path)s", path=sec_path),
                 file=sys.__stderr__,
@@ -298,7 +304,7 @@ def _maybe_offer_envsec_sync(
     try:
         ensure_key_file()
         plaintext = _build_uagent_env_text(snapshot)
-        _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+        _write_text_atomic(sec_path, encrypt_text(plaintext, format_version=0) + "\n")
         print(_("Created .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
         return True
     except Exception as e:

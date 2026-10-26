@@ -20,7 +20,7 @@ from pathlib import Path
 
 from .i18n import _, detect_lang, set_thread_lang
 from .providers.provider_caps import RESPONSES_PROVIDERS
-from uag_envsec.secret_core import (
+from uag_envsec import (
     DEFAULT_SEC_SUFFIX,
     encrypt_text,
     decrypt_text,
@@ -2435,7 +2435,7 @@ def main() -> int:
             sec_path = paths["env"].with_suffix(
                 paths["env"].suffix + DEFAULT_SEC_SUFFIX
             )
-            sec_text = encrypt_text(env_text)
+            sec_text = encrypt_text(env_text, format_version=0)
             sec_path.write_text(sec_text + "\n", encoding="utf-8", newline="\n")
             print(encrypt_msg % {"path": sec_path})
             # Remove plain .env after encryption

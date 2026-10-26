@@ -42,7 +42,7 @@ The startup `UAGENT_*` snapshot is restored after dotenv loading, so `.env.sec` 
 
 Notes:
 
-- `.env.sec` is decrypted via `uag_envsec.secret_core.decrypt_text`.
+- `.env.sec` is decrypted via `uag_envsec.decrypt_text`.
 - If `.uagent.key` exists in the current working directory, it is used as the key file.
 - `.env.sec` synchronization is checked during startup environment validation. On mismatch, an interactive CLI asks whether to update the file (`y`), apply `.env.sec` values to the current session (`s`), or leave it unchanged (`N`).
 - When input cannot be requested (for example, non-interactive startup), the current `UAGENT_*` snapshot is merged into `.env.sec` and written. If `.env.sec` is absent, non-interactive startup creates it from the snapshot.

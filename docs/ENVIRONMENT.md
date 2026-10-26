@@ -576,18 +576,18 @@ An explicit `uag_envsec --key-file PATH` continues to use that file regardless o
 
 ## Managing encrypted environment files
 
-Use `uag_envsec` instead of editing `.env.sec` directly. The file is encrypted and is loaded at startup.
+The `uag_envsec` command is provided by the standalone `uag-envsec` PyPI dependency. Use it instead of editing `.env.sec` directly. The file is encrypted and is loaded at startup.
 
-Add or update a variable:
+Add or update a variable (use `--format-version 0` for compatibility with older uag releases):
 
 ```text
-uag_envsec add --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME --value gpt-image-2.5-flare
+uag_envsec add --format-version 0 --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME --value gpt-image-2.5-flare
 ```
 
 Delete a variable completely:
 
 ```text
-uag_envsec delete --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME
+uag_envsec delete --format-version 0 --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME
 ```
 
 Use `--key-file PATH` when the encryption key is stored at a non-default path. Restart uag after changing `.env.sec` so the updated environment is loaded.
