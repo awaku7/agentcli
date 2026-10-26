@@ -30,7 +30,7 @@ jobs:
 
           blobs = {
               "src/uagent/web_impl/routes_integration.py": "66fe0ea9cbdbd20bf80795ac2bb6b327e493705c",
-              "tests/test_integration_management_history.py": "829cbd2e74b2a7ceac7521d81c1a8ef1d3b95652",
+              "tests/test_integration_management_history.py": "0acaed26dfd37f4f4db5a71fa6e740345895c323",
               "docs/UAG_ADMIN_HISTORY_INTEGRATION.md": "e2bdb75a1f3415e59a325b69bde47170dc7905f9",
           }
           for path, sha in blobs.items():
