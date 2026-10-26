@@ -1,7 +1,8 @@
 # UAG Memory / Session検索の正確性・診断改善計画（2026-10-26）
 
-- **状態:** planned（文書のみ。コード変更・pytest・性能計測は未実施）
-- **確認基準:** `main` = `1a13e12e1def7c27336cf74d41a5d4be77820177`（2026-10-26 JST）
+- **状態:** MR-01〜05は実装済み。Windows上の全体pytest・Ruff・Blackは通過。MR-06の性能計測およびPOSIX環境での実シグナル検証は未実施。レビュー・コミット前。
+- **計画時の確認基準:** `main` = `1a13e12e1def7c27336cf74d41a5d4be77820177`（2026-10-26 JST）
+- **実装時の作業基準:** `main` = `214a9b0`（2026-10-26 JST）。計画時の確認基準とは異なるため、差分をレビュー時に考慮する。
 - **目的:** 既存のMemory V2/V3・SessionStore・FTS5・日本語検索・Structured Compactionを維持し、根拠を確認した不具合と評価の弱点を小さなPRで改善する。
 - **原則:** 正確性・安全性を先に修正し、性能変更は結果同値性と実測を確認してから採用する。
 
@@ -122,7 +123,14 @@ python -m pytest -q . --durations=30
 | --- | --- | --- |
 | 2026-10-26 | mainのSessionStore、SessionCommandService、MemoryStore、Memory Projection、Memory Retriever、評価コードと関連テストを読取照合 | 完了（ソース調査） |
 | 2026-10-26 | FTS5導入箇所と `:sessions search`、長期Memoryの異なる検索経路を確認 | 完了（ソース調査） |
-| 2026-10-26 | 本計画を作成 | 文書のみ。コード修正・pytest・Ruff・Black・実LLM・性能計測は未実施 |
+| 2026-10-26 | 本計画を作成 | 初稿時は文書のみ。後続の実装記録を以下に追加 |
+| 2026-10-26 | MR-01〜05を実装。MR-01/02はセッション集約検索・LIKEエスケープ、MR-03は読み込み障害の明示とfail-closed診断、MR-04は候補集合単位のn-gram頻度共有、MR-05は正本record／認可済みmemory ID・revisionとの照合を追加 | 実装済み。MR-06の性能計測、実LLM、本番環境確認は未実施 |
+| 2026-10-26 | SessionStore、SessionCommandService、Memory backend、retrieval、evaluation、projection、V3 projection/access、history boundary、utilities i18nの対象テストを個別実行 | すべて通過。`tests/test_rpg2idx_tool.py` と `tests/test_office_to_markdown_tool.py` も適切な外部 `--basetemp` で通過 |
+| 2026-10-26 | `python -m pytest -q . --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-full-outside --tb=short --durations=30` | 初回は `tests/test_mxc_macos_scope.py` で8件失敗。Windowsに `os.killpg` と `signal.SIGKILL` がないことを確認し、製品コードではなく単体テスト内にPOSIX APIの安全なshimを追加。 |
+| 2026-10-26 | `python -m pytest -q tests/test_mxc_macos_scope.py --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-mxc-shim --tb=short` | 11 passed, 1 skipped |
+| 2026-10-26 | `python -m pytest -q . --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-full-final --tb=short --durations=30` | 全体pytest通過（Windows）。POSIX実シグナル意味論の検証はLinux/macOS CIで別途必要 |
+| 2026-10-26 | Windows単体テスト用のPOSIX API shimを `tests/test_mxc_macos_scope.py` に追加 | `os.killpg` と `signal.SIGKILL` のみ補い、テスト内のkill/killpgはspyに置換。製品コードは変更せず |
+| 2026-10-26 | `python -m ruff check src tests`、`python -m black --check src tests`、`git diff --check` | すべて通過 |
 
 ## 7. 関連資料
 
