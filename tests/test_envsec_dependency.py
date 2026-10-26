@@ -16,7 +16,9 @@ def test_runtime_envsec_uses_external_uag_envsec(tmp_path: Path, monkeypatch) ->
     )
 
     assert sec_path == tmp_path / ".env.sec"
-    assert not sec_path.read_text(encoding="utf-8").startswith("uag-envsec:v")
+    encrypted = sec_path.read_text(encoding="utf-8").strip()
+    # The wire format is owned by the external dependency and may be versioned.
+    assert "dependency-backed" not in encrypted
     assert runtime_env._read_envsec_plaintext(sec_path) == (
         "UAGENT_TEST_SECRET=dependency-backed\n"
     )

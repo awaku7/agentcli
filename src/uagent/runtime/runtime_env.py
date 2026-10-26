@@ -223,9 +223,7 @@ def _maybe_offer_envsec_sync(
                 merged_values = dict(sec_values)
                 merged_values.update(snapshot)
                 plaintext = _build_uagent_env_text(merged_values)
-                _write_text_atomic(
-                    sec_path, encrypt_text(plaintext) + "\n"
-                )
+                _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
                 print(
                     _("Updated .env.sec: %(path)s", path=sec_path),
                     file=sys.__stderr__,
@@ -243,9 +241,7 @@ def _maybe_offer_envsec_sync(
             merged_values = dict(sec_values)
             merged_values.update(snapshot)
             plaintext = _build_uagent_env_text(merged_values)
-            _write_text_atomic(
-                sec_path, encrypt_text(plaintext) + "\n"
-            )
+            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
             print(_("Updated .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
             return True
         except Exception as e:
@@ -286,9 +282,7 @@ def _maybe_offer_envsec_sync(
         try:
             ensure_key_file()
             plaintext = _build_uagent_env_text(snapshot)
-            _write_text_atomic(
-                sec_path, encrypt_text(plaintext) + "\n"
-            )
+            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
             print(
                 _("Created .env.sec: %(path)s", path=sec_path),
                 file=sys.__stderr__,
