@@ -29,8 +29,8 @@ jobs:
           from urllib.request import Request, urlopen
 
           blobs = {
-              "src/uagent/web_impl/routes_integration.py": "5ae8b77656056ca21601fd3e3a97068e2d84812a",
-              "tests/test_integration_management_history.py": "83c60ffb13ba9f1ff0946dc1fd73f6bf43ec03f8",
+              "src/uagent/web_impl/routes_integration.py": "53f77de835c55bc2154fcb7a50193c8cab803b7d",
+              "tests/test_integration_management_history.py": "967235e8d0eaaf52c2fa2e484313a8a2813ff55d",
               "docs/UAG_ADMIN_HISTORY_INTEGRATION.md": "e2bdb75a1f3415e59a325b69bde47170dc7905f9",
           }
           for path, sha in blobs.items():
