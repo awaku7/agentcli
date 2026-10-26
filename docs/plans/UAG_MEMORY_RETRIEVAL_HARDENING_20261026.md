@@ -1,6 +1,6 @@
 # UAG Memory / Session検索の正確性・診断改善計画（2026-10-26）
 
-- **状態:** MR-01〜05はマージ済み。MR-06の保守的prefilterはPR #282でレビュー中。Windows全体pytest、Ruff、Blackは通過。評価は合成データのみで、実データ測定は未実施。
+- **状態:** MR-01〜06はマージ済み（PR #282、merge commit `74063d6be16d0de8cfc6cbd8cdad7abd50bff087`）。Windows全体pytest、Ruff、Blackは通過。MR-06の性能評価は合成データのみで、実利用コーパスでの測定は未実施。
 - **計画時の確認基準:** `main` = `1a13e12e1def7c27336cf74d41a5d4be77820177`（2026-10-26 JST）
 - **実装時の作業基準:** `main` = `214a9b0`（2026-10-26 JST）。計画時の確認基準とは異なるため、差分をレビュー時に考慮する。
 - **目的:** 既存のMemory V2/V3・SessionStore・FTS5・日本語検索・Structured Compactionを維持し、根拠を確認した不具合と評価の弱点を小さなPRで改善する。
@@ -99,7 +99,7 @@ Python 3.14.6 / SQLite 3.50.4、Windows上でSQLite DBに合成recordを一括�
 
 #### 保守的な候補prefilterの実装・差分測定（2026-10-26）
 
-検証中branchでは、Owner / Project / Scope / empty-noteの既存判定をすべて通過したrecordに対してのみ、query phrase / token substring / script n-gram substringの保守的なprefilterを追加した。prefilterがfalseを返すのは完全一致・token一致・対象scriptのn-gram一致があり得ない場合だけとし、false-positiveは従来の `_relevance()` に渡す。除外diagnosticは従来どおり `no_query_match` / relevance `0.0` として生成する。認可前の候補検索・scope境界の変更はない。
+PR #282で、Owner / Project / Scope / empty-noteの既存判定をすべて通過したrecordに対してのみ、query phrase / token substring / script n-gram substringの保守的なprefilterを追加した（マージ済み）。prefilterがfalseを返すのは完全一致・token一致・対象scriptのn-gram一致があり得ない場合だけとし、false-positiveは従来の `_relevance()` に渡す。除外diagnosticは従来どおり `no_query_match` / relevance `0.0` として生成する。認可前の候補検索・scope境界の変更はない。
 
 decoy入り同一合成fixtureで、prefilter有効時と無効時（query prefilter preparation/skippingを無効化）を各3回計測した。retrieval時間は中央値。全6 query caseについてcandidate出力、score、順序、item ID/reference、全diagnosticsが完全一致した。
 
@@ -110,7 +110,7 @@ decoy入り同一合成fixtureで、prefilter有効時と無効時（query prefi
 | 10,000 | 1.68–3.10× | 1–102 / 8,429 | 完全一致 |
 | 50,000 | 1.54–3.02× | 1–502 / 42,148 | 完全一致 |
 
-50,000件のspeedup中央値は約1.89×。この実装は合成fixtureでは改善したが、プロパティテストは有限の例集合であり、速度・recallを実データ分布で保証するものではない。merge前に中国語・タイ語・punctuation・short query・重複note・strict unknown・scope除外を含む回帰/property testsと全体pytestを再実行する。最終採用判断は実データ評価後に行う。
+50,000件のspeedup中央値は約1.89×。この実装は合成fixtureでは改善したが、プロパティテストは有限の例集合であり、速度・recallを実データ分布で保証するものではない。中国語・タイ語・punctuation・short query・重複note・strict unknown・scope除外を含む回帰/property testsとWindows全体pytestは実行済み。PR #282としてマージ済みだが、実利用コーパスでの性能・recall評価は未実施であり、本番性能向上は主張しない。
 
 ### MR-07 [別計画] Structured Compactionとの統合
 
@@ -154,7 +154,7 @@ python -m pytest -q . --durations=30
 | 2026-10-26 | mainのSessionStore、SessionCommandService、MemoryStore、Memory Projection、Memory Retriever、評価コードと関連テストを読取照合 | 完了（ソース調査） |
 | 2026-10-26 | FTS5導入箇所と `:sessions search`、長期Memoryの異なる検索経路を確認 | 完了（ソース調査） |
 | 2026-10-26 | 本計画を作成 | 初稿時は文書のみ。後続の実装記録を以下に追加 |
-| 2026-10-26 | MR-01〜05を実装。MR-01/02はセッション集約検索・LIKEエスケープ、MR-03は読み込み障害の明示とfail-closed診断、MR-04は候補集合単位のn-gram頻度共有、MR-05は正本record／認可済みmemory ID・revisionとの照合を追加 | マージ済み。MR-06 prefilterは検証中branchで未マージ。実LLM・本番データ測定は未実施 |
+| 2026-10-26 | MR-01〜05を実装。MR-01/02はセッション集約検索・LIKEエスケープ、MR-03は読み込み障害の明示とfail-closed診断、MR-04は候補集合単位のn-gram頻度共有、MR-05は正本record／認可済みmemory ID・revisionとの照合を追加 | マージ済み。実LLM・本番データ測定は未実施 |
 | 2026-10-26 | SessionStore、SessionCommandService、Memory backend、retrieval、evaluation、projection、V3 projection/access、history boundary、utilities i18nの対象テストを個別実行 | すべて通過。`tests/test_rpg2idx_tool.py` と `tests/test_office_to_markdown_tool.py` も適切な外部 `--basetemp` で通過 |
 | 2026-10-26 | `python -m pytest -q . --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-full-outside --tb=short --durations=30` | 初回は `tests/test_mxc_macos_scope.py` で8件失敗。Windowsに `os.killpg` と `signal.SIGKILL` がないことを確認し、製品コードではなく単体テスト内にPOSIX APIの安全なshimを追加。 |
 | 2026-10-26 | `python -m pytest -q tests/test_mxc_macos_scope.py --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-mxc-shim --tb=short` | 11 passed, 1 skipped |
@@ -164,7 +164,7 @@ python -m pytest -q . --durations=30
 | 2026-10-26 | MR-06合成データbaseline測定（100 / 1,000 / 10,000 / 50,000件、MemoryStore/ScopedMemoryStore、6 query cases） | 結果と測定条件をMR-06節に記録。50,000件時retrievalは約0.97–2.32秒/query、projectionは約0.08–0.10ms/1候補 |
 | 2026-10-26 | 認可済みrecordに対する保守的なprefilterをretrieval内へ実装し、prefilter無効baselineと比較 | 6 query casesでcandidate/diagnostics完全一致。50,000件で1.54–3.02×（中央値約1.89×）。合成fixtureのみ |
 | 2026-10-26 | MR-06 prefilterの回帰/propertyテストと全体pytestを実行 | `tests/test_memory_shadow_retrieval.py` 14件通過。最終 `python -m pytest -q . --basetemp=... --tb=short --durations=30` 全体通過（Windows） |
-| 2026-10-26 | MR-06をPR #282 (`c38b158`) としてpush | CI result tracked on PR; production corpus measurement not run |
+| 2026-10-26 | MR-06をPR #282 (`c38b158`) としてpushし、merge commit `74063d6be16d0de8cfc6cbd8cdad7abd50bff087` でマージ | 対象CIジョブ成功。`full-tests` と `nightly-full-tests` はskip。Windows全体pytestはローカルで通過。Codexレビューは指摘なし。実利用コーパス測定は未実施 |
 
 ## 7. 関連資料
 
