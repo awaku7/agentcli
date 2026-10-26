@@ -109,6 +109,21 @@ Web Memory API request-store cleanup、Entra overageのlogin-time Graph解決と
 - APIキー、入力本文、秘密情報を状態へ保存しない。
 - OpenAI/Azure、非対応プロバイダ、異なるモデル、`:load`をテストする。
 
+## P1: Memory / Session検索の正確性・診断改善
+
+- Status: planned（現行コードの読取調査と計画文書のみ完了。修正・テスト未実施）
+- Priority: P1（検索の取りこぼし、誤一致、読込障害の可観測性から着手）
+- Source: [Memory / Session検索の正確性・診断改善計画](./UAG_MEMORY_RETRIEVAL_HARDENING_20261026.md)
+
+### 対象
+
+- Sessionメッセージ検索の20hit上限がセッション表示を欠落させる問題、LIKE特殊文字による誤一致を修正する。
+- 長期Memory読込失敗と正常な空件数を区別し、機密本文をログへ出さず診断する。
+- 日本語などのn-gram重複計算を既存検索結果を変えずに整理し、評価fixtureの権限越境検出能力を強化する。
+- 長期Memoryの全件読込は先に性能測定し、FTS5/Embedding導入は改善効果を確認してから判断する。
+
+既存のSessionStore FTS5、日本語・多言語検索、Memory V3のProject/Room/Grant境界、構造化圧縮を維持し、重複実装を行わない。各実装PRの受け入れ条件・テスト対象・現時点での未検証事項はSourceを参照する。
+
 ## P1: Scheduler durable dispatch
 
 - Status: in-progress
