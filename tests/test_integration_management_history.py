@@ -35,11 +35,7 @@ def read_client(tmp_path, monkeypatch):
                 session.session_id, principal_id=principal, room_id="room"
             )
             store.append_message(session.session_id, "user", text)
-    monkeypatch.setattr(
-        routes_integration,
-        "_open_session_store",
-        lambda: SessionStore(path),
-    )
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(path))
     monkeypatch.setattr(
         routes_integration,
         "_authorized_project",

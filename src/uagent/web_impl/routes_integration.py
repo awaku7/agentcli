@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import asyncio
 import base64
 from datetime import datetime, timezone
 import hmac
+import os
+from pathlib import Path
+import sqlite3
 from importlib.metadata import PackageNotFoundError, version
 import json
 from typing import Any
@@ -15,7 +19,7 @@ from fastapi.responses import JSONResponse
 
 from ..env_utils import env_get
 from ..runtime.project_access import ProjectAccessPolicy
-from ..runtime.session_store import SessionStore
+from ..utils.paths import get_state_dir
 
 from ..runtime.instance_identity import get_instance_id, get_instance_name
 from .app import app
@@ -112,8 +116,54 @@ def _authorized_project(principal: str, project_id: str) -> bool:
         store.close()
 
 
-def _open_session_store() -> SessionStore | None:
-    return SessionStore.from_environment()
+def _open_session_store() -> sqlite3.Connection | None:
+    """Open existing SQLite history without migrations or any write permission."""
+    if os.environ.get("UAGENT_SESSION_STORE", "1").strip().lower() in {
+        "0",
+        "false",
+        "no",
+        "off",
+    }:
+        return None
+    configured = os.environ.get("UAGENT_SESSION_STORE_PATH", "").strip()
+    legacy = Path(".uagent/sessions.sqlite3")
+    path = (
+        Path(configured)
+        if configured
+        else (
+            Path(".uag/sessions.sqlite3")
+            if legacy.exists()
+            else get_state_dir() / "sessions" / "sessions.sqlite3"
+        )
+    )
+    if not path.is_file():
+        return None
+    connection = sqlite3.connect(
+        path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0
+    )
+    connection.row_factory = sqlite3.Row
+    return connection
+
+
+def _read_page(
+    project_id: str,
+    principal: str,
+    cursor: tuple[str, str] | None,
+    limit: int,
+) -> tuple[list[dict[str, str]], str | None]:
+    store = _open_session_store()
+    if store is None:
+        raise FileNotFoundError("session history unavailable")
+    try:
+        return _metadata_page(
+            store,
+            project_id=project_id,
+            principal=principal,
+            cursor=cursor,
+            limit=limit,
+        )
+    finally:
+        store.close()
 
 
 def _as_rfc3339(value: Any) -> str:
@@ -162,7 +212,7 @@ def _encode_cursor(timestamp: str, session_id: str) -> str:
 
 
 def _metadata_page(
-    store: SessionStore,
+    store: sqlite3.Connection,
     *,
     project_id: str,
     principal: str,
@@ -178,7 +228,7 @@ def _metadata_page(
         )
         parameters.extend([cursor[0], cursor[0], cursor[1]])
     parameters.append(limit + 1)
-    rows = store._execute(
+    rows = store.execute(
         "SELECT session_id, created_at, last_used_at FROM sessions "
         "WHERE project = ? AND principal_id = ?"
         + condition
@@ -234,7 +284,7 @@ async def get_integration_sessions(
     except ValueError:
         return JSONResponse(status_code=400, content={"error": "invalid cursor"})
     try:
-        if not _authorized_project(principal, project_id):
+        if not await asyncio.to_thread(_authorized_project, principal, project_id):
             return JSONResponse(
                 status_code=403, content={"error": "project not permitted"}
             )
@@ -243,23 +293,11 @@ async def get_integration_sessions(
             status_code=503, content={"error": "project policy unavailable"}
         )
     try:
-        store = _open_session_store()
-        if store is None:
-            return JSONResponse(
-                status_code=503, content={"error": "session history disabled"}
-            )
-        try:
-            items, next_cursor = _metadata_page(
-                store,
-                project_id=project_id,
-                principal=principal,
-                cursor=decoded,
-                limit=min(max(limit, 1), 100),
-            )
-        finally:
-            store.close()
+        items, next_cursor = await asyncio.to_thread(
+            _read_page, project_id, principal, decoded, min(max(limit, 1), 100)
+        )
         instance_id = get_instance_id()
-    except (OSError, RuntimeError, ValueError):
+    except (OSError, RuntimeError, ValueError, sqlite3.DatabaseError):
         return JSONResponse(status_code=503, content={"error": "history unavailable"})
     return {
         "api_version": INTEGRATION_API_VERSION,
