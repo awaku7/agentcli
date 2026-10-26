@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import asyncio
 import base64
+from contextlib import closing
 from datetime import datetime, timezone
 import hmac
 import os
 from pathlib import Path
 import sqlite3
+from types import SimpleNamespace
 from importlib.metadata import PackageNotFoundError, version
 import json
 from typing import Any
@@ -19,6 +21,7 @@ from fastapi.responses import JSONResponse
 
 from ..env_utils import env_get
 from ..runtime.project_access import ProjectAccessPolicy
+from ..tools import long_memory as _long_memory_mod
 from ..utils.paths import get_state_dir
 
 from ..runtime.instance_identity import get_instance_id, get_instance_name
@@ -106,14 +109,33 @@ def _read_config() -> tuple[str, str, str] | None:
 
 
 def _authorized_project(principal: str, project_id: str) -> bool:
-    """UAG, not the admin web application, owns the project permissions."""
-    from . import routes_api
+    """Use existing, explicitly granted membership without database writes.
 
-    store = routes_api._memory_store()
-    try:
-        return ProjectAccessPolicy(store).can_access(principal, project_id, "viewer")
-    finally:
-        store.close()
+    Directory-derived memberships depend on a separate identity-sync request.
+    Since this service credential has no directory identity, deny those grants
+    instead of trusting potentially stale cached group membership.
+    """
+    if not _long_memory_mod.is_sqlite_backend():
+        return False
+    path = Path(_long_memory_mod._sqlite_path())
+    if not path.is_file():
+        return False
+    with closing(
+        sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0)
+    ) as connection:
+        connection.row_factory = sqlite3.Row
+        grant = connection.execute(
+            "SELECT pm.granted_by FROM project_memberships pm "
+            "JOIN projects p ON p.project_id = pm.project_id "
+            "WHERE pm.project_id = ? AND pm.principal_id = ? "
+            "AND pm.status = 'active' AND p.status = 'active'",
+            (project_id, principal),
+        ).fetchone()
+        if grant is None or grant["granted_by"] == "directory-policy":
+            return False
+        return ProjectAccessPolicy(SimpleNamespace(db=connection)).can_access(
+            principal, project_id, "viewer"
+        )
 
 
 def _open_session_store() -> sqlite3.Connection | None:

@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import sqlite3
+
 from fastapi.testclient import TestClient
 import pytest
 
+from uagent.runtime.memory_store import MemoryStore
 from uagent.runtime.session_store import SessionStore
 from uagent.web_impl import routes_integration
 from uagent.web_impl.app import app
@@ -158,3 +161,94 @@ def test_store_unavailable_does_not_leak_data(read_client, monkeypatch):
     client, _ = read_client
     monkeypatch.setattr(routes_integration, "_open_session_store", lambda: None)
     assert _get(client).status_code == 503
+
+
+@pytest.fixture
+def membership_db(tmp_path, monkeypatch):
+    """Create explicit and directory-owned project memberships once."""
+    path = tmp_path / "memory.sqlite3"
+    store = MemoryStore(path)
+    try:
+        store.db.execute(
+            "INSERT INTO projects(project_id, status, created_at, updated_at) "
+            "VALUES ('project-a', 'active', 1, 1)"
+        )
+        for principal, grant, status in (
+            ("owner-a", "human-admin", "active"),
+            ("directory-user", "directory-policy", "active"),
+            ("revoked-user", "human-admin", "revoked"),
+        ):
+            store.db.execute(
+                "INSERT INTO project_memberships("
+                "project_id, principal_id, role, status, granted_by, "
+                "created_at, updated_at) VALUES (?, ?, 'viewer', ?, ?, 1, 1)",
+                ("project-a", principal, status, grant),
+            )
+        store.db.commit()
+    finally:
+        store.close()
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(path))
+    return path
+
+
+def test_management_auth_reads_existing_grants_without_migrations(
+    membership_db, monkeypatch
+):
+    from uagent.runtime import memory_store
+
+    def reject_open(*args, **kwargs):
+        raise AssertionError("MemoryStore initialization on metadata GET")
+
+    monkeypatch.setattr(memory_store.MemoryStore, "__init__", reject_open)
+    original_connect = sqlite3.connect
+    observed = []
+
+    def read_only_connect(database, *args, **kwargs):
+        observed.append((str(database), kwargs))
+        assert str(database).endswith("?mode=ro")
+        assert kwargs.get("uri") is True
+        return original_connect(database, *args, **kwargs)
+
+    monkeypatch.setattr(routes_integration.sqlite3, "connect", read_only_connect)
+    assert routes_integration._authorized_project("owner-a", "project-a") is True
+    assert observed
+
+
+def test_management_auth_refuses_cached_directory_grant(membership_db):
+    # A removed directory group may leave an active cached row until sync.
+    assert (
+        routes_integration._authorized_project("directory-user", "project-a") is False
+    )
+
+
+def test_management_auth_refuses_revoked_or_missing_grant(membership_db):
+    assert routes_integration._authorized_project("revoked-user", "project-a") is False
+    assert routes_integration._authorized_project("not-member", "project-a") is False
+    assert routes_integration._authorized_project("owner-a", "project-b") is False
+
+
+def test_management_auth_refuses_global_admin_without_explicit_grant(
+    membership_db, monkeypatch
+):
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "global-admin")
+    assert routes_integration._authorized_project("global-admin", "project-a") is False
+
+
+def test_management_auth_fail_closed_on_missing_db(membership_db, monkeypatch):
+    missing = membership_db.with_name("missing.sqlite3")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(missing))
+    assert routes_integration._authorized_project("owner-a", "project-a") is False
+    assert not missing.exists()
+
+
+def test_management_auth_refuses_revoked_project(membership_db):
+    conn = sqlite3.connect(membership_db)
+    try:
+        conn.execute(
+            "UPDATE projects SET status='revoked' WHERE project_id='project-a'"
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    assert routes_integration._authorized_project("owner-a", "project-a") is False
