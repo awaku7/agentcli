@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import signal
 import subprocess
 import sys
 import threading
@@ -11,6 +12,20 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.runtime import mxc_backend, mxc_macos_scope
+
+
+@pytest.fixture(autouse=True)
+def _provide_posix_signal_api_for_unit_tests(monkeypatch):
+    """Supply harmless POSIX API placeholders when these tests run on Windows.
+
+    Tests replace kill/killpg with spies before exercising teardown paths, so
+    the placeholders are never used to signal a real process. This keeps the
+    process-accounting logic portable without changing production behavior.
+    """
+    if not hasattr(os, "killpg"):
+        monkeypatch.setattr(os, "killpg", lambda *_args, **_kwargs: None, raising=False)
+    if not hasattr(signal, "SIGKILL"):
+        monkeypatch.setattr(signal, "SIGKILL", 9, raising=False)
 
 
 def _process(pid, ppid, pgid, cpu, started):
