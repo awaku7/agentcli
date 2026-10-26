@@ -319,7 +319,28 @@ def test_members_paginated_and_bounded(members_client):
     assert len(second.json()["members"]) == 1
     assert second.json()["next_cursor"] is None
     assert _get_members(client, limit=101).status_code == 400
-    assert _get_members(client, cursor="x" * 257).status_code == 400
+    assert _get_members(client, cursor="x" * 257).status_code == 200
+
+
+def test_members_cursor_can_resume_after_long_principal_id(members_client):
+    client, path = members_client
+    principal_id = "b" * 257
+    with sqlite3.connect(path) as conn:
+        conn.execute(
+            "INSERT INTO project_memberships "
+            "(project_id, principal_id, role, status, granted_by, "
+            "created_at, updated_at) VALUES "
+            "(?, ?, 'viewer', 'active', 'owner-a', 1, 1)",
+            ("project-a", principal_id),
+        )
+        conn.commit()
+    first = _get_members(client, limit=1)
+    assert first.status_code == 200
+    assert first.json()["members"][0]["principal_id"] == principal_id
+    assert first.json()["next_cursor"] == principal_id
+    second = _get_members(client, limit=1, cursor=principal_id)
+    assert second.status_code == 200
+    assert second.json()["members"][0]["principal_id"] == "directory-user"
 
 
 def test_members_credential_scope_and_project_binding(members_client):

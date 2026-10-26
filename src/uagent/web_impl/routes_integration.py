@@ -410,7 +410,7 @@ async def get_integration_project_members(
         return JSONResponse(status_code=401, content={"error": "invalid credential"})
     if project_id != allowed_project or not 1 <= len(project_id) <= 128:
         return JSONResponse(status_code=403, content={"error": "project not permitted"})
-    if len(cursor) > 256 or not 1 <= limit <= 100:
+    if not 1 <= limit <= 100:
         return JSONResponse(status_code=400, content={"error": "invalid pagination"})
     try:
         members, next_cursor = await asyncio.to_thread(
