@@ -1,0 +1,46 @@
+name: Validate candidate multi-project read scopes before code commit
+on:
+  push:
+permissions:
+  contents: write
+jobs:
+  candidate-validation:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Overlay exact uncommitted candidate source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$(dirname 'src/uagent/web_impl/routes_integration.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/051510108382d564fe4c6b3bdf81523aaca37494' --jq .content | base64 -d > 'src/uagent/web_impl/routes_integration.py'
+          mkdir -p "$(dirname 'tests/test_integration_management_history.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/1f3710ea55d740e22b9b68f3c591337b1a1b235c' --jq .content | base64 -d > 'tests/test_integration_management_history.py'
+          mkdir -p "$(dirname 'docs/UAG_ADMIN_HISTORY_INTEGRATION.md')"
+          gh api 'repos/awaku7/agentcli/git/blobs/45cc7ee2603d48b5018105d60e8316a223e60ff0' --jq .content | base64 -d > 'docs/UAG_ADMIN_HISTORY_INTEGRATION.md'
+      - name: Install project test and quality dependencies
+        run: |
+          python -m pip install -e ".[core,providers,test,quality]"
+      - name: Format candidate sources without committing
+        run: python -m black src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Check Black
+        run: python -m black --check --diff src tests
+      - name: Check Ruff
+        run: python -m ruff check src tests
+      - name: Test management read APIs
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_integration_management_history.py tests/test_integration_management_api.py
+      - name: Publish SHA of verified candidate blobs (no code commit)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          for file in src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py; do
+            python -c 'import json,sys; p=sys.argv[1]; json.dump({"content":open(p,encoding="utf-8").read(),"encoding":"utf-8"},open("/tmp/validated-blob.json","w",encoding="utf-8"))' "$file"
+            sha=$(gh api -X POST repos/awaku7/agentcli/git/blobs --input /tmp/validated-blob.json --jq .sha)
+            echo "VERIFIED_BLOB $file $sha"
+          done
