@@ -1260,7 +1260,13 @@ async def get_memories(request: Request):
     denied = _legacy_local_only(request)
     if denied is not None:
         return denied
-    records = _long_memory_mod.load_long_memory_records()
+    try:
+        records = _long_memory_mod.load_long_memory_records()
+    except _long_memory_mod.MemoryLoadError as exc:
+        return JSONResponse(
+            status_code=503,
+            content={"error": "memory_unavailable", "error_type": type(exc).__name__},
+        )
     result = []
     for idx, rec in enumerate(records):
         ts = rec.get("ts")

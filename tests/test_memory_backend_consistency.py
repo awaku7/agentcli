@@ -61,3 +61,49 @@ def test_mem_vacuum_is_manual_and_sqlite_only(repo_tmp_path: Path, monkeypatch) 
 
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
     assert vacuum_long_memory() is False
+
+
+def test_memory_read_failure_is_not_reported_as_an_empty_store(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    import sqlite3
+
+    from uagent.runtime import memory_store
+    from uagent.tools.long_memory import MemoryLoadError, load_long_memory_records
+
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(repo_tmp_path / "private-path.sqlite3"))
+
+    def fail_open(_path):
+        raise sqlite3.OperationalError("sensitive database detail")
+
+    monkeypatch.setattr(memory_store, "open_memory_store", fail_open)
+    try:
+        load_long_memory_records()
+    except MemoryLoadError as exc:
+        assert "OperationalError" in str(exc)
+        assert "sensitive database detail" not in str(exc)
+        assert str(repo_tmp_path) not in str(exc)
+    else:
+        raise AssertionError("memory read failure was converted to an empty list")
+
+
+def test_corrupt_jsonl_memory_is_diagnosable_but_missing_file_is_empty(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.tools.long_memory import MemoryLoadError, load_long_memory_records
+
+    memory_file = repo_tmp_path / "memory.jsonl"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(memory_file))
+
+    assert load_long_memory_records() == []
+    memory_file.write_text('{"note": "valid"}\nnot-json\n', encoding="utf-8")
+
+    try:
+        load_long_memory_records()
+    except MemoryLoadError as exc:
+        assert "JSONDecodeError" in str(exc)
+        assert "valid" not in str(exc)
+    else:
+        raise AssertionError("corrupt JSONL record was silently discarded")

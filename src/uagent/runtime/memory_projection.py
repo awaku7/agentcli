@@ -489,7 +489,7 @@ def prepare_memory_projection(
                 "owner": owner or "unknown",
                 "project": project,
                 "memory_generation": generation,
-                "error": type(exc).__name__,
+                "error": getattr(exc, "cause_type", type(exc).__name__),
             },
             generation=generation,
             principal_id=principal_id,
