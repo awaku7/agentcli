@@ -15,7 +15,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       SOURCE_SHA: "245869237fcec28c755866e7f14ebe2a00a5a34b"
-      TEST_SHA: "b2cbfb56420805b66aa9684d92b36b8945e4ce22"
+      TEST_SHA: "0d25259f0c185c2d11d6e33a50368f7602b6b0a6"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
