@@ -240,12 +240,37 @@ def _run_retrieval_once(
     else:
         returned_notes = candidate_notes
 
-    candidate_ids = {candidate.item_id for candidate in result.candidates}
-    candidate_diagnostics = [
-        diagnostic
-        for diagnostic in result.diagnostics
-        if diagnostic.item_id in candidate_ids and diagnostic.action == "candidate"
-    ]
+    source_index_by_id = {
+        diagnostic.item_id: diagnostic.index for diagnostic in result.diagnostics
+    }
+    selected_statuses: list[str] = []
+    for candidate in result.candidates:
+        source_index = source_index_by_id.get(candidate.item_id)
+        if (
+            source_index is None
+            or source_index < 0
+            or source_index >= len(records)
+            or not isinstance(records[source_index], Mapping)
+        ):
+            selected_statuses.append("mismatch")
+            continue
+        source_record = records[source_index]
+        status = _record_boundary_status(
+            source_record, scope=scope, owner=owner, project=project
+        )
+        authorized_revisions = case.get("authorized_memory_revisions")
+        if isinstance(authorized_revisions, Mapping):
+            memory_id = _record_field(source_record, "memory_id")
+            if str(authorized_revisions.get(memory_id)) != str(
+                source_record.get("revision")
+            ):
+                status = "mismatch"
+        if (
+            _clean(candidate.content).casefold()
+            != _record_note(source_record).casefold()
+        ):
+            status = "mismatch"
+        selected_statuses.append(status)
     return {
         "returned_notes": returned_notes,
         "candidate_count": len(candidate_notes),
@@ -254,12 +279,10 @@ def _run_retrieval_once(
         "excluded_count": result.excluded_records,
         "budget_dropped_count": budget_dropped_count,
         "scope_violation_count": sum(
-            diagnostic.scope_status in {"mismatch", "scope_unknown"}
-            for diagnostic in candidate_diagnostics
+            status == "mismatch" for status in selected_statuses
         ),
         "legacy_unknown_selected_count": sum(
-            diagnostic.scope_status == "legacy_unknown"
-            for diagnostic in candidate_diagnostics
+            status == "legacy_unknown" for status in selected_statuses
         ),
     }
 

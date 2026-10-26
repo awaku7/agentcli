@@ -121,3 +121,229 @@ def test_strict_scope_adjusts_legacy_expectation_instead_of_counting_it_as_loss(
     assert result.returned_count == 0
     assert result.recall == 1.0
     assert result.passed is True
+
+
+def test_scope_evaluation_oracle_detects_injected_cross_owner_candidate(
+    monkeypatch,
+) -> None:
+    from uagent.runtime import memory_evaluation
+    from uagent.runtime.active_context import ContextCandidate
+    from uagent.runtime.memory_retrieval import (
+        MemoryShadowDiagnostic,
+        MemoryShadowResult,
+    )
+
+    item_id = "memory-shadow:unknown:personal:0"
+    injected = MemoryShadowResult(
+        candidates=[
+            ContextCandidate(
+                item_id=item_id,
+                source="memory",
+                section="memory",
+                content="private note",
+            )
+        ],
+        diagnostics=[
+            MemoryShadowDiagnostic(
+                index=0,
+                action="candidate",
+                reason="query_match",
+                item_id=item_id,
+                scope_status="scoped",
+            )
+        ],
+        total_records=1,
+        eligible_records=1,
+        excluded_records=0,
+    )
+    monkeypatch.setattr(
+        memory_evaluation,
+        "shadow_retrieve_memories",
+        lambda *_args, **_kwargs: injected,
+    )
+
+    result = memory_evaluation.evaluate_retrieval_case(
+        {
+            "id": "cross-owner",
+            "query": "private",
+            "scope": "personal",
+            "owner": "alice",
+            "project": "app",
+            "records": [
+                {
+                    "note": "private note",
+                    "owner": "bob",
+                    "project": "app",
+                }
+            ],
+            "expected_notes": ["private note"],
+        }
+    )
+
+    assert result.scope_violation_count == 1
+    assert result.passed is False
+    assert "scope_violation" in result.failure_reasons
+
+
+def test_scope_evaluation_oracle_rejects_unapproved_grant_revision(monkeypatch) -> None:
+    from uagent.runtime import memory_evaluation
+    from uagent.runtime.active_context import ContextCandidate
+    from uagent.runtime.memory_retrieval import (
+        MemoryShadowDiagnostic,
+        MemoryShadowResult,
+    )
+
+    item_id = "memory-shadow:unknown:personal:0"
+    injected = MemoryShadowResult(
+        candidates=[
+            ContextCandidate(
+                item_id=item_id,
+                source="memory",
+                section="memory",
+                content="shared rule",
+            )
+        ],
+        diagnostics=[
+            MemoryShadowDiagnostic(
+                index=0,
+                action="candidate",
+                reason="query_match",
+                item_id=item_id,
+                scope_status="scoped",
+            )
+        ],
+        total_records=1,
+        eligible_records=1,
+        excluded_records=0,
+    )
+    monkeypatch.setattr(
+        memory_evaluation,
+        "shadow_retrieve_memories",
+        lambda *_args, **_kwargs: injected,
+    )
+
+    result = memory_evaluation.evaluate_retrieval_case(
+        {
+            "id": "stale-grant-revision",
+            "query": "shared rule",
+            "scope": "personal",
+            "owner": "alice",
+            "project": "app",
+            "records": [
+                {
+                    "note": "shared rule",
+                    "memory_id": "shared-memory",
+                    "revision": 3,
+                    "owner": "alice",
+                    "project": "app",
+                    "audience_type": "personal",
+                    "audience_id": "alice",
+                }
+            ],
+            "authorized_memory_revisions": {"shared-memory": 4},
+            "expected_notes": ["shared rule"],
+        }
+    )
+
+    assert result.scope_violation_count == 1
+    assert result.passed is False
+
+
+def test_v3_authorized_outputs_are_checked_against_private_room_and_grant_scope(
+    tmp_path,
+) -> None:
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_evaluation import evaluate_retrieval_case
+    from uagent.runtime.memory_store import MemoryStore
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    owner = ScopedMemoryStore(
+        store,
+        MemoryAccessContext(
+            principal_id="owner",
+            project_id="app",
+            authenticated=True,
+            private_session=True,
+        ),
+    )
+    recipient = ScopedMemoryStore(
+        store,
+        MemoryAccessContext(
+            principal_id="recipient",
+            project_id="app",
+            authenticated=True,
+            private_session=True,
+        ),
+    )
+    outsider = ScopedMemoryStore(
+        store,
+        MemoryAccessContext(
+            principal_id="outsider",
+            project_id="app",
+            authenticated=True,
+            private_session=True,
+        ),
+    )
+    direct = owner.append("alpha direct grant")
+    owner.share(direct["memory_id"], "recipient", expected_revision=1)
+    recipient.append("alpha recipient private")
+    outsider.append("alpha outsider private")
+
+    room_record = store.append("alpha room audience", owner="owner", project="app")
+    store.db.execute(
+        "UPDATE memories SET owner_id='owner', audience_type='room', "
+        "audience_id='room-X' WHERE memory_id=?",
+        (room_record["memory_id"],),
+    )
+    store.db.commit()
+    room_reader = ScopedMemoryStore(
+        store,
+        MemoryAccessContext(
+            principal_id="recipient",
+            project_id="app",
+            authenticated=True,
+            room_id="room-X",
+            private_session=False,
+            readable_audiences=(("room", "room-X"),),
+        ),
+    )
+
+    assert direct["memory_id"] in {
+        record["memory_id"] for record in recipient.records()
+    }
+    owner.update(direct["memory_id"], "alpha direct grant revised", expected_revision=1)
+
+    authorized_records = recipient.records() + room_reader.records()
+    authorized_revisions = {
+        str(record["memory_id"]): record["revision"] for record in authorized_records
+    }
+    accepted = evaluate_retrieval_case(
+        {
+            "id": "v3-authorized-output",
+            "query": "alpha",
+            "scope": "personal",
+            "project": "app",
+            "records": authorized_records,
+            "authorized_memory_revisions": authorized_revisions,
+            "expected_notes": [record["note"] for record in authorized_records],
+        }
+    )
+    assert accepted.passed is True
+    assert accepted.scope_violation_count == 0
+
+    # The raw repository contains a stale direct grant and another principal's
+    # private record. Neither is in the authoritative scoped output/revision map.
+    rejected = evaluate_retrieval_case(
+        {
+            "id": "v3-overbroad-output",
+            "query": "alpha",
+            "scope": "personal",
+            "project": "app",
+            "records": store.records(),
+            "authorized_memory_revisions": authorized_revisions,
+            "expected_notes": [record["note"] for record in authorized_records],
+        }
+    )
+    assert rejected.passed is False
+    assert rejected.scope_violation_count >= 2
+    store.close()
