@@ -97,6 +97,7 @@ _PROCESS_ADMIN_PATHS = frozenset(
     {
         "/api/artifacts/cleanup",
         "/api/artifacts/cleanup/report",
+        "/api/admin/integration/v1/manifest",
     }
 )
 _PROCESS_ADMIN_WRITE_PATHS = frozenset(

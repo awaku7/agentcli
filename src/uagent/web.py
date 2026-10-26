@@ -80,6 +80,7 @@ from .web_impl.routes_api import (
     update_profile,
 )
 from .web_impl.routes_observability import get_observability_trace
+from .web_impl.routes_integration import get_integration_manifest
 from .web_impl.routes_ws import websocket_endpoint
 from .web_impl.init import init_web, main as _web_main
 
@@ -134,6 +135,7 @@ __all__ = [
     "get_root",
     "get_tool_genres",
     "get_tools_enabled",
+    "get_integration_manifest",
     "oidc_callback",
     "oidc_login",
     "oidc_logout",
