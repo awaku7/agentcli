@@ -823,7 +823,9 @@ def test_windows_dacl_validation_allows_only_trusted_sids():
         )
 
 
-def test_fifo_scope_file_is_rejected_without_blocking(read_client, tmp_path, monkeypatch):
+def test_fifo_scope_file_is_rejected_without_blocking(
+    read_client, tmp_path, monkeypatch
+):
     if os.name == "nt" or not hasattr(os, "mkfifo"):
         pytest.skip("FIFO regression is Unix-specific")
     client, _ = read_client
