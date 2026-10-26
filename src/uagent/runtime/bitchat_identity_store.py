@@ -155,7 +155,7 @@ def save_identity(plaintext: str, *, fallback_path: str | Path) -> str:
     tmp = path.with_name(path.name + ".tmp")
     try:
         tmp.write_text(
-            encrypt_text(plaintext, format_version=0) + "\n",
+            encrypt_text(plaintext) + "\n",
             encoding="utf-8",
             newline="\n",
         )

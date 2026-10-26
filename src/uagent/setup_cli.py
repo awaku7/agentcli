@@ -2435,7 +2435,7 @@ def main() -> int:
             sec_path = paths["env"].with_suffix(
                 paths["env"].suffix + DEFAULT_SEC_SUFFIX
             )
-            sec_text = encrypt_text(env_text, format_version=0)
+            sec_text = encrypt_text(env_text)
             sec_path.write_text(sec_text + "\n", encoding="utf-8", newline="\n")
             print(encrypt_msg % {"path": sec_path})
             # Remove plain .env after encryption

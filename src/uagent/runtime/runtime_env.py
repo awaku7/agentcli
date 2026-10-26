@@ -141,7 +141,7 @@ def save_uagent_envsec(*, env: Mapping[str, str] | None = None) -> Path:
     snapshot = _snapshot_uagent_env(env)
     ensure_key_file()
     plaintext = _build_uagent_env_text(snapshot)
-    _write_text_atomic(sec_path, encrypt_text(plaintext, format_version=0) + "\n")
+    _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
     return sec_path
 
 
@@ -224,7 +224,7 @@ def _maybe_offer_envsec_sync(
                 merged_values.update(snapshot)
                 plaintext = _build_uagent_env_text(merged_values)
                 _write_text_atomic(
-                    sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+                    sec_path, encrypt_text(plaintext) + "\n"
                 )
                 print(
                     _("Updated .env.sec: %(path)s", path=sec_path),
@@ -244,7 +244,7 @@ def _maybe_offer_envsec_sync(
             merged_values.update(snapshot)
             plaintext = _build_uagent_env_text(merged_values)
             _write_text_atomic(
-                sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+                sec_path, encrypt_text(plaintext) + "\n"
             )
             print(_("Updated .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
             return True
@@ -287,7 +287,7 @@ def _maybe_offer_envsec_sync(
             ensure_key_file()
             plaintext = _build_uagent_env_text(snapshot)
             _write_text_atomic(
-                sec_path, encrypt_text(plaintext, format_version=0) + "\n"
+                sec_path, encrypt_text(plaintext) + "\n"
             )
             print(
                 _("Created .env.sec: %(path)s", path=sec_path),
@@ -304,7 +304,7 @@ def _maybe_offer_envsec_sync(
     try:
         ensure_key_file()
         plaintext = _build_uagent_env_text(snapshot)
-        _write_text_atomic(sec_path, encrypt_text(plaintext, format_version=0) + "\n")
+        _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
         print(_("Created .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
         return True
     except Exception as e:
