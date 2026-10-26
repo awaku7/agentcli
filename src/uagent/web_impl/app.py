@@ -5,10 +5,12 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager
 from contextvars import ContextVar
+import hmac
 import os
 import threading
 from typing import Any
 
+from ..env_utils import env_get
 from ..runtime.browser_identity import BrowserIdentityCookieMiddleware
 
 try:
@@ -179,6 +181,32 @@ def _process_api_guard(request: Request):
     """Protect process-wide controls without changing local single-user behavior."""
     path = request.url.path
     method = request.method.upper()
+    if path == "/api/admin/integration/v1/manifest" and method == "GET":
+        expected_token = str(env_get("UAGENT_MANAGEMENT_API_TOKEN", "") or "").strip()
+        authorization = str(request.headers.get("authorization", "") or "").strip()
+        if expected_token and len(expected_token.encode("utf-8")) < 32:
+            return None, JSONResponse(
+                status_code=503,
+                content={"error": "service credential is not configured securely"},
+            )
+        if expected_token and authorization:
+            scheme, separator, supplied_token = authorization.partition(" ")
+            if (
+                scheme.lower() != "bearer"
+                or not separator
+                or not supplied_token.strip()
+            ):
+                return None, JSONResponse(
+                    status_code=401, content={"error": "invalid service credential"}
+                )
+            if not hmac.compare_digest(
+                expected_token.encode("utf-8"), supplied_token.strip().encode("utf-8")
+            ):
+                return None, JSONResponse(
+                    status_code=401, content={"error": "invalid service credential"}
+                )
+            # This credential is scoped to the read-only integration manifest.
+            return None, None
     requires_admin = path in _PROCESS_ADMIN_PATHS or (
         method != "GET" and path in _PROCESS_ADMIN_WRITE_PATHS
     )

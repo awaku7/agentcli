@@ -62,6 +62,7 @@ def test_instance_id_accepts_configured_uuid_and_rejects_invalid_value(monkeypat
 
 def test_integration_manifest_is_admin_only_and_contains_no_credentials(monkeypatch):
     resolver = _Resolver("member")
+    monkeypatch.delenv("UAGENT_MANAGEMENT_API_TOKEN", raising=False)
     monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
     monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
     monkeypatch.setenv("UAGENT_INSTANCE_ID", "12345678-1234-5678-1234-567812345678")
@@ -91,3 +92,34 @@ def test_integration_manifest_is_admin_only_and_contains_no_credentials(monkeypa
     openapi = client.get("/openapi.json")
     assert openapi.status_code == 200
     assert "/api/admin/integration/v1/manifest" not in openapi.json()["paths"]
+
+
+def test_integration_manifest_accepts_scoped_management_bearer(monkeypatch):
+    token = "management-service-test-token-with-more-than-32-bytes"
+    monkeypatch.setenv("UAGENT_MANAGEMENT_API_TOKEN", token)
+    monkeypatch.setenv("UAGENT_INSTANCE_ID", "12345678-1234-5678-1234-567812345678")
+    monkeypatch.setenv("UAGENT_INSTANCE_NAME", "managed-agent")
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
+    resolver = _Resolver("member")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    client = TestClient(app)
+
+    response = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert response.status_code == 200
+    assert response.json()["instance"]["name"] == "managed-agent"
+
+    invalid = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": "Bearer incorrect-management-token"},
+    )
+    assert invalid.status_code == 401
+
+    # The service credential is intentionally scoped to this read-only route.
+    other_admin_route = client.get(
+        "/api/artifacts/cleanup/report",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert other_admin_route.status_code == 403
