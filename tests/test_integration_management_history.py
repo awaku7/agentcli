@@ -821,3 +821,32 @@ def test_windows_dacl_validation_allows_only_trusted_sids():
         routes_integration._validate_windows_dacl(
             _FakeDacl([((5, 0), 0x1, "S-1-5-21-owner")]), "S-1-5-21-owner", allowed, str
         )
+
+
+def test_fifo_scope_file_is_rejected_without_blocking(read_client, tmp_path, monkeypatch):
+    if os.name == "nt" or not hasattr(os, "mkfifo"):
+        pytest.skip("FIFO regression is Unix-specific")
+    client, _ = read_client
+    fifo = tmp_path / "read-scopes.fifo"
+    os.mkfifo(fifo, 0o600)
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_SCOPES_FILE", str(fifo))
+    real_open = os.open
+    seen = []
+
+    def checked_open(path, flags, *args, **kwargs):
+        if os.fspath(path) == os.fspath(fifo):
+            # Fail immediately rather than block the test on older code.
+            assert flags & os.O_NONBLOCK, "FIFO open would block the API"
+            seen.append(flags)
+        return real_open(path, flags, *args, **kwargs)
+
+    monkeypatch.setattr(routes_integration.os, "open", checked_open)
+    assert _get(client).status_code == 503
+    assert _get_members(client).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert manifest.status_code == 200
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+    assert len(seen) == 3

@@ -211,7 +211,14 @@ def _read_protected_scope_file(path: Path) -> bytes:
         raise ValueError("read scope file must be an absolute non-symlink path")
     if os.name == "nt":
         return _read_protected_scope_file_windows(path)
-    flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0) | getattr(os, "O_NOFOLLOW", 0)
+    # A configured path may be a FIFO: opening without O_NONBLOCK would hang
+    # the async API handler before fstat can reject non-regular files.
+    flags = (
+        os.O_RDONLY
+        | getattr(os, "O_CLOEXEC", 0)
+        | getattr(os, "O_NOFOLLOW", 0)
+        | os.O_NONBLOCK
+    )
     with os.fdopen(os.open(path, flags), "rb") as source:
         metadata = os.fstat(source.fileno())
         if not stat.S_ISREG(metadata.st_mode):
