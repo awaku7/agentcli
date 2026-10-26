@@ -5,11 +5,13 @@ from __future__ import annotations
 import asyncio
 import base64
 from contextlib import closing
+from dataclasses import dataclass
 from datetime import datetime, timezone
 import hmac
 import os
 from pathlib import Path
 import sqlite3
+import stat
 from types import SimpleNamespace
 from importlib.metadata import PackageNotFoundError, version
 import json
@@ -56,10 +58,10 @@ async def get_integration_manifest():
 
     capabilities = ["instance.identity.read"]
     try:
-        configured = _read_config()
-    except ValueError:
-        configured = None
-    if configured is not None and str(
+        scopes = _read_scopes()
+    except (OSError, ValueError):
+        scopes = ()
+    if any("session.metadata.read" in scope.capabilities for scope in scopes) and str(
         env_get("UAGENT_SESSION_STORE", "1")
     ).lower() not in {
         "0",
@@ -69,7 +71,7 @@ async def get_integration_manifest():
     }:
         capabilities.append("session.metadata.read")
 
-    if configured is not None:
+    if any("project.membership.read" in scope.capabilities for scope in scopes):
         capabilities.append("project.membership.read")
 
     return {
@@ -109,6 +111,120 @@ def _read_config() -> tuple[str, str, str] | None:
     ):
         raise ValueError("incomplete read-only management configuration")
     return token, principal, project_id
+
+
+_READ_CAPABILITIES = frozenset({"session.metadata.read", "project.membership.read"})
+_MAX_SCOPE_FILE_BYTES = 262144
+_MAX_SCOPES = 64
+
+
+@dataclass(frozen=True)
+class _ReadScope:
+    token: str
+    principal: str
+    project_id: str
+    capabilities: frozenset[str]
+
+
+def _read_scopes() -> tuple[_ReadScope, ...]:
+    """Load exact service-principal scopes; never derive identity from requests.
+
+    The legacy three-variable configuration remains an independent scope.
+    A separate protected file may add up to 64 per-project credentials.
+    """
+    scopes: list[_ReadScope] = []
+    legacy = _read_config()
+    if legacy is not None:
+        token, principal, project_id = legacy
+        scopes.append(_ReadScope(token, principal, project_id, _READ_CAPABILITIES))
+
+    file_name = str(env_get("UAGENT_MANAGEMENT_READ_SCOPES_FILE", "") or "").strip()
+    if not file_name:
+        return tuple(scopes)
+    path = Path(file_name)
+    if not path.is_absolute() or path.is_symlink():
+        raise ValueError("read scope file must be an absolute, non-symlink path")
+    metadata = path.stat()
+    if not stat.S_ISREG(metadata.st_mode):
+        raise ValueError("read scope file must be a regular file")
+    if os.name != "nt" and stat.S_IMODE(metadata.st_mode) & 0o077:
+        raise ValueError("read scope file is accessible by other users")
+    with path.open("rb") as source:
+        document_bytes = source.read(_MAX_SCOPE_FILE_BYTES + 1)
+    if len(document_bytes) > _MAX_SCOPE_FILE_BYTES:
+        raise ValueError("read scope file is too large")
+    try:
+        document = json.loads(document_bytes)
+    except (ValueError, UnicodeDecodeError) as exc:
+        raise ValueError("invalid read scope file") from exc
+    if (
+        not isinstance(document, dict)
+        or set(document) != {"version", "scopes"}
+        or type(document["version"]) is not int
+        or document["version"] != 1
+        or not isinstance(document["scopes"], list)
+        or len(document["scopes"]) > _MAX_SCOPES
+    ):
+        raise ValueError("invalid read scope file schema")
+    instance_id = get_instance_id()
+    for entry in document["scopes"]:
+        if not isinstance(entry, dict) or set(entry) != {
+            "instance_id",
+            "token",
+            "principal_id",
+            "project_id",
+            "capabilities",
+        }:
+            raise ValueError("invalid read scope record")
+        token = entry["token"]
+        principal = entry["principal_id"]
+        project_id = entry["project_id"]
+        grants = entry["capabilities"]
+        if (
+            not isinstance(entry["instance_id"], str)
+            or entry["instance_id"] != instance_id
+            or not isinstance(token, str)
+            or not token.isascii()
+            or not 32 <= len(token) <= 4096
+            or any(ord(char) < 33 or ord(char) == 127 for char in token)
+            or not isinstance(principal, str)
+            or not 1 <= len(principal) <= 256
+            or principal.strip() != principal
+            or not isinstance(project_id, str)
+            or not 1 <= len(project_id) <= 128
+            or project_id.strip() != project_id
+            or not isinstance(grants, list)
+            or not grants
+            or any(not isinstance(grant, str) for grant in grants)
+            or len(grants) != len(set(grants))
+            or not set(grants).issubset(_READ_CAPABILITIES)
+        ):
+            raise ValueError("invalid read scope values")
+        scopes.append(_ReadScope(token, principal, project_id, frozenset(grants)))
+    tokens = [scope.token for scope in scopes]
+    if len(tokens) != len(set(tokens)):
+        raise ValueError("duplicate read scope credential")
+    return tuple(scopes)
+
+
+def _authenticate_read_scope(
+    request: Request, scopes: tuple[_ReadScope, ...]
+) -> _ReadScope | None:
+    scheme, separator, provided = (
+        str(request.headers.get("authorization", "") or "").strip().partition(" ")
+    )
+    if scheme.lower() != "bearer" or not separator:
+        return None
+    offered = provided.strip()
+    if not offered or len(offered) > 4096:
+        return None
+    candidate = None
+    offered_bytes = offered.encode("utf-8")
+    # Compare every secret instead of exposing scope order through early return.
+    for scope in scopes:
+        if hmac.compare_digest(scope.token.encode("utf-8"), offered_bytes):
+            candidate = scope
+    return candidate
 
 
 def _authorized_project(principal: str, project_id: str) -> bool:
@@ -331,27 +447,23 @@ async def get_integration_sessions(
 ):
     """Exact-project, exact-owner metadata with a separate service credential."""
     try:
-        config = _read_config()
-    except ValueError:
+        scopes = _read_scopes()
+    except (OSError, ValueError):
         return JSONResponse(
             status_code=503, content={"error": "read API misconfigured"}
         )
-    if config is None:
+    if not scopes:
         return JSONResponse(status_code=404, content={"error": "not supported"})
-    token, principal, allowed_project = config
-    scheme, separator, provided = (
-        str(request.headers.get("authorization", "") or "").strip().partition(" ")
-    )
-    if (
-        scheme.lower() != "bearer"
-        or not separator
-        or not hmac.compare_digest(
-            token.encode("utf-8"), provided.strip().encode("utf-8")
-        )
-    ):
+    scope = _authenticate_read_scope(request, scopes)
+    if scope is None:
         return JSONResponse(status_code=401, content={"error": "invalid credential"})
-    if project_id != allowed_project or not 1 <= len(project_id) <= 128:
+    if project_id != scope.project_id or not 1 <= len(project_id) <= 128:
         return JSONResponse(status_code=403, content={"error": "project not permitted"})
+    principal = scope.principal
+    if "session.metadata.read" not in scope.capabilities:
+        return JSONResponse(
+            status_code=403, content={"error": "capability not permitted"}
+        )
     try:
         decoded = _decode_cursor(cursor)
     except ValueError:
@@ -389,27 +501,23 @@ async def get_integration_project_members(
 ):
     """Read only the preconfigured project's members; never modify policy."""
     try:
-        config = _read_config()
-    except ValueError:
+        scopes = _read_scopes()
+    except (OSError, ValueError):
         return JSONResponse(
             status_code=503, content={"error": "read API misconfigured"}
         )
-    if config is None:
+    if not scopes:
         return JSONResponse(status_code=404, content={"error": "not supported"})
-    token, principal, allowed_project = config
-    scheme, separator, provided = (
-        str(request.headers.get("authorization", "") or "").strip().partition(" ")
-    )
-    if (
-        scheme.lower() != "bearer"
-        or not separator
-        or not hmac.compare_digest(
-            token.encode("utf-8"), provided.strip().encode("utf-8")
-        )
-    ):
+    scope = _authenticate_read_scope(request, scopes)
+    if scope is None:
         return JSONResponse(status_code=401, content={"error": "invalid credential"})
-    if project_id != allowed_project or not 1 <= len(project_id) <= 128:
+    if project_id != scope.project_id or not 1 <= len(project_id) <= 128:
         return JSONResponse(status_code=403, content={"error": "project not permitted"})
+    principal = scope.principal
+    if "project.membership.read" not in scope.capabilities:
+        return JSONResponse(
+            status_code=403, content={"error": "capability not permitted"}
+        )
     if not 1 <= limit <= 100:
         return JSONResponse(status_code=400, content={"error": "invalid pagination"})
     try:
