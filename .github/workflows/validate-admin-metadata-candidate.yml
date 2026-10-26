@@ -1,0 +1,38 @@
+name: Validate admin metadata candidates
+
+on:
+  push:
+    branches: [feature/admin-session-metadata-read-v1]
+    paths: [.github/workflows/validate-admin-metadata-candidate.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  precommit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_SHA: "8b0dd5511cd3f0f7376a00f6b883d0d5cf805b86"
+      TEST_SHA: "f68ad755b0113575256030721df404a3bb13bafc"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Load uncommitted candidates
+        shell: bash
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${SOURCE_SHA}" --jq .content | tr -d '\n' | base64 -d > src/uagent/web_impl/routes_integration.py
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${TEST_SHA}" --jq .content | tr -d '\n' | base64 -d > tests/test_integration_management_history.py
+      - name: Install dependencies
+        run: python -m pip install -e ".[core,providers,test,quality]"
+      - name: Check Black
+        run: python -m black --check --diff src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Check Ruff
+        run: python -m ruff check src/uagent/web_impl/routes_integration.py tests/test_integration_management_history.py
+      - name: Targeted tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_integration_management_api.py tests/test_integration_management_history.py
