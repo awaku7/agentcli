@@ -1,6 +1,6 @@
 # UAG Memory / Session検索の正確性・診断改善計画（2026-10-26）
 
-- **状態:** MR-01〜05はマージ済み。MR-06の保守的prefilterを検証中のローカルbranchで実装。合成データで differential tests と測定は通過。実データ評価・最終レビュー・MR-06のcommit/pushは未実施。
+- **状態:** MR-01〜05はマージ済み。MR-06の保守的prefilterはPR #282でレビュー中。Windows全体pytest、Ruff、Blackは通過。評価は合成データのみで、実データ測定は未実施。
 - **計画時の確認基準:** `main` = `1a13e12e1def7c27336cf74d41a5d4be77820177`（2026-10-26 JST）
 - **実装時の作業基準:** `main` = `214a9b0`（2026-10-26 JST）。計画時の確認基準とは異なるため、差分をレビュー時に考慮する。
 - **目的:** 既存のMemory V2/V3・SessionStore・FTS5・日本語検索・Structured Compactionを維持し、根拠を確認した不具合と評価の弱点を小さなPRで改善する。
@@ -162,7 +162,9 @@ python -m pytest -q . --durations=30
 | 2026-10-26 | Windows単体テスト用のPOSIX API shimを `tests/test_mxc_macos_scope.py` に追加 | `os.killpg` と `signal.SIGKILL` のみ補い、テスト内のkill/killpgはspyに置換。製品コードは変更せず |
 | 2026-10-26 | `python -m ruff check src tests`、`python -m black --check src tests`、`git diff --check` | すべて通過 |
 | 2026-10-26 | MR-06合成データbaseline測定（100 / 1,000 / 10,000 / 50,000件、MemoryStore/ScopedMemoryStore、6 query cases） | 結果と測定条件をMR-06節に記録。50,000件時retrievalは約0.97–2.32秒/query、projectionは約0.08–0.10ms/1候補 |
-| 2026-10-26 | 認可済みrecordに対する保守的なprefilterをretrieval内へ実装し、prefilterを無効化したbaselineと比較 | 6 query casesでcandidate/diagnostics完全一致。50,000件で1.54–3.02×（中央値約1.89×）。合成fixtureのみ。多言語/propertyテストと全体pytestの追加確認後、MR-06として採否判断 |
+| 2026-10-26 | 認可済みrecordに対する保守的なprefilterをretrieval内へ実装し、prefilter無効baselineと比較 | 6 query casesでcandidate/diagnostics完全一致。50,000件で1.54–3.02×（中央値約1.89×）。合成fixtureのみ |
+| 2026-10-26 | MR-06 prefilterの回帰/propertyテストと全体pytestを実行 | `tests/test_memory_shadow_retrieval.py` 14件通過。最終 `python -m pytest -q . --basetemp=... --tb=short --durations=30` 全体通過（Windows） |
+| 2026-10-26 | MR-06をPR #282 (`c38b158`) としてpush | CI result tracked on PR; production corpus measurement not run |
 
 ## 7. 関連資料
 
