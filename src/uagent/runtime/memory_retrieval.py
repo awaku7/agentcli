@@ -159,6 +159,68 @@ def _relevance(query: str, note: str) -> float:
     return max(token_score, ngram_score)
 
 
+_QueryPrefilterPart = tuple[str, str, set[str], set[str], bool]
+
+
+def _build_query_prefilter(query: str) -> tuple[_QueryPrefilterPart, ...]:
+    """Precompute a conservative lexical superset test for one query."""
+    parts = [_clean(part) for part in str(query or "").splitlines()]
+    parts = [part for part in parts if part]
+    if not parts:
+        # Empty queries retain the existing neutral relevance fallback.
+        return (("", "", set(), set(), False),)
+    prepared: list[_QueryPrefilterPart] = []
+    for part in parts:
+        normalized = _normalized_text(part)
+        uses_script_ngram = _uses_script_ngram(normalized)
+        prepared.append(
+            (
+                normalized,
+                _phrase_key(part),
+                _tokens(normalized),
+                _char_ngrams(normalized) if uses_script_ngram else set(),
+                uses_script_ngram,
+            )
+        )
+    return tuple(prepared)
+
+
+def _may_match_query_prefilter(
+    note: str, query_parts: tuple[_QueryPrefilterPart, ...]
+) -> bool:
+    """Return a no-false-negative lexical superset before full scoring.
+
+    A false result guarantees that phrase, token, and script n-gram matching
+    cannot give the note positive relevance. False positives are passed to the
+    normal scorer, which remains authoritative for candidate decisions.
+    """
+    normalized_note = _normalized_text(note)
+    phrase_note = "".join(
+        char
+        for char in normalized_note
+        if not unicodedata.category(char).startswith("P")
+    )
+    compact_note = (
+        "".join(phrase_note.split()) if any(part[4] for part in query_parts) else ""
+    )
+    for (
+        normalized_query,
+        phrase_query,
+        tokens,
+        ngrams,
+        uses_script_ngram,
+    ) in query_parts:
+        if not normalized_query:
+            return True
+        if phrase_query and phrase_query in phrase_note:
+            return True
+        if any(token in normalized_note for token in tokens):
+            return True
+        if uses_script_ngram and any(ngram in compact_note for ngram in ngrams):
+            return True
+    return False
+
+
 def _discriminative_relevance(
     query: str, note: str, candidate_notes: Sequence[str]
 ) -> float:
@@ -258,6 +320,7 @@ def shadow_retrieve_memories(
 
     requested_owner = _clean(owner).casefold()
     requested_project = _clean(project).casefold()
+    query_prefilter = _build_query_prefilter(query)
     diagnostics: list[MemoryShadowDiagnostic] = []
     scored: list[tuple[float, float, int, ContextCandidate, str]] = []
     seen_notes: set[str] = set()
@@ -352,6 +415,19 @@ def shadow_retrieve_memories(
                         if not owner_known or not project_known
                         else "scoped"
                     ),
+                )
+            )
+            continue
+
+        if not _may_match_query_prefilter(note, query_prefilter):
+            diagnostics.append(
+                MemoryShadowDiagnostic(
+                    index=index,
+                    action="exclude",
+                    reason="no_query_match",
+                    item_id=item_id,
+                    scope_status=scope_status,
+                    relevance=0.0,
                 )
             )
             continue
