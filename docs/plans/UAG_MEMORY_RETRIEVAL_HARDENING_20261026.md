@@ -1,6 +1,6 @@
 # UAG Memory / Session検索の正確性・診断改善計画（2026-10-26）
 
-- **状態:** MR-01〜05は実装済み。Windows上の全体pytest・Ruff・Blackは通過。MR-06の性能計測およびPOSIX環境での実シグナル検証は未実施。レビュー・コミット前。
+- **状態:** MR-01〜05はマージ済み。MR-06の保守的prefilterを検証中のローカルbranchで実装。合成データで differential tests と測定は通過。実データ評価・最終レビュー・MR-06のcommit/pushは未実施。
 - **計画時の確認基準:** `main` = `1a13e12e1def7c27336cf74d41a5d4be77820177`（2026-10-26 JST）
 - **実装時の作業基準:** `main` = `214a9b0`（2026-10-26 JST）。計画時の確認基準とは異なるため、差分をレビュー時に考慮する。
 - **目的:** 既存のMemory V2/V3・SessionStore・FTS5・日本語検索・Structured Compactionを維持し、根拠を確認した不具合と評価の弱点を小さなPRで改善する。
@@ -82,6 +82,36 @@ V3ではOwner / Project / Room / audience / revision-bound grantを検索前に�
 
 検索品質・スコープ安全性を維持し、実測で改善する案だけ採用する。Sessionの既存FTS5をそのまま長期Memoryに使う判断はしない。標準FTS5は日本語部分一致を保証しない。Embeddingも現行方式との比較後に判断する。
 
+#### 初回合成データ測定（2026-10-26）
+
+Python 3.14.6 / SQLite 3.50.4、Windows上でSQLite DBに合成recordを一括投入して測定。時間はDB読込・認可が各1回、retrievalが3回の中央値、projectionが5回の中央値。ピークメモリは各処理を別途 `tracemalloc` で1回計測（Python割当量であり、プロセスRSSではない）。query実行時間の計測中はtracemallocを無効化した。
+
+| DB record数 | 認可後record数 | raw read ms / MiB | scoped read+auth ms / MiB | retrieval ms（5つの完全一致ケースの範囲） | projection ms（1候補） |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 100 | 83 | 1.4 / 0.11 | 1.0 / 0.10 | 1.8–4.0 | 0.08–0.11 |
+| 1,000 | 831 | 5.1 / 1.06 | 6.5 / 1.03 | 19.0–36.6 | 0.09–0.11 |
+| 10,000 | 8,314 | 57.9 / 10.63 | 65.8 / 10.30 | 178.6–375.6 | 0.09–0.10 |
+| 50,000 | 41,573 | 374.6 / 53.31 | 504.8 / 51.63 | 973.2–2,322.9 | 0.08–0.10 |
+
+完全一致の日本語・英語・ファイルパス・英数字・Direct grantケースはrecall 1.0、無関係注入率0。言い換えケースはrecall 0で、別の完全一致候補が1件返った。合成fixture上でも言い換え検索の弱さが確認された。各ケースの候補は1件なのでprojection時間を大量候補時へ外挿しない。
+
+**判断:** baselineでは50,000件時の候補検索・rankingが約0.97–2.32秒/queryで、DB read/authの約0.4–0.5秒とprojection（約0.1ms）を上回った。後続の統合prefilter比較では合成fixture上でspeedupが観測された。ただし単一環境・合成分布に限られるため、本番性能やrecallの保証ではない。実データ測定は未実施。
+
+#### 保守的な候補prefilterの実装・差分測定（2026-10-26）
+
+検証中branchでは、Owner / Project / Scope / empty-noteの既存判定をすべて通過したrecordに対してのみ、query phrase / token substring / script n-gram substringの保守的なprefilterを追加した。prefilterがfalseを返すのは完全一致・token一致・対象scriptのn-gram一致があり得ない場合だけとし、false-positiveは従来の `_relevance()` に渡す。除外diagnosticは従来どおり `no_query_match` / relevance `0.0` として生成する。認可前の候補検索・scope境界の変更はない。
+
+decoy入り同一合成fixtureで、prefilter有効時と無効時（query prefilter preparation/skippingを無効化）を各3回計測した。retrieval時間は中央値。全6 query caseについてcandidate出力、score、順序、item ID/reference、全diagnosticsが完全一致した。
+
+| DB record数 | speedup範囲（6 cases） | prefilter通過件数範囲 / 認可済みrecord | baselineとの結果 |
+| ---: | ---: | ---: | --- |
+| 100 | 1.57–4.42× | 1–3 / 84 | 完全一致 |
+| 1,000 | 1.14–3.35× | 1–12 / 842 | 完全一致 |
+| 10,000 | 1.68–3.10× | 1–102 / 8,429 | 完全一致 |
+| 50,000 | 1.54–3.02× | 1–502 / 42,148 | 完全一致 |
+
+50,000件のspeedup中央値は約1.89×。この実装は合成fixtureでは改善したが、プロパティテストは有限の例集合であり、速度・recallを実データ分布で保証するものではない。merge前に中国語・タイ語・punctuation・short query・重複note・strict unknown・scope除外を含む回帰/property testsと全体pytestを再実行する。最終採用判断は実データ評価後に行う。
+
 ### MR-07 [別計画] Structured Compactionとの統合
 
 元メッセージ / Artifact / Tool Resultの再取得、複数クライアントのrevision競合、再起動後の実LLM検証は `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` に継続記録する。本書から重複開発を指示しない。
@@ -124,13 +154,15 @@ python -m pytest -q . --durations=30
 | 2026-10-26 | mainのSessionStore、SessionCommandService、MemoryStore、Memory Projection、Memory Retriever、評価コードと関連テストを読取照合 | 完了（ソース調査） |
 | 2026-10-26 | FTS5導入箇所と `:sessions search`、長期Memoryの異なる検索経路を確認 | 完了（ソース調査） |
 | 2026-10-26 | 本計画を作成 | 初稿時は文書のみ。後続の実装記録を以下に追加 |
-| 2026-10-26 | MR-01〜05を実装。MR-01/02はセッション集約検索・LIKEエスケープ、MR-03は読み込み障害の明示とfail-closed診断、MR-04は候補集合単位のn-gram頻度共有、MR-05は正本record／認可済みmemory ID・revisionとの照合を追加 | 実装済み。MR-06の性能計測、実LLM、本番環境確認は未実施 |
+| 2026-10-26 | MR-01〜05を実装。MR-01/02はセッション集約検索・LIKEエスケープ、MR-03は読み込み障害の明示とfail-closed診断、MR-04は候補集合単位のn-gram頻度共有、MR-05は正本record／認可済みmemory ID・revisionとの照合を追加 | マージ済み。MR-06 prefilterは検証中branchで未マージ。実LLM・本番データ測定は未実施 |
 | 2026-10-26 | SessionStore、SessionCommandService、Memory backend、retrieval、evaluation、projection、V3 projection/access、history boundary、utilities i18nの対象テストを個別実行 | すべて通過。`tests/test_rpg2idx_tool.py` と `tests/test_office_to_markdown_tool.py` も適切な外部 `--basetemp` で通過 |
 | 2026-10-26 | `python -m pytest -q . --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-full-outside --tb=short --durations=30` | 初回は `tests/test_mxc_macos_scope.py` で8件失敗。Windowsに `os.killpg` と `signal.SIGKILL` がないことを確認し、製品コードではなく単体テスト内にPOSIX APIの安全なshimを追加。 |
 | 2026-10-26 | `python -m pytest -q tests/test_mxc_macos_scope.py --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-mxc-shim --tb=short` | 11 passed, 1 skipped |
 | 2026-10-26 | `python -m pytest -q . --basetemp=C:/Users/Gk40000498/AppData/Local/Temp/pytest-full-final --tb=short --durations=30` | 全体pytest通過（Windows）。POSIX実シグナル意味論の検証はLinux/macOS CIで別途必要 |
 | 2026-10-26 | Windows単体テスト用のPOSIX API shimを `tests/test_mxc_macos_scope.py` に追加 | `os.killpg` と `signal.SIGKILL` のみ補い、テスト内のkill/killpgはspyに置換。製品コードは変更せず |
 | 2026-10-26 | `python -m ruff check src tests`、`python -m black --check src tests`、`git diff --check` | すべて通過 |
+| 2026-10-26 | MR-06合成データbaseline測定（100 / 1,000 / 10,000 / 50,000件、MemoryStore/ScopedMemoryStore、6 query cases） | 結果と測定条件をMR-06節に記録。50,000件時retrievalは約0.97–2.32秒/query、projectionは約0.08–0.10ms/1候補 |
+| 2026-10-26 | 認可済みrecordに対する保守的なprefilterをretrieval内へ実装し、prefilterを無効化したbaselineと比較 | 6 query casesでcandidate/diagnostics完全一致。50,000件で1.54–3.02×（中央値約1.89×）。合成fixtureのみ。多言語/propertyテストと全体pytestの追加確認後、MR-06として採否判断 |
 
 ## 7. 関連資料
 

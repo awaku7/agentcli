@@ -217,3 +217,144 @@ def test_shadow_retrieval_keeps_word_based_english_ranking() -> None:
     assert [candidate.content for candidate in result.candidates] == [
         "V2 demo cooking passphrase is MISO-204"
     ]
+
+
+def test_query_prefilter_never_skips_positive_lexical_relevance() -> None:
+    from uagent.runtime.memory_retrieval import (
+        _build_query_prefilter,
+        _may_match_query_prefilter,
+        _relevance,
+    )
+
+    queries = (
+        "移行",
+        "データベース移行",
+        "V2演示料理口令是什么？",
+        "V2เดโมรหัสอาหารคืออะไร?",
+        "V2 demo cooking passphrase?",
+        "src/uagent/runtime/session_store.py",
+        "MCP4012",
+        "new-1",
+        "%_!",
+        "first term" + chr(10) + "MCP4012",
+        "",
+        "   ",
+    )
+    notes = (
+        "手順の移行作業",
+        "データベース移行の安全策",
+        "V2演示的料理口令是 MISO-204。",
+        "V2เดโมรหัสอาหารคือ MISO-204",
+        "V2 demo cooking passphrase is MISO-204",
+        "edit src/uagent/runtime/session_store.py carefully",
+        "MCP4012 is the retry identifier",
+        "Use new-1 for the release",
+        "literal %_! punctuation",
+        "MCP4012 is the second-line match",
+        "unrelated archived note",
+        "",
+    )
+
+    for query in queries:
+        prepared = _build_query_prefilter(query)
+        for note in notes:
+            if not _may_match_query_prefilter(note, prepared):
+                assert _relevance(query, note) == 0.0, (query, note)
+
+
+def test_prefilter_preserves_candidates_and_diagnostics(monkeypatch) -> None:
+    from uagent.runtime import memory_retrieval
+
+    records = [
+        {"note": "データベース移行の安全策", "owner": "alice", "project": "app"},
+        {"note": "移行作業のチェック項目", "owner": "alice", "project": "app"},
+        {"note": "V2演示的料理口令是 MISO-204。", "owner": "alice", "project": "app"},
+        {"note": "V2เดโมรหัสอาหารคือ MISO-204", "owner": "alice", "project": "app"},
+        {
+            "note": "V2 demo cooking passphrase is MISO-204",
+            "owner": "alice",
+            "project": "app",
+        },
+        {
+            "note": "edit src/uagent/runtime/session_store.py carefully",
+            "owner": "alice",
+            "project": "app",
+        },
+        {"note": "MCP4012 is the retry identifier", "owner": "alice", "project": "app"},
+        {"note": "new-1 is the release label", "owner": "alice", "project": "app"},
+        {"note": "same duplicate phrase", "owner": "alice", "project": "app"},
+        {"note": "same duplicate phrase", "owner": "alice", "project": "app"},
+        {
+            "scope": "shared",
+            "note": "shared database rule",
+            "owner": "alice",
+            "project": "app",
+        },
+        {"note": "other owner database rule", "owner": "bob", "project": "app"},
+        {"note": "other project database rule", "owner": "alice", "project": "web"},
+        {"note": "legacy database note"},
+        {"note": "", "owner": "alice", "project": "app"},
+        "invalid record",
+    ]
+    cases = (
+        ("移行", "personal", "alice", "app", True),
+        ("V2演示料理口令是什么？", "personal", "alice", "app", True),
+        ("V2เดโมรหัสอาหารคืออะไร?", "personal", "alice", "app", True),
+        ("V2 demo cooking passphrase?", "personal", "alice", "app", True),
+        ("src/uagent/runtime/session_store.py", "personal", "alice", "app", True),
+        ("MCP4012", "personal", "alice", "app", True),
+        ("new-1", "personal", "alice", "app", True),
+        ("database", "personal", "alice", "app", False),
+        (chr(10), "personal", "alice", "app", True),
+    )
+
+    optimized = [
+        memory_retrieval.shadow_retrieve_memories(
+            records,
+            query=query,
+            scope=scope,
+            owner=owner,
+            project=project,
+            backend_revision="diff-test",
+            allow_legacy_unknown=allow_legacy_unknown,
+        )
+        for query, scope, owner, project, allow_legacy_unknown in cases
+    ]
+    with monkeypatch.context() as patch:
+        patch.setattr(
+            memory_retrieval,
+            "_may_match_query_prefilter",
+            lambda _note, _prepared: True,
+        )
+        unfiltered = [
+            memory_retrieval.shadow_retrieve_memories(
+                records,
+                query=query,
+                scope=scope,
+                owner=owner,
+                project=project,
+                backend_revision="diff-test",
+                allow_legacy_unknown=allow_legacy_unknown,
+            )
+            for query, scope, owner, project, allow_legacy_unknown in cases
+        ]
+
+    for actual, reference in zip(optimized, unfiltered):
+        assert actual.to_dict() == reference.to_dict()
+        assert [
+            (
+                candidate.content,
+                candidate.relevance,
+                candidate.item_id,
+                candidate.reference,
+            )
+            for candidate in actual.candidates
+        ] == [
+            (
+                candidate.content,
+                candidate.relevance,
+                candidate.item_id,
+                candidate.reference,
+            )
+            for candidate in reference.candidates
+        ]
