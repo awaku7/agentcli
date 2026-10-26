@@ -126,6 +126,116 @@ class _ReadScope:
     capabilities: frozenset[str]
 
 
+def _validate_windows_dacl(
+    acl: Any, owner: str, allowed_sids: set[str], sid_text: Any
+) -> None:
+    """Fail closed unless only the service principal/System/Admins can read.
+
+    Deny ACEs cannot add access; unrecognized allow/object ACEs are rejected.
+    """
+    if acl is None or owner not in allowed_sids:
+        raise ValueError("read scope file has an unsafe Windows owner or DACL")
+    for index in range(acl.GetAceCount()):
+        ace = acl.GetAce(index)
+        if len(ace) != 3 or len(ace[0]) != 2:
+            raise ValueError("unsupported Windows scope file ACE")
+        ace_type, ace_flags = ace[0]
+        if ace_flags & 0x08:  # INHERIT_ONLY_ACE does not apply to this file.
+            continue
+        if ace_type == 1:  # ACCESS_DENIED_ACE_TYPE
+            continue
+        if ace_type != 0 or sid_text(ace[2]) not in allowed_sids:
+            raise ValueError("read scope file grants access outside trusted SIDs")
+
+
+def _read_protected_scope_file_windows(path: Path) -> bytes:
+    """Read the same Windows file handle whose DACL and attributes were checked."""
+    try:
+        import win32api
+        import win32con
+        import win32file
+        import win32security
+
+        handle = win32file.CreateFile(
+            str(path),
+            win32con.GENERIC_READ | win32con.READ_CONTROL,
+            win32con.FILE_SHARE_READ | win32con.FILE_SHARE_DELETE,
+            None,
+            win32con.OPEN_EXISTING,
+            getattr(win32con, "FILE_FLAG_OPEN_REPARSE_POINT", 0x00200000),
+            None,
+        )
+        try:
+            attributes = win32file.GetFileInformationByHandle(handle)[0]
+            if attributes & 0x410:  # DIRECTORY | REPARSE_POINT
+                raise ValueError("read scope file must be a regular non-reparse file")
+            if win32file.GetFileType(handle) != win32file.FILE_TYPE_DISK:
+                raise ValueError("read scope file must be on a disk filesystem")
+            descriptor = win32security.GetSecurityInfo(
+                handle,
+                win32security.SE_FILE_OBJECT,
+                win32security.OWNER_SECURITY_INFORMATION
+                | win32security.DACL_SECURITY_INFORMATION,
+            )
+            token = win32security.OpenProcessToken(
+                win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
+            )
+            try:
+                service_sid = win32security.ConvertSidToStringSid(
+                    win32security.GetTokenInformation(token, win32security.TokenUser)[0]
+                )
+            finally:
+                token.Close()
+            _validate_windows_dacl(
+                descriptor.GetSecurityDescriptorDacl(),
+                win32security.ConvertSidToStringSid(
+                    descriptor.GetSecurityDescriptorOwner()
+                ),
+                {service_sid, "S-1-5-18", "S-1-5-32-544"},
+                win32security.ConvertSidToStringSid,
+            )
+            status, data = win32file.ReadFile(handle, _MAX_SCOPE_FILE_BYTES + 1)
+            if status != 0:
+                raise ValueError("read scope file read failed")
+            return data
+        finally:
+            handle.Close()
+    except Exception as exc:
+        # Even unavailable/unsupported Windows APIs must deny, never skip ACLs.
+        raise ValueError("could not securely read Windows scope file") from exc
+
+
+def _read_protected_scope_file(path: Path) -> bytes:
+    """Open without following the leaf symlink, then check the opened handle."""
+    if not path.is_absolute() or path.is_symlink():
+        raise ValueError("read scope file must be an absolute non-symlink path")
+    if os.name == "nt":
+        return _read_protected_scope_file_windows(path)
+    flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0) | getattr(os, "O_NOFOLLOW", 0)
+    with os.fdopen(os.open(path, flags), "rb") as source:
+        metadata = os.fstat(source.fileno())
+        if not stat.S_ISREG(metadata.st_mode):
+            raise ValueError("read scope file must be regular")
+        if stat.S_IMODE(metadata.st_mode) & 0o077:
+            raise ValueError("read scope file is accessible by other users")
+        if metadata.st_uid not in (0, os.geteuid()):
+            raise ValueError("read scope file owner is not trusted")
+        return source.read(_MAX_SCOPE_FILE_BYTES + 1)
+
+
+def _validated_read_scopes(scopes: list[_ReadScope]) -> tuple[_ReadScope, ...]:
+    tokens = [scope.token for scope in scopes]
+    if len(tokens) != len(set(tokens)):
+        raise ValueError("duplicate read scope credential")
+    manifest_token = str(env_get("UAGENT_MANAGEMENT_API_TOKEN", "") or "").strip()
+    if manifest_token and any(
+        hmac.compare_digest(token.encode("utf-8"), manifest_token.encode("utf-8"))
+        for token in tokens
+    ):
+        raise ValueError("read credential cannot reuse manifest-only credential")
+    return tuple(scopes)
+
+
 def _read_scopes() -> tuple[_ReadScope, ...]:
     """Load exact service-principal scopes; never derive identity from requests.
 
@@ -140,17 +250,8 @@ def _read_scopes() -> tuple[_ReadScope, ...]:
 
     file_name = str(env_get("UAGENT_MANAGEMENT_READ_SCOPES_FILE", "") or "").strip()
     if not file_name:
-        return tuple(scopes)
-    path = Path(file_name)
-    if not path.is_absolute() or path.is_symlink():
-        raise ValueError("read scope file must be an absolute, non-symlink path")
-    metadata = path.stat()
-    if not stat.S_ISREG(metadata.st_mode):
-        raise ValueError("read scope file must be a regular file")
-    if os.name != "nt" and stat.S_IMODE(metadata.st_mode) & 0o077:
-        raise ValueError("read scope file is accessible by other users")
-    with path.open("rb") as source:
-        document_bytes = source.read(_MAX_SCOPE_FILE_BYTES + 1)
+        return _validated_read_scopes(scopes)
+    document_bytes = _read_protected_scope_file(Path(file_name))
     if len(document_bytes) > _MAX_SCOPE_FILE_BYTES:
         raise ValueError("read scope file is too large")
     try:
@@ -201,10 +302,7 @@ def _read_scopes() -> tuple[_ReadScope, ...]:
         ):
             raise ValueError("invalid read scope values")
         scopes.append(_ReadScope(token, principal, project_id, frozenset(grants)))
-    tokens = [scope.token for scope in scopes]
-    if len(tokens) != len(set(tokens)):
-        raise ValueError("duplicate read scope credential")
-    return tuple(scopes)
+    return _validated_read_scopes(scopes)
 
 
 def _authenticate_read_scope(

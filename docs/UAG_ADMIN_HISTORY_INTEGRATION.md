@@ -61,8 +61,16 @@ For multiple projects on **one UAG Web instance**, configure
 `UAGENT_MANAGEMENT_READ_SCOPES_FILE` as the **absolute path** to a protected
 UTF-8 JSON file **outside source control**. Do not place it in the public
 repository, commit it, log it, or serve it as a static asset. On Unix set file
-permissions to `0600`, restrict directory permissions and file ownership,
-and on Windows use a restricted service-account ACL. Keep tokens in your
+permissions to `0600` and set the file owner to the UAG service UID
+(or root); restrict parent directory write permissions. UAG checks
+the owner/mode on the **opened file descriptor** and refuses a leaf
+symlink. On Windows the service checks the **opened handle's DACL and owner**
+and fails closed unless effective allow ACEs name only the current service
+principal, local SYSTEM or built-in Administrators. Avoid inheriting
+`Everyone`, `Authenticated Users`, `Users` or service-unrelated allow
+ACEs. Windows validation uses pywin32; if the security APIs are
+unavailable or the ACL is unsafe, reads fail closed instead of ignoring ACLs.
+Keep tokens in your
 secret distribution mechanism and rotate them by atomically replacing the
 protected file. The file is read per request so changes and revocations do not
 require restarting the Web service. Example schema (replace all placeholders
@@ -93,9 +101,10 @@ per (`instance_id`, `project_id`); never reuse a token across projects.
 
 The file allows up to 64 records and 256 KiB; only
 `session.metadata.read` / `project.membership.read` are valid capabilities.
-Duplicate tokens (including collisions with the legacy read token), unknown
-fields/capabilities, incorrect instance IDs, insecure Unix file modes or
-malformed/missing files fail closed with HTTP 503; neither service token nor
+Duplicate tokens (including collisions with the legacy read token **or
+the manifest-only `UAGENT_MANAGEMENT_API_TOKEN`**), unknown
+fields/capabilities, incorrect instance IDs, untrusted file ownership, unsafe Unix file modes,
+unsafe Windows DACLs or malformed/missing files fail closed with HTTP 503; neither service token nor
 file path is included in the HTTP response. Absent config returns 404.
 Unknown bearer tokens return 401, and an authenticated token with a wrong
 project or insufficient capability returns 403. The original manifest bearer

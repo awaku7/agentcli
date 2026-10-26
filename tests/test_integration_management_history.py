@@ -673,3 +673,151 @@ def test_scoped_config_never_exposes_secret_in_errors(
     assert response.status_code == 503
     assert PROJECT_B_TOKEN not in response.text
     assert str(path) not in response.text
+
+
+def test_manifest_token_cannot_be_used_as_file_read_token(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(MANIFEST_TOKEN, "project-a", "owner-a")]
+    )
+    assert _get(client, token=MANIFEST_TOKEN).status_code == 503
+    assert _get(client).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert manifest.status_code == 200
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+
+
+def test_legacy_read_token_cannot_reuse_manifest_credential(read_client, monkeypatch):
+    client, _ = read_client
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_TOKEN", MANIFEST_TOKEN)
+    assert _get(client, token=MANIFEST_TOKEN).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+
+
+def test_scope_file_replacement_during_fd_check_reads_opened_file(
+    read_client, tmp_path, monkeypatch
+):
+    if os.name == "nt":
+        pytest.skip("Unix file descriptor swap regression")
+    client, _ = read_client
+    original = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    replacement = tmp_path / "replacement.json"
+    replacement.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "scopes": [_scope(READ_ONLY_B_TOKEN, "project-a", "owner-a")],
+            }
+        ),
+        encoding="utf-8",
+    )
+    replacement.chmod(0o600)
+    actual_fstat = os.fstat
+    swapped = []
+
+    def swap_after_open(fd):
+        if not swapped:
+            swapped.append(True)
+            os.replace(replacement, original)
+        return actual_fstat(fd)
+
+    monkeypatch.setattr(routes_integration.os, "fstat", swap_after_open)
+    response = _get(client, token=PROJECT_B_TOKEN)
+    assert response.status_code == 200
+    assert swapped == [True]
+    # Following requests pick up the new file. The in-flight request used
+    # the already-open original descriptor, rather than re-opening by path.
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 401
+    assert _get(client, token=READ_ONLY_B_TOKEN).status_code == 200
+
+
+def test_scope_file_rejects_insecure_opened_fd_owner(
+    read_client, tmp_path, monkeypatch
+):
+    if os.name == "nt":
+        pytest.skip("Unix owner check")
+    client, _ = read_client
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    real_fstat = os.fstat
+
+    def foreign_owned(fd):
+        metadata = real_fstat(fd)
+
+        class FakeStat:
+            st_mode = metadata.st_mode
+            st_uid = os.geteuid() + 1000001
+
+        return FakeStat()
+
+    monkeypatch.setattr(routes_integration.os, "fstat", foreign_owned)
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 503
+
+
+def test_scope_file_refuses_symlink_even_when_target_is_private(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    actual = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    symlink = tmp_path / "scope-symlink.json"
+    try:
+        symlink.symlink_to(actual)
+    except (NotImplementedError, OSError):
+        pytest.skip("symlink creation not permitted")
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_SCOPES_FILE", str(symlink))
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 503
+
+
+class _FakeDacl:
+    def __init__(self, aces):
+        self.aces = aces
+
+    def GetAceCount(self):
+        return len(self.aces)
+
+    def GetAce(self, index):
+        return self.aces[index]
+
+
+def test_windows_dacl_validation_allows_only_trusted_sids():
+    allowed = {"S-1-5-21-owner", "S-1-5-18", "S-1-5-32-544"}
+    routes_integration._validate_windows_dacl(
+        _FakeDacl([((0, 0), 0x1, "S-1-5-21-owner"), ((0, 0), 0x1, "S-1-5-18")]),
+        "S-1-5-21-owner",
+        allowed,
+        str,
+    )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([((0, 0), 0x1, "S-1-5-32-545")]),
+            "S-1-5-21-owner",
+            allowed,
+            str,
+        )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([]),
+            "S-1-5-21-foreign",
+            allowed,
+            str,
+        )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(None, "S-1-5-21-owner", allowed, str)
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([((5, 0), 0x1, "S-1-5-21-owner")]), "S-1-5-21-owner", allowed, str
+        )
