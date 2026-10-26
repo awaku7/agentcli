@@ -9,6 +9,7 @@ memory IDs.
 
 from __future__ import annotations
 
+from collections import Counter
 import math
 import re
 import unicodedata
@@ -161,24 +162,38 @@ def _relevance(query: str, note: str) -> float:
 def _discriminative_relevance(
     query: str, note: str, candidate_notes: Sequence[str]
 ) -> float:
+    corpus_ngrams = [_char_ngrams(item) for item in candidate_notes]
+    document_frequency = Counter(
+        ngram for item_ngrams in corpus_ngrams for ngram in item_ngrams
+    )
+    return _discriminative_relevance_from_stats(
+        query, _char_ngrams(note), document_frequency, len(corpus_ngrams)
+    )
+
+
+def _discriminative_relevance_from_stats(
+    query: str,
+    note_ngrams: set[str],
+    document_frequency: dict[str, int] | Counter[str],
+    corpus_size: int,
+) -> float:
     query_parts = [_clean(part) for part in str(query or "").splitlines()]
     query_parts = [part for part in query_parts if part]
     if len(query_parts) > 1:
         return max(
-            _discriminative_relevance(part, note, candidate_notes)
+            _discriminative_relevance_from_stats(
+                part, note_ngrams, document_frequency, corpus_size
+            )
             for part in query_parts
         )
 
     query_ngrams = _char_ngrams(query)
     if not query_ngrams:
         return 0.0
-    note_ngrams = _char_ngrams(note)
-    corpus_ngrams = [_char_ngrams(item) for item in candidate_notes]
-    corpus_size = len(corpus_ngrams)
     weights: dict[str, float] = {}
     for ngram in query_ngrams:
-        document_frequency = sum(ngram in item for item in corpus_ngrams)
-        weights[ngram] = math.log((corpus_size + 1) / (document_frequency + 1)) + 1.0
+        frequency = document_frequency.get(ngram, 0)
+        weights[ngram] = math.log((corpus_size + 1) / (frequency + 1)) + 1.0
     denominator = sum(weights.values())
     if denominator <= 0.0:
         return 0.0
@@ -412,11 +427,16 @@ def shadow_retrieve_memories(
         scored = [item for item in scored if item[3].item_id not in weaker_tier_ids]
     elif len(scored) > 1 and _uses_script_ngram(query):
         candidate_notes = [item[3].content for item in scored]
+        candidate_ngrams = [_char_ngrams(note) for note in candidate_notes]
+        document_frequency = Counter(
+            ngram for note_ngrams in candidate_ngrams for ngram in note_ngrams
+        )
+        corpus_size = len(candidate_ngrams)
         discriminative_scores = {
-            item[3].item_id: _discriminative_relevance(
-                query, item[3].content, candidate_notes
+            item[3].item_id: _discriminative_relevance_from_stats(
+                query, note_ngrams, document_frequency, corpus_size
             )
-            for item in scored
+            for item, note_ngrams in zip(scored, candidate_ngrams)
         }
         best_discriminative = max(discriminative_scores.values(), default=0.0)
         discriminative_floor = best_discriminative * _DISCRIMINATIVE_RELEVANCE_RATIO
