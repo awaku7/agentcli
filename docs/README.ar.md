@@ -1,136 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>نماذج الذكاء الاصطناعي الخاصة بك. أدواتك. بيئتك.</p>
 
 <p align="center">
-  <strong>Universal AI Gateway</strong><br>
-  وكيل محلي واحد. أي نموذج. أي أداة. بيئتك، وقواعدك.
-</p>
-
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">لغات أخرى</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Translations</a>
-</p>
+---
 
-______________________________________________________________________
+**UAG بيئة تشغيل مفتوحة المصدر لوكلاء الذكاء الاصطناعي تعطي الأولوية للعمل المحلي.** تصل نموذج اللغة الذي تختاره بالأدوات والأنظمة التي تستخدمها. يمكنك التعامل مع التعليمات البرمجية والملفات والمتصفحات والخدمات والأجهزة من واجهة موحدة دون ربط سير عملك بمزوّد نماذج واحد.
 
-**لماذا uag؟**
+| **اختر النموذج** | **اربط الأدوات الفعلية** | **احتفظ بالتحكم** |
+| :--- | :--- | :--- |
+| نماذج مستضافة ومحلية مثل OpenAI وClaude وGemini وGrok وBedrock وOllama | الملفات والبرمجة والويب وMCP وAgent Skills والإضافات والسحابة وIoT | تشغيل محلي وتأكيد بشري وتخزين بيانات الاعتماد وسياسات قابلة للضبط |
 
-uag هو وكيل ذكاء اصطناعي محلي أولًا، يربط النموذج الذي تفضله بالأدوات التي تستخدمها فعليًا.
-يوفر لك بيئة تشغيل واحدة قابلة للتوسعة للملفات، والمتصفحات، وقواعد الشيفرة، والاتصالات، وواجهات
-برمجة التطبيقات السحابية، وأجهزة إنترنت الأشياء، وخوادم MCP، وسير عمل الوكلاء المتعددين.
-
-- **حرية اختيار المزوّد** — OpenAI وAnthropic وGemini وAzure وBedrock وOllama وllama.cpp وGrok وDeepSeek وغير ذلك.
-- **تنفيذ محلي أولًا** — تبقى بيئة تشغيل وكيلك وتنفيذ أدواتك على جهازك؛ ولا تغادره إلا استدعاءات API التي تختارها.
-- **طبقة أدوات واحدة** — تعمل الأدوات نفسها من CLI وواجهة سطح المكتب وواجهة الويب وVS Code وA2A.
-- **مصمم للتوازي** — يمكن تشغيل العمليات المستقلة للقراءة فقط بالتزامن.
-- **قابل للتوسعة** — أضف الأدوات والإضافات وAgent Skills وخوادم MCP والأدوات المدعومة بـRust دون تغيير النواة.
-- **واعٍ بالسلامة** — تدعم الإجراءات المدمرة وبيانات الاعتماد وعناصر التحكم بالأجهزة وعمليات الكتابة عبر الشبكة التأكيد الصريح وضوابط السياسات.
-
-> **باختصار:** ‏uag هو مستوى التحكم بين نماذج الذكاء الاصطناعي وبيئتك الحقيقية.
-
-> **🧠 نتائج الأدوات المراعية للسياق** — يتم استبعاد نتائج الأدوات الكبيرة من سياق النموذج النشط كلما أمكن ذلك. يخزن uag هذه النتائج كـ Artifacts ويمرر للنموذج معاينة محدودة مع مرجع Artifact ثابت بدلاً من ذلك. يمكن أن يقلل هذا بشكل كبير من عدد الرموز المطلوبة للدورات التالية عندما تنتج الأداة نتيجة كبيرة الحجم.
-> [دليل مفصل لضغط السياق](CONTEXT_COMPRESSION.ar.md)
+> UAG هو **طبقة لتنفيذ الوكلاء، وليس مزوّد نماذج**. تعتمد طلبات النماذج والخدمات الخارجية على الإعدادات. لا تعني أولوية التشغيل المحلي عملًا كاملًا دون اتصال أو عزل جميع الأدوات بصورة افتراضية.
 
 ## البدء السريع
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-يفتح التشغيل الأول معالج الإعداد. يساعدك المعالج على تهيئة مزوّد ويخزّن الإعدادات المحددة
-في بيئتك المحلية.
-
-لمجموعات الميزات الشائعة:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-> تكاملات المنصة اختيارية. ثبّت فقط ما يحتاجه نظام التشغيل لديك؛ راجع
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## الواجهات
-
-| الواجهة | الأمر | الأنسب لـ |
-|---|---|---|
-| **CLI** | `uag` | العمل السريع المعتمد على لوحة المفاتيح |
-| **واجهة سطح المكتب** | `uagg` | تجربة سطح مكتب أصلية |
-| **واجهة الويب** | `uagw` | الوصول عبر المتصفح |
-| **خادم A2A** | `uaga` | التواصل بين الوكلاء |
-| **VS Code** | Extension | الشرح وإعادة الهيكلة والإصلاح وتصفح الأدوات في المحرر |
-
-تشترك جميع الواجهات في إعداد المزوّد نفسه وسجل الأدوات وقواعد السلامة وبيانات الجلسات.
+يتطلب **Python 3.11 أو إصدارًا أحدث**. ثبّت UAG من [PyPI](https://pypi.org/project/uag/) ثم شغّل واجهة الأوامر التفاعلية:
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+في التشغيل الأول، يساعدك معالج الإعداد في اختيار مزوّد النماذج وضبط بيانات الاعتماد. ويمكنك استخدام متغيرات البيئة أو مخزن بيانات الاعتماد أيضًا. لتثبيت مجموعة أوسع من اعتماديات المزوّدين والأدوات مسبقًا:
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+جرّب بعد ذلك الطلبات التالية:
+
+~~~text
+> ما الذي تغيّر في مستودع Git هذا؟ لخّص المخاطر.
+> ابحث عن أحدث توثيق لهذه المكتبة واشرح خطوات الترحيل.
+> افحص هذه الملفات وقدّم تقريرًا مختصرًا.
+> :help
+~~~
+
+للمستخدم الجديد، راجع دليل تثبيت Windows بما فيه Git والبيئات الافتراضية، ومرجع الإعدادات: [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## الواجهات
+<!-- README-SYNC:interfaces -->
+
+تستخدم جميع المداخل بيئة تشغيل الوكيل نفسها وسجل الأدوات نفسه.
+
+| الواجهة | التشغيل | الاستخدام المناسب |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | العمل في الطرفية والأتمتة |
+| **Desktop** | `uagg` | المحادثات في تطبيق سطح المكتب |
+| **Web** | `uagw` | المحادثات والغرف في المتصفح |
+| **A2A** | `uaga` | تكامل الوكلاء فيما بينهم |
+| **VS Code** | [دليل الإضافة](VSCODE.md) | العمل إلى جانب الشيفرة |
+
+تحتاج واجهتا Desktop وWeb إلى اعتماديات إضافية غير مشمولة في التثبيت الأولي `uag[core,providers,tools]`:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+يمكن لخادم Web محاولة تثبيت FastAPI وUvicorn عند بدء التشغيل. يجنّب تثبيتهما مسبقًا الاعتماد على التثبيت التلقائي. التفاصيل: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## ما الذي يمكنك بناؤه
+## ما الذي يمكنك إنجازه باستخدام UAG
+<!-- README-SYNC:capabilities -->
 
-تغطي محولات المزوّدين بيئات التشغيل المستضافة والمحلية، بما في ذلك:
+| الإمكانية | ما يوفّره UAG |
+| :--- | :--- |
+| **سير عمل مستقل عن النموذج** | تبديل المزوّدين المحليين والمستضافين باستخدام `UAGENT_PROVIDER` دون إعادة كتابة الأدوات |
+| **البرمجة والملفات** | استعراض المستودعات وفحص Git والتحليل والاختبارات وعمليات الملفات وأتمتة المتصفح |
+| **أدوات قابلة للتوسعة** | أكثر من 200 أداة واكتشاف ديناميكي عبر `tool_catalog` و`tool_load` وأدوات Python وRust مخصصة |
+| **وكلاء مترابطون** | MCP وA2A وإضافات متوافقة مع Claude Code وAgent Skills والوكلاء الفرعيون |
+| **المهام الطويلة** | الطيار الآلي وقراءات مستقلة متوازية ومهام مجدولة واستعادة الجلسات وحفظها |
+| **ما وراء الطرفية** | السحابة والاتصالات والمستندات والوسائط والصوت الفوري وبروتوكولات IoT المدعومة |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-بدّل المزوّدين باستخدام `UAGENT_PROVIDER`؛ ولن تتغير أدواتك أو واجهتك.
-
-**العمل مع بيئتك**
-
-- قراءة الملفات وإنشاؤها وتحريرها والبحث فيها وحساب تجزئتها وأرشفتها وفحصها
-- مراجعة تغييرات Git والبحث عن الأسرار وتشغيل الاختبارات والفحص والترجمة البرمجية وقياس التغطية
-- التنقل في قواعد شيفرة كبيرة مكتوبة بـPython وTypeScript وJavaScript وGo وRust وC/C++ وJava وC# وCOBOL وVBA وغيرها
-- أتمتة المتصفحات باستخدام Playwright، بما في ذلك تدفقات الصفحات المتعددة والتنزيلات
-
-**ربط الخدمات والأجهزة**
-
-- **MCP** — ربط خوادم الأدوات الخارجية، بما في ذلك الخدمات المفعّل لها OAuth
-- **A2A** — التنسيق مع الوكلاء الآخرين والخوادم المتوافقة
-- **السحابة** — الوصول إلى واجهات AWS وGoogle Cloud وAzure API مع التأكيد لعمليات الكتابة
-- **الاتصالات** — Gmail وBluesky وDiscord وMicrosoft Teams وpybitchat
-- **إنترنت الأشياء** — SwitchBot وECHONET Lite وMatter وBACnet وModbus TCP وOPC UA وUPnP
-- **الوسائط** — إنشاء/تحرير الصور ونسخ الصوت/تحويله إلى كلام والتقاط الكاميرا ورموز QR
-- **المستندات** — تحليل PDF وPowerPoint وWord وExcel وCSV وJSON وYAML وSQL والسجلات
-
-**إنترنت الأشياء والتحكم في العالم المادي**
-
-- **SwitchBot** — اكتشاف Cloud وBLE والحالة والتحكم والتجميع والاشتراكات
-- **ECHONET Lite** — اكتشاف الأجهزة المنزلية اليابانية والتحكم بها، بما في ذلك إشعارات INF
-- **Matter** — نقاط النهاية والعناقيد والسمات وسجل الحالة والاشتراكات والتحكم
-- **BACnet / Modbus TCP / OPC UA** — القراءة والكتابة والتصفح والمراقبة في أتمتة المباني والصناعة
-- **UPnP** — اكتشاف الأجهزة وحالة WAN وإدارة تعيين منافذ الموجّه
-
-### موضع uag
-
-يقع uag بين الأشخاص والواجهات من جهة، والنماذج والأدوات والأنظمة الواقعية من جهة أخرى.
-وهو ينسّق المحادثة، ويختار القدرات، ويطبّق قواعد السلامة، ويحافظ على إمكانية استئناف سير العمل.
+### بيئة تشغيل واحدة وتكاملات متعددة
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -142,128 +100,102 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### الإضافات وAgent Skills والأسواق
+**أمثلة لمزوّدي النماذج المدعومين** مدرجة أدناه. راجع دليل البيئة لإعدادات كل مزوّد.
 
-حوّل uag إلى وكيل متخصص من دون تفريع النواة:
+### التخصيص بالمهارات والإضافات
+<!-- README-SYNC:extensions -->
 
-- ثبّت **إضافات متوافقة مع Claude Code** من دليل أو ZIP أو مستودع Git أو مصدر HTTP أو سوق
-- اجمع المهارات والوكلاء الفرعيين وخوادم MCP والخطافات وأوامر الشرطة المائلة وأنماط الإخراج والتبعيات والقنوات
-- تصفّح القدرات المجتمعية من [SkillsMP](https://skillsmp.com) و[ClawHub](https://clawhub.ai)
-- أضف مهارات وأدوات مؤسستك الخاصة محليًا عبر `UAGENT_EXTERNAL_TOOLS_DIR`
+وسّع UAG دون تغيير النواة. ثبّت Agent Skills من SkillsMP أو ClawHub، أو اربط خوادم MCP، أو حمّل إضافات متوافقة مع Claude Code تشمل أدوات ومهارات ووكلاء وhooks.
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-راجع [دليل تطوير الإضافات](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+يمكن للأدوات المخصصة توفير `TOOL_SPEC` و`run_tool()`؛ كما تُدعم الأدوات المبنية باستخدام Rust. راجع الأدلة: [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- **أكثر من 200 أداة** للملفات والويب والوسائط والمستندات والشيفرة والسحابة والاتصالات وإنترنت الأشياء
-- **الاكتشاف والتحميل الديناميكيان** — استخدم `tool_catalog` للعثور على القدرات و`tool_load` لتمكينها عند الحاجة فقط
-- **ذكاء الشيفرة** — ‏`code_map` ومتصفحات `idx` الخاصة باللغات ومراجعة Git وتنفيذ الاختبارات والفحص والترجمة البرمجية والتغطية
-- **إضافات متوافقة مع Claude Code** تتضمن المهارات والوكلاء وخوادم MCP والخطافات والأوامر والأسواق
-- **Agent Skills** من SkillsMP وClawHub
-- **أدوات Python مخصصة** باستخدام `TOOL_SPEC` و`run_tool()`
-- **أدوات مدعومة بـRust** للإضافات الأصلية خفيفة الوزن
+## مصمم لسير العمل الحقيقي
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### السياق والذاكرة
+<!-- README-SYNC:context-memory -->
 
-## مصمم لسير العمل الفعلي
+يمكن حفظ نتائج الأدوات الكبيرة بوصفها **مصنوعات (Artifacts)** بدلًا من ملء سياق النموذج النشط. يسترجع الوكيل لاحقًا الجزء المطلوب عبر `artifact_read`. تُحفظ الجلسات في SQLite افتراضيًا مع البحث في السجل ومراجعة صريحة للذاكرة.
 
-### 🧠 نتائج الأدوات المراعية للسياق
+- [Context compression](CONTEXT_COMPRESSION.ar.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-يتم استبعاد نتائج الأدوات الكبيرة من سياق النموذج النشط كلما أمكن ذلك. يخزن uag هذه النتائج كـ Artifacts ويمرر للنموذج معاينة محدودة مع مرجع Artifact ثابت بدلاً من ذلك. يمكن أن يقلل هذا بشكل كبير من عدد الرموز المطلوبة للدورات التالية عندما تنتج الأداة نتيجة كبيرة الحجم.
+### الأتمتة والتعاون
+<!-- README-SYNC:automation -->
 
-استأنف المحادثات السابقة باستخدام `:load <index>`. ويمكن تخزين نتائج الأدوات مؤقتًا، كما يمكن تغيير المزوّدين
-من دون إعادة بناء التطبيق.
+يدعم UAG عمليات القراءة المستقلة المتوازية وتنسيق عدة وكلاء واستعادة الجلسات والطيار الآلي للعمل متعدد الجولات. شغّله باستخدام `:auto`، واضغط **F12** لمقاطعة الرد الحالي وطلب إيقاف الطيار الآلي.
 
-[Context compression](CONTEXT_COMPRESSION.ar.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### القيادة الآلية
+### الأمان وقابلية الرصد
+<!-- README-SYNC:security -->
 
-استخدم `:auto` للعمل متعدد الجولات مع نموذج مراجِع اختياري. عيّن حدًا للجولات باستخدام `--max-rounds N`.
-اضغط **F12** لإيقاف القيادة الآلية أو **F12** لإيقاف الاستجابة الحالية.
-
-تعمل العمليات المستقلة للقراءة فقط بالتزامن عندما يكون ذلك آمنًا. ويمكن لعمليات البحث على الويب وفحص
-الملفات وتحليل المستودعات وأحمال العمل المماثلة أن تكتمل بالتوازي باستخدام مجموعة عمال قابلة للتهيئة
-(`UAGENT_PARALLEL_WORKERS`). أما عمليات الكتابة فتبقى متسلسلة أو تتطلب تأكيدًا.
-
-تجعل استمرارية الجلسة وتخزين نتائج الأدوات مؤقتًا وحالة الدُفعات واستعادة التشغيل وجدولة DAG
-وتنسيق الوكلاء المتعددين العمل المعقد قابلًا للاستئناف بدلًا من كونه تنفيذًا لمرة واحدة.
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 خاص ومتعدد اللغات وواعٍ بالسياسات
-
-تتوقف `human_ask` قبل الإجراءات الحساسة. ويمكن إخضاع حذف الملفات والكتابة فوقها وأوامر الصدفة وعناصر التحكم
-بالأجهزة وعمليات بيانات الاعتماد وعمليات الكتابة عبر الشبكة لقواعد التأكيد والسياسات.
-
-استخدم مخزن بيانات الاعتماد بدلًا من وضع الأسرار طويلة الأمد في المطالبات:
-
-تتضمن واجهة الويب تسجيل الدخول باستخدام OIDC عبر Authorization Code + PKCE، رموز تعريف الهوية المُحققة، جلسات على جانب الخادم، وضوابط وصول للمشاريع/الغرف. يمكن لمطالبات مجموعات Microsoft Entra ID المُحققة أن تغذي سياسة الوصول المدعومة بالدليل عند التكوين. يمكن لتوزيعات Windows Active Directory وOAuth وtrusted-proxy التكامل من خلال محولات هوية مُحققة ومحددة النشر؛ يتطلب Windows AD محقق Kerberos/Negotiate محدد النشر ولا يتم تمكينه بشكل افتراضي.
-
-يتضمن uag تتبع OpenTelemetry المحايد للموفر ومقاييس لعمليات Agent وLLM والأداة وContext وMemory وعمليات الاسترداد. يتم تعطيل إمكانية الملاحظة بشكل افتراضي.
-
-إعطاء الأولوية للتنفيذ المحلي لا يعني أن UAG يعمل بالكامل دون اتصال أو أن جميع الأدوات معزولة افتراضيًا. تعتمد طلبات النماذج والخدمات الخارجية على الإعدادات.
+يمكن أن تتطلب الإجراءات الحساسة تأكيد `human_ask`. يمكن حفظ بيانات الاعتماد في مدير النظام أو ملف مشفّر. تدعم واجهة Web تسجيل الدخول عبر OIDC والتحكم في الوصول بعد ضبطهما. تتبّع OpenTelemetry ومقاييسه **اختيارية**.
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 الترجمة متعددة اللغات
+هذه ضوابط قابلة للتكوين **ولا تضمن** عزل تنفيذ أي أداة داخل بيئة حماية. اقرأ أدلة النشر والسياسات قبل إتاحة UAG لمستخدمين أو شبكات غير موثوقة.
 
-- يدعم `translate_text` Google Translate وعميل DeepL الرسمي للغة Python من خلال `provider=auto` أو `provider=deepl` أو `provider=google`.
-- تتوفر تعريفات الأدوات في 37 لغة بالإضافة إلى الإنجليزية (38 لغة إجمالًا)، مع الحفاظ على العناصر النائبة والمعرفات الفنية.
+### اللغات والأجهزة والصوت
+<!-- README-SYNC:languages -->
 
-يتوفر الصوت ثنائي الاتجاه عبر OpenAI Realtime وAzure OpenAI وxAI Grok Voice وGemini Live
-وBedrock Nova Sonic، مع إلغاء صدى AEC3 اختياري واستدعاء دوال لحظي مقيّد بالسلامة.
+يوفّر UAG موارد لـ **38 إعدادًا لغويًا** (الإنجليزية و37 ترجمة)، وتكاملًا صوتيًا ثنائي الاتجاه اختياريًا وأدوات لـ SwitchBot وMatter وECHONET Lite وBACnet وModbus TCP وOPC UA.
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
-## الوثائق
+## التوثيق
+<!-- README-SYNC:documentation -->
 
-| الموضوع | الوثائق |
-|---|---|
-| متغيرات البيئة | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| البنية والثوابت | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| أدوات المستودع | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| حالات استخدام IoT | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| أدوات الاتصال | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| القيادة الآلية | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| إضافة VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| دليل المطوّر | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| تدفق الأدوات | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+ابدأ بهذه المراجع ثم تعمّق في الموضوعات:
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| ابدأ هنا | للتفاصيل |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+يمكنك أيضًا تصفح التوثيق الكامل واللغات الأخرى: [Documentation](./) · [Other languages](README.translations.md).
 
 ## التطوير والمساهمة
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-شغّل فحوصات ما قبل PR:
+قبل طلب دمج يغيّر **شيفرة Python**، شغّل الاختبارات والفحوص المناسبة للمشروع:
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-للاطلاع على سير عمل التطوير الكامل، راجع [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-نرحب بتقارير الأخطاء وأفكار الميزات وتحسينات الوثائق والترجمات والأدوات والمهارات وطلبات السحب.
-يرجى فتح issue أو مناقشة قبل إجراء تغييرات كبيرة. اقرأ [دليل المطوّر](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-وشغّل الفحوصات أعلاه قبل إرسال طلب سحب.
+قواعد المساهمة ودليل المطور موجودان أدناه. نرحب بتقارير الأخطاء وتحسين التوثيق والأدوات والترجمات وطلبات الدمج المحددة: [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
 ## الترخيص
+<!-- README-SYNC:license -->
 
-مرخّص بموجب [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+يُوزّع UAG بموجب ترخيص: [Apache License 2.0](../LICENSE).
