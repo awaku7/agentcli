@@ -2,6 +2,13 @@
 
 Browse the localized README files below.
 
+The [English README](../README.md) is the canonical reference for capabilities,
+setup commands, and security caveats. Translations follow its seven main sections
+and retain equivalent operational instructions. Update all 37 locales alongside
+changes to the English overview. CI checks section counts and critical command
+and documentation references; human review is still required for translation
+quality and meaning.
+
 ### East Asian
 
 | Language | File |
