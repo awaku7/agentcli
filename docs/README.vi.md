@@ -1,136 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="logo uag" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>Mô hình AI của bạn. Công cụ của bạn. Môi trường của bạn.</p>
 
 <p align="center">
-  <strong>Cổng AI Toàn năng</strong><br>
-  Một agent cục bộ. Mọi mô hình. Mọi công cụ. Môi trường của bạn, quy tắc của bạn.
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">Ngôn ngữ khác</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="trạng thái CI"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="phiên bản PyPI"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="các phiên bản Python"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="Giấy phép"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
-</p>
+---
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Thảo luận</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Bản dịch</a>
-</p>
+**UAG là môi trường chạy tác nhân AI mã nguồn mở, ưu tiên hoạt động cục bộ.** UAG kết nối mô hình ngôn ngữ do bạn chọn với những công cụ và hệ thống bạn sử dụng. Bạn có thể làm việc với mã nguồn, tệp, trình duyệt, dịch vụ và thiết bị thông qua một giao diện nhất quán mà không bị ràng buộc vào một nhà cung cấp mô hình.
 
-______________________________________________________________________
+| **Chọn mô hình** | **Kết nối công cụ thực tế** | **Giữ quyền kiểm soát** |
+| :--- | :--- | :--- |
+| Mô hình đám mây và cục bộ như OpenAI, Claude, Gemini, Grok, Bedrock và Ollama | Tệp, mã nguồn, web, MCP, Agent Skills, plugin, dịch vụ đám mây và IoT | Thực thi cục bộ, xác nhận của con người, lưu thông tin xác thực và chính sách có thể cấu hình |
 
-**Tại sao chọn uag?**
-
-uag là một agent AI ưu tiên cục bộ, kết nối mô hình bạn ưa thích với những công cụ bạn thực sự sử dụng.
-Nó cung cấp cho bạn một runtime duy nhất, có thể mở rộng, dành cho tệp, trình duyệt, codebase, giao tiếp, API đám mây,
-thiết bị IoT, máy chủ MCP và các quy trình làm việc đa agent.
-
-- **Tự do lựa chọn provider** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek và nhiều hơn nữa.
-- **Thực thi ưu tiên cục bộ** — runtime agent và việc thực thi công cụ ở lại trên máy của bạn; chỉ các lệnh gọi API bạn chọn mới rời khỏi máy.
-- **Một lớp công cụ** — cùng những công cụ đó hoạt động từ CLI, GUI máy tính, web UI, VS Code và A2A.
-- **Thiết kế cho xử lý song song** — các thao tác độc lập, chỉ đọc có thể chạy đồng thời.
-- **Có thể mở rộng** — thêm công cụ, plugin, Agent Skills, máy chủ MCP và công cụ chạy trên Rust mà không cần thay đổi lõi.
-- **Nhận biết an toàn** — các hành động phá hủy, thông tin xác thực, điều khiển thiết bị và thao tác ghi qua mạng hỗ trợ xác nhận rõ ràng cùng các kiểm soát chính sách.
-
-> **Tóm lại:** uag là mặt phẳng điều khiển nằm giữa các mô hình AI và môi trường thực tế của bạn.
-
-> **🧠 Kết quả của công cụ dựa trên ngữ cảnh** — Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
-> [Hướng dẫn chi tiết về nén ngữ cảnh](CONTEXT_COMPRESSION.vi.md)
+> UAG là **lớp thực thi tác nhân, không phải nhà cung cấp mô hình**. Việc gọi mô hình và dịch vụ bên ngoài phụ thuộc vào cấu hình. Ưu tiên cục bộ không có nghĩa là hoàn toàn ngoại tuyến hoặc mọi công cụ đều được cách ly theo mặc định.
 
 ## Bắt đầu nhanh
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-Lần khởi chạy đầu tiên sẽ mở trình hướng dẫn thiết lập. Trình hướng dẫn giúp cấu hình một provider và lưu các cài đặt đã chọn
-vào môi trường cục bộ của bạn.
-
-Đối với các nhóm tính năng phổ biến:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-> Các tích hợp nền tảng là tùy chọn. Chỉ cài đặt những gì hệ điều hành của bạn cần; xem
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## Các giao diện
-
-| Giao diện | Lệnh | Phù hợp nhất cho |
-|---|---|---|
-| **CLI** | `uag` | Công việc nhanh, ưu tiên bàn phím |
-| **GUI máy tính** | `uagg` | Trải nghiệm máy tính native |
-| **Web UI** | `uagw` | Truy cập qua trình duyệt |
-| **Máy chủ A2A** | `uaga` | Giao tiếp agent với agent |
-| **VS Code** | Extension | Giải thích, tái cấu trúc, sửa lỗi và duyệt công cụ trong trình soạn thảo |
-
-Tất cả giao diện dùng chung cấu hình provider, registry công cụ, quy tắc an toàn và dữ liệu phiên.
+Cần **Python 3.11 trở lên**. Cài UAG từ [PyPI](https://pypi.org/project/uag/) và khởi động CLI tương tác:
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+Ở lần khởi động đầu tiên, trình hướng dẫn giúp chọn nhà cung cấp mô hình và cấu hình thông tin xác thực. Bạn cũng có thể dùng biến môi trường hoặc kho thông tin xác thực. Để cài đặt trước nhiều phụ thuộc của mô hình và công cụ:
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+Sau đó hãy thử các yêu cầu sau:
+
+~~~text
+> Kho Git này đã thay đổi những gì? Hãy tóm tắt rủi ro.
+> Tìm tài liệu mới nhất của thư viện này và giải thích các bước chuyển đổi.
+> Kiểm tra các tệp này và tạo báo cáo ngắn gọn.
+> :help
+~~~
+
+Người mới có thể tham khảo hướng dẫn cài đặt Windows, bao gồm Git và môi trường ảo, cùng tài liệu cấu hình: [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## Giao diện
+<!-- README-SYNC:interfaces -->
+
+Mọi giao diện đều dùng chung môi trường chạy tác nhân và danh mục công cụ.
+
+| Giao diện | Khởi động | Phù hợp với |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | Công việc dòng lệnh và tự động hóa |
+| **Desktop** | `uagg` | Hội thoại trong ứng dụng máy tính |
+| **Web** | `uagw` | Hội thoại và phòng trong trình duyệt |
+| **A2A** | `uaga` | Kết nối giữa các tác nhân |
+| **VS Code** | [Hướng dẫn tiện ích](VSCODE.md) | Làm việc cùng mã nguồn |
+
+Desktop và Web cần phụ thuộc bổ sung, không có trong bộ cài ban đầu `uag[core,providers,tools]`:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Máy chủ Web cũng có thể thử cài FastAPI và Uvicorn lúc khởi động. Cài trước giúp tránh phụ thuộc vào việc cài tự động. Chi tiết: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## Bạn có thể tạo gì
+## Bạn có thể làm gì với UAG
+<!-- README-SYNC:capabilities -->
 
-Các adapter provider bao phủ runtime lưu trữ và cục bộ, bao gồm:
+| Khả năng | UAG cung cấp |
+| :--- | :--- |
+| **Quy trình không phụ thuộc mô hình** | Đổi nhà cung cấp đám mây hoặc cục bộ bằng `UAGENT_PROVIDER` mà không viết lại công cụ |
+| **Mã nguồn và tệp** | Duyệt kho mã, kiểm tra Git, lint, chạy thử nghiệm, thao tác tệp và tự động hóa trình duyệt |
+| **Công cụ mở rộng** | Hơn 200 công cụ, khám phá động với `tool_catalog` / `tool_load`, công cụ Python và Rust tùy chỉnh |
+| **Tác nhân kết nối** | MCP, A2A, plugin tương thích Claude Code, Agent Skills và tác nhân con |
+| **Tác vụ kéo dài** | Tự động chạy, đọc độc lập song song, lịch tác vụ, khôi phục và phiên lưu bền vững |
+| **Ngoài dòng lệnh** | Đám mây, giao tiếp, tài liệu, đa phương tiện, giọng nói thời gian thực và giao thức IoT được hỗ trợ |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-Chuyển provider bằng `UAGENT_PROVIDER`; công cụ và giao diện của bạn không thay đổi.
-
-**Làm việc với môi trường của bạn**
-
-- Đọc, tạo, chỉnh sửa, tìm kiếm, băm, lưu trữ và kiểm tra tệp
-- Rà soát thay đổi Git, quét thông tin bí mật, chạy kiểm thử, lint, biên dịch và đo độ bao phủ
-- Điều hướng các codebase Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA lớn và các codebase khác
-- Tự động hóa trình duyệt bằng Playwright, bao gồm quy trình nhiều trang và tải xuống
-
-**Kết nối dịch vụ và thiết bị**
-
-- **MCP** — kết nối các máy chủ công cụ bên ngoài, bao gồm các dịch vụ hỗ trợ OAuth
-- **A2A** — phối hợp với các agent và máy chủ tương thích khác
-- **Cloud** — truy cập API AWS, Google Cloud và Azure với xác nhận cho thao tác ghi
-- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams và pybitchat
-- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA và UPnP
-- **Media** — tạo/chỉnh sửa hình ảnh, chuyển âm thanh thành văn bản/giọng nói, chụp camera và mã QR
-- **Documents** — phân tích PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL và log
-
-**IoT và điều khiển thế giới vật lý**
-
-- **SwitchBot** — khám phá Cloud và BLE, trạng thái, điều khiển, xử lý theo lô và subscription
-- **ECHONET Lite** — khám phá và điều khiển thiết bị gia dụng Nhật Bản, bao gồm thông báo INF
-- **Matter** — endpoint, cluster, thuộc tính, lịch sử trạng thái, subscription và điều khiển
-- **BACnet / Modbus TCP / OPC UA** — đọc, ghi, duyệt và giám sát tự động hóa công nghiệp và tòa nhà
-- **UPnP** — khám phá thiết bị, trạng thái WAN và quản lý ánh xạ cổng router
-
-### Vị trí của uag
-
-Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
-Nó điều phối cuộc hội thoại, lựa chọn khả năng, áp dụng các quy tắc an toàn và giữ cho quy trình có thể tiếp tục.
+### Một môi trường chạy, nhiều tích hợp
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -142,128 +100,102 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### Plugin, Agent Skills và marketplace
+**Ví dụ các nhà cung cấp mô hình được hỗ trợ** ở bên dưới; xem tài liệu môi trường để biết cài đặt riêng.
 
-Biến uag thành một agent chuyên dụng mà không cần fork phần lõi:
+### Tùy chỉnh bằng kỹ năng và plugin
+<!-- README-SYNC:extensions -->
 
-- Cài đặt **plugin tương thích Claude Code** từ thư mục, ZIP, repository Git, nguồn HTTP hoặc marketplace
-- Đóng gói skill, sub-agent, máy chủ MCP, hook, slash command, kiểu đầu ra, dependency và channel
-- Duyệt các khả năng cộng đồng từ [SkillsMP](https://skillsmp.com) và [ClawHub](https://clawhub.ai)
-- Thêm skill và công cụ riêng của tổ chức cục bộ thông qua `UAGENT_EXTERNAL_TOOLS_DIR`
+Mở rộng UAG mà không thay đổi lõi. Cài Agent Skills từ SkillsMP hoặc ClawHub, kết nối máy chủ MCP, hoặc tải plugin tương thích Claude Code chứa công cụ, kỹ năng, tác nhân và hook.
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-Xem [Hướng dẫn phát triển Plugin](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+Công cụ tùy chỉnh có thể cung cấp `TOOL_SPEC` và `run_tool()`; cũng hỗ trợ công cụ xây dựng bằng Rust. Tham khảo hướng dẫn: [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- **Hơn 200 công cụ** cho tệp, web, phương tiện, tài liệu, code, đám mây, giao tiếp và IoT
-- **Khám phá và tải động** — dùng `tool_catalog` để tìm khả năng và `tool_load` để chỉ bật chúng khi cần
-- **Tình báo code** — `code_map`, các trình điều hướng `idx` theo ngôn ngữ, rà soát Git, thực thi kiểm thử, lint, biên dịch và đo độ bao phủ
-- **Plugin tương thích với Claude Code** cùng skills, agents, máy chủ MCP, hooks, commands và marketplace
-- **Agent Skills** từ SkillsMP và ClawHub
-- **Công cụ Python tùy chỉnh** với `TOOL_SPEC` và `run_tool()`
-- **Công cụ chạy trên Rust** cho các phần mở rộng native nhẹ
+## Dành cho quy trình làm việc thực tế
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### Ngữ cảnh và bộ nhớ
+<!-- README-SYNC:context-memory -->
 
-## Được xây dựng cho quy trình làm việc thực tế
+Kết quả công cụ quá lớn có thể lưu dưới dạng **Artifacts** thay vì chiếm ngữ cảnh hoạt động của mô hình. Tác nhân truy xuất phần cần thiết về sau bằng `artifact_read`. Phiên mặc định được lưu trong SQLite, có tìm kiếm lịch sử và quy trình xem xét bộ nhớ rõ ràng.
 
-### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
+- [Context compression](CONTEXT_COMPRESSION.vi.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
+### Tự động hóa và cộng tác
+<!-- README-SYNC:automation -->
 
-Tiếp tục các cuộc hội thoại trước bằng `:load <index>`. Kết quả công cụ có thể được lưu vào bộ nhớ đệm và provider có thể được thay đổi
-mà không cần xây dựng lại ứng dụng.
+UAG hỗ trợ thao tác đọc độc lập song song, phối hợp nhiều tác nhân, khôi phục phiên và chế độ tự động cho công việc nhiều lượt. Bắt đầu bằng `:auto`; nhấn **F12** để ngắt phản hồi hiện tại và yêu cầu dừng chế độ tự động.
 
-[Context compression](CONTEXT_COMPRESSION.vi.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### Auto-pilot
+### Bảo mật và khả năng quan sát
+<!-- README-SYNC:security -->
 
-Dùng `:auto` cho công việc nhiều vòng với một mô hình reviewer tùy chọn. Đặt giới hạn vòng bằng `--max-rounds N`.
-Nhấn **F12** để dừng auto-pilot hoặc **F12** để dừng phản hồi hiện tại.
-
-Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
-phân tích repository và các tác vụ tương tự có thể hoàn tất song song với một pool worker có thể cấu hình
-(`UAGENT_PARALLEL_WORKERS`). Các thao tác ghi vẫn được tuần tự hóa hoặc yêu cầu xác nhận.
-
-Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
-điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 Riêng tư, đa ngôn ngữ và nhận biết chính sách
-
-`human_ask` tạm dừng trước các hành động nhạy cảm. Việc xóa tệp, ghi đè, lệnh shell, điều khiển thiết bị,
-thao tác thông tin xác thực và ghi qua mạng có thể được quản lý bằng quy tắc xác nhận và chính sách.
-
-Sử dụng kho thông tin xác thực thay vì đặt các bí mật có thời hạn dài trong prompt:
-
-Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
-
-uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
-
-Ưu tiên chạy cục bộ không có nghĩa là UAG hoàn toàn ngoại tuyến hoặc mọi công cụ đều được cách ly theo mặc định. Lời gọi tới mô hình và dịch vụ bên ngoài phụ thuộc vào cấu hình.
+Hành động nhạy cảm có thể yêu cầu xác nhận qua `human_ask`. Thông tin xác thực có thể lưu trong trình quản lý hệ điều hành hoặc tệp mã hóa. Giao diện Web hỗ trợ đăng nhập OIDC và kiểm soát truy cập khi được cấu hình. Theo dõi và số liệu OpenTelemetry là **tùy chọn**.
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 Bản dịch đa ngôn ngữ
+Những biện pháp này có thể cấu hình nhưng **không bảo đảm** mọi công cụ đều chạy trong sandbox cách ly. Hãy đọc hướng dẫn triển khai và chính sách trước khi mở UAG cho người dùng hay mạng không đáng tin cậy.
 
-- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
-- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
+### Ngôn ngữ, thiết bị và giọng nói
+<!-- README-SYNC:languages -->
 
-Thoại song công hoàn toàn khả dụng thông qua OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-và Bedrock Nova Sonic, cùng tính năng khử tiếng vọng AEC3 tùy chọn và gọi hàm thời gian thực bị giới hạn bởi an toàn.
+UAG có tài nguyên cho **38 khu vực ngôn ngữ** (tiếng Anh và 37 bản dịch), tích hợp giọng nói hai chiều tùy chọn và công cụ cho SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP và OPC UA.
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
 ## Tài liệu
+<!-- README-SYNC:documentation -->
 
-| Chủ đề | Tài liệu |
-|---|---|
-| Biến môi trường | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| Kiến trúc và bất biến | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| Công cụ repository | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| Trường hợp sử dụng IoT | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| Công cụ giao tiếp | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| Extension VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| Hướng dẫn nhà phát triển | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| Luồng công cụ | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+Bắt đầu từ các tài liệu sau rồi tìm hiểu sâu hơn:
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| Bắt đầu tại đây | Tìm hiểu sâu |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+Bạn cũng có thể duyệt toàn bộ tài liệu và các bản dịch: [Documentation](./) · [Other languages](README.translations.md).
 
 ## Phát triển và đóng góp
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-Chạy các kiểm tra trước khi tạo PR:
+Trước khi gửi pull request có thay đổi **mã Python**, hãy chạy các bài kiểm thử và kiểm tra dự án liên quan:
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-Để xem toàn bộ quy trình phát triển, hãy xem [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-Hoan nghênh báo cáo lỗi, ý tưởng tính năng, cải thiện tài liệu, bản dịch, công cụ, skill và pull request.
-Vui lòng mở issue hoặc discussion trước khi thực hiện thay đổi lớn. Đọc [Hướng dẫn nhà phát triển](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-và chạy các kiểm tra ở trên trước khi gửi pull request.
+Quy tắc đóng góp và hướng dẫn nhà phát triển ở bên dưới. Chúng tôi hoan nghênh báo lỗi, cải thiện tài liệu, công cụ, bản dịch và pull request có phạm vi rõ ràng: [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
 ## Giấy phép
+<!-- README-SYNC:license -->
 
-Được cấp phép theo [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+UAG được phân phối theo giấy phép: [Apache License 2.0](../LICENSE).
