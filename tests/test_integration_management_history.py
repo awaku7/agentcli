@@ -748,17 +748,23 @@ def test_scope_file_rejects_insecure_opened_fd_owner(
     if os.name == "nt":
         pytest.skip("Unix owner check")
     client, _ = read_client
-    _set_multi_scopes(
+    scope_path = _set_multi_scopes(
         monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
     )
+    scope_stat = scope_path.stat()
     real_fstat = os.fstat
 
     def foreign_owned(fd):
         metadata = real_fstat(fd)
+        if (metadata.st_dev, metadata.st_ino) != (scope_stat.st_dev, scope_stat.st_ino):
+            return metadata
 
         class FakeStat:
             st_mode = metadata.st_mode
             st_uid = os.geteuid() + 1000001
+
+            def __getattr__(self, name):
+                return getattr(metadata, name)
 
         return FakeStat()
 

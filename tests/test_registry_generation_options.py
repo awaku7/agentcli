@@ -325,6 +325,7 @@ def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -
     monkeypatch.setenv("UAGENT_VERBOSITY", "low")
     monkeypatch.setenv("UAGENT_MAX_TOKENS", "999")
     monkeypatch.setenv("UAGENT_OPENAI_FAST_MODE", "1")
+    monkeypatch.setattr("uagent.util_tools.get_display_reasoning", lambda: True)
     core = SimpleNamespace(
         workdir=str(tmp_path), cancellation_token=None, responses_state={}
     )
@@ -343,7 +344,7 @@ def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -
 
     assert result == (True, "ok", "", [])
     payload = responses.calls[0]
-    assert payload["reasoning"] == {"effort": "high"}
+    assert payload["reasoning"] == {"effort": "high", "summary": "auto"}
     assert payload["text"] == {"verbosity": "low"}
     assert payload["max_output_tokens"] == 321
     assert payload["context_management"] == [
