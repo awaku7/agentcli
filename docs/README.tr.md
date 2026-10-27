@@ -1,132 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>Yapay zekâ modelleriniz. Araçlarınız. Ortamınız.</p>
 
 <p align="center">
-  <strong>Universal AI Gateway</strong><br>
-  Tek yerel ajan. Her model. Her araç. Sizin ortamınız, sizin kurallarınız.
-</p>
-
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">Diğer diller</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Translations</a>
-</p>
+---
 
-______________________________________________________________________
+**UAG, yerel çalışmayı önceliklendiren açık kaynaklı bir yapay zekâ ajanı çalışma ortamıdır.** Seçtiğiniz dil modelini kullandığınız araçlara ve sistemlere bağlar. Kod, dosya, tarayıcı, hizmet ve cihazlarla tek bir arayüzden çalışabilir; iş akışlarınızı tek bir model sağlayıcısına bağlamak zorunda kalmazsınız.
 
-**uag neden var?**
+| **Modelinizi seçin** | **Gerçek araçlara bağlanın** | **Kontrol sizde kalsın** |
+| :--- | :--- | :--- |
+| OpenAI, Claude, Gemini, Grok, Bedrock ve Ollama gibi bulut ve yerel modeller | Dosyalar, kod, web, MCP, Agent Skills, eklentiler, bulut ve IoT | Yerel çalıştırma, insan onayı, kimlik bilgisi saklama ve yapılandırılabilir politikalar |
 
-uag, tercih ettiğiniz modeli gerçekten kullandığınız araçlara bağlayan, yerel öncelikli bir AI ajanıdır.
-Dosyalar, tarayıcılar, kod tabanları, iletişim, bulut API'leri, IoT cihazları, MCP sunucuları ve çoklu ajan iş akışları için tek ve genişletilebilir bir çalışma zamanı sağlar.
-
-- **Sağlayıcı özgürlüğü** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek ve daha fazlası.
-- **Yerel öncelikli çalıştırma** — ajan çalışma zamanınız ve araç çalıştırma işlemleri makinenizde kalır; yalnızca seçtiğiniz API çağrıları dışarı çıkar.
-- **Tek araç katmanı** — aynı araçlar CLI, masaüstü GUI, web arayüzü, VS Code ve A2A üzerinden çalışır.
-- **Tasarımdan paralel** — bağımsız, yalnızca okuma yapan işlemler eşzamanlı yürütülebilir.
-- **Genişletilebilir** — çekirdeği değiştirmeden araçlar, eklentiler, Agent Skills, MCP sunucuları ve Rust destekli araçlar ekleyin.
-- **Güvenlik odaklı** — yıkıcı işlemler, kimlik bilgileri, cihaz kontrolleri ve ağ yazma işlemleri açık onay ve politika denetimlerini destekler.
-
-> **Kısacası:** uag, AI modelleriniz ile gerçek ortamınız arasındaki kontrol düzlemidir.
-
-> **🧠 Bağlam duyarlı araç sonuçları** — Mümkün olduğunda, büyük boyutlu araç sonuçları aktif model bağlamının dışında tutulur. uag bunları Artifact olarak depolar ve bunun yerine modele kararlı bir Artifact referansı içeren sınırlı bir önizleme iletir. Bu, bir araç büyük bir sonuç ürettiğinde takip eden turlar için gereken girdi token sayısını önemli ölçüde azaltabilir.
-> [Ayrıntılı bağlam sıkıştırma kılavuzu](CONTEXT_COMPRESSION.tr.md)
+> UAG **model sağlayıcısı değil, ajan yürütme katmanıdır**. Harici modellere ve bağlı hizmetlere yapılan çağrılar yapılandırmaya bağlıdır. Yerel öncelikli çalışma, tümüyle çevrimdışı kullanım veya bütün araçların varsayılan olarak yalıtılması anlamına gelmez.
 
 ## Hızlı başlangıç
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-İlk başlatma kurulum sihirbazını açar. Sihirbaz bir sağlayıcıyı yapılandırmanıza yardımcı olur ve seçilen ayarları yerel ortamınızda saklar.
-
-Yaygın özellik grupları için:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## Arayüzler
-
-| Arayüz | Komut | En uygun kullanım |
-|---|---|---|
-| **CLI** | `uag` | Hızlı, klavye öncelikli çalışma |
-| **Desktop GUI** | `uagg` | Yerel bir masaüstü deneyimi |
-| **Web UI** | `uagw` | Tarayıcı tabanlı erişim |
-| **A2A server** | `uaga` | Ajanlar arası iletişim |
-| **VS Code** | Extension | Editörde araçları açıklama, yeniden düzenleme, düzeltme ve tarama |
-
-Tüm arayüzler aynı sağlayıcı yapılandırmasını, araç kayıt defterini, güvenlik kurallarını ve oturum verilerini paylaşır.
+**Python 3.11 veya üzeri** gerekir. UAG'yi [PyPI](https://pypi.org/project/uag/) üzerinden yükleyin ve etkileşimli CLI'yi açın:
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+İlk çalıştırmada kurulum sihirbazı model sağlayıcısını seçmenize ve kimlik bilgilerini ayarlamanıza yardımcı olur. Ortam değişkenleri veya kimlik bilgisi deposu da kullanılabilir. Daha fazla sağlayıcı ve araç bağımlılığını önceden kurmak için:
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+Ardından şu istekleri deneyin:
+
+~~~text
+> Bu Git deposunda neler değişti? Riskleri özetle.
+> Bu kitaplığın en güncel belgelerini bul ve geçiş adımlarını açıkla.
+> Bu dosyaları incele ve kısa bir rapor hazırla.
+> :help
+~~~
+
+Yeni kullanıcılar Git ve sanal ortamları da açıklayan Windows kurulum kılavuzuna ve yapılandırma başvurusuna bakabilir: [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## Arayüzler
+<!-- README-SYNC:interfaces -->
+
+Tüm giriş noktaları aynı ajan çalışma ortamını ve araç kaydını kullanır.
+
+| Arayüz | Başlatma | Kullanım amacı |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | Terminal ve otomasyon |
+| **Desktop** | `uagg` | Yerel masaüstü görüşmeleri |
+| **Web** | `uagw` | Tarayıcıdaki görüşmeler ve odalar |
+| **A2A** | `uaga` | Ajanlar arası entegrasyon |
+| **VS Code** | [Eklenti kılavuzu](VSCODE.md) | Kodla birlikte çalışma |
+
+Desktop ve Web, ilk `uag[core,providers,tools]` kurulumuna dahil olmayan ek bağımlılıklar gerektirir:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Web sunucusu başlangıçta FastAPI ve Uvicorn kurmayı deneyebilir. Önceden yüklemek otomatik kurulum bağımlılığını önler. Ayrıntılar: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## Neler oluşturabilirsiniz
+## UAG ile neler yapabilirsiniz?
+<!-- README-SYNC:capabilities -->
 
-Sağlayıcı adaptörleri, aşağıdakiler dâhil olmak üzere barındırılan ve yerel çalışma zamanlarını kapsar:
+| Yetenek | UAG'nin sağladıkları |
+| :--- | :--- |
+| **Modelden bağımsız iş akışları** | `UAGENT_PROVIDER` ile bulut ve yerel sağlayıcılar arasında geçiş; araçları yeniden yazmaya gerek yok |
+| **Kod ve dosyalar** | Depo gezinme, Git inceleme, lint, testler, dosya işlemleri ve tarayıcı otomasyonu |
+| **Genişletilebilir araçlar** | 200'den fazla araç, `tool_catalog` / `tool_load` ile dinamik keşif, özel Python ve Rust araçları |
+| **Bağlı ajanlar** | MCP, A2A, Claude Code uyumlu eklentiler, Agent Skills ve alt ajanlar |
+| **Uzun süren işler** | Otomatik pilot, bağımsız okuma işlemlerinin paralel yürütülmesi, zamanlama, kurtarma ve kalıcı oturumlar |
+| **Terminalin ötesinde** | Bulut, iletişim, belgeler, medya, gerçek zamanlı ses ve desteklenen IoT protokolleri |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-`UAGENT_PROVIDER` ile sağlayıcıları değiştirin; araçlarınız ve arayüzünüz değişmez.
-
-**Ortamınızla çalışma**
-
-- Dosyaları okuyun, oluşturun, düzenleyin, arayın, özetleyin, arşivleyin ve inceleyin
-- Git değişikliklerini inceleyin, gizli bilgileri tarayın, testleri çalıştırın, lint uygulayın, derleyin ve kapsamı ölçün
-- Büyük Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA ve diğer kod tabanlarında gezinin
-- Çok sayfalı iş akışları ve indirmeler dâhil olmak üzere tarayıcıları Playwright ile otomatikleştirin
-
-**Hizmetleri ve cihazları bağlama**
-
-- **MCP** — OAuth etkin hizmetler de dâhil olmak üzere harici araç sunucularına bağlanın
-- **A2A** — diğer ajanlar ve uyumlu sunucularla koordinasyon sağlayın
-- **Cloud** — yazma işlemleri için onayla AWS, Google Cloud ve Azure API erişimi
-- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams ve pybitchat
-- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA ve UPnP
-- **Media** — görüntü oluşturma/düzenleme, ses transkripsiyonu/sentezi, kamera yakalama ve QR kodları
-- **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL ve günlük analizi
-
-**IoT ve fiziksel dünya kontrolü**
-
-- **SwitchBot** — Cloud ve BLE keşfi, durum, kontrol, toplu işlemler ve abonelikler
-- **ECHONET Lite** — INF bildirimleri de dâhil olmak üzere Japon ev aletlerini keşfedin ve kontrol edin
-- **Matter** — uç noktalar, kümeler, öznitelikler, durum geçmişi, abonelikler ve kontrol
-- **BACnet / Modbus TCP / OPC UA** — endüstriyel ve bina otomasyonu okuma, yazma, gezinme ve izleme
-- **UPnP** — cihaz keşfi, WAN durumu ve yönlendirici port eşleme yönetimi
-
-### uag nereye oturur?
-
-uag bir tarafta insanlar ve arayüzler, diğer tarafta modeller, araçlar ve gerçek dünya sistemleri arasında yer alır.
-Konuşmayı koordine eder, yetenekleri seçer, güvenlik kurallarını uygular ve iş akışının sürdürülebilir olmasını sağlar.
+### Tek çalışma ortamı, birçok entegrasyon
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -138,119 +100,102 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### Eklentiler, Agent Skills ve marketplace'ler
+**Desteklenen model sağlayıcılarına örnekler** aşağıdadır. Sağlayıcıya özel ayarlar ortam kılavuzundadır.
 
-Çekirdeği çatallamadan uag'ı uzmanlaşmış bir ajana dönüştürün:
+### Beceriler ve eklentilerle özelleştirme
+<!-- README-SYNC:extensions -->
 
-- **Claude Code uyumlu eklentileri** bir dizinden, ZIP'ten, Git deposundan, HTTP kaynağından veya marketplace'ten kurun
-- Becerileri, alt ajanları, MCP sunucularını, kancaları, slash komutlarını, çıktı stillerini, bağımlılıkları ve kanalları paketleyin
-- [SkillsMP](https://skillsmp.com) ve [ClawHub](https://clawhub.ai) üzerinden topluluk yeteneklerine göz atın
-- `UAGENT_EXTERNAL_TOOLS_DIR` aracılığıyla özel kuruluş becerilerini ve araçlarını yerel olarak ekleyin
+Çekirdeği değiştirmeden UAG'yi genişletin. SkillsMP veya ClawHub'dan Agent Skills kurun, MCP sunucularına bağlanın ya da araçlar, beceriler, ajanlar ve kancalar içeren Claude Code uyumlu eklentiler yükleyin.
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-[Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) sayfasına bakın.
+Özel araçlar `TOOL_SPEC` ve `run_tool()` sağlayabilir; Rust tabanlı araçlar da desteklenir. Kılavuzlar: [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- Dosyalar, web, medya, belgeler, kod, bulut, iletişim ve IoT için **200+ araç**
-- **Dinamik keşif ve yükleme** — yetenekleri bulmak için `tool_catalog`, yalnızca gerektiğinde etkinleştirmek için `tool_load` kullanın
-- **Kod zekâsı** — `code_map`, dile özgü `idx` gezginleri, Git incelemesi, test çalıştırma, lint, derleme ve kapsam ölçümü
-- Yetenekler, ajanlar, MCP sunucuları, kancalar, komutlar ve marketplace'lerle **Claude Code uyumlu eklentiler**
-- SkillsMP ve ClawHub'dan **Agent Skills**
-- `TOOL_SPEC` ve `run_tool()` kullanan **özel Python araçları**
-- Hafif yerel uzantılar için **Rust destekli araçlar**
+## Gerçek iş akışları için
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### Bağlam ve bellek
+<!-- README-SYNC:context-memory -->
 
-## Gerçek iş akışları için tasarlandı
+Büyük araç çıktıları modelin etkin bağlamını doldurmak yerine **artifact** olarak saklanabilir. Ajan daha sonra `artifact_read` ile yalnızca ilgili bölümü alır. Oturumlar varsayılan olarak SQLite'da tutulur; geçmiş arama ve açık bellek incelemesi de vardır.
 
-### 🧠 Bağlam duyarlı araç sonuçları
+- [Context compression](CONTEXT_COMPRESSION.tr.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-Mümkün olduğunda, büyük boyutlu araç sonuçları aktif model bağlamının dışında tutulur. uag bunları Artifact olarak depolar ve bunun yerine modele kararlı bir Artifact referansı içeren sınırlı bir önizleme iletir. Bu, bir araç büyük bir sonuç ürettiğinde takip eden turlar için gereken girdi token sayısını önemli ölçüde azaltabilir.
+### Otomasyon ve iş birliği
+<!-- README-SYNC:automation -->
 
-`:load <index>` ile önceki konuşmaları sürdürün. Araç sonuçları önbelleğe alınabilir ve uygulamayı yeniden oluşturmadan sağlayıcılar değiştirilebilir.
+UAG, paralel bağımsız okuma işlemleri, çoklu ajan koordinasyonu, oturum kurtarma ve çok turlu işler için otomatik pilotu destekler. `:auto` ile başlatın; **F12** mevcut yanıtı keser ve otomatik pilotun durmasını ister.
 
-[Context compression](CONTEXT_COMPRESSION.tr.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### Auto-pilot
+### Güvenlik ve gözlemlenebilirlik
+<!-- README-SYNC:security -->
 
-İsteğe bağlı bir inceleyici modeliyle çok turlu çalışma için `:auto` kullanın. `--max-rounds N` ile tur sınırı belirleyin. Auto-pilot'u durdurmak için **F12**'e, mevcut yanıtı durdurmak için **F12**'ye basın.
-
-Bağımsız, yalnızca okuma yapan işlemler güvenli olduğunda eşzamanlı yürütülür. Web aramaları, dosya inceleme, depo analizi ve benzer iş yükleri yapılandırılabilir bir worker havuzuyla (`UAGENT_PARALLEL_WORKERS`) paralel olarak tamamlanabilir. Yazma işlemleri serileştirilir veya onay gerektirir.
-
-Oturum sürekliliği, araç sonucu önbelleğe alma, toplu işlem durumu, yeniden başlatma kurtarma, DAG zamanlama ve çoklu ajan orkestrasyonu; karmaşık işleri tek seferlik olmaktan çıkarıp sürdürülebilir hale getirir.
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 Özel, çok dilli ve politika farkındalıklı
-
-`human_ask`, hassas işlemlerden önce duraklar. Dosya silme, üzerine yazma, kabuk komutları, cihaz kontrolleri, kimlik bilgisi işlemleri ve ağ yazma işlemleri onay ve politika kurallarıyla yönetilebilir.
-
-Uzun süre geçerli gizli bilgileri istemlere yerleştirmek yerine kimlik bilgileri deposunu kullanın:
-
-Web UI, Authorization Code + PKCE kullanarak OIDC oturum açmayı, doğrulanmış ID tokenlarını, sunucu tarafı oturumları ve proje/oda erişim kontrollerini içerir. Doğrulanmış Microsoft Entra ID grup talepleri, yapılandırıldığında dizin destekli erişim politikasına besleme yapabilir. Windows Active Directory, OAuth ve trusted-proxy dağıtımları, açıkça doğrulanmış kimlik adaptörleri aracılığıyla entegre olabilir; Windows AD, dağıtıma özgü bir Kerberos/Negotiate doğrulayıcısı gerektirir ve varsayılan olarak etkin değildir.
-
-uag, Agent, LLM, araç, Context, Memory ve alma işlemlerine yönelik isteğe bağlı, sağlayıcıdan bağımsız OpenTelemetry izleme ve ölçümleri içerir. Gözlemlenebilirlik varsayılan olarak devre dışıdır.
-
-Yerel öncelikli çalışma, UAG'nin varsayılan olarak tamamen çevrimdışı olduğu veya tüm araçların yalıtıldığı anlamına gelmez. Harici modellere ve bağlı hizmetlere yapılan çağrılar yapılandırmaya bağlıdır.
+Hassas işlemler `human_ask` onayı gerektirebilir. Kimlik bilgileri işletim sisteminin güvenli deposunda veya şifreli dosyalarda saklanabilir. Web arayüzü yapılandırıldığında OIDC ile oturum açma ve erişim denetimini destekler. OpenTelemetry izleme ve ölçümleri **isteğe bağlıdır**.
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 Çok dilli çeviri
+Bu denetimler yapılandırılabilir; **her aracın bir sandbox içinde yalıtıldığına dair genel garanti vermez**. UAG'yi güvenilmeyen kullanıcılara veya ağlara açmadan önce dağıtım ve politika kılavuzlarını okuyun.
 
-- `translate_text`, `provider=auto`, `provider=deepl` veya `provider=google` seçenekleri aracılığıyla Google Translate’ı ve resmi DeepL Python istemcisini destekler.
-- Araç tanımları, yer tutucular ve teknik tanımlayıcılar korunmuş olarak 37 dilde ve İngilizce’de (toplam 38) mevcuttur.
+### Diller, cihazlar ve ses
+<!-- README-SYNC:languages -->
 
-Tam çift yönlü ses; OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live ve Bedrock Nova Sonic üzerinden, isteğe bağlı AEC3 yankı iptali ve güvenlikle sınırlandırılmış gerçek zamanlı işlev çağrısıyla kullanılabilir.
+UAG **38 yerel ayar** için kaynaklar (İngilizce ve 37 çeviri), isteğe bağlı tam çift yönlü ses ve SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP ve OPC UA araçları sunar.
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
 ## Belgeler
+<!-- README-SYNC:documentation -->
 
-| Konu | Belgeleme |
-|---|---|
-| Environment variables | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| Architecture and invariants | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| Repository tools | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| IoT use cases | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| Communication tools | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| VS Code extension | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| Developer guide | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| Tool flow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+Bu belgelerle başlayın, sonra ayrıntılara geçin:
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| Buradan başlayın | Daha ayrıntılı |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
 
-## Geliştirme ve katkıda bulunma
+Tam belge dizinine ve diğer dillere de göz atabilirsiniz: [Documentation](./) · [Other languages](README.translations.md).
 
-```bash
+## Geliştirme ve katkı
+<!-- README-SYNC:contributing -->
+
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-PR öncesi kontrolleri çalıştırın:
+**Python kodu** değiştiren bir pull request öncesinde ilgili testleri ve proje denetimlerini çalıştırın:
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-Tam geliştirme iş akışı için [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) sayfasına bakın.
-
-Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçlar, beceriler ve pull request'ler memnuniyetle karşılanır. Büyük değişikliklerden önce lütfen bir issue veya discussion açın. [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) sayfasını okuyun ve pull request göndermeden önce yukarıdaki kontrolleri çalıştırın.
+Katkı kuralları ve geliştirici kılavuzu aşağıdadır. Hata bildirimleri, belge geliştirmeleri, araçlar, çeviriler ve odaklı pull requestler memnuniyetle karşılanır: [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
 ## Lisans
+<!-- README-SYNC:license -->
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) kapsamında lisanslanmıştır.
+UAG şu lisans kapsamında dağıtılır: [Apache License 2.0](../LICENSE).

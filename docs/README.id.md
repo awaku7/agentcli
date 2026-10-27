@@ -1,136 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>Model AI Anda. Peralatan Anda. Lingkungan Anda.</p>
 
 <p align="center">
-  <strong>Universal AI Gateway</strong><br>
-  Satu agen lokal. Model apa pun. Alat apa pun. Lingkungan Anda, aturan Anda.
-</p>
-
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">Bahasa lainnya</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Translations</a>
-</p>
+---
 
-______________________________________________________________________
+**UAG adalah runtime agen AI sumber terbuka yang mengutamakan eksekusi lokal.** UAG menghubungkan model bahasa pilihan Anda dengan alat dan sistem yang digunakan. Kerjakan kode, berkas, browser, layanan, serta perangkat melalui antarmuka yang konsisten tanpa terikat pada satu penyedia model.
 
-**Mengapa uag?**
+| **Pilih model** | **Hubungkan alat nyata** | **Tetap memegang kendali** |
+| :--- | :--- | :--- |
+| Model cloud dan lokal seperti OpenAI, Claude, Gemini, Grok, Bedrock, dan Ollama | Berkas, kode, web, MCP, Agent Skills, plugin, layanan cloud, dan IoT | Eksekusi lokal, konfirmasi manusia, penyimpanan kredensial, dan kebijakan yang dapat diatur |
 
-uag adalah agen AI local-first yang menghubungkan model pilihan Anda dengan alat yang benar-benar Anda gunakan.
-Agen ini menyediakan satu runtime yang dapat diperluas untuk file, browser, basis kode, komunikasi, API cloud,
-perangkat IoT, server MCP, dan alur kerja multi-agen.
-
-- **Kebebasan provider** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek, dan lainnya.
-- **Eksekusi local-first** — runtime agen dan eksekusi alat tetap berada di mesin Anda; hanya panggilan API yang Anda pilih yang keluar.
-- **Satu lapisan alat** — alat yang sama dapat digunakan dari CLI, GUI desktop, UI web, VS Code, dan A2A.
-- **Dirancang untuk paralel** — operasi baca-saja yang independen dapat berjalan secara bersamaan.
-- **Dapat diperluas** — tambahkan alat, plugin, Agent Skills, server MCP, dan alat berbasis Rust tanpa mengubah inti.
-- **Sadar akan keamanan** — tindakan destruktif, kredensial, kontrol perangkat, dan penulisan jaringan mendukung konfirmasi eksplisit serta kontrol kebijakan.
-
-> **Singkatnya:** uag adalah bidang kendali antara model AI Anda dan lingkungan nyata Anda.
-
-> **🧠 Hasil alat yang peka konteks** — Hasil alat yang berukuran besar disimpan di luar konteks model aktif jika memungkinkan. uag menyimpannya sebagai Artifak dan memberikan pratinjau terbatas kepada model dengan referensi Artifact yang stabil sebagai gantinya. Hal ini dapat secara signifikan mengurangi jumlah token masukan yang diperlukan untuk giliran berikutnya ketika sebuah alat menghasilkan hasil yang besar.
-> [Panduan lengkap kompresi konteks](CONTEXT_COMPRESSION.id.md)
+> UAG adalah **lapisan eksekusi agen, bukan penyedia model**. Panggilan ke model serta layanan eksternal bergantung pada konfigurasi. Local-first bukan berarti sepenuhnya offline atau seluruh alat terisolasi secara bawaan.
 
 ## Mulai cepat
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-Peluncuran pertama membuka wizard penyiapan. Wizard ini membantu mengonfigurasi provider dan menyimpan pengaturan yang dipilih
-di lingkungan lokal Anda.
-
-Untuk kelompok fitur umum:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-> Integrasi platform bersifat opsional. Instal hanya yang dibutuhkan sistem operasi Anda; lihat
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## Antarmuka
-
-| Antarmuka | Perintah | Terbaik untuk |
-|---|---|---|
-| **CLI** | `uag` | Pekerjaan cepat yang mengutamakan keyboard |
-| **GUI desktop** | `uagg` | Pengalaman desktop native |
-| **UI web** | `uagw` | Akses berbasis browser |
-| **Server A2A** | `uaga` | Komunikasi antargen |
-| **VS Code** | Extension | Menjelaskan, melakukan refactor, memperbaiki, dan menelusuri alat di editor |
-
-Semua antarmuka menggunakan konfigurasi provider, registri alat, aturan keamanan, dan data sesi yang sama.
+Diperlukan **Python 3.11 atau lebih baru**. Instal UAG dari [PyPI](https://pypi.org/project/uag/) dan jalankan CLI interaktif:
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+Saat pertama dijalankan, panduan penyiapan membantu memilih penyedia model dan mengatur kredensial. Anda juga bisa memakai variabel lingkungan atau penyimpanan kredensial. Untuk memasang lebih banyak dependensi penyedia dan alat sejak awal:
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+Lalu coba permintaan berikut:
+
+~~~text
+> Apa yang berubah di repositori Git ini? Ringkas risikonya.
+> Cari dokumentasi terbaru pustaka ini dan jelaskan langkah migrasinya.
+> Periksa berkas-berkas ini dan buat laporan singkat.
+> :help
+~~~
+
+Pengguna baru dapat membaca panduan instalasi Windows, termasuk Git dan lingkungan virtual, serta referensi konfigurasi: [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## Antarmuka
+<!-- README-SYNC:interfaces -->
+
+Semua cara masuk memakai runtime agen dan registri alat yang sama.
+
+| Antarmuka | Jalankan | Cocok untuk |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | Terminal dan otomatisasi |
+| **Desktop** | `uagg` | Percakapan dalam aplikasi desktop |
+| **Web** | `uagw` | Percakapan dan ruang di browser |
+| **A2A** | `uaga` | Integrasi antargen |
+| **VS Code** | [Panduan ekstensi](VSCODE.md) | Bekerja bersama kode |
+
+Antarmuka Desktop dan Web memerlukan dependensi tambahan yang tidak termasuk `uag[core,providers,tools]`:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Server Web dapat mencoba memasang FastAPI dan Uvicorn saat mulai. Pemasangan lebih dulu menghindari ketergantungan pada instalasi otomatis. Rincian: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## Apa yang dapat Anda bangun
+## Apa yang bisa dibuat dengan UAG
+<!-- README-SYNC:capabilities -->
 
-Adaptor provider mencakup runtime hosted dan lokal, termasuk:
+| Kemampuan | Yang disediakan UAG |
+| :--- | :--- |
+| **Alur kerja bebas model** | Ganti penyedia lokal dan cloud melalui `UAGENT_PROVIDER` tanpa menulis ulang alat |
+| **Kode dan berkas** | Menjelajahi repositori, memeriksa Git, lint, pengujian, operasi berkas, dan otomatisasi browser |
+| **Alat yang dapat diperluas** | Lebih dari 200 alat, penemuan dinamis lewat `tool_catalog` / `tool_load`, alat Python dan Rust khusus |
+| **Agen terhubung** | MCP, A2A, plugin kompatibel Claude Code, Agent Skills, dan subagen |
+| **Tugas berjalan lama** | Autopilot, pembacaan independen paralel, penjadwalan, pemulihan, dan sesi tersimpan |
+| **Melampaui terminal** | Cloud, komunikasi, dokumen, media, suara real-time, dan protokol IoT yang didukung |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-Ganti provider dengan `UAGENT_PROVIDER`; alat dan antarmuka Anda tidak berubah.
-
-**Bekerja dengan lingkungan Anda**
-
-- Membaca, membuat, mengedit, mencari, melakukan hash, mengarsipkan, dan memeriksa file
-- Meninjau perubahan Git, memindai rahasia, menjalankan pengujian, melakukan lint, kompilasi, dan mengukur cakupan
-- Menelusuri basis kode Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA, dan lainnya yang berukuran besar
-- Mengotomatiskan browser dengan Playwright, termasuk alur multi-halaman dan unduhan
-
-**Menghubungkan layanan dan perangkat**
-
-- **MCP** — hubungkan server alat eksternal, termasuk layanan yang mendukung OAuth
-- **A2A** — berkoordinasi dengan agen lain dan server yang kompatibel
-- **Cloud** — akses API AWS, Google Cloud, dan Azure dengan konfirmasi untuk penulisan
-- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams, dan pybitchat
-- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA, dan UPnP
-- **Media** — pembuatan/pengeditan gambar, transkripsi/ucapan audio, pengambilan kamera, dan kode QR
-- **Documents** — analisis PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL, dan log
-
-**IoT dan kontrol dunia fisik**
-
-- **SwitchBot** — penemuan Cloud dan BLE, status, kontrol, batching, dan subscription
-- **ECHONET Lite** — menemukan dan mengontrol peralatan rumah tangga Jepang, termasuk notifikasi INF
-- **Matter** — endpoint, cluster, atribut, riwayat status, subscription, dan kontrol
-- **BACnet / Modbus TCP / OPC UA** — pembacaan, penulisan, penelusuran, dan pemantauan otomasi industri serta gedung
-- **UPnP** — penemuan perangkat, status WAN, dan pengelolaan pemetaan port router
-
-### Posisi uag
-
-uag berada di antara manusia dan antarmuka di satu sisi, serta model, alat, dan sistem dunia nyata di sisi lain.
-Agen ini mengoordinasikan percakapan, memilih kapabilitas, menerapkan aturan keamanan, dan menjaga agar alur kerja dapat dilanjutkan.
+### Satu runtime, banyak integrasi
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -142,128 +100,102 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### Plugin, Agent Skills, dan marketplace
+**Contoh penyedia model yang didukung** tercantum di bawah; pengaturan khusus tersedia dalam panduan lingkungan.
 
-Ubahlah uag menjadi agen khusus tanpa melakukan fork terhadap inti:
+### Sesuaikan dengan skills dan plugin
+<!-- README-SYNC:extensions -->
 
-- Instal **plugin yang kompatibel dengan Claude Code** dari direktori, ZIP, repositori Git, sumber HTTP, atau marketplace
-- Gabungkan skill, sub-agen, server MCP, hook, perintah slash, gaya keluaran, dependensi, dan channel
-- Jelajahi kapabilitas komunitas dari [SkillsMP](https://skillsmp.com) dan [ClawHub](https://clawhub.ai)
-- Tambahkan skill dan alat organisasi privat secara lokal melalui `UAGENT_EXTERNAL_TOOLS_DIR`
+Perluas UAG tanpa mengubah inti. Instal Agent Skills melalui SkillsMP atau ClawHub, sambungkan server MCP, atau muat plugin kompatibel Claude Code yang berisi alat, skills, agen, dan hooks.
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-Lihat [Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+Alat khusus dapat menyediakan `TOOL_SPEC` dan `run_tool()`; alat berbasis Rust juga didukung. Lihat panduan: [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- **200+ alat** untuk file, web, media, dokumen, kode, cloud, komunikasi, dan IoT
-- **Penemuan dan pemuatan dinamis** — gunakan `tool_catalog` untuk menemukan kapabilitas dan `tool_load` untuk mengaktifkannya hanya saat diperlukan
-- **Inteligensi kode** — `code_map`, navigator `idx` khusus bahasa, peninjauan Git, eksekusi pengujian, linting, kompilasi, dan cakupan
-- **Plugin yang kompatibel dengan Claude Code** dengan skill, agen, server MCP, hook, perintah, dan marketplace
-- **Agent Skills** dari SkillsMP dan ClawHub
-- **Alat Python khusus** dengan `TOOL_SPEC` dan `run_tool()`
-- **Alat berbasis Rust** untuk ekstensi native yang ringan
+## Untuk alur kerja nyata
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### Konteks dan memori
+<!-- README-SYNC:context-memory -->
 
-## Dibuat untuk alur kerja nyata
+Hasil alat yang besar dapat disimpan sebagai **artefak** agar tidak memenuhi konteks aktif model. Agen mengambil bagian yang diperlukan nanti melalui `artifact_read`. Sesi disimpan dalam SQLite secara bawaan, dengan pencarian riwayat dan pemeriksaan memori secara eksplisit.
 
-### 🧠 Hasil alat yang peka konteks
+- [Context compression](CONTEXT_COMPRESSION.id.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-Hasil alat yang berukuran besar disimpan di luar konteks model aktif jika memungkinkan. uag menyimpannya sebagai Artifak dan memberikan pratinjau terbatas kepada model dengan referensi Artifact yang stabil sebagai gantinya. Hal ini dapat secara signifikan mengurangi jumlah token masukan yang diperlukan untuk giliran berikutnya ketika sebuah alat menghasilkan hasil yang besar.
+### Otomatisasi dan kolaborasi
+<!-- README-SYNC:automation -->
 
-Lanjutkan percakapan sebelumnya dengan `:load <index>`. Hasil alat dapat di-cache, dan provider dapat diganti
-tanpa membangun ulang aplikasi.
+UAG mendukung pembacaan independen secara paralel, koordinasi multiagen, pemulihan sesi, dan autopilot untuk pekerjaan beberapa putaran. Mulai dengan `:auto`; tekan **F12** untuk menghentikan jawaban saat ini dan meminta autopilot berhenti.
 
-[Context compression](CONTEXT_COMPRESSION.id.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### Auto-pilot
+### Keamanan dan observabilitas
+<!-- README-SYNC:security -->
 
-Gunakan `:auto` untuk pekerjaan multi-putaran dengan model peninjau opsional. Tetapkan batas putaran dengan `--max-rounds N`.
-Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons saat ini.
-
-Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,
-analisis repositori, dan beban kerja serupa dapat diselesaikan secara paralel dengan pool pekerja yang dapat dikonfigurasi
-(`UAGENT_PARALLEL_WORKERS`). Operasi penulisan tetap diserialkan atau memerlukan konfirmasi.
-
-Kontinuitas sesi, caching hasil alat, status batch, pemulihan setelah mulai ulang, penjadwalan DAG, dan
-orkestrasi multi-agen membuat pekerjaan kompleks dapat dilanjutkan, bukan hanya dijalankan sekali.
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 Privat, multibahasa, dan sadar kebijakan
-
-`human_ask` berhenti sejenak sebelum tindakan sensitif. Penghapusan file, penimpaan, perintah shell, kontrol perangkat,
-operasi kredensial, dan penulisan jaringan dapat diatur oleh aturan konfirmasi dan kebijakan.
-
-Gunakan penyimpanan kredensial alih-alih menempatkan rahasia jangka panjang di dalam prompt:
-
-Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yang terverifikasi, sesi sisi server, dan kontrol akses proyek/ruang. Klaim grup Microsoft Entra ID yang terverifikasi dapat mendukung kebijakan akses berbasis direktori saat dikonfigurasi. Deployment Windows Active Directory, OAuth, dan trusted-proxy dapat terintegrasi melalui adapter identitas terverifikasi yang eksplisit; Windows AD memerlukan verifier Kerberos/Negotiate spesifik deployment dan tidak diaktifkan secara default.
-
-uag mencakup penelusuran dan metrik OpenTelemetry netral penyedia untuk Agent, LLM, alat, Context, Memory, dan operasi pengambilan. Observabilitas dinonaktifkan secara default.
-
-Local-first tidak berarti UAG sepenuhnya offline atau semua eksekusi alat terisolasi secara bawaan. Permintaan ke model dan layanan eksternal bergantung pada konfigurasi.
+Operasi sensitif dapat memerlukan persetujuan `human_ask`. Kredensial dapat disimpan dalam pengelola sistem operasi atau berkas terenkripsi. Antarmuka Web mendukung login OIDC dan kontrol akses setelah dikonfigurasi. Pelacakan serta metrik OpenTelemetry bersifat **opsional**.
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 Terjemahan multibahasa
+Kontrol tersebut dapat dikonfigurasi dan **tidak menjamin** setiap alat dijalankan terisolasi dalam sandbox. Baca panduan penerapan dan kebijakan sebelum membuka UAG untuk pengguna atau jaringan yang tidak tepercaya.
 
-- `translate_text` mendukung Google Translate dan klien Python resmi DeepL melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
-- Definisi alat tersedia dalam 37 bahasa lokal ditambah bahasa Inggris (total 38), dengan penanda tempat dan pengenal teknis tetap dipertahankan.
+### Bahasa, perangkat, dan suara
+<!-- README-SYNC:languages -->
 
-Suara full-duplex tersedia melalui OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,
-dan Bedrock Nova Sonic, dengan pembatalan gema AEC3 opsional dan pemanggilan fungsi realtime yang dibatasi demi keamanan.
+UAG menyediakan sumber daya untuk **38 lokal** (bahasa Inggris dan 37 terjemahan), integrasi suara dua arah opsional, serta alat untuk SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP, dan OPC UA.
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
 ## Dokumentasi
+<!-- README-SYNC:documentation -->
 
-| Topik | Dokumentasi |
-|---|---|
-| Variabel lingkungan | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| Arsitektur dan invarian | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| Alat repositori | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| Kasus penggunaan IoT | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| Alat komunikasi | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| Ekstensi VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| Panduan pengembang | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| Alur alat | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+Mulailah dari panduan berikut dan pelajari topik secara mendalam:
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| Mulai di sini | Pelajari lebih lanjut |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+Anda juga dapat menjelajahi semua dokumentasi dan terjemahan: [Documentation](./) · [Other languages](README.translations.md).
 
 ## Pengembangan dan kontribusi
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-Jalankan pemeriksaan sebelum PR:
+Sebelum pull request yang mengubah **kode Python**, jalankan pengujian terkait dan pemeriksaan proyek:
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-Untuk alur kerja pengembangan lengkap, lihat [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-Laporan bug, ide fitur, perbaikan dokumentasi, terjemahan, alat, skill, dan pull request dipersilakan.
-Harap buka issue atau diskusi sebelum melakukan perubahan besar. Baca [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-dan jalankan pemeriksaan di atas sebelum mengirimkan pull request.
+Aturan kontribusi dan panduan pengembang tersedia di bawah. Laporan bug, perbaikan dokumentasi, alat, terjemahan, dan pull request terfokus disambut baik: [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
 ## Lisensi
+<!-- README-SYNC:license -->
 
-Dilisensikan di bawah [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+UAG tersedia berdasarkan lisensi: [Apache License 2.0](../LICENSE).
