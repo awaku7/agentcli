@@ -1,0 +1,45 @@
+name: Verify membership write C0 candidate
+on:
+  push:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Overlay C0 candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$(dirname 'src/uagent/runtime/project_membership_mutation.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/51231976524dfb6cd7a2c22e9d4fc46865199b81' --jq .content | base64 -d > 'src/uagent/runtime/project_membership_mutation.py'
+          mkdir -p "$(dirname 'src/uagent/runtime/memory_store.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/01c8bc3618659a3578eb0948ce742e9ab9a72f0e' --jq .content | base64 -d > 'src/uagent/runtime/memory_store.py'
+          mkdir -p "$(dirname 'tests/test_project_membership_mutation.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/bd838adc9f5b692ad7aa7f394fabf787aa4eadb4' --jq .content | base64 -d > 'tests/test_project_membership_mutation.py'
+          mkdir -p "$(dirname 'docs/UAG_ADMIN_MEMBERSHIP_WRITE_CONTRACT.md')"
+          gh api 'repos/awaku7/agentcli/git/blobs/fc4172d36f5f4db6027e112dbf55990ec58a3cf8' --jq .content | base64 -d > 'docs/UAG_ADMIN_MEMBERSHIP_WRITE_CONTRACT.md'
+      - name: Install testing/quality
+        run: python -m pip install -e ".[core,providers,test,quality]"
+      - name: Black candidate
+        run: python -m black src/uagent/runtime/project_membership_mutation.py src/uagent/runtime/memory_store.py tests/test_project_membership_mutation.py
+      - name: Black check
+        run: python -m black --check --diff src tests
+      - name: Ruff check
+        run: python -m ruff check src tests
+      - name: Membership regressions
+        run: python -m pytest -q tests/test_project_membership_mutation.py tests/test_project_access.py tests/test_integration_management_history.py --tb=short
+      - name: Publish verified blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          for file in src/uagent/runtime/project_membership_mutation.py src/uagent/runtime/memory_store.py tests/test_project_membership_mutation.py; do
+            python -c 'import json,sys; p=sys.argv[1]; json.dump({"content":open(p,encoding="utf-8").read(),"encoding":"utf-8"},open("/tmp/blob.json","w",encoding="utf-8"))' "$file"
+            sha=$(gh api -X POST repos/awaku7/agentcli/git/blobs --input /tmp/blob.json --jq .sha)
+            echo "VERIFIED_BLOB $file $sha"
+          done
