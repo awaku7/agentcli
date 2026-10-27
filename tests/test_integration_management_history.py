@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import sqlite3
+import json
+import os
 
 from fastapi.testclient import TestClient
 import pytest
@@ -394,3 +396,459 @@ def test_members_capability_requires_config(members_client, monkeypatch):
     response = client.get(url, headers=headers)
     assert "project.membership.read" not in response.json()["capabilities"]
     assert _get_members(client).status_code == 503
+
+
+PROJECT_B_TOKEN = "second-project-service-token-with-32-plus-characters"
+READ_ONLY_B_TOKEN = "only-sessions-project-b-token-32-plus-characters"
+
+
+def _set_multi_scopes(monkeypatch, tmp_path, records):
+    path = tmp_path / "management-scopes.json"
+    path.write_text(
+        json.dumps({"version": 1, "scopes": records}),
+        encoding="utf-8",
+    )
+    path.chmod(0o600)
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_SCOPES_FILE", str(path))
+    return path
+
+
+def _scope(token, project, principal, capabilities=None, instance_id=INSTANCE_ID):
+    return {
+        "instance_id": instance_id,
+        "token": token,
+        "principal_id": principal,
+        "project_id": project,
+        "capabilities": capabilities
+        or [
+            "session.metadata.read",
+            "project.membership.read",
+        ],
+    }
+
+
+def test_multiple_project_scopes_do_not_cross_sessions(
+    read_client, tmp_path, monkeypatch
+):
+    client, session_path = read_client
+    _set_multi_scopes(
+        monkeypatch,
+        tmp_path,
+        [_scope(PROJECT_B_TOKEN, "project-b", "owner-b")],
+    )
+    with SessionStore(session_path) as store:
+        session = store.create_session(project="project-b", entry_point="web")
+        store.bind_identity_context(
+            session.session_id, principal_id="owner-b", room_id="secret-room"
+        )
+        store.append_message(session.session_id, "user", "private-project-b-owner-b")
+
+    monkeypatch.setattr(
+        routes_integration,
+        "_authorized_project",
+        lambda principal, project: (principal, project)
+        in {("owner-a", "project-a"), ("owner-b", "project-b")},
+    )
+    second = _get(client, token=PROJECT_B_TOKEN, project="project-b")
+    assert second.status_code == 200
+    assert len(second.json()["items"]) == 1
+    assert second.json()["items"][0]["id"] == session.session_id
+    assert "private-project-b-owner-b" not in second.text
+    assert "private-c" not in second.text
+    assert _get(client, token=PROJECT_B_TOKEN, project="project-a").status_code == 403
+    assert _get(client, token=TOKEN, project="project-b").status_code == 403
+    assert len(_get(client, token=TOKEN, project="project-a").json()["items"]) == 1
+    assert _get(client, token=MANIFEST_TOKEN).status_code == 401
+
+
+def test_second_project_members_requires_its_own_explicit_admin(
+    members_client, tmp_path, monkeypatch
+):
+    client, membership_path = members_client
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-b", "owner-b")]
+    )
+    with sqlite3.connect(membership_path) as conn:
+        conn.execute(
+            "INSERT INTO projects(project_id, status, created_at, updated_at) "
+            "VALUES ('project-b', 'active', 1, 1)"
+        )
+        conn.execute(
+            "INSERT INTO project_memberships "
+            "(project_id, principal_id, role, status, granted_by, "
+            "created_at, updated_at) "
+            "VALUES ('project-b', 'owner-b', 'admin', 'active', 'manual', 1, 1)"
+        )
+        conn.execute(
+            "INSERT INTO project_memberships "
+            "(project_id, principal_id, role, status, granted_by, "
+            "created_at, updated_at) "
+            "VALUES ('project-b', 'viewer-b', 'viewer', 'active', 'manual', 1, 1)"
+        )
+    response = _get_members(client, project="project-b", token=PROJECT_B_TOKEN)
+    assert response.status_code == 200
+    assert response.json()["project_id"] == "project-b"
+    assert {x["principal_id"] for x in response.json()["members"]} == {
+        "owner-b",
+        "viewer-b",
+    }
+    assert (
+        _get_members(client, project="project-a", token=PROJECT_B_TOKEN).status_code
+        == 403
+    )
+    assert _get_members(client, project="project-b", token=TOKEN).status_code == 403
+    with sqlite3.connect(membership_path) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET role = 'viewer' "
+            "WHERE project_id = 'project-b' AND principal_id = 'owner-b'"
+        )
+    assert (
+        _get_members(client, project="project-b", token=PROJECT_B_TOKEN).status_code
+        == 403
+    )
+    with sqlite3.connect(membership_path) as conn:
+        conn.execute(
+            "UPDATE project_memberships SET role = 'admin', "
+            "granted_by = 'directory-policy' "
+            "WHERE project_id = 'project-b' AND principal_id = 'owner-b'"
+        )
+    assert (
+        _get_members(client, project="project-b", token=PROJECT_B_TOKEN).status_code
+        == 403
+    )
+
+
+def test_capability_restriction_is_enforced_per_token(
+    read_client, tmp_path, monkeypatch
+):
+    client, path = read_client
+    _set_multi_scopes(
+        monkeypatch,
+        tmp_path,
+        [
+            _scope(
+                READ_ONLY_B_TOKEN,
+                "project-b",
+                "owner-b",
+                capabilities=["session.metadata.read"],
+            )
+        ],
+    )
+    monkeypatch.setattr(routes_integration, "_authorized_project", lambda *_: True)
+    response = _get(client, token=READ_ONLY_B_TOKEN, project="project-b")
+    assert response.status_code == 200
+    assert (
+        _get_members(client, project="project-b", token=READ_ONLY_B_TOKEN).status_code
+        == 403
+    )
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert "project.membership.read" in manifest.json()["capabilities"]
+    assert "session.metadata.read" in manifest.json()["capabilities"]
+
+
+def test_scope_file_can_be_used_without_legacy_credentials(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    for key in (
+        "UAGENT_MANAGEMENT_READ_TOKEN",
+        "UAGENT_MANAGEMENT_READ_PRINCIPAL",
+        "UAGENT_MANAGEMENT_READ_PROJECT_ID",
+    ):
+        monkeypatch.delenv(key)
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    response = _get(client, token=PROJECT_B_TOKEN)
+    assert response.status_code == 200
+    assert _get(client, token=TOKEN).status_code == 401
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert "session.metadata.read" in manifest.json()["capabilities"]
+
+
+def test_scope_file_token_rotation_is_effective_without_restart(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    old_token = PROJECT_B_TOKEN
+    new_token = READ_ONLY_B_TOKEN
+    file = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(old_token, "project-a", "owner-a")]
+    )
+    assert _get(client, token=old_token).status_code == 200
+    file.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "scopes": [_scope(new_token, "project-a", "owner-a")],
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert _get(client, token=old_token).status_code == 401
+    assert _get(client, token=new_token).status_code == 200
+
+
+@pytest.mark.parametrize(
+    "records",
+    [
+        lambda: [_scope(TOKEN, "project-b", "owner-b")],
+        lambda: [_scope(PROJECT_B_TOKEN, "project-b", "owner-b", instance_id="other")],
+        lambda: [
+            _scope(
+                PROJECT_B_TOKEN,
+                "project-b",
+                "owner-b",
+                capabilities=["project.membership.write"],
+            )
+        ],
+        lambda: [_scope(PROJECT_B_TOKEN, "project-b", "owner-b")] * 2,
+        lambda: [_scope("short", "project-b", "owner-b")],
+        lambda: [
+            _scope(
+                PROJECT_B_TOKEN,
+                "project-b",
+                "owner-b",
+                capabilities=["session.metadata.read", "session.metadata.read"],
+            )
+        ],
+    ],
+)
+def test_malformed_or_ambiguous_scope_configuration_fails_closed(
+    read_client, tmp_path, monkeypatch, records
+):
+    client, _ = read_client
+    _set_multi_scopes(monkeypatch, tmp_path, records())
+    assert _get(client).status_code == 503
+    assert _get_members(client).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert manifest.status_code == 200
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+    assert "project.membership.read" not in manifest.json()["capabilities"]
+
+
+def test_absent_scope_file_rejects_all_service_requests(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    monkeypatch.setenv(
+        "UAGENT_MANAGEMENT_READ_SCOPES_FILE",
+        str(tmp_path / "no-such-scopes-file.json"),
+    )
+    assert _get(client).status_code == 503
+    assert _get_members(client).status_code == 503
+
+
+def test_scope_file_requires_private_permissions(read_client, tmp_path, monkeypatch):
+    if os.name == "nt":
+        pytest.skip("Unix permission bits unavailable")
+    client, _ = read_client
+    path = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    path.chmod(0o644)
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 503
+    path.chmod(0o600)
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 200
+
+
+def test_scoped_config_never_exposes_secret_in_errors(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    path = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-b", "owner-b")]
+    )
+    path.write_text("not-json", encoding="utf-8")
+    response = _get(client, token=PROJECT_B_TOKEN, project="project-b")
+    assert response.status_code == 503
+    assert PROJECT_B_TOKEN not in response.text
+    assert str(path) not in response.text
+
+
+def test_manifest_token_cannot_be_used_as_file_read_token(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(MANIFEST_TOKEN, "project-a", "owner-a")]
+    )
+    assert _get(client, token=MANIFEST_TOKEN).status_code == 503
+    assert _get(client).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert manifest.status_code == 200
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+
+
+def test_legacy_read_token_cannot_reuse_manifest_credential(read_client, monkeypatch):
+    client, _ = read_client
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_TOKEN", MANIFEST_TOKEN)
+    assert _get(client, token=MANIFEST_TOKEN).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+
+
+def test_scope_file_replacement_during_fd_check_reads_opened_file(
+    read_client, tmp_path, monkeypatch
+):
+    if os.name == "nt":
+        pytest.skip("Unix file descriptor swap regression")
+    client, _ = read_client
+    original = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    replacement = tmp_path / "replacement.json"
+    replacement.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "scopes": [_scope(READ_ONLY_B_TOKEN, "project-a", "owner-a")],
+            }
+        ),
+        encoding="utf-8",
+    )
+    replacement.chmod(0o600)
+    actual_fstat = os.fstat
+    swapped = []
+
+    def swap_after_open(fd):
+        if not swapped:
+            swapped.append(True)
+            os.replace(replacement, original)
+        return actual_fstat(fd)
+
+    monkeypatch.setattr(routes_integration.os, "fstat", swap_after_open)
+    response = _get(client, token=PROJECT_B_TOKEN)
+    assert response.status_code == 200
+    assert swapped == [True]
+    # Following requests pick up the new file. The in-flight request used
+    # the already-open original descriptor, rather than re-opening by path.
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 401
+    assert _get(client, token=READ_ONLY_B_TOKEN).status_code == 200
+
+
+def test_scope_file_rejects_insecure_opened_fd_owner(
+    read_client, tmp_path, monkeypatch
+):
+    if os.name == "nt":
+        pytest.skip("Unix owner check")
+    client, _ = read_client
+    _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    real_fstat = os.fstat
+
+    def foreign_owned(fd):
+        metadata = real_fstat(fd)
+
+        class FakeStat:
+            st_mode = metadata.st_mode
+            st_uid = os.geteuid() + 1000001
+
+        return FakeStat()
+
+    monkeypatch.setattr(routes_integration.os, "fstat", foreign_owned)
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 503
+
+
+def test_scope_file_refuses_symlink_even_when_target_is_private(
+    read_client, tmp_path, monkeypatch
+):
+    client, _ = read_client
+    actual = _set_multi_scopes(
+        monkeypatch, tmp_path, [_scope(PROJECT_B_TOKEN, "project-a", "owner-a")]
+    )
+    symlink = tmp_path / "scope-symlink.json"
+    try:
+        symlink.symlink_to(actual)
+    except (NotImplementedError, OSError):
+        pytest.skip("symlink creation not permitted")
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_SCOPES_FILE", str(symlink))
+    assert _get(client, token=PROJECT_B_TOKEN).status_code == 503
+
+
+class _FakeDacl:
+    def __init__(self, aces):
+        self.aces = aces
+
+    def GetAceCount(self):
+        return len(self.aces)
+
+    def GetAce(self, index):
+        return self.aces[index]
+
+
+def test_windows_dacl_validation_allows_only_trusted_sids():
+    allowed = {"S-1-5-21-owner", "S-1-5-18", "S-1-5-32-544"}
+    routes_integration._validate_windows_dacl(
+        _FakeDacl([((0, 0), 0x1, "S-1-5-21-owner"), ((0, 0), 0x1, "S-1-5-18")]),
+        "S-1-5-21-owner",
+        allowed,
+        str,
+    )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([((0, 0), 0x1, "S-1-5-32-545")]),
+            "S-1-5-21-owner",
+            allowed,
+            str,
+        )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([]),
+            "S-1-5-21-foreign",
+            allowed,
+            str,
+        )
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(None, "S-1-5-21-owner", allowed, str)
+    with pytest.raises(ValueError):
+        routes_integration._validate_windows_dacl(
+            _FakeDacl([((5, 0), 0x1, "S-1-5-21-owner")]), "S-1-5-21-owner", allowed, str
+        )
+
+
+def test_fifo_scope_file_is_rejected_without_blocking(
+    read_client, tmp_path, monkeypatch
+):
+    if os.name == "nt" or not hasattr(os, "mkfifo"):
+        pytest.skip("FIFO regression is Unix-specific")
+    client, _ = read_client
+    fifo = tmp_path / "read-scopes.fifo"
+    os.mkfifo(fifo, 0o600)
+    monkeypatch.setenv("UAGENT_MANAGEMENT_READ_SCOPES_FILE", str(fifo))
+    real_open = os.open
+    seen = []
+
+    def checked_open(path, flags, *args, **kwargs):
+        if os.fspath(path) == os.fspath(fifo):
+            # Fail immediately rather than block the test on older code.
+            assert flags & os.O_NONBLOCK, "FIFO open would block the API"
+            seen.append(flags)
+        return real_open(path, flags, *args, **kwargs)
+
+    monkeypatch.setattr(routes_integration.os, "open", checked_open)
+    assert _get(client).status_code == 503
+    assert _get_members(client).status_code == 503
+    manifest = client.get(
+        "/api/admin/integration/v1/manifest",
+        headers={"Authorization": f"Bearer {MANIFEST_TOKEN}"},
+    )
+    assert manifest.status_code == 200
+    assert "session.metadata.read" not in manifest.json()["capabilities"]
+    assert len(seen) == 3
