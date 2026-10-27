@@ -1449,6 +1449,17 @@ def _try_registry_simple_chat_round(
         normalized_result = registry_result_to_legacy_tuple(result)
         if normalized_result is None:
             return None
+        if use_responses_api and result.tool_calls and result.reasoning_text:
+            # Registry rounds collect stream events instead of displaying them
+            # during execution. Preserve the reasoning summary on tool turns,
+            # which do not reach the final-answer renderer.
+            from .runtime.reasoning_renderer import render_tool_call_reasoning
+
+            render_tool_call_reasoning(
+                result.reasoning_text,
+                provider=provider.capitalize(),
+                core=core,
+            )
         return normalized_result
     except Exception:
         return None

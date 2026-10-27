@@ -277,10 +277,14 @@ class OpenAICompatibleRuntime:
                 payload,
                 responses=projection.transport == "responses",
             )
-        elif projection.provider == "meta" and projection.transport == "responses":
-            from .llm_meta_responses import apply_meta_responses_reasoning_summary
+        elif projection.transport == "responses" and projection.provider in {
+            "meta",
+            "openai",
+            "azure",
+        }:
+            from .llm_responses_reasoning import apply_responses_reasoning_summary
 
-            apply_meta_responses_reasoning_summary(
+            apply_responses_reasoning_summary(
                 payload,
                 provider=projection.provider,
             )
@@ -440,8 +444,20 @@ class OpenAICompatibleRuntime:
         if isinstance(text, str) and text:
             yield self._event("TextDelta", {"text": text})
         tool_calls: dict[str, dict[str, str]] = {}
+        debug_reasoning_text: list[str] = []
+        debug_summary_text: list[str] = []
         for index, item in enumerate(getattr(response, "output", None) or []):
-            if str(getattr(item, "type", "") or "") != "function_call":
+            item_type = str(getattr(item, "type", "") or "")
+            if item_type == "reasoning":
+                from .responses_common import _reasoning_item_debug_texts
+
+                raw_text, summary_text = _reasoning_item_debug_texts(item)
+                debug_reasoning_text.append(raw_text)
+                debug_summary_text.append(summary_text)
+                if summary_text:
+                    yield self._event("ReasoningDelta", {"text": summary_text})
+                continue
+            if item_type != "function_call":
                 continue
             call_id = str(getattr(item, "call_id", "") or getattr(item, "id", "") or "")
             if not call_id:
@@ -465,6 +481,13 @@ class OpenAICompatibleRuntime:
                     "arguments_fragment": arguments,
                 },
             )
+        from .responses_common import _emit_responses_reasoning_debug
+
+        _emit_responses_reasoning_debug(
+            self._provider,
+            reasoning_text="".join(debug_reasoning_text),
+            summary_text="".join(debug_summary_text),
+        )
         yield from self._complete_tools(tool_calls)
         response_id = getattr(response, "id", None)
         data = {"response_id": str(response_id)} if response_id else {}
@@ -536,6 +559,9 @@ class OpenAICompatibleRuntime:
         tool_calls: dict[str, dict[str, str]] = {}
         item_to_call: dict[str, str] = {}
         pending_tool_deltas: dict[str, list[str]] = {}
+        reasoning_text_deltas: list[str] = []
+        summary_text_deltas: list[str] = []
+        summary_delta_seen = False
         text_delta_seen = False
 
         def ensure_call(call_id: str) -> dict[str, str]:
@@ -611,9 +637,19 @@ class OpenAICompatibleRuntime:
                 "response.reasoning_summary_text.delta",
                 "response.reasoning_text.delta",
             }:
-                yield self._event(
-                    "ReasoningDelta", {"text": str(getattr(event, "delta", "") or "")}
-                )
+                delta = getattr(event, "delta", None)
+                if isinstance(delta, str) and delta:
+                    if event_type == "response.reasoning_summary_text.delta":
+                        summary_delta_seen = True
+                        summary_text_deltas.append(delta)
+                        yield self._event("ReasoningDelta", {"text": delta})
+                    else:
+                        reasoning_text_deltas.append(delta)
+                        if (self._provider or "").strip().lower() not in {
+                            "openai",
+                            "azure",
+                        }:
+                            yield self._event("ReasoningDelta", {"text": delta})
             elif event_type == "response.function_call_arguments.delta":
                 event_id = str(
                     getattr(event, "item_id", "") or getattr(event, "call_id", "") or ""
@@ -672,6 +708,31 @@ class OpenAICompatibleRuntime:
                     ensure_call(call_id)["arguments"] = arguments
             elif event_type == "response.completed":
                 response = getattr(event, "response", None)
+                response_output = _mapping_value(response, "output") or ()
+                final_reasoning_text: list[str] = []
+                final_summary_text: list[str] = []
+                from .responses_common import (
+                    _emit_responses_reasoning_debug,
+                    _reasoning_item_debug_texts,
+                )
+
+                for output_item in response_output:
+                    if _mapping_value(output_item, "type") != "reasoning":
+                        continue
+                    raw_text, summary_text = _reasoning_item_debug_texts(output_item)
+                    if raw_text:
+                        final_reasoning_text.append(raw_text)
+                    if summary_text:
+                        final_summary_text.append(summary_text)
+                completed_summary = "".join(final_summary_text)
+                if completed_summary and not summary_delta_seen:
+                    yield self._event("ReasoningDelta", {"text": completed_summary})
+                _emit_responses_reasoning_debug(
+                    self._provider,
+                    reasoning_text="".join(reasoning_text_deltas)
+                    or "".join(final_reasoning_text),
+                    summary_text="".join(summary_text_deltas) or completed_summary,
+                )
                 fallback_text = ""
                 if not text_delta_seen and response is not None:
                     fallback_text = _extract_response_text(response)

@@ -146,7 +146,7 @@ from .providers.llm_deepseek_responses import (
     apply_deepseek_responses_compat,
     normalize_deepseek_responses_effort,
 )
-from .providers.llm_meta_responses import apply_meta_responses_reasoning_summary
+from .providers.llm_responses_reasoning import apply_responses_reasoning_summary
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
@@ -641,7 +641,7 @@ def _call_openai_azure_round(
                         # minimal/xhigh for a specific model, retry once with a
                         # fallback value below.
                         resp_kwargs["reasoning"] = {"effort": _effort_used}
-                        apply_meta_responses_reasoning_summary(
+                        apply_responses_reasoning_summary(
                             resp_kwargs,
                             provider=provider,
                         )
@@ -843,6 +843,15 @@ def _call_openai_azure_round(
                         _resp_rid,
                         _resp_output_items,
                     ) = _resp_result
+                    # Auto mode uses the non-streaming Responses path. When the
+                    # response requests tools, the final-answer renderer will
+                    # not run for this turn, so render its summary here.
+                    if reasoning_content and tool_calls_list:
+                        render_tool_call_reasoning(
+                            reasoning_content,
+                            provider=provider.capitalize(),
+                            core=core,
+                        )
                     if core is not None:
                         try:
                             setattr(
@@ -891,7 +900,7 @@ def _call_openai_azure_round(
                             )
                             (
                                 assistant_text,
-                                _retry_reasoning,
+                                reasoning_content,
                                 tool_calls_list,
                                 _retry_rid,
                                 _retry_output_items,

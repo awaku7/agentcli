@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+import pytest
+
 from uagent.providers.responses_common import (
     parse_responses_response,
     parse_responses_stream,
@@ -70,6 +72,7 @@ def test_parse_responses_stream_uses_stream_callbacks() -> None:
     terminals: list[str] = []
     stream = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
+        SimpleNamespace(type="response.reasoning_text.delta", delta="raw reasoning"),
         SimpleNamespace(type="response.reasoning_summary_text.delta", delta="internal"),
         SimpleNamespace(
             type="response.output_item.done",
@@ -101,6 +104,87 @@ def test_parse_responses_stream_uses_stream_callbacks() -> None:
     assert reasoning == ["internal"]
     assert tool_calls and tool_calls[0]["id"] == "call_1"
     assert terminals == ["ResponseStarted", "ResponseCompleted"]
+
+
+def test_parse_responses_stream_debug_prints_reasoning_and_summary_separately(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES_REASONING_DEBUG", "1")
+    stream = [
+        SimpleNamespace(type="response.reasoning_text.delta", delta="Long raw text"),
+        SimpleNamespace(
+            type="response.reasoning_summary_text.delta", delta="Short summary"
+        ),
+    ]
+
+    parse_responses_stream(stream, provider="openai")
+
+    output = capsys.readouterr().err
+    assert "[Responses debug] reasoning_text:" in output
+    assert "Long raw text" in output
+    assert "[Responses debug] summary_text:" in output
+    assert "Short summary" in output
+
+
+def test_parse_responses_stream_renders_final_reasoning_summary_item(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES_REASONING_DEBUG", "1")
+    reasoning: list[str] = []
+    item = SimpleNamespace(
+        type="reasoning",
+        id="reasoning_1",
+        summary=[SimpleNamespace(type="summary_text", text="Final summary")],
+        content=[SimpleNamespace(type="reasoning_text", text="raw reasoning")],
+    )
+    stream = [
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_1", output=[item], usage=None),
+        )
+    ]
+
+    result = parse_responses_stream(
+        stream,
+        callbacks=StreamCallbacks(on_reasoning=reasoning.append),
+    )
+
+    assert result[1] == "Final summary"
+    assert reasoning == ["Final summary"]
+    assert result[3] == "resp_1"
+    assert result[4][0]["type"] == "reasoning"
+    debug_output = capsys.readouterr().err
+    assert "[Responses debug] reasoning_text:" in debug_output
+    assert "raw reasoning" in debug_output
+    assert "[Responses debug] summary_text:" in debug_output
+    assert "Final summary" in debug_output
+
+
+def test_parse_responses_response_uses_summary_not_reasoning_content(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES_REASONING_DEBUG", "1")
+    response = SimpleNamespace(
+        id="resp_2",
+        usage=None,
+        output=[
+            SimpleNamespace(
+                type="reasoning",
+                id="reasoning_2",
+                summary=[SimpleNamespace(type="summary_text", text="Summary only")],
+                content=[SimpleNamespace(type="reasoning_text", text="Raw reasoning")],
+            )
+        ],
+    )
+
+    _, reasoning, _, _, _ = parse_responses_response(response, provider="openai")
+
+    assert reasoning == "Summary only"
+    debug_output = capsys.readouterr().err
+    assert "[Responses debug] reasoning_text:" in debug_output
+    assert "Raw reasoning" in debug_output
+    assert "[Responses debug] summary_text:" in debug_output
+    assert "Summary only" in debug_output
 
 
 __all__ = []

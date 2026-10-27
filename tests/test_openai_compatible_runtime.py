@@ -298,6 +298,34 @@ def test_meta_responses_runtime_requests_reasoning_summary(
     assert request.payload["reasoning"]["summary"] == "auto"
 
 
+@pytest.mark.parametrize("provider", ["openai", "azure"])
+def test_openai_and_azure_responses_runtime_request_reasoning_summary(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    provider: str,
+) -> None:
+    monkeypatch.setenv("UAGENT_REASONING", "medium")
+    monkeypatch.setenv("UAGENT_RESPONSES_REASONING_DEBUG", "1")
+    plan = _plan()
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider=provider,
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={"reasoning": {"effort": "medium"}},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["reasoning"] == {"effort": "medium", "summary": "auto"}
+    debug_output = capsys.readouterr().err
+    assert f"[Responses debug] request: provider={provider}" in debug_output
+
+
 def test_openrouter_chat_runtime_applies_request_compatibility(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -517,6 +545,53 @@ def test_responses_runtime_recovers_text_from_completed_response() -> None:
         "ResponseCompleted",
     ]
     assert normalized[1].data["text"] == "hello"
+
+
+@pytest.mark.parametrize("provider", ["openai", "azure"])
+def test_responses_runtime_recovers_final_summary_and_debug_texts(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], provider: str
+) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES_REASONING_DEBUG", "1")
+    reasoning_item = SimpleNamespace(
+        type="reasoning",
+        summary=[SimpleNamespace(type="summary_text", text="Short summary")],
+        content=[SimpleNamespace(type="reasoning_text", text="Long raw reasoning")],
+    )
+    client = _Client(
+        events=[
+            SimpleNamespace(
+                type="response.completed",
+                response=SimpleNamespace(
+                    id="resp_1", output=[reasoning_item], output_text="answer"
+                ),
+            )
+        ]
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider=provider,
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    reasoning_events = [event for event in events if event.type == "ReasoningDelta"]
+    assert [event.data["text"] for event in reasoning_events] == ["Short summary"]
+    debug_output = capsys.readouterr().err
+    assert "[Responses debug] reasoning_text:" in debug_output
+    assert "Long raw reasoning" in debug_output
+    assert "[Responses debug] summary_text:" in debug_output
+    assert "Short summary" in debug_output
 
 
 def test_responses_runtime_debug_is_opt_in_and_metadata_only(
@@ -740,7 +815,7 @@ def test_responses_serialization_preserves_native_generation_options() -> None:
 
     request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
 
-    assert request.payload["reasoning"] == {"effort": "low"}
+    assert request.payload["reasoning"] == {"effort": "low", "summary": "auto"}
     assert request.payload["text"]["format"]["type"] == "json_schema"
     assert "input" in request.payload
     assert "messages" not in request.payload

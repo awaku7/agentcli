@@ -680,6 +680,65 @@ def debug_stream_enabled() -> bool:
     return websearch_debug_enabled()
 
 
+def _responses_reasoning_debug_enabled() -> bool:
+    return (env_get("UAGENT_RESPONSES_REASONING_DEBUG", "") or "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
+def _emit_responses_reasoning_debug(
+    provider: str, *, reasoning_text: str, summary_text: str
+) -> None:
+    """Print the two distinct Responses reasoning fields for diagnosis only."""
+    if not _responses_reasoning_debug_enabled():
+        return
+    if (provider or "").strip().lower() not in {"openai", "azure"}:
+        return
+    print(
+        "[Responses debug] reasoning_text:\n"
+        + (reasoning_text or "<not returned>")
+        + "\n[Responses debug] summary_text:\n"
+        + (summary_text or "<not returned>"),
+        file=sys.stderr,
+        flush=True,
+    )
+
+
+def _reasoning_item_debug_texts(item: Any) -> tuple[str, str]:
+    """Return (reasoning_text, summary_text) from a Responses reasoning item."""
+    item_dict = item if isinstance(item, dict) else responses_item_to_dict(item)
+    if not isinstance(item_dict, dict):
+        return "", ""
+
+    def _parts(value: Any) -> list[Any]:
+        if value is None:
+            return []
+        return list(value) if isinstance(value, (list, tuple)) else [value]
+
+    raw_parts: list[str] = []
+    summary_parts: list[str] = []
+    for part in _parts(item_dict.get("content")):
+        part_dict = part if isinstance(part, dict) else responses_item_to_dict(part)
+        if not isinstance(part_dict, dict):
+            continue
+        part_type = as_str(part_dict.get("type")).strip().lower()
+        text = as_str(part_dict.get("text") or part_dict.get("reasoning_text") or "")
+        if part_type in {"reasoning_text", "reasoning"} and text:
+            raw_parts.append(text)
+    for part in _parts(item_dict.get("summary")):
+        part_dict = part if isinstance(part, dict) else responses_item_to_dict(part)
+        if not isinstance(part_dict, dict):
+            continue
+        part_type = as_str(part_dict.get("type")).strip().lower()
+        text = as_str(part_dict.get("text") or part_dict.get("summary_text") or "")
+        if part_type in {"summary_text", "text"} and text:
+            summary_parts.append(text)
+    return "".join(raw_parts), "".join(summary_parts)
+
+
 def debug_emit(core: Any, stage: str, **payload: Any) -> None:
     if not debug_stream_enabled():
         return
@@ -877,6 +936,9 @@ def parse_responses_response(
     assistant_text = ""
     reasoning_content = ""
     tool_calls_list: list[dict[str, Any]] = []
+    is_openai_responses = (provider or "").strip().lower() in {"openai", "azure"}
+    debug_reasoning_text_parts: list[str] = []
+    debug_summary_text_parts: list[str] = []
     output_items: list[dict[str, Any]] = []
     seen_web_search_ids: set[str] = set()
 
@@ -885,7 +947,11 @@ def parse_responses_response(
             item_dict = responses_item_to_dict(item)
             if item_dict is not None:
                 output_items.append(item_dict)
-            item_type = as_str(getattr(item, "type", "")).strip().lower()
+            item_type = (
+                as_str((item_dict or {}).get("type") or getattr(item, "type", ""))
+                .strip()
+                .lower()
+            )
             if item_type == "message":
                 for c in getattr(item, "content", []) or []:
                     ct = getattr(c, "type", None)
@@ -907,16 +973,28 @@ def parse_responses_response(
             # Meta may expose reasoning only as summary_text blocks on a
             # reasoning output item. Preserve those summaries for display.
             elif item_type == "reasoning":
-                parts = (
-                    getattr(item, "summary", None)
-                    or getattr(item, "content", None)
-                    or []
+                raw_text, summary_text = _reasoning_item_debug_texts(
+                    item_dict if item_dict is not None else item
                 )
+                debug_reasoning_text_parts.append(raw_text)
+                debug_summary_text_parts.append(summary_text)
+                if is_openai_responses:
+                    reasoning_content += summary_text
+                    continue
+                parts = getattr(item, "summary", None)
+                if not parts:
+                    parts = getattr(item, "content", None)
+                parts = parts or []
                 if not isinstance(parts, (list, tuple)):
                     parts = [parts]
                 for part in parts:
                     part_type = as_str(getattr(part, "type", "")).lower()
-                    if part_type in {"summary_text", "text", "reasoning"}:
+                    accepted_types = (
+                        {"summary_text", "text"}
+                        if is_openai_responses
+                        else {"summary_text", "text", "reasoning"}
+                    )
+                    if part_type in accepted_types:
                         text = as_str(
                             getattr(part, "text", None)
                             or getattr(part, "summary_text", None)
@@ -1008,6 +1086,12 @@ def parse_responses_response(
         if recovered_tool_calls:
             tool_calls_list = recovered_tool_calls
 
+    _emit_responses_reasoning_debug(
+        provider,
+        reasoning_text="".join(debug_reasoning_text_parts),
+        summary_text="".join(debug_summary_text_parts),
+    )
+
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", output_items)
@@ -1041,6 +1125,7 @@ def parse_responses_stream(
     """
 
     callbacks = callbacks or StreamCallbacks()
+    is_openai_responses = (provider or "").strip().lower() in {"openai", "azure"}
     debug_env = (env_get("UAGENT_WEBSEARCH_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
 
@@ -1058,6 +1143,8 @@ def parse_responses_stream(
 
     assistant_text_parts: list[str] = []
     reasoning_parts: list[str] = []
+    debug_reasoning_text_parts: list[str] = []
+    debug_summary_text_parts: list[str] = []
     output_items: list[dict[str, Any]] = []
     _seen_output_item_keys: set[str] = set()
     _reasoning_printed = False
@@ -1067,6 +1154,19 @@ def parse_responses_stream(
     item_id_map: dict[str, str] = {}
     _stream_response_id: Optional[str] = None
     _stream_interrupted = False
+
+    def _remember_output_item(item: Any) -> None:
+        item_dict = responses_item_to_dict(item) if item is not None else None
+        if not isinstance(item_dict, dict) or not item_dict.get("type"):
+            return
+        item_key = as_str(
+            item_dict.get("id")
+            or item_dict.get("call_id")
+            or f"{item_dict.get('type')}:{len(output_items)}"
+        )
+        if item_key not in _seen_output_item_keys:
+            output_items.append(item_dict)
+            _seen_output_item_keys.add(item_key)
 
     def _print_delta(s: str) -> None:
         if not s:
@@ -1182,6 +1282,12 @@ def parse_responses_stream(
                         except Exception:
                             pass
 
+            if ev_type == "response.completed":
+                completed_response = getattr(ev, "response", None)
+                if completed_response is not None:
+                    for output_item in getattr(completed_response, "output", []) or []:
+                        _remember_output_item(output_item)
+
             if "web_search_call" in as_str(ev_type).lower():
                 info = extract_web_search_call_info(ev)
                 if info:
@@ -1199,11 +1305,15 @@ def parse_responses_stream(
                 _print_delta(delta_text)
 
             # Reasoning text deltas (stream immediately; do not break on '.')
-            if ev_type in {
-                "response.reasoning_text.delta",
-                # Meta may emit the Responses reasoning summary event.
-                "response.reasoning_summary_text.delta",
-            }:
+            is_summary_delta = ev_type == "response.reasoning_summary_text.delta"
+            is_reasoning_delta = ev_type == "response.reasoning_text.delta"
+            debug_delta = getattr(ev, "delta", None)
+            if isinstance(debug_delta, str) and debug_delta:
+                if is_summary_delta:
+                    debug_summary_text_parts.append(debug_delta)
+                elif is_reasoning_delta:
+                    debug_reasoning_text_parts.append(debug_delta)
+            if is_summary_delta or (is_reasoning_delta and not is_openai_responses):
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
@@ -1321,15 +1431,7 @@ def parse_responses_stream(
             elif ev_type == "response.output_item.done":
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
                 item_dict = responses_item_to_dict(item) if item is not None else None
-                if isinstance(item_dict, dict) and item_dict.get("type"):
-                    _item_key = as_str(
-                        item_dict.get("id")
-                        or item_dict.get("call_id")
-                        or f"{item_dict.get('type')}:{len(output_items)}"
-                    )
-                    if _item_key not in _seen_output_item_keys:
-                        output_items.append(item_dict)
-                        _seen_output_item_keys.add(_item_key)
+                _remember_output_item(item)
                 if item is not None and getattr(item, "type", None) == "compaction":
                     _emit_compaction_notice(core)
                 if (
@@ -1438,13 +1540,78 @@ def parse_responses_stream(
                 }
             )
 
-    reasoning_content = "".join(reasoning_parts)
     if not tool_calls_list:
         assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
             assistant_text
         )
         if recovered_tool_calls:
             tool_calls_list = recovered_tool_calls
+
+    # Some Responses-compatible deployments include the summary only on the
+    # completed reasoning output item rather than emitting summary delta events.
+    # In that case, display the final summary once, after streaming is complete.
+    if not reasoning_parts and not _stream_interrupted:
+        for item_dict in output_items:
+            if as_str(item_dict.get("type")).strip().lower() != "reasoning":
+                continue
+            parts = item_dict.get("summary")
+            if not parts and not is_openai_responses:
+                parts = item_dict.get("content")
+            parts = parts or []
+            if not isinstance(parts, (list, tuple)):
+                parts = [parts]
+            for part in parts:
+                if isinstance(part, dict):
+                    part_type = as_str(part.get("type")).strip().lower()
+                    text = as_str(part.get("text") or part.get("summary_text") or "")
+                else:
+                    part_type = as_str(getattr(part, "type", "")).strip().lower()
+                    text = as_str(
+                        getattr(part, "text", None)
+                        or getattr(part, "summary_text", None)
+                        or ""
+                    )
+                accepted_types = (
+                    {"summary_text", "text"}
+                    if is_openai_responses
+                    else {"summary_text", "text", "reasoning"}
+                )
+                if part_type not in accepted_types or not text:
+                    continue
+                reasoning_parts.append(text)
+                if callable(callbacks.on_reasoning):
+                    try:
+                        callbacks.on_reasoning(text)
+                    except Exception:
+                        pass
+                else:
+                    show_reasoning(
+                        text,
+                        provider=(
+                            provider.capitalize() if provider.islower() else provider
+                        ),
+                        is_first=(not _reasoning_printed),
+                        print_fn=_print_delta,
+                        core=core,
+                    )
+                _reasoning_printed = True
+    reasoning_content = "".join(reasoning_parts)
+
+    if not _stream_interrupted and _responses_reasoning_debug_enabled():
+        if not debug_reasoning_text_parts or not debug_summary_text_parts:
+            for item_dict in output_items:
+                if as_str(item_dict.get("type")).strip().lower() != "reasoning":
+                    continue
+                raw_text, summary_text = _reasoning_item_debug_texts(item_dict)
+                if not debug_reasoning_text_parts and raw_text:
+                    debug_reasoning_text_parts.append(raw_text)
+                if not debug_summary_text_parts and summary_text:
+                    debug_summary_text_parts.append(summary_text)
+        _emit_responses_reasoning_debug(
+            provider,
+            reasoning_text="".join(debug_reasoning_text_parts),
+            summary_text="".join(debug_summary_text_parts),
+        )
 
     if callable(callbacks.on_tool_call):
         for tool_call in tool_calls_list:
