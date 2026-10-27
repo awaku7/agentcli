@@ -66,10 +66,10 @@ def apply_membership_change(
         raise ValueError("invalid actor, target or project")
     if type(expected_revision) is not int or expected_revision < 0:
         raise ValueError("expected_revision must be nonnegative integer")
-    if action not in {"grant", "revoke"}:
+    if not isinstance(action, str) or action not in {"grant", "revoke"}:
         raise ValueError("invalid membership action")
     if action == "grant":
-        if role not in ROLES:
+        if not isinstance(role, str) or role not in ROLES:
             raise ValueError("invalid project role")
     elif role is not None:
         raise ValueError("revoke must not specify a role")

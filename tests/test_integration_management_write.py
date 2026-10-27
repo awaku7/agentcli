@@ -392,3 +392,93 @@ def test_large_body_rejected_at_stream_boundary(api):
             ).fetchone()[0]
             == 0
         )
+
+
+def test_browser_mode_allows_only_no_origin_signed_service_posts(api, monkeypatch):
+    """Origin guard must not block machine clients in default browser mode."""
+    client, private, path, _configure, _file = api
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "browser")
+    response = request(client, private)
+    assert response.status_code == 200, response.text
+
+    # A bad browser Origin still goes through the normal Origin guard.
+    payload = {
+        "action": "grant",
+        "target_principal_id": "bob",
+        "expected_revision": 2,
+        "role": "admin",
+    }
+    raw = json.dumps(payload, separators=(",", ":")).encode()
+    headers = signed_headers(private, payload, raw)
+    denied = client.post(
+        BASE, content=raw, headers={**headers, "Origin": "https://evil.example"}
+    )
+    assert denied.status_code == 403
+    assert denied.json()["error"] == "request Origin is not allowed"
+
+    # An unsigned no-Origin request is not authenticated by the exemption.
+    missing_proof = client.post(
+        BASE, content=raw, headers={"Authorization": f"Bearer {WRITE_TOKEN}"}
+    )
+    assert missing_proof.status_code == 401
+
+    # Do not disable the guard for a sibling route or a browser-facing POST.
+    sibling = client.post(BASE + "/other", content=raw, headers=headers)
+    assert sibling.status_code == 403
+    unrelated = client.post("/api/tools-enabled", json={"enabled": True})
+    assert unrelated.status_code == 403
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"action": [], "target_principal_id": "bob", "expected_revision": 1},
+        {
+            "action": {"grant": True},
+            "target_principal_id": "bob",
+            "expected_revision": 1,
+        },
+        {
+            "action": "grant",
+            "target_principal_id": "bob",
+            "expected_revision": 1,
+            "role": [],
+        },
+        {
+            "action": "grant",
+            "target_principal_id": "bob",
+            "expected_revision": 1,
+            "role": {},
+        },
+        {
+            "action": "grant",
+            "target_principal_id": [],
+            "expected_revision": 1,
+            "role": "editor",
+        },
+        {
+            "action": "grant",
+            "target_principal_id": "bob",
+            "expected_revision": [],
+            "role": "editor",
+        },
+        {
+            "action": "grant",
+            "target_principal_id": "bob",
+            "expected_revision": True,
+            "role": "editor",
+        },
+    ],
+)
+def test_signed_malformed_value_types_return_400_not_500(api, payload):
+    client, private, path, _configure, _ = api
+    response = request(client, private, payload)
+    assert response.status_code == 400
+    assert response.json()["error"] == "invalid_mutation"
+    with closing(MemoryStore(path)) as store:
+        assert (
+            store.db.execute(
+                "SELECT COUNT(*) FROM project_membership_mutation_audit"
+            ).fetchone()[0]
+            == 0
+        )

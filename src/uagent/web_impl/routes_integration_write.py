@@ -253,11 +253,29 @@ def _parse_mutation(body: bytes) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError("invalid mutation structure")
     action = payload.get("action")
+    if not isinstance(action, str) or action not in {"grant", "revoke"}:
+        raise ValueError("invalid mutation action")
     allowed = {"action", "target_principal_id", "expected_revision"}
     if action == "grant":
         allowed.add("role")
     if set(payload) != allowed:
         raise ValueError("invalid mutation properties")
+    target = payload["target_principal_id"]
+    if (
+        not isinstance(target, str)
+        or not 1 <= len(target) <= 256
+        or target.strip() != target
+        or type(payload["expected_revision"]) is not int
+        or payload["expected_revision"] < 0
+        or (
+            action == "grant"
+            and (
+                not isinstance(payload["role"], str)
+                or payload["role"] not in {"viewer", "editor", "admin"}
+            )
+        )
+    ):
+        raise ValueError("invalid mutation values")
     return payload
 
 
