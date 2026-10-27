@@ -1,6 +1,6 @@
 # PR-C: UAG project membership write — secure staged implementation
 
-Status: **C0 implemented backend only; remote write endpoint disabled by absence**.
+Status: **C0 and C1 implemented; remote write opt-in, C2 Admin signing client pending**.
 UAG Admin PR-B1 (#8) is read-only. This contract intentionally does **not**
 equate a UAG Admin local username or `users.id` with a UAG `principal_id`.
 
@@ -24,7 +24,7 @@ evaluated/hardened before being reused by C1. The C0 service is the intended
 backend for future UAG Admin delegated updates, not an override for
 `ProjectAccessPolicy` or its identity boundary.
 
-## C1: separate UAG write API (next PR)
+## C1: separate UAG write API (design requirements)
 
 Before any `project.membership.write` route is registered/advertised:
 
@@ -68,6 +68,49 @@ Before any `project.membership.write` route is registered/advertised:
    membership revocation, signed content mismatch, last-admin preservation,
    directory-policy updates, failed audit or nonce insert, and runtime service
    revocation.
+
+## C1 implemented protocol (UAG write API)
+
+C1 is opt-in. UAG provides `POST /api/admin/integration/v1/projects/{project_id}/memberships`, protected by **both** a per-project write-only Bearer token and an Ed25519 operator assertion. It is not a local browser write API.
+
+Set `UAGENT_MANAGEMENT_WRITE_SCOPES_FILE` to an absolute, protected JSON file (Unix owner service/root and mode 0600; Windows validated owner/DACL, symlinks/reparse points forbidden). An example schema with placeholders:
+
+```json
+{
+  "version": 1,
+  "scopes": [
+    {
+      "instance_id": "11111111-1111-4111-8111-111111111111",
+      "project_id": "project-a",
+      "principal_id": "UAG-registered-service-admin",
+      "token": "REPLACE_WITH_INDEPENDENT_WRITE_SECRET_AT_LEAST_32_CHARS",
+      "issuer_id": "trusted-uag-admin-deployment",
+      "public_key": "BASE64URL_NO_PADDING_OF_32_BYTE_ED25519_PUBLIC_KEY"
+    }
+  ]
+}
+```
+
+The UAG service principal must have an **explicit active manually managed admin** membership in that project; the `principal_id` is never copied from an HTTP header, a UAG Admin username, or the signed human identity. This credential cannot duplicate any read token or the manifest token. The full protected configuration is reloaded and validated per request for prompt revocation; malformed/unreadable files fail closed.
+
+```http
+POST /api/admin/integration/v1/projects/project-a/memberships
+Authorization: Bearer <independent-write-token>
+X-UAG-Actor-Assertion: <base64url-JSON>.<base64url-Ed25519-signature>
+Content-Type: application/json
+
+{"action":"grant","target_principal_id":"principal123","role":"editor","expected_revision":1}
+```
+
+Revoke uses exactly `{"action":"revoke","target_principal_id":"principal123","expected_revision":1}`. The initial grant of a missing target uses revision 0; revoked target rows retain their revision for re-grant CAS. No extra body keys are accepted.
+
+The assertion signature covers the *exact UTF-8 bytes* of the base64url JSON segment, containing exactly `issuer_id`, `actor_user_id` (positive integer), `session_version` (nonnegative integer), `audience` (UAG instance UUID), `project_id`, `method` ("POST"), `path` (canonical API path), `body_sha256` (lowercase hex of the exact request bytes), `issued_at`, `expires_at` (Unix seconds, at most 60 s apart) and a fresh random `nonce` (16–128 URL-safe characters). No more than five seconds of future clock skew is allowed; timestamps outside the signed window fail. UAG pins the public key and the trusted `issuer_id`, rather than trusting arbitrary identity assertions.
+
+The local operator ID and signed session version are *audited operator attribution*, not a UAG principal ID. The trusted signing service (future C2) MUST check a live and enabled local admin session, CSRF, approval, and session version **immediately before signing each distinct request**. Reusable pre-signed assertions are forbidden. The C1 UAG verifier cannot query Admin's user database and therefore relies on the pinned issuer to enforce those local conditions.
+
+C1 atomically performs `BEGIN IMMEDIATE` actor UAG admin check, revision CAS, final-manual-admin safety checks, replay nonce insertion, mutation, and audit insertion in the same SQLite transaction. If any step fails, neither nonce nor mutation commits. The resulting audit rows record the UAG authorizing principal *and* signed external issuer/operator/session/nonce. Successful mutations return `api_version`, `instance_id`, `project_id`, `principal_id`, `role`, `status`, `revision` (not history/text). Errors are fail-closed: absent config 404, invalid Bearer or actor signature 401, project/UAG admin denial 403, malformed body 400, stale revision/replay/no-op 409, protected-config/DB/audit failures 503. Responses include `Cache-Control: no-store`.
+
+C1 does not distribute signing private keys, create a signing service, nor enable UAG Admin mutations. Those belong to C2. Without `UAGENT_MANAGEMENT_WRITE_SCOPES_FILE`, write capability is not advertised.
 
 ## C2: UAG Admin client/UI (after C1)
 

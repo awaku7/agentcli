@@ -175,6 +175,32 @@ class MemoryStore:
             "CREATE INDEX IF NOT EXISTS idx_project_member_mutation_audit "
             "ON project_membership_mutation_audit(project_id, created_at)"
         )
+        audit_columns = {
+            str(row["name"])
+            for row in self.db.execute(
+                "PRAGMA table_info(project_membership_mutation_audit)"
+            ).fetchall()
+        }
+        for name, definition in (
+            ("delegation_issuer", "TEXT"),
+            ("delegation_actor_user_id", "INTEGER"),
+            ("delegation_session_version", "INTEGER"),
+            ("delegation_nonce", "TEXT"),
+        ):
+            if name not in audit_columns:
+                self.db.execute(
+                    f"ALTER TABLE project_membership_mutation_audit "
+                    f"ADD COLUMN {name} {definition}"
+                )
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS project_membership_mutation_nonces ("
+            "issuer_id TEXT NOT NULL, nonce TEXT NOT NULL, "
+            "consumed_at REAL NOT NULL, PRIMARY KEY(issuer_id, nonce))"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_membership_nonce_consumed "
+            "ON project_membership_mutation_nonces(consumed_at)"
+        )
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS project_context_sessions ("
             "token_hash TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
