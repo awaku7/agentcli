@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 A szolgáltatóadapterek hosztolt és helyi futtatókörnyezeteket fednek le, többek között:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Válts szolgáltatót a `UAGENT_PROVIDER` használatával; az eszközeid és a felületed nem változik.
+
+**Együttműködés a környezeteddel**
 
 - Fájlok olvasása, létrehozása, szerkesztése, keresése, hash-elése, archiválása és vizsgálata
 - Git-módosítások áttekintése, titkok keresése, tesztek futtatása, lintelés, fordítás és a lefedettség mérése
 - Nagy Python-, TypeScript-, JavaScript-, Go-, Rust-, C/C++-, Java-, C#-, COBOL-, VBA- és egyéb kódbázisok navigálása
 - Böngészők automatizálása Playwrighttal, többoldalas munkafolyamatokkal és letöltésekkel együtt
+
+**Szolgáltatások és eszközök csatlakoztatása**
 
 - **MCP** — külső eszközszerverek csatlakoztatása, beleértve az OAuth-kompatibilis szolgáltatásokat
 - **A2A** — együttműködés más ügynökökkel és kompatibilis szerverekkel
@@ -112,6 +118,8 @@ A szolgáltatóadapterek hosztolt és helyi futtatókörnyezeteket fednek le, t�
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA és UPnP
 - **Media** — képgenerálás/-szerkesztés, hangátírás/-beszéd, kamerafelvétel és QR-kódok
 - **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL és naplóelemzés
+
+**IoT- és fizikai világ vezérlése**
 
 - **SwitchBot** — felhő- és BLE-felfedezés, állapot, vezérlés, kötegelt műveletek és feliratkozások
 - **ECHONET Lite** — japán háztartási készülékek felfedezése és vezérlése, beleértve az INF-értesítéseket

@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Adaptery dostawców obejmują runtime'y hostowane i lokalne, w tym:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Przełączaj dostawców za pomocą `UAGENT_PROVIDER`; Twoje narzędzia i interfejs pozostają bez zmian.
+
+**Praca ze środowiskiem**
 
 - Odczytywać, tworzyć, edytować, wyszukiwać, haszować, archiwizować i sprawdzać pliki
 - Przeglądać zmiany Git, wyszukiwać sekrety, uruchamiać testy, lintować, kompilować i mierzyć pokrycie
 - Nawigować po dużych bazach kodu Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA i innych
 - Automatyzować przeglądarki za pomocą Playwright, w tym przepływy wielostronicowe i pobieranie plików
+
+**Łączenie usług i urządzeń**
 
 - **MCP** — łączenie z zewnętrznymi serwerami narzędzi, w tym usługami obsługującymi OAuth
 - **A2A** — współpraca z innymi agentami i kompatybilnymi serwerami
@@ -112,6 +118,8 @@ Adaptery dostawców obejmują runtime'y hostowane i lokalne, w tym:
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA i UPnP
 - **Media** — generowanie/edycja obrazów, transkrypcja i mowa audio, przechwytywanie obrazu z kamery oraz kody QR
 - **Documents** — analiza PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL i logów
+
+**IoT i sterowanie światem fizycznym**
 
 - **SwitchBot** — wyszukiwanie w chmurze i przez BLE, status, sterowanie, grupowanie i subskrypcje
 - **ECHONET Lite** — wykrywanie i sterowanie japońskimi urządzeniami domowymi, w tym powiadomieniami INF

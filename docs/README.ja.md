@@ -97,12 +97,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 プロバイダーアダプターは、次のようなホスト型・ローカルの各種ランタイムに対応しています。
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Sarashina AI · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+`UAGENT_PROVIDER`でプロバイダーを切り替えても、ツールとインターフェースは変わりません。
+
+**環境を操作**
 
 - ファイルの読み取り、作成、編集、検索、ハッシュ計算、アーカイブ、検査
 - Gitの変更確認、シークレットのスキャン、テスト実行、Lint、コンパイル、カバレッジ計測
 - 大規模なPython、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBAなどのコードベースをナビゲート
 - 複数ページのワークフローやダウンロードを含む、Playwrightによるブラウザー自動化
+
+**サービスとデバイスを接続**
 
 - **MCP** — OAuth対応サービスを含む外部ツールサーバーに接続
 - **A2A** — 他のエージェントや互換サーバーと連携
@@ -111,6 +117,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 - **IoT** — SwitchBot、ECHONET Lite、Matter、BACnet、Modbus TCP、OPC UA、UPnP
 - **Media** — 画像の生成・編集、音声の文字起こし・音声合成、カメラ撮影、QRコード
 - **Documents** — PDF、PowerPoint、Word、Excel、CSV、JSON、YAML、SQL、ログ分析
+
+**IoTと物理世界の制御**
 
 - **SwitchBot** — クラウドとBLEによる検出、状態取得、制御、バッチ処理、サブスクリプション
 - **ECHONET Lite** — INF通知を含む、日本の家電の検出と制御

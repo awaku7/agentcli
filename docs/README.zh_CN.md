@@ -94,12 +94,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 提供商适配器覆盖托管和本地运行时，包括：
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+使用 `UAGENT_PROVIDER` 切换提供商；你的工具和界面无需改变。
+
+**操作你的环境**
 
 - 读取、创建、编辑、搜索、计算哈希、归档和检查文件
 - 审查 Git 更改、扫描机密、运行测试、执行代码检查、编译并测量覆盖率
 - 浏览大型 Python、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBA 及其他代码库
 - 使用 Playwright 自动化浏览器，包括多页面工作流和下载
+
+**连接服务和设备**
 
 - **MCP** — 连接外部工具服务器，包括支持 OAuth 的服务
 - **A2A** — 与其他代理及兼容服务器协作
@@ -108,6 +114,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 - **IoT** — SwitchBot、ECHONET Lite、Matter、BACnet、Modbus TCP、OPC UA 和 UPnP
 - **Media** — 图像生成/编辑、音频转录/语音、相机捕获和 QR 码
 - **Documents** — PDF、PowerPoint、Word、Excel、CSV、JSON、YAML、SQL 和日志分析
+
+**IoT 和物理世界控制**
 
 - **SwitchBot** — 云端和 BLE 发现、状态、控制、批处理及订阅
 - **ECHONET Lite** — 发现并控制日本家用电器，包括 INF 通知

@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Адаптеры провайдеров охватывают облачные и локальные среды выполнения, включая:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Переключайте провайдеров с помощью `UAGENT_PROVIDER`; инструменты и интерфейс не изменятся.
+
+**Работа с вашей средой**
 
 - Читать, создавать, редактировать, искать, хешировать, архивировать и проверять файлы
 - Просматривать изменения Git, искать секреты, запускать тесты, выполнять линтинг, компиляцию и измерять покрытие
 - Работать с большими кодовыми базами на Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA и других языках
 - Автоматизировать браузеры с Playwright, включая многостраничные процессы и загрузки
+
+**Подключение сервисов и устройств**
 
 - **MCP** — подключение внешних серверов инструментов, включая сервисы с поддержкой OAuth
 - **A2A** — координация с другими агентами и совместимыми серверами
@@ -112,6 +118,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA и UPnP
 - **Media** — генерация и редактирование изображений, транскрибация и синтез речи, захват с камеры и QR-коды
 - **Documents** — анализ PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL и журналов
+
+**IoT и управление физическим миром**
 
 - **SwitchBot** — облачное и BLE-обнаружение, состояние, управление, пакетная обработка и подписки
 - **ECHONET Lite** — обнаружение и управление японской бытовой техникой, включая уведомления INF

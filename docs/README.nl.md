@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Provideradapters dekken gehoste en lokale runtimes, waaronder:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Wissel van provider met `UAGENT_PROVIDER`; je tools en interface veranderen niet.
+
+**Werken met je omgeving**
 
 - Bestanden lezen, maken, bewerken, doorzoeken, hashen, archiveren en inspecteren
 - Git-wijzigingen beoordelen, zoeken naar geheimen, tests uitvoeren, linten, compileren en coverage meten
 - Grote codebases in Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA en andere talen navigeren
 - Browsers automatiseren met Playwright, inclusief workflows met meerdere pagina's en downloads
+
+**Services en apparaten verbinden**
 
 - **MCP** — externe toolservers verbinden, waaronder services met OAuth
 - **A2A** — coördineren met andere agents en compatibele servers
@@ -112,6 +118,8 @@ Provideradapters dekken gehoste en lokale runtimes, waaronder:
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA en UPnP
 - **Media** — afbeeldingen genereren/bewerken, audio transcriberen/spraak, camerabeelden vastleggen en QR-codes
 - **Documenten** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL en loganalyse
+
+**IoT en fysieke wereld bedienen**
 
 - **SwitchBot** — ontdekking via Cloud en BLE, status, bediening, batching en subscriptions
 - **ECHONET Lite** — Japanse huishoudelijke apparaten ontdekken en bedienen, inclusief INF-meldingen

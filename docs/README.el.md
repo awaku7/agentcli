@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Οι adapters παρόχων καλύπτουν hosted και τοπικά runtimes, όπως:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Αλλάξτε παρόχους με το `UAGENT_PROVIDER`· τα εργαλεία και η διεπαφή σας δεν αλλάζουν.
+
+**Εργασία με το περιβάλλον σας**
 
 - Ανάγνωση, δημιουργία, επεξεργασία, αναζήτηση, κατακερματισμός, αρχειοθέτηση και επιθεώρηση αρχείων
 - Έλεγχος αλλαγών Git, σάρωση για μυστικά, εκτέλεση δοκιμών, lint, μεταγλώττιση και μέτρηση κάλυψης
 - Περιήγηση σε μεγάλες βάσεις κώδικα Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA και άλλες
 - Αυτοματοποίηση προγραμμάτων περιήγησης με Playwright, συμπεριλαμβανομένων ροών πολλών σελίδων και λήψεων
+
+**Σύνδεση υπηρεσιών και συσκευών**
 
 - **MCP** — σύνδεση εξωτερικών διακομιστών εργαλείων, συμπεριλαμβανομένων υπηρεσιών με OAuth
 - **A2A** — συντονισμός με άλλους agents και συμβατούς διακομιστές
@@ -112,6 +118,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA και UPnP
 - **Πολυμέσα** — δημιουργία/επεξεργασία εικόνων, μεταγραφή/ομιλία ήχου, λήψη από κάμερα και QR codes
 - **Έγγραφα** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL και ανάλυση αρχείων καταγραφής
+
+**IoT και έλεγχος του φυσικού κόσμου**
 
 - **SwitchBot** — ανακάλυψη μέσω Cloud και BLE, κατάσταση, έλεγχος, ομαδοποίηση και subscriptions
 - **ECHONET Lite** — ανακάλυψη και έλεγχος ιαπωνικών οικιακών συσκευών, συμπεριλαμβανομένων ειδοποιήσεων INF

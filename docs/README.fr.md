@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Les adaptateurs de fournisseurs couvrent les environnements hébergés et locaux, notamment :
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Changez de fournisseur avec `UAGENT_PROVIDER` ; vos outils et votre interface ne changent pas.
+
+**Travailler avec votre environnement**
 
 - Lire, créer, modifier, rechercher, hacher, archiver et inspecter des fichiers
 - Examiner les changements Git, rechercher les secrets, exécuter les tests, appliquer le linting, compiler et mesurer la couverture
 - Parcourir de grandes bases de code Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA et autres
 - Automatiser les navigateurs avec Playwright, y compris les workflows multipages et les téléchargements
+
+**Connecter des services et des appareils**
 
 - **MCP** — connecter des serveurs d'outils externes, y compris des services compatibles OAuth
 - **A2A** — coordonner d'autres agents et des serveurs compatibles
@@ -112,6 +118,8 @@ Les adaptateurs de fournisseurs couvrent les environnements hébergés et locaux
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA et UPnP
 - **Médias** — génération et modification d'images, transcription et synthèse audio, capture par caméra et codes QR
 - **Documents** — analyse de PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL et journaux
+
+**IoT et contrôle du monde physique**
 
 - **SwitchBot** — découverte cloud et BLE, état, contrôle, traitement par lots et abonnements
 - **ECHONET Lite** — découvrir et contrôler les appareils électroménagers japonais, y compris les notifications INF

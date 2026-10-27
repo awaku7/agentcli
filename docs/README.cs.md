@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Adaptéry poskytovatelů pokrývají hostovaná i lokální běhová prostředí včetně:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Poskytovatele přepnete pomocí `UAGENT_PROVIDER`; vaše nástroje ani rozhraní se nezmění.
+
+**Práce s vaším prostředím**
 
 - Číst, vytvářet, upravovat, vyhledávat, vytvářet hashe, archivovat a kontrolovat soubory
 - Kontrolovat změny v Gitu, hledat tajné údaje, spouštět testy, provádět linting a kompilaci a měřit pokrytí
 - Procházet rozsáhlé kódové základny v Pythonu, TypeScriptu, JavaScriptu, Go, Rustu, C/C++, Javě, C#, COBOLu, VBA a dalších jazycích
 - Automatizovat prohlížeče pomocí Playwright včetně vícestránkových pracovních postupů a stahování
+
+**Připojení služeb a zařízení**
 
 - **MCP** — připojení externích serverů nástrojů včetně služeb s podporou OAuth
 - **A2A** — koordinace s dalšími agenty a kompatibilními servery
@@ -112,6 +118,8 @@ Adaptéry poskytovatelů pokrývají hostovaná i lokální běhová prostředí
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA a UPnP
 - **Média** — generování a úprava obrázků, přepis a syntéza zvuku, snímání kamerou a QR kódy
 - **Dokumenty** — analýza PDF, PowerPointu, Wordu, Excelu, CSV, JSON, YAML, SQL a logů
+
+**IoT a ovládání fyzického světa**
 
 - **SwitchBot** — cloudové a BLE vyhledávání, stav, ovládání, dávkování a odběry
 - **ECHONET Lite** — vyhledávání a ovládání japonských domácích spotřebičů včetně oznámení INF

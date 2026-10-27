@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Udbyderadaptere dækker hostede og lokale runtimes, herunder:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Skift udbyder med `UAGENT_PROVIDER`; dine værktøjer og din grænseflade ændres ikke.
+
+**Arbejd med dit miljø**
 
 - Læs, opret, redigér, søg i, hash, arkivér og inspicér filer
 - Gennemgå Git-ændringer, scan efter hemmeligheder, kør tests, udfør linting, kompilér og mål dækning
 - Navigér i store Python-, TypeScript-, JavaScript-, Go-, Rust-, C/C++-, Java-, C#-, COBOL-, VBA- og andre kodebaser
 - Automatisér browsere med Playwright, inklusive arbejdsgange på flere sider og downloads
+
+**Forbind tjenester og enheder**
 
 - **MCP** — forbind eksterne værktøjsservere, herunder OAuth-aktiverede tjenester
 - **A2A** — koordinér med andre agenter og kompatible servere
@@ -112,6 +118,8 @@ Udbyderadaptere dækker hostede og lokale runtimes, herunder:
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA og UPnP
 - **Medier** — billedgenerering/-redigering, lydtransskription/tale, kameraoptagelse og QR-koder
 - **Dokumenter** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL og loganalyse
+
+**IoT og styring af den fysiske verden**
 
 - **SwitchBot** — Cloud- og BLE-opdagelse, status, styring, batching og abonnementer
 - **ECHONET Lite** — opdag og styr japanske husholdningsapparater, herunder INF-notifikationer

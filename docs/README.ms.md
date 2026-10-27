@@ -98,12 +98,18 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Penyesuai penyedia meliputi masa jalan hos dan tempatan, termasuk:
 
-**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+
+Tukar penyedia dengan `UAGENT_PROVIDER`; alat dan antara muka anda tidak berubah.
+
+**Bekerja dengan persekitaran anda**
 
 - Membaca, mencipta, mengedit, mencari, mencincang, mengarkib dan memeriksa fail
 - Menyemak perubahan Git, mengimbas rahsia, menjalankan ujian, lint, kompilasi dan mengukur liputan
 - Menavigasi pangkalan kod Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA dan lain-lain yang besar
 - Mengautomatikkan pelayar dengan Playwright, termasuk aliran berbilang halaman dan muat turun
+
+**Sambungkan perkhidmatan dan peranti**
 
 - **MCP** — sambungkan pelayan alat luaran, termasuk perkhidmatan yang didayakan OAuth
 - **A2A** — selaraskan dengan ejen lain dan pelayan yang serasi
@@ -112,6 +118,8 @@ Penyesuai penyedia meliputi masa jalan hos dan tempatan, termasuk:
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA dan UPnP
 - **Media** — penjanaan/penyuntingan imej, transkripsi/pertuturan audio, tangkapan kamera dan kod QR
 - **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL dan analisis log
+
+**IoT dan kawalan dunia fizikal**
 
 - **SwitchBot** — penemuan Cloud dan BLE, status, kawalan, pengelompokan dan langganan
 - **ECHONET Lite** — menemui dan mengawal perkakas rumah Jepun, termasuk pemberitahuan INF
