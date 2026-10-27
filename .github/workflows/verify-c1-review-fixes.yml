@@ -36,7 +36,7 @@ jobs:
       - name: Ruff check
         run: python -m ruff check src tests
       - name: Run affected suites
-        run: python -m pytest -q tests/test_integration_management_write.py tests/test_project_membership_mutation.py tests/test_project_access.py tests/test_integration_management_history.py tests/test_integration_management_api.py tests/test_web_origin_policy.py --tb=short
+        run: python -m pytest -q tests/test_integration_management_write.py tests/test_project_membership_mutation.py tests/test_project_access.py tests/test_integration_management_history.py tests/test_integration_management_api.py tests/test_websocket_origin_policy.py --tb=short
       - name: Publish verified source blobs
         env:
           GH_TOKEN: ${{ github.token }}
