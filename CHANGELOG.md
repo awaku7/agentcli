@@ -2,13 +2,18 @@
 
 ## [Unreleased]
 
+## [0.7.36] - 2026-10-27
+
 ### Added
 
+- Surface reasoning summaries returned by the OpenAI and Azure Responses APIs in assistant output, including across response compaction.
+- Add a signed, project-scoped membership-write integration API with bounded request streaming and JSON value-type validation.
 - Add `UAGENT_SHOW_TOOL_RESULTS=2`, which replaces the `[TOOL]` trace body with a tool-owned localized pre-execution action line (`TOOL_DESCRIBER`) in the CLI, with automatic fallback to the masked-arguments body.
 - Provide mode-2 action lines for `read_file`, `file_grep`, `delete_file`, `create_file`, `apply_patch`, and `cmd_exec_json` in all 37 supported tool locales.
 
 ### Changed
 
+- Require `uag-envsec>=0.1.1` for encrypted environment file support.
 - Use the standalone PyPI `uag-envsec` package for encrypted environment files, while retaining the legacy ciphertext format for compatibility with prior uag releases.
 
 ## [0.7.35] - 2026-10-26

@@ -2,8 +2,18 @@
 
 ## [Unreleased]
 
+## [0.7.36] - 2026-10-27
+
+### 追加
+
+- OpenAIおよびAzureのResponses APIが返すreasoning summaryをアシスタント出力に表示し、response compaction後も保持。
+- 署名付きのproject-scoped membership write integration APIを追加。リクエストのストリーミングに上限を設け、JSON値の型を検証。
+- `UAGENT_SHOW_TOOL_RESULTS=2`を追加。CLIの`[TOOL]`トレース本文を、ツール側でローカライズした実行前アクション表示（`TOOL_DESCRIBER`）に置き換え、利用できない場合はマスク済み引数表示にフォールバック。
+- `read_file`、`file_grep`、`delete_file`、`create_file`、`apply_patch`、`cmd_exec_json`のmode 2アクション表示を、対応する37ロケールすべてに追加。
+
 ### 変更
 
+- 暗号化環境ファイルのサポートに必要な`uag-envsec`の最低バージョンを`0.1.1`へ引き上げ。
 - 暗号化環境ファイルの処理を単体のPyPIパッケージ`uag-envsec`へ移行。以前のuagリリースとの互換性を保つため、暗号文は従来形式で生成。
 
 ## [0.7.35] - 2026-10-26
