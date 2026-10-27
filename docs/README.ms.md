@@ -46,7 +46,7 @@ peranti IoT, pelayan MCP dan aliran kerja berbilang ejen.
 
 ## Mula pantas
 
-### Pasang
+**Python 3.11+**
 
 ```bash
 python -m pip install --upgrade uag
@@ -63,37 +63,14 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > Integrasi platform adalah pilihan. Pasang hanya perkara yang diperlukan oleh sistem pengendalian anda; lihat
-> [Persediaan platform](#platform-setup).
-
-### Pilih penyedia
-
-Tetapkan penyedia dan kunci APInya sebelum melancarkan, atau konfigurasikannya dalam wizard persediaan.
-
-```bash
-# OpenAI
-export UAGENT_PROVIDER=openai
-export OPENAI_API_KEY="your-api-key"
-
-# Anthropic
-export UAGENT_PROVIDER=anthropic
-export ANTHROPIC_API_KEY="your-api-key"
-
-# Local Ollama
-export UAGENT_PROVIDER=ollama
-export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.3
-```
-
-Windows PowerShell menggunakan `$env:NAME = "value"` dan bukannya `export NAME=value`.
-Lihat [Pemboleh ubah persekitaran](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) untuk matriks penyedia lengkap.
-
-### Cuba
 
 ```text
 > What files changed in this repository?
 > Search the web for today's AI news and summarize the top five stories.
 > :help
 ```
+
+[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
 
 ## Antara muka
 
@@ -107,16 +84,17 @@ Lihat [Pemboleh ubah persekitaran](https://github.com/awaku7/agentcli/blob/main/
 
 Semua antara muka berkongsi konfigurasi penyedia, daftar alat, peraturan keselamatan dan data sesi yang sama.
 
+~~~bash
+# Desktop GUI
+python -m pip install "uag[platform]"
+
+# Web UI
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+
 ## Perkara yang boleh anda bina
-
-### Bekerja dengan persekitaran anda
-
-- Membaca, mencipta, mengedit, mencari, mencincang, mengarkib dan memeriksa fail
-- Menyemak perubahan Git, mengimbas rahsia, menjalankan ujian, lint, kompilasi dan mengukur liputan
-- Menavigasi pangkalan kod Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA dan lain-lain yang besar
-- Mengautomatikkan pelayar dengan Playwright, termasuk aliran berbilang halaman dan muat turun
-
-### Gunakan mana-mana model
 
 Penyesuai penyedia meliputi masa jalan hos dan tempatan, termasuk:
 
@@ -124,7 +102,14 @@ Penyesuai penyedia meliputi masa jalan hos dan tempatan, termasuk:
 
 Tukar penyedia dengan `UAGENT_PROVIDER`; alat dan antara muka anda tidak berubah.
 
-### Sambungkan perkhidmatan dan peranti
+**Bekerja dengan persekitaran anda**
+
+- Membaca, mencipta, mengedit, mencari, mencincang, mengarkib dan memeriksa fail
+- Menyemak perubahan Git, mengimbas rahsia, menjalankan ujian, lint, kompilasi dan mengukur liputan
+- Menavigasi pangkalan kod Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA dan lain-lain yang besar
+- Mengautomatikkan pelayar dengan Playwright, termasuk aliran berbilang halaman dan muat turun
+
+**Sambungkan perkhidmatan dan peranti**
 
 - **MCP** — sambungkan pelayan alat luaran, termasuk perkhidmatan yang didayakan OAuth
 - **A2A** — selaraskan dengan ejen lain dan pelayan yang serasi
@@ -133,6 +118,29 @@ Tukar penyedia dengan `UAGENT_PROVIDER`; alat dan antara muka anda tidak berubah
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA dan UPnP
 - **Media** — penjanaan/penyuntingan imej, transkripsi/pertuturan audio, tangkapan kamera dan kod QR
 - **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL dan analisis log
+
+**IoT dan kawalan dunia fizikal**
+
+- **SwitchBot** — penemuan Cloud dan BLE, status, kawalan, pengelompokan dan langganan
+- **ECHONET Lite** — menemui dan mengawal perkakas rumah Jepun, termasuk pemberitahuan INF
+- **Matter** — endpoint, kluster, atribut, sejarah keadaan, langganan dan kawalan
+- **BACnet / Modbus TCP / OPC UA** — pembacaan, penulisan, pelayaran dan pemantauan automasi industri serta bangunan
+- **UPnP** — penemuan peranti, status WAN dan pengurusan pemetaan port penghala
+
+### Kedudukan uag
+
+uag berada di antara manusia dan antara muka di satu pihak, serta model, alat dan sistem dunia sebenar di pihak yang lain.
+Ia menyelaraskan perbualan, memilih keupayaan, menerapkan peraturan keselamatan dan memastikan aliran kerja boleh disambung semula.
+
+~~~mermaid
+flowchart LR
+    UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
+    UAG --> MODELS["Hosted & local models"]
+    UAG --> TOOLS["Tools & extensions"]
+    UAG --> STATE["Sessions & context"]
+    TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
+    POLICY["Confirmation · Credentials · Policy"] -.-> UAG
+~~~
 
 ### Pemalam, Agent Skills dan marketplace
 
@@ -152,111 +160,6 @@ Jadikan uag ejen khusus tanpa mem-fork teras:
 
 Lihat [Panduan Pembangunan Pemalam](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
 
-### IoT dan kawalan dunia fizikal
-
-uag menghubungkan aliran kerja perbualan dengan peranti sebenar sambil memastikan operasi tulis jelas dan boleh diaudit:
-
-- **SwitchBot** — penemuan Cloud dan BLE, status, kawalan, pengelompokan dan langganan
-- **ECHONET Lite** — menemui dan mengawal perkakas rumah Jepun, termasuk pemberitahuan INF
-- **Matter** — endpoint, kluster, atribut, sejarah keadaan, langganan dan kawalan
-- **BACnet / Modbus TCP / OPC UA** — pembacaan, penulisan, pelayaran dan pemantauan automasi industri serta bangunan
-- **UPnP** — penemuan peranti, status WAN dan pengurusan pemetaan port penghala
-
-Baca keadaan, pantau perubahan atau lakukan tindakan kawalan melalui antara muka ejen yang sama. Penulisan peranti sensitif
-kekal tertakluk pada pengesahan yang dikonfigurasi dan peraturan dasar perusahaan.
-
-Lihat [Kes Penggunaan IoT](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
-
-Masa jalan kini merangkumi katalog alat yang besar. Temui alat tepat yang tersedia dalam pemasangan anda dengan:
-
-```text
-:tools
-```
-
-### Kedudukan uag
-
-uag berada di antara manusia dan antara muka di satu pihak, serta model, alat dan sistem dunia sebenar di pihak yang lain.
-Ia menyelaraskan perbualan, memilih keupayaan, menerapkan peraturan keselamatan dan memastikan aliran kerja boleh disambung semula.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identiti & dasar<br/>OIDC · kumpulan Entra · penyesuai AD · Pengesahan]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag bukan penyedia model dan bukan sekadar UI sembang.** Ia ialah lapisan pelaksanaan dikongsi yang membolehkan model,
-alat, antara muka dan dasar berfungsi bersama.
-
-### Keupayaan utama
-
-#### 🧠 Satu ejen, setiap model
-
-Gunakan model hos atau tempatan melalui satu antara muka alat yang konsisten. Tukar penyedia dengan
-`UAGENT_PROVIDER`—tanpa perubahan kod, migrasi atau aliran kerja berasingan.
-
-#### 🔐 OIDC dan identiti perusahaan
-
-UI Web merangkumi log masuk OIDC menggunakan Authorization Code + PKCE, token ID yang disahkan, sesi sisi pelayan, dan kawalan akses projek/bilik. Tuntutan kumpulan Microsoft Entra ID yang disahkan boleh menyokong dasar akses berasaskan direktori apabila dikonfigurasikan. Penempatan Windows Active Directory, OAuth, dan trusted-proxy boleh diintegrasikan melalui penyesuai identiti yang disahkan secara eksplisit; Windows AD memerlukan pengesah Kerberos/Negotiate khusus penempatan dan tidak diaktifkan secara lalai.
-
-Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-#### 📈 OpenTelemetry kebolehmerhatian
-
-uag termasuk penjejakan OpenTelemetry dan metrik ikut serta, neutral pembekal untuk Agent, LLM, alat, Context, Memory dan operasi pengambilan semula. Kebolehlihatan dilumpuhkan secara lalai.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Sokongan penyebaran dipercayai tersedia untuk Sub-Agent, A2A, MCP HTTP dan proksi terbalik Web yang dipercayai secara eksplisit.
-
-Apabila didayakan, kebergantungan OpenTelemetry Python yang tiada boleh dipasang melalui dasar pemasangan automatik sedia ada uag. Pengeksport, titik akhir, protokol dan gelagat pensampelan menggunakan tetapan OTEL\_\* standard. Tangkapan kandungan lanjutan, korelasi nama samaran, diagnostik SDK pembekal dan pertanyaan jejak pengguna biasa ialah ciri ikut serta yang berasingan.
-
-Laluan pertanyaan jejak Phase 4D mengambil kira kebenaran akses, tetapi sengaja tidak menyediakan penyesuai pertanyaan vendor generik terbina dalam: penyepaduan aplikasi yang telah disemak mesti mendaftarkan penyesuai bahagian belakang. Titik akhir eksport OTLP tidak pernah dianggap sebagai API pertanyaan.
-
-Lihat [OpenTelemetry reka bentuk](UAG_OPENTELEMETRY_DESIGN.md), [konfigurasi persekitaran](ENVIRONMENT.md#opentelemetry-observability) dan [kontrak pemerhatian pembangun](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-#### ⚡ Pelaksanaan alat selari
-
-Operasi baca sahaja yang bebas berjalan serentak apabila selamat. Carian web, pemeriksaan fail,
-analisis repositori dan beban kerja seumpamanya boleh diselesaikan secara selari dengan kumpulan pekerja
-yang boleh dikonfigurasi (`UAGENT_PARALLEL_WORKERS`). Operasi tulis kekal bersiri atau memerlukan pengesahan.
-
-#### 🧩 Dibina untuk diperluas
-
 - **200+ alat** untuk fail, web, media, dokumen, kod, awan, komunikasi dan IoT
 - **Penemuan dan pemuatan dinamik** — gunakan `tool_catalog` untuk mencari keupayaan dan `tool_load` untuk mendayakannya hanya apabila diperlukan
 - **Kecerdasan kod** — `code_map`, penavigasi `idx` khusus bahasa, semakan Git, pelaksanaan ujian, linting, kompilasi dan liputan
@@ -265,182 +168,61 @@ yang boleh dikonfigurasi (`UAGENT_PARALLEL_WORKERS`). Operasi tulis kekal bersir
 - **Alat Python tersuai** dengan `TOOL_SPEC` dan `run_tool()`
 - **Alat berasaskan Rust** untuk sambungan natif ringan
 
-#### 🔄 Kerja jangka panjang yang boleh dipercayai
-
-Kesinambungan sesi, caching hasil alat, keadaan kelompok, pemulihan selepas mula semula, penjadualan DAG dan
-orkestrasi berbilang ejen menjadikan kerja kompleks boleh disambung semula dan bukan sekali jalan.
-
-- `set_timer` menyokong pelaksanaan LLM yang dijadualkan secara berterusan, perlindungan alat diperlukan, pelaksanaan langsung satu alat yang diluluskan, percubaan semula, dan had masa.
-
-#### 🧠 Hasil alat yang peka konteks
-
-Hasil alat yang besar disimpan di luar konteks model aktif apabila boleh. uag menyimpannya sebagai Artifacts dan sebaliknya menghantar pratonton terhad dengan rujukan Artifact yang stabil kepada model. Ini boleh mengurangkan jumlah token input yang diperlukan untuk giliran susulan dengan ketara apabila alat menghasilkan hasil yang besar.
-
-Gunakan `artifact_read` untuk mendapatkan hanya baris atau julat aksara yang diperlukan:
-
-```text
-> Baca artifact://<artifact-id> baris 100-140
-```
-
-Artifact baharu disimpan di bawah:
-
-```text
-~/.uag/artifacts/
-```
-
-Konteks aktif dihadkan oleh `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` dan `UAGENT_TOOL_RESULT_MAX_CHARS`. Muatan binari seperti imej, audio dan data Base64 terbenam tidak disimpan dalam sejarah berterusan, manakala UI dan klien jauh masih boleh menerima lampiran dalam memori mereka.
-
-Laluan Artifact legasi yang sedia ada kekal boleh dibaca demi keserasian. Lihat [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) untuk sempadan storan, tingkah laku ketekalan dan status pelaksanaan semasa.
-
-[Pemampatan konteks dan konteks model terhad](CONTEXT_COMPRESSION.ms.md)
-
-#### 🌍 Terjemahan berbilang bahasa
-
-- `translate_text` menyokong Google Translate dan klien DeepL Python rasmi melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
-- Definisi alat tersedia dalam 37 lokalisasi ditambah Bahasa Inggeris (jumlah 38), dengan penanda tempat dan pengecam teknikal dikekalkan.
-
-Lihat [Pembolehubah persekitaran](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologi terjemahan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), dan [dokumentasi `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-#### 🎙 Suara masa nyata
-
-Suara dupleks penuh tersedia melalui OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-dan Bedrock Nova Sonic, dengan pembatalan gema AEC3 pilihan serta panggilan fungsi masa nyata yang dihadkan keselamatannya.
-
-#### 🌍 Peribadi, berbilang bahasa dan peka dasar
-
-Gunakan uag dalam bahasa Jepun, Inggeris, Cina, Korea, Sepanyol, Perancis, Rusia dan banyak lagi. Kelayakan boleh
-disimpan dalam keychain OS natif atau backend fail yang disulitkan. Dasar perusahaan boleh mengawal alat,
-penyedia, rangkaian, kelayakan, pemalam, kemahiran dan pelayan MCP.
-
-Lihat [Pemboleh ubah persekitaran](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Dasar Perusahaan](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) dan
-[Panduan Pencipta Alat](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Nota platform kotak pasir MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Tetapan lalai MXC untuk Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
-
-### Persediaan platform
-
-Pakej teras adalah merentas platform. Kebergantungan khusus platform hendaklah dipasang secara terpilih.
-
-#### Windows
-
-```powershell
-python -m pip install PySide6 winrt-Windows.Devices.Geolocation
-```
-
-#### macOS
-
-```bash
-python -m pip install PySide6 pyobjc-framework-CoreLocation
-```
-
-#### Linux
-
-```bash
-python -m pip install PySide6 ewmh dbus-next
-```
-
-Sesetengah integrasi mempunyai keperluan sistem tambahan seperti binari pelayar, kebenaran Bluetooth,
-kelayakan awan atau pelayan MQTT/OPC UA. Alat berkaitan melaporkan perkara yang hilang apabila ia dijalankan.
-
-### Sambungan
-
-#### Agent Skills dan pemalam
-
-Pasang kemahiran komuniti daripada SkillsMP atau ClawHub, atau pasang pemalam serasi Claude Code yang mengandungi
-kemahiran, ejen, pelayan MCP, hook, arahan dan gaya output.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Lihat [Pembangunan pemalam](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) dan [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-#### Cipta alat
-
-Alat boleh berupa satu fail Python dengan `TOOL_SPEC` dan `run_tool()`. Letakkannya dalam
-`UAGENT_EXTERNAL_TOOLS_DIR` dan muat semula katalog. Pembangun Rust boleh menghantar modul natif prabina
-dengan pembalut Python nipis.
-
-Lihat [Panduan Pencipta Alat](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-#### Pelayan MCP
-
-Sambungkan ke pelayan MCP luaran daripada CLI atau fail konfigurasi. Panduan OAuth dan proksi tersedia
-dalam [Panduan MCP OAuth / Proksi](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
 
 ## Dibina untuk aliran kerja sebenar
 
-### Kesinambungan sesi
+### 🧠 Hasil alat yang peka konteks
+
+Hasil alat yang besar disimpan di luar konteks model aktif apabila boleh. uag menyimpannya sebagai Artifacts dan sebaliknya menghantar pratonton terhad dengan rujukan Artifact yang stabil kepada model. Ini boleh mengurangkan jumlah token input yang diperlukan untuk giliran susulan dengan ketara apabila alat menghasilkan hasil yang besar.
 
 Sambung semula perbualan terdahulu dengan `:load <index>`. Hasil alat boleh dicache dan penyedia boleh ditukar
 tanpa membina semula aplikasi.
 
-Untuk memindahkan perbualan antara pemasangan, gunakan eksport/import sesi yang disulitkan: `uag session export <id> -o work.uag`, `uag session import work.uag` kemudian `uag session resume <new-id>`. Lihat [Session Portability v1](SESSION_PORTABILITY.md) untuk frasa laluan, API Web, sempadan keselamatan dan pengecualian.
-
-Tetapan Session Store:
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-UAGENT_MEMORY_DB=
-```
+[Context compression](CONTEXT_COMPRESSION.ms.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
 
 ### Auto-pilot
 
 Gunakan `:auto` untuk kerja berbilang pusingan dengan model penyemak pilihan. Tetapkan had pusingan dengan `--max-rounds N`.
 Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons semasa.
 
-Lihat [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Operasi baca sahaja yang bebas berjalan serentak apabila selamat. Carian web, pemeriksaan fail,
+analisis repositori dan beban kerja seumpamanya boleh diselesaikan secara selari dengan kumpulan pekerja
+yang boleh dikonfigurasi (`UAGENT_PARALLEL_WORKERS`). Operasi tulis kekal bersiri atau memerlukan pengesahan.
 
-### Mod terbenam
+Kesinambungan sesi, caching hasil alat, keadaan kelompok, pemulihan selepas mula semula, penjadualan DAG dan
+orkestrasi berbilang ejen menjadikan kerja kompleks boleh disambung semula dan bukan sekali jalan.
 
-Untuk penggunaan tempatan yang terhad, gunakan `--embedded` dan muatkan secara jelas hanya alat yang diperlukan oleh aplikasi.
-Dalam mod terbenam, `--tool-genre-mask` diabaikan; pilihan `--enable-tool` yang diulang mengekalkan susunan alat yang ditetapkan.
+[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-Lihat [rujukan penggunaan CLI](USAGE.md).
-
-### Pengesahan manusia
+### 🌍 Peribadi, berbilang bahasa dan peka dasar
 
 `human_ask` berhenti seketika sebelum tindakan sensitif. Pemadaman fail, penindihan, arahan shell, kawalan peranti,
 operasi kelayakan dan penulisan rangkaian boleh ditadbir oleh peraturan pengesahan dan dasar.
 
-Kawalan seluruh organisasi tersedia melalui [Enjin Dasar Perusahaan](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
-
-### Kelayakan
-
 Gunakan stor kelayakan dan bukannya meletakkan rahsia jangka panjang dalam gesaan:
 
-```text
-:credential set provider/openai api_key
-:credential get provider/openai
-:credential list
-```
+UI Web merangkumi log masuk OIDC menggunakan Authorization Code + PKCE, token ID yang disahkan, sesi sisi pelayan, dan kawalan akses projek/bilik. Tuntutan kumpulan Microsoft Entra ID yang disahkan boleh menyokong dasar akses berasaskan direktori apabila dikonfigurasikan. Penempatan Windows Active Directory, OAuth, dan trusted-proxy boleh diintegrasikan melalui penyesuai identiti yang disahkan secara eksplisit; Windows AD memerlukan pengesah Kerberos/Negotiate khusus penempatan dan tidak diaktifkan secara lalai.
 
-Stor ini boleh menggunakan Windows Credential Manager, macOS Keychain, Linux Secret Service atau backend fail
-yang disulitkan. Lihat [Stor Kelayakan](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) untuk butiran konfigurasi.
+uag termasuk penjejakan OpenTelemetry dan metrik ikut serta, neutral pembekal untuk Agent, LLM, alat, Context, Memory dan operasi pengambilan semula. Kebolehlihatan dilumpuhkan secara lalai.
 
-### Suara masa nyata
+Pendekatan local-first tidak bermakna UAG berfungsi sepenuhnya luar talian atau semua alat diasingkan secara lalai. Panggilan kepada model dan perkhidmatan luaran bergantung pada konfigurasi.
 
-Integrasi suara masa nyata pilihan menyokong OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
-Google Gemini Live dan Amazon Bedrock Nova Sonic. Pasang kebergantungan audio yang berkaitan dan jalankan:
+- [Enterprise policies](ENTERPRISE_POLICY.md)
+- [MXC sandbox](SANDBOX_MXC.md)
+- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
+- [Web identity](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
 
-```bash
-python scheck.py realtime
-```
+### 🌍 Terjemahan berbilang bahasa
 
-Sokongan AEC3 tersedia untuk audio mikrofon dan pembesar suara dupleks penuh. Dayakan diagnostik hanya ketika
-menyelesaikan masalah:
+- `translate_text` menyokong Google Translate dan klien DeepL Python rasmi melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
+- Definisi alat tersedia dalam 37 lokalisasi ditambah Bahasa Inggeris (jumlah 38), dengan penanda tempat dan pengecam teknikal dikekalkan.
 
-```bash
-export UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
+Suara dupleks penuh tersedia melalui OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+dan Bedrock Nova Sonic, dengan pembatalan gema AEC3 pilihan serta panggilan fungsi masa nyata yang dihadkan keselamatannya.
+
+[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
 
 ## Dokumentasi
 
@@ -457,6 +239,8 @@ python scheck.py realtime
 | Sambungan VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 | Panduan pembangun | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Aliran alat | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+
+[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
 
 ## Pembangunan dan sumbangan
 
@@ -475,16 +259,6 @@ python -m pytest -q .
 ```
 
 Untuk aliran kerja pembangunan penuh, lihat [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-### Prinsip projek
-
-- **Berteraskan tempatan** — masa jalan adalah milik anda.
-- **Neutral terhadap penyedia** — model ialah infrastruktur yang boleh diganti.
-- **Boleh digabungkan** — alat, kemahiran, pemalam dan pelayan MCP ialah sambungan kelas pertama.
-- **Selamat secara lalai** — operasi sensitif kekal kelihatan dan boleh dikawal.
-- **Terbuka kepada sumbangan** — kod, alat, kemahiran, terjemahan dan dokumentasi dialu-alukan.
-
-### Menyumbang
 
 Laporan pepijat, idea ciri, penambahbaikan dokumentasi, terjemahan, alat, kemahiran dan pull request dialu-alukan.
 Sila buka isu atau perbincangan sebelum perubahan besar. Baca [Panduan Pembangun](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

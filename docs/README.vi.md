@@ -46,7 +46,7 @@ thiết bị IoT, máy chủ MCP và các quy trình làm việc đa agent.
 
 ## Bắt đầu nhanh
 
-### Cài đặt
+**Python 3.11+**
 
 ```bash
 python -m pip install --upgrade uag
@@ -63,37 +63,14 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > Các tích hợp nền tảng là tùy chọn. Chỉ cài đặt những gì hệ điều hành của bạn cần; xem
-> [Thiết lập nền tảng](#platform-setup).
-
-### Chọn provider
-
-Đặt một provider và API key của provider đó trước khi khởi chạy, hoặc cấu hình chúng trong trình hướng dẫn thiết lập.
-
-```bash
-# OpenAI
-export UAGENT_PROVIDER=openai
-export OPENAI_API_KEY="your-api-key"
-
-# Anthropic
-export UAGENT_PROVIDER=anthropic
-export ANTHROPIC_API_KEY="your-api-key"
-
-# Local Ollama
-export UAGENT_PROVIDER=ollama
-export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.3
-```
-
-Windows PowerShell sử dụng `$env:NAME = "value"` thay cho `export NAME=value`.
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) để biết ma trận provider đầy đủ.
-
-### Dùng thử
 
 ```text
 > What files changed in this repository?
 > Search the web for today's AI news and summarize the top five stories.
 > :help
 ```
+
+[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
 
 ## Các giao diện
 
@@ -107,16 +84,17 @@ Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/EN
 
 Tất cả giao diện dùng chung cấu hình provider, registry công cụ, quy tắc an toàn và dữ liệu phiên.
 
+~~~bash
+# Desktop GUI
+python -m pip install "uag[platform]"
+
+# Web UI
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+
 ## Bạn có thể tạo gì
-
-### Làm việc với môi trường của bạn
-
-- Đọc, tạo, chỉnh sửa, tìm kiếm, băm, lưu trữ và kiểm tra tệp
-- Rà soát thay đổi Git, quét thông tin bí mật, chạy kiểm thử, lint, biên dịch và đo độ bao phủ
-- Điều hướng các codebase Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA lớn và các codebase khác
-- Tự động hóa trình duyệt bằng Playwright, bao gồm quy trình nhiều trang và tải xuống
-
-### Sử dụng bất kỳ mô hình nào
 
 Các adapter provider bao phủ runtime lưu trữ và cục bộ, bao gồm:
 
@@ -124,7 +102,14 @@ Các adapter provider bao phủ runtime lưu trữ và cục bộ, bao gồm:
 
 Chuyển provider bằng `UAGENT_PROVIDER`; công cụ và giao diện của bạn không thay đổi.
 
-### Kết nối dịch vụ và thiết bị
+**Làm việc với môi trường của bạn**
+
+- Đọc, tạo, chỉnh sửa, tìm kiếm, băm, lưu trữ và kiểm tra tệp
+- Rà soát thay đổi Git, quét thông tin bí mật, chạy kiểm thử, lint, biên dịch và đo độ bao phủ
+- Điều hướng các codebase Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA lớn và các codebase khác
+- Tự động hóa trình duyệt bằng Playwright, bao gồm quy trình nhiều trang và tải xuống
+
+**Kết nối dịch vụ và thiết bị**
 
 - **MCP** — kết nối các máy chủ công cụ bên ngoài, bao gồm các dịch vụ hỗ trợ OAuth
 - **A2A** — phối hợp với các agent và máy chủ tương thích khác
@@ -133,6 +118,29 @@ Chuyển provider bằng `UAGENT_PROVIDER`; công cụ và giao diện của b�
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA và UPnP
 - **Media** — tạo/chỉnh sửa hình ảnh, chuyển âm thanh thành văn bản/giọng nói, chụp camera và mã QR
 - **Documents** — phân tích PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL và log
+
+**IoT và điều khiển thế giới vật lý**
+
+- **SwitchBot** — khám phá Cloud và BLE, trạng thái, điều khiển, xử lý theo lô và subscription
+- **ECHONET Lite** — khám phá và điều khiển thiết bị gia dụng Nhật Bản, bao gồm thông báo INF
+- **Matter** — endpoint, cluster, thuộc tính, lịch sử trạng thái, subscription và điều khiển
+- **BACnet / Modbus TCP / OPC UA** — đọc, ghi, duyệt và giám sát tự động hóa công nghiệp và tòa nhà
+- **UPnP** — khám phá thiết bị, trạng thái WAN và quản lý ánh xạ cổng router
+
+### Vị trí của uag
+
+Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
+Nó điều phối cuộc hội thoại, lựa chọn khả năng, áp dụng các quy tắc an toàn và giữ cho quy trình có thể tiếp tục.
+
+~~~mermaid
+flowchart LR
+    UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
+    UAG --> MODELS["Hosted & local models"]
+    UAG --> TOOLS["Tools & extensions"]
+    UAG --> STATE["Sessions & context"]
+    TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
+    POLICY["Confirmation · Credentials · Policy"] -.-> UAG
+~~~
 
 ### Plugin, Agent Skills và marketplace
 
@@ -152,111 +160,6 @@ Biến uag thành một agent chuyên dụng mà không cần fork phần lõi:
 
 Xem [Hướng dẫn phát triển Plugin](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
 
-### IoT và điều khiển thế giới vật lý
-
-uag kết nối các quy trình hội thoại với thiết bị thực, đồng thời giữ cho thao tác ghi rõ ràng và có thể kiểm toán:
-
-- **SwitchBot** — khám phá Cloud và BLE, trạng thái, điều khiển, xử lý theo lô và subscription
-- **ECHONET Lite** — khám phá và điều khiển thiết bị gia dụng Nhật Bản, bao gồm thông báo INF
-- **Matter** — endpoint, cluster, thuộc tính, lịch sử trạng thái, subscription và điều khiển
-- **BACnet / Modbus TCP / OPC UA** — đọc, ghi, duyệt và giám sát tự động hóa công nghiệp và tòa nhà
-- **UPnP** — khám phá thiết bị, trạng thái WAN và quản lý ánh xạ cổng router
-
-Đọc trạng thái, giám sát thay đổi hoặc thực hiện thao tác điều khiển thông qua cùng một giao diện agent. Các thao tác ghi nhạy cảm trên thiết bị
-vẫn phải tuân theo quy tắc xác nhận đã cấu hình và chính sách doanh nghiệp.
-
-Xem [Các trường hợp sử dụng IoT](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
-
-Runtime hiện bao gồm một danh mục công cụ lớn. Khám phá chính xác các công cụ có trong bản cài đặt của bạn bằng:
-
-```text
-:tools
-```
-
-### Vị trí của uag
-
-Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
-Nó điều phối cuộc hội thoại, lựa chọn khả năng, áp dụng các quy tắc an toàn và giữ cho quy trình có thể tiếp tục.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Danh tính và chính sách<br/>OIDC · nhóm Entra · bộ chuyển đổi AD · xác nhận]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag không phải là một provider mô hình và cũng không chỉ là một giao diện trò chuyện.** Đây là lớp thực thi dùng chung giúp các mô hình,
-công cụ, giao diện và chính sách phối hợp với nhau.
-
-### Các khả năng nổi bật
-
-#### 🧠 Một agent, mọi mô hình
-
-Sử dụng các mô hình lưu trữ hoặc cục bộ thông qua một giao diện công cụ nhất quán. Chuyển đổi provider bằng
-`UAGENT_PROVIDER`—không cần thay đổi code, di chuyển hay quy trình riêng biệt.
-
-#### 🔐 OIDC và nhận dạng doanh nghiệp
-
-Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
-
-Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-#### 📈 OpenTelemetry khả năng quan sát
-
-uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Hỗ trợ truyền bá đáng tin cậy hiện có sẵn cho Sub-Agent, A2A, MCP HTTP và proxy ngược Web được tin cậy rõ ràng.
-
-Khi được bật, các phần phụ thuộc OpenTelemetry Python bị thiếu có thể được cài đặt thông qua chính sách tự động cài đặt hiện có của uag. Hành vi của nhà xuất khẩu, điểm cuối, giao thức và lấy mẫu sử dụng cài đặt OTEL\_\* tiêu chuẩn. Ghi lại nội dung nâng cao, tương quan biệt danh, chẩn đoán SDK của nhà cung cấp và truy vấn theo dõi người dùng thông thường là các tính năng chọn tham gia riêng biệt.
-
-Tuyến truy vấn theo dõi Phase 4D nhận biết ủy quyền nhưng cố ý không tích hợp bộ điều hợp truy vấn chung của nhà cung cấp: tích hợp ứng dụng được xem xét phải đăng ký bộ điều hợp phụ trợ. Điểm cuối xuất OTLP không bao giờ được coi là truy vấn API.
-
-Xem [OpenTelemetry thiết kế](UAG_OPENTELEMETRY_DESIGN.md), [cấu hình môi trường](ENVIRONMENT.md#opentelemetry-observability) và [hợp đồng quan sát của nhà phát triển](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-#### ⚡ Thực thi công cụ song song
-
-Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
-phân tích repository và các tác vụ tương tự có thể hoàn tất song song với một pool worker có thể cấu hình
-(`UAGENT_PARALLEL_WORKERS`). Các thao tác ghi vẫn được tuần tự hóa hoặc yêu cầu xác nhận.
-
-#### 🧩 Được xây dựng để mở rộng
-
 - **Hơn 200 công cụ** cho tệp, web, phương tiện, tài liệu, code, đám mây, giao tiếp và IoT
 - **Khám phá và tải động** — dùng `tool_catalog` để tìm khả năng và `tool_load` để chỉ bật chúng khi cần
 - **Tình báo code** — `code_map`, các trình điều hướng `idx` theo ngôn ngữ, rà soát Git, thực thi kiểm thử, lint, biên dịch và đo độ bao phủ
@@ -265,181 +168,61 @@ phân tích repository và các tác vụ tương tự có thể hoàn tất son
 - **Công cụ Python tùy chỉnh** với `TOOL_SPEC` và `run_tool()`
 - **Công cụ chạy trên Rust** cho các phần mở rộng native nhẹ
 
-#### 🔄 Công việc dài hạn đáng tin cậy
-
-Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
-điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
-
-- `set_timer` hỗ trợ các tác vụ LLM được lên lịch và duy trì liên tục, bảo vệ công cụ bắt buộc, thực thi trực tiếp một công cụ được phê duyệt, thử lại và thời gian chờ.
-
-#### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
-
-Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
-
-Sử dụng `artifact_read` để chỉ truy xuất các dòng hoặc phạm vi ký tự cần thiết:
-
-```text
-> Đọc artifact://<artifact-id> các dòng 100-140
-```
-
-Các Artifact mới được lưu trữ tại:
-
-```text
-~/.uag/artifacts/
-```
-
-Bối cảnh hoạt động được giới hạn bởi `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` và `UAGENT_TOOL_RESULT_MAX_CHARS`. Các tải trọng nhị phân như hình ảnh, âm thanh và dữ liệu nhúng Base64 không được lưu trữ trong lịch sử lưu trữ, trong khi giao diện người dùng (UI) và các khách hàng từ xa vẫn có thể tiếp tục nhận các tệp đính kèm trong bộ nhớ.
-
-Các đường dẫn Artifact cũ vẫn có thể đọc được để đảm bảo tương thích. Xem [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) để biết về giới hạn lưu trữ, hành vi lưu trữ lâu dài và tình trạng triển khai hiện tại.
-
-[Nén bối cảnh và bối cảnh mô hình có giới hạn](CONTEXT_COMPRESSION.vi.md)
-
-#### 🌍 Bản dịch đa ngôn ngữ
-
-- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
-- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
-
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Phương pháp dịch thuật](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) và [Tài liệu hướng dẫn về `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-#### 🎙 Thoại thời gian thực
-
-Thoại song công hoàn toàn khả dụng thông qua OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-và Bedrock Nova Sonic, cùng tính năng khử tiếng vọng AEC3 tùy chọn và gọi hàm thời gian thực bị giới hạn bởi an toàn.
-
-#### 🌍 Riêng tư, đa ngôn ngữ và nhận biết chính sách
-
-Sử dụng uag bằng tiếng Nhật, tiếng Anh, tiếng Trung, tiếng Hàn, tiếng Tây Ban Nha, tiếng Pháp, tiếng Nga và nhiều ngôn ngữ khác. Thông tin xác thực có thể
-được lưu trong keychain gốc của hệ điều hành hoặc backend tệp mã hóa. Các chính sách doanh nghiệp có thể quản lý công cụ,
-provider, mạng, thông tin xác thực, plugin, skill và máy chủ MCP.
-
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Chính sách doanh nghiệp](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) và
-[Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Ghi chú về nền tảng sandbox MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Thiết lập mặc định MXC cho Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
-
-### Thiết lập nền tảng
-
-Gói lõi đa nền tảng. Nên cài đặt có chọn lọc các dependency dành riêng cho từng nền tảng.
-
-#### Windows
-
-```powershell
-python -m pip install PySide6 winrt-Windows.Devices.Geolocation
-```
-
-#### macOS
-
-```bash
-python -m pip install PySide6 pyobjc-framework-CoreLocation
-```
-
-#### Linux
-
-```bash
-python -m pip install PySide6 ewmh dbus-next
-```
-
-Một số tích hợp có thêm yêu cầu hệ thống, chẳng hạn binary trình duyệt, quyền Bluetooth,
-thông tin xác thực đám mây hoặc máy chủ MQTT/OPC UA. Công cụ liên quan sẽ báo những gì còn thiếu khi chạy.
-
-### Phần mở rộng
-
-#### Agent Skills và plugin
-
-Cài đặt skill cộng đồng từ SkillsMP hoặc ClawHub, hoặc cài plugin tương thích Claude Code chứa
-skill, agent, máy chủ MCP, hook, command và kiểu đầu ra.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Xem [Phát triển Plugin](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) và [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-#### Tạo một công cụ
-
-Một công cụ có thể là một tệp Python duy nhất với `TOOL_SPEC` và `run_tool()`. Đặt tệp đó vào
-`UAGENT_EXTERNAL_TOOLS_DIR` rồi tải lại catalog. Các nhà phát triển Rust có thể cung cấp một module native dựng sẵn
-với một wrapper Python mỏng.
-
-Xem [Hướng dẫn tạo công cụ](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-#### Máy chủ MCP
-
-Kết nối với các máy chủ MCP bên ngoài từ CLI hoặc tệp cấu hình. Hướng dẫn về OAuth và proxy có tại
-[Hướng dẫn MCP OAuth / Proxy](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
 
 ## Được xây dựng cho quy trình làm việc thực tế
 
-### Tính liên tục của phiên
+### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
+
+Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
 
 Tiếp tục các cuộc hội thoại trước bằng `:load <index>`. Kết quả công cụ có thể được lưu vào bộ nhớ đệm và provider có thể được thay đổi
 mà không cần xây dựng lại ứng dụng.
 
-Để chuyển một cuộc hội thoại giữa các bản cài đặt, hãy dùng tính năng xuất/nhập phiên được mã hóa: `uag session export <id> -o work.uag`, `uag session import work.uag` rồi `uag session resume <new-id>`. Xem [Session Portability v1](SESSION_PORTABILITY.md) để biết về cụm mật khẩu, API web, ranh giới bảo mật và các nội dung bị loại trừ.
-
-Cài đặt Session Store:
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-UAGENT_MEMORY_DB=
-```
+[Context compression](CONTEXT_COMPRESSION.vi.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
 
 ### Auto-pilot
 
 Dùng `:auto` cho công việc nhiều vòng với một mô hình reviewer tùy chọn. Đặt giới hạn vòng bằng `--max-rounds N`.
 Nhấn **F12** để dừng auto-pilot hoặc **F12** để dừng phản hồi hiện tại.
 
-Xem [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
+phân tích repository và các tác vụ tương tự có thể hoàn tất song song với một pool worker có thể cấu hình
+(`UAGENT_PARALLEL_WORKERS`). Các thao tác ghi vẫn được tuần tự hóa hoặc yêu cầu xác nhận.
 
-### Chế độ nhúng
+Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
+điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
 
-Đối với các triển khai cục bộ bị giới hạn, hãy dùng `--embedded` và chỉ tải rõ ràng những công cụ mà ứng dụng cần.
-Trong chế độ nhúng, `--tool-genre-mask` bị bỏ qua; các tùy chọn `--enable-tool` lặp lại vẫn giữ nguyên thứ tự công cụ đã chỉ định.
+[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-Xem [tài liệu tham khảo sử dụng CLI](USAGE.md).
-
-### Xác nhận của con người
+### 🌍 Riêng tư, đa ngôn ngữ và nhận biết chính sách
 
 `human_ask` tạm dừng trước các hành động nhạy cảm. Việc xóa tệp, ghi đè, lệnh shell, điều khiển thiết bị,
 thao tác thông tin xác thực và ghi qua mạng có thể được quản lý bằng quy tắc xác nhận và chính sách.
 
-Các kiểm soát trên toàn tổ chức có sẵn thông qua [Engine Chính sách Doanh nghiệp](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
-
-### Thông tin xác thực
-
 Sử dụng kho thông tin xác thực thay vì đặt các bí mật có thời hạn dài trong prompt:
 
-```text
-:credential set provider/openai api_key
-:credential get provider/openai
-:credential list
-```
+Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
 
-Kho có thể sử dụng Windows Credential Manager, macOS Keychain, Linux Secret Service hoặc backend tệp mã hóa.
-Xem [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) để biết chi tiết cấu hình.
+uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
 
-### Thoại thời gian thực
+Ưu tiên chạy cục bộ không có nghĩa là UAG hoàn toàn ngoại tuyến hoặc mọi công cụ đều được cách ly theo mặc định. Lời gọi tới mô hình và dịch vụ bên ngoài phụ thuộc vào cấu hình.
 
-Các tích hợp thoại thời gian thực tùy chọn hỗ trợ OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
-Google Gemini Live và Amazon Bedrock Nova Sonic. Cài đặt các dependency âm thanh liên quan rồi chạy:
+- [Enterprise policies](ENTERPRISE_POLICY.md)
+- [MXC sandbox](SANDBOX_MXC.md)
+- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
+- [Web identity](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
 
-```bash
-python scheck.py realtime
-```
+### 🌍 Bản dịch đa ngôn ngữ
 
-AEC3 hỗ trợ âm thanh microphone và loa song công hoàn toàn. Chỉ bật chẩn đoán khi đang khắc phục sự cố:
+- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
+- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
 
-```bash
-export UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
+Thoại song công hoàn toàn khả dụng thông qua OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+và Bedrock Nova Sonic, cùng tính năng khử tiếng vọng AEC3 tùy chọn và gọi hàm thời gian thực bị giới hạn bởi an toàn.
+
+[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
 
 ## Tài liệu
 
@@ -456,6 +239,8 @@ python scheck.py realtime
 | Extension VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 | Hướng dẫn nhà phát triển | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Luồng công cụ | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+
+[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
 
 ## Phát triển và đóng góp
 
@@ -474,16 +259,6 @@ python -m pytest -q .
 ```
 
 Để xem toàn bộ quy trình phát triển, hãy xem [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-### Nguyên tắc dự án
-
-- **Ưu tiên cục bộ** — runtime thuộc về bạn.
-- **Trung lập với provider** — mô hình là hạ tầng có thể thay thế.
-- **Có tính kết hợp** — công cụ, skill, plugin và máy chủ MCP là các phần mở rộng hạng nhất.
-- **An toàn theo mặc định** — các thao tác nhạy cảm vẫn hiển thị và có thể kiểm soát.
-- **Mở cửa đóng góp** — hoan nghênh code, công cụ, skill, bản dịch và tài liệu.
-
-### Đóng góp
 
 Hoan nghênh báo cáo lỗi, ý tưởng tính năng, cải thiện tài liệu, bản dịch, công cụ, skill và pull request.
 Vui lòng mở issue hoặc discussion trước khi thực hiện thay đổi lớn. Đọc [Hướng dẫn nhà phát triển](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

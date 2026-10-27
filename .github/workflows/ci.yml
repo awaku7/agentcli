@@ -10,6 +10,49 @@ on:
   workflow_dispatch:
 
 jobs:
+  readme-parity:
+    # Documentation-only PRs still need this check, even when Python CI is skipped.
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check localized README structure and operational commands
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected_h2="$(grep -c '^## ' README.md)"
+          expected_h3="$(grep -c '^### ' README.md)"
+          shopt -s nullglob
+          locales=(docs/README.*.md)
+          test "${#locales[@]}" -eq 38  # 37 locales plus translation index
+          for file in "${locales[@]}"; do
+            [[ "$file" == "docs/README.translations.md" ]] && continue
+            if [[ "$(grep -c '^## ' "$file")" != "$expected_h2" ||
+                  "$(grep -c '^### ' "$file")" != "$expected_h3" ]]; then
+              echo "::error file=$file::README section structure differs from English"
+              exit 1
+            fi
+            for invariant in \
+              'python -m pip install --upgrade uag' \
+              'python -m pip install "uag[core,providers,tools]"' \
+              'python -m pip install "uag[platform]"' \
+              'python -m pip install "uag[web]" fastapi uvicorn' \
+              'UAGENT_PROVIDER' 'tool_catalog' 'tool_load' \
+              'README.translations.md' \
+              'SANDBOX_MXC.md' 'REMOTE_MXC_DEFAULT.md' \
+              'ENTERPRISE_POLICY.md'; do
+              if ! grep -Fq -- "$invariant" "$file"; then
+                echo "::error file=$file::Missing README invariant: $invariant"
+                exit 1
+              fi
+            done
+            if grep -Fq 'pip install PySide6' "$file"; then
+              echo "::error file=$file::Stale platform-specific installation command"
+              exit 1
+            fi
+          done
+
   changes:
     if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04

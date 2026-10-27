@@ -46,7 +46,7 @@ IoT zařízení, MCP servery a pracovní postupy s více agenty.
 
 ## Rychlý start
 
-### Instalace
+**Python 3.11+**
 
 ```bash
 python -m pip install --upgrade uag
@@ -63,37 +63,14 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > Integrace platformy jsou volitelné. Nainstalujte pouze to, co váš operační systém potřebuje; viz
-> [Nastavení platformy](#platform-setup).
-
-### Výběr poskytovatele
-
-Před spuštěním nastavte poskytovatele a jeho API klíč nebo je nakonfigurujte v průvodci nastavením.
-
-```bash
-# OpenAI
-export UAGENT_PROVIDER=openai
-export OPENAI_API_KEY="your-api-key"
-
-# Anthropic
-export UAGENT_PROVIDER=anthropic
-export ANTHROPIC_API_KEY="your-api-key"
-
-# Local Ollama
-export UAGENT_PROVIDER=ollama
-export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.3
-```
-
-Windows PowerShell používá `$env:NAME = "value"` namísto `export NAME=value`.
-Úplnou matici poskytovatelů najdete v části [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
-
-### Vyzkoušejte si jej
 
 ```text
 > What files changed in this repository?
 > Search the web for today's AI news and summarize the top five stories.
 > :help
 ```
+
+[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
 
 ## Rozhraní
 
@@ -107,16 +84,17 @@ Windows PowerShell používá `$env:NAME = "value"` namísto `export NAME=value`
 
 Všechna rozhraní sdílejí stejnou konfiguraci poskytovatele, registr nástrojů, bezpečnostní pravidla a data relací.
 
+~~~bash
+# Desktop GUI
+python -m pip install "uag[platform]"
+
+# Web UI
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+
 ## Co můžete vytvořit
-
-### Práce s vaším prostředím
-
-- Číst, vytvářet, upravovat, vyhledávat, vytvářet hashe, archivovat a kontrolovat soubory
-- Kontrolovat změny v Gitu, hledat tajné údaje, spouštět testy, provádět linting a kompilaci a měřit pokrytí
-- Procházet rozsáhlé kódové základny v Pythonu, TypeScriptu, JavaScriptu, Go, Rustu, C/C++, Javě, C#, COBOLu, VBA a dalších jazycích
-- Automatizovat prohlížeče pomocí Playwright včetně vícestránkových pracovních postupů a stahování
-
-### Použití libovolného modelu
 
 Adaptéry poskytovatelů pokrývají hostovaná i lokální běhová prostředí včetně:
 
@@ -124,7 +102,14 @@ Adaptéry poskytovatelů pokrývají hostovaná i lokální běhová prostředí
 
 Poskytovatele přepnete pomocí `UAGENT_PROVIDER`; vaše nástroje ani rozhraní se nezmění.
 
-### Připojení služeb a zařízení
+**Práce s vaším prostředím**
+
+- Číst, vytvářet, upravovat, vyhledávat, vytvářet hashe, archivovat a kontrolovat soubory
+- Kontrolovat změny v Gitu, hledat tajné údaje, spouštět testy, provádět linting a kompilaci a měřit pokrytí
+- Procházet rozsáhlé kódové základny v Pythonu, TypeScriptu, JavaScriptu, Go, Rustu, C/C++, Javě, C#, COBOLu, VBA a dalších jazycích
+- Automatizovat prohlížeče pomocí Playwright včetně vícestránkových pracovních postupů a stahování
+
+**Připojení služeb a zařízení**
 
 - **MCP** — připojení externích serverů nástrojů včetně služeb s podporou OAuth
 - **A2A** — koordinace s dalšími agenty a kompatibilními servery
@@ -133,6 +118,29 @@ Poskytovatele přepnete pomocí `UAGENT_PROVIDER`; vaše nástroje ani rozhraní
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA a UPnP
 - **Média** — generování a úprava obrázků, přepis a syntéza zvuku, snímání kamerou a QR kódy
 - **Dokumenty** — analýza PDF, PowerPointu, Wordu, Excelu, CSV, JSON, YAML, SQL a logů
+
+**IoT a ovládání fyzického světa**
+
+- **SwitchBot** — cloudové a BLE vyhledávání, stav, ovládání, dávkování a odběry
+- **ECHONET Lite** — vyhledávání a ovládání japonských domácích spotřebičů včetně oznámení INF
+- **Matter** — koncové body, clustery, atributy, historie stavu, odběry a ovládání
+- **BACnet / Modbus TCP / OPC UA** — čtení, zápisy, procházení a monitorování průmyslové automatizace a automatizace budov
+- **UPnP** — vyhledávání zařízení, stav WAN a správa mapování portů routeru
+
+### Kam uag zapadá
+
+uag stojí mezi lidmi a rozhraními na jedné straně a modely, nástroji a systémy reálného světa na straně druhé.
+Koordinuje konverzaci, vybírá schopnosti, uplatňuje bezpečnostní pravidla a udržuje pracovní postup obnovitelný.
+
+~~~mermaid
+flowchart LR
+    UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
+    UAG --> MODELS["Hosted & local models"]
+    UAG --> TOOLS["Tools & extensions"]
+    UAG --> STATE["Sessions & context"]
+    TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
+    POLICY["Confirmation · Credentials · Policy"] -.-> UAG
+~~~
 
 ### Pluginy, Agent Skills a tržiště
 
@@ -152,111 +160,6 @@ Proměňte uag ve specializovaného agenta bez forkování jádra:
 
 Viz [Průvodce vývojem pluginů](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
 
-### IoT a ovládání fyzického světa
-
-uag propojuje konverzační pracovní postupy se skutečnými zařízeními a zároveň udržuje operace zápisu explicitní a auditovatelné:
-
-- **SwitchBot** — cloudové a BLE vyhledávání, stav, ovládání, dávkování a odběry
-- **ECHONET Lite** — vyhledávání a ovládání japonských domácích spotřebičů včetně oznámení INF
-- **Matter** — koncové body, clustery, atributy, historie stavu, odběry a ovládání
-- **BACnet / Modbus TCP / OPC UA** — čtení, zápisy, procházení a monitorování průmyslové automatizace a automatizace budov
-- **UPnP** — vyhledávání zařízení, stav WAN a správa mapování portů routeru
-
-Čtěte stav, sledujte změny nebo proveďte akci ovládání prostřednictvím stejného rozhraní agenta. Citlivé zápisy do zařízení
-zůstávají podřízeny nakonfigurovaným pravidlům potvrzení a podnikovým zásadám.
-
-Viz [Případy použití IoT](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
-
-Běhové prostředí v současnosti obsahuje rozsáhlý katalog nástrojů. Přesné nástroje dostupné ve vaší instalaci zjistíte pomocí:
-
-```text
-:tools
-```
-
-### Kam uag zapadá
-
-uag stojí mezi lidmi a rozhraními na jedné straně a modely, nástroji a systémy reálného světa na straně druhé.
-Koordinuje konverzaci, vybírá schopnosti, uplatňuje bezpečnostní pravidla a udržuje pracovní postup obnovitelný.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identita a zásady<br/>OIDC · skupiny Entra · adaptéry AD · potvrzení]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**uag není poskytovatel modelu ani jen chatovací UI.** Je to sdílená prováděcí vrstva, která umožňuje modelům,
-nástrojům, rozhraním a zásadám spolupracovat.
-
-### Klíčové schopnosti
-
-#### 🧠 Jeden agent, každý model
-
-Používejte hostované nebo lokální modely prostřednictvím jednotného rozhraní nástrojů. Přepínejte poskytovatele pomocí
-`UAGENT_PROVIDER` — bez změn kódu, migrace nebo odděleného pracovního postupu.
-
-#### 🔐 OIDC a podniková identita
-
-Webové uživatelské rozhraní zahrnuje přihlášení pomocí OIDC s Authorization Code + PKCE, ověřené ID tokeny, serverové relace a přístupová oprávnění k projektům/místnostem. Ověřené skupinové nároky Microsoft Entra ID mohou při konfiguraci sloužit jako základ pro přístupovou politiku založenou na adresáři. Nasazení Windows Active Directory, OAuth a trusted-proxy lze integrovat pomocí explicitně ověřených adaptérů identity; Windows AD vyžaduje nasazení specifický ověřovač Kerberos/Negotiate a není ve výchozím nastavení povolen.
-
-Viz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) a [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-#### 📈 OpenTelemetry pozorovatelnost
-
-uag zahrnuje volitelné, na poskytovateli nezávislé trasování OpenTelemetry a metriky pro operace Agent, LLM, nástrojů, Context, Memory a vyhledávání. Pozorovatelnost je ve výchozím nastavení zakázána.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Podpora důvěryhodného šíření je k dispozici pro Sub-Agent, A2A, MCP HTTP a explicitně důvěryhodné reverzní proxy servery Web.
-
-Pokud je tato možnost povolena, chybějící OpenTelemetry Python závislosti lze nainstalovat prostřednictvím stávajících zásad automatické instalace uag. Chování exportéru, koncového bodu, protokolu a vzorkování používají standardní nastavení OTEL\_\*. Pokročilé zachycování obsahu, pseudonymní korelace, diagnostika SDK poskytovatele a trasovací dotaz běžného uživatele jsou samostatné funkce pro přihlášení.
-
-Trasa trasovacího dotazu Phase 4D podporuje autorizaci, ale záměrně nemá vestavěn žádný obecný adaptér dotazů dodavatele: zkontrolovaná integrace aplikace musí registrovat koncový adaptér. Koncový bod exportu OTLP není nikdy považován za dotaz API.
-
-Viz [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [konfigurace prostředí](ENVIRONMENT.md#opentelemetry-observability) a [smlouva o pozorovatelnosti pro vývojáře](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-#### ⚡ Paralelní provádění nástrojů
-
-Nezávislé operace pouze pro čtení běží při bezpečném provádění souběžně. Webová vyhledávání, kontrola souborů,
-analýza repozitáře a podobná zatížení mohou být dokončena paralelně pomocí konfigurovatelného fondu pracovníků
-(`UAGENT_PARALLEL_WORKERS`). Operace zápisu zůstávají serializované nebo vyžadují potvrzení.
-
-#### 🧩 Připraveno na rozšíření
-
 - **200+ nástrojů** pro soubory, web, média, dokumenty, kód, cloud, komunikaci a IoT
 - **Dynamické zjišťování a načítání** — pomocí `tool_catalog` vyhledáte schopnosti a pomocí `tool_load` je povolíte pouze v případě potřeby
 - **Inteligence pro práci s kódem** — `code_map`, jazykově specifické navigátory `idx`, kontrola Gitu, spouštění testů, linting, kompilace a pokrytí
@@ -265,182 +168,61 @@ analýza repozitáře a podobná zatížení mohou být dokončena paralelně po
 - **Vlastní nástroje v Pythonu** s `TOOL_SPEC` a `run_tool()`
 - **Nástroje využívající Rust** pro lehká nativní rozšíření
 
-#### 🔄 Spolehlivá dlouhotrvající práce
-
-Kontinuita relací, ukládání výsledků nástrojů do mezipaměti, stav dávek, obnova po restartu, plánování DAG a
-koordinace více agentů umožňují obnovit složitou práci namísto jednorázového provedení.
-
-- `set_timer` podporuje trvalé plánované spouštění LLM, ochranu pomocí povinných nástrojů, přímé spuštění jednoho schváleného nástroje, opakované pokusy a časové limity.
-
-#### 🧠 Výsledky nástrojů s ohledem na kontext
-
-Rozsáhlé výsledky nástrojů se pokud možno neukládají do kontextu aktivního modelu. uag je ukládá jako artefakty a modelu místo toho předává ohraničený náhled se stabilním odkazem na Artifact. To může podstatně snížit počet vstupních tokenů potřebných pro následující tahy, když nástroj vygeneruje rozsáhlý výsledek.
-
-Pomocí `artifact_read` lze načíst pouze potřebné řádky nebo rozsah znaků:
-
-```text
-> Přečti artifact://<artifact-id> řádky 100–140
-```
-
-Nové artefakty se ukládají pod:
-
-```text
-~/.uag/artifacts/
-```
-
-Aktivní kontext je ohraničen `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` a `UAGENT_TOOL_RESULT_MAX_CHARS`. Binární data, jako jsou obrázky, zvuk a vložená data Base64, se do trvalé historie neukládají, zatímco uživatelské rozhraní a vzdálení klienti mohou i nadále přijímat jejich přílohy uložené v paměti.
-
-Stávající starší cesty Artifact zůstávají z důvodu kompatibility nadále čitelné. Informace o hranicích úložiště, chování při trvalém ukládání a aktuálním stavu implementace najdete v [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md).
-
-[Komprese kontextu a ohraničený kontext modelu](CONTEXT_COMPRESSION.cs.md)
-
-#### 🌍 Vícejazyčný překlad
-
-- `translate_text` podporuje Google Translate a oficiálního klienta DeepL pro Python prostřednictvím `provider=auto`, `provider=deepl` nebo `provider=google`.
-- Definice nástrojů jsou k dispozici v 37 jazykových verzích plus angličtině (celkem 38), přičemž jsou zachovány zástupné symboly a technické identifikátory.
-
-Viz [Proměnné prostředí](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodika překladu](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) a [dokumentaci k `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
-
-#### 🎙 Hlas v reálném čase
-
-Obousměrný hlas je dostupný prostřednictvím OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
-a Bedrock Nova Sonic, s volitelným potlačením ozvěny AEC3 a voláním funkcí v reálném čase omezeným bezpečnostními pravidly.
-
-#### 🌍 Soukromé, vícejazyčné a respektující zásady
-
-Používejte uag v japonštině, angličtině, čínštině, korejštině, španělštině, francouzštině, ruštině a dalších jazycích. Přihlašovací údaje lze
-ukládat do nativního klíčenky operačního systému nebo do backendu s šifrovaným souborem. Podnikové zásady mohou řídit nástroje,
-poskytovatele, sítě, přihlašovací údaje, pluginy, skills a MCP servery.
-
-Viz [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) a
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Poznámky k platformě sandboxu MXC](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Výchozí nastavení MXC pro Remote Web / A2A](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
-
-### Nastavení platformy
-
-Základní balíček je multiplatformní. Závislosti specifické pro platformu instalujte selektivně.
-
-#### Windows
-
-```powershell
-python -m pip install PySide6 winrt-Windows.Devices.Geolocation
-```
-
-#### macOS
-
-```bash
-python -m pip install PySide6 pyobjc-framework-CoreLocation
-```
-
-#### Linux
-
-```bash
-python -m pip install PySide6 ewmh dbus-next
-```
-
-Některé integrace mají další systémové požadavky, například binární soubory prohlížeče, oprávnění Bluetooth,
-cloudové přihlašovací údaje nebo server MQTT/OPC UA. Příslušný nástroj při spuštění oznámí, co chybí.
-
-### Rozšíření
-
-#### Agent Skills a pluginy
-
-Instalujte komunitní skills ze SkillsMP nebo ClawHub, případně pluginy kompatibilní s Claude Code obsahující
-skills, agenty, MCP servery, hooky, příkazy a styly výstupu.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Viz [Vývoj pluginů](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) a [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
-
-#### Vytvoření nástroje
-
-Nástrojem může být jediný soubor Pythonu s `TOOL_SPEC` a `run_tool()`. Umístěte jej do
-`UAGENT_EXTERNAL_TOOLS_DIR` a znovu načtěte katalog. Vývojáři v Rustu mohou dodávat předem sestavený nativní modul
-tenkou obálkou v Pythonu.
-
-Viz [Průvodce tvorbou nástrojů](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-#### MCP servery
-
-K externím MCP serverům se připojíte z CLI nebo konfiguračního souboru. Pokyny k OAuth a proxy najdete v
-[Průvodci OAuth / proxy pro MCP](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
 
 ## Vytvořeno pro reálné pracovní postupy
 
-### Kontinuita relace
+### 🧠 Výsledky nástrojů s ohledem na kontext
+
+Rozsáhlé výsledky nástrojů se pokud možno neukládají do kontextu aktivního modelu. uag je ukládá jako artefakty a modelu místo toho předává ohraničený náhled se stabilním odkazem na Artifact. To může podstatně snížit počet vstupních tokenů potřebných pro následující tahy, když nástroj vygeneruje rozsáhlý výsledek.
 
 Předchozí konverzace obnovíte pomocí `:load <index>`. Výsledky nástrojů lze ukládat do mezipaměti a poskytovatele lze měnit
 bez opětovného sestavení aplikace.
 
-Chcete-li přesunout konverzaci mezi instalacemi, použijte šifrovaný export/import relace: `uag session export <id> -o work.uag`, `uag session import work.uag` a poté `uag session resume <new-id>`. Informace o přístupových frázích, Web API, bezpečnostních hranicích a výjimkách najdete v dokumentu [Session Portability v1](SESSION_PORTABILITY.md).
-
-Nastavení Session Store:
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-UAGENT_MEMORY_DB=
-```
+[Context compression](CONTEXT_COMPRESSION.cs.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
 
 ### Autopilot
 
 Pro vícekolovou práci s volitelným kontrolním modelem použijte `:auto`. Limit kol nastavte pomocí `--max-rounds N`.
 Stisknutím **F12** autopilota zastavíte, stisknutím **F12** zastavíte aktuální odpověď.
 
-Viz [Autopilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Nezávislé operace pouze pro čtení běží při bezpečném provádění souběžně. Webová vyhledávání, kontrola souborů,
+analýza repozitáře a podobná zatížení mohou být dokončena paralelně pomocí konfigurovatelného fondu pracovníků
+(`UAGENT_PARALLEL_WORKERS`). Operace zápisu zůstávají serializované nebo vyžadují potvrzení.
 
-### Vestavěný režim
+Kontinuita relací, ukládání výsledků nástrojů do mezipaměti, stav dávek, obnova po restartu, plánování DAG a
+koordinace více agentů umožňují obnovit složitou práci namísto jednorázového provedení.
 
-Pro omezená lokální nasazení použijte `--embedded` a explicitně načtěte pouze nástroje, které aplikace potřebuje.
-Ve vestavěném režimu se `--tool-genre-mask` ignoruje; opakované volby `--enable-tool` zachovají zadané pořadí nástrojů.
+[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-Viz [referenční příručka CLI](USAGE.md).
-
-### Potvrzení člověkem
+### 🌍 Soukromé, vícejazyčné a respektující zásady
 
 `human_ask` pozastaví běh před citlivými akcemi. Mazání souborů, přepisování, příkazy shellu, ovládání zařízení,
 operace s přihlašovacími údaji a síťové zápisy mohou podléhat pravidlům potvrzení a zásadám.
 
-Celopodnikové řízení je dostupné prostřednictvím [Enginu podnikových zásad](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
-
-### Přihlašovací údaje
-
 Používejte úložiště přihlašovacích údajů namísto vkládání dlouhodobých tajemství do promptů:
 
-```text
-:credential set provider/openai api_key
-:credential get provider/openai
-:credential list
-```
+Webové uživatelské rozhraní zahrnuje přihlášení pomocí OIDC s Authorization Code + PKCE, ověřené ID tokeny, serverové relace a přístupová oprávnění k projektům/místnostem. Ověřené skupinové nároky Microsoft Entra ID mohou při konfiguraci sloužit jako základ pro přístupovou politiku založenou na adresáři. Nasazení Windows Active Directory, OAuth a trusted-proxy lze integrovat pomocí explicitně ověřených adaptérů identity; Windows AD vyžaduje nasazení specifický ověřovač Kerberos/Negotiate a není ve výchozím nastavení povolen.
 
-Úložiště může používat Windows Credential Manager, macOS Keychain, Linux Secret Service nebo backend s šifrovaným souborem.
-Podrobnosti konfigurace najdete v části [Úložiště přihlašovacích údajů](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
+uag zahrnuje volitelné, na poskytovateli nezávislé trasování OpenTelemetry a metriky pro operace Agent, LLM, nástrojů, Context, Memory a vyhledávání. Pozorovatelnost je ve výchozím nastavení zakázána.
 
-### Hlas v reálném čase
+Přístup local-first neznamená, že UAG ve výchozím nastavení funguje zcela offline nebo že jsou všechny nástroje izolované. Volání externích modelů a připojených služeb závisí na konfiguraci.
 
-Volitelné integrace hlasu v reálném čase podporují OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
-Google Gemini Live a Amazon Bedrock Nova Sonic. Nainstalujte příslušné zvukové závislosti a spusťte:
+- [Enterprise policies](ENTERPRISE_POLICY.md)
+- [MXC sandbox](SANDBOX_MXC.md)
+- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
+- [Web identity](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
 
-```bash
-python scheck.py realtime
-```
+### 🌍 Vícejazyčný překlad
 
-Podpora AEC3 je dostupná pro obousměrný zvuk mikrofonu a reproduktoru. Diagnostiku povolujte pouze při
-odstraňování problémů:
+- `translate_text` podporuje Google Translate a oficiálního klienta DeepL pro Python prostřednictvím `provider=auto`, `provider=deepl` nebo `provider=google`.
+- Definice nástrojů jsou k dispozici v 37 jazykových verzích plus angličtině (celkem 38), přičemž jsou zachovány zástupné symboly a technické identifikátory.
 
-```bash
-export UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
+Obousměrný hlas je dostupný prostřednictvím OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+a Bedrock Nova Sonic, s volitelným potlačením ozvěny AEC3 a voláním funkcí v reálném čase omezeným bezpečnostními pravidly.
+
+[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
 
 ## Dokumentace
 
@@ -457,6 +239,8 @@ python scheck.py realtime
 | Rozšíření VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 | Příručka pro vývojáře | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Tok nástroje | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+
+[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
 
 ## Vývoj a přispívání
 
@@ -475,16 +259,6 @@ python -m pytest -q .
 ```
 
 Úplný vývojový postup najdete v [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
-
-### Principy projektu
-
-- **Lokální zpracování v první řadě** — běhové prostředí patří vám.
-- **Nezávislost na poskytovateli** — modely jsou zaměnitelnou infrastrukturou.
-- **Komponovatelnost** — nástroje, skills, pluginy a MCP servery jsou prvotřídní rozšíření.
-- **Bezpečnost ve výchozím nastavení** — citlivé operace zůstávají viditelné a ovladatelné.
-- **Otevřenost příspěvkům** — vítány jsou kód, nástroje, skills, překlady i dokumentace.
-
-### Přispívání
 
 Vítány jsou hlášení chyb, nápady na funkce, vylepšení dokumentace, překlady, nástroje, skills a pull requesty.
 Před rozsáhlými změnami prosím otevřete issue nebo diskusi. Přečtěte si [Příručku pro vývojáře](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
