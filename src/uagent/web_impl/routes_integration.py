@@ -74,6 +74,16 @@ async def get_integration_manifest():
     if any("project.membership.read" in scope.capabilities for scope in scopes):
         capabilities.append("project.membership.read")
 
+    # Publish the write capability only for a valid, separately protected
+    # write configuration. A valid manifest alone never authorizes mutation.
+    try:
+        from .routes_integration_write import _write_scopes
+
+        if await asyncio.to_thread(_write_scopes):
+            capabilities.append("project.membership.write")
+    except (OSError, RuntimeError, ValueError):
+        pass
+
     return {
         "api_version": INTEGRATION_API_VERSION,
         "instance": {
@@ -643,3 +653,7 @@ async def get_integration_project_members(
         "members": members,
         "next_cursor": next_cursor,
     }
+
+
+# Load signed management write routes after the shared read-only helpers.
+from . import routes_integration_write as _routes_integration_write  # noqa: E402,F401

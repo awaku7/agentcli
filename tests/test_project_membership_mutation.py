@@ -173,3 +173,15 @@ def test_bad_inputs_are_rejected_before_transaction(enrolled):
         with pytest.raises((ValueError, MemoryStoreConflictError)):
             change(enrolled, **kwargs)
     assert not enrolled.db.in_transaction
+
+
+def test_direct_backend_rejects_non_string_action_and_role(enrolled):
+    for params in ({"action": []}, {"role": []}, {"role": {"role": "editor"}}):
+        with pytest.raises(ValueError):
+            change(enrolled, **params)
+    assert (
+        enrolled.db.execute(
+            "SELECT COUNT(*) FROM project_membership_mutation_audit"
+        ).fetchone()[0]
+        == 0
+    )

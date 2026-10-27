@@ -17,6 +17,16 @@ ROLES = frozenset({"viewer", "editor", "admin"})
 
 
 @dataclass(frozen=True)
+class VerifiedOperator:
+    """Signed and already verified by the C1 HTTP adapter, never user input."""
+
+    issuer_id: str
+    actor_user_id: int
+    session_version: int
+    nonce: str
+
+
+@dataclass(frozen=True)
 class MembershipChange:
     project_id: str
     principal_id: str
@@ -34,6 +44,7 @@ def apply_membership_change(
     expected_revision: int,
     action: str,
     role: str | None = None,
+    operator: VerifiedOperator | None = None,
 ) -> MembershipChange:
     """Check admin authority and revision inside the same write transaction.
 
@@ -55,13 +66,26 @@ def apply_membership_change(
         raise ValueError("invalid actor, target or project")
     if type(expected_revision) is not int or expected_revision < 0:
         raise ValueError("expected_revision must be nonnegative integer")
-    if action not in {"grant", "revoke"}:
+    if not isinstance(action, str) or action not in {"grant", "revoke"}:
         raise ValueError("invalid membership action")
     if action == "grant":
-        if role not in ROLES:
+        if not isinstance(role, str) or role not in ROLES:
             raise ValueError("invalid project role")
     elif role is not None:
         raise ValueError("revoke must not specify a role")
+
+    if operator is not None and (
+        not isinstance(operator, VerifiedOperator)
+        or not isinstance(operator.issuer_id, str)
+        or not 1 <= len(operator.issuer_id) <= 128
+        or type(operator.actor_user_id) is not int
+        or operator.actor_user_id <= 0
+        or type(operator.session_version) is not int
+        or operator.session_version < 0
+        or not isinstance(operator.nonce, str)
+        or not 16 <= len(operator.nonce) <= 128
+    ):
+        raise ValueError("invalid verified operator")
 
     conn.execute("BEGIN IMMEDIATE")
     try:
@@ -125,6 +149,13 @@ def apply_membership_change(
                 raise MemoryAccessError("cannot remove or demote the last manual admin")
 
         now = time.time()
+        if operator is not None:
+            # Replay consumption, the mutation and audit must commit together.
+            conn.execute(
+                "INSERT INTO project_membership_mutation_nonces "
+                "(issuer_id, nonce, consumed_at) VALUES (?, ?, ?)",
+                (operator.issuer_id, operator.nonce, now),
+            )
         if target is None:
             assert new_role is not None
             conn.execute(
@@ -161,8 +192,10 @@ def apply_membership_change(
             "INSERT INTO project_membership_mutation_audit "
             "(actor_principal_id, project_id, target_principal_id, "
             "previous_role, previous_status, new_role, new_status, "
-            "previous_revision, new_revision, created_at) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "previous_revision, new_revision, created_at, "
+            "delegation_issuer, delegation_actor_user_id, "
+            "delegation_session_version, delegation_nonce) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 actor_principal_id,
                 project_id,
@@ -174,6 +207,10 @@ def apply_membership_change(
                 current_revision,
                 revision,
                 now,
+                operator.issuer_id if operator else None,
+                operator.actor_user_id if operator else None,
+                operator.session_version if operator else None,
+                operator.nonce if operator else None,
             ),
         )
         conn.commit()

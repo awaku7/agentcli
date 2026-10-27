@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from contextvars import ContextVar
 import hmac
 import os
+import re
 import threading
 from typing import Any
 
@@ -160,6 +161,19 @@ def _http_mutation_origin_guard(request: Request) -> JSONResponse | None:
     """Reject cross-site state-changing HTTP requests before route handling."""
 
     if request.method.upper() not in {"POST", "PUT", "PATCH", "DELETE"}:
+        return None
+    if (
+        request.method.upper() == "POST"
+        and not request.headers.get("origin")
+        and re.fullmatch(
+            r"/api/admin/integration/v1/projects/[^/]+/memberships",
+            request.url.path,
+        )
+    ):
+        # Server-to-server endpoint requires both an independent bearer secret
+        # and a signed, body-bound actor assertion in its own handler. Only
+        # requests without Origin skip the browser-specific Origin policy.
+        # Any supplied Origin must still meet the normal browser policy.
         return None
     from ..runtime.identity_context import (
         IdentityConfigurationError,
