@@ -60,7 +60,7 @@ Semua cara masuk memakai runtime agen dan registri alat yang sama.
 | **CLI** | `uag` | Terminal dan otomatisasi |
 | **Desktop** | `uagg` | Percakapan dalam aplikasi desktop |
 | **Web** | `uagw` | Percakapan dan ruang di browser |
-| **A2A** | `uaga` | Integrasi antargen |
+| **A2A** | `uaga` | Integrasi antaragen |
 | **VS Code** | [Panduan ekstensi](VSCODE.md) | Bekerja bersama kode |
 
 Antarmuka Desktop dan Web memerlukan dependensi tambahan yang tidak termasuk `uag[core,providers,tools]`:
