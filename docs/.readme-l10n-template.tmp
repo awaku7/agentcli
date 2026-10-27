@@ -1,0 +1,186 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
+</p>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>@@TAG@@</p>
+
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
+</p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">@@OTHERS@@</a></p>
+
+---
+
+@@HERO@@
+
+@@COLUMNS@@
+
+> @@BOUNDARY@@
+
+## @@H_QUICK@@
+<!-- README-SYNC:quick-start -->
+
+@@QUICK1@@
+
+~~~bash
+python -m pip install --upgrade uag
+uag
+~~~
+
+@@QUICK2@@
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+@@QUICK3@@
+
+~~~text
+> @@ASK1@@
+> @@ASK2@@
+> @@ASK3@@
+> :help
+~~~
+
+@@QUICK4@@ [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## @@H_INTERFACES@@
+<!-- README-SYNC:interfaces -->
+
+@@INTERFACES1@@
+
+@@INTERFACES_TABLE@@
+
+@@INTERFACES2@@
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
+python -m pip install "uag[platform]"
+
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+@@INTERFACES3@@ [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
+
+## @@H_CAP@@
+<!-- README-SYNC:capabilities -->
+
+@@CAP_TABLE@@
+
+### @@H_INTEG@@
+<!-- README-SYNC:integrations -->
+
+~~~mermaid
+flowchart LR
+    UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
+    UAG --> MODELS["Hosted & local models"]
+    UAG --> TOOLS["Tools & extensions"]
+    UAG --> STATE["Sessions & context"]
+    TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
+    POLICY["Confirmation · Credentials · Policy"] -.-> UAG
+~~~
+
+@@INTEG1@@
+
+### @@H_CUSTOM@@
+<!-- README-SYNC:extensions -->
+
+@@CUSTOM1@@
+
+~~~text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+:plugin marketplace list
+~~~
+
+@@CUSTOM2@@ [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
+
+## @@H_WORK@@
+<!-- README-SYNC:workflows -->
+
+### @@H_CONTEXT@@
+<!-- README-SYNC:context-memory -->
+
+@@CONTEXT1@@
+
+- [Context compression](CONTEXT_COMPRESSION.@@LOCALE@@.md)
+- [Memory](@@MEMORY_PATH@@)
+- [Session portability](SESSION_PORTABILITY.md)
+
+### @@H_AUTO@@
+<!-- README-SYNC:automation -->
+
+@@AUTO1@@
+
+- [Auto-pilot](@@AUTO_PATH@@)
+- [Timers and scheduled tasks](@@TIMER_PATH@@)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
+
+### @@H_SEC@@
+<!-- README-SYNC:security -->
+
+@@SEC1@@
+
+- [Enterprise policies](ENTERPRISE_POLICY.md)
+- [MXC sandbox](SANDBOX_MXC.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
+
+@@SEC2@@
+
+### @@H_LANG@@
+<!-- README-SYNC:languages -->
+
+@@LANG1@@
+
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
+
+## @@H_DOC@@
+<!-- README-SYNC:documentation -->
+
+@@DOC1@@
+
+| @@DOC_START@@ | @@DOC_DEEP@@ |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+@@DOC2@@ [Documentation](./) · [Other languages](README.translations.md).
+
+## @@H_DEV@@
+<!-- README-SYNC:contributing -->
+
+~~~bash
+git clone https://github.com/awaku7/agentcli.git
+cd agentcli
+python -m pip install -e ".[core,providers,test]"
+~~~
+
+@@DEV1@@
+
+~~~bash
+python -m ruff check src tests
+python -m black --check src tests
+python -m pytest -q .
+~~~
+
+@@DEV2@@ [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
+
+## @@H_LIC@@
+<!-- README-SYNC:license -->
+
+@@LIC1@@ [Apache License 2.0](../LICENSE).
