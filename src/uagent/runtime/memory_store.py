@@ -159,6 +159,22 @@ class MemoryStore:
             "CREATE INDEX IF NOT EXISTS idx_project_memberships_principal "
             "ON project_memberships(principal_id, project_id, status)"
         )
+        # Transactional audit for delegated management writes. The write
+        # backend rejects mutations unless this table is available.
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS project_membership_mutation_audit ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "actor_principal_id TEXT NOT NULL, "
+            "project_id TEXT NOT NULL, target_principal_id TEXT NOT NULL, "
+            "previous_role TEXT, previous_status TEXT NOT NULL, "
+            "new_role TEXT, new_status TEXT NOT NULL, "
+            "previous_revision INTEGER NOT NULL, new_revision INTEGER NOT NULL, "
+            "created_at REAL NOT NULL)"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_project_member_mutation_audit "
+            "ON project_membership_mutation_audit(project_id, created_at)"
+        )
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS project_context_sessions ("
             "token_hash TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
