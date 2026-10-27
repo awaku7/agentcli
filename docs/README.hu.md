@@ -46,7 +46,7 @@ IoT-eszközökhöz, MCP-szerverekhez és többügynökös munkafolyamatokhoz.
 
 ## Gyors kezdés
 
-### Telepítés
+**Python 3.11+**
 
 ```bash
 python -m pip install --upgrade uag
@@ -63,37 +63,14 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > A platformintegrációk opcionálisak. Csak azt telepítsd, amire az operációs rendszerednek szüksége van; lásd a
-> [Platform setup](#platform-setup) részt.
-
-### Szolgáltató kiválasztása
-
-Indítás előtt állíts be egy szolgáltatót és a hozzá tartozó API-kulcsot, vagy konfiguráld őket a beállítási varázslóban.
-
-```bash
-# OpenAI
-export UAGENT_PROVIDER=openai
-export OPENAI_API_KEY="your-api-key"
-
-# Anthropic
-export UAGENT_PROVIDER=anthropic
-export ANTHROPIC_API_KEY="your-api-key"
-
-# Local Ollama
-export UAGENT_PROVIDER=ollama
-export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.3
-```
-
-A Windows PowerShell az `export NAME=value` helyett a `$env:NAME = "value"` formát használja.
-A teljes szolgáltatói mátrixot lásd az [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) oldalon.
-
-### Próbáld ki
 
 ```text
 > What files changed in this repository?
 > Search the web for today's AI news and summarize the top five stories.
 > :help
 ```
+
+[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
 
 ## Felületek
 
@@ -107,24 +84,24 @@ A teljes szolgáltatói mátrixot lásd az [Environment variables](https://githu
 
 Minden felület ugyanazt a szolgáltatói konfigurációt, eszközregisztrációt, biztonsági szabályokat és munkamenetadatokat használja.
 
+~~~bash
+# Desktop GUI
+python -m pip install "uag[platform]"
+
+# Web UI
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+
 ## Mit építhetsz
 
-### Együttműködés a környezeteddel
+A szolgáltatóadapterek hosztolt és helyi futtatókörnyezeteket fednek le, többek között:
 
 - Fájlok olvasása, létrehozása, szerkesztése, keresése, hash-elése, archiválása és vizsgálata
 - Git-módosítások áttekintése, titkok keresése, tesztek futtatása, lintelés, fordítás és a lefedettség mérése
 - Nagy Python-, TypeScript-, JavaScript-, Go-, Rust-, C/C++-, Java-, C#-, COBOL-, VBA- és egyéb kódbázisok navigálása
 - Böngészők automatizálása Playwrighttal, többoldalas munkafolyamatokkal és letöltésekkel együtt
-
-### Bármely modell használata
-
-A szolgáltatóadapterek hosztolt és helyi futtatókörnyezeteket fednek le, többek között:
-
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-Válts szolgáltatót a `UAGENT_PROVIDER` használatával; az eszközeid és a felületed nem változik.
-
-### Szolgáltatások és eszközök csatlakoztatása
 
 - **MCP** — külső eszközszerverek csatlakoztatása, beleértve az OAuth-kompatibilis szolgáltatásokat
 - **A2A** — együttműködés más ügynökökkel és kompatibilis szerverekkel
@@ -133,6 +110,27 @@ Válts szolgáltatót a `UAGENT_PROVIDER` használatával; az eszközeid és a f
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA és UPnP
 - **Media** — képgenerálás/-szerkesztés, hangátírás/-beszéd, kamerafelvétel és QR-kódok
 - **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL és naplóelemzés
+
+- **SwitchBot** — felhő- és BLE-felfedezés, állapot, vezérlés, kötegelt műveletek és feliratkozások
+- **ECHONET Lite** — japán háztartási készülékek felfedezése és vezérlése, beleértve az INF-értesítéseket
+- **Matter** — végpontok, clusterek, attribútumok, állapottörténet, feliratkozások és vezérlés
+- **BACnet / Modbus TCP / OPC UA** — ipari és épületautomatizálási olvasás, írás, böngészés és felügyelet
+- **UPnP** — eszközfelfedezés, WAN-állapot és routeres porttovábbítás kezelése
+
+### Hol helyezkedik el az uag?
+
+Az uag az egyik oldalon az emberek és a felületek, a másikon pedig a modellek, az eszközök és a valós rendszerek között helyezkedik el.
+Összehangolja a beszélgetést, kiválasztja a képességeket, alkalmazza a biztonsági szabályokat, és folytathatóvá teszi a munkafolyamatot.
+
+~~~mermaid
+flowchart LR
+    UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
+    UAG --> MODELS["Hosted & local models"]
+    UAG --> TOOLS["Tools & extensions"]
+    UAG --> STATE["Sessions & context"]
+    TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
+    POLICY["Confirmation · Credentials · Policy"] -.-> UAG
+~~~
 
 ### Bővítmények, Agent Skills és piacterek
 
@@ -152,111 +150,6 @@ Alakítsd az uag-t specializált ügynökké a mag elágaztatása nélkül:
 
 Lásd a [Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) útmutatót.
 
-### IoT- és fizikai világ vezérlése
-
-Az uag a beszélgetésalapú munkafolyamatokat valós eszközökhöz kapcsolja, miközben az írási műveleteket egyértelművé és auditálhatóvá teszi:
-
-- **SwitchBot** — felhő- és BLE-felfedezés, állapot, vezérlés, kötegelt műveletek és feliratkozások
-- **ECHONET Lite** — japán háztartási készülékek felfedezése és vezérlése, beleértve az INF-értesítéseket
-- **Matter** — végpontok, clusterek, attribútumok, állapottörténet, feliratkozások és vezérlés
-- **BACnet / Modbus TCP / OPC UA** — ipari és épületautomatizálási olvasás, írás, böngészés és felügyelet
-- **UPnP** — eszközfelfedezés, WAN-állapot és routeres porttovábbítás kezelése
-
-Olvass állapotot, figyeld a változásokat, vagy hajts végre vezérlési műveletet ugyanazon az ügynökfelületen keresztül. Az érzékeny eszközírásokra
-továbbra is vonatkoznak a beállított megerősítési és vállalati szabályzati előírások.
-
-Lásd az [IoT Use Cases](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) oldalt.
-
-A futtatókörnyezet jelenleg eszközök nagy katalógusát tartalmazza. A telepítésedben elérhető pontos eszközöket így fedezheted fel:
-
-```text
-:tools
-```
-
-### Hol helyezkedik el az uag?
-
-Az uag az egyik oldalon az emberek és a felületek, a másikon pedig a modellek, az eszközök és a valós rendszerek között helyezkedik el.
-Összehangolja a beszélgetést, kiválasztja a képességeket, alkalmazza a biztonsági szabályokat, és folytathatóvá teszi a munkafolyamatot.
-
-```mermaid
-flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Identitás és szabályzat<br/>OIDC · Entra-csoportok · AD-adapterek · megerősítés]
-
-    U --> I
-    I --> G
-    G --> P
-    G --> L
-    G --> T
-    G --> E
-    G --> X
-    G --> D
-    G --> R
-    G --> S
-    E --> T
-    E --> X
-    S -. governs .-> P
-    S -. governs .-> T
-    S -. governs .-> E
-    S -. governs .-> X
-    S -. governs .-> D
-    S -. governs .-> R
-```
-
-**Az uag nem modell-szolgáltató, és nem is csupán egy chatfelület.** Ez az a közös végrehajtási réteg, amely lehetővé teszi, hogy a modellek,
-az eszközök, a felületek és a szabályzatok együttműködjenek.
-
-### Kiemelt képességek
-
-#### 🧠 Egy ügynök, minden modell
-
-Használj hosztolt vagy helyi modelleket egyetlen egységes eszközfelületen keresztül. Válts szolgáltatót a
-`UAGENT_PROVIDER` használatával — nincs szükség kódmódosításra, migrációra vagy külön munkafolyamatra.
-
-#### 🔐 OIDC és vállalati identitás
-
-A Web UI tartalmazza az OIDC bejelentkezést Authorization Code + PKCE használatával, ellenőrzött ID tokeneket, szerveroldali munkameneteket és projekt/szoba hozzáférés-vezérlést. Az ellenőrzött Microsoft Entra ID csoportigények konfigurálás esetén táplálhatják a könyvtár-alapú hozzáférési szabályzatot. A Windows Active Directory, OAuth és trusted-proxy telepítések explicit, telepítés-specifikus ellenőrzött adaptereken keresztül integrálhatók; a Windows AD telepítés-specifikus Kerberos/Negotiate ellenőrzőt igényel, és alapértelmezés szerint nincs engedélyezve.
-
-Lásd: [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) és [Enterprise Policy](ENTERPRISE_POLICY.md).
-
-#### 📈 OpenTelemetry megfigyelhetőség
-
-A uag opcionális, szolgáltatófüggetlen OpenTelemetry-nyomkövetést és metrikákat biztosít az Agent, LLM, eszköz, Context, Memory és visszakeresési műveletekhez. A megfigyelhetőség alapértelmezés szerint le van tiltva.
-
-```bash
-uag --otel
-
-# Equivalent environment activation
-export UAGENT_OTEL_ENABLED=1
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-```
-
-Megbízható terjesztési támogatás érhető el a Sub-Agent, A2A, MCP HTTP és a kifejezetten megbízható Web fordított proxyk számára.
-
-Ha engedélyezve van, a hiányzó OpenTelemetry Python függőség telepíthető a uag meglévő automatikus telepítési szabályzatával. Az exportőr, a végpont, a protokoll és a mintavételi viselkedés szabványos OTEL\_\* beállításokat használ. A speciális tartalomrögzítés, az álnevű korreláció, a szolgáltatói SDK-diagnosztika és a közönséges felhasználók nyomkövetési lekérdezése külön választható funkciók.
-
-A Phase 4D nyomkövetési lekérdezési útvonal jogosultságtudatos, de szándékosan nem rendelkezik beépített általános szállítói lekérdezési adapterrel: a felülvizsgált alkalmazásintegrációnak regisztrálnia kell a háttérillesztőt. A OTLP exportvégpontot soha nem kezeli lekérdezésként API.
-
-Lásd: [OpenTelemetry tervezés](UAG_OPENTELEMETRY_DESIGN.md), [környezetkonfiguráció](ENVIRONMENT.md#opentelemetry-observability) és [fejlesztői megfigyelési szerződés](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
-
-#### ⚡ Párhuzamos eszköz-végrehajtás
-
-A független, csak olvasási műveletek biztonságos esetben párhuzamosan futnak. A webes keresések, a fájlvizsgálat,
-a repository elemzése és a hasonló terhelések párhuzamosan fejeződhetnek be egy konfigurálható worker pool
-(`UAGENT_PARALLEL_WORKERS`) segítségével. Az írási műveletek sorosítva maradnak, vagy megerősítést igényelnek.
-
-#### 🧩 Bővítésre készült
-
 - **200+ eszköz** fájlokhoz, webhez, médiához, dokumentumokhoz, kódhoz, felhőhöz, kommunikációhoz és IoT-hoz
 - **Dinamikus felfedezés és betöltés** — használd a `tool_catalog` eszközt a képességek megtalálásához, a `tool_load` eszközt pedig csak szükség esetén való engedélyezésükhöz
 - **Kódintelligencia** — `code_map`, nyelvspecifikus `idx` navigátorok, Git-áttekintés, tesztfuttatás, lintelés, fordítás és lefedettségmérés
@@ -265,181 +158,61 @@ a repository elemzése és a hasonló terhelések párhuzamosan fejeződhetnek b
 - **Egyéni Python-eszközök** `TOOL_SPEC` és `run_tool()` használatával
 - **Rust-alapú eszközök** könnyű natív bővítményekhez
 
-#### 🔄 Megbízható, hosszan futó munka
-
-A munkamenet-folytonosság, az eszközeredmények gyorsítótárazása, a kötegállapot, az újraindítás utáni helyreállítás,
-a DAG-ütemezés és a többügynökös koordináció folytathatóvá teszi az összetett munkát az egyszeri futtatás helyett.
-
-- A `set_timer` támogatja a tartósan ütemezett LLM futtatásokat, a kötelező eszközök védelmét, egy jóváhagyott eszköz közvetlen végrehajtását, az újrapróbálkozásokat és az időkorlátokat.
-
-#### 🧠 Kontextustudatos eszköz-eredmények
-
-A nagy méretű eszköz-eredményeket – amennyiben lehetséges – kizárják az aktív modell kontextusából. A uag ezeket Artifactként tárolja, és helyette egy korlátozott előnézetet ad át a modellnek, stabil Artifact hivatkozással. Ez jelentősen csökkentheti a következő körökhöz szükséges bemeneti tokenek számát, amikor egy eszköz nagy eredményt produkál.
-
-Használja a `artifact_read` parancsot a szükséges sorok vagy karaktertartomány lekéréséhez:
-
-```text
-> Olvassa be a artifact://<artifact-id> 100–140. sorokat
-```
-
-Az új artefaktok a következő helyen kerülnek tárolásra:
-
-```text
-~/.uag/artifacts/
-```
-
-Az aktív kontextust a `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` és a `UAGENT_TOOL_RESULT_MAX_CHARS` határolja. A bináris hasznos adatok, például a képek, hangfájlok és beágyazott Base64 adatok nem kerülnek be a tartósan tárolt előzményekbe, míg a felhasználói felület és a távoli kliensek továbbra is fogadhatják a memóriában tárolt mellékleteket.
-
-A kompatibilitás érdekében a meglévő, régebbi Artifact útvonalak továbbra is olvashatók maradnak. A tárolási határokról, a perzisztencia viselkedéséről és a jelenlegi megvalósítási állapotról lásd [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md).
-
-[Kontextustömörítés és korlátozott modellkontextus](CONTEXT_COMPRESSION.hu.md)
-
-#### 🌍 Többnyelvű fordítás
-
-- A `translate_text` támogatja a Google Translate-t és a hivatalos DeepL Python-klienst a `provider=auto`, `provider=deepl` vagy `provider=google` beállításokkal.
-- Az eszközdefiníciók 37 nyelvi változatban és angolul (összesen 38) érhetők el, a helyőrzők és a technikai azonosítók megőrzésével.
-
-Lásd: [Környezeti változók](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Fordítási módszertan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) és a [`set_timer` dokumentáció](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) című dokumentumokat.
-
-#### 🎙 Valós idejű hang
-
-A teljes duplex hang az OpenAI Realtime, az Azure OpenAI, az xAI Grok Voice, a Gemini Live és a Bedrock Nova Sonic segítségével érhető el,
-opcionális AEC3 visszhangkioltással és biztonsági korlátozású, valós idejű függvényhívással.
-
-#### 🌍 Privát, többnyelvű és szabályzat-tudatos
-
-Használd az uag-t japán, angol, kínai, koreai, spanyol, francia, orosz és további nyelveken. A hitelesítő adatok
-a natív operációs rendszer kulcstartójában vagy titkosított fájl-backendben tárolhatók. A vállalati szabályzatok irányíthatják az eszközöket,
-a szolgáltatókat, a hálózatokat, a hitelesítő adatokat, a bővítményeket, a skilleket és az MCP-szervereket.
-
-Lásd: [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
-[Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) és
-[Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-- [Megjegyzések az MXC sandboxplatformhoz](https://github.com/awaku7/agentcli/blob/main/docs/SANDBOX_MXC.md)
-- [Az MXC alapértelmezett beállításai Remote Web / A2A esetén](https://github.com/awaku7/agentcli/blob/main/docs/REMOTE_MXC_DEFAULT.md)
-
-### Platform beállítása
-
-A core csomag platformfüggetlen. A platformfüggő függőségeket szelektíven kell telepíteni.
-
-#### Windows
-
-```powershell
-python -m pip install PySide6 winrt-Windows.Devices.Geolocation
-```
-
-#### macOS
-
-```bash
-python -m pip install PySide6 pyobjc-framework-CoreLocation
-```
-
-#### Linux
-
-```bash
-python -m pip install PySide6 ewmh dbus-next
-```
-
-Egyes integrációknak további rendszerkövetelményei vannak, például böngészőbinárisok, Bluetooth-engedélyek,
-felhőhitelesítő adatok vagy MQTT-/OPC UA-szerver. Az érintett eszköz futtatáskor jelzi, mi hiányzik.
-
-### Bővítmények
-
-#### Agent Skills és bővítmények
-
-Telepíts közösségi skilleket a SkillsMP-ről vagy a ClawHubról, illetve telepíts Claude Code-kompatibilis bővítményeket,
-amelyek skilleket, ügynököket, MCP-szervereket, hookokat, parancsokat és kimeneti stílusokat tartalmaznak.
-
-```text
-:skills mp_search browser automation
-:plugin list
-:plugin install <source>
-```
-
-Lásd a [Plugin development](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) és az [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills) oldalakat.
-
-#### Eszköz létrehozása
-
-Egy eszköz lehet egyetlen Python-fájl `TOOL_SPEC` és `run_tool()` használatával. Helyezd az
-`UAGENT_EXTERNAL_TOOLS_DIR` könyvtárba, majd töltsd újra a katalógust. A Rust-fejlesztők vékony Python-wrapperrel
-szállíthatnak előre lefordított natív modult.
-
-Lásd a [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md) útmutatót.
-
-#### MCP-szerverek
-
-Csatlakozz külső MCP-szerverekhez a CLI-ból vagy a konfigurációs fájlból. Az OAuth- és proxyútmutató az
-[MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) oldalon érhető el.
+[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
 
 ## Valós munkafolyamatokra tervezve
 
-### Munkamenet-folytonosság
+### 🧠 Kontextustudatos eszköz-eredmények
+
+A nagy méretű eszköz-eredményeket – amennyiben lehetséges – kizárják az aktív modell kontextusából. A uag ezeket Artifactként tárolja, és helyette egy korlátozott előnézetet ad át a modellnek, stabil Artifact hivatkozással. Ez jelentősen csökkentheti a következő körökhöz szükséges bemeneti tokenek számát, amikor egy eszköz nagy eredményt produkál.
 
 Folytasd a korábbi beszélgetéseket a `:load <index>` paranccsal. Az eszközeredmények gyorsítótárazhatók, a szolgáltatók pedig módosíthatók
 az alkalmazás újraépítése nélkül.
 
-Ha egy beszélgetést telepítések között szeretne áthelyezni, használja a titkosított munkamenet-exportálást/-importálást: `uag session export <id> -o work.uag`, `uag session import work.uag` majd `uag session resume <new-id>`. A jelmondatokról, a Web API-król, a biztonsági határokról és a kizárásokról a [Session Portability v1](SESSION_PORTABILITY.md) dokumentumban olvashat.
-
-A munkamenettároló beállításai:
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-UAGENT_MEMORY_DB=
-```
+[Context compression](CONTEXT_COMPRESSION.hu.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
 
 ### Automata pilóta
 
 Használd a `:auto` parancsot többfordulós munkához, opcionális ellenőrző modellel. A fordulók számának korlátját a `--max-rounds N` kapcsolóval állítsd be.
 A **F12** billentyűvel leállíthatod az automata pilótát, a **F12** billentyűvel pedig az aktuális választ.
 
-Lásd az [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) oldalt.
+A független, csak olvasási műveletek biztonságos esetben párhuzamosan futnak. A webes keresések, a fájlvizsgálat,
+a repository elemzése és a hasonló terhelések párhuzamosan fejeződhetnek be egy konfigurálható worker pool
+(`UAGENT_PARALLEL_WORKERS`) segítségével. Az írási műveletek sorosítva maradnak, vagy megerősítést igényelnek.
 
-### Beágyazott mód
+A munkamenet-folytonosság, az eszközeredmények gyorsítótárazása, a kötegállapot, az újraindítás utáni helyreállítás,
+a DAG-ütemezés és a többügynökös koordináció folytathatóvá teszi az összetett munkát az egyszeri futtatás helyett.
 
-Korlátozott helyi telepítésekhez használja a `--embedded` módot, és csak az alkalmazás által igényelt eszközöket töltse be explicit módon.
-Beágyazott módban a `--tool-genre-mask` figyelmen kívül marad; az ismételt `--enable-tool` kapcsolók megőrzik a megadott eszközsorrendet.
+[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-Lásd a [CLI használati referenciát](USAGE.md).
-
-### Emberi megerősítés
+### 🌍 Privát, többnyelvű és szabályzat-tudatos
 
 A `human_ask` szünetet tart az érzékeny műveletek előtt. A fájltörlés, a felülírások, a shell-parancsok, az eszközvezérlések,
 a hitelesítőadat-műveletek és a hálózati írások megerősítési és szabályzati előírásokkal vezérelhetők.
 
-A szervezeti szintű vezérlők az [Enterprise Policy Engine](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) segítségével érhetők el.
-
-### Hitelesítő adatok
-
 Hosszú élettartamú titkok promptokba helyezése helyett használd a hitelesítőadat-tárolót:
 
-```text
-:credential set provider/openai api_key
-:credential get provider/openai
-:credential list
-```
+A Web UI tartalmazza az OIDC bejelentkezést Authorization Code + PKCE használatával, ellenőrzött ID tokeneket, szerveroldali munkameneteket és projekt/szoba hozzáférés-vezérlést. Az ellenőrzött Microsoft Entra ID csoportigények konfigurálás esetén táplálhatják a könyvtár-alapú hozzáférési szabályzatot. A Windows Active Directory, OAuth és trusted-proxy telepítések explicit, telepítés-specifikus ellenőrzött adaptereken keresztül integrálhatók; a Windows AD telepítés-specifikus Kerberos/Negotiate ellenőrzőt igényel, és alapértelmezés szerint nincs engedélyezve.
 
-A tároló használhatja a Windows Credential Managert, a macOS Keychaint, a Linux Secret Service-t vagy a titkosítottfájl-backendet.
-A konfiguráció részleteit lásd a [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) oldalon.
+A uag opcionális, szolgáltatófüggetlen OpenTelemetry-nyomkövetést és metrikákat biztosít az Agent, LLM, eszköz, Context, Memory és visszakeresési műveletekhez. A megfigyelhetőség alapértelmezés szerint le van tiltva.
 
-### Valós idejű hang
+A local-first működés nem jelenti azt, hogy az UAG alapértelmezés szerint teljesen offline, vagy hogy minden eszköz futása el van szigetelve. A külső modellek és kapcsolt szolgáltatások hívása a beállításoktól függ.
 
-Az opcionális valós idejű hangintegrációk támogatják az OpenAI Realtime, az Azure OpenAI GPT Realtime, az xAI Grok Voice,
-a Google Gemini Live és az Amazon Bedrock Nova Sonic szolgáltatásokat. Telepítsd a megfelelő hangfüggőségeket, majd futtasd:
+- [Enterprise policies](ENTERPRISE_POLICY.md)
+- [MXC sandbox](SANDBOX_MXC.md)
+- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
+- [Web identity](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
 
-```bash
-python scheck.py realtime
-```
+### 🌍 Többnyelvű fordítás
 
-Az AEC3 támogatja a teljes duplex mikrofon- és hangszóróhangot. A diagnosztikát csak hibaelhárítás közben engedélyezd:
+- A `translate_text` támogatja a Google Translate-t és a hivatalos DeepL Python-klienst a `provider=auto`, `provider=deepl` vagy `provider=google` beállításokkal.
+- Az eszközdefiníciók 37 nyelvi változatban és angolul (összesen 38) érhetők el, a helyőrzők és a technikai azonosítók megőrzésével.
 
-```bash
-export UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
+A teljes duplex hang az OpenAI Realtime, az Azure OpenAI, az xAI Grok Voice, a Gemini Live és a Bedrock Nova Sonic segítségével érhető el,
+opcionális AEC3 visszhangkioltással és biztonsági korlátozású, valós idejű függvényhívással.
+
+[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
 
 ## Dokumentáció
 
@@ -456,6 +229,8 @@ python scheck.py realtime
 | VS Code-bővítmény | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 | Fejlesztői útmutató | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
 | Eszközfolyamat | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+
+[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
 
 ## Fejlesztés és közreműködés
 
@@ -474,16 +249,6 @@ python -m pytest -q .
 ```
 
 A teljes fejlesztési munkafolyamatért lásd a [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) dokumentumot.
-
-### Projektalapelvek
-
-- **Local-first** — a futtatókörnyezet a te tulajdonod.
-- **Szolgáltatófüggetlen** — a modellek cserélhető infrastruktúrát alkotnak.
-- **Komponálható** — az eszközök, skillek, bővítmények és MCP-szerverek első osztályú bővítmények.
-- **Alapértelmezés szerint biztonságos** — az érzékeny műveletek láthatók és vezérelhetők maradnak.
-- **Nyitott a közreműködésre** — kódot, eszközöket, skilleket, fordításokat és dokumentációt örömmel fogadunk.
-
-### Közreműködés
 
 Örömmel fogadjuk a hibajelentéseket, funkcióötleteket, dokumentációs fejlesztéseket, fordításokat, eszközöket, skilleket és pull requesteket.
 Nagyobb módosítások előtt kérjük, nyiss egy issue-t vagy indíts egy vitát. Olvasd el a [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) útmutatót,
