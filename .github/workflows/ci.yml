@@ -38,7 +38,7 @@ jobs:
               'python -m pip install "uag[core,providers,tools]"' \
               'python -m pip install "uag[platform]"' \
               'python -m pip install "uag[web]" fastapi uvicorn' \
-              'tool_catalog' 'tool_load' \
+              'UAGENT_PROVIDER' 'tool_catalog' 'tool_load' \
               'README.translations.md' \
               'SANDBOX_MXC.md' 'REMOTE_MXC_DEFAULT.md' \
               'ENTERPRISE_POLICY.md'; do
