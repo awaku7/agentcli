@@ -1,5 +1,13 @@
 {
   "ja": {
+    "describe.read": "%(path)s を読み取ります",
+    "describe.grep": "%(path)s で %(pattern)s を検索します",
+    "describe.dry_run": "削除対象を列挙します: %(path)s",
+    "describe.delete": "%(path)s を削除します",
+    "describe.write": "%(path)s を書き込みます",
+    "describe.preview": "パッチをプレビューします",
+    "describe.apply": "パッチを適用します",
+    "describe.exec": "実行します: %(command)s",
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
@@ -22,6 +30,14 @@
     "error.interrupted": "コマンドの実行が中断されました"
   },
   "es": {
+    "describe.read": "Leyendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s en %(path)s",
+    "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
+    "describe.delete": "Eliminando %(path)s",
+    "describe.write": "Escribiendo %(path)s",
+    "describe.preview": "Previsualizando parche",
+    "describe.apply": "Aplicando parche",
+    "describe.exec": "Ejecutando: %(command)s",
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
     "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON.",
     "x_search_terms": [
@@ -44,6 +60,14 @@
     "error.interrupted": "la ejecución del comando fue interrumpida"
   },
   "fr": {
+    "describe.read": "Lecture de %(path)s",
+    "describe.grep": "Recherche de %(pattern)s dans %(path)s",
+    "describe.dry_run": "Liste des cibles de suppression : %(path)s",
+    "describe.delete": "Suppression de %(path)s",
+    "describe.write": "Écriture de %(path)s",
+    "describe.preview": "Aperçu du patch",
+    "describe.apply": "Application du patch",
+    "describe.exec": "Exécution : %(command)s",
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
     "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON.",
     "x_search_terms": [
@@ -66,6 +90,14 @@
     "error.interrupted": "l’exécution de la commande a été interrompue"
   },
   "ko": {
+    "describe.read": "%(path)s 읽는 중",
+    "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
+    "describe.dry_run": "삭제 대상 나열 중: %(path)s",
+    "describe.delete": "%(path)s 삭제 중",
+    "describe.write": "%(path)s 쓰는 중",
+    "describe.preview": "패치 미리보기 중",
+    "describe.apply": "패치 적용 중",
+    "describe.exec": "실행 중: %(command)s",
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
     "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합).",
     "x_search_terms": [
@@ -88,6 +120,14 @@
     "error.interrupted": "명령 실행이 중단되었습니다"
   },
   "de": {
+    "describe.read": "Lesen von %(path)s",
+    "describe.grep": "Suche nach %(pattern)s in %(path)s",
+    "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
+    "describe.delete": "%(path)s löschen",
+    "describe.write": "Schreiben von %(path)s",
+    "describe.preview": "Patch-Vorschau",
+    "describe.apply": "Patch anwenden",
+    "describe.exec": "Ausführen: %(command)s",
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
     "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück.",
     "x_search_terms": [
@@ -110,6 +150,14 @@
     "error.interrupted": "Befehlsausführung wurde unterbrochen"
   },
   "it": {
+    "describe.read": "Lettura di %(path)s",
+    "describe.grep": "Ricerca di %(pattern)s in %(path)s",
+    "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
+    "describe.delete": "Eliminazione di %(path)s",
+    "describe.write": "Scrittura di %(path)s",
+    "describe.preview": "Anteprima della patch",
+    "describe.apply": "Applicazione della patch",
+    "describe.exec": "Esecuzione: %(command)s",
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
     "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON.",
     "x_search_terms": [
@@ -132,6 +180,14 @@
     "error.interrupted": "l’esecuzione del comando è stata interrotta"
   },
   "ru": {
+    "describe.read": "Чтение %(path)s",
+    "describe.grep": "Поиск %(pattern)s в %(path)s",
+    "describe.dry_run": "Перечисление целей удаления: %(path)s",
+    "describe.delete": "Удаление %(path)s",
+    "describe.write": "Запись %(path)s",
+    "describe.preview": "Предпросмотр патча",
+    "describe.apply": "Применение патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
@@ -154,6 +210,14 @@
     "error.interrupted": "выполнение команды было прервано"
   },
   "pt_BR": {
+    "describe.read": "Lendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s em %(path)s",
+    "describe.dry_run": "Listando alvos de exclusão: %(path)s",
+    "describe.delete": "Excluindo %(path)s",
+    "describe.write": "Gravando %(path)s",
+    "describe.preview": "Pré-visualizando patch",
+    "describe.apply": "Aplicando patch",
+    "describe.exec": "Executando: %(command)s",
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON.",
     "x_search_terms": [
@@ -176,6 +240,14 @@
     "error.interrupted": "a execução do comando foi interrompida"
   },
   "pt": {
+    "describe.read": "A ler %(path)s",
+    "describe.grep": "A procurar %(pattern)s em %(path)s",
+    "describe.dry_run": "A listar alvos de eliminação: %(path)s",
+    "describe.delete": "A eliminar %(path)s",
+    "describe.write": "A escrever %(path)s",
+    "describe.preview": "A pré-visualizar patch",
+    "describe.apply": "A aplicar patch",
+    "describe.exec": "A executar: %(command)s",
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON.",
     "x_search_terms": [
@@ -198,6 +270,14 @@
     "error.interrupted": "a execução do comando foi interrompida"
   },
   "id": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s di %(path)s",
+    "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
+    "describe.delete": "Menghapus %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratinjau patch",
+    "describe.apply": "Menerapkan patch",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.command.description": "String perintah yang diteruskan ke shell sistem.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON.",
     "x_search_terms": [
@@ -220,6 +300,14 @@
     "error.interrupted": "eksekusi perintah dihentikan"
   },
   "vi": {
+    "describe.read": "Đang đọc %(path)s",
+    "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
+    "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
+    "describe.delete": "Đang xóa %(path)s",
+    "describe.write": "Đang ghi %(path)s",
+    "describe.preview": "Đang xem trước patch",
+    "describe.apply": "Đang áp dụng patch",
+    "describe.exec": "Đang chạy: %(command)s",
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON.",
     "x_search_terms": [
@@ -242,6 +330,14 @@
     "error.interrupted": "việc thực thi lệnh đã bị gián đoạn"
   },
   "pl": {
+    "describe.read": "Odczyt %(path)s",
+    "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
+    "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
+    "describe.delete": "Usuwanie %(path)s",
+    "describe.write": "Zapis %(path)s",
+    "describe.preview": "Podgląd patcha",
+    "describe.apply": "Zastosowanie patcha",
+    "describe.exec": "Wykonywanie: %(command)s",
     "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
     "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON.",
     "x_search_terms": [
@@ -264,6 +360,14 @@
     "error.interrupted": "wykonywanie polecenia zostało przerwane"
   },
   "hi": {
+    "describe.read": "%(path)s पढ़ा जा रहा है",
+    "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
+    "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
+    "describe.delete": "%(path)s हटाया जा रहा है",
+    "describe.write": "%(path)s लिखा जा रहा है",
+    "describe.preview": "पैच का पूर्वावलोकन",
+    "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.exec": "चलाया जा रहा है: %(command)s",
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
     "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएं। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (जैसे।",
     "x_search_terms": [
@@ -286,6 +390,14 @@
     "error.interrupted": "कमांड निष्पादन बाधित किया गया"
   },
   "ar": {
+    "describe.read": "قراءة %(path)s",
+    "describe.grep": "البحث عن %(pattern)s في %(path)s",
+    "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "كتابة %(path)s",
+    "describe.preview": "معاينة الرقعة",
+    "describe.apply": "تطبيق الرقعة",
+    "describe.exec": "تنفيذ: %(command)s",
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP).",
     "x_search_terms": [
@@ -308,6 +420,14 @@
     "error.interrupted": "تمت مقاطعة تنفيذ الأمر"
   },
   "sv": {
+    "describe.read": "Läser %(path)s",
+    "describe.grep": "Söker efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
+    "describe.delete": "Tar bort %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Förhandsgranskar patch",
+    "describe.apply": "Tillämpar patch",
+    "describe.exec": "Kör: %(command)s",
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
     "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat.",
     "x_search_terms": [
@@ -330,6 +450,14 @@
     "error.interrupted": "kommandokörningen avbröts"
   },
   "sw": {
+    "describe.read": "Inasoma %(path)s",
+    "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
+    "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
+    "describe.delete": "Inafuta %(path)s",
+    "describe.write": "Inaandika %(path)s",
+    "describe.preview": "Inaonyesha kiraka",
+    "describe.apply": "Inatumia kiraka",
+    "describe.exec": "Inaendesha: %(command)s",
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON.",
     "x_search_terms": [
@@ -352,6 +480,14 @@
     "error.interrupted": "utekelezaji wa amri ulikatizwa"
   },
   "nb": {
+    "describe.read": "Leser %(path)s",
+    "describe.grep": "Søker etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Forhåndsviser patch",
+    "describe.apply": "Bruker patch",
+    "describe.exec": "Kjører: %(command)s",
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
     "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat.",
     "x_search_terms": [
@@ -374,6 +510,14 @@
     "error.interrupted": "kommandoen ble avbrutt"
   },
   "nl": {
+    "describe.read": "Lezen van %(path)s",
+    "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
+    "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
+    "describe.delete": "Verwijderen van %(path)s",
+    "describe.write": "Schrijven van %(path)s",
+    "describe.preview": "Patch bekijken",
+    "describe.apply": "Patch toepassen",
+    "describe.exec": "Uitvoeren: %(command)s",
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
     "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug.",
     "x_search_terms": [
@@ -396,6 +540,14 @@
     "error.interrupted": "uitvoering van de opdracht werd onderbroken"
   },
   "fi": {
+    "describe.read": "Luetaan %(path)s",
+    "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
+    "describe.dry_run": "Listataan poistokohteet: %(path)s",
+    "describe.delete": "Poistetaan %(path)s",
+    "describe.write": "Kirjoitetaan %(path)s",
+    "describe.preview": "Esikatsellaan patchia",
+    "describe.apply": "Käytetään patchia",
+    "describe.exec": "Suoritetaan: %(command)s",
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
     "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos.",
     "x_search_terms": [
@@ -418,6 +570,14 @@
     "error.interrupted": "komennon suoritus keskeytettiin"
   },
   "cs": {
+    "describe.read": "Čtení %(path)s",
+    "describe.grep": "Hledání %(pattern)s v %(path)s",
+    "describe.dry_run": "Výpis cílů smazání: %(path)s",
+    "describe.delete": "Mazání %(path)s",
+    "describe.write": "Zápis %(path)s",
+    "describe.preview": "Náhled patche",
+    "describe.apply": "Aplikace patche",
+    "describe.exec": "Provádění: %(command)s",
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
     "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek.",
     "x_search_terms": [
@@ -440,6 +600,14 @@
     "error.interrupted": "provádění příkazu bylo přerušeno"
   },
   "uk": {
+    "describe.read": "Читання %(path)s",
+    "describe.grep": "Пошук %(pattern)s у %(path)s",
+    "describe.dry_run": "Перелік цілей видалення: %(path)s",
+    "describe.delete": "Видалення %(path)s",
+    "describe.write": "Запис %(path)s",
+    "describe.preview": "Попередній перегляд патча",
+    "describe.apply": "Застосування патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.command.description": "Рядок команди, що передається системній оболонці.",
     "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат.",
     "x_search_terms": [
@@ -462,6 +630,14 @@
     "error.interrupted": "виконання команди було перервано"
   },
   "tr": {
+    "describe.read": "%(path)s okunuyor",
+    "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
+    "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
+    "describe.delete": "%(path)s siliniyor",
+    "describe.write": "%(path)s yazılıyor",
+    "describe.preview": "Yama önizleniyor",
+    "describe.apply": "Yama uygulanıyor",
+    "describe.exec": "Çalıştırılıyor: %(command)s",
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
     "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün.",
     "x_search_terms": [
@@ -484,6 +660,14 @@
     "error.interrupted": "komut yürütme kesildi"
   },
   "th": {
+    "describe.read": "กำลังอ่าน %(path)s",
+    "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
+    "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
+    "describe.delete": "กำลังลบ %(path)s",
+    "describe.write": "กำลังเขียน %(path)s",
+    "describe.preview": "กำลังดูตัวอย่างแพตช์",
+    "describe.apply": "กำลังใช้แพตช์",
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น",
     "x_search_terms": [
@@ -506,6 +690,14 @@
     "error.interrupted": "การเรียกใช้คำสั่งถูกขัดจังหวะ"
   },
   "zh_CN": {
+    "describe.read": "正在读取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
+    "describe.dry_run": "正在列出待删除项：%(path)s",
+    "describe.delete": "正在删除 %(path)s",
+    "describe.write": "正在写入 %(path)s",
+    "describe.preview": "正在预览补丁",
+    "describe.apply": "正在应用补丁",
+    "describe.exec": "正在执行：%(command)s",
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
     "tool.description": "作为最后手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时使用（例如 MCP 集成）。",
     "x_search_terms": [
@@ -528,6 +720,14 @@
     "error.interrupted": "命令执行已中断"
   },
   "zh_TW": {
+    "describe.read": "正在讀取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
+    "describe.dry_run": "正在列出待刪除項目：%(path)s",
+    "describe.delete": "正在刪除 %(path)s",
+    "describe.write": "正在寫入 %(path)s",
+    "describe.preview": "正在預覽修補",
+    "describe.apply": "正在套用修補",
+    "describe.exec": "正在執行：%(command)s",
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
     "tool.description": "作為最後手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時使用（例如 MCP 整合）。",
     "x_search_terms": [
@@ -550,6 +750,14 @@
     "error.interrupted": "指令執行已中斷"
   },
   "bn": {
+    "describe.read": "%(path)s পড়া হচ্ছে",
+    "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
+    "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
+    "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
+    "describe.write": "%(path)s লেখা হচ্ছে",
+    "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
+    "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
     "tool.description": "একটি শেষ অবলম্বন হিসাবে, একটি শেল কমান্ড চালান এবং একটি JSON ফলাফল প্রদান করুন। শুধুমাত্র তখনই ব্যবহার করুন যখন কোনো নিরাপদ বা আরও নির্দিষ্ট টুল উপলব্ধ না থাকে (যেমন",
     "x_search_terms": [
@@ -572,6 +780,14 @@
     "error.interrupted": "কমান্ড কার্যকর করা বাধাগ্রস্ত হয়েছে"
   },
   "fa": {
+    "describe.read": "خواندن %(path)s",
+    "describe.grep": "جستجوی %(pattern)s در %(path)s",
+    "describe.dry_run": "فهرست اهداف حذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "نوشتن %(path)s",
+    "describe.preview": "پیش‌نمایش وصله",
+    "describe.apply": "اعمال وصله",
+    "describe.exec": "اجرا: %(command)s",
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
     "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان shell اجرا می‌کند و نتیجه را به‌صورت JSON برمی‌گرداند.",
     "x_search_terms": [
@@ -594,6 +810,14 @@
     "error.interrupted": "اجرای دستور قطع شد"
   },
   "mn": {
+    "describe.read": "%(path)s-г уншиж байна",
+    "describe.grep": "%(path)s-с %(pattern)s хайж байна",
+    "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
+    "describe.delete": "%(path)s-г устгаж байна",
+    "describe.write": "%(path)s-д бичиж байна",
+    "describe.preview": "Патчийн урьдчилан харах",
+    "describe.apply": "Патч хэрэглэж байна",
+    "describe.exec": "Ажиллуулж байна: %(command)s",
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
     "tool.description": "Хамгийн сүүлчийн арга болгон shell команд ажиллуулж JSON үр дүнг буцаана.",
     "x_search_terms": [
@@ -616,6 +840,14 @@
     "error.interrupted": "командын гүйцэтгэл тасалдлаа"
   },
   "mr": {
+    "describe.read": "%(path)s वाचले जात आहे",
+    "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
+    "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
+    "describe.delete": "%(path)s हटवले जात आहे",
+    "describe.write": "%(path)s लिहिले जात आहे",
+    "describe.preview": "पॅचचे पूर्वावलोकन",
+    "describe.apply": "पॅच लागू होत आहे",
+    "describe.exec": "चालवले जात आहे: %(command)s",
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
     "tool.description": "शेवटचा उपाय म्हणून शेल कमांड चालवा आणि JSON निकाल परत करा. अधिक सुरक्षित किंवा अधिक विशिष्ट साधन उपलब्ध नसल्यासच वापरा (उदा. MCP एकत्रीकरण).",
     "x_search_terms": [
@@ -638,6 +870,14 @@
     "error.interrupted": "कमांडची अंमलबजावणी व्यत्यय आणली गेली"
   },
   "el": {
+    "describe.read": "Ανάγνωση %(path)s",
+    "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
+    "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
+    "describe.delete": "Διαγραφή %(path)s",
+    "describe.write": "Εγγραφή %(path)s",
+    "describe.preview": "Προεπισκόπηση patch",
+    "describe.apply": "Εφαρμογή patch",
+    "describe.exec": "Εκτέλεση: %(command)s",
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
     "tool.description": "Ως έσχατη λύση, εκτελέστε μια εντολή φλοιού και επιστρέψτε ένα αποτέλεσμα JSON. Χρησιμοποιήστε μόνο όταν δεν διατίθεται ασφαλέστερο ή πιο συγκεκριμένο εργαλείο (π.",
     "x_search_terms": [
@@ -660,6 +900,14 @@
     "error.interrupted": "η εκτέλεση της εντολής διακόπηκε"
   },
   "he": {
+    "describe.read": "קורא את %(path)s",
+    "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
+    "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
+    "describe.delete": "מוחק את %(path)s",
+    "describe.write": "כותב את %(path)s",
+    "describe.preview": "תצוגה מקדימה של patch",
+    "describe.apply": "מחיל patch",
+    "describe.exec": "מריץ: %(command)s",
     "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
     "tool.description": "כמוצא אחרון, בצע פקודת מעטפת והחזר תוצאת JSON. השתמש רק כאשר אין כלי בטוח או ספציפי יותר זמין (למשל.",
     "x_search_terms": [
@@ -682,6 +930,14 @@
     "error.interrupted": "ביצוע הפקודה הופסק"
   },
   "hu": {
+    "describe.read": "%(path)s olvasása",
+    "describe.grep": "%(pattern)s keresése itt: %(path)s",
+    "describe.dry_run": "Törlési célok listázása: %(path)s",
+    "describe.delete": "%(path)s törlése",
+    "describe.write": "%(path)s írása",
+    "describe.preview": "Patch előnézete",
+    "describe.apply": "Patch alkalmazása",
+    "describe.exec": "Végrehajtás: %(command)s",
     "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
     "tool.description": "Végső megoldásként hajtson végre egy shell parancsot, és adjon vissza egy JSON eredményt. Csak akkor használja, ha nem áll rendelkezésre biztonságosabb vagy specifikusabb eszköz (pl.",
     "x_search_terms": [
@@ -704,6 +960,14 @@
     "error.interrupted": "a parancs végrehajtása megszakadt"
   },
   "ro": {
+    "describe.read": "Citire %(path)s",
+    "describe.grep": "Căutare %(pattern)s în %(path)s",
+    "describe.dry_run": "Listare ținte de ștergere: %(path)s",
+    "describe.delete": "Ștergere %(path)s",
+    "describe.write": "Scriere %(path)s",
+    "describe.preview": "Previzualizare patch",
+    "describe.apply": "Aplicare patch",
+    "describe.exec": "Executare: %(command)s",
     "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
     "tool.description": "Ca ultimă soluție, executați o comandă shell și returnați un rezultat JSON. Utilizați numai atunci când nu este disponibil un instrument mai sigur sau mai specific (de ex.",
     "x_search_terms": [
@@ -726,6 +990,14 @@
     "error.interrupted": "execuția comenzii a fost întreruptă"
   },
   "fil": {
+    "describe.read": "Binabasa ang %(path)s",
+    "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
+    "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
+    "describe.delete": "Binubura ang %(path)s",
+    "describe.write": "Isinusulat ang %(path)s",
+    "describe.preview": "Sinusuri ang patch",
+    "describe.apply": "Inilalapat ang patch",
+    "describe.exec": "Pinapatakbo: %(command)s",
     "param.command.description": "Naipasa ang command string sa OS shell. Sa Windows, ginagamit ang cmd.exe /c.",
     "tool.description": "Bilang huling paraan, magsagawa ng shell command at magbalik ng JSON resulta. Gamitin lang kapag walang available na mas ligtas o mas partikular na tool (hal.",
     "x_search_terms": [
@@ -748,6 +1020,14 @@
     "error.interrupted": "na-interrupt ang pagpapatakbo ng command"
   },
   "ms": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s dalam %(path)s",
+    "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
+    "describe.delete": "Memadam %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratonton tampalan",
+    "describe.apply": "Menggunakan tampalan",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.command.description": "Rentetan arahan dihantar ke shell OS. Pada Windows, cmd.exe /c digunakan.",
     "tool.description": "Sebagai pilihan terakhir, laksanakan arahan shell dan kembalikan hasil JSON. Gunakan hanya apabila tiada alat yang lebih selamat atau lebih khusus tersedia (cth.",
     "x_search_terms": [
@@ -770,6 +1050,14 @@
     "error.interrupted": "pelaksanaan arahan telah diganggu"
   },
   "da": {
+    "describe.read": "Læser %(path)s",
+    "describe.grep": "Søger efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser sletteemner: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Viser patch",
+    "describe.apply": "Anvender patch",
+    "describe.exec": "Kører: %(command)s",
     "param.command.description": "Kommandostreng overført til OS-skallen. På Windows bruges cmd.exe /c.",
     "tool.description": "Som en sidste udvej skal du udføre en shell-kommando og returnere et JSON-resultat. Brug kun, når der ikke er noget mere sikkert eller mere specifikt værktøj tilgængeligt (f.",
     "x_search_terms": [
@@ -792,6 +1080,14 @@
     "error.interrupted": "kommandoens udførelse blev afbrudt"
   },
   "nn": {
+    "describe.read": "Les %(path)s",
+    "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Slettar %(path)s",
+    "describe.write": "Skriv %(path)s",
+    "describe.preview": "Førehandsvising av patch",
+    "describe.apply": "Brukar patch",
+    "describe.exec": "Køyrer: %(command)s",
     "param.command.description": "Kommandostrengen ble sendt til OS-skallet. På Windows vert brukt cmd.exe /c.",
     "tool.description": "Som en siste utvei, utfør en shell-kommando og returner et JSON-resultat. Bruk kun når det ikke er noe sikrere eller mer spesifikt verktøy tilgjengeleg (f.",
     "x_search_terms": [

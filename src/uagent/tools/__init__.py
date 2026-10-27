@@ -260,8 +260,41 @@ def _get_tool_emit_trace(spec: dict[str, Any]) -> bool:
     return True
 
 
+def _get_tool_describer(mod: Any, tool_name: str) -> Optional[Callable[..., Any]]:
+    """Return a module's optional pre-execution describer for ``tool_name``.
+
+    Contract: the callable receives the tool ``args`` dict and returns one short
+    sentence describing what is about to happen. It must not print and must not
+    embed raw payloads; the host still masks secrets and bounds the length.
+    """
+
+    table = getattr(mod, "TOOL_DESCRIBERS", None)
+    if isinstance(table, dict):
+        fn = table.get(tool_name)
+        if callable(fn):
+            return fn
+    fn = getattr(mod, "TOOL_DESCRIBER", None)
+    if callable(fn):
+        return fn
+    return None
+
+
+def _register_tool_describer(mod: Any, tool_name: str) -> None:
+    """Bind or clear the action describer for one tool name."""
+
+    describer = _get_tool_describer(mod, tool_name)
+    if describer is None:
+        _TOOL_DESCRIBERS.pop(tool_name, None)
+    else:
+        _TOOL_DESCRIBERS[tool_name] = describer
+
+
 # Runners
 _RUNNERS: dict[str, Callable[[dict[str, Any]], str]] = {}
+
+# Per-tool localized pre-execution describers (UAGENT_SHOW_TOOL_RESULTS=2).
+# key: tool_name, value: callable(args) -> str
+_TOOL_DESCRIBERS: dict[str, Callable[..., Any]] = {}
 
 # Tools that set Busy status labels
 # key: tool_name, value: status_label (e.g. "tool:cmd_exec")
@@ -287,19 +320,61 @@ from ..utils.secret_mask import (  # noqa: E402
 )
 
 
-def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
-    """Print masked tool name and arguments before execution."""
+def _localized_tool_action(name: str, args: dict[str, Any]) -> str:
+    """Return the tool's localized pre-execution action line, or ``""``.
+
+    Only used when ``UAGENT_SHOW_TOOL_RESULTS=2``. The text is masked and
+    bounded by the display helper, so tools may describe paths and commands
+    without sanitizing them here.
+    """
+
+    describer = _TOOL_DESCRIBERS.get(name)
+    if not callable(describer):
+        return ""
     try:
-        masked = _mask_args(args or {})
-        try:
-            arg_str = json.dumps(
-                masked,
-                ensure_ascii=False,
-                separators=(",", ":"),
-                sort_keys=True,
-            )
-        except Exception:
-            arg_str = str(masked)
+        from ..runtime.tool_result_display import (
+            bound_display_text,
+            tool_result_display_mode,
+        )
+
+        if tool_result_display_mode() < 2:
+            return ""
+        text = describer(dict(args or {}))
+    except Exception:
+        return ""
+    if text is None:
+        return ""
+    return bound_display_text(text)
+
+
+def _tool_trace_body(name: str, args: dict[str, Any]) -> str:
+    """Return the trace body for one pre-execution tool call.
+
+    Mode 2 replaces the machine-readable ``name=/args=`` body with the tool's
+    localized action sentence. Tools without a describer keep the classic body
+    so the trace never disappears.
+    """
+
+    localized = _localized_tool_action(name, args)
+    if localized:
+        return localized
+    masked = _mask_args(args or {})
+    try:
+        arg_str = json.dumps(
+            masked,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+    except Exception:
+        arg_str = str(masked)
+    return f"name={name} args={arg_str}"
+
+
+def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
+    """Print the pre-execution tool trace, localized in mode 2."""
+    try:
+        body = _tool_trace_body(name, args)
 
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
@@ -325,9 +400,9 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                 ):
                     return
                 with _core.print_lock:
-                    print(f"{trace_prefix}{ts} name={name} args={arg_str}", flush=True)
+                    print(f"{trace_prefix}{ts} {body}", flush=True)
             except Exception:
-                print(f"{trace_prefix}{ts} name={name} args={arg_str}", flush=True)
+                print(f"{trace_prefix}{ts} {body}", flush=True)
     except Exception:
         return
 
@@ -592,6 +667,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
             _TOOL_SPECS_DIRTY = True
             _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
             _RUNNERS[tool_name] = runner
+            _register_tool_describer(mod, tool_name)
             _sort_registered_tools()
 
             # Busy label setting
@@ -605,6 +681,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         with _TOOLS_LOCK:
             _RUNNERS[tool_name] = runner
             _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
+            _register_tool_describer(mod, tool_name)
 
     # Optional second tool spec (TOOL_SPEC_2) - same runner, different spec
     spec2 = getattr(mod, "TOOL_SPEC_2", None)
@@ -711,6 +788,7 @@ def _register_extra_spec(
         _TOOL_SPECS_DIRTY = True
         _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
         _RUNNERS[tool_name] = runner
+        _register_tool_describer(mod, tool_name)
         _sort_registered_tools()
 
         busy_flag = getattr(mod, "BUSY_LABEL", False)
@@ -776,6 +854,7 @@ def _load_plugins() -> None:
         global _TOOL_SPECS_DIRTY
         _TOOL_SPECS_DIRTY = True
         _TOOL_TRACE_FLAGS.clear()
+        _TOOL_DESCRIBERS.clear()
 
     # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
@@ -2228,6 +2307,37 @@ def _record_policy_audit(
     except Exception:
         # Auditing must not make an otherwise valid tool call fail.
         pass
+
+
+def get_tool_describer(tool_name: str) -> Optional[Callable[..., Any]]:
+    """Return the registered action describer for ``tool_name`` (if any)."""
+
+    with _TOOLS_LOCK:
+        return _TOOL_DESCRIBERS.get(tool_name)
+
+
+def build_tool_description(tool_name: str, args: Any) -> str:
+    """Return the tool-owned localized action line for ``args``, or ``""``.
+
+    The text is flattened, secret-masked, and bounded here, so callers can print
+    it unchanged. An empty string means "no describer" and the caller must fall
+    back to the classic ``name=... args=...`` trace.
+    """
+
+    describer = get_tool_describer(tool_name)
+    if describer is None:
+        return ""
+    safe_args: dict[str, Any] = args if isinstance(args, dict) else {}
+    try:
+        text = describer(safe_args)
+    except Exception:
+        # A broken describer must never break tool execution or the trace.
+        return ""
+    if text is None:
+        return ""
+    from ..runtime.tool_result_display import bound_display_text
+
+    return bound_display_text(text)
 
 
 def run_tool(name: str, args: dict[str, Any]) -> str:

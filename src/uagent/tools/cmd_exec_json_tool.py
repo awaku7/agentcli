@@ -271,3 +271,15 @@ def run_tool(args: dict[str, Any]) -> str:
             raise ValueError("_timeout_ms must be an integer")
     out = _run(command, cwd, timeout_ms=timeout_override)
     return json.dumps(out, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    command = str((args or {}).get("command") or "").strip()
+    short_command = " ".join(command.split())[:80]
+    return _("describe.exec", default="Running: %(command)s") % {
+        "command": short_command or "?"
+    }
+
+
+TOOL_DESCRIBER = describe

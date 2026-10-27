@@ -1,5 +1,13 @@
 {
   "ja": {
+    "describe.read": "%(path)s を読み取ります",
+    "describe.grep": "%(path)s で %(pattern)s を検索します",
+    "describe.dry_run": "削除対象を列挙します: %(path)s",
+    "describe.delete": "%(path)s を削除します",
+    "describe.write": "%(path)s を書き込みます",
+    "describe.preview": "パッチをプレビューします",
+    "describe.apply": "パッチを適用します",
+    "describe.exec": "実行します: %(command)s",
     "param.context_lines.description": "各一致箇所の前後の文脈行数です。",
     "param.filenames_only.description": "有効にすると、一致したファイル名の一覧のみを返します。",
     "param.ignore_case.description": "大文字小文字を区別しないかどうか（既定: true）。",
@@ -32,6 +40,14 @@
     "param.glob.description": "ファイル名の glob パターン (例: '*.py'、'test_*')。省略した場合は、すべてのファイルが考慮されます。"
   },
   "es": {
+    "describe.read": "Leyendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s en %(path)s",
+    "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
+    "describe.delete": "Eliminando %(path)s",
+    "describe.write": "Escribiendo %(path)s",
+    "describe.preview": "Previsualizando parche",
+    "describe.apply": "Aplicando parche",
+    "describe.exec": "Ejecutando: %(command)s",
     "param.context_lines.description": "Número de líneas de contexto antes y después de cada coincidencia.",
     "param.filenames_only.description": "Ruta del archivo o directorio para verificar su existencia (admite ~). nombres de archivos con coincidencias.",
     "param.ignore_case.description": "Si se ignoran las mayúsculas y minúsculas (predeterminado: verdadero).",
@@ -64,6 +80,14 @@
     "param.glob.description": "Patrón global de nombre de archivo (por ejemplo, '*.py', 'test_*'). Si se omite, se consideran todos los archivos."
   },
   "fr": {
+    "describe.read": "Lecture de %(path)s",
+    "describe.grep": "Recherche de %(pattern)s dans %(path)s",
+    "describe.dry_run": "Liste des cibles de suppression : %(path)s",
+    "describe.delete": "Suppression de %(path)s",
+    "describe.write": "Écriture de %(path)s",
+    "describe.preview": "Aperçu du patch",
+    "describe.apply": "Application du patch",
+    "describe.exec": "Exécution : %(command)s",
     "param.context_lines.description": "Nombre de lignes de contexte avant et après chaque correspondance.",
     "param.filenames_only.description": "Si activé, renvoie uniquement la liste des noms de fichiers avec des correspondances.",
     "param.ignore_case.description": "S'il faut ignorer la casse (par défaut : vrai).",
@@ -96,6 +120,14 @@
     "param.glob.description": "Modèle global de nom de fichier (par exemple, '*.py', 'test_*'). En cas d'omission, tous les fichiers sont pris en compte."
   },
   "ko": {
+    "describe.read": "%(path)s 읽는 중",
+    "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
+    "describe.dry_run": "삭제 대상 나열 중: %(path)s",
+    "describe.delete": "%(path)s 삭제 중",
+    "describe.write": "%(path)s 쓰는 중",
+    "describe.preview": "패치 미리보기 중",
+    "describe.apply": "패치 적용 중",
+    "describe.exec": "실행 중: %(command)s",
     "param.context_lines.description": "각 일치 항목의 앞뒤 문맥 줄 수입니다.",
     "param.filenames_only.description": "활성화하면 일치하는 파일 이름 목록만 반환합니다.",
     "param.ignore_case.description": "대소문자를 무시할지 여부입니다(기본값: true).",
@@ -128,6 +160,14 @@
     "param.glob.description": "파일 이름 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 고려됩니다."
   },
   "de": {
+    "describe.read": "Lesen von %(path)s",
+    "describe.grep": "Suche nach %(pattern)s in %(path)s",
+    "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
+    "describe.delete": "%(path)s löschen",
+    "describe.write": "Schreiben von %(path)s",
+    "describe.preview": "Patch-Vorschau",
+    "describe.apply": "Patch anwenden",
+    "describe.exec": "Ausführen: %(command)s",
     "param.context_lines.description": "Anzahl der Zeilen Kontext vor und nach jeder Übereinstimmung.",
     "param.filenames_only.description": "Wenn aktiviert, wird nur die Liste der Dateinamen mit Übereinstimmungen zurückgegeben.",
     "param.ignore_case.description": "Wenn aktiviert, wird nur die Liste der Dateinamen mit Übereinstimmungen zurückgegeben.",
@@ -160,6 +200,14 @@
     "param.glob.description": "Glob-Muster für Dateinamen (z. B. „*.py“, „test_*“). Wenn es weggelassen wird, werden alle Dateien berücksichtigt."
   },
   "it": {
+    "describe.read": "Lettura di %(path)s",
+    "describe.grep": "Ricerca di %(pattern)s in %(path)s",
+    "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
+    "describe.delete": "Eliminazione di %(path)s",
+    "describe.write": "Scrittura di %(path)s",
+    "describe.preview": "Anteprima della patch",
+    "describe.apply": "Applicazione della patch",
+    "describe.exec": "Esecuzione: %(command)s",
     "param.context_lines.description": "Numero di righe di contesto iniziale e finale per ogni corrispondenza",
     "param.filenames_only.description": "Se abilitato, restituisce solo l'elenco dei nomi di file con corrispondenze",
     "param.ignore_case.description": "Indica se ignorare maiuscole e minuscole (impostazione predefinita: true).",
@@ -192,6 +240,14 @@
     "param.glob.description": "Modello glob del nome file (ad esempio, '*.py', 'test_*'). Se omesso, vengono considerati tutti i file."
   },
   "ru": {
+    "describe.read": "Чтение %(path)s",
+    "describe.grep": "Поиск %(pattern)s в %(path)s",
+    "describe.dry_run": "Перечисление целей удаления: %(path)s",
+    "describe.delete": "Удаление %(path)s",
+    "describe.write": "Запись %(path)s",
+    "describe.preview": "Предпросмотр патча",
+    "describe.apply": "Применение патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.context_lines.description": "Количество строк контекста до и после каждого совпадения.",
     "param.filenames_only.description": "Путь к файлу или каталогу для проверки существования (поддерживается ~). Если этот параметр включен, возвращает только список имен файлов с совпадениями.",
     "param.ignore_case.description": "Игнорировать регистр (по умолчанию: true).",
@@ -224,6 +280,14 @@
     "param.glob.description": "Шаблон имени файла (например, «*.py», «test_*»). Если этот параметр опущен, учитываются все файлы."
   },
   "pt_BR": {
+    "describe.read": "Lendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s em %(path)s",
+    "describe.dry_run": "Listando alvos de exclusão: %(path)s",
+    "describe.delete": "Excluindo %(path)s",
+    "describe.write": "Gravando %(path)s",
+    "describe.preview": "Pré-visualizando patch",
+    "describe.apply": "Aplicando patch",
+    "describe.exec": "Executando: %(command)s",
     "param.context_lines.description": "Número de linhas de contexto antes e depois de cada correspondência.",
     "param.filenames_only.description": "Se ativado, retorna apenas a lista de nomes de arquivos com correspondências.",
     "param.ignore_case.description": "Caminho do arquivo ou diretório para verificar a existência (suporta ~). (padrão: verdadeiro).",
@@ -256,6 +320,14 @@
     "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*'). Se omitido, todos os arquivos serão considerados."
   },
   "pt": {
+    "describe.read": "A ler %(path)s",
+    "describe.grep": "A procurar %(pattern)s em %(path)s",
+    "describe.dry_run": "A listar alvos de eliminação: %(path)s",
+    "describe.delete": "A eliminar %(path)s",
+    "describe.write": "A escrever %(path)s",
+    "describe.preview": "A pré-visualizar patch",
+    "describe.apply": "A aplicar patch",
+    "describe.exec": "A executar: %(command)s",
     "param.context_lines.description": "Número de linhas de contexto inicial e final para cada correspondência.",
     "param.filenames_only.description": "Caminho do arquivo ou diretório para verificar a existência (suporta ~). nomes de arquivos com correspondências.",
     "param.ignore_case.description": "Se deve ignorar maiúsculas e minúsculas (padrão: verdadeiro).",
@@ -288,6 +360,14 @@
     "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*'). Se omitido, todos os arquivos serão considerados."
   },
   "id": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s di %(path)s",
+    "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
+    "describe.delete": "Menghapus %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratinjau patch",
+    "describe.apply": "Menerapkan patch",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.context_lines.description": "Jumlah baris konteks sebelum dan sesudah setiap kecocokan.",
     "param.filenames_only.description": "Jika diaktifkan, kembalikan hanya daftar nama file yang cocok.",
     "param.ignore_case.description": "Apakah akan mengabaikan huruf besar/kecil (default: true).",
@@ -320,6 +400,14 @@
     "param.glob.description": "Pola glob nama file (misalnya, '*.py', 'test_*'). Jika dihilangkan, semua file dianggap."
   },
   "vi": {
+    "describe.read": "Đang đọc %(path)s",
+    "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
+    "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
+    "describe.delete": "Đang xóa %(path)s",
+    "describe.write": "Đang ghi %(path)s",
+    "describe.preview": "Đang xem trước patch",
+    "describe.apply": "Đang áp dụng patch",
+    "describe.exec": "Đang chạy: %(command)s",
     "param.context_lines.description": "Số dòng ngữ cảnh đầu và cuối cho mỗi trận đấu.",
     "param.filenames_only.description": "Nếu được bật, chỉ trả về danh sách tên tệp trùng khớp.",
     "param.ignore_case.description": "Có bỏ qua trường hợp này không (mặc định: true).",
@@ -352,6 +440,14 @@
     "param.glob.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*'). Nếu bị bỏ qua, tất cả các tập tin sẽ được xem xét."
   },
   "pl": {
+    "describe.read": "Odczyt %(path)s",
+    "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
+    "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
+    "describe.delete": "Usuwanie %(path)s",
+    "describe.write": "Zapis %(path)s",
+    "describe.preview": "Podgląd patcha",
+    "describe.apply": "Zastosowanie patcha",
+    "describe.exec": "Wykonywanie: %(command)s",
     "param.context_lines.description": "Liczba linii kontekstu początkowego i końcowego dla każdego dopasowania.",
     "param.filenames_only.description": "Liczba wierszy kontekstu początkowego i końcowego dla każdego dopasowania). Jeśli jest włączone, zwraca tylko listę nazw plików z dopasowaniami.",
     "param.ignore_case.description": "Czy ignorować wielkość liter (domyślnie: prawda).",
@@ -384,6 +480,14 @@
     "param.glob.description": "Wzorzec globalny nazwy pliku (np. „*.py”, „test_*”). W przypadku pominięcia brane są pod uwagę wszystkie pliki."
   },
   "hi": {
+    "describe.read": "%(path)s पढ़ा जा रहा है",
+    "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
+    "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
+    "describe.delete": "%(path)s हटाया जा रहा है",
+    "describe.write": "%(path)s लिखा जा रहा है",
+    "describe.preview": "पैच का पूर्वावलोकन",
+    "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.exec": "चलाया जा रहा है: %(command)s",
     "param.context_lines.description": "प्रत्येक मैच के लिए अग्रणी और अनुगामी संदर्भ की पंक्तियों की संख्या।",
     "param.filenames_only.description": "यदि सक्षम है, तो केवल मिलान वाले फ़ाइल नामों की सूची लौटाएँ।",
     "param.ignore_case.description": "क्या मामले को अनदेखा करना है (डिफ़ॉल्ट: सत्य)।",
@@ -416,6 +520,14 @@
     "param.glob.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे, '*.py', 'test_*')। यदि छोड़ दिया जाए तो सभी फाइलों पर विचार किया जाता है।"
   },
   "ar": {
+    "describe.read": "قراءة %(path)s",
+    "describe.grep": "البحث عن %(pattern)s في %(path)s",
+    "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "كتابة %(path)s",
+    "describe.preview": "معاينة الرقعة",
+    "describe.apply": "تطبيق الرقعة",
+    "describe.exec": "تنفيذ: %(command)s",
     "param.context_lines.description": "عدد أسطر السياق البادئة والزائدة لكل مباراة.",
     "param.filenames_only.description": "في حالة تمكينه، قم بإرجاع قائمة أسماء الملفات ذات التطابقات فقط.",
     "param.ignore_case.description": "ما إذا كان سيتم تجاهل حالة الأحرف (الافتراضي: صحيح).",
@@ -448,6 +560,14 @@
     "param.glob.description": "النمط الشامل لاسم الملف (على سبيل المثال، '*.py'، 'test_*'). إذا تم حذفها، يتم النظر في جميع الملفات."
   },
   "sv": {
+    "describe.read": "Läser %(path)s",
+    "describe.grep": "Söker efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
+    "describe.delete": "Tar bort %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Förhandsgranskar patch",
+    "describe.apply": "Tillämpar patch",
+    "describe.exec": "Kör: %(command)s",
     "param.context_lines.description": "Antal rader med kontext före och efter varje träff.",
     "param.filenames_only.description": "Om aktiverat, returnera endast listan över filnamn med träffar.",
     "param.ignore_case.description": "Om skiftläge ska ignoreras (standard: sant).",
@@ -480,6 +600,14 @@
     "param.glob.description": "Filnamnsglobmönster (t.ex. '*.py', 'test_*'). Om det utelämnas kommer alla filer att beaktas."
   },
   "sw": {
+    "describe.read": "Inasoma %(path)s",
+    "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
+    "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
+    "describe.delete": "Inafuta %(path)s",
+    "describe.write": "Inaandika %(path)s",
+    "describe.preview": "Inaonyesha kiraka",
+    "describe.apply": "Inatumia kiraka",
+    "describe.exec": "Inaendesha: %(command)s",
     "param.context_lines.description": "Idadi ya mistari ya muktadha kabla na baada ya kila ulinganifu.",
     "param.filenames_only.description": "Upeo wa herufi za kurejesha (hutumika baada ya kusimbua/kuchomoa).",
     "param.ignore_case.description": "Ikiwa itapuuza kesi (chaguo-msingi: kweli",
@@ -512,6 +640,14 @@
     "param.glob.description": "Mchoro wa globu ya jina la faili (k.m., '*.py', 'test_*'). Ikiwa imeachwa, faili zote zitazingatiwa."
   },
   "nb": {
+    "describe.read": "Leser %(path)s",
+    "describe.grep": "Søker etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Forhåndsviser patch",
+    "describe.apply": "Bruker patch",
+    "describe.exec": "Kjører: %(command)s",
     "param.context_lines.description": "Antall linjer med kontekst før og etter hvert treff.",
     "param.filenames_only.description": "Hvis aktivert, returner bare listen over filnavn med treff.",
     "param.ignore_case.description": "Om det skal ignoreres store og små bokstaver (standard: sant).",
@@ -544,6 +680,14 @@
     "param.glob.description": "Filnavn glob-mønster (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer."
   },
   "nl": {
+    "describe.read": "Lezen van %(path)s",
+    "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
+    "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
+    "describe.delete": "Verwijderen van %(path)s",
+    "describe.write": "Schrijven van %(path)s",
+    "describe.preview": "Patch bekijken",
+    "describe.apply": "Patch toepassen",
+    "describe.exec": "Uitvoeren: %(command)s",
     "param.context_lines.description": "Aantal regels context vóór en na elke treffer.",
     "param.filenames_only.description": "Indien ingeschakeld, retourneert u alleen de lijst met bestandsnamen met overeenkomsten.",
     "param.ignore_case.description": "Of hoofdlettergebruik moet worden genegeerd (standaard: waar).",
@@ -576,6 +720,14 @@
     "param.glob.description": "Glob-patroon van bestandsnaam (bijvoorbeeld '*.py', 'test_*'). Indien dit wordt weggelaten, worden alle bestanden in aanmerking genomen."
   },
   "fi": {
+    "describe.read": "Luetaan %(path)s",
+    "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
+    "describe.dry_run": "Listataan poistokohteet: %(path)s",
+    "describe.delete": "Poistetaan %(path)s",
+    "describe.write": "Kirjoitetaan %(path)s",
+    "describe.preview": "Esikatsellaan patchia",
+    "describe.apply": "Käytetään patchia",
+    "describe.exec": "Suoritetaan: %(command)s",
     "param.context_lines.description": "Rivien määrä ennen ja jälkeen jokaisen osuman.",
     "param.filenames_only.description": "Jos käytössä, palauta vain osuman sisältävien tiedostojen nimet.",
     "param.ignore_case.description": "Huomioidaanko kirjainkoko (oletus: true).",
@@ -608,6 +760,14 @@
     "param.glob.description": "Tiedostonimen glob -malli (esim. '*.py', 'test_*'). Jos se jätetään pois, kaikki tiedostot otetaan huomioon."
   },
   "cs": {
+    "describe.read": "Čtení %(path)s",
+    "describe.grep": "Hledání %(pattern)s v %(path)s",
+    "describe.dry_run": "Výpis cílů smazání: %(path)s",
+    "describe.delete": "Mazání %(path)s",
+    "describe.write": "Zápis %(path)s",
+    "describe.preview": "Náhled patche",
+    "describe.apply": "Aplikace patche",
+    "describe.exec": "Provádění: %(command)s",
     "param.context_lines.description": "Počet řádků kontextu před a po každé shodě.",
     "param.filenames_only.description": "Je-li povoleno, vraťte pouze seznam názvů souborů se shodami.",
     "param.ignore_case.description": "Zda se má ignorovat velká a malá písmena (výchozí: true).",
@@ -640,6 +800,14 @@
     "param.glob.description": "Vzor globu názvu souboru (např. '*.py', 'test_*'). Pokud je vynechán, jsou brány v úvahu všechny soubory."
   },
   "uk": {
+    "describe.read": "Читання %(path)s",
+    "describe.grep": "Пошук %(pattern)s у %(path)s",
+    "describe.dry_run": "Перелік цілей видалення: %(path)s",
+    "describe.delete": "Видалення %(path)s",
+    "describe.write": "Запис %(path)s",
+    "describe.preview": "Попередній перегляд патча",
+    "describe.apply": "Застосування патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.context_lines.description": "Кількість рядків контексту до і після кожного збігу.",
     "param.filenames_only.description": "Якщо ввімкнено, повертати лише список назв файлів зі збігами.",
     "param.ignore_case.description": "Чи ігнорувати регістр (типово: true).",
@@ -672,6 +840,14 @@
     "param.glob.description": "Глобальний шаблон імені файлу (наприклад, '*.py', 'test_*'). Якщо опущено, розглядаються всі файли."
   },
   "tr": {
+    "describe.read": "%(path)s okunuyor",
+    "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
+    "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
+    "describe.delete": "%(path)s siliniyor",
+    "describe.write": "%(path)s yazılıyor",
+    "describe.preview": "Yama önizleniyor",
+    "describe.apply": "Yama uygulanıyor",
+    "describe.exec": "Çalıştırılıyor: %(command)s",
     "param.context_lines.description": "Her maç için önde gelen ve sondaki bağlamın satır sayısı.",
     "param.filenames_only.description": "Etkinleştirilirse, yalnızca eşleşen dosya adlarının listesini döndürün.",
     "param.ignore_case.description": "Büyük/küçük harfin göz ardı edilip edilmeyeceği (varsayılan: doğru).",
@@ -704,6 +880,14 @@
     "param.glob.description": "Dosya adı glob modeli (ör. '*.py', 'test_*'). Atlanırsa tüm dosyalar dikkate alınır."
   },
   "th": {
+    "describe.read": "กำลังอ่าน %(path)s",
+    "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
+    "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
+    "describe.delete": "กำลังลบ %(path)s",
+    "describe.write": "กำลังเขียน %(path)s",
+    "describe.preview": "กำลังดูตัวอย่างแพตช์",
+    "describe.apply": "กำลังใช้แพตช์",
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
     "param.context_lines.description": "จำนวนบรรทัดบริบทก่อนหน้าและหลังจากแต่ละรายการที่ตรงกัน",
     "param.filenames_only.description": "หากเปิดใช้งาน ให้ส่งคืนเฉพาะรายชื่อไฟล์ที่พบการตรงกันเท่านั้น",
     "param.ignore_case.description": "โหมดการแยกไฟล์ head=return จุดเริ่มต้นของการตอบกลับ; text=แยกข้อความจาก HTML; html=แยกส่วน HTML; json=parse JSON (เป็นทางเลือก ใช้ json_pointer);",
@@ -736,6 +920,14 @@
     "param.glob.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะถือว่าไฟล์ทั้งหมด"
   },
   "zh_CN": {
+    "describe.read": "正在读取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
+    "describe.dry_run": "正在列出待删除项：%(path)s",
+    "describe.delete": "正在删除 %(path)s",
+    "describe.write": "正在写入 %(path)s",
+    "describe.preview": "正在预览补丁",
+    "describe.apply": "正在应用补丁",
+    "describe.exec": "正在执行：%(command)s",
     "param.context_lines.description": "每个匹配项前后显示的上下文行数。",
     "param.filenames_only.description": "如果启用，则只返回包含匹配项的文件名列表。",
     "param.ignore_case.description": "是否忽略大小写（默认：true）。",
@@ -768,6 +960,14 @@
     "param.glob.description": "文件名全局模式（例如“*.py”、“test_*”）。如果省略，则考虑所有文件。"
   },
   "zh_TW": {
+    "describe.read": "正在讀取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
+    "describe.dry_run": "正在列出待刪除項目：%(path)s",
+    "describe.delete": "正在刪除 %(path)s",
+    "describe.write": "正在寫入 %(path)s",
+    "describe.preview": "正在預覽修補",
+    "describe.apply": "正在套用修補",
+    "describe.exec": "正在執行：%(command)s",
     "param.context_lines.description": "每個相符項目前後顯示的上下文行數。",
     "param.filenames_only.description": "如果啟用，則只傳回包含相符項的檔名清單。",
     "param.ignore_case.description": "是否忽略大小寫（預設：true）。",
@@ -800,6 +1000,14 @@
     "param.glob.description": "檔案名稱全域模式（例如“*.py”、“test_*”）。如果省略，則考慮所有文件。"
   },
   "bn": {
+    "describe.read": "%(path)s পড়া হচ্ছে",
+    "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
+    "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
+    "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
+    "describe.write": "%(path)s লেখা হচ্ছে",
+    "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
+    "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
     "param.context_lines.description": "প্রতিটি ম্যাচের আগে ও পরে কতগুলো প্রসঙ্গ লাইন দেখানো হবে।",
     "param.filenames_only.description": "সক্ষম হলে, শুধুমাত্র ম্যাচ থাকা ফাইলনামের তালিকা ফেরত দিন।",
     "param.ignore_case.description": "case উপেক্ষা করা হবে কি না (ডিফল্ট: true)।",
@@ -832,6 +1040,14 @@
     "param.glob.description": "ফাইলের নাম গ্লোব প্যাটার্ন (যেমন, '*.py', 'test_*')। বাদ দেওয়া হলে, সমস্ত ফাইল বিবেচনা করা হয়।"
   },
   "fa": {
+    "describe.read": "خواندن %(path)s",
+    "describe.grep": "جستجوی %(pattern)s در %(path)s",
+    "describe.dry_run": "فهرست اهداف حذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "نوشتن %(path)s",
+    "describe.preview": "پیش‌نمایش وصله",
+    "describe.apply": "اعمال وصله",
+    "describe.exec": "اجرا: %(command)s",
     "param.context_lines.description": "تعداد خطوطِ زمینهٔ قبل و بعد از هر تطابق.",
     "param.filenames_only.description": "اگر فعال باشد، فقط فهرست نام فایل‌های دارای تطابق را برگردانید.",
     "param.ignore_case.description": "نادیده گرفتن حروف بزرگ (پیش‌فرض: درست).",
@@ -864,6 +1080,14 @@
     "param.glob.description": "الگوی گلوب نام فایل (به عنوان مثال، '*.py'، 'test_*'). در صورت حذف، تمام فایل ها در نظر گرفته می شوند."
   },
   "mn": {
+    "describe.read": "%(path)s-г уншиж байна",
+    "describe.grep": "%(path)s-с %(pattern)s хайж байна",
+    "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
+    "describe.delete": "%(path)s-г устгаж байна",
+    "describe.write": "%(path)s-д бичиж байна",
+    "describe.preview": "Патчийн урьдчилан харах",
+    "describe.apply": "Патч хэрэглэж байна",
+    "describe.exec": "Ажиллуулж байна: %(command)s",
     "param.context_lines.description": "Тохирсон мөр бүрийн өмнөх ба дараах контекст мөрийн тоо.",
     "param.filenames_only.description": "Идэвхжүүлбэл, зөвхөн тохирсон файлын нэрсийн жагсаалтыг буцаана.",
     "param.ignore_case.description": "Том үсгийг үл тоомсорлох эсэх (өгөгдмөл: үнэн).",
@@ -896,6 +1120,14 @@
     "param.glob.description": "Файлын нэрийн бөмбөрцгийн загвар (жишээ нь, '*.py', 'test_*'). Хэрэв орхигдуулсан бол бүх файлыг авч үзнэ."
   },
   "mr": {
+    "describe.read": "%(path)s वाचले जात आहे",
+    "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
+    "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
+    "describe.delete": "%(path)s हटवले जात आहे",
+    "describe.write": "%(path)s लिहिले जात आहे",
+    "describe.preview": "पॅचचे पूर्वावलोकन",
+    "describe.apply": "पॅच लागू होत आहे",
+    "describe.exec": "चालवले जात आहे: %(command)s",
     "param.context_lines.description": "प्रत्येक जुळणीसाठी आधी/नंतरच्या context ओळींची संख्या.",
     "param.filenames_only.description": "सक्षम असल्यास, फक्त जुळणाऱ्या फाइलनावांची यादी परत करा.",
     "param.ignore_case.description": "केसकडे दुर्लक्ष करायचे की नाही (डीफॉल्ट: सत्य).",
@@ -928,6 +1160,14 @@
     "param.glob.description": "फाइलनाव ग्लोब पॅटर्न (उदा. '*.py', 'test_*'). वगळल्यास, सर्व फायली विचारात घेतल्या जातात."
   },
   "el": {
+    "describe.read": "Ανάγνωση %(path)s",
+    "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
+    "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
+    "describe.delete": "Διαγραφή %(path)s",
+    "describe.write": "Εγγραφή %(path)s",
+    "describe.preview": "Προεπισκόπηση patch",
+    "describe.apply": "Εφαρμογή patch",
+    "describe.exec": "Εκτέλεση: %(command)s",
     "param.context_lines.description": "Αριθμός γραμμών του πλαισίου που οδηγεί και ακολουθεί για κάθε αγώνα.",
     "param.filenames_only.description": "Εάν είναι ενεργοποιημένο, επιστρέψτε μόνο τη λίστα ονομάτων αρχείων με αντιστοιχίσεις.",
     "param.ignore_case.description": "Εάν θα αγνοηθούν πεζά (προεπιλογή: αληθές).",
@@ -960,6 +1200,14 @@
     "param.glob.description": "Μοτίβο σφαιρών ονόματος αρχείου (π.χ. '*.py', 'test_*'). Εάν παραλειφθεί, όλα τα αρχεία λαμβάνονται υπόψη."
   },
   "he": {
+    "describe.read": "קורא את %(path)s",
+    "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
+    "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
+    "describe.delete": "מוחק את %(path)s",
+    "describe.write": "כותב את %(path)s",
+    "describe.preview": "תצוגה מקדימה של patch",
+    "describe.apply": "מחיל patch",
+    "describe.exec": "מריץ: %(command)s",
     "param.context_lines.description": "מספר השורות של הקשר מוביל ונמשך עבור כל התאמה.",
     "param.filenames_only.description": "אם מופעל, החזר רק את רשימת שמות הקבצים עם התאמות.",
     "param.ignore_case.description": "האם להתעלם מרישיות (ברירת מחדל: נכון).",
@@ -992,6 +1240,14 @@
     "param.glob.description": "דפוס גלוב של שם קובץ (לדוגמה, '*.py', 'test_*'). אם מושמט, כל הקבצים נחשבים."
   },
   "hu": {
+    "describe.read": "%(path)s olvasása",
+    "describe.grep": "%(pattern)s keresése itt: %(path)s",
+    "describe.dry_run": "Törlési célok listázása: %(path)s",
+    "describe.delete": "%(path)s törlése",
+    "describe.write": "%(path)s írása",
+    "describe.preview": "Patch előnézete",
+    "describe.apply": "Patch alkalmazása",
+    "describe.exec": "Végrehajtás: %(command)s",
     "param.context_lines.description": "Figyelmen kívül hagyja-e a kis- és nagybetűket (alapértelmezett: igaz).",
     "param.filenames_only.description": "Gyökérkönyvtár vagy adott fájl elérési útja (alapértelmezett: '.').",
     "param.ignore_case.description": "A letöltendő oldalszám (alapértelmezett: 1).",
@@ -1024,6 +1280,14 @@
     "param.glob.description": "Fájlnév glob minta (pl. '*.py', 'teszt_*'). Ha kihagyja, akkor az összes fájlt figyelembe veszi."
   },
   "ro": {
+    "describe.read": "Citire %(path)s",
+    "describe.grep": "Căutare %(pattern)s în %(path)s",
+    "describe.dry_run": "Listare ținte de ștergere: %(path)s",
+    "describe.delete": "Ștergere %(path)s",
+    "describe.write": "Scriere %(path)s",
+    "describe.preview": "Previzualizare patch",
+    "describe.apply": "Aplicare patch",
+    "describe.exec": "Executare: %(command)s",
     "param.context_lines.description": "Nu s-au găsit fișiere care să corespundă criteriilor.",
     "param.filenames_only.description": "Numărul de linii de context de început și de final pentru fiecare meci.",
     "param.ignore_case.description": "Dacă este activat, returnați numai lista de nume de fișiere cu potriviri.",
@@ -1056,6 +1320,14 @@
     "param.glob.description": "Model de nume de fișier (de exemplu, „*.py”, „test_*”). Dacă sunt omise, toate fișierele sunt luate în considerare."
   },
   "fil": {
+    "describe.read": "Binabasa ang %(path)s",
+    "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
+    "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
+    "describe.delete": "Binubura ang %(path)s",
+    "describe.write": "Isinusulat ang %(path)s",
+    "describe.preview": "Sinusuri ang patch",
+    "describe.apply": "Inilalapat ang patch",
+    "describe.exec": "Pinapatakbo: %(command)s",
     "param.context_lines.description": "Bilang ng mga linya ng nangunguna at sumusunod na konteksto para sa bawat laban.",
     "param.filenames_only.description": "Kung pinagana, ibalik lamang ang listahan ng mga filename na may mga tugma.",
     "param.ignore_case.description": "Kung babalewalain ang case (default: true).",
@@ -1088,6 +1360,14 @@
     "param.glob.description": "Filename glob pattern (hal., '*.py', 'test_*'). Kung tinanggal, ang lahat ng mga file ay isasaalang-alang."
   },
   "ms": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s dalam %(path)s",
+    "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
+    "describe.delete": "Memadam %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratonton tampalan",
+    "describe.apply": "Menggunakan tampalan",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.context_lines.description": "Bilangan baris konteks pendahuluan dan belakang untuk setiap perlawanan.",
     "param.filenames_only.description": "Jika didayakan, kembalikan senarai nama fail dengan padanan sahaja.",
     "param.ignore_case.description": "Sama ada hendak mengabaikan kes (lalai: benar).",
@@ -1120,6 +1400,14 @@
     "param.glob.description": "Corak glob nama fail (cth., '*.py', 'test_*'). Jika ditinggalkan, semua fail akan dipertimbangkan."
   },
   "da": {
+    "describe.read": "Læser %(path)s",
+    "describe.grep": "Søger efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser sletteemner: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Viser patch",
+    "describe.apply": "Anvender patch",
+    "describe.exec": "Kører: %(command)s",
     "param.context_lines.description": "Antal linjer med førende og efterfølgende sammenhæng for hver kamp.",
     "param.filenames_only.description": "Hvis aktiveret, returner kun listen over filnavne med match.",
     "param.ignore_case.description": "Om der skal ignoreres store og små bogstaver (standard: sand).",
@@ -1152,6 +1440,14 @@
     "param.glob.description": "Filnavn glob-mønster (f.eks. '*.py', 'test_*'). Hvis den udelades, tages alle filer i betragtning."
   },
   "nn": {
+    "describe.read": "Les %(path)s",
+    "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Slettar %(path)s",
+    "describe.write": "Skriv %(path)s",
+    "describe.preview": "Førehandsvising av patch",
+    "describe.apply": "Brukar patch",
+    "describe.exec": "Køyrer: %(command)s",
     "param.context_lines.description": "Antall linjer med ledende og etterfølgende kontekst for hver kamp.",
     "param.filenames_only.description": "Hvis aktivert, returner berre listen over filnavn med samsvar.",
     "param.ignore_case.description": "Om det skal ignoreres store og små bokstaver (standard: sant).",

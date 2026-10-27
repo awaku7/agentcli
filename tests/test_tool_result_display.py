@@ -35,6 +35,8 @@ def test_host_tool_result_display_is_enabled_for_gui_and_web(
     web_core = SimpleNamespace(_is_web=True, IS_GUI=False)
     gui_core = SimpleNamespace(_is_web=False, IS_GUI=True)
 
+    # The developer shell may already export the opt-in; start from unset.
+    monkeypatch.delenv("UAGENT_SHOW_TOOL_RESULTS", raising=False)
     assert _host_tool_result_display_enabled(web_core) is False
     assert _host_tool_result_display_enabled(gui_core) is False
     assert (
@@ -154,3 +156,98 @@ def test_powershell_truncation_keeps_localized_failure_status(monkeypatch) -> No
     assert result.startswith("[Erreur pwsh_exec]")
     assert "[pwsh_exec truncated:" in result
     assert getattr(result, "_uag_execution_status", None) == "failed"
+
+
+def test_display_mode_parsing_covers_default_and_localized() -> None:
+    from uagent.runtime.tool_result_display import parse_tool_result_display_mode
+
+    assert parse_tool_result_display_mode("") == 0
+    assert parse_tool_result_display_mode("0") == 0
+    assert parse_tool_result_display_mode("off") == 0
+    assert parse_tool_result_display_mode("1") == 1
+    assert parse_tool_result_display_mode("on") == 1
+    assert parse_tool_result_display_mode("2") == 2
+    assert parse_tool_result_display_mode("localized") == 2
+    # Unknown values must not silently enable the display.
+    assert parse_tool_result_display_mode("3") == 0
+    assert parse_tool_result_display_mode("yes please") == 0
+
+
+def test_mode_2_disables_the_result_line(monkeypatch) -> None:
+    cli_core = SimpleNamespace(_is_web=False, IS_GUI=False)
+    web_core = SimpleNamespace(_is_web=True, IS_GUI=False)
+
+    # Mode 2 replaces the pre-execution [TOOL] trace with a localized action
+    # sentence, so no post-execution result line is shown.
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    assert _cli_tool_result_display_enabled(cli_core) is False
+    assert _host_tool_result_display_enabled(web_core) is False
+
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "1")
+    assert _cli_tool_result_display_enabled(cli_core) is True
+    assert _host_tool_result_display_enabled(web_core) is True
+
+
+def test_bound_display_text_is_masked_and_bounded() -> None:
+    from uagent.runtime.tool_result_display import bound_display_text
+
+    assert len(bound_display_text("x" * 1000)) == 400
+    masked = bound_display_text("api_key=abcd1234efgh")
+    assert "abcd1234efgh" not in masked
+    assert bound_display_text("  a\n\n b  ") == "a b"
+    assert bound_display_text(None) == ""
+    assert bound_display_text("x", max_chars=0) == ""
+
+
+def test_build_tool_description_uses_registry_and_degrades_safely() -> None:
+    from uagent import tools as tools_pkg
+
+    def fake(args):
+        return f"act:{args.get('k')}"
+
+    def boom(args):
+        raise RuntimeError("broken describer")
+
+    tools_pkg._TOOL_DESCRIBERS["fake_tool"] = fake
+    tools_pkg._TOOL_DESCRIBERS["boom_tool"] = boom
+    tools_pkg._TOOL_DESCRIBERS["none_tool"] = lambda args: None
+    try:
+        assert tools_pkg.build_tool_description("fake_tool", {"k": 1}) == "act:1"
+        assert tools_pkg.build_tool_description("boom_tool", {}) == ""
+        assert tools_pkg.build_tool_description("none_tool", {}) == ""
+        assert tools_pkg.build_tool_description("no_such_tool", {}) == ""
+        assert tools_pkg.build_tool_description("fake_tool", None) == "act:None"
+    finally:
+        for name in ("fake_tool", "boom_tool", "none_tool"):
+            tools_pkg._TOOL_DESCRIBERS.pop(name, None)
+
+
+def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
+    from uagent import tools as tools_pkg
+
+    tools_pkg._TOOL_DESCRIBERS["trace_probe"] = lambda args: "probe line"
+    try:
+        monkeypatch.delenv("UAGENT_SHOW_TOOL_RESULTS", raising=False)
+        classic = tools_pkg._tool_trace_body("trace_probe", {"a": 1})
+        assert classic == 'name=trace_probe args={"a":1}'
+
+        monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "1")
+        assert tools_pkg._tool_trace_body("trace_probe", {"a": 1}) == classic
+
+        monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+        assert tools_pkg._tool_trace_body("trace_probe", {"a": 1}) == "probe line"
+        # A tool without a describer keeps the machine-readable body.
+        assert tools_pkg._tool_trace_body("mystery", {"a": 1}).startswith(
+            "name=mystery args="
+        )
+    finally:
+        tools_pkg._TOOL_DESCRIBERS.pop("trace_probe", None)
+
+
+def test_read_file_describer_is_localized(monkeypatch) -> None:
+    from uagent.tools import i18n_helper, read_file_tool
+
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    text = read_file_tool.describe({"filename": "src/a.py"})
+    assert "src/a.py" in text
+    assert read_file_tool.describe({}).count("?") == 1

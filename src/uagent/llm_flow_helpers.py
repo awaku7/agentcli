@@ -19,6 +19,10 @@ from .runtime.history import (
 )
 from .runtime.context_manager import ContextManager
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+from .runtime.tool_result_display import (
+    MODE_DEFAULT,
+    tool_result_display_mode,
+)
 
 _EXTERNAL_CONTENT_BEGIN = "---BEGIN_UAGENT_EXTERNAL_CONTENT---"
 _EXTERNAL_CONTENT_END = "---END_UAGENT_EXTERNAL_CONTENT---"
@@ -604,12 +608,8 @@ def _cli_tool_result_display_enabled(core: Any) -> bool:
         return False
     if bool(getattr(core, "IS_GUI", False)):
         return False
-    return (env_get("UAGENT_SHOW_TOOL_RESULTS", "0") or "").strip().lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }
+    # Mode 2 shows the localized pre-execution action instead of a result line.
+    return tool_result_display_mode() == MODE_DEFAULT
 
 
 def _host_ui_active(core: Any) -> bool:
@@ -624,14 +624,7 @@ def _host_ui_active(core: Any) -> bool:
 def _host_tool_result_display_enabled(core: Any) -> bool:
     """Return whether GUI/Web may show the opt-in bounded tool-result line."""
 
-    return _host_ui_active(core) and (
-        env_get("UAGENT_SHOW_TOOL_RESULTS", "0") or ""
-    ).strip().lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }
+    return _host_ui_active(core) and tool_result_display_mode() == MODE_DEFAULT
 
 
 def _tool_result_status(value: Any) -> str:

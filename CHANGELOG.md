@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add `UAGENT_SHOW_TOOL_RESULTS=2`, which replaces the `[TOOL]` trace body with a tool-owned localized pre-execution action line (`TOOL_DESCRIBER`) in the CLI, with automatic fallback to the masked-arguments body.
+- Provide mode-2 action lines for `read_file`, `file_grep`, `delete_file`, `create_file`, `apply_patch`, and `cmd_exec_json` in all 37 supported tool locales.
+
 ### Changed
 
 - Use the standalone PyPI `uag-envsec` package for encrypted environment files, while retaining the legacy ciphertext format for compatibility with prior uag releases.

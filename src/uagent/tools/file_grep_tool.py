@@ -564,3 +564,16 @@ def run_tool(args: dict[str, Any]) -> str:
     finally:
         if cb.set_status:
             cb.set_status(False, STATUS_LABEL)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    pattern = str((args or {}).get("pattern") or "").strip()
+    path = str((args or {}).get("path") or ".").strip()
+    return _(
+        "describe.grep",
+        default="Searching for %(pattern)s in %(path)s",
+    ) % {"pattern": pattern or "?", "path": path or "."}
+
+
+TOOL_DESCRIBER = describe

@@ -267,3 +267,19 @@ def run_tool(args: dict[str, Any]) -> str:
         payload["path"] = deleted[0]
 
     return json.dumps(payload, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    target = str((args or {}).get("filename") or (args or {}).get("path") or "").strip()
+    dry_run = (args or {}).get("dry_run", True)
+    if dry_run is None:
+        dry_run = True
+    key = "describe.dry_run" if bool(dry_run) else "describe.delete"
+    default = (
+        "Listing deletion targets: %(path)s" if bool(dry_run) else "Deleting %(path)s"
+    )
+    return _(key, default=default) % {"path": target or "?"}
+
+
+TOOL_DESCRIBER = describe

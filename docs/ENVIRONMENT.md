@@ -135,20 +135,35 @@ UAGENT_IMG_GENERATE_SAVE_META=1
 
 With `UAGENT_IMG_GENERATE_DEBUG=1`, Meta image generation and `img2img` continuation diagnostics—including whether the `response_id` continuation was used—are emitted. Leave this unset or set it to `0` during normal operation.
 
-## CLI tool-result display (opt-in)
+## Tool display (opt-in)
 
-The bounded `[TOOL-RESULT]` summary is hidden by default in every host. Enable
-it when you want a short, masked result line after each tool call in the CLI,
-Web, or GUI.
+Three display modes are available. All of them never print the raw tool result.
 
 ```env
 # CLI, Web, and GUI; default: 0
-UAGENT_SHOW_TOOL_RESULTS=1
+UAGENT_SHOW_TOOL_RESULTS=0
 ```
 
-The display contains the tool name, status, call ID, a masked summary limited
-to 400 characters, and an `artifact_ref` when available. It never prints the
-raw tool result.
+| Value | Behavior |
+|---|---|
+| `0` (default) or unknown | Classic `[TOOL] <ts> name=<tool> args=<masked-json>` trace before execution. No result line. |
+| `1` | The classic trace plus a masked `[TOOL-RESULT] ... summary=<derived>` line after execution. |
+| `2` | The classic trace body is replaced by the tool's own localized action sentence, printed before execution. No result line. |
+
+Mode `2` example (CLI, `UAGENT_LANG=ja`):
+
+```
+[TOOL] 2026-10-27 16:02:11 core.py を読み取ります
+```
+
+The sentence is produced from the tool arguments, so it describes what is
+about to happen, and it appears before the confirmation prompt and before the
+tool runs. Tools without an action describer keep the classic `name=/args=`
+body, so the trace never disappears. Described text is flattened,
+secret-masked, and limited to 400 characters.
+
+The mode `1` result line contains the tool name, status, call ID, a masked
+summary limited to 400 characters, and an `artifact_ref` when available.
 
 ## Setup Wizard
 

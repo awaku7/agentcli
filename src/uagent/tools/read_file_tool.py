@@ -416,3 +416,12 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception as e:
         msg = f"[read_file error] {type(e).__name__}: {e}"
         return _json_err(msg, exception=type(e).__name__)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    path = str((args or {}).get("filename") or (args or {}).get("path") or "").strip()
+    return _("describe.read", default="Reading %(path)s") % {"path": path or "?"}
+
+
+TOOL_DESCRIBER = describe

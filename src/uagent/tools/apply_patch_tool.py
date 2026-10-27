@@ -582,3 +582,16 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {"ok": False, "error": f"{type(e).__name__}: {e}"}, ensure_ascii=False
         )
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    dry_run = (args or {}).get("dry_run", True)
+    if dry_run is None:
+        dry_run = True
+    if bool(dry_run):
+        return _("describe.preview", default="Previewing patch")
+    return _("describe.apply", default="Applying patch")
+
+
+TOOL_DESCRIBER = describe

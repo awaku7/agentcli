@@ -117,6 +117,13 @@ ______________________________________________________________________
 ツール側で `x_scheck.emit_tool_trace=false` を指定すると抑制できます。
 `human_ask` は、ユーザー入力の生値がログに出ないよう抑制しています。
 
+`UAGENT_SHOW_TOOL_RESULTS=2` では、このトレースの `name=<tool> args=<masked-json>`
+本文を、ツール自身が返す各国語の「これから何をするか」に置き換えます。実行前に
+文章として読める形になります。ツール側は `TOOL_DESCRIBER` を実装して opt-in します。
+詳細は `DEVELOP_TOOL.md` の 3.4.1 を参照してください。describer が無い、または
+例外・空文字を返した場合は従来のマスク済み引数本文へフォールバックし、結果行は
+表示しません。
+
 ### 3.5.1 大きな Tool Result の Artifact 化
 
 `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`（既定: `100000`）を超える

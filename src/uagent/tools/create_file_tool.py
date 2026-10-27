@@ -166,3 +166,12 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(payload, ensure_ascii=False)
     except Exception as e:
         return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    target = str((args or {}).get("filename") or (args or {}).get("path") or "").strip()
+    return _("describe.write", default="Writing %(path)s") % {"path": target or "?"}
+
+
+TOOL_DESCRIBER = describe

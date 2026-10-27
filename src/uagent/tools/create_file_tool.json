@@ -1,5 +1,13 @@
 {
   "ja": {
+    "describe.read": "%(path)s を読み取ります",
+    "describe.grep": "%(path)s で %(pattern)s を検索します",
+    "describe.dry_run": "削除対象を列挙します: %(path)s",
+    "describe.delete": "%(path)s を削除します",
+    "describe.write": "%(path)s を書き込みます",
+    "describe.preview": "パッチをプレビューします",
+    "describe.apply": "パッチを適用します",
+    "describe.exec": "実行します: %(command)s",
     "param.content.description": "書き込むテキスト内容。",
     "param.encoding.description": "エンコーディング（例: utf-8, cp932; デフォルト: utf-8）。",
     "param.filename.description": "作成するファイルのパス。",
@@ -23,6 +31,14 @@
     "msg.overwrote": "上書きされたファイル: {path}"
   },
   "es": {
+    "describe.read": "Leyendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s en %(path)s",
+    "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
+    "describe.delete": "Eliminando %(path)s",
+    "describe.write": "Escribiendo %(path)s",
+    "describe.preview": "Previsualizando parche",
+    "describe.apply": "Aplicando parche",
+    "describe.exec": "Ejecutando: %(command)s",
     "param.content.description": "Contenido de texto.",
     "param.encoding.description": "Codificación de texto (p.ej.",
     "param.filename.description": "Ruta del archivo a crear.",
@@ -46,6 +62,14 @@
     "msg.overwrote": "Archivo sobrescrito: {path}"
   },
   "fr": {
+    "describe.read": "Lecture de %(path)s",
+    "describe.grep": "Recherche de %(pattern)s dans %(path)s",
+    "describe.dry_run": "Liste des cibles de suppression : %(path)s",
+    "describe.delete": "Suppression de %(path)s",
+    "describe.write": "Écriture de %(path)s",
+    "describe.preview": "Aperçu du patch",
+    "describe.apply": "Application du patch",
+    "describe.exec": "Exécution : %(command)s",
     "param.content.description": "Contenu du texte.",
     "param.encoding.description": "Encodage du texte (ex.'utf-8', 'cp932').",
     "param.filename.description": "Chemin du fichier à créer.",
@@ -69,6 +93,14 @@
     "msg.overwrote": "Fichier écrasé : {path}"
   },
   "ko": {
+    "describe.read": "%(path)s 읽는 중",
+    "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
+    "describe.dry_run": "삭제 대상 나열 중: %(path)s",
+    "describe.delete": "%(path)s 삭제 중",
+    "describe.write": "%(path)s 쓰는 중",
+    "describe.preview": "패치 미리보기 중",
+    "describe.apply": "패치 적용 중",
+    "describe.exec": "실행 중: %(command)s",
     "param.content.description": "작성할 텍스트 내용.",
     "param.encoding.description": "인코딩(예: utf-8, cp932; 기본: utf-8).",
     "param.filename.description": "생성할 파일 경로.",
@@ -92,6 +124,14 @@
     "msg.overwrote": "덮어쓴 파일: {path}"
   },
   "de": {
+    "describe.read": "Lesen von %(path)s",
+    "describe.grep": "Suche nach %(pattern)s in %(path)s",
+    "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
+    "describe.delete": "%(path)s löschen",
+    "describe.write": "Schreiben von %(path)s",
+    "describe.preview": "Patch-Vorschau",
+    "describe.apply": "Patch anwenden",
+    "describe.exec": "Ausführen: %(command)s",
     "param.content.description": "Textinhalt.",
     "param.encoding.description": "Textkodierung (z.B.'utf-8', 'cp932').",
     "param.filename.description": "Zu erstellender Dateipfad.",
@@ -115,6 +155,14 @@
     "msg.overwrote": "Datei überschrieben: {path}"
   },
   "it": {
+    "describe.read": "Lettura di %(path)s",
+    "describe.grep": "Ricerca di %(pattern)s in %(path)s",
+    "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
+    "describe.delete": "Eliminazione di %(path)s",
+    "describe.write": "Scrittura di %(path)s",
+    "describe.preview": "Anteprima della patch",
+    "describe.apply": "Applicazione della patch",
+    "describe.exec": "Esecuzione: %(command)s",
     "param.content.description": "Contenuto di testo.",
     "param.encoding.description": "Codifica del testo (es.'utf-8', 'cp932').",
     "param.filename.description": "Percorso del file da creare.",
@@ -138,6 +186,14 @@
     "msg.overwrote": "File sovrascritto: {path}"
   },
   "ru": {
+    "describe.read": "Чтение %(path)s",
+    "describe.grep": "Поиск %(pattern)s в %(path)s",
+    "describe.dry_run": "Перечисление целей удаления: %(path)s",
+    "describe.delete": "Удаление %(path)s",
+    "describe.write": "Запись %(path)s",
+    "describe.preview": "Предпросмотр патча",
+    "describe.apply": "Применение патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.content.description": "Текстовое содержимое.",
     "param.encoding.description": "Кодировка (например, utf-8, cp932; по умолчанию: utf-8).",
     "param.filename.description": "Путь к создаваемому файлу.",
@@ -161,6 +217,14 @@
     "msg.overwrote": "Перезаписан файл: {path}"
   },
   "pt_BR": {
+    "describe.read": "Lendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s em %(path)s",
+    "describe.dry_run": "Listando alvos de exclusão: %(path)s",
+    "describe.delete": "Excluindo %(path)s",
+    "describe.write": "Gravando %(path)s",
+    "describe.preview": "Pré-visualizando patch",
+    "describe.apply": "Aplicando patch",
+    "describe.exec": "Executando: %(command)s",
     "param.content.description": "Conteúdo de texto.",
     "param.encoding.description": "Codificação de texto (ex: 'utf-8', 'cp932').",
     "param.filename.description": "Caminho do arquivo a ser criado.",
@@ -184,6 +248,14 @@
     "msg.overwrote": "Arquivo substituído: {path}"
   },
   "pt": {
+    "describe.read": "A ler %(path)s",
+    "describe.grep": "A procurar %(pattern)s em %(path)s",
+    "describe.dry_run": "A listar alvos de eliminação: %(path)s",
+    "describe.delete": "A eliminar %(path)s",
+    "describe.write": "A escrever %(path)s",
+    "describe.preview": "A pré-visualizar patch",
+    "describe.apply": "A aplicar patch",
+    "describe.exec": "A executar: %(command)s",
     "param.content.description": "Conteúdo de texto.",
     "param.encoding.description": "Codificação (por exemplo, utf-8, cp932; padrão: utf-8).",
     "param.filename.description": "Caminho do arquivo a ser criado.",
@@ -207,6 +279,14 @@
     "msg.overwrote": "Arquivo substituído: {path}"
   },
   "id": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s di %(path)s",
+    "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
+    "describe.delete": "Menghapus %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratinjau patch",
+    "describe.apply": "Menerapkan patch",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.content.description": "Konten teks.",
     "param.encoding.description": "Pengodean teks (mis.'utf-8', 'cp932').",
     "param.filename.description": "Jalur file yang akan dibuat.",
@@ -230,6 +310,14 @@
     "msg.overwrote": "Timpa file: {path}"
   },
   "vi": {
+    "describe.read": "Đang đọc %(path)s",
+    "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
+    "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
+    "describe.delete": "Đang xóa %(path)s",
+    "describe.write": "Đang ghi %(path)s",
+    "describe.preview": "Đang xem trước patch",
+    "describe.apply": "Đang áp dụng patch",
+    "describe.exec": "Đang chạy: %(command)s",
     "param.content.description": "Nội dung văn bản.",
     "param.encoding.description": "Mã hóa văn bản (ví dụ: 'utf-8', 'cp932').",
     "param.filename.description": "Đường dẫn tệp cần tạo.",
@@ -253,6 +341,14 @@
     "msg.overwrote": "Ghi đè tệp: {path}"
   },
   "pl": {
+    "describe.read": "Odczyt %(path)s",
+    "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
+    "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
+    "describe.delete": "Usuwanie %(path)s",
+    "describe.write": "Zapis %(path)s",
+    "describe.preview": "Podgląd patcha",
+    "describe.apply": "Zastosowanie patcha",
+    "describe.exec": "Wykonywanie: %(command)s",
     "param.content.description": "Treść tekstowa.",
     "param.encoding.description": "Kodowanie tekstu (np.„utf-8”, „cp932”).",
     "param.filename.description": "Ścieżka pliku do utworzenia.",
@@ -276,6 +372,14 @@
     "msg.overwrote": "Nadpisał plik: {path}"
   },
   "hi": {
+    "describe.read": "%(path)s पढ़ा जा रहा है",
+    "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
+    "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
+    "describe.delete": "%(path)s हटाया जा रहा है",
+    "describe.write": "%(path)s लिखा जा रहा है",
+    "describe.preview": "पैच का पूर्वावलोकन",
+    "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.exec": "चलाया जा रहा है: %(command)s",
     "param.content.description": "टेक्स्ट सामग्री।",
     "param.encoding.description": "एन्कोडिंग (उदाहरण के लिए utf-8, cp932; डिफ़ॉल्ट: utf-8)।",
     "param.filename.description": "बनाने के लिए फ़ाइल पथ।",
@@ -299,6 +403,14 @@
     "msg.overwrote": "ओवरराइट की गई फ़ाइल: {path}"
   },
   "ar": {
+    "describe.read": "قراءة %(path)s",
+    "describe.grep": "البحث عن %(pattern)s في %(path)s",
+    "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "كتابة %(path)s",
+    "describe.preview": "معاينة الرقعة",
+    "describe.apply": "تطبيق الرقعة",
+    "describe.exec": "تنفيذ: %(command)s",
     "param.content.description": "محتوى النص.",
     "param.encoding.description": "التشفير (على سبيل المثال utf-8، cp932؛ الافتراضي: utf-8).",
     "param.filename.description": "مسار الملف المراد إنشاؤه.",
@@ -322,6 +434,14 @@
     "msg.overwrote": "تمت الكتابة فوق الملف: {path}"
   },
   "sv": {
+    "describe.read": "Läser %(path)s",
+    "describe.grep": "Söker efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
+    "describe.delete": "Tar bort %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Förhandsgranskar patch",
+    "describe.apply": "Tillämpar patch",
+    "describe.exec": "Kör: %(command)s",
     "param.content.description": "Textinnehåll.",
     "param.encoding.description": "Textkodning (t.ex.'utf-8', 'cp932').",
     "param.filename.description": "Filsökväg att skapa.",
@@ -345,6 +465,14 @@
     "msg.overwrote": "Överskriven fil: {path}"
   },
   "sw": {
+    "describe.read": "Inasoma %(path)s",
+    "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
+    "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
+    "describe.delete": "Inafuta %(path)s",
+    "describe.write": "Inaandika %(path)s",
+    "describe.preview": "Inaonyesha kiraka",
+    "describe.apply": "Inatumia kiraka",
+    "describe.exec": "Inaendesha: %(command)s",
     "param.content.description": "Maudhui ya maandishi.",
     "param.encoding.description": "Usimbaji (k.m. utf-8, cp932; chaguo-msingi: utf-8).",
     "param.filename.description": "Njia ya faili ya kuunda.",
@@ -368,6 +496,14 @@
     "msg.overwrote": "Batilisha faili: {path}"
   },
   "nb": {
+    "describe.read": "Leser %(path)s",
+    "describe.grep": "Søker etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Forhåndsviser patch",
+    "describe.apply": "Bruker patch",
+    "describe.exec": "Kjører: %(command)s",
     "param.content.description": "Tekstinnhold.",
     "param.encoding.description": "Tekstkoding (f.eks.'utf-8', 'cp932').",
     "param.filename.description": "Filbane som skal opprettes.",
@@ -391,6 +527,14 @@
     "msg.overwrote": "Overskrev fil: {path}"
   },
   "nl": {
+    "describe.read": "Lezen van %(path)s",
+    "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
+    "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
+    "describe.delete": "Verwijderen van %(path)s",
+    "describe.write": "Schrijven van %(path)s",
+    "describe.preview": "Patch bekijken",
+    "describe.apply": "Patch toepassen",
+    "describe.exec": "Uitvoeren: %(command)s",
     "param.content.description": "Tekstinhoud.",
     "param.encoding.description": "Tekencodering (bijv.'utf-8', 'cp932').",
     "param.filename.description": "Bestandspad dat moet worden gemaakt.",
@@ -414,6 +558,14 @@
     "msg.overwrote": "Bestand overschreven: {path}"
   },
   "fi": {
+    "describe.read": "Luetaan %(path)s",
+    "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
+    "describe.dry_run": "Listataan poistokohteet: %(path)s",
+    "describe.delete": "Poistetaan %(path)s",
+    "describe.write": "Kirjoitetaan %(path)s",
+    "describe.preview": "Esikatsellaan patchia",
+    "describe.apply": "Käytetään patchia",
+    "describe.exec": "Suoritetaan: %(command)s",
     "param.content.description": "Tekstisisältö.",
     "param.encoding.description": "Merkistökoodaus (esim.'utf-8', 'cp932').",
     "param.filename.description": "Luotava tiedostopolku.",
@@ -437,6 +589,14 @@
     "msg.overwrote": "Korvattu tiedosto: {path}"
   },
   "cs": {
+    "describe.read": "Čtení %(path)s",
+    "describe.grep": "Hledání %(pattern)s v %(path)s",
+    "describe.dry_run": "Výpis cílů smazání: %(path)s",
+    "describe.delete": "Mazání %(path)s",
+    "describe.write": "Zápis %(path)s",
+    "describe.preview": "Náhled patche",
+    "describe.apply": "Aplikace patche",
+    "describe.exec": "Provádění: %(command)s",
     "param.content.description": "Textový obsah.",
     "param.encoding.description": "Textové kódování (např.'utf-8', 'cp932').",
     "param.filename.description": "Cesta k souboru k vytvoření.",
@@ -460,6 +620,14 @@
     "msg.overwrote": "Přepsaný soubor: {path}"
   },
   "uk": {
+    "describe.read": "Читання %(path)s",
+    "describe.grep": "Пошук %(pattern)s у %(path)s",
+    "describe.dry_run": "Перелік цілей видалення: %(path)s",
+    "describe.delete": "Видалення %(path)s",
+    "describe.write": "Запис %(path)s",
+    "describe.preview": "Попередній перегляд патча",
+    "describe.apply": "Застосування патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.content.description": "Текстовий вміст.",
     "param.encoding.description": "Кодування (наприклад, utf-8, cp932; за замовчуванням: utf-8).",
     "param.filename.description": "Шлях до файлу для створення.",
@@ -483,6 +651,14 @@
     "msg.overwrote": "Перезаписаний файл: {path}"
   },
   "tr": {
+    "describe.read": "%(path)s okunuyor",
+    "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
+    "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
+    "describe.delete": "%(path)s siliniyor",
+    "describe.write": "%(path)s yazılıyor",
+    "describe.preview": "Yama önizleniyor",
+    "describe.apply": "Yama uygulanıyor",
+    "describe.exec": "Çalıştırılıyor: %(command)s",
     "param.content.description": "Metin içeriği.",
     "param.encoding.description": "Metin kodlaması (ör.'utf-8', 'cp932').",
     "param.filename.description": "Oluşturulacak dosya yolu.",
@@ -506,6 +682,14 @@
     "msg.overwrote": "Üzerine yazılan dosya: {path}"
   },
   "th": {
+    "describe.read": "กำลังอ่าน %(path)s",
+    "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
+    "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
+    "describe.delete": "กำลังลบ %(path)s",
+    "describe.write": "กำลังเขียน %(path)s",
+    "describe.preview": "กำลังดูตัวอย่างแพตช์",
+    "describe.apply": "กำลังใช้แพตช์",
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
     "param.content.description": "เนื้อหาข้อความ",
     "param.encoding.description": "การเข้ารหัส (เช่น utf-8, cp932; ค่าเริ่มต้น: utf-8)",
     "param.filename.description": "เส้นทางไฟล์ที่จะสร้าง",
@@ -529,6 +713,14 @@
     "msg.overwrote": "เขียนทับไฟล์: {path}"
   },
   "zh_CN": {
+    "describe.read": "正在读取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
+    "describe.dry_run": "正在列出待删除项：%(path)s",
+    "describe.delete": "正在删除 %(path)s",
+    "describe.write": "正在写入 %(path)s",
+    "describe.preview": "正在预览补丁",
+    "describe.apply": "正在应用补丁",
+    "describe.exec": "正在执行：%(command)s",
     "param.content.description": "要写入的文本内容。",
     "param.encoding.description": "编码（例如 utf-8, cp932; 默认: utf-8）。",
     "param.filename.description": "要创建的文件路径。",
@@ -552,6 +744,14 @@
     "msg.overwrote": "覆盖文件：{path}"
   },
   "zh_TW": {
+    "describe.read": "正在讀取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
+    "describe.dry_run": "正在列出待刪除項目：%(path)s",
+    "describe.delete": "正在刪除 %(path)s",
+    "describe.write": "正在寫入 %(path)s",
+    "describe.preview": "正在預覽修補",
+    "describe.apply": "正在套用修補",
+    "describe.exec": "正在執行：%(command)s",
     "param.content.description": "要寫入的文字內容。",
     "param.encoding.description": "编码（例如 utf-8, cp932; 默认: utf-8）。",
     "param.filename.description": "要建立的檔案路徑。",
@@ -575,6 +775,14 @@
     "msg.overwrote": "覆蓋檔案：{path}"
   },
   "bn": {
+    "describe.read": "%(path)s পড়া হচ্ছে",
+    "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
+    "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
+    "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
+    "describe.write": "%(path)s লেখা হচ্ছে",
+    "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
+    "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
     "param.content.description": "পাঠ্য বিষয়বস্তু।",
     "param.encoding.description": "এনকোডিং (যেমন utf-8, cp932; ডিফল্ট: utf-8)।",
     "param.filename.description": "পাঠ্য বিষয়বস্তু। ডিফল্ট:",
@@ -598,6 +806,14 @@
     "msg.overwrote": "ওভাররাট করা ফাইল: {path}"
   },
   "fa": {
+    "describe.read": "خواندن %(path)s",
+    "describe.grep": "جستجوی %(pattern)s در %(path)s",
+    "describe.dry_run": "فهرست اهداف حذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "نوشتن %(path)s",
+    "describe.preview": "پیش‌نمایش وصله",
+    "describe.apply": "اعمال وصله",
+    "describe.exec": "اجرا: %(command)s",
     "param.content.description": "محتوای متنی.",
     "param.encoding.description": "کدگذاری متن (مثلاً 'utf-8'، 'cp932').",
     "param.filename.description": "مسیر فایل برای ایجاد.",
@@ -621,6 +837,14 @@
     "msg.overwrote": "بازنویسی فایل: {path}"
   },
   "mn": {
+    "describe.read": "%(path)s-г уншиж байна",
+    "describe.grep": "%(path)s-с %(pattern)s хайж байна",
+    "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
+    "describe.delete": "%(path)s-г устгаж байна",
+    "describe.write": "%(path)s-д бичиж байна",
+    "describe.preview": "Патчийн урьдчилан харах",
+    "describe.apply": "Патч хэрэглэж байна",
+    "describe.exec": "Ажиллуулж байна: %(command)s",
     "param.content.description": "Текстийн агуулга.",
     "param.encoding.description": "Кодчилол (жишээ нь. utf-8, cp932; анхдагч: utf-8).",
     "param.filename.description": "Үүсгэх файлын зам.",
@@ -644,6 +868,14 @@
     "msg.overwrote": "Файлыг дарж бичсэн: {path}"
   },
   "mr": {
+    "describe.read": "%(path)s वाचले जात आहे",
+    "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
+    "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
+    "describe.delete": "%(path)s हटवले जात आहे",
+    "describe.write": "%(path)s लिहिले जात आहे",
+    "describe.preview": "पॅचचे पूर्वावलोकन",
+    "describe.apply": "पॅच लागू होत आहे",
+    "describe.exec": "चालवले जात आहे: %(command)s",
     "param.content.description": "लिहायचा मजकूर.",
     "param.encoding.description": "मजकूर एन्कोडिंग (उदा.'utf-8', 'cp932').",
     "param.filename.description": "तयार करण्यासाठी फाइल पथ.",
@@ -667,6 +899,14 @@
     "msg.overwrote": "अधिलिखित फाइल: {path}"
   },
   "el": {
+    "describe.read": "Ανάγνωση %(path)s",
+    "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
+    "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
+    "describe.delete": "Διαγραφή %(path)s",
+    "describe.write": "Εγγραφή %(path)s",
+    "describe.preview": "Προεπισκόπηση patch",
+    "describe.apply": "Εφαρμογή patch",
+    "describe.exec": "Εκτέλεση: %(command)s",
     "param.content.description": "Περιεχόμενο κειμένου.",
     "param.encoding.description": "Κωδικοποίηση (π.χ. utf-8, cp932, προεπιλογή: utf-8).",
     "param.filename.description": "Διαδρομή αρχείου για δημιουργία.",
@@ -690,6 +930,14 @@
     "msg.overwrote": "Αντικαταστάθηκε το αρχείο: {path}"
   },
   "he": {
+    "describe.read": "קורא את %(path)s",
+    "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
+    "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
+    "describe.delete": "מוחק את %(path)s",
+    "describe.write": "כותב את %(path)s",
+    "describe.preview": "תצוגה מקדימה של patch",
+    "describe.apply": "מחיל patch",
+    "describe.exec": "מריץ: %(command)s",
     "param.content.description": "תוכן טקסט.",
     "param.encoding.description": "קידוד (למשל utf-8, cp932; ברירת מחדל: utf-8).",
     "param.filename.description": "נתיב קובץ ליצירה.",
@@ -713,6 +961,14 @@
     "msg.overwrote": "קובץ שהוחלף: {path}"
   },
   "hu": {
+    "describe.read": "%(path)s olvasása",
+    "describe.grep": "%(pattern)s keresése itt: %(path)s",
+    "describe.dry_run": "Törlési célok listázása: %(path)s",
+    "describe.delete": "%(path)s törlése",
+    "describe.write": "%(path)s írása",
+    "describe.preview": "Patch előnézete",
+    "describe.apply": "Patch alkalmazása",
+    "describe.exec": "Végrehajtás: %(command)s",
     "param.content.description": "Szöveges tartalom.",
     "param.encoding.description": "Kódolás (pl. utf-8, cp932; alapértelmezett: utf-8).",
     "param.filename.description": "Létrehozandó fájl elérési útja.",
@@ -736,6 +992,14 @@
     "msg.overwrote": "Felülírt fájl: {path}"
   },
   "ro": {
+    "describe.read": "Citire %(path)s",
+    "describe.grep": "Căutare %(pattern)s în %(path)s",
+    "describe.dry_run": "Listare ținte de ștergere: %(path)s",
+    "describe.delete": "Ștergere %(path)s",
+    "describe.write": "Scriere %(path)s",
+    "describe.preview": "Previzualizare patch",
+    "describe.apply": "Aplicare patch",
+    "describe.exec": "Executare: %(command)s",
     "param.content.description": "Conținut text.",
     "param.encoding.description": "Codificare (de exemplu, utf-8, cp932; implicit: utf-8).",
     "param.filename.description": "Calea fișierului de creat.",
@@ -759,6 +1023,14 @@
     "msg.overwrote": "Fișierul a fost suprascris: {path}"
   },
   "fil": {
+    "describe.read": "Binabasa ang %(path)s",
+    "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
+    "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
+    "describe.delete": "Binubura ang %(path)s",
+    "describe.write": "Isinusulat ang %(path)s",
+    "describe.preview": "Sinusuri ang patch",
+    "describe.apply": "Inilalapat ang patch",
+    "describe.exec": "Pinapatakbo: %(command)s",
     "param.content.description": "Nilalaman ng teksto.",
     "param.encoding.description": "Encoding (hal. utf-8, cp932; default: utf-8).",
     "param.filename.description": "File path na gagawin.",
@@ -782,6 +1054,14 @@
     "msg.overwrote": "Na-overwrote ang file: {path}"
   },
   "ms": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s dalam %(path)s",
+    "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
+    "describe.delete": "Memadam %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratonton tampalan",
+    "describe.apply": "Menggunakan tampalan",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.content.description": "Kandungan teks.",
     "param.encoding.description": "Pengekodan (cth. utf-8, cp932; lalai: utf-8).",
     "param.filename.description": "Laluan fail untuk dibuat.",
@@ -805,6 +1085,14 @@
     "msg.overwrote": "Tulis ganti fail: {path}"
   },
   "da": {
+    "describe.read": "Læser %(path)s",
+    "describe.grep": "Søger efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser sletteemner: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Viser patch",
+    "describe.apply": "Anvender patch",
+    "describe.exec": "Kører: %(command)s",
     "param.content.description": "Tekstindhold.",
     "param.encoding.description": "Kodning (f.eks. utf-8, cp932; standard: utf-8).",
     "param.filename.description": "Filsti til oprettelse.",
@@ -828,6 +1116,14 @@
     "msg.overwrote": "Overskrev fil: {path}"
   },
   "nn": {
+    "describe.read": "Les %(path)s",
+    "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Slettar %(path)s",
+    "describe.write": "Skriv %(path)s",
+    "describe.preview": "Førehandsvising av patch",
+    "describe.apply": "Brukar patch",
+    "describe.exec": "Køyrer: %(command)s",
     "param.content.description": "Tekstinnhold.",
     "param.encoding.description": "Koding (f.eks. utf-8, cp932; standard: utf-8).",
     "param.filename.description": "Filbane som skal opprettes.",

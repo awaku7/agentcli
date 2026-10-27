@@ -705,6 +705,13 @@ A tool may suppress the trace using the extended flag:
 
 `human_ask` uses this to avoid logging the raw user reply.
 
+With `UAGENT_SHOW_TOOL_RESULTS=2`, the host replaces the `name=<tool>
+args=<masked-json>` body of that trace with a tool-owned localized action
+sentence, so the line reads as prose before execution. Tools opt in with a
+`TOOL_DESCRIBER` callable; see `DEVELOP_TOOL.md` section 3.4.1. Mode `2` falls
+back to the classic masked-args body when a tool has no describer or the
+describer fails, and it prints no result line.
+
 ### 3.5.1 Large tool-result artifacts
 
 Textual tool results above `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`

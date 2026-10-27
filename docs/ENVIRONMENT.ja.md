@@ -93,16 +93,30 @@ UAGENT_IMG_GENERATE_SAVE_META=1
 
 `UAGENT_IMG_GENERATE_DEBUG=1` を設定すると、MetaのResponses APIによる画像生成や `img2img` の継続経路（`response_id` の有無・利用結果）も記録されます。通常運用では `0` または未設定にしてください。
 
-## CLIのtool result表示（明示的opt-in）
+## ツール表示（明示的opt-in）
 
-boundedな`[TOOL-RESULT]`サマリーは、すべてのホストで既定では表示されません。CLI、Web、GUIでtool呼び出し後の短いマスク済み結果を表示したい場合だけ、次を設定してください。
+3つのモードがある。いずれもツール結果の生データは表示しない。
 
 ```env
 # CLI、Web、GUI。既定: 0
-UAGENT_SHOW_TOOL_RESULTS=1
+UAGENT_SHOW_TOOL_RESULTS=0
 ```
 
-表示内容はtool名、status、call ID、最大400文字のマスク済みsummary、利用可能な場合の`artifact_ref`です。rawのtool result本文は表示しません。
+| 値 | 挙動 |
+|---|---|
+| `0`（既定）または未知の値 | 実行前に従来の `[TOOL] <ts> name=<tool> args=<masked-json>` を出す。結果行は出さない。 |
+| `1` | 従来のトレースに加え、実行後にマスク済みの `[TOOL-RESULT] ... summary=<派生>` を出す。 |
+| `2` | 従来のトレース本文を、ツール自身の各国語「これから何をするか」に置き換えて実行前に出す。結果行は出さない。 |
+
+モード`2`の例（`UAGENT_LANG=ja`）:
+
+```
+[TOOL] 2026-10-27 16:02:11 core.py を読み取ります
+```
+
+文は引数から生成するため「これから起きること」を表し、確認プロンプトより前、実行より前に出る。行動説明を実装していないツールは従来の `name=/args=` 本文のままなので、トレースが消えることはない。説明文も平坦化、secretマスク、400文字上限の対象。
+
+モード`1`の結果行は、ツール名、status、call ID、最大400文字のマスク済みsummary、利用可能な場合の`artifact_ref`を含む。
 
 ## セットアップウィザード
 

@@ -1,5 +1,13 @@
 {
   "ja": {
+    "describe.read": "%(path)s を読み取ります",
+    "describe.grep": "%(path)s で %(pattern)s を検索します",
+    "describe.dry_run": "削除対象を列挙します: %(path)s",
+    "describe.delete": "%(path)s を削除します",
+    "describe.write": "%(path)s を書き込みます",
+    "describe.preview": "パッチをプレビューします",
+    "describe.apply": "パッチを適用します",
+    "describe.exec": "実行します: %(command)s",
     "tool.description": "パッチ（unified diff）を純粋 Python で適用します。dry-run プレビュー、ホワイトスペース共通、CRLF 保持に対応。",
     "x_search_terms": [
       "パッチを適用する",
@@ -22,6 +30,14 @@
     "summary.applied": "%(applied)s/%(total)s ハンクを %(files)s ファイルに適用: %(added)s 行追加、%(removed)s 行削除"
   },
   "ar": {
+    "describe.read": "قراءة %(path)s",
+    "describe.grep": "البحث عن %(pattern)s في %(path)s",
+    "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "كتابة %(path)s",
+    "describe.preview": "معاينة الرقعة",
+    "describe.apply": "تطبيق الرقعة",
+    "describe.exec": "تنفيذ: %(command)s",
     "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF.",
     "x_search_terms": [
       "تطبيق التصحيح",
@@ -44,6 +60,14 @@
     "summary.applied": "%(applied)s من %(total)s مجموعة (مجموعات) مطبقة على %(files)s ملف (ملفات). تمت إضافة %(added)s سطر (أسطر)، %(removed)s تمت إزالة سطر (أسطر)."
   },
   "bn": {
+    "describe.read": "%(path)s পড়া হচ্ছে",
+    "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
+    "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
+    "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
+    "describe.write": "%(path)s লেখা হচ্ছে",
+    "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
+    "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
     "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে।",
     "x_search_terms": [
       "প্যাচ প্রয়োগ করুন",
@@ -66,6 +90,14 @@
     "summary.applied": "%(total)sটি হাংকের মধ্যে %(applied)sটি %(files)s ফাইলে প্রয়োগ করা হয়েছে। %(added)s লাইন(গুলি) যোগ করা হয়েছে, %(removed)s লাইন(গুলি) সরানো হয়েছে।"
   },
   "cs": {
+    "describe.read": "Čtení %(path)s",
+    "describe.grep": "Hledání %(pattern)s v %(path)s",
+    "describe.dry_run": "Výpis cílů smazání: %(path)s",
+    "describe.delete": "Mazání %(path)s",
+    "describe.write": "Zápis %(path)s",
+    "describe.preview": "Náhled patche",
+    "describe.apply": "Aplikace patche",
+    "describe.exec": "Provádění: %(command)s",
     "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF.",
     "x_search_terms": [
       "použít opravu",
@@ -88,6 +120,14 @@
     "summary.applied": "%(applied)s z %(total)s kusů použitých na %(files)s soubory. %(added)s řádků přidáno, %(removed)s řádků odstraněno."
   },
   "de": {
+    "describe.read": "Lesen von %(path)s",
+    "describe.grep": "Suche nach %(pattern)s in %(path)s",
+    "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
+    "describe.delete": "%(path)s löschen",
+    "describe.write": "Schreiben von %(path)s",
+    "describe.preview": "Patch-Vorschau",
+    "describe.apply": "Patch anwenden",
+    "describe.exec": "Ausführen: %(command)s",
     "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung.",
     "x_search_terms": [
       "Patch anwenden",
@@ -110,6 +150,14 @@
     "summary.applied": "%(applied)s von %(total)s Stück(en) wurden auf %(files)s Datei(en) angewendet. %(added)s Zeile(n) hinzugefügt, %(removed)s Zeile(n) entfernt."
   },
   "el": {
+    "describe.read": "Ανάγνωση %(path)s",
+    "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
+    "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
+    "describe.delete": "Διαγραφή %(path)s",
+    "describe.write": "Εγγραφή %(path)s",
+    "describe.preview": "Προεπισκόπηση patch",
+    "describe.apply": "Εφαρμογή patch",
+    "describe.exec": "Εκτέλεση: %(command)s",
     "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF.",
     "x_search_terms": [
       "εφαρμογή ενημερωμένης έκδοσης κώδικα",
@@ -132,6 +180,14 @@
     "summary.applied": "%(applied)s από %(total)s κομμάτι(α) εφαρμόστηκαν σε %(files)s αρχεία. Προστέθηκαν %(added)s γραμμές, αφαιρέθηκαν %(removed)s γραμμές."
   },
   "es": {
+    "describe.read": "Leyendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s en %(path)s",
+    "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
+    "describe.delete": "Eliminando %(path)s",
+    "describe.write": "Escribiendo %(path)s",
+    "describe.preview": "Previsualizando parche",
+    "describe.apply": "Aplicando parche",
+    "describe.exec": "Ejecutando: %(command)s",
     "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF.",
     "x_search_terms": [
       "aplicar parche",
@@ -154,6 +210,14 @@
     "summary.applied": "%(applied)s de %(total)s fragmentos aplicados a %(files)s archivos. %(added)s líneas agregadas, %(removed)s líneas eliminadas."
   },
   "fa": {
+    "describe.read": "خواندن %(path)s",
+    "describe.grep": "جستجوی %(pattern)s در %(path)s",
+    "describe.dry_run": "فهرست اهداف حذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "نوشتن %(path)s",
+    "describe.preview": "پیش‌نمایش وصله",
+    "describe.apply": "اعمال وصله",
+    "describe.exec": "اجرا: %(command)s",
     "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند.",
     "x_search_terms": [
       "اعمال پچ",
@@ -176,6 +240,14 @@
     "summary.applied": "%(applied)s از %(total)s قطعه (ها) روی %(files)s فایل (ها) اعمال شد. %(added)s خط(هایی) اضافه شد، %(removed)s خط(ها) حذف شد."
   },
   "fi": {
+    "describe.read": "Luetaan %(path)s",
+    "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
+    "describe.dry_run": "Listataan poistokohteet: %(path)s",
+    "describe.delete": "Poistetaan %(path)s",
+    "describe.write": "Kirjoitetaan %(path)s",
+    "describe.preview": "Esikatsellaan patchia",
+    "describe.apply": "Käytetään patchia",
+    "describe.exec": "Suoritetaan: %(command)s",
     "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä.",
     "x_search_terms": [
       "käytä korjaustiedostoa",
@@ -198,6 +270,14 @@
     "summary.applied": "%(applied)s / %(total)s kappaletta sovellettu %(files)s tiedostoon. %(added)s rivi(ä) lisätty, %(removed)s rivi(ä) poistettu."
   },
   "fr": {
+    "describe.read": "Lecture de %(path)s",
+    "describe.grep": "Recherche de %(pattern)s dans %(path)s",
+    "describe.dry_run": "Liste des cibles de suppression : %(path)s",
+    "describe.delete": "Suppression de %(path)s",
+    "describe.write": "Écriture de %(path)s",
+    "describe.preview": "Aperçu du patch",
+    "describe.apply": "Application du patch",
+    "describe.exec": "Exécution : %(command)s",
     "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF.",
     "x_search_terms": [
       "appliquer le patch",
@@ -220,6 +300,14 @@
     "summary.applied": "%(applied)s sur %(total)s morceau(x) appliqué(s) à %(files)s fichier(s). %(added)s ligne(s) ajoutée(s), %(removed)s ligne(s) supprimée(s)."
   },
   "he": {
+    "describe.read": "קורא את %(path)s",
+    "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
+    "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
+    "describe.delete": "מוחק את %(path)s",
+    "describe.write": "כותב את %(path)s",
+    "describe.preview": "תצוגה מקדימה של patch",
+    "describe.apply": "מחיל patch",
+    "describe.exec": "מריץ: %(command)s",
     "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF.",
     "x_search_terms": [
       "החל תיקון",
@@ -242,6 +330,14 @@
     "summary.applied": "%(applied)s מתוך %(total)s חתיכות הוחלו על %(files)s קבצים. %(added)s שורות נוספו, %(removed)s שורות הוסרו."
   },
   "hi": {
+    "describe.read": "%(path)s पढ़ा जा रहा है",
+    "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
+    "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
+    "describe.delete": "%(path)s हटाया जा रहा है",
+    "describe.write": "%(path)s लिखा जा रहा है",
+    "describe.preview": "पैच का पूर्वावलोकन",
+    "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.exec": "चलाया जा रहा है: %(command)s",
     "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है।",
     "x_search_terms": [
       "पैच लागू करें",
@@ -264,6 +360,14 @@
     "summary.applied": "%(total)s हंक में से %(applied)s को %(files)s फ़ाइल(फ़ाइलों) पर लागू किया गया। %(added)s पंक्तियाँ जोड़ी गईं, %(removed)s पंक्तियाँ हटाई गईं।"
   },
   "hu": {
+    "describe.read": "%(path)s olvasása",
+    "describe.grep": "%(pattern)s keresése itt: %(path)s",
+    "describe.dry_run": "Törlési célok listázása: %(path)s",
+    "describe.delete": "%(path)s törlése",
+    "describe.write": "%(path)s írása",
+    "describe.preview": "Patch előnézete",
+    "describe.apply": "Patch alkalmazása",
+    "describe.exec": "Végrehajtás: %(command)s",
     "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést.",
     "x_search_terms": [
       "javítás alkalmazása",
@@ -286,6 +390,14 @@
     "summary.applied": "%(total)s/%(applied)s darab %(files)s fájlra alkalmazva. %(added)s sor hozzáadva, %(removed)s sor eltávolítva."
   },
   "id": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s di %(path)s",
+    "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
+    "describe.delete": "Menghapus %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratinjau patch",
+    "describe.apply": "Menerapkan patch",
+    "describe.exec": "Menjalankan: %(command)s",
     "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF.",
     "x_search_terms": [
       "terapkan patch",
@@ -308,6 +420,14 @@
     "summary.applied": "%(applied)s dari %(total)s bongkahan diterapkan ke %(files)s file. %(added)s baris ditambahkan, %(removed)s baris dihapus."
   },
   "it": {
+    "describe.read": "Lettura di %(path)s",
+    "describe.grep": "Ricerca di %(pattern)s in %(path)s",
+    "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
+    "describe.delete": "Eliminazione di %(path)s",
+    "describe.write": "Scrittura di %(path)s",
+    "describe.preview": "Anteprima della patch",
+    "describe.apply": "Applicazione della patch",
+    "describe.exec": "Esecuzione: %(command)s",
     "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF.",
     "x_search_terms": [
       "applica patch",
@@ -330,6 +450,14 @@
     "summary.applied": "%(applied)s di %(total)s pezzo/i applicato/i a %(files)s file. %(added)s righe aggiunte, %(removed)s righe rimosse."
   },
   "ko": {
+    "describe.read": "%(path)s 읽는 중",
+    "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
+    "describe.dry_run": "삭제 대상 나열 중: %(path)s",
+    "describe.delete": "%(path)s 삭제 중",
+    "describe.write": "%(path)s 쓰는 중",
+    "describe.preview": "패치 미리보기 중",
+    "describe.apply": "패치 적용 중",
+    "describe.exec": "실행 중: %(command)s",
     "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다.",
     "x_search_terms": [
       "패치 적용",
@@ -352,6 +480,14 @@
     "summary.applied": "%(total)s개 중 %(applied)s개가 %(files)s개 파일에 적용되었습니다. %(added)s줄이 추가되고 %(removed)s줄이 제거되었습니다."
   },
   "mn": {
+    "describe.read": "%(path)s-г уншиж байна",
+    "describe.grep": "%(path)s-с %(pattern)s хайж байна",
+    "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
+    "describe.delete": "%(path)s-г устгаж байна",
+    "describe.write": "%(path)s-д бичиж байна",
+    "describe.preview": "Патчийн урьдчилан харах",
+    "describe.apply": "Патч хэрэглэж байна",
+    "describe.exec": "Ажиллуулж байна: %(command)s",
     "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг.",
     "x_search_terms": [
       "нөхөөсийг хэрэглэх",
@@ -374,6 +510,14 @@
     "summary.applied": "%(total)s файлаас %(applied)s-г нь %(files)s файлд ашигласан. %(added)s мөрийг нэмсэн, %(removed)s мөрийг хассан."
   },
   "mr": {
+    "describe.read": "%(path)s वाचले जात आहे",
+    "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
+    "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
+    "describe.delete": "%(path)s हटवले जात आहे",
+    "describe.write": "%(path)s लिहिले जात आहे",
+    "describe.preview": "पॅचचे पूर्वावलोकन",
+    "describe.apply": "पॅच लागू होत आहे",
+    "describe.exec": "चालवले जात आहे: %(command)s",
     "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते.",
     "x_search_terms": [
       "पॅच लागू करा",
@@ -396,6 +540,14 @@
     "summary.applied": "%(total)s हंक पैकी %(applied)s %(files)s फाइल(ं)वर लागू केले. %(added)s ओळ जोडली, %(removed)s ओळ काढली."
   },
   "nb": {
+    "describe.read": "Leser %(path)s",
+    "describe.grep": "Søker etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Forhåndsviser patch",
+    "describe.apply": "Bruker patch",
+    "describe.exec": "Kjører: %(command)s",
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [
       "bruk patch",
@@ -418,6 +570,14 @@
     "summary.applied": "%(applied)s av %(total)s hunk(er) brukt på %(files)s fil(er). %(added)s linje(r) lagt til, %(removed)s linje(r) fjernet."
   },
   "nl": {
+    "describe.read": "Lezen van %(path)s",
+    "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
+    "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
+    "describe.delete": "Verwijderen van %(path)s",
+    "describe.write": "Schrijven van %(path)s",
+    "describe.preview": "Patch bekijken",
+    "describe.apply": "Patch toepassen",
+    "describe.exec": "Uitvoeren: %(command)s",
     "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud.",
     "x_search_terms": [
       "patch toepassen",
@@ -440,6 +600,14 @@
     "summary.applied": "%(applied)s van %(total)s hunk(s) toegepast op %(files)s bestand(en). %(added)s regel(s) toegevoegd, %(removed)s regel(s) verwijderd."
   },
   "pl": {
+    "describe.read": "Odczyt %(path)s",
+    "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
+    "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
+    "describe.delete": "Usuwanie %(path)s",
+    "describe.write": "Zapis %(path)s",
+    "describe.preview": "Podgląd patcha",
+    "describe.apply": "Zastosowanie patcha",
+    "describe.exec": "Wykonywanie: %(command)s",
     "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF.",
     "x_search_terms": [
       "zastosuj łatkę",
@@ -462,6 +630,14 @@
     "summary.applied": "%(applied)s z %(total)s porcji zastosowanych do %(files)s plików. Dodano %(added)s wiersze, usunięto %(removed)s wiersze."
   },
   "pt": {
+    "describe.read": "A ler %(path)s",
+    "describe.grep": "A procurar %(pattern)s em %(path)s",
+    "describe.dry_run": "A listar alvos de eliminação: %(path)s",
+    "describe.delete": "A eliminar %(path)s",
+    "describe.write": "A escrever %(path)s",
+    "describe.preview": "A pré-visualizar patch",
+    "describe.apply": "A aplicar patch",
+    "describe.exec": "A executar: %(command)s",
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
     "x_search_terms": [
       "aplicar patch",
@@ -484,6 +660,14 @@
     "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s)."
   },
   "pt_BR": {
+    "describe.read": "Lendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s em %(path)s",
+    "describe.dry_run": "Listando alvos de exclusão: %(path)s",
+    "describe.delete": "Excluindo %(path)s",
+    "describe.write": "Gravando %(path)s",
+    "describe.preview": "Pré-visualizando patch",
+    "describe.apply": "Aplicando patch",
+    "describe.exec": "Executando: %(command)s",
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
     "x_search_terms": [
       "aplicar patch",
@@ -506,6 +690,14 @@
     "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s)."
   },
   "ro": {
+    "describe.read": "Citire %(path)s",
+    "describe.grep": "Căutare %(pattern)s în %(path)s",
+    "describe.dry_run": "Listare ținte de ștergere: %(path)s",
+    "describe.delete": "Ștergere %(path)s",
+    "describe.write": "Scriere %(path)s",
+    "describe.preview": "Previzualizare patch",
+    "describe.apply": "Aplicare patch",
+    "describe.exec": "Executare: %(command)s",
     "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
     "x_search_terms": [
       "aplicați patch",
@@ -528,6 +720,14 @@
     "summary.applied": "%(applied)s din %(total)s bucăți aplicate pentru %(files)s fișiere. %(added)s rânduri adăugate, %(removed)s rânduri eliminate."
   },
   "ru": {
+    "describe.read": "Чтение %(path)s",
+    "describe.grep": "Поиск %(pattern)s в %(path)s",
+    "describe.dry_run": "Перечисление целей удаления: %(path)s",
+    "describe.delete": "Удаление %(path)s",
+    "describe.write": "Запись %(path)s",
+    "describe.preview": "Предпросмотр патча",
+    "describe.apply": "Применение патча",
+    "describe.exec": "Запуск: %(command)s",
     "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF.",
     "x_search_terms": [
       "применить патч",
@@ -550,6 +750,14 @@
     "summary.applied": "%(applied)s из %(total)s фрагментов применено к %(files)s файлам. Добавлено %(added)s строк, удалено %(removed)s строк."
   },
   "sv": {
+    "describe.read": "Läser %(path)s",
+    "describe.grep": "Söker efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
+    "describe.delete": "Tar bort %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Förhandsgranskar patch",
+    "describe.apply": "Tillämpar patch",
+    "describe.exec": "Kör: %(command)s",
     "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande.",
     "x_search_terms": [
       "tillämpa patch",
@@ -572,6 +780,14 @@
     "summary.applied": "%(applied)s av %(total)s hunk(ar) tillämpas på %(files)s fil(er). %(added)s rad(er) har lagts till, %(removed)s rad(er) har tagits bort."
   },
   "sw": {
+    "describe.read": "Inasoma %(path)s",
+    "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
+    "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
+    "describe.delete": "Inafuta %(path)s",
+    "describe.write": "Inaandika %(path)s",
+    "describe.preview": "Inaonyesha kiraka",
+    "describe.apply": "Inatumia kiraka",
+    "describe.exec": "Inaendesha: %(command)s",
     "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF.",
     "x_search_terms": [
       "weka kiraka",
@@ -594,6 +810,14 @@
     "summary.applied": "%(applied)s kati ya %(total)s hunk inatumika kwa faili %(files)s. %(added)s mistari imeongezwa, %(removed)s mistari imeondolewa."
   },
   "th": {
+    "describe.read": "กำลังอ่าน %(path)s",
+    "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
+    "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
+    "describe.delete": "กำลังลบ %(path)s",
+    "describe.write": "กำลังเขียน %(path)s",
+    "describe.preview": "กำลังดูตัวอย่างแพตช์",
+    "describe.apply": "กำลังใช้แพตช์",
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
     "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
     "x_search_terms": [
       "ใช้ patch",
@@ -616,6 +840,14 @@
     "summary.applied": "%(applied)s จาก %(total)s ก้อนใหญ่นำไปใช้กับไฟล์ %(files)s เพิ่ม %(added)s บรรทัดแล้ว ลบ %(removed)s บรรทัดแล้ว"
   },
   "tr": {
+    "describe.read": "%(path)s okunuyor",
+    "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
+    "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
+    "describe.delete": "%(path)s siliniyor",
+    "describe.write": "%(path)s yazılıyor",
+    "describe.preview": "Yama önizleniyor",
+    "describe.apply": "Yama uygulanıyor",
+    "describe.exec": "Çalıştırılıyor: %(command)s",
     "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler.",
     "x_search_terms": [
       "yama uygula",
@@ -638,6 +870,14 @@
     "summary.applied": "%(total)s parçadan %(applied)s tanesi %(files)s dosyaya uygulandı. %(added)s satır eklendi, %(removed)s satır kaldırıldı."
   },
   "uk": {
+    "describe.read": "Читання %(path)s",
+    "describe.grep": "Пошук %(pattern)s у %(path)s",
+    "describe.dry_run": "Перелік цілей видалення: %(path)s",
+    "describe.delete": "Видалення %(path)s",
+    "describe.write": "Запис %(path)s",
+    "describe.preview": "Попередній перегляд патча",
+    "describe.apply": "Застосування патча",
+    "describe.exec": "Запуск: %(command)s",
     "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF.",
     "x_search_terms": [
       "застосувати патч",
@@ -660,6 +900,14 @@
     "summary.applied": "%(applied)s із %(total)s фрагментів застосовано до %(files)s файлів. Додано рядків: %(added)s, видалено рядків: %(removed)s."
   },
   "vi": {
+    "describe.read": "Đang đọc %(path)s",
+    "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
+    "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
+    "describe.delete": "Đang xóa %(path)s",
+    "describe.write": "Đang ghi %(path)s",
+    "describe.preview": "Đang xem trước patch",
+    "describe.apply": "Đang áp dụng patch",
+    "describe.exec": "Đang chạy: %(command)s",
     "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF.",
     "x_search_terms": [
       "áp dụng bản vá",
@@ -682,6 +930,14 @@
     "summary.applied": "%(applied)s trong tổng số %(total)s phần được áp dụng cho %(files)s tệp. Đã thêm %(added)s dòng, %(removed)s dòng đã bị xóa."
   },
   "zh_CN": {
+    "describe.read": "正在读取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
+    "describe.dry_run": "正在列出待删除项：%(path)s",
+    "describe.delete": "正在删除 %(path)s",
+    "describe.write": "正在写入 %(path)s",
+    "describe.preview": "正在预览补丁",
+    "describe.apply": "正在应用补丁",
+    "describe.exec": "正在执行：%(command)s",
     "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。",
     "x_search_terms": [
       "应用补丁",
@@ -704,6 +960,14 @@
     "summary.applied": "%(applied)s 个块（共 %(total)s 个块）已应用于 %(files)s 个文件。添加了 %(added)s 行，删除了 %(removed)s 行。"
   },
   "zh_TW": {
+    "describe.read": "正在讀取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
+    "describe.dry_run": "正在列出待刪除項目：%(path)s",
+    "describe.delete": "正在刪除 %(path)s",
+    "describe.write": "正在寫入 %(path)s",
+    "describe.preview": "正在預覽修補",
+    "describe.apply": "正在套用修補",
+    "describe.exec": "正在執行：%(command)s",
     "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。",
     "x_search_terms": [
       "應用補丁",
@@ -726,6 +990,14 @@
     "summary.applied": "%(applied)s 個區塊（共 %(total)s 個區塊）已套用於 %(files)s 個檔案。新增了 %(added)s 行，刪除了 %(removed)s 行。"
   },
   "fil": {
+    "describe.read": "Binabasa ang %(path)s",
+    "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
+    "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
+    "describe.delete": "Binubura ang %(path)s",
+    "describe.write": "Isinusulat ang %(path)s",
+    "describe.preview": "Sinusuri ang patch",
+    "describe.apply": "Inilalapat ang patch",
+    "describe.exec": "Pinapatakbo: %(command)s",
     "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation.",
     "x_search_terms": [
       "ilapat ang patch",
@@ -748,6 +1020,14 @@
     "summary.applied": "%(applied)s ng %(total)s (mga) hunk ang inilapat sa %(files)s (mga) file. %(added)s (mga) linya ang idinagdag, %(removed)s (mga) linya ang inalis."
   },
   "ms": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s dalam %(path)s",
+    "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
+    "describe.delete": "Memadam %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratonton tampalan",
+    "describe.apply": "Menggunakan tampalan",
+    "describe.exec": "Menjalankan: %(command)s",
     "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF.",
     "x_search_terms": [
       "gunakan patch",
@@ -770,6 +1050,14 @@
     "summary.applied": "%(applied)s daripada %(total)s orang yang digunakan pada %(files)s fail. %(added)s baris ditambahkan, %(removed)s baris dialih keluar."
   },
   "da": {
+    "describe.read": "Læser %(path)s",
+    "describe.grep": "Søger efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser sletteemner: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Viser patch",
+    "describe.apply": "Anvender patch",
+    "describe.exec": "Kører: %(command)s",
     "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring.",
     "x_search_terms": [
       "anvende patch",
@@ -792,6 +1080,14 @@
     "summary.applied": "%(applied)s af %(total)s hunk(er) anvendt på %(files)s fil(er). %(added)s linje(r) tilføjet, %(removed)s linje(r) fjernet."
   },
   "nn": {
+    "describe.read": "Les %(path)s",
+    "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Slettar %(path)s",
+    "describe.write": "Skriv %(path)s",
+    "describe.preview": "Førehandsvising av patch",
+    "describe.apply": "Brukar patch",
+    "describe.exec": "Køyrer: %(command)s",
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [
       "bruk patch",

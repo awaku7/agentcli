@@ -153,6 +153,45 @@ TOOL_SPEC["function"]["x_scheck"] = {"emit_tool_trace": False}
 
 `human_ask` uses this to avoid logging the raw user reply.
 
+### 3.4.1 Localized pre-execution action lines (`UAGENT_SHOW_TOOL_RESULTS=2`)
+
+A tool may describe what it is about to do, in the active UI language. With
+`UAGENT_SHOW_TOOL_RESULTS=2` the host prints that sentence in place of the
+classic `name=<tool> args=<masked-json>` trace body, before the confirmation
+prompt and before execution:
+
+```python
+def describe(args: dict[str, Any]) -> str:
+    path = args.get("filename") or "?"
+    return _("describe.read", default="Reading %(path)s") % {"path": path}
+
+TOOL_DESCRIBER = describe
+```
+
+Contract:
+
+- Signature `describe(args)`; the argument is the resolved tool-argument dict.
+- Return one short sentence describing the pending action. Do not resolve the
+  result, and never print.
+- The host flattens whitespace, masks secrets, and truncates to 400 characters,
+  so paths and command strings may be interpolated directly.
+- Resolve strings through the module's `_` translator so the line follows the
+  active UI language. Add the keys under each locale in `<tool>.json`
+  (English lives in the Python `default=`; do not add an `en` block).
+- Fill all 37 supported tool locales. `read_file`, `file_grep`, `delete_file`,
+  `create_file`, `apply_patch`, and `cmd_exec_json` ship describers for every
+  locale; `scripts/i18n_validate.py <tool>.json` verifies placeholder parity.
+- For modules that expose several tool names, use
+  `TOOL_DESCRIBERS = {"tool_a": fn_a, "tool_b": fn_b}` instead.
+- If the describer is missing, raises, or returns an empty string, the host
+  falls back to the classic masked-args trace. Do not raise to signal "no
+  describer"; return `""`.
+- Branch on arguments when the behavior differs, for example `dry_run`:
+
+```python
+key = "describe.dry_run" if dry_run else "describe.delete"
+```
+
 ### 3.5 Large tool results and artifact handling
 
 When a tool output exceeds `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` (default: 100,000 characters),

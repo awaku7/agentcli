@@ -1,5 +1,13 @@
 {
   "ja": {
+    "describe.read": "%(path)s を読み取ります",
+    "describe.grep": "%(path)s で %(pattern)s を検索します",
+    "describe.dry_run": "削除対象を列挙します: %(path)s",
+    "describe.delete": "%(path)s を削除します",
+    "describe.write": "%(path)s を書き込みます",
+    "describe.preview": "パッチをプレビューします",
+    "describe.apply": "パッチを適用します",
+    "describe.exec": "実行します: %(command)s",
     "param.allow_dir.description": "有効にすると、glob に一致したディレクトリも削除できます。",
     "param.confirmed.description": "有効にすると、ツール内部の確認プロンプトを省略します。",
     "param.dry_run.description": "有効にすると、一致したパスを一覧表示するだけで、削除は行いません。",
@@ -21,6 +29,14 @@
     "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除されます）。危険ですので確認が必要な場合があります。"
   },
   "es": {
+    "describe.read": "Leyendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s en %(path)s",
+    "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
+    "describe.delete": "Eliminando %(path)s",
+    "describe.write": "Escribiendo %(path)s",
+    "describe.preview": "Previsualizando parche",
+    "describe.apply": "Aplicando parche",
+    "describe.exec": "Ejecutando: %(command)s",
     "param.allow_dir.description": "Si es verdadero, permite eliminar directorios que coincidan con glob.",
     "param.confirmed.description": "Ruta al archivo de base de datos SQLite",
     "param.dry_run.description": ". Si es verdadero, solo enumera las rutas coincidentes y no elimina nada.",
@@ -42,6 +58,14 @@
     "tool.description": "Elimine el archivo o directorio especificado (los directorios se eliminan de forma recursiva). Debido a que esto es peligroso, es posible que se requiera confirmación."
   },
   "fr": {
+    "describe.read": "Lecture de %(path)s",
+    "describe.grep": "Recherche de %(pattern)s dans %(path)s",
+    "describe.dry_run": "Liste des cibles de suppression : %(path)s",
+    "describe.delete": "Suppression de %(path)s",
+    "describe.write": "Écriture de %(path)s",
+    "describe.preview": "Aperçu du patch",
+    "describe.apply": "Application du patch",
+    "describe.exec": "Exécution : %(command)s",
     "param.allow_dir.description": "Années à ajouter (négatif pour la soustraction). correspondant par glob.",
     "param.confirmed.description": "Si vrai, ignorez l'invite de confirmation interne de l'outil.",
     "param.dry_run.description": "Si vrai, répertoriez uniquement les chemins correspondants et ne supprimez rien.",
@@ -63,6 +87,14 @@
     "tool.description": "Supprimez le fichier ou le répertoire spécifié (les répertoires sont supprimés de manière récursive). Comme cela est dangereux, une confirmation peut être requise."
   },
   "ko": {
+    "describe.read": "%(path)s 읽는 중",
+    "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
+    "describe.dry_run": "삭제 대상 나열 중: %(path)s",
+    "describe.delete": "%(path)s 삭제 중",
+    "describe.write": "%(path)s 쓰는 중",
+    "describe.preview": "패치 미리보기 중",
+    "describe.apply": "패치 적용 중",
+    "describe.exec": "실행 중: %(command)s",
     "param.allow_dir.description": "활성화하면 glob과 일치하는 디렉토리 삭제를 허용합니다.",
     "param.confirmed.description": "활성화하면 도구 내부의 확인 프롬프트를 건너뜁니다.",
     "param.dry_run.description": "활성화하면 일치하는 경로만 나열하고 실제 삭제는 수행하지 않습니다.",
@@ -84,6 +116,14 @@
     "tool.description": "지정된 파일이나 디렉터리를 삭제합니다(디렉터리는 반복적으로 삭제됩니다). 이는 위험하므로 확인이 필요할 수 있습니다."
   },
   "de": {
+    "describe.read": "Lesen von %(path)s",
+    "describe.grep": "Suche nach %(pattern)s in %(path)s",
+    "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
+    "describe.delete": "%(path)s löschen",
+    "describe.write": "Schreiben von %(path)s",
+    "describe.preview": "Patch-Vorschau",
+    "describe.apply": "Patch anwenden",
+    "describe.exec": "Ausführen: %(command)s",
     "param.allow_dir.description": "Wenn „true“, erlaubt das Löschen von Verzeichnissen, die mit Glob übereinstimmen.",
     "param.confirmed.description": "Wenn „true“, überspringen Sie die interne Bestätigungsaufforderung des Tools.",
     "param.dry_run.description": "Wenn „true“, nur übereinstimmende Pfade auflisten und nichts löschen.",
@@ -105,6 +145,14 @@
     "tool.description": "Löschen Sie die angegebene Datei oder das angegebene Verzeichnis (Verzeichnisse werden rekursiv gelöscht). Da dies gefährlich ist, ist möglicherweise eine Bestätigung erforderlich."
   },
   "it": {
+    "describe.read": "Lettura di %(path)s",
+    "describe.grep": "Ricerca di %(pattern)s in %(path)s",
+    "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
+    "describe.delete": "Eliminazione di %(path)s",
+    "describe.write": "Scrittura di %(path)s",
+    "describe.preview": "Anteprima della patch",
+    "describe.apply": "Applicazione della patch",
+    "describe.exec": "Esecuzione: %(command)s",
     "param.allow_dir.description": "Anni da aggiungere (negativo per sottrazione). corrispondente a glob.",
     "param.confirmed.description": "Se vero, salta il messaggio di conferma interno dello strumento",
     "param.dry_run.description": "Se vero, elenca solo i percorsi corrispondenti e non elimina nulla",
@@ -126,6 +174,14 @@
     "tool.description": "Elimina il file o la directory specificata (le directory vengono eliminate in modo ricorsivo). Poiché questo è pericoloso, potrebbe essere richiesta una conferma."
   },
   "ru": {
+    "describe.read": "Чтение %(path)s",
+    "describe.grep": "Поиск %(pattern)s в %(path)s",
+    "describe.dry_run": "Перечисление целей удаления: %(path)s",
+    "describe.delete": "Удаление %(path)s",
+    "describe.write": "Запись %(path)s",
+    "describe.preview": "Предпросмотр патча",
+    "describe.apply": "Применение патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.allow_dir.description": "Если установлено значение true, разрешить удаление каталогов, соответствующих glob.",
     "param.confirmed.description": "Если это правда, пропустите внутренний запрос подтверждения инструмента.",
     "param.dry_run.description": "Если включено, только выводит список найденных путей без удаления.",
@@ -147,6 +203,14 @@
     "tool.description": "Удалить указанный файл или каталог (каталоги удаляются рекурсивно). Поскольку это опасно, может потребоваться подтверждение."
   },
   "pt_BR": {
+    "describe.read": "Lendo %(path)s",
+    "describe.grep": "Buscando %(pattern)s em %(path)s",
+    "describe.dry_run": "Listando alvos de exclusão: %(path)s",
+    "describe.delete": "Excluindo %(path)s",
+    "describe.write": "Gravando %(path)s",
+    "describe.preview": "Pré-visualizando patch",
+    "describe.apply": "Aplicando patch",
+    "describe.exec": "Executando: %(command)s",
     "param.allow_dir.description": "Se verdadeiro, permite a exclusão de diretórios correspondentes ao glob.",
     "param.confirmed.description": "Se verdadeiro, ignore o prompt de confirmação interno da ferramenta.",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos encontrados sem excluir nada.",
@@ -168,6 +232,14 @@
     "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação."
   },
   "pt": {
+    "describe.read": "A ler %(path)s",
+    "describe.grep": "A procurar %(pattern)s em %(path)s",
+    "describe.dry_run": "A listar alvos de eliminação: %(path)s",
+    "describe.delete": "A eliminar %(path)s",
+    "describe.write": "A escrever %(path)s",
+    "describe.preview": "A pré-visualizar patch",
+    "describe.apply": "A aplicar patch",
+    "describe.exec": "A executar: %(command)s",
     "param.allow_dir.description": "Se verdadeiro, permite a exclusão de diretórios correspondentes ao glob.",
     "param.confirmed.description": "Semanas para adicionar (negativo para subtração). prompt de confirmação interno da ferramenta.",
     "param.dry_run.description": "Se verdadeiro, liste apenas os caminhos correspondentes e não exclua nada",
@@ -189,6 +261,14 @@
     "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar."
   },
   "id": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s di %(path)s",
+    "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
+    "describe.delete": "Menghapus %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratinjau patch",
+    "describe.apply": "Menerapkan patch",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.allow_dir.description": "Jika benar, izinkan penghapusan direktori yang cocok dengan glob.",
     "param.confirmed.description": "Jika diaktifkan, lewati prompt konfirmasi internal alat.",
     "param.dry_run.description": "Jika benar, hanya daftarkan jalur yang cocok dan jangan hapus apa pun.",
@@ -210,6 +290,14 @@
     "confirm.delete_paths_bulk": "Hapus {count} jalur?\n\n{paths}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan."
   },
   "vi": {
+    "describe.read": "Đang đọc %(path)s",
+    "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
+    "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
+    "describe.delete": "Đang xóa %(path)s",
+    "describe.write": "Đang ghi %(path)s",
+    "describe.preview": "Đang xem trước patch",
+    "describe.apply": "Đang áp dụng patch",
+    "describe.exec": "Đang chạy: %(command)s",
     "param.allow_dir.description": "Nếu được bật, cho phép xóa các thư mục khớp với glob.",
     "param.confirmed.description": "Nếu đúng, hãy bỏ qua xác nhận lời nhắc nội bộ của công cụ.",
     "param.dry_run.description": "Nếu đúng, chỉ liệt kê các đường dẫn phù hợp và không xóa bất kỳ thứ gì.",
@@ -231,6 +319,14 @@
     "confirm.delete_paths_bulk": "Xóa {count} đường dẫn?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy."
   },
   "pl": {
+    "describe.read": "Odczyt %(path)s",
+    "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
+    "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
+    "describe.delete": "Usuwanie %(path)s",
+    "describe.write": "Zapis %(path)s",
+    "describe.preview": "Podgląd patcha",
+    "describe.apply": "Zastosowanie patcha",
+    "describe.exec": "Wykonywanie: %(command)s",
     "param.allow_dir.description": "Jeśli true, zezwól na usuwanie katalogów pasujących do glob.",
     "param.confirmed.description": "Jeśli ma wartość true, pomiń wewnętrzny monit narzędzia o potwierdzenie.",
     "param.dry_run.description": "Jeśli true, wyświetl tylko dopasowane ścieżki i niczego nie usuwaj.",
@@ -252,6 +348,14 @@
     "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie."
   },
   "hi": {
+    "describe.read": "%(path)s पढ़ा जा रहा है",
+    "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
+    "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
+    "describe.delete": "%(path)s हटाया जा रहा है",
+    "describe.write": "%(path)s लिखा जा रहा है",
+    "describe.preview": "पैच का पूर्वावलोकन",
+    "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.exec": "चलाया जा रहा है: %(command)s",
     "param.allow_dir.description": "यदि सत्य है, तो ग्लोब से मेल खाने वाली निर्देशिकाओं को हटाने की अनुमति दें।",
     "param.confirmed.description": "यदि सक्षम है, तो टूल के आंतरिक पुष्टिकरण संकेत को छोड़ दें।",
     "param.dry_run.description": "यदि सत्य है, तो ग्लोब द्वारा मिलान की गई निर्देशिकाओं को हटाने की अनुमति दें।",
@@ -273,6 +377,14 @@
     "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ (निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं)। हटाने से पहले, हमेशा एक पूर्वावलोकन दिखाएं और उपयोगकर्ता से पुष्टि पूछें।"
   },
   "ar": {
+    "describe.read": "قراءة %(path)s",
+    "describe.grep": "البحث عن %(pattern)s في %(path)s",
+    "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "كتابة %(path)s",
+    "describe.preview": "معاينة الرقعة",
+    "describe.apply": "تطبيق الرقعة",
+    "describe.exec": "تنفيذ: %(command)s",
     "param.allow_dir.description": "إذا تم تمكينه، فاسمح بحذف الدلائل المطابقة لـ glob.",
     "param.confirmed.description": "في حالة التمكين، قم بتخطي مطالبة التأكيد الداخلي للأداة.",
     "param.dry_run.description": "في حالة التمكين، قم بإدراج المسارات المتطابقة فقط ولا تحذف أي شيء.",
@@ -294,6 +406,14 @@
     "tool.description": "احذف الملف أو الدليل المحدد (يتم حذف الدلائل بشكل متكرر). نظرًا لخطورة ذلك، قد يلزم التأكيد."
   },
   "sv": {
+    "describe.read": "Läser %(path)s",
+    "describe.grep": "Söker efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
+    "describe.delete": "Tar bort %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Förhandsgranskar patch",
+    "describe.apply": "Tillämpar patch",
+    "describe.exec": "Kör: %(command)s",
     "param.allow_dir.description": "Om sant, tillåt borttagning av kataloger som matchas av glob.",
     "param.confirmed.description": "Om sant, hoppa över verktygets interna bekräftelseprompt.",
     "param.dry_run.description": "Om sant, lista bara matchade sökvägar och ta inte bort någonting.",
@@ -315,6 +435,14 @@
     "tool.description": "Ta bort den angivna filen eller katalogen (kataloger tas bort rekursivt). Eftersom detta är farligt kan bekräftelse krävas."
   },
   "sw": {
+    "describe.read": "Inasoma %(path)s",
+    "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
+    "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
+    "describe.delete": "Inafuta %(path)s",
+    "describe.write": "Inaandika %(path)s",
+    "describe.preview": "Inaonyesha kiraka",
+    "describe.apply": "Inatumia kiraka",
+    "describe.exec": "Inaendesha: %(command)s",
     "param.allow_dir.description": "Ikiwashwa, ruhusu kufuta saraka zinazolingana na glob.",
     "param.confirmed.description": "Ikiwashwa, ruka ombi la uthibitisho la ndani la zana.",
     "param.dry_run.description": "Ikiwashwa, orodhesha tu njia zinazolingana na usifute chochote.",
@@ -336,6 +464,14 @@
     "tool.description": "Futa faili au saraka iliyoainishwa (saraka hufutwa kwa kujirudia). Kwa sababu hii ni hatari, uthibitisho unaweza kuhitajika."
   },
   "nb": {
+    "describe.read": "Leser %(path)s",
+    "describe.grep": "Søker etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Forhåndsviser patch",
+    "describe.apply": "Bruker patch",
+    "describe.exec": "Kjører: %(command)s",
     "param.allow_dir.description": "Hvis sant, tillat sletting av kataloger som samsvarer med glob.",
     "param.confirmed.description": "Hvis sant, hopper du over verktøyets interne bekreftelsesmelding.",
     "param.dry_run.description": "Hvis det er sant, må du bare angi samsvarende stier og ikke slette noe.",
@@ -357,6 +493,14 @@
     "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være nødvendig."
   },
   "nl": {
+    "describe.read": "Lezen van %(path)s",
+    "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
+    "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
+    "describe.delete": "Verwijderen van %(path)s",
+    "describe.write": "Schrijven van %(path)s",
+    "describe.preview": "Patch bekijken",
+    "describe.apply": "Patch toepassen",
+    "describe.exec": "Uitvoeren: %(command)s",
     "param.allow_dir.description": "Indien waar, sta het verwijderen van mappen toe die overeenkomen met glob.",
     "param.confirmed.description": "Indien waar, sla dan de interne bevestigingsprompt van het hulpprogramma over.",
     "param.dry_run.description": "Indien waar, vermeld dan alleen de overeenkomende paden en verwijder niets.",
@@ -378,6 +522,14 @@
     "tool.description": "Verwijder het opgegeven bestand of de opgegeven map (mappen worden recursief verwijderd). Omdat dit gevaarlijk is, is mogelijk bevestiging vereist."
   },
   "fi": {
+    "describe.read": "Luetaan %(path)s",
+    "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
+    "describe.dry_run": "Listataan poistokohteet: %(path)s",
+    "describe.delete": "Poistetaan %(path)s",
+    "describe.write": "Kirjoitetaan %(path)s",
+    "describe.preview": "Esikatsellaan patchia",
+    "describe.apply": "Käytetään patchia",
+    "describe.exec": "Suoritetaan: %(command)s",
     "param.allow_dir.description": "Jos tosi, salli globilla vastaavien hakemistojen poistaminen.",
     "param.confirmed.description": "Kun käytössä, ohita työkalun sisäinen vahvistuskehote.",
     "param.dry_run.description": "Kun käytössä, listaa vain osuvat polut äläkä poista mitään.",
@@ -399,6 +551,14 @@
     "tool.description": "Poista määritetty tiedosto tai hakemisto (hakemistot poistetaan rekursiivisesti). Koska tämä on vaarallista, vahvistus voidaan vaatia."
   },
   "cs": {
+    "describe.read": "Čtení %(path)s",
+    "describe.grep": "Hledání %(pattern)s v %(path)s",
+    "describe.dry_run": "Výpis cílů smazání: %(path)s",
+    "describe.delete": "Mazání %(path)s",
+    "describe.write": "Zápis %(path)s",
+    "describe.preview": "Náhled patche",
+    "describe.apply": "Aplikace patche",
+    "describe.exec": "Provádění: %(command)s",
     "param.allow_dir.description": "Pokud je pravda, povolí mazání adresářů odpovídajících glob.",
     "param.confirmed.description": "Pokud je pravda, přeskočte interní výzvu k potvrzení nástroje.",
     "param.dry_run.description": "Je-li povoleno, pouze vypíše odpovídající cesty a nic nesmaže.",
@@ -420,6 +580,14 @@
     "tool.description": "Odstraňte zadaný soubor nebo adresář (adresáře jsou mazány rekurzivně). Protože je to nebezpečné, může být vyžadováno potvrzení."
   },
   "uk": {
+    "describe.read": "Читання %(path)s",
+    "describe.grep": "Пошук %(pattern)s у %(path)s",
+    "describe.dry_run": "Перелік цілей видалення: %(path)s",
+    "describe.delete": "Видалення %(path)s",
+    "describe.write": "Запис %(path)s",
+    "describe.preview": "Попередній перегляд патча",
+    "describe.apply": "Застосування патча",
+    "describe.exec": "Запуск: %(command)s",
     "param.allow_dir.description": "Якщо true, дозволити видалення каталогів, які відповідають glob.",
     "param.confirmed.description": "Якщо true, пропустити внутрішнє підтвердження інструмента.",
     "param.dry_run.description": "Років для додавання шляхи і не видаляти.",
@@ -441,6 +609,14 @@
     "tool.description": "Видалити вказаний файл або каталог (каталоги видаляються рекурсивно). Оскільки це небезпечно, може знадобитися підтвердження."
   },
   "tr": {
+    "describe.read": "%(path)s okunuyor",
+    "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
+    "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
+    "describe.delete": "%(path)s siliniyor",
+    "describe.write": "%(path)s yazılıyor",
+    "describe.preview": "Yama önizleniyor",
+    "describe.apply": "Yama uygulanıyor",
+    "describe.exec": "Çalıştırılıyor: %(command)s",
     "param.allow_dir.description": "Doğruysa, glob ile eşleşen dizinlerin silinmesine izin ver.",
     "param.confirmed.description": "Etkinleştirilirse aracın dahili onay istemini atlayın.",
     "param.dry_run.description": "Doğruysa yalnızca eşleşen yolları listeleyin ve hiçbir şeyi silmeyin.",
@@ -462,6 +638,14 @@
     "tool.description": "Belirtilen dosyayı veya dizini silin (dizinler yinelemeli olarak silinir). Bu tehlikeli olduğundan onay gerekebilir."
   },
   "th": {
+    "describe.read": "กำลังอ่าน %(path)s",
+    "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
+    "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
+    "describe.delete": "กำลังลบ %(path)s",
+    "describe.write": "กำลังเขียน %(path)s",
+    "describe.preview": "กำลังดูตัวอย่างแพตช์",
+    "describe.apply": "กำลังใช้แพตช์",
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
     "param.allow_dir.description": "หากเปิดใช้งาน จะอนุญาตให้ลบไดเรกทอรีที่ตรงกับ glob",
     "param.confirmed.description": "หากเปิดใช้งาน จะข้ามขั้นตอนการยืนยันภายในเครื่องมือ",
     "param.dry_run.description": "หากเปิดใช้งาน จะแสดงเฉพาะรายการที่ตรงกันโดยไม่มีการลบจริง",
@@ -483,6 +667,14 @@
     "tool.description": "ลบไฟล์หรือไดเร็กทอรีที่ระบุ (ไดเร็กทอรีจะถูกลบซ้ำ) เนื่องจากสิ่งนี้เป็นอันตราย จึงอาจจำเป็นต้องมีการยืนยัน"
   },
   "zh_CN": {
+    "describe.read": "正在读取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
+    "describe.dry_run": "正在列出待删除项：%(path)s",
+    "describe.delete": "正在删除 %(path)s",
+    "describe.write": "正在写入 %(path)s",
+    "describe.preview": "正在预览补丁",
+    "describe.apply": "正在应用补丁",
+    "describe.exec": "正在执行：%(command)s",
     "param.allow_dir.description": "如果启用，允许删除与 glob 匹配的目录。",
     "param.confirmed.description": "如果启用，跳过工具内部的确认提示。",
     "param.dry_run.description": "如果启用，仅列出匹配的路径，而不执行删除。",
@@ -504,6 +696,14 @@
     "tool.description": "删除指定的文件或目录（目录被递归删除）。由于这很危险，因此可能需要确认。"
   },
   "zh_TW": {
+    "describe.read": "正在讀取 %(path)s",
+    "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
+    "describe.dry_run": "正在列出待刪除項目：%(path)s",
+    "describe.delete": "正在刪除 %(path)s",
+    "describe.write": "正在寫入 %(path)s",
+    "describe.preview": "正在預覽修補",
+    "describe.apply": "正在套用修補",
+    "describe.exec": "正在執行：%(command)s",
     "param.allow_dir.description": "如果啟用，允許刪除與 glob 相符的目錄。",
     "param.confirmed.description": "如果啟用，跳過工具內部的確認提示。",
     "param.dry_run.description": "如果啟用，僅列出相符的路徑，而不執行刪除。",
@@ -525,6 +725,14 @@
     "tool.description": "刪除指定的檔案或目錄（目錄被遞歸刪除）。由於這很危險，因此可能需要確認。 "
   },
   "bn": {
+    "describe.read": "%(path)s পড়া হচ্ছে",
+    "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
+    "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
+    "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
+    "describe.write": "%(path)s লেখা হচ্ছে",
+    "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
+    "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
     "param.allow_dir.description": "সত্য হলে, গ্লোবের সাথে মিলে যাওয়া ডিরেক্টরি মুছে ফেলার অনুমতি দিন।",
     "param.confirmed.description": "যদি সত্য হয়, তাহলে অভ্যন্তরীণ ELIM2 টুলটি মুছে ফেলার অনুমতি দিন।",
     "param.dry_run.description": "সক্ষম থাকলে শুধু মিল থাকা পথগুলো দেখাবে, কিছুই মুছবে না।",
@@ -546,6 +754,14 @@
     "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছুন (ডিরেক্টরিগুলি পুনরাবৃত্তিমূলকভাবে মুছে ফেলা হয়)। কারণ এটি বিপজ্জনক, নিশ্চিতকরণের প্রয়োজন হতে পারে।"
   },
   "fa": {
+    "describe.read": "خواندن %(path)s",
+    "describe.grep": "جستجوی %(pattern)s در %(path)s",
+    "describe.dry_run": "فهرست اهداف حذف: %(path)s",
+    "describe.delete": "حذف %(path)s",
+    "describe.write": "نوشتن %(path)s",
+    "describe.preview": "پیش‌نمایش وصله",
+    "describe.apply": "اعمال وصله",
+    "describe.exec": "اجرا: %(command)s",
     "param.allow_dir.description": "اگر درست است، به حذف دایرکتوری های مطابق با glob اجازه دهید.",
     "param.confirmed.description": "اگر فعال باشد، پیام تأیید داخلی ابزار را رد می‌کند.",
     "param.dry_run.description": "اگر درست است، فقط مسیرهای منطبق را فهرست کنید و چیزی را حذف نکنید.",
@@ -567,6 +783,14 @@
     "tool.description": "فایل یا دایرکتوری مشخص شده را حذف کنید (دایرکتوری ها به صورت بازگشتی حذف می شوند). از آنجایی که این خطرناک است، ممکن است نیاز به تأیید باشد."
   },
   "mn": {
+    "describe.read": "%(path)s-г уншиж байна",
+    "describe.grep": "%(path)s-с %(pattern)s хайж байна",
+    "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
+    "describe.delete": "%(path)s-г устгаж байна",
+    "describe.write": "%(path)s-д бичиж байна",
+    "describe.preview": "Патчийн урьдчилан харах",
+    "describe.apply": "Патч хэрэглэж байна",
+    "describe.exec": "Ажиллуулж байна: %(command)s",
     "param.allow_dir.description": "Хэрэв үнэн бол glob-д таарсан сангуудыг устгахыг зөвшөөрнө үү.",
     "param.confirmed.description": "Хэрэв үнэн бол хэрэглүүрийн дотоод баталгаажуулалтыг алгасана уу.",
     "param.dry_run.description": "Идэвхтэй бол зөвхөн таарсан замуудыг жагсааж, юу ч устгахгүй.",
@@ -588,6 +812,14 @@
     "tool.description": "Заасан файл эсвэл лавлахыг устгах (сангуудыг рекурсив байдлаар устгадаг). Энэ нь аюултай тул баталгаажуулах шаардлагатай байж магадгүй."
   },
   "mr": {
+    "describe.read": "%(path)s वाचले जात आहे",
+    "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
+    "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
+    "describe.delete": "%(path)s हटवले जात आहे",
+    "describe.write": "%(path)s लिहिले जात आहे",
+    "describe.preview": "पॅचचे पूर्वावलोकन",
+    "describe.apply": "पॅच लागू होत आहे",
+    "describe.exec": "चालवले जात आहे: %(command)s",
     "param.allow_dir.description": "सत्य असल्यास, ग्लोबद्वारे जुळलेल्या निर्देशिका हटविण्यास अनुमती द्या.",
     "param.confirmed.description": "सक्षम असल्यास, साधनाचा अंतर्गत पुष्टीकरण प्रॉम्प्ट वगळा.",
     "param.dry_run.description": "सक्षम असल्यास, फक्त जुळणारे मार्ग दाखवा आणि काहीही हटवू नका.",
@@ -609,6 +841,14 @@
     "tool.description": "निर्दिष्ट फाइल किंवा निर्देशिका हटवा (डिरेक्टरी वारंवार हटवल्या जातात). हे धोकादायक असल्यामुळे, पुष्टीकरण आवश्यक असू शकते."
   },
   "el": {
+    "describe.read": "Ανάγνωση %(path)s",
+    "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
+    "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
+    "describe.delete": "Διαγραφή %(path)s",
+    "describe.write": "Εγγραφή %(path)s",
+    "describe.preview": "Προεπισκόπηση patch",
+    "describe.apply": "Εφαρμογή patch",
+    "describe.exec": "Εκτέλεση: %(command)s",
     "param.allow_dir.description": "Εάν ισχύει, επιτρέψτε τη διαγραφή καταλόγων που ταιριάζουν με glob.",
     "param.confirmed.description": "Εάν ισχύει, παραλείψτε την εσωτερική προτροπή επιβεβαίωσης του εργαλείου.",
     "param.dry_run.description": "Εάν είναι αληθές, απαριθμήστε μόνο τις αντιστοιχισμένες διαδρομές και μην διαγράψετε τίποτα.",
@@ -630,6 +870,14 @@
     "tool.description": "Διαγράψτε το καθορισμένο αρχείο ή κατάλογο (οι κατάλογοι διαγράφονται αναδρομικά). Επειδή αυτό είναι επικίνδυνο, μπορεί να απαιτείται επιβεβαίωση."
   },
   "he": {
+    "describe.read": "קורא את %(path)s",
+    "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
+    "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
+    "describe.delete": "מוחק את %(path)s",
+    "describe.write": "כותב את %(path)s",
+    "describe.preview": "תצוגה מקדימה של patch",
+    "describe.apply": "מחיל patch",
+    "describe.exec": "מריץ: %(command)s",
     "param.allow_dir.description": "אם נכון, אפשר למחוק ספריות המותאמות לפי glob.",
     "param.confirmed.description": "אם נכון, דלג על בקשת האישור הפנימי של הכלי.",
     "param.dry_run.description": "אם נכון, רשום רק נתיבים תואמים ואל תמחק שום דבר.",
@@ -651,6 +899,14 @@
     "tool.description": "מחק את הקובץ או הספרייה שצוינו (הספריות נמחקות באופן רקורסיבי). מכיוון שזה מסוכן, ייתכן שיידרש אישור."
   },
   "hu": {
+    "describe.read": "%(path)s olvasása",
+    "describe.grep": "%(pattern)s keresése itt: %(path)s",
+    "describe.dry_run": "Törlési célok listázása: %(path)s",
+    "describe.delete": "%(path)s törlése",
+    "describe.write": "%(path)s írása",
+    "describe.preview": "Patch előnézete",
+    "describe.apply": "Patch alkalmazása",
+    "describe.exec": "Végrehajtás: %(command)s",
     "param.allow_dir.description": "Ha igaz, akkor engedélyezze a glob-nak megfelelő könyvtárak törlését.",
     "param.confirmed.description": "Ha igaz, hagyja ki az eszköz belső megerősítő üzenetét.",
     "param.dry_run.description": "Ha igaz, csak az egyező útvonalakat sorolja fel, és ne töröljön semmit.",
@@ -672,6 +928,14 @@
     "tool.description": "Törölje a megadott fájlt vagy könyvtárat (a könyvtárak rekurzív módon törlődnek). Mivel ez veszélyes, megerősítésre lehet szükség."
   },
   "ro": {
+    "describe.read": "Citire %(path)s",
+    "describe.grep": "Căutare %(pattern)s în %(path)s",
+    "describe.dry_run": "Listare ținte de ștergere: %(path)s",
+    "describe.delete": "Ștergere %(path)s",
+    "describe.write": "Scriere %(path)s",
+    "describe.preview": "Previzualizare patch",
+    "describe.apply": "Aplicare patch",
+    "describe.exec": "Executare: %(command)s",
     "param.allow_dir.description": "Dacă este adevărat, permiteți ștergerea directoarelor potrivite de glob.",
     "param.confirmed.description": "Dacă este adevărat, omiteți promptul de confirmare internă a instrumentului.",
     "param.dry_run.description": "Dacă este adevărat, enumerați doar căile potrivite și nu ștergeți nimic.",
@@ -693,6 +957,14 @@
     "tool.description": "Ștergeți fișierul sau directorul specificat (directoarele sunt șterse recursiv). Deoarece acest lucru este periculos, poate fi necesară confirmarea."
   },
   "fil": {
+    "describe.read": "Binabasa ang %(path)s",
+    "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
+    "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
+    "describe.delete": "Binubura ang %(path)s",
+    "describe.write": "Isinusulat ang %(path)s",
+    "describe.preview": "Sinusuri ang patch",
+    "describe.apply": "Inilalapat ang patch",
+    "describe.exec": "Pinapatakbo: %(command)s",
     "param.allow_dir.description": "Kung totoo, payagan ang pagtanggal ng mga direktoryo na tumugma sa glob.",
     "param.confirmed.description": "Kung totoo, laktawan ang panloob na prompt ng pagkumpirma ng tool.",
     "param.dry_run.description": "Kung totoo, ilista lamang ang mga katugmang path at huwag magtanggal ng anuman.",
@@ -714,6 +986,14 @@
     "tool.description": "Tanggalin ang tinukoy na file o direktoryo (ang mga direktoryo ay muling tinatanggal). Dahil mapanganib ito, maaaring kailanganin ang kumpirmasyon."
   },
   "ms": {
+    "describe.read": "Membaca %(path)s",
+    "describe.grep": "Mencari %(pattern)s dalam %(path)s",
+    "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
+    "describe.delete": "Memadam %(path)s",
+    "describe.write": "Menulis %(path)s",
+    "describe.preview": "Pratonton tampalan",
+    "describe.apply": "Menggunakan tampalan",
+    "describe.exec": "Menjalankan: %(command)s",
     "param.allow_dir.description": "Jika benar, benarkan pemadaman direktori yang dipadankan dengan glob.",
     "param.confirmed.description": "Jika benar, langkau gesaan pengesahan dalaman alat.",
     "param.dry_run.description": "Jika benar, senaraikan laluan yang dipadankan sahaja dan jangan padamkan apa-apa.",
@@ -735,6 +1015,14 @@
     "tool.description": "Padam fail atau direktori yang ditentukan (direktori dipadam secara rekursif). Kerana ini berbahaya, pengesahan mungkin diperlukan."
   },
   "da": {
+    "describe.read": "Læser %(path)s",
+    "describe.grep": "Søger efter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser sletteemner: %(path)s",
+    "describe.delete": "Sletter %(path)s",
+    "describe.write": "Skriver %(path)s",
+    "describe.preview": "Viser patch",
+    "describe.apply": "Anvender patch",
+    "describe.exec": "Kører: %(command)s",
     "param.allow_dir.description": "Hvis sandt, tillad sletning af mapper matchet af glob.",
     "param.confirmed.description": "Hvis det er sandt, skal du springe værktøjets interne bekræftelsesprompt over.",
     "param.dry_run.description": "Hvis det er sandt, skal du kun angive matchede stier og ikke slette noget.",
@@ -756,6 +1044,14 @@
     "tool.description": "Slet den angivne fil eller mappe (mapper slettes rekursivt). Da dette er farligt, kan det være nødvendigt at bekræfte."
   },
   "nn": {
+    "describe.read": "Les %(path)s",
+    "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
+    "describe.dry_run": "Viser slettemål: %(path)s",
+    "describe.delete": "Slettar %(path)s",
+    "describe.write": "Skriv %(path)s",
+    "describe.preview": "Førehandsvising av patch",
+    "describe.apply": "Brukar patch",
+    "describe.exec": "Køyrer: %(command)s",
     "param.allow_dir.description": "Hvis sant, tillat sletting av kataloger som samsvarer med glob.",
     "param.confirmed.description": "Hvis dette er sant, hopper du over verktøyets interne bekreftelsesmelding.",
     "param.dry_run.description": "Hvis det er sant, må du berre angi samsvarende stier og ikke slette noe.",
