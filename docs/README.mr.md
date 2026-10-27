@@ -1,133 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>तुमची AI मॉडेल्स. तुमची साधने. तुमचे वातावरण.</p>
 
 <p align="center">
-  <strong>Universal AI Gateway</strong><br>
-  एक स्थानिक एजंट. कोणतेही मॉडेल. कोणतेही साधन. तुमचे वातावरण, तुमचे नियम.
-</p>
-
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">इतर भाषा</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Translations</a>
-</p>
+---
 
-______________________________________________________________________
+**UAG हे मुक्त-स्रोत AI एजंट रनटाइम आहे, जे स्थानिक अंमलबजावणीला प्राधान्य देते.** ते तुमच्या पसंतीचे भाषा मॉडेल तुमच्या वापरातील साधने आणि प्रणालींशी जोडते. एका सुसंगत इंटरफेसमधून कोड, फाइल्स, ब्राउझर, सेवा आणि उपकरणांवर काम करा; एका मॉडेल पुरवठादारावर अवलंबून राहावे लागत नाही.
 
-**uag का?**
+| **मॉडेल निवडा** | **प्रत्यक्ष साधने जोडा** | **नियंत्रण तुमच्याकडे ठेवा** |
+| :--- | :--- | :--- |
+| OpenAI, Claude, Gemini, Grok, Bedrock, Ollama यांसारखी क्लाउड आणि स्थानिक मॉडेल्स | फाइल्स, कोड, वेब, MCP, Agent Skills, प्लगइन्स, क्लाउड आणि IoT | स्थानिक अंमलबजावणी, मानवी पुष्टी, क्रेडेन्शियल संचयन आणि बदलता येणारी धोरणे |
 
-uag हा स्थानिकतेला प्राधान्य देणारा AI एजंट आहे, जो तुम्हाला पसंत असलेले मॉडेल तुम्ही प्रत्यक्षात वापरत असलेल्या साधनांशी जोडतो.
-तो फाइल्स, ब्राउझर, कोडबेस, संवाद, क्लाउड API, IoT उपकरणे, MCP सर्व्हर आणि बहु-एजंट कार्यप्रवाहांसाठी
-एकच, विस्तारता येणारे रनटाइम उपलब्ध करून देतो.
-
-- **Provider स्वातंत्र्य** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek आणि इतर अनेक.
-- **Local-first अंमलबजावणी** — तुमचा एजंट रनटाइम आणि साधनांची अंमलबजावणी तुमच्या मशीनवरच राहते; तुम्ही निवडलेले API कॉल्सच बाहेर जातात.
-- **एकच साधन-स्तर** — CLI, डेस्कटॉप GUI, वेब UI, VS Code आणि A2A मधून तीच साधने कार्य करतात.
-- **मूळ रचनेत समांतरता** — स्वतंत्र, केवळ-वाचन प्रक्रिया सुरक्षितपणे एकाच वेळी चालू शकतात.
-- **विस्तारक्षम** — core मध्ये बदल न करता साधने, plugins, Agent Skills, MCP servers आणि Rust-backed tools जोडा.
-- **सुरक्षिततेची जाणीव** — विध्वंसक कृती, credentials, device controls आणि network writes साठी स्पष्ट पुष्टीकरण व policy controls उपलब्ध आहेत.
-
-> **थोडक्यात:** uag हा तुमच्या AI models आणि प्रत्यक्ष वातावरणामधील control plane आहे.
-
-> **🧠 संदर्भ-जागरूक साधन निकाल** — मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
-> [संदर्भ संकुचनासाठी सविस्तर मार्गदर्शक](CONTEXT_COMPRESSION.mr.md)
+> UAG हा **एजंट अंमलबजावणीचा स्तर आहे; मॉडेल पुरवठादार नाही**. बाह्य मॉडेल्स आणि सेवांना होणारे कॉल सेटिंग्जवर अवलंबून असतात. स्थानिक प्राधान्य म्हणजे पूर्णपणे ऑफलाइन कार्य किंवा सर्व साधनांचे आपोआप विलगीकरण नव्हे.
 
 ## झटपट सुरुवात
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-पहिल्यांदा सुरू केल्यावर setup wizard उघडतो. तो provider configure करण्यात मदत करतो आणि निवडलेल्या settings तुमच्या local environment मध्ये साठवतो.
-
-सामान्य feature groups साठी:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## Interfaces
-
-| Interface | Command | Best for |
-|---|---|---|
-| **CLI** | `uag` | जलद, keyboard-first काम |
-| **Desktop GUI** | `uagg` | Native desktop अनुभव |
-| **Web UI** | `uagw` | Browser-based access |
-| **A2A server** | `uaga` | Agent-to-agent communication |
-| **VS Code** | Extension | Editor मध्ये tools समजावणे, refactor, fix आणि browse करणे |
-
-सर्व interfaces समान provider configuration, tool registry, safety rules आणि session data सामायिक करतात.
+**Python 3.11 किंवा नवीन** आवृत्ती आवश्यक आहे. [PyPI](https://pypi.org/project/uag/) वरून UAG इन्स्टॉल करून परस्परसंवादी CLI सुरू करा:
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+पहिल्यांदा सुरू करताना सेटअप विझार्ड मॉडेल पुरवठादार निवडण्यासाठी आणि क्रेडेन्शियल सेट करण्यासाठी मदत करतो. पर्यावरण चल किंवा सुरक्षित क्रेडेन्शियल स्टोअरही वापरता येते. पुरवठादार आणि साधनांच्या अधिक अवलंबनांसाठी आधी हे इन्स्टॉल करा:
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+त्यानंतर हे प्रश्न विचारून पाहा:
+
+~~~text
+> या Git रिपॉझिटरीमध्ये काय बदल झाले? धोके थोडक्यात सांगा.
+> या लायब्ररीचे नवीनतम दस्तऐवज शोधा आणि स्थलांतराची पावले समजवा.
+> या फाइल्स तपासून थोडक्यात अहवाल तयार करा.
+> :help
+~~~
+
+नवीन वापरकर्त्यांनी Git आणि व्हर्च्युअल वातावरणांसह Windows स्थापना मार्गदर्शक आणि कॉन्फिगरेशन संदर्भ पाहावा: [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## इंटरफेस
+<!-- README-SYNC:interfaces -->
+
+सर्व इंटरफेस एकच एजंट रनटाइम आणि साधनांची नोंदणी वापरतात.
+
+| इंटरफेस | सुरू करण्याची पद्धत | उपयोग |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | टर्मिनल आणि स्वयंचलन |
+| **Desktop** | `uagg` | डेस्कटॉप अॅपमधील संवाद |
+| **Web** | `uagw` | ब्राउझरमधील संवाद आणि रूम |
+| **A2A** | `uaga` | एजंटमधील एकत्रीकरण |
+| **VS Code** | [एक्स्टेन्शन मार्गदर्शक](VSCODE.md) | कोडसोबत काम |
+
+Desktop आणि Web साठी अतिरिक्त अवलंबने आवश्यक आहेत; ती `uag[core,providers,tools]` मध्ये समाविष्ट नाहीत:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Web सर्व्हर सुरू होताना FastAPI व Uvicorn इन्स्टॉल करण्याचा प्रयत्न करू शकतो. आधीच इन्स्टॉल केल्यास स्वयंचलित स्थापनेवर अवलंबून राहावे लागत नाही. तपशील: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## तुम्ही काय तयार करू शकता
+## UAG वापरून काय तयार करता येते
+<!-- README-SYNC:capabilities -->
 
-Provider adapters hosted आणि local runtimes साठी उपलब्ध आहेत, यामध्ये:
+| क्षमता | UAG काय देते |
+| :--- | :--- |
+| **मॉडेलनिरपेक्ष कार्यप्रवाह** | `UAGENT_PROVIDER` ने क्लाउड आणि स्थानिक पुरवठादार बदला; साधने पुन्हा लिहावी लागत नाहीत |
+| **कोड आणि फाइल्स** | रिपॉझिटरी पाहणे, Git तपासणी, लिंट, चाचण्या, फाइल ऑपरेशन्स आणि ब्राउझर स्वयंचलन |
+| **विस्तारक्षम साधने** | २०० पेक्षा अधिक साधने, `tool_catalog` / `tool_load` ने गतिशील शोध, स्वतःची Python आणि Rust साधने |
+| **जोडलेले एजंट** | MCP, A2A, Claude Code सुसंगत प्लगइन, Agent Skills आणि उपएजंट |
+| **दीर्घकालीन कामे** | ऑटोपायलट, समांतर स्वतंत्र वाचन, वेळापत्रक, पुनर्प्राप्ती आणि जतन केलेली सत्रे |
+| **टर्मिनलच्या पलीकडे** | क्लाउड, संवाद, दस्तऐवज, मीडिया, रिअल-टाइम आवाज आणि समर्थित IoT प्रोटोकॉल |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-`UAGENT_PROVIDER` वापरून providers बदला; तुमची tools आणि interface बदलत नाहीत.
-
-**तुमच्या environment सोबत काम**
-
-- Files वाचा, तयार करा, संपादित करा, शोधा, hash करा, archive करा आणि inspect करा
-- Git changes चे review करा, secrets शोधा, tests चालवा, lint व compile करा आणि coverage मोजा
-- मोठे Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA आणि इतर codebases मध्ये नेव्हिगेट करा
-- Playwright वापरून browsers automate करा, multi-page workflows आणि downloads सहित
-
-**Services आणि devices जोडा**
-
-- **MCP** — OAuth-enabled services सहित external tool servers शी जोडा
-- **A2A** — इतर agents आणि compatible servers सोबत समन्वय करा
-- **Cloud** — writes साठी confirmation सह AWS, Google Cloud आणि Azure API access
-- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams आणि pybitchat
-- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA आणि UPnP
-- **Media** — image generation/editing, audio transcription/speech, camera capture आणि QR codes
-- **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL आणि log analysis
-
-**IoT आणि physical-world control**
-
-- **SwitchBot** — Cloud आणि BLE discovery, status, control, batching आणि subscriptions
-- **ECHONET Lite** — INF notifications सहित Japanese home appliances शोधा व नियंत्रित करा
-- **Matter** — endpoints, clusters, attributes, state history, subscriptions आणि control
-- **BACnet / Modbus TCP / OPC UA** — industrial आणि building automation reads, writes, browsing आणि monitoring
-- **UPnP** — device discovery, WAN status आणि router port-mapping management
-
-### uag कुठे बसतो
-
-एका बाजूला लोक आणि interfaces, तर दुसऱ्या बाजूला models, tools आणि वास्तविक-जगातील systems यांच्या मध्ये uag काम करतो.
-तो संवाद समन्वयित करतो, क्षमता निवडतो, safety rules लागू करतो आणि workflow पुन्हा सुरू करता येईल याची खात्री करतो.
+### एक रनटाइम, अनेक एकत्रीकरणे
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -139,125 +100,102 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### Plugins, Agent Skills आणि marketplaces
+**समर्थित मॉडेल पुरवठादारांची उदाहरणे** खाली आहेत. प्रत्येक पुरवठादाराची सेटिंग्ज पर्यावरण दस्तऐवजात आहेत.
 
-Core fork न करता uag ला specialized agent मध्ये रूपांतरित करा:
+### स्किल्स आणि प्लगइनद्वारे सानुकूलन
+<!-- README-SYNC:extensions -->
 
-- Directory, ZIP, Git repository, HTTP source किंवा marketplace मधून **Claude Code-compatible plugins** install करा
-- Skills, sub-agents, MCP servers, hooks, slash commands, output styles, dependencies आणि channels bundle करा
-- [SkillsMP](https://skillsmp.com) आणि [ClawHub](https://clawhub.ai) वरील community capabilities ब्राउझ करा
-- `UAGENT_EXTERNAL_TOOLS_DIR` द्वारे private organization skills आणि tools locally जोडा
+मूळ कोड न बदलता UAG विस्तारित करा. SkillsMP किंवा ClawHub वरून Agent Skills इन्स्टॉल करा, MCP सर्व्हर जोडा किंवा साधने, स्किल्स, एजंट व hooks असलेले Claude Code सुसंगत प्लगइन लोड करा.
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-[Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) पहा.
+स्वतःची साधने `TOOL_SPEC` आणि `run_tool()` उपलब्ध करून देऊ शकतात; Rust आधारित साधनांनाही समर्थन आहे. मार्गदर्शक: [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- **200+ tools** — files, web, media, documents, code, cloud, communication आणि IoT साठी
-- **Dynamic discovery and loading** — क्षमता शोधण्यासाठी `tool_catalog` आणि गरज असेल तेव्हाच सक्षम करण्यासाठी `tool_load` वापरा
-- **Code intelligence** — `code_map`, भाषानिहाय `idx` navigators, Git review, test execution, linting, compilation आणि coverage
-- **Claude Code-compatible plugins** — skills, agents, MCP servers, hooks, commands आणि marketplaces सह
-- **Agent Skills** — SkillsMP आणि ClawHub मधून
-- **Custom Python tools** — `TOOL_SPEC` आणि `run_tool()` सह
-- **Rust-backed tools** — हलक्या native extensions साठी
+## प्रत्यक्ष कार्यप्रवाहांसाठी
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### संदर्भ आणि स्मृती
+<!-- README-SYNC:context-memory -->
 
-## वास्तविक कार्यप्रवाहांसाठी तयार
+मोठे साधन परिणाम मॉडेलचा सक्रिय संदर्भ भरून टाकण्याऐवजी **आर्टिफॅक्ट्स** म्हणून ठेवता येतात. एजंट नंतर `artifact_read` द्वारे आवश्यक भागच मिळवतो. सत्रे डिफॉल्टने SQLite मध्ये साठवली जातात; इतिहास शोध आणि स्पष्ट स्मृती पुनरावलोकनही उपलब्ध आहे.
 
-### 🧠 संदर्भ-जागरूक साधन निकाल
+- [Context compression](CONTEXT_COMPRESSION.mr.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
+### स्वयंचलन आणि सहकार्य
+<!-- README-SYNC:automation -->
 
-`:load <index>` ने आधीचे conversations पुन्हा सुरू करा. Tool results cache करता येतात आणि application rebuild न करता providers बदलता येतात.
+UAG स्वतंत्र वाचनाचे समांतर काम, अनेक एजंटांचे समन्वय, सत्र पुनर्प्राप्ती आणि अनेक फेऱ्यांच्या कामासाठी ऑटोपायलट समर्थित करते. `:auto` ने सुरू करा; **F12** सध्याचे उत्तर थांबवून ऑटोपायलट बंद करण्याची विनंती करते.
 
-[Context compression](CONTEXT_COMPRESSION.mr.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### Auto-pilot
+### सुरक्षा आणि निरीक्षणक्षमता
+<!-- README-SYNC:security -->
 
-Optional reviewer model सह multi-round कामासाठी `:auto` वापरा. `--max-rounds N` ने round limit सेट करा.
-Auto-pilot थांबवण्यासाठी **F12** किंवा current response थांबवण्यासाठी **F12** दाबा.
-
-सुरक्षित असल्यास स्वतंत्र, केवळ-वाचन प्रक्रिया एकाच वेळी चालतात. Web searches, file inspection, repository analysis आणि तत्सम कामे
-configurable worker pool (`UAGENT_PARALLEL_WORKERS`) वापरून समांतर पूर्ण होऊ शकतात. Write operations क्रमाने होतात किंवा पुष्टीकरण आवश्यक असते.
-
-Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling आणि multi-agent orchestration यांमुळे
-कठीण कामे one-shot न राहता पुन्हा सुरू करता येतात.
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 Private, multilingual आणि policy-aware
-
-Sensitive actions आधी `human_ask` थांबवतो. File deletion, overwrites, shell commands, device controls, credential operations आणि network writes confirmation व policy rules द्वारे नियंत्रित करता येतात.
-
-Prompts मध्ये दीर्घकाळ टिकणारी secrets ठेवण्याऐवजी credential store वापरा:
-
-वेब UI मध्ये Authorization Code + PKCE वापरून OIDC साइन-इन, पडताळणी केलेले ID टोकन्स, सर्व्हर-साइड सत्रे, आणि प्रोजेक्ट/रूम प्रवेश नियंत्रणांचा समावेश आहे. कॉन्फिगर केल्यावर पडताळणी केलेले Microsoft Entra ID ग्रुप क्लेम्स डायरेक्टरी-आधारित प्रवेश धोरणाला पुरवू शकतात. Windows Active Directory, OAuth, आणि trusted-proxy डिप्लॉयमेंट्स स्पष्टपणे पडताळणी केलेल्या ओळख अडॅप्टरद्वारे एकत्रित होऊ शकतात; Windows AD साठी डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate पडताळणी करणारा आवश्यक आहे आणि तो डीफॉल्टने सक्षम नाही.
-
-uag मध्ये Agent, LLM, टूल, Context, Memory, आणि पुनर्प्राप्ती ऑपरेशन्ससाठी ऑप्ट-इन, प्रदाता-तटस्थ OpenTelemetry ट्रेसिंग आणि मेट्रिक्स समाविष्ट आहेत. निरीक्षणक्षमता डीफॉल्टनुसार अक्षम केली जाते.
-
-स्थानिक वापराला प्राधान्य देणे म्हणजे UAG डीफॉल्टने पूर्णपणे ऑफलाइन चालते किंवा सर्व टूल्स वेगळी ठेवली जातात असे नाही. बाह्य मॉडेल्स आणि जोडलेल्या सेवांना होणाऱ्या विनंत्या कॉन्फिगरेशनवर अवलंबून असतात.
+संवेदनशील कामांपूर्वी `human_ask` पुष्टी मागता येते. क्रेडेन्शियल ऑपरेटिंग सिस्टिमच्या सुरक्षित स्टोअरमध्ये किंवा एन्क्रिप्टेड फाइलमध्ये ठेवता येतात. Web इंटरफेस सेट केलेले OIDC लॉगिन आणि प्रवेश नियंत्रण समर्थित करते. OpenTelemetry ट्रेसिंग आणि मेट्रिक्स **पर्यायी** आहेत.
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 बहुभाषिक भाषांतर
+ही नियंत्रणे कॉन्फिगर करता येतात, पण **प्रत्येक साधन sandbox मध्ये वेगळेच चालेल याची हमी नाही**. UAG अविश्वसनीय वापरकर्त्यांना किंवा नेटवर्कला उपलब्ध करण्याआधी तैनाती आणि धोरण मार्गदर्शक वाचा.
 
-- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
-- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
+### भाषा, उपकरणे आणि आवाज
+<!-- README-SYNC:languages -->
 
-OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live आणि Bedrock Nova Sonic द्वारे full-duplex voice उपलब्ध आहे;
-यात पर्यायी AEC3 echo cancellation आणि safety-limited realtime function calling आहे.
+UAG मध्ये **३८ भाषा-लोकेल्स** (इंग्रजी आणि ३७ भाषांतरे), पर्यायी द्विदिश ध्वनी एकत्रीकरण आणि SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP व OPC UA साठी साधने आहेत.
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
-## दस्तऐवजीकरण
+## दस्तऐवज
+<!-- README-SYNC:documentation -->
 
-| Topic | Documentation |
-|---|---|
-| Environment variables | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| Architecture and invariants | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| Repository tools | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| IoT use cases | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| Communication tools | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| VS Code extension | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| Developer guide | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| Tool flow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+या मार्गदर्शकांपासून सुरुवात करा आणि मग सविस्तर माहिती वाचा:
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| येथून सुरुवात | अधिक माहिती |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+सर्व दस्तऐवज आणि इतर भाषाही पाहता येतात: [Documentation](./) · [Other languages](README.translations.md).
 
 ## विकास आणि योगदान
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-Pre-PR checks चालवा:
+**Python कोड** बदलणारी पुल रिक्वेस्ट करण्यापूर्वी संबंधित चाचण्या आणि प्रकल्प तपासण्या चालवा:
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-पूर्ण development workflow साठी [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) पहा.
+योगदान नियम व विकासक मार्गदर्शक खाली आहेत. बग अहवाल, दस्तऐवज सुधारणा, साधने, भाषांतरे आणि नेमक्या व्याप्तीच्या पुल रिक्वेस्टचे स्वागत आहे: [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
-Bug reports, feature ideas, documentation improvements, translations, tools, skills आणि pull requests चे स्वागत आहे.
-मोठे बदल करण्यापूर्वी issue किंवा discussion उघडा. [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) वाचा
-आणि pull request सादर करण्यापूर्वी वरील checks चालवा.
+## परवाना
+<!-- README-SYNC:license -->
 
-## License
-
-Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+UAG खालील परवान्यांतर्गत वितरित केले जाते: [Apache License 2.0](../LICENSE).
