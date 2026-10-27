@@ -315,8 +315,23 @@ async def mutate_integration_project_members(request: Request, project_id: str):
         return _json_error(401, "invalid_write_credential")
     if scope.project_id != project_id:
         return _json_error(403, "project_not_permitted")
+    declared_size = request.headers.get("content-length")
+    if declared_size is not None:
+        try:
+            if int(declared_size) > _MAX_REQUEST_BYTES:
+                return _json_error(413, "mutation_too_large")
+        except ValueError:
+            return _json_error(400, "invalid_content_length")
     try:
-        body = await request.body()
+        # A valid Content-Length is not guaranteed: bound streaming reads too.
+        chunks = []
+        consumed = 0
+        async for chunk in request.stream():
+            consumed += len(chunk)
+            if consumed > _MAX_REQUEST_BYTES:
+                return _json_error(413, "mutation_too_large")
+            chunks.append(chunk)
+        body = b"".join(chunks)
         payload = _parse_mutation(body)
     except ValueError:
         return _json_error(400, "invalid_mutation")

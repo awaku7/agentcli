@@ -370,3 +370,25 @@ def test_missing_or_symlink_scope_config_denied(api, tmp_path):
     scope_path.unlink()
     scope_path.symlink_to(replacement)
     assert request(client, private).status_code == 503
+
+
+def test_large_body_rejected_at_stream_boundary(api):
+    client, private, path, _configure, _ = api
+    assert (
+        client.post(
+            BASE,
+            content=b"x" * 100000,
+            headers={
+                "Authorization": f"Bearer {WRITE_TOKEN}",
+                "Content-Type": "application/json",
+            },
+        ).status_code
+        == 413
+    )
+    with closing(MemoryStore(path)) as store:
+        assert (
+            store.db.execute(
+                "SELECT COUNT(*) FROM project_membership_mutation_audit"
+            ).fetchone()[0]
+            == 0
+        )
