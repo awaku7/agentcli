@@ -1,0 +1,48 @@
+name: Verify C1 Codex review fixes
+on:
+  push:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Overlay review fix candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$(dirname 'src/uagent/web_impl/app.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/81b5759fec535c95fbd317099e9810dc618cbe8c' --jq .content | base64 -d > 'src/uagent/web_impl/app.py'
+          mkdir -p "$(dirname 'src/uagent/web_impl/routes_integration_write.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/4d8f378f9d3e5afdddd4d8c9f6d27b417cf711b8' --jq .content | base64 -d > 'src/uagent/web_impl/routes_integration_write.py'
+          mkdir -p "$(dirname 'src/uagent/runtime/project_membership_mutation.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/2ea7197465838f1162015f90eb11f42caca0a985' --jq .content | base64 -d > 'src/uagent/runtime/project_membership_mutation.py'
+          mkdir -p "$(dirname 'tests/test_integration_management_write.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/7f3ce6a233d9f22f9aa0e5fc3fe650e17b37699b' --jq .content | base64 -d > 'tests/test_integration_management_write.py'
+          mkdir -p "$(dirname 'tests/test_project_membership_mutation.py')"
+          gh api 'repos/awaku7/agentcli/git/blobs/0ae858c624351916746844cd9131a954bf8c5761' --jq .content | base64 -d > 'tests/test_project_membership_mutation.py'
+          mkdir -p "$(dirname 'docs/UAG_ADMIN_MEMBERSHIP_WRITE_CONTRACT.md')"
+          gh api 'repos/awaku7/agentcli/git/blobs/4e8acf3e251751ce93bbe01e5372eccff77f2c28' --jq .content | base64 -d > 'docs/UAG_ADMIN_MEMBERSHIP_WRITE_CONTRACT.md'
+      - name: Install test and quality dependencies
+        run: python -m pip install -e ".[core,providers,test,quality]"
+      - name: Black format changed Python
+        run: python -m black src/uagent/web_impl/app.py src/uagent/web_impl/routes_integration_write.py src/uagent/runtime/project_membership_mutation.py tests/test_integration_management_write.py tests/test_project_membership_mutation.py
+      - name: Black check
+        run: python -m black --check --diff src tests
+      - name: Ruff check
+        run: python -m ruff check src tests
+      - name: Run affected suites
+        run: python -m pytest -q tests/test_integration_management_write.py tests/test_project_membership_mutation.py tests/test_project_access.py tests/test_integration_management_history.py tests/test_integration_management_api.py tests/test_web_origin_policy.py --tb=short
+      - name: Publish verified source blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for file in src/uagent/web_impl/app.py src/uagent/web_impl/routes_integration_write.py src/uagent/runtime/project_membership_mutation.py tests/test_integration_management_write.py tests/test_project_membership_mutation.py; do
+            python -c 'import json,sys; p=sys.argv[1]; json.dump({"content":open(p,encoding="utf-8").read(),"encoding":"utf-8"},open("/tmp/c1-verified.json","w",encoding="utf-8"))' "$file"
+            sha=$(gh api -X POST repos/awaku7/agentcli/git/blobs --input /tmp/c1-verified.json --jq .sha)
+            echo "VERIFIED_BLOB $file $sha"
+          done
