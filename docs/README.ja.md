@@ -1,135 +1,120 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
 
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
 
 <p align="center">
   <strong>Universal AI Gateway</strong><br>
-  1つのローカルエージェント。あらゆるモデル。あらゆるツール。あなたの環境、あなたのルール。
+  あなたのAIモデル。あなたのツール。あなたの環境。
 </p>
 
 <p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Translations</a>
+  <a href="#クイックスタート">クイックスタート</a> ·
+  <a href="#インターフェース">インターフェース</a> ·
+  <a href="#uagでできること">主な機能</a> ·
+  <a href="#ドキュメント">資料</a> ·
+  <a href="../README.md">English</a> ·
+  <a href="README.translations.md">その他の言語</a>
 </p>
 
-______________________________________________________________________
+---
 
-**uagを選ぶ理由**
+**UAGは、オープンソースのローカルファーストなAIエージェント実行基盤です。**
+好みの言語モデルを、普段使うツールやシステムと接続します。コード、ファイル、
+ブラウザー、サービス、デバイスを共通のインターフェースで扱えます。
+特定のモデル提供事業者にワークフローを縛られません。
 
-uagは、好みのモデルを実際のツールにつなぐ、ローカルファーストのAIエージェントです。
-ファイル、ブラウザー、コードベース、コミュニケーション、クラウドAPI、IoTデバイス、MCPサーバー、
-マルチエージェントワークフローを扱う、単一の拡張可能なランタイムを提供します。
+| **好きなモデルを選択** | **現実のツールと接続** | **制御権を維持** |
+| :--- | :--- | :--- |
+| OpenAI、Claude、Gemini、Grok、Bedrock、Ollamaなどのクラウド・ローカルモデル | ファイル、コード、Web、MCP、Agent Skills、プラグイン、クラウド、IoT | ローカル実行、人間による確認、認証情報の保存、設定可能なポリシー |
 
-- **プロバイダーの自由** — OpenAI、Anthropic、Gemini、Azure、Bedrock、Ollama、llama.cpp、vLLM、Grok、DeepSeekなど。
-- **ローカルファースト実行** — エージェントのランタイムとツールは手元のマシン上で動作し、選択したAPI呼び出しだけが外部へ送られます。
-- **統一されたツールレイヤー** — CLI、デスクトップGUI、Web UI、VS Code、A2Aのどこからでも同じツールを利用できます。
-- **並列実行を前提とした設計** — 独立した読み取り専用操作を同時に実行できます。
-- **拡張可能** — コアを変更せずに、ツール、プラグイン、Agent Skills、MCPサーバー、Rust実装のツールを追加できます。
-- **安全性を重視** — 破壊的操作、認証情報、デバイス制御、ネットワークへの書き込みは、明示的な確認とポリシー制御に対応します。
-
-> **要するに:** uagは、AIモデルと現実の環境の間に位置するコントロールプレーンです。
-
-> **🧠 コンテキストに応じたツールの結果** — 大規模なツール結果は、現在のモデルに渡すコンテキストから可能な限り除外します。uagは結果をアーティファクトとして保存し、代わりに安定したArtifact参照を含む必要な範囲だけのプレビューをモデルに渡します。これにより、ツールが大量の結果を生成しても、後続ターンに必要な入力トークン数を大幅に削減できます。
-> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ja.md) を参照してください。
+> UAGは**モデル提供サービスではなく、エージェントの実行基盤**です。
+> 外部モデルへのリクエストや接続先サービスの呼び出しは設定によって発生します。
+> 「ローカルファースト」は、完全なオフライン動作や隔離を保証するものではありません。
 
 ## クイックスタート
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-初回起動時にセットアップウィザードが開きます。プロバイダーの設定を支援し、選択した設定をローカル環境に保存します。
-
-一般的な機能グループを利用するには:
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-> プラットフォーム連携はオプションです。オペレーティングシステムに必要なものだけをインストールしてください。
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## インターフェース
-
-| インターフェース | コマンド | 最適な用途 |
-|---|---|---|
-| **CLI** | `uag` | 速く、キーボード中心の作業 |
-| **Desktop GUI** | `uagg` | ネイティブなデスクトップ体験 |
-| **Web UI** | `uagw` | ブラウザーからのアクセス |
-| **A2A server** | `uaga` | エージェント間通信 |
-| **VS Code** | Extension | エディター内での説明、リファクタリング、修正、ツールの閲覧 |
-
-すべてのインターフェースで、同じプロバイダー設定、ツールレジストリ、安全ルール、セッションデータを共有します。
+**Python 3.11以上**が必要です。[PyPI](https://pypi.org/project/uag/)からインストールしてCLIを起動します。
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+初回起動時にはセットアップウィザードでモデルプロバイダーと認証情報を設定できます。
+環境変数や認証情報ストアを使った設定にも対応します。
+
+プロバイダーやツールの依存パッケージをまとめて導入するには、次を実行します。
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+例えば、次のように指示できます。
+
+~~~text
+> このGitリポジトリの変更点とリスクをまとめて。
+> このライブラリの最新のドキュメントを探し、移行手順を説明して。
+> このファイル群を調べて、簡潔なレポートを作成して。
+> :help
+~~~
+
+初めて使う方は[Windows向け導入ガイド](QUICKSTART.md)（Gitや仮想環境の準備を含む）や
+[環境設定リファレンス](ENVIRONMENT.md)を参照してください。
+OS固有の連携はオプションです。
+
+## インターフェース
+<!-- README-SYNC:interfaces -->
+
+同じエージェントランタイムとツールレジストリを、複数の入口から利用できます。
+
+| インターフェース | 起動方法 | 用途 |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | ターミナルでの操作や自動化 |
+| **デスクトップ** | `uagg` | ネイティブのデスクトップ対話 |
+| **Web** | `uagw` | ブラウザー経由の会話やルーム管理 |
+| **A2A** | `uaga` | エージェント間の連携 |
+| **VS Code** | [拡張機能ガイド](VSCODE.md) | コード編集と並行した作業 |
+
+デスクトップとWebには、クイックスタートの
+`uag[core,providers,tools]` に含まれない追加の依存パッケージが必要です。
+
+~~~bash
+# デスクトップGUI（PySide6とプラットフォーム連携）
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI（認証関連、FastAPI、Uvicorn）
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Webサーバーは起動時にFastAPIやUvicornのインストールを試みることもありますが、
+先に導入しておけば実行時の自動インストールに依存しません。
+詳しくは[インターフェース設定](USAGE.md)と[環境設定](ENVIRONMENT.md)を参照してください。
 
-## できること
+## UAGでできること
+<!-- README-SYNC:capabilities -->
 
-プロバイダーアダプターは、次のようなホスト型・ローカルの各種ランタイムに対応しています。
+| 機能 | UAGが提供するもの |
+| :--- | :--- |
+| **モデル非依存のワークフロー** | `UAGENT_PROVIDER` でクラウド・ローカルのプロバイダーを切り替え。ツールの書き換えは不要 |
+| **コードとファイル操作** | リポジトリの移動、Git調査、Lint、テスト、ファイル操作、ブラウザー自動化 |
+| **拡張可能なツール** | 200以上のツール、`tool_catalog` / `tool_load` による動的検出、Python・Rustによるカスタムツール |
+| **連携するエージェント** | MCP、A2A、Claude Code互換プラグイン、Agent Skills、サブエージェント |
+| **長時間の処理** | オートパイロット、独立した読み取り操作の並列実行、スケジュール、再起動後の復旧、永続セッション |
+| **ターミナル以外にも展開** | クラウド、コミュニケーション、ドキュメント、メディア、リアルタイム音声、対応するIoTプロトコル |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Sarashina AI · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-`UAGENT_PROVIDER`でプロバイダーを切り替えても、ツールとインターフェースは変わりません。
-
-**環境を操作**
-
-- ファイルの読み取り、作成、編集、検索、ハッシュ計算、アーカイブ、検査
-- Gitの変更確認、シークレットのスキャン、テスト実行、Lint、コンパイル、カバレッジ計測
-- 大規模なPython、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBAなどのコードベースをナビゲート
-- 複数ページのワークフローやダウンロードを含む、Playwrightによるブラウザー自動化
-
-**サービスとデバイスを接続**
-
-- **MCP** — OAuth対応サービスを含む外部ツールサーバーに接続
-- **A2A** — 他のエージェントや互換サーバーと連携
-- **Cloud** — 書き込み時の確認を伴うAWS、Google Cloud、Azure APIアクセス
-- **Communication** — Gmail、Bluesky、Discord、Microsoft Teams、pybitchat
-- **IoT** — SwitchBot、ECHONET Lite、Matter、BACnet、Modbus TCP、OPC UA、UPnP
-- **Media** — 画像の生成・編集、音声の文字起こし・音声合成、カメラ撮影、QRコード
-- **Documents** — PDF、PowerPoint、Word、Excel、CSV、JSON、YAML、SQL、ログ分析
-
-**IoTと物理世界の制御**
-
-- **SwitchBot** — クラウドとBLEによる検出、状態取得、制御、バッチ処理、サブスクリプション
-- **ECHONET Lite** — INF通知を含む、日本の家電の検出と制御
-- **Matter** — エンドポイント、クラスター、属性、状態履歴、サブスクリプション、制御
-- **BACnet / Modbus TCP / OPC UA** — 産業およびビルオートメーションの読み取り、書き込み、ブラウジング、監視
-- **UPnP** — デバイス検出、WAN状態、ルーターのポートマッピング管理
-
-### uagの位置づけ
-
-uagは、一方では人やインターフェースと、もう一方ではモデル、ツール、現実世界のシステムとの間に位置します。
-会話を調整し、機能を選択し、安全ルールを適用し、ワークフローを再開可能な状態に保ちます。
+### 1つのランタイムで多彩な連携
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -141,127 +126,121 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### プラグイン、Agent Skills、マーケットプレイス
+**対応プロバイダーの例:** OpenAI、Anthropic、Gemini、Vertex AI、Azure OpenAI、
+Amazon Bedrock、Grok、DeepSeek、OpenRouter、Ollama、llama.cpp、LM Studio。
+個別の設定は[環境変数](ENVIRONMENT.md)を参照してください。
 
-コアをフォークせずに、uagを専門エージェントに変えられます:
+### Agent Skillsとプラグインでカスタマイズ
+<!-- README-SYNC:extensions -->
 
-- ディレクトリ、ZIP、Gitリポジトリ、HTTPソース、マーケットプレイスから**Claude Code互換プラグイン**をインストール
-- スキル、サブエージェント、MCPサーバー、フック、スラッシュコマンド、出力スタイル、依存関係、チャンネルをパッケージ化
-- [SkillsMP](https://skillsmp.com)と[ClawHub](https://clawhub.ai)からコミュニティ機能を検索
-- `UAGENT_EXTERNAL_TOOLS_DIR`を通じて、組織内のプライベートなスキルとツールをローカルに追加
+コアを変更せずにUAGを拡張できます。SkillsMPやClawHubからAgent Skillsを導入したり、
+MCPサーバーに接続したり、ツール・スキル・エージェント・フックを含む
+Claude Code互換プラグインを読み込んだりできます。
 
-```text
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-[Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md)を参照してください。
-
-- **200以上のツール** — ファイル、Web、メディア、ドキュメント、コード、クラウド、コミュニケーション、IoTに対応
-- **動的な検出と読み込み** — `tool_catalog`で機能を探し、必要なときだけ`tool_load`で有効化
-- **コードインテリジェンス** — `code_map`、言語別の`idx`ナビゲーター、Gitレビュー、テスト実行、Lint、コンパイル、カバレッジ
-- **Claude Code互換プラグイン** — スキル、エージェント、MCPサーバー、フック、コマンド、マーケットプレイスに対応
-- **Agent Skills** — SkillsMPとClawHubから利用可能
-- **カスタムPythonツール** — `TOOL_SPEC`と`run_tool()`を使用
-- **Rust実装のツール** — 軽量なネイティブ拡張向け
-
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+カスタムツールは `TOOL_SPEC` と `run_tool()` を使って実装でき、Rustベースのツールにも対応します。
+[ツール作成ガイド](../TOOL_CREATOR_GUIDE.md)、
+[プラグイン開発ガイド](../src/uagent/docs/DEVELOP_PLUGIN.md)、
+[MCP OAuth / プロキシガイド](MCP_OAUTH_PROXY_GUIDE.md)から始めてください。
 
 ## 実際のワークフローに対応
+<!-- README-SYNC:workflows -->
 
-### 🧠 コンテキストに応じたツールの結果
+### コンテキストとメモリー
+<!-- README-SYNC:context-memory -->
 
-大規模なツール結果は、現在のモデルに渡すコンテキストから可能な限り除外します。uagは結果をアーティファクトとして保存し、代わりに安定したArtifact参照を含む必要な範囲だけのプレビューをモデルに渡します。これにより、ツールが大量の結果を生成しても、後続ターンに必要な入力トークン数を大幅に削減できます。
+大規模なツール結果をすべてモデルのアクティブなコンテキストに詰め込む代わりに、
+**アーティファクト**として保存できます。必要な部分は後から
+`artifact_read` で取り出せます。
+セッションの保存にはデフォルトでSQLiteを使用し、履歴検索や明示的なメモリー確認にも対応します。
 
-`:load <index>`で以前の会話を再開できます。ツール結果はキャッシュでき、アプリケーションを再構築せずにプロバイダーを変更できます。
+- [コンテキスト圧縮](CONTEXT_COMPRESSION.ja.md)
+- [メモリー](MEMORY.ja.md)
+- [セッションの移行](SESSION_PORTABILITY.md)
 
-[Context compression](CONTEXT_COMPRESSION.ja.md) · [Memory](MEMORY.ja.md) · [Session portability](SESSION_PORTABILITY.md)
+### 自動化と協調作業
+<!-- README-SYNC:automation -->
 
-### オートパイロット
+独立した読み取り操作の並列実行、マルチエージェント連携、
+セッション復旧、複数ラウンドのオートパイロットを利用できます。
+`:auto` でオートパイロットを開始します。
+現在の応答を中断してオートパイロットの停止を要求するには **F12** を押します。
 
-レビューモデルを使う複数ラウンドの作業には、`:auto`を使用します。`--max-rounds N`でラウンド上限を設定できます。
-オートパイロットまたは現在の応答を停止するには、**F12**を押します。
+- [オートパイロット](README_AUTO.ja.md)
+- [タイマーとスケジュール](SET_TIMER.ja.md)
+- [マルチエージェントランタイム](MULTI_AGENT_RUNTIME.md)
 
-独立した読み取り専用操作は、安全な場合に並行して実行されます。Web検索、ファイル検査、リポジトリ分析などの
-処理を、設定可能なワーカープール（`UAGENT_PARALLEL_WORKERS`）で並列に実行できます。書き込み操作は
-直列化するか、確認を求めます。
+### セキュリティと可観測性
+<!-- README-SYNC:security -->
 
-セッションの継続、ツール結果のキャッシュ、バッチ状態、再起動からの復旧、DAGスケジューリング、
-マルチエージェントオーケストレーションにより、複雑な作業を一度きりではなく再開可能にします。
+機密性の高い操作には `human_ask` による確認を要求できます。
+認証情報はOSの認証情報マネージャーまたは暗号化ファイルに保存できます。
+Web UIは設定されたOIDCサインインとアクセス制御に対応します。
+OpenTelemetryのトレースとメトリクスは**オプトイン**です。
 
-[Auto-pilot](README_AUTO.ja.md) · [Timers](SET_TIMER.ja.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
+- [エンタープライズポリシー](ENTERPRISE_POLICY.md)
+- [MXCサンドボックスのプラットフォーム情報](SANDBOX_MXC.md)
+- [リモートWeb / A2AのMXCデフォルト設定](REMOTE_MXC_DEFAULT.md)
+- [WebのID管理とルーム](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry設計](UAG_OPENTELEMETRY_DESIGN.md)
+- [開発者向け可観測性ガイド](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 プライベート、多言語、ポリシー対応
+これらは**設定可能な制御機能**であり、任意のツール実行が必ずサンドボックスに隔離されるという保証ではありません。
+信頼できないユーザーやネットワークに公開する前に、デプロイとポリシーのガイドを確認してください。
 
-`human_ask`は機密性の高い操作の前に処理を一時停止します。ファイルの削除、上書き、シェルコマンド、デバイス制御、
-認証情報の操作、ネットワークへの書き込みは、確認およびポリシールールによって管理できます。
+### 言語・デバイス・音声
+<!-- README-SYNC:languages -->
 
-長期間有効なシークレットをプロンプトへ直接書く代わりに、認証情報ストアを使用してください。
+UAGには**38言語分のロケール**（英語と37言語の翻訳）があります。
+オプションで全二重音声連携を利用でき、SwitchBot、Matter、
+ECHONET Lite、BACnet、Modbus TCP、OPC UAなどのIoTシステム向けツールも備えています。
 
-Web UIは、Authorization Code + PKCEを使ったOIDCサインイン、検証済みIDトークン、サーバー側セッション、プロジェクト/ルームのアクセス制御に対応します。検証済みのMicrosoft Entra IDグループクレームは、設定に応じてディレクトリ連携のアクセスポリシーに利用できます。Windows Active Directory、OAuth、trusted-proxyは明示的な検証済みIDアダプターを介して連携できます。Windows ADにはデプロイ固有のKerberos/Negotiate検証器が必要で、既定では有効ではありません。
-
-uag には、オプトイン、プロバイダー中立の OpenTelemetry トレースと、Agent、LLM、ツール、Context、Memory、および取得操作のメトリクスが含まれています。可観測性はデフォルトでは無効になっています。
-
-ローカルファーストは、完全なオフライン動作やすべてのツール実行の隔離を意味しません。外部モデルや連携サービスへのアクセスは設定に依存します。
-
-- [Enterprise policies](ENTERPRISE_POLICY.md)
-- [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
-
-### 🌍 多言語翻訳
-
-- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定して、Google Translateまたは公式のDeepL Pythonクライアントを利用できます。
-- ツール定義は英語を含む38言語で利用できます。プレースホルダーや技術的な識別子は保持されます。
-
-全二重音声はOpenAI Realtime、Azure OpenAI、xAI Grok Voice、Gemini Live、Bedrock Nova Sonicで利用できます。
-オプションでAEC3エコーキャンセルと、安全性を制限したリアルタイムの関数呼び出しにも対応します。
-
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [READMEの各国語版](README.translations.md)
+- [IoTユースケース](IOT_USECASE.md)
+- [コミュニケーションツール](COMMUNICATION.md)
 
 ## ドキュメント
+<!-- README-SYNC:documentation -->
 
-| トピック | ドキュメント |
-|---|---|
-| 環境変数 | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| アーキテクチャと不変条件 | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| リポジトリツール | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| IoTユースケース | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| コミュニケーションツール | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| オートパイロット | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| VS Code拡張機能 | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| 開発者ガイド | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| ツールフロー | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+| 最初に読む資料 | 詳細資料 |
+| :--- | :--- |
+| [クイックスタート（Windows）](QUICKSTART.md) | [アーキテクチャ](ARCHITECTURE.md) |
+| [CLIの使い方](USAGE.md) | [コンテキスト管理](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [環境変数とプロバイダー](ENVIRONMENT.md) | [エンタープライズポリシー](ENTERPRISE_POLICY.md) |
+| [Agent Skills・プラグイン](../src/uagent/docs/DEVELOP_PLUGIN.md) | [ツールの流れ](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCPとOAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code拡張機能](VSCODE.md) | [開発者ガイド](../src/uagent/docs/DEVELOP.md) |
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+[ドキュメントディレクトリ](./)、[英語README](../README.md)、
+[その他の翻訳README](README.translations.md)も参照してください。
 
 ## 開発と貢献
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-PRを出す前に、次のチェックを実行します。
+**Pythonコードを変更するPR**では、関連テストとプロジェクトチェックを実行してください。
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-開発ワークフローの全体については、[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を参照してください。
-
-バグ報告、機能のアイデア、ドキュメントの改善、翻訳、ツール、スキル、プルリクエストを歓迎します。
-大きな変更を加える前に、issueまたはdiscussionを開いてください。[開発者ガイド](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を読み、
-プルリクエストを送る前に上記のチェックを実行してください。
+詳しい手順は[AGENTS.md](../AGENTS.md)と[開発者ガイド](../src/uagent/docs/DEVELOP.md)を参照してください。
+Issue、ドキュメント改善、ツール、翻訳、焦点を絞ったPRを歓迎します。
 
 ## ライセンス
+<!-- README-SYNC:license -->
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)の下でライセンスされています。
+UAGは[Apache License 2.0](../LICENSE)で提供されています。
