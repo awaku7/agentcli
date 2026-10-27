@@ -302,7 +302,7 @@ def test_registry_responses_round_updates_legacy_response_state(
 
     assert result == (True, "hello", "", [])
     assert core.responses_state["previous_response_id"] == "resp_new"
-    assert responses.calls[0]["reasoning"] == {"effort": "low"}
+    assert responses.calls[0]["reasoning"] == {"effort": "low", "summary": "auto"}
     assert "reasoning_effort" not in responses.calls[0]
 
 
