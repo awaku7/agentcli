@@ -42,6 +42,7 @@ to a single model provider.
 > does not mean entirely offline or isolated by default.
 
 ## Quick start
+<!-- README-SYNC:quick-start -->
 
 Requires **Python 3.11+**. Install from [PyPI](https://pypi.org/project/uag/)
 and launch the interactive CLI:
@@ -76,6 +77,7 @@ Then try asking:
 are optional.
 
 ## Interfaces
+<!-- README-SYNC:interfaces -->
 
 Use the same agent runtime and tool registry from multiple entry points.
 
@@ -104,6 +106,7 @@ See [interface options](docs/USAGE.md) and
 [environment configuration](docs/ENVIRONMENT.md) for further setup.
 
 ## What you can build
+<!-- README-SYNC:capabilities -->
 
 | Capability | What UAG provides |
 | :--- | :--- |
@@ -115,6 +118,7 @@ See [interface options](docs/USAGE.md) and
 | **Beyond the terminal** | Cloud and communication integrations, documents, media, realtime voice, and supported IoT protocols. |
 
 ### One runtime, many integrations
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -131,6 +135,7 @@ Amazon Bedrock, Grok, DeepSeek, OpenRouter, Ollama, llama.cpp, and LM Studio.
 For provider-specific settings, see [Environment variables](docs/ENVIRONMENT.md).
 
 ### Customize it with skills and plugins
+<!-- README-SYNC:extensions -->
 
 Extend UAG without modifying the core. Install Agent Skills from SkillsMP or
 ClawHub, connect MCP servers, or load Claude Code-compatible plugins with tools,
@@ -149,8 +154,10 @@ supported. Start with the [Tool Creator Guide](TOOL_CREATOR_GUIDE.md),
 [MCP OAuth / Proxy Guide](docs/MCP_OAUTH_PROXY_GUIDE.md).
 
 ## Built for real workflows
+<!-- README-SYNC:workflows -->
 
 ### Context and memory
+<!-- README-SYNC:context-memory -->
 
 Large tool results can be saved as **Artifacts** instead of crowding the active
 model context. An agent can retrieve the relevant portion later using
@@ -162,6 +169,7 @@ and explicit memory review workflows.
 - [Session portability](docs/SESSION_PORTABILITY.md)
 
 ### Automation and collaboration
+<!-- README-SYNC:automation -->
 
 UAG supports parallel independent read operations, multi-agent coordination,
 session recovery, and Auto-pilot for multi-round work. Use `:auto` to start
@@ -173,6 +181,7 @@ Auto-pilot stop.
 - [Multi-agent runtime](docs/MULTI_AGENT_RUNTIME.md)
 
 ### Security and observability
+<!-- README-SYNC:security -->
 
 Sensitive operations can require `human_ask` confirmation. Credentials can be
 stored in the operating system's credential manager or an encrypted file
@@ -191,6 +200,7 @@ execution is sandboxed. See the deployment and policy guides before exposing
 UAG to untrusted users or networks.
 
 ### Languages, devices, and voice
+<!-- README-SYNC:languages -->
 
 UAG includes resources for **38 locales** (English plus 37 translations),
 optional full-duplex voice integrations, and tools for systems such as SwitchBot,
@@ -201,6 +211,7 @@ Matter, ECHONET Lite, BACnet, Modbus TCP, and OPC UA.
 - [Communication tools](docs/COMMUNICATION.md)
 
 ## Documentation
+<!-- README-SYNC:documentation -->
 
 | Start here | Go deeper |
 | :--- | :--- |
@@ -216,6 +227,7 @@ Browse the [documentation directory](docs/) or read the
 [other translations](docs/README.translations.md).
 
 ## Development and contributing
+<!-- README-SYNC:contributing -->
 
 ~~~bash
 git clone https://github.com/awaku7/agentcli.git
@@ -237,5 +249,6 @@ guidelines. Issues, documentation improvements, tools, translations,
 and focused pull requests are welcome.
 
 ## License
+<!-- README-SYNC:license -->
 
 UAG is released under the [Apache License 2.0](LICENSE).
