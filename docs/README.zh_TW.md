@@ -97,6 +97,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 提供者介面卡涵蓋託管及本機執行環境，包括：
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - 讀取、建立、編輯、搜尋、雜湊、封存及檢查檔案
 - 審查 Git 變更、掃描機密資料、執行測試、Lint、編譯及測量涵蓋率
 - 導覽大型 Python、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBA 及其他程式碼庫

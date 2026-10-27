@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Leverantörsadaptrar täcker värdbaserade och lokala körmiljöer, bland annat:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Läsa, skapa, redigera, söka i, hasha, arkivera och inspektera filer
 - Granska Git-ändringar, söka efter hemligheter, köra tester, lintning, kompilera och mäta täckning
 - Navigera i stora kodbaser i Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA och andra språk

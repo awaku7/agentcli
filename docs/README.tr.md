@@ -94,6 +94,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Sağlayıcı adaptörleri, aşağıdakiler dâhil olmak üzere barındırılan ve yerel çalışma zamanlarını kapsar:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Dosyaları okuyun, oluşturun, düzenleyin, arayın, özetleyin, arşivleyin ve inceleyin
 - Git değişikliklerini inceleyin, gizli bilgileri tarayın, testleri çalıştırın, lint uygulayın, derleyin ve kapsamı ölçün
 - Büyük Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA ve diğer kod tabanlarında gezinin

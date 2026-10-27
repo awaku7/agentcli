@@ -97,6 +97,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 プロバイダーアダプターは、次のようなホスト型・ローカルの各種ランタイムに対応しています。
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - ファイルの読み取り、作成、編集、検索、ハッシュ計算、アーカイブ、検査
 - Gitの変更確認、シークレットのスキャン、テスト実行、Lint、コンパイル、カバレッジ計測
 - 大規模なPython、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBAなどのコードベースをナビゲート

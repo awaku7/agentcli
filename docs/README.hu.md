@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 A szolgáltatóadapterek hosztolt és helyi futtatókörnyezeteket fednek le, többek között:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Fájlok olvasása, létrehozása, szerkesztése, keresése, hash-elése, archiválása és vizsgálata
 - Git-módosítások áttekintése, titkok keresése, tesztek futtatása, lintelés, fordítás és a lefedettség mérése
 - Nagy Python-, TypeScript-, JavaScript-, Go-, Rust-, C/C++-, Java-, C#-, COBOL-, VBA- és egyéb kódbázisok navigálása

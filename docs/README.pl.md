@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Adaptery dostawców obejmują runtime'y hostowane i lokalne, w tym:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Odczytywać, tworzyć, edytować, wyszukiwać, haszować, archiwizować i sprawdzać pliki
 - Przeglądać zmiany Git, wyszukiwać sekrety, uruchamiać testy, lintować, kompilować i mierzyć pokrycie
 - Nawigować po dużych bazach kodu Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA i innych

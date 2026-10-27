@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Leverandøradapterar dekkjer vertsbaserte og lokale køyretider, mellom anna:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Les, opprett, rediger, søk i, hash, arkiver og inspiser filer
 - Gå gjennom Git-endringar, skann etter løyndommar, køyr testar, lint, kompiler og mål dekning
 - Naviger i store kodebasar i Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA og andre språk

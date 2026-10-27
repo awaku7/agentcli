@@ -95,6 +95,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Provider adapters hosted और local runtimes को support करते हैं, जिनमें शामिल हैं:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Files को read, create, edit, search, hash, archive और inspect करें
 - Git changes की समीक्षा करें, secrets scan करें, tests चलाएँ, lint और compile करें तथा coverage मापें
 - बड़े Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA और अन्य codebases में navigate करें

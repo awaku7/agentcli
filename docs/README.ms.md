@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Penyesuai penyedia meliputi masa jalan hos dan tempatan, termasuk:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Membaca, mencipta, mengedit, mencari, mencincang, mengarkib dan memeriksa fail
 - Menyemak perubahan Git, mengimbas rahsia, menjalankan ujian, lint, kompilasi dan mengukur liputan
 - Menavigasi pangkalan kod Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA dan lain-lain yang besar

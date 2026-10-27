@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Os adaptadores de fornecedores abrangem runtimes alojados e locais, incluindo:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Ler, criar, editar, pesquisar, calcular hashes, arquivar e inspecionar ficheiros
 - Rever alterações Git, procurar segredos, executar testes, fazer lint, compilar e medir a cobertura
 - Navegar em grandes bases de código Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA e outras

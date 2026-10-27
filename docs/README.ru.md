@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Адаптеры провайдеров охватывают облачные и локальные среды выполнения, включая:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Читать, создавать, редактировать, искать, хешировать, архивировать и проверять файлы
 - Просматривать изменения Git, искать секреты, запускать тесты, выполнять линтинг, компиляцию и измерять покрытие
 - Работать с большими кодовыми базами на Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA и других языках

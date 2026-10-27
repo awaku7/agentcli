@@ -98,6 +98,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Anbieteradapter decken gehostete und lokale Laufzeiten ab, darunter:
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - Dateien lesen, erstellen, bearbeiten, durchsuchen, hashen, archivieren und prüfen
 - Git-Änderungen prüfen, nach Geheimnissen suchen, Tests ausführen, linten, kompilieren und Coverage messen
 - Große Python-, TypeScript-, JavaScript-, Go-, Rust-, C/C++-, Java-, C#-, COBOL-, VBA- und andere Codebasen durchsuchen

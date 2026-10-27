@@ -94,6 +94,8 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 提供商适配器覆盖托管和本地运行时，包括：
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
 - 读取、创建、编辑、搜索、计算哈希、归档和检查文件
 - 审查 Git 更改、扫描机密、运行测试、执行代码检查、编译并测量覆盖率
 - 浏览大型 Python、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBA 及其他代码库
