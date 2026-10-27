@@ -22,7 +22,7 @@ jobs:
           mkdir -p "$(dirname 'src/uagent/web_impl/routes_integration.py')"
           gh api 'repos/awaku7/agentcli/git/blobs/fb9c93933607fce449a9d03cd2695e34874ae7cf' --jq .content | base64 -d > 'src/uagent/web_impl/routes_integration.py'
           mkdir -p "$(dirname 'src/uagent/web_impl/routes_integration_write.py')"
-          gh api 'repos/awaku7/agentcli/git/blobs/fae8df56c99f3b652d0f2da79bf7d3fa288a71c4' --jq .content | base64 -d > 'src/uagent/web_impl/routes_integration_write.py'
+          gh api 'repos/awaku7/agentcli/git/blobs/284f34f927597fb572bd5f613f733ee6b5cf5aca' --jq .content | base64 -d > 'src/uagent/web_impl/routes_integration_write.py'
           mkdir -p "$(dirname 'tests/test_integration_management_write.py')"
           gh api 'repos/awaku7/agentcli/git/blobs/312c4398fb0cd4af62b04b179be155df64760bce' --jq .content | base64 -d > 'tests/test_integration_management_write.py'
           mkdir -p "$(dirname 'docs/UAG_ADMIN_MEMBERSHIP_WRITE_CONTRACT.md')"
