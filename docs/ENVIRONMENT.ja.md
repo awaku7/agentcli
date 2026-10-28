@@ -514,6 +514,7 @@ LLM API に直接渡されるオプションパラメータです。
 - `UAGENT_RESPONSES`: `1` に設定すると、対応プロバイダ（Azure/OpenAI/Bedrock/OpenRouter/Ollama）で "Responses API" を有効にします。
 - `UAGENT_OPENAI_FAST_MODE`: `1`/`true`/`yes`/`on` に設定すると OpenAI Fast mode（`service_tier=fast`）を要求します。OpenAI 専用で、Azure や他のプロバイダーでは無視されます。
 - `UAGENT_REASONING`: 推論モデルの推論努力レベル（`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`）。
+- `UAGENT_VLLM_THINKING_TOKEN_BUDGET`: vLLM Chat Completionsで使用する推論トークン上限（省略可、正の整数）。llmcapaで`thinking_token_budget`対応を確認したモデルのみ対象。自動選択時はChat Completionsを選び、Responsesの明示指定はエラーとします。
 - `UAGENT_REASONING_EFFORT`: Grok / xAI モデルの推論努力レベル（`none`, `low`, `medium`, `high`）。
 - `UAGENT_DEBUG_OPENAI_RUNTIME`: `1` に設定すると、OpenAI互換ランタイムのメタデータを記録します。Sarashinaではリクエストのフィールド名、メッセージのrole/フィールド名/content型、ツール名/数、ツールごとのスキーマキーワード名を記録します（プロンプト、応答、APIキー、ツール引数の値は記録しません）。Foundry Localではツール名/数や応答のfinish reason/ツール呼び出し数を記録しますが、プロンプト、応答本文、ツール引数は記録しません。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
