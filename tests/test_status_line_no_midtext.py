@@ -20,6 +20,7 @@ def test_print_status_line_force_closes_open_stream(monkeypatch):
     monkeypatch.setattr(core, "status_busy", True)
     monkeypatch.setattr(core, "status_label", "tool:parallel")
     monkeypatch.setattr(core, "_stream_line_open", True)
+    monkeypatch.setattr(core, "_reasoning_stream_open", True)
 
     t = {"v": 0.0}
 
@@ -39,6 +40,7 @@ def test_print_status_line_force_closes_open_stream(monkeypatch):
     assert out.endswith(chr(10))
     assert "[STATE] BUSY [tool:parallel]" in err
     assert not core._stream_line_open
+    assert not core._reasoning_stream_open
 
 
 def test_print_status_line_waits_for_natural_newline(monkeypatch):

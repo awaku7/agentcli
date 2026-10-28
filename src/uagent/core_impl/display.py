@@ -158,7 +158,7 @@ def print_status_line() -> None:
                         except Exception:
                             pass
                     _core._stream_line_open = False
-                    _reasoning_stream_open = False
+                    _core._reasoning_stream_open = False
                 if prompt_open:
                     # Close and erase an abandoned prompt before writing
                     # [STATE].  A newline alone leaves a misleading
