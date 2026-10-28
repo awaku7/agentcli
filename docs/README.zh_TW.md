@@ -1,135 +1,94 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="UAG — Universal AI Gateway" width="620">
 </p>
-
-<h1 align="center">uag</h1>
+<h1 align="center">UAG</h1>
+<p align="center"><strong>Universal AI Gateway</strong><br>你的 AI 模型。你的工具。你的環境。</p>
 
 <p align="center">
-  <strong>Universal AI Gateway</strong><br>
-  單一本機代理程式。任意模型。任意工具。您的環境，由您作主。
-</p>
-
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
-  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://github.com/awaku7/agentcli/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
-  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="../LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://pepy.tech/projects/uag"><img src="https://static.pepy.tech/personalized-badge/uag?period=total&units=INTERNATIONAL_SYSTEM&left_color=grey&right_color=green&left_text=downloads" alt="Downloads"></a>
 </p>
+<p align="center"><a href="../README.md">English</a> · <a href="README.translations.md">其他語言</a></p>
 
-<p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
-  <a href="https://pypi.org/project/uag/">PyPI</a> ·
-  <a href="https://github.com/awaku7/agentcli/discussions">討論區</a> ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">翻譯</a>
-</p>
+---
 
-______________________________________________________________________
+**UAG 是開放原始碼、以本機執行為優先的 AI 代理執行環境。** 它能將你選擇的語言模型與實際使用的工具及系統連接，透過一致的介面處理程式碼、檔案、瀏覽器、服務與裝置，而不必將工作流程綁定單一模型供應商。
 
-**為什麼選擇 uag？**
+| **自行選擇模型** | **連接實際工具** | **保有掌控權** |
+| :--- | :--- | :--- |
+| OpenAI、Claude、Gemini、Grok、Bedrock、Ollama 等雲端及本機模型 | 檔案、程式碼、Web、MCP、Agent Skills、外掛、雲端服務及 IoT | 本機執行、人工確認、認證資料儲存與可設定的政策 |
 
-uag 是一個本機優先的 AI 代理程式，能將您偏好的模型連接到實際使用的工具。
-它為檔案、瀏覽器、程式碼庫、通訊、雲端 API、IoT 裝置、MCP 伺服器及多代理程式工作流程，
-提供單一且可擴充的執行環境。
-
-- **提供者自由** — OpenAI、Anthropic、Gemini、Azure、Bedrock、Ollama、llama.cpp、Grok、DeepSeek 等。
-- **本機優先執行** — 代理程式執行環境與工具執行都留在您的電腦上；只有您選擇的 API 呼叫會離開本機。
-- **單一工具層** — 相同的工具可從 CLI、桌面 GUI、Web UI、VS Code 及 A2A 使用。
-- **以平行處理為設計核心** — 獨立的唯讀操作可並行執行。
-- **可擴充** — 無需變更核心，即可加入工具、外掛程式、Agent Skills、MCP 伺服器及 Rust 支援的工具。
-- **重視安全性** — 破壞性動作、憑證、裝置控制及網路寫入支援明確確認與政策控管。
-
-> **簡而言之：** uag 是 AI 模型與真實環境之間的控制平面。
-
-> **🧠 具情境感知能力的工具結果** — 在可能的情況下，大型工具結果不會被納入當前模型的情境中。 uag 會將其儲存為「產出物」，並改為向模型傳遞一個帶有穩定 Artifact 參考的有限預覽。當工具產生大量結果時，此舉可大幅減少後續回合所需的輸入標記數量。
-> [詳細的上下文壓縮指南](CONTEXT_COMPRESSION.zh_TW.md)
+> UAG 是**代理執行層，而非模型供應商**。是否呼叫外部模型或已連接的服務取決於你的設定。「本機優先」不表示預設完全離線，也不保證所有工具都在隔離環境中執行。
 
 ## 快速開始
+<!-- README-SYNC:quick-start -->
 
-**Python 3.11+**
-
-```bash
-python -m pip install --upgrade uag
-uag
-```
-
-首次啟動時會開啟設定精靈，協助設定提供者，並將選取的設定儲存於您的本機環境。
-
-常用功能群組如下：
-
-```bash
-python -m pip install "uag[core,providers,tools]"
-```
-
-> 平台整合是選用項目。請只安裝作業系統所需的部分；請參閱
-
-```text
-> What files changed in this repository?
-> Search the web for today's AI news and summarize the top five stories.
-> :help
-```
-
-[Quickstart](QUICKSTART.md) · [Environment](ENVIRONMENT.md)
-
-## 介面
-
-| 介面 | 命令 | 最適合 |
-|---|---|---|
-| **CLI** | `uag` | 快速、以鍵盤為主的工作 |
-| **桌面 GUI** | `uagg` | 原生桌面體驗 |
-| **Web UI** | `uagw` | 以瀏覽器存取 |
-| **A2A 伺服器** | `uaga` | 代理程式間通訊 |
-| **VS Code** | Extension | 在編輯器中解說、重構、修正及瀏覽工具 |
-
-所有介面共用相同的提供者設定、工具登錄、​​安全規則及工作階段資料。
+需要 **Python 3.11 或更新版本**。從 [PyPI](https://pypi.org/project/uag/) 安裝 UAG，接著啟動互動式命令列：
 
 ~~~bash
-# Desktop GUI
+python -m pip install --upgrade uag
+uag
+~~~
+
+首次啟動時，設定精靈會協助選擇模型供應商及設定認證資料。你也可以使用環境變數或認證資料儲存區。若要預先安裝更多模型及工具相依套件，請執行：
+
+~~~bash
+python -m pip install "uag[core,providers,tools]"
+~~~
+
+接著可以試試以下要求：
+
+~~~text
+> 這個 Git 儲存庫有哪些變更？請摘要風險。
+> 搜尋此程式庫的最新文件，並說明遷移步驟。
+> 檢查這些檔案並產生精簡報告。
+> :help
+~~~
+
+初次使用可閱讀 Windows 安裝指南（包含 Git 與虛擬環境的準備）以及環境設定參考： [Quickstart (Windows)](QUICKSTART.md) · [Environment](ENVIRONMENT.md).
+
+## 使用介面
+<!-- README-SYNC:interfaces -->
+
+多種操作介面共用同一個代理執行環境及工具登錄表。
+
+| 介面 | 啟動方式 | 適用用途 |
+| :--- | :--- | :--- |
+| **CLI** | `uag` | 終端機工作與自動化 |
+| **桌面** | `uagg` | 原生桌面對話 |
+| **Web** | `uagw` | 瀏覽器中的對話及房間 |
+| **A2A** | `uaga` | 代理之間的整合 |
+| **VS Code** | [擴充功能指南](VSCODE.md) | 與程式碼編輯並行工作 |
+
+桌面與 Web 介面需要額外的相依套件，快速入門的 `uag[core,providers,tools]` 安裝並未包含這些套件：
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI
+# Web UI (authentication dependencies, FastAPI, and Uvicorn)
 python -m pip install "uag[web]" fastapi uvicorn
 ~~~
 
-[Interface options](USAGE.md) · [Environment](ENVIRONMENT.md)
+Web 伺服器也可能在啟動時嘗試安裝 FastAPI 和 Uvicorn。預先安裝即可避免依賴執行時自動安裝。詳細資訊請參閱： [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).
 
-## 你可以建構什麼
+## UAG 可以完成什麼
+<!-- README-SYNC:capabilities -->
 
-提供者介面卡涵蓋託管及本機執行環境，包括：
+| 能力 | UAG 提供的功能 |
+| :--- | :--- |
+| **與模型無關的工作流程** | 透過 `UAGENT_PROVIDER` 切換雲端或本機模型供應商，不必重新撰寫工具 |
+| **程式碼與檔案操作** | 儲存庫導覽、Git 檢查、程式碼分析、測試、檔案操作與瀏覽器自動化 |
+| **可擴充的工具** | 200 多種工具；以 `tool_catalog` 和 `tool_load` 動態探索與載入；支援 Python 與 Rust 自訂工具 |
+| **互連代理** | MCP 伺服器、A2A、相容 Claude Code 的外掛、Agent Skills 及子代理 |
+| **長時間任務** | 自動駕駛模式、獨立唯讀操作並行執行、排程工作、重新啟動後復原及持久化工作階段 |
+| **不僅限於終端機** | 雲端、通訊、文件、媒體、即時語音與支援的 IoT 通訊協定 |
 
-**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
-
-使用 `UAGENT_PROVIDER` 切換提供者；您的工具與介面不會改變。
-
-**使用您的環境**
-
-- 讀取、建立、編輯、搜尋、雜湊、封存及檢查檔案
-- 審查 Git 變更、掃描機密資料、執行測試、Lint、編譯及測量涵蓋率
-- 導覽大型 Python、TypeScript、JavaScript、Go、Rust、C/C++、Java、C#、COBOL、VBA 及其他程式碼庫
-- 使用 Playwright 自動化瀏覽器，包括多頁工作流程及下載
-
-**連接服務與裝置**
-
-- **MCP** — 連接外部工具伺服器，包括支援 OAuth 的服務
-- **A2A** — 與其他代理程式及相容伺服器協調
-- **Cloud** — 存取 AWS、Google Cloud 及 Azure API，寫入時需要確認
-- **Communication** — Gmail、Bluesky、Discord、Microsoft Teams 及 pybitchat
-- **IoT** — SwitchBot、ECHONET Lite、Matter、BACnet、Modbus TCP、OPC UA 及 UPnP
-- **Media** — 圖片生成／編輯、音訊轉錄／語音、相機擷取及 QR 碼
-- **Documents** — PDF、PowerPoint、Word、Excel、CSV、JSON、YAML、SQL 及日誌分析
-
-**IoT 與實體世界控制**
-
-- **SwitchBot** — Cloud 與 BLE 探索、狀態、控制、批次處理及訂閱
-- **ECHONET Lite** — 探索並控制日本家電，包括 INF 通知
-- **Matter** — 端點、叢集、屬性、狀態歷史、訂閱及控制
-- **BACnet / Modbus TCP / OPC UA** — 工業與建築自動化的讀取、寫入、瀏覽及監控
-- **UPnP** — 裝置探索、WAN 狀態及路由器連接埠映射管理
-
-### uag 的定位
-
-一側是人員與介面，另一側是模型、工具及真實世界系統，而 uag 位於兩者之間。
-它協調對話、選取能力、套用安全規則，並讓工作流程能夠繼續執行。
+### 一個執行環境連結多種系統
+<!-- README-SYNC:integrations -->
 
 ~~~mermaid
 flowchart LR
@@ -141,127 +100,106 @@ flowchart LR
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
 ~~~
 
-### 外掛程式、Agent Skills 與 marketplace
+**支援的模型供應商範例**列於下方；個別設定請參閱環境設定說明。
 
-無需 fork 核心，即可將 uag 變成專用代理程式：
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
 
-- 從目錄、ZIP、Git 儲存庫、HTTP 來源或 marketplace 安裝 **相容 Claude Code 的外掛程式**
-- 打包 skills、sub-agents、MCP 伺服器、hooks、slash commands、輸出樣式、相依套件及 channels
-- 從 [SkillsMP](https://skillsmp.com) 與 [ClawHub](https://clawhub.ai) 瀏覽社群能力
-- 透過 `UAGENT_EXTERNAL_TOOLS_DIR` 在本機加入私人組織的 skills 與工具
+[ENVIRONMENT.md](ENVIRONMENT.md)
 
-```text
+### 使用技能與外掛擴充
+<!-- README-SYNC:extensions -->
+
+不修改核心程式碼也能擴充 UAG。可從 SkillsMP 或 ClawHub 安裝 Agent Skills、連接 MCP 伺服器，或載入包含工具、技能、代理與 hooks 的 Claude Code 相容外掛。
+
+~~~text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-```
+~~~
 
-請參閱 [外掛程式開發指南](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md)。
+自訂工具可提供 `TOOL_SPEC` 與 `run_tool()`；也支援以 Rust 為基礎的工具。請參閱下列開發指南： [Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [Plugin Development Guide](../src/uagent/docs/DEVELOP_PLUGIN.md) · [MCP OAuth / Proxy](MCP_OAUTH_PROXY_GUIDE.md).
 
-- **200+ 個工具**，涵蓋檔案、網頁、媒體、文件、程式碼、雲端、通訊及 IoT
-- **動態探索與載入** — 使用 `tool_catalog` 尋找能力，並僅在需要時使用 `tool_load` 啟用
-- **程式碼智慧** — `code_map`、各語言專用的 `idx` 導覽器、Git 審查、測試執行、Lint、編譯及涵蓋率
-- **相容 Claude Code 的外掛程式**，支援 skills、agents、MCP 伺服器、hooks、commands 及 marketplace
-- **來自 SkillsMP 與 ClawHub 的 Agent Skills**
-- **自訂 Python 工具**，使用 `TOOL_SPEC` 與 `run_tool()`
-- **Rust 支援的工具**，用於輕量原生擴充
+## 支援實際工作流程
+<!-- README-SYNC:workflows -->
 
-[Tool Creator Guide](../TOOL_CREATOR_GUIDE.md) · [MCP OAuth / Proxy Guide](MCP_OAUTH_PROXY_GUIDE.md)
+### 情境與記憶
+<!-- README-SYNC:context-memory -->
 
-## 為實際工作流程打造
+大量工具結果可儲存為**成品資料（Artifacts）**，不必占用模型的活動情境。稍後可使用 `artifact_read` 只取回所需部分。工作階段預設儲存於 SQLite，並支援歷史搜尋與明確的記憶檢視流程。
 
-### 🧠 具情境感知能力的工具結果
+- [Context compression](CONTEXT_COMPRESSION.zh_TW.md)
+- [Memory](MEMORY.md)
+- [Session portability](SESSION_PORTABILITY.md)
 
-在可能的情況下，大型工具結果不會被納入當前模型的情境中。 uag 會將其儲存為「產出物」，並改為向模型傳遞一個帶有穩定 Artifact 參考的有限預覽。當工具產生大量結果時，此舉可大幅減少後續回合所需的輸入標記數量。
+### 自動化與協作
+<!-- README-SYNC:automation -->
 
-使用 `:load <index>` 繼續先前的對話。工具結果可快取，且無需重建應用程式即可變更提供者。
+UAG 支援獨立唯讀操作並行執行、多代理協調、工作階段復原及多回合任務的自動駕駛模式。使用 `:auto` 啟動；按 **F12** 可中斷目前的回答並要求停止自動駕駛。
 
-[Context compression](CONTEXT_COMPRESSION.zh_TW.md) · [Memory](MEMORY.md) · [Session portability](SESSION_PORTABILITY.md)
+- [Auto-pilot](README_AUTO.md)
+- [Timers and scheduled tasks](SET_TIMER.md)
+- [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
 
-### Auto-pilot
+### 安全性與可觀測性
+<!-- README-SYNC:security -->
 
-使用 `:auto` 執行多輪工作，並可選擇審查者模型。使用 `--max-rounds N` 設定輪次上限。
-按下 **F12** 停止 auto-pilot，或按下 **F12** 停止目前回應。
-
-在安全的情況下，獨立的唯讀操作會並行執行。網頁搜尋、檔案檢查、
-儲存庫分析及類似工作負載可透過可設定的工作執行緒池
-（`UAGENT_PARALLEL_WORKERS`）平行完成。寫入操作仍會序列化，或需要確認。
-
-工作階段延續、工具結果快取、批次狀態、重新啟動復原、DAG 排程及多代理程式協調，
-讓複雜工作可恢復執行，而不是只能一次完成。
-
-[Auto-pilot](README_AUTO.md) · [Timers](SET_TIMER.md) · [Multi-agent runtime](MULTI_AGENT_RUNTIME.md)
-
-### 🌍 私密、多語言且具政策意識
-
-`human_ask` 會在敏感動作前暫停。檔案刪除、覆寫、Shell 命令、裝置控制、
-憑證操作及網路寫入，都可由確認與政策規則管理。
-
-請使用憑證儲存區，而不要將長期機密放入提示中：
-
-Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登入、已驗證的 ID 令牌、伺服器端會話以及專案/房間存取控制。配置後，已驗證的 Microsoft Entra ID 群組聲明可用於目錄支援的存取政策。Windows Active Directory、OAuth 和 trusted-proxy 部署可透過明確的已驗證身份適配器整合；Windows AD 需要特定部署的 Kerberos/Negotiate 驗證器，且預設未啟用。
-
-uag 提供可選啟用、與供應商無關的 OpenTelemetry 追蹤和指標，涵蓋 Agent、LLM、工具、Context、Memory 和檢索操作。可觀察性預設停用。
-
-本地優先不代表預設完全離線，也不代表所有工具的執行皆受到隔離。外部模型與連線服務的呼叫取決於實際設定。
+敏感操作可以要求透過 `human_ask` 進行人工確認。認證資料可存於作業系統的認證管理員或加密檔案。經設定後，Web 介面支援 OIDC 登入及存取控制。OpenTelemetry 追蹤和指標屬於**選擇性啟用**功能。
 
 - [Enterprise policies](ENTERPRISE_POLICY.md)
 - [MXC sandbox](SANDBOX_MXC.md)
-- [Remote Web / A2A](REMOTE_MXC_DEFAULT.md)
-- [Web identity](WEB_IDENTITY_MEMORY.md)
-- [OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md)
+- [Remote Web / A2A MXC defaults](REMOTE_MXC_DEFAULT.md)
+- [Web identity and rooms](WEB_IDENTITY_MEMORY.md)
+- [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md)
+- [Developer observability](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)
 
-### 🌍 多語言翻譯
+這些控制措施皆可設定，**並不保證任意工具執行都受沙箱隔離**。向不受信任的使用者或網路公開 UAG 前，請先閱讀部署與政策指南。
 
-- `translate_text` 支援 `Google Translate` 以及透過 `provider=auto`、`provider=deepl` 或 `provider=google` 呼叫的官方 DeepL Python 客戶端。
-- 工具定義提供 37 種語言版本加上英文（共 38 種），並保留佔位符與技術識別碼。
+### 語言、裝置與語音
+<!-- README-SYNC:languages -->
 
-透過 OpenAI Realtime、Azure OpenAI、xAI Grok Voice、Gemini Live 及 Bedrock Nova Sonic 提供全雙工語音，
-並可選用 AEC3 回音消除及受安全限制的即時函式呼叫。
+UAG 提供 **38 個地區語言版本**（英文及 37 種翻譯）、可選用的全雙工語音整合，以及 SwitchBot、Matter、ECHONET Lite、BACnet、Modbus TCP、OPC UA 等系統的工具。
 
-[Translations](README.translations.md) · [IoT](IOT_USECASE.md) · [Communication](COMMUNICATION.md)
+- [Translations](README.translations.md)
+- [IoT use cases](IOT_USECASE.md)
+- [Communication tools](COMMUNICATION.md)
 
 ## 文件
+<!-- README-SYNC:documentation -->
 
-| 主題 | 文件 |
-|---|---|
-| 環境變數 | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
-| 架構與不變量 | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
-| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| 儲存庫工具 | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| IoT 使用案例 | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| 通訊工具 | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
-| MCP OAuth／Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| VS Code 擴充功能 | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| 開發者指南 | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| 工具流程 | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+可從以下文件開始閱讀，再深入各項主題：
 
-[Quickstart](QUICKSTART.md) · [Architecture](ARCHITECTURE.md) · [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md)
+| 開始閱讀 | 深入了解 |
+| :--- | :--- |
+| [Quickstart (Windows)](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) |
+| [CLI usage](USAGE.md) | [Context management](UAG_CONTEXT_MANAGEMENT_DESIGN.md) |
+| [Environment and providers](ENVIRONMENT.md) | [Enterprise policy](ENTERPRISE_POLICY.md) |
+| [Agent Skills and plugins](../src/uagent/docs/DEVELOP_PLUGIN.md) | [Tool flow](../src/uagent/docs/TOOL_FLOW.md) |
+| [MCP and OAuth](MCP_OAUTH_PROXY_GUIDE.md) | [Computer Use](COMPUTER_USE_IMPLEMENTATION.md) |
+| [VS Code extension](VSCODE.md) | [Developer guide](../src/uagent/docs/DEVELOP.md) |
+
+也歡迎瀏覽完整文件目錄及其他語言版本： [Documentation](./) · [Other languages](README.translations.md).
 
 ## 開發與貢獻
+<!-- README-SYNC:contributing -->
 
-```bash
+~~~bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-```
+~~~
 
-執行 PR 前檢查：
+提交涉及 **Python 程式碼**變更的拉取請求之前，請執行相關測試及專案檢查：
 
-```bash
+~~~bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-```
+~~~
 
-完整的開發流程請參閱 [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)。
-
-歡迎回報錯誤、提出功能構想、改善文件、提供翻譯、工具、skills 及 pull request。
-進行大型變更前，請先開啟 issue 或討論。閱讀 [開發者指南](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)，
-並在提交 pull request 前執行上述檢查。
+貢獻規範與開發指南如下。歡迎問題回報、文件改善、工具、翻譯及聚焦的拉取請求： [AGENTS.md](../AGENTS.md) · [Developer guide](../src/uagent/docs/DEVELOP.md).
 
 ## 授權條款
+<!-- README-SYNC:license -->
 
-本專案採用 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) 授權。
+UAG 依下列授權條款發行： [Apache License 2.0](../LICENSE).
