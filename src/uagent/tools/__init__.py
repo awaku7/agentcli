@@ -14,7 +14,6 @@ from importlib import import_module, reload
 from pkgutil import iter_modules
 from typing import Any, Callable, Optional
 import concurrent.futures
-import threading
 from threading import Lock, RLock
 
 from .._pip_auto import install_with_status as _auto_install
@@ -2728,16 +2727,17 @@ _WARMUP_LOCK = RLock()
 
 
 def start_tools_warmup(*, quiet: bool = True) -> None:
-    """Preload tool plugins in a background thread unless explicitly disabled.
+    """Optionally preload tool plugins synchronously.
 
-    Set ``UAGENT_TOOLS_WARMUP=0`` to opt out and reduce resident RAM at the
-    cost of slower first-use latency.
+    Warmup is disabled by default. Set ``UAGENT_TOOLS_WARMUP=1`` to opt in to
+    a blocking preload. This must stay synchronous: plugin imports can trigger
+    optional-dependency installation, and doing that in a daemon thread causes
+    packages to be installed in the background without being tied to a
+    foreground operation. Without warmup, plugins are loaded synchronously on
+    first access by :func:`_ensure_loaded`.
     """
-    if (os.getenv("UAGENT_TOOLS_WARMUP", "1") or "").strip().lower() in (
-        "0",
-        "false",
-        "no",
-        "off",
+    if (os.getenv("UAGENT_TOOLS_WARMUP", "0") or "").strip().lower() in (
+        "0", "false", "no", "off", ""
     ):
         return
 
@@ -2747,34 +2747,19 @@ def start_tools_warmup(*, quiet: bool = True) -> None:
             return
         _WARMUP_STARTED = True
 
-    def _worker() -> None:
-        try:
-            _ensure_loaded()
-            # Touch dynamic command map so completers are hot too.
-            try:
-                get_dynamic_commands_map()
-            except Exception:
-                pass
-        except Exception as e:
-            if not quiet:
-                try:
-                    print(
-                        f"[WARN] tools warmup failed: {type(e).__name__}: {e}",
-                        file=sys.stderr,
-                    )
-                except Exception:
-                    pass
-
     try:
-        t = threading.Thread(
-            target=_worker,
-            name="uagent-tools-warmup",
-            daemon=True,
-        )
-        t.start()
-    except Exception:
-        # Fallback: best-effort synchronous load if thread cannot start.
+        _ensure_loaded()
+        # Touch dynamic command map so completers are hot too.
         try:
-            _ensure_loaded()
+            get_dynamic_commands_map()
         except Exception:
             pass
+    except Exception as e:
+        if not quiet:
+            try:
+                print(
+                    f"[WARN] tools warmup failed: {type(e).__name__}: {e}",
+                    file=sys.stderr,
+                )
+            except Exception:
+                pass

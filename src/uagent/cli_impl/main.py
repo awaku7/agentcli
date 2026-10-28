@@ -362,8 +362,8 @@ def main() -> int:
     set_llm_event_queue(core.event_queue)
     core.start_interrupt_monitor()
 
-    # Preload tool plugins in background so the first ':' command/completion
-    # does not pay the full plugin-import cost on the interactive path.
+    # Optional synchronous plugin preloading is disabled by default; tool
+    # modules otherwise load when the registry is first accessed.
     if not UAGENT_NON_INTERACTIVE and sandbox_mode == "off":
         try:
             tools.start_tools_warmup()

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Disable startup tool preloading by default and make opt-in preloading synchronous, preventing dependency installation from running in a background warmup thread.
+- Raise the minimum `llmcapa` version to the current PyPI latest, `0.5.72`.
+
 ## [0.7.36] - 2026-10-27
 
 ### Added
