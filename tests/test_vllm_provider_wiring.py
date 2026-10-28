@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+import warnings
 from types import ModuleType, SimpleNamespace
 
 import pytest
@@ -165,7 +166,8 @@ def test_vllm_auto_does_not_warn_for_unverified_effort(monkeypatch):
         "uagent.providers.openai_projection_policy._choose_auto_effort",
         lambda *_: "high",
     )
-    with pytest.warns(None) as recorded:
+    with warnings.catch_warnings(record=True) as recorded:
+        warnings.simplefilter("always")
         projection = build_openai_projection(
             provider="vllm",
             model="served-model",
