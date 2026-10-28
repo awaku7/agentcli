@@ -37,3 +37,17 @@ vllm serve <model> --host 127.0.0.1 --port 8000 --served-model-name local-model
 ```
 
 Then set `UAGENT_VLLM_DEPNAME=local-model`. If you expose the server beyond loopback, protect it with an API key and appropriate network controls; the UAG API key setting only provides client authentication and does not secure the server's network exposure by itself.
+
+## Numerical thinking token budget
+
+Set `UAGENT_VLLM_THINKING_TOKEN_BUDGET` to a positive integer to bound the model's reasoning tokens in vLLM Chat Completions. This setting is separate from `UAGENT_REASONING` and does not change the total `max_tokens` generation limit.
+
+```dotenv
+UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
+# Optional: force Chat Completions explicitly.
+UAGENT_RESPONSES=0
+```
+
+When the budget is set, automatic transport selection prefers Chat Completions. Explicitly setting `UAGENT_RESPONSES=1` raises an error: the vLLM Responses API path has not been verified for this extension. Invalid or nonpositive budgets also raise an error. The model's **vLLM-scoped llmcapa metadata** must explicitly advertise a numerical `thinking_token_budget` control; unsupported models are rejected rather than silently ignoring the setting. The served model name must resolve to the corresponding llmcapa vLLM model ID. Until the verified llmcapa overlay is published and installed, even a capable model may be reported as unverified.
+
+Start vLLM with an appropriate reasoning parser (for example, `--reasoning-parser qwen3` for the relevant Qwen3 server/model combination). The vLLM version, parser and model must support thinking budgets for the setting to take effect.

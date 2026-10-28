@@ -37,3 +37,19 @@ vllm serve <model> --host 127.0.0.1 --port 8000 --served-model-name local-model
 ```
 
 この場合は`UAGENT_VLLM_DEPNAME=local-model`を設定します。サーバーをloopback以外に公開する場合は、APIキーと適切なネットワーク制御で保護してください。UAGのAPIキー設定はクライアント認証用であり、サーバーのネットワーク公開自体を保護するものではありません。
+
+## 数値による推論トークン予算
+
+`UAGENT_VLLM_THINKING_TOKEN_BUDGET`に正の整数を指定すると、vLLMのChat Completionsで推論トークン数の上限を指定できます。`UAGENT_REASONING`の推論強度とは別の機能であり、生成全体の`max_tokens`上限も変更しません。
+
+```dotenv
+UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
+# 必要ならChat Completionsに明示的に固定します。
+UAGENT_RESPONSES=0
+```
+
+予算を指定すると自動トランスポート選択はChat Completionsを優先します。`UAGENT_RESPONSES=1`を明示した場合はエラーになります。vLLMのResponses API経由でこの拡張値を利用できることが未検証のためです。不正な値や0以下の値もエラーになります。
+
+**llmcapaのvLLM専用モデル情報**に数値制御`thinking_token_budget`の対応が明示されている場合に限り送信します。未確認のモデルには黙って送信しません。サーバーが公開するモデル名がllmcapaの該当するvLLMモデルIDとして解決できる必要があります。llmcapa側の検証済みデータがリリース・インストールされるまでは、対応モデルでも未確認と判定されることがあります。
+
+vLLMはモデルに合ったreasoning parser（該当するQwen3モデルとサーバーの組合せでは例として`--reasoning-parser qwen3`）を設定して起動してください。使用するvLLMのバージョン、parser、モデルにも予算制御の対応が必要です。
