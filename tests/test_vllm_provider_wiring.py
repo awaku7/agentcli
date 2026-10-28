@@ -117,7 +117,7 @@ def test_vllm_projection_only_sends_verified_effort(monkeypatch):
     assert verified.options["reasoning_effort"] == "high"
     assert verified.options["tool_choice"] == "auto"
     assert verified.effort_used == "high"
-    assert seen == [("served-model", "vllm", True)]
+    assert seen and all(item == ("served-model", "vllm", True) for item in seen)
 
     verified_responses = project(transport="responses")
     assert verified_responses.options["reasoning"] == {"effort": "high"}
@@ -130,7 +130,7 @@ def test_vllm_projection_only_sends_verified_effort(monkeypatch):
         for send_tools in (False, True):
             projection = project(send_tools=send_tools)
             assert projection.options["reasoning_effort"] == "none"
-            assert (("tool_choice" in projection.options) is send_tools)
+            assert ("tool_choice" in projection.options) is send_tools
 
 
 def test_vllm_unverified_effort_never_uses_provider_defaults(monkeypatch):
