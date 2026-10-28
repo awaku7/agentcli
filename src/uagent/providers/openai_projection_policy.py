@@ -445,6 +445,11 @@ def build_openai_projection(
                 raise ValueError(
                     "UAGENT_VLLM_THINKING_TOKEN_BUDGET must be a positive integer"
                 )
+            if use_responses_api:
+                raise ValueError(
+                    "thinking_token_budget is not verified for vLLM Responses API; "
+                    "set UAGENT_RESPONSES=0 to use Chat Completions"
+                )
             if vllm_budget_control is None:
                 raise ValueError(
                     f"vLLM model {model!r} has no verified thinking_token_budget "
