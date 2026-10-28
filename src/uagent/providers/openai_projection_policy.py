@@ -55,6 +55,48 @@ def _verified_vllm_reasoning_efforts(model: str) -> set[str]:
     }
 
 
+_VLLM_REASONING_BUDGETS = {
+    "minimal": 128,
+    "low": 512,
+    "medium": 2048,
+    "high": 4096,
+    "xhigh": 8192,
+}
+
+
+def _verified_vllm_budget_control(model: str) -> dict[str, Any] | None:
+    """Only model-scoped verified vLLM numeric-budget controls are usable."""
+    cap = llmcapa_util.get_capability(model, "vllm", scoped_only=True)
+    if cap is None or getattr(cap, "supports_thinking_budget", None) is not True:
+        return None
+    control = cap.get_thinking_control()
+    if (
+        not isinstance(control, dict)
+        or control.get("kind") != "budget"
+        or control.get("parameter") != "thinking_token_budget"
+        or control.get("type") != "token_range"
+    ):
+        return None
+    return control
+
+
+def _vllm_budget_for_reasoning(level: str, control: dict[str, Any]) -> int | None:
+    """Map UAG effort to vLLM budget, respecting llmcapa bounds if supplied."""
+    target = _VLLM_REASONING_BUDGETS.get(level)
+    if target is None:
+        return None
+    minimum = control.get("min", 1)
+    maximum = control.get("max")
+    if not isinstance(minimum, int) or isinstance(minimum, bool) or minimum < 1:
+        return None
+    if maximum is not None and (
+        not isinstance(maximum, int) or isinstance(maximum, bool) or maximum < minimum
+    ):
+        return None
+    target = max(minimum, target)
+    return min(target, maximum) if maximum is not None else target
+
+
 def sanitize_sarashina_tool_specs(tool_specs: Any) -> list[dict[str, Any]]:
     """Strip tool-schema keywords outside Sarashina's documented subset."""
 
@@ -245,9 +287,17 @@ def build_openai_projection(
     elif reasoning and reasoning not in {"off", "false", "none"}:
         effort_used = reasoning
 
-    if provider_key == "vllm" and vllm_budget_text:
-        # An explicit numerical budget wins over effort, including "off" and
-        # auto-selected efforts. Never send two reasoning controls together.
+    vllm_budget_control = (
+        _verified_vllm_budget_control(model) if provider_key == "vllm" else None
+    )
+    vllm_auto_budget = (
+        _vllm_budget_for_reasoning(effort_used, vllm_budget_control)
+        if vllm_budget_control is not None and effort_used is not None
+        else None
+    )
+    if provider_key == "vllm" and (vllm_budget_text or vllm_auto_budget is not None):
+        # Explicit numeric budget > derived numeric budget > effort.
+        # Both reasoning controls must never appear in one request.
         effort_used = None
     elif provider_key == "vllm":
         # "off" is only representable by reasoning_effort=none on models
@@ -383,34 +433,40 @@ def build_openai_projection(
             ]
 
     if provider_key == "vllm":
-        budget_text = vllm_budget_text
-        if budget_text:
-            # This is a numerical, per-request reasoning ceiling, not an effort.
-            if not budget_text.isascii() or not budget_text.isdecimal():
+        budget = vllm_auto_budget
+        if vllm_budget_text:
+            # Explicitly configured numeric tokens override UAG_REASONING.
+            if not vllm_budget_text.isascii() or not vllm_budget_text.isdecimal():
                 raise ValueError(
                     "UAGENT_VLLM_THINKING_TOKEN_BUDGET must be a positive integer"
                 )
-            budget = int(budget_text)
+            budget = int(vllm_budget_text)
             if budget <= 0:
                 raise ValueError(
                     "UAGENT_VLLM_THINKING_TOKEN_BUDGET must be a positive integer"
                 )
+            if vllm_budget_control is None:
+                raise ValueError(
+                    f"vLLM model {model!r} has no verified thinking_token_budget "
+                    "support in llmcapa"
+                )
+            minimum = vllm_budget_control.get("min", 1)
+            maximum = vllm_budget_control.get("max")
+            if (
+                isinstance(minimum, int)
+                and budget < minimum
+                or isinstance(maximum, int)
+                and budget > maximum
+            ):
+                raise ValueError(
+                    f"vLLM thinking_token_budget {budget} is outside the "
+                    f"llmcapa model range [{minimum}, {maximum}]"
+                )
+        if budget is not None:
             if use_responses_api:
                 raise ValueError(
                     "thinking_token_budget is not verified for vLLM Responses API; "
                     "set UAGENT_RESPONSES=0 to use Chat Completions"
-                )
-            cap = llmcapa_util.get_capability(model, "vllm", scoped_only=True)
-            control = cap.get_thinking_control() if cap is not None else None
-            if (
-                getattr(cap, "supports_thinking_budget", None) is not True
-                or not isinstance(control, dict)
-                or control.get("kind") != "budget"
-                or control.get("parameter") != "thinking_token_budget"
-            ):
-                raise ValueError(
-                    f"vLLM model {model!r} has no verified thinking_token_budget "
-                    "support in llmcapa"
                 )
             options["extra_body"] = {"thinking_token_budget": budget}
 

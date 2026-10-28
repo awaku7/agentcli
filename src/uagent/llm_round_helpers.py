@@ -281,16 +281,22 @@ def _resolve_round_runtime_flags(
                 capability_resolver=capability_resolver,
             )
 
-    # The numerical vLLM thinking budget is verified on Chat Completions only.
-    # Prefer that transport automatically when the user configured a budget.
-    # An explicit Responses request is left intact so projection can report an
-    # actionable error instead of silently discarding the requested budget.
-    if (
-        provider.strip().lower() == "vllm"
-        and (env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or "").strip()
-        and responses_env not in ("1", "true")
-    ):
-        use_responses_api = False
+    # Explicit/derived vLLM numeric budgets are verified on Chat Completions.
+    # Never override explicit Responses; projection raises a clear error instead.
+    if provider.strip().lower() == "vllm" and responses_env not in ("1", "true"):
+        explicit_budget = (
+            env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or ""
+        ).strip()
+        reasoning_mode = (env_get("UAGENT_REASONING", "") or "").strip().lower()
+        if explicit_budget:
+            use_responses_api = False
+        elif reasoning_mode in {"minimal", "low", "medium", "high", "xhigh", "auto"}:
+            from .providers.openai_projection_policy import (
+                _verified_vllm_budget_control,
+            )
+
+            if _verified_vllm_budget_control(depname) is not None:
+                use_responses_api = False
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
     from .runtime.capability_resolver import streaming_requested_enabled
