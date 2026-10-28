@@ -337,6 +337,40 @@ def build_openai_projection(
     ):
         options["reasoning_effort"] = "none"
 
+    if provider_key == "vllm":
+        budget_text = (
+            env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or ""
+        ).strip()
+        if budget_text:
+            # This is a numerical, per-request reasoning ceiling, not an effort.
+            if not budget_text.isascii() or not budget_text.isdecimal():
+                raise ValueError(
+                    "UAGENT_VLLM_THINKING_TOKEN_BUDGET must be a positive integer"
+                )
+            budget = int(budget_text)
+            if budget <= 0:
+                raise ValueError(
+                    "UAGENT_VLLM_THINKING_TOKEN_BUDGET must be a positive integer"
+                )
+            if use_responses_api:
+                raise ValueError(
+                    "thinking_token_budget is not verified for vLLM Responses API; "
+                    "set UAGENT_RESPONSES=0 to use Chat Completions"
+                )
+            cap = llmcapa_util.get_capability(model, "vllm", scoped_only=True)
+            control = cap.get_thinking_control() if cap is not None else None
+            if (
+                getattr(cap, "supports_thinking_budget", None) is not True
+                or not isinstance(control, dict)
+                or control.get("kind") != "budget"
+                or control.get("parameter") != "thinking_token_budget"
+            ):
+                raise ValueError(
+                    f"vLLM model {model!r} has no verified thinking_token_budget "
+                    "support in llmcapa"
+                )
+            options["extra_body"] = {"thinking_token_budget": budget}
+
     if send_tools:
         options["tool_choice"] = "auto"
         if not use_responses_api and provider_key in {"openai", "azure"}:
