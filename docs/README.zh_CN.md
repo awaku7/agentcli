@@ -102,6 +102,10 @@ flowchart LR
 
 **支持的模型提供商示例**如下；各提供商的专用配置请参阅环境配置参考。
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### 用技能与插件扩展
 <!-- README-SYNC:extensions -->
 

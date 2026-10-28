@@ -102,6 +102,10 @@ flowchart LR
 
 **Ví dụ các nhà cung cấp mô hình được hỗ trợ** ở bên dưới; xem tài liệu môi trường để biết cài đặt riêng.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Tùy chỉnh bằng kỹ năng và plugin
 <!-- README-SYNC:extensions -->
 

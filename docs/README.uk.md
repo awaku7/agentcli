@@ -102,6 +102,10 @@ flowchart LR
 
 **Приклади підтримуваних постачальників моделей** наведено нижче. Особливі налаштування містяться в документації середовища.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Налаштування за допомогою навичок і плагінів
 <!-- README-SYNC:extensions -->
 

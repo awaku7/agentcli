@@ -102,6 +102,10 @@ flowchart LR
 
 **Mifano ya watoa huduma wa modeli wanaokubaliwa** ipo hapa chini. Mipangilio maalumu iko kwenye nyaraka za mazingira.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Binafsisha kwa ujuzi na programu-jalizi
 <!-- README-SYNC:extensions -->
 

@@ -102,6 +102,10 @@ flowchart LR
 
 **Exemplos de provedores compatíveis:** veja a lista abaixo. As configurações específicas estão na referência do ambiente.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Personalize com skills e plugins
 <!-- README-SYNC:extensions -->
 

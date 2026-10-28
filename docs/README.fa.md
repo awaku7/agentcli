@@ -102,6 +102,10 @@ flowchart LR
 
 **نمونه‌هایی از ارائه‌دهندگان مدل پشتیبانی‌شده** در ادامه آمده‌اند. تنظیمات اختصاصی در راهنمای محیط توضیح داده شده است.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### سفارشی‌سازی با مهارت‌ها و افزونه‌ها
 <!-- README-SYNC:extensions -->
 

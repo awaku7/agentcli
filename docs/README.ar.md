@@ -102,6 +102,10 @@ flowchart LR
 
 **أمثلة لمزوّدي النماذج المدعومين** مدرجة أدناه. راجع دليل البيئة لإعدادات كل مزوّد.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### التخصيص بالمهارات والإضافات
 <!-- README-SYNC:extensions -->
 

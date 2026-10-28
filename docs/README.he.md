@@ -102,6 +102,10 @@ flowchart LR
 
 **דוגמאות לספקי מודלים נתמכים** מופיעות בהמשך. הגדרות ייעודיות מפורטות בתיעוד הסביבה.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### התאמה אישית עם כישורים ותוספים
 <!-- README-SYNC:extensions -->
 

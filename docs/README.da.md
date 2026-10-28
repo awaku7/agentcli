@@ -102,6 +102,10 @@ flowchart LR
 
 **Eksempler på understøttede leverandører** er vist nedenfor. Leverandørindstillinger findes i miljøvejledningen.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Tilpas med skills og plugins
 <!-- README-SYNC:extensions -->
 

@@ -102,6 +102,10 @@ flowchart LR
 
 **Voorbeelden van ondersteunde modelaanbieders** staan hieronder. Hun specifieke instellingen vindt u in de configuratiehandleiding.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Aanpassen met skills en plug-ins
 <!-- README-SYNC:extensions -->
 

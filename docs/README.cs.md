@@ -102,6 +102,10 @@ flowchart LR
 
 **Příklady podporovaných poskytovatelů** jsou níže. Konkrétní nastavení najdete v příručce prostředí.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Přizpůsobení pomocí dovedností a pluginů
 <!-- README-SYNC:extensions -->
 

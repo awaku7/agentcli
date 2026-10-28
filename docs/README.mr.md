@@ -102,6 +102,10 @@ flowchart LR
 
 **समर्थित मॉडेल पुरवठादारांची उदाहरणे** खाली आहेत. प्रत्येक पुरवठादाराची सेटिंग्ज पर्यावरण दस्तऐवजात आहेत.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### स्किल्स आणि प्लगइनद्वारे सानुकूलन
 <!-- README-SYNC:extensions -->
 

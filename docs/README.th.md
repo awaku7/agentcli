@@ -102,6 +102,10 @@ flowchart LR
 
 **ตัวอย่างผู้ให้บริการโมเดลที่รองรับ** อยู่ด้านล่าง การตั้งค่าเฉพาะดูได้ในเอกสารสภาพแวดล้อม
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### ปรับแต่งด้วยทักษะและปลั๊กอิน
 <!-- README-SYNC:extensions -->
 

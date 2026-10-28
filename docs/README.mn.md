@@ -102,6 +102,10 @@ flowchart LR
 
 **Дэмжигдсэн загвар нийлүүлэгчдийн жишээ** доор байна. Тусгай тохиргоог орчны баримт бичгээс харна уу.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Ур чадвар болон нэмэлтээр өргөтгөх
 <!-- README-SYNC:extensions -->
 

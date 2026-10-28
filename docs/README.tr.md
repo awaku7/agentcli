@@ -102,6 +102,10 @@ flowchart LR
 
 **Desteklenen model sağlayıcılarına örnekler** aşağıdadır. Sağlayıcıya özel ayarlar ortam kılavuzundadır.
 
+**OpenAI · Anthropic · Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · Grok · DeepSeek · OpenRouter · Ollama · llama.cpp · LM Studio**
+
+[ENVIRONMENT.md](ENVIRONMENT.md)
+
 ### Beceriler ve eklentilerle özelleştirme
 <!-- README-SYNC:extensions -->
 
