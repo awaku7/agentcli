@@ -1,6 +1,6 @@
 # vLLM Qwen Reasoning Token Budget
 
-- Status: planned
+- Status: implemented by PR #292 and extended by PR #293
 - Priority: P2
 - Source:
   - [Qwen3.5 / Qwen3.6 vLLM recipe](https://docs.vllm.ai/projects/recipes/en/stable/Qwen/Qwen3.5.html)
@@ -15,7 +15,7 @@ UAGからQwen3.6等のQwen3系vLLMモデルに、推論トークンの数値上�
 ## 対象範囲
 
 - vLLMプロバイダーのみ。
-- `UAGENT_REASONING`の標準effort指定とは分離した、数値の推論トークン予算。
+- 共通の`UAGENT_REASONING`から、llmcapaでbudget対応と確認されたvLLMモデルの数値予算を導出する。数値の明示指定は上書き値。
 - Qwen3.6を最初の対象とし、vLLMが対応を確認したQwen3系にも適用可能にする。
 - 現時点で公式vLLMドキュメントが示すChat Completions経路を先に検証する。Responses APIへの同パラメーター伝達は別途確認し、確認できるまでは対応済みと扱わない。
 

@@ -26,7 +26,7 @@ Responses API continuation with `previous_response_id` is tested against the run
 
 If an explicitly configured value cannot be verified, UAG omits the request parameter and emits a runtime warning rather than sending a potentially unsupported value. This includes `UAGENT_REASONING=off`: UAG sends `none` only when that value is verified, so otherwise the server/model's default reasoning behavior remains in effect. Automatic effort selection (`auto`) silently falls back to model defaults when not verified.
 
-Numerical `thinking_token_budget` is a separate vLLM feature and is not inferred from an effort level. Support for forwarding that budget is tracked in [the implementation plan](plans/VLLM_REASONING_BUDGET.md).
+Numerical `thinking_token_budget` is a separate vLLM feature. If llmcapa verifies a numeric-budget control for the vLLM model, UAG converts `UAGENT_REASONING` into a numeric budget rather than transmitting effort. An explicit `UAGENT_VLLM_THINKING_TOKEN_BUDGET` overrides the conversion; effort and budget are never sent together.
 
 ## Start vLLM
 
@@ -40,7 +40,7 @@ Then set `UAGENT_VLLM_DEPNAME=local-model`. If you expose the server beyond loop
 
 ## Numerical thinking token budget
 
-Set `UAGENT_VLLM_THINKING_TOKEN_BUDGET` to a positive integer to bound the model's reasoning tokens in vLLM Chat Completions. This setting is separate from `UAGENT_REASONING` and does not change the total `max_tokens` generation limit.
+Set `UAGENT_VLLM_THINKING_TOKEN_BUDGET` to a positive integer to bound the model's reasoning tokens in vLLM Chat Completions. An explicit numeric budget overrides the level-based conversion (`high`, `off`, or `auto`), without sending `reasoning_effort`. Without an explicit number, only llmcapa-verified budget-style models convert the common reasoning level; verified effort-only models retain effort handling. This does not change the total `max_tokens` generation limit.
 
 ```dotenv
 UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
@@ -48,6 +48,8 @@ UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
 UAGENT_RESPONSES=0
 ```
 
-When the budget is set, automatic transport selection prefers Chat Completions. Explicitly setting `UAGENT_RESPONSES=1` raises an error: the vLLM Responses API path has not been verified for this extension. Invalid or nonpositive budgets also raise an error. The model's **vLLM-scoped llmcapa metadata** must explicitly advertise a numerical `thinking_token_budget` control; unsupported models are rejected rather than silently ignoring the setting. The served model name must resolve to the corresponding llmcapa vLLM model ID. Until the verified llmcapa overlay is published and installed, even a capable model may be reported as unverified.
+When the budget is set explicitly or derived from `UAGENT_REASONING`, automatic transport selection prefers Chat Completions. Explicitly setting `UAGENT_RESPONSES=1` raises an error: the vLLM Responses API path has not been verified for this extension. Invalid or nonpositive budgets also raise an error. The model's **vLLM-scoped llmcapa metadata** must explicitly advertise a numerical `thinking_token_budget` control; unsupported models are rejected rather than silently ignoring the setting. The served model name must resolve to the corresponding llmcapa vLLM model ID. Until the verified llmcapa overlay is published and installed, even a capable model may be reported as unverified.
 
 Start vLLM with an appropriate reasoning parser (for example, `--reasoning-parser qwen3` for the relevant Qwen3 server/model combination). The vLLM version, parser and model must support thinking budgets for the setting to take effect.
+
+The default UAG vLLM conversion is `minimal=128`, `low=512`, `medium=2048`, `high=4096`, `xhigh=8192` reasoning tokens. `auto` only derives a budget for tasks selected for reasoning. Converted values respect the model's llmcapa min/max range when provided; explicit values outside advertised bounds are rejected. This is UAG policy, **not** native vLLM effort mapping, and the total generation `max_tokens` limit remains independent. The `off` setting does not invent an unsupported budget of zero; unsupported explicit disable requests still warn.

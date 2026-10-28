@@ -26,7 +26,7 @@ UAGは`/v1/models`から該当モデルの`max_model_len`を取得し、カタ�
 
 明示指定した値の対応を確認できない場合は、誤った値を送信せず、実行時警告を表示してパラメーターを省略します。`UAGENT_REASONING=off`も同様で、`none`への対応が確認されているモデルに限り送信します。未確認の場合、推論のON/OFFはサーバー・モデル側の既定動作に従います。`auto`では未確認の強度指定を省略し、警告は出しません。
 
-数値で上限を指定する`thinking_token_budget`は推論強度とは別の機能で、effortから自動計算しません。実装方針は[計画書](plans/VLLM_REASONING_BUDGET.md)を参照してください。
+数値の`thinking_token_budget`はeffortとは別のAPI制御です。llmcapaでvLLMモデルのbudget対応が確認できた場合、UAGは共通の`UAGENT_REASONING`から数値予算を導出します。数値を明示指定した場合はそれを優先し、effortとbudgetを同時送信しません。
 
 ## vLLMの起動
 
@@ -40,7 +40,7 @@ vllm serve <model> --host 127.0.0.1 --port 8000 --served-model-name local-model
 
 ## 数値による推論トークン予算
 
-`UAGENT_VLLM_THINKING_TOKEN_BUDGET`に正の整数を指定すると、vLLMのChat Completionsで推論トークン数の上限を指定できます。`UAGENT_REASONING`の推論強度とは別の機能であり、生成全体の`max_tokens`上限も変更しません。
+`UAGENT_VLLM_THINKING_TOKEN_BUDGET`に正の整数を指定すると、vLLMのChat Completionsで推論トークン数の上限を指定できます。明示的なbudget指定を`UAGENT_REASONING`（`high`、`off`、`auto`等）から算出した予算より優先し、`reasoning_effort`は同時送信しません。明示指定がなければ、llmcapaで確認したbudget方式のモデルでは共通の推論強度から数値を導出し、effort専用モデルでは従来どおり推論強度を送信します。生成全体の`max_tokens`上限も変更しません。
 
 ```dotenv
 UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
@@ -48,8 +48,10 @@ UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
 UAGENT_RESPONSES=0
 ```
 
-予算を指定すると自動トランスポート選択はChat Completionsを優先します。`UAGENT_RESPONSES=1`を明示した場合はエラーになります。vLLMのResponses API経由でこの拡張値を利用できることが未検証のためです。不正な値や0以下の値もエラーになります。
+予算を明示指定した場合に加え、共通の`UAGENT_REASONING`から予算を算出する場合も自動トランスポート選択はChat Completionsを優先します。`UAGENT_RESPONSES=1`を明示した場合はエラーになります。vLLMのResponses API経由でこの拡張値を利用できることが未検証のためです。不正な値や0以下の値もエラーになります。
 
 **llmcapaのvLLM専用モデル情報**に数値制御`thinking_token_budget`の対応が明示されている場合に限り送信します。未確認のモデルには黙って送信しません。サーバーが公開するモデル名がllmcapaの該当するvLLMモデルIDとして解決できる必要があります。llmcapa側の検証済みデータがリリース・インストールされるまでは、対応モデルでも未確認と判定されることがあります。
 
 vLLMはモデルに合ったreasoning parser（該当するQwen3モデルとサーバーの組合せでは例として`--reasoning-parser qwen3`）を設定して起動してください。使用するvLLMのバージョン、parser、モデルにも予算制御の対応が必要です。
+
+UAGのvLLM向け既定変換値は`minimal=128`、`low=512`、`medium=2048`、`high=4096`、`xhigh=8192`トークンです。`auto`では推論が必要なタスクのみ変換します。llmcapaに上限・下限があれば自動変換値を調整し、明示的な数値が範囲外ならエラーになります。これはUAG側の設定でありvLLMネイティブのeffort指定ではありません。生成全体の`max_tokens`は別の上限です。`off`を根拠なくbudget=0に変換せず、未対応の無効化指定には警告します。
