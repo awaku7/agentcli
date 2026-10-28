@@ -4,6 +4,8 @@ import os
 import sys
 from types import ModuleType, SimpleNamespace
 
+import pytest
+
 from uagent.auth.provider_credentials import get_provider_credential
 from uagent.env_validate import validate_startup_env
 from uagent.providers.provider_caps import (
@@ -75,43 +77,105 @@ def test_vllm_registry_projection_honors_provider_and_shared_temperature(monkeyp
     assert projection.options["temperature"] == 0.2
 
 
-def test_vllm_tool_projection_preserves_configured_reasoning_effort(monkeypatch):
+def test_vllm_projection_only_sends_verified_effort(monkeypatch):
+    def project(transport="chat_completions", send_tools=True):
+        return build_openai_projection(
+            provider="vllm",
+            model="served-model",
+            transport=transport,
+            messages=[{"role": "user", "content": "solve this"}],
+            send_tools=send_tools,
+            compaction_threshold=1000,
+        )
+
     monkeypatch.setenv("UAGENT_REASONING", "high")
-    projection = build_openai_projection(
-        provider="vllm",
-        model="served-model",
-        transport="chat_completions",
-        messages=[{"role": "user", "content": "solve this"}],
-        send_tools=True,
-        compaction_threshold=1000,
+    with pytest.warns(RuntimeWarning, match="no verified reasoning_effort"):
+        unknown = project()
+    assert "reasoning_effort" not in unknown.options
+    assert unknown.options["tool_choice"] == "auto"
+    assert unknown.effort_used is None
+
+    with pytest.warns(RuntimeWarning, match="no verified reasoning_effort"):
+        unknown_responses = project(transport="responses")
+    assert "reasoning" not in unknown_responses.options
+
+    seen = []
+
+    def verified_capability(model, provider, *, scoped_only=False):
+        seen.append((model, provider, scoped_only))
+        return SimpleNamespace(
+            supports_reasoning_effort=True,
+            reasoning_effort_values=["none", "low", "medium", "high"],
+        )
+
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        verified_capability,
     )
-    assert projection.options["reasoning_effort"] == "high"
-    assert projection.options["tool_choice"] == "auto"
+    verified = project()
+    assert verified.options["reasoning_effort"] == "high"
+    assert verified.options["tool_choice"] == "auto"
+    assert verified.effort_used == "high"
+    assert seen == [("served-model", "vllm", True)]
+
+    verified_responses = project(transport="responses")
+    assert verified_responses.options["reasoning"] == {"effort": "high"}
 
     monkeypatch.delenv("UAGENT_REASONING")
-    projection = build_openai_projection(
-        provider="vllm",
-        model="served-model",
-        transport="chat_completions",
-        messages=[{"role": "user", "content": "solve this"}],
-        send_tools=True,
-        compaction_threshold=1000,
-    )
-    assert "reasoning_effort" not in projection.options
+    assert "reasoning_effort" not in project().options
 
     for disabled in ("off", "false", "none"):
         monkeypatch.setenv("UAGENT_REASONING", disabled)
         for send_tools in (False, True):
-            projection = build_openai_projection(
-                provider="vllm",
-                model="served-model",
-                transport="chat_completions",
-                messages=[{"role": "user", "content": "solve this"}],
-                send_tools=send_tools,
-                compaction_threshold=1000,
-            )
+            projection = project(send_tools=send_tools)
             assert projection.options["reasoning_effort"] == "none"
-            assert ("tool_choice" in projection.options) is send_tools
+            assert (("tool_choice" in projection.options) is send_tools)
+
+
+def test_vllm_unverified_effort_never_uses_provider_defaults(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            supports_reasoning_effort=True,
+            reasoning_effort_values=None,
+        ),
+    )
+    with pytest.warns(RuntimeWarning, match="no verified reasoning_effort"):
+        projection = build_openai_projection(
+            provider="vllm",
+            model="served-model",
+            transport="chat_completions",
+            messages=[],
+            send_tools=False,
+            compaction_threshold=1000,
+        )
+    assert "reasoning_effort" not in projection.options
+    assert projection.effort_used is None
+
+
+def test_vllm_auto_does_not_warn_for_unverified_effort(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "auto")
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy._is_thinking_task",
+        lambda *_: True,
+    )
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy._choose_auto_effort",
+        lambda *_: "high",
+    )
+    with pytest.warns(None) as recorded:
+        projection = build_openai_projection(
+            provider="vllm",
+            model="served-model",
+            transport="chat_completions",
+            messages=[{"role": "user", "content": "reason about this"}],
+            send_tools=False,
+            compaction_threshold=1000,
+        )
+    assert not recorded
+    assert "reasoning_effort" not in projection.options
 
 
 def test_vllm_auto_selects_responses_when_llmcapa_confirms_support(monkeypatch):
