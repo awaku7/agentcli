@@ -229,6 +229,11 @@ def build_openai_projection(
     """
     use_responses_api = (transport or "").strip().lower() == "responses"
     provider_key = (provider or "").strip().lower()
+    vllm_budget_text = (
+        (env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or "").strip()
+        if provider_key == "vllm"
+        else ""
+    )
     options: dict[str, Any] = {}
     reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
     auto_user_text = ""
@@ -240,7 +245,11 @@ def build_openai_projection(
     elif reasoning and reasoning not in {"off", "false", "none"}:
         effort_used = reasoning
 
-    if provider_key == "vllm":
+    if provider_key == "vllm" and vllm_budget_text:
+        # An explicit numerical budget wins over effort, including "off" and
+        # auto-selected efforts. Never send two reasoning controls together.
+        effort_used = None
+    elif provider_key == "vllm":
         # "off" is only representable by reasoning_effort=none on models
         # explicitly verified to accept that value. Do not silently promise
         # disabled reasoning for an unknown model.
@@ -374,7 +383,7 @@ def build_openai_projection(
             ]
 
     if provider_key == "vllm":
-        budget_text = (env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or "").strip()
+        budget_text = vllm_budget_text
         if budget_text:
             # This is a numerical, per-request reasoning ceiling, not an effort.
             if not budget_text.isascii() or not budget_text.isdecimal():

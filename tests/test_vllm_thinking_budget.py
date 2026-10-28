@@ -106,3 +106,75 @@ def test_vllm_budget_auto_routes_to_chat_completions(monkeypatch):
         capability_resolver=resolver,
     )
     assert responses is True
+
+
+def _both_controls_capability(*_args, **kwargs):
+    assert kwargs == {"scoped_only": True}
+    return SimpleNamespace(
+        supports_reasoning_effort=True,
+        reasoning_effort_values=["none", "high"],
+        supports_thinking_budget=True,
+        get_thinking_control=lambda: {
+            "kind": "budget",
+            "parameter": "thinking_token_budget",
+            "type": "token_range",
+            "min": 1,
+        },
+    )
+
+
+@pytest.mark.parametrize("reasoning", ["high", "off", "auto"])
+def test_vllm_budget_takes_priority_even_when_both_controls_are_supported(
+    monkeypatch, reasoning
+):
+    monkeypatch.setenv("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "4096")
+    monkeypatch.setenv("UAGENT_REASONING", reasoning)
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        _both_controls_capability,
+    )
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy._is_thinking_task",
+        lambda *_args: True,
+    )
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy._choose_auto_effort",
+        lambda *_args: "high",
+    )
+
+    projection = _project()
+    assert projection.options["extra_body"] == {"thinking_token_budget": 4096}
+    assert "reasoning_effort" not in projection.options
+    assert "reasoning" not in projection.options
+    assert projection.effort_used is None
+
+
+def test_vllm_effort_is_preserved_when_no_budget_is_configured(monkeypatch):
+    monkeypatch.delenv("UAGENT_VLLM_THINKING_TOKEN_BUDGET", raising=False)
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        _both_controls_capability,
+    )
+    projection = _project()
+    assert projection.options["reasoning_effort"] == "high"
+    assert "extra_body" not in projection.options
+    assert projection.effort_used == "high"
+
+
+def test_vllm_budget_suppresses_unverified_effort_warning(monkeypatch):
+    import warnings
+
+    monkeypatch.setenv("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "4096")
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        _verified_capability,
+    )
+    with warnings.catch_warnings(record=True) as recorded:
+        warnings.simplefilter("always")
+        projection = _project()
+
+    assert projection.options["extra_body"] == {"thinking_token_budget": 4096}
+    assert "reasoning_effort" not in projection.options
+    assert not any("reasoning_effort" in str(item.message) for item in recorded)

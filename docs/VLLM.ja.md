@@ -26,7 +26,7 @@ UAGは`/v1/models`から該当モデルの`max_model_len`を取得し、カタ�
 
 明示指定した値の対応を確認できない場合は、誤った値を送信せず、実行時警告を表示してパラメーターを省略します。`UAGENT_REASONING=off`も同様で、`none`への対応が確認されているモデルに限り送信します。未確認の場合、推論のON/OFFはサーバー・モデル側の既定動作に従います。`auto`では未確認の強度指定を省略し、警告は出しません。
 
-数値で上限を指定する`thinking_token_budget`は推論強度とは別の機能で、effortから自動計算しません。実装方針は[計画書](plans/VLLM_REASONING_BUDGET.md)を参照してください。
+数値で上限を指定する`thinking_token_budget`は推論強度とは別の機能で、effortから自動計算しません。明示的なbudget指定は`UAGENT_REASONING`より優先し、推論強度のパラメーターは同時送信しません。
 
 ## vLLMの起動
 
@@ -40,7 +40,7 @@ vllm serve <model> --host 127.0.0.1 --port 8000 --served-model-name local-model
 
 ## 数値による推論トークン予算
 
-`UAGENT_VLLM_THINKING_TOKEN_BUDGET`に正の整数を指定すると、vLLMのChat Completionsで推論トークン数の上限を指定できます。`UAGENT_REASONING`の推論強度とは別の機能であり、生成全体の`max_tokens`上限も変更しません。
+`UAGENT_VLLM_THINKING_TOKEN_BUDGET`に正の整数を指定すると、vLLMのChat Completionsで推論トークン数の上限を指定できます。明示的なbudget指定を`UAGENT_REASONING`（`high`、`off`、`auto`等）より優先し、`reasoning_effort`は同時送信しません。budget未指定時の推論強度処理は従来どおりです。生成全体の`max_tokens`上限も変更しません。
 
 ```dotenv
 UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096

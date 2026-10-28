@@ -559,7 +559,7 @@ Optional parameters passed directly to the LLM API.
 - `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
 - `UAGENT_OPENAI_FAST_MODE`: Set to `1`/`true`/`yes`/`on` to request OpenAI Fast mode (`service_tier=fast`). OpenAI only; ignored by Azure and other providers.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
-- `UAGENT_VLLM_THINKING_TOKEN_BUDGET`: Optional positive integer hard ceiling for vLLM Chat Completions reasoning tokens on models with explicit llmcapa `thinking_token_budget` support; auto transport selects Chat Completions, explicit Responses is rejected.
+- `UAGENT_VLLM_THINKING_TOKEN_BUDGET`: Optional positive integer hard ceiling for vLLM Chat Completions reasoning tokens on models with explicit llmcapa `thinking_token_budget` support; takes precedence over `UAGENT_REASONING` (no simultaneous effort parameter); auto transport selects Chat Completions, explicit Responses is rejected.
 - `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
 - `UAGENT_DEBUG_OPENAI_RUNTIME`: Set to `1` to log OpenAI-compatible runtime metadata. For Sarashina it also reports request field names, message roles/field names/content types, tool names/count, and per-tool schema keyword names, never prompt, response, API-key, or tool-argument values. For Foundry Local it includes request tool names/count and response finish/tool-call counts, but not prompt, response, or tool-argument contents.
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.

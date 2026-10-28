@@ -26,7 +26,7 @@ Responses API continuation with `previous_response_id` is tested against the run
 
 If an explicitly configured value cannot be verified, UAG omits the request parameter and emits a runtime warning rather than sending a potentially unsupported value. This includes `UAGENT_REASONING=off`: UAG sends `none` only when that value is verified, so otherwise the server/model's default reasoning behavior remains in effect. Automatic effort selection (`auto`) silently falls back to model defaults when not verified.
 
-Numerical `thinking_token_budget` is a separate vLLM feature and is not inferred from an effort level. Support for forwarding that budget is tracked in [the implementation plan](plans/VLLM_REASONING_BUDGET.md).
+Numerical `thinking_token_budget` is a separate vLLM feature and is not inferred from an effort level. When a budget is explicitly set, it takes precedence over `UAGENT_REASONING` and the effort parameter is omitted.
 
 ## Start vLLM
 
@@ -40,7 +40,7 @@ Then set `UAGENT_VLLM_DEPNAME=local-model`. If you expose the server beyond loop
 
 ## Numerical thinking token budget
 
-Set `UAGENT_VLLM_THINKING_TOKEN_BUDGET` to a positive integer to bound the model's reasoning tokens in vLLM Chat Completions. This setting is separate from `UAGENT_REASONING` and does not change the total `max_tokens` generation limit.
+Set `UAGENT_VLLM_THINKING_TOKEN_BUDGET` to a positive integer to bound the model's reasoning tokens in vLLM Chat Completions. An explicit budget takes precedence over `UAGENT_REASONING` (`high`, `off`, or `auto`): UAG sends `thinking_token_budget` without `reasoning_effort`. With no budget, verified effort handling is unchanged. This does not change the total `max_tokens` generation limit.
 
 ```dotenv
 UAGENT_VLLM_THINKING_TOKEN_BUDGET=4096
