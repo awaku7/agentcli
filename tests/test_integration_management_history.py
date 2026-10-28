@@ -800,9 +800,20 @@ class _FakeDacl:
 
 
 def test_windows_dacl_validation_allows_only_trusted_sids():
-    allowed = {"S-1-5-21-owner", "S-1-5-18", "S-1-5-32-544"}
+    allowed = {
+        "S-1-5-21-owner",
+        "S-1-5-18",
+        "S-1-5-32-544",
+        "S-1-3-4",  # OWNER RIGHTS resolves to the validated file owner.
+    }
     routes_integration._validate_windows_dacl(
-        _FakeDacl([((0, 0), 0x1, "S-1-5-21-owner"), ((0, 0), 0x1, "S-1-5-18")]),
+        _FakeDacl(
+            [
+                ((0, 0), 0x1, "S-1-5-21-owner"),
+                ((0, 0), 0x1, "S-1-5-18"),
+                ((0, 0), 0x1, "S-1-3-4"),
+            ]
+        ),
         "S-1-5-21-owner",
         allowed,
         str,

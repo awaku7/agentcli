@@ -201,7 +201,12 @@ def _read_protected_scope_file_windows(path: Path) -> bytes:
                 win32security.ConvertSidToStringSid(
                     descriptor.GetSecurityDescriptorOwner()
                 ),
-                {service_sid, "S-1-5-18", "S-1-5-32-544"},
+                {
+                    service_sid,
+                    "S-1-5-18",  # LocalSystem
+                    "S-1-5-32-544",  # Built-in Administrators
+                    "S-1-3-4",  # OWNER RIGHTS: maps to the already-validated owner
+                },
                 win32security.ConvertSidToStringSid,
             )
             status, data = win32file.ReadFile(handle, _MAX_SCOPE_FILE_BYTES + 1)
