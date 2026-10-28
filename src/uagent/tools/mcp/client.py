@@ -25,6 +25,7 @@ from .oauth_provider import MCPOAuthHTTPXAuth, attach_oauth_httpx_auth
 from .stateless_transport import StatelessHTTPClient
 from .trace_context import call_with_trusted_mcp_trace_meta
 
+
 def _load_mcp_sdk() -> tuple[Any, Any, Any, Any]:
     """Load the optional MCP SDK only when a stateful transport is used."""
     try:
@@ -165,9 +166,7 @@ class MCPClient:
                 return self
 
             if self.command and not self.url:
-                ClientSession, StdioServerParameters, stdio_client, _ = (
-                    _load_mcp_sdk()
-                )
+                ClientSession, StdioServerParameters, stdio_client, _ = _load_mcp_sdk()
                 params = StdioServerParameters(
                     command=self.command,
                     args=self.args,

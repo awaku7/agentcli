@@ -2,10 +2,18 @@
 
 ## [Unreleased]
 
+## [0.7.37] - 2026-10-29
+
+### Added
+
+- Map common reasoning levels to verified numeric token budgets for vLLM deployments.
+
 ### Changed
 
+- Prefer explicit thinking budgets over reasoning effort and use model-verified capabilities when mapping vLLM reasoning controls.
 - Disable startup tool preloading by default and make opt-in preloading synchronous, preventing dependency installation from running in a background warmup thread.
-- Raise the minimum `llmcapa` version to the current PyPI latest, `0.5.72`.
+- Defer loading the MCP SDK until a stateful MCP transport is used, avoiding unnecessary SDK installation for other MCP operations.
+- Raise the minimum `llmcapa` version to `0.5.72`.
 
 ## [0.7.36] - 2026-10-27
 

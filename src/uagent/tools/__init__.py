@@ -2737,7 +2737,11 @@ def start_tools_warmup(*, quiet: bool = True) -> None:
     first access by :func:`_ensure_loaded`.
     """
     if (os.getenv("UAGENT_TOOLS_WARMUP", "0") or "").strip().lower() in (
-        "0", "false", "no", "off", ""
+        "0",
+        "false",
+        "no",
+        "off",
+        "",
     ):
         return
 
