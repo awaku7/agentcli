@@ -8,6 +8,7 @@ the provider runtime.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 from typing import Any, Mapping
 
@@ -32,6 +33,26 @@ class OpenAIProjection:
     reasoning: str
     auto_user_text: str
     effort_used: str | None
+
+
+def _verified_vllm_reasoning_efforts(model: str) -> set[str]:
+    """Only accept effort values explicitly verified for this vLLM model.
+
+    llmcapa's provider defaults are not evidence that a particular vLLM
+    deployment/model accepts the same levels. Never borrow another provider's
+    model row or assume the generic low/medium/high fallback.
+    """
+    cap = llmcapa_util.get_capability(model, "vllm", scoped_only=True)
+    if cap is None or getattr(cap, "supports_reasoning_effort", None) is not True:
+        return set()
+    values = getattr(cap, "reasoning_effort_values", None)
+    if not isinstance(values, (list, tuple)):
+        return set()
+    return {
+        value.strip().lower()
+        for value in values
+        if isinstance(value, str) and value.strip()
+    }
 
 
 def sanitize_sarashina_tool_specs(tool_specs: Any) -> list[dict[str, Any]]:
@@ -219,7 +240,29 @@ def build_openai_projection(
     elif reasoning and reasoning not in {"off", "false", "none"}:
         effort_used = reasoning
 
-    if effort_used:
+    if provider_key == "vllm":
+        # "off" is only representable by reasoning_effort=none on models
+        # explicitly verified to accept that value. Do not silently promise
+        # disabled reasoning for an unknown model.
+        requested = "none" if reasoning in {"off", "false", "none"} else effort_used
+        if requested:
+            if requested in _verified_vllm_reasoning_efforts(model):
+                if use_responses_api:
+                    options["reasoning"] = {"effort": requested}
+                else:
+                    options["reasoning_effort"] = requested
+                effort_used = requested
+            else:
+                if reasoning != "auto":
+                    warnings.warn(
+                        f"vLLM model {model!r} has no verified reasoning_effort="
+                        f"{requested!r}; the option was omitted, so reasoning "
+                        "behavior remains model-controlled.",
+                        RuntimeWarning,
+                        stacklevel=2,
+                    )
+                effort_used = None
+    elif effort_used:
         if use_responses_api:
             options["reasoning"] = {"effort": effort_used}
         elif provider_key not in {"foundry_local", "sarashina"}:
@@ -329,13 +372,6 @@ def build_openai_projection(
             options["context_management"] = [
                 {"type": "compaction", "compact_threshold": compaction_threshold}
             ]
-
-    if (
-        not use_responses_api
-        and provider_key == "vllm"
-        and reasoning in {"off", "false", "none"}
-    ):
-        options["reasoning_effort"] = "none"
 
     if send_tools:
         options["tool_choice"] = "auto"
