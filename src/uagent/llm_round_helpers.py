@@ -281,6 +281,17 @@ def _resolve_round_runtime_flags(
                 capability_resolver=capability_resolver,
             )
 
+    # The numerical vLLM thinking budget is verified on Chat Completions only.
+    # Prefer that transport automatically when the user configured a budget.
+    # An explicit Responses request is left intact so projection can report an
+    # actionable error instead of silently discarding the requested budget.
+    if (
+        provider.strip().lower() == "vllm"
+        and (env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or "").strip()
+        and responses_env not in ("1", "true")
+    ):
+        use_responses_api = False
+
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
     from .runtime.capability_resolver import streaming_requested_enabled
 
