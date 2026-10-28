@@ -46,6 +46,7 @@
 - [`network-toolkit.md`](network-toolkit.md): Network Toolkit運用品質
 - [`mcp-current-implementation.md`](mcp-current-implementation.md): MCP現行実装棚卸し
 - [`gitlab-mcp-oauth.md`](gitlab-mcp-oauth.md): GitLab MCPを主要ユースケースとした汎用MCP OAuth DCR / pre-registered client設計
+- [`VLLM_REASONING_BUDGET.md`](VLLM_REASONING_BUDGET.md): vLLM/Qwen3 reasoning token budgetの将来実装計画
 
 Responses API、UCP/AP2、MCP 2026-07-28、Auto-Pilot/Interrupt の残課題は上記ロードマップ内で管理します（未作成の個別計画ファイルにはリンクしません）。
 
