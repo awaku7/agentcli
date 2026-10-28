@@ -8,9 +8,9 @@ the provider runtime.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 from typing import Any, Mapping
-import warnings
 
 from .. import llmcapa_util
 from ..env_utils import env_get
@@ -244,9 +244,7 @@ def build_openai_projection(
         # "off" is only representable by reasoning_effort=none on models
         # explicitly verified to accept that value. Do not silently promise
         # disabled reasoning for an unknown model.
-        requested = (
-            "none" if reasoning in {"off", "false", "none"} else effort_used
-        )
+        requested = "none" if reasoning in {"off", "false", "none"} else effort_used
         if requested:
             if requested in _verified_vllm_reasoning_efforts(model):
                 if use_responses_api:
