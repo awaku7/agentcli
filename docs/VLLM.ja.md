@@ -20,6 +20,14 @@ UAGは`/v1/models`から該当モデルの`max_model_len`を取得し、カタ�
 
 `previous_response_id`による継続は、実際の会話の次ターンでサーバーに問い合わせて確認します。サーバーが受け付ければ利用し、拒否された場合（例: vLLMのResponses storeが無効）は会話履歴全体を付けて再試行し、その結果をUAGプロセス終了まで記憶します。vLLM側では`VLLM_ENABLE_RESPONSES_API_STORE=1`でstoreを有効化できますが、保存された応答はメモリ上に保持されるため、利用前に考慮してください。Visionはこのプロバイダーアダプターでは利用できません。構造化出力はllmcapaのモデル別情報で判定し、vLLMサーバーとモデル側の対応も必要です。ツール呼び出しにはモデル側の対応に加え、vLLMサーバーをモデルに合ったtool-call parser付きで起動する必要があります。例: `--enable-auto-tool-choice --tool-call-parser <モデル用parser>`。
 
+## 推論強度の安全な指定
+
+`UAGENT_REASONING`で推論強度を指定できますが、vLLMで利用できる値はモデルによって異なります。UAGは、**llmcapaのvLLM専用モデル情報で`supports_reasoning_effort=true`が明示され、`reasoning_effort_values`に指定値が登録されている場合だけ**、Chat Completionsの`reasoning_effort`またはResponsesの`reasoning.effort`を送信します。他Providerのモデル情報やllmcapaの一般的な既定値は、vLLM対応の根拠として使用しません。
+
+明示指定した値の対応を確認できない場合は、誤った値を送信せず、実行時警告を表示してパラメーターを省略します。`UAGENT_REASONING=off`も同様で、`none`への対応が確認されているモデルに限り送信します。未確認の場合、推論のON/OFFはサーバー・モデル側の既定動作に従います。`auto`では未確認の強度指定を省略し、警告は出しません。
+
+数値で上限を指定する`thinking_token_budget`は推論強度とは別の機能で、effortから自動計算しません。実装方針は[計画書](plans/VLLM_REASONING_BUDGET.md)を参照してください。
+
 ## vLLMの起動
 
 vLLMサーバーは別途起動してください。例:
