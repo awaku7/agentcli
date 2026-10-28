@@ -338,9 +338,7 @@ def build_openai_projection(
         options["reasoning_effort"] = "none"
 
     if provider_key == "vllm":
-        budget_text = (
-            env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or ""
-        ).strip()
+        budget_text = (env_get("UAGENT_VLLM_THINKING_TOKEN_BUDGET", "") or "").strip()
         if budget_text:
             # This is a numerical, per-request reasoning ceiling, not an effort.
             if not budget_text.isascii() or not budget_text.isdecimal():
