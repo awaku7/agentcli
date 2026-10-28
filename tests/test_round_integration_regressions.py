@@ -770,3 +770,124 @@ def test_registry_allowlist_and_migration_boundary_are_explicit(
 
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "all")
     assert _try_registry_simple_chat_round(provider="gemini", **kwargs) is None
+
+
+def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
+    monkeypatch, tmp_path
+) -> None:
+    from uagent import llm_round_helpers
+
+    class NotFoundError(Exception):
+        status_code = 404
+
+    class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            if kwargs.get("previous_response_id"):
+                raise NotFoundError("Response with id 'resp_prev' not found.")
+            return iter(
+                [
+                    SimpleNamespace(
+                        type="response.output_text.delta", delta="fallback"
+                    ),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_next"),
+                    ),
+                ]
+            )
+
+    responses = Responses()
+    client = SimpleNamespace(responses=responses)
+    messages = [
+        {"role": "user", "content": "first question"},
+        {"role": "assistant", "content": "first answer", "response_id": "resp_prev"},
+        {"role": "user", "content": "follow up"},
+    ]
+    state = {"previous_response_id": "resp_prev"}
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state=state,
+        print_stream_delta=lambda _text: None,
+    )
+
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        llm_round_helpers,
+        "is_openai_error",
+        lambda _error, *_names: False,
+    )
+    monkeypatch.setattr("uagent.core._save_responses_state", lambda: None)
+
+    result = llm_round_helpers._call_openai_azure_round(
+        provider="vllm",
+        client=client,
+        depname="served-model",
+        call_messages=messages,
+        core=core,
+        make_client_fn=lambda _core: ("vllm", client, "served-model"),
+        call_maybe_thread_fn=lambda call: call(),
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=messages,
+        responses_state=state,
+    )
+
+    assert result[0] is True
+    assert result[2] == "fallback"
+    assert responses.calls[0]["previous_response_id"] == "resp_prev"
+    assert "previous_response_id" not in responses.calls[1]
+    fallback_input = responses.calls[1]["input"]
+    assert [message["role"] for message in fallback_input] == [
+        "user",
+        "assistant",
+        "user",
+    ]
+    assert [
+        (
+            "".join(
+                part.get("text", "")
+                for part in message["content"]
+                if isinstance(part, dict)
+            )
+            if isinstance(message.get("content"), list)
+            else message.get("content", "")
+        )
+        for message in fallback_input
+    ] == ["first question", "first answer", "follow up"]
+    assert state["previous_response_id"] == "resp_next"
+    assert core._vllm_responses_previous_id_supported is False
+
+    next_messages = messages + [
+        {"role": "assistant", "content": "fallback", "response_id": "resp_next"},
+        {"role": "user", "content": "another follow up"},
+    ]
+    next_result = llm_round_helpers._call_openai_azure_round(
+        provider="vllm",
+        client=client,
+        depname="served-model",
+        call_messages=next_messages,
+        core=core,
+        make_client_fn=lambda _core: ("vllm", client, "served-model"),
+        call_maybe_thread_fn=lambda call: call(),
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=next_messages,
+        responses_state=state,
+    )
+
+    assert next_result[0] is True
+    assert len(responses.calls) == 3
+    assert "previous_response_id" not in responses.calls[2]

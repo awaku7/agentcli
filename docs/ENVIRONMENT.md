@@ -290,9 +290,10 @@ Required if `UAGENT_PROVIDER=vllm`:
 - `UAGENT_VLLM_BASE_URL` (optional, default: `http://localhost:8000/v1`)
 - `UAGENT_VLLM_API_KEY` (optional; `VLLM_API_KEY` is also accepted; set it when the server uses `--api-key`; otherwise UAG sends `dummy`)
 - `UAGENT_VLLM_TIMEOUT_SEC` (optional, default: `120`)
+- `UAGENT_VLLM_PROPS_TIMEOUT_SEC` (optional; `/v1/models` context metadata lookup timeout, default: `5` seconds)
 - `UAGENT_VLLM_TEMPERATURE` (optional; otherwise the shared `UAGENT_TEMPERATURE` is used)
 
-UAG uses vLLM's OpenAI-compatible Chat Completions endpoint. It does not start or manage the vLLM server, and this integration does not enable Responses API, vision, or native structured-output capabilities. Tool calls require a compatible model and a vLLM tool-call parser; start the server with `--enable-auto-tool-choice` and a model-appropriate `--tool-call-parser` when using tools. See [vLLM provider setup](VLLM.md) for a server example and security notes.
+UAG uses the vLLM OpenAI-compatible Responses API only when llmcapa confirms support for the configured model; otherwise it uses Chat Completions. Set `UAGENT_RESPONSES=0` to force Chat Completions. A `previous_response_id` continuation is tried on the first real follow-up: if the server rejects it, UAG retries with full conversation history and remembers the negative result until the UAG process restarts. vLLM's Responses store can be enabled with `VLLM_ENABLE_RESPONSES_API_STORE=1`; stored responses remain in memory. Vision remains unavailable through this provider adapter; structured-output routing is gated by llmcapa model metadata. Tool calls require a compatible model and a vLLM tool-call parser; start the server with `--enable-auto-tool-choice` and a model-appropriate `--tool-call-parser` when using tools. See [vLLM provider setup](VLLM.md) for a server example and security notes.
 
 #### Google Gemini
 

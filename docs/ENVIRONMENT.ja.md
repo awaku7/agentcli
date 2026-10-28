@@ -243,9 +243,10 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 - `UAGENT_VLLM_BASE_URL`（省略可、既定: `http://localhost:8000/v1`）
 - `UAGENT_VLLM_API_KEY`（省略可。`VLLM_API_KEY`も利用可。サーバーを`--api-key`付きで起動した場合に設定。未設定時は`dummy`を送信）
 - `UAGENT_VLLM_TIMEOUT_SEC`（省略可、既定: `120`）
+- `UAGENT_VLLM_PROPS_TIMEOUT_SEC`（省略可。`/v1/models`のコンテキスト情報取得タイムアウト、既定: `5`秒）
 - `UAGENT_VLLM_TEMPERATURE`（省略可。未設定時は共通の`UAGENT_TEMPERATURE`を使用）
 
-UAGはvLLMのOpenAI互換Chat Completionsエンドポイントを使用します。vLLMの起動、モデルのダウンロード、サーバー管理は行いません。この連携ではResponses API、Vision、ネイティブ構造化出力を機能対応として通知しません。ツール呼び出しにはモデル側の対応とvLLM側のtool-call parser設定が必要です。ツールを使う場合は`--enable-auto-tool-choice`と、モデルに合った`--tool-call-parser`を指定してください。起動例とセキュリティ上の注意は[vLLMプロバイダー設定ガイド](VLLM.ja.md)を参照してください。
+llmcapaが設定モデルの対応を確認した場合、UAGはvLLMのOpenAI互換Responses APIを使用し、それ以外はChat Completionsを使用します。`UAGENT_RESPONSES=0`でChat Completionsに固定できます。`previous_response_id`による継続は実際の会話の次ターンで試し、サーバーに拒否された場合は会話履歴全体を付けて再試行します。非対応という結果はUAGプロセス終了まで記憶します。vLLM側では`VLLM_ENABLE_RESPONSES_API_STORE=1`でResponses storeを有効化できますが、保存応答はメモリ上に保持されます。Visionはこのプロバイダーアダプターでは利用できません。構造化出力はllmcapaのモデル別情報で判定されます。ツール呼び出しにはモデル側の対応とvLLM側のtool-call parser設定が必要です。ツールを使う場合は`--enable-auto-tool-choice`と、モデルに合った`--tool-call-parser`を指定してください。起動例とセキュリティ上の注意は[vLLMプロバイダー設定ガイド](VLLM.ja.md)を参照してください。
 
 #### Google Gemini
 

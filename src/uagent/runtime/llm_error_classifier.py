@@ -131,7 +131,7 @@ class LLMErrorClassifier:
                 "referenced response not found",
                 "response not found or expired",
             )
-        )
+        ) or ("response with id" in text and "not found" in text)
 
     @staticmethod
     def _is_unsupported_feature(text: str) -> bool:

@@ -209,8 +209,12 @@ def get_capability(
 
 
 def clear_capability_cache() -> None:
-    """Drop cached capability lookups (tests / model switch)."""
+    """Drop cached catalog and live-provider capability lookups."""
     _get_capability_cached.cache_clear()
+    _get_llama_cpp_props_context.cache_clear()
+    _get_ollama_show_context.cache_clear()
+    _get_lmstudio_v1_context.cache_clear()
+    _get_vllm_model_limits.cache_clear()
 
 
 def supports_feature(
@@ -368,6 +372,14 @@ def get_context_window_details(
         lmstudio_ctx = _get_lmstudio_v1_context(model_id)
         if lmstudio_ctx is not None:
             return lmstudio_ctx, "/api/v1/models"
+    if normalize_provider(provider) == "vllm":
+        vllm_limits = _get_vllm_model_limits(model_id)
+        if vllm_limits is not None:
+            max_model_len, max_input_tokens, _max_output_tokens = vllm_limits
+            if max_model_len is not None:
+                return max_model_len, "/v1/models:max_model_len"
+            if max_input_tokens is not None:
+                return max_input_tokens, "/v1/models:max_input_tokens"
     cap = get_capability(model_id, provider)
     if cap is None:
         return None, "unavailable"
@@ -491,10 +503,64 @@ def _get_lmstudio_v1_context(model_id: str | None) -> int | None:
     return None
 
 
+@lru_cache(maxsize=32)
+def _get_vllm_model_limits(
+    model_id: str | None,
+) -> tuple[int | None, int | None, int | None] | None:
+    """Read vLLM context and token limits from the OpenAI model listing."""
+    model = (model_id or "").strip()
+    base = (env_get("UAGENT_VLLM_BASE_URL", "http://localhost:8000/v1") or "").strip()
+    if not model or not base:
+        return None
+    try:
+        parts = urlsplit(base)
+        path = parts.path.rstrip("/")
+        if not path:
+            path = "/v1"
+        models_url = urlunsplit((parts.scheme, parts.netloc, path + "/models", "", ""))
+        headers = {}
+        api_key = (
+            env_get("UAGENT_VLLM_API_KEY") or env_get("VLLM_API_KEY") or ""
+        ).strip()
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+        request = Request(models_url, headers=headers)
+        timeout = float(env_get("UAGENT_VLLM_PROPS_TIMEOUT_SEC", "5") or "5")
+        with urlopen(request, timeout=timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        models = payload.get("data", []) if isinstance(payload, dict) else payload
+        if not isinstance(models, list):
+            return None
+        for item in models:
+            if not isinstance(item, dict):
+                continue
+            identifiers = {
+                str(item.get(key) or "").strip() for key in ("id", "root", "parent")
+            }
+            if model not in identifiers:
+                continue
+            limits = []
+            for key in ("max_model_len", "max_input_tokens", "max_output_tokens"):
+                try:
+                    value = int(item.get(key) or 0)
+                except (TypeError, ValueError):
+                    value = 0
+                limits.append(value if value > 0 else None)
+            if any(value is not None for value in limits):
+                return limits[0], limits[1], limits[2]
+    except Exception:
+        pass
+    return None
+
+
 def get_max_output_tokens(
     model_id: str | None = None,
     provider: str | None = None,
 ) -> int | None:
+    if normalize_provider(provider) == "vllm":
+        vllm_limits = _get_vllm_model_limits(model_id)
+        if vllm_limits is not None and vllm_limits[2] is not None:
+            return vllm_limits[2]
     cap = get_capability(model_id, provider)
     if cap is None:
         return None

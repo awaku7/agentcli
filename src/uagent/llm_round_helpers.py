@@ -233,10 +233,7 @@ def _resolve_round_runtime_flags(
     lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").lower().strip()
     )
-    if provider == "vllm":
-        # The UAG vLLM adapter currently targets Chat Completions only.
-        responses_env = "0"
-    elif provider == "lmstudio" and lmstudio_transport in {
+    if provider == "lmstudio" and lmstudio_transport in {
         "sdk",
         "chat",
         "chat_completions",
@@ -483,7 +480,15 @@ def _call_openai_azure_round(
                 if isinstance(responses_state, dict):
                     # Provider capability metadata decides whether a server-side
                     # Responses continuation is safe for this provider.
-                    if not get_responses_capabilities(provider).previous_response_id:
+                    _vllm_continuation_unavailable = (
+                        provider.strip().lower() == "vllm"
+                        and getattr(core, "_vllm_responses_previous_id_supported", None)
+                        is False
+                    )
+                    if (
+                        not get_responses_capabilities(provider).previous_response_id
+                        or _vllm_continuation_unavailable
+                    ):
                         responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
                     # Empty / non-resp ids are invalid for continuation.
@@ -1317,6 +1322,16 @@ def _call_openai_azure_round(
                     resp = call_maybe_thread_fn(
                         lambda: client.chat.completions.create(**chat_kwargs)
                     )
+            if (
+                use_responses_api
+                and provider.strip().lower() == "vllm"
+                and _prev_rid
+                and core is not None
+            ):
+                try:
+                    setattr(core, "_vllm_responses_previous_id_supported", True)
+                except Exception:
+                    pass
             break
         except Exception as e:
             # Clear previous_response_id on any error (may be stale)
@@ -1374,7 +1389,9 @@ def _call_openai_azure_round(
                     "referenced response not found",
                     "response not found or expired",
                 )
-                return any(m in err_text for m in markers)
+                return any(m in err_text for m in markers) or (
+                    "response with id" in err_text and "not found" in err_text
+                )
 
             def _retry_without_previous_response_id(exc: BaseException) -> bool:
                 """One-shot full-history retry after a bad previous_response_id."""
@@ -1409,6 +1426,18 @@ def _call_openai_azure_round(
                 # Clear the spinner line first (no-op when disabled).
                 stop_round_spinner()
                 _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
+                if (
+                    _used_rid
+                    and provider.strip().lower() == "vllm"
+                    and core is not None
+                ):
+                    try:
+                        # Cache the observed limitation for this live host only.
+                        # A process restart permits a fresh probe after vLLM is
+                        # reconfigured, without persisting server settings.
+                        setattr(core, "_vllm_responses_previous_id_supported", False)
+                    except Exception:
+                        pass
                 if _used_rid:
                     print(
                         error_prefix
@@ -1444,7 +1473,20 @@ def _call_openai_azure_round(
                 )
                 continue
             _is_resp_validation = is_openai_error(e, "APIResponseValidationError")
-            if _is_bad_request or _is_resp_validation:
+            _has_previous_response_id = (
+                bool(_prev_rid) if "_prev_rid" in locals() else False
+            )
+            _is_vllm_previous_response_not_found = (
+                provider.strip().lower() == "vllm"
+                and _has_previous_response_id
+                and getattr(e, "status_code", None) == 404
+                and _is_stale_previous_response_error(e)
+            )
+            if (
+                _is_bad_request
+                or _is_resp_validation
+                or _is_vllm_previous_response_not_found
+            ):
                 err_text = _err_text_of(e)
                 if (
                     _is_bad_request

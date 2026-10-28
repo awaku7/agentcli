@@ -25,6 +25,7 @@ from uagent.llmcapa_util import (
     format_capability_lines,
     get_capability,
     get_context_window,
+    get_context_window_details,
     get_max_output_tokens,
     provider_candidates,
     supports_vision,
@@ -213,6 +214,96 @@ class TestGetCapability:
 
     def test_unknown_returns_none(self) -> None:
         assert get_capability("definitely-not-a-real-model-xyz", "openai") is None
+
+    def test_vllm_prefers_v1_models_max_model_len(self, monkeypatch) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return (
+                    b'{"data":['
+                    b'{"id":"other-model","max_model_len":65536},'
+                    b'{"id":"served-model","root":"Qwen/Qwen3.6-35B-A3B",'
+                    b'"max_model_len":8192}]}'
+                )
+
+        monkeypatch.setenv("UAGENT_VLLM_BASE_URL", "http://example.test/v1/")
+        monkeypatch.setenv("UAGENT_VLLM_API_KEY", "local-secret")
+        captured: list[object] = []
+
+        def fake_urlopen(request, timeout):
+            captured.append((request, timeout))
+            return Response()
+
+        monkeypatch.setattr(util, "urlopen", fake_urlopen)
+
+        context, source = get_context_window_details("served-model", "vllm")
+
+        assert context == 8192
+        assert source == "/v1/models:max_model_len"
+        request, timeout = captured[0]
+        assert request.full_url == "http://example.test/v1/models"
+        assert request.get_header("Authorization") == "Bearer local-secret"
+        assert timeout == 5.0
+
+    def test_vllm_uses_separate_input_and_output_limits(self, monkeypatch) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return (
+                    b'{"data":[{"id":"split-limit-model",'
+                    b'"max_input_tokens":32768,"max_output_tokens":4096}]}'
+                )
+
+        monkeypatch.setenv("UAGENT_VLLM_BASE_URL", "http://example.test/v1")
+        monkeypatch.setattr(util, "urlopen", lambda request, timeout: Response())
+
+        context, source = get_context_window_details("split-limit-model", "vllm")
+
+        assert context == 32768
+        assert source == "/v1/models:max_input_tokens"
+        assert get_max_output_tokens("split-limit-model", "vllm") == 4096
+        assert clamp_max_tokens(10000, "split-limit-model", "vllm") == 4096
+
+    def test_vllm_uses_llmcapa_when_models_endpoint_has_no_matching_model(
+        self, monkeypatch
+    ) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"data":[{"id":"other-model","max_model_len":8192}]}'
+
+        class Capability:
+            context_window = 262144
+
+        monkeypatch.setenv("UAGENT_VLLM_BASE_URL", "http://example.test/v1")
+        monkeypatch.setattr(util, "urlopen", lambda request, timeout: Response())
+        monkeypatch.setattr(util, "get_capability", lambda *_args: Capability())
+
+        context, source = get_context_window_details("unmatched-model", "vllm")
+
+        assert context == 262144
+        assert source == "llmcapa"
 
 
 class TestSupportsVision:

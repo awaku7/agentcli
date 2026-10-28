@@ -62,6 +62,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "foundry_local",
         "sakana",
         "deepseek",
+        "vllm",
     }
 )
 
@@ -142,7 +143,14 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 _STRUCTURED_OUTPUT_WIRE_FORMATS: dict[str, frozenset[str]] = {
     **{
         provider: frozenset({"chat_completions", "responses"})
-        for provider in ("openai", "azure", "openrouter", "perplexity", "deepseek")
+        for provider in (
+            "openai",
+            "azure",
+            "openrouter",
+            "perplexity",
+            "deepseek",
+            "vllm",
+        )
     },
     # Sarashina documents response_format/json_schema only on Chat Completions.
     "sarashina": frozenset({"chat_completions"}),

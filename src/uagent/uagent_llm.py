@@ -850,6 +850,11 @@ def _begin_responses_runtime(
         previous_id = (
             state.get("previous_response_id") if isinstance(state, dict) else None
         )
+        if (
+            provider.strip().lower() == "vllm"
+            and getattr(core, "_vllm_responses_previous_id_supported", None) is False
+        ):
+            previous_id = None
         if isinstance(previous_id, str) and previous_id.startswith("resp_"):
             if runtime.previous_response_id != previous_id:
                 runtime.restore_continuation(
@@ -1236,7 +1241,15 @@ def _try_registry_simple_chat_round(
             previous_id = (
                 state.get("previous_response_id") if isinstance(state, dict) else None
             )
-            if isinstance(previous_id, str) and previous_id.startswith("resp_"):
+            if (
+                isinstance(previous_id, str)
+                and previous_id.startswith("resp_")
+                and not (
+                    provider.strip().lower() == "vllm"
+                    and getattr(core, "_vllm_responses_previous_id_supported", None)
+                    is False
+                )
+            ):
                 options["previous_response_id"] = previous_id
         registry = build_provider_runtime_registry(
             provider=provider,
@@ -1338,6 +1351,26 @@ def _try_registry_simple_chat_round(
                     "initial_effort": effort_used,
                     "retry_effort": next_effort,
                 }
+        if provider.strip().lower() == "vllm" and options.get("previous_response_id"):
+            if result.status == "completed":
+                try:
+                    core._vllm_responses_previous_id_supported = True
+                except Exception:
+                    pass
+            elif result.status == "failed":
+                from .runtime.llm_error_classifier import LLMErrorClassifier
+
+                error_text = str((result.error or {}).get("message") or "")
+                if (
+                    LLMErrorClassifier().classify(RuntimeError(error_text)).kind
+                    == "stale_continuation"
+                ):
+                    try:
+                        # Avoid probing a known unsupported endpoint again during
+                        # this process. A restart resets the observation.
+                        core._vllm_responses_previous_id_supported = False
+                    except Exception:
+                        pass
         if result.status == "failed":
             core.context_projection_id = result.projection_id
             from .runtime.context_recovery import ContextRecoveryManager

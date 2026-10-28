@@ -18,11 +18,15 @@ def test_classifies_stale_continuation_and_feature_fallback() -> None:
     classifier = LLMErrorClassifier()
 
     stale = classifier.classify(_Error("previous_response_id response not found"))
+    vllm_missing_response = classifier.classify(
+        _Error("Response with id 'resp_123' not found.", status_code=404)
+    )
     feature = classifier.classify(
         _Error("model does not support tools", status_code=400)
     )
 
     assert stale.kind == "stale_continuation"
+    assert vllm_missing_response.kind == "stale_continuation"
     assert feature.kind == "unsupported_feature"
     assert feature.retry_request().reason == "feature_fallback"
 

@@ -10,6 +10,7 @@ from uagent.providers.provider_caps import (
     ALL_PROVIDERS,
     DEFAULT_PROVIDER_REGISTRY,
     RESPONSES_PROVIDERS,
+    supports_structured_output_wire,
     temperature_env_name,
 )
 from uagent.providers.openai_projection_policy import build_openai_projection
@@ -20,9 +21,9 @@ from uagent.providers.runtime_registry import (
 from uagent.runtime.round_contracts import RoundIdentifiers
 
 
-def test_vllm_is_local_chat_only_openai_compatible_provider() -> None:
+def test_vllm_is_openai_compatible_responses_provider() -> None:
     assert "vllm" in ALL_PROVIDERS
-    assert "vllm" not in RESPONSES_PROVIDERS
+    assert "vllm" in RESPONSES_PROVIDERS
     spec = DEFAULT_PROVIDER_REGISTRY.resolve("vllm")
     assert spec.name == "vllm"
     assert spec.auth_requirement == "local_endpoint"
@@ -30,7 +31,9 @@ def test_vllm_is_local_chat_only_openai_compatible_provider() -> None:
     assert spec.supports_tools
     assert not spec.supports_vision
     assert "chat" in spec.capabilities
-    assert "responses" not in spec.capabilities
+    assert "responses" in spec.capabilities
+    assert supports_structured_output_wire("vllm", "chat_completions")
+    assert supports_structured_output_wire("vllm", "responses")
     assert temperature_env_name("vllm") == "UAGENT_VLLM_TEMPERATURE"
     assert supports_provider_runtime("vllm")
 
@@ -111,19 +114,64 @@ def test_vllm_tool_projection_preserves_configured_reasoning_effort(monkeypatch)
             assert ("tool_choice" in projection.options) is send_tools
 
 
-def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
+def test_vllm_auto_selects_responses_when_llmcapa_confirms_support(monkeypatch):
     from uagent.llm_round_helpers import _resolve_round_runtime_flags
+    from uagent.runtime.capability_resolver import CapabilityResolver
 
-    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_RESPONSES", "auto")
+    monkeypatch.setenv("UAGENT_STREAMING", "0")
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: True if feature == "responses_api" else None
+    )
+
+    use_responses, streaming = _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=SimpleNamespace(),
+        provider="vllm",
+        depname="Qwen/Qwen3.6-35B-A3B",
+        capability_resolver=resolver,
+    )
+
+    assert use_responses is True
+    assert streaming is False
+
+
+def test_vllm_auto_keeps_chat_when_llmcapa_capability_is_unknown(monkeypatch):
+    from uagent.llm_round_helpers import _resolve_round_runtime_flags
+    from uagent.runtime.capability_resolver import CapabilityResolver
+
+    monkeypatch.setenv("UAGENT_RESPONSES", "auto")
+    resolver = CapabilityResolver(feature_lookup=lambda *_: None)
 
     use_responses, _streaming = _resolve_round_runtime_flags(
         tr_cfg=None,
         core=SimpleNamespace(),
         provider="vllm",
-        depname="served-model",
+        depname="unlisted-model",
+        capability_resolver=resolver,
     )
 
-    assert not use_responses
+    assert use_responses is False
+
+
+def test_vllm_explicit_responses_respects_llmcapa_negative(monkeypatch):
+    from uagent.llm_round_helpers import _resolve_round_runtime_flags
+    from uagent.runtime.capability_resolver import CapabilityResolver
+
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: False if feature == "responses_api" else None
+    )
+
+    use_responses, _streaming = _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=SimpleNamespace(),
+        provider="vllm",
+        depname="unsupported-model",
+        capability_resolver=resolver,
+    )
+
+    assert use_responses is False
 
 
 def test_vllm_credential_is_optional_and_uses_namespaced_key() -> None:

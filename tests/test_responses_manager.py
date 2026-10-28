@@ -126,3 +126,15 @@ def test_lmstudio_supports_previous_response_id() -> None:
     assert capabilities.streaming is True
     assert capabilities.previous_response_id is True
     assert capabilities.retrieve is False
+
+
+def test_vllm_previous_response_id_is_probed_by_live_continuation() -> None:
+    capabilities = get_responses_capabilities("vllm")
+
+    assert capabilities.create is True
+    assert capabilities.streaming is True
+    assert capabilities.previous_response_id is True
+    # These independent management endpoints remain unsupported.
+    assert capabilities.retrieve is False
+    assert capabilities.cancel is False
+    assert capabilities.compact is False
