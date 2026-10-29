@@ -96,7 +96,7 @@ def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
         | win32security.DACL_SECURITY_INFORMATION
     )
     descriptor = win32security.GetFileSecurity(str(path), flags)
-    if not win32security.EqualSid(descriptor.GetSecurityDescriptorOwner(), current_sid):
+    if descriptor.GetSecurityDescriptorOwner() != current_sid:
         raise PermissionError("pairing credentials must be owned by current user")
     if apply:
         acl = win32security.ACL()
@@ -112,9 +112,7 @@ def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
     if dacl is None or dacl.GetAceCount() != 1:
         raise PermissionError("pairing credentials require a private Windows ACL")
     ace = dacl.GetAce(0)
-    if ace[0][0] != win32security.ACCESS_ALLOWED_ACE_TYPE or not win32security.EqualSid(
-        ace[2], current_sid
-    ):
+    if ace[0][0] != win32security.ACCESS_ALLOWED_ACE_TYPE or ace[2] != current_sid:
         raise PermissionError("pairing credentials must only allow current user")
 
 
@@ -328,14 +326,18 @@ def main(arguments: list[str] | None = None) -> int:
             env_workdir=env_get("UAGENT_WORKDIR"),
         )
         apply_workdir(decision)
-        # Load exactly the same workdir secrets as normal UAG startup. Do not
-        # generate a new manifest token if an existing .env.sec is unreadable.
+        # Use normal startup precedence first: .env may select the
+        # UAGENT_ENVSEC_KEY_BACKEND used to decrypt .env.sec. The standard
+        # loader reports errors as warnings, so validate the ciphertext again
+        # afterward and abort export if existing secrets cannot be loaded.
+        load_dotenv_custom()
         secured_env = Path.cwd() / ".env.sec"
         if secured_env.is_file():
             from uag_envsec import decrypt_text
 
-            decrypt_text(secured_env.read_text(encoding="utf-8").strip())
-        load_dotenv_custom()
+            encrypted = secured_env.read_text(encoding="utf-8").strip()
+            if encrypted:
+                decrypt_text(encrypted)
         path = export_pairing(
             uag_url=args.uag_url,
             admin_url=args.admin_url,
