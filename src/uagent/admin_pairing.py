@@ -13,7 +13,6 @@ import re
 import secrets
 import stat
 import sys
-import tempfile
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
@@ -73,6 +72,55 @@ def _private_folder() -> Path:
     return folder
 
 
+def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
+    """Restrict/check owner-only Windows DACL before writing bearer secrets.
+
+    Missing pywin32 is a hard failure, not permission checking by os.chmod.
+    """
+    if os.name != "nt":
+        return
+    try:
+        import win32api
+        import win32con
+        import win32security
+    except ImportError as exc:
+        raise PermissionError("pywin32 is required for secure Windows pairing") from exc
+
+    token = win32security.OpenProcessToken(
+        win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
+    )
+    current_sid = win32security.GetTokenInformation(
+        token, win32security.TokenUser
+    )[0]
+    flags = (
+        win32security.OWNER_SECURITY_INFORMATION
+        | win32security.DACL_SECURITY_INFORMATION
+    )
+    descriptor = win32security.GetFileSecurity(str(path), flags)
+    if not win32security.EqualSid(
+        descriptor.GetSecurityDescriptorOwner(), current_sid
+    ):
+        raise PermissionError("pairing credentials must be owned by current user")
+    if apply:
+        acl = win32security.ACL()
+        acl.AddAccessAllowedAce(
+            win32security.ACL_REVISION, win32con.GENERIC_ALL, current_sid
+        )
+        descriptor.SetSecurityDescriptorDacl(1, acl, 0)
+        win32security.SetFileSecurity(
+            str(path), win32security.DACL_SECURITY_INFORMATION, descriptor
+        )
+        descriptor = win32security.GetFileSecurity(str(path), flags)
+    dacl = descriptor.GetSecurityDescriptorDacl()
+    if dacl is None or dacl.GetAceCount() != 1:
+        raise PermissionError("pairing credentials require a private Windows ACL")
+    ace = dacl.GetAce(0)
+    if ace[0][0] != win32security.ACCESS_ALLOWED_ACE_TYPE or not win32security.EqualSid(
+        ace[2], current_sid
+    ):
+        raise PermissionError("pairing credentials must only allow current user")
+
+
 def _read_private(path: Path) -> dict | None:
     try:
         info = path.lstat()
@@ -82,6 +130,7 @@ def _read_private(path: Path) -> dict | None:
         raise PermissionError("invalid UAG pairing credential file")
     if os.name != "nt" and info.st_mode & 0o077:
         raise PermissionError("UAG pairing credentials are not private")
+    _windows_private_acl(path)
     data = json.loads(path.read_text(encoding="utf-8"))
     if (
         type(data) is not dict
@@ -116,11 +165,17 @@ def _secure_create(path: Path, payload: bytes) -> None:
         raise PermissionError("will not overwrite a symlink")
     fd = os.open(str(path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
-        with os.fdopen(fd, "wb") as stream:
+        # Apply a private DACL before writing any secret bytes.
+        _windows_private_acl(path, apply=True)
+        stream = os.fdopen(fd, "wb")
+        fd = -1
+        with stream:
             stream.write(payload)
             stream.flush()
             os.fsync(stream.fileno())
     except BaseException:
+        if fd >= 0:
+            os.close(fd)
         path.unlink(missing_ok=True)
         raise
 
@@ -217,15 +272,9 @@ def export_pairing(
         # Do not replace the active credential set until both output and state
         # serialization succeed. Rotation is only supported via explicit request.
         if old is not None:
-            # Atomic replacement of private credentials on the same filesystem.
-            with tempfile.NamedTemporaryFile(
-                dir=folder, prefix=".pair-", delete=False
-            ) as stream:
-                pending = Path(stream.name)
-                os.chmod(pending, 0o600)
-                stream.write(payload)
-                stream.flush()
-                os.fsync(stream.fileno())
+            # Create with owner-only permissions before any secret is written.
+            pending = folder / (".pair-" + secrets.token_hex(16))
+            _secure_create(pending, payload)
         else:
             pending = None
     else:
@@ -254,6 +303,7 @@ def main(arguments: list[str] | None = None) -> int:
     cmd.add_argument("--uag-url", default="http://127.0.0.1:8000")
     cmd.add_argument("--admin-url", default="http://127.0.0.1:8088")
     cmd.add_argument("--output", default="uag-admin-link.json")
+    cmd.add_argument("--workdir", help="UAG workdir containing .env/.env.sec")
     cmd.add_argument(
         "--rotate",
         action="store_true",
@@ -261,6 +311,18 @@ def main(arguments: list[str] | None = None) -> int:
     )
     args = parser.parse_args(arguments)
     try:
+        if args.workdir is not None:
+            os.chdir(Path(args.workdir).expanduser().absolute())
+        # Load exactly the same workdir secrets as normal UAG startup. Do not
+        # generate a new manifest token if an existing .env.sec is unreadable.
+        secured_env = Path.cwd() / ".env.sec"
+        if secured_env.is_file():
+            from uag_envsec import decrypt_text
+
+            decrypt_text(secured_env.read_text(encoding="utf-8").strip())
+        from .runtime.runtime_init import load_dotenv_custom
+
+        load_dotenv_custom()
         path = export_pairing(
             uag_url=args.uag_url,
             admin_url=args.admin_url,
