@@ -135,9 +135,11 @@ def test_stateful_setup_failure_closes_owned_trace_http_client(monkeypatch) -> N
         return _FailingTransport()
 
     monkeypatch.setattr("uagent.tools.mcp.client.create_mcp_http_client", fake_create)
+    # The MCP SDK transport is resolved through the lazy loader, not as a
+    # module-level symbol. Mock that boundary to exercise cleanup on failure.
     monkeypatch.setattr(
-        "uagent.tools.mcp.client.streamable_http_client",
-        fake_streamable_http_client,
+        "uagent.tools.mcp.client._load_mcp_sdk",
+        lambda: (None, None, None, fake_streamable_http_client),
     )
 
     from uagent.tools.mcp.client import MCPClient
@@ -189,9 +191,11 @@ def test_stateful_setup_cancellation_closes_owned_trace_http_client(
         return _CancelledTransport()
 
     monkeypatch.setattr("uagent.tools.mcp.client.create_mcp_http_client", fake_create)
+    # The MCP SDK transport is resolved through the lazy loader, not as a
+    # module-level symbol. Mock that boundary to exercise cleanup on failure.
     monkeypatch.setattr(
-        "uagent.tools.mcp.client.streamable_http_client",
-        fake_streamable_http_client,
+        "uagent.tools.mcp.client._load_mcp_sdk",
+        lambda: (None, None, None, fake_streamable_http_client),
     )
 
     from uagent.tools.mcp.client import MCPClient
