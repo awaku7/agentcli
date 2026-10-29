@@ -73,26 +73,10 @@ def _private_folder() -> Path:
     return folder
 
 
-def _windows_private_acl(path: Path) -> None:
-    """Validate the current-user-only, inheritance-protected Windows file ACL."""
-    if os.name != "nt":
-        return
-    try:
-        import win32api
-        import win32con
-        import win32security
-    except ImportError as exc:
-        raise PermissionError("pywin32 is required for secure Windows pairing") from exc
+def _verify_windows_descriptor(descriptor, current_sid) -> None:
+    """Validate owner, exactly one own ACE, and protected inheritance."""
+    import win32security
 
-    token = win32security.OpenProcessToken(
-        win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
-    )
-    current_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
-    flags = (
-        win32security.OWNER_SECURITY_INFORMATION
-        | win32security.DACL_SECURITY_INFORMATION
-    )
-    descriptor = win32security.GetFileSecurity(str(path), flags)
     if descriptor.GetSecurityDescriptorOwner() != current_sid:
         raise PermissionError("pairing credentials must be owned by current user")
     control, _ = descriptor.GetSecurityDescriptorControl()
@@ -109,6 +93,28 @@ def _windows_private_acl(path: Path) -> None:
     ):
         raise PermissionError("pairing credentials must only allow current user")
 
+
+def _windows_private_acl(path: Path) -> None:
+    """Validate the current-user-only, inheritance-protected Windows file ACL."""
+    if os.name != "nt":
+        return
+    try:
+        import win32api
+        import win32con
+        import win32security
+    except ImportError as exc:
+        raise PermissionError("pywin32 is required for secure Windows pairing") from exc
+
+    token = win32security.OpenProcessToken(
+        win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
+    )
+    current_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
+    descriptor = win32security.GetFileSecurity(
+        str(path),
+        win32security.OWNER_SECURITY_INFORMATION
+        | win32security.DACL_SECURITY_INFORMATION,
+    )
+    _verify_windows_descriptor(descriptor, current_sid)
 
 def _secure_create_windows(path: Path, payload: bytes) -> None:
     """Atomically create a new Windows file with an owner-only protected DACL.
@@ -155,7 +161,15 @@ def _secure_create_windows(path: Path, payload: bytes) -> None:
         None,
     )
     try:
-        _windows_private_acl(path)
+        # Query using the already-open handle: a second path-based open
+        # would conflict with CreateFile's exclusive sharing mode.
+        actual_descriptor = win32security.GetSecurityInfo(
+            handle,
+            win32security.SE_FILE_OBJECT,
+            win32security.OWNER_SECURITY_INFORMATION
+            | win32security.DACL_SECURITY_INFORMATION,
+        )
+        _verify_windows_descriptor(actual_descriptor, current_sid)
         _, written = win32file.WriteFile(handle, payload)
         if written != len(payload):
             raise OSError("incomplete write of pairing secrets")
