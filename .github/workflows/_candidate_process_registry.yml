@@ -1,0 +1,77 @@
+name: Verify UAG process registry candidates
+on:
+  push:
+    branches: [feature/admin-process-registry-20261030]
+permissions:
+  contents: write
+concurrency:
+  group: uag-process-registry-candidates
+  cancel-in-progress: true
+jobs:
+  precommit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/admin-process-registry-20261030
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install only required dependencies
+        run: |
+          python -m pip install -e .
+          python -m pip install black ruff pytest psutil
+      - name: Restore candidate code from uncommitted Git blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          files = {
+              "src/uagent/runtime/process_registry.py": "d04acd9651834513fc23b359f1cdc8557300f020",
+              "tests/test_process_registry.py": "6b5219cbc453dafe3519f277129018fe5ddbd549",
+              "docs/UAG_PROCESS_REGISTRY.md": "78315238e4245a47f2a9b7a207d220d3f57710f0",
+              "src/uagent/cli_entry.py": "6a34d0e0ded739bf594608738a9d270e8c633194",
+              "src/uagent/web.py": "4ec4a62f5f146050ef399571754b8a84b415e78d",
+              "src/uagent/gui.py": "948126397b77b34b902378d7c0e1a9733c0c80f2",
+              "src/uagent/a2a/server.py": "28d8dee34104f0b39d00e87127752632fb7c0404",
+              "pyproject.toml": "5a294cd909243f6949c65bb226512f531ef1c790",
+          }
+          for path, sha in files.items():
+              req = Request(
+                  "https://api.github.com/repos/awaku7/agentcli/git/blobs/" + sha,
+                  headers={
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Accept": "application/vnd.github+json",
+                  },
+              )
+              with urlopen(req, timeout=30) as response:
+                  data = json.load(response)
+              dest = Path(path)
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              dest.write_bytes(base64.b64decode(data["content"]))
+          PY
+      - name: Black format
+        run: python -m black src/uagent/runtime/process_registry.py tests/test_process_registry.py src/uagent/cli_entry.py src/uagent/web.py src/uagent/gui.py src/uagent/a2a/server.py
+      - name: Black check
+        run: python -m black --check src/uagent/runtime/process_registry.py tests/test_process_registry.py src/uagent/cli_entry.py src/uagent/web.py src/uagent/gui.py src/uagent/a2a/server.py
+      - name: Ruff
+        run: python -m ruff check src/uagent/runtime/process_registry.py tests/test_process_registry.py src/uagent/cli_entry.py src/uagent/web.py src/uagent/gui.py src/uagent/a2a/server.py
+      - name: New registry tests
+        run: python -m pytest -q tests/test_process_registry.py
+      - name: Existing entrypoint compile regression
+        run: python -m compileall -q src/uagent/runtime/process_registry.py src/uagent/cli_entry.py src/uagent/web.py src/uagent/gui.py src/uagent/a2a/server.py
+      - name: Commit exact verified files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/uagent/runtime/process_registry.py tests/test_process_registry.py docs/UAG_PROCESS_REGISTRY.md src/uagent/cli_entry.py src/uagent/web.py src/uagent/gui.py src/uagent/a2a/server.py pyproject.toml
+          git rm .github/workflows/_candidate_process_registry.yml
+          git commit -m "feat(uag): self-register CLI GUI Web and A2A process identities"
+          git push origin HEAD:feature/admin-process-registry-20261030
