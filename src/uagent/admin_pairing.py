@@ -242,8 +242,15 @@ def export_pairing(
     explicit_endpoint = os.environ.get("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
     if explicit_endpoint and explicit_endpoint != admin_url + "/otlp/v1/traces":
         raise ValueError("OTLP endpoint environment conflicts with pairing")
-    if os.environ.get("OTEL_EXPORTER_OTLP_TRACES_HEADERS"):
-        raise ValueError("unset explicit OTLP trace headers before pairing")
+    if any(
+        os.environ.get(key)
+        for key in (
+            "OTEL_EXPORTER_OTLP_ENDPOINT",
+            "OTEL_EXPORTER_OTLP_HEADERS",
+            "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
+        )
+    ):
+        raise ValueError("unset explicitly configured OTLP exporter options first")
 
     record = {
         "format": "uag-admin-pairing",
@@ -307,8 +314,19 @@ def main(arguments: list[str] | None = None) -> int:
     )
     args = parser.parse_args(arguments)
     try:
-        if args.workdir is not None:
-            os.chdir(Path(args.workdir).expanduser().absolute())
+        # The standard UAG workdir resolver honours --workdir and
+        # UAGENT_WORKDIR, then the current working directory.
+        from .runtime.runtime_init import (
+            apply_workdir,
+            decide_workdir,
+            load_dotenv_custom,
+        )
+
+        decision = decide_workdir(
+            cli_workdir=args.workdir,
+            env_workdir=os.environ.get("UAGENT_WORKDIR"),
+        )
+        apply_workdir(decision)
         # Load exactly the same workdir secrets as normal UAG startup. Do not
         # generate a new manifest token if an existing .env.sec is unreadable.
         secured_env = Path.cwd() / ".env.sec"
@@ -316,8 +334,6 @@ def main(arguments: list[str] | None = None) -> int:
             from uag_envsec import decrypt_text
 
             decrypt_text(secured_env.read_text(encoding="utf-8").strip())
-        from .runtime.runtime_init import load_dotenv_custom
-
         load_dotenv_custom()
         path = export_pairing(
             uag_url=args.uag_url,
