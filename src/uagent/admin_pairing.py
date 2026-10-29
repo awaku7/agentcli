@@ -116,6 +116,7 @@ def _windows_private_acl(path: Path) -> None:
     )
     _verify_windows_descriptor(descriptor, current_sid)
 
+
 def _secure_create_windows(path: Path, payload: bytes) -> None:
     """Atomically create a new Windows file with an owner-only protected DACL.
 
@@ -185,6 +186,7 @@ def _secure_create_windows(path: Path, payload: bytes) -> None:
         raise
     else:
         handle.Close()
+
 
 def _read_private(path: Path) -> dict | None:
     try:
