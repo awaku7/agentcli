@@ -328,3 +328,5 @@ See `DEVELOP_OBSERVABILITY_PHASE4D.md`,
 
 Generic global provider/HTTP auto-instrumentation remains unsupported unless a future reviewed
 contract explicitly adds it.
+
+Paired Admin OTLP trace exporters probe again with a new batch after a 30-second cooldown on failure. Failed/cooldown batches are dropped; no credential rotation or backlog replay occurs. Explicit other collectors and metrics retain the fail-stop policy.

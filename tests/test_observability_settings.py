@@ -1,3 +1,5 @@
+import pytest
+
 from uagent.runtime.observability.settings import (
     ObservabilitySettings,
     _reset_observability_settings_for_tests,
@@ -131,3 +133,31 @@ def test_explicit_override_wins_after_project_dotenv_reload(monkeypatch, tmp_pat
     settings = get_observability_settings()
     assert settings.enabled is False
     assert settings.enabled_source == "explicit"
+
+
+@pytest.mark.parametrize("launcher", ["uag", "uagw", "uagg", "uaga"])
+@pytest.mark.parametrize(
+    ("flags", "env_value", "expected"),
+    [([], None, False), (["--otel"], "0", True), (["--no-otel"], "1", False)],
+)
+def test_all_launchers_resolve_activation_at_shared_dotenv_boundary(
+    monkeypatch, tmp_path, launcher, flags, env_value, expected
+):
+    from uagent.runtime import runtime_init
+    from uagent.runtime.observability import bootstrap
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(runtime_init, "_STARTUP_UAGENT_ENV_SNAPSHOT", {})
+    monkeypatch.delenv("UAGENT_OTEL_ENABLED", raising=False)
+    if env_value is not None:
+        (tmp_path / ".env").write_text(
+            f"UAGENT_OTEL_ENABLED={env_value}\n", encoding="utf-8"
+        )
+    seen = []
+    monkeypatch.setattr(bootstrap, "initialize_observability", seen.append)
+    argv = [launcher, *flags]
+    consume_process_otel_cli_flags(argv)
+    assert argv == [launcher]
+    runtime_init.reload_dotenv_custom()
+    assert len(seen) == 1
+    assert seen[0].enabled is expected
