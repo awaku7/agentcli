@@ -356,15 +356,19 @@ def export_pairing(
     else:
         pending = None
 
+    transfer_created = False
     try:
         _secure_create(target, payload)
+        transfer_created = True
         if old is None:
             _secure_create(source, payload)
         elif pending is not None:
             os.replace(pending, source)
     except BaseException:
-        # Failure to publish runtime state must not leave a usable transfer file.
-        target.unlink(missing_ok=True)
+        # Only roll back a transfer file THIS invocation successfully created.
+        # A competing CREATE_NEW winner must never be deleted.
+        if transfer_created:
+            target.unlink(missing_ok=True)
         raise
     finally:
         if pending is not None:
