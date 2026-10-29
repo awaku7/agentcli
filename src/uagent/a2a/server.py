@@ -891,7 +891,12 @@ def main(argv: Optional[list[str]] = None) -> None:
         recover_tasks=True,
         sandbox_required=bool(_core_module.tools_enabled),
     )
-    uvicorn.run(app, host=str(args.host), port=int(args.port), reload=bool(args.reload))
+    from ..runtime.process_registry import tracked_process
+
+    with tracked_process("a2a"):
+        uvicorn.run(
+            app, host=str(args.host), port=int(args.port), reload=bool(args.reload)
+        )
 
 
 if __name__ == "__main__":

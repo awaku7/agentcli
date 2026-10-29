@@ -15,5 +15,7 @@ def main() -> int:
 
         return admin_main(sys.argv[2:])
     from .cli import main as interactive_main
+    from .runtime.process_registry import tracked_process
 
-    return interactive_main()
+    with tracked_process("cli"):
+        return interactive_main()

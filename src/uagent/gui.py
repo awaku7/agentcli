@@ -17,8 +17,10 @@ def main():
 
     consume_process_otel_cli_flags()
     from .scheckgui import main as gui_main
+    from .runtime.process_registry import tracked_process
 
-    return gui_main()
+    with tracked_process("gui"):
+        return gui_main()
 
 
 __all__ = ["main"]
