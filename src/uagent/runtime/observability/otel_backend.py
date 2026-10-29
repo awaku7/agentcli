@@ -5,6 +5,7 @@ from __future__ import annotations
 import atexit
 import os
 import threading
+import time
 from contextlib import contextmanager
 from typing import Any, Iterator, Mapping, MutableMapping
 
@@ -36,28 +37,45 @@ class _FailStopExporter:
     the configured collector is unavailable, forwarding those calls produces
     repeated connection attempts and repeated error logs. This adapter lets the
     first failure be observed, then drops later batches without contacting the
-    exporter again.
+    exporter again. Paired Admin traces instead probe with a new batch after
+    a cooldown, allowing import or receiver recovery without restarting UAG.
+    Failed and cooldown batches are dropped, not buffered or replayed.
     """
 
-    def __init__(self, exporter: Any, *, success_result: Any, failure_result: Any):
+    def __init__(
+        self,
+        exporter: Any,
+        *,
+        success_result: Any,
+        failure_result: Any,
+        retry_interval: float | None = None,
+    ):
         self._exporter = exporter
         self._success_result = success_result
         self._failure_result = failure_result
         self._lock = threading.Lock()
         self._disabled = False
+        self._retry_interval = retry_interval
+        self._retry_at = 0.0
         self._shutdown = False
 
     def export(self, batch: Any) -> Any:
         with self._lock:
-            if self._disabled or self._shutdown:
+            if self._shutdown:
                 return self._success_result
+            if self._disabled:
+                if self._retry_interval is None or time.monotonic() < self._retry_at:
+                    return self._success_result
+                self._disabled = False
             try:
                 result = self._exporter.export(batch)
             except Exception:
                 self._disabled = True
+                self._retry_at = time.monotonic() + (self._retry_interval or 0)
                 return self._failure_result
             if result == self._failure_result:
                 self._disabled = True
+                self._retry_at = time.monotonic() + (self._retry_interval or 0)
             return result
 
     def force_flush(self, timeout_millis: int = 30_000) -> bool:
@@ -495,10 +513,14 @@ def _build_trace_exporter() -> Any | None:
                 os.getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT") or ""
             ).strip()
             if not configured_endpoint or configured_endpoint == paired_endpoint:
-                return OTLPSpanExporter(
+                exporter = OTLPSpanExporter(
                     endpoint=paired_endpoint,
                     headers={"Authorization": "Bearer " + token},
                 )
+                # Import can activate Admin after UAG starts. Permit later
+                # batches to probe again without retrying every failed batch.
+                exporter._uag_admin_pairing = True
+                return exporter
             # An explicit different collector takes precedence, without
             # inheriting the paired Admin credentials.
         return OTLPSpanExporter()
@@ -573,6 +595,9 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
             exporter,
             success_result=SpanExportResult.SUCCESS,
             failure_result=SpanExportResult.FAILURE,
+            retry_interval=(
+                30.0 if getattr(exporter, "_uag_admin_pairing", False) else None
+            ),
         )
         from ...admin_pairing import get_otlp_pairing
 
