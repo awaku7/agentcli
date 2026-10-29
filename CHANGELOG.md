@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.7.38] - 2026-10-29
+
+### Added
+
+- Add `uag admin export` to create a pairing file for registering UAG instances with UAG Admin.
+- Support vLLM Responses endpoints that require string input by retrying structured requests as a JSON transcript.
+
+### Changed
+
+- Keep vLLM Responses requests stateless and send the full conversation history instead of reusing `previous_response_id`, preventing repeated tool calls on endpoints where continuation is unreliable.
+- Harden Windows admin pairing export against exclusive-create races; safely translate Win32 errors and preserve transfer files created by concurrent exports.
+- Avoid implicit localhost OTLP exporters when no endpoint is configured, and stop further exports after the first exporter failure.
+
 ## [0.7.37] - 2026-10-29
 
 ### Added
