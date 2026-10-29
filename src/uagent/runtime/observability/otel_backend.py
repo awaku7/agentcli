@@ -400,7 +400,14 @@ def _build_trace_exporter() -> Any | None:
         from ...admin_pairing import get_otlp_pairing
 
         paired = get_otlp_pairing()
-        if paired is not None and not os.getenv("OTEL_EXPORTER_OTLP_TRACES_HEADERS"):
+        if paired is not None and not any(
+            os.getenv(key)
+            for key in (
+                "OTEL_EXPORTER_OTLP_ENDPOINT",
+                "OTEL_EXPORTER_OTLP_HEADERS",
+                "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
+            )
+        ):
             endpoint, token = paired
             configured_endpoint = os.getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
             if configured_endpoint and configured_endpoint != endpoint:
