@@ -120,6 +120,9 @@ def _resolve_realtime_sandbox_mode() -> str:
     )
     apply_workdir(decision)
     reload_dotenv_custom()
+    from ..runtime.process_registry import activate_tracking
+
+    activate_tracking("cli")
     return resolve_sandbox_mode()
 
 
