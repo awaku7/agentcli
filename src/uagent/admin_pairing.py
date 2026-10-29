@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
+from .env_utils import env_get
 from .runtime.instance_identity import get_instance_id, get_instance_name
 from .utils.paths import get_state_dir
 
@@ -324,7 +325,7 @@ def main(arguments: list[str] | None = None) -> int:
 
         decision = decide_workdir(
             cli_workdir=args.workdir,
-            env_workdir=__import__("uagent.env_utils", fromlist=["env_get"]).env_get("UAGENT_WORKDIR"),
+            env_workdir=env_get("UAGENT_WORKDIR"),
         )
         apply_workdir(decision)
         # Load exactly the same workdir secrets as normal UAG startup. Do not
