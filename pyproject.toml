@@ -16,7 +16,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-dependencies = ["uag-envsec>=0.1.1", "psutil>=5.9,<9"]
+dependencies = [
+    "uag-envsec>=0.1.1",
+    "psutil>=5.9,<9",
+    "pywin32>=311; sys_platform == 'win32'",
+]
 
 [project.optional-dependencies]
 core = [

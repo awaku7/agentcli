@@ -131,6 +131,9 @@ def main():
     )
     _runtime_init.apply_workdir(decision)
     _runtime_init.reload_dotenv_custom()
+    from ..runtime.process_registry import activate_tracking
+
+    activate_tracking("gui")
     try:
         sandbox_mode = _resolve_sandbox_mode(
             getattr(args, "sandbox", None), os.environ.get("UAGENT_SANDBOX_MODE")

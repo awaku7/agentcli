@@ -583,6 +583,9 @@ def main():
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
         _runtime_init.reload_dotenv_custom()
+        from ..runtime.process_registry import activate_tracking
+
+        activate_tracking("web")
         try:
             from ..runtime.session_store import attach_opt_in_session_store
 
