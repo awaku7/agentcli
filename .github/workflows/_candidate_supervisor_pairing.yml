@@ -1,0 +1,114 @@
+name: Verify UAG Supervisor single-file pairing
+on:
+  push:
+    branches: [feature/supervisor-file-pairing-20261030]
+permissions:
+  contents: write
+concurrency:
+  group: uag-supervisor-pairing-validation
+  cancel-in-progress: true
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/supervisor-file-pairing-20261030
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e . pytest black ruff
+      - name: Restore exact candidate blobs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          blobs = {
+              "src/uagent/admin_pairing.py": "981bd03aa0011202d5aca5030388136aefda7dbd",
+              "tests/test_admin_pairing_export.py": "2285d34a11a2b2edf6ad214bc09616c0cb44d9c9",
+              "docs/UAG_ADMIN_FILE_PAIRING.md": "df1a8da27a8a45b8ab1adeffef0f2fc3433dab86",
+          }
+          for path, sha in blobs.items():
+              request = Request(
+                  "https://api.github.com/repos/awaku7/agentcli/git/blobs/" + sha,
+                  headers={
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Accept": "application/vnd.github+json",
+                  },
+              )
+              with urlopen(request, timeout=30) as resp:
+                  obj = json.load(resp)
+              target = Path(path)
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(base64.b64decode(obj["content"]))
+          PY
+      - run: python -m black src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m black --check src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m ruff check src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m pytest -q tests/test_admin_pairing_export.py
+      - run: python -m compileall -q src/uagent/admin_pairing.py
+  publish:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/supervisor-file-pairing-20261030
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e . pytest black ruff
+      - name: Restore verified candidate blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          blobs = {
+              "src/uagent/admin_pairing.py": "981bd03aa0011202d5aca5030388136aefda7dbd",
+              "tests/test_admin_pairing_export.py": "2285d34a11a2b2edf6ad214bc09616c0cb44d9c9",
+              "docs/UAG_ADMIN_FILE_PAIRING.md": "df1a8da27a8a45b8ab1adeffef0f2fc3433dab86",
+          }
+          for path, sha in blobs.items():
+              request = Request(
+                  "https://api.github.com/repos/awaku7/agentcli/git/blobs/" + sha,
+                  headers={
+                      "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                      "Accept": "application/vnd.github+json",
+                  },
+              )
+              with urlopen(request, timeout=30) as resp:
+                  obj = json.load(resp)
+              target = Path(path)
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(base64.b64decode(obj["content"]))
+          PY
+      - run: python -m black src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m black --check src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m ruff check src/uagent/admin_pairing.py tests/test_admin_pairing_export.py
+      - run: python -m pytest -q tests/test_admin_pairing_export.py
+      - name: Commit validated code only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/uagent/admin_pairing.py tests/test_admin_pairing_export.py docs/UAG_ADMIN_FILE_PAIRING.md
+          git rm .github/workflows/_candidate_supervisor_pairing.yml
+          git commit -m "feat(uag): include Supervisor pairing in existing Admin export JSON"
+          git push origin HEAD:feature/supervisor-file-pairing-20261030
