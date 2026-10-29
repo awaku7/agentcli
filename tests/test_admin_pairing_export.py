@@ -120,6 +120,7 @@ def test_file_creation_error_leaves_no_runtime_secret(monkeypatch, tmp_path):
         )
     assert not (state / "admin_pairing_credentials.json").exists()
 
+
 def test_explicit_generic_otel_environment_is_not_overridden(monkeypatch, tmp_path):
     _set_state(monkeypatch, tmp_path)
     monkeypatch.setenv("OTEL_EXPORTER_OTLP_ENDPOINT", "https://collector.example.net")
