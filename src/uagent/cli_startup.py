@@ -307,6 +307,9 @@ def run_cli_startup(
                 apply_workdir(decision)
                 _timing_started = time.perf_counter()
                 reload_dotenv_custom()
+                from .runtime.process_registry import activate_tracking
+
+                activate_tracking("cli")
                 _startup_timing_emit_detail(
                     "dotenv", time.perf_counter() - _timing_started
                 )
@@ -373,6 +376,9 @@ def run_cli_startup(
                     raise
 
                 reload_dotenv_custom()
+                from .runtime.process_registry import activate_tracking
+
+                activate_tracking("cli")
                 configure_decision_settings(cli_provider=decision_provider)
                 try:
                     validate_or_exit_startup_env(context="cli")

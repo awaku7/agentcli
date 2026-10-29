@@ -116,3 +116,17 @@ def test_windows_registry_acl_is_current_user_only(tmp_path, monkeypatch):
             assert acl is not None
             assert acl.GetAceCount() == 1
             assert acl.GetAce(0)[2] == descriptor.GetSecurityDescriptorOwner()
+
+
+def test_native_registration_exception_never_interrupts_agent(monkeypatch):
+    class NativeWindowsFailure(Exception):
+        pass
+
+    def native_failure(*args, **kwargs):
+        raise NativeWindowsFailure("simulated SetFileSecurity failure")
+
+    monkeypatch.setattr(registry, "_register", native_failure)
+    registry.activate_tracking("web")
+    with registry.tracked_process("gui"):
+        assert True
+    registry.clear_tracking("web")

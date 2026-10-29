@@ -88,14 +88,9 @@ def activate_tracking(entrypoint: str) -> None:
     clear_tracking(entrypoint)
     try:
         _ACTIVE[entrypoint] = _register(entrypoint)
-    except (
-        OSError,
-        ValueError,
-        RuntimeError,
-        PermissionError,
-        psutil.Error,
-        ImportError,
-    ):
+    except Exception:
+        # Optional monitoring must not abort the agent on native Windows
+        # pywintypes errors; BaseException still propagates user interrupts.
         pass
 
 
@@ -146,14 +141,9 @@ def tracked_process(entrypoint: str) -> Iterator[None]:
     record = None
     try:
         record = _register(entrypoint)
-    except (
-        OSError,
-        ValueError,
-        RuntimeError,
-        PermissionError,
-        psutil.Error,
-        ImportError,
-    ):
+    except Exception:
+        # Optional monitoring must not abort the agent on native Windows
+        # pywintypes errors; BaseException still propagates user interrupts.
         pass
 
     try:

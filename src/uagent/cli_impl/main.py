@@ -248,9 +248,6 @@ def main() -> int:
         sandbox_initializer=_initialize_cli_sandbox_after_dotenv,
     )
 
-    from ..runtime.process_registry import activate_tracking
-
-    activate_tracking("cli")
     provider = startup.provider
     client = startup.client
     depname = startup.depname

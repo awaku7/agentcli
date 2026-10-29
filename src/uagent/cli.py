@@ -91,12 +91,16 @@ __all__ = [
 def main() -> int:
     # Top-level Ctrl+C guard: stray KeyboardInterrupt becomes one line.
     # Covers the uag console-script entry point.
+    from .runtime.process_registry import clear_tracking
+
     try:
         return int(_cli_impl_main() or 0)
     except KeyboardInterrupt:
         print()
         print("[INFO] Interrupted. Exiting...")
         raise SystemExit(130)
+    finally:
+        clear_tracking("cli")
 
 
 if __name__ == "__main__":
