@@ -271,9 +271,7 @@ def test_windows_private_pairing_file_acl(monkeypatch, tmp_path):
     )
 
 
-def test_racing_export_does_not_remove_competing_transfer_file(
-    monkeypatch, tmp_path
-):
+def test_racing_export_does_not_remove_competing_transfer_file(monkeypatch, tmp_path):
     _set_state(monkeypatch, tmp_path)
     target = tmp_path / "competing-transfer.json"
     original_create = admin_pairing._secure_create
