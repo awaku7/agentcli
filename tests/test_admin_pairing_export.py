@@ -150,3 +150,122 @@ def test_uag_workdir_override_is_respected(monkeypatch, tmp_path):
         assert seen == [str(workdir)]
     finally:
         os.chdir(original_cwd)
+
+
+def test_envsec_validation_uses_workdir_environment_order(monkeypatch, tmp_path):
+    """Decrypt after the usual loader activates the .env-selected key backend."""
+    import sys
+    import types
+
+    from uagent.runtime import runtime_init
+
+    _set_state(monkeypatch, tmp_path)
+    workdir = tmp_path / "workdir"
+    workdir.mkdir()
+    (workdir / ".env.sec").write_text("encrypted-placeholder", encoding="utf-8")
+    stages = []
+
+    def load_config():
+        stages.append("loaded")
+        monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "keyring")
+
+    def decrypt(ciphertext):
+        assert ciphertext == "encrypted-placeholder"
+        assert os.environ["UAGENT_ENVSEC_KEY_BACKEND"] == "keyring"
+        stages.append("decrypted")
+        return ""
+
+    fake_envsec = types.ModuleType("uag_envsec")
+    fake_envsec.decrypt_text = decrypt
+    monkeypatch.setitem(sys.modules, "uag_envsec", fake_envsec)
+    monkeypatch.setattr(runtime_init, "load_dotenv_custom", load_config)
+    monkeypatch.setattr(
+        admin_pairing, "export_pairing", lambda **kwargs: tmp_path / "out.json"
+    )
+    original_dir = os.getcwd()
+    try:
+        assert admin_pairing.main(["export", "--workdir", str(workdir)]) == 0
+    finally:
+        os.chdir(original_dir)
+    assert stages == ["loaded", "decrypted"]
+
+
+def test_explicit_trace_endpoint_keeps_its_existing_exporter(monkeypatch):
+    pytest.importorskip("opentelemetry.exporter.otlp.proto.http.trace_exporter")
+    from opentelemetry.exporter.otlp.proto.http import trace_exporter
+
+    from uagent.runtime.observability import otel_backend
+
+    monkeypatch.setenv("OTEL_TRACES_EXPORTER", "otlp")
+    monkeypatch.setenv(
+        "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT",
+        "https://collector.example.net/v1/traces",
+    )
+    for key in (
+        "OTEL_EXPORTER_OTLP_ENDPOINT",
+        "OTEL_EXPORTER_OTLP_HEADERS",
+        "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
+        "OTEL_EXPORTER_OTLP_TRACES_PROTOCOL",
+        "OTEL_EXPORTER_OTLP_PROTOCOL",
+    ):
+        monkeypatch.delenv(key, raising=False)
+    monkeypatch.setattr(
+        admin_pairing,
+        "get_otlp_pairing",
+        lambda: ("https://admin.example.net/otlp/v1/traces", "S" * 48),
+    )
+    constructor_calls = []
+
+    def fake_exporter(**kwargs):
+        constructor_calls.append(kwargs)
+        return object()
+
+    monkeypatch.setattr(trace_exporter, "OTLPSpanExporter", fake_exporter)
+    otel_backend._build_trace_exporter()
+    assert constructor_calls == [{}]
+
+
+def test_explicit_metrics_endpoint_is_not_suppressed(monkeypatch):
+    pytest.importorskip("opentelemetry.exporter.otlp.proto.http.metric_exporter")
+    from opentelemetry.exporter.otlp.proto.http import metric_exporter
+
+    from uagent.runtime.observability import otel_backend
+
+    monkeypatch.delenv("OTEL_METRICS_EXPORTER", raising=False)
+    monkeypatch.setenv(
+        "OTEL_EXPORTER_OTLP_METRICS_ENDPOINT",
+        "https://metrics.example.net/v1/metrics",
+    )
+    monkeypatch.delenv("OTEL_EXPORTER_OTLP_METRICS_PROTOCOL", raising=False)
+    monkeypatch.delenv("OTEL_EXPORTER_OTLP_PROTOCOL", raising=False)
+    monkeypatch.setattr(
+        admin_pairing,
+        "get_otlp_pairing",
+        lambda: ("https://admin.example.net/otlp/v1/traces", "S" * 48),
+    )
+    constructor_calls = []
+
+    def fake_exporter(**kwargs):
+        constructor_calls.append(kwargs)
+        return object()
+
+    monkeypatch.setattr(metric_exporter, "OTLPMetricExporter", fake_exporter)
+    otel_backend._build_metric_exporter()
+    assert constructor_calls == [{}]
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows-only ACL verification")
+def test_windows_private_pairing_file_acl(monkeypatch, tmp_path):
+    pytest.importorskip("win32security")
+    _set_state(monkeypatch, tmp_path)
+    transfer = tmp_path / "windows-transfer.json"
+    admin_pairing.export_pairing(
+        uag_url="http://127.0.0.1:8000",
+        admin_url="http://127.0.0.1:8088",
+        output=transfer,
+    )
+    # Owner-only DACL checks must succeed for both newly created secrets.
+    admin_pairing._windows_private_acl(transfer)
+    admin_pairing._windows_private_acl(
+        tmp_path / "private-state" / "admin_pairing_credentials.json"
+    )
