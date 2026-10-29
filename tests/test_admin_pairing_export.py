@@ -292,3 +292,49 @@ def test_racing_export_does_not_remove_competing_transfer_file(monkeypatch, tmp_
         )
     assert target.read_text(encoding="utf-8") == "owned-by-other-process"
     assert not (tmp_path / "private-state" / "admin_pairing_credentials.json").exists()
+
+
+def test_supervisor_pairing_is_single_file_with_separate_persisted_secret(
+    monkeypatch, tmp_path
+):
+    state = _set_state(monkeypatch, tmp_path)
+    monkeypatch.setenv("UAG_SUPERVISOR_HOST_ID", "remote-host")
+    first = tmp_path / "supervisor-transfer.json"
+    second = tmp_path / "supervisor-transfer-2.json"
+
+    for filename in (first, second):
+        admin_pairing.export_pairing(
+            uag_url="https://uag.example.net",
+            admin_url="https://admin.example.net",
+            supervisor_url="https://supervisor.example.net",
+            output=filename,
+        )
+
+    pair = json.loads(first.read_text(encoding="utf-8"))
+    assert json.loads(second.read_text(encoding="utf-8")) == pair
+    assert pair["supervisor"]["host_id"] == "remote-host"
+    assert pair["supervisor"]["base_url"] == "https://supervisor.example.net"
+    assert pair["supervisor"]["read_bearer"] not in (
+        pair["manifest_bearer"],
+        pair["otlp_bearer"],
+    )
+    assert (
+        admin_pairing.get_supervisor_read_token() == pair["supervisor"]["read_bearer"]
+    )
+    assert "supervisor" not in json.loads(
+        (state / "admin_pairing_credentials.json").read_text(encoding="utf-8")
+    )
+    assert admin_pairing.load_pairing()["manifest_bearer"] == pair["manifest_bearer"]
+    if os.name != "nt":
+        assert (state / "admin_supervisor_read_token").stat().st_mode & 0o077 == 0
+
+
+def test_supervisor_export_refuses_insecure_endpoint(monkeypatch, tmp_path):
+    _set_state(monkeypatch, tmp_path)
+    with pytest.raises(ValueError, match="HTTPS"):
+        admin_pairing.export_pairing(
+            uag_url="https://uag.example.net",
+            admin_url="https://admin.example.net",
+            supervisor_url="http://supervisor.example.net:8091",
+            output=tmp_path / "never.json",
+        )

@@ -11,6 +11,7 @@ import json
 import os
 import re
 import secrets
+import socket
 import stat
 import sys
 from pathlib import Path
@@ -21,6 +22,8 @@ from .runtime.instance_identity import get_instance_id, get_instance_name
 from .utils.paths import get_state_dir
 
 _SECRET_FILE = "admin_pairing_credentials.json"
+_SUPERVISOR_SECRET_FILE = "admin_supervisor_read_token"
+_HOST_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z")
 _MAX_BYTES = 16_384
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_-]{32,256}\Z")
 _KEYS = frozenset(
@@ -249,6 +252,33 @@ def _secure_create(path: Path, payload: bytes) -> None:
         raise
 
 
+def get_supervisor_read_token() -> str | None:
+    """Read the independent, owner-private Supervisor credential if present."""
+    path = get_state_dir() / _SUPERVISOR_SECRET_FILE
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return None
+    if not stat.S_ISREG(info.st_mode) or info.st_size > 512:
+        raise PermissionError("invalid Supervisor credential file")
+    if os.name != "nt" and info.st_mode & 0o077:
+        raise PermissionError("Supervisor credential file is not private")
+    _windows_private_acl(path)
+    token = path.read_text(encoding="ascii").strip()
+    if not _TOKEN_RE.fullmatch(token):
+        raise ValueError("invalid stored Supervisor credential")
+    return token
+
+
+def _create_supervisor_token(folder: Path) -> str:
+    token = get_supervisor_read_token()
+    if token is not None:
+        return token
+    token = secrets.token_urlsafe(48)
+    _secure_create(folder / _SUPERVISOR_SECRET_FILE, (token + "\n").encode("ascii"))
+    return token
+
+
 def _encode(data: dict) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
@@ -271,7 +301,12 @@ def get_otlp_pairing() -> tuple[str, str] | None:
 
 
 def export_pairing(
-    *, uag_url: str, admin_url: str, output: Path, rotate: bool = False
+    *,
+    uag_url: str,
+    admin_url: str,
+    output: Path,
+    rotate: bool = False,
+    supervisor_url: str | None = None,
 ) -> Path:
     """Write a secret-bearing transfer file and preserve runtime credentials."""
     uag_url = _url(uag_url)
@@ -336,6 +371,18 @@ def export_pairing(
         "otlp_bearer": otlp_token,
     }
     payload = _encode(record)
+    transfer = dict(record)
+    if supervisor_url is not None:
+        url = _url(supervisor_url)
+        host_id = os.environ.get("UAG_SUPERVISOR_HOST_ID") or socket.gethostname()
+        if not _HOST_ID.fullmatch(host_id):
+            raise ValueError("invalid Supervisor host ID")
+        transfer["supervisor"] = {
+            "host_id": host_id,
+            "base_url": url,
+            "read_bearer": _create_supervisor_token(folder),
+        }
+    transfer_payload = _encode(transfer)
     target = output.expanduser().absolute()
     if target == source or target.is_symlink():
         raise ValueError("invalid transfer-file path")
@@ -358,7 +405,7 @@ def export_pairing(
 
     transfer_created = False
     try:
-        _secure_create(target, payload)
+        _secure_create(target, transfer_payload)
         transfer_created = True
         if old is None:
             _secure_create(source, payload)
@@ -383,6 +430,11 @@ def main(arguments: list[str] | None = None) -> int:
     cmd.add_argument("--uag-url", default="http://127.0.0.1:8000")
     cmd.add_argument("--admin-url", default="http://127.0.0.1:8088")
     cmd.add_argument("--output", default="uag-admin-link.json")
+    cmd.add_argument(
+        "--supervisor-url",
+        default=None,
+        help="optional remote Supervisor HTTPS URL for automatic Admin registration",
+    )
     cmd.add_argument("--workdir", help="UAG workdir containing .env/.env.sec")
     cmd.add_argument(
         "--rotate",
@@ -421,6 +473,7 @@ def main(arguments: list[str] | None = None) -> int:
             admin_url=args.admin_url,
             output=Path(args.output),
             rotate=args.rotate,
+            supervisor_url=args.supervisor_url,
         )
     except (OSError, ValueError, PermissionError, json.JSONDecodeError) as exc:
         print(f"Pairing export failed: {type(exc).__name__}", file=sys.stderr)
