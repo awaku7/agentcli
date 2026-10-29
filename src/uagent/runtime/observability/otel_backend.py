@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import atexit
 import os
+import threading
 from contextlib import contextmanager
 from typing import Any, Iterator, Mapping, MutableMapping
 
@@ -26,6 +27,80 @@ _METRIC_BOOLEAN_KEYS = {
     "uag.memory.guidance_present",
     "uag.memory.shared_enabled",
 }
+
+
+class _FailStopExporter:
+    """Stop submitting telemetry after the first exporter failure.
+
+    OpenTelemetry's batch processors keep invoking exporters periodically. If
+    the configured collector is unavailable, forwarding those calls produces
+    repeated connection attempts and repeated error logs. This adapter lets the
+    first failure be observed, then drops later batches without contacting the
+    exporter again.
+    """
+
+    def __init__(self, exporter: Any, *, success_result: Any, failure_result: Any):
+        self._exporter = exporter
+        self._success_result = success_result
+        self._failure_result = failure_result
+        self._lock = threading.Lock()
+        self._disabled = False
+        self._shutdown = False
+
+    def export(self, batch: Any) -> Any:
+        with self._lock:
+            if self._disabled or self._shutdown:
+                return self._success_result
+            try:
+                result = self._exporter.export(batch)
+            except Exception:
+                self._disabled = True
+                return self._failure_result
+            if result == self._failure_result:
+                self._disabled = True
+            return result
+
+    def force_flush(self, timeout_millis: int = 30_000) -> bool:
+        with self._lock:
+            if self._disabled or self._shutdown:
+                return True
+            force_flush = getattr(self._exporter, "force_flush", None)
+            if not callable(force_flush):
+                return True
+            try:
+                result = force_flush(timeout_millis)
+            except Exception:
+                self._disabled = True
+                return False
+            if result is False:
+                self._disabled = True
+            return result is not False
+
+    def shutdown(self) -> None:
+        with self._lock:
+            if self._shutdown:
+                return
+            self._shutdown = True
+            self._disabled = True
+            shutdown = getattr(self._exporter, "shutdown", None)
+            if callable(shutdown):
+                try:
+                    shutdown()
+                except Exception:
+                    pass
+
+
+def _configured_otlp_endpoint(signal: str) -> str:
+    """Return a configured signal-specific or common OTLP endpoint, if any."""
+
+    for name in (
+        f"OTEL_EXPORTER_OTLP_{signal.upper()}_ENDPOINT",
+        "OTEL_EXPORTER_OTLP_ENDPOINT",
+    ):
+        endpoint = (os.getenv(name) or "").strip()
+        if endpoint:
+            return endpoint
+    return ""
 
 
 def _sanitize_metric_attributes(
@@ -383,6 +458,23 @@ def _build_trace_exporter() -> Any | None:
         .strip()
         .lower()
     )
+    # Do not silently fall back to the SDK's default localhost endpoint. An
+    # absent collector is a normal configuration, not an exporter failure.
+    from ...admin_pairing import get_otlp_pairing
+
+    has_explicit_endpoint = bool(_configured_otlp_endpoint("traces"))
+    paired = get_otlp_pairing() if protocol == "http/protobuf" else None
+    pairing_is_usable = paired is not None and not any(
+        os.getenv(key)
+        for key in (
+            "OTEL_EXPORTER_OTLP_ENDPOINT",
+            "OTEL_EXPORTER_OTLP_HEADERS",
+            "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
+        )
+    )
+    if not has_explicit_endpoint and not pairing_is_usable:
+        return None
+
     if protocol == "grpc":
         from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
             OTLPSpanExporter,
@@ -397,22 +489,15 @@ def _build_trace_exporter() -> Any | None:
         # Pairing never overrides explicit exporter headers. The credential is
         # only used for the exact saved Admin endpoint; do not send it to a
         # different destination supplied by the process environment.
-        from ...admin_pairing import get_otlp_pairing
-
-        paired = get_otlp_pairing()
-        if paired is not None and not any(
-            os.getenv(key)
-            for key in (
-                "OTEL_EXPORTER_OTLP_ENDPOINT",
-                "OTEL_EXPORTER_OTLP_HEADERS",
-                "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
-            )
-        ):
-            endpoint, token = paired
-            configured_endpoint = os.getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
-            if not configured_endpoint or configured_endpoint == endpoint:
+        if pairing_is_usable:
+            paired_endpoint, token = paired
+            configured_endpoint = (
+                os.getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT") or ""
+            ).strip()
+            if not configured_endpoint or configured_endpoint == paired_endpoint:
                 return OTLPSpanExporter(
-                    endpoint=endpoint, headers={"Authorization": "Bearer " + token}
+                    endpoint=paired_endpoint,
+                    headers={"Authorization": "Bearer " + token},
                 )
             # An explicit different collector takes precedence, without
             # inheriting the paired Admin credentials.
@@ -444,6 +529,10 @@ def _build_metric_exporter() -> Any | None:
     if "otlp" not in exporters:
         raise ValueError("UAG metrics supports OTEL_METRICS_EXPORTER=otlp or none")
 
+    # As with traces, never use the SDK's implicit localhost collector.
+    if not _configured_otlp_endpoint("metrics"):
+        return None
+
     protocol = (
         (
             os.getenv("OTEL_EXPORTER_OTLP_METRICS_PROTOCOL")
@@ -473,13 +562,18 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
 
     from opentelemetry.sdk.resources import Resource
     from opentelemetry.sdk.trace import TracerProvider
-    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor, SpanExportResult
 
     service_name = (os.getenv("OTEL_SERVICE_NAME") or "uagent").strip() or "uagent"
     resource = Resource.create({"service.name": service_name})
     provider = TracerProvider(resource=resource, sampler=_sampler_from_environment())
     exporter = _build_trace_exporter()
     if exporter is not None:
+        exporter = _FailStopExporter(
+            exporter,
+            success_result=SpanExportResult.SUCCESS,
+            failure_result=SpanExportResult.FAILURE,
+        )
         from ...admin_pairing import get_otlp_pairing
 
         if get_otlp_pairing() and "OTEL_BSP_MAX_EXPORT_BATCH_SIZE" not in os.environ:
@@ -496,7 +590,16 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
         metric_exporter = _build_metric_exporter()
         if metric_exporter is not None:
             from opentelemetry.sdk.metrics import MeterProvider
-            from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+            from opentelemetry.sdk.metrics.export import (
+                MetricExportResult,
+                PeriodicExportingMetricReader,
+            )
+
+            metric_exporter = _FailStopExporter(
+                metric_exporter,
+                success_result=MetricExportResult.SUCCESS,
+                failure_result=MetricExportResult.FAILURE,
+            )
 
             metric_reader = PeriodicExportingMetricReader(metric_exporter)
             meter_provider = MeterProvider(

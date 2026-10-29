@@ -172,7 +172,9 @@ Supported OTLP protocols:
 - `OTEL_EXPORTER_OTLP_PROTOCOL=grpc`
 - signal-specific `OTEL_EXPORTER_OTLP_TRACES_PROTOCOL` and `OTEL_EXPORTER_OTLP_METRICS_PROTOCOL` override the generic protocol.
 
-Normal OTel endpoint/header variables are passed through to the selected exporter, including `OTEL_EXPORTER_OTLP_ENDPOINT`, signal-specific endpoint variables, and the corresponding header variables.
+Normal OTel endpoint/header variables are passed through to the selected exporter, including `OTEL_EXPORTER_OTLP_ENDPOINT`, signal-specific endpoint variables, and the corresponding header variables. If neither a common nor signal-specific endpoint is configured (and no usable Admin trace pairing supplies one), UAG creates no exporter; it does not fall back to the SDK's implicit localhost endpoint.
+
+After the first export failure, the affected trace or metric exporter is fail-stopped for the rest of the process, so later batches are discarded without further collector connection attempts.
 
 `OTEL_SERVICE_NAME` defaults to `uagent` when absent.
 
