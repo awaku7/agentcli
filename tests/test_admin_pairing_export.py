@@ -60,7 +60,8 @@ def test_export_refuses_unsafe_urls_and_existing_output(monkeypatch, tmp_path):
         )
     assert not target.exists()
     admin_pairing.export_pairing(
-        uag_url="https://uag.example.com", admin_url="https://admin.example.com",
+        uag_url="https://uag.example.com",
+        admin_url="https://admin.example.com",
         output=target,
     )
     with pytest.raises(FileExistsError):

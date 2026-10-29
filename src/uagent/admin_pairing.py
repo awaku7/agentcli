@@ -23,8 +23,18 @@ from .utils.paths import get_state_dir
 _SECRET_FILE = "admin_pairing_credentials.json"
 _MAX_BYTES = 16_384
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_-]{32,256}\Z")
-_KEYS = frozenset({"format", "version", "instance_id", "instance_name",
-                    "uag_base_url", "admin_base_url", "manifest_bearer", "otlp_bearer"})
+_KEYS = frozenset(
+    {
+        "format",
+        "version",
+        "instance_id",
+        "instance_name",
+        "uag_base_url",
+        "admin_base_url",
+        "manifest_bearer",
+        "otlp_bearer",
+    }
+)
 
 
 def _url(raw: str) -> str:
@@ -43,6 +53,7 @@ def _url(raw: str) -> str:
         raise ValueError("use the service base URL without path/query/fragment")
     if u.scheme == "http":
         import ipaddress
+
         try:
             loopback = ipaddress.ip_address(host).is_loopback
         except ValueError:
@@ -80,8 +91,14 @@ def _read_private(path: Path) -> dict | None:
         or data["version"] != 1
         or any(
             type(data.get(k)) is not str
-            for k in ("instance_id", "instance_name", "uag_base_url",
-                      "admin_base_url", "manifest_bearer", "otlp_bearer")
+            for k in (
+                "instance_id",
+                "instance_name",
+                "uag_base_url",
+                "admin_base_url",
+                "manifest_bearer",
+                "otlp_bearer",
+            )
         )
         or not _TOKEN_RE.fullmatch(data["manifest_bearer"])
         or not _TOKEN_RE.fullmatch(data["otlp_bearer"])
@@ -129,8 +146,9 @@ def get_otlp_pairing() -> tuple[str, str] | None:
     return data["admin_base_url"] + "/otlp/v1/traces", data["otlp_bearer"]
 
 
-def export_pairing(*, uag_url: str, admin_url: str, output: Path,
-                   rotate: bool = False) -> Path:
+def export_pairing(
+    *, uag_url: str, admin_url: str, output: Path, rotate: bool = False
+) -> Path:
     """Write a secret-bearing transfer file and preserve runtime credentials."""
     uag_url = _url(uag_url)
     admin_url = _url(admin_url)
@@ -140,15 +158,21 @@ def export_pairing(*, uag_url: str, admin_url: str, output: Path,
     instance_id = get_instance_id()
     if old is not None and old["instance_id"] != instance_id:
         raise ValueError("existing pairing is bound to a different UAG instance")
-    if old is not None and not rotate and (
-        old["uag_base_url"] != uag_url or old["admin_base_url"] != admin_url
+    if (
+        old is not None
+        and not rotate
+        and (old["uag_base_url"] != uag_url or old["admin_base_url"] != admin_url)
     ):
         raise ValueError("pairing URLs changed; use --rotate explicitly")
 
     existing_manifest = os.environ.get("UAGENT_MANAGEMENT_API_TOKEN", "").strip()
     if existing_manifest and not _TOKEN_RE.fullmatch(existing_manifest):
         raise ValueError("existing manifest bearer is invalid")
-    if old is not None and existing_manifest and existing_manifest != old["manifest_bearer"]:
+    if (
+        old is not None
+        and existing_manifest
+        and existing_manifest != old["manifest_bearer"]
+    ):
         raise ValueError("manifest token conflicts with existing pairing")
     if rotate:
         if existing_manifest:
@@ -159,7 +183,9 @@ def export_pairing(*, uag_url: str, admin_url: str, output: Path,
         manifest_token = existing_manifest or (
             old["manifest_bearer"] if old is not None else secrets.token_urlsafe(48)
         )
-        otlp_token = old["otlp_bearer"] if old is not None else secrets.token_urlsafe(48)
+        otlp_token = (
+            old["otlp_bearer"] if old is not None else secrets.token_urlsafe(48)
+        )
 
     # Respect explicit exporter configuration, rather than silently overriding it.
     explicit_endpoint = os.environ.get("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
@@ -169,10 +195,14 @@ def export_pairing(*, uag_url: str, admin_url: str, output: Path,
         raise ValueError("unset explicit OTLP trace headers before pairing")
 
     record = {
-        "format": "uag-admin-pairing", "version": 1,
-        "instance_id": instance_id, "instance_name": get_instance_name(instance_id),
-        "uag_base_url": uag_url, "admin_base_url": admin_url,
-        "manifest_bearer": manifest_token, "otlp_bearer": otlp_token,
+        "format": "uag-admin-pairing",
+        "version": 1,
+        "instance_id": instance_id,
+        "instance_name": get_instance_name(instance_id),
+        "uag_base_url": uag_url,
+        "admin_base_url": admin_url,
+        "manifest_bearer": manifest_token,
+        "otlp_bearer": otlp_token,
     }
     payload = _encode(record)
     target = output.expanduser().absolute()
@@ -224,13 +254,18 @@ def main(arguments: list[str] | None = None) -> int:
     cmd.add_argument("--uag-url", default="http://127.0.0.1:8000")
     cmd.add_argument("--admin-url", default="http://127.0.0.1:8088")
     cmd.add_argument("--output", default="uag-admin-link.json")
-    cmd.add_argument("--rotate", action="store_true",
-                     help="explicitly replace existing pairing credentials")
+    cmd.add_argument(
+        "--rotate",
+        action="store_true",
+        help="explicitly replace existing pairing credentials",
+    )
     args = parser.parse_args(arguments)
     try:
         path = export_pairing(
-            uag_url=args.uag_url, admin_url=args.admin_url,
-            output=Path(args.output), rotate=args.rotate,
+            uag_url=args.uag_url,
+            admin_url=args.admin_url,
+            output=Path(args.output),
+            rotate=args.rotate,
         )
     except (OSError, ValueError, PermissionError, json.JSONDecodeError) as exc:
         print(f"Pairing export failed: {type(exc).__name__}", file=sys.stderr)

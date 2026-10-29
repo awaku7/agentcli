@@ -465,7 +465,9 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
         from ...admin_pairing import get_otlp_pairing
 
         if get_otlp_pairing() and "OTEL_BSP_MAX_EXPORT_BATCH_SIZE" not in os.environ:
-            provider.add_span_processor(BatchSpanProcessor(exporter, max_export_batch_size=256))
+            provider.add_span_processor(
+                BatchSpanProcessor(exporter, max_export_batch_size=256)
+            )
         else:
             provider.add_span_processor(BatchSpanProcessor(exporter))
     tracer = provider.get_tracer("uagent.runtime.observability")
