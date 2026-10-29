@@ -10,6 +10,10 @@ def main() -> int:
         from .session_cli import main as session_main
 
         return session_main(sys.argv[2:])
+    if sys.argv[1:2] == ["admin"]:
+        from .admin_pairing import main as admin_main
+
+        return admin_main(sys.argv[2:])
     from .cli import main as interactive_main
 
     return interactive_main()

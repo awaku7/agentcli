@@ -394,11 +394,49 @@ def _build_trace_exporter() -> Any | None:
             OTLPSpanExporter,
         )
 
+        # Pairing never overrides explicit exporter headers. The credential is
+        # only used for the exact saved Admin endpoint; do not send it to a
+        # different destination supplied by the process environment.
+        from ...admin_pairing import get_otlp_pairing
+
+        paired = get_otlp_pairing()
+        if paired is not None and not any(
+            os.getenv(key)
+            for key in (
+                "OTEL_EXPORTER_OTLP_ENDPOINT",
+                "OTEL_EXPORTER_OTLP_HEADERS",
+                "OTEL_EXPORTER_OTLP_TRACES_HEADERS",
+            )
+        ):
+            endpoint, token = paired
+            configured_endpoint = os.getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
+            if not configured_endpoint or configured_endpoint == endpoint:
+                return OTLPSpanExporter(
+                    endpoint=endpoint, headers={"Authorization": "Bearer " + token}
+                )
+            # An explicit different collector takes precedence, without
+            # inheriting the paired Admin credentials.
         return OTLPSpanExporter()
     raise ValueError(f"unsupported OTLP traces protocol: {protocol}")
 
 
 def _build_metric_exporter() -> Any | None:
+    # The Admin pairing contract is traces-only. Do not attempt to push
+    # metrics to an unsupported Admin endpoint unless explicitly configured.
+    from ...admin_pairing import get_otlp_pairing
+
+    if (
+        "OTEL_METRICS_EXPORTER" not in os.environ
+        and get_otlp_pairing()
+        and not any(
+            os.getenv(key)
+            for key in (
+                "OTEL_EXPORTER_OTLP_METRICS_ENDPOINT",
+                "OTEL_EXPORTER_OTLP_ENDPOINT",
+            )
+        )
+    ):
+        return None
     configured = (os.getenv("OTEL_METRICS_EXPORTER") or "otlp").strip().lower()
     exporters = {item.strip() for item in configured.split(",") if item.strip()}
     if exporters == {"none"}:
@@ -442,7 +480,14 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
     provider = TracerProvider(resource=resource, sampler=_sampler_from_environment())
     exporter = _build_trace_exporter()
     if exporter is not None:
-        provider.add_span_processor(BatchSpanProcessor(exporter))
+        from ...admin_pairing import get_otlp_pairing
+
+        if get_otlp_pairing() and "OTEL_BSP_MAX_EXPORT_BATCH_SIZE" not in os.environ:
+            provider.add_span_processor(
+                BatchSpanProcessor(exporter, max_export_batch_size=256)
+            )
+        else:
+            provider.add_span_processor(BatchSpanProcessor(exporter))
     tracer = provider.get_tracer("uagent.runtime.observability")
 
     meter = None
