@@ -96,6 +96,15 @@ def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
         | win32security.DACL_SECURITY_INFORMATION
     )
     descriptor = win32security.GetFileSecurity(str(path), flags)
+    if apply and descriptor.GetSecurityDescriptorOwner() != current_sid:
+        # Elevated Windows processes can create files whose initial owner is
+        # BUILTIN\\Administrators rather than the user's SID. Take ownership
+        # before writing any secrets; fail closed if that is not permitted.
+        descriptor.SetSecurityDescriptorOwner(current_sid, False)
+        win32security.SetFileSecurity(
+            str(path), win32security.OWNER_SECURITY_INFORMATION, descriptor
+        )
+        descriptor = win32security.GetFileSecurity(str(path), flags)
     if descriptor.GetSecurityDescriptorOwner() != current_sid:
         raise PermissionError("pairing credentials must be owned by current user")
     if apply:
