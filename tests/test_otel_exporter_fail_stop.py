@@ -119,9 +119,20 @@ def test_paired_backend_recovers_after_import_without_restart(monkeypatch):
     from threading import Thread
     from types import SimpleNamespace
 
-    from opentelemetry.proto.collector.trace.v1.trace_service_pb2 import (
-        ExportTraceServiceRequest,
+    import pytest
+
+    # General test jobs need not install OTel. Check all optional imports
+    # before starting the receiver, including incompatible installed packages.
+    pytest.importorskip("opentelemetry.sdk", exc_type=ImportError)
+    trace_service = pytest.importorskip(
+        "opentelemetry.proto.collector.trace.v1.trace_service_pb2",
+        exc_type=ImportError,
     )
+    pytest.importorskip(
+        "opentelemetry.exporter.otlp.proto.http.trace_exporter",
+        exc_type=ImportError,
+    )
+    ExportTraceServiceRequest = trace_service.ExportTraceServiceRequest
     from uagent.runtime.observability.settings import ObservabilitySettings
 
     received = []
