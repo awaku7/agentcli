@@ -151,15 +151,20 @@ def _secure_create_windows(path: Path, payload: bytes) -> None:
 
     # CREATE_NEW prevents accidental overwrite even if another process races
     # to populate the same output path.
-    handle = win32file.CreateFile(
-        str(path),
-        win32con.GENERIC_WRITE,
-        0,
-        attributes,
-        win32con.CREATE_NEW,
-        win32con.FILE_ATTRIBUTE_NORMAL,
-        None,
-    )
+    try:
+        handle = win32file.CreateFile(
+            str(path),
+            win32con.GENERIC_WRITE,
+            0,
+            attributes,
+            win32con.CREATE_NEW,
+            win32con.FILE_ATTRIBUTE_NORMAL,
+            None,
+        )
+    except pywintypes.error as exc:
+        if getattr(exc, "winerror", exc.args[0]) in (80, 183):
+            raise FileExistsError("pairing output already exists") from exc
+        raise OSError("could not create a private Windows pairing file") from exc
     try:
         # Query using the already-open handle: a second path-based open
         # would conflict with CreateFile's exclusive sharing mode.
