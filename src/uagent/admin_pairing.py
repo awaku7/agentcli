@@ -22,7 +22,6 @@ from .runtime.instance_identity import get_instance_id, get_instance_name
 from .utils.paths import get_state_dir
 
 _SECRET_FILE = "admin_pairing_credentials.json"
-_SUPERVISOR_SECRET_FILE = "admin_supervisor_read_token"
 _HOST_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z")
 _MAX_BYTES = 16_384
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_-]{32,256}\Z")
@@ -204,7 +203,7 @@ def _read_private(path: Path) -> dict | None:
     data = json.loads(path.read_text(encoding="utf-8"))
     if (
         type(data) is not dict
-        or set(data) != _KEYS
+        or set(data) not in (_KEYS, _KEYS | {"supervisor_bearer"})
         or data.get("format") != "uag-admin-pairing"
         or type(data.get("version")) is not int
         or data["version"] != 1
@@ -222,6 +221,15 @@ def _read_private(path: Path) -> dict | None:
         or not _TOKEN_RE.fullmatch(data["manifest_bearer"])
         or not _TOKEN_RE.fullmatch(data["otlp_bearer"])
         or data["manifest_bearer"] == data["otlp_bearer"]
+        or (
+            "supervisor_bearer" in data
+            and (
+                type(data["supervisor_bearer"]) is not str
+                or not _TOKEN_RE.fullmatch(data["supervisor_bearer"])
+                or data["supervisor_bearer"]
+                in (data["manifest_bearer"], data["otlp_bearer"])
+            )
+        )
     ):
         raise ValueError("invalid saved UAG pairing credentials")
     return data
@@ -253,30 +261,9 @@ def _secure_create(path: Path, payload: bytes) -> None:
 
 
 def get_supervisor_read_token() -> str | None:
-    """Read the independent, owner-private Supervisor credential if present."""
-    path = get_state_dir() / _SUPERVISOR_SECRET_FILE
-    try:
-        info = path.lstat()
-    except FileNotFoundError:
-        return None
-    if not stat.S_ISREG(info.st_mode) or info.st_size > 512:
-        raise PermissionError("invalid Supervisor credential file")
-    if os.name != "nt" and info.st_mode & 0o077:
-        raise PermissionError("Supervisor credential file is not private")
-    _windows_private_acl(path)
-    token = path.read_text(encoding="ascii").strip()
-    if not _TOKEN_RE.fullmatch(token):
-        raise ValueError("invalid stored Supervisor credential")
-    return token
-
-
-def _create_supervisor_token(folder: Path) -> str:
-    token = get_supervisor_read_token()
-    if token is not None:
-        return token
-    token = secrets.token_urlsafe(48)
-    _secure_create(folder / _SUPERVISOR_SECRET_FILE, (token + "\n").encode("ascii"))
-    return token
+    """Read the independent Supervisor token from the same private pairing state."""
+    data = load_pairing()
+    return data.get("supervisor_bearer") if data is not None else None
 
 
 def _encode(data: dict) -> bytes:
@@ -370,17 +357,35 @@ def export_pairing(
         "manifest_bearer": manifest_token,
         "otlp_bearer": otlp_token,
     }
-    payload = _encode(record)
-    transfer = dict(record)
+    # A single atomic runtime credential file is the source of truth.
+    # --rotate must change every active bearer together, including Supervisor.
+    had_supervisor = old is not None and "supervisor_bearer" in old
+    if had_supervisor and rotate and supervisor_url is None:
+        raise ValueError("--supervisor-url is required to rotate Supervisor pairing")
     if supervisor_url is not None:
-        url = _url(supervisor_url)
+        supervisor_url = _url(supervisor_url)
         host_id = os.environ.get("UAG_SUPERVISOR_HOST_ID") or socket.gethostname()
         if not _HOST_ID.fullmatch(host_id):
             raise ValueError("invalid Supervisor host ID")
+    if supervisor_url is not None or had_supervisor:
+        supervisor_token = (
+            secrets.token_urlsafe(48)
+            if rotate or not had_supervisor
+            else old["supervisor_bearer"]
+        )
+        if supervisor_token in (manifest_token, otlp_token):
+            raise ValueError("Supervisor bearer must be independent")
+        record["supervisor_bearer"] = supervisor_token
+
+    payload = _encode(record)
+    transfer = {
+        key: value for key, value in record.items() if key != "supervisor_bearer"
+    }
+    if supervisor_url is not None:
         transfer["supervisor"] = {
             "host_id": host_id,
-            "base_url": url,
-            "read_bearer": _create_supervisor_token(folder),
+            "base_url": supervisor_url,
+            "read_bearer": record["supervisor_bearer"],
         }
     transfer_payload = _encode(transfer)
     target = output.expanduser().absolute()

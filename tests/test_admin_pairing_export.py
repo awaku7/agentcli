@@ -321,12 +321,14 @@ def test_supervisor_pairing_is_single_file_with_separate_persisted_secret(
     assert (
         admin_pairing.get_supervisor_read_token() == pair["supervisor"]["read_bearer"]
     )
-    assert "supervisor" not in json.loads(
+    stored = json.loads(
         (state / "admin_pairing_credentials.json").read_text(encoding="utf-8")
     )
+    assert stored["supervisor_bearer"] == pair["supervisor"]["read_bearer"]
+    assert "supervisor" not in stored
     assert admin_pairing.load_pairing()["manifest_bearer"] == pair["manifest_bearer"]
     if os.name != "nt":
-        assert (state / "admin_supervisor_read_token").stat().st_mode & 0o077 == 0
+        assert (state / "admin_pairing_credentials.json").stat().st_mode & 0o077 == 0
 
 
 def test_supervisor_export_refuses_insecure_endpoint(monkeypatch, tmp_path):
@@ -338,3 +340,59 @@ def test_supervisor_export_refuses_insecure_endpoint(monkeypatch, tmp_path):
             supervisor_url="http://supervisor.example.net:8091",
             output=tmp_path / "never.json",
         )
+
+
+def test_supervisor_rotation_changes_every_credential_atomically(monkeypatch, tmp_path):
+    state = _set_state(monkeypatch, tmp_path)
+    monkeypatch.setenv("UAG_SUPERVISOR_HOST_ID", "remote-host")
+    first = tmp_path / "first.json"
+    second = tmp_path / "rotated.json"
+    kwargs = {
+        "uag_url": "https://uag.example.net",
+        "admin_url": "https://admin.example.net",
+        "supervisor_url": "https://supervisor.example.net",
+    }
+    admin_pairing.export_pairing(**kwargs, output=first)
+    old = json.loads(first.read_text(encoding="utf-8"))
+    with pytest.raises(ValueError, match="supervisor-url"):
+        admin_pairing.export_pairing(
+            uag_url=kwargs["uag_url"],
+            admin_url=kwargs["admin_url"],
+            output=tmp_path / "invalid-rotation.json",
+            rotate=True,
+        )
+    assert (
+        json.loads(
+            (state / "admin_pairing_credentials.json").read_text(encoding="utf-8")
+        )["supervisor_bearer"]
+        == old["supervisor"]["read_bearer"]
+    )
+
+    admin_pairing.export_pairing(**kwargs, output=second, rotate=True)
+    new = json.loads(second.read_text(encoding="utf-8"))
+    assert new["manifest_bearer"] != old["manifest_bearer"]
+    assert new["otlp_bearer"] != old["otlp_bearer"]
+    assert new["supervisor"]["read_bearer"] != old["supervisor"]["read_bearer"]
+    assert admin_pairing.get_supervisor_read_token() == new["supervisor"]["read_bearer"]
+    assert admin_pairing.get_manifest_pairing_token() == new["manifest_bearer"]
+
+
+def test_failed_transfer_does_not_rotate_supervisor_token(monkeypatch, tmp_path):
+    state = _set_state(monkeypatch, tmp_path)
+    first = tmp_path / "before.json"
+    kwargs = {
+        "uag_url": "https://uag.example.net",
+        "admin_url": "https://admin.example.net",
+        "supervisor_url": "https://supervisor.example.net",
+    }
+    admin_pairing.export_pairing(**kwargs, output=first)
+    original = (state / "admin_pairing_credentials.json").read_bytes()
+    existing = tmp_path / "occupied.json"
+    existing.write_text("external", encoding="utf-8")
+    with pytest.raises(FileExistsError):
+        admin_pairing.export_pairing(**kwargs, output=existing, rotate=True)
+    assert (state / "admin_pairing_credentials.json").read_bytes() == original
+    assert (
+        admin_pairing.get_supervisor_read_token()
+        == json.loads(first.read_text(encoding="utf-8"))["supervisor"]["read_bearer"]
+    )

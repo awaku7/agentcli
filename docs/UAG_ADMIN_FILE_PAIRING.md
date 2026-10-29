@@ -49,6 +49,8 @@ Adminへ取り込む前のOTLP送信は404（未登録なら401）、Admin停止
 uag admin export --uag-url https://uag.example.net --admin-url https://admin.example.net --supervisor-url https://supervisor.example.net --output uag-admin-link.json
 ~~~
 
-Supervisorの認証用トークンはUAGの非公開状態ディレクトリに独立して生成・保持します。UAG Adminは同じJSONを取り込むだけで、許可済みSupervisorの接続情報も登録します。
+Supervisorの認証用トークンは既存の保護済み連携資格情報ファイルに、別用途の独立したBearerとして保存します。UAG Adminは同じJSONを取り込むだけで、許可済みSupervisorの接続情報も登録します。
 
 別PCではSupervisorサービスをUAGと同じOSユーザーで起動し、HTTPSリバースプロキシとAdmin側の許可ホスト設定を準備してください。ネットワーク通信の暗号化と管理者による接続先許可は省略できません。トークン・インスタンスID・PID・起動時刻の転記は不要です。
+
+Supervisor連携を一度設定した後で `--rotate` を指定すると、manifest・OTLP・Supervisorの3種類のBearerをまとめて変更します。Supervisor連携がある場合は同じ `--supervisor-url` も指定し、出力JSONをAdminに再取り込みしてください。出力に失敗した場合、保存済みの資格情報は変更しません。
