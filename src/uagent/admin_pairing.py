@@ -73,11 +73,8 @@ def _private_folder() -> Path:
     return folder
 
 
-def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
-    """Restrict/check owner-only Windows DACL before writing bearer secrets.
-
-    Missing pywin32 is a hard failure, not permission checking by os.chmod.
-    """
+def _windows_private_acl(path: Path) -> None:
+    """Validate the current-user-only, inheritance-protected Windows file ACL."""
     if os.name != "nt":
         return
     try:
@@ -96,34 +93,79 @@ def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
         | win32security.DACL_SECURITY_INFORMATION
     )
     descriptor = win32security.GetFileSecurity(str(path), flags)
-    if apply and descriptor.GetSecurityDescriptorOwner() != current_sid:
-        # Elevated Windows processes can create files whose initial owner is
-        # BUILTIN\\Administrators rather than the user's SID. Take ownership
-        # before writing any secrets; fail closed if that is not permitted.
-        descriptor.SetSecurityDescriptorOwner(current_sid, False)
-        win32security.SetFileSecurity(
-            str(path), win32security.OWNER_SECURITY_INFORMATION, descriptor
-        )
-        descriptor = win32security.GetFileSecurity(str(path), flags)
     if descriptor.GetSecurityDescriptorOwner() != current_sid:
         raise PermissionError("pairing credentials must be owned by current user")
-    if apply:
-        acl = win32security.ACL()
-        acl.AddAccessAllowedAce(
-            win32security.ACL_REVISION, win32con.GENERIC_ALL, current_sid
-        )
-        descriptor.SetSecurityDescriptorDacl(1, acl, 0)
-        win32security.SetFileSecurity(
-            str(path), win32security.DACL_SECURITY_INFORMATION, descriptor
-        )
-        descriptor = win32security.GetFileSecurity(str(path), flags)
+    control, _ = descriptor.GetSecurityDescriptorControl()
+    if not control & win32security.SE_DACL_PROTECTED:
+        raise PermissionError("pairing credentials must block inherited Windows ACLs")
     dacl = descriptor.GetSecurityDescriptorDacl()
     if dacl is None or dacl.GetAceCount() != 1:
         raise PermissionError("pairing credentials require a private Windows ACL")
     ace = dacl.GetAce(0)
-    if ace[0][0] != win32security.ACCESS_ALLOWED_ACE_TYPE or ace[2] != current_sid:
+    if (
+        ace[0][0] != win32security.ACCESS_ALLOWED_ACE_TYPE
+        or ace[0][1] != 0
+        or ace[2] != current_sid
+    ):
         raise PermissionError("pairing credentials must only allow current user")
 
+
+def _secure_create_windows(path: Path, payload: bytes) -> None:
+    """Atomically create a new Windows file with an owner-only protected DACL.
+
+    Pass the descriptor to CreateFile itself: never publish the file using
+    inherited permissions and then try to repair its ACL afterward.
+    """
+    try:
+        import pywintypes
+        import win32api
+        import win32con
+        import win32file
+        import win32security
+    except ImportError as exc:
+        raise PermissionError("pywin32 is required for secure Windows pairing") from exc
+
+    token = win32security.OpenProcessToken(
+        win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
+    )
+    current_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
+    dacl = win32security.ACL()
+    dacl.AddAccessAllowedAce(
+        win32security.ACL_REVISION, win32con.GENERIC_ALL, current_sid
+    )
+    descriptor = win32security.SECURITY_DESCRIPTOR()
+    descriptor.SetSecurityDescriptorOwner(current_sid, False)
+    descriptor.SetSecurityDescriptorDacl(True, dacl, False)
+    descriptor.SetSecurityDescriptorControl(
+        win32security.SE_DACL_PROTECTED, win32security.SE_DACL_PROTECTED
+    )
+    attributes = pywintypes.SECURITY_ATTRIBUTES()
+    attributes.SECURITY_DESCRIPTOR = descriptor
+    attributes.bInheritHandle = False
+
+    # CREATE_NEW prevents accidental overwrite even if another process races
+    # to populate the same output path.
+    handle = win32file.CreateFile(
+        str(path),
+        win32con.GENERIC_WRITE,
+        0,
+        attributes,
+        win32con.CREATE_NEW,
+        win32con.FILE_ATTRIBUTE_NORMAL,
+        None,
+    )
+    try:
+        _windows_private_acl(path)
+        _, written = win32file.WriteFile(handle, payload)
+        if written != len(payload):
+            raise OSError("incomplete write of pairing secrets")
+        win32file.FlushFileBuffers(handle)
+    except BaseException:
+        handle.Close()
+        path.unlink(missing_ok=True)
+        raise
+    else:
+        handle.Close()
 
 def _read_private(path: Path) -> dict | None:
     try:
@@ -162,15 +204,17 @@ def _read_private(path: Path) -> dict | None:
 
 
 def _secure_create(path: Path, payload: bytes) -> None:
-    """Create-only; do not silently overwrite user-authored secrets."""
+    """Create a new secret file with private permissions from the first instant."""
     if len(payload) > _MAX_BYTES:
         raise ValueError("pairing file exceeds size limit")
     if path.is_symlink():
         raise PermissionError("will not overwrite a symlink")
+    if os.name == "nt":
+        _secure_create_windows(path, payload)
+        return
+
     fd = os.open(str(path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
-        # Apply a private DACL before writing any secret bytes.
-        _windows_private_acl(path, apply=True)
         stream = os.fdopen(fd, "wb")
         fd = -1
         with stream:
@@ -182,7 +226,6 @@ def _secure_create(path: Path, payload: bytes) -> None:
             os.close(fd)
         path.unlink(missing_ok=True)
         raise
-
 
 def _encode(data: dict) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
