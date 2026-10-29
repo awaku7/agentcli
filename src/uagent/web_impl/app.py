@@ -197,6 +197,10 @@ def _process_api_guard(request: Request):
     method = request.method.upper()
     if path == "/api/admin/integration/v1/manifest" and method == "GET":
         expected_token = str(env_get("UAGENT_MANAGEMENT_API_TOKEN", "") or "").strip()
+        if not expected_token:
+            from ..admin_pairing import get_manifest_pairing_token
+
+            expected_token = get_manifest_pairing_token() or ""
         authorization = str(request.headers.get("authorization", "") or "").strip()
         if expected_token and len(expected_token.encode("utf-8")) < 32:
             return None, JSONResponse(
