@@ -850,11 +850,11 @@ def _begin_responses_runtime(
         previous_id = (
             state.get("previous_response_id") if isinstance(state, dict) else None
         )
-        if (
-            provider.strip().lower() == "vllm"
-            and getattr(core, "_vllm_responses_previous_id_supported", None) is False
-        ):
+        if not runtime.capabilities.previous_response_id:
             previous_id = None
+            if isinstance(state, dict):
+                state.pop("previous_response_id", None)
+            runtime.clear_continuation("unsupported_continuation")
         if isinstance(previous_id, str) and previous_id.startswith("resp_"):
             if runtime.previous_response_id != previous_id:
                 runtime.restore_continuation(
@@ -1237,6 +1237,8 @@ def _try_registry_simple_chat_round(
         auto_user_text = projection.auto_user_text
         effort_used = projection.effort_used
         if use_responses_api:
+            from .providers.responses_manager import get_responses_capabilities
+
             state = getattr(core, "responses_state", {})
             previous_id = (
                 state.get("previous_response_id") if isinstance(state, dict) else None
@@ -1244,11 +1246,7 @@ def _try_registry_simple_chat_round(
             if (
                 isinstance(previous_id, str)
                 and previous_id.startswith("resp_")
-                and not (
-                    provider.strip().lower() == "vllm"
-                    and getattr(core, "_vllm_responses_previous_id_supported", None)
-                    is False
-                )
+                and get_responses_capabilities(provider).previous_response_id
             ):
                 options["previous_response_id"] = previous_id
         registry = build_provider_runtime_registry(
@@ -1351,26 +1349,6 @@ def _try_registry_simple_chat_round(
                     "initial_effort": effort_used,
                     "retry_effort": next_effort,
                 }
-        if provider.strip().lower() == "vllm" and options.get("previous_response_id"):
-            if result.status == "completed":
-                try:
-                    core._vllm_responses_previous_id_supported = True
-                except Exception:
-                    pass
-            elif result.status == "failed":
-                from .runtime.llm_error_classifier import LLMErrorClassifier
-
-                error_text = str((result.error or {}).get("message") or "")
-                if (
-                    LLMErrorClassifier().classify(RuntimeError(error_text)).kind
-                    == "stale_continuation"
-                ):
-                    try:
-                        # Avoid probing a known unsupported endpoint again during
-                        # this process. A restart resets the observation.
-                        core._vllm_responses_previous_id_supported = False
-                    except Exception:
-                        pass
         if result.status == "failed":
             core.context_projection_id = result.projection_id
             from .runtime.context_recovery import ContextRecoveryManager
@@ -1620,6 +1598,26 @@ def _run_one_round(
     # keeps auto-shrink on the same ContextPlan -> Projection path as the
     # uncompressed request and avoids rebuilding context after planning.
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
+    if use_responses_api:
+        from .providers.responses_manager import get_responses_capabilities
+
+        if not get_responses_capabilities(provider).previous_response_id:
+            state = getattr(core, "responses_state", None)
+            if isinstance(state, dict):
+                had_previous_id = state.pop("previous_response_id", None) is not None
+                state.pop("_stale_rid_occurred", None)
+                if had_previous_id:
+                    try:
+                        from .core import _save_responses_state
+
+                        _save_responses_state()
+                    except Exception:
+                        pass
+            runtime = getattr(core, "responses_runtime", None)
+            clear_continuation = getattr(runtime, "clear_continuation", None)
+            if callable(clear_continuation):
+                clear_continuation("unsupported_continuation")
+            _using_prev_rid = False
     projection_changed = False
     structured_projection = None
     # A new user turn is the safe boundary for a durable checkpoint. Tool

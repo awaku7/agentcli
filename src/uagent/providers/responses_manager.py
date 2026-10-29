@@ -65,11 +65,10 @@ class ResponsesCapabilities:
 #                      support is not confirmed by vendor documentation
 #   - foundry_local  : UAG has the generic OpenAI-compatible create/streaming
 #                      transport; model-level availability is decided by llmcapa
-#   - vllm           : OpenAI-compatible create/streaming; previous_response_id
-#                      is probed opportunistically on the next real turn. A
-#                      rejection (e.g. Responses store disabled) falls back to
-#                      full history and caches the negative result for this
-#                      process; restart to probe again after server reconfig.
+#   - vllm           : OpenAI-compatible create/streaming; continuation is
+#                      deliberately stateless. Reusing previous_response_id
+#                      caused repeated tool calls on the tested endpoint, so
+#                      each round sends full history instead.
 _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "openai": ResponsesCapabilities(
         create=True,
@@ -114,7 +113,6 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "vllm": ResponsesCapabilities(
         create=True,
         streaming=True,
-        previous_response_id=True,
     ),
 }
 

@@ -347,12 +347,16 @@ class OpenAICompatibleRuntime:
                 request.payload.get("transport") == "responses"
                 or self._transport == "responses"
             ):
-                stream = self._client.responses.create(
-                    **{
+                from .llm_vllm_responses import create_vllm_responses
+
+                stream = create_vllm_responses(
+                    self._client,
+                    {
                         key: value
                         for key, value in request.payload.items()
                         if key != "transport"
                     },
+                    provider=self._provider,
                     stream=self._streaming,
                 )
                 if self._streaming:

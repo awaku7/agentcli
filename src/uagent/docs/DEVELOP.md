@@ -648,7 +648,11 @@ ______________________________________________________________________
    - Load `.env` and `.env.sec` from the current working directory if `python-dotenv` is available
 1. Tool plugins are loaded from `src/uagent/tools/` (and optionally from an external directory).
 1. Provider client is created based on environment variables (`util_providers.make_client`).
-   - OpenAI-compatible local endpoints (including vLLM) use the Chat Completions adapter unless that provider explicitly advertises another transport. vLLM requires the configured served model ID and does not use the Responses API in this integration.
+   - OpenAI-compatible local endpoints (including vLLM) use the Chat Completions
+     adapter unless that provider explicitly advertises another transport. vLLM
+     requires the configured served model ID. When vLLM Responses is explicitly
+     enabled, each round sends full history; `previous_response_id` continuation
+     is disabled because it can repeat tool calls on compatible endpoints.
 1. UI loop (CLI/GUI/Web) receives user input and enqueues events.
 1. LLM rounds run via `uagent_llm.run_llm_rounds()`:
    - If the assistant returns tool calls, tools are executed and results are appended.

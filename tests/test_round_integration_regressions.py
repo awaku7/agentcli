@@ -772,13 +772,107 @@ def test_registry_allowlist_and_migration_boundary_are_explicit(
     assert _try_registry_simple_chat_round(provider="gemini", **kwargs) is None
 
 
-def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
+def test_vllm_registry_responses_sends_full_tool_history_without_previous_id(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(type="response.output_text.delta", delta="晴れ"),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_new"),
+                    ),
+                ]
+            )
+
+    responses = Responses()
+    client = SimpleNamespace(responses=responses)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_TOOLS", raising=False)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state={"previous_response_id": "resp_old"},
+        responses_runtime=None,
+        context_tool_specs=(),
+    )
+    call_messages = [
+        {"role": "user", "content": "今日の天気"},
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call_weather",
+                    "type": "function",
+                    "function": {
+                        "name": "get_weather_wttr",
+                        "arguments": '{"city":"東京"}',
+                    },
+                }
+            ],
+        },
+        {
+            "role": "tool",
+            "tool_call_id": "call_weather",
+            "name": "get_weather_wttr",
+            "content": "東京: 晴れ、最高 31℃",
+        },
+        {"role": "user", "content": "気温も教えて"},
+    ]
+
+    result = _try_registry_simple_chat_round(
+        provider="vllm",
+        client=client,
+        depname="served-model",
+        call_messages=call_messages,
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=2,
+    )
+
+    assert result == (True, "晴れ", "", [])
+    assert len(responses.calls) == 1
+    assert "previous_response_id" not in responses.calls[0]
+    assert "東京: 晴れ、最高 31℃" in str(responses.calls[0]["input"])
+
+
+def test_vllm_runtime_discards_persisted_previous_response_id() -> None:
+    core = SimpleNamespace(
+        responses_state={"previous_response_id": "resp_old"},
+    )
+
+    runtime = _begin_responses_runtime(
+        core=core,
+        provider="vllm",
+        model="served-model",
+        enabled=True,
+    )
+
+    assert runtime is not None
+    assert "previous_response_id" not in core.responses_state
+    assert runtime.previous_response_id is None
+    assert runtime.state == "Active"
+
+
+def test_vllm_responses_always_uses_full_history_without_previous_id(
     monkeypatch, tmp_path
 ) -> None:
     from uagent import llm_round_helpers
-
-    class NotFoundError(Exception):
-        status_code = 404
 
     class Responses:
         def __init__(self) -> None:
@@ -787,7 +881,9 @@ def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
         def create(self, **kwargs):
             self.calls.append(kwargs)
             if kwargs.get("previous_response_id"):
-                raise NotFoundError("Response with id 'resp_prev' not found.")
+                raise AssertionError(
+                    "vLLM continuation must not send previous_response_id"
+                )
             return iter(
                 [
                     SimpleNamespace(
@@ -843,9 +939,9 @@ def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
 
     assert result[0] is True
     assert result[2] == "fallback"
-    assert responses.calls[0]["previous_response_id"] == "resp_prev"
-    assert "previous_response_id" not in responses.calls[1]
-    fallback_input = responses.calls[1]["input"]
+    assert len(responses.calls) == 1
+    assert "previous_response_id" not in responses.calls[0]
+    fallback_input = responses.calls[0]["input"]
     assert [message["role"] for message in fallback_input] == [
         "user",
         "assistant",
@@ -864,7 +960,6 @@ def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
         for message in fallback_input
     ] == ["first question", "first answer", "follow up"]
     assert state["previous_response_id"] == "resp_next"
-    assert core._vllm_responses_previous_id_supported is False
 
     next_messages = messages + [
         {"role": "assistant", "content": "fallback", "response_id": "resp_next"},
@@ -889,5 +984,5 @@ def test_vllm_previous_response_id_falls_back_to_full_history_on_rejection(
     )
 
     assert next_result[0] is True
-    assert len(responses.calls) == 3
-    assert "previous_response_id" not in responses.calls[2]
+    assert len(responses.calls) == 2
+    assert "previous_response_id" not in responses.calls[1]

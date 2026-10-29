@@ -78,3 +78,52 @@ def test_full_history_drops_chat_reasoning_extension() -> None:
 
     assert all("reasoning_content" not in m for m in input_msgs)
     assert messages[1]["reasoning_content"] == "内部推論"
+
+
+def test_vllm_stateless_full_history_keeps_tool_result() -> None:
+    messages = [
+        {"role": "user", "content": "今日の天気"},
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call_weather",
+                    "type": "function",
+                    "function": {
+                        "name": "get_weather_wttr",
+                        "arguments": '{"city":"東京"}',
+                    },
+                }
+            ],
+            "_responses_output_items": [
+                {
+                    "type": "function_call",
+                    "id": "fc_weather",
+                    "call_id": "call_weather",
+                    "name": "get_weather_wttr",
+                    "arguments": '{"city":"東京"}',
+                }
+            ],
+        },
+        {
+            "role": "tool",
+            "tool_call_id": "call_weather",
+            "name": "get_weather_wttr",
+            "content": "東京: 晴れ、最高 31℃",
+        },
+        {"role": "user", "content": "気温も教えて"},
+    ]
+
+    instructions, input_msgs, _tools = build_responses_request(
+        messages,
+        send_tools_this_round=True,
+        provider="vllm",
+        previous_response_id=None,
+    )
+
+    serialized = str(input_msgs)
+    assert "function_call_output" not in serialized
+    assert "東京: 晴れ、最高 31℃" in serialized
+    assert "Tool 'get_weather_wttr' returned result" in serialized
+    assert "get_weather_wttr" in (instructions or "")

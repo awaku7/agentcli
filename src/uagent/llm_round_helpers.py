@@ -40,6 +40,7 @@ from .runtime.legacy_claude_adapter import (
 )
 from .providers.llm_claude import claude_chat_with_tools
 from .providers.llm_openai_responses import build_responses_request
+from .providers.llm_vllm_responses import create_vllm_responses
 from .providers.responses_common import (
     parse_responses_response,
     parse_responses_stream,
@@ -497,15 +498,7 @@ def _call_openai_azure_round(
                 if isinstance(responses_state, dict):
                     # Provider capability metadata decides whether a server-side
                     # Responses continuation is safe for this provider.
-                    _vllm_continuation_unavailable = (
-                        provider.strip().lower() == "vllm"
-                        and getattr(core, "_vllm_responses_previous_id_supported", None)
-                        is False
-                    )
-                    if (
-                        not get_responses_capabilities(provider).previous_response_id
-                        or _vllm_continuation_unavailable
-                    ):
+                    if not get_responses_capabilities(provider).previous_response_id:
                         responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
                     # Empty / non-resp ids are invalid for continuation.
@@ -741,8 +734,10 @@ def _call_openai_azure_round(
                 if stream_responses:
                     _stream_result = call_maybe_thread_fn(
                         lambda: parse_responses_stream(
-                            client.responses.create(
-                                **resp_kwargs,
+                            create_vllm_responses(
+                                client,
+                                resp_kwargs,
+                                provider=provider,
                                 stream=True,
                             ),
                             provider=provider,
@@ -820,7 +815,9 @@ def _call_openai_azure_round(
 
                     def _create_responses_with_effort_fallback() -> Any:
                         try:
-                            return client.responses.create(**resp_kwargs)
+                            return create_vllm_responses(
+                                client, resp_kwargs, provider=provider
+                            )
                         except Exception as e:
                             err_text = str(e).lower()
                             effort = None
@@ -838,7 +835,9 @@ def _call_openai_azure_round(
                                 _rk = dict(_rk) if isinstance(_rk, dict) else {}
                                 _rk["effort"] = "low"
                                 resp_kwargs["reasoning"] = _rk
-                                return client.responses.create(**resp_kwargs)
+                                return create_vllm_responses(
+                                    client, resp_kwargs, provider=provider
+                                )
                             if effort == "xhigh" and (
                                 "reasoning.effort" in err_text
                                 or "invalid value" in err_text
@@ -848,7 +847,9 @@ def _call_openai_azure_round(
                                 _rk = dict(_rk) if isinstance(_rk, dict) else {}
                                 _rk["effort"] = "high"
                                 resp_kwargs["reasoning"] = _rk
-                                return client.responses.create(**resp_kwargs)
+                                return create_vllm_responses(
+                                    client, resp_kwargs, provider=provider
+                                )
                             raise
 
                     _resp_result = call_maybe_thread_fn(
@@ -918,7 +919,9 @@ def _call_openai_azure_round(
                             _rk2["effort"] = _next_effort
                             resp_kwargs["reasoning"] = _rk2
                             resp = call_maybe_thread_fn(
-                                lambda: client.responses.create(**resp_kwargs)
+                                lambda: create_vllm_responses(
+                                    client, resp_kwargs, provider=provider
+                                )
                             )
                             (
                                 assistant_text,
@@ -1339,16 +1342,6 @@ def _call_openai_azure_round(
                     resp = call_maybe_thread_fn(
                         lambda: client.chat.completions.create(**chat_kwargs)
                     )
-            if (
-                use_responses_api
-                and provider.strip().lower() == "vllm"
-                and _prev_rid
-                and core is not None
-            ):
-                try:
-                    setattr(core, "_vllm_responses_previous_id_supported", True)
-                except Exception:
-                    pass
             break
         except Exception as e:
             # Clear previous_response_id on any error (may be stale)
@@ -1443,18 +1436,6 @@ def _call_openai_azure_round(
                 # Clear the spinner line first (no-op when disabled).
                 stop_round_spinner()
                 _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
-                if (
-                    _used_rid
-                    and provider.strip().lower() == "vllm"
-                    and core is not None
-                ):
-                    try:
-                        # Cache the observed limitation for this live host only.
-                        # A process restart permits a fresh probe after vLLM is
-                        # reconfigured, without persisting server settings.
-                        setattr(core, "_vllm_responses_previous_id_supported", False)
-                    except Exception:
-                        pass
                 if _used_rid:
                     print(
                         error_prefix
