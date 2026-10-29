@@ -119,3 +119,29 @@ def test_file_creation_error_leaves_no_runtime_secret(monkeypatch, tmp_path):
             output=out,
         )
     assert not (state / "admin_pairing_credentials.json").exists()
+
+def test_explicit_generic_otel_environment_is_not_overridden(monkeypatch, tmp_path):
+    _set_state(monkeypatch, tmp_path)
+    monkeypatch.setenv("OTEL_EXPORTER_OTLP_ENDPOINT", "https://collector.example.net")
+    with pytest.raises(ValueError, match="explicitly configured"):
+        admin_pairing.export_pairing(
+            uag_url="http://localhost:8000",
+            admin_url="http://localhost:8088",
+            output=tmp_path / "should-not-export.json",
+        )
+
+
+def test_uag_workdir_override_is_respected(monkeypatch, tmp_path):
+    _set_state(monkeypatch, tmp_path)
+    workdir = tmp_path / "my-uag-workdir"
+    workdir.mkdir()
+    monkeypatch.setenv("UAGENT_WORKDIR", str(workdir))
+    seen = []
+
+    def fake_export(**kwargs):
+        seen.append(os.getcwd())
+        return tmp_path / "handled.json"
+
+    monkeypatch.setattr(admin_pairing, "export_pairing", fake_export)
+    assert admin_pairing.main(["export"]) == 0
+    assert seen == [str(workdir)]
