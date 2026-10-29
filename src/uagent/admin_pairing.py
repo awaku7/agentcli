@@ -89,17 +89,13 @@ def _windows_private_acl(path: Path, *, apply: bool = False) -> None:
     token = win32security.OpenProcessToken(
         win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
     )
-    current_sid = win32security.GetTokenInformation(
-        token, win32security.TokenUser
-    )[0]
+    current_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
     flags = (
         win32security.OWNER_SECURITY_INFORMATION
         | win32security.DACL_SECURITY_INFORMATION
     )
     descriptor = win32security.GetFileSecurity(str(path), flags)
-    if not win32security.EqualSid(
-        descriptor.GetSecurityDescriptorOwner(), current_sid
-    ):
+    if not win32security.EqualSid(descriptor.GetSecurityDescriptorOwner(), current_sid):
         raise PermissionError("pairing credentials must be owned by current user")
     if apply:
         acl = win32security.ACL()
