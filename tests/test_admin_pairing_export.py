@@ -269,3 +269,28 @@ def test_windows_private_pairing_file_acl(monkeypatch, tmp_path):
     admin_pairing._windows_private_acl(
         tmp_path / "private-state" / "admin_pairing_credentials.json"
     )
+
+
+def test_racing_export_does_not_remove_competing_transfer_file(
+    monkeypatch, tmp_path
+):
+    _set_state(monkeypatch, tmp_path)
+    target = tmp_path / "competing-transfer.json"
+    original_create = admin_pairing._secure_create
+
+    def competing_create(path, payload):
+        if path == target:
+            # A different process won CREATE_NEW after the early exists check.
+            target.write_text("owned-by-other-process", encoding="utf-8")
+            raise FileExistsError("another exporter created transfer file")
+        return original_create(path, payload)
+
+    monkeypatch.setattr(admin_pairing, "_secure_create", competing_create)
+    with pytest.raises(FileExistsError):
+        admin_pairing.export_pairing(
+            uag_url="http://127.0.0.1:8000",
+            admin_url="http://127.0.0.1:8088",
+            output=target,
+        )
+    assert target.read_text(encoding="utf-8") == "owned-by-other-process"
+    assert not (tmp_path / "private-state" / "admin_pairing_credentials.json").exists()
