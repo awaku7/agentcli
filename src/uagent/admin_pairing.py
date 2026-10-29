@@ -248,6 +248,7 @@ def _secure_create(path: Path, payload: bytes) -> None:
         path.unlink(missing_ok=True)
         raise
 
+
 def _encode(data: dict) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
