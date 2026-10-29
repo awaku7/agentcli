@@ -115,4 +115,9 @@ __all__ = [
 
 
 if __name__ == "__main__":
-    main()
+    from .runtime.process_registry import clear_tracking
+
+    try:
+        main()
+    finally:
+        clear_tracking("gui")
