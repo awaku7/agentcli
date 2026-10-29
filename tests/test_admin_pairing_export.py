@@ -143,5 +143,9 @@ def test_uag_workdir_override_is_respected(monkeypatch, tmp_path):
         return tmp_path / "handled.json"
 
     monkeypatch.setattr(admin_pairing, "export_pairing", fake_export)
-    assert admin_pairing.main(["export"]) == 0
-    assert seen == [str(workdir)]
+    original_cwd = os.getcwd()
+    try:
+        assert admin_pairing.main(["export"]) == 0
+        assert seen == [str(workdir)]
+    finally:
+        os.chdir(original_cwd)
