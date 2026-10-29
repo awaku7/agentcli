@@ -13,6 +13,9 @@ on:
     branches: [feature/admin-pairing-export-20261029]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   pairing:
     runs-on: ubuntu-latest
@@ -25,6 +28,17 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[core,web]" pytest black==26.10.0 ruff==0.16.10 opentelemetry-api==1.44.0 opentelemetry-sdk==1.44.0 opentelemetry-exporter-otlp==1.44.0
+      - name: Format pairing source
+        run: python -m black src/uagent/admin_pairing.py
+      - name: Commit format (feature branch push)
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- src/uagent/admin_pairing.py
+          git commit -m 'style(admin): Black format secure Windows file creation'
+          git push origin "HEAD:refs/heads/${GITHUB_REF_NAME}"
       - run: python -m black --check src/uagent/admin_pairing.py src/uagent/cli_entry.py src/uagent/web_impl/app.py src/uagent/runtime/observability/otel_backend.py tests/test_admin_pairing_export.py
       - run: python -m ruff check src/uagent/admin_pairing.py src/uagent/cli_entry.py src/uagent/web_impl/app.py src/uagent/runtime/observability/otel_backend.py tests/test_admin_pairing_export.py
       - run: python -m pytest -q tests/test_admin_pairing_export.py tests/test_otel_backend_runtime.py
