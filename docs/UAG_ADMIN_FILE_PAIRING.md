@@ -1,5 +1,17 @@
 # UAG → UAG Admin：JSONファイルで簡単に連携
 
+## OTel送信状態の確認（追加オプション不要）
+
+UAGの会話中に `:otel` を入力すると、そのUAGプロセス自身が確認したOTelの状態を表示します。CLIとGUI、Webの共通コマンド処理を使用し、LLMを呼び出したり新しい通信を発生させたりしません。
+
+```text
+:otel
+```
+
+`OTel: ON/OFF` は有効設定、`Delivery` はローカルExporterの直近状態です。主な値は `awaiting_export`（まだ送信なし）、`sent`（Exporterが成功を返した）、`failed`（送信失敗）、`retry_cooldown`（失敗後の再試行待ち）、`no_endpoint`（送信先がない）、`dependencies_unavailable`（ライブラリ不足）です。最後の送信試行・成功・失敗日時（UTC）も確認できます。**送信成功がAdminへの保存・表示完了を保証するわけではありません。** Adminでの実受信はAdminテレメトリ画面の最終受信日時で確認してください。
+
+状態は**稼働中のUAGプロセスのメモリ内だけ**に保持し、新しいファイル・DB・設定・追加の起動オプションは作りません。会話内容、URL、トークン、エラー本文も記録しません。A2Aでも共通Exporterは状態を把握しますが、A2Aプロトコルからの `:otel` コマンド実行は提供しません。
+
 ## CLIだけで利用する場合（UAG Webは不要）
 
 UAG AdminのCLI専用連携対応版では、UAG Web（`uagw`）を起動せずに、通常の `uag admin export` で生成した連携JSONをAdminに取り込めます。

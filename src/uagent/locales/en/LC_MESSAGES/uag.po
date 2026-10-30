@@ -3866,3 +3866,35 @@ msgstr "vLLM temperature (optional)"
 #: src/uagent/env_validate.py:140
 msgid "vLLM served model name (must match the model exposed by /v1/models)."
 msgstr "vLLM served model name (must match the model exposed by /v1/models)."
+
+#, python-format
+msgid "OTel: %(value)s"
+msgstr "OTel: %(value)s"
+
+#, python-format
+msgid "Delivery: %(value)s"
+msgstr "Delivery: %(value)s"
+
+#, python-format
+msgid "Last export attempt (UTC): %(value)s"
+msgstr "Last export attempt (UTC): %(value)s"
+
+#, python-format
+msgid "Last success (UTC): %(value)s"
+msgstr "Last success (UTC): %(value)s"
+
+#, python-format
+msgid "Last failure (UTC): %(value)s"
+msgstr "Last failure (UTC): %(value)s"
+
+msgid "Local exporter observation; Admin receipt is not confirmed."
+msgstr "Local exporter observation; Admin receipt is not confirmed."
+
+msgid "Show local OTel delivery status"
+msgstr "Show local OTel delivery status"
+
+msgid "Show local OTel export state for this process"
+msgstr "Show local OTel export state for this process"
+
+msgid "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."
+msgstr "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."

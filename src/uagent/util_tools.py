@@ -187,11 +187,20 @@ def handle_command(
             cmd = head
             arg = f"{tail} {arg}".strip() if arg else tail
 
+    if cmd == "otel":
+        from .runtime.observability.delivery_status import format_delivery_status
+
+        if arg:
+            print("Usage: :otel")
+            return CommandResult()
+        print(format_delivery_status(tr=tr))
+        return CommandResult()
+
     if bool(getattr(core, "_sandbox_enabled", False)):
         if cmd in ("help", "h", "?"):
             print(
                 tr("Sandbox-safe commands:")
-                + "\n  :help\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
+                + "\n  :help\n  :otel\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
             )
             return True
         if cmd in ("r", "reasoning"):

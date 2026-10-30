@@ -8,9 +8,10 @@ import os
 import threading
 import time
 from contextlib import contextmanager
-from typing import Any, Iterator, Mapping, MutableMapping
+from typing import Any, Callable, Iterator, Mapping, MutableMapping
 
 from .api import ObservabilitySpan, TraceIds
+from .delivery_status import update_delivery_status
 from .noop import NOOP_SPAN
 from .privacy import sanitize_attributes
 from .semantic_mapping import map_span
@@ -50,6 +51,7 @@ class _FailStopExporter:
         success_result: Any,
         failure_result: Any,
         retry_interval: float | None = None,
+        status_callback: Callable[[str], None] | None = None,
     ):
         self._exporter = exporter
         self._success_result = success_result
@@ -59,13 +61,25 @@ class _FailStopExporter:
         self._retry_interval = retry_interval
         self._retry_at = 0.0
         self._shutdown = False
+        self._status_callback = status_callback
+
+    def _note(self, state: str) -> None:
+        if self._status_callback is not None:
+            try:
+                self._status_callback(state)
+            except Exception:
+                pass
 
     def export(self, batch: Any) -> Any:
         with self._lock:
             if self._shutdown:
                 return self._success_result
             if self._disabled:
-                if self._retry_interval is None or time.monotonic() < self._retry_at:
+                if self._retry_interval is None:
+                    # SDK success here means a dropped batch, not remote delivery.
+                    return self._success_result
+                if time.monotonic() < self._retry_at:
+                    self._note("retry_cooldown")
                     return self._success_result
                 self._disabled = False
             try:
@@ -73,10 +87,14 @@ class _FailStopExporter:
             except Exception:
                 self._disabled = True
                 self._retry_at = time.monotonic() + (self._retry_interval or 0)
+                self._note("failed")
                 return self._failure_result
             if result == self._failure_result:
                 self._disabled = True
                 self._retry_at = time.monotonic() + (self._retry_interval or 0)
+                self._note("failed")
+            elif result == self._success_result:
+                self._note("sent")
             return result
 
     def force_flush(self, timeout_millis: int = 30_000) -> bool:
@@ -90,9 +108,11 @@ class _FailStopExporter:
                 result = force_flush(timeout_millis)
             except Exception:
                 self._disabled = True
+                self._note("failed")
                 return False
             if result is False:
                 self._disabled = True
+                self._note("failed")
             return result is not False
 
     def shutdown(self) -> None:
@@ -676,6 +696,7 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
             retry_interval=(
                 30.0 if getattr(exporter, "_uag_admin_pairing", False) else None
             ),
+            status_callback=update_delivery_status,
         )
         from ...admin_pairing import get_otlp_pairing
 
@@ -685,6 +706,10 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
             )
         else:
             provider.add_span_processor(BatchSpanProcessor(exporter))
+        update_delivery_status("awaiting_export")
+    else:
+        # OTel can be enabled for local spans with no configured collector.
+        update_delivery_status("no_endpoint")
     tracer = provider.get_tracer("uagent.runtime.observability")
 
     meter = None

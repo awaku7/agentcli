@@ -5285,3 +5285,35 @@ msgid "vLLM served model name (must match the model exposed by /v1/models)."
 msgstr ""
 "vLLM visat modellnamn (måste matcha modellen som exponerats av /v1/m"
 "odels)."
+
+#, python-format
+msgid "OTel: %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Delivery: %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Last export attempt (UTC): %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Last success (UTC): %(value)s"
+msgstr ""
+
+#, python-format
+msgid "Last failure (UTC): %(value)s"
+msgstr ""
+
+msgid "Local exporter observation; Admin receipt is not confirmed."
+msgstr ""
+
+msgid "Show local OTel delivery status"
+msgstr ""
+
+msgid "Show local OTel export state for this process"
+msgstr ""
+
+msgid "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."
+msgstr ""

@@ -5696,3 +5696,35 @@ msgstr "vLLM 温度 (オプション)"
 #: src/uagent/env_validate.py:140
 msgid "vLLM served model name (must match the model exposed by /v1/models)."
 msgstr "vLLM はモデル名を提供します (/v1/models によって公開されるモデルと一致する必要があります)。"
+
+#, python-format
+msgid "OTel: %(value)s"
+msgstr "OTel: %(value)s"
+
+#, python-format
+msgid "Delivery: %(value)s"
+msgstr "送信状態: %(value)s"
+
+#, python-format
+msgid "Last export attempt (UTC): %(value)s"
+msgstr "最終送信試行（UTC）: %(value)s"
+
+#, python-format
+msgid "Last success (UTC): %(value)s"
+msgstr "最終送信成功（UTC）: %(value)s"
+
+#, python-format
+msgid "Last failure (UTC): %(value)s"
+msgstr "最終送信失敗（UTC）: %(value)s"
+
+msgid "Local exporter observation; Admin receipt is not confirmed."
+msgstr "これはUAG側の送信結果です。Adminでの受信成功は未確認です。"
+
+msgid "Show local OTel delivery status"
+msgstr "OTel送信状態を表示"
+
+msgid "Show local OTel export state for this process"
+msgstr "このプロセスのOTel送信状態を表示"
+
+msgid "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."
+msgstr "読み取り専用のOTel診断です。有効状態、送信結果、最終成功・失敗時刻を表示します。Adminへの通信は発生しません。"
