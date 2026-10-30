@@ -89,7 +89,12 @@ def main():
     from .runtime.observability.settings import consume_process_otel_cli_flags
 
     consume_process_otel_cli_flags()
-    return _web_main()
+    from .runtime.process_registry import clear_tracking
+
+    try:
+        return _web_main()
+    finally:
+        clear_tracking("web")
 
 
 __all__ = [
