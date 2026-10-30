@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import threading
 from datetime import datetime, timezone
+from typing import Callable
 
 _STATES = frozenset(
     {
@@ -66,17 +67,24 @@ def delivery_status_snapshot() -> dict[str, str | bool | None]:
         return dict(_CURRENT)
 
 
-def format_delivery_status() -> str:
-    """No secrets, endpoints, message content or configuration changes."""
+def format_delivery_status(*, tr: Callable[[str], str] | None = None) -> str:
+    """Human-readable state in the current host UI locale, without secrets."""
+    if tr is None:
+        from ...i18n import _
+
+        tr = _
     snapshot = delivery_status_snapshot()
     label = "ON" if snapshot["enabled"] else "OFF"
     return "\n".join(
         (
-            f"OTel: {label}",
-            f"Delivery: {snapshot['state']}",
-            f"Last export attempt (UTC): {snapshot['last_attempt_utc'] or '-'}",
-            f"Last success (UTC): {snapshot['last_success_utc'] or '-'}",
-            f"Last failure (UTC): {snapshot['last_failure_utc'] or '-'}",
-            "Status: local exporter observation (not Admin connection health)",
+            tr("OTel: %(value)s") % {"value": label},
+            tr("Delivery: %(value)s") % {"value": snapshot["state"]},
+            tr("Last export attempt (UTC): %(value)s")
+            % {"value": snapshot["last_attempt_utc"] or "-"},
+            tr("Last success (UTC): %(value)s")
+            % {"value": snapshot["last_success_utc"] or "-"},
+            tr("Last failure (UTC): %(value)s")
+            % {"value": snapshot["last_failure_utc"] or "-"},
+            tr("Local exporter observation; Admin receipt is not confirmed."),
         )
     )
