@@ -140,30 +140,20 @@ All other programmatic string settings in this contract (deployment scope, crede
 
 ### 3.1 Closed carrier and ownership
 
-Controlled content is emitted only as the UAG-owned span event:
+Controlled content is emitted as OpenTelemetry GenAI Semantic Conventions **1.44.0** span attributes. The legacy UAG-specific content-event wire format is **removed**, not dual-emitted:
 
 ```text
-event name: uag.content
-attributes:
-  uag.content.category
-  uag.content.value
-  uag.content.ordinal
+user_input       -> gen_ai.input.messages         (invoke_agent)
+assistant_output -> gen_ai.output.messages        (invoke_agent)
+tool_arguments   -> gen_ai.tool.call.arguments   (execute_tool)
+tool_result      -> gen_ai.tool.call.result      (execute_tool)
 ```
 
-No other initial attribute is allowed on this event.
+The canonical local `invoke_agent` span contains only reviewed user input and the most recent eligible assistant reply. Multiple intermediate assistant messages MUST NOT be presented as multiple model choices. Input and output are standard JSON arrays containing `{"role":"user|assistant","parts":[{"type":"text","content":"..."}]}` objects. The canonical `execute_tool` span holds reviewed tool argument JSON objects and tool result JSON objects; a reviewed plain-text tool result is wrapped as `{"content":"..."}`. All values use the previously sanitized content, never the raw source.
 
-Owner mapping is exact:
+The Python OpenTelemetry SDK does not support the semconv's arbitrary structured `any` attributes directly. The GenAI standard permits JSON-encoded **strings on spans** when the structured form is unsupported; this is the selected transport. No content is recorded on canonical `chat`, provider SDK child, internal or remote spans. Disabling core OTel or controlled capture emits no content attributes. UAG Admin continues to store metadata-only trace rows.
 
-```text
-user_input       -> local canonical invoke_agent span
-assistant_output -> local canonical invoke_agent span
-tool_arguments   -> matching local canonical execute_tool span
-tool_result      -> matching local canonical execute_tool span
-```
-
-Canonical `chat`, provider SDK child, internal, and remote spans MUST NOT carry `uag.content` events.
-
-`uag.content.ordinal` is a trusted integer `1..32` local to the owner span. The trusted candidate allocator MUST assign each admitted candidate on an owner span a unique ordinal; ordinals MUST NOT be reused on that span across categories. A duplicate/reused ordinal makes that later candidate ineligible and it is omitted before inspecting its value. At most 32 candidate records are admitted per owner span; candidate 33+ is omitted before inspecting its value. These unique ordinals make the category-plus-ordinal ordering in section 3.10 total and deterministic.
+Candidate admission remains an internal, trusted integer ordinal `1..32` per owner span. The trusted allocator MUST give each candidate a unique ordinal across categories and never reuse it. Duplicate or 33rd-and-later candidates are omitted before their values are inspected. The ordinal is **not exported as a telemetry attribute**. The category-plus-ordinal order defines the deterministic pre-serialization privacy budget in section 3.10.
 
 ### 3.2 Provenance and exact source/category pairs
 
@@ -591,7 +581,7 @@ No `default=` hook. Tuple -> JSON array. Dict keys are exact built-in strings an
 
 After privacy/redaction, every scalar MUST again fit `MAX_FIELD_CHARS` using the exact scalar token that appears in final output, including JSON quotes/escapes for structured strings/keys. No scalar is truncated.
 
-Character count means Unicode code points in the exact final `uag.content.value` string.
+Character count means Unicode code points in the sanitized pre-serialization content string. The subsequent standard GenAI JSON envelope is generated only from admitted sanitized content.
 
 Each owner span has one shared ledger, starting at zero. Candidate order is category order:
 
@@ -599,7 +589,7 @@ Each owner span has one shared ledger, starting at zero. Candidate order is cate
 user_input, assistant_output, tool_arguments, tool_result
 ```
 
-then unique trusted ordinal ascending. Because section 3.1 requires ordinals to be unique across the owner span, no tie is possible. Candidate cost is exactly `len(uag.content.value)`. If it fits remaining `MAX_SPAN_CHARS`, emit it atomically and charge the ledger; otherwise omit the whole candidate with no ledger mutation. A later smaller candidate may still fit.
+then unique trusted ordinal ascending. Because section 3.1 requires ordinals to be unique across the owner span, no tie is possible. Candidate cost is exactly the length of the sanitized content string before standard GenAI envelope serialization. If it fits remaining `MAX_SPAN_CHARS`, emit it atomically and charge the ledger; otherwise omit the whole candidate with no ledger mutation. A later smaller candidate may still fit.
 
 ## 4. Phase 4B pseudonymous correlation
 
