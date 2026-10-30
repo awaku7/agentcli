@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-import time
 
 from uagent.runtime.observability import delivery_status as delivery
 
@@ -143,8 +142,26 @@ def test_exporter_status_callbacks_do_not_claim_skipped_batch_is_sent(monkeypatc
 
 def test_sender_status_is_best_effort(monkeypatch, tmp_path):
     _isolate(monkeypatch, tmp_path)
+
     def fail(*args, **kwargs):
         raise PermissionError("status storage unavailable")
+
     monkeypatch.setattr(delivery, "_save", fail)
     delivery.update_delivery_status("failed")
     assert not list(Path(tmp_path).glob("otel_delivery/*.json"))
+
+
+def test_admin_otel_status_command_reads_only_local_processes(monkeypatch, tmp_path, capsys):
+    from uagent import admin_pairing
+    from uagent.runtime import runtime_init
+
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(runtime_init, "decide_workdir", lambda **kwargs: None)
+    monkeypatch.setattr(runtime_init, "apply_workdir", lambda decision: None)
+    monkeypatch.setattr(runtime_init, "load_dotenv_custom", lambda: None)
+    delivery.update_delivery_status("failed")
+    assert admin_pairing.main(["otel-status"]) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert len(result["processes"]) == 1
+    assert result["processes"][0]["state"] == "failed"
+    delivery._cleanup()
