@@ -6,12 +6,12 @@ from dataclasses import dataclass
 from typing import Any, Mapping
 
 _GENAI_PROVIDER_NAMES = {
-    "azure": "az.ai.openai",
+    "azure": "azure.ai.openai",
     "bedrock": "aws.bedrock",
     "claude": "anthropic",
     "deepseek": "deepseek",
     "gemini": "gcp.gemini",
-    "grok": "xai",
+    "grok": "x_ai",
     "moonshot": "moonshot_ai",
     "openai": "openai",
     "vertexai": "gcp.vertex_ai",
