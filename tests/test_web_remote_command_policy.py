@@ -154,11 +154,8 @@ async def _async_noop(*_args, **_kwargs):
 
 
 @pytest.mark.parametrize("entrypoint", ["api", "websocket"])
-def test_otel_command_does_not_initialize_llm_provider(
-    monkeypatch, entrypoint, capsys
-):
+def test_otel_command_does_not_initialize_llm_provider(monkeypatch, entrypoint):
     """Status-only Web commands must not trigger provider auto-installation."""
-    from uagent import util_tools
     from uagent.web_impl import connection_identity
 
     def unexpected_provider(*_args, **_kwargs):
