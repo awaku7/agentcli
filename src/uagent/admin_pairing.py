@@ -431,6 +431,10 @@ def export_pairing(
 def main(arguments: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="uag admin")
     sub = parser.add_subparsers(dest="action", required=True)
+    status_cmd = sub.add_parser(
+        "otel-status", help="show safe local OTLP delivery status by running process"
+    )
+    status_cmd.add_argument("--workdir", help="UAG workdir containing .env/.env.sec")
     cmd = sub.add_parser("export", help="export UAG Admin pairing file")
     cmd.add_argument("--uag-url", default="http://127.0.0.1:8000")
     cmd.add_argument("--admin-url", default="http://127.0.0.1:8088")
@@ -466,6 +470,17 @@ def main(arguments: list[str] | None = None) -> int:
         # loader reports errors as warnings, so validate the ciphertext again
         # afterward and abort export if existing secrets cannot be loaded.
         load_dotenv_custom()
+        if args.action == "otel-status":
+            from .runtime.observability.delivery_status import local_delivery_statuses
+
+            print(
+                json.dumps(
+                    {"processes": local_delivery_statuses()},
+                    separators=(",", ":"),
+                    ensure_ascii=True,
+                )
+            )
+            return 0
         secured_env = Path.cwd() / ".env.sec"
         if secured_env.is_file():
             from uag_envsec import decrypt_text
