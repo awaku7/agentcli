@@ -5,12 +5,12 @@ from uagent.runtime.observability.semantic_mapping import map_span
 
 def test_genai_provider_names_use_well_known_semconv_values() -> None:
     expected = {
-        "azure": "az.ai.openai",
+        "azure": "azure.ai.openai",
         "bedrock": "aws.bedrock",
         "claude": "anthropic",
         "deepseek": "deepseek",
         "gemini": "gcp.gemini",
-        "grok": "xai",
+        "grok": "x_ai",
         "moonshot": "moonshot_ai",
         "openai": "openai",
         "vertexai": "gcp.vertex_ai",
