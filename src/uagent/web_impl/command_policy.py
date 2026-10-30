@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-_SAFE_MODE_COMMANDS = frozenset({"r", "reasoning", "v", "verbosity"})
+_SAFE_MODE_COMMANDS = frozenset({"r", "reasoning", "v", "verbosity", "otel"})
 
 WEB_COMMAND_DENIED = (
     "Host command execution is disabled in this Web security profile because "
@@ -29,7 +29,10 @@ def web_command_denial(
     if not body:
         return WEB_COMMAND_DENIED
 
-    command = body.split(maxsplit=1)[0].lower()
+    parts = body.split(maxsplit=1)
+    command = parts[0].lower()
+    if command == "otel" and len(parts) != 1:
+        return WEB_COMMAND_DENIED
     if ":" in command or command not in _SAFE_MODE_COMMANDS:
         return WEB_COMMAND_DENIED
     return None
