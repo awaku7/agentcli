@@ -264,9 +264,7 @@ class OpenTelemetrySpan:
                         data = value
                     if type(data) is not dict:
                         data = {"content": data}
-                encoded = json.dumps(
-                    data, ensure_ascii=False, separators=(",", ":")
-                )
+                encoded = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
                 if not self._content_attribute_fits_sdk(encoded):
                     return False
                 self._span.set_attribute(key, encoded)
