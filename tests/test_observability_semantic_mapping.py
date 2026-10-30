@@ -37,3 +37,13 @@ def test_custom_genai_provider_name_is_preserved() -> None:
     )
 
     assert mapped.attributes["gen_ai.provider.name"] == "Custom.Provider"
+
+
+def test_execute_tool_has_standard_name_and_operation() -> None:
+    mapped = map_span(
+        "execute_tool",
+        {"uag.tool.name": "calculator", "uag.tool.side_effect": "none"},
+    )
+    assert mapped.name == "execute_tool calculator"
+    assert mapped.attributes["gen_ai.operation.name"] == "execute_tool"
+    assert mapped.attributes["gen_ai.tool.name"] == "calculator"

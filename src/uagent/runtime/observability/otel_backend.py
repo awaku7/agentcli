@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import atexit
+import json
 import os
 import threading
 import time
@@ -141,9 +142,14 @@ def _sanitize_metric_attributes(
 class OpenTelemetrySpan:
     """Small adapter around an OpenTelemetry SDK span."""
 
-    def __init__(self, span: Any, *, capture_content: bool) -> None:
+    def __init__(
+        self, span: Any, *, capture_content: bool, operation: str = ""
+    ) -> None:
         self._span = span
         self._capture_content = capture_content
+        self._operation = operation
+        self._captured_messages: dict[str, list[dict[str, Any]]] = {}
+        self._content_ordinals: set[int] = set()
         self._cancelled = False
 
     @property
@@ -171,30 +177,100 @@ class OpenTelemetrySpan:
         except Exception:
             pass
 
-    def add_content_event(self, event: object) -> bool:
-        """Emit only a trusted, already-sanitized Phase 4A content carrier."""
+    def _content_attribute_fits_sdk(self, encoded: str) -> bool:
+        """Avoid SDK truncation that would corrupt a serialized JSON value."""
+        # SpanLimits is authoritative for this exact SDK span, including
+        # OTEL_SPAN_ATTRIBUTE_VALUE_LENGTH_LIMIT and its global fallback.
+        # Only the concrete OTel adapter inspects this private SDK contract.
+        try:
+            limits = getattr(self._span, "_limits", None)
+            if limits is None:
+                return True  # Non-SDK test spans; the real SDK exposes limits.
+            value_limit = limits.max_span_attribute_length
+            if value_limit is None:
+                return True
+            return type(value_limit) is int and len(encoded) <= value_limit
+        except Exception:
+            return False
 
+    def add_content_event(self, event: object) -> bool:
+        """Write trusted, sanitized content as GenAI semconv 1.44 span attributes.
+
+        Python OTel attributes cannot represent arbitrary structured values.
+        The conventions permit a JSON-encoded string for these span attributes.
+        This is a breaking change: legacy `uag.content` events are not emitted.
+        """
         if not self._capture_content:
             return False
         try:
-            from .content_capture import CONTENT_EVENT_NAME, PreparedContentEvent
+            from .content_capture import PreparedContentEvent
 
             if type(event) is not PreparedContentEvent or not event.is_trusted():
                 return False
-            attributes = event.attributes()
-            if set(attributes) != {
-                "uag.content.category",
-                "uag.content.value",
-                "uag.content.ordinal",
-            }:
+            category, value, ordinal = event.category, event.value, event.ordinal
+            if (
+                type(category) is not str
+                or type(value) is not str
+                or type(ordinal) is not int
+                or not 1 <= ordinal <= 32
+                or ordinal in self._content_ordinals
+            ):
                 return False
-            if type(attributes["uag.content.category"]) is not str:
+
+            if self._operation == "invoke_agent":
+                if category == "user_input":
+                    key, role = "gen_ai.input.messages", "user"
+                elif category == "assistant_output":
+                    key, role = "gen_ai.output.messages", "assistant"
+                else:
+                    return False
+                message = {
+                    "role": role,
+                    "parts": [{"type": "text", "content": value}],
+                }
+                # An invocation produces one output, not N model choices.
+                # Intermediate assistant messages must not masquerade as
+                # separate output choices; retain the latest eligible reply.
+                if category == "assistant_output":
+                    messages = [message]
+                else:
+                    messages = [
+                        *self._captured_messages.get(key, []),
+                        message,
+                    ]
+                encoded = json.dumps(
+                    messages, ensure_ascii=False, separators=(",", ":")
+                )
+                if not self._content_attribute_fits_sdk(encoded):
+                    return False
+                self._span.set_attribute(key, encoded)
+                self._captured_messages[key] = messages
+            elif self._operation == "execute_tool":
+                if category not in {"tool_arguments", "tool_result"}:
+                    return False
+                if category == "tool_arguments":
+                    data = json.loads(value)
+                    if type(data) is not dict:
+                        return False
+                    key = "gen_ai.tool.call.arguments"
+                else:
+                    # The reviewed tool result can be a scalar string. The
+                    # standard tool-result shape is an object, so wrap it
+                    # without exposing the original unsanitized value.
+                    key = "gen_ai.tool.call.result"
+                    try:
+                        data = json.loads(value)
+                    except (ValueError, TypeError):
+                        data = value
+                    if type(data) is not dict:
+                        data = {"content": data}
+                encoded = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+                if not self._content_attribute_fits_sdk(encoded):
+                    return False
+                self._span.set_attribute(key, encoded)
+            else:
                 return False
-            if type(attributes["uag.content.value"]) is not str:
-                return False
-            if type(attributes["uag.content.ordinal"]) is not int:
-                return False
-            self._span.add_event(CONTENT_EVENT_NAME, attributes)
+            self._content_ordinals.add(ordinal)
             return True
         except Exception:
             return False
@@ -279,7 +355,9 @@ class OpenTelemetryBackend:
             return
 
         span = OpenTelemetrySpan(
-            raw_span, capture_content=self._settings.capture_content
+            raw_span,
+            capture_content=self._settings.capture_content,
+            operation=operation,
         )
         try:
             yield span

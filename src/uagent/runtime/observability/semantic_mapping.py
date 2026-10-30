@@ -65,6 +65,8 @@ def map_span(
     if op == "execute_tool":
         tool_name = str(attrs.get("uag.tool.name") or "").strip()
         mapped.setdefault("gen_ai.operation.name", "execute_tool")
+        if tool_name:
+            mapped.setdefault("gen_ai.tool.name", tool_name)
         return MappedSpan(
             f"execute_tool {tool_name}" if tool_name else "execute_tool", mapped
         )

@@ -192,6 +192,23 @@ Observability configuration is server/process controlled. Browser payloads, A2A 
 
 `UAGENT_OTEL_CAPTURE_CONTENT` defaults to OFF. The OTel adapter applies a metadata allow/filter boundary before exporter submission. Authentication/session secrets and raw identity/scope fields remain excluded even when content capture is enabled.
 
+**GenAI semconv 1.44 content (breaking change):** The adapter does not export the
+old UAG-specific content event. Reviewed `user_input` and `assistant_output`
+are encoded as standard `gen_ai.input.messages` and `gen_ai.output.messages`
+JSON-string span attributes on the canonical local `invoke_agent` span.
+Reviewed tool arguments and results use `gen_ai.tool.call.arguments` and
+`gen_ai.tool.call.result` JSON-string span attributes on `execute_tool`.
+JSON strings are permitted by the GenAI spec where the Python OTel SDK cannot
+represent arbitrarily nested structured attributes. Messages have the standard
+`role` / `parts` / `type=text` / `content` schema; only the final eligible
+assistant reply is emitted, not spurious additional generation choices. A
+plain-text tool result is wrapped as a JSON object. No content attributes
+appear on `chat`, internal, provider SDK or remote spans. Filtering, bounded
+budgets, credential redaction and independent explicit category opt-in are
+unchanged. The UAG Admin collector remains **metadata-only**.
+Reference: https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-agent-spans.md
+
+
 Phase 4A controlled content capture is runtime-bound and fail-closed:
 
 - reviewed plain-text `user_input` and `assistant_output` may be emitted only on the canonical `invoke_agent` span;
