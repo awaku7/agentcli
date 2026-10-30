@@ -1,6 +1,19 @@
 # UAG → UAG Admin：JSONファイルで簡単に連携
 
-## 同じWindows PC
+## CLIだけで利用する場合（UAG Webは不要）
+
+UAG AdminのCLI専用連携対応版では、UAG Web（`uagw`）を起動せずに、通常の `uag admin export` で生成した連携JSONをAdminに取り込めます。
+
+```powershell
+uag admin export --output uag-admin-link.json
+uag --otel
+```
+
+Admin管理者が「UAGインスタンス → UAG連携ファイルから登録」でJSONを取り込むと、CLIからAdminへ直接OTLPトレースが送信されます。AdminからUAG Webに接続できない場合、インスタンスは**Web未検証・状態不明**として登録されます（オンラインと偽装せず、Web機能や権限は認定されません）。Webが認証エラー（401/403など）を返した場合は登録を拒否し、未検証登録には自動で切り替わりません。連携ファイルを取り込んだら転送用JSONを削除し、UAGの保護済み資格情報は保持してください。
+
+別PCのCLIから送る場合は、`uag admin export --admin-url https://admin.example.net --output uag-admin-link.json` のようにAdminのHTTPS URLを指定します。プロセス状態の**別PC監視**には、従来どおりSupervisorが必要です。通常のCLI送信そのものにSupervisorは不要です。
+
+## 同じWindows PC（UAG Webも利用する場合）
 
 UAGの通常の作業ディレクトリで実行（`.env.sec`がある場合はそのフォルダで実行）。
 
