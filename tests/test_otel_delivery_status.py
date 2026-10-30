@@ -75,9 +75,7 @@ def test_exporter_cooldown_is_not_misreported_as_sent(monkeypatch):
             return Result.SUCCESS
 
     now = [0.0]
-    monkeypatch.setattr(
-        otel_backend, "time", SimpleNamespace(monotonic=lambda: now[0])
-    )
+    monkeypatch.setattr(otel_backend, "time", SimpleNamespace(monotonic=lambda: now[0]))
     events = []
     inner = Exporter()
     wrapped = otel_backend._FailStopExporter(
