@@ -46,6 +46,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :plugin ...           " + tr("Manage plugins"),
         "  :tool create ...      " + tr("Scaffold a new tool module"),
         "  :auto <goal>|off      " + tr("Auto-pilot loop / stop"),
+        "  :otel                 " + tr("Show local OTel delivery status"),
         "  :model                " + tr("Show model configuration"),
         "  :r / :v               " + tr("Reasoning / verbosity"),
         "  :mem-list / :mem-del / :mem-vacuum  " + tr("Long-term memory"),
@@ -163,6 +164,14 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             usage=(":shrink_llm [N]"),
             detail=tr(
                 "Summarize older history into one system message; keep last N raw (default 20)."
+            ),
+        ),
+        "otel": e(
+            tr("Show local OTel export state for this process"),
+            usage=":otel",
+            detail=tr(
+                "Read-only local status: enabled, last export result, "
+                "last success and failure times. It does not contact Admin."
             ),
         ),
         "tokens": e(
