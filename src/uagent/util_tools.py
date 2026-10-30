@@ -197,7 +197,7 @@ def handle_command(
         if cmd in ("help", "h", "?"):
             print(
                 tr("Sandbox-safe commands:")
-                + "\n  :help\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
+                + "\n  :help\n  :otel\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
             )
             return True
         if cmd in ("r", "reasoning"):
