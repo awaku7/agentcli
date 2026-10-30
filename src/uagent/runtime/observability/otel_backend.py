@@ -177,6 +177,22 @@ class OpenTelemetrySpan:
         except Exception:
             pass
 
+    def _content_attribute_fits_sdk(self, encoded: str) -> bool:
+        """Avoid SDK truncation that would corrupt a serialized JSON value."""
+        # SpanLimits is authoritative for this exact SDK span, including
+        # OTEL_SPAN_ATTRIBUTE_VALUE_LENGTH_LIMIT and its global fallback.
+        # Only the concrete OTel adapter inspects this private SDK contract.
+        try:
+            limits = getattr(self._span, "_limits", None)
+            if limits is None:
+                return True  # Non-SDK test spans; the real SDK exposes limits.
+            value_limit = limits.max_span_attribute_length
+            if value_limit is None:
+                return True
+            return type(value_limit) is int and len(encoded) <= value_limit
+        except Exception:
+            return False
+
     def add_content_event(self, event: object) -> bool:
         """Write trusted, sanitized content as GenAI semconv 1.44 span attributes.
 
@@ -225,6 +241,8 @@ class OpenTelemetrySpan:
                 encoded = json.dumps(
                     messages, ensure_ascii=False, separators=(",", ":")
                 )
+                if not self._content_attribute_fits_sdk(encoded):
+                    return False
                 self._span.set_attribute(key, encoded)
                 self._captured_messages[key] = messages
             elif self._operation == "execute_tool":
@@ -246,9 +264,12 @@ class OpenTelemetrySpan:
                         data = value
                     if type(data) is not dict:
                         data = {"content": data}
-                self._span.set_attribute(
-                    key, json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+                encoded = json.dumps(
+                    data, ensure_ascii=False, separators=(",", ":")
                 )
+                if not self._content_attribute_fits_sdk(encoded):
+                    return False
+                self._span.set_attribute(key, encoded)
             else:
                 return False
             self._content_ordinals.add(ordinal)
