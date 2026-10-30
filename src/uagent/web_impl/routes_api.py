@@ -1827,10 +1827,11 @@ async def api_command(req: Request):
             return JSONResponse(status_code=400, content={"error": str(_cd_e)})
     try:
         _client, _depname = None, ""
-        try:
-            _pname, _client, _depname = providers.make_client(core)
-        except Exception:
-            pass
+        if command_name != "otel":
+            try:
+                _pname, _client, _depname = providers.make_client(core)
+            except Exception:
+                pass
         import io as _io
         import sys as _sys
 
