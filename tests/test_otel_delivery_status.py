@@ -125,3 +125,24 @@ def test_colon_otel_uses_ui_translator_and_rejects_arguments(monkeypatch, capsys
     assert "TRANSLATED Local exporter observation;" in output
     assert handle_command(":otel --extra", [], None, "", core=core) is not False
     assert capsys.readouterr().out.strip() == "Usage: :otel"
+
+
+def test_compiled_japanese_catalog_translates_otel_status():
+    """Prevent a .po-only change from silently shipping stale .mo output."""
+    import gettext
+    from pathlib import Path
+
+    catalog_path = (
+        Path(delivery.__file__).resolve().parents[2]
+        / "locales"
+        / "ja"
+        / "LC_MESSAGES"
+        / "uag.mo"
+    )
+    with catalog_path.open("rb") as source:
+        catalog = gettext.GNUTranslations(source)
+    assert catalog.gettext("Delivery: %(value)s") == "送信状態: %(value)s"
+    assert (
+        catalog.gettext("Local exporter observation; Admin receipt is not confirmed.")
+        == "これはUAG側の送信結果です。Adminでの受信成功は未確認です。"
+    )
