@@ -5,12 +5,12 @@ from uagent.runtime.observability.semantic_mapping import map_span
 
 def test_genai_provider_names_use_well_known_semconv_values() -> None:
     expected = {
-        "azure": "azure.ai.openai",
+        "azure": "az.ai.openai",
         "bedrock": "aws.bedrock",
         "claude": "anthropic",
         "deepseek": "deepseek",
         "gemini": "gcp.gemini",
-        "grok": "x_ai",
+        "grok": "xai",
         "moonshot": "moonshot_ai",
         "openai": "openai",
         "vertexai": "gcp.vertex_ai",
@@ -37,3 +37,13 @@ def test_custom_genai_provider_name_is_preserved() -> None:
     )
 
     assert mapped.attributes["gen_ai.provider.name"] == "Custom.Provider"
+
+
+def test_execute_tool_has_standard_name_and_operation() -> None:
+    mapped = map_span(
+        "execute_tool",
+        {"uag.tool.name": "calculator", "uag.tool.side_effect": "none"},
+    )
+    assert mapped.name == "execute_tool calculator"
+    assert mapped.attributes["gen_ai.operation.name"] == "execute_tool"
+    assert mapped.attributes["gen_ai.tool.name"] == "calculator"
