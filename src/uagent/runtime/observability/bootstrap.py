@@ -8,6 +8,7 @@ from typing import Callable
 
 from .api import ObservabilityBackend
 from .dependencies import ensure_otel_dependencies
+from .delivery_status import update_delivery_status
 from .noop import NOOP_BACKEND
 from .settings import ObservabilitySettings
 
@@ -62,6 +63,7 @@ def initialize_observability(
                 dependencies_ready=False,
                 reason="disabled",
             )
+            update_delivery_status("disabled", enabled=False)
             return _RESULT
 
         try:
@@ -75,6 +77,7 @@ def initialize_observability(
                 dependencies_ready=False,
                 reason="dependencies_unavailable",
             )
+            update_delivery_status("dependencies_unavailable")
             return _RESULT
 
         if backend_factory is None:
@@ -91,6 +94,7 @@ def initialize_observability(
                 dependencies_ready=True,
                 reason="backend_unavailable",
             )
+            update_delivery_status("backend_unavailable")
             return _RESULT
 
         try:
@@ -102,6 +106,7 @@ def initialize_observability(
                 dependencies_ready=True,
                 reason="backend_initialization_failed",
             )
+            update_delivery_status("backend_initialization_failed")
             return _RESULT
 
         _RESULT = ObservabilityBootstrapResult(
