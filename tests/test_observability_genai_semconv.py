@@ -49,13 +49,9 @@ def test_genai_agent_json_is_not_truncated_by_sdk(use_global):
     tracer = provider.get_tracer(__name__)
 
     with tracer.start_as_current_span("invoke_agent") as raw:
-        span = OpenTelemetrySpan(
-            raw, operation="invoke_agent", capture_content=True
-        )
+        span = OpenTelemetrySpan(raw, operation="invoke_agent", capture_content=True)
         oversized = prepare_content_event(
-            make_text_candidate(
-                category="user_input", value="z" * 120, ordinal=1
-            ),
+            make_text_candidate(category="user_input", value="z" * 120, ordinal=1),
             policy,
         )
         assert oversized is not None
@@ -105,9 +101,7 @@ def test_genai_tool_json_is_not_truncated_by_sdk():
     )
 
     with provider.get_tracer(__name__).start_as_current_span("execute_tool") as raw:
-        span = OpenTelemetrySpan(
-            raw, operation="execute_tool", capture_content=True
-        )
+        span = OpenTelemetrySpan(raw, operation="execute_tool", capture_content=True)
         assert buffer.emit_to(span) == 1
 
     spans = exporter.get_finished_spans()
