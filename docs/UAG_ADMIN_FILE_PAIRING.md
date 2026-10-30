@@ -1,4 +1,4 @@
-# UAG → UAG Admin：ファイルで連携（PR #294）
+# UAG → UAG Admin：JSONファイルで簡単に連携
 
 ## 同じWindows PC
 
@@ -20,7 +20,7 @@ uagw --otel
 
 出力した`uag-admin-link.json`を安全な方法でAdmin側に渡し、管理画面の**UAGインスタンス → UAG連携ファイルから登録**から取り込む。異なるホスト間の接続にはHTTPSを使う。`--uag-url`はAdminからUAGへのURL、`--admin-url`はUAGからAdminへのURL。
 
-**注意:** JSONにはマニフェスト用とOTLP用の2種類のBearer秘密が平文で含まれる。Git/Issue/会話/公開共有へ載せず、取込後は削除する。秘密情報はUAGの状態ディレクトリに保護して保持するので、次回出力やUAG再起動でもトークン/instance UUIDは維持される。明示的な`--rotate`以外では再生成しない。UAGでOTelを使うには`--otel`等の明示的opt-inが必要。本文キャプチャはOFFのまま。
+**注意:** JSONにはマニフェスト用とOTLP用の2種類、`--supervisor-url` 指定時はSupervisor用を加えた3種類のBearer秘密が平文で含まれる。Git/Issue/会話/公開共有へ載せず、取込後は削除する。秘密情報はUAGの状態ディレクトリに保護して保持するので、次回出力やUAG再起動でもトークン/instance UUIDは維持される。明示的な`--rotate`以外では再生成しない。UAGでOTelを使うには`--otel`等の明示的opt-inが必要。本文キャプチャはOFFのまま。
 
 ## 受信開始と復旧
 
@@ -51,6 +51,15 @@ uag admin export --uag-url https://uag.example.net --admin-url https://admin.exa
 
 Supervisorの認証用トークンは既存の保護済み連携資格情報ファイルに、別用途の独立したBearerとして保存します。UAG Adminは同じJSONを取り込むだけで、許可済みSupervisorの接続情報も登録します。
 
-別PCではSupervisorサービスをUAGと同じOSユーザーで起動し、HTTPSリバースプロキシとAdmin側の許可ホスト設定を準備してください。ネットワーク通信の暗号化と管理者による接続先許可は省略できません。トークン・インスタンスID・PID・起動時刻の転記は不要です。
+別PCではSupervisor（`uag-admin-supervisor`）をUAGと同じOSユーザー・同じ `UAGENT_STATE_DIR` で起動し、HTTPSリバースプロキシとAdmin側の `UAG_ADMIN_ALLOWED_SUPERVISOR_HOSTS` 許可ホスト設定を準備してください。Supervisorは既定で `127.0.0.1:8091` だけで待ち受け、保護済み `~/.uag/admin_pairing_credentials.json` 内の独立した `supervisor_bearer` を自動で読み込みます。ネットワーク通信の暗号化と管理者による接続先許可は省略できません。トークン・インスタンスID・PID・起動時刻の転記は不要です。
 
 Supervisor連携を一度設定した後で `--rotate` を指定すると、manifest・OTLP・Supervisorの3種類のBearerをまとめて変更します。Supervisor連携がある場合は同じ `--supervisor-url` も指定し、出力JSONをAdminに再取り込みしてください。出力に失敗した場合、保存済みの資格情報は変更しません。
+
+
+## プロセス監視の対象と制限
+
+- **同じPC：** UAGのCLI・GUI・A2Aはユーザー専用の `~/.uag/process_registry` から、AdminがUUIDとOS起動時刻を照合して監視します。UAG WebのURLがLANアドレスやHTTPSホスト名でも読み取れます。Webの稼働中判定はloopback待受と認証済みmanifestを使います。Supervisorの別起動は不要です。
+- **別PC：** UAGホストでSupervisorがこの登録簿を読み、AdminにはHTTPS経由で状態を返します。`targets.json`／PIDの手入力は通常不要です。
+- 状態は画面を開く・更新するときに取得します。**定期監視通知とプロセス起動・停止は未実装**です。Supervisorのread bearerには書き込み権限を与えません。
+
+詳しくは [UAGのプロセス自己登録](UAG_PROCESS_REGISTRY.md) を参照してください。
