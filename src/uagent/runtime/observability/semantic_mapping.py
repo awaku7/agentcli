@@ -6,12 +6,12 @@ from dataclasses import dataclass
 from typing import Any, Mapping
 
 _GENAI_PROVIDER_NAMES = {
-    "azure": "azure.ai.openai",
+    "azure": "az.ai.openai",
     "bedrock": "aws.bedrock",
     "claude": "anthropic",
     "deepseek": "deepseek",
     "gemini": "gcp.gemini",
-    "grok": "x_ai",
+    "grok": "xai",
     "moonshot": "moonshot_ai",
     "openai": "openai",
     "vertexai": "gcp.vertex_ai",
@@ -65,6 +65,8 @@ def map_span(
     if op == "execute_tool":
         tool_name = str(attrs.get("uag.tool.name") or "").strip()
         mapped.setdefault("gen_ai.operation.name", "execute_tool")
+        if tool_name:
+            mapped.setdefault("gen_ai.tool.name", tool_name)
         return MappedSpan(
             f"execute_tool {tool_name}" if tool_name else "execute_tool", mapped
         )
