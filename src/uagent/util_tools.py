@@ -190,7 +190,10 @@ def handle_command(
     if cmd == "otel":
         from .runtime.observability.delivery_status import format_delivery_status
 
-        print(format_delivery_status())
+        if arg:
+            print("Usage: :otel")
+            return CommandResult()
+        print(format_delivery_status(tr=tr))
         return CommandResult()
 
     if bool(getattr(core, "_sandbox_enabled", False)):
