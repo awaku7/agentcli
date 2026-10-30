@@ -182,7 +182,6 @@ def test_genai_tool_arguments_and_result_have_object_schema():
         assert other.add_content_event(event) is False
 
 
-
 def test_lifecycle_binding_consumes_pending_user_and_emits_assistant(monkeypatch):
     span = _DedicatedSpan()
     backend = _Backend(span)
