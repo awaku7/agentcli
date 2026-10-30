@@ -112,3 +112,16 @@ def test_colon_otel_command_is_read_only_even_in_sandbox(monkeypatch, capsys):
     assert "OTel: ON" in output
     assert "Delivery: sent" in output
     assert "Last success" in output
+
+
+def test_colon_otel_uses_ui_translator_and_rejects_arguments(monkeypatch, capsys):
+    from uagent.util_tools import handle_command
+
+    _reset(monkeypatch)
+    core = SimpleNamespace(tr=lambda msg: "TRANSLATED " + msg)
+    assert handle_command(":otel", [], None, "", core=core) is not False
+    output = capsys.readouterr().out
+    assert "TRANSLATED Delivery: disabled" in output
+    assert "TRANSLATED Local exporter observation;" in output
+    assert handle_command(":otel --extra", [], None, "", core=core) is not False
+    assert capsys.readouterr().out.strip() == "Usage: :otel"
