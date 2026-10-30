@@ -1,25 +1,17 @@
-# UAG process auto-registration for local UAG Admin
+# UAGのプロセス自己登録（UAG Admin監視用）
 
-UAG now writes a minimal, private record under the regular UAG state
-directory (default `~/.uag/process_registry`) while an entrypoint is running.
+UAGの通常の実行入口 `uag`（CLI）、`uagg`（GUI）、`uagw`（Web）、`uaga`（A2A）は、起動時の設定と作業ディレクトリを解決した後、ユーザー専用状態ディレクトリ（既定 `~/.uag/process_registry`）に小さなJSONを自己登録します。**追加の起動オプション、PID入力、専用トークンの手入力は不要**です。`uag admin export`などの管理用サブコマンドは実行中UAGとして登録しません。
 
-Supported entrypoints: `uag` (interactive CLI), `uagg`, `uagw`, `uaga`.
-No extra command, PID lookup, or token is needed. `uag admin export` and
-`uag session` do not register as running agents.
+## 記録内容と安全性
 
-Each JSON contains only `version`, `instance_id`, `entrypoint`, `pid`
-and `create_time`. It contains no command, environment, path, user ID,
-secret, conversation or task body. A normal exit removes the record.
-A crash may leave a stale record; consumers must compare the OS process birth
-time before claiming it is running, and may never use this file as
-authorization for process control.
+各JSONの項目は `version`・`instance_id`・`entrypoint`・`pid`・`create_time` のみです。コマンドライン、環境変数、ファイルパス、秘密情報、会話本文・Tool入出力は含みません。UAGが正常に終了した際には登録ファイルを削除します。クラッシュ時に古い記録が残る場合がありますが、監視側ではOSのPIDと**プロセス生成時刻**を再照合し、PID再利用を誤って稼働中と表示しないようにしています。
 
-The registry is best-effort and must never prevent normal UAG startup.
-On non-Windows systems it uses private directory permissions. No endpoint
-is exposed to the network. A locally untrusted process running as the same OS
-user can edit files, so this is **not an authorization boundary**.
+POSIXでは所有者専用のディレクトリ／ファイル権限を使用します。Windowsではユーザー専用の継承保護ACLを設定・検証します。登録できない場合もUAG本体の起動を妨げないベストエフォートの機能です。**登録簿はプロセス制御の認可根拠には使用できません**。同じOSユーザーで動く別プロセスは、そのユーザーのファイルにアクセスできる点にも注意してください。
 
-For custom UAG state directories, Admin must be configured to read the same
-user-state directory; it must not guess the identity of unrelated processes.
-The companion Admin feature is implemented separately. The remote-host
-Supervisor and any start/stop operations are outside this PR.
+## UAG Adminとの組み合わせ
+
+- **同じPC：** AdminをUAGと同じOSユーザー・同じ `UAGENT_STATE_DIR` で動かすと、CLI／GUI／A2Aの自己登録をインスタンスUUID単位で読み取れます。登録済みWeb URLがLANアドレスやHTTPSホスト名でも、これらのレコードを読み取ります。Webの待受プロセス自体はloopbackと認証済みmanifestを照合した場合にのみ表示します。
+- **別PC：** UAGホストに `uag-admin-supervisor` を起動し、AdminとHTTPSで接続します。Supervisorも同じOSユーザー・`UAGENT_STATE_DIR` を使い、登録簿を自動取得します。`UAG_SUPERVISOR_TARGETS_FILE` を指定したときだけ従来の手動ターゲット方式へ切り替わります。
+- **制限：** 監視は読み取り専用のスナップショットです。プロセス起動・停止、定期ポーリング、通知はまだ実装されていません。
+
+[連携ファイルの標準手順](UAG_ADMIN_FILE_PAIRING.md) を参照してください。
