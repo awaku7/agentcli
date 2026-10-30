@@ -205,6 +205,7 @@ def test_otel_command_does_not_initialize_llm_provider(monkeypatch, entrypoint):
             session_id = "session-a"
             private_session = False
             project_id = "project-a"
+
             def __init__(self):
                 self.identity = identity
 
