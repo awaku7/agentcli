@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Raise the minimum `llmcapa` version to `0.5.74`, matching the installed development environment.
+
 ## [0.7.38] - 2026-10-29
 
 ### Added
