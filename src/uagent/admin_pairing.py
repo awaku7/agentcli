@@ -11,6 +11,7 @@ import json
 import os
 import re
 import secrets
+import socket
 import stat
 import sys
 from pathlib import Path
@@ -21,6 +22,7 @@ from .runtime.instance_identity import get_instance_id, get_instance_name
 from .utils.paths import get_state_dir
 
 _SECRET_FILE = "admin_pairing_credentials.json"
+_HOST_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z")
 _MAX_BYTES = 16_384
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_-]{32,256}\Z")
 _KEYS = frozenset(
@@ -201,7 +203,7 @@ def _read_private(path: Path) -> dict | None:
     data = json.loads(path.read_text(encoding="utf-8"))
     if (
         type(data) is not dict
-        or set(data) != _KEYS
+        or set(data) not in (_KEYS, _KEYS | {"supervisor_bearer"})
         or data.get("format") != "uag-admin-pairing"
         or type(data.get("version")) is not int
         or data["version"] != 1
@@ -219,6 +221,15 @@ def _read_private(path: Path) -> dict | None:
         or not _TOKEN_RE.fullmatch(data["manifest_bearer"])
         or not _TOKEN_RE.fullmatch(data["otlp_bearer"])
         or data["manifest_bearer"] == data["otlp_bearer"]
+        or (
+            "supervisor_bearer" in data
+            and (
+                type(data["supervisor_bearer"]) is not str
+                or not _TOKEN_RE.fullmatch(data["supervisor_bearer"])
+                or data["supervisor_bearer"]
+                in (data["manifest_bearer"], data["otlp_bearer"])
+            )
+        )
     ):
         raise ValueError("invalid saved UAG pairing credentials")
     return data
@@ -249,6 +260,12 @@ def _secure_create(path: Path, payload: bytes) -> None:
         raise
 
 
+def get_supervisor_read_token() -> str | None:
+    """Read the independent Supervisor token from the same private pairing state."""
+    data = load_pairing()
+    return data.get("supervisor_bearer") if data is not None else None
+
+
 def _encode(data: dict) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
@@ -271,7 +288,12 @@ def get_otlp_pairing() -> tuple[str, str] | None:
 
 
 def export_pairing(
-    *, uag_url: str, admin_url: str, output: Path, rotate: bool = False
+    *,
+    uag_url: str,
+    admin_url: str,
+    output: Path,
+    rotate: bool = False,
+    supervisor_url: str | None = None,
 ) -> Path:
     """Write a secret-bearing transfer file and preserve runtime credentials."""
     uag_url = _url(uag_url)
@@ -335,7 +357,37 @@ def export_pairing(
         "manifest_bearer": manifest_token,
         "otlp_bearer": otlp_token,
     }
+    # A single atomic runtime credential file is the source of truth.
+    # --rotate must change every active bearer together, including Supervisor.
+    had_supervisor = old is not None and "supervisor_bearer" in old
+    if had_supervisor and rotate and supervisor_url is None:
+        raise ValueError("--supervisor-url is required to rotate Supervisor pairing")
+    if supervisor_url is not None:
+        supervisor_url = _url(supervisor_url)
+        host_id = os.environ.get("UAG_SUPERVISOR_HOST_ID") or socket.gethostname()
+        if not _HOST_ID.fullmatch(host_id):
+            raise ValueError("invalid Supervisor host ID")
+    if supervisor_url is not None or had_supervisor:
+        supervisor_token = (
+            secrets.token_urlsafe(48)
+            if rotate or not had_supervisor
+            else old["supervisor_bearer"]
+        )
+        if supervisor_token in (manifest_token, otlp_token):
+            raise ValueError("Supervisor bearer must be independent")
+        record["supervisor_bearer"] = supervisor_token
+
     payload = _encode(record)
+    transfer = {
+        key: value for key, value in record.items() if key != "supervisor_bearer"
+    }
+    if supervisor_url is not None:
+        transfer["supervisor"] = {
+            "host_id": host_id,
+            "base_url": supervisor_url,
+            "read_bearer": record["supervisor_bearer"],
+        }
+    transfer_payload = _encode(transfer)
     target = output.expanduser().absolute()
     if target == source or target.is_symlink():
         raise ValueError("invalid transfer-file path")
@@ -358,7 +410,7 @@ def export_pairing(
 
     transfer_created = False
     try:
-        _secure_create(target, payload)
+        _secure_create(target, transfer_payload)
         transfer_created = True
         if old is None:
             _secure_create(source, payload)
@@ -383,6 +435,11 @@ def main(arguments: list[str] | None = None) -> int:
     cmd.add_argument("--uag-url", default="http://127.0.0.1:8000")
     cmd.add_argument("--admin-url", default="http://127.0.0.1:8088")
     cmd.add_argument("--output", default="uag-admin-link.json")
+    cmd.add_argument(
+        "--supervisor-url",
+        default=None,
+        help="optional remote Supervisor HTTPS URL for automatic Admin registration",
+    )
     cmd.add_argument("--workdir", help="UAG workdir containing .env/.env.sec")
     cmd.add_argument(
         "--rotate",
@@ -421,6 +478,7 @@ def main(arguments: list[str] | None = None) -> int:
             admin_url=args.admin_url,
             output=Path(args.output),
             rotate=args.rotate,
+            supervisor_url=args.supervisor_url,
         )
     except (OSError, ValueError, PermissionError, json.JSONDecodeError) as exc:
         print(f"Pairing export failed: {type(exc).__name__}", file=sys.stderr)
