@@ -153,6 +153,101 @@ async def _async_noop(*_args, **_kwargs):
     return None
 
 
+@pytest.mark.parametrize("entrypoint", ["api", "websocket"])
+def test_otel_command_does_not_initialize_llm_provider(
+    monkeypatch, entrypoint, capsys
+):
+    """Status-only Web commands must not trigger provider auto-installation."""
+    from uagent import util_tools
+    from uagent.web_impl import connection_identity
+
+    def unexpected_provider(*_args, **_kwargs):
+        pytest.fail(":otel initialized the LLM provider")
+
+    monkeypatch.setattr(routes_api.providers, "make_client", unexpected_provider)
+    monkeypatch.setattr(routes_ws.providers, "make_client", unexpected_provider)
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
+    monkeypatch.setattr(web_manager, "room_worker_pool", None, raising=False)
+    identity = IdentityContext("alice", True, "oidc")
+    room = WebRoom("otel-room")
+    if entrypoint == "api":
+        monkeypatch.setattr(
+            routes_api, "_request_identity", lambda _request: identity
+        )
+        monkeypatch.setattr(
+            connection_identity,
+            "require_room_access",
+            lambda _identity, _room_id: ("project-a", False),
+        )
+        monkeypatch.setattr(web_manager, "get_room", lambda _room_id: room)
+
+        class Request:
+            cookies = {}
+
+            async def json(self):
+                return {"room_id": "otel-room", "command": ":otel"}
+
+        result = asyncio.run(routes_api.api_command(Request()))
+        assert isinstance(result, dict)
+        assert result["ok"] is True
+        assert result["run_llm"] is False
+    else:
+        room.connect = _async_noop
+        room.disconnect = lambda _socket: None
+        monkeypatch.setattr(
+            web_manager, "get_or_create_room", lambda _room_id: (room, False)
+        )
+        monkeypatch.setattr(routes_ws, "validate_websocket_origin", lambda _ws: None)
+        monkeypatch.setattr(
+            routes_ws, "trusted_ingress_carrier_for_request", lambda _ws: object()
+        )
+        monkeypatch.setattr(
+            routes_ws, "_bootstrap_room_on_connect", lambda _room, **_kwargs: None
+        )
+
+        class Connection:
+            session_id = "session-a"
+            private_session = False
+            project_id = "project-a"
+            identity = identity
+
+            def validate_authentication_configuration(self):
+                return None
+
+            def validate_room_access(self, *, touch_activity=True):
+                return None
+
+            def make_turn(self, **_kwargs):
+                pytest.fail(":otel started an LLM turn")
+
+        monkeypatch.setattr(
+            routes_ws, "resolve_web_connection", lambda _ws, _room_id: Connection()
+        )
+
+        class Socket:
+            query_params = {"room": "otel-room", "lang": "en"}
+
+            def __init__(self):
+                self.sent = False
+
+            async def receive_text(self):
+                if self.sent:
+                    raise WebSocketDisconnect(code=1000)
+                self.sent = True
+                return json.dumps({"type": "command", "text": ":otel"})
+
+            async def close(self, code=1000):
+                return None
+
+        asyncio.run(routes_ws.websocket_endpoint(Socket()))
+
+    assert any(
+        item.get("role") == "assistant" and "OTel:" in item.get("content", "")
+        for item in room.messages
+    )
+
+
 def test_websocket_rejects_input_until_startup_initialization_finishes(monkeypatch):
     room = WebRoom("initializing-room")
     room._bootstrap_started = True
