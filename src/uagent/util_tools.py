@@ -187,6 +187,12 @@ def handle_command(
             cmd = head
             arg = f"{tail} {arg}".strip() if arg else tail
 
+    if cmd == "otel":
+        from .runtime.observability.delivery_status import format_delivery_status
+
+        print(format_delivery_status())
+        return CommandResult()
+
     if bool(getattr(core, "_sandbox_enabled", False)):
         if cmd in ("help", "h", "?"):
             print(
