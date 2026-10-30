@@ -1,5 +1,19 @@
 # UAG → UAG Admin：JSONファイルで簡単に連携
 
+## OTel送信状態の確認（CLI・GUI・A2A共通）
+
+UAGを `--otel` で起動したまま、別のターミナルで次を実行してください。
+
+```powershell
+uag admin otel-status
+```
+
+稼働中のUAG各プロセスについて、`enabled`（OTel有効・無効）、`state`（送信状態）、`last_success_at`／`last_failure_at`（UNIX時刻・UTC）をJSONで返します。CLI `uag`、GUI `uagg`、A2A `uaga`、Web `uagw` は共通のExporterを使用します。既定では `~/.uag/otel_delivery/` にPID・起動時刻で区別した秘密情報なしのファイルを保持し、通常終了時に削除します。別の `UAGENT_STATE_DIR` を利用している場合、**同じ設定を使うユーザー／端末から**確認してください。終了済みプロセスは表示しません。
+
+`state` は `disabled`（OFF）、`dependencies_unavailable`（OTel依存不足）、`backend_unavailable`／`backend_initialization_failed`（初期化失敗）、`no_endpoint`（送信先未設定）、`awaiting_export`（送信前）、`sent`（直近のExporter呼び出し成功）、`failed`（送信失敗）、`retry_cooldown`（失敗後の再試行待ち）のいずれかです。**送信待ちや再試行待ちを成功とは表示しません。** プロセスが起動しただけでは送信は発生しないため、1回以上会話などでSpanを出力してから確認します。送信成功はExporterの結果であって、Adminの保存・表示までの保証ではありません。Admin側ではPR #28以降のテレメトリ画面で実際の最終受信時刻を確認してください。
+
+コマンド自体は送信を有効化せず、ネットワークへ接続しません。会話・Tool本文、送信先URL、認証情報や例外メッセージは診断ファイルに保存しません。ファイルの権限は所有ユーザー専用で、終了済みのPIDや起動時刻が合わない記録は無視します。
+
 ## CLIだけで利用する場合（UAG Webは不要）
 
 UAG AdminのCLI専用連携対応版では、UAG Web（`uagw`）を起動せずに、通常の `uag admin export` で生成した連携JSONをAdminに取り込めます。
