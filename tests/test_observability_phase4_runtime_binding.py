@@ -1,3 +1,4 @@
+import json
 from contextlib import contextmanager
 
 from uagent.runtime.execution import lifecycle_execution
@@ -89,7 +90,7 @@ class _Backend:
         yield False
 
 
-def test_otel_span_emits_only_trusted_prepared_content_event():
+def test_otel_span_uses_standard_genai_messages_without_legacy_events():
     settings = _settings("user_input")
     policy = ContentCapturePolicy.from_settings(settings)
     event = prepare_content_event(
@@ -99,26 +100,87 @@ def test_otel_span_emits_only_trusted_prepared_content_event():
     assert event is not None
 
     raw = _RawSpan()
-    span = OpenTelemetrySpan(raw, capture_content=True)
+    span = OpenTelemetrySpan(raw, capture_content=True, operation="invoke_agent")
     assert span.add_content_event(event) is True
-    assert raw.events == [
-        (
-            "uag.content",
-            {
-                "uag.content.category": "user_input",
-                "uag.content.value": "hello",
-                "uag.content.ordinal": 1,
-            },
-        )
+    assert raw.events == []
+    assert json.loads(raw.attributes["gen_ai.input.messages"]) == [
+        {"role": "user", "parts": [{"type": "text", "content": "hello"}]}
     ]
 
+    # No duplicated ordinals, fabricated events or wrong semantic owners.
+    assert span.add_content_event(event) is False
     assert span.add_content_event(object()) is False
-    assert len(raw.events) == 1
+    assert not any(key.startswith("uag.content") for key in raw.attributes)
 
     disabled_raw = _RawSpan()
-    disabled = OpenTelemetrySpan(disabled_raw, capture_content=False)
+    disabled = OpenTelemetrySpan(
+        disabled_raw, capture_content=False, operation="invoke_agent"
+    )
     assert disabled.add_content_event(event) is False
     assert disabled_raw.events == []
+    assert disabled_raw.attributes == {}
+
+
+def test_genai_output_is_single_latest_reply_not_multiple_model_choices():
+    policy = ContentCapturePolicy.from_settings(_settings("assistant_output"))
+    raw = _RawSpan()
+    span = OpenTelemetrySpan(raw, capture_content=True, operation="invoke_agent")
+    for ordinal, value in enumerate(("intermediate", "final"), 1):
+        event = prepare_content_event(
+            make_text_candidate(
+                category="assistant_output", value=value, ordinal=ordinal
+            ),
+            policy,
+        )
+        assert event is not None
+        assert span.add_content_event(event) is True
+    assert json.loads(raw.attributes["gen_ai.output.messages"]) == [
+        {"role": "assistant", "parts": [{"type": "text", "content": "final"}]}
+    ]
+    assert raw.events == []
+
+
+def test_genai_tool_arguments_and_result_have_object_schema():
+    from uagent.runtime.observability.tool_content_capture import (
+        ToolContentCaptureBuffer,
+        make_tool_candidate,
+    )
+
+    settings = _settings("tool_arguments", "tool_result")
+    policy = ContentCapturePolicy.from_settings(settings)
+    buffer = ToolContentCaptureBuffer(policy)
+    assert buffer.admit(
+        make_tool_candidate(
+            tool_name="calculator",
+            category="tool_arguments",
+            value={"expression": "1+2"},
+            ordinal=1,
+        )
+    )
+    assert buffer.admit(
+        make_tool_candidate(
+            tool_name="calculator",
+            category="tool_result",
+            value="[calculator] Result: 3",
+            ordinal=2,
+        )
+    )
+    raw = _RawSpan()
+    span = OpenTelemetrySpan(raw, capture_content=True, operation="execute_tool")
+    assert buffer.emit_to(span) == 2
+    assert json.loads(raw.attributes["gen_ai.tool.call.arguments"]) == {
+        "expression": "1+2"
+    }
+    assert json.loads(raw.attributes["gen_ai.tool.call.result"]) == {
+        "content": "[calculator] Result: 3"
+    }
+    assert raw.events == []
+
+    # Tool data cannot land on an agent span and vice versa.
+    other = OpenTelemetrySpan(_RawSpan(), capture_content=True, operation="chat")
+    for event in buffer.prepared_events():
+        assert other.add_content_event(event) is False
+
 
 
 def test_lifecycle_binding_consumes_pending_user_and_emits_assistant(monkeypatch):
