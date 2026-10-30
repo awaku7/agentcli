@@ -400,6 +400,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 "tool",
                                 "auto",
                                 "model",
+                                "otel",
                                 "r",
                                 "reasoning",
                                 "v",
