@@ -238,7 +238,7 @@ def test_sandboxed_or_remote_web_allows_only_mode_changes():
         ("remote", True),
         ("local_trusted", True),
     ):
-        for command in (":r high", ":reasoning low", ":v high", ":verbosity low"):
+        for command in (":r high", ":reasoning low", ":v high", ":verbosity low", ":otel"):
             assert (
                 web_command_denial(
                     command,
@@ -258,6 +258,7 @@ def test_sandboxed_or_remote_web_allows_only_mode_changes():
             ":credential list",
             ":skills install x",
             ":plugin:run",
+            ":otel --anything",
             ":unknown",
         ):
             assert web_command_denial(
