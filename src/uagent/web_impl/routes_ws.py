@@ -255,7 +255,9 @@ async def websocket_endpoint(websocket: WebSocket):
                     _wc_client, _wc_depname = None, ""
                     if command_name != "otel":
                         try:
-                            _wc_pname, _wc_client, _wc_depname = providers.make_client(core)
+                            _wc_pname, _wc_client, _wc_depname = providers.make_client(
+                                core
+                            )
                         except Exception:
                             pass
                     import io as _io
