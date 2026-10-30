@@ -104,7 +104,7 @@ You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SP
 - `"external"` (64): External tools (e.g., A2A, MCP, fetch, search web)
 - `"media"` (128): Media tools (e.g., image gen/edit/analyze, audio, QR code)
 - `"file"` (256): File tools (e.g., create, delete, read, write, search, zip)
-- `"index"` (512): Code and documentation indexing/AST tools (e.g., *2idx)
+- `"index"` (512): Code and documentation indexing/AST tools (e.g., \*2idx)
 - `"dev"` (1024): Additional developer utility tools
 - `"web"` (2048): Web/browser automation and transit search tools
 - `"utility"` (4096): System and maintenance utilities
@@ -151,7 +151,8 @@ Tools print a one-line trace by default. To suppress:
 TOOL_SPEC["function"]["x_scheck"] = {"emit_tool_trace": False}
 ```
 
-`human_ask` uses this to avoid logging the raw user reply.
+`human_ask` suppresses its argument trace in every display mode, so the question
+text is never included in the pre-execution trace.
 
 ### 3.4.1 Localized pre-execution action lines (`UAGENT_SHOW_TOOL_RESULTS=2`)
 
@@ -184,13 +185,21 @@ Contract:
 - For modules that expose several tool names, use
   `TOOL_DESCRIBERS = {"tool_a": fn_a, "tool_b": fn_b}` instead.
 - If the describer is missing, raises, or returns an empty string, the host
-  falls back to the classic masked-args trace. Do not raise to signal "no
-  describer"; return `""`.
+  shows a short localized fallback with the action and main target (such as a
+  path or URL). It omits implementation details and secondary options; free-form
+  payloads are shown by size, not contents, and secrets are masked. Dynamically
+  loaded tools use the same fallback. Return `""` to request the fallback.
 - Branch on arguments when the behavior differs, for example `dry_run`:
 
 ```python
 key = "describe.dry_run" if dry_run else "describe.delete"
 ```
+
+`apply_patch` includes target paths parsed from the unified-diff headers in its
+pre-execution line. Tools without their own describer—including dynamically
+loaded tools—receive the generic fallback automatically. The fallback wrapper
+uses `trace.generic_action` in `tools/__init__.json`; keep this key translated
+for all 37 tool locales and validate it with `scripts/i18n_validate.py`.
 
 ### 3.5 Large tool results and artifact handling
 
@@ -274,6 +283,7 @@ Example:
 Placeholders use `%(name)s` format.
 
 To validate tool translation keys and ensure consistency across supported locales, use:
+
 - `python scripts/i18n_tools_check.py` — Checks missing translation keys for tools
 - `python scripts/tool_json_i18n_batch.py status` — Tool JSON translation status
 - `python scripts/i18n_validate.py src/uagent/tools/<module>.json` — Validates tool JSON shape and rejects `en` blocks

@@ -125,7 +125,7 @@ TOOL_SPEC: dict[str, Any] = {
 # Patch parsing
 # ---------------------------------------------------------------------------
 _HUNK_HEADER_RE = re.compile(r"^@@\s+-(\d+)(?:,(\d+))?\s+\+(\d+)(?:,(\d+))?\s+@@")
-_PATH_HEADER_RE = re.compile(r"^(?:---|\+\+\+)\s+(?:\S/)?(?P<path>.+)$")
+_PATH_HEADER_RE = re.compile(r"^(?:---|\+\+\+)\s+(?P<path>.+)$")
 
 
 @dataclass
@@ -589,9 +589,26 @@ def describe(args: dict[str, Any]) -> str:
     dry_run = (args or {}).get("dry_run", True)
     if dry_run is None:
         dry_run = True
-    if bool(dry_run):
-        return _("describe.preview", default="Previewing patch")
-    return _("describe.apply", default="Applying patch")
+    action = (
+        _("describe.preview", default="Previewing patch")
+        if bool(dry_run)
+        else _("describe.apply", default="Applying patch")
+    )
+    patch_text = str((args or {}).get("patch_text") or "")
+    try:
+        patches = _parse_patch(patch_text)
+    except Exception:
+        patches = []
+    paths = list(
+        dict.fromkeys(
+            patch.target_path
+            for patch in patches
+            if patch.target_path and patch.target_path not in {"/dev/null", "dev/null"}
+        )
+    )
+    if paths:
+        return f"{action}: " + ", ".join(paths)
+    return action
 
 
 TOOL_DESCRIBER = describe

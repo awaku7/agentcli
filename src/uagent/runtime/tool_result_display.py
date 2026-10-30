@@ -2,18 +2,16 @@
 
 ``UAGENT_SHOW_TOOL_RESULTS`` selects how much context the host shows:
 
-* ``0`` (default): the classic ``[TOOL] <ts> name=<tool> args=<masked-json>``
-  trace, and no result line.
+* ``0``: the classic ``[TOOL] <ts> name=<tool> args=<masked-json>`` trace,
+  and no result line.
 * ``1``: the classic trace plus the bounded
   ``[TOOL-RESULT] ... summary=<derived>`` line after execution.
-* ``2``: the tool's own localized action sentence replaces the
-  ``name=/args=`` body of the pre-execution trace, and no result line is
-  printed. The sentence comes from the tool's ``TOOL_DESCRIBER``.
+* ``2`` (default): a localized pre-execution action replaces the
+  ``name=/args=`` trace body, and no result line is printed. Tools with a
+  ``TOOL_DESCRIBER`` supply the action; other tools use the generic summary.
 
-Mode ``2`` degrades to the classic trace body when a tool has no describer,
-when the describer raises, or when it returns an empty value. Described text is
-always flattened, secret-masked, and length-bounded here, so a tool cannot leak
-a raw payload through the display path even if it tries.
+Displayed text is flattened, secret-masked, and length-bounded so raw secrets
+are not exposed through the display path.
 """
 
 from __future__ import annotations
@@ -40,8 +38,8 @@ def parse_tool_result_display_mode(value: Any = None) -> int:
     """Return 0, 1, or 2 for a raw display-mode value.
 
     Unknown values disable both the localized trace and the result line.
-    Silently treating an unrecognized value as "on" would change the
-    documented opt-in default.
+    Silently treating an unrecognized value as enabled could make a typo
+    unexpectedly show tool activity.
     """
 
     raw = str("" if value is None else value).strip().lower()
@@ -57,7 +55,7 @@ def parse_tool_result_display_mode(value: Any = None) -> int:
 def tool_result_display_mode() -> int:
     """Return the effective tool display mode for this process."""
 
-    return parse_tool_result_display_mode(env_get("UAGENT_SHOW_TOOL_RESULTS", "0"))
+    return parse_tool_result_display_mode(env_get("UAGENT_SHOW_TOOL_RESULTS", "2"))
 
 
 def bound_display_text(text: Any, *, max_chars: int = DEFAULT_MAX_CHARS) -> str:

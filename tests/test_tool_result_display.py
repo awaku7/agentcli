@@ -224,10 +224,15 @@ def test_build_tool_description_uses_registry_and_degrades_safely() -> None:
 
 def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
     from uagent import tools as tools_pkg
+    from uagent.runtime.tool_result_display import tool_result_display_mode
 
     tools_pkg._TOOL_DESCRIBERS["trace_probe"] = lambda args: "probe line"
     try:
         monkeypatch.delenv("UAGENT_SHOW_TOOL_RESULTS", raising=False)
+        assert tool_result_display_mode() == 2
+        assert tools_pkg._tool_trace_body("trace_probe", {"a": 1}) == "probe line"
+
+        monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "0")
         classic = tools_pkg._tool_trace_body("trace_probe", {"a": 1})
         assert classic == 'name=trace_probe args={"a":1}'
 
@@ -236,10 +241,24 @@ def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
 
         monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
         assert tools_pkg._tool_trace_body("trace_probe", {"a": 1}) == "probe line"
-        # A tool without a describer keeps the machine-readable body.
-        assert tools_pkg._tool_trace_body("mystery", {"a": 1}).startswith(
-            "name=mystery args="
+        # Tools without a describer get a generic, compact action summary.
+        generic = tools_pkg._tool_trace_body(
+            "mystery",
+            {
+                "action": "read",
+                "path": "src/a.py",
+                "dry_run": True,
+                "payload": "private content",
+            },
         )
+        assert "mystery" in generic
+        assert 'action="read"' in generic
+        assert 'path="src/a.py"' in generic
+        assert "dry_run" not in generic
+        assert "About to use mystery" in generic or "mystery を実行します" in generic
+        assert "payload=<15 chars>" in generic
+        assert len(generic) < 150
+        assert "private content" not in generic
     finally:
         tools_pkg._TOOL_DESCRIBERS.pop("trace_probe", None)
 
@@ -251,3 +270,89 @@ def test_read_file_describer_is_localized(monkeypatch) -> None:
     text = read_file_tool.describe({"filename": "src/a.py"})
     assert "src/a.py" in text
     assert read_file_tool.describe({}).count("?") == 1
+
+
+def test_apply_patch_describer_includes_target_paths() -> None:
+    from uagent.tools import apply_patch_tool
+
+    patch_text = "\n".join(
+        [
+            "--- a/src/alpha.py",
+            "+++ b/src/alpha.py",
+            "@@ -1 +1 @@",
+            "-old",
+            "+new",
+            "--- a/src/beta.py",
+            "+++ b/src/beta.py",
+            "@@ -1 +1 @@",
+            "-before",
+            "+after",
+        ]
+    )
+
+    preview = apply_patch_tool.describe({"patch_text": patch_text, "dry_run": True})
+    apply = apply_patch_tool.describe({"patch_text": patch_text, "dry_run": False})
+
+    assert "src/alpha.py" in preview
+    assert "src/beta.py" in preview
+    assert "src/alpha.py" in apply
+    assert "src/beta.py" in apply
+    assert "Preview" in preview or "プレビュー" in preview
+    assert "Applying" in apply or "適用" in apply
+
+
+def test_generic_tool_action_uses_localized_schema_metadata(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from uagent import tools as tools_pkg
+    from uagent.tools import i18n_helper
+
+    spec = {
+        "function": {
+            "name": "generic_schema_probe",
+            "description": "ファイルを読み取る",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "description": "対象ファイル"},
+                    "message": {"type": "string", "description": "自由形式テキスト"},
+                },
+            },
+        }
+    }
+    tools_pkg.TOOL_SPECS.append(spec)
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    try:
+        preview = tools_pkg._generic_tool_action(
+            "generic_schema_probe",
+            {"path": "src/target.txt", "message": "private message"},
+        )
+    finally:
+        tools_pkg.TOOL_SPECS.remove(spec)
+
+    assert "generic_schema_probe を実行します" in preview
+    assert 'path="src/target.txt"' in preview
+    assert "message=<15 chars>" in preview
+    assert "ファイルを読み取る" not in preview
+    assert "対象ファイル" not in preview
+    assert "自由形式テキスト" not in preview
+    assert "private message" not in preview
+    assert len(preview) < 120
+
+
+def test_human_ask_trace_remains_suppressed_in_all_display_modes(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from uagent import tools as tools_pkg
+
+    previous = tools_pkg._TOOL_TRACE_FLAGS.get("human_ask")
+    tools_pkg._TOOL_TRACE_FLAGS["human_ask"] = False
+    try:
+        for mode in ("0", "1", "2"):
+            monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", mode)
+            assert tools_pkg._should_emit_tool_trace("human_ask") is False
+    finally:
+        if previous is None:
+            tools_pkg._TOOL_TRACE_FLAGS.pop("human_ask", None)
+        else:
+            tools_pkg._TOOL_TRACE_FLAGS["human_ask"] = previous

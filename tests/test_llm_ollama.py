@@ -62,6 +62,10 @@ def test_ollama_extra_body_preserves_existing_fields(monkeypatch):
 
 def test_ollama_responses_compat_uses_responses_token_field(monkeypatch):
     monkeypatch.setenv("UAGENT_OLLAMA_NUM_CTX", "4096")
+    monkeypatch.setattr(
+        "uagent.providers.llm_ollama_responses._resolve_ollama_max_tokens",
+        lambda _model: 1536,
+    )
     kwargs = {}
 
     apply_ollama_responses_compat(
@@ -71,6 +75,23 @@ def test_ollama_responses_compat_uses_responses_token_field(monkeypatch):
     )
 
     assert kwargs["extra_body"]["options"]["num_ctx"] == 4096
+    assert kwargs["max_output_tokens"] == 1536
+    assert "max_tokens" not in kwargs
+
+
+def test_ollama_responses_compat_omits_unknown_output_limit(monkeypatch):
+    monkeypatch.setattr(
+        "uagent.providers.llm_ollama_responses._resolve_ollama_max_tokens",
+        lambda _model: None,
+    )
+    kwargs = {}
+
+    apply_ollama_responses_compat(
+        kwargs,
+        provider="ollama",
+        depname="test-model",
+    )
+
     assert "max_output_tokens" not in kwargs
 
 

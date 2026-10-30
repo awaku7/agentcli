@@ -698,23 +698,19 @@ Important details:
 
 ### 3.5 Tool trace output
 
-By default, a one-line trace is printed to stdout before tool execution:
+By default (`UAGENT_SHOW_TOOL_RESULTS=2`), a localized action line is printed
+to stdout before tool execution. Tools with a `TOOL_DESCRIBER` supply the line;
+other tools use a short generic summary of the action and main target. Free-form
+payloads are represented by size, and secrets are masked. Mode `0` restores the
+classic `[TOOL] 2025-... name=<tool> args=<masked-json>` trace; mode `1` adds a
+bounded result summary after execution.
 
-- Example: `[TOOL] 2025-... name=<tool> args=<masked-json>`
-- Secret-like keys are masked.
-
-A tool may suppress the trace using the extended flag:
+A tool may suppress its trace using the extended flag:
 
 - `TOOL_SPEC['function']['x_scheck']['emit_tool_trace'] = False`
 
-`human_ask` uses this to avoid logging the raw user reply.
-
-With `UAGENT_SHOW_TOOL_RESULTS=2`, the host replaces the `name=<tool>
-args=<masked-json>` body of that trace with a tool-owned localized action
-sentence, so the line reads as prose before execution. Tools opt in with a
-`TOOL_DESCRIBER` callable; see `DEVELOP_TOOL.md` section 3.4.1. Mode `2` falls
-back to the classic masked-args body when a tool has no describer or the
-describer fails, and it prints no result line.
+`human_ask` uses this to suppress its trace in every mode. See
+`DEVELOP_TOOL.md` section 3.4.1 for the describer contract.
 
 ### 3.5.1 Large tool-result artifacts
 
