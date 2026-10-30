@@ -1,10 +1,15 @@
 # Changelog
 
-## [Unreleased]
+## [0.7.39] - 2026-10-30
+
+### Added
+
+- Default tool traces to concise localized pre-execution action summaries, with a generic action/target fallback for tools without describers; keep `human_ask` traces suppressed.
+- Include target file paths in `apply_patch` action lines.
 
 ### Changed
 
-- Raise the minimum `llmcapa` version to `0.5.74`, matching the installed development environment.
+- Raise the minimum `llmcapa` version to `0.5.74`.
 
 ## [0.7.38] - 2026-10-29
 
