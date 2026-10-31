@@ -91,12 +91,23 @@ invoke_agent uag
 - Tool spans use the centralized tool dispatch/lifecycle boundary. Confirmation-denied calls do not create execution spans.
 - Existing structured events remain independent and receive the active `trace_id` / `span_id` when a span is active.
 
-Estimated request tokens and provider-reported usage remain distinct on both registry and fallback LLM spans:
+Estimated request tokens and provider-reported usage remain distinct on both
+registry and fallback LLM spans:
 
 ```text
-uag.tokens.estimate.*
-uag.tokens.reported.*
+uag.tokens.estimate.*         # UAG-only estimate
+gen_ai.usage.input_tokens     # provider-reported input tokens
+gen_ai.usage.output_tokens    # provider-reported output tokens
 ```
+
+Only standard GenAI attributes are exported when equivalent semantics
+exist. The adapter removes duplicate `uag.tokens.reported.*` aliases and
+does not export redundant total-token, status, or duration span attributes.
+Other standard projections include `gen_ai.provider.name`,
+`gen_ai.request.model`, `gen_ai.agent.name`, `gen_ai.tool.name`,
+and `error.type`. Span status and timestamps express outcome and duration.
+UAG-specific context decisions and tool side-effect classification keep
+their `uag.*` names.
 
 Never report estimates as provider-exact usage. Fallback providers attach reported deltas only when the provider has populated the existing authoritative legacy usage state; missing usage is omitted rather than invented.
 
@@ -133,7 +144,7 @@ Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP propagat
 - A2A propagates only W3C `traceparent` / `tracestate` across authenticated UAG-controlled hops. Baggage is not propagated, and trace metadata never affects authentication, authorization, identity, scope, or session validity.
 - Local Sub-Agent execution opens one canonical `invoke_agent <sub-agent>` child span at the existing `tools.context.set_active_sub_agent()` / `reset_active_sub_agent()` boundary.
 - Sub-Agent spans always inherit the current process-local context and never force a new root. `run_sub_agent_chain` therefore produces one logical Agent span per step, while parallel tool execution inherits ContextVars through the existing `submit_with_current_context()` path.
-- The Sub-Agent span exports only bounded agent metadata such as `uag.agent.name`. Task text, ContextPack bodies, run/task IDs, file scope, shared-store values, tool payloads, provider credentials, and model output are not span attributes.
+- The Sub-Agent span exports only bounded agent metadata such as `gen_ai.agent.name`. Task text, ContextPack bodies, run/task IDs, file scope, shared-store values, tool payloads, provider credentials, and model output are not span attributes.
 - Exceptions are forwarded to the active Agent span without replacing or swallowing the original exception. Observability creation/close failures remain best-effort and must not alter Sub-Agent results.
 - Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.
 - MCP trace propagation is OFF by default and requires the explicit `trusted_trace_propagation=True` flag on a managed HTTP or stdio server.
