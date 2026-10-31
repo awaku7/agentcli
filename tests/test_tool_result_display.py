@@ -284,21 +284,11 @@ def test_web_tool_trace_uses_the_cli_description_without_raw_results(
 
     tools_pkg._emit_tool_trace("web_trace_probe", {"content": "private payload"})
 
-    assert displayed == [
-        {
-            "role": "tool",
-            "name": "web_trace_probe",
-            "content": tools_pkg._tool_trace_body(
-                "web_trace_probe", {"content": "private payload"}
-            ).replace("abcd1234efgh", "***"),
-        }
-    ] or (
-        len(displayed) == 1
-        and displayed[0]["role"] == "tool"
-        and displayed[0]["name"] == "web_trace_probe"
-        and "Reading file" in displayed[0]["content"]
-        and "abcd1234efgh" not in displayed[0]["content"]
-    )
+    assert len(displayed) == 1
+    assert displayed[0]["role"] == "tool"
+    assert displayed[0]["name"] == "web_trace_probe"
+    assert "Reading file" in displayed[0]["content"]
+    assert "abcd1234efgh" not in displayed[0]["content"]
     assert len(displayed[0]["content"]) <= 400
     assert "[TOOL]" not in capsys.readouterr().out
 
