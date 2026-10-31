@@ -16,7 +16,9 @@ def test_genre_mask_cli_option_removed(monkeypatch):
 
 
 def test_genre_control_api_removed():
-    assert not any(getattr(route, "path", "") == "/api/tool-genres" for route in app.routes)
+    assert not any(
+        getattr(route, "path", "") == "/api/tool-genres" for route in app.routes
+    )
 
 
 def test_individual_tool_discovery_remains():
