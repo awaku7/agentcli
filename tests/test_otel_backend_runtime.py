@@ -205,3 +205,15 @@ def test_otel_adapter_exports_standard_dynamic_metadata_only() -> None:
         "uag.context.kind": "messages",
     }
     assert raw.events == [("test.event", {"error.type": "Error"})]
+
+    # A cancelled round is UNSET in OTel, so its outcome is not redundant.
+    cancelled = RawSpan()
+    cancelled_span = OpenTelemetrySpan(
+        cancelled, capture_content=False, operation="chat"
+    )
+    cancelled_span.set_attribute("uag.status", "cancelled")
+    cancelled_span.add_event("llm.round.completed", {"uag.status": "cancelled"})
+    assert cancelled.attributes == {"uag.status": "cancelled"}
+    assert cancelled.events == [
+        ("llm.round.completed", {"uag.status": "cancelled"})
+    ]
