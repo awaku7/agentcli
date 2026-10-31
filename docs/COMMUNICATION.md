@@ -2,7 +2,7 @@
 
 `tool_genre: "comm"` tools for sending messages and interacting with communication platforms.
 
-These tools are loaded dynamically. Use `comm_control enable` to activate them, or configure your environment to load them at startup.
+These tools are discovered and loaded individually with `tool_catalog` / `tool_load`, or with `:tools load <name>` in the CLI. The `comm` genre is catalog metadata, not an enable/disable switch.
 
 ## Tools
 
@@ -87,25 +87,16 @@ teams_webhook_post action="post" message="Build completed successfully."
 teams_webhook_post action="post_card" message="Release v1.2.3" title="New Release" summary="Bug fixes and improvements"
 ```
 
-## Enabling comm tools
+## Loading communication tools
 
-By default, comm tools are disabled. To enable them:
+Load the required tool individually, for example:
 
-```
-comm_control enable
-```
-
-To disable:
-
-```
-comm_control disable
+```text
+:tools load bluesky
+:tools load discord_channel_chat
 ```
 
-You can also set the following in your environment to auto-load them:
-
-```
-UAGENT_COMM_ENABLED=1
-```
+LLM tool discovery can also select tools through `tool_catalog` and `tool_load`. There is no genre-wide `comm_control` switch or `UAGENT_COMM_ENABLED` startup setting.
 
 ## Common notes
 
