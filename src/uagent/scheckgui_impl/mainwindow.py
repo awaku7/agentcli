@@ -44,7 +44,6 @@ from .icons import (
     _make_close_icon,
     _make_detail_icon,
     _make_font_icon,
-    _make_genre_icon,
     _make_help_icon,
     _make_reasoning_icon,
     _make_send_icon,
@@ -811,106 +810,6 @@ class MainWindow(QtWidgets.QMainWindow):
             QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(
                 lambda: self._set_verbosity("2")
             )
-        except Exception:
-            pass
-
-        # Tools menu (genre selection, only when idle)
-        try:
-            from ..tools.genre_control_tool import (
-                _set_basic_tools_enabled,
-                _set_comm_tools_enabled,
-                _set_devel_tools_enabled,
-                _set_exec_tools_enabled,
-                _set_external_tools_enabled,
-                _set_file_tools_enabled,
-                _set_index_tools_enabled,
-                _set_iot_tools_enabled,
-                _set_media_tools_enabled,
-                _set_office_tools_enabled,
-            )
-
-            tools_menu = self.menuBar().addMenu(_("Tools"))
-            tools_menu.menuAction().setIcon(_make_genre_icon(22))
-
-            genre_items = [
-                (
-                    "basic",
-                    _(
-                        "Basic (file, env, time, prompts, skills, memory, tools control)"
-                    ),
-                    _set_basic_tools_enabled,
-                ),
-                (
-                    "comm",
-                    _("Communication (Teams, Discord, Bluesky)"),
-                    _set_comm_tools_enabled,
-                ),
-                (
-                    "office",
-                    _("Office (Excel, Word, PDF, PPT, document extraction)"),
-                    _set_office_tools_enabled,
-                ),
-                (
-                    "devel",
-                    _(
-                        "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
-                    ),
-                    _set_devel_tools_enabled,
-                ),
-                (
-                    "iot",
-                    _(
-                        "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
-                    ),
-                    _set_iot_tools_enabled,
-                ),
-                (
-                    "exec",
-                    _("Execution (cmd, python, pwsh, bash, sub-agent)"),
-                    _set_exec_tools_enabled,
-                ),
-                (
-                    "external",
-                    _("External (A2A, MCP, fetch, search web)"),
-                    _set_external_tools_enabled,
-                ),
-                (
-                    "media",
-                    _("Media (image gen/edit/analyze, audio, QR code)"),
-                    _set_media_tools_enabled,
-                ),
-                (
-                    "file",
-                    _("File (read, write, search, delete, listing)"),
-                    _set_file_tools_enabled,
-                ),
-                (
-                    "index",
-                    _("Index (source code navigation: py2idx, ts2idx, etc.)"),
-                    _set_index_tools_enabled,
-                ),
-            ]
-
-            from ..tools._genre_control_util import _ENABLED_GENRES
-
-            self._genre_actions = {}
-            for key, label, setter in genre_items:
-                act = tools_menu.addAction(label)
-                act.setIcon(_make_genre_icon())
-                act.setCheckable(True)
-                act.setChecked(key in _ENABLED_GENRES)
-                act.triggered.connect(lambda checked, s=setter: s(checked))
-                self._genre_actions[key] = act
-
-            # Update enabled state periodically based on busy status
-            def _update_tools_menu_state():
-                is_busy = bool(getattr(core, "status_busy", False))
-                for act in self._genre_actions.values():
-                    act.setEnabled(not is_busy)
-
-            self._tools_menu_timer = QtCore.QTimer()
-            self._tools_menu_timer.timeout.connect(_update_tools_menu_state)
-            self._tools_menu_timer.start(500)  # check every 500ms
         except Exception:
             pass
 
