@@ -248,7 +248,10 @@ class RoundOrchestrator:
         if status == "completed" and "output_tokens_delta" not in usage_delta:
             generated = rendered.assistant_text + rendered.reasoning_text
             if rendered.tool_calls:
-                generated += str(rendered.tool_calls)
+                generated += "".join(
+                    str(call.get("name") or "") + str(call.get("arguments") or "")
+                    for call in rendered.tool_calls
+                )
             if generated:
                 observability_span.set_attribute(
                     "uag.tokens.estimate.output",
