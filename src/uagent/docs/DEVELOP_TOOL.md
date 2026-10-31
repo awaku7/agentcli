@@ -93,21 +93,21 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 
 ### 3.2 Tool Genre (`tool_genre`)
 
-You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SPEC`. The supported genres are:
+`tool_genre` is optional classification metadata for tool discovery. It does not enable or disable an entire genre. The supported category names are:
 
-- `"basic"` (1): Basic tools (env, time, prompts, skills, memory, tools control)
-- `"comm"` (2): Communication tools (e.g., Teams, Discord)
-- `"office"` (4): Office tools (e.g., Excel, Word, Document extraction)
-- `"devel"` (8): Development tools (e.g., lint, py_compile, run_tests)
-- `"iot"` (16): IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
-- `"exec"` (32): Execution tools (e.g., cmd, python, pwsh, bash)
-- `"external"` (64): External tools (e.g., A2A, MCP, fetch, search web)
-- `"media"` (128): Media tools (e.g., image gen/edit/analyze, audio, QR code)
-- `"file"` (256): File tools (e.g., create, delete, read, write, search, zip)
-- `"index"` (512): Code and documentation indexing/AST tools (e.g., \*2idx)
-- `"dev"` (1024): Additional developer utility tools
-- `"web"` (2048): Web/browser automation and transit search tools
-- `"utility"` (4096): System and maintenance utilities
+- `"basic"`: Basic tools (env, time, prompts, skills, memory, tools control)
+- `"comm"`: Communication tools (e.g., Teams, Discord)
+- `"office"`: Office tools (e.g., Excel, Word, Document extraction)
+- `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
+- `"iot"`: IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
+- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash)
+- `"external"`: External tools (e.g., A2A, MCP, fetch, search web)
+- `"media"`: Media tools (e.g., image gen/edit/analyze, audio, QR code)
+- `"file"`: File tools (e.g., create, delete, read, write, search, zip)
+- `"index"`: Code and documentation indexing/AST tools (e.g., \*2idx)
+- `"dev"`: Additional developer utility tools
+- `"web"`: Web/browser automation and transit search tools
+- `"utility"`: System and maintenance utilities
 
 
 Example:
