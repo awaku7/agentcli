@@ -26,7 +26,7 @@ def test_shipped_chat_bundle_preserves_scroll_follow_gate() -> None:
         encoding="utf-8"
     )
 
-    assert "D(\"scroll\",l,handleChatScroll)" in bundle
+    assert 'D("scroll",l,handleChatScroll)' in bundle
     assert "box.scrollHeight-box.scrollTop-box.clientHeight<=80" in bundle
     assert "if(!followLatest||!a(o)||scrollScheduled)return" in bundle
     assert "followLatest&&a(o)&&(a(o).scrollTop=a(o).scrollHeight)" in bundle
