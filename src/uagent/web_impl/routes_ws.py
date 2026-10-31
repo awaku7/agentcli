@@ -171,7 +171,10 @@ async def websocket_endpoint(websocket: WebSocket):
                     continue
                 worker_dir = room.base_dir
                 client_message_id = payload.get("client_message_id")
-                if not isinstance(client_message_id, str) or len(client_message_id) > 64:
+                if (
+                    not isinstance(client_message_id, str)
+                    or len(client_message_id) > 64
+                ):
                     client_message_id = ""
                 threading.Thread(
                     target=call_with_trusted_ingress,

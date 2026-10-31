@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.40] - 2026-10-31
+
+### Added
+
+- Add local OpenTelemetry delivery diagnostics and a read-only `:otel` command that does not initialize an LLM provider.
+- Render submitted Web messages immediately, then reconcile the optimistic display with the server message; retain drafts when WebSocket submission fails.
+
+### Changed
+
+- Export OpenTelemetry data using standard-first GenAI semantic-convention attributes and preserve cancellation and disabled outcomes.
+- Use request-scoped provider-reported token usage; estimate missing output usage without labeling estimates as measured, and avoid subtracting unrelated snapshots or counting tool-call arguments twice.
+
 ## [0.7.39] - 2026-10-30
 
 ### Added
