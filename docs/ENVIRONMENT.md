@@ -158,6 +158,8 @@ Mode `2` example (CLI, `UAGENT_LANG=ja`):
 ```
 
 The line appears before the confirmation prompt and before the tool runs.
+In Web, the same masked description appears as a room-scoped tool message in the
+conversation (without the CLI timestamp); it is not added to LLM history.
 Free-form payloads are shown by size rather than contents, and secrets are
 masked. Displayed text is flattened and limited to 400 characters. A tool may
 suppress its trace with `emit_tool_trace=false`; `human_ask` remains suppressed
