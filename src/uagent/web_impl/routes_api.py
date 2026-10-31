@@ -1369,8 +1369,9 @@ def _log_first_user_message(path: str, limit: int = 120) -> str:
 
 
 @app.get("/api/logs")
-async def get_logs(request: Request, page: int = 1, per_page: int = 15):
+async def get_logs(request: Request, page: int = 1, per_page: int = 15, q: str = ""):
     """Return only sessions visible to the authenticated principal."""
+    search_term = q.strip().casefold()
     try:
         identity = _request_identity(request)
     except Exception as exc:
@@ -1394,8 +1395,22 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15):
             # Room. Detached/imported sessions without a Room binding are not
             # candidates for the legacy :load command in authenticated Web.
             rows = [r for r in rows if str(r.get("room_id") or "").strip()]
+        if search_term:
+            rows = [
+                row
+                for row in rows
+                if search_term
+                in " ".join(
+                    str(row.get(key) or "")
+                    for key in ("summary", "first_message", "project", "session_id")
+                ).casefold()
+            ]
+        total = len(rows)
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        start = (page - 1) * per_page
         items = []
-        for row in rows:
+        for row in rows[start : start + per_page]:
             state = store.latest_response_state(row["session_id"])
             items.append(
                 {
@@ -1419,13 +1434,9 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15):
                     "response_model": state.get("model", "") if state else "",
                 }
             )
-        total = len(items)
-        total_pages = max(1, (total + per_page - 1) // per_page)
-        page = max(1, min(page, total_pages))
-        start = (page - 1) * per_page
         return {
             "ok": True,
-            "logs": items[start : start + per_page],
+            "logs": items,
             "total": total,
             "page": page,
             "per_page": per_page,
@@ -1479,6 +1490,16 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15):
             )
         except Exception:
             pass
+    # Search within the already authorized local log list.
+    if search_term:
+        items = [
+            item
+            for item in items
+            if search_term
+            in " ".join(
+                str(item.get(key) or "") for key in ("summary", "name", "path")
+            ).casefold()
+        ]
     # Sort by mtime descending
     items.sort(key=lambda x: x.get("mtime", 0) or 0, reverse=True)  # type: ignore[return-value]
     total = len(items)
