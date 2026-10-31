@@ -36,7 +36,9 @@ def test_tool_activity_is_forwarded_across_worker_processes(monkeypatch):
         coro.close()
         forwarded.append(loop)
 
-    monkeypatch.setattr(process_workers.asyncio, "run_coroutine_threadsafe", fake_submit)
+    monkeypatch.setattr(
+        process_workers.asyncio, "run_coroutine_threadsafe", fake_submit
+    )
     process_workers.RoomWorkerPool._relay(
         room, {"type": "tool_activity", "name": "search_code"}
     )
@@ -54,9 +56,7 @@ def test_header_shows_only_one_compact_tool_badge():
         encoding="utf-8"
     )
     bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
-    store = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(
-        encoding="utf-8"
-    )
+    store = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(encoding="utf-8")
     assert "getCurrentTool()" in header
     assert "status.busy && currentTool" in header
     assert header.count("status-idle={!status.busy}") == 1
