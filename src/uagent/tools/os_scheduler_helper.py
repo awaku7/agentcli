@@ -56,7 +56,6 @@ def create_os_schedule(
     on_timeout_prompt: str = "",
     workdir: str | None = None,
     job_name: str | None = None,
-    tool_genre_mask: int = 0,
     enable_tools: list[str] | None = None,
 ) -> dict[str, Any]:
     """Create an OS-level scheduled task.
