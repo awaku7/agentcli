@@ -56,6 +56,20 @@ def _call_with_fallback_chat_span(
             if isinstance(result, tuple) and result and isinstance(result[0], bool):
                 provider_diagnostic.set_status("ok" if result[0] else "error")
         if isinstance(result, tuple) and result and isinstance(result[0], bool):
+            if result[0] and len(result) > 2 and isinstance(result[2], str):
+                from .context_tokens import estimate_tokens
+
+                # The fallback observer cannot inspect provider usage directly.
+                # Only estimate available generated text, never tool-only output.
+                if result[2]:
+                    observability_span.set_attribute(
+                        "uag.tokens.estimate.output",
+                        estimate_tokens(
+                            result[2],
+                            provider=provider,
+                            model=str(kwargs.get("depname") or ""),
+                        ),
+                    )
             if result[0]:
                 observability_span.set_attribute("uag.status", "completed")
                 observability_span.set_status("ok")
