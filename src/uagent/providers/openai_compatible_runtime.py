@@ -404,10 +404,7 @@ class OpenAICompatibleRuntime:
                 # Older Azure API versions reject stream_options entirely.
                 if self._streaming and (
                     self._provider == "openai"
-                    or (
-                        self._provider == "azure"
-                        and _azure_stream_usage_supported()
-                    )
+                    or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
                     stream_options.setdefault("include_usage", True)
