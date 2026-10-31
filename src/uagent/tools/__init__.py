@@ -663,10 +663,7 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                     # tool results or writing trace data to model history.
                     try:
                         from ..runtime.tool_result_display import bound_display_text
-                        from ..web_impl.rooms import (
-                            _thread_ctx,
-                            get_context_web_room,
-                        )
+                        from ..web_impl.rooms import _thread_ctx, get_context_web_room
 
                         room = get_context_web_room() or getattr(
                             _thread_ctx, "room", None
