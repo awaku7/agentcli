@@ -5,7 +5,6 @@
   import Chat from './lib/components/Chat.svelte';
   import InputArea from './lib/components/InputArea.svelte';
   import Attachments from './lib/components/Attachments.svelte';
-  import StatusBar from './lib/components/StatusBar.svelte';
   import HumanAsk from './lib/components/HumanAsk.svelte';
   import PreviewPanel from './lib/components/PreviewPanel.svelte';
   import UnifiedPanel from './lib/components/UnifiedPanel.svelte';
@@ -66,8 +65,6 @@
     <Header onToggleSidebar={() => sidebarOpen = !sidebarOpen} onTogglePanel={() => { panelTab = 'settings'; panelOpen = !panelOpen; }} {panelOpen} />
 
     <Chat />
-
-    <StatusBar />
 
     <Attachments
       {pendingAttachments}
