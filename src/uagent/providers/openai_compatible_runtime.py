@@ -795,7 +795,9 @@ class OpenAICompatibleRuntime:
                 yield from self._complete_tools(tool_calls)
                 response_id = getattr(response, "id", None) if response else None
                 data = {"response_id": str(response_id)} if response_id else {}
-                data.update(_terminal_usage(_mapping_value(response, "usage"), responses=True))
+                data.update(
+                    _terminal_usage(_mapping_value(response, "usage"), responses=True)
+                )
                 yield self._event("ResponseCompleted", data)
                 return
             elif event_type == "response.failed":
