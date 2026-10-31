@@ -59,6 +59,7 @@ def test_tool_genre_remains_catalog_metadata():
 
     assert callable(get_tool_catalog)
 
+
 def test_bundled_web_javascript_parses():
     import shutil
     import subprocess
@@ -69,4 +70,9 @@ def test_bundled_web_javascript_parses():
     if node is None:
         pytest.skip("Node.js unavailable; packaged JS parse check not run")
     bundle = Path(__file__).resolve().parents[1] / "src/uagent/static/assets/index.js"
-    subprocess.run([node, "--check", str(bundle)], check=True, capture_output=True, text=True)
+    subprocess.run(
+        [node, "--check", str(bundle)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
