@@ -830,6 +830,8 @@ class RoomWorkerPool:
             elif kind == "assistant_stream_end":
                 # Retain text for crash recovery, but replay its ended state.
                 room._ended_streams.add(event["id"])
+            elif kind == "tool_activity":
+                room.current_tool = str(event.get("name") or "")[:64]
             elif kind == "status":
                 if event["status"].get("label") == "QUEUED":
                     # The child's uncontended serial lock is not server admission.
@@ -837,6 +839,7 @@ class RoomWorkerPool:
                 room.status = event["status"]
                 if not room.status.get("busy"):
                     room.human_ask_pending = False
+                    room.current_tool = ""
             elif kind == "human_ask":
                 room.human_ask_pending = True
                 room.human_ask_message = event["message"]
