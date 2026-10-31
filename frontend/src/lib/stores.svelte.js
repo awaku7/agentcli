@@ -17,8 +17,6 @@ const _state = $state({
   currentToolHtml: '',
   _pendingStreamMsg: false,
   humanAskState: { visible: false, message: '', isPassword: false, resolve: null },
-  genresEnabled: {},
-  sandboxEnabled: true,
 });
 
 // Reactive getters
@@ -37,8 +35,6 @@ export function getPendingAttachments() { return _state.pendingAttachments; }
 export function getCurrentArtifactHtml() { return _state.currentArtifactHtml; }
 export function getCurrentToolHtml() { return _state.currentToolHtml; }
 export function getHumanAskState() { return _state.humanAskState; }
-export function getGenresEnabled() { return _state.genresEnabled; }
-export function getSandboxEnabled() { return _state.sandboxEnabled; }
 
 // Setters (mutate properties rather than reassign)
 export function setWs(v) { _state.ws = v; }
@@ -351,32 +347,6 @@ export async function uploadFiles(fileList) {
   const data = await resp.json();
   if (!data.ok) throw new Error(data.error || 'upload failed');
   return data.files || [];
-}
-
-export async function fetchGenres() {
-  try {
-    const resp = await fetch('/api/tool-genres');
-    const data = await resp.json();
-    const map = {};
-    (data.genres || []).forEach((g) => { map[g.key] = g.enabled; });
-    _state.genresEnabled = map;
-    _state.sandboxEnabled = data.sandbox_enabled !== false;
-    return map;
-  } catch (_) { return {}; }
-}
-
-export async function toggleGenre(genre, enabled) {
-  try {
-    const resp = await fetch('/api/tool-genres', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ genre, enabled }),
-    });
-    const data = await resp.json();
-    if (data.ok) {
-      _state.genresEnabled = { ..._state.genresEnabled, [genre]: enabled };
-    }
-  } catch (_) {}
 }
 
 export async function fetchToolsEnabled() {
