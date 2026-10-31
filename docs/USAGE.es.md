@@ -22,35 +22,6 @@ ______________________________________________________________________
 Directorio de trabajo. Si no se especifica, se utiliza por defecto la variable de entorno `UAGENT_WORKDIR` y, en su defecto, el directorio actual.
 Si el directorio no existe, se crea.
 
-### `--tool-genre-mask <int>`
-
-Máscara de bits de género de herramienta. Cuando se especifica, se omite el mensaje interactivo de selección de género.
-
-| Bit | Género | Descripción |
-|-----|-------|-------------|
-| 1 | basic | Herramientas básicas de archivos y chat |
-| 2 | comm | Herramientas de comunicación (Bluesky, Teams) |
-| 4 | office | Herramientas de suite ofimática (Excel, PDF, PPTX) |
-| 8 | devel | Herramientas de desarrollo (git, lint, compile) |
-| 16 | iot | Herramientas para dispositivos IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Herramientas de ejecución de comandos |
-| 64 | external | Herramientas de complementos externos |
-| 128 | media | Generación y análisis de imágenes y audio |
-| 256 | file | Herramientas de gestión de archivos |
-| 512 | index | Herramientas de navegación por código fuente e índices |
-| 1024 | dev | Herramientas para desarrolladores y repositorios |
-| 2048 | web | Herramientas web y de navegador |
-| 4096 | utility | Herramientas de utilidades y soporte |
-| 8191 | all | Todas las herramientas |
-
-Ejemplos:
-
-```
-uag --tool-genre-mask 1 # solo básicas
-uag --tool-genre-mask 9 # básico + desarrollo (1 + 8)
-uag --tool-genre-mask 8191    # todas las herramientas
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Activa o desactiva el envío de definiciones de herramientas a LLM. Anula la variable de entorno `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Modo integrado para implementaciones con restricciones o en las que la reproduci
 
 - Desactiva el almacén de sesiones.
 - Oculta las herramientas de gestión de herramientas (`tool_catalog`, `tool_load`, `unload_tool`) a menos que se habiliten explícitamente.
-- Ignora `--tool-genre-mask`; utiliza `--enable-tool` para cargar herramientas de forma explícita.
 
 ### `--enable-tool <nombre>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Selecciona los géneros de herramientas utilizando la misma máscara de bits descrita anteriormente. Cuando se especifica, se omite la solicitud interactiva de género.
-
 ### `--use-tool` / `--no-use-tool`
 
 Activa o desactiva el envío de definiciones de herramientas a LLM. Anula `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Activa la recarga en caliente al realizar cambios en el código (por defecto: de
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Selecciona los géneros de herramientas utilizando la máscara de bits descrita anteriormente. Cuando se especifica, se omite la solicitud interactiva de género.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Servidor web en todas las interfaces
@@ -264,7 +226,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Desactivar herramientas para un modelo pequeño
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Procesamiento de archivos no interactivo
