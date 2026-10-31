@@ -9,19 +9,26 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_parallel_tools_keep_one_current_name_and_clear_on_idle():
     room = WebRoom("tool-room")
+    room.set_status(True, "BUSY")
     first = room.begin_tool("read_file")
     second = room.begin_tool("search_code")
     assert room.current_tool == "search_code"
 
     room.end_tool(first)
+    room.set_status(False, "IDLE")  # A tool-local reset must not end the turn.
     assert room.current_tool == "search_code"
+    assert room.status["busy"] is True
     room.end_tool(second)
     assert room.current_tool == ""
 
     room.end_tool(second)  # Duplicate completion does not alter the state.
-    room.begin_tool("slow_task")
+    slow = room.begin_tool("slow_task")
+    room.set_status(False, "IDLE")
+    assert room.current_tool == "slow_task"
+    room.end_tool(slow)
     room.set_status(False, "IDLE")
     assert room.current_tool == ""
+    assert room.status["busy"] is False
     assert room._active_tool_calls == {}
 
 
