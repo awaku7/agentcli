@@ -339,7 +339,13 @@ def init_web():
         prev_room = getattr(_thread_ctx, "room", None)
         if room is not None and prev_room is None:
             _thread_ctx.room = room
+        tool_call_id = None
         try:
+            if room is not None and name != "human_ask":
+                try:
+                    tool_call_id = room.begin_tool(name)
+                except Exception:
+                    pass  # UI notifications must never interrupt tool execution.
             if name == "human_ask":
                 if not room or not _remote_human_ask_authorized(room):
                     return json.dumps(
@@ -478,6 +484,11 @@ def init_web():
             ):
                 return original_run_tool(name, args)
         finally:
+            if room is not None and tool_call_id is not None:
+                try:
+                    room.end_tool(tool_call_id)
+                except Exception:
+                    pass
             if room is not None and prev_room is None:
                 try:
                     _thread_ctx.room = None
