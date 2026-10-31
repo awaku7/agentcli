@@ -245,8 +245,7 @@ def handle_command(
         if arg and arg.strip():
             parts = arg.strip().split()
             sub = parts[0].lower()
-            # ":tools on" / ":tools off" (no extra args) => global tool toggle.
-            # ":tools on iot" / ":tools off comm" etc. => genre enable/disable + global sync.
+            # Only :tools on/off without extra arguments changes global tool sending.
             if sub in ("on", "off") and len(parts) == 1:
                 core.tools_enabled = sub == "on"
                 state = "ON" if core.tools_enabled else "OFF"
@@ -254,9 +253,6 @@ def handle_command(
                     _("[tools] Tool sending to LLM is now %(state)s") % {"state": state}
                 )
                 return CommandResult()
-            # ":tools on <genre>" => enable genre, also re-enable global tool sending.
-            if sub == "on" and len(parts) >= 2:
-                core.tools_enabled = True
             # Try dynamic subcommands (e.g., on comm, off comm, list)
             res = tools.handle_dynamic_command(
                 "tools",
