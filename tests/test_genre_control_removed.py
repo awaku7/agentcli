@@ -36,6 +36,7 @@ def test_individual_tool_discovery_remains():
     assert "on" not in commands
     assert "off" not in commands
 
+
 def test_web_clients_no_longer_request_genre_controls():
     root = Path(__file__).resolve().parents[1]
     paths = (
