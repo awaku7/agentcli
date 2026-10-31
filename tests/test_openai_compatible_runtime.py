@@ -841,7 +841,11 @@ def test_runtime_cancellation_is_terminal() -> None:
 
 
 @pytest.mark.parametrize("provider", ["openai", "azure", "openrouter", "ollama"])
-def test_registry_chat_usage_is_reported_once(provider: str) -> None:
+def test_registry_chat_usage_is_reported_once(
+    provider: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    if provider == "azure":
+        monkeypatch.setenv("UAGENT_AZURE_API_VERSION", "2024-10-21")
     chunk = SimpleNamespace(
         choices=[
             SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))
@@ -993,3 +997,39 @@ def test_stream_without_final_usage_does_not_invent_counts() -> None:
         )
     )
     assert "usage" not in events[-1].data
+
+
+@pytest.mark.parametrize(
+    ("version", "expected"),
+    [
+        ("2024-05-01-preview", False),
+        ("2024-06-01", False),
+        ("2024-08-01-preview", True),
+        ("2024-10-21", True),
+        ("not-a-version", False),
+    ],
+)
+def test_azure_streaming_usage_option_requires_supported_api_version(
+    monkeypatch: pytest.MonkeyPatch, version: str, expected: bool
+) -> None:
+    monkeypatch.setenv("UAGENT_AZURE_API_VERSION", version)
+    client = _Client(chunks=[])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="azure",
+        model="test-model",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+    assert events[-1].type == "ResponseCompleted"
+    options = client.chat.completions.calls[0].get("stream_options", {})
+    assert options.get("include_usage", False) is expected
