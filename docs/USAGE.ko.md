@@ -22,35 +22,6 @@ ______________________________________________________________________
 작업 디렉터리. 설정되지 않은 경우 `UAGENT_WORKDIR` 환경 변수를 우선 적용하고, 그 다음에는 현재 디렉터리를 사용합니다.
 디렉터리가 존재하지 않으면 생성됩니다.
 
-### `--tool-genre-mask <정수>`
-
-도구 장르 비트 마스크. 이 옵션이 지정되면 대화형 장르 선택 프롬프트가 건너뜁니다.
-
-| 비트 | 장르 | 설명 |
-|-----|-------|-------------|
-| 1 | basic | 필수 파일/채팅 도구 |
-| 2 | comm | 통신 도구 (Bluesky, Teams) |
-| 4 | office | 오피스 제품군 도구 (Excel, PDF, PPTX) |
-| 8 | devel | 개발 도구 (git, lint, compile) |
-| 16 | iot | IoT 기기 도구 (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | 명령어 실행 도구 |
-| 64 | external | 외부 플러그인 도구 |
-| 128 | media | 이미지/오디오 생성 및 분석 |
-| 256 | file | 파일 관리 도구 |
-| 512 | index | 소스/인덱스 탐색 도구 |
-| 1024 | dev | 개발자 및 저장소 도구 |
-| 2048 | web | 웹 및 브라우저 도구 |
-| 4096 | utility | 유틸리티 및 지원 도구 |
-| 8191 | all | 모든 도구 |
-
-예시:
-
-```
-uag --tool-genre-mask 1 # 기본 도구만
-uag --tool-genre-mask 9 # 기본 + 개발 (1 + 8)
-uag --tool-genre-mask 8191    # 모든 도구
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 LLM에 도구 정의를 전송할지 여부를 설정합니다. `UAGENT_USE_TOOL` 환경 변수를 재정의합니다.
@@ -74,7 +45,6 @@ Computer Use을 활성화하거나 비활성화합니다. `UAGENT_COMPUTER_USE` 
 
 - 세션 저장소를 비활성화합니다.
 - 명시적으로 활성화되지 않는 한 도구 관리 도구(`tool_catalog`, `tool_load`, `unload_tool`)를 숨깁니다.
-- `--tool-genre-mask`를 무시합니다. 도구를 명시적으로 로드하려면 `--enable-tool`을 사용하십시오.
 
 ### `--enable-tool <이름>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-위에서 설명한 것과 동일한 비트 마스크를 사용하여 도구 장르를 선택합니다. 이 옵션이 지정되면 대화형 장르 프롬프트가 건너뜁니다.
-
 ### `--use-tool` / `--no-use-tool`
 
 LLM으로 도구 정의를 전송하도록 설정하거나 비활성화합니다. `UAGENT_USE_TOOL`을 재정의합니다.
@@ -178,10 +144,6 @@ A2A HTTP 서버의 포트 번호(기본값: `8765`, `UAGENT_A2A_PORT`로 재정�
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <정수>`
-
-위에서 설명한 비트 마스크를 사용하여 도구 장르를 선택합니다. 이 옵션이 지정되면 대화형 장르 프롬프트가 건너뜁니다.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### 모든 인터페이스에 웹 서버
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### 소규모 모델에 대한 도구 비활성화
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### 비대화형 파일 처리
