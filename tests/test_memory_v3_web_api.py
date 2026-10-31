@@ -431,14 +431,18 @@ def test_authenticated_logs_are_filtered_to_the_current_principal(
     ).json()
     assert result["total"] == 1
     assert [row["path"] for row in result["logs"]] == [alice.session_id]
-    assert client.get(
-        "/api/logs", params={"q": "detached portable session"}
-    ).json()["total"] == 0
+    assert (
+        client.get("/api/logs", params={"q": "detached portable session"}).json()[
+            "total"
+        ]
+        == 0
+    )
 
     principal[0] = "bob"
-    assert client.get(
-        "/api/logs", params={"q": "Alice secret session"}
-    ).json()["logs"] == []
+    assert (
+        client.get("/api/logs", params={"q": "Alice secret session"}).json()["logs"]
+        == []
+    )
     bob_logs = client.get("/api/logs").json()["logs"]
     assert [row["path"] for row in bob_logs] == [bob.session_id]
     assert (
