@@ -243,6 +243,19 @@ class RoundOrchestrator:
         for key, attribute_name in reported_names.items():
             if key in usage_delta:
                 observability_span.set_attribute(attribute_name, usage_delta[key])
+        # Estimated usage is UAG-specific; never export it via GenAI usage.
+        # The collector selects a measured value first, then this fallback.
+        if status == "completed" and "output_tokens_delta" not in usage_delta:
+            generated = rendered.assistant_text + rendered.reasoning_text
+            if rendered.tool_calls:
+                generated += str(rendered.tool_calls)
+            if generated:
+                observability_span.set_attribute(
+                    "uag.tokens.estimate.output",
+                    estimate_tokens(
+                        generated, provider=request.provider, model=request.model
+                    ),
+                )
 
         # The provider response is not the end of the logical round. Responses
         # continuation/session synchronization is part of the canonical boundary,
