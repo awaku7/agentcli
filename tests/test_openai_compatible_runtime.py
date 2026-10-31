@@ -838,3 +838,152 @@ def test_runtime_cancellation_is_terminal() -> None:
 
     validate_stream_events(normalized)
     assert normalized[-1].type == "ResponseCancelled"
+
+
+@pytest.mark.parametrize("provider", ["openai", "azure", "openrouter", "ollama"])
+def test_registry_chat_usage_is_reported_once(provider: str) -> None:
+    chunk = SimpleNamespace(
+        choices=[SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))],
+        usage=None,
+    )
+    final = SimpleNamespace(
+        choices=[],
+        usage=SimpleNamespace(prompt_tokens=31, completion_tokens=7, total_tokens=38),
+    )
+    client = _Client(chunks=[chunk, final])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider=provider,
+        model="test-model",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+    assert events[-1].data["usage"] == {
+        "input_tokens": 31,
+        "output_tokens": 7,
+        "total_tokens": 38,
+    }
+    kwargs = client.chat.completions.calls[0]
+    if provider in {"openai", "azure"}:
+        assert kwargs["stream_options"]["include_usage"] is True
+    else:
+        assert "stream_options" not in kwargs
+
+
+def test_registry_chat_nonstream_usage_from_mapping() -> None:
+    response = SimpleNamespace(
+        choices=[SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))],
+        usage={"prompt_tokens": 14, "completion_tokens": 4, "total_tokens": 18},
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(chunks=response),
+        provider="openai",
+        model="test-model",
+        identifiers=_identifiers(),
+        streaming=False,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+    assert events[-1].data["usage"] == {
+        "input_tokens": 14,
+        "output_tokens": 4,
+        "total_tokens": 18,
+    }
+
+
+@pytest.mark.parametrize("streaming", [False, True])
+def test_registry_responses_usage_from_terminal_response(streaming: bool) -> None:
+    response = SimpleNamespace(
+        id="resp_1",
+        output_text="answer",
+        output=[],
+        usage=SimpleNamespace(input_tokens=23, output_tokens=8, total_tokens=31),
+    )
+    stream = [SimpleNamespace(type="response.completed", response=response)]
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(events=stream if streaming else response),
+        provider="openai",
+        model="test-model",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=streaming,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+    validate_stream_events(events)
+    assert events[-1].data == {
+        "response_id": "resp_1",
+        "usage": {"input_tokens": 23, "output_tokens": 8, "total_tokens": 31},
+    }
+
+
+@pytest.mark.parametrize(
+    ("usage", "expected"),
+    [
+        (None, {}),
+        ({"prompt_tokens": True, "completion_tokens": -1}, {}),
+        ({"prompt_tokens": 3.2, "completion_tokens": "5"}, {}),
+        ({"prompt_tokens": 12}, {"input_tokens": 12}),
+        ({"prompt_tokens": 1_000_000_000_001}, {}),
+    ],
+)
+def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -> None:
+    from uagent.providers.openai_compatible_runtime import _terminal_usage
+
+    payload = _terminal_usage(usage, responses=False)
+    assert payload == ({"usage": expected} if expected else {})
+
+
+def test_stream_without_final_usage_does_not_invent_counts() -> None:
+    client = _Client(
+        chunks=[
+            SimpleNamespace(
+                choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content="hello", tool_calls=[]))
+                ],
+                usage=None,
+            )
+        ]
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="test-model",
+        identifiers=_identifiers(),
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+    assert "usage" not in events[-1].data
