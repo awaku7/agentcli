@@ -22,35 +22,6 @@ ______________________________________________________________________
 工作目录。 若未设置，则回退到 `UAGENT_WORKDIR` 环境变量，若该变量未定义，则使用当前目录。
 若目录不存在，则会自动创建。
 
-### `--tool-genre-mask <int>`
-
-工具类型位掩码。 若提供此参数，将跳过交互式类型选择提示。
-
-| 位 | 类型 | 描述 |
-|-----|-------|-------------|
-| 1 | basic | 基本文件/聊天工具 |
-| 2 | comm | 通信工具（Bluesky、Teams） |
-| 4 | office | 办公套件工具（Excel、PDF、PPTX） |
-| 8 | devel | 开发工具（git、lint、编译） |
-| 16 | iot | IoT 设备工具（SwitchBot、ECHONET、Matter、UPnP） |
-| 32 | exec | 命令执行工具 |
-| 64 | external | 外部插件工具 |
-| 128 | media | 图像/音频生成与分析 |
-| 256 | 文件 | 文件管理工具 |
-| 512 | 索引 | 源代码/索引导航工具 |
-| 1024 | 开发 | 开发者和代码库工具 |
-| 2048 | 网络 | 网络和浏览器工具 |
-| 4096 | utility | 实用及支持工具 |
-| 8191 | all | 所有工具 |
-
-示例：
-
-```
-uag --tool-genre-mask 1 # 仅基础
-uag --tool-genre-mask 9 # 基础 + 开发 (1 + 8)
-uag --tool-genre-mask 8191    # 所有工具
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 启用或禁用向 LLM 发送工具定义。 该选项将覆盖 `UAGENT_USE_TOOL` 环境变量。
@@ -74,7 +45,6 @@ uag --tool-genre-mask 8191    # 所有工具
 
 - 禁用会话存储。
 - 除非显式启用，否则隐藏工具管理工具（`tool_catalog`、`tool_load`、`unload_tool`）。
-- 忽略 `--tool-genre-mask`；如需显式加载工具，请使用 `--enable-tool`。
 
 ### `--enable-tool <名称>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-使用上述相同的位掩码选择工具类型。 若指定此选项，将跳过交互式类型提示。
-
 ### `--use-tool` / `--no-use-tool`
 
 启用或禁用向 LLM 发送工具定义。 覆盖 `UAGENT_USE_TOOL`。
@@ -178,10 +144,6 @@ A2A HTTP 服务器的端口号（默认：`8765`，可通过 `UAGENT_A2A_PORT` �
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-使用上述描述的位掩码选择工具类型。 若指定此选项，将跳过交互式类型提示。
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### 在所有接口上运行 Web 服务器
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### 禁用小型模型的工具
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### 非交互式文件处理
