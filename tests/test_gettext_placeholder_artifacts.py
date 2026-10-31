@@ -83,6 +83,8 @@ MULTILINE_MSGIDS = {
     ),
     "tools_help": (
         ":tools on|off           Enable/disable sending tools to the LLM\n"
+        ":tools on|off <genre>   Enable/disable a tool genre "
+        "(and sync global on)\n"
         ":tools list [query]     List loaded tools\n"
         ":tools load <name>      Load one tool by name\n"
         ":tools reload           Reload tool modules from disk\n"
