@@ -8,30 +8,18 @@ ______________________________________________________________________
 
 ## 1. Reduce tool complexity
 
-### 1.1 Limit tool genres
+### 1.1 Limit tools individually
 
-Small models struggle when too many tool definitions are presented. Narrow down to only essential tools.
+Small models struggle when too many tool definitions are presented. UAG discovers
+tools with `tool_catalog` and loads them on demand through `tool_load`.
+You can also explicitly preload only essential tools:
 
 ```bat
-uag --tool-genre-mask 1
+uag --enable-tool calculator
 ```
 
-Bitmask values:
-
-| Bit | Genre | Description |
-|-----|---------|---------------------------|
-| 1 | basic | Essential chat/file tools |
-| 2 | comm | Communication tools |
-| 4 | office | Office suite tools |
-| 8 | devel | Development tools |
-| 16 | iot | IoT device tools |
-| 32 | exec | Command execution tools |
-| 64 | external| External plugins |
-| 128 | media | Image/audio tools |
-
-`--tool-genre-mask 1` loads only the `basic` genre, which contains lightweight tools such as read/write file, calculator, and web search.
-
-You can combine bits. For example `--tool-genre-mask 9` (= 1 + 8) loads basic + devel.
+Tool genre names are descriptive metadata; genre-wide toggles and bitmasks are no
+longer supported.
 
 ### 1.2 Disable tools entirely
 
@@ -95,7 +83,7 @@ ______________________________________________________________________
 ```bat
 set UAGENT_SHRINK_CNT=20
 set UAGENT_SHRINK_KEEP_LAST=5
-uag --tool-genre-mask 1
+uag
 ```
 
 Tools often fail. If tool calls are unreliable, add `--no-use-tool`.
@@ -105,14 +93,14 @@ Tools often fail. If tool calls are unreliable, add `--no-use-tool`.
 ```bat
 set UAGENT_SHRINK_CNT=50
 set UAGENT_SHRINK_KEEP_LAST=10
-uag --tool-genre-mask 1
+uag
 ```
 
-Basic tools usually work. Add more genres (`--tool-genre-mask 9` for basic+devel) if the model handles them well.
+Load additional individual tools with `--enable-tool` if needed.
 
 ### 3.3 Large small models (30B-70B quantized)
 
-These can often run with default settings. Consider `--tool-genre-mask 127` (= 1+2+4+8+16+32+64, i.e. all except media) if the context fits.
+These can usually run with the default dynamic tool discovery settings.
 
 ______________________________________________________________________
 
