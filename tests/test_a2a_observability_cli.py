@@ -40,10 +40,6 @@ def test_a2a_main_accepts_explicit_otel_argv(
         lambda *, context: None,
     )
 
-    fake_cli_startup = types.ModuleType("uagent.cli_startup")
-    fake_cli_startup._apply_startup_tool_genre_mask = lambda _mask: None
-    monkeypatch.setitem(sys.modules, "uagent.cli_startup", fake_cli_startup)
-
     fake_tools = types.ModuleType("uagent.tools")
     fake_tools.configure_default_confirmation = lambda: None
     monkeypatch.setitem(sys.modules, "uagent.tools", fake_tools)
