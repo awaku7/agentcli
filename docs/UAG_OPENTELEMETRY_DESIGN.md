@@ -228,7 +228,12 @@ The canonical LLM trace is created at UAG's provider-neutral round boundary. Pha
 Keep estimated and provider-reported token data distinct. Export measured usage
 on `chat` spans only as `gen_ai.usage.input_tokens` and
 `gen_ai.usage.output_tokens`. `uag.tokens.estimate.*` remains an explicitly
-UAG-specific estimate; missing usage is never fabricated. Total token usage
+UAG-specific estimate; missing *measured* usage is never fabricated. If a Provider does not report
+input/output tokens, UAG emits a separately labeled approximate count as
+`uag.tokens.estimate.input` / `uag.tokens.estimate.output` when request/output
+text is available. Admin displays estimated and measured values separately,
+with reported values taking precedence per field. No estimated value is ever
+placed in `gen_ai.usage.*`. Total token usage
 is derivable from input/output counts, not redundantly exported.
 
 Registry Chat Completions and Responses adapters forward verified, non-negative
