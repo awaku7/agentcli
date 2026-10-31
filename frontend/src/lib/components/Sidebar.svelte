@@ -70,17 +70,8 @@ function formatTime(ts) {
 	});
 }
 
-function shortId(path) {
-	const value = String(path || "");
-	return value.length > 12 ? `${value.slice(0, 8)}…` : value;
-}
-
 function sessionTitle(session) {
-	return (
-		session.summary ||
-		session.first_message ||
-		`要約なし (${shortId(session.path)})`
-	);
+	return session.summary || session.first_message || t("sessionLogs");
 }
 
 onMount(loadSessions);
@@ -117,11 +108,11 @@ onMount(loadSessions);
       <div class="empty-state error">{error}</div>
     {:else if filteredSessions.length}
       {#each filteredSessions as session}
-        <button class="session-item" class:active={session.room_id === roomId} onclick={() => openSession(session)} title={session.path || ''}>
+        <button class="session-item" class:active={session.room_id === roomId} onclick={() => openSession(session)} title={sessionTitle(session)}>
           <span class="session-dot"></span>
           <span class="session-body">
             <span class="session-name">{sessionTitle(session)}</span>
-            <span class="session-meta">{session.project || 'プロジェクト未設定'}{formatTime(session.mtime) ? ` · ${formatTime(session.mtime)}` : ''}{session.summary ? '' : ' · 要約なし'}</span>
+            <span class="session-meta">{[session.project, formatTime(session.mtime)].filter(Boolean).join(' · ')}</span>
           </span>
         </button>
       {/each}
@@ -151,45 +142,47 @@ onMount(loadSessions);
 </aside>
 
 <style>
-  .sidebar { width: 280px; height: 100%; flex: 0 0 280px; display: flex; flex-direction: column; padding: 18px 14px 14px; background: var(--bg-surface); border-right: 1px solid var(--border-color); color: var(--text-primary); }
-  .sidebar-header { display: flex; align-items: center; gap: 10px; padding: 2px 8px 20px; }
+  .sidebar { width: 300px; height: 100%; flex: 0 0 300px; display: flex; flex-direction: column; padding: 15px 14px 14px; background: var(--bg-surface); border-right: 1px solid var(--border-color); color: var(--text-primary); }
+  .sidebar-header { display: flex; align-items: center; gap: 10px; padding: 3px 8px 16px; }
   .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 10px; color: white; font-weight: 800; background: linear-gradient(135deg, var(--accent), #8b5cf6); }
   .brand-name { font-size: 14px; font-weight: 800; letter-spacing: .08em; }
   .brand-subtitle { color: var(--text-tertiary); font-size: 10px; margin-top: 1px; }
   .brand-copy { flex: 1; }
   .icon-button { border: 0; background: transparent; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
-  .new-session { width: 100%; display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid var(--accent); border-radius: 10px; color: var(--accent); background: var(--accent-subtle); font-weight: 700; cursor: pointer; transition: filter var(--transition), transform var(--transition); }
+  .new-session { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 12px; color: white; background: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; transition: filter var(--transition), transform var(--transition); }
   .new-session:hover { filter: brightness(1.08); }
   .new-session:active { transform: scale(.98); }
   .new-session-icon { font-size: 20px; line-height: 14px; font-weight: 400; }
-  .section-heading { display: flex; justify-content: space-between; align-items: center; padding: 23px 8px 8px; color: var(--text-tertiary); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-  .refresh-button { border: 0; color: var(--text-tertiary); background: transparent; font-size: 18px; cursor: pointer; }
+  .section-heading { display: flex; justify-content: space-between; align-items: center; padding: 20px 8px 9px; color: var(--text-secondary); font-size: 12px; font-weight: 700; }
+  .refresh-button { display: grid; place-items: center; width: 30px; height: 30px; border: 0; border-radius: 8px; color: var(--text-secondary); background: transparent; font-size: 19px; cursor: pointer; }
+  .refresh-button:hover { background: var(--bg-surface-hover); }
   .refresh-button:disabled { opacity: .4; }
-  .search-box { display: flex; align-items: center; gap: 7px; margin: 0 6px 8px; padding: 8px 10px; border: 1px solid var(--border-color); border-radius: 9px; color: var(--text-tertiary); background: var(--bg-surface-alt); }
+  .search-box { display: flex; align-items: center; gap: 7px; margin: 0 6px 8px; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-tertiary); background: var(--bg-surface-alt); }
   .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-subtle); }
-  .search-box input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--text-primary); background: transparent; font-size: 11px; }
+  .search-box input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--text-primary); background: transparent; font-size: 13px; }
   .search-box input::placeholder { color: var(--text-tertiary); }
-  .session-list { min-height: 0; flex: 1; overflow-y: auto; }
-  .session-item { width: 100%; display: flex; gap: 9px; align-items: flex-start; padding: 10px 8px; border: 0; border-radius: 9px; text-align: left; color: var(--text-primary); background: transparent; cursor: pointer; transition: background var(--transition); }
-  .session-item { transition: background var(--transition), transform var(--transition); }
-  .session-item:hover, .session-item.active { background: var(--bg-surface-hover); }
-  .session-item:hover { transform: translateX(2px); }
+  .session-list { min-height: 0; flex: 1; overflow-y: auto; padding: 2px 3px 2px 0; }
+  .session-item { width: 100%; display: flex; gap: 10px; align-items: flex-start; padding: 11px 9px; border: 1px solid transparent; border-radius: 10px; text-align: left; color: var(--text-primary); background: transparent; cursor: pointer; transition: background var(--transition), border-color var(--transition); }
+  .session-item:hover, .session-item.active { background: var(--bg-surface-hover); border-color: var(--border-color); }
+  .session-item:focus-visible, .footer-action:focus-visible, .new-session:focus-visible, .refresh-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .session-dot { width: 6px; height: 6px; flex: 0 0 6px; margin-top: 6px; border-radius: 50%; background: var(--text-tertiary); }
   .session-item.active .session-dot { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-subtle); }
-  .session-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-  .session-name { overflow: hidden; font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
-  .session-meta { color: var(--text-tertiary); font-size: 10px; }
+  .session-body { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .session-name { display: -webkit-box; overflow: hidden; font-size: 13px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; white-space: normal; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .session-meta { overflow: hidden; color: var(--text-tertiary); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
   .empty-state { padding: 20px 8px; color: var(--text-tertiary); font-size: 11px; text-align: center; }
   .empty-state.error { color: var(--status-busy); }
-  .sidebar-footer { padding-top: 12px; border-top: 1px solid var(--border-color); }
-  .footer-action { width: 100%; display: flex; gap: 10px; align-items: center; padding: 9px 8px; border: 0; border-radius: 8px; color: var(--text-secondary); background: transparent; font-size: 12px; font-weight: 600; text-align: left; cursor: pointer; }
+  .sidebar-footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; padding-top: 12px; border-top: 1px solid var(--border-color); }
+  .footer-action { min-width: 0; width: 100%; display: flex; gap: 8px; align-items: center; padding: 9px 10px; border: 1px solid var(--border-color); border-radius: 9px; color: var(--text-secondary); background: var(--bg-surface-alt); font-size: 12px; font-weight: 600; text-align: left; cursor: pointer; }
+  .footer-action:first-child { grid-column: 1 / -1; }
   .footer-action:hover { color: var(--text-primary); background: var(--bg-surface-hover); }
-  .footer-icon { width: 18px; color: var(--accent); text-align: center; }
-  .room-label { padding: 12px 8px 0; color: var(--text-tertiary); font: 10px/1.4 'JetBrains Mono', monospace; }
-  .room-label span { color: var(--text-secondary); }
+  .footer-icon { width: 18px; flex: 0 0 18px; color: var(--accent); text-align: center; }
+  .room-label { grid-column: 1 / -1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 8px 4px 0; color: var(--text-tertiary); font: 10px/1.4 'JetBrains Mono', monospace; }
+  .room-label::before { content: '●'; color: var(--accent); font-size: 9px; }
+  .room-label span { min-width: 0; overflow: hidden; color: var(--text-secondary); text-overflow: ellipsis; white-space: nowrap; }
   .mobile-only { display: none; }
   @media (max-width: 768px) {
-    .sidebar { position: fixed; inset: 0 auto 0 0; z-index: 40; width: min(280px, 86vw); box-shadow: var(--shadow-lg); }
+    .sidebar { position: fixed; inset: 0 auto 0 0; z-index: 40; width: min(300px, 86vw); box-shadow: var(--shadow-lg); }
     .mobile-only { display: block; }
   }
 </style>
