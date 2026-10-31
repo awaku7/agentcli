@@ -62,7 +62,6 @@ if UAGENT_INJECT_MESSAGE is not None or UAGENT_INJECT_MESSAGE_AUTO is not None:
 # instruction files intended for an interactive session.
 if UAGENT_NON_INTERACTIVE:
     os.environ["UAGENT_NON_INTERACTIVE"] = "1"
-UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 UAGENT_EMBEDDED = bool(_startup_args.get("embedded"))
