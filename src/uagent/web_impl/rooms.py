@@ -70,6 +70,8 @@ class WebRoom:
         self.last_activity = time.monotonic()
         self.messages: list[dict[str, Any]] = []  # UI display
         self.status: dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
+        self.current_tool: str = ""
+        self._active_tool_calls: dict[str, str] = {}
 
         # history for LLM
         self.history: list[dict[str, Any]] = []
@@ -297,6 +299,7 @@ class WebRoom:
                     "messages": msgs,
                     "input_history": input_history,
                     "status": self.status,
+                    "current_tool": self.current_tool,
                     "modes": {
                         "reasoning": tools_util.get_reasoning_mode(),
                         "verbosity": tools_util.get_verbosity_mode(),
@@ -422,6 +425,33 @@ class WebRoom:
             except Exception:
                 self.disconnect(connection)
 
+    def _publish_tool_activity(self, name: str) -> None:
+        """Broadcast only the active tool name, never arguments or results."""
+        if self.loop:
+            asyncio.run_coroutine_threadsafe(
+                self.broadcast({"type": "tool_activity", "name": name}), self.loop
+            )
+
+    def begin_tool(self, name: str) -> str:
+        """Track parallel tool calls without displaying multiple progress rows."""
+        call_id = uuid4().hex
+        safe_name = str(name or "").strip()[:64]
+        with self._lifecycle_lock:
+            self._active_tool_calls[call_id] = safe_name
+            self.current_tool = safe_name
+        self._publish_tool_activity(safe_name)
+        return call_id
+
+    def end_tool(self, call_id: str) -> None:
+        """Clear the badge only when the final parallel tool has finished."""
+        with self._lifecycle_lock:
+            if call_id not in self._active_tool_calls:
+                return
+            self._active_tool_calls.pop(call_id)
+            name = next(reversed(self._active_tool_calls.values()), "")
+            self.current_tool = name
+        self._publish_tool_activity(name)
+
     def set_status(self, busy: bool, label: str = ""):
         self.touch()
         workdir = self.base_dir
@@ -435,6 +465,11 @@ class WebRoom:
             "label": label or ("BUSY" if busy else "IDLE"),
             "workdir": workdir,
         }
+        if not busy:
+            with self._lifecycle_lock:
+                self._active_tool_calls.clear()
+                self.current_tool = ""
+            self._publish_tool_activity("")
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "status", "status": self.status}), self.loop
