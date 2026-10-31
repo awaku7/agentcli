@@ -39,3 +39,5 @@ def test_sidebar_styles_match_shipped_css() -> None:
     assert ":first-child{grid-column:1/-1}" in css
     assert ".session-item:focus-visible" in source
     assert ".session-item." in css and ":focus-visible" in css
+    assert "color: var(--accent); background: var(--accent-subtle)" in source
+    assert "color:var(--accent);background:var(--accent-subtle)" in css
