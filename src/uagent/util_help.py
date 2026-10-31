@@ -241,17 +241,12 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         "tools": e(
             tr("Tools"),
             usage=(":tools [list|load|on|off|reload|output] ..."),
-            detail="\n".join(
-                line
-                for line in tr(
-                    ":tools on|off           Enable/disable sending tools to the LLM\n"
-                    ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
-                    ":tools list [query]     List loaded tools\n"
-                    ":tools load <name>      Load one tool by name\n"
-                    ":tools reload           Reload tool modules from disk\n"
-                    ":tools output           Toggle showing tool results in UI"
-                ).splitlines()
-                if "<genre>" not in line
+            detail=tr(
+                ":tools on|off           Enable/disable sending tools to the LLM\n"
+                ":tools list [query]     List loaded tools\n"
+                ":tools load <name>      Load one tool by name\n"
+                ":tools reload           Reload tool modules from disk\n"
+                ":tools output           Toggle showing tool results in UI"
             ),
         ),
         "tool": e(
