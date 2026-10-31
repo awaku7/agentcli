@@ -32,87 +32,12 @@ def _preload_laya_torch_for_startup(
         preload(decision_settings)
 
 
-def _prompt_startup_tool_genre_mask() -> int:
-    """Prompt for the startup tool-genre bitmask, using a TTY dialog when available."""
-    if (
-        getattr(sys.stdin, "isatty", lambda: False)()
-        and getattr(sys.stdout, "isatty", lambda: False)()
-    ):
-        try:
-            from prompt_toolkit.shortcuts import checkboxlist_dialog
-
-            from .tools._genre_control_util import _GENRE_BITMAP
-
-            values = [(genre, genre) for genre in _GENRE_BITMAP]
-            selected = checkboxlist_dialog(
-                title="Tool genres", text="Select tool genres", values=values
-            ).run()
-            return sum(_GENRE_BITMAP.get(str(item), 0) for item in (selected or []))
-        except Exception:
-            pass
-    try:
-        return int(input().strip() or "0")
-    except (TypeError, ValueError, EOFError):
-        return 0
-
-
-def _apply_startup_tool_genre_mask(mask: int) -> None:
-    # Embedded mode intentionally ignores genre masks. Tools must be selected
-    # explicitly with --enable-tool so a broad mask cannot reintroduce distractors.
-    if os.environ.get("UAGENT_EMBEDDED", "").strip().lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }:
-        if mask > 0:
-            print(
-                "[WARN] --tool-genre-mask is ignored in embedded mode; "
-                "use --enable-tool to select tools explicitly.",
-                file=sys.stderr,
-            )
-        return
-    if mask <= 0:
-        return
-
-    from .i18n import _
-    from .tools._genre_control_util import _GENRE_BITMAP
-    from .tools.genre_control_tool import _set_genre_tools_enabled
-
-    # Apply every genre whose bit is set in the mask. The mapping is derived
-    # from _GENRE_BITMAP so it always matches the --tool-genre-mask help text
-    # (all genres, including dev/web/utility).
-    for genre, bit in _GENRE_BITMAP.items():
-        if not (mask & bit):
-            continue
-        try:
-            msg = _set_genre_tools_enabled(genre, True)
-            if msg:
-                print(msg)
-        except Exception as e:
-            print(
-                _("[WARN] Failed to apply startup tool selection: %(err)s", err=e),
-                file=sys.stderr,
-            )
-
-
-def _apply_startup_tool_genre_mask_for_mode(mask: int, *, sandbox_mode: str) -> None:
-    """Do not activate any host tools for a sandbox-enabled startup."""
-    if sandbox_mode == "off":
-        _apply_startup_tool_genre_mask(mask)
-
-
 def _configure_cli_startup_tools(
     *,
     sandbox_enabled: bool,
-    tool_genre_mask: int | None,
     enable_tools: list[str] | None,
 ) -> None:
     """Apply host tool selection only when startup is not sandboxed."""
-    if tool_genre_mask is not None:
-        _apply_startup_tool_genre_mask_for_mode(
-            tool_genre_mask, sandbox_mode="mxc" if sandbox_enabled else "off"
-        )
     if sandbox_enabled:
         return
     if not enable_tools:
@@ -201,7 +126,6 @@ def run_cli_startup(
     env_workdir,
     initial_file_arg,
     non_interactive: bool,
-    tool_genre_mask: int | None = None,
     inject_message: str | None = None,
     inject_message_auto: str | None = None,
     complete_regex: str | None = None,
@@ -472,7 +396,6 @@ def run_cli_startup(
                 pass
             _configure_cli_startup_tools(
                 sandbox_enabled=sandbox_enabled,
-                tool_genre_mask=tool_genre_mask,
                 enable_tools=enable_tools,
             )
             core.set_status(False, "")
