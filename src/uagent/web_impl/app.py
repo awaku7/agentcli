@@ -92,7 +92,6 @@ _memory_store_tracking_lock = threading.Lock()
 
 _PROCESS_AUTH_READ_PATHS = frozenset(
     {
-        "/api/tool-genres",
         "/api/tools-enabled",
     }
 )
@@ -105,7 +104,6 @@ _PROCESS_ADMIN_PATHS = frozenset(
 )
 _PROCESS_ADMIN_WRITE_PATHS = frozenset(
     {
-        "/api/tool-genres",
         "/api/tools-enabled",
     }
 )
