@@ -653,11 +653,6 @@ def main():
     except ValueError as exc:
         parser.error(str(exc))
 
-    if web_args.sandbox == "off":
-        from ..cli_startup import _apply_startup_tool_genre_mask
-
-        _apply_startup_tool_genre_mask(web_args.tool_genre_mask or 0)
-
     web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
     web_manager.sandbox_enabled = web_args.sandbox != "off"
     web_sandbox_manager = None
