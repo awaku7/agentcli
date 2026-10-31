@@ -149,7 +149,7 @@ onMount(loadSessions);
   .brand-subtitle { color: var(--text-tertiary); font-size: 10px; margin-top: 1px; }
   .brand-copy { flex: 1; }
   .icon-button { border: 0; background: transparent; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
-  .new-session { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 12px; color: white; background: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; transition: filter var(--transition), transform var(--transition); }
+  .new-session { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--accent); border-radius: 12px; color: var(--accent); background: var(--accent-subtle); font-size: 13px; font-weight: 700; cursor: pointer; transition: filter var(--transition), transform var(--transition); }
   .new-session:hover { filter: brightness(1.08); }
   .new-session:active { transform: scale(.98); }
   .new-session-icon { font-size: 20px; line-height: 14px; font-weight: 400; }
