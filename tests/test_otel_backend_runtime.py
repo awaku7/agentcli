@@ -214,6 +214,4 @@ def test_otel_adapter_exports_standard_dynamic_metadata_only() -> None:
     cancelled_span.set_attribute("uag.status", "cancelled")
     cancelled_span.add_event("llm.round.completed", {"uag.status": "cancelled"})
     assert cancelled.attributes == {"uag.status": "cancelled"}
-    assert cancelled.events == [
-        ("llm.round.completed", {"uag.status": "cancelled"})
-    ]
+    assert cancelled.events == [("llm.round.completed", {"uag.status": "cancelled"})]
