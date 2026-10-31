@@ -404,11 +404,13 @@ def _call_openai_azure_round(
         from .providers.llm_foundry_local import update_foundry_local_progress
 
         update_foundry_local_progress(core, "ResponseStarted")
+    # Keep the original reference: a new Responses API reply replaces this
+    # snapshot even when its token counts happen to match the previous one.
     legacy_usage_before = (
-        dict(getattr(core, "_last_responses_usage", {}) or {})
-        if core is not None
-        else {}
+        getattr(core, "_last_responses_usage", None) if core is not None else None
     )
+    if not isinstance(legacy_usage_before, dict):
+        legacy_usage_before = {}
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
