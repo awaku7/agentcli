@@ -263,6 +263,63 @@ def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
         tools_pkg._TOOL_DESCRIBERS.pop("trace_probe", None)
 
 
+def test_web_tool_trace_uses_the_cli_description_without_raw_results(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from uagent import core, tools as tools_pkg
+    from uagent.web_impl import rooms
+
+    displayed = []
+    room = SimpleNamespace(add_message=displayed.append)
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", True, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(rooms, "get_context_web_room", lambda: room)
+    monkeypatch.setattr(tools_pkg, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setitem(
+        tools_pkg._TOOL_DESCRIBERS,
+        "web_trace_probe",
+        lambda _args: "Reading file api_key=abcd1234efgh",
+    )
+
+    tools_pkg._emit_tool_trace("web_trace_probe", {"content": "private payload"})
+
+    assert displayed == [
+        {
+            "role": "tool",
+            "name": "web_trace_probe",
+            "content": tools_pkg._tool_trace_body(
+                "web_trace_probe", {"content": "private payload"}
+            ).replace("abcd1234efgh", "***"),
+        }
+    ] or (
+        len(displayed) == 1
+        and displayed[0]["role"] == "tool"
+        and displayed[0]["name"] == "web_trace_probe"
+        and "Reading file" in displayed[0]["content"]
+        and "abcd1234efgh" not in displayed[0]["content"]
+    )
+    assert len(displayed[0]["content"]) <= 400
+    assert "[TOOL]" not in capsys.readouterr().out
+
+
+def test_web_tool_trace_does_not_fallback_to_other_rooms(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from uagent import core, tools as tools_pkg
+    from uagent.web_impl import rooms
+
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", True, raising=False)
+    monkeypatch.setattr(rooms, "get_context_web_room", lambda: None)
+    monkeypatch.setattr(rooms._thread_ctx, "room", None, raising=False)
+    monkeypatch.setattr(tools_pkg, "_spinner_stop_quietly", lambda: None)
+
+    tools_pkg._emit_tool_trace("web_trace_probe", {"path": "src/example.py"})
+
+    assert "[TOOL]" not in capsys.readouterr().out
+
+
 def test_read_file_describer_is_localized(monkeypatch) -> None:
     from uagent.tools import i18n_helper, read_file_tool
 
