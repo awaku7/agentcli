@@ -338,7 +338,7 @@ TOOL_SPEC: dict[str, Enhver] = {
 |-------|------|--------------------|
 | `type` | str | Altid `"funktion"` |
 | `x_build` | str | `"rust"` til Rust-implementering (udelad for Python) |
-| `værktøjsgenre` | str | Genrenavn (valgfrit). Aktiverer genrebaseret kontrol |
+| `værktøjsgenre` | str | Valgfri kategorimetadata til katalogsøgning (ingen genreaktivering) |
 | `værktøjsniveau` | int | 0=aktiveret, 1=betinget (standard), -1=deaktiveret |
 | `x_parallel_safe` | bool | Om uafhængige opkald kan køre samtidigt |
 | `funktion.navn` | str | **Påkrævet**. Værktøjsnavn (små bogstaver + cifre + understregning) |
