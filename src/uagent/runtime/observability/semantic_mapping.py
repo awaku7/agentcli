@@ -21,9 +21,7 @@ _SPAN_DERIVED_ATTRIBUTES = frozenset(
         "uag.tokens.reported.total",  # Derived from input/output token usage.
     }
 )
-_USAGE_ALIASES = frozenset(
-    {"uag.tokens.reported.input", "uag.tokens.reported.output"}
-)
+_USAGE_ALIASES = frozenset({"uag.tokens.reported.input", "uag.tokens.reported.output"})
 
 _GENAI_PROVIDER_NAMES = {
     "azure": "azure.ai.openai",
