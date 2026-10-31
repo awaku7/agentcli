@@ -335,9 +335,21 @@ def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
                 "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
             )
             yield StreamEvent(
-                "ToolCallCompleted",
+                "ToolCallDelta",
                 request.identifiers,
                 1,
+                0.0,
+                {
+                    "tool_call_id": "call_1",
+                    "index": 0,
+                    "name_fragment": "search",
+                    "arguments_fragment": '{"q":"abc"}',
+                },
+            )
+            yield StreamEvent(
+                "ToolCallCompleted",
+                request.identifiers,
+                2,
                 0.0,
                 {
                     "name": "search",
@@ -347,7 +359,7 @@ def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
                     "index": 0,
                 },
             )
-            yield StreamEvent("ResponseCompleted", request.identifiers, 2, 0.0, {})
+            yield StreamEvent("ResponseCompleted", request.identifiers, 3, 0.0, {})
 
     span = Span()
     monkeypatch.setattr(
