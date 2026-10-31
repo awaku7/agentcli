@@ -138,7 +138,7 @@ Python checks. Prompt/skill Markdown and test fixtures are not documentation-onl
 
 Tools are delivered to the LLM differently depending on the provider and mode:
 
-- **Chat Completions API (DeepSeek, etc.)**: Tools are filtered by genre mask at startup. The LLM discovers additional tools dynamically via `tool_catalog` → `tool_load`. See `src/uagent/docs/TOOL_FLOW.md`.
+- **Chat Completions API (DeepSeek, etc.)**: Tools start with a small set and discover additional tools dynamically. The LLM discovers additional tools dynamically via `tool_catalog` → `tool_load`. See `src/uagent/docs/TOOL_FLOW.md`.
 - **Responses API + GPT-5.4+ (OpenAI/Azure)**: All tools are sent to the server (server-side `tool_search`). Server-side compaction is applied automatically.
 - **`UAGENT_GPT54_TOOL_SEARCH=legacy`**: Client-side narrowing via `tool_catalog`. Only management tools sent initially.
 - **Auto-unload**: Skipped when `previous_response_id` is set.
@@ -148,7 +148,7 @@ Tools are delivered to the LLM differently depending on the provider and mode:
 - Tools are plugin modules under `src/uagent/tools/`.
 - Each tool exports `TOOL_SPEC` (OpenAI function schema compatible) and `run_tool(args) -> str`.
 - Tool genres: `basic`, `comm`, `office`, `devel`, `dev`, `iot`, `exec`, `external`, `media`, `file`, `index`, `web`, `utility`.
-- Startup selects genres via bitmask (`--tool-genre-mask <int>`).
+- Genre names are descriptive metadata only; use `tool_catalog` / `tool_load` or `--enable-tool` to select individual tools.
 - Tool-less mode: `--no-use-tool` or `UAGENT_USE_TOOL=0` or `:tools off`.
 - Skills: installed via `:skills install` or APM (`:skills apm use`).
 - MCP servers: defined in `mcp_servers.json`, managed via `mcp_servers` / `mcp_tools_list` / `handle_mcp_v2` tools.
