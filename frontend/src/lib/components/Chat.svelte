@@ -12,9 +12,26 @@
   let streamState = $state({ id: null, active: false, done: false, text: '', reasoning: '' });
   let imageStreamState = $state({ src: '', mime: '', partial: false, visible: false });
 
+  // Follow new content only while the reader is near the bottom.
+  // A deliberate upward scroll pauses following until they scroll back down.
+  let followLatest = true;
+  let scrollScheduled = false;
+  const bottomThreshold = 80;
+
+  function handleChatScroll() {
+    if (!chatBox) return;
+    const distance = chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight;
+    followLatest = distance <= bottomThreshold;
+  }
+
   function scrollToBottom() {
-    if (chatBox) requestAnimationFrame(() => {
-      requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
+    if (!followLatest || !chatBox || scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollScheduled = false;
+        if (followLatest && chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+      });
     });
   }
 
@@ -94,6 +111,7 @@
 
 <div
   bind:this={chatBox}
+  onscroll={handleChatScroll}
   class="chat-container overflow-y-auto surface-card rounded-xl p-4 flex-grow flex flex-col gap-3"
 >
   {#each messages as msg, i (i)}
