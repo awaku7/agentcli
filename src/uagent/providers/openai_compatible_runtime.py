@@ -8,6 +8,7 @@ outside this module.
 from __future__ import annotations
 
 import json
+import re
 import sys
 import time
 from typing import TYPE_CHECKING, Any, Iterator, Mapping
@@ -56,6 +57,36 @@ def _mapping_value(value: Any, key: str) -> Any:
     if isinstance(value, Mapping):
         return value.get(key)
     return getattr(value, key, None)
+
+
+def _reported_usage(usage: Any, *, responses: bool) -> dict[str, int]:
+    """Read request-scoped provider counts, never estimated or cumulative values."""
+    fields = (
+        ("input_tokens", "input_tokens" if responses else "prompt_tokens"),
+        ("output_tokens", "output_tokens" if responses else "completion_tokens"),
+        ("total_tokens", "total_tokens"),
+    )
+    result = {}
+    for target, source in fields:
+        value = _mapping_value(usage, source)
+        if type(value) is int and 0 <= value <= 1_000_000_000_000:
+            result[target] = value
+    return result
+
+
+def _terminal_usage(usage: Any, *, responses: bool) -> dict[str, Any]:
+    reported = _reported_usage(usage, responses=responses)
+    return {"usage": reported} if reported else {}
+
+
+def _azure_stream_usage_supported() -> bool:
+    """Do not add unsupported options to older Azure OpenAI API versions."""
+    version = (env_get("UAGENT_AZURE_API_VERSION", "") or "").strip().lower()
+    match = re.fullmatch(r"(\d{4}-\d{2}-\d{2})(-preview)?", version)
+    if match is None:
+        return False
+    date, preview = match.groups()
+    return date >= ("2024-08-01" if preview else "2024-10-21")
 
 
 def _reasoning_text(value: Any) -> str:
@@ -364,13 +395,22 @@ class OpenAICompatibleRuntime:
                 else:
                     yield from self._responses_response_events(stream, cancellation)
             else:
+                chat_payload = {
+                    key: value
+                    for key, value in request.payload.items()
+                    if key != "transport"
+                }
+                # Request final usage only on known-compatible endpoints.
+                # Older Azure API versions reject stream_options entirely.
+                if self._streaming and (
+                    self._provider == "openai"
+                    or (self._provider == "azure" and _azure_stream_usage_supported())
+                ):
+                    stream_options = dict(chat_payload.get("stream_options") or {})
+                    stream_options.setdefault("include_usage", True)
+                    chat_payload["stream_options"] = stream_options
                 stream = self._client.chat.completions.create(
-                    **{
-                        key: value
-                        for key, value in request.payload.items()
-                        if key != "transport"
-                    },
-                    stream=self._streaming,
+                    **chat_payload, stream=self._streaming
                 )
                 if self._streaming:
                     yield from self._chat_events(stream, cancellation)
@@ -436,7 +476,10 @@ class OpenAICompatibleRuntime:
                 },
             )
         yield from self._complete_tools(tool_calls)
-        yield self._event("ResponseCompleted", {})
+        yield self._event(
+            "ResponseCompleted",
+            _terminal_usage(_mapping_value(response, "usage"), responses=False),
+        )
 
     def _responses_response_events(
         self, response: Any, cancellation: CancellationToken
@@ -495,6 +538,7 @@ class OpenAICompatibleRuntime:
         yield from self._complete_tools(tool_calls)
         response_id = getattr(response, "id", None)
         data = {"response_id": str(response_id)} if response_id else {}
+        data.update(_terminal_usage(_mapping_value(response, "usage"), responses=True))
         yield self._event("ResponseCompleted", data)
 
     def _event(self, event_type: str, data: Mapping[str, Any]) -> StreamEvent:
@@ -512,6 +556,7 @@ class OpenAICompatibleRuntime:
         self, stream: Any, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
         tool_calls: dict[int, dict[str, str]] = {}
+        usage: dict[str, int] = {}
         if cancellation.is_cancelled():
             yield self._event("ResponseCancelled", {"reason": "cancelled"})
             return
@@ -519,6 +564,9 @@ class OpenAICompatibleRuntime:
             if cancellation.is_cancelled():
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
                 return
+            reported = _reported_usage(_mapping_value(chunk, "usage"), responses=False)
+            if reported:
+                usage = reported
             choices = getattr(chunk, "choices", None) or []
             delta = getattr(choices[0], "delta", None) if choices else None
             if delta is None:
@@ -555,7 +603,7 @@ class OpenAICompatibleRuntime:
                     },
                 )
         yield from self._complete_tools(tool_calls)
-        yield self._event("ResponseCompleted", {})
+        yield self._event("ResponseCompleted", {"usage": usage} if usage else {})
 
     def _responses_events(
         self, stream: Any, cancellation: CancellationToken
@@ -760,6 +808,9 @@ class OpenAICompatibleRuntime:
                 yield from self._complete_tools(tool_calls)
                 response_id = getattr(response, "id", None) if response else None
                 data = {"response_id": str(response_id)} if response_id else {}
+                data.update(
+                    _terminal_usage(_mapping_value(response, "usage"), responses=True)
+                )
                 yield self._event("ResponseCompleted", data)
                 return
             elif event_type == "response.failed":

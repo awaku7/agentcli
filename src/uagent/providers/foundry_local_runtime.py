@@ -13,7 +13,11 @@ import json
 from typing import Any, Iterator, Mapping
 
 from ..runtime.round_contracts import CancellationToken, StreamEvent
-from .openai_compatible_runtime import OpenAICompatibleRuntime
+from .openai_compatible_runtime import (
+    OpenAICompatibleRuntime,
+    _reported_usage,
+    _terminal_usage,
+)
 
 
 def _mapping_value(value: Any, key: str) -> Any:
@@ -55,7 +59,10 @@ class FoundryLocalRuntime(OpenAICompatibleRuntime):
         choices = getattr(response, "choices", None) or []
         message = getattr(choices[0], "message", None) if choices else None
         if message is None:
-            yield self._event("ResponseCompleted", {})
+            yield self._event(
+                "ResponseCompleted",
+                _terminal_usage(_mapping_value(response, "usage"), responses=False),
+            )
             return
 
         explicit_reasoning = _reasoning_text(message)
@@ -94,12 +101,16 @@ class FoundryLocalRuntime(OpenAICompatibleRuntime):
                 },
             )
         yield from self._complete_tools(tool_calls)
-        yield self._event("ResponseCompleted", {})
+        yield self._event(
+            "ResponseCompleted",
+            _terminal_usage(_mapping_value(response, "usage"), responses=False),
+        )
 
     def _chat_events(
         self, stream: Any, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
         tool_calls: dict[int, dict[str, str]] = {}
+        usage: dict[str, int] = {}
         in_reasoning = False
         marker_tail = ""
 
@@ -111,6 +122,9 @@ class FoundryLocalRuntime(OpenAICompatibleRuntime):
             if cancellation.is_cancelled():
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
                 return
+            reported = _reported_usage(_mapping_value(chunk, "usage"), responses=False)
+            if reported:
+                usage = reported
 
             choices = getattr(chunk, "choices", None) or []
             delta = getattr(choices[0], "delta", None) if choices else None
@@ -182,7 +196,7 @@ class FoundryLocalRuntime(OpenAICompatibleRuntime):
                 {"text": marker_tail},
             )
         yield from self._complete_tools(tool_calls)
-        yield self._event("ResponseCompleted", {})
+        yield self._event("ResponseCompleted", {"usage": usage} if usage else {})
 
     @classmethod
     def _split_think_text(cls, text: str) -> tuple[str, str]:

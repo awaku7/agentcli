@@ -3225,7 +3225,12 @@ def run_llm_rounds(
                     if isinstance(_calls, list):
                         round_tool_calls += len(_calls)
                 usage_after_round = getattr(core, "_last_responses_usage", {})
-                usage_delta = reconcile_usage(usage_before_round, usage_after_round)
+                usage_delta = (
+                    reconcile_usage(None, usage_after_round)
+                    if isinstance(usage_after_round, dict)
+                    and usage_after_round is not usage_before_round
+                    else {}
+                )
                 round_reason = str(getattr(core, "_last_round_reason", "") or "")
                 public_status = _public_round_status(
                     str(round_status),

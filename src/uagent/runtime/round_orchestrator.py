@@ -189,13 +189,17 @@ class RoundOrchestrator:
         tool_schema_size = _json_size(
             request.payload.get("tools", projection.tool_specs)
         )
-        usage_after = session.get("usage_after")
-        if not isinstance(usage_after, Mapping):
-            usage_after = terminal.data.get("usage")
-        usage_delta = reconcile_usage(
-            session.get("usage_before"),
-            usage_after if isinstance(usage_after, Mapping) else None,
-        )
+        # Runtime terminal usage is scoped to this single API request, not a
+        # cumulative counter. Do not subtract any previous request's usage.
+        reported_usage = terminal.data.get("usage")
+        if isinstance(reported_usage, Mapping):
+            usage_delta = reconcile_usage(None, reported_usage)
+        else:
+            # Older integrations may explicitly supply cumulative snapshots.
+            usage_delta = reconcile_usage(
+                session.get("usage_before"),
+                session.get("usage_after"),
+            )
         summary = RoundSummary(
             status=status,  # type: ignore[arg-type]
             duration_ms=(time.perf_counter() - started) * 1000.0,
@@ -239,6 +243,22 @@ class RoundOrchestrator:
         for key, attribute_name in reported_names.items():
             if key in usage_delta:
                 observability_span.set_attribute(attribute_name, usage_delta[key])
+        # Estimated usage is UAG-specific; never export it via GenAI usage.
+        # The collector selects a measured value first, then this fallback.
+        if status == "completed" and "output_tokens_delta" not in usage_delta:
+            generated = rendered.assistant_text + rendered.reasoning_text
+            if rendered.tool_calls:
+                generated += "".join(
+                    str(call.get("name") or "") + str(call.get("arguments") or "")
+                    for call in rendered.tool_calls
+                )
+            if generated:
+                observability_span.set_attribute(
+                    "uag.tokens.estimate.output",
+                    estimate_tokens(
+                        generated, provider=request.provider, model=request.model
+                    ),
+                )
 
         # The provider response is not the end of the logical round. Responses
         # continuation/session synchronization is part of the canonical boundary,

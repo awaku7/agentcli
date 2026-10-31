@@ -95,10 +95,17 @@ Estimated request tokens and provider-reported usage remain distinct on both
 registry and fallback LLM spans:
 
 ```text
-uag.tokens.estimate.*         # UAG-only estimate
+uag.tokens.estimate.*         # UAG-only approximate input/output when available
 gen_ai.usage.input_tokens     # provider-reported input tokens
 gen_ai.usage.output_tokens    # provider-reported output tokens
 ```
+
+Registry adapters extract usage from the provider's request-scoped response:
+`prompt_tokens` / `completion_tokens` for Chat Completions and `input_tokens`
+/ `output_tokens` for Responses. OpenAI streaming Chat Completions
+request the final usage chunk; Azure does so only on supported API versions. No value is emitted when usage is absent or
+invalid, including cancelled or incomplete streams. Per-response usage is not
+subtracted from a previous response's counts.
 
 Only standard GenAI attributes are exported when equivalent semantics
 exist. The adapter removes duplicate `uag.tokens.reported.*` aliases and

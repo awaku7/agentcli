@@ -215,3 +215,47 @@ def test_openai_projection_still_disables_reasoning_when_tools_are_sent(
     )
 
     assert projection.options["reasoning_effort"] == "none"
+
+
+def test_foundry_stream_preserves_final_usage_only_chunk() -> None:
+    chunks = [
+        SimpleNamespace(
+            choices=[
+                SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))
+            ],
+            usage=None,
+        ),
+        SimpleNamespace(
+            choices=[],
+            usage=SimpleNamespace(prompt_tokens=18, completion_tokens=5),
+        ),
+    ]
+    runtime = FoundryLocalRuntime(
+        client=_Client(chunks),
+        provider="foundry_local",
+        model="phi-4-mini-reasoning",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    events = list(runtime.run(_request(runtime), _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {"input_tokens": 18, "output_tokens": 5}
+
+
+def test_foundry_nonstream_preserves_measured_usage() -> None:
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
+        ],
+        usage=SimpleNamespace(prompt_tokens=22, completion_tokens=6),
+    )
+    runtime = FoundryLocalRuntime(
+        client=_Client(response),
+        provider="foundry_local",
+        model="phi-4-mini-reasoning",
+        identifiers=_identifiers(),
+        streaming=False,
+    )
+    events = list(runtime.run(_request(runtime), _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {"input_tokens": 22, "output_tokens": 6}

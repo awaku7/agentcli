@@ -228,8 +228,25 @@ The canonical LLM trace is created at UAG's provider-neutral round boundary. Pha
 Keep estimated and provider-reported token data distinct. Export measured usage
 on `chat` spans only as `gen_ai.usage.input_tokens` and
 `gen_ai.usage.output_tokens`. `uag.tokens.estimate.*` remains an explicitly
-UAG-specific estimate; missing usage is never fabricated. Total token usage
+UAG-specific estimate; missing *measured* usage is never fabricated. If a Provider does not report
+input/output tokens, UAG emits a separately labeled approximate count as
+`uag.tokens.estimate.input` / `uag.tokens.estimate.output` when request/output
+text is available. Admin displays estimated and measured values separately,
+with reported values taking precedence per field. No estimated value is ever
+placed in `gen_ai.usage.*`. Total token usage
 is derivable from input/output counts, not redundantly exported.
+
+Registry Chat Completions and Responses adapters forward verified, non-negative
+per-request usage from the provider response (including final streaming usage
+chunks) to the terminal event. OpenAI Chat Completions streaming requests
+opt into `stream_options.include_usage`; Azure does so only for known-supporting
+API versions (2024-08-01-preview onward or 2024-10-21 GA onward).
+Other compatible providers are not
+sent unsupported request options. A missing final usage chunk, unsupported
+provider, or omitted field stays unreported rather than being estimated or
+converted to zero. The orchestrator never subtracts a previous response's
+usage from a per-request terminal usage report. Explicit cumulative snapshots
+retain their separate delta reconciliation path.
 
 The OTel adapter emits only standard attributes for provider, model, agent,
 tool, token usage and error type. OTel Span Status and timestamps represent

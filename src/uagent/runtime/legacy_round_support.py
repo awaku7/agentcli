@@ -196,9 +196,11 @@ def record_legacy_usage_telemetry(
 ) -> None:
     """Bridge provider usage retained on legacy core state into events."""
     after = getattr(core, "_last_responses_usage", None) if core is not None else None
-    if not isinstance(after, dict) or not after or after == before:
+    # Responses API usage is a fresh per-request snapshot, not a counter.
+    # Object identity distinguishes a newly reported response from stale data.
+    if not isinstance(after, dict) or not after or after is before:
         return
-    usage_delta = reconcile_usage_fn(before, after)
+    usage_delta = reconcile_usage_fn({}, after)
     if not usage_delta:
         return
     log_event_fn(

@@ -230,3 +230,152 @@ def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:
 
         assert result.status != "completed"
         assert responses_runtime.transitions == [expected]
+
+
+class _MeasuredUsageRuntime(_Runtime):
+    def run(self, request, cancellation):
+        yield StreamEvent(
+            "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+        )
+        yield StreamEvent(
+            "ResponseCompleted",
+            request.identifiers,
+            1,
+            0.0,
+            {
+                "response_id": "resp_usage",
+                "usage": {"input_tokens": 14, "output_tokens": 6},
+            },
+        )
+
+
+def test_orchestrator_uses_provider_response_usage_without_prior_subtraction() -> None:
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _MeasuredUsageRuntime())
+    result = RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={
+            "usage_before": {"input_tokens": 100, "output_tokens": 50},
+            "usage_after": {"input_tokens": 110, "output_tokens": 55},
+        },
+        cancellation=_Cancellation(),
+    )
+    assert result.result.summary is not None
+    assert result.result.summary.usage_delta == {
+        "input_tokens_delta": 14,
+        "output_tokens_delta": 6,
+    }
+
+
+def test_orchestrator_keeps_estimates_distinct_from_reported_usage(monkeypatch):
+    from contextlib import contextmanager
+
+    class Span:
+        def __init__(self):
+            self.attributes = {}
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            pass
+
+        def set_status(self, status, description=None):
+            pass
+
+    class Backend:
+        @contextmanager
+        def start_span(self, operation, *, attributes=None, root=False):
+            yield span
+
+    span = Span()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: Backend(),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+    RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    )
+    assert span.attributes["uag.tokens.estimate.input"] > 0
+    assert span.attributes["uag.tokens.estimate.output"] > 0
+    assert "uag.tokens.reported.input" not in span.attributes
+    assert "uag.tokens.reported.output" not in span.attributes
+
+
+def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
+    from contextlib import contextmanager
+
+    class Span:
+        def __init__(self):
+            self.attributes = {}
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            pass
+
+        def set_status(self, status, description=None):
+            pass
+
+    class Backend:
+        @contextmanager
+        def start_span(self, operation, *, attributes=None, root=False):
+            yield span
+
+    class ToolRuntime(_Runtime):
+        def run(self, request, cancellation):
+            yield StreamEvent(
+                "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+            )
+            yield StreamEvent(
+                "ToolCallDelta",
+                request.identifiers,
+                1,
+                0.0,
+                {
+                    "tool_call_id": "call_1",
+                    "index": 0,
+                    "name_fragment": "search",
+                    "arguments_fragment": '{"q":"abc"}',
+                },
+            )
+            yield StreamEvent(
+                "ToolCallCompleted",
+                request.identifiers,
+                2,
+                0.0,
+                {
+                    "name": "search",
+                    "arguments": '{"q":"abc"}',
+                    "validated_arguments": {"q": "abc"},
+                    "tool_call_id": "call_1",
+                    "index": 0,
+                },
+            )
+            yield StreamEvent("ResponseCompleted", request.identifiers, 3, 0.0, {})
+
+    span = Span()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: Backend(),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.estimate_tokens",
+        lambda value, **kwargs: len(str(value)),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", ToolRuntime())
+    RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    )
+    assert span.attributes["uag.tokens.estimate.output"] == len('search{"q":"abc"}')
