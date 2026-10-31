@@ -111,6 +111,7 @@ def test_registered_legacy_provider_emits_chat_span_and_token_metrics(
     }
     span = record["span"]
     assert span.attributes["uag.tokens.estimate.input"] > 0
+    assert span.attributes["uag.tokens.estimate.output"] > 0
     assert span.attributes["uag.tokens.reported.input"] == 15
     assert span.attributes["uag.tokens.reported.output"] == 5
     assert span.attributes["uag.tokens.reported.total"] == 20
