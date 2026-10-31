@@ -22,35 +22,6 @@ ______________________________________________________________________
 Arbejdsmappe. Hvis den ikke er angivet, bruges miljøvariablen `UAGENT_WORKDIR` som standard, ellers den aktuelle mappe.
 Mappen oprettes, hvis den ikke findes.
 
-### `--tool-genre-mask <int>`
-
-Bitmaske for værktøjstype. Når denne angives, springes den interaktive prompt til valg af værktøjstype over.
-
-| Bit | Type | Beskrivelse |
-|-----|-------|-------------|
-| 1 | basic | Væsentlige fil-/chatværktøjer |
-| 2 | comm | Kommunikationsværktøjer (Bluesky, Teams) |
-| 4 | office | Kontorpakkeværktøjer (Excel, PDF, PPTX) |
-| 8 | devel | Udviklingsværktøjer (git, lint, compile) |
-| 16 | iot | Værktøjer til IoT-enheder (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Værktøjer til kommandokørsel |
-| 64 | external | Eksterne plugin-værktøjer |
-| 128 | media | Generering og analyse af billeder/lyd |
-| 256 | file | Værktøjer til filhåndtering |
-| 512 | index | Værktøjer til navigation i kildekode/indeks |
-| 1024 | dev | Værktøjer til udvikling og repositorier |
-| 2048 | web | Web- og browserværktøjer |
-| 4096 | utility | Hjælpeprogrammer og supportværktøjer |
-| 8191 | all | Alle værktøjer |
-
-Eksempler:
-
-```
-uag --tool-genre-mask 1 # kun grundlæggende
-uag --tool-genre-mask 9 # grundlæggende + udvikling (1 + 8)
-uag --tool-genre-mask 8191    # alle værktøjer
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktiverer eller deaktiverer afsendelse af værktøjsdefinitioner til LLM. Tilsidesætter miljøvariablen `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Indlejret tilstand til begrænsede eller reproducerbarhedsfølsomme installation
 
 - Deaktiverer sessionslageret.
 - Skjuler værktøjsstyringsværktøjerne (`tool_catalog`, `tool_load`, `unload_tool`), medmindre de udtrykkeligt er aktiveret.
-- Ignorerer `--tool-genre-mask`; brug `--enable-tool` til eksplicit indlæsning af værktøjer.
 
 ### `--enable-tool <navn>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Vælg værktøjsgenrer ved hjælp af den samme bitmaske, der er beskrevet ovenfor. Når dette angives, springes den interaktive genreprompt over.
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktiver eller deaktiver afsendelse af værktøjsdefinitioner til LLM. Tilsidefører `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Aktiver hot reload ved kodændringer (standard: slået fra, kan overskrives af `
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Vælg værktøjsgenrer ved hjælp af den ovenfor beskrevne bitmaske. Når dette angives, springes den interaktive genreprompt over.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webserver på alle grænseflader
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Deaktiver værktøjer til en lille model
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Ikke-interaktiv filbehandling
