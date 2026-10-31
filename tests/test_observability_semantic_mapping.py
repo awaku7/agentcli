@@ -50,6 +50,7 @@ def test_execute_tool_has_standard_name_and_operation() -> None:
     assert mapped.attributes["gen_ai.operation.name"] == "execute_tool"
     assert mapped.attributes["gen_ai.tool.name"] == "calculator"
 
+
 def test_standard_attributes_replace_uag_aliases_without_duplicates() -> None:
     mapped = map_span(
         "invoke_agent",
