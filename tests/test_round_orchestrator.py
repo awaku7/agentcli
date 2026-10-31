@@ -306,3 +306,66 @@ def test_orchestrator_keeps_estimates_distinct_from_reported_usage(monkeypatch):
     assert span.attributes["uag.tokens.estimate.output"] > 0
     assert "uag.tokens.reported.input" not in span.attributes
     assert "uag.tokens.reported.output" not in span.attributes
+
+
+def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
+    from contextlib import contextmanager
+
+    class Span:
+        def __init__(self):
+            self.attributes = {}
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            pass
+
+        def set_status(self, status, description=None):
+            pass
+
+    class Backend:
+        @contextmanager
+        def start_span(self, operation, *, attributes=None, root=False):
+            yield span
+
+    class ToolRuntime(_Runtime):
+        def run(self, request, cancellation):
+            yield StreamEvent(
+                "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+            )
+            yield StreamEvent(
+                "ToolCallCompleted",
+                request.identifiers,
+                1,
+                0.0,
+                {
+                    "name": "search",
+                    "arguments": '{"q":"abc"}',
+                    "validated_arguments": {"q": "abc"},
+                    "tool_call_id": "call_1",
+                    "index": 0,
+                },
+            )
+            yield StreamEvent(
+                "ResponseCompleted", request.identifiers, 2, 0.0, {}
+            )
+
+    span = Span()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: Backend(),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.estimate_tokens",
+        lambda value, **kwargs: len(str(value)),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", ToolRuntime())
+    RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    )
+    assert span.attributes["uag.tokens.estimate.output"] == len('search{"q":"abc"}')
