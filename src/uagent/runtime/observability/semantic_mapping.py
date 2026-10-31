@@ -16,12 +16,13 @@ _STANDARD_ATTRIBUTE_ALIASES = {
 }
 _SPAN_DERIVED_ATTRIBUTES = frozenset(
     {
-        "uag.status",  # OTel span status.
         "uag.duration_ms",  # OTel span start/end timestamps.
         "uag.tokens.reported.total",  # Derived from input/output token usage.
     }
 )
 _USAGE_ALIASES = frozenset({"uag.tokens.reported.input", "uag.tokens.reported.output"})
+# These outcomes cannot be expressed by the OTel OK/ERROR/UNSET span status.
+_NONSTANDARD_OUTCOMES = frozenset({"cancelled", "disabled"})
 
 _GENAI_PROVIDER_NAMES = {
     "azure": "azure.ai.openai",
@@ -56,6 +57,7 @@ def map_attributes(attributes: Mapping[str, Any] | None) -> dict[str, Any]:
         if key not in _STANDARD_ATTRIBUTE_ALIASES
         and key != "uag.llm.provider"
         and key not in _SPAN_DERIVED_ATTRIBUTES
+        and (key != "uag.status" or value in _NONSTANDARD_OUTCOMES)
     }
     for key, value in source.items():
         target = (
