@@ -419,7 +419,26 @@ def test_authenticated_logs_are_filtered_to_the_current_principal(
         == 404
     )
 
+    # Search must run across all authorized sessions, not just the first 30.
+    for index in range(32):
+        session = store.create_session(project="demo", entry_point="web")
+        store.bind_identity_context(
+            session.session_id, principal_id="alice", room_id=f"private-{index}"
+        )
+        store.append_message(session.session_id, "user", f"Recent entry {index}")
+    result = client.get(
+        "/api/logs", params={"q": "ALICE SECRET SESSION", "page": 1, "per_page": 1}
+    ).json()
+    assert result["total"] == 1
+    assert [row["path"] for row in result["logs"]] == [alice.session_id]
+    assert client.get(
+        "/api/logs", params={"q": "detached portable session"}
+    ).json()["total"] == 0
+
     principal[0] = "bob"
+    assert client.get(
+        "/api/logs", params={"q": "Alice secret session"}
+    ).json()["logs"] == []
     bob_logs = client.get("/api/logs").json()["logs"]
     assert [row["path"] for row in bob_logs] == [bob.session_id]
     assert (
