@@ -22,35 +22,6 @@ ______________________________________________________________________
 Working directory. If not set, falls back to `UAGENT_WORKDIR` env var, then the current directory.
 The directory is created if it does not exist.
 
-### `--tool-genre-mask <int>`
-
-Tool genre bitmask. When provided, the interactive genre selection prompt is skipped.
-
-| Bit | Genre | Description |
-|-----|-------|-------------|
-| 1 | basic | Essential file/chat tools |
-| 2 | comm | Communication tools (Bluesky, Teams) |
-| 4 | office | Office suite tools (Excel, PDF, PPTX) |
-| 8 | devel | Development tools (git, lint, compile) |
-| 16 | iot | IoT device tools (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Command execution tools |
-| 64 | external | External plugin tools |
-| 128 | media | Image/audio generation and analysis |
-| 256 | file | File-management tools |
-| 512 | index | Source/index navigation tools |
-| 1024 | dev | Developer and repository tools |
-| 2048 | web | Web and browser tools |
-| 4096 | utility | Utility and support tools |
-| 8191 | all | All tools |
-
-Examples:
-
-```
-uag --tool-genre-mask 1       # basic only
-uag --tool-genre-mask 9       # basic + devel (1 + 8)
-uag --tool-genre-mask 8191    # all tools
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Enable or disable sending tool definitions to the LLM. Overrides the `UAGENT_USE_TOOL` environment variable.
@@ -74,7 +45,6 @@ Embedded mode for constrained or reproducibility-sensitive deployments.
 
 - Disables the session store.
 - Hides tool-management tools (`tool_catalog`, `tool_load`, `unload_tool`) unless explicitly enabled.
-- Ignores `--tool-genre-mask`; use `--enable-tool` for explicit tool loading.
 
 ### `--enable-tool <name>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Select tool genres using the same bitmask described above. When specified, the interactive genre prompt is skipped.
-
 ### `--use-tool` / `--no-use-tool`
 
 Enable or disable sending tool definitions to the LLM. Overrides `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Enable hot reload on code changes (default: off, overridable by `UAGENT_A2A_RELO
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Select tool genres using the bitmask described above. When specified, the interactive genre prompt is skipped.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Web server on all interfaces
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Disable tools for a small model
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Non-interactive file processing
