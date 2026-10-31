@@ -335,6 +335,7 @@ def _child_turn(connection, payload) -> None:
                 identity_context=payload["identity_context"],
                 project_path=payload["project_path"],
                 sandbox_scope_override=sandbox_scope,
+                client_message_id=payload.get("client_message_id", ""),
             )
         if room.private_session or not room.session_id:
             for name in (
@@ -613,6 +614,7 @@ class RoomWorkerPool:
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
+                "client_message_id": kwargs.get("client_message_id", ""),
                 "bootstrap_only": bootstrap_only,
                 "execution_profile": getattr(
                     web_manager, "execution_profile", "remote"

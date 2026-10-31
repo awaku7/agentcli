@@ -135,8 +135,15 @@
     completionIndex = -1;
     const t = text.trim();
     if (!t) return;
-    if (t.startsWith(':')) { onCommand(t); text = ''; histIdx = inputHistory.length; return; }
-    onSend(t, pendingAttachments);
+    if (t.startsWith(':')) {
+      onCommand(t);
+      text = '';
+      histIdx = inputHistory.length;
+      return;
+    }
+    // Keep the draft if the WebSocket is not ready; the parent returns false
+    // when it could not hand the message to the connection.
+    if (onSend(t, pendingAttachments) === false) return;
     text = '';
     histIdx = inputHistory.length;
   }

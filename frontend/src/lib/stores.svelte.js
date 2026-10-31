@@ -208,7 +208,21 @@ function handleWsMessage(data) {
       };
       break;
     case 'message':
-      _state.messages = [..._state.messages, data.message];
+      {
+        const message = data.message;
+        const clientMessageId = message?.client_message_id;
+        const existingIndex = clientMessageId
+          ? _state.messages.findIndex((item) => item?.client_message_id === clientMessageId)
+          : -1;
+        if (existingIndex >= 0) {
+          // Replace the local echo (or duplicate replay) with the server's canonical message.
+          _state.messages = _state.messages.map((item, index) =>
+            index === existingIndex ? message : item,
+          );
+        } else {
+          _state.messages = [..._state.messages, message];
+        }
+      }
       _state.currentToolHtml = '';
       break;
     case 'status':
@@ -265,12 +279,37 @@ export function onMessage(type, handler) {
 
 export function sendUserInput(text, attachments) {
   const ws = _state.ws;
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
-  ws.send(JSON.stringify({ type: 'user_input', text, attachments: attachments || [] }));
+  if (!ws || ws.readyState !== WebSocket.OPEN) return false;
+  const clientMessageId = globalThis.crypto?.randomUUID?.()
+    || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const safeAttachments = attachments || [];
+  try {
+    ws.send(JSON.stringify({
+      type: 'user_input',
+      text,
+      attachments: safeAttachments,
+      client_message_id: clientMessageId,
+    }));
+  } catch (_) {
+    return false;
+  }
+  // Render immediately instead of waiting for worker/provider initialization.
+  // The corresponding server event replaces this local echo.
+  _state.messages = [
+    ..._state.messages,
+    {
+      role: 'user',
+      content: text,
+      attachments: safeAttachments,
+      client_message_id: clientMessageId,
+      timestamp: new Date().toISOString(),
+    },
+  ];
   if (text) {
     _state.inputHistory = [..._state.inputHistory, text];
   }
   _state.historyIndex = _state.inputHistory.length;
+  return true;
 }
 
 export function sendCommand(text) {

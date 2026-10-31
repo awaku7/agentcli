@@ -288,6 +288,7 @@ def run_agent_worker(
     identity_context: IdentityContext | None = None,
     project_path: str | None = None,
     sandbox_scope_override: Any | None = None,
+    client_message_id: str = "",
 ):
     """Run one user turn for a room.
 
@@ -326,6 +327,7 @@ def run_agent_worker(
             turn_context=turn_context,
             identity_context=identity_context,
             project_path=project_path,
+            client_message_id=client_message_id,
         )
 
     def _run_web_turn(fn, *args, **kwargs):
@@ -577,6 +579,7 @@ def run_agent_worker(
         _orig_log_message = getattr(core, "log_message", None)
 
         def _patched_log_message(msg: dict[str, Any]) -> None:
+            nonlocal client_message_id
             try:
                 if (
                     isinstance(msg, dict)
@@ -620,7 +623,13 @@ def run_agent_worker(
                     if role == "assistant" and msg.get("_uagent_ui_only"):
                         room.add_message(dict(msg))
                     elif role in ("user", "tool") and not msg.get("_uagent_internal"):
-                        room.add_message(dict(msg))
+                        display_msg = dict(msg)
+                        if role == "user" and client_message_id:
+                            # Keep the correlation marker out of persisted core
+                            # logs; it is only for replacing the browser's echo.
+                            display_msg["client_message_id"] = client_message_id
+                            client_message_id = ""
+                        room.add_message(display_msg)
             except Exception:
                 pass
 

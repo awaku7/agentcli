@@ -43,8 +43,9 @@
   });
 
   function handleSend(text, attachments) {
-    sendUserInput(text, attachments || []);
-    clearAttachments();
+    const sent = sendUserInput(text, attachments || []);
+    if (sent) clearAttachments();
+    return sent;
   }
   function handleInterrupt() { sendInterrupt(); }
   function handleCommand(cmd) { sendCommand(cmd); }

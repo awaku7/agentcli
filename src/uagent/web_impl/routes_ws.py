@@ -170,6 +170,9 @@ async def websocket_endpoint(websocket: WebSocket):
                 if is_chat_mode() == "on":
                     continue
                 worker_dir = room.base_dir
+                client_message_id = payload.get("client_message_id")
+                if not isinstance(client_message_id, str) or len(client_message_id) > 64:
+                    client_message_id = ""
                 threading.Thread(
                     target=call_with_trusted_ingress,
                     args=(
@@ -190,6 +193,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             ),
                         ),
                         "identity_context": connection.identity,
+                        "client_message_id": client_message_id,
                     },
                     daemon=True,
                 ).start()
