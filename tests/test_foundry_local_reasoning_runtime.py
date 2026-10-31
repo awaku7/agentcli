@@ -245,9 +245,7 @@ def test_foundry_stream_preserves_final_usage_only_chunk() -> None:
 def test_foundry_nonstream_preserves_measured_usage() -> None:
     response = SimpleNamespace(
         choices=[
-            SimpleNamespace(
-                message=SimpleNamespace(content="answer", tool_calls=[])
-            )
+            SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
         ],
         usage=SimpleNamespace(prompt_tokens=22, completion_tokens=6),
     )
