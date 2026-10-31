@@ -339,7 +339,7 @@ TOOL_SPEC: dict[str, Any] = {
 |-------|------|-------------|
 | `jenis` | str | Sentiasa `"fungsi"` |
 | `x_build` | str | `"karat"` untuk pelaksanaan Rust (tinggalkan untuk Python) |
-| `genre_alat` | str | Nama genre (pilihan). Mendayakan kawalan berasaskan genre |
+| `genre_alat` | str | Metadata kategori pilihan untuk carian katalog alat (bukan suis genre) |
 | `peringkat_alat` | int | 0=didayakan, 1=bersyarat (lalai), -1=dilumpuhkan |
 | `x_parallel_safe` | bool | Sama ada panggilan bebas boleh dijalankan serentak |
 | `function.name` | str | **Diperlukan**. Nama alat (huruf kecil + digit + garis bawah) |

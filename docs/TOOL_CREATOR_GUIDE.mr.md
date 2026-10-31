@@ -411,7 +411,7 @@ TOOL_SPEC: dict[str, Any] = {
 |-------|------|-------------|
 | `type` | str | Always `"function"` |
 | `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_genre` | str | Optional category metadata for catalog search (no genre-wide toggle) |
 | `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
 | `x_parallel_safe` | bool | Whether independent calls may run concurrently |
 | `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |

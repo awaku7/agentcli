@@ -112,6 +112,29 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             "aliases": aliases or [],
         }
 
+    def tool_help_detail() -> str:
+        # Compiled gettext catalogs still use the historical six-line key.
+        # Remove its retired genre-toggle line by position, not by a
+        # language-dependent "<genre>" placeholder.
+        lines = tr(
+            ":tools on|off           Enable/disable sending tools to the LLM\n"
+            ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+            ":tools list [query]     List loaded tools\n"
+            ":tools load <name>      Load one tool by name\n"
+            ":tools reload           Reload tool modules from disk\n"
+            ":tools output           Toggle showing tool results in UI"
+        ).splitlines()
+        if len(lines) == 6:
+            return "\n".join(lines[:1] + lines[2:])
+        # Malformed external translations must not reintroduce old commands.
+        return (
+            ":tools on|off           Enable/disable sending tools to the LLM\n"
+            ":tools list [query]     List loaded tools\n"
+            ":tools load <name>      Load one tool by name\n"
+            ":tools reload           Reload tool modules from disk\n"
+            ":tools output           Toggle showing tool results in UI"
+        )
+
     cat: dict[str, dict[str, Any]] = {
         "help": e(
             tr("Show command help"),
@@ -241,18 +264,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         "tools": e(
             tr("Tools"),
             usage=(":tools [list|load|on|off|reload|output] ..."),
-            detail="\n".join(
-                line
-                for line in tr(
-                    ":tools on|off           Enable/disable sending tools to the LLM\n"
-                    ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
-                    ":tools list [query]     List loaded tools\n"
-                    ":tools load <name>      Load one tool by name\n"
-                    ":tools reload           Reload tool modules from disk\n"
-                    ":tools output           Toggle showing tool results in UI"
-                ).splitlines()
-                if "<genre>" not in line
-            ),
+            detail=tool_help_detail(),
         ),
         "tool": e(
             tr("Tool authoring helpers"),

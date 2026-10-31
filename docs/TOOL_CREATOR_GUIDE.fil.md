@@ -335,7 +335,7 @@ TOOL_SPEC: dict[str, Any] = {
 |-------|------|-------------|
 | `uri` | str | Palaging `"function"` |
 | `x_build` | str | `"rust"` para sa pagpapatupad ng Rust (omit para sa Python) |
-| `tool_genre` | str | Pangalan ng genre (opsyonal). Pinapagana ang kontrol na batay sa genre |
+| `tool_genre` | str | Opsyonal na metadata ng kategorya para sa paghahanap sa katalogo (walang genre-wide na switch) |
 | `level_tool` | int | 0=enabled, 1=conditional (default), -1=disabled |
 | `x_parallel_safe` | bool | Kung ang mga independyenteng tawag ay maaaring tumakbo nang sabay |
 | `function.name` | str | **Kinakailangan**. Pangalan ng tool (maliit na titik + digit + underscore) |

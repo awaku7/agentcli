@@ -15,7 +15,7 @@ req_tools = tools.get_tool_specs() if send_tools_this_round else None
 ```
 
 - `tools.get_tool_specs()` returns all currently registered tools from `TOOL_SPECS`.
-- Registration is controlled by `tool_level`, `tool_genre`, and the genre mask.
+- Registration depends on `tool_level` and individually loaded tools; `tool_genre` is descriptive metadata for catalog searches, not an activation switch.
 - By default, only core tools are registered. Other tools are loaded dynamically through `tool_catalog` and `tool_load`.
 - `UAGENT_GPT54_TOOL_SEARCH` has no effect in this mode.
 
@@ -56,7 +56,7 @@ UAGENT_GPT54_TOOL_SEARCH=native
 
 - All tools are sent, as in mode B.
 - Management tools are omitted because server-side `tool_search` is used.
-- `_should_preload_lazy_specs()` becomes true, bypassing genre filtering and forcing all tools to be registered.
+- `_should_preload_lazy_specs()` becomes true, registering all available tool specs for server-side narrowing.
 
 ## Mode selection
 
@@ -107,7 +107,7 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 
 | Case | Is `tool_catalog` used? |
 |---|---|
-| Chat Completions API (for example, DeepSeek) | Yes; remaining tools are loaded dynamically after genre filtering |
+| Chat Completions API (for example, DeepSeek) | Yes; tools are discovered and loaded individually on demand |
 | Responses API + GPT-5.4 or later (default) | No; all tools are sent and the server performs `tool_search` |
 | Responses API + GPT-5.4 or later + `legacy` | Yes; `_select_tool_specs_legacy()` uses it explicitly |
 | Responses API + GPT-5.4 or later + `native` | No; `tool_catalog` itself is omitted |
@@ -115,7 +115,7 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 ### Implementation
 
 - `tool_catalog`, `tool_load`, and `unload_tool` are implemented in `tools/catalog_tool.py`.
-- These tools belong to the `devel` genre and use `tool_level=0`, so they are always enabled.
+- These management tools are available as core tools regardless of their descriptive genre metadata.
 - `_select_tool_specs_legacy()` analyzes user messages and adds related tools to the initial set.
 
 ## Environment variables
