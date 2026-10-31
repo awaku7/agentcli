@@ -170,3 +170,37 @@ def test_otel_backend_still_records_non_cancel_failure_on_unwind() -> None:
             {"exception.type": "builtins.RuntimeError"},
         )
     ]
+
+def test_otel_adapter_exports_standard_dynamic_metadata_only() -> None:
+    from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
+
+    class RawSpan:
+        def __init__(self) -> None:
+            self.attributes = {}
+            self.events = []
+
+        def set_attribute(self, key, value) -> None:
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None) -> None:
+            self.events.append((name, dict(attributes or {})))
+
+    raw = RawSpan()
+    span = OpenTelemetrySpan(raw, capture_content=False, operation="chat")
+    span.set_attribute("uag.tokens.reported.input", 42)
+    span.set_attribute("uag.tokens.reported.output", 5)
+    span.set_attribute("uag.tokens.reported.total", 47)
+    span.set_attribute("uag.tokens.estimate.input", 43)
+    span.set_attribute("uag.status", "ok")
+    span.set_attribute("uag.duration_ms", 250)
+    span.set_attribute("uag.error.type", "TimeoutError")
+    span.set_attribute("uag.context.kind", "messages")
+    span.add_event("test.event", {"uag.status": "ok", "uag.error.type": "Error"})
+    assert raw.attributes == {
+        "gen_ai.usage.input_tokens": 42,
+        "gen_ai.usage.output_tokens": 5,
+        "uag.tokens.estimate.input": 43,
+        "error.type": "TimeoutError",
+        "uag.context.kind": "messages",
+    }
+    assert raw.events == [("test.event", {"error.type": "Error"})]
