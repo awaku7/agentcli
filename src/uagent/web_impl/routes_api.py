@@ -40,10 +40,6 @@ from .process_workers import bind_room_auto_pilot
 from .app import app
 from .rooms import _handle_mode_command, web_manager
 
-# Tool genre state (initially all disabled; toggled via API)
-_genre_enabled: dict[str, bool] = {}
-
-
 def _request_identity(request: Request):
     identity = create_identity_resolver().resolve(request)
     if not identity.authenticated:
@@ -250,98 +246,6 @@ async def artifact_cleanup(req: Request):
         return fn(execute=True) if execute else fn()
     except Exception as exc:
         return JSONResponse(status_code=500, content={"error": str(exc)})
-
-
-def _web_genre_labels() -> dict[str, str]:
-    """Human-readable labels for every genre, kept in sync with _GENRE_BITMAP."""
-    return {
-        "basic": _("Basic (env, time, prompts, skills, memory, tools control)"),
-        "file": _(
-            "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
-        ),
-        "comm": _("Communication (Teams, Discord, Bluesky)"),
-        "office": _("Office (Excel, Word, PDF, PPT, document extraction)"),
-        "devel": _(
-            "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
-        ),
-        "iot": _(
-            "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
-        ),
-        "exec": _("Execution (cmd, python, pwsh, bash, sub-agent)"),
-        "external": _("External (A2A, MCP, fetch, search web)"),
-        "media": _("Media (image gen/edit/analyze, audio, QR code)"),
-        "index": _(
-            "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
-        ),
-        "dev": _("Dev (lint_js_ts, mdformat_check)"),
-        "web": _("Web (UCP commerce, public transit route)"),
-        "utility": _("Utility (geodesic distance, pdf export, quantities)"),
-    }
-
-
-@app.get("/api/tool-genres")
-async def get_tool_genres():
-    """Return list of available genres and their current enabled state."""
-    from ..tools._genre_control_util import _GENRE_BITMAP
-
-    labels = _web_genre_labels()
-    return {
-        "genres": [
-            {
-                "key": genre,
-                "label": labels.get(genre, genre),
-                "enabled": _genre_enabled.get(genre, False),
-            }
-            for genre in _GENRE_BITMAP
-        ],
-        "busy": (
-            web_manager.status.get("busy", False)
-            if hasattr(web_manager, "status")
-            else False
-        ),
-        "sandbox_enabled": bool(getattr(web_manager, "sandbox_enabled", False)),
-    }
-
-
-@app.post("/api/tool-genres")
-async def set_tool_genre(req: Request):
-    """Toggle a tool genre on/off. Only allowed when idle and not sandboxed."""
-    if bool(getattr(web_manager, "sandbox_enabled", False)):
-        return JSONResponse(
-            status_code=403,
-            content={"error": "tool genre changes are disabled in Sandbox mode"},
-        )
-
-    from ..tools._genre_control_util import _GENRE_BITMAP
-    from ..tools.genre_control_tool import _set_genre_tools_enabled
-
-    body = await req.json()
-    genre = str(body.get("genre", "")).strip().lower()
-    enabled = bool(body.get("enabled", False))
-
-    # Reject if busy
-    busy = bool(getattr(core, "status_busy", False)) or (
-        web_manager.room_worker_pool is not None and web_manager.room_worker_pool.busy
-    )
-    if busy:
-        return JSONResponse(
-            status_code=409,
-            content={
-                "error": "Cannot change genres while busy. Wait for the current task to complete."
-            },
-        )
-
-    if genre not in _GENRE_BITMAP:
-        return JSONResponse(
-            status_code=400, content={"error": f"Unknown genre: {genre}"}
-        )
-
-    try:
-        msg = _set_genre_tools_enabled(genre, enabled)
-        _genre_enabled[genre] = enabled
-        return {"ok": True, "genre": genre, "enabled": enabled, "message": msg}
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
 
 
 @app.get("/api/tools-enabled")
