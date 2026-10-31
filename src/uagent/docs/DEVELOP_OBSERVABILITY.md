@@ -95,7 +95,7 @@ Estimated request tokens and provider-reported usage remain distinct on both
 registry and fallback LLM spans:
 
 ```text
-uag.tokens.estimate.*         # UAG-only estimate
+uag.tokens.estimate.*         # UAG-only approximate input/output when available
 gen_ai.usage.input_tokens     # provider-reported input tokens
 gen_ai.usage.output_tokens    # provider-reported output tokens
 ```
