@@ -1,6 +1,7 @@
 """Genre-wide activation is retired; per-tool discovery remains available."""
 
 import inspect
+from pathlib import Path
 
 from uagent.util_common import parse_startup_args
 from uagent.web_impl.app import app
@@ -34,3 +35,23 @@ def test_individual_tool_discovery_remains():
     assert {"list", "load", "reload"} <= commands
     assert "on" not in commands
     assert "off" not in commands
+
+def test_web_clients_no_longer_request_genre_controls():
+    root = Path(__file__).resolve().parents[1]
+    paths = (
+        "frontend/src/App.svelte",
+        "frontend/src/lib/components/UnifiedPanel.svelte",
+        "frontend/src/lib/stores.svelte.js",
+        "src/uagent/static/assets/index.js",
+        "src/uagent/templates/index.html",
+    )
+    for path in paths:
+        source = (root / path).read_text(encoding="utf-8")
+        assert "/api/tool-genres" not in source
+        assert "toggleGenre(" not in source
+
+
+def test_tool_genre_remains_catalog_metadata():
+    from uagent.tools import get_tool_catalog
+
+    assert callable(get_tool_catalog)
