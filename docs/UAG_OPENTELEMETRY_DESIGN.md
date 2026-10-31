@@ -225,12 +225,20 @@ The canonical LLM trace is created at UAG's provider-neutral round boundary. Pha
 
 ## 9. Tokens and Decision Log
 
-Keep estimated and provider-reported token data distinct:
+Keep estimated and provider-reported token data distinct. Export measured usage
+on `chat` spans only as `gen_ai.usage.input_tokens` and
+`gen_ai.usage.output_tokens`. `uag.tokens.estimate.*` remains an explicitly
+UAG-specific estimate; missing usage is never fabricated. Total token usage
+is derivable from input/output counts, not redundantly exported.
 
-```text
-uag.tokens.estimate.*
-uag.tokens.reported.*
-```
+The OTel adapter emits only standard attributes for provider, model, agent,
+tool, token usage and error type. OTel Span Status and timestamps represent
+outcome and duration, so redundant `uag.status` and `uag.duration_ms` are
+not exported. Exceptional UAG outcomes such as `cancelled` (OTel UNSET) and
+`disabled` (OTel OK) retain `uag.status` because the standard span status
+cannot distinguish them. UAG-specific context decisions and side-effect classifications
+retain their `uag.*` namespace because no equivalent standard semantics exist.
+The internal UAG observability API stays provider-neutral.
 
 Do not present estimates as exact provider usage.
 

@@ -14,7 +14,7 @@ from .api import ObservabilitySpan, TraceIds
 from .delivery_status import update_delivery_status
 from .noop import NOOP_SPAN
 from .privacy import sanitize_attributes
-from .semantic_mapping import map_span
+from .semantic_mapping import map_attributes, map_span
 from .settings import ObservabilitySettings
 
 _METRIC_STRING_VALUES = {
@@ -181,7 +181,7 @@ class OpenTelemetrySpan:
     def set_attribute(self, key: str, value: Any) -> None:
         try:
             safe = sanitize_attributes(
-                {key: value}, capture_content=self._capture_content
+                map_attributes({key: value}), capture_content=self._capture_content
             )
             for name, item in safe.items():
                 self._span.set_attribute(name, item)
@@ -192,7 +192,9 @@ class OpenTelemetrySpan:
         try:
             self._span.add_event(
                 str(name),
-                sanitize_attributes(attributes, capture_content=self._capture_content),
+                sanitize_attributes(
+                    map_attributes(attributes), capture_content=self._capture_content
+                ),
             )
         except Exception:
             pass
@@ -408,7 +410,7 @@ class OpenTelemetryBackend:
             span.add_event(
                 str(name),
                 sanitize_attributes(
-                    attributes,
+                    map_attributes(attributes),
                     capture_content=self._settings.capture_content,
                 ),
             )
