@@ -153,9 +153,6 @@
         .settings-toggle-btn:hover { color: var(--accent); }
         .settings-toggle-btn.active { transform: rotate(90deg); color: var(--accent); }
 
-        /* === Genre Checkboxes === */
-        .genre-toggle { accent-color: var(--accent); }
-
         /* === Drop Zone === */
         #drop-zone {
             transition: border-color 0.2s, background 0.2s;
@@ -258,19 +255,6 @@
                         <option value="medium">medium</option>
                         <option value="high">high</option>
                     </select>
-                </div>
-                <div id="genre-controls" class="hidden flex items-center gap-2 flex-wrap">
-                    <span class="font-medium text-gray-500 dark:text-gray-400">Tools:</span>
-                    <span id="genre-checkboxes" class="flex items-center gap-2">
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="comm" class="genre-toggle"> comm</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="office" class="genre-toggle"> office</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="devel" class="genre-toggle"> devel</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="iot" class="genre-toggle"> iot</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="basic" class="genre-toggle"> basic</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="exec" class="genre-toggle"> exec</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="external" class="genre-toggle"> external</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="media" class="genre-toggle"> media</label>
-                    </span>
                 </div>
             </div>
         </div>
@@ -1081,47 +1065,6 @@
         humanAskInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') submitHumanAsk(); });
         applyI18n(UI_LANG);
         connect();
-
-        // Tool genre selection
-        (function() {
-            var checkboxes = document.querySelectorAll('.genre-toggle');
-            var busy = false;
-
-            function updateGenreUI() { checkboxes.forEach(function(cb) { cb.disabled = busy; }); }
-
-            function loadGenreState() {
-                fetch('/api/tool-genres').then(function(r) { return r.json(); }).then(function(data) {
-                    busy = data.busy || false;
-                    var genreControls = document.getElementById('genre-controls');
-                    if (genreControls) {
-                        genreControls.classList.toggle('hidden', data.sandbox_enabled !== false);
-                    }
-                    data.genres.forEach(function(g) {
-                        var cb = document.querySelector('.genre-toggle[data-genre="' + g.key + '"]');
-                        if (cb) cb.checked = g.enabled;
-                    });
-                    updateGenreUI();
-                }).catch(function() {});
-            }
-
-            function toggleGenre(genre, enabled) {
-                fetch('/api/tool-genres', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({genre: genre, enabled: enabled}) }).catch(function() {});
-            }
-
-            checkboxes.forEach(function(cb) {
-                cb.addEventListener('change', function() { toggleGenre(cb.dataset.genre, cb.checked); });
-            });
-
-            setInterval(function() {
-                fetch('/api/tool-genres').then(function(r) { return r.json(); }).then(function(data) {
-                    var wasBusy = busy;
-                    busy = data.busy || false;
-                    if (busy !== wasBusy) updateGenreUI();
-                }).catch(function() {});
-            }, 2000);
-
-            loadGenreState();
-        })();
 
         // --- Dark Mode Toggle ---
         function getPreferredTheme() {
