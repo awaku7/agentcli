@@ -9,9 +9,7 @@ def test_sidebar_search_requests_authorized_server_results() -> None:
     sidebar = (ROOT / "frontend/src/lib/components/Sidebar.svelte").read_text(
         encoding="utf-8"
     )
-    client = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(
-        encoding="utf-8"
-    )
+    client = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(encoding="utf-8")
 
     assert "fetchLogs(1, 30, query.trim())" in sidebar
     assert "oninput={scheduleSearch}" in sidebar
@@ -22,9 +20,7 @@ def test_sidebar_search_requests_authorized_server_results() -> None:
 
 
 def test_shipped_sidebar_search_matches_source() -> None:
-    bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(
-        encoding="utf-8"
-    )
+    bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
 
     assert 'ho("input",K,scheduleSearch)' in bundle
     assert "xi(1,30,a(s).trim())" in bundle
