@@ -2,8 +2,6 @@
 
 import inspect
 
-from fastapi.testclient import TestClient
-
 from uagent.util_common import parse_startup_args
 from uagent.web_impl.app import app
 
@@ -18,9 +16,7 @@ def test_genre_mask_cli_option_removed(monkeypatch):
 
 
 def test_genre_control_api_removed():
-    client = TestClient(app)
-    assert client.get("/api/tool-genres").status_code == 404
-    assert client.post("/api/tool-genres", json={"genre": "basic"}).status_code == 404
+    assert not any(getattr(route, "path", "") == "/api/tool-genres" for route in app.routes)
 
 
 def test_individual_tool_discovery_remains():
