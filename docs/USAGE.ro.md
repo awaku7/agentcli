@@ -22,35 +22,6 @@ ______________________________________________________________________
 Director de lucru. Dacă nu este setat, se utilizează variabila de mediu `UAGENT_WORKDIR`, apoi directorul curent.
 Directorul este creat dacă nu există.
 
-### `--tool-genre-mask <int>`
-
-Masca de biți pentru genul de instrument. Când este specificată, se omite solicitarea interactivă de selectare a genului.
-
-| Bit | Gen | Descriere |
-|-----|-------|-------------|
-| 1 | basic | Instrumente esențiale pentru fișiere/chat |
-| 2 | comm | Instrumente de comunicare (Bluesky, Teams) |
-| 4 | office | Instrumente pentru suita Office (Excel, PDF, PPTX) |
-| 8 | devel | Instrumente de dezvoltare (git, lint, compile) |
-| 16 | iot | Instrumente pentru dispozitive IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Instrumente de execuție a comenzilor |
-| 64 | external | Instrumente pentru pluginuri externe |
-| 128 | media | Generare și analiză de imagini/audio |
-| 256 | file | Instrumente de gestionare a fișierelor |
-| 512 | index | Instrumente de navigare în surse/index |
-| 1024 | dev | Instrumente pentru dezvoltatori și depozite |
-| 2048 | web | Instrumente web și pentru browser |
-| 4096 | utility | Instrumente utilitare și de asistență |
-| 8191 | all | Toate instrumentele |
-
-Exemple:
-
-```
-uag --tool-genre-mask 1 # doar instrumente de bază
-uag --tool-genre-mask 9 # instrumente de bază + de dezvoltare (1 + 8)
-uag --tool-genre-mask 8191    # toate instrumentele
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Activează sau dezactivează trimiterea definițiilor instrumentelor către LLM. Suprascrie variabila de mediu `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Modul încorporat pentru implementări cu restricții sau sensibile la reproduct
 
 - Dezactivează stocarea sesiunilor.
 - Ascunde instrumentele de gestionare a instrumentelor (`tool_catalog`, `tool_load`, `unload_tool`) dacă nu sunt activate în mod explicit.
-- Ignoră `--tool-genre-mask`; utilizați `--enable-tool` pentru încărcarea explicită a instrumentelor.
 
 ### `--enable-tool <nume>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Selectați genurile de instrumente folosind aceeași mască de biți descrisă mai sus. Când este specificată, solicitarea interactivă privind genul este omisă.
-
 ### `--use-tool` / `--no-use-tool`
 
 Activează sau dezactivează trimiterea definițiilor instrumentelor către LLM. Suprascrie `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Activează reîncărcarea din mers la modificările de cod (implicit: dezactivat
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Selectează genurile de instrumente folosind masca de biți descrisă mai sus. Când este specificată, solicitarea interactivă privind genul este omisă.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Server web pe toate interfețele
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Dezactivare instrumente pentru un model mic
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Prelucrare neinteractivă a fișierelor
