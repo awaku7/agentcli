@@ -102,7 +102,9 @@ gen_ai.usage.output_tokens    # provider-reported output tokens
 
 Only standard GenAI attributes are exported when equivalent semantics
 exist. The adapter removes duplicate `uag.tokens.reported.*` aliases and
-does not export redundant total-token, status, or duration span attributes.
+does not export redundant total-token, ordinary status, or duration attributes.
+Nonstandard outcomes such as `cancelled` and `disabled` retain `uag.status`
+because OTel span status cannot otherwise distinguish them.
 Other standard projections include `gen_ai.provider.name`,
 `gen_ai.request.model`, `gen_ai.agent.name`, `gen_ai.tool.name`,
 and `error.type`. Span status and timestamps express outcome and duration.
