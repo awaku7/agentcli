@@ -22,35 +22,6 @@ ______________________________________________________________________
 Direktoryo ng trabaho. Kung hindi ito itinakda, babalik ito sa `UAGENT_WORKDIR` na env var, at pagkatapos ay sa kasalukuyang direktoryo.
 Lilikhain ang direktoryo kung hindi ito umiiral.
 
-### `--tool-genre-mask <int>`
-
-Bitmask ng genre ng tool. Kapag itinakda, hindi ipinapakita ang interaktibong prompt para sa pagpili ng genre.
-
-| Bit | Genre | Deskripsyon |
-|-----|-------|-------------|
-| 1 | basic | Mga pangunahing kagamitan sa file/chat |
-| 2 | comm | Mga kagamitan sa komunikasyon (Bluesky, Teams) |
-| 4 | office | Mga kagamitan sa office suite (Excel, PDF, PPTX) |
-| 8 | devel | Mga kasangkapan sa pag-develop (git, lint, compile) |
-| 16 | iot | Mga kasangkapan para sa device na IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Mga kasangkapan sa pagpapatupad ng utos |
-| 64 | external | Mga kasangkapan para sa panlabas na plugin |
-| 128 | media | Paglikha at pagsusuri ng imahe/audio |
-| 256 | file | Mga kasangkapan sa pamamahala ng file |
-| 512 | index | Mga kasangkapan sa pag-navigate ng source/index |
-| 1024 | dev | Mga kasangkapan para sa developer at repositoryo |
-| 2048 | web | Mga kasangkapan para sa web at browser |
-| 4096 | utility | Mga utility at suportang kasangkapan |
-| 8191 | all | Lahat ng kasangkapan |
-
-Mga Halimbawa:
-
-```
-uag --tool-genre-mask 1 # pangunahing lamang
-uag --tool-genre-mask 9 # pangunahing + devel (1 + 8)
-uag --tool-genre-mask 8191    # lahat ng mga tool
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Pinapagana o pinapatay ang pagpapadala ng mga depinisyon ng tool sa LLM. Pinapawalang-bisa nito ang `UAGENT_USE_TOOL` na environment variable.
@@ -74,7 +45,6 @@ Embedded mode para sa mga deployment na may limitasyon o sensitibo sa reproducib
 
 - Pinapatay ang session store.
 - Itinatago ang mga tool para sa pamamahala (`tool_catalog`, `tool_load`, `unload_tool`) maliban kung tahasang pinagana.
-- Hindi pinapansin ang `--tool-genre-mask`; gamitin ang `--enable-tool` para sa tahasang pag-load ng tool.
 
 ### `--enable-tool <name>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Pumili ng mga genre ng tool gamit ang parehong bitmask na inilarawan sa itaas. Kapag tinukoy, hindi ipinapakita ang interactive na prompt para sa genre.
-
 ### `--use-tool` / `--no-use-tool`
 
 I-enable o i-disable ang pagpapadala ng mga tool definition sa LLM. Pinapawalang-bisa ang `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Pinapagana ang hot reload sa mga pagbabago sa code (default: naka-off, maaaring 
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Pumili ng mga genre ng tool gamit ang bitmask na inilarawan sa itaas. Kapag tinukoy, hindi ipinapakita ang interactive na genre prompt.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Web server sa lahat ng interface
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### I-disable ang mga tool para sa maliit na modelo
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Hindi interaktibong pagpoproseso ng file
