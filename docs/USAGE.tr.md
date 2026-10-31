@@ -22,35 +22,6 @@ ______________________________________________________________________
 Çalışma dizini. Ayarlanmazsa, `UAGENT_WORKDIR` ortam değişkenine, ardından da geçerli dizine başvurulur.
 Dizin yoksa oluşturulur.
 
-### `--tool-genre-mask <int>`
-
-Araç türü bit maskesi. Belirtildiğinde, etkileşimli tür seçimi istemi atlanır.
-
-| Bit | Tür | Açıklama |
-|-----|-------|-------------|
-| 1 | basic | Temel dosya/sohbet araçları |
-| 2 | comm | İletişim araçları (Bluesky, Teams) |
-| 4 | office | Ofis paketi araçları (Excel, PDF, PPTX) |
-| 8 | devel | Geliştirme araçları (git, lint, derleme) |
-| 16 | iot | IoT cihaz araçları (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Komut yürütme araçları |
-| 64 | external | Harici eklenti araçları |
-| 128 | media | Görüntü/ses oluşturma ve analiz |
-| 256 | file | Dosya yönetimi araçları |
-| 512 | index | Kaynak/dizin gezinme araçları |
-| 1024 | dev | Geliştirici ve depo araçları |
-| 2048 | web | Web ve tarayıcı araçları |
-| 4096 | utility | Yardımcı ve destek araçları |
-| 8191 | all | Tüm araçlar |
-
-Örnekler:
-
-```
-uag --tool-genre-mask 1 # sadece temel
-uag --tool-genre-mask 9 # temel + geliştirme (1 + 8)
-uag --tool-genre-mask 8191    # tüm araçlar
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Araç tanımlarının LLM'e gönderilmesini etkinleştirir veya devre dışı bırakır. `UAGENT_USE_TOOL` ortam değişkenini geçersiz kılar.
@@ -74,7 +45,6 @@ Kısıtlı veya tekrarlanabilirliğe duyarlı dağıtımlar için gömülü mod.
 
 - Oturum deposunu devre dışı bırakır.
 - Açıkça etkinleştirilmedikçe araç yönetimi araçlarını (`tool_catalog`, `tool_load`, `unload_tool`) gizler.
-- `--tool-genre-mask` seçeneğini yok sayar; araçları açıkça yüklemek için `--enable-tool` seçeneğini kullanın.
 
 ### `--enable-tool <ad>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Yukarıda açıklanan bit maskesini kullanarak araç türlerini seçin. Belirtildiğinde, etkileşimli tür istem atlanır.
-
 ### `--use-tool` / `--no-use-tool`
 
 LLM'e araç tanımlarının gönderilmesini etkinleştirir veya devre dışı bırakır. `UAGENT_USE_TOOL` ayarını geçersiz kılar.
@@ -178,10 +144,6 @@ Kod değişikliklerinde anında yeniden yüklemeyi etkinleştirir (varsayılan: 
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Yukarıda açıklanan bit maskesini kullanarak araç türlerini seçin. Belirtildiğinde, etkileşimli tür sorusu atlanır.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Tüm arayüzlerde web sunucusu
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Küçük bir model için araçları devre dışı bırak
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Etkileşimsiz dosya işleme
