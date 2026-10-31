@@ -144,13 +144,7 @@ def test_cli_startup_skips_host_tool_selection_when_sandboxed(monkeypatch) -> No
     from uagent import cli_startup
     from uagent.tools import _genre_control_util
 
-    mask_calls = []
     tool_calls = []
-    monkeypatch.setattr(
-        cli_startup,
-        "_apply_startup_tool_genre_mask",
-        lambda mask: mask_calls.append(mask),
-    )
     monkeypatch.setattr(
         _genre_control_util,
         "enable_single_tool",
@@ -164,19 +158,15 @@ def test_cli_startup_skips_host_tool_selection_when_sandboxed(monkeypatch) -> No
 
     cli_startup._configure_cli_startup_tools(
         sandbox_enabled=True,
-        tool_genre_mask=8191,
         enable_tools=["preprocess_image"],
     )
 
-    assert mask_calls == []
     assert tool_calls == []
 
     cli_startup._configure_cli_startup_tools(
         sandbox_enabled=False,
-        tool_genre_mask=8191,
         enable_tools=["first", "second"],
     )
-    assert mask_calls == [8191]
     assert [call[:2] for call in tool_calls] == [
         ("enable", "second"),
         ("pin", "second"),
