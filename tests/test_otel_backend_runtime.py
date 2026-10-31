@@ -171,6 +171,7 @@ def test_otel_backend_still_records_non_cancel_failure_on_unwind() -> None:
         )
     ]
 
+
 def test_otel_adapter_exports_standard_dynamic_metadata_only() -> None:
     from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
 
