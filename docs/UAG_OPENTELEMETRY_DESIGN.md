@@ -233,8 +233,10 @@ is derivable from input/output counts, not redundantly exported.
 
 The OTel adapter emits only standard attributes for provider, model, agent,
 tool, token usage and error type. OTel Span Status and timestamps represent
-outcome and duration, so `uag.status` and `uag.duration_ms` are not exported
-as span attributes. UAG-specific context decisions and side-effect classifications
+outcome and duration, so redundant `uag.status` and `uag.duration_ms` are
+not exported. Exceptional UAG outcomes such as `cancelled` (OTel UNSET) and
+`disabled` (OTel OK) retain `uag.status` because the standard span status
+cannot distinguish them. UAG-specific context decisions and side-effect classifications
 retain their `uag.*` namespace because no equivalent standard semantics exist.
 The internal UAG observability API stays provider-neutral.
 
