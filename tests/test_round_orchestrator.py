@@ -347,9 +347,7 @@ def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
                     "index": 0,
                 },
             )
-            yield StreamEvent(
-                "ResponseCompleted", request.identifiers, 2, 0.0, {}
-            )
+            yield StreamEvent("ResponseCompleted", request.identifiers, 2, 0.0, {})
 
     span = Span()
     monkeypatch.setattr(
