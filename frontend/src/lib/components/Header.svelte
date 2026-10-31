@@ -1,9 +1,10 @@
 <script>
   import { t } from '../../lib/i18n.svelte.js';
-  import { getStatus, getRoomId } from '../../lib/stores.svelte.js';
+  import { getStatus, getCurrentTool, getRoomId } from '../../lib/stores.svelte.js';
 
   let { onToggleSidebar } = $props();
   let status = $derived(getStatus());
+  let currentTool = $derived(getCurrentTool());
   let dark = $state(document.documentElement.classList.contains('dark'));
 
   function toggleDark() {
@@ -35,10 +36,7 @@
     <span class="text-xs font-mono ml-2 px-1.5 py-0.5 rounded" style="color:var(--accent);background:var(--accent-subtle);">{status.workdir ? `workdir: ${status.workdir}` : ''}</span>
   </div>
   <div class="flex items-center gap-2 shrink-0">
-    <span class="text-xs font-semibold px-2 py-0.5 rounded-full" class:status-idle={!status.busy} class:status-busy={status.busy} style="background:{status.busy ? 'rgba(239,68,68,0.1)' : 'rgba(16,185,129,0.1)'};">{status.label}</span>
-    {#if status.busy}
-      <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,0.15);color:var(--status-busy);">{t('toolRunning')}</span>
-    {/if}
+    <span class="text-xs font-semibold px-2 py-0.5 rounded-full truncate" class:status-idle={!status.busy} class:status-busy={status.busy} style="max-width:clamp(7rem,24vw,18rem);background:{status.busy ? 'rgba(239,68,68,0.1)' : 'rgba(16,185,129,0.1)'};" title={status.busy && currentTool ? currentTool : status.label}>{status.busy && currentTool ? `${currentTool} · ${t('toolRunning')}` : status.label}</span>
     <button onclick={toggleDark} class="w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer border" style="background:transparent;border-color:var(--border-color);color:var(--text-secondary);" title={t('darkMode')}>{dark ? '☀️' : '🌙'}</button>
   </div>
 </div>
