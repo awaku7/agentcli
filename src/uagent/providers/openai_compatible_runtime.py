@@ -8,6 +8,7 @@ outside this module.
 from __future__ import annotations
 
 import json
+import re
 import sys
 import time
 from typing import TYPE_CHECKING, Any, Iterator, Mapping
@@ -76,6 +77,16 @@ def _reported_usage(usage: Any, *, responses: bool) -> dict[str, int]:
 def _terminal_usage(usage: Any, *, responses: bool) -> dict[str, Any]:
     reported = _reported_usage(usage, responses=responses)
     return {"usage": reported} if reported else {}
+
+
+def _azure_stream_usage_supported() -> bool:
+    """Do not add unsupported options to older Azure OpenAI API versions."""
+    version = (env_get("UAGENT_AZURE_API_VERSION", "") or "").strip().lower()
+    match = re.fullmatch(r"(\d{4}-\d{2}-\d{2})(-preview)?", version)
+    if match is None:
+        return False
+    date, preview = match.groups()
+    return date >= ("2024-08-01" if preview else "2024-10-21")
 
 
 def _reasoning_text(value: Any) -> str:
@@ -389,10 +400,15 @@ class OpenAICompatibleRuntime:
                     for key, value in request.payload.items()
                     if key != "transport"
                 }
-                # OpenAI/Azure omit streaming usage unless explicitly requested.
-                # Do not send this option to other compatible servers that may
-                # reject it; use their usage data when they provide it.
-                if self._streaming and self._provider in {"openai", "azure"}:
+                # Request final usage only on known-compatible endpoints.
+                # Older Azure API versions reject stream_options entirely.
+                if self._streaming and (
+                    self._provider == "openai"
+                    or (
+                        self._provider == "azure"
+                        and _azure_stream_usage_supported()
+                    )
+                ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
                     stream_options.setdefault("include_usage", True)
                     chat_payload["stream_options"] = stream_options
