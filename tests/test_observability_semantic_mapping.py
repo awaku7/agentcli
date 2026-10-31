@@ -121,10 +121,6 @@ def test_invalid_usage_values_are_not_exported_as_standard_counts() -> None:
 
 
 def test_cancellation_and_disabled_remain_distinguishable_from_unset_or_ok() -> None:
-    assert map_attributes({"uag.status": "cancelled"}) == {
-        "uag.status": "cancelled"
-    }
-    assert map_attributes({"uag.status": "disabled"}) == {
-        "uag.status": "disabled"
-    }
+    assert map_attributes({"uag.status": "cancelled"}) == {"uag.status": "cancelled"}
+    assert map_attributes({"uag.status": "disabled"}) == {"uag.status": "disabled"}
     assert map_attributes({"uag.status": "completed"}) == {}
