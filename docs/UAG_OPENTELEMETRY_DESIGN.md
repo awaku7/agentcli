@@ -233,8 +233,10 @@ is derivable from input/output counts, not redundantly exported.
 
 Registry Chat Completions and Responses adapters forward verified, non-negative
 per-request usage from the provider response (including final streaming usage
-chunks) to the terminal event. OpenAI/Azure Chat Completions streaming requests
-opt into `stream_options.include_usage`; other compatible providers are not
+chunks) to the terminal event. OpenAI Chat Completions streaming requests
+opt into `stream_options.include_usage`; Azure does so only for known-supporting
+API versions (2024-08-01-preview onward or 2024-10-21 GA onward).
+Other compatible providers are not
 sent unsupported request options. A missing final usage chunk, unsupported
 provider, or omitted field stays unreported rather than being estimated or
 converted to zero. The orchestrator never subtracts a previous response's
