@@ -456,6 +456,12 @@ class WebRoom:
 
     def set_status(self, busy: bool, label: str = ""):
         self.touch()
+        if not busy:
+            # A tool can reset the status while another parallel tool remains
+            # active. Only the turn-level final IDLE may clear tool activity.
+            with self._lifecycle_lock:
+                if self._active_tool_calls:
+                    return
         workdir = self.base_dir
         try:
             label = core.normalize_status_label(busy, label)
