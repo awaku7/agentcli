@@ -22,13 +22,7 @@ ______________________________________________________________________
 Pracovní adresář. Pokud není nastaven, použije se proměnná prostředí \`UAGENT_WORKDIR, a pokud ta není nastavena, použije se aktuální adresář.
 Adresář se vytvoří, pokud neexistuje.
 
-### `--tool-genre-mask <int>`
-
-Bitová maska žánru nástroje. Je-li zadána, přeskočí se interaktivní výzva k výběru žánru.
-
-| Bit | Žánr | Popis |
-|-----|-------|-------------|
-| 1 | basic | Základní nástroje pro práci se soubory a chat |
+Základní nástroje pro práci se soubory a chat |
 | 2 | comm | Komunikační nástroje (Bluesky, Teams) |
 | 4 | office | Nástroje kancelářského balíku (Excel, PDF, PPTX) |
 | 8 | devel | Vývojové nástroje (git, lint, compile) |
@@ -46,9 +40,9 @@ Bitová maska žánru nástroje. Je-li zadána, přeskočí se interaktivní vý
 Příklady:
 
 ```
-uag --tool-genre-mask 1 # pouze základní
-uag --tool-genre-mask 9 # základní + vývoj (1 + 8)
-uag --tool-genre-mask 8191    # všechny nástroje
+uag
+uag
+uag
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -74,7 +68,6 @@ Vestavěný režim pro nasazení s omezeními nebo citlivá na reprodukovatelnos
 
 - Zakáže úložiště relací.
 - Skryje nástroje pro správu nástrojů (`tool_catalog`, `tool_load`, `unload_tool`), pokud nejsou výslovně povoleny.
-- Ignoruje `--tool-genre-mask`; pro explicitní načtení nástroje použijte `--enable-tool`.
 
 ### `--enable-tool <název>`
 
@@ -139,10 +132,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Vyberte žánry nástrojů pomocí stejné bitové masky, jaká byla popsána výše. Je-li zadáno, přeskočí se interaktivní výzva k výběru žánru.
-
 ### `--use-tool` / `--no-use-tool`
 
 Zapne nebo vypne odesílání definic nástrojů do LLM. Přepíše `UAGENT_USE_TOOL`.
@@ -178,10 +167,6 @@ Zapne automatické načtení změn kódu za běhu (výchozí: vypnuto, lze přep
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Výběr žánrů nástrojů pomocí výše popsané bitové masky. Je-li zadáno, přeskočí se interaktivní výzva k výběru žánru.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +223,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webový server na všech rozhraních
@@ -265,7 +250,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Zakázat nástroje pro malý model
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Neinteraktivní zpracování souboru

@@ -86,15 +86,7 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
 
     resolver.authenticated = True
     assert client.get("/api/tools-enabled").status_code == 200
-    assert client.get("/api/tool-genres").status_code == 200
     assert client.post("/api/tools-enabled", json={"enabled": False}).status_code == 403
-    assert (
-        client.post(
-            "/api/tool-genres",
-            json={"genre": "__invalid__", "enabled": True},
-        ).status_code
-        == 403
-    )
     assert client.get("/api/artifacts/cleanup/report").status_code == 403
     assert (
         client.post(
@@ -108,51 +100,12 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
     resolver.principal = "admin"
     assert client.get("/api/artifacts/cleanup/report").status_code == 200
     assert client.post("/api/tools-enabled", json={"enabled": True}).status_code == 200
-    assert (
-        client.post(
-            "/api/tool-genres",
-            json={"genre": "__invalid__", "enabled": True},
-        ).status_code
-        == 400
-    )
     response = client.post(
         "/api/artifacts/cleanup",
         json={"execute": True, "confirm": "DELETE"},
     )
     assert response.status_code == 200
     assert cleanup_calls == [True]
-
-
-def test_sandboxed_web_rejects_tool_genre_changes_before_plugin_import(monkeypatch):
-    import builtins
-
-    from uagent.web_impl.rooms import web_manager
-
-    resolver = _Resolver("admin", authn_kind="local")
-    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
-    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
-    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
-
-    original_import = builtins.__import__
-
-    def reject_genre_controller_import(name, *args, **kwargs):
-        if name.endswith("tools.genre_control_tool"):
-            raise AssertionError("Sandbox route must not import host genre plugins")
-        return original_import(name, *args, **kwargs)
-
-    monkeypatch.setattr(builtins, "__import__", reject_genre_controller_import)
-    client = TestClient(app)
-
-    genres = client.get("/api/tool-genres")
-    assert genres.status_code == 200
-    assert genres.json()["sandbox_enabled"] is True
-
-    response = client.post(
-        "/api/tool-genres",
-        json={"genre": "media", "enabled": True},
-    )
-    assert response.status_code == 403
-    assert "Sandbox mode" in response.json()["error"]
 
 
 def test_project_membership_revocation_invalidates_matching_sandbox_scope(

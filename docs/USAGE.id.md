@@ -22,35 +22,6 @@ ______________________________________________________________________
 Direktori kerja. Jika tidak ditentukan, akan menggunakan variabel lingkungan `UAGENT_WORKDIR` sebagai cadangan, lalu direktori saat ini.
 Direktori akan dibuat jika belum ada.
 
-### `--tool-genre-mask <int>`
-
-Bitmask genre alat. Jika ditentukan, prompt pemilihan genre interaktif akan dilewati.
-
-| Bit | Genre | Deskripsi |
-|-----|-------|-------------|
-| 1 | basic | Alat file/obrolan esensial |
-| 2 | comm | Alat komunikasi (Bluesky, Teams) |
-| 4 | office | Alat suite kantor (Excel, PDF, PPTX) |
-| 8 | devel | Alat pengembangan (git, lint, compile) |
-| 16 | iot | Alat perangkat IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Alat eksekusi perintah |
-| 64 | external | Alat plugin eksternal |
-| 128 | media | Pembuatan dan analisis gambar/audio |
-| 256 | file | Alat pengelolaan berkas |
-| 512 | index | Alat navigasi sumber/indeks |
-| 1024 | dev | Alat pengembang dan repositori |
-| 2048 | web | Alat web dan peramban |
-| 4096 | utility | Alat utilitas dan dukungan |
-| 8191 | all | Semua alat |
-
-Contoh:
-
-```
-uag --tool-genre-mask 1 # hanya dasar
-uag --tool-genre-mask 9 # dasar + pengembangan (1 + 8)
-uag --tool-genre-mask 8191    # semua alat
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Mengaktifkan atau menonaktifkan pengiriman definisi alat ke LLM. Menggantikan variabel lingkungan `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Mode tertanam untuk penerapan yang terkendala atau sensitif terhadap reproduktif
 
 - Menonaktifkan penyimpanan sesi.
 - Menyembunyikan alat manajemen alat (`tool_catalog`, `tool_load`, `unload_tool`) kecuali diaktifkan secara eksplisit.
-- Mengabaikan `--tool-genre-mask`; gunakan `--enable-tool` untuk memuat alat secara eksplisit.
 
 ### `--enable-tool <nama>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Pilih genre alat menggunakan bitmask yang sama seperti yang dijelaskan di atas. Jika ditentukan, prompt genre interaktif akan dilewati.
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktifkan atau nonaktifkan pengiriman definisi alat ke LLM. Menggantikan `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Aktifkan pemuatan ulang otomatis saat terjadi perubahan kode (default: nonaktif,
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Pilih genre alat menggunakan bitmask yang dijelaskan di atas. Jika ditentukan, prompt genre interaktif akan dilewati.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Server web di semua antarmuka
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Menonaktifkan alat untuk model kecil
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Pemrosesan berkas non-interaktif

@@ -42,7 +42,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :env ...              " + tr("Show/set/unset/save UAGENT_* env"),
         "  :skills ...           " + tr("List/apply/install skills"),
         "  :sessions ...         " + tr("Search/manage opt-in SQLite sessions"),
-        "  :tools ...            " + tr("List/load/on/off tools and genres"),
+        "  :tools ...            " + tr("Tools"),
         "  :plugin ...           " + tr("Manage plugins"),
         "  :tool create ...      " + tr("Scaffold a new tool module"),
         "  :auto <goal>|off      " + tr("Auto-pilot loop / stop"),
@@ -239,15 +239,19 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             ),
         ),
         "tools": e(
-            tr("Control tool sending, genres, and loaded tools"),
+            tr("Tools"),
             usage=(":tools [list|load|on|off|reload|output] ..."),
-            detail=tr(
-                ":tools on|off           Enable/disable sending tools to the LLM\n"
-                ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
-                ":tools list [query]     List loaded tools\n"
-                ":tools load <name>      Load one tool by name\n"
-                ":tools reload           Reload tool modules from disk\n"
-                ":tools output           Toggle showing tool results in UI"
+            detail="\n".join(
+                line
+                for line in tr(
+                    ":tools on|off           Enable/disable sending tools to the LLM\n"
+                    ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+                    ":tools list [query]     List loaded tools\n"
+                    ":tools load <name>      Load one tool by name\n"
+                    ":tools reload           Reload tool modules from disk\n"
+                    ":tools output           Toggle showing tool results in UI"
+                ).splitlines()
+                if "<genre>" not in line
             ),
         ),
         "tool": e(

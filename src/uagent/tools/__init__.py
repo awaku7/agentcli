@@ -878,27 +878,14 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         ):
             return False
 
-    # Optional tool level in TOOL_SPEC (default: 0; -1 if tool_genre is set)
-    # - tool_level == -1: disabled (do not register/load as LLM tool, but allow dynamic commands)
-    # - tool_level == 0 or missing: enabled
-    # - tool_level == 1: conditional loading (currently treated as disabled)
-    # - Tools with a tool_genre start disabled by default (genre control enables them)
+    # tool_level controls per-tool lazy loading; tool_genre is classification
+    # metadata, not an enable/disable switch.
+    # -1: never register; 0: always register; 1: dynamically load on demand.
     try:
         default_level = 1 if spec.get("tool_genre") else 0
         tool_level = int(spec.get("tool_level", default_level))
     except Exception:
         tool_level = 1 if spec.get("tool_genre") else 0
-
-    # If the tool's genre is currently enabled, force tool_level to 0
-    # so that _load_plugins() clear+reload preserves genre-enabled tools.
-    if tool_level == 1 and spec.get("tool_genre"):
-        try:
-            from ._genre_control_util import _ENABLED_GENRES
-
-            if spec["tool_genre"] in _ENABLED_GENRES:
-                tool_level = 0
-        except Exception:
-            pass
 
     # In native GPT-5.4 tool_search mode, register all tools regardless of genre
     # so the full tool set is sent to the server for server-side narrowing.
@@ -1026,16 +1013,6 @@ def _register_extra_spec(
         tool_level = int(spec.get("tool_level", default_level))
     except Exception:
         tool_level = 1 if spec.get("tool_genre") else 0
-
-    # Genre enable check
-    if tool_level == 1 and spec.get("tool_genre"):
-        try:
-            from ._genre_control_util import _ENABLED_GENRES
-
-            if spec["tool_genre"] in _ENABLED_GENRES:
-                tool_level = 0
-        except Exception:
-            pass
 
     # Native GPT-5.4 tool_search mode: register all tools regardless of genre
     if tool_level == 1 and _should_preload_lazy_specs():

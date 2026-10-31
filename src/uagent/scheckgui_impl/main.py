@@ -161,14 +161,6 @@ def main():
     configure_decision_settings(cli_provider=getattr(args, "decision_provider", None))
     _runtime_init.validate_or_exit_startup_env(context="gui")
 
-    if sandbox_mode == "off":
-        _mask = getattr(args, "tool_genre_mask", None)
-        if _mask is None:
-            _mask = 0  # default: nothing
-        from ..cli_startup import _apply_startup_tool_genre_mask
-
-        _apply_startup_tool_genre_mask(_mask)
-
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
     from ..env_utils import env_get as _env_get

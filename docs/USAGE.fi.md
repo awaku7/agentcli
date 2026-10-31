@@ -22,35 +22,6 @@ ______________________________________________________________________
 Työkansio. Jos sitä ei ole määritetty, käytetään oletuksena ympäristömuuttujaa `UAGENT_WORKDIR` ja sen jälkeen nykyistä hakemistoa.
 Hakemisto luodaan, jos sitä ei ole olemassa.
 
-### `--tool-genre-mask <int>`
-
-Työkalutyyppien bittimaski. Kun tämä annetaan, interaktiivinen tyyppivalintakysely ohitetaan.
-
-| Bitti | Tyyppi | Kuvaus |
-|-----|-------|-------------|
-| 1 | basic | Tärkeimmät tiedosto- ja chat-työkalut |
-| 2 | comm | Viestintätyökalut (Bluesky, Teams) |
-| 4 | office | Toimistopaketin työkalut (Excel, PDF, PPTX) |
-| 8 | devel | Kehitystyökalut (git, lint, compile) |
-| 16 | iot | IoT-laitetuotteet (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Komentojen suoritustyökalut |
-| 64 | external | Ulkoiset laajennustyökalut |
-| 128 | media | Kuva- ja äänituotanto sekä -analyysi |
-| 256 | file | Tiedostojenhallintatyökalut |
-| 512 | index | Lähde- ja hakemistojen selaustyökalut |
-| 1024 | dev | Kehittäjä- ja arkistotyökalut |
-| 2048 | web | Verkkotyökalut ja selaintyökalut |
-| 4096 | utility | Apu- ja tukityökalut |
-| 8191 | all | Kaikki työkalut |
-
-Esimerkkejä:
-
-```
-uag --tool-genre-mask 1 # vain perus
-uag --tool-genre-mask 9 # perus + kehitys (1 + 8)
-uag --tool-genre-mask 8191    # kaikki työkalut
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Ota käyttöön tai poista käytöstä työkalumääritelmien lähettäminen LLM:ään. Ohittaa `UAGENT_USE_TOOL`-ympäristömuuttujan.
@@ -74,7 +45,6 @@ Upotettu tila rajoitetuille tai toistettavuudelle herkille käyttöönotoille.
 
 - Poistaa istuntotallennustilan käytöstä.
 - Piilottaa työkalujen hallintatyökalut (`tool_catalog`, `tool_load`, `unload_tool`), ellei niitä ole nimenomaisesti otettu käyttöön.
-- Ohittaa `--tool-genre-mask`-vaihtoehdon; käytä `--enable-tool`-vaihtoehtoa työkalun nimenomaiseen lataamiseen.
 
 ### `--enable-tool <nimi>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Valitse työkalutyypit käyttämällä samaa edellä kuvattua bittimaskia. Kun tämä määritetään, interaktiivinen tyyppikysely ohitetaan.
-
 ### `--use-tool` / `--no-use-tool`
 
 Ota käyttöön tai poista käytöstä työkalumääritelmien lähettäminen LLM:ään. Ohittaa `UAGENT_USE_TOOL`-asetuksen.
@@ -178,10 +144,6 @@ Ota käyttöön koodin muutosten yhteydessä tapahtuva automaattinen uudelleenla
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Valitse työkalutyypit yllä kuvatun bittimaskin avulla. Kun tämä on määritetty, interaktiivinen tyyppikysely ohitetaan.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Verkkopalvelin kaikilla rajapinnoilla
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Työkalujen poistaminen käytöstä pienessä mallissa
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Ei-interaktiivinen tiedostojen käsittely

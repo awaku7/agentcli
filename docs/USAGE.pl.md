@@ -22,35 +22,6 @@ ______________________________________________________________________
 Katalog roboczy. Jeśli nie zostanie ustawiony, domyślnie przyjmowana jest zmienna środowiskowa `UAGENT_WORKDIR`, a następnie bieżący katalog.
 Katalog zostanie utworzony, jeśli nie istnieje.
 
-### `--tool-genre-mask <int>`
-
-Maska bitowa typu narzędzia. Jeśli zostanie podana, pomijany jest interaktywny monit o wybór typu narzędzia.
-
-| Bit | Typ | Opis |
-|-----|-------|-------------|
-| 1 | basic | Podstawowe narzędzia do obsługi plików i czatu |
-| 2 | comm | Narzędzia komunikacyjne (Bluesky, Teams) |
-| 4 | office | Narzędzia pakietu biurowego (Excel, PDF, PPTX) |
-| 8 | devel | Narzędzia programistyczne (git, lint, kompilacja) |
-| 16 | iot | Narzędzia do urządzeń IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Narzędzia do wykonywania poleceń |
-| 64 | external | Narzędzia do wtyczek zewnętrznych |
-| 128 | media | Generowanie i analiza obrazów/dźwięku |
-| 256 | file | Narzędzia do zarządzania plikami |
-| 512 | index | Narzędzia do nawigacji po źródłach/indeksach |
-| 1024 | dev | Narzędzia dla programistów i repozytoriów |
-| 2048 | web | Narzędzia internetowe i przeglądarkowe |
-| 4096 | utility | Narzędzia użytkowe i pomocnicze |
-| 8191 | all | Wszystkie narzędzia |
-
-Przykłady:
-
-```
-uag --tool-genre-mask 1 # tylko podstawowe
-uag --tool-genre-mask 9 # podstawowe + devel (1 + 8)
-uag --tool-genre-mask 8191    # wszystkie narzędzia
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Włącza lub wyłącza wysyłanie definicji narzędzi do `LLM`. Zastępuje zmienną środowiskową `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Tryb wbudowany dla wdrożeń o ograniczonych zasobach lub wymagających powtarza
 
 - Wyłącza magazyn sesji.
 - Ukrywa narzędzia do zarządzania narzędziami (`tool_catalog`, `tool_load`, `unload_tool`), chyba że zostaną one wyraźnie włączone.
-- Ignoruje `--tool-genre-mask`; w celu wyraźnego załadowania narzędzia należy użyć `--enable-tool`.
 
 ### `--enable-tool <nazwa>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Wybierz rodzaje narzędzi przy użyciu tej samej maski bitowej, co powyżej. Jeśli zostanie to określone, interaktywny monit o wybór rodzaju narzędzia zostanie pominięty.
-
 ### `--use-tool` / `--no-use-tool`
 
 Włącz lub wyłącz wysyłanie definicji narzędzi do `LLM`. Zastępuje ustawienie `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Włącz automatyczne przeładowywanie po zmianach w kodzie (domyślnie: wyłącz
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Wybierz rodzaje narzędzi przy użyciu opisanej powyżej maski bitowej. Jeśli opcja ta jest określona, pomijany jest interaktywny monit o wybór gatunku.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Serwer WWW na wszystkich interfejsach
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Wyłącz narzędzia dla małego modelu
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Nieinteraktywne przetwarzanie plików

@@ -1,50 +1,12 @@
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
-
-"""Shared utility for genre-based tool enable/disable.
-
-Replaces hardcoded module lists in genre control tools with dynamic discovery.
-Control tools call enable_genre_tools(genre) / disable_genre_tools(genre)
-and format their own i18n messages.
-"""
+"""Shared per-tool dynamic discovery, loading, and pinning utilities."""
 
 import importlib
 import os
 import pkgutil
 import sys
 from typing import Any
-
-# Track which genres are currently enabled (persists across plugin reloads)
-_ENABLED_GENRES: set[str] = set()
-
-_GENRE_BITMAP: dict[str, int] = {
-    "basic": 1,
-    "comm": 2,
-    "office": 4,
-    "devel": 8,
-    "iot": 16,
-    "exec": 32,
-    "external": 64,
-    "media": 128,
-    "file": 256,
-    "index": 512,
-    "dev": 1024,
-    "web": 2048,
-    "utility": 4096,
-}
-
-
-def get_enabled_genre_mask() -> int:
-    """Return the bitmask of currently enabled tool genres."""
-    mask = 0
-    for genre, bit in _GENRE_BITMAP.items():
-        if genre in _ENABLED_GENRES:
-            mask |= bit
-    return mask
-
 
 # Track individually loaded tools and remaining uses (persists across plugin reloads)
 # value: remaining uses (-1 = unlimited, 0 = expired, >0 = countdown)
@@ -127,73 +89,6 @@ def _find_tool_modules(skip_lazy: bool = False) -> list[tuple[str, Any]]:
         except Exception:
             continue
     return results
-
-
-def enable_genre_tools(genre: str) -> list[str]:
-    """Enable all tools with the given tool_genre. Returns list of enabled tool names."""
-    _ENABLED_GENRES.add(genre)
-    from . import _register_tool_module
-
-    changed_names: list[str] = []
-    for mname, mod in _find_tool_modules():
-        spec = getattr(mod, "TOOL_SPEC", None)
-        if not isinstance(spec, dict):
-            continue
-        if spec.get("tool_genre") != genre:
-            continue
-
-        # Skip if the module has a missing dependency
-        reason = getattr(mod, "LOAD_DISABLED_REASON", "")
-        if reason:
-            print(
-                _(
-                    "genre_control.skip_module",
-                    default=f"[tools] Skipping {mname}: {reason}",
-                ),
-                file=sys.stderr,
-            )
-            continue
-
-        # Force tool_level to 0 so it gets registered as an LLM tool
-        spec["tool_level"] = 0
-
-        mod_name = f"uagent.tools.{mname}"
-        if _register_tool_module(mod, mod_name):
-            func_info = spec.get("function", {})
-            tname = func_info.get("name")
-            if tname:
-                changed_names.append(tname)
-
-    return changed_names
-
-
-def disable_genre_tools(genre: str) -> list[str]:
-    """Disable all tools with the given tool_genre. Returns list of disabled tool names."""
-    _ENABLED_GENRES.discard(genre)
-    from . import TOOL_SPECS, _RUNNERS, _sort_registered_tools
-
-    removed_names: list[str] = []
-    to_remove: list[str] = []
-
-    for spec in TOOL_SPECS:
-        if not isinstance(spec, dict):
-            continue
-        if spec.get("tool_genre") == genre:
-            func_info = spec.get("function", {})
-            tname = func_info.get("name")
-            if tname:
-                to_remove.append(tname)
-
-    for tname in to_remove:
-        for i, spec in enumerate(TOOL_SPECS):
-            if spec.get("function", {}).get("name") == tname:
-                TOOL_SPECS.pop(i)
-                break
-        _RUNNERS.pop(tname, None)
-        removed_names.append(tname)
-
-    _sort_registered_tools()
-    return removed_names
 
 
 def is_tool_loadable(spec: dict[str, Any] | None, mod: Any = None) -> bool:

@@ -139,8 +139,6 @@ tools:
 - `allow` は明示的に許可します。
 - `{}` に戻すとルールなしの状態になります。
 - Policyは主にツールの実行・呼び出しを制御します。
-- 通常モードでジャンルを有効化する場合は、`--tool-genre-mask` を使用します。
-- `--embedded` ではgenre maskは無視されるため、必要なツールを `--enable-tool` で個別に指定します。
 
 ## 起動時のツール有効化との併用
 
@@ -156,10 +154,8 @@ uag --embedded --enable-tool handle_mcp_v2 --enable-tool human_ask
 uag --embedded --enable-tool handle_mcp_v2,human_ask
 ```
 
-通常モードでジャンルを有効化する場合:
 
 ```cmd
-uag --tool-genre-mask 1
 ```
 
 Policyで拒否したツールは、起動時に有効化しても実行できません。

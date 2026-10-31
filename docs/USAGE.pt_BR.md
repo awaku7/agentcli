@@ -22,35 +22,6 @@ ______________________________________________________________________
 Diretório de trabalho. Se não for definido, recorre à variável de ambiente `UAGENT_WORKDIR` e, em seguida, ao diretório atual.
 O diretório é criado caso não exista.
 
-### `--tool-genre-mask <int>`
-
-Máscara de bits do tipo de ferramenta. Quando fornecida, a solicitação interativa de seleção de tipo é ignorada.
-
-| Bit | Tipo | Descrição |
-|-----|-------|-------------|
-| 1 | basic | Ferramentas essenciais de arquivos/bate-papo |
-| 2 | comm | Ferramentas de comunicação (Bluesky, Teams) |
-| 4 | office | Ferramentas de suíte de escritório (Excel, PDF, PPTX) |
-| 8 | devel | Ferramentas de desenvolvimento (git, lint, compile) |
-| 16 | iot | Ferramentas para dispositivos IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Ferramentas de execução de comandos |
-| 64 | external | Ferramentas de plug-ins externos |
-| 128 | media | Geração e análise de imagens/áudio |
-| 256 | file | Ferramentas de gerenciamento de arquivos |
-| 512 | index | Ferramentas de navegação em código-fonte/índice |
-| 1024 | dev | Ferramentas para desenvolvedores e repositórios |
-| 2048 | web | Ferramentas para a web e navegadores |
-| 4096 | utility | Ferramentas utilitárias e de suporte |
-| 8191 | all | Todas as ferramentas |
-
-Exemplos:
-
-```
-uag --tool-genre-mask 1 # apenas básico
-uag --tool-genre-mask 9 # básico + desenvolvimento (1 + 8)
-uag --tool-genre-mask 8191    # todas as ferramentas
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Ativa ou desativa o envio de definições de ferramentas para o `LLM`. Substitui a variável de ambiente `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Modo incorporado para implantações restritas ou sensíveis à reprodutibilidad
 
 - Desativa o armazenamento de sessão.
 - Oculta as ferramentas de gerenciamento de ferramentas (`tool_catalog`, `tool_load`, `unload_tool`), a menos que sejam explicitamente ativadas.
-- Ignora `--tool-genre-mask`; use `--enable-tool` para carregamento explícito de ferramentas.
 
 ### `--enable-tool <nome>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Selecione gêneros de ferramentas usando a mesma máscara de bits descrita acima. Quando especificado, o prompt interativo de gênero é ignorado.
-
 ### `--use-tool` / `--no-use-tool`
 
 Ativa ou desativa o envio de definições de ferramentas para o LLM. Substitui `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Ativa a recarga dinâmica ao alterar o código (padrão: desativado, pode ser su
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Selecione os tipos de ferramentas usando a máscara de bits descrita acima. Quando especificado, o prompt interativo de gênero é ignorado.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Servidor web em todas as interfaces
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Desativar ferramentas para um modelo pequeno
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Processamento não interativo de arquivos

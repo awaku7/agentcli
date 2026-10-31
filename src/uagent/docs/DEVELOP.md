@@ -534,7 +534,6 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 |---|---|---|---|
 | `--workdir` / `-C` | CLI, GUI, Web, A2A | Working directory. Priority: CLI arg > `UAGENT_WORKDIR` > current dir | `util_tools.py:parse_startup_args()` |
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
-| `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--decision-provider <none|auto|typesafe|openrouter|openai|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. `auto` routes catalogued models from llmcapa protocol metadata. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` configures the same setting. | `decision/settings.py`, `decision/catalog.py`, `setup_cli.py`, and entry-point parsers |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
@@ -770,8 +769,6 @@ the run and reports it, instead of failing the interaction.
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
 - **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"` (development), `"iot"`, `"exec"` (execution), `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
-- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 512=index, 1024=dev, 2048=web, 4096=utility, 8191=all).
-- **`--tool-genre-mask` CLI argument**: All entry points (CLI/GUI/Web/A2A) accept `--tool-genre-mask <int>`. In normal mode, the bitmask is applied directly and the interactive genre prompt is skipped. In embedded mode, the mask is intentionally ignored to prevent a broad mask from re-registering unintended tools; a non-zero mask emits a warning and callers must use repeated `--enable-tool` options for explicit selection. When omitted, the behavior is unchanged (interactive prompt in TTY mode, no genre selection in non-interactive mode).
 
 ### 3.6.1 Tool-less mode (UAGENT_USE_TOOL / :tools on/off)
 
@@ -789,9 +786,9 @@ When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending lo
 
 **`UAGENT_GPT54_TOOL_SEARCH=legacy`**: Tools are narrowed client-side via `_select_tool_specs_legacy()`. Initially only `tool_catalog`/`tool_load`/`unload_tool`/`human_ask` are sent. The LLM discovers tools via `tool_catalog` and loads them via `tool_load`.
 
-**`UAGENT_GPT54_TOOL_SEARCH=native`** (explicit): Same as default but management tools are excluded. `_should_preload_lazy_specs()` becomes True, bypassing genre filters to register all tools.
+**`UAGENT_GPT54_TOOL_SEARCH=native`** (explicit): Same as default but management tools are excluded. `_should_preload_lazy_specs()` becomes True, registering all tools for server-side narrowing.
 
-**Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are filtered by genre mask at startup and can be dynamically loaded via `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
+**Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are discovered and individually loaded through `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
 
 **`previous_response_id` continuity**:
 
@@ -1341,7 +1338,7 @@ The PR 1 Mock tests verify routing contracts, not OS isolation. The trusted-loca
 MXC backend supports Windows x64 ProcessContainer and Linux x86_64 Bubblewrap
 with a verified systemd/cgroup-v2 scope; neither is VM isolation or proof of
 Remote E0 acceptance. While Sandbox is enabled, startup must not activate project
-plugins or select host tools via genre masks or `--enable-tool`. Scheduled
+plugins or load host tools with `--enable-tool`. Scheduled
 CLI/GUI runs validate required tools against the static sandbox allowlist and
 never load Host tools while sandboxed. Windows workspace quota scanning includes
 NTFS alternate data streams; Linux uses the host cgroup for aggregate memory,

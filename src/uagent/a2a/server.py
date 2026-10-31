@@ -854,20 +854,6 @@ def main(argv: Optional[list[str]] = None) -> None:
     configure_decision_settings(cli_provider=getattr(args, "decision_provider", None))
     validate_or_exit_startup_env(context="a2a")
 
-    # Tool genre selection (same dialog as CLI startup)
-    try:
-        from ..cli_startup import (
-            _apply_startup_tool_genre_mask,
-        )
-
-        if args.tool_genre_mask is not None:
-            _apply_startup_tool_genre_mask(args.tool_genre_mask)
-        else:
-            # Default: basic only
-            _apply_startup_tool_genre_mask(0)
-    except Exception:
-        pass
-
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
     from .. import core as _core_module

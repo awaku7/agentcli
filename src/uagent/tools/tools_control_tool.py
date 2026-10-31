@@ -270,40 +270,6 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
-def handle_cmd_tools_on(arg, **kw):
-    from ..util_tools import CommandResult
-    from .genre_control_tool import _set_genre_tools_enabled
-
-    g = (arg or "").strip().lower()
-    if not g:
-        print("Usage: :tools on <genre>")
-        return CommandResult()
-    try:
-        msg = _set_genre_tools_enabled(g, True)
-        if msg:
-            print(msg)
-    except Exception as e:
-        print(str(e))
-    return CommandResult()
-
-
-def handle_cmd_tools_off(arg, **kw):
-    from ..util_tools import CommandResult
-    from .genre_control_tool import _set_genre_tools_enabled
-
-    g = (arg or "").strip().lower()
-    if not g:
-        print("Usage: :tools off <genre>")
-        return CommandResult()
-    try:
-        msg = _set_genre_tools_enabled(g, False)
-        if msg:
-            print(msg)
-    except Exception as e:
-        print(str(e))
-    return CommandResult()
-
-
 def _register_tools_subcommands() -> None:
     """Register subcommands under :tools."""
     global CMD_SPECS
@@ -327,40 +293,6 @@ def _register_tools_subcommands() -> None:
             "help_text": _(
                 "cmd.help.tools_load",
                 default="  :tools load <name>  Load a single tool by name.",
-            ),
-        },
-        {
-            "command": "tools",
-            "subcommand": "on",
-            "handler": handle_cmd_tools_on,
-            "help_text": _(
-                "cmd.help.tools_on",
-                default="  :tools on [genre]              Enable tools (global) or one genre",
-            ),
-            "usage": ":tools on [genre]",
-            "help_detail": _(
-                "cmd.detail.tools_on",
-                default=(
-                    "No genre: turn on sending tools to the LLM.\n"
-                    "With genre: enable that genre and turn global tools on."
-                ),
-            ),
-        },
-        {
-            "command": "tools",
-            "subcommand": "off",
-            "handler": handle_cmd_tools_off,
-            "help_text": _(
-                "cmd.help.tools_off",
-                default="  :tools off [genre]             Disable tools (global) or one genre",
-            ),
-            "usage": ":tools off [genre]",
-            "help_detail": _(
-                "cmd.detail.tools_off",
-                default=(
-                    "No genre: turn off sending tools to the LLM.\n"
-                    "With genre: disable that genre only."
-                ),
             ),
         },
         {

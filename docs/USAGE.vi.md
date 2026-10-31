@@ -22,35 +22,6 @@ ______________________________________________________________________
 Thư mục làm việc. Nếu không được đặt, sẽ sử dụng biến môi trường `UAGENT_WORKDIR`, sau đó là thư mục hiện tại.
 Thư mục sẽ được tạo nếu nó không tồn tại.
 
-### `--tool-genre-mask <int>`
-
-Mặt nạ bit thể loại công cụ. Khi được cung cấp, lời nhắc chọn thể loại tương tác sẽ bị bỏ qua.
-
-| Bit | Thể loại | Mô tả |
-|-----|-------|-------------|
-| 1 | basic | Công cụ tệp/trò chuyện cơ bản |
-| 2 | comm | Công cụ giao tiếp (Bluesky, Teams) |
-| 4 | office | Công cụ bộ ứng dụng văn phòng (Excel, PDF, PPTX) |
-| 8 | devel | Công cụ phát triển (git, lint, compile) |
-| 16 | iot | Công cụ thiết bị IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Công cụ thực thi lệnh |
-| 64 | external | Công cụ plugin bên ngoài |
-| 128 | media | Tạo và phân tích hình ảnh/âm thanh |
-| 256 | file | Công cụ quản lý tệp |
-| 512 | index | Công cụ điều hướng nguồn/chỉ mục |
-| 1024 | dev | Công cụ dành cho nhà phát triển và kho lưu trữ |
-| 2048 | web | Công cụ web và trình duyệt |
-| 4096 | tiện ích | Công cụ tiện ích và hỗ trợ |
-| 8191 | tất cả | Tất cả các công cụ |
-
-Ví dụ:
-
-```
-uag --tool-genre-mask 1 # chỉ cơ bản
-uag --tool-genre-mask 9 # cơ bản + phát triển (1 + 8)
-uag --tool-genre-mask 8191    # tất cả các công cụ
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Bật hoặc tắt việc gửi định nghĩa công cụ đến LLM. Ghi đè biến môi trường `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Chế độ nhúng dành cho các triển khai có giới hạn hoặc nhạy c�
 
 - Vô hiệu hóa bộ lưu trữ phiên.
 - Ẩn các công cụ quản lý công cụ (`tool_catalog`, `tool_load`, `unload_tool`) trừ khi được bật rõ ràng.
-- Bỏ qua `--tool-genre-mask`; sử dụng `--enable-tool` để tải công cụ một cách rõ ràng.
 
 ### `--enable-tool <name>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Chọn các thể loại công cụ bằng cách sử dụng bitmask tương tự như đã mô tả ở trên. Khi được chỉ định, lời nhắc thể loại tương tác sẽ bị bỏ qua.
-
 ### `--use-tool` / `--no-use-tool`
 
 Bật hoặc tắt việc gửi định nghĩa công cụ đến LLM. Ghi đè `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Bật tính năng tải lại nóng khi có thay đổi mã (mặc định: tắ
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Chọn các thể loại công cụ bằng cách sử dụng mặt nạ bit được mô tả ở trên. Khi được chỉ định, lời nhắc tương tác về thể loại sẽ bị bỏ qua.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Máy chủ web trên tất cả các giao diện
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Tắt các công cụ cho mô hình nhỏ
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Xử lý tệp không tương tác

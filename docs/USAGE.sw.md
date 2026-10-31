@@ -22,13 +22,7 @@ ______________________________________________________________________
 Saraka ya kazi. Ikiwa haijawekwa, inarudi kwenye kigezo cha mazingira `UAGENT_WORKDIR`, kisha saraka ya sasa.
 Saraka huundwa ikiwa haipo.
 
-### `--tool-genre-mask <int>`
-
-Bitmask ya aina ya zana. Inapopewa, ombi la kuchagua aina kwa njia ya mwingiliano linapuuzwa.
-
-| Bit | Aina | Maelezo |
-|-----|-------|-------------|
-| 1 | basic | Zana muhimu za faili/mawasiliano ya papo kwa papo |
+Zana muhimu za faili/mawasiliano ya papo kwa papo |
 | 2 | comm | Zana za mawasiliano (Bluesky, Teams) |
 | 4 | office | Zana za kifurushi cha ofisi (Excel, PDF, PPTX) |
 | 8 | maendeleo | Zana za maendeleo (git, lint, compile) |
@@ -46,9 +40,9 @@ Bitmask ya aina ya zana. Inapopewa, ombi la kuchagua aina kwa njia ya mwingilian
 Mifano:
 
 ```
-uag --tool-genre-mask 1 # msingi pekee
-uag --tool-genre-mask 9 # msingi + maendeleo (1 + 8)
-uag --tool-genre-mask 8191    # zana zote
+uag
+uag
+uag
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -74,7 +68,6 @@ Hali ya 'embedded' kwa ajili ya usambazaji wenye vikwazo au unaohitaji utegemezi
 
 - Inazima hifadhi ya kikao.
 - Inaficha zana za usimamizi wa zana (`tool_catalog`, `tool_load`, `unload_tool`) isipokuwa zimewezeshwa waziwazi.
-- Hupuuza `--tool-genre-mask`; tumia `--enable-tool` kwa upakiaji wa zana uliobainishwa wazi.
 
 ### `--enable-tool <name>`
 
@@ -139,10 +132,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Chagua aina za zana kwa kutumia bitmask ile ile iliyoelezwa hapo juu. Inapobainishwa, ombi la aina ya zana la kiingiliano linapuuzwa.
-
 ### `--use-tool` / `--no-use-tool`
 
 Washa au zima utumaji wa ufafanuzi wa zana kwa LLM. Hupitiliza `UAGENT_USE_TOOL`.
@@ -178,10 +167,6 @@ Wezesha upakiaji moto wakati wa mabadiliko ya msimbo (chaguo-msingi: imezimwa, i
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Chagua aina za zana kwa kutumia bitmask ile ile iliyoelezwa hapo juu. Inapobainishwa, ombi la aina ya zana linaloshirikiana linapuuzwa.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +223,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Seva ya wavuti kwenye miunganisho yote
@@ -265,7 +250,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Zima zana kwa mfano mdogo
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Usindikaji faili usioingiliani

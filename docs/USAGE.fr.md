@@ -22,35 +22,6 @@ ______________________________________________________________________
 Répertoire de travail. S'il n'est pas défini, le programme utilise par défaut la variable d'environnement `UAGENT_WORKDIR`, puis le répertoire courant.
 Le répertoire est créé s'il n'existe pas.
 
-### `--tool-genre-mask <int>`
-
-Masque de bits de genre d'outil. Lorsqu’il est fourni, l’invite de sélection interactive du genre est ignorée.
-
-| Bit | Genre | Description |
-|-----|-------|-------------|
-| 1 | basic | Outils essentiels de gestion de fichiers et de chat |
-| 2 | comm | Outils de communication (Bluesky, Teams) |
-| 4 | office | Outils de suite bureautique (Excel, PDF, PPTX) |
-| 8 | devel | Outils de développement (git, lint, compilation) |
-| 16 | iot | Outils pour périphériques IoT (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Outils d'exécution de commandes |
-| 64 | external | Outils de plugins externes |
-| 128 | media | Génération et analyse d'images/d'audio |
-| 256 | file | Outils de gestion de fichiers |
-| 512 | index | Outils de navigation dans les sources/index |
-| 1024 | dev | Outils de développement et de gestion de dépôts |
-| 2048 | web | Outils Web et de navigation |
-| 4096 | utility | Outils utilitaires et d’assistance |
-| 8191 | all | Tous les outils |
-
-Exemples :
-
-```
-uag --tool-genre-mask 1 # basique uniquement
-uag --tool-genre-mask 9 # basique + développement (1 + 8)
-uag --tool-genre-mask 8191    # tous les outils
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Active ou désactive l'envoi des définitions d'outils vers le LLM. Remplace la variable d’environnement `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Mode intégré pour les déploiements soumis à des contraintes ou où la reprod
 
 - Désactive le magasin de sessions.
 - Masque les outils de gestion des outils (`tool_catalog`, `tool_load`, `unload_tool`) sauf s’ils sont explicitement activés.
-- Ignore `--tool-genre-mask` ; utilisez `--enable-tool` pour le chargement explicite d’un outil.
 
 ### `--enable-tool <nom>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Sélectionne les genres d’outils à l’aide du même masque de bits que celui décrit ci-dessus. Lorsque cette option est spécifiée, l’invite interactive relative au genre est ignorée.
-
 ### `--use-tool` / `--no-use-tool`
 
 Active ou désactive l’envoi des définitions d’outils vers le LLM. Remplace `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Active le rechargement à chaud lors des modifications du code (par défaut : d�
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Sélectionne les genres d'outils à l'aide du masque de bits décrit ci-dessus. Lorsqu’il est spécifié, l’invite interactive de sélection du genre est ignorée.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Serveur Web sur toutes les interfaces
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Désactiver les outils pour un petit modèle
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Traitement de fichiers non interactif

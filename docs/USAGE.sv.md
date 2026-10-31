@@ -22,35 +22,6 @@ ______________________________________________________________________
 Arbetskatalog. Om den inte anges används miljövariabeln `UAGENT_WORKDIR` som standard, därefter den aktuella katalogen.
 Katalogen skapas om den inte finns.
 
-### `--tool-genre-mask <int>`
-
-Bitmask för verktygsgenre. När detta anges hoppas den interaktiva genervalsprompten över.
-
-| Bit | Genre | Beskrivning |
-|-----|-------|-------------|
-| 1 | basic | Väsentliga fil- och chattverktyg |
-| 2 | comm | Kommunikationsverktyg (Bluesky, Teams) |
-| 4 | office | Kontorspaketverktyg (Excel, PDF, PPTX) |
-| 8 | devel | Utvecklingsverktyg (git, lint, kompilering) |
-| 16 | iot | IoT-enhetsverktyg (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Verktyg för kommandokörning |
-| 64 | external | Externa plugin-verktyg |
-| 128 | media | Bild- och ljudgenerering samt analys |
-| 256 | file | Verktyg för filhantering |
-| 512 | index | Verktyg för källkods- och indexnavigering |
-| 1024 | dev | Verktyg för utvecklare och repositorier |
-| 2048 | web | Verktyg för webben och webbläsare |
-| 4096 | utility | Verktyg för allmänna ändamål och support |
-| 8191 | all | Alla verktyg |
-
-Exempel:
-
-```
-uag --tool-genre-mask 1 # endast grundläggande
-uag --tool-genre-mask 9 # grundläggande + utveckling (1 + 8)
-uag --tool-genre-mask 8191    # alla verktyg
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktivera eller inaktivera sändning av verktygsdefinitioner till LLM. Åsidosätter miljövariabeln `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Inbäddat läge för begränsade eller reproducerbarhetskänsliga distributioner
 
 - Inaktiverar sessionslagret.
 - Döljer verktygshanteringsverktygen (`tool_catalog`, `tool_load`, `unload_tool`) om de inte uttryckligen aktiveras.
-- Ignorerar `--tool-genre-mask`; använd `--enable-tool` för att uttryckligen ladda verktyg.
 
 ### `--enable-tool <namn>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Välj verktygsgenrer med hjälp av samma bitmask som beskrivs ovan. När detta anges hoppas den interaktiva genreförfrågan över.
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktivera eller inaktivera sändning av verktygsdefinitioner till LLM. Åsidosätter `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Aktivera automatisk omladdning vid kodändringar (standard: av, kan ändras med 
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Välj verktygsgenrer med hjälp av samma bitmask som beskrivs ovan. När detta anges hoppas den interaktiva genremeddelandet över.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webbserver på alla gränssnitt
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Inaktivera verktyg för en liten modell
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Icke-interaktiv filbearbetning
