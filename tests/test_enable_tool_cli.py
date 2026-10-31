@@ -47,7 +47,6 @@ def test_enable_tool_pins_requested_tools(monkeypatch):
     from uagent import tools as T
     from uagent.tools import _genre_control_util as G
 
-    G._ENABLED_GENRES.clear()
     G._PINNED_TOOLS.clear()
     G._LOADED_SINGLE_TOOLS.clear()
     G._TOOL_DYNAMIC_THRESHOLDS.clear()
