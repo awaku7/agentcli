@@ -15,7 +15,10 @@ def test_chat_scroll_follows_only_when_near_bottom() -> None:
     assert "const bottomThreshold = 80;" in source
     assert "followLatest = distance <= bottomThreshold;" in source
     assert "if (!followLatest || !chatBox || scrollScheduled) return;" in source
-    assert "if (followLatest && chatBox) chatBox.scrollTop = chatBox.scrollHeight;" in source
+    assert (
+        "if (followLatest && chatBox) chatBox.scrollTop = chatBox.scrollHeight;"
+        in source
+    )
 
 
 def test_shipped_chat_bundle_preserves_scroll_follow_gate() -> None:
