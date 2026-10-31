@@ -461,9 +461,11 @@ export async function deleteMemory(index) {
   } catch (_) { return { ok: false, error: String(_) }; }
 }
 
-export async function fetchLogs(page = 1, perPage = 15) {
+export async function fetchLogs(page = 1, perPage = 15, search = '') {
   try {
-    const resp = await fetch(`/api/logs?page=${page}&per_page=${perPage}`);
+    const params = new URLSearchParams({ page, per_page: perPage });
+    if (search.trim()) params.set('q', search.trim());
+    const resp = await fetch(`/api/logs?${params}`);
     return await resp.json();
   } catch (_) { return { ok: false, error: String(_) }; }
 }

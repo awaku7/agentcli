@@ -18,9 +18,7 @@ def test_web_status_is_only_rendered_in_header() -> None:
 
 
 def test_distributed_web_has_no_duplicate_status_instance() -> None:
-    bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(
-        encoding="utf-8"
-    )
+    bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
     assert "Hu(N,{})" not in bundle
     assert "var N=p(T,2),j=p(N,2);" in bundle
     assert "Ql(A,{" in bundle

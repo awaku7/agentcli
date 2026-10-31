@@ -12,6 +12,8 @@ let sessions = $state([]);
 let loading = $state(false);
 let error = $state("");
 let query = $state("");
+let searchTimer;
+let requestSequence = 0;
 let filteredSessions = $derived(
 	sessions.filter((session) => {
 		const text =
@@ -21,20 +23,30 @@ let filteredSessions = $derived(
 );
 
 async function loadSessions() {
+	const sequence = ++requestSequence;
 	loading = true;
 	error = "";
 	try {
-		const result = await fetchLogs(1, 30);
+		const result = await fetchLogs(1, 30, query.trim());
+		if (sequence !== requestSequence) return;
 		if (result.ok === false) {
 			error = "セッション履歴を読み込めませんでした";
 		} else {
 			sessions = result.logs || [];
 		}
 	} catch {
-		error = "セッション履歴を読み込めませんでした";
+		if (sequence === requestSequence) {
+			error = "セッション履歴を読み込めませんでした";
+		}
 	} finally {
-		loading = false;
+		if (sequence === requestSequence) loading = false;
 	}
+}
+
+function scheduleSearch() {
+	clearTimeout(searchTimer);
+	++requestSequence; // Reject responses to older searches.
+	searchTimer = setTimeout(loadSessions, 250);
 }
 
 function openSession(session) {
@@ -74,7 +86,13 @@ function sessionTitle(session) {
 	return session.summary || session.first_message || t("sessionLogs");
 }
 
-onMount(loadSessions);
+onMount(() => {
+	loadSessions();
+	return () => {
+		clearTimeout(searchTimer);
+		++requestSequence;
+	};
+});
 </script>
 
 <aside class="sidebar" aria-label="Navigation">
@@ -98,7 +116,7 @@ onMount(loadSessions);
   </div>
   <label class="search-box">
     <span aria-hidden="true">⌕</span>
-    <input bind:value={query} type="search" placeholder={t('searchSessions', 'セッションを検索')} aria-label={t('searchSessions', 'セッションを検索')} />
+    <input bind:value={query} oninput={scheduleSearch} type="search" placeholder={t('searchSessions', 'セッションを検索')} aria-label={t('searchSessions', 'セッションを検索')} />
   </label>
 
   <div class="session-list">
