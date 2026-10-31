@@ -111,14 +111,10 @@ def test_current_documentation_does_not_advertise_genre_switches():
     root = Path(__file__).resolve().parents[1]
     communication = (root / "docs/COMMUNICATION.md").read_text(encoding="utf-8")
     flow = (root / "src/uagent/docs/TOOL_FLOW.md").read_text(encoding="utf-8")
-    develop_ja = (root / "src/uagent/docs/DEVELOP.ja.md").read_text(
-        encoding="utf-8"
-    )
+    develop_ja = (root / "src/uagent/docs/DEVELOP.ja.md").read_text(encoding="utf-8")
     assert "comm_control enable" not in communication
     assert "UAGENT_COMM_ENABLED=1" not in communication
     assert "Registration is controlled by `tool_level`, `tool_genre`" not in flow
     assert "起動時の genre mask でフィルタ" not in develop_ja
     for path in (root / "docs").glob("TOOL_CREATOR_GUIDE.*.md"):
-        assert "Enables genre-based control" not in path.read_text(
-            encoding="utf-8"
-        )
+        assert "Enables genre-based control" not in path.read_text(encoding="utf-8")
