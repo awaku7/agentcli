@@ -40,6 +40,7 @@ from .process_workers import bind_room_auto_pilot
 from .app import app
 from .rooms import _handle_mode_command, web_manager
 
+
 def _request_identity(request: Request):
     identity = create_identity_resolver().resolve(request)
     if not identity.authenticated:
