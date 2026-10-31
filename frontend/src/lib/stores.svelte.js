@@ -8,6 +8,7 @@ const _state = $state({
   privateMemoryItems: [],
   messages: [],
   status: { busy: false, label: 'IDLE', workdir: '' },
+  currentTool: '',
   modes: { reasoning: 'off', verbosity: 'off', displayReasoning: true },
   webVerbose: false,
   inputHistory: [],
@@ -28,6 +29,7 @@ export function getPrivateSession() { return _state.privateSession; }
 export function getAuthnKind() { return _state.authnKind; }
 export function getMessages() { return _state.messages; }
 export function getStatus() { return _state.status; }
+export function getCurrentTool() { return _state.currentTool; }
 export function getModes() { return _state.modes; }
 export function getWebVerbose() { return _state.webVerbose; }
 export function getInputHistory() { return _state.inputHistory; }
@@ -197,6 +199,7 @@ function handleWsMessage(data) {
       _state.historyIndex = _state.inputHistory.length;
       _state.webVerbose = !!data.web_verbose;
       if (data.status) _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
+      _state.currentTool = data.current_tool || '';
       if (data.modes) _state.modes = {
         reasoning: data.modes.reasoning || 'off',
         verbosity: data.modes.verbosity || 'off',
@@ -223,6 +226,10 @@ function handleWsMessage(data) {
       break;
     case 'status':
       _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
+      if (!data.status.busy) _state.currentTool = '';
+      break;
+    case 'tool_activity':
+      _state.currentTool = data.name || '';
       break;
     case 'modes':
       if (data.modes) _state.modes = {
