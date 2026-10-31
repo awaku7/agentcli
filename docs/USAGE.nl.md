@@ -22,35 +22,6 @@ ______________________________________________________________________
 Werkmap. Indien niet ingesteld, wordt teruggevallen op de omgevingsvariabele `UAGENT_WORKDIR`, daarna op de huidige map.
 De map wordt aangemaakt als deze niet bestaat.
 
-### `--tool-genre-mask <int>`
-
-Bitmasker voor het type tool. Indien opgegeven, wordt de interactieve prompt voor genrekeuze overgeslagen.
-
-| Bit | Genre | Beschrijving |
-|-----|-------|-------------|
-| 1 | basic | Essentiële bestands- en chattools |
-| 2 | comm | Communicatietools (Bluesky, Teams) |
-| 4 | office | Kantoorsuite-tools (Excel, PDF, PPTX) |
-| 8 | devel | Ontwikkelingstools (git, lint, compile) |
-| 16 | iot | Hulpmiddelen voor IoT-apparaten (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Hulpmiddelen voor het uitvoeren van opdrachten |
-| 64 | external | Hulpmiddelen voor externe plug-ins |
-| 128 | media | Genereren en analyseren van beeld en geluid |
-| 256 | file | Hulpmiddelen voor bestandsbeheer |
-| 512 | index | Hulpmiddelen voor navigatie door bronnen en indexen |
-| 1024 | dev | Hulpmiddelen voor ontwikkelaars en repositories |
-| 2048 | web | Web- en browserhulpmiddelen |
-| 4096 | utility | Hulpprogramma’s en ondersteuningshulpmiddelen |
-| 8191 | all | Alle hulpmiddelen |
-
-Voorbeelden:
-
-```
-uag --tool-genre-mask 1 # alleen basis
-uag --tool-genre-mask 9 # basis + ontwikkeling (1 + 8)
-uag --tool-genre-mask 8191    # alle hulpmiddelen
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Schakelt het verzenden van tooldefinities naar de LLM in of uit. Overschrijft de omgevingsvariabele `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Ingebedde modus voor implementaties met beperkingen of waarbij reproduceerbaarhe
 
 - Schakelt de sessieopslag uit.
 - Verbergt tools voor toolbeheer (`tool_catalog`, `tool_load`, `unload_tool`) tenzij deze expliciet zijn ingeschakeld.
-- Negeert `--tool-genre-mask`; gebruik `--enable-tool` voor het expliciet laden van tools.
 
 ### `--enable-tool <naam>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Selecteer toolgenres met behulp van hetzelfde bitmasker als hierboven beschreven. Indien opgegeven, wordt de interactieve genre-prompt overgeslagen.
-
 ### `--use-tool` / `--no-use-tool`
 
 Schakel het verzenden van tooldefinities naar de LLM in of uit. Overschrijft `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Hot reload inschakelen bij wijzigingen in de code (standaard: uitgeschakeld, kan
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Selecteer toolgenres met behulp van het hierboven beschreven bitmasker. Indien opgegeven, wordt de interactieve genre-prompt overgeslagen.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webserver op alle interfaces
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Hulpprogramma’s uitschakelen voor een klein model
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Niet-interactieve bestandsverwerking
