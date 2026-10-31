@@ -58,7 +58,8 @@ def test_header_shows_only_one_compact_tool_badge():
     bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
     store = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(encoding="utf-8")
     assert "getCurrentTool()" in header
-    assert "status.busy && currentTool" in header
+    assert "status.busy && status.label !== 'WAIT' && currentTool" in header
+    assert 'a(r).label!=="WAIT"&&a(activeTool)' in bundle
     assert header.count("status-idle={!status.busy}") == 1
     assert "{#if status.busy}" not in header
     assert "tool_activity" in store
@@ -76,3 +77,21 @@ def test_server_tool_activity_payload_does_not_include_arguments():
     assert "room.begin_tool(name)" in init
     assert "room.end_tool(tool_call_id)" in init
     assert 'name != "human_ask"' in init
+
+
+def test_confirmation_wait_takes_priority_over_active_tool_badge():
+    room = WebRoom("waiting-room")
+    call_id = room.begin_tool("delete_path")
+    room.set_status(True, "WAIT")
+    assert room.current_tool == "delete_path"
+    assert room.status["label"] == "WAIT"
+
+    # The client must show WAIT, not the still-running outer tool.
+    header = (ROOT / "frontend/src/lib/components/Header.svelte").read_text(
+        encoding="utf-8"
+    )
+    bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
+    assert "status.label !== 'WAIT'" in header
+    assert 'a(r).label!=="WAIT"' in bundle
+    room.end_tool(call_id)
+    assert room.current_tool == ""
