@@ -109,20 +109,18 @@ You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SP
 - `"web"` (2048): Web/browser automation and transit search tools
 - `"utility"` (4096): System and maintenance utilities
 
-Bitmask values correspond to the `--tool-genre-mask` CLI option (`8191` for all genres enabled).
 
 Example:
 
 ```python
 TOOL_SPEC: Dict[str, Any] = {
-    "tool_level": 1, # Loaded conditionally via genre control
+    "tool_level": 1, # Loaded conditionally by tool_catalog / tool_load
     "tool_genre": "office",
     "type": "function",
     "function": { ... }
 }
 ```
 
-During interactive CLI startup, users are prompted to select which tool genres to enable unless `--tool-genre-mask` is provided. The selected genres are then activated dynamically.
 
 ### 3.3 External data flag (prompt injection defense)
 
