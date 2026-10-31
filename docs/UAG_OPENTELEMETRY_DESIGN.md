@@ -231,6 +231,16 @@ on `chat` spans only as `gen_ai.usage.input_tokens` and
 UAG-specific estimate; missing usage is never fabricated. Total token usage
 is derivable from input/output counts, not redundantly exported.
 
+Registry Chat Completions and Responses adapters forward verified, non-negative
+per-request usage from the provider response (including final streaming usage
+chunks) to the terminal event. OpenAI/Azure Chat Completions streaming requests
+opt into `stream_options.include_usage`; other compatible providers are not
+sent unsupported request options. A missing final usage chunk, unsupported
+provider, or omitted field stays unreported rather than being estimated or
+converted to zero. The orchestrator never subtracts a previous response's
+usage from a per-request terminal usage report. Explicit cumulative snapshots
+retain their separate delta reconciliation path.
+
 The OTel adapter emits only standard attributes for provider, model, agent,
 tool, token usage and error type. OTel Span Status and timestamps represent
 outcome and duration, so redundant `uag.status` and `uag.duration_ms` are
