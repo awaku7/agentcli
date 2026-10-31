@@ -13,7 +13,7 @@ def test_web_status_is_only_rendered_in_header() -> None:
     assert "<StatusBar />" not in app
     assert "import StatusBar" not in app
     assert "<Header " in app
-    assert "{status.label}" in header
+    assert ": status.label}" in header
     assert "{t('toolRunning')}" in header
 
 
