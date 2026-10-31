@@ -17,6 +17,8 @@ def test_genre_mask_cli_option_removed(monkeypatch):
 
 
 def test_genre_control_api_removed():
+    import uagent.web_impl.routes_api  # noqa: F401 - register API routes
+
     assert not any(
         getattr(route, "path", "") == "/api/tool-genres" for route in app.routes
     )
@@ -56,3 +58,15 @@ def test_tool_genre_remains_catalog_metadata():
     from uagent.tools import get_tool_catalog
 
     assert callable(get_tool_catalog)
+
+def test_bundled_web_javascript_parses():
+    import shutil
+    import subprocess
+
+    import pytest
+
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("Node.js unavailable; packaged JS parse check not run")
+    bundle = Path(__file__).resolve().parents[1] / "src/uagent/static/assets/index.js"
+    subprocess.run([node, "--check", str(bundle)], check=True, capture_output=True, text=True)
