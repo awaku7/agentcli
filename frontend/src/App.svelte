@@ -12,7 +12,7 @@
   import {
     connect, getHumanAskState, getPendingAttachments,
     sendUserInput, sendCommand, sendInterrupt, sendHumanAskResponse,
-    uploadFiles, fetchGenres,
+    uploadFiles,
     addAttachments, clearAttachments, removeAttachment,
   } from './lib/stores.svelte.js';
   import { setLang, detectLang } from './lib/i18n.svelte.js';
@@ -27,7 +27,6 @@
   onMount(() => {
     setLang(detectLang());
     connect();
-    fetchGenres();
     function handleKey(e) {
       if (e.key === 'Escape') { panelOpen = false; sidebarOpen = false; }
     }
