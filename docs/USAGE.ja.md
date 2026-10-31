@@ -22,35 +22,6 @@ ______________________________________________________________________
 作業ディレクトリ。設定されていない場合は、環境変数 `UAGENT_WORKDIR` が優先され、それがない場合はカレントディレクトリが使用されます。
 ディレクトリが存在しない場合は作成されます。
 
-### `--tool-genre-mask <int>`
-
-ツールのジャンルを表すビットマスク。指定すると、対話式のジャンル選択プロンプトがスキップされます。
-
-| ビット | ジャンル | 説明 |
-|-----|-------|-------------|
-| 1 | basic | 必須のファイル／チャットツール |
-| 2 | comm | コミュニケーションツール (Bluesky, Teams) |
-| 4 | office | オフィススイートツール (Excel, PDF, PPTX) |
-| 8 | devel | 開発ツール (git, lint, compile) |
-| 16 | iot | IoTデバイス用ツール (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | コマンド実行ツール |
-| 64 | external | 外部プラグインツール |
-| 128 | media | 画像・音声の生成および分析 |
-| 256 | file | ファイル管理ツール |
-| 512 | index | ソース・インデックスナビゲーションツール |
-| 1024 | dev | 開発者およびリポジトリツール |
-| 2048 | web | Webおよびブラウザツール |
-| 4096 | utility | ユーティリティおよびサポートツール |
-| 8191 | all | すべてのツール |
-
-例:
-
-```
-uag --tool-genre-mask 1 # 基本ツールのみ
-uag --tool-genre-mask 9 # 基本ツール + 開発ツール (1 + 8)
-uag --tool-genre-mask 8191    # すべてのツール
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 LLM へのツール定義の送信を有効または無効にします。 `UAGENT_USE_TOOL` 環境変数を上書きします。
@@ -74,7 +45,6 @@ Computer Use を有効または無効にします。 環境変数 `UAGENT_COMPUT
 
 - セッションストアを無効にします。
 - 明示的に有効にしない限り、ツール管理ツール (`tool_catalog`, `tool_load`, `unload_tool`) を非表示にします。
-- `--tool-genre-mask` を無視します。ツールを明示的に読み込むには `--enable-tool` を使用してください。
 
 ### `--enable-tool <name>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-前述と同じビットマスクを使用して、ツールのジャンルを選択します。これを指定すると、対話形式のジャンルプロンプトがスキップされます。
-
 ### `--use-tool` / `--no-use-tool`
 
 LLM へのツール定義の送信を有効または無効にします。 `UAGENT_USE_TOOL` を上書きします。
@@ -178,10 +144,6 @@ A2A HTTP サーバーのポート番号（デフォルト: `8765`、`UAGENT_A2A_
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-前述のビットマスクを使用してツールのジャンルを選択します。 指定すると、対話型のジャンルプロンプトがスキップされます。
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### すべてのインターフェース上のWebサーバー
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### 小規模なモデルでツールを無効にする
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### 非対話型のファイル処理
