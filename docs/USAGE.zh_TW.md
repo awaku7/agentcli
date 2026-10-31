@@ -22,35 +22,6 @@ ______________________________________________________________________
 工作目錄。 若未設定，將回退至 `UAGENT_WORKDIR` 環境變數，若該變數未設定則使用當前目錄。
 若目錄不存在，則會自動建立。
 
-### `--tool-genre-mask <整數>`
-
-工具類型位元遮罩。 若提供此參數，將跳過互動式類型選取提示。
-
-| 位元 | 類型 | 說明 |
-|-----|-------|-------------|
-| 1 | basic | 基本檔案／聊天工具 |
-| 2 | comm | 通訊工具（Bluesky、Teams） |
-| 4 | office | 辦公室套件工具（Excel、PDF、PPTX） |
-| 8 | devel | 開發工具 (git、lint、編譯) |
-| 16 | iot | IoT 裝置工具 (SwitchBot、ECHONET、Matter、UPnP) |
-| 32 | exec | 命令執行工具 |
-| 64 | external | 外部外掛工具 |
-| 128 | media | 影像／音訊生成與分析 |
-| 256 | file | 檔案管理工具 |
-| 512 | index | 原始碼／索引導覽工具 |
-| 1024 | dev | 開發者與儲存庫工具 |
-| 2048 | web | 網頁與瀏覽器工具 |
-| 4096 | utility | 實用程式與支援工具 |
-| 8191 | all | 所有工具 |
-
-範例：
-
-```
-uag --tool-genre-mask 1 # 僅基本類別
-uag --tool-genre-mask 9 # 基本類別 + 開發類別 (1 + 8)
-uag --tool-genre-mask 8191    # 所有工具
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 啟用或停用將工具定義傳送至 LLM。 此設定會覆寫 `UAGENT_USE_TOOL` 環境變數。
@@ -74,7 +45,6 @@ uag --tool-genre-mask 8191    # 所有工具
 
 - 停用工作階段儲存區。
 - 除非明確啟用，否則會隱藏工具管理工具（`tool_catalog`、`tool_load`、`unload_tool`）。
-- 忽略 `--tool-genre-mask`；若需明確載入工具，請使用 `--enable-tool`。
 
 ### `--enable-tool <名稱>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <整數>`
-
-使用上述所述的相同位元遮罩來選取工具類型。 若指定此參數，將跳過互動式類型提示。
-
 ### `--use-tool` / `--no-use-tool`
 
 啟用或停用將工具定義傳送至 LLM。 此設定會覆寫 `UAGENT_USE_TOOL`。
@@ -178,10 +144,6 @@ A2A HTTP 伺服器的連接埠號碼（預設：`8765`，可透過 `UAGENT_A2A_P
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <整數>`
-
-使用上述所述的位元遮罩來選取工具類型。 若指定此參數，將跳過互動式類型提示。
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### 所有介面皆啟用 Web 伺服器
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### 針對小型模型停用工具
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### 非互動式檔案處理
