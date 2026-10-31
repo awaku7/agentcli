@@ -435,11 +435,12 @@ class WebRoom:
     def begin_tool(self, name: str) -> str:
         """Track parallel tool calls without displaying multiple progress rows."""
         call_id = uuid4().hex
-        safe_name = str(name or "").strip()[:64]
+        safe_name = " ".join(str(name or "").split())[:64]
         with self._lifecycle_lock:
             self._active_tool_calls[call_id] = safe_name
-            self.current_tool = safe_name
-        self._publish_tool_activity(safe_name)
+            if self.current_tool != safe_name:
+                self.current_tool = safe_name
+                self._publish_tool_activity(safe_name)
         return call_id
 
     def end_tool(self, call_id: str) -> None:
@@ -449,8 +450,9 @@ class WebRoom:
                 return
             self._active_tool_calls.pop(call_id)
             name = next(reversed(self._active_tool_calls.values()), "")
-            self.current_tool = name
-        self._publish_tool_activity(name)
+            if self.current_tool != name:
+                self.current_tool = name
+                self._publish_tool_activity(name)
 
     def set_status(self, busy: bool, label: str = ""):
         self.touch()
@@ -468,8 +470,9 @@ class WebRoom:
         if not busy:
             with self._lifecycle_lock:
                 self._active_tool_calls.clear()
-                self.current_tool = ""
-            self._publish_tool_activity("")
+                if self.current_tool:
+                    self.current_tool = ""
+                    self._publish_tool_activity("")
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "status", "status": self.status}), self.loop
