@@ -843,7 +843,9 @@ def test_runtime_cancellation_is_terminal() -> None:
 @pytest.mark.parametrize("provider", ["openai", "azure", "openrouter", "ollama"])
 def test_registry_chat_usage_is_reported_once(provider: str) -> None:
     chunk = SimpleNamespace(
-        choices=[SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))],
+        choices=[
+            SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))
+        ],
         usage=None,
     )
     final = SimpleNamespace(
@@ -884,7 +886,9 @@ def test_registry_chat_usage_is_reported_once(provider: str) -> None:
 
 def test_registry_chat_nonstream_usage_from_mapping() -> None:
     response = SimpleNamespace(
-        choices=[SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))],
+        choices=[
+            SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
+        ],
         usage={"prompt_tokens": 14, "completion_tokens": 4, "total_tokens": 18},
     )
     runtime = OpenAICompatibleRuntime(
@@ -965,7 +969,9 @@ def test_stream_without_final_usage_does_not_invent_counts() -> None:
         chunks=[
             SimpleNamespace(
                 choices=[
-                    SimpleNamespace(delta=SimpleNamespace(content="hello", tool_calls=[]))
+                    SimpleNamespace(
+                        delta=SimpleNamespace(content="hello", tool_calls=[])
+                    )
                 ],
                 usage=None,
             )
