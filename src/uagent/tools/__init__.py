@@ -657,9 +657,32 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
             try:
                 from .. import core as _core
 
-                if bool(getattr(_core, "IS_GUI", False)) or bool(
-                    getattr(_core, "_is_web", False)
-                ):
+                if bool(getattr(_core, "_is_web", False)):
+                    # Web already has room-scoped message delivery. Reuse the
+                    # same masked/localized text as CLI without exposing raw
+                    # tool results or writing trace data to model history.
+                    try:
+                        from ..runtime.tool_result_display import bound_display_text
+                        from ..web_impl.rooms import (
+                            _thread_ctx,
+                            get_context_web_room,
+                        )
+
+                        room = get_context_web_room() or getattr(
+                            _thread_ctx, "room", None
+                        )
+                        if room is not None:
+                            room.add_message(
+                                {
+                                    "role": "tool",
+                                    "name": name,
+                                    "content": bound_display_text(body),
+                                }
+                            )
+                    except Exception:
+                        pass
+                    return
+                if bool(getattr(_core, "IS_GUI", False)):
                     return
                 with _core.print_lock:
                     print(f"{trace_prefix}{ts} {body}", flush=True)
