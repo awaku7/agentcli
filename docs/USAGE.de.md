@@ -22,35 +22,6 @@ ______________________________________________________________________
 Arbeitsverzeichnis. Falls nicht festgelegt, wird auf die Umgebungsvariable `UAGENT_WORKDIR` zurückgegriffen, andernfalls auf das aktuelle Verzeichnis.
 Das Verzeichnis wird erstellt, falls es nicht existiert.
 
-### `--tool-genre-mask <int>`
-
-Bitmaske für Tool-Kategorien. Wenn angegeben, wird die interaktive Auswahlaufforderung für Kategorien übersprungen.
-
-| Bit | Kategorie | Beschreibung |
-|-----|-------|-------------|
-| 1 | basic | Grundlegende Datei- und Chat-Tools |
-| 2 | comm | Kommunikationstools (Bluesky, Teams) |
-| 4 | office | Office-Suite-Tools (Excel, PDF, PPTX) |
-| 8 | devel | Entwicklungswerkzeuge (git, lint, compile) |
-| 16 | iot | Werkzeuge für IoT-Geräte (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Werkzeuge zur Befehlsausführung |
-| 64 | external | Externe Plugin-Tools |
-| 128 | media | Bild-/Audioerzeugung und -analyse |
-| 256 | file | Dateiverwaltungstools |
-| 512 | index | Tools zur Quellcode-/Index-Navigation |
-| 1024 | dev | Entwickler- und Repository-Tools |
-| 2048 | web | Web- und Browser-Tools |
-| 4096 | utility | Dienstprogramme und Support-Tools |
-| 8191 | all | Alle Werkzeuge |
-
-Beispiele:
-
-```
-uag --tool-genre-mask 1 # nur „basic“
-uag --tool-genre-mask 9 # „basic“ + „devel“ (1 + 8)
-uag --tool-genre-mask 8191    # alle Tools
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktiviert oder deaktiviert das Senden von Tool-Definitionen an das LLM. Überschreibt die Umgebungsvariable `UAGENT_USE_TOOL`.
@@ -74,7 +45,6 @@ Eingebetteter Modus für eingeschränkte oder reproduzierbarkeitskritische Berei
 
 - Deaktiviert den Sitzungsspeicher.
 - Blendet Tools zur Tool-Verwaltung (`tool_catalog`, `tool_load`, `unload_tool`) aus, sofern sie nicht explizit aktiviert sind.
-- Ignoriert `--tool-genre-mask`; verwende `--enable-tool` zum expliziten Laden von Tools.
 
 ### `--enable-tool <Name>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Wählen Sie Werkzeuggenres mithilfe derselben Bitmaske aus, die oben beschrieben wurde. Wenn diese Option angegeben wird, wird die interaktive Genre-Abfrage übersprungen.
-
 ### `--use-tool` / `--no-use-tool`
 
 Aktiviert oder deaktiviert das Senden von Tool-Definitionen an den LLM. Überschreibt `UAGENT_USE_TOOL`.
@@ -178,10 +144,6 @@ Hot-Reload bei Codeänderungen aktivieren (Standard: deaktiviert, kann durch `UA
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Wählt Tool-Genres anhand der oben beschriebenen Bitmaske aus. Wenn angegeben, wird die interaktive Genre-Abfrage übersprungen.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webserver auf allen Schnittstellen
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Tools für ein kleines Modell deaktivieren
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Nicht-interaktive Dateiverarbeitung
