@@ -102,8 +102,8 @@ gen_ai.usage.output_tokens    # provider-reported output tokens
 
 Registry adapters extract usage from the provider's request-scoped response:
 `prompt_tokens` / `completion_tokens` for Chat Completions and `input_tokens`
-/ `output_tokens` for Responses. OpenAI/Azure streaming Chat Completions
-request the final usage chunk. No value is emitted when usage is absent or
+/ `output_tokens` for Responses. OpenAI streaming Chat Completions
+request the final usage chunk; Azure does so only on supported API versions. No value is emitted when usage is absent or
 invalid, including cancelled or incomplete streams. Per-response usage is not
 subtracted from a previous response's counts.
 
