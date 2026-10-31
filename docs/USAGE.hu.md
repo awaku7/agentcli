@@ -22,35 +22,6 @@ ______________________________________________________________________
 Munkakönyvtár. Ha nincs beállítva, akkor a `UAGENT_WORKDIR` környezeti változóra, majd az aktuális könyvtárra esik vissza.
 Ha a könyvtár nem létezik, akkor létrehozásra kerül.
 
-### `--tool-genre-mask <int>`
-
-Eszközműfaj-bitmaszk. Ha megadják, az interaktív műfajválasztási felhívás kihagyásra kerül.
-
-| Bit | Műfaj | Leírás |
-|-----|-------|-------------|
-| 1 | basic | Alapvető fájlkezelő és csevegő eszközök |
-| 2 | comm | Kommunikációs eszközök (Bluesky, Teams) |
-| 4 | office | Irodai csomag eszközök (Excel, PDF, PPTX) |
-| 8 | devel | Fejlesztői eszközök (git, lint, compile) |
-| 16 | iot | IoT-eszközökhöz szükséges eszközök (SwitchBot, ECHONET, Matter, UPnP) |
-| 32 | exec | Parancsok végrehajtásához szükséges eszközök |
-| 64 | external | Külső bővítményekhez szükséges eszközök |
-| 128 | media | Kép- és hangfájlok létrehozása és elemzése |
-| 256 | file | Fájlkezelő eszközök |
-| 512 | index | Forrás- és indexnavigációs eszközök |
-| 1024 | dev | Fejlesztői és repository-eszközök |
-| 2048 | web | Web- és böngészőeszközök |
-| 4096 | utility | Segédprogramok és támogató eszközök |
-| 8191 | all | Minden eszköz |
-
-Példák:
-
-```
-uag --tool-genre-mask 1 # csak alapvető
-uag --tool-genre-mask 9 # alapvető + fejlesztés (1 + 8)
-uag --tool-genre-mask 8191    # összes eszköz
-```
-
 ### `--use-tool` / `--no-use-tool`
 
 Engedélyezi vagy letiltja az eszközdefiníciók elküldését a LLM-be. Felülírja a `UAGENT_USE_TOOL` környezeti változót.
@@ -74,7 +45,6 @@ Beágyazott mód korlátozott vagy reprodukálhatóságra érzékeny telepítés
 
 - Letiltja a munkamenet-tárolót.
 - Elrejti az eszközkezelő eszközöket (`tool_catalog`, `tool_load`, `unload_tool`), hacsak azokat kifejezetten nem engedélyezik.
-- Figyelmen kívül hagyja a `--tool-genre-mask` opciót; az eszközök kifejezett betöltéséhez használja a `--enable-tool` opciót.
 
 ### `--enable-tool <név>`
 
@@ -139,10 +109,6 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
-### `--tool-genre-mask <int>`
-
-Válassza ki az eszközműfajokat a fent leírt bitmaszk segítségével. Ha megadja, a rendszer kihagyja az interaktív műfajkérdést.
-
 ### `--use-tool` / `--no-use-tool`
 
 Engedélyezi vagy letiltja az eszközdefiníciók elküldését a LLM-be. Felülírja a `UAGENT_USE_TOOL` beállítást.
@@ -178,10 +144,6 @@ A kódváltozások esetén történő forró újratöltés engedélyezése (alap
 ```
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
-
-### `--tool-genre-mask <int>`
-
-Az eszközműfajok kiválasztása a fent leírt bitmaszk segítségével. Ha megadják, az interaktív műfajkérés kihagyásra kerül.
 
 ### `--use-tool` / `--no-use-tool`
 
@@ -238,7 +200,7 @@ uag
 ```
 set UAGENT_PROVIDER=ollama
 set UAGENT_OLLAMA_MODEL=qwen2.5:7b
-uag --tool-genre-mask 1
+uag
 ```
 
 ### Webszerver minden interfészen
@@ -265,7 +227,7 @@ uaga --host 127.0.0.1 --port 8080
 ### Eszközök letiltása egy kis méretű modell esetében
 
 ```
-uag --no-use-tool --tool-genre-mask 1
+uag --no-use-tool
 ```
 
 ### Nem interaktív fájlfeldolgozás
