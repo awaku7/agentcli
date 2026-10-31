@@ -151,7 +151,7 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。
 - **ツールジャンル (`tool_genre`)**: ツールを `"basic"`, `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系), `"iot"`, `"exec"` (実行系), `"external"`, `"media"`, `"file"` に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
-- **起動時選択**: インタラクティブ起動時、ユーザーは有効化するツールジャンルのマスク値（1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 511=all）を選択できます。
+- `tool_genre` は検索・分類用のメタデータです。ジャンル単位の有効化・無効化や起動時のマスク指定はありません。
 
 ### 3.6.2 GPT-5.4+ / Responses API のツール送信フロー
 
@@ -161,9 +161,9 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 
 **`UAGENT_GPT54_TOOL_SEARCH=legacy`**: クライアント側で `_select_tool_specs_legacy()` がツールを絞り込みます。初期は `tool_catalog`/`tool_load`/`unload_tool`/`human_ask` のみ送信され、LLM が `tool_catalog` で発見 → `tool_load` で動的ロードします。
 
-**`UAGENT_GPT54_TOOL_SEARCH=native`**（明示指定）: デフォルトと同じですが、管理ツールが除外されます。`_should_preload_lazy_specs()` が True になり、genre フィルタをバイパスして全ツールが強制登録されます。
+**`UAGENT_GPT54_TOOL_SEARCH=native`**（明示指定）: デフォルトと同じですが、管理ツールが除外されます。`_should_preload_lazy_specs()` が True になり、サーバー側の絞り込み用に利用可能なツール定義が登録されます。
 
-**その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは起動時の genre mask でフィルタされ、`tool_catalog` → `tool_load` で動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
+**その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは `tool_catalog` → `tool_load` で個別に発見・動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
 **`previous_response_id` 継続**:
 
