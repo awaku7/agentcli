@@ -230,3 +230,39 @@ def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:
 
         assert result.status != "completed"
         assert responses_runtime.transitions == [expected]
+
+
+class _MeasuredUsageRuntime(_Runtime):
+    def run(self, request, cancellation):
+        yield StreamEvent(
+            "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+        )
+        yield StreamEvent(
+            "ResponseCompleted",
+            request.identifiers,
+            1,
+            0.0,
+            {
+                "response_id": "resp_usage",
+                "usage": {"input_tokens": 14, "output_tokens": 6},
+            },
+        )
+
+
+def test_orchestrator_uses_provider_response_usage_without_prior_subtraction() -> None:
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _MeasuredUsageRuntime())
+    result = RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={
+            "usage_before": {"input_tokens": 100, "output_tokens": 50},
+            "usage_after": {"input_tokens": 110, "output_tokens": 55},
+        },
+        cancellation=_Cancellation(),
+    )
+    assert result.result.summary is not None
+    assert result.result.summary.usage_delta == {
+        "input_tokens_delta": 14,
+        "output_tokens_delta": 6,
+    }
