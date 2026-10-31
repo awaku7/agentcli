@@ -266,3 +266,43 @@ def test_orchestrator_uses_provider_response_usage_without_prior_subtraction() -
         "input_tokens_delta": 14,
         "output_tokens_delta": 6,
     }
+
+
+def test_orchestrator_keeps_estimates_distinct_from_reported_usage(monkeypatch):
+    from contextlib import contextmanager
+
+    class Span:
+        def __init__(self):
+            self.attributes = {}
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            pass
+
+        def set_status(self, status, description=None):
+            pass
+
+    class Backend:
+        @contextmanager
+        def start_span(self, operation, *, attributes=None, root=False):
+            yield span
+
+    span = Span()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: Backend(),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+    RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    )
+    assert span.attributes["uag.tokens.estimate.input"] > 0
+    assert span.attributes["uag.tokens.estimate.output"] > 0
+    assert "uag.tokens.reported.input" not in span.attributes
+    assert "uag.tokens.reported.output" not in span.attributes
