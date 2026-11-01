@@ -1700,9 +1700,7 @@ async def api_commands(req: Request, room_id: str = ""):
     except Exception as exc:
         return _memory_error(exc)
     if not room_id:
-        return JSONResponse(
-            status_code=400, content={"error": "room_id is required"}
-        )
+        return JSONResponse(status_code=400, content={"error": "room_id is required"})
     from .connection_identity import require_room_access
 
     try:
@@ -1723,6 +1721,7 @@ async def api_commands(req: Request, room_id: str = ""):
 
     token = set_contextvar_locale(req.query_params.get("lang"))
     try:
+
         def build_catalog():
             result = {}
             seen = set()
@@ -1750,7 +1749,12 @@ async def api_commands(req: Request, room_id: str = ""):
 
                 for dynamic in tools.get_dynamic_command_catalog():
                     name = dynamic["name"]
-                    if forbidden_history and name in {"load", "cont", "logs", "sessions"}:
+                    if forbidden_history and name in {
+                        "load",
+                        "cont",
+                        "logs",
+                        "sessions",
+                    }:
                         continue
                     if web_command_denial(
                         ":" + name,
