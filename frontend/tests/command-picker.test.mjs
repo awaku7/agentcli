@@ -21,12 +21,12 @@ test('command picker composes one command and optional subcommand and args', () 
 
 test('development and packaged Web use identical picker modules', () => {
   const paths = [
-    new URL('../public/static/command-picker.mjs', import.meta.url),
+    new URL('../public/command-picker.mjs', import.meta.url),
     new URL('../../src/uagent/static/command-picker.mjs', import.meta.url),
   ];
   assert.equal(readFileSync(paths[0], 'utf8'), readFileSync(paths[1], 'utf8'));
   const style = [
-    new URL('../public/static/command-picker.css', import.meta.url),
+    new URL('../public/command-picker.css', import.meta.url),
     new URL('../../src/uagent/static/command-picker.css', import.meta.url),
   ];
   assert.equal(readFileSync(style[0], 'utf8'), readFileSync(style[1], 'utf8'));
