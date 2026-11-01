@@ -72,10 +72,10 @@ def test_mxc_host_paths_accept_only_pre_dotenv_overrides(monkeypatch, tmp_path):
     assert mxc_backend._runtime_dir() == trusted_runtime
 
 
-@pytest.mark.skipif(os.name != "nt", reason="Windows Node discovery is platform-specific")
-def test_mxc_node_discovery_uses_startup_path_not_project_dotenv(
-    monkeypatch, tmp_path
-):
+@pytest.mark.skipif(
+    os.name != "nt", reason="Windows Node discovery is platform-specific"
+)
+def test_mxc_node_discovery_uses_startup_path_not_project_dotenv(monkeypatch, tmp_path):
     from uagent.runtime import runtime_init
 
     local_app_data = tmp_path / "local-app-data"

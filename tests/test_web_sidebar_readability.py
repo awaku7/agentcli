@@ -18,7 +18,7 @@ def test_sidebar_titles_and_metadata_avoid_internal_identifiers() -> None:
     # classes, so assert the stable fallback fields rather than local names.
     assert 'summary||""' in bundle
     assert 'first_message||""' in bundle
-    assert 'sessionLogs' in bundle
+    assert "sessionLogs" in bundle
     assert "title={sessionTitle(session)}" in source
     assert '"title"' in bundle
     assert "プロジェクト未設定" not in source

@@ -412,9 +412,7 @@ def test_authenticated_logs_are_filtered_to_the_current_principal(
     alice_logs = client.get("/api/logs").json()["logs"]
     assert [row["path"] for row in alice_logs] == [alice.session_id]
     assert alice_logs[0]["room_id"] == "private-a"
-    assert (
-        alice_logs[0]["mtime"] == store.get_session(alice.session_id)["last_used_at"]
-    )
+    assert alice_logs[0]["mtime"] == store.get_session(alice.session_id)["last_used_at"]
     assert (
         client.get(
             "/api/logs/preview-by-path", params={"path": bob.session_id}
