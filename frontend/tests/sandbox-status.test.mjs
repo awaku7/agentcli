@@ -17,4 +17,9 @@ test('development and packaged Sandbox indicators are identical', () => {
   assert.equal(frontend, packaged);
   assert.ok(frontend.includes("credentials: 'same-origin'"));
   assert.ok(frontend.includes("id !== roomId()"));
+  assert.ok(frontend.includes('if (roomId()) {'));
+  assert.ok(frontend.includes('pendingRoom.disconnect()'));
+  assert.ok(!frontend.includes('setInterval('));
+  assert.ok(!frontend.includes("addEventListener('focus'"));
+  assert.ok(!frontend.includes("addEventListener('visibilitychange'"));
 });
