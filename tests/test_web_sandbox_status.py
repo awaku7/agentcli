@@ -62,9 +62,7 @@ def test_room_status_distinguishes_off_ready_running_and_unavailable(monkeypatch
     monkeypatch.setattr(web_manager, "sandbox_session_manager", manager)
 
     def get_state():
-        response = asyncio.run(
-            routes_api.get_room_sandbox_status(object(), "room-a")
-        )
+        response = asyncio.run(routes_api.get_room_sandbox_status(object(), "room-a"))
         assert isinstance(response, JSONResponse)
         assert response.headers["cache-control"] == "no-store"
         return json.loads(response.body)["state"]
@@ -90,7 +88,5 @@ def test_room_status_denies_unauthorized_users(monkeypatch):
         raise PermissionError("room access denied")
 
     monkeypatch.setattr(connection_identity, "require_room_access", reject)
-    response = asyncio.run(
-        routes_api.get_room_sandbox_status(object(), "room-a")
-    )
+    response = asyncio.run(routes_api.get_room_sandbox_status(object(), "room-a"))
     assert response.status_code == 403
