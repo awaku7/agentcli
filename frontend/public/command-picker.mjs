@@ -156,30 +156,17 @@ export function mountCommandPicker() {
   });
   search.addEventListener('input', render);
   close.addEventListener('click', hide);
-  execute.addEventListener('click', async () => {
+  execute.addEventListener('click', () => {
     if (!selected) return;
-    const id = roomId();
-    if (!id) { showError(l.room); return; }
-    execute.disabled = true;
-    feedback.textContent = '';
-    try {
-      const response = await fetch('/api/command', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          room_id: id,
-          command: composeCommand(selected.name, subSelect.hidden ? '' : subSelect.value, args.value),
-        }),
-      });
-      const data = await response.json();
-      if (!response.ok || !data.ok) throw new Error(data.error || String(response.status));
-      hide();
-    } catch (error) {
-      showError(l.failed + ': ' + error.message);
-    } finally {
-      execute.disabled = false;
-    }
+    // Use the established WebSocket command channel, not the chat input or
+    // the separate HTTP executor. This preserves :load history refresh.
+    const detail = {
+      command: composeCommand(selected.name, subSelect.hidden ? '' : subSelect.value, args.value),
+      sent: false,
+    };
+    window.dispatchEvent(new CustomEvent('uag-command-picker-execute', { detail }));
+    if (detail.sent) hide();
+    else showError(l.failed + ': ' + l.room);
   });
   panel.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') { event.preventDefault(); hide(); toggle.focus(); }
