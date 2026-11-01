@@ -164,8 +164,8 @@ async def websocket_endpoint(websocket: WebSocket):
                     )
                     continue
                 user_text = payload.get("text")
-                if _handle_mode_command(str(user_text or "")):
-                    continue
+                # Text typed in the chat box is always a user message.
+                # Mode commands must arrive through the separate command channel.
                 forward_to_mesh(str(user_text or ""))
                 if is_chat_mode() == "on":
                     continue

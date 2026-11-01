@@ -1688,6 +1688,110 @@ async def get_log_preview(index: int, request: Request):
     }
 
 
+@app.get("/api/commands")
+async def api_commands(req: Request, room_id: str = ""):
+    """Return executable command choices for the authenticated room.
+
+    Catalog discovery must not expose forbidden host commands or import
+    plugins when the Web execution profile is restricted.
+    """
+    try:
+        identity = _request_identity(req)
+    except Exception as exc:
+        return _memory_error(exc)
+    if not room_id:
+        return JSONResponse(status_code=400, content={"error": "room_id is required"})
+    from .connection_identity import require_room_access
+
+    try:
+        _project_id, private_session = require_room_access(identity, room_id)
+    except PermissionError as exc:
+        return JSONResponse(status_code=403, content={"error": str(exc)})
+    except Exception as exc:
+        return _memory_error(exc)
+
+    from ..i18n import reset_contextvar_locale, set_contextvar_locale
+    from ..util_help import _static_help_catalog
+    from .command_policy import web_command_denial
+
+    execution_profile = getattr(web_manager, "execution_profile", "remote")
+    sandbox_enabled = bool(getattr(web_manager, "sandbox_enabled", False))
+    local_trusted = execution_profile == "local_trusted" and not sandbox_enabled
+    forbidden_history = private_session or identity.authn_kind != "local"
+
+    token = set_contextvar_locale(req.query_params.get("lang"))
+    try:
+
+        def build_catalog():
+            result = {}
+            seen = set()
+            for name, detail in _static_help_catalog(tr=_).items():
+                # The static help lookup also contains alias references.
+                if id(detail) in seen:
+                    continue
+                seen.add(id(detail))
+                if forbidden_history and name in {"load", "cont", "logs", "sessions"}:
+                    continue
+                if web_command_denial(
+                    ":" + name,
+                    execution_profile=execution_profile,
+                    sandbox_enabled=sandbox_enabled,
+                ):
+                    continue
+                result[name] = {
+                    "name": name,
+                    "summary": str(detail.get("summary") or ""),
+                    "usage": str(detail.get("usage") or ":" + name),
+                    "subcommands": [],
+                }
+            if local_trusted:
+                from .. import tools
+
+                for dynamic in tools.get_dynamic_command_catalog():
+                    name = dynamic["name"]
+                    if forbidden_history and name in {
+                        "load",
+                        "cont",
+                        "logs",
+                        "sessions",
+                    }:
+                        continue
+                    if web_command_denial(
+                        ":" + name,
+                        execution_profile=execution_profile,
+                        sandbox_enabled=sandbox_enabled,
+                    ):
+                        continue
+                    item = result.setdefault(
+                        name,
+                        {
+                            "name": name,
+                            "summary": "",
+                            "usage": ":" + name,
+                            "subcommands": [],
+                        },
+                    )
+                    item["subcommands"] = dynamic["subcommands"]
+                    if not item["summary"]:
+                        item["summary"] = next(
+                            (
+                                choice["summary"]
+                                for choice in dynamic["subcommands"]
+                                if choice["summary"]
+                            ),
+                            "",
+                        )
+            return sorted(result.values(), key=lambda item: item["name"])
+
+        commands = await asyncio.to_thread(build_catalog)
+        return JSONResponse(
+            content={"ok": True, "commands": commands},
+            headers={"Cache-Control": "no-store"},
+        )
+    finally:
+        reset_contextvar_locale(token)
+
+
 @app.post("/api/command")
 async def api_command(req: Request):
     """Execute a room command for an authenticated room participant."""

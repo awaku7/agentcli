@@ -1369,6 +1369,29 @@ def get_dynamic_commands_map(*, block: bool = True) -> dict[str, list[str]]:
     return snapshot
 
 
+def get_dynamic_command_catalog() -> list[dict[str, Any]]:
+    """Return a handler-free snapshot of registered CLI command metadata.
+
+    Called only for trusted local Web sessions. Registered plugins are loaded
+    before taking the snapshot; no command handlers are ever executed.
+    """
+    _ensure_loaded()
+    catalog: list[dict[str, Any]] = []
+    with _TOOLS_LOCK:
+        for command, subcommands in sorted(_DYNAMIC_COMMANDS.items()):
+            choices = []
+            for subcommand, info in sorted(subcommands.items()):
+                choices.append(
+                    {
+                        "name": subcommand,
+                        "summary": str(info.get("help_text") or ""),
+                        "usage": str(info.get("usage") or ""),
+                    }
+                )
+            catalog.append({"name": command, "subcommands": choices})
+    return catalog
+
+
 def get_dynamic_subcommands(cmd: str, *, block: bool = True) -> list[str]:
     """Return sorted subcommand names for one dynamic command.
 
