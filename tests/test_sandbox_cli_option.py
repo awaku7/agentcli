@@ -234,3 +234,22 @@ def test_realtime_cli_rejects_sandbox_before_running_realtime(monkeypatch, capsy
 
     assert cli_main.main() == 2
     assert "realtime mode is unavailable" in capsys.readouterr().err
+
+
+def test_sandbox_startup_label_reports_enabled_backend_only(monkeypatch):
+    from uagent.i18n import reset_contextvar_locale, set_contextvar_locale
+    from uagent.runtime.sandbox_config import sandbox_startup_label
+
+    token = set_contextvar_locale("en")
+    try:
+        assert sandbox_startup_label(True) == "Sandbox: ON"
+        assert sandbox_startup_label(False) == "Sandbox: OFF"
+    finally:
+        reset_contextvar_locale(token)
+
+    token = set_contextvar_locale("ja")
+    try:
+        assert sandbox_startup_label(True) == "サンドボックス: ON"
+        assert sandbox_startup_label(False) == "サンドボックス: OFF"
+    finally:
+        reset_contextvar_locale(token)

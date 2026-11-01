@@ -5728,3 +5728,8 @@ msgstr "このプロセスのOTel送信状態を表示"
 
 msgid "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."
 msgstr "読み取り専用のOTel診断です。有効状態、送信結果、最終成功・失敗時刻を表示します。Adminへの通信は発生しません。"
+
+#: src/uagent/runtime/sandbox_config.py
+#, python-format
+msgid "Sandbox: %(state)s"
+msgstr "サンドボックス: %(state)s"

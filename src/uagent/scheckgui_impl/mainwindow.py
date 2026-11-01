@@ -32,6 +32,7 @@ from ..tools.pybitchat_shared import forward_to_mesh
 from ..attachment_utils import materialize_attachment
 from ..scheduler import stop_background_scheduler
 from ..runtime.round_outcome import project_round_outcome, round_outcome_key
+from ..runtime.sandbox_config import sandbox_startup_label
 from ..welcome import get_welcome_message
 from . import state
 from .config import (
@@ -73,6 +74,7 @@ class MainWindow(QtWidgets.QMainWindow):
     _input: QtWidgets.QPlainTextEdit
     _pw_input: QtWidgets.QLineEdit
     _status_label: QtWidgets.QLabel
+    _sandbox_label: QtWidgets.QLabel
     _workdir_label: QtWidgets.QLabel
     _provider_model_label: QtWidgets.QLabel
     _mode_label: QtWidgets.QLabel
@@ -640,6 +642,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self._status_label = QtWidgets.QLabel(" [STATE] IDLE")
         self.statusBar().addPermanentWidget(self._status_label)
+
+        self._sandbox_label = QtWidgets.QLabel(
+            " " + sandbox_startup_label(bool(getattr(core, "_sandbox_enabled", False)))
+        )
+        self.statusBar().addPermanentWidget(self._sandbox_label)
 
         self._workdir_label = QtWidgets.QLabel("")
         self.statusBar().addPermanentWidget(self._workdir_label)

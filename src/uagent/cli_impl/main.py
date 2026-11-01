@@ -29,6 +29,7 @@ from ..util_tools import (
     provider_allows_chat_vision,
 )
 from ..cli_startup import run_cli_startup as _run_cli_startup
+from ..runtime.sandbox_config import sandbox_startup_label
 from .history import _append_prompt_history_entry, _bootstrap_prompt_history
 from .startup import (
     INITIAL_FILE_ARG,
@@ -143,6 +144,7 @@ def main() -> int:
         if mode == "off":
             core._sandbox_enabled = False
             core._sandbox_scope = None
+            print(sandbox_startup_label(False), file=sys.stderr)
             return True
 
         from ..runtime.mxc_backend import (
@@ -190,6 +192,7 @@ def main() -> int:
             print(
                 f"[sandbox] enabled: {describe_probe(sandbox_report)}", file=sys.stderr
             )
+            print(sandbox_startup_label(True), file=sys.stderr)
             return True
         except Exception as exc:
             print(
@@ -231,6 +234,7 @@ def main() -> int:
             return 2
         from ..realtime import run as run_realtime
 
+        print(sandbox_startup_label(False), file=sys.stderr)
         raise SystemExit(run_realtime())
 
     from .. import uagent_llm as llm_util  # lazy
