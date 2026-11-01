@@ -118,14 +118,15 @@ test('commands retain failure status while the connection is unavailable', () =>
   assert.equal(run("sendCommand(':help')"), false);
 });
 
-test('input and shipped bundle preserve command drafts on send failure', () => {
+test('command transport reports send errors independently of chat input', () => {
   const app = readFileSync(new URL('../src/App.svelte', import.meta.url), 'utf8');
   const input = readFileSync(
     new URL('../src/lib/components/InputArea.svelte', import.meta.url), 'utf8',
   );
-  assert.ok(app.includes('function handleCommand(cmd) { return sendCommand(cmd); }'));
-  assert.ok(input.includes('if (onCommand(t) === false) return;'));
-  assert.ok(bundle.includes('function c(H){return Vr(H)}'));
-  assert.ok(bundle.includes('if(h.startsWith(":")){if(t.onCommand(h)===!1)return;'));
+  // Dedicated picker calls /api/command; text input only emits user_input.
+  assert.ok(!app.includes('onCommand={handleCommand}'));
+  assert.ok(!input.includes('onCommand('));
+  assert.ok(input.includes('onSend(message, pendingAttachments)'));
+  // Internal programmatic commands still report transport failures correctly.
   assert.ok(bundle.includes('function Vr(e){const t=M.ws;if(!t||t.readyState!==WebSocket.OPEN)return!1;try{'));
 });
