@@ -326,8 +326,13 @@ export function sendUserInput(text, attachments) {
 
 export function sendCommand(text) {
   const ws = _state.ws;
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
-  ws.send(JSON.stringify({ type: 'command', text }));
+  if (!ws || ws.readyState !== WebSocket.OPEN) return false;
+  try {
+    ws.send(JSON.stringify({ type: 'command', text }));
+  } catch (_) {
+    return false;
+  }
+  return true;
 }
 
 export function sendDisplayReasoningToggle() {
