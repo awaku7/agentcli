@@ -114,6 +114,7 @@ def test_dynamic_catalog_does_not_include_callable_handlers(monkeypatch):
         }
     ]
 
+
 def test_chat_colon_commands_are_user_messages_not_mode_changes(monkeypatch):
     """A colon prefix in user_input never selects the command handler."""
     from fastapi import WebSocketDisconnect
