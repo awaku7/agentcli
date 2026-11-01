@@ -70,6 +70,7 @@ TOOL_NAMES = frozenset(
         "qr_code",
         "binary_edit",
         "security_scan",
+        "git_ops",
     }
 )
 
@@ -409,6 +410,49 @@ TOOL_SPECS += (
             "glob": {"type": "string", "maxLength": 256},
             "limit": {"type": "integer", "minimum": 1, "maximum": 100},
         },
+    ),
+    _sandbox_tool_spec(
+        "git_ops",
+        "Inspect or mutate only a local Git repository inside the isolated workspace. Remote/network commands are excluded; mutations require confirmed=true.",
+        {
+            "command": {
+                "type": "string",
+                "enum": [
+                    "status",
+                    "diff",
+                    "log",
+                    "branch",
+                    "rev-parse",
+                    "rev-list",
+                    "show",
+                    "ls-files",
+                    "grep",
+                    "tag",
+                    "reflog",
+                    "blame",
+                    "ls-tree",
+                    "cat-file",
+                    "init",
+                    "add",
+                    "commit",
+                    "switch",
+                    "checkout",
+                    "reset",
+                    "restore",
+                    "merge",
+                    "rebase",
+                    "stash",
+                    "rm",
+                ],
+            },
+            "args": {
+                "type": "array",
+                "items": {"type": "string", "maxLength": 1000},
+                "maxItems": 40,
+            },
+            "confirmed": {"type": "boolean"},
+        },
+        ["command"],
     ),
 )
 

@@ -13,11 +13,14 @@ import json
 import math
 import mimetypes
 import operator
+import os
 import re
 import shutil
 import sqlite3
 import stat
+import subprocess
 import sys
+import threading
 import time
 import tomllib
 import zipfile
@@ -57,6 +60,7 @@ _ALLOWED = {
     "qr_code",
     "binary_edit",
     "security_scan",
+    "git_ops",
 }
 ROOT = Path.cwd().resolve()
 MAX_SCAN_FILES = 5000
@@ -1478,6 +1482,298 @@ def _security_scan(args: dict[str, Any]) -> str:
     )
 
 
+_GIT_READ_COMMANDS = frozenset(
+    {
+        "status",
+        "diff",
+        "log",
+        "branch",
+        "rev-parse",
+        "rev-list",
+        "show",
+        "ls-files",
+        "grep",
+        "tag",
+        "reflog",
+        "blame",
+        "ls-tree",
+        "cat-file",
+    }
+)
+_GIT_MUTATING_COMMANDS = frozenset(
+    {
+        "init",
+        "add",
+        "commit",
+        "switch",
+        "checkout",
+        "reset",
+        "restore",
+        "merge",
+        "rebase",
+        "stash",
+        "rm",
+    }
+)
+_GIT_FORBIDDEN_ARGS = (
+    "-c",
+    "--config",
+    "--config-env",
+    "--git-dir",
+    "--work-tree",
+    "--exec-path",
+    "--output",
+    "--no-index",
+    "--ext-diff",
+    "--textconv",
+    "--filters",
+    "--pathspec-from-file",
+    "--template",
+    "--separate-git-dir",
+    "--reference",
+    "--upload-pack",
+    "--receive-pack",
+    "--remote",
+    "--show-signature",
+    "--gpg-sign",
+    "--local-user",
+)
+
+
+def _validate_workspace_git_metadata() -> None:
+    metadata = ROOT / ".git"
+    if metadata.is_symlink():
+        raise PermissionError("symbolic .git entries are not allowed in the workspace")
+    if metadata.is_file():
+        first_line = metadata.read_text(encoding="utf-8", errors="replace").splitlines()
+        if not first_line or not first_line[0].lower().startswith("gitdir:"):
+            raise ValueError("invalid workspace .git file")
+        value = first_line[0].split(":", 1)[1].strip()
+        git_dir = Path(value)
+        if not git_dir.is_absolute():
+            git_dir = ROOT / git_dir
+        resolved = git_dir.resolve(strict=False)
+        if resolved != ROOT and ROOT not in resolved.parents:
+            raise PermissionError(
+                "Git metadata must stay inside the isolated workspace"
+            )
+        metadata = resolved
+    if metadata.is_dir():
+        common = metadata / "commondir"
+        if common.is_file():
+            value = common.read_text(encoding="utf-8", errors="replace").strip()
+            path = Path(value)
+            resolved = (
+                (metadata / path).resolve(strict=False)
+                if not path.is_absolute()
+                else path.resolve(strict=False)
+            )
+            if resolved != ROOT and ROOT not in resolved.parents:
+                raise PermissionError(
+                    "shared Git metadata must stay inside the isolated workspace"
+                )
+        if (metadata / "objects" / "info" / "alternates").exists():
+            raise PermissionError("external Git object alternates are not allowed")
+
+
+def _git_ops(args: dict[str, Any]) -> str:
+    command = str(args.get("command") or "").strip().lower()
+    if command not in _GIT_READ_COMMANDS | _GIT_MUTATING_COMMANDS:
+        raise ValueError("Git command is not in the local/offline allowlist")
+    git_args = args.get("args", [])
+    if not isinstance(git_args, list) or len(git_args) > 40:
+        raise ValueError("Git args must be a list of at most 40 strings")
+    normalized = []
+    for item in git_args:
+        if (
+            not isinstance(item, str)
+            or len(item) > 1000
+            or any(ord(ch) < 32 for ch in item)
+        ):
+            raise ValueError(
+                "Git arguments must be bounded text without control characters"
+            )
+        if chr(92) in item or "://" in item or item.lower().startswith("git@"):
+            raise PermissionError(
+                "absolute paths and remote Git URLs are not available in Sandbox"
+            )
+        if item.startswith("/") or Path(item).is_absolute() or Path(item).drive:
+            raise PermissionError(
+                "Git paths must be relative to the isolated workspace"
+            )
+        if any(part == ".." for part in item.split("/")):
+            raise PermissionError("Git path traversal is not accepted")
+        lowered = item.lower()
+        if any(
+            lowered == forbidden or lowered.startswith(forbidden + "=")
+            for forbidden in _GIT_FORBIDDEN_ARGS
+        ):
+            raise PermissionError(
+                "Git option can escape the local/offline execution policy"
+            )
+        normalized.append(item)
+    if command == "tag" and any(arg in {"-s", "-u", "-v"} for arg in normalized):
+        raise PermissionError(
+            "GPG signing/verification is not available in Sandbox Git"
+        )
+    if command == "commit" and any(arg.startswith("-S") for arg in normalized):
+        raise PermissionError("GPG signing is not available in Sandbox Git")
+    if command in _GIT_MUTATING_COMMANDS and not bool(args.get("confirmed", False)):
+        raise PermissionError("confirmed=true is required for workspace Git mutations")
+    if (
+        command == "branch"
+        and any(
+            not arg.startswith("-")
+            or arg
+            in {"-d", "-D", "-m", "-M", "-c", "-C", "--delete", "--move", "--copy"}
+            for arg in normalized
+        )
+        and not args.get("confirmed", False)
+    ):
+        raise PermissionError("confirmed=true is required to mutate branches")
+    if (
+        command == "tag"
+        and any(
+            not arg.startswith("-")
+            or arg in {"-d", "--delete", "-a", "-s", "-f", "--force"}
+            for arg in normalized
+        )
+        and not args.get("confirmed", False)
+    ):
+        raise PermissionError("confirmed=true is required to mutate tags")
+    if (
+        command == "reflog"
+        and any(arg in {"delete", "expire"} for arg in normalized)
+        and not args.get("confirmed", False)
+    ):
+        raise PermissionError("confirmed=true is required to mutate reflogs")
+    if "--" in normalized:
+        separator = normalized.index("--")
+        for path_arg in normalized[separator + 1 :]:
+            _resolve_relative(path_arg)
+    _validate_workspace_git_metadata()
+    executable = shutil.which("git")
+    if not executable:
+        raise RuntimeError("Git executable is not installed in the MXC sandbox")
+    executable_path = Path(executable).absolute()
+    if (
+        executable_path.is_symlink()
+        or executable_path == ROOT
+        or ROOT in executable_path.parents
+    ):
+        raise PermissionError(
+            "Git executable must be installed outside the session workspace"
+        )
+    executable = str(executable_path.resolve())
+    env = {
+        "PATH": os.environ.get("PATH", ""),
+        "SYSTEMROOT": os.environ.get("SYSTEMROOT", ""),
+        "WINDIR": os.environ.get("WINDIR", ""),
+        "HOME": str(ROOT),
+        "USERPROFILE": str(ROOT),
+        "TEMP": str(ROOT),
+        "TMP": str(ROOT),
+        "TMPDIR": str(ROOT),
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_CONFIG_GLOBAL": os.devnull,
+        "GIT_TERMINAL_PROMPT": "0",
+        "GIT_PAGER": "cat",
+        "PAGER": "cat",
+        "GIT_EDITOR": "false",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "GIT_CEILING_DIRECTORIES": str(ROOT),
+        "GIT_CONFIG_COUNT": "7",
+        "GIT_CONFIG_KEY_0": "core.fsmonitor",
+        "GIT_CONFIG_VALUE_0": "false",
+        "GIT_CONFIG_KEY_1": "core.pager",
+        "GIT_CONFIG_VALUE_1": "cat",
+        "GIT_CONFIG_KEY_2": "diff.external",
+        "GIT_CONFIG_VALUE_2": "",
+        "GIT_CONFIG_KEY_3": "credential.helper",
+        "GIT_CONFIG_VALUE_3": "",
+        "GIT_CONFIG_KEY_4": "core.hooksPath",
+        "GIT_CONFIG_VALUE_4": os.devnull,
+        "GIT_CONFIG_KEY_5": "commit.gpgSign",
+        "GIT_CONFIG_VALUE_5": "false",
+        "GIT_CONFIG_KEY_6": "tag.gpgSign",
+        "GIT_CONFIG_VALUE_6": "false",
+        "GIT_AUTHOR_NAME": "MXC Sandbox",
+        "GIT_AUTHOR_EMAIL": "sandbox@localhost",
+        "GIT_COMMITTER_NAME": "MXC Sandbox",
+        "GIT_COMMITTER_EMAIL": "sandbox@localhost",
+    }
+    argv = [executable, command, *normalized]
+    if command in {"diff", "show", "log"}:
+        argv.extend(["--no-ext-diff", "--no-textconv"])
+    try:
+        process = subprocess.Popen(
+            argv,
+            cwd=ROOT,
+            env=env,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=False,
+        )
+    except OSError as exc:
+        raise RuntimeError(
+            f"could not start sandbox Git: {type(exc).__name__}"
+        ) from exc
+    collected: dict[str, Any] = {}
+
+    def drain(stream, key: str, limit: int) -> None:
+        pieces = []
+        size = 0
+        truncated_output = False
+        while True:
+            chunk = stream.read(8192)
+            if not chunk:
+                break
+            remaining = limit - size
+            if remaining > 0:
+                pieces.append(chunk[:remaining])
+                size += min(len(chunk), remaining)
+            if len(chunk) > remaining:
+                truncated_output = True
+        collected[key] = b"".join(pieces).decode("utf-8", errors="replace")
+        collected[key + "_truncated"] = truncated_output
+
+    stdout_thread = threading.Thread(
+        target=drain, args=(process.stdout, "stdout", MAX_READ_BYTES), daemon=True
+    )
+    stderr_thread = threading.Thread(
+        target=drain, args=(process.stderr, "stderr", 16_384), daemon=True
+    )
+    stdout_thread.start()
+    stderr_thread.start()
+    timed_out = False
+    try:
+        return_code = process.wait(timeout=15)
+    except subprocess.TimeoutExpired:
+        timed_out = True
+        process.kill()
+        return_code = process.wait()
+    stdout_thread.join(timeout=2)
+    stderr_thread.join(timeout=2)
+    stdout = collected.get("stdout", "")
+    stderr = collected.get("stderr", "")
+    for host_path in (str(ROOT), str(ROOT).replace("\\", "/")):
+        stdout = stdout.replace(host_path, ".")
+        stderr = stderr.replace(host_path, ".")
+    return json.dumps(
+        {
+            "command": command,
+            "returncode": return_code,
+            "stdout": stdout,
+            "stderr": stderr,
+            "timed_out": timed_out,
+            "output_truncated": collected.get("stdout_truncated", False)
+            or collected.get("stderr_truncated", False),
+        },
+        ensure_ascii=False,
+    )
+
+
 def _dispatch(request: Any) -> Any:
     if not isinstance(request, dict) or request.get("name") not in _ALLOWED:
         raise ValueError("tool is not in the local sandbox allowlist")
@@ -1513,6 +1809,7 @@ def _dispatch(request: Any) -> Any:
         "qr_code": _qr_code,
         "binary_edit": _binary_edit,
         "security_scan": _security_scan,
+        "git_ops": _git_ops,
     }
     if name in handlers:
         return handlers[name](args)

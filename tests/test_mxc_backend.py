@@ -300,6 +300,7 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
         "qr_code",
         "binary_edit",
         "security_scan",
+        "git_ops",
     }.issubset(names)
 
 
@@ -787,6 +788,73 @@ Body""",
         )
     )
     assert "Hello" in extracted["text"]
+
+
+def test_mxc_git_ops_are_workspace_local_and_offline(monkeypatch, tmp_path):
+    import shutil
+
+    if not shutil.which("git"):
+        pytest.skip("Git is unavailable on this test host")
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    with pytest.raises(PermissionError, match="confirmed=true"):
+        sandbox_worker._dispatch({"name": "git_ops", "args": {"command": "init"}})
+    initialized = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "git_ops", "args": {"command": "init", "confirmed": True}}
+        )
+    )
+    assert initialized["returncode"] == 0
+    sandbox_worker._dispatch(
+        {
+            "name": "create_file",
+            "args": {"filename": "note.txt", "content": "sandbox git"},
+        }
+    )
+    staged = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "git_ops",
+                "args": {
+                    "command": "add",
+                    "args": ["--", "note.txt"],
+                    "confirmed": True,
+                },
+            }
+        )
+    )
+    assert staged["returncode"] == 0
+    committed = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "git_ops",
+                "args": {
+                    "command": "commit",
+                    "args": ["-m", "sandbox commit"],
+                    "confirmed": True,
+                },
+            }
+        )
+    )
+    assert committed["returncode"] == 0
+    status = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "git_ops", "args": {"command": "status", "args": ["--short"]}}
+        )
+    )
+    assert status["returncode"] == 0 and status["stdout"].strip() == ""
+    with pytest.raises(ValueError, match="allowlist"):
+        sandbox_worker._dispatch({"name": "git_ops", "args": {"command": "push"}})
+    with pytest.raises(PermissionError, match="traversal"):
+        sandbox_worker._dispatch(
+            {
+                "name": "git_ops",
+                "args": {
+                    "command": "add",
+                    "args": ["--", "../outside"],
+                    "confirmed": True,
+                },
+            }
+        )
 
 
 def test_mxc_optional_image_and_qr_tools(monkeypatch, tmp_path):
