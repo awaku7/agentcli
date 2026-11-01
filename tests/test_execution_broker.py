@@ -1030,14 +1030,13 @@ def test_computer_use_tool_specs_are_filtered_for_remote_and_sandbox_profiles(
         remote_specs = tools.get_tool_specs()
     assert [spec["function"]["name"] for spec in remote_specs] == ["calculator"]
 
+    from uagent.runtime import mxc_backend
+
     with execution_profile(SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True):
         sandbox_specs = tools.get_tool_specs()
-    assert {spec["function"]["name"] for spec in sandbox_specs} == {
-        "create_file",
-        "file_exists",
-        "read_file",
-        "python_exec",
-    }
+    assert {spec["function"]["name"] for spec in sandbox_specs} == set(
+        mxc_backend.TOOL_NAMES
+    )
 
 
 @pytest.mark.parametrize(

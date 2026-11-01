@@ -274,6 +274,33 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
     ):
         names = {spec["function"]["name"] for spec in tools.get_tool_specs()}
     assert names == set(mxc_backend.TOOL_NAMES)
+    assert names == sandbox_worker._ALLOWED
+    assert len(names) == len(
+        {spec["function"]["name"] for spec in mxc_backend.sandbox_tool_specs()}
+    )
+    assert {
+        "list_dir",
+        "search_files",
+        "file_grep",
+        "file_hash",
+        "wc",
+        "rename_path",
+        "delete_file",
+        "replace_in_file",
+        "diff_files",
+        "archive_ops",
+        "document_extract",
+        "structured_data",
+        "sqlite_query",
+        "calculate",
+        "python_ast",
+        "parse_eml",
+        "file_type",
+        "image_ops",
+        "qr_code",
+        "binary_edit",
+        "security_scan",
+    }.issubset(names)
 
 
 def test_sandbox_route_fails_closed_when_backend_is_not_initialized(
@@ -418,6 +445,387 @@ def test_worker_read_file_applies_byte_limit_after_start_line(monkeypatch, tmp_p
     )
 
     assert result == "later section\n"
+
+
+def test_sandbox_worker_exposes_bounded_workspace_file_tools(monkeypatch, tmp_path):
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    sandbox_worker._dispatch(
+        {
+            "name": "create_file",
+            "args": {
+                "filename": "a.txt",
+                "content": """alpha
+beta
+alpha
+""",
+            },
+        }
+    )
+    sandbox_worker._dispatch(
+        {
+            "name": "create_file",
+            "args": {
+                "filename": "b.txt",
+                "content": """alpha
+gamma
+""",
+            },
+        }
+    )
+
+    listing = json.loads(sandbox_worker._dispatch({"name": "list_dir", "args": {}}))
+    assert {entry["name"] for entry in listing["entries"]} == {"a.txt", "b.txt"}
+    found = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "search_files", "args": {"glob": "*.txt", "re_content": "^alpha"}}
+        )
+    )
+    assert found["files"] == ["a.txt", "b.txt"]
+    grep = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "file_grep", "args": {"pattern": "alpha", "literal": True}}
+        )
+    )
+    assert len(grep["matches"]) == 3
+    counts = json.loads(
+        sandbox_worker._dispatch({"name": "wc", "args": {"paths": ["a.txt"]}})
+    )
+    assert counts["files"][0]["lines"] == 3
+    digest = json.loads(
+        sandbox_worker._dispatch({"name": "file_hash", "args": {"paths": ["a.txt"]}})
+    )
+    assert len(digest["files"][0]["hash"]) == 64
+    diff = sandbox_worker._dispatch(
+        {"name": "diff_files", "args": {"path1": "a.txt", "path2": "b.txt"}}
+    )
+    assert "beta" in diff and "gamma" in diff
+
+    changed = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "replace_in_file",
+                "args": {
+                    "path": "a.txt",
+                    "pattern": "alpha",
+                    "replacement": "omega",
+                    "occurrence": 1,
+                },
+            }
+        )
+    )
+    assert changed["replacements"] == 1
+    assert (tmp_path / "a.txt").read_text(encoding="utf-8").startswith("omega")
+    sandbox_worker._dispatch(
+        {"name": "rename_path", "args": {"src": "b.txt", "dst": "c.txt"}}
+    )
+    assert (tmp_path / "c.txt").is_file()
+    with pytest.raises(PermissionError, match="confirmed=true"):
+        sandbox_worker._dispatch({"name": "delete_file", "args": {"filename": "c.txt"}})
+    sandbox_worker._dispatch(
+        {"name": "delete_file", "args": {"filename": "c.txt", "confirmed": True}}
+    )
+    assert not (tmp_path / "c.txt").exists()
+
+
+def test_mxc_workspace_data_and_archive_tools(monkeypatch, tmp_path):
+    import sqlite3
+    import zipfile
+
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    (tmp_path / "plain.txt").write_text("hello from sandbox", encoding="utf-8")
+    archive_result = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "archive_ops",
+                "args": {
+                    "action": "create",
+                    "zip_path": "files.zip",
+                    "sources": ["plain.txt"],
+                },
+            }
+        )
+    )
+    assert archive_result["files"] == 1
+    listing = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "archive_ops", "args": {"action": "list", "zip_path": "files.zip"}}
+        )
+    )
+    assert listing["entries"][0]["name"] == "plain.txt"
+    assert (
+        sandbox_worker._dispatch(
+            {
+                "name": "archive_ops",
+                "args": {
+                    "action": "view",
+                    "zip_path": "files.zip",
+                    "target_file": "plain.txt",
+                },
+            }
+        )
+        == "hello from sandbox"
+    )
+    sandbox_worker._dispatch(
+        {
+            "name": "archive_ops",
+            "args": {"action": "extract", "zip_path": "files.zip", "dest_dir": "out"},
+        }
+    )
+    assert (tmp_path / "out" / "plain.txt").read_text(
+        encoding="utf-8"
+    ) == "hello from sandbox"
+
+    with zipfile.ZipFile(tmp_path / "unsafe.zip", "w") as archive:
+        archive.writestr("../escape.txt", "no")
+    with pytest.raises(ValueError, match="unsafe ZIP member"):
+        sandbox_worker._dispatch(
+            {
+                "name": "archive_ops",
+                "args": {"action": "list", "zip_path": "unsafe.zip"},
+            }
+        )
+
+    (tmp_path / "data.json").write_text(
+        '{"items":[1,2],"name":"demo"}', encoding="utf-8"
+    )
+    summary = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "structured_data", "args": {"path": "data.json"}}
+        )
+    )
+    assert summary["keys"] == ["items", "name"]
+    section = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "structured_data",
+                "args": {"path": "data.json", "mode": "section", "pointer": "/items/1"},
+            }
+        )
+    )
+    assert section == 2
+    (tmp_path / "table.csv").write_text(
+        """name,value
+alice,1
+bob,2
+""",
+        encoding="utf-8",
+    )
+    csv_rows = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "structured_data", "args": {"path": "table.csv", "format": "csv"}}
+        )
+    )
+    assert csv_rows["rows"][1] == ["alice", "1"]
+    (tmp_path / "data.xml").write_text(
+        '<root><item id="1">one</item></root>', encoding="utf-8"
+    )
+    xml_summary = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "structured_data", "args": {"path": "data.xml", "format": "xml"}}
+        )
+    )
+    assert xml_summary["root"] == "root"
+    (tmp_path / "data.toml").write_text(
+        """[section]
+value = 3
+""",
+        encoding="utf-8",
+    )
+    toml_summary = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "structured_data", "args": {"path": "data.toml", "format": "toml"}}
+        )
+    )
+    assert toml_summary["keys"] == ["section"]
+    try:
+        import yaml  # noqa: F401
+    except ImportError:
+        pass
+    else:
+        (tmp_path / "data.yaml").write_text("name: demo", encoding="utf-8")
+        yaml_summary = json.loads(
+            sandbox_worker._dispatch(
+                {
+                    "name": "structured_data",
+                    "args": {"path": "data.yaml", "format": "yaml"},
+                }
+            )
+        )
+        assert yaml_summary["keys"] == ["name"]
+
+    (tmp_path / "code.py").write_text(
+        """import os
+
+def run():
+    return 1
+""",
+        encoding="utf-8",
+    )
+    ast_result = json.loads(
+        sandbox_worker._dispatch({"name": "python_ast", "args": {"path": "code.py"}})
+    )
+    assert ast_result["definitions"][0]["name"] == "run"
+    assert ast_result["imports"] == ["os"]
+    assert (
+        json.loads(
+            sandbox_worker._dispatch(
+                {"name": "calculate", "args": {"expression": "sqrt(81) + 1"}}
+            )
+        )["result"]
+        == 10
+    )
+    with pytest.raises(ValueError, match="unsupported arithmetic"):
+        sandbox_worker._dispatch(
+            {"name": "calculate", "args": {"expression": "__import__('os')"}}
+        )
+
+    database = tmp_path / "data.sqlite"
+    connection = sqlite3.connect(database)
+    connection.execute("create table item (name text)")
+    connection.execute("insert into item values ('safe')")
+    connection.commit()
+    connection.close()
+    query = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "sqlite_query",
+                "args": {"path": "data.sqlite", "query": "select name from item"},
+            }
+        )
+    )
+    assert query["rows"] == [["safe"]]
+    with pytest.raises(PermissionError, match="read-only"):
+        sandbox_worker._dispatch(
+            {
+                "name": "sqlite_query",
+                "args": {"path": "data.sqlite", "query": "delete from item"},
+            }
+        )
+
+    binary_file = tmp_path / "sample.bin"
+    binary_file.write_bytes(bytes.fromhex("00016f6c64ff"))
+    preview = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "binary_edit",
+                "args": {
+                    "path": "sample.bin",
+                    "mode": "replace",
+                    "search_hex": "6f6c64",
+                    "replace_hex": "6e6577",
+                    "dry_run": True,
+                },
+            }
+        )
+    )
+    assert preview["dry_run"] is True
+    assert binary_file.read_bytes() == bytes.fromhex("00016f6c64ff")
+    sandbox_worker._dispatch(
+        {
+            "name": "binary_edit",
+            "args": {
+                "path": "sample.bin",
+                "mode": "replace",
+                "search_hex": "6f6c64",
+                "replace_hex": "6e6577",
+            },
+        }
+    )
+    assert binary_file.read_bytes() == bytes.fromhex("00016e6577ff")
+    sandbox_worker._dispatch(
+        {
+            "name": "binary_edit",
+            "args": {
+                "path": "sample.bin",
+                "mode": "splice",
+                "splice_op": "delete",
+                "offset": 1,
+                "delete_len": 2,
+            },
+        }
+    )
+    assert binary_file.read_bytes() == bytes.fromhex("006577ff")
+    secret_file = tmp_path / "credentials.txt"
+    key_name = "api_" + "key"
+    secret_value = "supersecret" + "value123"
+    secret_file.write_text(f"{key_name} = '{secret_value}'", encoding="utf-8")
+    scan_result = sandbox_worker._dispatch(
+        {"name": "security_scan", "args": {"path": "."}}
+    )
+    assert "credential_assignment" in scan_result
+    assert "supersecretvalue123" not in scan_result
+
+    (tmp_path / "mail.eml").write_text(
+        """From: a@example.test
+To: b@example.test
+Subject: Hi
+
+Body""",
+        encoding="utf-8",
+    )
+    mail = json.loads(
+        sandbox_worker._dispatch({"name": "parse_eml", "args": {"path": "mail.eml"}})
+    )
+    assert mail["subject"] == "Hi" and "Body" in mail["body"]
+    assert (
+        json.loads(
+            sandbox_worker._dispatch(
+                {"name": "file_type", "args": {"path": "plain.txt"}}
+            )
+        )["mime"]
+        == "text/plain"
+    )
+
+    with zipfile.ZipFile(tmp_path / "sample.docx", "w") as office:
+        office.writestr(
+            "word/document.xml",
+            '<w:document xmlns:w="urn:test"><w:p><w:r><w:t>Hello</w:t></w:r></w:p></w:document>',
+        )
+    extracted = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "document_extract", "args": {"path": "sample.docx"}}
+        )
+    )
+    assert "Hello" in extracted["text"]
+
+
+def test_mxc_optional_image_and_qr_tools(monkeypatch, tmp_path):
+    pytest.importorskip("PIL")
+    from PIL import Image
+
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    input_path = tmp_path / "input.png"
+    Image.new("RGB", (2, 3), color="red").save(input_path)
+    info = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "image_ops", "args": {"path": "input.png", "action": "info"}}
+        )
+    )
+    assert (info["width"], info["height"]) == (2, 3)
+    resized = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "image_ops",
+                "args": {
+                    "path": "input.png",
+                    "action": "resize",
+                    "width": 4,
+                    "output_path": "resized.png",
+                },
+            }
+        )
+    )
+    assert (resized["width"], resized["height"]) == (4, 6)
+    try:
+        import qrcode  # noqa: F401
+    except ImportError:
+        return
+    qr = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "qr_code", "args": {"text": "sandbox", "output_path": "qr.png"}}
+        )
+    )
+    assert qr["width"] > 0 and (tmp_path / "qr.png").is_file()
 
 
 def test_workspace_quota_scan_tolerates_vanished_children():

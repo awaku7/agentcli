@@ -1350,3 +1350,7 @@ include a server-process nonce so concurrent `uagw` processes cannot share or
 clear one another's workspaces for the same room. See [the Sandbox
 design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md) and [the staged
 implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.md).
+
+### Tools available in MXC Sandbox
+
+The static MXC catalog provides workspace-only file listing/search/grep/hash/count, create/read/replace/diff/rename/delete, ZIP create/list/view/extract, structured JSON/CSV/XML/TOML/YAML inspection, read-only SQLite queries, Python AST inspection, EML/document text extraction (PDF, DOCX, PPTX, XLSX, ODT, RTF), file-type detection, safe arithmetic, redacted credential-pattern scanning, bounded binary edits, and optional local image transforms/QR generation. Optional format/image support is available only when the required library is already present in the sandbox; no dependency is installed dynamically. Archive extraction rejects traversal and links and enforces file/size limits; SQLite is opened read-only; image and document processing is size-bounded. All paths are relative to the isolated workspace. These tools do not access the host filesystem, network, devices, external credentials, browser, or desktop; operations requiring those remain unavailable in Sandbox unless separately implemented through a narrow broker.

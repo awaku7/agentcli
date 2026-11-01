@@ -43,7 +43,35 @@ JOB_USER_TIME_LIMIT_100NS = 4 * 60 * 60 * 10_000_000
 _PROCESS_SCOPE_NONCE = uuid.uuid4().hex
 _UNREAPED_LINUX_SESSIONS: list[Any] = []
 
-TOOL_NAMES = frozenset({"create_file", "file_exists", "read_file", "python_exec"})
+TOOL_NAMES = frozenset(
+    {
+        "create_file",
+        "file_exists",
+        "read_file",
+        "python_exec",
+        "list_dir",
+        "search_files",
+        "file_grep",
+        "file_hash",
+        "wc",
+        "rename_path",
+        "delete_file",
+        "replace_in_file",
+        "diff_files",
+        "archive_ops",
+        "document_extract",
+        "structured_data",
+        "sqlite_query",
+        "calculate",
+        "python_ast",
+        "parse_eml",
+        "file_type",
+        "image_ops",
+        "qr_code",
+        "binary_edit",
+        "security_scan",
+    }
+)
 
 # Static schemas prevent a sandbox-enabled turn from importing host plugins just
 # to construct the LLM tool catalog.
@@ -111,6 +139,277 @@ TOOL_SPECS: tuple[dict[str, Any], ...] = (
             },
         },
     },
+)
+
+
+def _sandbox_tool_spec(
+    name: str,
+    description: str,
+    properties: dict[str, Any],
+    required: list[str] | None = None,
+) -> dict[str, Any]:
+    return {
+        "type": "function",
+        "function": {
+            "name": name,
+            "description": description,
+            "parameters": {
+                "type": "object",
+                "properties": properties,
+                "required": required or [],
+                "additionalProperties": False,
+            },
+        },
+    }
+
+
+TOOL_SPECS += (
+    _sandbox_tool_spec(
+        "list_dir",
+        "List entries in the isolated workspace.",
+        {
+            "path": {"type": "string"},
+            "show_hidden": {"type": "boolean"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 500},
+            "page": {"type": "integer", "minimum": 1},
+        },
+    ),
+    _sandbox_tool_spec(
+        "search_files",
+        "Search workspace filenames and optionally file contents.",
+        {
+            "path": {"type": "string"},
+            "glob": {"type": "string", "maxLength": 256},
+            "re_content": {"type": "string"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 500},
+            "page": {"type": "integer", "minimum": 1},
+        },
+    ),
+    _sandbox_tool_spec(
+        "file_grep",
+        "Find bounded line-numbered regex matches in workspace text files.",
+        {
+            "pattern": {"type": "string"},
+            "path": {"type": "string"},
+            "glob": {"type": "string", "maxLength": 256},
+            "recur": {"type": "boolean"},
+            "ignore_case": {"type": "boolean"},
+            "literal": {"type": "boolean"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 100},
+            "context_lines": {"type": "integer", "minimum": 0, "maximum": 5},
+        },
+        ["pattern"],
+    ),
+    _sandbox_tool_spec(
+        "file_hash",
+        "Hash workspace files using SHA-256, SHA-1, or MD5.",
+        {
+            "paths": {"type": "array", "items": {"type": "string"}, "maxItems": 100},
+            "algo": {"type": "string", "enum": ["sha256", "sha1", "md5"]},
+        },
+        ["paths"],
+    ),
+    _sandbox_tool_spec(
+        "wc",
+        "Count lines, words, bytes, and characters in workspace files.",
+        {"paths": {"type": "array", "items": {"type": "string"}, "maxItems": 100}},
+        ["paths"],
+    ),
+    _sandbox_tool_spec(
+        "rename_path",
+        "Rename or move a file or directory within the workspace.",
+        {
+            "src": {"type": "string"},
+            "dst": {"type": "string"},
+            "overwrite": {"type": "boolean"},
+            "mkdirs": {"type": "boolean"},
+        },
+        ["src", "dst"],
+    ),
+    _sandbox_tool_spec(
+        "delete_file",
+        "Delete a workspace file/directory; requires confirmed=true.",
+        {
+            "filename": {"type": "string"},
+            "confirmed": {"type": "boolean"},
+            "skip": {"type": "boolean"},
+        },
+        ["filename", "confirmed"],
+    ),
+    _sandbox_tool_spec(
+        "replace_in_file",
+        "Replace literal UTF-8 text in a bounded workspace file.",
+        {
+            "path": {"type": "string"},
+            "pattern": {"type": "string"},
+            "replacement": {"type": "string"},
+            "occurrence": {"type": "integer", "minimum": 0},
+        },
+        ["path", "pattern", "replacement"],
+    ),
+    _sandbox_tool_spec(
+        "diff_files",
+        "Show a bounded unified diff between two workspace files.",
+        {
+            "path1": {"type": "string"},
+            "path2": {"type": "string"},
+            "context_lines": {"type": "integer", "minimum": 0, "maximum": 20},
+        },
+        ["path1", "path2"],
+    ),
+)
+
+
+TOOL_SPECS += (
+    _sandbox_tool_spec(
+        "archive_ops",
+        "Create, list, view, or safely extract bounded ZIP archives inside the isolated workspace.",
+        {
+            "action": {"type": "string", "enum": ["list", "view", "create", "extract"]},
+            "zip_path": {"type": "string"},
+            "sources": {"type": "array", "items": {"type": "string"}, "maxItems": 500},
+            "relative_to": {"type": "string"},
+            "target_file": {"type": "string"},
+            "dest_dir": {"type": "string"},
+            "extract_files": {
+                "type": "array",
+                "items": {"type": "string"},
+                "maxItems": 100,
+            },
+            "strip_components": {"type": "integer", "minimum": 0, "maximum": 20},
+            "max_files": {"type": "integer", "minimum": 1, "maximum": 500},
+            "max_total_uncompressed_bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 52428800,
+            },
+            "dry_run": {"type": "boolean"},
+            "overwrite": {"type": "boolean"},
+            "encoding": {"type": "string"},
+        },
+        ["action", "zip_path"],
+    ),
+    _sandbox_tool_spec(
+        "document_extract",
+        "Extract bounded text from workspace PDF, DOCX, PPTX, XLSX, ODT, EML, and RTF files without executing macros.",
+        {
+            "path": {"type": "string"},
+            "max_chars": {"type": "integer", "minimum": 1000, "maximum": 128000},
+        },
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "structured_data",
+        "Inspect JSON, CSV, XML, TOML, or YAML files stored in the isolated workspace.",
+        {
+            "path": {"type": "string"},
+            "format": {
+                "type": "string",
+                "enum": ["json", "csv", "xml", "toml", "yaml", "yml"],
+            },
+            "mode": {"type": "string", "enum": ["summary", "section"]},
+            "pointer": {"type": "string"},
+            "start_row": {"type": "integer", "minimum": 0},
+            "max_rows": {"type": "integer", "minimum": 1, "maximum": 50},
+            "encoding": {"type": "string"},
+        },
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "sqlite_query",
+        "Run a time- and row-limited read-only query against a workspace SQLite database.",
+        {
+            "path": {"type": "string"},
+            "query": {"type": "string", "maxLength": 10000},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 20},
+        },
+        ["path", "query"],
+    ),
+    _sandbox_tool_spec(
+        "calculate",
+        "Evaluate a bounded arithmetic expression with a safe math-function allowlist.",
+        {"expression": {"type": "string", "maxLength": 500}},
+        ["expression"],
+    ),
+    _sandbox_tool_spec(
+        "python_ast",
+        "Parse a workspace Python file and list definitions and imports without executing it.",
+        {"path": {"type": "string"}, "encoding": {"type": "string"}},
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "parse_eml",
+        "Extract bounded headers and plain-text body from a workspace EML file.",
+        {
+            "path": {"type": "string"},
+            "max_body_length": {"type": "integer", "minimum": 0, "maximum": 128000},
+        },
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "file_type",
+        "Identify a workspace file from its signature and extension without opening external resources.",
+        {"path": {"type": "string"}},
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "image_ops",
+        "Inspect, resize, rotate, or grayscale workspace images using Pillow when installed.",
+        {
+            "path": {"type": "string"},
+            "action": {
+                "type": "string",
+                "enum": ["info", "resize", "rotate", "grayscale"],
+            },
+            "output_path": {"type": "string"},
+            "width": {"type": "integer", "minimum": 1, "maximum": 10000},
+            "height": {"type": "integer", "minimum": 1, "maximum": 10000},
+            "angle": {"type": "number", "minimum": -360, "maximum": 360},
+            "overwrite": {"type": "boolean"},
+        },
+        ["path"],
+    ),
+    _sandbox_tool_spec(
+        "qr_code",
+        "Generate a PNG QR code for text locally inside the workspace, without network access.",
+        {
+            "text": {"type": "string", "maxLength": 2000},
+            "output_path": {"type": "string"},
+            "ecc": {"type": "string", "enum": ["L", "M", "Q", "H"]},
+            "box_size": {"type": "integer", "minimum": 1, "maximum": 20},
+            "border": {"type": "integer", "minimum": 0, "maximum": 10},
+            "fill_color": {"type": "string"},
+            "back_color": {"type": "string"},
+            "overwrite": {"type": "boolean"},
+        },
+        ["text", "output_path"],
+    ),
+    _sandbox_tool_spec(
+        "binary_edit",
+        "Perform bounded hex-based byte write/replace/splice operations on workspace files; supports a no-write dry run.",
+        {
+            "path": {"type": "string"},
+            "mode": {"type": "string", "enum": ["write", "replace", "splice"]},
+            "offset": {"type": "integer", "minimum": 0},
+            "data_hex": {"type": "string", "maxLength": 2000000},
+            "search_hex": {"type": "string", "maxLength": 2000000},
+            "replace_hex": {"type": "string", "maxLength": 2000000},
+            "occurrence": {"type": "integer", "minimum": 0},
+            "splice_op": {"type": "string", "enum": ["insert", "delete"]},
+            "delete_len": {"type": "integer", "minimum": 0},
+            "dry_run": {"type": "boolean"},
+        },
+        ["path", "mode"],
+    ),
+    _sandbox_tool_spec(
+        "security_scan",
+        "Scan workspace text files for common credential patterns and report locations only; secret values are never returned.",
+        {
+            "path": {"type": "string"},
+            "glob": {"type": "string", "maxLength": 256},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 100},
+        },
+    ),
 )
 
 
