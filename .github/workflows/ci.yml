@@ -545,4 +545,4 @@ jobs:
         with:
           node-version: "24.21.0"
       - name: Test WebSocket reconnection and bundled UI
-        run: node --test frontend/tests/socket-lifecycle.test.mjs
+        run: node --test frontend/tests/*.test.mjs
