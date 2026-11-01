@@ -88,8 +88,20 @@ function sessionTitle(session) {
 
 onMount(() => {
 	loadSessions();
+	// The history list is fetched from the server, not pushed over the chat
+	// socket. Refresh periodically and when the user returns to this tab so
+	// sessions created/updated elsewhere do not remain stale indefinitely.
+	const refreshWhenVisible = () => {
+		if (!document.hidden) loadSessions();
+	};
+	const refreshTimer = setInterval(refreshWhenVisible, 30_000);
+	document.addEventListener("visibilitychange", refreshWhenVisible);
+	window.addEventListener("focus", refreshWhenVisible);
 	return () => {
 		clearTimeout(searchTimer);
+		clearInterval(refreshTimer);
+		document.removeEventListener("visibilitychange", refreshWhenVisible);
+		window.removeEventListener("focus", refreshWhenVisible);
 		++requestSequence;
 	};
 });

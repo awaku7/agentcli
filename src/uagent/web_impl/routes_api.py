@@ -1423,7 +1423,9 @@ async def get_logs(request: Request, page: int = 1, per_page: int = 15, q: str =
                     "first_message": row.get("first_message") or "",
                     "last_message": row.get("last_message") or "",
                     "size": 0,
-                    "mtime": row.get("created_at"),
+                    # Session history is ordered by last_used_at; expose that
+                    # same timestamp so the sidebar reflects the latest use.
+                    "mtime": row.get("last_used_at") or row.get("created_at"),
                     "has_responses_state": state is not None,
                     "response_count": 1 if state else 0,
                     "response_status": (
