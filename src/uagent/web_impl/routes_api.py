@@ -249,6 +249,23 @@ async def artifact_cleanup(req: Request):
         return JSONResponse(status_code=500, content={"error": str(exc)})
 
 
+@app.get("/api/sandbox-status")
+async def get_sandbox_status(request: Request):
+    """Report Web server Sandbox initialization independently of rooms."""
+    try:
+        _request_identity(request)
+    except Exception as exc:
+        return _memory_error(exc)
+
+    enabled = bool(getattr(web_manager, "sandbox_enabled", False))
+    manager = getattr(web_manager, "sandbox_session_manager", None)
+    state = "OFF" if not enabled else ("ON" if manager is not None else "UNKNOWN")
+    return JSONResponse(
+        content={"ok": True, "state": state},
+        headers={"Cache-Control": "no-store"},
+    )
+
+
 @app.get("/api/tools-enabled")
 async def get_tools_enabled():
     """Return whether tool sending to LLM is currently enabled."""
