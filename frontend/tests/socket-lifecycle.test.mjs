@@ -23,7 +23,12 @@ function makeSocketHarness() {
     constructor(url) {
       this.url = url;
       this.readyState = FakeSocket.CONNECTING;
+      this.sent = [];
       sockets.push(this);
+    }
+    send(data) {
+      if (this.failSend) throw new Error('send failed');
+      this.sent.push(JSON.parse(data));
     }
     close() {
       this.readyState = 3;
@@ -98,4 +103,29 @@ test('shipped Web bundle applies the same socket ownership guards', () => {
   assert.ok(bundle.includes('M.ws=o,xo&&(clearTimeout(xo),xo=null),o.onopen=()=>{if(M.ws!==o)return;'));
   assert.ok(bundle.includes('o.onmessage=i=>{if(M.ws!==o)return;'));
   assert.ok(bundle.includes('o.onclose=i=>{if(M.ws!==o)return;'));
+});
+
+test('commands retain failure status while the connection is unavailable', () => {
+  const { sockets, run } = makeSocketHarness();
+  assert.equal(run("sendCommand(':tools')"), false);
+  run('connect()');
+  assert.equal(run("sendCommand(':tools')"), false);
+  sockets[0].readyState = 1;
+  sockets[0].onopen();
+  assert.equal(run("sendCommand(':tools')"), true);
+  assert.deepEqual(sockets[0].sent[0], { type: 'command', text: ':tools' });
+  sockets[0].failSend = true;
+  assert.equal(run("sendCommand(':help')"), false);
+});
+
+test('input and shipped bundle preserve command drafts on send failure', () => {
+  const app = readFileSync(new URL('../src/App.svelte', import.meta.url), 'utf8');
+  const input = readFileSync(
+    new URL('../src/lib/components/InputArea.svelte', import.meta.url), 'utf8',
+  );
+  assert.ok(app.includes('function handleCommand(cmd) { return sendCommand(cmd); }'));
+  assert.ok(input.includes('if (onCommand(t) === false) return;'));
+  assert.ok(bundle.includes('function c(H){return Vr(H)}'));
+  assert.ok(bundle.includes('if(h.startsWith(":")){if(t.onCommand(h)===!1)return;'));
+  assert.ok(bundle.includes('function Vr(e){const t=M.ws;if(!t||t.readyState!==WebSocket.OPEN)return!1;try{'));
 });
