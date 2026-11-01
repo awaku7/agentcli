@@ -46,7 +46,7 @@
     return sent;
   }
   function handleInterrupt() { sendInterrupt(); }
-  function handleCommand(cmd) { sendCommand(cmd); }
+  function handleCommand(cmd) { return sendCommand(cmd); }
   function handleHumanAsk(text) { sendHumanAskResponse(text, humanAskState.isPassword); }
   async function handleFiles(files) {
     try {
