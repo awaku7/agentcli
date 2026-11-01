@@ -136,7 +136,8 @@
     const t = text.trim();
     if (!t) return;
     if (t.startsWith(':')) {
-      onCommand(t);
+      // Preserve the command draft if the WebSocket is not ready.
+      if (onCommand(t) === false) return;
       text = '';
       histIdx = inputHistory.length;
       return;
