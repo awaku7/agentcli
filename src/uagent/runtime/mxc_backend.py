@@ -163,6 +163,26 @@ def _trusted_startup_uagent_value(name: str) -> str:
     return str(snapshot.get(name) or "").strip()
 
 
+def _startup_path_node() -> Path | None:
+    """Find Node only in PATH captured before project dotenv loading."""
+    try:
+        from .runtime_init import get_startup_path_snapshot
+
+        startup_path = get_startup_path_snapshot()
+    except Exception:
+        startup_path = ""
+    if not startup_path:
+        return None
+    executable = "node.exe" if os.name == "nt" else "node"
+    found = shutil.which(executable, path=startup_path)
+    if not found:
+        return None
+    try:
+        return Path(found).resolve()
+    except OSError:
+        return Path(found)
+
+
 def _node_candidates() -> list[Path]:
     candidates: list[Path] = []
     # This executable runs outside the container. Never let a selected
@@ -181,6 +201,12 @@ def _node_candidates() -> list[Path]:
                 local / "Programs" / "nodejs" / "node.exe",
             ]
         )
+        # Use the trusted process-startup PATH as a final discovery location.
+        # Do not consult os.environ['PATH'] here: project dotenv values are
+        # loaded before MXC initialization and must not select host executables.
+        startup_path_node = _startup_path_node()
+        if startup_path_node is not None:
+            candidates.append(startup_path_node)
     elif sys.platform.startswith("linux"):
         candidates.append(
             local / "uagent" / "toolchains" / "node-v24.22.0" / "bin" / "node"

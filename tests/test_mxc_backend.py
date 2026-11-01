@@ -72,6 +72,44 @@ def test_mxc_host_paths_accept_only_pre_dotenv_overrides(monkeypatch, tmp_path):
     assert mxc_backend._runtime_dir() == trusted_runtime
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows Node discovery is platform-specific")
+def test_mxc_node_discovery_uses_startup_path_not_project_dotenv(
+    monkeypatch, tmp_path
+):
+    from uagent.runtime import runtime_init
+
+    local_app_data = tmp_path / "local-app-data"
+    startup_bin = tmp_path / "Program Files" / "nodejs"
+    project_bin = tmp_path / "project" / "bin"
+    local_app_data.mkdir()
+    startup_bin.mkdir(parents=True)
+    project_bin.mkdir(parents=True)
+    trusted_node = startup_bin / "node.exe"
+    project_node = project_bin / "node.exe"
+    trusted_node.touch()
+    project_node.touch()
+
+    monkeypatch.setattr(mxc_backend, "_local_app_data", lambda: local_app_data)
+    monkeypatch.setattr(runtime_init, "get_startup_uagent_env_snapshot", lambda: {})
+    monkeypatch.setattr(
+        runtime_init, "get_startup_path_snapshot", lambda: str(startup_bin)
+    )
+    monkeypatch.setenv("PATH", str(project_bin))
+    monkeypatch.setattr(
+        mxc_backend.shutil,
+        "which",
+        lambda executable, path=None: (
+            str(trusted_node)
+            if executable == "node.exe" and path == str(startup_bin)
+            else None
+        ),
+    )
+
+    candidates = mxc_backend._node_candidates()
+    assert trusted_node.resolve() in candidates
+    assert project_node.resolve() not in candidates
+
+
 @pytest.mark.skipif(os.name != "nt", reason="MXC runtime setup is Windows-only")
 def test_prepare_mxc_runtime_rejects_project_as_helper_root(monkeypatch, tmp_path):
     project = tmp_path / "project"

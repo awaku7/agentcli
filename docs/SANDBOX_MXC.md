@@ -43,9 +43,10 @@ for the current decision and explicit limits.
   resolution occurs after the workdir environment is loaded.
 - `UAGENT_MXC_NODE` and `UAGENT_MXC_RUNTIME_DIR`, when used, are trusted
   process-startup overrides only; values from a project's `.env`/`.env.sec` are
-  ignored. Relative override paths are rejected. On Windows, Node/npm use only
-  the selected Node directory and Windows System32; Linux uses the selected Node
-  directory plus fixed system binary directories.
+  ignored. Relative override paths are rejected. On Windows, Node may also be
+  discovered from the process-startup PATH (never the selected project's dotenv
+  PATH); Node/npm use only the selected Node directory and Windows System32.
+  Linux uses the selected Node directory plus fixed system binary directories.
 - `uag realtime` is not supported with `--sandbox auto|mxc` or an equivalent
   environment setting. Realtime dependencies may be installed/executed on the
   Host; Sandbox-enabled realtime startup is refused before the realtime runner.

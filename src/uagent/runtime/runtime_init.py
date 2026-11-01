@@ -29,6 +29,10 @@ ensure_session_secret()
 
 
 _STARTUP_UAGENT_ENV_SNAPSHOT: dict[str, str] | None = None
+# Keep PATH from process launch before dotenv loading. MXC may use a Node
+# executable found there, but must never let the selected project's dotenv
+# files choose host code to execute.
+_STARTUP_PATH_SNAPSHOT = os.environ.get("PATH", "")
 
 
 def capture_startup_uagent_env_snapshot(*, force: bool = False) -> dict[str, str]:
@@ -46,6 +50,12 @@ def get_startup_uagent_env_snapshot() -> dict[str, str] | None:
     if _STARTUP_UAGENT_ENV_SNAPSHOT is None:
         return None
     return dict(_STARTUP_UAGENT_ENV_SNAPSHOT)
+
+
+def get_startup_path_snapshot() -> str:
+    """Return PATH as it existed before any project dotenv files were loaded."""
+
+    return _STARTUP_PATH_SNAPSHOT
 
 
 def load_dotenv_custom() -> None:
@@ -158,6 +168,7 @@ __all__ = [
     "validate_or_exit_startup_env",
     "append_long_memory_system_messages",
     "capture_startup_uagent_env_snapshot",
+    "get_startup_path_snapshot",
     "get_startup_uagent_env_snapshot",
     "load_dotenv_custom",
     "reload_dotenv_custom",
