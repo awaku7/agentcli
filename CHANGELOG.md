@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.41] - 2026-11-01
+
+### Added
+
+- Add an authorized dynamic command picker to the Web UI, separate from ordinary chat input.
+- Discover MXC nodes on Linux and Windows from trusted startup paths.
+
+### Changed
+
+- Preserve reasoning order around Web tool results and treat colon-prefixed text as ordinary user input; keep mode commands out of chat messages.
+- Refresh Web session history when the tab regains focus and periodically; use the latest activity timestamp for session metadata.
+
 ## [0.7.40] - 2026-10-31
 
 ### Added
