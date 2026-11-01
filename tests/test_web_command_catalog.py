@@ -82,6 +82,7 @@ def test_private_room_hides_session_history_commands(monkeypatch):
 
 def test_command_catalog_rejects_room_without_access(monkeypatch):
     _setup(monkeypatch)
+
     def forbidden(_identity, _room):
         raise PermissionError("not your room")
 
@@ -109,9 +110,7 @@ def test_dynamic_catalog_does_not_include_callable_handlers(monkeypatch):
     assert catalog == [
         {
             "name": "sample",
-            "subcommands": [
-                {"name": "run", "summary": "Run", "usage": ":sample run"}
-            ],
+            "subcommands": [{"name": "run", "summary": "Run", "usage": ":sample run"}],
         }
     ]
 
