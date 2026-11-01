@@ -15,5 +15,7 @@ def resolve_sandbox_mode(cli_override: str | None, env_value: str | None) -> str
 
 
 def sandbox_startup_label(enabled: bool) -> str:
-    """Format the process-level Sandbox startup state, not worker activity."""
-    return "Sandbox: ON" if enabled else "Sandbox: OFF"
+    """Translate the process-level Sandbox state, not worker activity."""
+    from ..i18n import _
+
+    return _("Sandbox: %(state)s") % {"state": "ON" if enabled else "OFF"}
