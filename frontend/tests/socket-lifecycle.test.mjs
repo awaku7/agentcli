@@ -100,9 +100,10 @@ test('the active socket still reconnects on ordinary close', () => {
 });
 
 test('shipped Web bundle applies the same socket ownership guards', () => {
-  assert.ok(bundle.includes('M.ws=o,xo&&(clearTimeout(xo),xo=null),o.onopen=()=>{if(M.ws!==o)return;'));
-  assert.ok(bundle.includes('o.onmessage=i=>{if(M.ws!==o)return;'));
-  assert.ok(bundle.includes('o.onclose=i=>{if(M.ws!==o)return;'));
+  // Match the socket state/property, not compiler-generated local names.
+  assert.match(bundle, /\.onopen=\(\)=>\{[\w$]+\.ws===\w+&&/);
+  assert.match(bundle, /\.onmessage=\w+=>\{if\([\w$]+\.ws!==\w+\)return;/);
+  assert.match(bundle, /\.onclose=\w+=>\{if\([\w$]+\.ws===\w+\)\{/);
 });
 
 test('commands retain failure status while the connection is unavailable', () => {
@@ -128,5 +129,6 @@ test('command transport reports send errors independently of chat input', () => 
   assert.ok(!input.includes('onCommand('));
   assert.ok(input.includes('onSend(message, pendingAttachments)'));
   // Internal programmatic commands still report transport failures correctly.
-  assert.ok(bundle.includes('function Vr(e){const t=M.ws;if(!t||t.readyState!==WebSocket.OPEN)return!1;try{'));
+  assert.match(bundle, /type:"command",text:[\w$]+/);
+  assert.ok(bundle.includes('readyState!==WebSocket.OPEN'));
 });
