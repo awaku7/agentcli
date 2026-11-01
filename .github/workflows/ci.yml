@@ -546,3 +546,10 @@ jobs:
           node-version: "24.21.0"
       - name: Test WebSocket reconnection and bundled UI
         run: node --test frontend/tests/*.test.mjs
+      - name: Verify Vite build and command picker assets
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+          test -f ../src/uagent/static/command-picker.mjs
+          test -f ../src/uagent/static/command-picker.css
