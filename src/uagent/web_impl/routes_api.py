@@ -1707,6 +1707,8 @@ async def api_commands(req: Request, room_id: str = ""):
 
     try:
         _, private_session = require_room_access(identity, room_id)
+    except PermissionError as exc:
+        return JSONResponse(status_code=403, content={"error": str(exc)})
     except Exception as exc:
         return _memory_error(exc)
 
