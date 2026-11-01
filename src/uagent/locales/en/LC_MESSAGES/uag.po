@@ -3902,4 +3902,4 @@ msgstr "Read-only local status: enabled, last export result, last success and fa
 #: src/uagent/runtime/sandbox_config.py
 #, python-format
 msgid "Sandbox: %(state)s"
-msgstr "Sandbox: %(state)s"\n
+msgstr "Sandbox: %(state)s"
