@@ -90,18 +90,27 @@ function openRoomSocket(roomId) {
   const lang = document.documentElement.lang || 'en';
   const qs = `?room=${encodeURIComponent(roomId)}&lang=${encodeURIComponent(lang)}`;
   const newWs = new WebSocket(`${protocol}//${window.location.host}/ws${qs}`);
+  // Reserve CONNECTING sockets too; repeated connect() must not create another.
+  _state.ws = newWs;
+  if (reconnectTimer) {
+    clearTimeout(reconnectTimer);
+    reconnectTimer = null;
+  }
 
   newWs.onopen = () => {
+    if (_state.ws !== newWs) return;
     _state.connected = true;
-    _state.ws = newWs;
   };
 
   newWs.onmessage = (event) => {
+    if (_state.ws !== newWs) return;
     const data = JSON.parse(event.data);
     handleWsMessage(data);
   };
 
   newWs.onclose = (event) => {
+    // A replaced socket cannot disconnect the active room or schedule a retry.
+    if (_state.ws !== newWs) return;
     _state.connected = false;
     _state.ws = null;
     if (event.code === 1008) {
