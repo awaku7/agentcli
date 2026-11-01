@@ -46,7 +46,6 @@
     return sent;
   }
   function handleInterrupt() { sendInterrupt(); }
-  function handleCommand(cmd) { return sendCommand(cmd); }
   function handleHumanAsk(text) { sendHumanAskResponse(text, humanAskState.isPassword); }
   async function handleFiles(files) {
     try {
@@ -76,7 +75,6 @@
     <InputArea
       onSend={handleSend}
       onInterrupt={handleInterrupt}
-      onCommand={handleCommand}
       {pendingAttachments}
     />
   </div>
