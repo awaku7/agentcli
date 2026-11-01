@@ -49,7 +49,7 @@ export function mountSandboxStatus() {
   let requestVersion = 0;
   function render(state) {
     badge.textContent = sandboxLabel(state);
-    badge.title = sandboxDescription(state, document.documentElement.lang || 'en');
+    badge.title = sandboxDescription(state, document.documentElement.lang || 'en') + ' (snapshot)';
   }
   async function refresh() {
     const version = ++requestVersion;
@@ -67,12 +67,18 @@ export function mountSandboxStatus() {
     }
   }
   render('UNKNOWN');
-  refresh();
-  setInterval(() => { if (!document.hidden) refresh(); }, 5000);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) refresh();
-  });
-  window.addEventListener('focus', refresh);
+  // One snapshot per page load, after the server-issued room appears in the URL.
+  // A newly created private room may not exist when the header first mounts.
+  if (roomId()) {
+    refresh();
+  } else {
+    const pendingRoom = new MutationObserver(() => {
+      if (!roomId()) return;
+      pendingRoom.disconnect();
+      refresh();
+    });
+    pendingRoom.observe(header, { childList: true, subtree: true, characterData: true });
+  }
   return true;
 }
 if (typeof document !== 'undefined') {
