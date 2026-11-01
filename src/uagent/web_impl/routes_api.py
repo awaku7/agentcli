@@ -249,6 +249,43 @@ async def artifact_cleanup(req: Request):
         return JSONResponse(status_code=500, content={"error": str(exc)})
 
 
+@app.get("/api/rooms/{room_id}/sandbox-status")
+async def get_room_sandbox_status(request: Request, room_id: str):
+    """Report the actual MXC worker state for an authorized Web room."""
+    try:
+        identity = _request_identity(request)
+        from .connection_identity import require_room_access
+
+        require_room_access(identity, room_id, touch_activity=False)
+    except PermissionError as exc:
+        return JSONResponse(status_code=403, content={"error": str(exc)})
+    except Exception as exc:
+        return _memory_error(exc)
+
+    with web_manager.rooms_lock:
+        room = web_manager.rooms.get(room_id)
+
+    if room is None:
+        state = "UNKNOWN"
+    elif not bool(getattr(web_manager, "sandbox_enabled", False)):
+        state = "OFF"
+    else:
+        manager = getattr(web_manager, "sandbox_session_manager", None)
+        if manager is None:
+            state = "UNKNOWN"
+        else:
+            scope = room.current_sandbox_scope()
+            state = (
+                "RUNNING"
+                if scope is not None and manager.has_live_web_worker(scope)
+                else "READY"
+            )
+    return JSONResponse(
+        content={"ok": True, "state": state},
+        headers={"Cache-Control": "no-store"},
+    )
+
+
 @app.get("/api/tools-enabled")
 async def get_tools_enabled():
     """Return whether tool sending to LLM is currently enabled."""
