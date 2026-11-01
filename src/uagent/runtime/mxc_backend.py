@@ -1429,21 +1429,6 @@ class MxcSessionManager:
                 (scope.deployment_id, scope.principal_id, scope.scope_kind)
             ] = scope
 
-    def has_live_web_worker(self, scope: TrustedSandboxScope) -> bool:
-        """Check the actual room worker process, without creating a session."""
-        if scope.scope_kind != "web-room":
-            return False
-        with self._lock:
-            if scope not in self._active_web_scopes:
-                return False
-            session = self._sessions.get(_scope_key(scope))
-            if session is None or session._closed:
-                return False
-            process = getattr(session, "_mac_scope", None)
-            if process is None:
-                process = getattr(session, "_proc", None)
-            return process is not None and process.poll() is None
-
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
     ) -> str:
