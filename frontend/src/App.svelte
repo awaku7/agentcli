@@ -32,11 +32,17 @@
     function handleLoadSession(e) {
       sendCommand(`:load "${e.detail.path}"`);
     }
+    function handlePickerCommand(e) {
+      if (typeof e.detail?.command !== 'string' || !e.detail.command.startsWith(':')) return;
+      e.detail.sent = sendCommand(e.detail.command) === true;
+    }
     window.addEventListener('keydown', handleKey);
     window.addEventListener('uag-load-session', handleLoadSession);
+    window.addEventListener('uag-command-picker-execute', handlePickerCommand);
     return () => {
       window.removeEventListener('keydown', handleKey);
       window.removeEventListener('uag-load-session', handleLoadSession);
+      window.removeEventListener('uag-command-picker-execute', handlePickerCommand);
     };
   });
 
