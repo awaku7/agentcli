@@ -114,3 +114,85 @@ def test_dynamic_catalog_does_not_include_callable_handlers(monkeypatch):
             ],
         }
     ]
+
+def test_chat_colon_commands_are_user_messages_not_mode_changes(monkeypatch):
+    """A colon prefix in user_input never selects the command handler."""
+    from fastapi import WebSocketDisconnect
+
+    from uagent.runtime.identity_context import IdentityContext
+    from uagent.web_impl import routes_ws
+    from uagent.web_impl.rooms import WebRoom
+
+    room = WebRoom("test-room")
+    room.connect = lambda *_args: _async_noop()
+    room.disconnect = lambda _socket: None
+    monkeypatch.setattr(
+        web_manager, "get_or_create_room", lambda _room_id: (room, False)
+    )
+    monkeypatch.setattr(routes_ws, "validate_websocket_origin", lambda _ws: None)
+    monkeypatch.setattr(
+        routes_ws, "trusted_ingress_carrier_for_request", lambda _ws: None
+    )
+    monkeypatch.setattr(
+        routes_ws, "_bootstrap_room_on_connect", lambda _room, **_kwargs: None
+    )
+    monkeypatch.setattr(routes_ws, "forward_to_mesh", lambda _text: None)
+    monkeypatch.setattr(routes_ws, "is_chat_mode", lambda: "off")
+
+    def reject_command(_text):
+        raise AssertionError("chat text was executed as a mode command")
+
+    monkeypatch.setattr(routes_ws, "_handle_mode_command", reject_command)
+    dispatched = []
+
+    class FakeThread:
+        def __init__(self, **kwargs):
+            self.kwargs = kwargs
+
+        def start(self):
+            dispatched.append(self.kwargs["args"][3])
+
+    monkeypatch.setattr(routes_ws.threading, "Thread", FakeThread)
+
+    class Connection:
+        session_id = "test-session"
+        project_id = "project-a"
+        private_session = False
+        identity = IdentityContext("alice", True, "oidc")
+
+        def validate_authentication_configuration(self):
+            return None
+
+        def validate_room_access(self, *, touch_activity=True):
+            return None
+
+        def make_turn(self, **_kwargs):
+            return None
+
+    monkeypatch.setattr(
+        routes_ws, "resolve_web_connection", lambda _ws, _id: Connection()
+    )
+
+    class Socket:
+        query_params = {"room": "test-room", "lang": "en"}
+
+        def __init__(self):
+            self.index = 0
+
+        async def receive_text(self):
+            commands = [":r high", ":v 3", ":otel", ":tools"]
+            if self.index >= len(commands):
+                raise WebSocketDisconnect(code=1000)
+            text = commands[self.index]
+            self.index += 1
+            return json.dumps({"type": "user_input", "text": text})
+
+        async def close(self, code=1000):
+            return None
+
+    asyncio.run(routes_ws.websocket_endpoint(Socket()))
+    assert dispatched == [":r high", ":v 3", ":otel", ":tools"]
+
+
+async def _async_noop():
+    return None
