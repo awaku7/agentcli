@@ -40,7 +40,7 @@ def test_delivery_state_reports_true_attempts_without_secrets(monkeypatch):
     assert sent["last_success_utc"] is not None
     assert "Bearer" not in delivery.format_delivery_status()
     assert "http:" not in delivery.format_delivery_status()
-    assert "Last success (UTC)" in delivery.format_delivery_status()
+    assert sent["last_success_utc"] in delivery.format_delivery_status()
     delivery.update_delivery_status("disabled", enabled=False)
     disabled = delivery.delivery_status_snapshot()
     assert disabled["enabled"] is False

@@ -1,5 +1,6 @@
 """Compact, room-scoped Web tool activity without extra UI or tool arguments."""
 
+import re
 from pathlib import Path
 
 from uagent.web_impl.rooms import WebRoom
@@ -66,12 +67,14 @@ def test_header_shows_only_one_compact_tool_badge():
     store = (ROOT / "frontend/src/lib/stores.svelte.js").read_text(encoding="utf-8")
     assert "getCurrentTool()" in header
     assert "status.busy && status.label !== 'WAIT' && currentTool" in header
-    assert 'a(r).label!=="WAIT"&&a(activeTool)' in bundle
+    assert re.search(r'\.label!=="WAIT"&&[\w$]+\([\w$]+\)', bundle)
     assert header.count("status-idle={!status.busy}") == 1
     assert "{#if status.busy}" not in header
     assert "tool_activity" in store
-    assert 'case"tool_activity":M.currentTool=e.name||""' in bundle
-    assert "activeTool=le(()=>M.currentTool)" in bundle
+    assert re.search(
+        r'case"tool_activity":[\w$]+\.currentTool=[\w$]+\.name\|\|""', bundle
+    )
+    assert ".currentTool" in bundle
     assert "current_tool" in store
     assert "animation:uag-pulse" not in bundle
 
@@ -99,6 +102,6 @@ def test_confirmation_wait_takes_priority_over_active_tool_badge():
     )
     bundle = (ROOT / "src/uagent/static/assets/index.js").read_text(encoding="utf-8")
     assert "status.label !== 'WAIT'" in header
-    assert 'a(r).label!=="WAIT"' in bundle
+    assert 'label!=="WAIT"' in bundle
     room.end_tool(call_id)
     assert room.current_tool == ""

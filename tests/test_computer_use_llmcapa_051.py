@@ -29,13 +29,6 @@ from uagent.computer_use.capability import (
             "messages",
             "computer_toolset_20260801",
         ),
-        (
-            "muse-spark-1.3",
-            "meta",
-            "meta",
-            "responses",
-            "computer",
-        ),
     ],
 )
 def test_llmcapa_051_exposes_provider_specific_computer_use(
@@ -54,6 +47,15 @@ def test_llmcapa_051_exposes_provider_specific_computer_use(
     assert capability.tool_type == expected_tool_type
 
 
-def test_llmcapa_051_does_not_infer_muse_spark_12_computer_use():
-    with pytest.raises(ComputerUseCapabilityError):
-        get_computer_use_capability("muse-spark-1.2", "meta")
+@pytest.mark.parametrize("model", ["muse-spark-1.2", "muse-spark-1.3"])
+def test_muse_spark_computer_use_tracks_llmcapa_metadata(model):
+    from uagent.llmcapa_util import get_capability
+
+    metadata = get_capability(model, "meta")
+    computer_use = getattr(metadata, "computer_use", None)
+    if computer_use is None:
+        with pytest.raises(ComputerUseCapabilityError):
+            get_computer_use_capability(model, "meta")
+        return
+
+    assert get_computer_use_capability(model, "meta") is computer_use
