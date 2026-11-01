@@ -487,10 +487,26 @@ def run_agent_worker(
             "suppress_next_assistant_message": False,
             "memory_invalidated": False,
         }
+        displayed_assistant_message_ids: set[int] = set()
         try:
             core._memory_projection_invalidated = False
         except Exception:
             pass
+
+        def _memory_projection_is_current() -> bool:
+            if stream_state.get("memory_invalidated"):
+                return False
+            snapshot = getattr(core, "memory_projection_snapshot", None)
+            if memory_projection_access_is_current(snapshot, core):
+                return True
+            stream_state["memory_invalidated"] = True
+            try:
+                core._memory_projection_invalidated = True
+                with core.interrupt_lock:
+                    core.interrupt_requested = True
+            except Exception:
+                pass
+            return False
 
         def _web_stream_send(payload: dict[str, Any]) -> None:
             stream_types = {
@@ -500,19 +516,11 @@ def run_agent_worker(
                 "assistant_stream_end",
                 "reasoning",
             }
-            if payload.get("type") in stream_types:
-                snapshot = getattr(core, "memory_projection_snapshot", None)
-                if not memory_projection_access_is_current(snapshot, core):
-                    stream_state["memory_invalidated"] = True
-                    try:
-                        core._memory_projection_invalidated = True
-                        with core.interrupt_lock:
-                            core.interrupt_requested = True
-                    except Exception:
-                        pass
-                    return
-                if stream_state.get("memory_invalidated"):
-                    return
+            if (
+                payload.get("type") in stream_types
+                and not _memory_projection_is_current()
+            ):
+                return
             try:
                 if room.loop:
                     asyncio.run_coroutine_threadsafe(room.broadcast(payload), room.loop)
@@ -622,6 +630,20 @@ def run_agent_worker(
                     # but must not enter room.history (model prompt).
                     if role == "assistant" and msg.get("_uagent_ui_only"):
                         room.add_message(dict(msg))
+                    elif (
+                        role == "assistant"
+                        and not msg.get("_uagent_internal")
+                        and any(message is msg for message in room.history)
+                        and _memory_projection_is_current()
+                    ):
+                        # Assistant messages are appended to history before they
+                        # are logged. Display them at that point, rather than
+                        # appending the whole assistant history after live tool
+                        # results at the end of the turn. Otherwise reasoning
+                        # and tool-call messages appear below the results they
+                        # actually preceded.
+                        room.add_message(dict(msg))
+                        displayed_assistant_message_ids.add(id(msg))
                     elif role in ("user", "tool") and not msg.get("_uagent_internal"):
                         display_msg = dict(msg)
                         if role == "user" and client_message_id:
@@ -893,7 +915,11 @@ def run_agent_worker(
             # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
             if not getattr(core, "_memory_projection_invalidated", False):
                 for m in room.history[_before_hist_len:]:
-                    if isinstance(m, dict) and m.get("role") == "assistant":
+                    if (
+                        isinstance(m, dict)
+                        and m.get("role") == "assistant"
+                        and id(m) not in displayed_assistant_message_ids
+                    ):
                         room.add_message(dict(m))
 
         except LLMWaitInterrupted:

@@ -142,7 +142,6 @@ def run_legacy_gemini_round(
             "core": core,
             "tool_calls_list": tool_calls_list,
             "gemini_content_dump": content_dump,
-            "skip_log_when_web": True,
         },
         judgment_mode=judgment_mode,
     )

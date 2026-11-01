@@ -56,6 +56,7 @@ def test_gemini_round_preserves_content_dump_and_result_contract(monkeypatch) ->
 
     assert result == ("break", "new-client", "cache-name", 0, "answer!")
     assert appended and appended[0]["gemini_content_dump"] == {"parts": []}
+    assert "skip_log_when_web" not in appended[0]
 
 
 def test_gemini_round_failure_returns_without_appending(monkeypatch) -> None:
