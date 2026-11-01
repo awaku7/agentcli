@@ -1706,7 +1706,7 @@ async def api_commands(req: Request, room_id: str = ""):
     from .connection_identity import require_room_access
 
     try:
-        project_id, private_session = require_room_access(identity, room_id)
+        _project_id, private_session = require_room_access(identity, room_id)
     except PermissionError as exc:
         return JSONResponse(status_code=403, content={"error": str(exc)})
     except Exception as exc:
