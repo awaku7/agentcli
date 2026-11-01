@@ -12,3 +12,8 @@ def resolve_sandbox_mode(cli_override: str | None, env_value: str | None) -> str
     if mode not in _VALID_SANDBOX_MODES:
         raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
     return mode
+
+
+def sandbox_startup_label(enabled: bool) -> str:
+    """Format the process-level Sandbox startup state, not worker activity."""
+    return "Sandbox: ON" if enabled else "Sandbox: OFF"
