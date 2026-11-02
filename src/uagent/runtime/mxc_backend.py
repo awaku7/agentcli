@@ -1559,7 +1559,8 @@ class _MxcSession:
                 raise PermissionError("sandbox scope has been revoked")
             mac_baseline = (
                 self._mac_scope.snapshot()
-                if self._mac_scope is not None and name in {"python_exec", "command_exec"}
+                if self._mac_scope is not None
+                and name in {"python_exec", "command_exec"}
                 else None
             )
             self._write_line(
