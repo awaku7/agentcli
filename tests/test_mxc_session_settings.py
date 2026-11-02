@@ -262,5 +262,15 @@ def test_web_session_settings_follow_room_not_process(monkeypatch, tmp_path):
     ) != mxc_session_settings.settings_path(tmp_path, renewed, "session")
 
 
+def test_local_principal_ignores_username_environment(monkeypatch, tmp_path):
+    before = mxc_backend._trusted_local_principal()
+    monkeypatch.setenv("USER", "attacker")
+    monkeypatch.setenv("USERNAME", "attacker")
+    after = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="one"
+    ).principal_id
+    assert after == before
+
+
 def test_unconfigured_environment_is_empty(tmp_path, scope):
     assert mxc_session_settings.effective_environment(tmp_path, scope) == {}
