@@ -36,6 +36,10 @@ to a Sandbox environment, command argument, or workspace. Normal
 `git clone https://github.com/owner/repo.git` and `git fetch` through
 Sandbox `command_exec` then use that host's credential automatically.
 No separate alias or session selection is required for normal use.
+Registering a replacement token creates a new reference rather than overwriting
+a token still selected by another session. Older encrypted references are not
+automatically revoked; revoke obsolete credentials with the Git provider when
+rotating tokens.
 
 Use `:credential git status` to show the selected *hostname only* or
 `:credential git remove` to revoke the selected credential after a terminal
