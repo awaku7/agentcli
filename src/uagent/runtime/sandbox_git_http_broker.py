@@ -10,9 +10,13 @@ from __future__ import annotations
 import base64
 import http.client
 import ipaddress
+import math
 import os
+import queue
 import re
 import socket
+import threading
+import time
 import ssl
 import urllib.error
 import urllib.request
@@ -36,6 +40,47 @@ _MAX_RESPONSE_BYTES = 64 * 1024 * 1024
 _HOST_LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
 _USERNAME = re.compile(r"[A-Za-z0-9_.@-]{1,80}\Z")
 _SERVICES = frozenset({"git-upload-pack", "git-receive-pack"})
+_DNS_THREADS = threading.BoundedSemaphore(8)
+
+
+def _deadline_remaining(deadline: float | None) -> float:
+    if deadline is None:
+        return 30.0
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise TimeoutError("Git HTTPS command deadline exceeded")
+    return min(remaining, 30.0)
+
+
+def _resolve_git_addresses(host: str, port: int, deadline: float | None):
+    """Bound the blocking OS resolver without sending secrets to DNS threads."""
+    if deadline is None:
+        return socket.getaddrinfo(
+            host, port, type=socket.SOCK_STREAM, proto=socket.IPPROTO_TCP
+        )
+    if not _DNS_THREADS.acquire(blocking=False):
+        raise RuntimeError("Git HTTPS resolver capacity exhausted")
+    results: queue.Queue = queue.Queue(maxsize=1)
+
+    def resolve() -> None:
+        try:
+            result = socket.getaddrinfo(
+                host, port, type=socket.SOCK_STREAM, proto=socket.IPPROTO_TCP
+            )
+            results.put((result, None))
+        except BaseException as exc:
+            results.put((None, exc))
+        finally:
+            _DNS_THREADS.release()
+
+    threading.Thread(target=resolve, daemon=True, name="uag-git-dns").start()
+    try:
+        addresses, error = results.get(timeout=_deadline_remaining(deadline))
+    except queue.Empty:
+        raise TimeoutError("Git HTTPS DNS deadline exceeded") from None
+    if error is not None:
+        raise error
+    return addresses
 
 
 @dataclass(frozen=True)
@@ -51,14 +96,13 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class _PinnedHTTPSConnection(http.client.HTTPSConnection):
-    """Pin the checked DNS result through TCP connect and TLS SNI."""
+    """Pin DNS and apply the same absolute deadline to each socket operation."""
+
+    _uag_deadline: float | None = None
 
     def connect(self):
-        addresses = socket.getaddrinfo(
-            self.host,
-            self.port,
-            type=socket.SOCK_STREAM,
-            proto=socket.IPPROTO_TCP,
+        addresses = _resolve_git_addresses(
+            self.host, self.port, self._uag_deadline
         )
         if not addresses:
             raise OSError("Git HTTPS DNS returned no usable addresses")
@@ -78,7 +122,9 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
         for family, kind, proto, _, sockaddr in addresses:
             connection = socket.socket(family, kind, proto)
             try:
-                connection.settimeout(self.timeout)
+                connection.settimeout(
+                    min(self.timeout, _deadline_remaining(self._uag_deadline))
+                )
                 if self.source_address:
                     connection.bind(self.source_address)
                 # Never resolve again between the IP policy check and connect.
@@ -86,16 +132,41 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
                 self.sock = self._context.wrap_socket(
                     connection, server_hostname=self.host
                 )
+                self._install_deadline_guards()
                 return
             except OSError:
                 connection.close()
         raise OSError("Git HTTPS destination could not be reached")
 
+    def _install_deadline_guards(self) -> None:
+        if self._uag_deadline is None:
+            return
+        secure_socket = self.sock
+        for method_name in ("recv", "recv_into", "send", "sendall"):
+            original = getattr(secure_socket, method_name, None)
+            if original is None:
+                continue
+
+            def bounded(*args, _original=original, **kwargs):
+                secure_socket.settimeout(_deadline_remaining(self._uag_deadline))
+                return _original(*args, **kwargs)
+
+            setattr(secure_socket, method_name, bounded)
+
 
 class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
+    def __init__(self, *, deadline=None, **kwargs):
+        super().__init__(**kwargs)
+        self._deadline = deadline
+
     def https_open(self, request):
+        def connection_factory(*args, **kwargs):
+            connection = _PinnedHTTPSConnection(*args, **kwargs)
+            connection._uag_deadline = self._deadline
+            return connection
+
         return self.do_open(
-            _PinnedHTTPSConnection,
+            connection_factory,
             request,
             context=self._context,
         )
@@ -135,14 +206,14 @@ def _trusted_ssl_context() -> ssl.SSLContext:
     return context
 
 
-def _trusted_https_opener():
+def _trusted_https_opener(*, deadline: float | None = None):
     # Implicit process HTTPS_PROXY could originate from an untrusted project
     # .env; do not let it bypass the checked destination. Explicit proxies
     # need their own trusted-host policy before they can be supported.
     return urllib.request.build_opener(
         urllib.request.ProxyHandler({}),
         _NoRedirect(),
-        _PinnedHTTPSHandler(context=_trusted_ssl_context()),
+        _PinnedHTTPSHandler(context=_trusted_ssl_context(), deadline=deadline),
     )
 
 
@@ -243,6 +314,7 @@ def exchange_git_smart_http(
     opener=None,
     push_authorized: bool = False,
     protocol_version: int = 0,
+    deadline: float | None = None,
 ) -> GitHttpResponse:
     """Perform exactly one authenticated Git smart-HTTP request.
 
@@ -252,6 +324,11 @@ def exchange_git_smart_http(
     This function validates the credential's remote, forbids redirects and
     never returns credential bytes.
     """
+    if deadline is not None and (
+        type(deadline) not in (int, float) or not math.isfinite(deadline)
+    ):
+        raise ValueError("invalid Git HTTPS absolute deadline")
+    _deadline_remaining(deadline)
     if service not in _SERVICES or type(advertise) is not bool:
         raise ValueError("unsupported Git smart-HTTP operation")
     if type(push_authorized) is not bool:
@@ -293,9 +370,9 @@ def exchange_git_smart_http(
         headers=headers,
         method="GET" if advertise else "POST",
     )
-    opener = opener or _trusted_https_opener()
+    opener = opener or _trusted_https_opener(deadline=deadline)
     try:
-        with opener.open(request, timeout=30) as response:
+        with opener.open(request, timeout=_deadline_remaining(deadline)) as response:
             code = getattr(response, "status", None)
             if code != 200 or response.geturl() != endpoint:
                 raise RuntimeError("Git HTTP upstream rejected request")
@@ -317,6 +394,7 @@ def exchange_git_smart_http(
                     "Git HTTP upstream returned unsupported content encoding"
                 )
             data = response.read(_MAX_RESPONSE_BYTES + 1)
+            _deadline_remaining(deadline)
             if len(data) > _MAX_RESPONSE_BYTES:
                 raise RuntimeError("Git HTTP response exceeds size limit")
             return GitHttpResponse(content_type=content_type, body=data)
