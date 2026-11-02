@@ -142,6 +142,7 @@ def exchange_git_smart_http(
     store: CredentialStore | None = None,
     opener=None,
     push_authorized: bool = False,
+    protocol_version: int = 0,
 ) -> GitHttpResponse:
     """Perform exactly one authenticated Git smart-HTTP request.
 
@@ -155,6 +156,8 @@ def exchange_git_smart_http(
         raise ValueError("unsupported Git smart-HTTP operation")
     if type(push_authorized) is not bool:
         raise ValueError("Git push authorization must be explicit")
+    if type(protocol_version) is not int or protocol_version not in {0, 1, 2}:
+        raise ValueError("unsupported Git protocol version")
     if service == "git-receive-pack" and not push_authorized:
         raise PermissionError("Git receive-pack requires trusted push authorization")
     if not isinstance(body, bytes) or len(body) > _MAX_REQUEST_BYTES:
@@ -180,8 +183,8 @@ def exchange_git_smart_http(
         "Accept-Encoding": "identity",
         "Cache-Control": "no-cache",
     }
-    if service == "git-upload-pack":
-        headers["Git-Protocol"] = "version=2"
+    if protocol_version:
+        headers["Git-Protocol"] = f"version={protocol_version}"
     if not advertise:
         headers["Content-Type"] = f"application/x-{service}-request"
     request = urllib.request.Request(
