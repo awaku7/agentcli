@@ -84,9 +84,9 @@ class _RemoteHelper:
                 {
                     "bridge": "git_http",
                     "op": "body",
-                    "data": base64.b64encode(body[offset : offset + _REQUEST_CHUNK]).decode(
-                        "ascii"
-                    ),
+                    "data": base64.b64encode(
+                        body[offset : offset + _REQUEST_CHUNK]
+                    ).decode("ascii"),
                 }
             )
             if ready.get("op") != "ready":
