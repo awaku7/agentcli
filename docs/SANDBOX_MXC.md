@@ -246,6 +246,20 @@ Trusted host-side MXC settings use two levels:
 - **Session profile:** keyed by Principal, Project, session/Room/Task identifier,
   and Room binding generation. It overrides only specified user-level keys.
 
+CLI and GUI share one OS user profile, identified by the POSIX real UID or
+Windows process-token SID (not spoofable USER/USERNAME environment values).
+Web profiles are keyed to the server-verified Web Principal. A2A currently has
+one service principal for its single shared bearer token: it does **not** yet
+provide distinct authenticated caller identities, so A2A credentials must be
+treated as service-wide rather than assigned to unverified caller headers.
+CLI, GUI, Web, and A2A never implicitly share one another's credentials.
+
+Persistent settings use the logical CLI/GUI session ID, Web Room ID plus binding
+generation, or A2A Task ID. The process-salted live MXC scope and workspace IDs
+remain separate. Reconnecting to a saved CLI session or restarting the Web process
+does not unintentionally change the settings key for the same logical session.
+A new Room binding generation receives a new session settings identity.
+
 The effective environment is **user settings, then session overrides**, loaded
 when a new MXC worker starts. A running or parked worker must be restarted for
 edited settings to take effect. The rest of the MXC environment remains

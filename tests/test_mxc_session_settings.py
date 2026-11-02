@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import stat
@@ -147,6 +148,154 @@ def test_uag_settings_ancestor_cannot_be_symlink(tmp_path, scope):
     (tmp_path / "uag").symlink_to(original, target_is_directory=True)
     with pytest.raises(PermissionError):
         mxc_session_settings.effective_environment(tmp_path, scope)
+
+
+def test_cli_gui_share_os_user_defaults_without_sharing_session_overrides(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setattr(mxc_backend, "_trusted_local_principal", lambda: "os-uid:42")
+    cli = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="conversation-a"
+    )
+    gui = mxc_backend.startup_scope(
+        entry_point="gui", project_path=str(tmp_path), session_id="conversation-a"
+    )
+    another_cli = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="conversation-b"
+    )
+    assert cli.principal_id == gui.principal_id
+    assert mxc_session_settings.settings_path(
+        tmp_path, cli, "user"
+    ) == mxc_session_settings.settings_path(tmp_path, gui, "user")
+    assert mxc_session_settings.settings_path(
+        tmp_path, cli, "session"
+    ) != mxc_session_settings.settings_path(tmp_path, gui, "session")
+    assert mxc_session_settings.settings_path(
+        tmp_path, cli, "session"
+    ) != mxc_session_settings.settings_path(tmp_path, another_cli, "session")
+    mxc_session_settings.save_environment(
+        tmp_path, cli, "user", {"GIT_AUTHOR_NAME": "Shared local"}
+    )
+    mxc_session_settings.save_environment(
+        tmp_path, cli, "session", {"GIT_AUTHOR_NAME": "CLI override"}
+    )
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, cli)["GIT_AUTHOR_NAME"]
+        == "CLI override"
+    )
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, gui)["GIT_AUTHOR_NAME"]
+        == "Shared local"
+    )
+
+
+def test_session_settings_survive_process_scope_changes(monkeypatch, tmp_path):
+    monkeypatch.setattr(mxc_backend, "_trusted_local_principal", lambda: "os-uid:42")
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 14001)
+    first = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="saved-id"
+    )
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 14002)
+    second = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="saved-id"
+    )
+    assert first.scope_id != second.scope_id
+    assert mxc_backend._scope_key(first) != mxc_backend._scope_key(second)
+    assert mxc_session_settings.settings_path(
+        tmp_path, first, "session"
+    ) == mxc_session_settings.settings_path(tmp_path, second, "session")
+    mxc_session_settings.save_environment(
+        tmp_path, first, "session", {"SESSION_LABEL": "saved"}
+    )
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, second)["SESSION_LABEL"]
+        == "saved"
+    )
+
+
+def test_web_and_a2a_settings_remain_separate_from_local_principal(tmp_path):
+    principal = "os-uid:42"
+    cli = TrustedSandboxScope(
+        "cli", principal, "project", "cli-session", "one", settings_session_id="one"
+    )
+    web = TrustedSandboxScope(
+        "web", principal, "project", "web-room", "one", settings_session_id="one"
+    )
+    a2a = TrustedSandboxScope(
+        "a2a", principal, "project", "a2a-task", "one", settings_session_id="one"
+    )
+    paths = {
+        mxc_session_settings.settings_path(tmp_path, item, "user")
+        for item in (cli, web, a2a)
+    }
+    assert len(paths) == 3
+    mxc_session_settings.save_environment(
+        tmp_path, cli, "user", {"GIT_AUTHOR_NAME": "OS User"}
+    )
+    assert mxc_session_settings.effective_environment(tmp_path, web) == {}
+    assert mxc_session_settings.effective_environment(tmp_path, a2a) == {}
+
+
+def test_web_session_settings_follow_room_not_process(monkeypatch, tmp_path):
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 14001)
+    first = mxc_backend.local_web_room_scope(
+        principal_id="web-user",
+        project_id="project",
+        room_id="room-x",
+        room_generation="generation-1",
+    )
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 14002)
+    second = mxc_backend.local_web_room_scope(
+        principal_id="web-user",
+        project_id="project",
+        room_id="room-x",
+        room_generation="generation-1",
+    )
+    renewed = mxc_backend.local_web_room_scope(
+        principal_id="web-user",
+        project_id="project",
+        room_id="room-x",
+        room_generation="generation-2",
+    )
+    assert first.scope_id != second.scope_id
+    assert mxc_session_settings.settings_path(
+        tmp_path, first, "session"
+    ) == mxc_session_settings.settings_path(tmp_path, second, "session")
+    assert mxc_session_settings.settings_path(
+        tmp_path, first, "session"
+    ) != mxc_session_settings.settings_path(tmp_path, renewed, "session")
+
+
+def test_local_principal_ignores_username_environment(monkeypatch, tmp_path):
+    before = mxc_backend._trusted_local_principal()
+    monkeypatch.setenv("USER", "attacker")
+    monkeypatch.setenv("USERNAME", "attacker")
+    after = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="one"
+    ).principal_id
+    assert after == before
+
+
+def test_legacy_scope_keeps_preexisting_session_settings_filename(tmp_path):
+    scope = TrustedSandboxScope("a2a", "a2a-service", "project", "a2a-task", "task-42")
+    old_fields = (
+        scope.deployment_id,
+        scope.principal_id,
+        scope.project_id,
+        scope.scope_kind,
+        scope.scope_id,
+        scope.binding_generation,
+    )
+    payload = json.dumps(old_fields, ensure_ascii=False, separators=(",", ":"))
+    old_digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+    saved_path = mxc_session_settings.save_environment(
+        tmp_path, scope, "session", {"SESSION_LABEL": "previous"}
+    )
+    assert saved_path.name == old_digest + ".json"
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, scope)["SESSION_LABEL"]
+        == "previous"
+    )
 
 
 def test_unconfigured_environment_is_empty(tmp_path, scope):

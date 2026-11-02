@@ -1981,7 +1981,27 @@ def local_web_room_scope(
         scope_kind="web-room",
         scope_id=_process_scope_id(room_id, generation=room_generation),
         binding_generation=room_generation,
+        settings_session_id=room_id,
     )
+
+
+def _trusted_local_principal() -> str:
+    """Use the operating-system identity, not spoofable USER/USERNAME env vars."""
+    if os.name != "nt":
+        return f"os-uid:{os.getuid()}"
+
+    import win32api
+    import win32con
+    import win32security
+
+    token = win32security.OpenProcessToken(
+        win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
+    )
+    try:
+        sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
+        return f"os-sid:{win32security.ConvertSidToStringSid(sid)}"
+    finally:
+        token.Close()
 
 
 def startup_scope(
@@ -1989,7 +2009,7 @@ def startup_scope(
 ) -> TrustedSandboxScope:
     if entry_point not in {"cli", "gui"}:
         raise ValueError("only local CLI/GUI sessions are supported by this MXC PoC")
-    identity = os.environ.get("USERNAME") or os.environ.get("USER") or "local-user"
+    identity = _trusted_local_principal()
     project = str(Path(project_path).resolve())
     return TrustedSandboxScope(
         deployment_id=entry_point,
@@ -2001,6 +2021,7 @@ def startup_scope(
         # when creating its first Worker, so sharing a persisted ID between
         # concurrently running processes would otherwise be destructive.
         scope_id=_process_scope_id(session_id or entry_point),
+        settings_session_id=session_id,
     )
 
 

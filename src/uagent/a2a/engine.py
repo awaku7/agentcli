@@ -69,6 +69,7 @@ def _trusted_a2a_task_scope(task_id: str, project_path: str) -> Any:
         project_id=str(Path(project_path).resolve()),
         scope_kind="a2a-task",
         scope_id=task,
+        settings_session_id=task,
     )
 
 
