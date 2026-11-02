@@ -169,10 +169,14 @@ def main() -> int:
         if command != b"stateless-connect git-upload-pack\n":
             raise PermissionError("only Git upload-pack protocol v2 is supported")
         advertisement = helper.http(advertise=True)
+        # A protocol-v2 HTTP server advertises capabilities directly, while
+        # legacy smart-HTTP discovery may include a service banner first.
         banner = b"001e# service=git-upload-pack\n0000"
-        if not advertisement.startswith(banner):
-            raise RuntimeError("invalid Git smart-HTTP advertisement")
-        capability_data = advertisement[len(banner) :]
+        capability_data = (
+            advertisement[len(banner) :]
+            if advertisement.startswith(banner)
+            else advertisement
+        )
         if not capability_data.startswith(b"000eversion 2\n"):
             raise RuntimeError("Git remote did not negotiate protocol v2")
         output.write(b"\n" + capability_data)
