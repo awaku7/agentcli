@@ -10,8 +10,10 @@ from __future__ import annotations
 import base64
 import http.client
 import ipaddress
+import os
 import re
 import socket
+import ssl
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -96,17 +98,51 @@ class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
             _PinnedHTTPSConnection,
             request,
             context=self._context,
-            check_hostname=self._check_hostname,
         )
 
 
+def _trusted_ssl_context() -> ssl.SSLContext:
+    """Trust the OS/OpenSSL installation, never project SSL_CERT_* overrides."""
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+    if os.name == "nt":
+        # Windows' native certificate stores are the trust source. Calling
+        # load_default_certs() would also consult SSL_CERT_FILE/SSL_CERT_DIR.
+        for store_name in ("CA", "ROOT"):
+            for certificate, encoding, trust in ssl.enum_certificates(store_name):
+                if encoding != "x509_asn":
+                    continue
+                if trust is not True and (
+                    not isinstance(trust, (set, frozenset))
+                    or "1.3.6.1.5.5.7.3.1" not in trust
+                ):
+                    continue
+                context.load_verify_locations(
+                    cadata=ssl.DER_cert_to_PEM_cert(certificate)
+                )
+    else:
+        # Use compiled system trust locations, NOT cafile/capath fields that
+        # may be redirected by project-controlled environment variables.
+        from pathlib import Path
+
+        paths = ssl.get_default_verify_paths()
+        cafile = paths.openssl_cafile
+        capath = paths.openssl_capath
+        cafile = cafile if cafile and Path(cafile).is_file() else None
+        capath = capath if capath and Path(capath).is_dir() else None
+        if not cafile and not capath:
+            raise RuntimeError("Git HTTPS system CA store is unavailable")
+        context.load_verify_locations(cafile=cafile, capath=capath)
+    return context
+
+
 def _trusted_https_opener():
-    # Implicit process HTTPS_PROXY could originate from an untrusted
-    # project .env. Do not allow it to bypass the resolved-IP policy.
+    # Implicit process HTTPS_PROXY could originate from an untrusted project
+    # .env; do not let it bypass the checked destination. Explicit proxies
+    # need their own trusted-host policy before they can be supported.
     return urllib.request.build_opener(
         urllib.request.ProxyHandler({}),
         _NoRedirect(),
-        _PinnedHTTPSHandler(),
+        _PinnedHTTPSHandler(context=_trusted_ssl_context()),
     )
 
 
