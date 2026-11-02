@@ -330,8 +330,15 @@ scope and operation authorization before each request. This transport:
   fragments, query parameters, encoded path separators, or dot segments.
 - Requires the remote hostname to exactly match the selected credential's
   registered host; cross-principal and cross-realm selection remain isolated.
-- Forbids HTTP redirects, validates Git content types, enforces TLS checks
-  using the standard HTTPS client and bounds request/response sizes.
+- Forbids HTTP redirects; resolves target DNS names, rejects loopback
+  and link-local destinations, and connects to the validated IP with TLS
+  verification and the original hostname as SNI. Untrusted process proxy
+  environment variables are ignored for this initial direct-HTTPS transport.
+- Preserves the caller's explicit Git protocol version (0, 1, or 2) across
+  advertisement and RPC requests rather than silently negotiating v2.
+- Validates Git content types and bounds request/response sizes.
+- Refuses `git-receive-pack` by default until the trusted host verifies the
+  push authorization.
 - Returns only the Git smart-HTTP response bytes. Tokens never enter MXC
   variables, files, Git command arguments or tool responses.
 
