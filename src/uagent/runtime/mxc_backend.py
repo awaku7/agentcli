@@ -1565,7 +1565,9 @@ class _MxcSession:
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
-            response = self._read_response(timeout=60 if name in {"python_exec", "command_exec"} else 45)
+            response = self._read_response(
+                timeout=60 if name in {"python_exec", "command_exec"} else 45
+            )
             if mac_baseline is not None:
                 # Native MXC process-group kill alone may miss setsid children.
                 # Fail closed if observed detached descendants cannot be reaped
