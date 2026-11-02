@@ -110,7 +110,7 @@ def _validate_environment(environment: Any) -> dict[str, str]:
     return checked
 
 
-def _check_directory(path: Path) -> None:
+def _check_directory(path: Path, *, require_private: bool = True) -> None:
     try:
         info = path.lstat()
     except FileNotFoundError:
@@ -119,7 +119,9 @@ def _check_directory(path: Path) -> None:
         info, "st_file_attributes", 0
     ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
         raise PermissionError("sandbox settings directory is not a real directory")
-    if os.name != "nt" and (info.st_uid != os.getuid() or info.st_mode & 0o077):
+    if require_private and os.name != "nt" and (
+        info.st_uid != os.getuid() or info.st_mode & 0o077
+    ):
         raise PermissionError("sandbox settings directory must be private")
 
 
@@ -168,7 +170,11 @@ def save_environment(
     """Trusted-host settings API. Never call from a sandbox tool handler."""
     checked = _validate_environment(environment)
     path = settings_path(root, scope, level)
-    for directory in (path.parent.parent.parent, path.parent.parent, path.parent):
+    # The existing UAG data root may be shared by other UAG features and
+    # need not be mode 0700. The new settings subtree must be private.
+    parent = path.parent.parent.parent
+    _check_directory(parent, require_private=False)
+    for directory in (path.parent.parent, path.parent):
         if directory.exists() or directory.is_symlink():
             _check_directory(directory)
         else:
