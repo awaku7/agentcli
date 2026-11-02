@@ -128,6 +128,7 @@ def test_push_rpc_uses_post_and_does_not_inject_git_protocol_v2(scope, store):
         body=payload,
         opener=opener,
         store=store,
+        push_authorized=True,
     )
     request, _ = opener.requests[0]
     assert request.get_method() == "POST"
@@ -168,6 +169,16 @@ def test_invalid_registered_host_is_rejected(scope, host):
     with pytest.raises(ValueError):
         save_git_https_token(scope, "github", _TOKEN, remote_host=host,
                              store=InMemoryCredentialStore())
+
+
+def test_receive_pack_requires_explicit_host_authorization(scope, store):
+    opener = FakeOpener()
+    with pytest.raises(PermissionError, match="push authorization"):
+        exchange_git_smart_http(
+            scope, _REMOTE, service="git-receive-pack", advertise=True,
+            store=store, opener=opener,
+        )
+    assert opener.requests == []
 
 
 def test_selected_credential_must_be_explicitly_bound(scope):
