@@ -45,7 +45,15 @@ _RESERVED = frozenset(
     }
 )
 _RESERVED_PREFIXES = ("UAGENT_", "LD_", "DYLD_", "GIT_CONFIG_", "PYTHON")
-_SECRET_PARTS = ("PASSWORD", "SECRET", "TOKEN", "PRIVATE_KEY", "CREDENTIAL")
+_SECRET_PARTS = (
+    "PASSWORD",
+    "SECRET",
+    "TOKEN",
+    "PRIVATE_KEY",
+    "ACCESS_KEY",
+    "CREDENTIAL",
+    "AUTH_SOCK",
+)
 
 
 def settings_path(root: Path, scope: TrustedSandboxScope, level: str) -> Path:
@@ -102,9 +110,10 @@ def _validate_environment(environment: Any) -> dict[str, str]:
 
 
 def _check_directory(path: Path) -> None:
-    if not path.exists():
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
         return
-    info = path.lstat()
     if not stat.S_ISDIR(info.st_mode):
         raise PermissionError("sandbox settings directory is not a real directory")
     if os.name != "nt" and (info.st_uid != os.getuid() or info.st_mode & 0o077):
@@ -115,8 +124,14 @@ def _read_environment(path: Path) -> dict[str, str]:
     # Existing files must not be symlinks, junctions, or accessible by others.
     _check_directory(path.parent.parent)
     _check_directory(path.parent)
-    if not path.exists() and not path.is_symlink():
+    try:
+        entry = path.lstat()
+    except FileNotFoundError:
         return {}
+    if not stat.S_ISREG(entry.st_mode) or getattr(
+        entry, "st_file_attributes", 0
+    ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
+        raise PermissionError("sandbox settings file must not be a link")
     flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
     flags |= getattr(os, "O_NOFOLLOW", 0)
     fd = os.open(path, flags)
