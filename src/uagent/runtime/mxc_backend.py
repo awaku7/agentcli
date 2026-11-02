@@ -31,7 +31,7 @@ from .execution_broker import (
     TrustedSandboxScope,
 )
 
-SDK_VERSION = "1.0.0"
+SDK_VERSION = "1.0.1"
 NODE_MINIMUM = (24, 21, 0)
 PROBE_TIMEOUT_SECONDS = 15
 MAX_FRAME_BYTES = 1_100_000
