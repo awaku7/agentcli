@@ -132,9 +132,10 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
                 # TCP connect may consume the entire remaining budget. TLS
                 # must start with a freshly bounded timeout, not the value
                 # captured before the TCP handshake.
-                connection.settimeout(
-                    min(self.timeout, _deadline_remaining(self._uag_deadline))
-                )
+                if self._uag_deadline is not None:
+                    connection.settimeout(
+                        min(self.timeout, _deadline_remaining(self._uag_deadline))
+                    )
                 self.sock = self._context.wrap_socket(
                     connection, server_hostname=self.host
                 )
