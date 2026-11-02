@@ -126,9 +126,7 @@ def test_symbolic_settings_file_is_rejected(tmp_path, scope):
 def test_settings_save_rejects_oversized_payload_without_clobbering_old(
     tmp_path, scope
 ):
-    mxc_session_settings.save_environment(
-        tmp_path, scope, "user", {"TEAM": "old"}
-    )
+    mxc_session_settings.save_environment(tmp_path, scope, "user", {"TEAM": "old"})
     with pytest.raises(ValueError, match="16 KiB"):
         mxc_session_settings.save_environment(
             tmp_path,
