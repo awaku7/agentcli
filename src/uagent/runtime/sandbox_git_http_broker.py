@@ -135,15 +135,22 @@ def exchange_git_smart_http(
     body: bytes = b"",
     store: CredentialStore | None = None,
     opener=None,
+    push_authorized: bool = False,
 ) -> GitHttpResponse:
     """Perform exactly one authenticated Git smart-HTTP request.
 
     The host caller is responsible for authorizing the live scope and Git
-    operation; this function validates the remote bound to the selected
-    credential, does not follow redirects and never returns credential bytes.
+    operation; receive-pack additionally requires the host to assert the
+    existing push authorization, including any required human approval.
+    This function validates the credential's remote, forbids redirects and
+    never returns credential bytes.
     """
     if service not in _SERVICES or type(advertise) is not bool:
         raise ValueError("unsupported Git smart-HTTP operation")
+    if type(push_authorized) is not bool:
+        raise ValueError("Git push authorization must be explicit")
+    if service == "git-receive-pack" and not push_authorized:
+        raise PermissionError("Git receive-pack requires trusted push authorization")
     if not isinstance(body, bytes) or len(body) > _MAX_REQUEST_BYTES:
         raise ValueError("Git HTTP request exceeds size limit")
     if advertise and body:
