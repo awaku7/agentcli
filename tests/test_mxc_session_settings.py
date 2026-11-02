@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import stat
@@ -270,6 +271,29 @@ def test_local_principal_ignores_username_environment(monkeypatch, tmp_path):
         entry_point="cli", project_path=str(tmp_path), session_id="one"
     ).principal_id
     assert after == before
+
+
+def test_legacy_scope_keeps_preexisting_session_settings_filename(tmp_path):
+    scope = TrustedSandboxScope(
+        "a2a", "a2a-service", "project", "a2a-task", "task-42"
+    )
+    old_fields = (
+        scope.deployment_id,
+        scope.principal_id,
+        scope.project_id,
+        scope.scope_kind,
+        scope.scope_id,
+        scope.binding_generation,
+    )
+    payload = json.dumps(old_fields, ensure_ascii=False, separators=(",", ":"))
+    old_digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+    saved_path = mxc_session_settings.save_environment(
+        tmp_path, scope, "session", {"SESSION_LABEL": "previous"}
+    )
+    assert saved_path.name == old_digest + ".json"
+    assert mxc_session_settings.effective_environment(tmp_path, scope)[
+        "SESSION_LABEL"
+    ] == "previous"
 
 
 def test_unconfigured_environment_is_empty(tmp_path, scope):
