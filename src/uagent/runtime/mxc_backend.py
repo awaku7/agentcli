@@ -1580,9 +1580,30 @@ class _MxcSession:
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
-            response = self._read_response(
-                timeout=60 if name in {"python_exec", "command_exec"} else 45
-            )
+            timeout_seconds = 60 if name in {"python_exec", "command_exec"} else 45
+            deadline = time.monotonic() + timeout_seconds
+            response = self._read_response(timeout=timeout_seconds)
+            if name == "command_exec" and response.get("bridge") == "git_http":
+                from .sandbox_git_ipc import GitHttpIPC
+
+                git_ipc = GitHttpIPC(
+                    self._scope,
+                    revoked=self._revoked.is_set,
+                )
+                try:
+                    while response.get("bridge") == "git_http":
+                        reply = git_ipc.handle(response)
+                        self._write_line(reply)
+                        remaining = deadline - time.monotonic()
+                        if remaining <= 0:
+                            raise TimeoutError("Git IPC execution deadline expired")
+                        response = self._read_response(timeout=remaining)
+                except Exception:
+                    # Never allow untrusted frames to put this IPC stream
+                    # back into service after an incomplete Git exchange.
+                    self.revoke()
+                    self.close()
+                    raise
             if mac_baseline is not None:
                 # Native MXC process-group kill alone may miss setsid children.
                 # Fail closed if observed detached descendants cannot be reaped
