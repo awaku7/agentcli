@@ -155,3 +155,38 @@ def test_git_ipc_rejects_oversized_or_unexpected_response(scope):
 def test_git_ipc_never_receives_model_selected_scope(scope):
     with pytest.raises(TypeError):
         GitHttpIPC("model-supplied-principal", revoked=lambda: False)
+
+
+def test_mxc_command_execution_forwards_git_frames_to_host(monkeypatch, scope):
+    import json
+    import threading
+
+    from uagent.runtime import mxc_backend, sandbox_git_ipc
+
+    session = object.__new__(mxc_backend._MxcSession)
+    session._scope = scope
+    session._lock = threading.RLock()
+    session._revoked = threading.Event()
+    session._mac_scope = None
+    received = [
+        {"bridge": "git_http", "op": "begin"},
+        {"ok": True, "result": {"returncode": 0, "stdout": "ok"}},
+    ]
+    sent = []
+    session._write_line = sent.append
+    session._read_response = lambda **kwargs: received.pop(0)
+
+    class StubGitIPC:
+        def __init__(self, received_scope, *, revoked):
+            assert received_scope == scope
+            assert not revoked()
+
+        def handle(self, frame):
+            assert frame == {"bridge": "git_http", "op": "begin"}
+            return {"bridge": "git_http", "op": "ready"}
+
+    monkeypatch.setattr(sandbox_git_ipc, "GitHttpIPC", StubGitIPC)
+    result = session.run("command_exec", {"argv": ["git", "--version"]})
+    assert json.loads(result)["stdout"] == "ok"
+    assert sent[0]["payload"]["name"] == "command_exec"
+    assert sent[1] == {"bridge": "git_http", "op": "ready"}
