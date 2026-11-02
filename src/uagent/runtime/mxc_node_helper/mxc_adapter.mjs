@@ -1019,7 +1019,7 @@ async function serveWorker() {
         try {
           // The trusted host refreshes the nonsecret Git hostname per run.
           // Never retain an outdated credential selection in a live worker.
-          const gitRemoteHost = request.payload.gitRemoteHost;
+          const gitRemoteHost = request.payload.gitRemoteHost ?? null;
           if (request.payload.name === "command_exec" &&
               gitRemoteHost !== null && typeof gitRemoteHost !== "string") {
             throw new Error("invalid scoped Git host");
