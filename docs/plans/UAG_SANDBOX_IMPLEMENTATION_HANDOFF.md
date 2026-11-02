@@ -210,7 +210,7 @@
 ### 6.1 PR4開始時の作業指示（2026-10-19）
 
 - 実装候補は MXC の `windows_sandbox` VM Backend とする。`processcontainer` はプロセス／コンテナ境界であり、Remote向けVM隔離として流用・格上げしてはならない。
-- 現在のUAGピン `@microsoft/mxc-sdk@1.0.0` のV1 high-level `spawn` 経路は `windows_sandbox` を選べない。調査時点の公開 `1.0.1` でもV1 high-level APIの対応外である。実装前に、locked packageに含まれる `wxc-exec.exe` の実際の契約と使い方を確認する。公式資料上の候補は `wxc-exec.exe --experimental` と開発版 request schema `1.1.0-alpha`。バージョンを固定し、内部SDK APIや推測した引数に依存しない。
+- 現行のUAGピン `@microsoft/mxc-sdk@1.0.1` のV1 high-level `spawn` 経路は `windows_sandbox` を選べない。`1.0.1` でもV1 high-level APIの対応外である。実装前に、locked packageに含まれる `wxc-exec.exe` の実際の契約と使い方を確認する。公式資料上の候補は `wxc-exec.exe --experimental` と開発版 request schema `1.1.0-alpha`。バージョンを固定し、内部SDK APIや推測した引数に依存しない。
 - Windows Sandboxは実験的Backendで、1ログオンセッションにつきVMは1台。競合する起動は安全に直列化するか、有界時間で拒否し、Scope間のVM/workspace混同を起こさない。所有証明のないVMを自動reclaimしない。Backendのteardownはbest-effortでidle watchdogもないため、終了確認・孤児検出・失敗時のfail-closedを明示する。
 - Windows Sandboxのegressはblock-only。`network`設定やproxyによる許可通信を足さず、外部接続が必要なRemote Toolは別途実測可能な強制機構がない限り拒否する。Credentialを環境変数・共有workspaceへ置かない。Browser/Computer Use、Clipboard/Desktopアクセスも実測による隔離証明までRemote拒否を維持する。
 - 各Remote Scopeには専用workspaceを割り当て、共有するのは必要最小限のruntimeだけ。Project/Host Home全体やCredential領域をmountしない。成果物はcopy-out先でPath Traversal、reparse point、Hardlink、競合Revisionを検証し、承認済みExport以外はHost Projectに反映しない。
