@@ -1998,6 +1998,11 @@ def _run_one_round(
                     tool_calls_list=tool_calls_list,
                     reasoning_content=reasoning_content,
                 )
+                if str(provider or "").strip().lower() == "sarashina":
+                    # Store Sarashina's encrypted token under its native field.
+                    # The web display projection intentionally does not expose
+                    # this field, while provider replay preserves it verbatim.
+                    deepseek_msg["reasoning"] = deepseek_msg.pop("reasoning_content")
                 if isinstance(responses_output_items, list) and responses_output_items:
                     deepseek_msg["_responses_output_items"] = responses_output_items
                 messages.append(deepseek_msg)

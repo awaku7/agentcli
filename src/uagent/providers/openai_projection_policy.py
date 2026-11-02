@@ -63,6 +63,65 @@ _VLLM_REASONING_BUDGETS = {
     "xhigh": 8192,
 }
 
+_REASONING_EFFORT_ORDER = ("minimal", "low", "medium", "high", "xhigh", "max")
+
+
+def sarashina_reasoning_effort(
+    model: str,
+    messages: Any,
+    *,
+    reasoning: str | None = None,
+) -> str | None:
+    """Resolve Sarashina's effort from the active llmcapa capability."""
+    try:
+        capability = llmcapa_util.get_capability(model, "sarashina")
+        if (
+            capability is None
+            or getattr(capability, "supports_reasoning_effort", None) is False
+        ):
+            return None
+        advertised = llmcapa_util.get_reasoning_effort_values(model, "sarashina")
+    except Exception:
+        return None
+    if not advertised:
+        return None
+    supported = list(
+        dict.fromkeys(
+            value.strip().lower()
+            for value in advertised
+            if isinstance(value, str) and value.strip()
+        )
+    )
+    if not supported:
+        return None
+
+    requested = (
+        (env_get("UAGENT_REASONING", "") or "") if reasoning is None else reasoning
+    )
+    requested = str(requested or "").strip().lower()
+    if requested in {"", "off", "false", "none"}:
+        return None
+    if requested == "auto":
+        user_text = _extract_latest_user_text(messages)
+        if not _is_thinking_task(user_text):
+            return None
+        requested = _choose_auto_effort(user_text)
+    if requested in supported:
+        return requested
+    if requested not in _REASONING_EFFORT_ORDER:
+        return None
+    requested_rank = _REASONING_EFFORT_ORDER.index(requested)
+    ranked_supported = [
+        (
+            abs(_REASONING_EFFORT_ORDER.index(value) - requested_rank),
+            _REASONING_EFFORT_ORDER.index(value),
+            value,
+        )
+        for value in supported
+        if value in _REASONING_EFFORT_ORDER
+    ]
+    return min(ranked_supported)[2] if ranked_supported else None
+
 
 def _verified_vllm_budget_control(model: str) -> dict[str, Any] | None:
     """Only model-scoped verified vLLM numeric-budget controls are usable."""
@@ -170,6 +229,16 @@ def sanitize_sarashina_messages(messages: Any) -> list[dict[str, Any]]:
                     "Sarashina Chat Completions currently accepts text-only message content"
                 )
         if role == "assistant":
+            # Sarashina returns an opaque, encrypted Base64 string in
+            # ``reasoning`` and requires it to be replayed unchanged when
+            # continuing a tool-call turn. Older internal history uses the
+            # OpenAI-compatible ``reasoning_content`` key, so accept that as
+            # an input alias but emit only Sarashina's documented field.
+            reasoning = message.get("reasoning")
+            if not (isinstance(reasoning, str) and reasoning):
+                reasoning = message.get("reasoning_content")
+            if isinstance(reasoning, str) and reasoning:
+                item["reasoning"] = reasoning
             tool_calls = message.get("tool_calls")
             if isinstance(tool_calls, list):
                 item["tool_calls"] = [
@@ -321,6 +390,16 @@ def build_openai_projection(
                         stacklevel=2,
                     )
                 effort_used = None
+    elif provider_key == "sarashina":
+        if not use_responses_api:
+            sarashina_effort = sarashina_reasoning_effort(
+                model,
+                messages,
+                reasoning=reasoning,
+            )
+            if sarashina_effort:
+                options["reasoning_effort"] = sarashina_effort
+            effort_used = sarashina_effort
     elif effort_used:
         if use_responses_api:
             options["reasoning"] = {"effort": effort_used}

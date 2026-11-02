@@ -13,6 +13,7 @@ _INTERNAL_KEYS = {
     "llm_context",
     "response_id",
     "reasoning_content",
+    "reasoning",
     "_responses_output_items",
 }
 
@@ -56,7 +57,16 @@ def project_messages_for_provider(
             continue
         item = copy.deepcopy(message)
         for key in list(item):
-            if key in _INTERNAL_KEYS or str(key).startswith("_uagent_"):
+            # Sarashina requires its opaque reasoning token to be replayed in
+            # the next assistant message. Keep the internal alias until its
+            # provider sanitizer maps it to the documented ``reasoning`` key.
+            if (
+                key in _INTERNAL_KEYS
+                and not (
+                    provider_name == "sarashina"
+                    and key in {"reasoning", "reasoning_content"}
+                )
+            ) or str(key).startswith("_uagent_"):
                 item.pop(key, None)
         if item.get("role") == "tool" and not isinstance(item.get("content"), str):
             item["content"] = json.dumps(item.get("content"), ensure_ascii=False)

@@ -1032,6 +1032,17 @@ def _call_openai_azure_round(
                     "messages": chat_messages,
                     "temperature": resolved_temp,
                 }
+                if provider == "sarashina":
+                    from .providers.openai_projection_policy import (
+                        sarashina_reasoning_effort,
+                    )
+
+                    _sarashina_effort = sarashina_reasoning_effort(
+                        depname,
+                        chat_messages,
+                    )
+                    if _sarashina_effort:
+                        chat_kwargs["reasoning_effort"] = _sarashina_effort
                 if provider == "inception":
                     # Mercury exposes reasoning control through the
                     # Chat Completions `reasoning_effort` field. Prefer the

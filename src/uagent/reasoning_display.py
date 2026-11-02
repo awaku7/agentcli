@@ -71,6 +71,11 @@ def show_reasoning(
 ) -> None:
     if not text:
         return
+    # Sarashina's Chat Completions ``reasoning`` value is encrypted Base64
+    # state, not readable chain-of-thought. Keep it available to the
+    # conversation serializer, but never display or forward it to a host UI.
+    if (provider or "").strip().lower() == "sarashina":
+        return
     # Do not display when the display-only flag is off
     if not get_display_reasoning():
         return

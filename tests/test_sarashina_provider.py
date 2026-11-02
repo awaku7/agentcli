@@ -32,6 +32,25 @@ class _Core:
         return (self.get_env(name, default) or "").strip()
 
 
+def _stub_sarashina_effort_capability(
+    monkeypatch,
+    *,
+    values: tuple[str, ...] = ("low", "medium", "high"),
+    supported: bool = True,
+) -> None:
+    class Capability:
+        supports_reasoning_effort = supported
+
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_capability",
+        lambda _model, _provider: Capability(),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.openai_projection_policy.llmcapa_util.get_reasoning_effort_values",
+        lambda _model, _provider: list(values),
+    )
+
+
 def test_sarashina_openai_compatible_client_defaults(monkeypatch) -> None:
     captured: dict[str, Any] = {}
 
@@ -152,6 +171,66 @@ def test_sarashina_messages_drop_undocumented_fields_and_map_developer_role() ->
     ]
 
 
+def test_sarashina_messages_replay_opaque_reasoning_as_documented_field() -> None:
+    from uagent.providers.openai_projection_policy import sanitize_sarashina_messages
+
+    encrypted_reasoning = "Y2lwaGVydGV4dC4uLg=="
+    messages = [
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [],
+            "reasoning_content": encrypted_reasoning,
+            "metadata": {"must_not_be_sent": True},
+        },
+        {
+            "role": "assistant",
+            "content": "next turn",
+            "reasoning": encrypted_reasoning,
+        },
+    ]
+
+    assert sanitize_sarashina_messages(messages) == [
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [],
+            "reasoning": encrypted_reasoning,
+        },
+        {"role": "assistant", "content": "next turn", "reasoning": encrypted_reasoning},
+    ]
+
+
+def test_sarashina_reasoning_survives_provider_projection() -> None:
+    from uagent.providers.openai_projection_policy import sanitize_sarashina_messages
+    from uagent.runtime.provider_context import project_messages_for_provider
+
+    encrypted_reasoning = "Y2lwaGVydGV4dC4uLg=="
+    history = [
+        {"role": "assistant", "content": "", "reasoning_content": encrypted_reasoning}
+    ]
+
+    projected = project_messages_for_provider(history, provider="sarashina")
+    request_messages = sanitize_sarashina_messages(projected)
+
+    assert request_messages == [
+        {"role": "assistant", "content": "", "reasoning": encrypted_reasoning}
+    ]
+    assert project_messages_for_provider(history, provider="openai") == [
+        {"role": "assistant", "content": ""}
+    ]
+    native_history = [
+        {"role": "assistant", "content": "", "reasoning": encrypted_reasoning}
+    ]
+    assert (
+        project_messages_for_provider(native_history, provider="sarashina")
+        == native_history
+    )
+    assert project_messages_for_provider(native_history, provider="openai") == [
+        {"role": "assistant", "content": ""}
+    ]
+
+
 def test_sarashina_projection_uses_documented_fields_and_token_ceiling(
     monkeypatch,
 ) -> None:
@@ -171,6 +250,98 @@ def test_sarashina_projection_uses_documented_fields_and_token_ceiling(
     assert projection.options["max_completion_tokens"] == 8000
     assert "reasoning_effort" not in projection.options
     assert "max_tokens" not in projection.options
+
+
+def test_sarashina_thinking_model_receives_supported_reasoning_effort(
+    monkeypatch,
+) -> None:
+    _stub_sarashina_effort_capability(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+
+    projection = build_openai_projection(
+        provider="sarashina",
+        model="sarashina3.2-mini-thinking",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "Analyze this carefully."}],
+        send_tools=True,
+        compaction_threshold=1000,
+    )
+
+    assert projection.options["reasoning_effort"] == "high"
+    assert projection.effort_used == "high"
+
+
+def test_sarashina_reasoning_effort_maps_shared_levels_and_auto(monkeypatch) -> None:
+    _stub_sarashina_effort_capability(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "minimal")
+    minimal = build_openai_projection(
+        provider="sarashina",
+        model="sarashina3.2-mini-thinking",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+    assert minimal.options["reasoning_effort"] == "low"
+
+    monkeypatch.setenv("UAGENT_REASONING", "auto")
+    auto = build_openai_projection(
+        provider="sarashina",
+        model="sarashina3.2-mini-thinking",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "x" * 500}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+    assert auto.options["reasoning_effort"] == "medium"
+
+
+def test_sarashina_does_not_send_effort_when_llmcapa_disables_it(monkeypatch) -> None:
+    _stub_sarashina_effort_capability(monkeypatch, supported=False)
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+
+    projection = build_openai_projection(
+        provider="sarashina",
+        model="sarashina3-mini",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+
+    assert "reasoning_effort" not in projection.options
+
+
+def test_sarashina_effort_uses_llmcapa_advertised_levels(monkeypatch) -> None:
+    _stub_sarashina_effort_capability(monkeypatch, values=("medium",))
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+
+    projection = build_openai_projection(
+        provider="sarashina",
+        model="future-sarashina-thinking-alias",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+
+    assert projection.options["reasoning_effort"] == "medium"
+
+
+def test_sarashina_encrypted_reasoning_is_not_rendered(monkeypatch) -> None:
+    import uagent.reasoning_display as reasoning_display
+
+    monkeypatch.setattr(reasoning_display, "get_display_reasoning", lambda: True)
+    output: list[str] = []
+
+    reasoning_display.show_reasoning(
+        "Y2lwaGVydGV4dC4uLg==",
+        provider="Sarashina",
+        is_first=True,
+        print_fn=output.append,
+    )
+
+    assert output == []
 
 
 def test_sarashina_serialization_strips_undocumented_tool_schema_fields() -> None:
