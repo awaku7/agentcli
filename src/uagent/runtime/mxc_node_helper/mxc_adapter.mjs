@@ -1017,8 +1017,17 @@ async function serveWorker() {
       }
       if (request.payload.name === "python_exec" || request.payload.name === "command_exec") {
         try {
+          // The trusted host refreshes the nonsecret Git hostname per run.
+          // Never retain an outdated credential selection in a live worker.
+          const gitRemoteHost = request.payload.gitRemoteHost;
+          if (request.payload.name === "command_exec" &&
+              gitRemoteHost !== null && typeof gitRemoteHost !== "string") {
+            throw new Error("invalid scoped Git host");
+          }
           const result = await (request.payload.name === "command_exec"
-            ? executeCommandInContainer(config, baseRequest, request.payload.args || {}, spawn, nextHostLine)
+            ? executeCommandInContainer(
+                { ...config, gitRemoteHost }, baseRequest,
+                request.payload.args || {}, spawn, nextHostLine)
             : executePythonInContainer(config, baseRequest, request.payload.args || {}, spawn));
           if (result.process_tree_unverified) {
             writeHost({ ok: false, terminate: true, error: `Python process tree termination could not be verified (${result.process_tree_failure_reason || "unknown"}); the isolated worker was terminated` });
