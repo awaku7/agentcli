@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import getpass
-import hashlib
+import secrets
 import json
 import sys
 from typing import Any
@@ -107,8 +107,9 @@ def _handle_git_credential_command(
         print("Git credential setup cancelled.")
         return CommandResult()
 
-    # Hostname is the alias when it fits; long hostnames use a stable digest.
-    alias = host if len(host) <= 64 else hashlib.sha256(host.encode()).hexdigest()
+    # Token entries are owner-wide. Allocate a new alias so user-default
+    # changes never overwrite tokens referenced by existing session overrides.
+    alias = f"cli-{secrets.token_hex(16)}"
     try:
         save_git_https_token(scope, alias, secret, store=store, remote_host=host)
         select_git_credential(scope, "user", alias, store=store)
