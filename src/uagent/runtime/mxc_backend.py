@@ -131,7 +131,7 @@ TOOL_SPECS: tuple[dict[str, Any], ...] = (
         "type": "function",
         "function": {
             "name": "python_exec",
-            "description": "Execute Python code inside the isolated session. Files and dependencies are session-local; network access is blocked.",
+            "description": "Execute Python code in the isolated session. Workspace files are session-local; outbound networking is allowed, but host loopback is blocked.",
             "parameters": {
                 "type": "object",
                 "properties": {"code": {"type": "string"}},
