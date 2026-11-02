@@ -377,6 +377,17 @@ jobs:
           chmod 700 "$MXC_RUNTIME"
           npm ci --prefix "$MXC_RUNTIME" --ignore-scripts --no-audit --no-fund
 
+      - name: Use the host loopback DNS stub for MXC slirp networking
+        shell: bash
+        run: |
+          # The Ubuntu runner's direct resolver may be unreachable from the
+          # private slirp namespace. MXC rewrites loopback resolvers to its
+          # in-sandbox 10.0.2.3 DNS forwarder without exposing host services.
+          systemctl is-active --quiet systemd-resolved
+          test -f /run/systemd/resolve/stub-resolv.conf
+          sudo ln -sfn /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+          getent ahostsv4 example.com >/dev/null
+
       - name: Verify Linux MXC isolation and resource controls
         env:
           PYTHONPATH: src
