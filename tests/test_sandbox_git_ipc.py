@@ -190,3 +190,39 @@ def test_mxc_command_execution_forwards_git_frames_to_host(monkeypatch, scope):
     assert json.loads(result)["stdout"] == "ok"
     assert sent[0]["payload"]["name"] == "command_exec"
     assert sent[1] == {"bridge": "git_http", "op": "ready"}
+
+
+def test_mxc_command_rejects_incomplete_git_exchange(monkeypatch, scope):
+    import threading
+
+    from uagent.runtime import mxc_backend, sandbox_git_ipc
+
+    session = object.__new__(mxc_backend._MxcSession)
+    session._scope = scope
+    session._lock = threading.RLock()
+    session._revoked = threading.Event()
+    session._mac_scope = None
+    session._write_line = lambda _message: None
+    incoming = [
+        _begin(advertise=True),
+        {"ok": True, "result": {"returncode": 0}},
+    ]
+    session._read_response = lambda **_kwargs: incoming.pop(0)
+    closed = []
+    session.close = lambda: closed.append(True)
+
+    class NoNetworkGitIPC(GitHttpIPC):
+        def __init__(self, received_scope, *, revoked):
+            super().__init__(
+                received_scope,
+                revoked=revoked,
+                exchange=lambda *_args, **_kwargs: GitHttpResponse(
+                    "application/x-git-upload-pack-advertisement", b"0000"
+                ),
+            )
+
+    monkeypatch.setattr(sandbox_git_ipc, "GitHttpIPC", NoNetworkGitIPC)
+    with pytest.raises(ValueError, match="before completion"):
+        session.run("command_exec", {"argv": ["git", "--version"]})
+    assert session._revoked.is_set()
+    assert closed
