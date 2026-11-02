@@ -54,12 +54,17 @@ class _RemoteHelper:
                 if not _NAME.fullmatch(response.name):
                     raise RuntimeError("invalid Git response path")
                 payload = response.read_bytes()
+                response.unlink()
             except FileNotFoundError:
+                time.sleep(0.005)
+                continue
+            except PermissionError:
+                if os.name != "nt":
+                    raise
                 time.sleep(0.005)
                 continue
             if len(payload) > 190_000:
                 raise RuntimeError("Git IPC response frame too large")
-            response.unlink()
             result = json.loads(payload)
             if not isinstance(result, dict) or result.get("bridge") != "git_http":
                 raise RuntimeError("invalid Git IPC response")
@@ -181,7 +186,12 @@ def _serve_git_transport(helper: _RemoteHelper, source, output) -> None:
     )
     if not capability_data.startswith(b"000eversion 2\n"):
         raise RuntimeError("Git remote did not negotiate protocol v2")
-    output.write(b"\n" + capability_data)
+    # Finish the remote-helper command response before emitting pkt-lines.
+    # Keeping the writes separate prevents Git's line-oriented reader from
+    # consuming the first byte of the protocol-v2 advertisement as lookahead.
+    output.write(b"\n")
+    output.flush()
+    output.write(capability_data)
     output.flush()
     for _ in range(_MAX_REQUESTS):
         body = _request_message(source)

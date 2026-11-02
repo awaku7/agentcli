@@ -171,12 +171,12 @@ def _guard_windows_parent(path: Path):
         ):
             handle = win32file.CreateFile(
                 str(directory),
-                win32con.FILE_READ_ATTRIBUTES,
+                getattr(win32con, "FILE_READ_ATTRIBUTES", 0x0080),
                 win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE,
                 None,
                 win32con.OPEN_EXISTING,
                 win32con.FILE_FLAG_BACKUP_SEMANTICS
-                | win32con.FILE_FLAG_OPEN_REPARSE_POINT,
+                | getattr(win32con, "FILE_FLAG_OPEN_REPARSE_POINT", 0x00200000),
                 None,
             )
             handles.append(handle)
@@ -235,7 +235,7 @@ def _read_environment(path: Path) -> dict[str, str]:
                 win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE,
                 None,
                 win32con.OPEN_EXISTING,
-                win32con.FILE_FLAG_OPEN_REPARSE_POINT,
+                getattr(win32con, "FILE_FLAG_OPEN_REPARSE_POINT", 0x00200000),
                 None,
             )
             try:
