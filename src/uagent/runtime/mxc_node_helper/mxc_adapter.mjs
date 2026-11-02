@@ -30,7 +30,8 @@ function createHostLineQueue(lines) {
     closed = true;
     while (waiting.length) waiting.shift()(null);
   });
-  return (timeoutMs = 60_000) => {
+  // The worker can remain idle for hours; only Git in-flight replies time out.
+  return (timeoutMs = null) => {
     if (pending.length) return Promise.resolve(pending.shift());
     if (closed) return Promise.resolve(null);
     return new Promise((resolve, reject) => {
@@ -40,11 +41,13 @@ function createHostLineQueue(lines) {
         resolve(value);
       };
       waiting.push(onLine);
-      timer = setTimeout(() => {
-        const index = waiting.indexOf(onLine);
-        if (index >= 0) waiting.splice(index, 1);
-        reject(new Error("Git broker host reply timed out"));
-      }, timeoutMs);
+      if (timeoutMs !== null) {
+        timer = setTimeout(() => {
+          const index = waiting.indexOf(onLine);
+          if (index >= 0) waiting.splice(index, 1);
+          reject(new Error("Git broker host reply timed out"));
+        }, timeoutMs);
+      }
     });
   };
 }
@@ -586,6 +589,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc, for
     let bridgeBuffer = "";
     let bridgeError = null;
     let relaySequence = Promise.resolve();
+    let pendingGitFrames = 0;
     const normalStdout = capture(stdout, "stdout");
     if (bridgeMarker) {
       if (typeof forwardGitFrame !== "function" ||
@@ -616,11 +620,18 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc, for
             try { processHandle.kill(); } catch {}
             return;
           }
+          pendingGitFrames += 1;
+          if (pendingGitFrames > 4) {
+            bridgeError = new Error("Git bridge pending frame limit exceeded");
+            try { processHandle.kill(); } catch {}
+            return;
+          }
           relaySequence = relaySequence.then(() => forwardGitFrame(frame, input))
             .catch((error) => {
               bridgeError = error;
               try { processHandle.kill(); } catch {}
-            });
+            })
+            .finally(() => { pendingGitFrames -= 1; });
         }
       };
       out.on("data", bridgeOutput);
