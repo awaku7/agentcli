@@ -194,3 +194,35 @@ def resolve_git_https_token_for_host(
     if entry.expires_at is not None and entry.expires_at <= int(time.time()):
         raise PermissionError("selected Git credential has expired")
     return entry.secret
+
+
+
+def selected_git_https_host_for_scope(
+    scope: TrustedSandboxScope,
+    *,
+    store: CredentialStore | None = None,
+) -> str | None:
+    """Return nonsecret remote hostname for the MXC Git URL rewrite.
+
+    The token remains in the host CredentialStore, never in this result.
+    Missing selections preserve ordinary public Git HTTPS operations.
+    """
+    credentials = _store(store)
+    alias = effective_git_credential_alias(scope, store=credentials)
+    if alias is None:
+        return None
+    entry = credentials.get(_token_key(scope, alias))
+    if entry is None:
+        raise PermissionError("selected Git credential is not available")
+    if (
+        entry.kind != CredentialKind.OTHER
+        or entry.metadata.get("purpose") != _TOKEN_PURPOSE
+    ):
+        raise PermissionError("selected Git credential has invalid metadata")
+    host = entry.metadata.get("remote_host")
+    if not isinstance(host, str) or not host:
+        # Older unbound tokens cannot be used by the trusted broker.
+        return None
+    from .sandbox_git_http_broker import validate_git_host
+
+    return validate_git_host(host)
