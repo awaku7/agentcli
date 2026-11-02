@@ -101,9 +101,7 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
     _uag_deadline: float | None = None
 
     def connect(self):
-        addresses = _resolve_git_addresses(
-            self.host, self.port, self._uag_deadline
-        )
+        addresses = _resolve_git_addresses(self.host, self.port, self._uag_deadline)
         if not addresses:
             raise OSError("Git HTTPS DNS returned no usable addresses")
         # Reject the whole resolution if any address reaches a local-only
