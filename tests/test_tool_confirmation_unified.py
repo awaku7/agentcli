@@ -36,11 +36,14 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
     labels = _LOCALE_DATA.get(language)
     if language == "en":
         expected = ("yes", "no", "all")
+        all_aliases = []
     else:
         assert labels is not None
         expected = tuple(
             labels["confirm.reply_" + name] for name in ("yes", "no", "all")
         )
+        all_aliases = labels["confirm.reply_all_aliases"]
+        assert isinstance(all_aliases, list) and all_aliases
     assert len(set(expected)) == 3
     assert all(label.strip() for label in expected)
     assert (
@@ -53,6 +56,9 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
     assert tool_policy._confirmation_reply_kind(expected[0]) == "yes"
     assert tool_policy._confirmation_reply_kind(expected[1]) == "deny"
     assert tool_policy._confirmation_reply_kind(expected[2]) == "all"
+    assert all(
+        tool_policy._confirmation_reply_kind(alias) == "all" for alias in all_aliases
+    )
     assert tool_policy._confirmation_reply_kind("unexpected answer") == "deny"
     if labels is not None:
         assert expected[2] in labels["ui.all_yes"]
@@ -62,6 +68,9 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
     "language,reply,expected",
     [
         ("ja", "全て", "all"),
+        ("ja", "すべて", "all"),
+        ("ja", "全部", "all"),
+        ("ja", "ぜんぶ", "all"),
         ("ja", "いいえ", "deny"),
         ("ja", "はい", "yes"),
         ("fr", "OUI", "yes"),
@@ -166,6 +175,8 @@ def test_confirmation_help_shows_ascii_answers_next_to_localized_words(
     assert "y = " + expected[0] in message
     assert "n = " + expected[1] in message
     assert "all" in message
+    for alias in labels.get("confirm.reply_all_aliases", []):
+        assert alias in message
 
 
 @pytest.mark.parametrize(

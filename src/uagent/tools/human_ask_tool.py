@@ -14,10 +14,10 @@ _ = make_tool_translator(__file__)
 
 
 def confirmation_short_answer_hint(include_all: bool = True) -> str:
-    """Render the ASCII answer keys next to the localized yes/no/all words.
+    """Render ASCII keys and localized labels/aliases for confirmation replies.
 
-    The confirmation parser already accepts ``y``, ``n`` and ``all`` in every
-    language, so the hint names those keys instead of being translated.
+    The parser accepts ``y``, ``n`` and ``all`` in every language, plus the
+    localized all-word variants listed in the tool translation catalog.
     """
     hint = "  - y = %s / n = %s" % (
         _("confirm.reply_yes", default="yes"),
@@ -25,7 +25,25 @@ def confirmation_short_answer_hint(include_all: bool = True) -> str:
     )
     if include_all:
         all_word = str(_("confirm.reply_all", default="all")).strip()
-        hint += " / all" if all_word.casefold() == "all" else " / all = " + all_word
+        aliases = _("confirm.reply_all_aliases", default=[])
+        if isinstance(aliases, str):
+            aliases = [aliases]
+        if not isinstance(aliases, (list, tuple)):
+            aliases = []
+        all_words = []
+        seen = set()
+        for word in (all_word, *aliases):
+            if not isinstance(word, str):
+                continue
+            word = word.strip()
+            key = word.casefold()
+            if word and key not in seen:
+                seen.add(key)
+                all_words.append(word)
+        if all_word.casefold() == "all" and not aliases:
+            hint += " / all"
+        else:
+            hint += " / all = " + " / ".join(all_words)
     return hint
 
 

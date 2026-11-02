@@ -168,18 +168,26 @@ def _confirmation_reply_kind(raw_reply: Any) -> str:
         for item in ("n", "no", "c", "cancel", _tool_("confirm.reply_no", default="no"))
     }:
         return _CONFIRM_REPLY_DENY
-    if reply in {
-        normalize(item)
-        for item in (
-            "all",
-            "a",
-            "all yes",
-            "yes to all",
-            "\u3059\u3079\u3066\u306f\u3044",
-            "\u5168\u3066\u306f\u3044",
-            _tool_("confirm.reply_all", default="all"),
-        )
-    }:
+    localized_all_aliases = _tool_("confirm.reply_all_aliases", default=[])
+    if isinstance(localized_all_aliases, str):
+        localized_all_aliases = [localized_all_aliases]
+    if not isinstance(localized_all_aliases, (list, tuple)):
+        localized_all_aliases = []
+    all_replies = [
+        "all",
+        "a",
+        "all yes",
+        "yes to all",
+        "\u3059\u3079\u3066\u306f\u3044",
+        "\u5168\u3066\u306f\u3044",
+        _tool_("confirm.reply_all", default="all"),
+        *(
+            item
+            for item in localized_all_aliases
+            if isinstance(item, str) and item.strip()
+        ),
+    ]
+    if reply in {normalize(item) for item in all_replies}:
         return _CONFIRM_REPLY_ALL
     if reply in {
         normalize(item)

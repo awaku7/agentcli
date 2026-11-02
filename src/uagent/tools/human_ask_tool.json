@@ -33,6 +33,11 @@
     "confirm.reply_yes": "はい",
     "confirm.reply_no": "いいえ",
     "confirm.reply_all": "全て",
+    "confirm.reply_all_aliases": [
+      "すべて",
+      "全部",
+      "ぜんぶ"
+    ],
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask をスキップしました。モデルは自律的に判断する必要があります。"
   },
   "es": {
@@ -68,6 +73,10 @@
     "confirm.reply_yes": "sí",
     "confirm.reply_no": "no",
     "confirm.reply_all": "todos",
+    "confirm.reply_all_aliases": [
+      "todo",
+      "todas"
+    ],
     "ui.all_yes": "- Escriba 'todos' para permitir esta herramienta durante el resto de la sesión.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] se omitió human_ask; el modelo debe decidir de forma autónoma."
   },
@@ -104,6 +113,10 @@
     "confirm.reply_yes": "oui",
     "confirm.reply_no": "non",
     "confirm.reply_all": "tous",
+    "confirm.reply_all_aliases": [
+      "tout",
+      "toutes"
+    ],
     "ui.all_yes": "- Tapez « tous » pour autoriser cet outil pour le reste de la session.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask a été ignoré ; le modèle doit décider de manière autonome."
   },
@@ -140,6 +153,10 @@
     "confirm.reply_yes": "예",
     "confirm.reply_no": "아니요",
     "confirm.reply_all": "모두",
+    "confirm.reply_all_aliases": [
+      "전부",
+      "전체"
+    ],
     "ui.all_yes": "- 이 세션 동안 이 도구를 허용하려면 '모두'을 입력하세요.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask를 건너뛰었습니다. 모델이 자율적으로 결정해야 합니다."
   },
@@ -176,6 +193,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nein",
     "confirm.reply_all": "alle",
+    "confirm.reply_all_aliases": [
+      "alles",
+      "sämtliche"
+    ],
     "ui.all_yes": "- Geben Sie „alle“ ein, um dieses Tool für den Rest der Sitzung zuzulassen.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask wurde übersprungen; das Modell muss autonom entscheiden."
   },
@@ -212,6 +233,10 @@
     "confirm.reply_yes": "sì",
     "confirm.reply_no": "no",
     "confirm.reply_all": "tutti",
+    "confirm.reply_all_aliases": [
+      "tutto",
+      "tutte"
+    ],
     "ui.all_yes": "- Digita 'tutti' per consentire questo strumento per il resto della sessione.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask è stato ignorato; il modello deve decidere autonomamente."
   },
@@ -248,6 +273,9 @@
     "confirm.reply_yes": "да",
     "confirm.reply_no": "нет",
     "confirm.reply_all": "все",
+    "confirm.reply_all_aliases": [
+      "всё"
+    ],
     "ui.all_yes": "- Введите «все», чтобы разрешить этот инструмент до конца сеанса.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask пропущен; модель должна принять решение самостоятельно."
   },
@@ -284,6 +312,10 @@
     "confirm.reply_yes": "sim",
     "confirm.reply_no": "não",
     "confirm.reply_all": "todos",
+    "confirm.reply_all_aliases": [
+      "tudo",
+      "todas"
+    ],
     "ui.all_yes": "- Digite 'todos' para permitir esta ferramenta pelo restante da sessão.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask foi ignorado; o modelo deve decidir de forma autônoma."
   },
@@ -320,6 +352,10 @@
     "confirm.reply_yes": "sim",
     "confirm.reply_no": "não",
     "confirm.reply_all": "todos",
+    "confirm.reply_all_aliases": [
+      "tudo",
+      "todas"
+    ],
     "ui.all_yes": "- Digite 'todos' para permitir esta ferramenta durante o resto da sessão.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask foi ignorado; o modelo deve decidir autonomamente."
   },
@@ -356,6 +392,10 @@
     "confirm.reply_yes": "ya",
     "confirm.reply_no": "tidak",
     "confirm.reply_all": "semua",
+    "confirm.reply_all_aliases": [
+      "seluruh",
+      "semuanya"
+    ],
     "ui.all_yes": "- Ketik 'semua' untuk mengizinkan alat ini selama sisa sesi.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask dilewati; model harus memutuskan secara mandiri."
   },
@@ -392,6 +432,10 @@
     "confirm.reply_yes": "có",
     "confirm.reply_no": "không",
     "confirm.reply_all": "tất cả",
+    "confirm.reply_all_aliases": [
+      "mọi thứ",
+      "tất cả mọi thứ"
+    ],
     "ui.all_yes": "- Nhập 'tất cả' để cho phép công cụ này trong phần còn lại của phiên.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] đã bỏ qua human_ask; mô hình phải tự quyết định."
   },
@@ -428,6 +472,10 @@
     "confirm.reply_yes": "tak",
     "confirm.reply_no": "nie",
     "confirm.reply_all": "wszystkie",
+    "confirm.reply_all_aliases": [
+      "wszystko",
+      "wszyscy"
+    ],
     "ui.all_yes": "- Wpisz „wszystkie”, aby zezwolić na to narzędzie do końca sesji.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] pominięto human_ask; model musi zdecydować autonomicznie."
   },
@@ -464,6 +512,10 @@
     "confirm.reply_yes": "हाँ",
     "confirm.reply_no": "नहीं",
     "confirm.reply_all": "सभी",
+    "confirm.reply_all_aliases": [
+      "सब",
+      "सभी लोग"
+    ],
     "ui.all_yes": "- इस सत्र के शेष समय के लिए इस टूल को अनुमति देने हेतु 'सभी' लिखें।\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask छोड़ दिया गया; मॉडल को स्वायत्त रूप से निर्णय लेना होगा।"
   },
@@ -500,6 +552,11 @@
     "confirm.reply_yes": "نعم",
     "confirm.reply_no": "لا",
     "confirm.reply_all": "الكل",
+    "confirm.reply_all_aliases": [
+      "الجميع",
+      "كل شيء",
+      "كافة"
+    ],
     "ui.all_yes": "- اكتب 'الكل' للسماح بهذه الأداة لبقية الجلسة.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] تم تخطي human_ask؛ يجب على النموذج اتخاذ القرار ذاتيًا."
   },
@@ -536,6 +593,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nej",
     "confirm.reply_all": "alla",
+    "confirm.reply_all_aliases": [
+      "allt",
+      "allihop"
+    ],
     "ui.all_yes": "- Skriv 'alla' för att tillåta verktyget under resten av sessionen.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask hoppades över; modellen måste besluta autonomt."
   },
@@ -572,6 +633,11 @@
     "confirm.reply_yes": "ndiyo",
     "confirm.reply_no": "hapana",
     "confirm.reply_all": "zote",
+    "confirm.reply_all_aliases": [
+      "wote",
+      "vyote",
+      "yote"
+    ],
     "ui.all_yes": "- Andika 'zote' ili kuruhusu zana hii kwa kipindi kilichosalia.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask imerukwa; modeli lazima iamue kwa kujitegemea."
   },
@@ -608,6 +674,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nei",
     "confirm.reply_all": "alle",
+    "confirm.reply_all_aliases": [
+      "alt",
+      "alle sammen"
+    ],
     "ui.all_yes": "- Skriv «alle» for å tillate dette verktøyet resten av økten.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask ble hoppet over; modellen må avgjøre autonomt."
   },
@@ -644,6 +714,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nee",
     "confirm.reply_all": "alle",
+    "confirm.reply_all_aliases": [
+      "alles",
+      "allemaal"
+    ],
     "ui.all_yes": "- Typ 'alle' om deze tool de rest van de sessie toe te staan.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask is overgeslagen; het model moet autonoom beslissen."
   },
@@ -680,6 +754,10 @@
     "confirm.reply_yes": "kyllä",
     "confirm.reply_no": "ei",
     "confirm.reply_all": "kaikki",
+    "confirm.reply_all_aliases": [
+      "kaiken",
+      "jokainen"
+    ],
     "ui.all_yes": "- Kirjoita 'kaikki', jos haluat sallia tämän työkalun loppuistunnon ajaksi.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask ohitettiin; mallin on päätettävä itsenäisesti."
   },
@@ -716,6 +794,11 @@
     "confirm.reply_yes": "ano",
     "confirm.reply_no": "ne",
     "confirm.reply_all": "vše",
+    "confirm.reply_all_aliases": [
+      "všichni",
+      "všechno",
+      "všechny"
+    ],
     "ui.all_yes": "- Zadejte „vše“, chcete-li tento nástroj povolit po zbytek relace.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask byl přeskočen; model musí rozhodnout samostatně."
   },
@@ -752,6 +835,11 @@
     "confirm.reply_yes": "так",
     "confirm.reply_no": "ні",
     "confirm.reply_all": "всі",
+    "confirm.reply_all_aliases": [
+      "усі",
+      "все",
+      "усе"
+    ],
     "ui.all_yes": "- Введіть «всі», щоб дозволити цей інструмент до кінця сеансу.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask пропущено; модель має вирішити самостійно."
   },
@@ -788,6 +876,10 @@
     "confirm.reply_yes": "evet",
     "confirm.reply_no": "hayır",
     "confirm.reply_all": "tümü",
+    "confirm.reply_all_aliases": [
+      "hepsi",
+      "tüm"
+    ],
     "ui.all_yes": "- Oturumun geri kalanında bu araca izin vermek için 'tümü' yazın.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask atlandı; model otonom olarak karar vermelidir."
   },
@@ -824,6 +916,10 @@
     "confirm.reply_yes": "ใช่",
     "confirm.reply_no": "ไม่",
     "confirm.reply_all": "ทั้งหมด",
+    "confirm.reply_all_aliases": [
+      "ทุกอย่าง",
+      "ทุกคน"
+    ],
     "ui.all_yes": "- พิมพ์ 'ทั้งหมด' เพื่ออนุญาตเครื่องมือนี้ตลอดช่วงเวลาที่เหลือของเซสชัน\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] ข้าม human_ask แล้ว โมเดลต้องตัดสินใจโดยอัตโนมัติ"
   },
@@ -860,6 +956,10 @@
     "confirm.reply_yes": "是",
     "confirm.reply_no": "否",
     "confirm.reply_all": "全部",
+    "confirm.reply_all_aliases": [
+      "所有",
+      "全都"
+    ],
     "ui.all_yes": "- 输入“全部”，即可在本次会话剩余时间内允许此工具。\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] 已跳过 human_ask；模型必须自主决定。"
   },
@@ -896,6 +996,10 @@
     "confirm.reply_yes": "是",
     "confirm.reply_no": "否",
     "confirm.reply_all": "全部",
+    "confirm.reply_all_aliases": [
+      "所有",
+      "全都"
+    ],
     "ui.all_yes": "- 輸入「全部」即可在本次工作階段剩餘時間允許此工具。\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] 已略過 human_ask；模型必須自主決定。"
   },
@@ -932,6 +1036,10 @@
     "confirm.reply_yes": "হ্যাঁ",
     "confirm.reply_no": "না",
     "confirm.reply_all": "সব",
+    "confirm.reply_all_aliases": [
+      "সবকিছু",
+      "সমস্ত"
+    ],
     "ui.all_yes": "- বাকি সেশনের জন্য এই টুলের অনুমতি দিতে 'সব' লিখুন।\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask এড়িয়ে যাওয়া হয়েছে; মডেলকে স্বয়ংক্রিয়ভাবে সিদ্ধান্ত নিতে হবে।"
   },
@@ -968,6 +1076,10 @@
     "confirm.reply_yes": "بله",
     "confirm.reply_no": "خیر",
     "confirm.reply_all": "همه",
+    "confirm.reply_all_aliases": [
+      "تمام",
+      "همه‌چیز"
+    ],
     "ui.all_yes": "- برای اجازه دادن به این ابزار تا پایان نشست، «همه» را وارد کنید.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask رد شد؛ مدل باید به‌صورت خودکار تصمیم بگیرد."
   },
@@ -1004,6 +1116,10 @@
     "confirm.reply_yes": "тийм",
     "confirm.reply_no": "үгүй",
     "confirm.reply_all": "бүгд",
+    "confirm.reply_all_aliases": [
+      "бүх",
+      "бүгдээрээ"
+    ],
     "ui.all_yes": "- Сеанс дуустал энэ хэрэгслийг зөвшөөрөхийн тулд 'бүгд' гэж бичнэ үү.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask алгасагдлаа; загвар бие даан шийдвэр гаргах ёстой."
   },
@@ -1040,6 +1156,10 @@
     "confirm.reply_yes": "होय",
     "confirm.reply_no": "नाही",
     "confirm.reply_all": "सर्व",
+    "confirm.reply_all_aliases": [
+      "सगळे",
+      "सगळं"
+    ],
     "ui.all_yes": "- उर्वरित सत्रासाठी या साधनाला परवानगी देण्यासाठी 'सर्व' टाइप करा.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask वगळले; मॉडेलने स्वायत्तपणे निर्णय घ्यावा."
   },
@@ -1076,6 +1196,10 @@
     "confirm.reply_yes": "ναι",
     "confirm.reply_no": "όχι",
     "confirm.reply_all": "όλα",
+    "confirm.reply_all_aliases": [
+      "όλοι",
+      "όλες"
+    ],
     "ui.all_yes": "- Πληκτρολογήστε «όλα» για να επιτρέψετε αυτό το εργαλείο για το υπόλοιπο της συνεδρίας.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] το human_ask παραλείφθηκε· το μοντέλο πρέπει να αποφασίσει αυτόνομα."
   },
@@ -1112,6 +1236,11 @@
     "confirm.reply_yes": "כן",
     "confirm.reply_no": "לא",
     "confirm.reply_all": "הכל",
+    "confirm.reply_all_aliases": [
+      "כולם",
+      "כולן",
+      "הכול"
+    ],
     "ui.all_yes": "- הקלד 'הכל' כדי לאפשר לכלי זה להמשך ההפעלה.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask דולג; המודל חייב להחליט באופן עצמאי."
   },
@@ -1148,6 +1277,10 @@
     "confirm.reply_yes": "igen",
     "confirm.reply_no": "nem",
     "confirm.reply_all": "összes",
+    "confirm.reply_all_aliases": [
+      "minden",
+      "mind"
+    ],
     "ui.all_yes": "- Írja be az „összes” szót, hogy az eszközt a munkamenet hátralévő részére engedélyezze.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] a human_ask kihagyásra került; a modellnek önállóan kell döntenie."
   },
@@ -1184,6 +1317,10 @@
     "confirm.reply_yes": "da",
     "confirm.reply_no": "nu",
     "confirm.reply_all": "toate",
+    "confirm.reply_all_aliases": [
+      "toți",
+      "tot"
+    ],
     "ui.all_yes": "- Tastați „toate” pentru a permite acest instrument pentru restul sesiunii.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask a fost omis; modelul trebuie să decidă autonom."
   },
@@ -1220,6 +1357,10 @@
     "confirm.reply_yes": "oo",
     "confirm.reply_no": "hindi",
     "confirm.reply_all": "lahat",
+    "confirm.reply_all_aliases": [
+      "lahat-lahat",
+      "lahat ng bagay"
+    ],
     "ui.all_yes": "- I-type ang 'lahat' upang payagan ang tool na ito sa natitirang bahagi ng session.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] nilaktawan ang human_ask; kailangang magpasya ang modelo nang awtonomo."
   },
@@ -1256,6 +1397,10 @@
     "confirm.reply_yes": "ya",
     "confirm.reply_no": "tidak",
     "confirm.reply_all": "semua",
+    "confirm.reply_all_aliases": [
+      "semuanya",
+      "kesemua"
+    ],
     "ui.all_yes": "- Taip 'semua' untuk membenarkan alat ini sepanjang baki sesi.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask dilangkau; model mesti membuat keputusan secara autonomi."
   },
@@ -1292,6 +1437,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nej",
     "confirm.reply_all": "alle",
+    "confirm.reply_all_aliases": [
+      "alt",
+      "alle sammen"
+    ],
     "ui.all_yes": "- Skriv 'alle' for at tillade dette værktøj resten af sessionen.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask blev sprunget over; modellen skal beslutte selvstændigt."
   },
@@ -1328,6 +1477,10 @@
     "confirm.reply_yes": "ja",
     "confirm.reply_no": "nei",
     "confirm.reply_all": "alle",
+    "confirm.reply_all_aliases": [
+      "alt",
+      "alle saman"
+    ],
     "ui.all_yes": "- Skriv «alle» for å tillate dette verktøyet resten av økta.\n",
     "ui.non_interactive_skip": "[NON-INTERACTIVE] human_ask vart hoppa over; modellen må avgjere sjølvstendig."
   }
