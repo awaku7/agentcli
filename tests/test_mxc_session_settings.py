@@ -62,9 +62,7 @@ def test_session_environment_isolated_by_principal_and_scope(tmp_path, scope):
     rebound_session = TrustedSandboxScope(
         "web", "alice", "project-a", "web-room", "room-1", "generation-2"
     )
-    assert mxc_session_settings.effective_environment(tmp_path, other_principal) == (
-        {}
-    )
+    assert mxc_session_settings.effective_environment(tmp_path, other_principal) == ({})
     assert mxc_session_settings.effective_environment(tmp_path, other_session) == {
         "GIT_AUTHOR_NAME": "Alice"
     }
@@ -92,15 +90,11 @@ def test_session_environment_rejects_sensitive_or_runtime_overrides(
     tmp_path, scope, environment
 ):
     with pytest.raises(ValueError):
-        mxc_session_settings.save_environment(
-            tmp_path, scope, "session", environment
-        )
+        mxc_session_settings.save_environment(tmp_path, scope, "session", environment)
 
 
 def test_existing_file_must_be_private(tmp_path, scope):
-    file = mxc_session_settings.save_environment(
-        tmp_path, scope, "user", {"TEAM": "A"}
-    )
+    file = mxc_session_settings.save_environment(tmp_path, scope, "user", {"TEAM": "A"})
     if os.name != "nt":
         assert stat.S_IMODE(file.stat().st_mode) == 0o600
         file.chmod(0o644)
