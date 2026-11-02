@@ -8,8 +8,10 @@ The Git transport IPC will use this primitive; it is not an LLM tool.
 from __future__ import annotations
 
 import base64
+import http.client
 import ipaddress
 import re
+import socket
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -44,6 +46,68 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         """Never forward a Git Authorization header through a redirect."""
         return None
+
+
+class _PinnedHTTPSConnection(http.client.HTTPSConnection):
+    """Pin the checked DNS result through TCP connect and TLS SNI."""
+
+    def connect(self):
+        addresses = socket.getaddrinfo(
+            self.host,
+            self.port,
+            type=socket.SOCK_STREAM,
+            proto=socket.IPPROTO_TCP,
+        )
+        if not addresses:
+            raise OSError("Git HTTPS DNS returned no usable addresses")
+        # Reject the whole resolution if any address reaches a local-only
+        # destination, preventing fallback from a safe IP to loopback.
+        for _, _, _, _, sockaddr in addresses:
+            address = ipaddress.ip_address(sockaddr[0])
+            if address.version == 6 and address.ipv4_mapped is not None:
+                address = address.ipv4_mapped
+            if (
+                address.is_loopback
+                or address.is_link_local
+                or address.is_multicast
+                or address.is_unspecified
+            ):
+                raise PermissionError("Git HTTPS destination is not permitted")
+        for family, kind, proto, _, sockaddr in addresses:
+            connection = socket.socket(family, kind, proto)
+            try:
+                connection.settimeout(self.timeout)
+                if self.source_address:
+                    connection.bind(self.source_address)
+                # Never resolve again between the IP policy check and connect.
+                connection.connect(sockaddr)
+                self.sock = self._context.wrap_socket(
+                    connection, server_hostname=self.host
+                )
+                return
+            except OSError:
+                connection.close()
+        raise OSError("Git HTTPS destination could not be reached")
+
+
+class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
+    def https_open(self, request):
+        return self.do_open(
+            _PinnedHTTPSConnection,
+            request,
+            context=self._context,
+            check_hostname=self._check_hostname,
+        )
+
+
+def _trusted_https_opener():
+    # Implicit process HTTPS_PROXY could originate from an untrusted
+    # project .env. Do not allow it to bypass the resolved-IP policy.
+    return urllib.request.build_opener(
+        urllib.request.ProxyHandler({}),
+        _NoRedirect(),
+        _PinnedHTTPSHandler(),
+    )
 
 
 def validate_git_host(host: str) -> str:
@@ -193,7 +257,7 @@ def exchange_git_smart_http(
         headers=headers,
         method="GET" if advertise else "POST",
     )
-    opener = opener or urllib.request.build_opener(_NoRedirect())
+    opener = opener or _trusted_https_opener()
     try:
         with opener.open(request, timeout=30) as response:
             code = getattr(response, "status", None)
