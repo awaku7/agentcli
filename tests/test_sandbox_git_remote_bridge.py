@@ -66,7 +66,11 @@ def _bridge_git(
     argv: list[str],
 ) -> subprocess.CompletedProcess:
     scope = TrustedSandboxScope(
-        "cli", "os-uid:42", "project", "cli-session", "test",
+        "cli",
+        "os-uid:42",
+        "project",
+        "cli-session",
+        "test",
         settings_session_id="test",
     )
     operations = []
@@ -81,8 +85,11 @@ def _bridge_git(
         if kwargs["advertise"]:
             response = subprocess.run(
                 [
-                    "git", "upload-pack", "--stateless-rpc",
-                    "--advertise-refs", str(repository),
+                    "git",
+                    "upload-pack",
+                    "--stateless-rpc",
+                    "--advertise-refs",
+                    str(repository),
                 ],
                 env=env,
                 capture_output=True,
@@ -164,8 +171,14 @@ def test_git_https_clone_and_fetch_over_isolated_bridge(tmp_path):
     (server / "test.txt").write_text("second\n", encoding="utf-8")
     _git("add", "test.txt", cwd=server)
     _git(
-        "-c", "user.name=Test", "-c", "user.email=test@example.org",
-        "commit", "-m", "Second", cwd=server,
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=test@example.org",
+        "commit",
+        "-m",
+        "Second",
+        cwd=server,
     )
     _bridge_git(sandbox, server, ["git", "-C", "checkout", "fetch", "origin"])
     head = _git("rev-parse", "origin/main", cwd=checkout).stdout.strip()
@@ -179,12 +192,10 @@ def test_mxc_node_adapter_relays_git_frames_without_host_file_reads():
     source = helper.read_text(encoding="utf-8")
     assert "createHostLineQueue" in source
     assert "nextHostLine(30_000)" in source
-    assert 'gitBridgeMarker' in source
+    assert "gitBridgeMarker" in source
     assert "sandbox_git_remote_helper.py" in source
     if node:
-        subprocess.run(
-            [node, "--check", str(helper)], check=True, capture_output=True
-        )
+        subprocess.run([node, "--check", str(helper)], check=True, capture_output=True)
 
 
 
