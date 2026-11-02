@@ -514,8 +514,13 @@ def test_https_handshake_rechecks_deadline_after_tcp_connect(monkeypatch):
         broker.socket,
         "getaddrinfo",
         lambda *_args, **_kwargs: [
-            (socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP,
-             "", ("203.0.113.10", 443))
+            (
+                socket.AF_INET,
+                socket.SOCK_STREAM,
+                socket.IPPROTO_TCP,
+                "",
+                ("203.0.113.10", 443),
+            )
         ],
     )
     observed = []
@@ -555,8 +560,15 @@ def test_dns_resolution_has_absolute_deadline(monkeypatch):
 
     def slow_resolver(*_args, **_kwargs):
         realtime.sleep(0.1)
-        return [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP,
-                 "", ("203.0.113.10", 443))]
+        return [
+            (
+                socket.AF_INET,
+                socket.SOCK_STREAM,
+                socket.IPPROTO_TCP,
+                "",
+                ("203.0.113.10", 443),
+            )
+        ]
 
     monkeypatch.setattr(broker.socket, "getaddrinfo", slow_resolver)
     with pytest.raises(TimeoutError, match="DNS deadline"):
