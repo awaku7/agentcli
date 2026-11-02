@@ -385,9 +385,7 @@ def test_pinned_https_rejects_local_destinations_before_socket_creation(
         ],
     )
     opened = []
-    monkeypatch.setattr(
-        broker.socket, "socket", lambda *args: opened.append(args)
-    )
+    monkeypatch.setattr(broker.socket, "socket", lambda *args: opened.append(args))
     connection = _PinnedHTTPSConnection("github.com", timeout=1)
     with pytest.raises(PermissionError, match="not permitted"):
         connection.connect()
@@ -402,8 +400,13 @@ def test_pinned_https_connects_to_validated_ip_without_reresolution(monkeypatch)
     def resolve(*args, **kwargs):
         events.append("dns")
         return [
-            (socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "",
-             ("203.0.113.11", 443))
+            (
+                socket.AF_INET,
+                socket.SOCK_STREAM,
+                socket.IPPROTO_TCP,
+                "",
+                ("203.0.113.11", 443),
+            )
         ]
 
     class FakeSocket:
@@ -440,7 +443,10 @@ def test_default_https_opener_disables_implicit_proxy(monkeypatch):
     proxy_handlers = [
         handler
         for handler in opener.handlers
-        if isinstance(handler, __import__("urllib.request", fromlist=["ProxyHandler"]).ProxyHandler)
+        if isinstance(
+            handler,
+            __import__("urllib.request", fromlist=["ProxyHandler"]).ProxyHandler,
+        )
     ]
     assert proxy_handlers
     assert proxy_handlers[0].proxies == {}
