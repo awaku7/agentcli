@@ -999,15 +999,26 @@ def mxc_sdk_is_installed() -> bool:
         return False
 
 
+def _session_settings_environment(scope: TrustedSandboxScope) -> dict[str, str]:
+    from .mxc_session_settings import effective_environment
+
+    return effective_environment(_local_app_data(), scope)
+
+
 def _scope_key(scope: TrustedSandboxScope) -> str:
-    material = "\0".join(
+    # Room rebindings must never reuse a prior generation's MXC worker,
+    # filesystem or scoped environment.
+    material = json.dumps(
         (
             scope.deployment_id,
             scope.principal_id,
             scope.project_id,
             scope.scope_kind,
             scope.scope_id,
-        )
+            scope.binding_generation,
+        ),
+        ensure_ascii=False,
+        separators=(",", ":"),
     )
     return hashlib.sha256(material.encode("utf-8")).hexdigest()
 
@@ -1311,6 +1322,8 @@ class _MxcSession:
         self._closed = False
         self._workspace_preserved = False
         self._scope = scope
+        # Reject malformed or unsafe settings before starting any MXC process.
+        session_env = _session_settings_environment(scope)
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
             self.workspace.parent, self.workspace.name
@@ -1450,6 +1463,7 @@ class _MxcSession:
             "pythonEnvRoot": str(python_env_root),
             "workerScript": str(worker_script),
             "helperRoot": str(runtime),
+            "sessionEnv": session_env,
             "deniedPaths": [],
         }
         try:

@@ -793,6 +793,20 @@ async function serveWorker() {
     UAGENT_AUTO_INSTALL: "0",
     UAGENT_SESSION_STORE: "0",
   };
+  // Settings are resolved from trusted principal/session scope on the host.
+  // Never inherit the host process environment or let settings replace the
+  // container's critical HOME/PATH/runtime boundaries.
+  if (!config.sessionEnv || typeof config.sessionEnv !== "object" ||
+      Array.isArray(config.sessionEnv)) {
+    throw new Error("invalid scoped MXC environment");
+  }
+  for (const [name, value] of Object.entries(config.sessionEnv)) {
+    if (typeof value !== "string" ||
+        (Object.hasOwn(environment, name) && name !== "LANG")) {
+      throw new Error("invalid scoped MXC environment override");
+    }
+    environment[name] = value;
+  }
   const workerDirs = process.platform === "win32"
     ? [environment.LOCALAPPDATA, environment.APPDATA, environment.TEMP]
     : [environment.HOME, environment.TMPDIR];

@@ -237,6 +237,43 @@ workspace. Non-Web scopes are not evicted; if no idle Web worker can be parked,
 the request fails closed. Failure to create or assign the Job Object rejects the
 operation.
 
+### User and session execution settings
+
+Trusted host-side MXC settings use two levels:
+
+- **User profile:** keyed by the authenticated Principal and deployment realm.
+  Multiple sessions in that realm inherit the same non-secret environment.
+- **Session profile:** keyed by Principal, Project, session/Room/Task identifier,
+  and Room binding generation. It overrides only specified user-level keys.
+
+The effective environment is **user settings, then session overrides**, loaded
+when a new MXC worker starts. A running or parked worker must be restarted for
+edited settings to take effect. The rest of the MXC environment remains
+sanitized and is never inherited from project `.env`/`.env.sec` or the host
+process. In particular, `PATH`, `HOME`, dynamic library injection settings,
+credential helpers, and `UAGENT_*` cannot be overridden by these profiles.
+
+The host-only API `uagent.runtime.mxc_session_settings.save_environment`
+takes the trusted app-data root, a server-created `TrustedSandboxScope`,
+`"user"` or `"session"`, and a dictionary of non-secret environment values.
+The matching `effective_environment` API loads and validates the profiles.
+Files are JSON (`{"environment":{"GIT_AUTHOR_NAME":"Alice"}}`) in
+`<trusted user app data>/uagent/sandbox_settings/{user,session}/<hash>.json`.
+The hashed names avoid putting user, project, or Room identifiers into file
+names. On POSIX, directories/files must be private (0700/0600), and linked
+settings files are rejected. Users of authenticated Web/A2A endpoints must
+not be able to supply a Principal, path, or scope to this host-only API;
+configuration management must verify ownership and authorization first.
+
+**Do not store Git tokens, SSH private keys, passwords, or credential-helper
+secrets in these JSON files.** They are intentionally non-secret settings.
+The selected credential *identity* and the actual scoped Git authentication
+broker are separate work; this change does not enable private-remote pushes
+or pass host Git credentials into the Sandbox. Existing Git identity variables
+(e.g. `GIT_AUTHOR_NAME`) can be shared per user and overridden per session
+without sharing a credential. A process able to execute arbitrary commands
+can inspect any environment variable assigned to its own Sandbox.
+
 ### General command execution in Sandbox
 
 The `command_exec` tool executes an installed program using an `argv` array,
