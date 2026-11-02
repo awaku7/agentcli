@@ -108,7 +108,10 @@ class GitHttpIPC:
                 data = base64.b64decode(encoded, validate=True)
             except (ValueError, binascii.Error) as exc:
                 raise ValueError("invalid Git IPC base64 request") from exc
-            if len(data) > _FRAME_CHUNK_LIMIT or len(self._body) + len(data) > _REQUEST_LIMIT:
+            if (
+                len(data) > _FRAME_CHUNK_LIMIT
+                or len(self._body) + len(data) > _REQUEST_LIMIT
+            ):
                 raise ValueError("Git IPC request exceeds configured budget")
             self._body.extend(data)
             return {"bridge": _FRAME_TAG, "op": "ready"}
@@ -126,7 +129,10 @@ class GitHttpIPC:
                 protocol_version=parameters["protocol_version"],
                 body=bytes(self._body),
             )
-            if not isinstance(result, GitHttpResponse) or len(result.body) > 64 * 1024 * 1024:
+            if (
+                not isinstance(result, GitHttpResponse)
+                or len(result.body) > 64 * 1024 * 1024
+            ):
                 raise ValueError("Git IPC response exceeds configured budget")
             self._response = result.body
             self._offset = 0
@@ -142,9 +148,7 @@ class GitHttpIPC:
         if op == "next":
             if self._stage != "download" or set(message) != {"bridge", "op"}:
                 raise ValueError("invalid Git IPC response sequence")
-            chunk = self._response[
-                self._offset : self._offset + _FRAME_CHUNK_LIMIT
-            ]
+            chunk = self._response[self._offset : self._offset + _FRAME_CHUNK_LIMIT]
             self._offset += len(chunk)
             complete = self._offset >= len(self._response)
             reply = {
