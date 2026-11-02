@@ -596,17 +596,17 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc, for
       const bridgeOutput = (chunk) => {
         bridgeBuffer += Buffer.from(chunk).toString("utf8");
         if (Buffer.byteLength(bridgeBuffer, "utf8") > 250_000 &&
-            !bridgeBuffer.includes("\\n")) {
+            !bridgeBuffer.includes("\n")) {
           bridgeError = new Error("oversized Git command output frame");
           try { processHandle.kill(); } catch {}
           return;
         }
         let index;
-        while ((index = bridgeBuffer.indexOf("\\n")) >= 0) {
+        while ((index = bridgeBuffer.indexOf("\n")) >= 0) {
           const line = bridgeBuffer.slice(0, index);
           bridgeBuffer = bridgeBuffer.slice(index + 1);
           if (!line.startsWith(prefix)) {
-            normalStdout(Buffer.from(line + "\\n", "utf8"));
+            normalStdout(Buffer.from(line + "\n", "utf8"));
             continue;
           }
           let frame;
