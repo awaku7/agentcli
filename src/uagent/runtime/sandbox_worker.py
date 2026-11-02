@@ -1656,8 +1656,12 @@ def _git_ops(args: dict[str, Any]) -> str:
     executable = shutil.which("git")
     if not executable:
         raise RuntimeError("Git executable is not installed in the MXC sandbox")
-    executable_path = Path(executable).resolve(strict=True)
-    if executable_path == ROOT or ROOT in executable_path.parents:
+    executable_link = Path(executable).absolute()
+    executable_path = executable_link.resolve(strict=True)
+    if any(
+        path == ROOT or ROOT in path.parents
+        for path in (executable_link, executable_path)
+    ):
         raise PermissionError(
             "Git executable must be installed outside the session workspace"
         )
