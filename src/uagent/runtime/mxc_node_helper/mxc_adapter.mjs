@@ -17,6 +17,38 @@ function writeHost(value) {
   process.stdout.write(`${JSON.stringify(value)}\n`);
 }
 
+function createHostLineQueue(lines) {
+  const pending = [];
+  const waiting = [];
+  let closed = false;
+  lines.on("line", (line) => {
+    const waiter = waiting.shift();
+    if (waiter) waiter(line);
+    else pending.push(line);
+  });
+  lines.on("close", () => {
+    closed = true;
+    while (waiting.length) waiting.shift()(null);
+  });
+  return (timeoutMs = 60_000) => {
+    if (pending.length) return Promise.resolve(pending.shift());
+    if (closed) return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+      let timer;
+      const onLine = (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      };
+      waiting.push(onLine);
+      timer = setTimeout(() => {
+        const index = waiting.indexOf(onLine);
+        if (index >= 0) waiting.splice(index, 1);
+        reject(new Error("Git broker host reply timed out"));
+      }, timeoutMs);
+    });
+  };
+}
+
 function quoteWindowsArgument(value) {
   const text = String(value);
   return `"${text.replace(/(\\*)"/g, "$1$1\\\"").replace(/(\\+)$/g, "$1$1")}"`;
@@ -449,7 +481,7 @@ async function workspaceUsage(root) {
   return { exceeded: false, bytes, entries };
 }
 
-async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
+async function executePythonInContainer(config, baseRequest, args, spawnMxc, forwardGitFrame = null) {
   const code = args?.code;
   if (typeof code !== "string" || Buffer.byteLength(code, "utf8") > 1_000_000) {
     throw new Error("Python code must be a string no larger than 1 MB");
@@ -550,9 +582,56 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
         stderrBytes += Math.min(data.length, remaining);
       }
     };
-    out.on("data", capture(stdout, "stdout"));
+    const bridgeMarker = args?.gitBridgeMarker;
+    let bridgeBuffer = "";
+    let bridgeError = null;
+    let relaySequence = Promise.resolve();
+    const normalStdout = capture(stdout, "stdout");
+    if (bridgeMarker) {
+      if (typeof forwardGitFrame !== "function" ||
+          !/^__UAG_GIT_BRIDGE_[0-9a-f]{32}__$/.test(bridgeMarker)) {
+        throw new Error("invalid trusted Git bridge marker");
+      }
+      const prefix = bridgeMarker + " ";
+      const bridgeOutput = (chunk) => {
+        bridgeBuffer += Buffer.from(chunk).toString("utf8");
+        if (Buffer.byteLength(bridgeBuffer, "utf8") > 250_000 &&
+            !bridgeBuffer.includes("\\n")) {
+          bridgeError = new Error("oversized Git command output frame");
+          try { processHandle.kill(); } catch {}
+          return;
+        }
+        let index;
+        while ((index = bridgeBuffer.indexOf("\\n")) >= 0) {
+          const line = bridgeBuffer.slice(0, index);
+          bridgeBuffer = bridgeBuffer.slice(index + 1);
+          if (!line.startsWith(prefix)) {
+            normalStdout(Buffer.from(line + "\\n", "utf8"));
+            continue;
+          }
+          let frame;
+          try { frame = JSON.parse(line.slice(prefix.length)); }
+          catch {
+            bridgeError = new Error("invalid Git helper frame JSON");
+            try { processHandle.kill(); } catch {}
+            return;
+          }
+          relaySequence = relaySequence.then(() => forwardGitFrame(frame, input))
+            .catch((error) => {
+              bridgeError = error;
+              try { processHandle.kill(); } catch {}
+            });
+        }
+      };
+      out.on("data", bridgeOutput);
+      out.on("end", () => {
+        if (bridgeBuffer) normalStdout(Buffer.from(bridgeBuffer, "utf8"));
+      });
+    } else {
+      out.on("data", normalStdout);
+      input.end();
+    }
     err.on("data", capture(stderr, "stderr"));
-    input.end();
     const waitPromise = processHandle.wait();
     const rootExit = waitPromise.then((terminal) => ({ kind: "exit", terminal }), (error) => ({ kind: "error", error }));
     let markerPoll;
@@ -633,6 +712,11 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     clearInterval(workspaceMonitor);
     clearTimeout(executionTimer);
     await workspaceMonitorPromise;
+    if (bridgeMarker) {
+      await relaySequence;
+      try { input.end(); } catch {}
+      if (bridgeError) throw bridgeError;
+    }
     // The interval is only a watchdog; it may not fire if Python exits quickly.
     // Recheck after the one-shot process has stopped before returning a result
     // to the persistent Worker.
