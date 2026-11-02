@@ -179,12 +179,14 @@ def test_cli_gui_share_os_user_defaults_without_sharing_session_overrides(
     mxc_session_settings.save_environment(
         tmp_path, cli, "session", {"GIT_AUTHOR_NAME": "CLI override"}
     )
-    assert mxc_session_settings.effective_environment(tmp_path, cli)[
-        "GIT_AUTHOR_NAME"
-    ] == "CLI override"
-    assert mxc_session_settings.effective_environment(tmp_path, gui)[
-        "GIT_AUTHOR_NAME"
-    ] == "Shared local"
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, cli)["GIT_AUTHOR_NAME"]
+        == "CLI override"
+    )
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, gui)["GIT_AUTHOR_NAME"]
+        == "Shared local"
+    )
 
 
 def test_session_settings_survive_process_scope_changes(monkeypatch, tmp_path):
@@ -205,9 +207,10 @@ def test_session_settings_survive_process_scope_changes(monkeypatch, tmp_path):
     mxc_session_settings.save_environment(
         tmp_path, first, "session", {"SESSION_LABEL": "saved"}
     )
-    assert mxc_session_settings.effective_environment(tmp_path, second)[
-        "SESSION_LABEL"
-    ] == "saved"
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, second)["SESSION_LABEL"]
+        == "saved"
+    )
 
 
 def test_web_and_a2a_settings_remain_separate_from_local_principal(tmp_path):
@@ -291,9 +294,10 @@ def test_legacy_scope_keeps_preexisting_session_settings_filename(tmp_path):
         tmp_path, scope, "session", {"SESSION_LABEL": "previous"}
     )
     assert saved_path.name == old_digest + ".json"
-    assert mxc_session_settings.effective_environment(tmp_path, scope)[
-        "SESSION_LABEL"
-    ] == "previous"
+    assert (
+        mxc_session_settings.effective_environment(tmp_path, scope)["SESSION_LABEL"]
+        == "previous"
+    )
 
 
 def test_unconfigured_environment_is_empty(tmp_path, scope):
