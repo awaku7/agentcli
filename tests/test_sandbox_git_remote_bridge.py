@@ -185,3 +185,41 @@ def test_mxc_node_adapter_relays_git_frames_without_host_file_reads():
         subprocess.run(
             [node, "--check", str(helper)], check=True, capture_output=True
         )
+
+
+
+def test_mxc_host_line_queue_has_no_idle_deadline():
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is not installed")
+    source = (_HELPERS / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    begin = source.index("function createHostLineQueue(lines) {")
+    end = source.index("function quoteWindowsArgument(value) {", begin)
+    js = source[begin:end] + """
+const { EventEmitter } = require("node:events");
+const lines = new EventEmitter();
+const next = createHostLineQueue(lines);
+const message = next();
+lines.emit("line", '{"operation":"run"}');
+message.then((value) => {
+  if (value !== '{"operation":"run"}') process.exitCode = 1;
+});
+"""
+    # A regular idle read must not schedule any timer at all.
+    script = """
+const vm = require("node:vm");
+const context = {
+  require,
+  setTimeout() { throw new Error("idle host input scheduled a timeout"); },
+  clearTimeout() {},
+  Promise,
+};
+vm.runInNewContext(process.env.UAG_HOST_QUEUE_TEST, context);
+"""
+    subprocess.run(
+        [node, "-e", script],
+        env=dict(os.environ, UAG_HOST_QUEUE_TEST=js),
+        check=True,
+        capture_output=True,
+        timeout=8,
+    )
