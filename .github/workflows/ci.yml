@@ -326,19 +326,24 @@ jobs:
           sudo apt-get install --no-install-recommends -y \
             apparmor bubblewrap iptables iproute2 slirp4netns util-linux
 
-      - name: Allow Bubblewrap user namespaces under AppArmor
+      - name: Allow MXC namespace launchers under AppArmor
         shell: bash
         run: |
-          # Ubuntu restricts unprivileged user namespaces by default. Permit
-          # Bubblewrap only; do not weaken the host-wide AppArmor sysctl.
-          sudo tee /etc/apparmor.d/bwrap >/dev/null <<'EOF'
+          # Network-enabled Bubblewrap first launches an unprivileged
+          # user/network namespace through util-linux unshare. Confine the
+          # exception to those two executables; leave host-wide policy intact.
+          for tool in bwrap unshare; do
+            sudo tee "/etc/apparmor.d/${tool}" >/dev/null <<EOF
           abi <abi/4.0>,
           include <tunables/global>
-          profile bwrap /usr/bin/bwrap flags=(unconfined) {
+          profile ${tool} /usr/bin/${tool} flags=(unconfined) {
             userns,
           }
           EOF
-          sudo apparmor_parser -r /etc/apparmor.d/bwrap
+            sudo apparmor_parser -r "/etc/apparmor.d/${tool}"
+          done
+          # A successful namespace probe must precede the MXC integration test.
+          unshare --user --map-current-user --keep-caps --net sh -c 'ip link show lo >/dev/null'
 
       - name: Start delegated systemd user manager
         shell: bash
