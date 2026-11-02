@@ -126,7 +126,7 @@ def test_git_ipc_rejects_bad_request_chunk_and_oversized_data(scope):
     broker.handle(_begin())
     with pytest.raises(ValueError, match="base64"):
         broker.handle(_frame("body", data="?not base64?"))
-    with pytest.raises(ValueError, match="large"):
+    with pytest.raises(ValueError, match="budget"):
         broker.handle(_frame("body", data=base64.b64encode(b"x" * 131073).decode()))
     assert broker.handle(_frame("abort")) == _frame("aborted")
 
