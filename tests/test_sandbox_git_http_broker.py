@@ -471,6 +471,59 @@ def test_https_handler_does_not_pass_removed_python314_keyword(monkeypatch):
     assert captured == [{"context": context}]
 
 
+def test_socket_deadline_stops_trickling_response_reads(monkeypatch):
+    from uagent.runtime import sandbox_git_http_broker as broker
+
+    now = {"time": 10.0}
+    monkeypatch.setattr(broker.time, "monotonic", lambda: now["time"])
+
+    class FakeSocket:
+        def __init__(self):
+            self.timeouts = []
+            self.read_count = 0
+
+        def settimeout(self, seconds):
+            self.timeouts.append(seconds)
+
+        def recv_into(self, buffer):
+            self.read_count += 1
+            buffer[0] = 1
+            return 1
+
+    connection = _PinnedHTTPSConnection("github.com", timeout=30)
+    connection._uag_deadline = 13.0
+    connection.sock = FakeSocket()
+    connection._install_deadline_guards()
+    assert connection.sock.recv_into(bytearray(1)) == 1
+    assert connection.sock.timeouts == [3.0]
+    now["time"] = 12.5
+    assert connection.sock.recv_into(bytearray(1)) == 1
+    assert connection.sock.timeouts[-1] == 0.5
+    now["time"] = 13.0
+    with pytest.raises(TimeoutError, match="deadline"):
+        connection.sock.recv_into(bytearray(1))
+    assert connection.sock.read_count == 2
+
+
+def test_dns_resolution_has_absolute_deadline(monkeypatch):
+    import time as realtime
+
+    from uagent.runtime import sandbox_git_http_broker as broker
+
+    def slow_resolver(*_args, **_kwargs):
+        realtime.sleep(0.1)
+        return [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP,
+                 "", ("203.0.113.10", 443))]
+
+    monkeypatch.setattr(broker.socket, "getaddrinfo", slow_resolver)
+    with pytest.raises(TimeoutError, match="DNS deadline"):
+        broker._resolve_git_addresses(
+            "github.com",
+            443,
+            deadline=realtime.monotonic() + 0.01,
+        )
+
+
 def test_validate_git_remote_and_host_canonicalization():
     assert validate_git_host("GITHUB.com") == "github.com"
     assert _remote_url("https://github.com/acme/repo.git") == (
