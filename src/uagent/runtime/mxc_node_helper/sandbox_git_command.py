@@ -23,27 +23,21 @@ _MAX_FRAME = 180_000
 
 
 def _launcher(directory: Path, python_exe: str, helper_script: str) -> None:
-    if os.name == "nt":
-        # Command file is only a launcher for the trusted, immutable helper;
-        # it contains no token or host credential.
-        launcher = directory / "git-remote-uag.cmd"
-        if any(char in python_exe + helper_script for char in '\r\n%"'):
-            raise ValueError("unsafe Git helper launcher path")
-        launcher.write_text(
-            f'@echo off\r\n"{python_exe}" -I -u "{helper_script}" %*\r\n',
-            encoding="utf-8",
-        )
-    else:
-        launcher = directory / "git-remote-uag"
-        launcher.write_text(
-            "#!/bin/sh\nexec "
-            + shlex.quote(python_exe)
-            + " -I -u "
-            + shlex.quote(helper_script)
-            + ' "$@"\n',
-            encoding="utf-8",
-        )
-        launcher.chmod(0o700)
+    # Git for Windows looks up the *extensionless* name (or an .exe), not
+    # PATHEXT .cmd files. Git for Windows understands #!/bin/sh launchers.
+    # This file contains no token and is created inside the isolated workspace.
+    launcher = directory / "git-remote-uag"
+    if any(char in python_exe + helper_script for char in "\r\n\0"):
+        raise ValueError("unsafe Git helper launcher path")
+    launcher.write_text(
+        "#!/bin/sh\nexec "
+        + shlex.quote(python_exe)
+        + " -I -u "
+        + shlex.quote(helper_script)
+        + ' "$@"\n',
+        encoding="utf-8",
+    )
+    launcher.chmod(0o700)
 
 
 def _relay(mailbox: Path, marker: str, stop: threading.Event) -> None:
