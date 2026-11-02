@@ -129,6 +129,10 @@ class GitHttpIPC:
                 protocol_version=parameters["protocol_version"],
                 body=bytes(self._body),
             )
+            # Scope may have been revoked during the blocking HTTPS request.
+            # Never deliver completed pack data to a revoked command.
+            if self._revoked():
+                raise PermissionError("Sandbox execution scope was revoked")
             if (
                 not isinstance(result, GitHttpResponse)
                 or len(result.body) > 64 * 1024 * 1024
