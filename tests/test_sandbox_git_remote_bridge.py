@@ -88,7 +88,7 @@ def _bridge_git(
                 capture_output=True,
                 check=True,
             ).stdout
-            data = b"001e# service=git-upload-pack\n0000" + response
+            data = response
             content_type = "application/x-git-upload-pack-advertisement"
         else:
             response = subprocess.run(
