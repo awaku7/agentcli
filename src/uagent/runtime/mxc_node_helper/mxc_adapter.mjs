@@ -708,12 +708,9 @@ async function serveWorker() {
   if (process.platform === "win32") {
     readonlyPaths.push(path.join(process.env.SystemRoot || "C:/Windows", "System32"));
   } else if (process.platform === "linux" && process.arch === "x64") {
-    // Expose only the resolver configuration needed by glibc inside the
-    // private slirp network, never the whole host /etc directory.
-    readonlyPaths.push(
-      "/usr", "/lib", "/lib64", "/etc/ld.so.cache",
-      "/etc/resolv.conf", "/etc/nsswitch.conf", "/etc/hosts",
-    );
+    // Keep MXC's own resolver handling; explicitly mounting resolv.conf
+    // would suppress its slirp DNS forwarding for loopback host resolvers.
+    readonlyPaths.push("/usr", "/lib", "/lib64", "/etc/ld.so.cache");
   } else if (process.platform === "darwin" && process.arch === "arm64") {
     // Darwin dyld and Python must read the system's code resources; never
     // recursively expose user home, arbitrary /Library or /opt/homebrew.
