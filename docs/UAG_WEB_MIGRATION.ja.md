@@ -11,8 +11,8 @@ GitHubからagentcliを取得し、読み書き権限を確認した。
 `awaku7/uag-web` は接続済みAPIでは404。
 `gh repo create awaku7/uag-web --public` は
 `Resource not accessible by integration (createRepository)` で拒否された。
-GitHubでの新リポジトリ作成・そのリポジトリへのPR作成は未完了。
-作成権限を持つ接続またはユーザーによる空リポジトリ作成が必要。
+その後ユーザーが空リポジトリを作成し、作成権限のブロッカーは解消した。
+初回移行候補は[公式Web PR #1](https://github.com/awaku7/uag-web/pull/1)でレビューする。
 
 ## 責務と移行対象
 
@@ -149,7 +149,7 @@ WebSocket/認証の契約テストを行う。Web単独修正で本体wheelが�
 
 1. 本体: 本文書・インベントリと2か所の逆依存解消。旧Web維持、callback回帰を確認。
 1. uag-web: パッケージ、Svelte、ビルド/配布CI。続いてWeb専用backendと既存テストを移行。
-   1のAPIを前提とする。リポジトリ作成権限が現在の外部ブロッカー。
+   1のAPIを前提とする。ユーザーによるリポジトリ作成で外部ブロッカーは解消済み。
 1. 本体: 必要最小限の共通API公開が追加で必要なら個別PR。Webとの統合検証。
 1. 本体: 独立版の受け入れ成功後に旧Web/成果物/entry point/不要依存を削除。
    README、DEVELOP、起動方法、CIパスを更新。CLI/GUI/A2Aの最終回帰。

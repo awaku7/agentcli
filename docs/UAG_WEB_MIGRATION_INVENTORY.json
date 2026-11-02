@@ -517,13 +517,7 @@
         "..runtime.room_access",
         "..runtime.web_origin_policy"
       ],
-      "routes": [
-        {
-          "method": "MIDDLEWARE",
-          "path": "http",
-          "handler": "_close_request_memory_stores"
-        }
-      ]
+      "routes": []
     },
     "src/uagent/web_impl/command_policy.py": {
       "core_imports": [],
