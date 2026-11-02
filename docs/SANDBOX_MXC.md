@@ -178,10 +178,11 @@ Hardening that entire startup boundary is outside this local tool-execution PoC.
 
 ## Execution boundary
 
-The LLM receives only four locally sandboxed tools: `create_file`, `file_exists`,
-`read_file`, and `python_exec`. The first three use relative paths under a
-per-scope workspace in the user's local application data directory; they do
-not read or publish the host project tree. Absolute paths, traversal, symlinks,
+The LLM receives a fixed catalog of locally sandboxed tools, including
+`create_file`, `file_exists`, `read_file`, `python_exec`, and local
+`git_ops`. Workspace file tools use relative paths under a per-scope workspace
+in the user's local application data directory; they do not read or publish
+the host project tree. Absolute paths, traversal, symlinks,
 and oversized files/results are rejected. `read_file` returns at most 128,000
 source bytes per call so JSON-escaped content stays below the IPC response cap.
 `python_exec` runs in its own
@@ -253,6 +254,48 @@ Enterprise E0 acceptance. The high-assurance VM tier remains deferred; setting
 fails closed with the current ProcessContainer. The recorded Windows 11 Home
 smoke test below exercised the local Web route, not a real Remote Web/A2A
 production flow.
+
+## Network and Git acceptance status (2026-11-02)
+
+Outbound networking in MXC 1.0.1 is enabled; this does **not** mean that
+authenticated remote Git operations are supported.
+
+| Host | Verified in GitHub Actions | Still to validate |
+| --- | --- | --- |
+| Ubuntu 24.04 / 26.04 x86_64 | Real MXC Bubblewrap DNS + external TCP/443 egress, host loopback denial, host-file denial, child cleanup (PR #320) | Deployment-specific network, credentials and cleanup policy |
+| macOS 15+ ARM64 | Real MXC Seatbelt host-file and loopback denial, child cleanup across entry-point scopes (PR #320) | External DNS/TCP egress inside the sandbox; authenticated Git |
+| Windows x64 ProcessContainer | Earlier SDK 1.0.0 local smoke tested host-file and loopback denial | **MXC 1.0.1** DNS/TCP egress, host-loopback denial, cleanup and credential isolation on a supported real host |
+
+The existing `git_ops` tool supports **local/offline** workspace Git
+operations only. It explicitly rejects `clone`, `fetch`, `pull`, `push`,
+remote URLs, and access to host Git metadata. `python_exec` can make outbound
+network requests but does not inherit host Git credentials. Never claim that
+network-enabled Python is equivalent to an authenticated Git transport.
+
+### Next Git credential boundary (not implemented)
+
+Keep local Git usable without adding mandatory user configuration. For
+authenticated remote operations, require a narrow, host-side credential broker
+that validates the authenticated execution scope (principal, session/room/task,
+project), the selected remote and the approved operation. The broker must not
+provide a general host shell or arbitrary Git commands. A missing authorization
+fails closed; a Web room identifier or browser guest cookie alone is not a
+credential identity.
+
+Do not mount the host `.ssh`, Git credential store or global Git configuration
+inside MXC, forward an unrestricted SSH agent, place tokens in clone URLs,
+or copy long-lived credentials into the session workspace or logs. Prefer
+short-lived, operation-scoped access without exposing secret values to the LLM
+or sandbox. If a future backend must inject plaintext credentials, its lease
+must be marked tainted immediately and destroyed after that single operation,
+including on failure, cancellation and timeout.
+
+Before enabling authenticated remote Git, add regression tests for cross-scope
+credential denial, allowlisted remote and operation checks, unavailable-identity
+failure, credential redaction, subprocess and hook escape attempts, and cleanup
+on every exit path. Verify DNS/TCP egress and host-loopback denial on each
+supported real-host backend independently. Those acceptance tests do not
+establish VM-grade or multi-tenant isolation.
 
 ## Windows 11 x64 validation record
 
