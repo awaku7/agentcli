@@ -57,7 +57,7 @@ _SECRET_PARTS = (
 
 
 def settings_path(root: Path, scope: TrustedSandboxScope, level: str) -> Path:
-    """Return a non-guessable filename keyed only by trusted scope identity."""
+    """Return a pseudonymous filename keyed only by trusted scope identity."""
     if not isinstance(scope, TrustedSandboxScope):
         raise TypeError("a trusted sandbox scope is required")
     if level == "user":
@@ -73,7 +73,8 @@ def settings_path(root: Path, scope: TrustedSandboxScope, level: str) -> Path:
         )
     else:
         raise ValueError("settings level must be user or session")
-    key = hashlib.sha256("\0".join(parts).encode("utf-8")).hexdigest()
+    identity = json.dumps(parts, ensure_ascii=False, separators=(",", ":"))
+    key = hashlib.sha256(identity.encode("utf-8")).hexdigest()
     return Path(root) / "uag" / "sandbox_settings" / level / (key + ".json")
 
 
@@ -114,7 +115,9 @@ def _check_directory(path: Path) -> None:
         info = path.lstat()
     except FileNotFoundError:
         return
-    if not stat.S_ISDIR(info.st_mode):
+    if not stat.S_ISDIR(info.st_mode) or getattr(
+        info, "st_file_attributes", 0
+    ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
         raise PermissionError("sandbox settings directory is not a real directory")
     if os.name != "nt" and (info.st_uid != os.getuid() or info.st_mode & 0o077):
         raise PermissionError("sandbox settings directory must be private")
@@ -177,10 +180,13 @@ def save_environment(
             raise PermissionError("sandbox settings target must be a regular file")
     temporary = path.with_name(path.name + "." + secrets.token_hex(8) + ".tmp")
     flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0)
+    serialized = json.dumps({"environment": checked}, ensure_ascii=False)
+    if len(serialized.encode("utf-8")) > 16384:
+        raise ValueError("sandbox settings file exceeds 16 KiB")
     fd = os.open(temporary, flags, 0o600)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as stream:
-            json.dump({"environment": checked}, stream, ensure_ascii=False)
+            stream.write(serialized)
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
