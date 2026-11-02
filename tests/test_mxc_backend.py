@@ -857,6 +857,38 @@ def test_mxc_git_ops_are_workspace_local_and_offline(monkeypatch, tmp_path):
         )
 
 
+def test_mxc_git_ops_allows_system_symlink_but_rejects_workspace_target(
+    monkeypatch, tmp_path
+):
+    import shutil
+
+    host_git = shutil.which("git")
+    if os.name == "nt" or not host_git:
+        pytest.skip("host Git symlink requires POSIX Git")
+
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    git_link = tmp_path / "git-link"
+    git_link.symlink_to(Path(host_git).resolve())
+    monkeypatch.setattr(sandbox_worker, "ROOT", workspace.resolve())
+    monkeypatch.setattr(sandbox_worker.shutil, "which", lambda name: str(git_link))
+
+    initialized = json.loads(
+        sandbox_worker._dispatch(
+            {"name": "git_ops", "args": {"command": "init", "confirmed": True}}
+        )
+    )
+    assert initialized["returncode"] == 0
+
+    git_link.unlink()
+    target = workspace / "fake-git"
+    target.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    target.chmod(0o755)
+    git_link.symlink_to(target)
+    with pytest.raises(PermissionError, match="outside the session workspace"):
+        sandbox_worker._dispatch({"name": "git_ops", "args": {"command": "status"}})
+
+
 def test_mxc_optional_image_and_qr_tools(monkeypatch, tmp_path):
     pytest.importorskip("PIL")
     from PIL import Image
