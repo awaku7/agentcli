@@ -1589,6 +1589,7 @@ class _MxcSession:
                 git_ipc = GitHttpIPC(
                     self._scope,
                     revoked=self._revoked.is_set,
+                    deadline=deadline,
                 )
                 try:
                     while response.get("bridge") == "git_http":
