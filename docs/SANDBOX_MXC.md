@@ -308,6 +308,39 @@ variable. Tokens are not copied across different Principals or between the
 local OS, Web and A2A realms. CLI and GUI share an OS user default but maintain
 independent session overrides.
 
+### Trusted-host Git smart-HTTP transport
+
+`runtime/sandbox_git_http_broker.py` implements the transport-side authenticated
+Git HTTP request primitive, but **does not yet connect Git's command-line client
+inside MXC to this host broker**. As a result, private `git clone/fetch/push`
+are not yet enabled automatically.
+
+The trusted host registers a token with `save_git_https_token(scope, alias,
+token, remote_host="github.com")`, and selects it at the user or session
+level. A token registered without a `remote_host` is intentionally not
+accepted by the authenticated transport, including credentials stored by the
+previous version of the API. A remote host is a DNS name, not a URL or IP.
+
+`exchange_git_smart_http(scope, remote_url, service=..., advertise=..., body=...)`
+supports smart-HTTP `info/refs` discovery and `git-upload-pack` /
+`git-receive-pack` RPC. Its caller must independently verify the active MXC
+scope and operation authorization before each request. This transport:
+
+- Accepts only HTTPS Git repository URLs, with no embedded credentials,
+  fragments, query parameters, encoded path separators, or dot segments.
+- Requires the remote hostname to exactly match the selected credential's
+  registered host; cross-principal and cross-realm selection remain isolated.
+- Forbids HTTP redirects, validates Git content types, enforces TLS checks
+  using the standard HTTPS client and bounds request/response sizes.
+- Returns only the Git smart-HTTP response bytes. Tokens never enter MXC
+  variables, files, Git command arguments or tool responses.
+
+The transport deliberately does not support generic HTTP requests, arbitrary
+HTTP method/path combinations, or direct access to host loopback. Its next
+integration step is a bounded binary transport between the isolated Git
+remote helper and the trusted host, including cancellation, progress,
+streaming of large packfiles and push authorization.
+
 **This PR does not yet connect the credential to Git traffic.** Private
 `git clone/fetch/push` remain unauthenticated inside the Sandbox until a
 separate host-side authenticated HTTPS Git transport broker is implemented.
