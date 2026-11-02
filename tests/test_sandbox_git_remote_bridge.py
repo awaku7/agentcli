@@ -185,6 +185,13 @@ def test_git_https_clone_and_fetch_over_isolated_bridge(tmp_path):
     server_head = _git("rev-parse", "main", cwd=server).stdout.strip()
     assert head == server_head
 
+    # Git may start multiple upload-pack helpers concurrently. They share the
+    # command's host GitHttpIPC, so the isolated helpers must serialize.
+    _git("remote", "add", "backup", _REMOTE, cwd=checkout)
+    _bridge_git(
+        sandbox, server, ["git", "-C", "checkout", "fetch", "--all", "--jobs=2"]
+    )
+
 
 def test_mxc_node_adapter_relays_git_frames_without_host_file_reads():
     node = shutil.which("node")
