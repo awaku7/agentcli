@@ -129,6 +129,24 @@ def _check_directory(path: Path, *, require_private: bool = True) -> None:
         raise PermissionError("sandbox settings directory must be private")
 
 
+def _open_private_directory(path: Path) -> int:
+    """Anchor POSIX settings traversal to directory descriptors, never links."""
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    descriptor = os.open(path.parent.parent, flags)
+    try:
+        for child in (path.parent.name, path.name):
+            child_descriptor = os.open(child, flags, dir_fd=descriptor)
+            os.close(descriptor)
+            descriptor = child_descriptor
+            info = os.fstat(descriptor)
+            if info.st_uid != os.getuid() or info.st_mode & 0o077:
+                raise PermissionError("sandbox settings directory must be private")
+        return descriptor
+    except BaseException:
+        os.close(descriptor)
+        raise
+
+
 def _read_environment(path: Path) -> dict[str, str]:
     # Existing files must not be symlinks, junctions, or accessible by others.
     _check_directory(path.parent.parent.parent, require_private=False)
@@ -144,7 +162,14 @@ def _read_environment(path: Path) -> dict[str, str]:
         raise PermissionError("sandbox settings file must not be a link")
     flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
     flags |= getattr(os, "O_NOFOLLOW", 0)
-    fd = os.open(path, flags)
+    if os.name == "nt":
+        fd = os.open(path, flags)
+    else:
+        directory_fd = _open_private_directory(path.parent)
+        try:
+            fd = os.open(path.name, flags, dir_fd=directory_fd)
+        finally:
+            os.close(directory_fd)
     try:
         info = os.fstat(fd)
         if not stat.S_ISREG(info.st_mode) or info.st_size > 16384:
@@ -197,11 +222,32 @@ def save_environment(
     serialized = json.dumps({"environment": checked}, ensure_ascii=False)
     if len(serialized.encode("utf-8")) > 16384:
         raise ValueError("sandbox settings file exceeds 16 KiB")
-    fd = os.open(temporary, flags, 0o600)
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as stream:
-            stream.write(serialized)
-        os.replace(temporary, path)
-    finally:
-        temporary.unlink(missing_ok=True)
+    if os.name == "nt":
+        fd = os.open(temporary, flags, 0o600)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as stream:
+                stream.write(serialized)
+            os.replace(temporary, path)
+        finally:
+            temporary.unlink(missing_ok=True)
+    else:
+        directory_fd = _open_private_directory(path.parent)
+        try:
+            fd = os.open(
+                temporary.name, flags | os.O_NOFOLLOW, 0o600, dir_fd=directory_fd
+            )
+            with os.fdopen(fd, "w", encoding="utf-8") as stream:
+                stream.write(serialized)
+            os.replace(
+                temporary.name,
+                path.name,
+                src_dir_fd=directory_fd,
+                dst_dir_fd=directory_fd,
+            )
+        finally:
+            try:
+                os.unlink(temporary.name, dir_fd=directory_fd)
+            except FileNotFoundError:
+                pass
+            os.close(directory_fd)
     return path
