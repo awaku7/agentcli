@@ -547,7 +547,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: awaku7/uag-web
-          ref: d4b49a5eb016c62594ec64fe9aeb9adc962720cb
+          ref: f9e14c49c4fab0f57a584535bb335a9f047e999c
           path: .uag-web
       - uses: actions/setup-python@v6
         with:
