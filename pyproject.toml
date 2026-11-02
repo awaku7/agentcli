@@ -182,6 +182,7 @@ exclude = ["uagent.mcp*", "test*", "tests*"]
 uagent = [
     "runtime/mxc_node_helper/mxc_adapter.mjs",
     "runtime/mxc_node_helper/sandbox_git_remote_helper.py",
+    "runtime/mxc_node_helper/sandbox_git_command.py",
     "runtime/mxc_node_helper/package.json",
     "runtime/mxc_node_helper/package-lock.json",
     "tools/**/*",
