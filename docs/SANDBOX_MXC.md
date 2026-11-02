@@ -51,7 +51,7 @@ for the current decision and explicit limits.
   environment setting. Realtime dependencies may be installed/executed on the
   Host; Sandbox-enabled realtime startup is refused before the realtime runner.
 
-The Windows acceptance target is Windows 11 x64 with MXC Node SDK `1.0.0`,
+The Windows acceptance target is Windows 11 x64 with MXC Node SDK `1.0.1`,
 Node `24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter
 rejects unsupported Windows builds, probe warnings, DACL-augmentation
 requirements, and missing deny-path support. Linux x86_64 uses the pinned SDK's
