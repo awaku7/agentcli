@@ -69,6 +69,7 @@ def test_session_environment_isolated_by_principal_and_scope(tmp_path, scope):
     assert mxc_session_settings.effective_environment(tmp_path, rebound_session) == {
         "GIT_AUTHOR_NAME": "Alice"
     }
+    assert mxc_backend._scope_key(rebound_session) != mxc_backend._scope_key(scope)
 
 
 @pytest.mark.parametrize(
