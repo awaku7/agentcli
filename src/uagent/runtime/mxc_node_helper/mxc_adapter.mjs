@@ -758,9 +758,11 @@ async function serveWorker() {
     },
     ...(process.platform === "win32" ? { fallback: { allowDaclMutation: false } } : {}),
     filesystem: { readwritePaths, readonlyPaths, deniedPaths },
+    // Keep host loopback isolated. Windows requires private-network ingress
+    // capability for LAN egress; Bubblewrap cannot allow ingress at all.
     network: {
-      egress: { default: "deny" },
-      ingress: { default: "deny", hostLoopback: "deny" },
+      egress: { default: "allow" },
+      ingress: { default: process.platform === "win32" ? "allow" : "deny", hostLoopback: "deny" },
     },
     ui: { disable: true },
     inheritDefaultEnvironment: false,
