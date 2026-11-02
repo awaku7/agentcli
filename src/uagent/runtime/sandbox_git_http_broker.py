@@ -129,6 +129,12 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
                     connection.bind(self.source_address)
                 # Never resolve again between the IP policy check and connect.
                 connection.connect(sockaddr)
+                # TCP connect may consume the entire remaining budget. TLS
+                # must start with a freshly bounded timeout, not the value
+                # captured before the TCP handshake.
+                connection.settimeout(
+                    min(self.timeout, _deadline_remaining(self._uag_deadline))
+                )
                 self.sock = self._context.wrap_socket(
                     connection, server_hostname=self.host
                 )
