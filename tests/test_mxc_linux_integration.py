@@ -111,6 +111,36 @@ def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
         assert egress_result["returncode"] == 0, egress_result
         assert "EGRESS_OK" in egress_result["stdout"], egress_result
 
+        # The general command runner uses the same one-shot MXC boundary.
+        manager.run_tool(
+            scope, "create_file", {"filename": "project/note.txt", "content": "inside"}
+        )
+        command = json.loads(
+            manager.run_tool(
+                scope,
+                "command_exec",
+                {
+                    "argv": [
+                        sys.executable,
+                        "-c",
+                        "from pathlib import Path; print(Path('note.txt').read_text())",
+                    ],
+                    "cwd": "project",
+                },
+            )
+        )
+        assert command["returncode"] == 0, command
+        assert command["stdout"].strip() == "inside", command
+        git = json.loads(
+            manager.run_tool(scope, "command_exec", {"argv": ["git", "--version"]})
+        )
+        assert git["returncode"] == 0, git
+        assert "git version" in git["stdout"], git
+        invalid = manager.run_tool(
+            scope, "command_exec", {"argv": ["git", "status"], "cwd": "../"}
+        )
+        assert "[sandbox error]" in invalid, invalid
+
         child_marker = "linux-mxc-child-marker.txt"
         child_script = (
             "import pathlib, time\n"

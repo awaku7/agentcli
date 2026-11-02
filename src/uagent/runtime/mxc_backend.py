@@ -71,6 +71,7 @@ TOOL_NAMES = frozenset(
         "binary_edit",
         "security_scan",
         "git_ops",
+        "command_exec",
     }
 )
 
@@ -410,6 +411,20 @@ TOOL_SPECS += (
             "glob": {"type": "string", "maxLength": 256},
             "limit": {"type": "integer", "minimum": 1, "maximum": 100},
         },
+    ),
+    _sandbox_tool_spec(
+        "command_exec",
+        "Run an installed program inside a one-shot isolated MXC container with outbound networking. Pass executable and arguments as an argv array (no implicit shell); cwd is relative to the session workspace. Output, runtime, and workspace usage are bounded. Tools must already be installed or be installed in the workspace; host credentials are not inherited.",
+        {
+            "argv": {
+                "type": "array",
+                "items": {"type": "string", "maxLength": 4096},
+                "minItems": 1,
+                "maxItems": 64,
+            },
+            "cwd": {"type": "string"},
+        },
+        ["argv"],
     ),
     _sandbox_tool_spec(
         "git_ops",
@@ -1544,13 +1559,16 @@ class _MxcSession:
                 raise PermissionError("sandbox scope has been revoked")
             mac_baseline = (
                 self._mac_scope.snapshot()
-                if self._mac_scope is not None and name == "python_exec"
+                if self._mac_scope is not None
+                and name in {"python_exec", "command_exec"}
                 else None
             )
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
-            response = self._read_response(timeout=60 if name == "python_exec" else 45)
+            response = self._read_response(
+                timeout=60 if name in {"python_exec", "command_exec"} else 45
+            )
             if mac_baseline is not None:
                 # Native MXC process-group kill alone may miss setsid children.
                 # Fail closed if observed detached descendants cannot be reaped

@@ -684,6 +684,49 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   }
 }
 
+
+async function executeCommandInContainer(config, baseRequest, args, spawnMxc) {
+  const argv = args?.argv;
+  if (!Array.isArray(argv) || argv.length < 1 || argv.length > 64 ||
+      argv.some((arg) => typeof arg !== "string" || Buffer.byteLength(arg, "utf8") > 4096 || arg.includes(String.fromCharCode(0))) ||
+      !argv[0]) {
+    throw new Error("command argv must contain 1 to 64 bounded strings and a non-empty executable");
+  }
+  const relativeCwd = args?.cwd ?? ".";
+  if (typeof relativeCwd !== "string" || !relativeCwd ||
+      relativeCwd.length > 1000 || path.isAbsolute(relativeCwd) ||
+      path.win32.isAbsolute(relativeCwd) ||
+      relativeCwd.split(/[\\/]+/).includes("..")) {
+    throw new Error("command cwd must be a relative directory inside the workspace");
+  }
+  const root = fs.realpathSync(baseRequest.workingDirectory);
+  const cwd = fs.realpathSync(path.join(root, relativeCwd));
+  if ((cwd !== root && !cwd.startsWith(root + path.sep)) || !fs.statSync(cwd).isDirectory()) {
+    throw new Error("command cwd must stay inside the session workspace");
+  }
+
+  // Reuse the existing one-shot MXC Python execution path. Its native
+  // kill/wait, per-session workspace watchdog, bounded output and macOS
+  // descendant checks apply to all commands, including Git, pip and npm.
+  // argv is executed without an implicit shell; callers can explicitly
+  // run sh/cmd when shell syntax is required.
+  const code = [
+    "import subprocess, sys",
+    `__uag_argv = ${JSON.stringify(argv)}`,
+    `__uag_cwd = ${JSON.stringify(cwd)}`,
+    "try:",
+    "    __uag_result = subprocess.run(__uag_argv, cwd=__uag_cwd, stdin=subprocess.DEVNULL, timeout=25, check=False)",
+    "except subprocess.TimeoutExpired:",
+    "    print('Command timed out after 25 seconds', file=sys.stderr)",
+    "    raise SystemExit(124)",
+    "except OSError as exc:",
+    "    print(f'Command could not start: {type(exc).__name__}: {exc}', file=sys.stderr)",
+    "    raise SystemExit(127)",
+    "raise SystemExit(__uag_result.returncode)",
+  ].join("\n");
+  return executePythonInContainer(config, baseRequest, { code }, spawnMxc);
+}
+
 async function serveWorker() {
   const config = await readHostConfig();
   const required = ["workspace", "pythonExe", "pythonRoot", "pythonEnvRoot", "workerScript", "helperRoot"];
@@ -832,14 +875,11 @@ async function serveWorker() {
         writeHost({ ok: false, error: "invalid sandbox IPC request" });
         continue;
       }
-      if (request.payload.name === "python_exec") {
+      if (request.payload.name === "python_exec" || request.payload.name === "command_exec") {
         try {
-          const result = await executePythonInContainer(
-            config,
-            baseRequest,
-            request.payload.args || {},
-            spawn,
-          );
+          const result = await (request.payload.name === "command_exec"
+            ? executeCommandInContainer(config, baseRequest, request.payload.args || {}, spawn)
+            : executePythonInContainer(config, baseRequest, request.payload.args || {}, spawn));
           if (result.process_tree_unverified) {
             writeHost({ ok: false, terminate: true, error: `Python process tree termination could not be verified (${result.process_tree_failure_reason || "unknown"}); the isolated worker was terminated` });
             await stopWorker();

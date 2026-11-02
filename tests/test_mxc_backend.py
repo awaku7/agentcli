@@ -275,6 +275,15 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
         names = {spec["function"]["name"] for spec in tools.get_tool_specs()}
     assert names == set(mxc_backend.TOOL_NAMES)
     assert names == sandbox_worker._ALLOWED
+    assert "command_exec" in names
+    command = next(
+        spec
+        for spec in mxc_backend.sandbox_tool_specs()
+        if spec["function"]["name"] == "command_exec"
+    )
+    properties = command["function"]["parameters"]["properties"]
+    assert command["function"]["parameters"]["required"] == ["argv"]
+    assert properties["argv"]["maxItems"] == 64
     assert len(names) == len(
         {spec["function"]["name"] for spec in mxc_backend.sandbox_tool_specs()}
     )
@@ -301,6 +310,7 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
         "binary_edit",
         "security_scan",
         "git_ops",
+        "command_exec",
     }.issubset(names)
 
 
@@ -362,6 +372,7 @@ def test_sandbox_parallel_safety_does_not_load_host_plugins(monkeypatch, local_s
         assert tools.is_parallel_safe("read_file", {"path": "a.txt"})
         assert not tools.is_parallel_safe("create_file", {"filename": "a.txt"})
         assert not tools.is_parallel_safe("python_exec", {"code": "print(1)"})
+        assert not tools.is_parallel_safe("command_exec", {"argv": ["git", "status"]})
 
 
 def test_sandboxed_local_hooks_cannot_run_host_commands(monkeypatch, local_scope):
@@ -887,6 +898,14 @@ def test_mxc_git_ops_allows_system_symlink_but_rejects_workspace_target(
     git_link.symlink_to(target)
     with pytest.raises(PermissionError, match="outside the session workspace"):
         sandbox_worker._dispatch({"name": "git_ops", "args": {"command": "status"}})
+
+
+def test_command_exec_cannot_run_in_persistent_worker(monkeypatch, tmp_path):
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    with pytest.raises(RuntimeError, match="one-shot MXC container"):
+        sandbox_worker._dispatch(
+            {"name": "command_exec", "args": {"argv": ["git", "status"]}}
+        )
 
 
 def test_mxc_optional_image_and_qr_tools(monkeypatch, tmp_path):

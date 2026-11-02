@@ -61,6 +61,7 @@ _ALLOWED = {
     "binary_edit",
     "security_scan",
     "git_ops",
+    "command_exec",
 }
 ROOT = Path.cwd().resolve()
 MAX_SCAN_FILES = 5000
@@ -1782,9 +1783,9 @@ def _dispatch(request: Any) -> Any:
     args = request.get("args", {})
     if not isinstance(args, dict):
         raise ValueError("tool arguments must be an object")
-    if name == "python_exec":
+    if name in {"python_exec", "command_exec"}:
         raise RuntimeError(
-            "python_exec must use a one-shot MXC container, not the persistent worker"
+            f"{name} must use a one-shot MXC container, not the persistent worker"
         )
     if name == "create_file":
         return _create_file(args)
