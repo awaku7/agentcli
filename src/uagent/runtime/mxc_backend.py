@@ -999,6 +999,12 @@ def mxc_sdk_is_installed() -> bool:
         return False
 
 
+def _session_settings_environment(scope: TrustedSandboxScope) -> dict[str, str]:
+    from .mxc_session_settings import effective_environment
+
+    return effective_environment(_local_app_data(), scope)
+
+
 def _scope_key(scope: TrustedSandboxScope) -> str:
     material = "\0".join(
         (
@@ -1450,6 +1456,7 @@ class _MxcSession:
             "pythonEnvRoot": str(python_env_root),
             "workerScript": str(worker_script),
             "helperRoot": str(runtime),
+            "sessionEnv": _session_settings_environment(scope),
             "deniedPaths": [],
         }
         try:
