@@ -31,7 +31,7 @@ from .execution_broker import (
     TrustedSandboxScope,
 )
 
-SDK_VERSION = "1.0.0"
+SDK_VERSION = "1.0.1"
 NODE_MINIMUM = (24, 21, 0)
 PROBE_TIMEOUT_SECONDS = 15
 MAX_FRAME_BYTES = 1_100_000
@@ -131,7 +131,7 @@ TOOL_SPECS: tuple[dict[str, Any], ...] = (
         "type": "function",
         "function": {
             "name": "python_exec",
-            "description": "Execute Python code inside the isolated session. Files and dependencies are session-local; network access is blocked.",
+            "description": "Execute Python code in the isolated session. Workspace files are session-local; outbound networking is allowed, but host loopback is blocked.",
             "parameters": {
                 "type": "object",
                 "properties": {"code": {"type": "string"}},

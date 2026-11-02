@@ -326,19 +326,24 @@ jobs:
           sudo apt-get install --no-install-recommends -y \
             apparmor bubblewrap iptables iproute2 slirp4netns util-linux
 
-      - name: Allow Bubblewrap user namespaces under AppArmor
+      - name: Allow MXC namespace launchers under AppArmor
         shell: bash
         run: |
-          # Ubuntu restricts unprivileged user namespaces by default. Permit
-          # Bubblewrap only; do not weaken the host-wide AppArmor sysctl.
-          sudo tee /etc/apparmor.d/bwrap >/dev/null <<'EOF'
+          # Network-enabled Bubblewrap first launches an unprivileged
+          # user/network namespace through util-linux unshare. Confine the
+          # exception to those two executables; leave host-wide policy intact.
+          for tool in bwrap unshare; do
+            sudo tee "/etc/apparmor.d/${tool}" >/dev/null <<EOF
           abi <abi/4.0>,
           include <tunables/global>
-          profile bwrap /usr/bin/bwrap flags=(unconfined) {
+          profile ${tool} /usr/bin/${tool} flags=(unconfined) {
             userns,
           }
           EOF
-          sudo apparmor_parser -r /etc/apparmor.d/bwrap
+            sudo apparmor_parser -r "/etc/apparmor.d/${tool}"
+          done
+          # A successful namespace probe must precede the MXC integration test.
+          unshare --user --map-current-user --keep-caps --net sh -c 'ip link show lo >/dev/null'
 
       - name: Start delegated systemd user manager
         shell: bash
@@ -371,6 +376,19 @@ jobs:
             src/uagent/runtime/mxc_node_helper/package-lock.json "$MXC_RUNTIME/"
           chmod 700 "$MXC_RUNTIME"
           npm ci --prefix "$MXC_RUNTIME" --ignore-scripts --no-audit --no-fund
+
+      - name: Use the host loopback DNS stub for MXC slirp networking
+        shell: bash
+        run: |
+          # The Ubuntu runner's direct resolver may be unreachable from the
+          # private slirp namespace. MXC rewrites loopback resolvers to its
+          # in-sandbox 10.0.2.3 DNS forwarder without exposing host services.
+          systemctl is-active --quiet systemd-resolved
+          test -f /run/systemd/resolve/stub-resolv.conf
+          sudo ln -sfn /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+          echo "Host resolver: $(readlink -f /etc/resolv.conf)"
+          grep '^nameserver' /etc/resolv.conf
+          getent ahostsv4 example.com >/dev/null
 
       - name: Verify Linux MXC isolation and resource controls
         env:

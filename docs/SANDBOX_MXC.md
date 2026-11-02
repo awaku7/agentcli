@@ -51,7 +51,7 @@ for the current decision and explicit limits.
   environment setting. Realtime dependencies may be installed/executed on the
   Host; Sandbox-enabled realtime startup is refused before the realtime runner.
 
-The Windows acceptance target is Windows 11 x64 with MXC Node SDK `1.0.0`,
+The Windows acceptance target is Windows 11 x64 with MXC Node SDK `1.0.1`,
 Node `24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter
 rejects unsupported Windows builds, probe warnings, DACL-augmentation
 requirements, and missing deny-path support. Linux x86_64 uses the pinned SDK's
@@ -156,7 +156,11 @@ hours of aggregate CPU time. Scope shutdown kills all remaining cgroup tasks and
 checks cgroup emptiness before releasing the workspace lease. If the systemd
 user manager cannot verify cleanup, the workspace remains leased and cannot be
 reused. Bubblewrap denies filesystem access outside the explicit runtime and
-workspace read roots and denies network egress/ingress and host loopback.
+workspace read roots. Outbound network access is allowed inside a private
+network namespace (including external HTTP(S) and Git endpoints), while inbound
+connections and host loopback remain denied. Enabling outbound access requires
+the Bubblewrap network dependencies (`slirp4netns`, `iptables`, `iproute2`);
+missing runtime support fails closed rather than running on the host network.
 
 The `mxc-linux-integration` CI matrix runs real-host acceptance on both Ubuntu
 versions. Unit tests and a successful build alone do
@@ -206,7 +210,11 @@ Recursive read roots are rejected if they are filesystem roots or contain the
 selected work directory or per-user data roots. This prevents a project-root venv
 from exposing the project recursively. Sandbox startup also skips the host-side
 Laya/PyTorch preload.
-Network egress, ingress, and host loopback are denied. A Windows Job Object
+Outbound network access is allowed (including public and private networks).
+Windows ProcessContainer requires private-network ingress capability to reach
+LAN addresses, so private-network inbound connections can also be possible;
+host loopback remains denied. This is not a network-isolated deployment profile.
+A Windows Job Object
 around the adapter enforces a 1 GiB aggregate memory cap, a 64-process limit, a
 four-hour aggregate user-CPU limit, and kill-on-close cleanup. A 256 MiB / 5,000
 entry workspace watchdog stops the Python execution and tears down the session

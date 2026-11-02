@@ -68,8 +68,8 @@ $decoded
 
 $manifestPath = Join-Path $RuntimeDir 'node_modules\@microsoft\mxc-sdk\package.json'
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-if ($manifest.version -ne '1.0.0') {
-    throw "Expected pinned @microsoft/mxc-sdk 1.0.0; found '$($manifest.version)'"
+if ($manifest.version -ne '1.0.1') {
+    throw "Expected pinned @microsoft/mxc-sdk 1.0.1; found '$($manifest.version)'"
 }
 
 $executor = Join-Path $RuntimeDir 'node_modules\@microsoft\mxc-sdk\bin\x64\wxc-exec.exe'

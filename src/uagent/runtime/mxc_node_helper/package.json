@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@microsoft/mxc-sdk": "1.0.0"
+    "@microsoft/mxc-sdk": "1.0.1"
   }
 }

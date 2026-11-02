@@ -90,7 +90,7 @@ async function probeHost() {
     if (!passed) throw new Error("macOS Seatbelt host smoke did not prove the required isolation");
     writeHost({
       ok: true,
-      sdk: "@microsoft/mxc-sdk@1.0.0",
+      sdk: "@microsoft/mxc-sdk@1.0.1",
       node: process.versions.node,
       platform: process.platform,
       arch: process.arch,
@@ -140,7 +140,7 @@ async function probeHost() {
     const accepted = terminal?.exitCode === 0 && terminal?.timedOut !== true;
     writeHost({
       ok: accepted,
-      sdk: "@microsoft/mxc-sdk@1.0.0",
+      sdk: "@microsoft/mxc-sdk@1.0.1",
       node: process.versions.node,
       platform: process.platform,
       arch: process.arch,
@@ -189,7 +189,7 @@ async function probeHost() {
   );
   writeHost({
     ok: accepted,
-    sdk: "@microsoft/mxc-sdk@1.0.0",
+    sdk: "@microsoft/mxc-sdk@1.0.1",
     node: process.versions.node,
     platform: process.platform,
     arch: process.arch,
@@ -692,6 +692,12 @@ async function serveWorker() {
       throw new Error(`invalid host worker configuration: ${key}`);
     }
   }
+  // Linux firewall helpers live in sbin on distributions whose sanitized
+  // host PATH only includes bin. These are fixed system directories, never
+  // paths supplied by a project or by the model.
+  if (process.platform === "linux") {
+    process.env.PATH = `${process.env.PATH || ""}:/usr/sbin:/sbin`;
+  }
   const { spawn } = await import("@microsoft/mxc-sdk/v1");
   const workspace = path.resolve(config.workspace);
   const pythonRoot = path.resolve(config.pythonRoot);
@@ -702,6 +708,8 @@ async function serveWorker() {
   if (process.platform === "win32") {
     readonlyPaths.push(path.join(process.env.SystemRoot || "C:/Windows", "System32"));
   } else if (process.platform === "linux" && process.arch === "x64") {
+    // Keep MXC's own resolver handling; explicitly mounting resolv.conf
+    // would suppress its slirp DNS forwarding for loopback host resolvers.
     readonlyPaths.push("/usr", "/lib", "/lib64", "/etc/ld.so.cache");
   } else if (process.platform === "darwin" && process.arch === "arm64") {
     // Darwin dyld and Python must read the system's code resources; never
@@ -758,9 +766,11 @@ async function serveWorker() {
     },
     ...(process.platform === "win32" ? { fallback: { allowDaclMutation: false } } : {}),
     filesystem: { readwritePaths, readonlyPaths, deniedPaths },
+    // Keep host loopback isolated. Windows requires private-network ingress
+    // capability for LAN egress; Bubblewrap cannot allow ingress at all.
     network: {
-      egress: { default: "deny" },
-      ingress: { default: "deny", hostLoopback: "deny" },
+      egress: { default: "allow" },
+      ingress: { default: process.platform === "win32" ? "allow" : "deny", hostLoopback: "deny" },
     },
     ui: { disable: true },
     inheritDefaultEnvironment: false,

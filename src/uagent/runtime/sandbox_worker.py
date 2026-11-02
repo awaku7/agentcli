@@ -280,6 +280,7 @@ def _search_files(args: dict[str, Any]) -> str:
             if binary or not found:
                 continue
         matches.append(relative[:512])
+    matches.sort()
     limit = min(500, max(1, int(args.get("limit", 50) or 50)))
     page = max(1, int(args.get("page", 1) or 1))
     start = (page - 1) * limit
@@ -1655,16 +1656,16 @@ def _git_ops(args: dict[str, Any]) -> str:
     executable = shutil.which("git")
     if not executable:
         raise RuntimeError("Git executable is not installed in the MXC sandbox")
-    executable_path = Path(executable).absolute()
-    if (
-        executable_path.is_symlink()
-        or executable_path == ROOT
-        or ROOT in executable_path.parents
+    executable_link = Path(executable).absolute()
+    executable_path = executable_link.resolve(strict=True)
+    if any(
+        path == ROOT or ROOT in path.parents
+        for path in (executable_link, executable_path)
     ):
         raise PermissionError(
             "Git executable must be installed outside the session workspace"
         )
-    executable = str(executable_path.resolve())
+    executable = str(executable_path)
     env = {
         "PATH": os.environ.get("PATH", ""),
         "SYSTEMROOT": os.environ.get("SYSTEMROOT", ""),
