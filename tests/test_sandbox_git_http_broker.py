@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import socket
 from io import BytesIO
 from urllib.error import HTTPError
 
@@ -15,7 +16,9 @@ from uagent.runtime.sandbox_git_credentials import (
     select_git_credential,
 )
 from uagent.runtime.sandbox_git_http_broker import (
+    _PinnedHTTPSConnection,
     _remote_url,
+    _trusted_https_opener,
     exchange_git_smart_http,
     validate_git_host,
 )
@@ -103,6 +106,7 @@ def test_advertisement_uses_scoped_https_header_without_exposing_secret(scope, s
         advertise=True,
         store=store,
         opener=opener,
+        protocol_version=2,
     )
     request, timeout = opener.requests[0]
     assert request.get_method() == "GET"
@@ -314,6 +318,132 @@ def test_reject_oversized_git_response(scope, store):
             store=store,
             opener=opener,
         )
+
+
+def test_protocol_v0_does_not_claim_version_2(scope, store):
+    opener = FakeOpener()
+    exchange_git_smart_http(
+        scope,
+        _REMOTE,
+        service="git-upload-pack",
+        advertise=True,
+        store=store,
+        opener=opener,
+        protocol_version=0,
+    )
+    assert opener.requests[0][0].get_header("Git-protocol") is None
+    opener.requests.clear()
+    exchange_git_smart_http(
+        scope,
+        _REMOTE,
+        service="git-upload-pack",
+        advertise=True,
+        store=store,
+        opener=opener,
+        protocol_version=1,
+    )
+    assert opener.requests[0][0].get_header("Git-protocol") == "version=1"
+    with pytest.raises(ValueError, match="protocol"):
+        exchange_git_smart_http(
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=opener,
+            protocol_version=3,
+        )
+
+
+@pytest.mark.parametrize(
+    "sockaddrs",
+    [
+        [("127.0.0.1", 443)],
+        [("::1", 443)],
+        [("::ffff:127.0.0.1", 443)],
+        [("169.254.169.254", 443)],
+        [("203.0.113.10", 443), ("127.0.0.1", 443)],
+    ],
+)
+def test_pinned_https_rejects_local_destinations_before_socket_creation(
+    monkeypatch, sockaddrs
+):
+    from uagent.runtime import sandbox_git_http_broker as broker
+
+    monkeypatch.setattr(
+        broker.socket,
+        "getaddrinfo",
+        lambda *args, **kwargs: [
+            (
+                socket.AF_INET6 if ":" in address else socket.AF_INET,
+                socket.SOCK_STREAM,
+                socket.IPPROTO_TCP,
+                "",
+                (address, port),
+            )
+            for address, port in sockaddrs
+        ],
+    )
+    opened = []
+    monkeypatch.setattr(
+        broker.socket, "socket", lambda *args: opened.append(args)
+    )
+    connection = _PinnedHTTPSConnection("github.com", timeout=1)
+    with pytest.raises(PermissionError, match="not permitted"):
+        connection.connect()
+    assert opened == []
+
+
+def test_pinned_https_connects_to_validated_ip_without_reresolution(monkeypatch):
+    from uagent.runtime import sandbox_git_http_broker as broker
+
+    events = []
+
+    def resolve(*args, **kwargs):
+        events.append("dns")
+        return [
+            (socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "",
+             ("203.0.113.11", 443))
+        ]
+
+    class FakeSocket:
+        def settimeout(self, timeout):
+            events.append(("timeout", timeout))
+
+        def connect(self, sockaddr):
+            events.append(("connect", sockaddr))
+
+        def close(self):
+            events.append("close")
+
+    class FakeContext:
+        def wrap_socket(self, sock, server_hostname):
+            events.append(("sni", server_hostname))
+            return sock
+
+    monkeypatch.setattr(broker.socket, "getaddrinfo", resolve)
+    monkeypatch.setattr(broker.socket, "socket", lambda *args: FakeSocket())
+    connection = _PinnedHTTPSConnection("github.com", timeout=2)
+    connection._context = FakeContext()
+    connection.connect()
+    assert events == [
+        "dns",
+        ("timeout", 2),
+        ("connect", ("203.0.113.11", 443)),
+        ("sni", "github.com"),
+    ]
+
+
+def test_default_https_opener_disables_implicit_proxy(monkeypatch):
+    monkeypatch.setenv("HTTPS_PROXY", "http://attacker.example:8080")
+    opener = _trusted_https_opener()
+    proxy_handlers = [
+        handler
+        for handler in opener.handlers
+        if isinstance(handler, __import__("urllib.request", fromlist=["ProxyHandler"]).ProxyHandler)
+    ]
+    assert proxy_handlers
+    assert proxy_handlers[0].proxies == {}
 
 
 def test_validate_git_remote_and_host_canonicalization():
