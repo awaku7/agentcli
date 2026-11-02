@@ -281,9 +281,7 @@ def test_live_mxc_worker_uses_latest_git_selection_each_command(
     assert requests[-1]["payload"]["gitRemoteHost"] is None
 
 
-def test_revoked_git_token_does_not_block_unrelated_commands(
-    monkeypatch, cli, store
-):
+def test_revoked_git_token_does_not_block_unrelated_commands(monkeypatch, cli, store):
     import threading
 
     session = object.__new__(mxc_backend._MxcSession)
@@ -299,9 +297,7 @@ def test_revoked_git_token_does_not_block_unrelated_commands(
     sandbox_git_credentials.save_git_https_token(
         cli, "shared", "secret", store=store, remote_host="github.com"
     )
-    sandbox_git_credentials.select_git_credential(
-        cli, "user", "shared", store=store
-    )
+    sandbox_git_credentials.select_git_credential(cli, "user", "shared", store=store)
     assert session.run("command_exec", {"argv": ["git", "fetch"]}) == "ok"
     assert requests[-1]["payload"]["gitRemoteHost"] == "github.com"
 
