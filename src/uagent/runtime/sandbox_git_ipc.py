@@ -46,6 +46,11 @@ class GitHttpIPC:
         self._response = b""
         self._offset = 0
 
+    @property
+    def is_idle(self) -> bool:
+        """Only a fully finished or explicitly aborted exchange is idle."""
+        return self._stage == "idle"
+
     def handle(self, message: dict[str, Any]) -> dict[str, Any]:
         """Handle one untrusted frame; raise on malformed/incomplete sequences.
 
