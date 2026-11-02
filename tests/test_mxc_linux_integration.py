@@ -132,9 +132,7 @@ def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
         assert command["returncode"] == 0, command
         assert command["stdout"].strip() == "inside", command
         git = json.loads(
-            manager.run_tool(
-                scope, "command_exec", {"argv": ["git", "--version"]}
-            )
+            manager.run_tool(scope, "command_exec", {"argv": ["git", "--version"]})
         )
         assert git["returncode"] == 0, git
         assert "git version" in git["stdout"], git
