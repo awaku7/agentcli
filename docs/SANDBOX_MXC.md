@@ -363,6 +363,33 @@ or pass host Git credentials into the Sandbox. Existing Git identity variables
 without sharing a credential. A process able to execute arbitrary commands
 can inspect any environment variable assigned to its own Sandbox.
 
+### Authenticated Git IPC framing (trusted host)
+
+The MXC host has a bounded Git HTTP request/reply frame handler for a live
+`command_exec` invocation. Only a server-created `TrustedSandboxScope` is
+used to resolve its user/session Git selection. The handler accepts
+`git-upload-pack` (read operations) and rejects `git-receive-pack`
+until the push/human-approval integration is ready. There is no token in any
+IPC frame, model tool argument or Sandbox environment.
+
+`sandbox_git_ipc.GitHttpIPC` accepts `begin` with remote URL, Git service,
+advertisement boolean and protocol version, followed by bounded base64
+`body` frames, `execute` and paged `next` response frames. It enforces
+16 MiB request size, 128 KiB frame chunks, the existing 64 MiB response cap,
+64 exchanges per command, and revocation checks before every frame and
+again after blocking network calls. An absolute command deadline bounds DNS
+resolution, TCP/TLS connect and Git HTTP socket transfers, including a slow
+trickle of response bytes. Invalid, incomplete or out-of-order frames terminate
+the affected command session. The host `_MxcSession.run()` exchanges these
+frames within the existing tool deadline and returns only the final tool result.
+
+**Integration status:** The host's framing logic is implemented and covered
+by unit tests, but the MXC Node adapter and the contained Git remote helper
+do **not yet emit these frames**. Private `git clone/fetch/push` are therefore
+still unsupported through the Sandbox. The next change must connect the
+Node helper and the contained Git client, with the same fail-closed size
+and process-lifecycle guarantees.
+
 ### General command execution in Sandbox
 
 The `command_exec` tool executes an installed program using an `argv` array,
