@@ -63,15 +63,24 @@ def settings_path(root: Path, scope: TrustedSandboxScope, level: str) -> Path:
     """Return a pseudonymous filename keyed only by trusted scope identity."""
     if not isinstance(scope, TrustedSandboxScope):
         raise TypeError("a trusted sandbox scope is required")
+    # The same OS principal shares user defaults across CLI and GUI. Web
+    # browser identities and A2A service identities stay in separate realms.
+    realm = (
+        "local-os"
+        if scope.deployment_id in {"cli", "gui"}
+        and scope.scope_kind in {"cli-session", "gui-session"}
+        else scope.deployment_id
+    )
     if level == "user":
-        parts = (scope.deployment_id, scope.principal_id)
+        parts = (realm, scope.principal_id)
     elif level == "session":
         parts = (
-            scope.deployment_id,
+            realm,
             scope.principal_id,
+            scope.deployment_id,
             scope.project_id,
             scope.scope_kind,
-            scope.scope_id,
+            scope.settings_session_id or scope.scope_id,
             scope.binding_generation,
         )
     else:
