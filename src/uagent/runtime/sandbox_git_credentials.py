@@ -56,17 +56,34 @@ def save_git_https_token(
     token: str,
     *,
     store: CredentialStore | None = None,
+    remote_host: str | None = None,
+    username: str = "x-access-token",
 ) -> None:
-    """Register an HTTPS token for this *user*, from a trusted host UI only."""
+    """Store a token on the trusted host, optionally bound to one Git HTTPS host.
+
+    Tokens registered without a bound host are deliberately unusable by the
+    authenticated Git HTTP broker until the trusted user registers the host.
+    """
     name = _token_key(scope, alias)
     if not isinstance(token, str) or not token or "\0" in token:
         raise ValueError("a nonempty Git HTTPS token is required")
+    metadata = {"purpose": _TOKEN_PURPOSE}
+    if remote_host is not None:
+        from .sandbox_git_http_broker import validate_git_host
+
+        metadata["remote_host"] = validate_git_host(remote_host)
+        if (
+            not isinstance(username, str)
+            or not re.fullmatch(r"[A-Za-z0-9_.@-]{1,80}", username)
+        ):
+            raise ValueError("invalid Git HTTPS username")
+        metadata["username"] = username
     _store(store).set(
         Credential(
             name=name,
             kind=CredentialKind.OTHER,
             secret=token,
-            metadata={"purpose": _TOKEN_PURPOSE},
+            metadata=metadata,
         )
     )
 
