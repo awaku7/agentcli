@@ -12,6 +12,7 @@ import os
 import re
 import secrets
 import stat
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -131,6 +132,42 @@ def _check_directory(path: Path, *, require_private: bool = True) -> None:
         raise PermissionError("sandbox settings directory must be private")
 
 
+@contextmanager
+def _guard_windows_parent(path: Path):
+    """Hold non-delete-sharing handles against junction/rename races on Windows."""
+    if os.name != "nt":
+        yield
+        return
+    import win32con
+    import win32file
+
+    handles = []
+    try:
+        for directory in (
+            path.parent.parent.parent,
+            path.parent.parent,
+            path.parent,
+        ):
+            handle = win32file.CreateFile(
+                str(directory),
+                win32con.FILE_READ_ATTRIBUTES,
+                win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE,
+                None,
+                win32con.OPEN_EXISTING,
+                win32con.FILE_FLAG_BACKUP_SEMANTICS
+                | win32con.FILE_FLAG_OPEN_REPARSE_POINT,
+                None,
+            )
+            handles.append(handle)
+            attrs = win32file.GetFileInformationByHandle(handle)[0]
+            if attrs & win32con.FILE_ATTRIBUTE_REPARSE_POINT:
+                raise PermissionError("sandbox settings directory is a reparse point")
+        yield
+    finally:
+        for handle in reversed(handles):
+            handle.Close()
+
+
 def _open_private_directory(path: Path) -> int:
     """Anchor POSIX settings traversal to directory descriptors, never links."""
     flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
@@ -165,7 +202,13 @@ def _read_environment(path: Path) -> dict[str, str]:
     flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
     flags |= getattr(os, "O_NOFOLLOW", 0)
     if os.name == "nt":
-        fd = os.open(path, flags)
+        with _guard_windows_parent(path):
+            current = path.lstat()
+            if not stat.S_ISREG(current.st_mode) or getattr(
+                current, "st_file_attributes", 0
+            ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
+                raise PermissionError("sandbox settings file must not be a link")
+            fd = os.open(path, flags)
     else:
         directory_fd = _open_private_directory(path.parent)
         try:
@@ -225,13 +268,14 @@ def save_environment(
     if len(serialized.encode("utf-8")) > 16384:
         raise ValueError("sandbox settings file exceeds 16 KiB")
     if os.name == "nt":
-        fd = os.open(temporary, flags, 0o600)
-        try:
-            with os.fdopen(fd, "w", encoding="utf-8") as stream:
-                stream.write(serialized)
-            os.replace(temporary, path)
-        finally:
-            temporary.unlink(missing_ok=True)
+        with _guard_windows_parent(path):
+            fd = os.open(temporary, flags, 0o600)
+            try:
+                with os.fdopen(fd, "w", encoding="utf-8") as stream:
+                    stream.write(serialized)
+                os.replace(temporary, path)
+            finally:
+                temporary.unlink(missing_ok=True)
     else:
         directory_fd = _open_private_directory(path.parent)
         try:
