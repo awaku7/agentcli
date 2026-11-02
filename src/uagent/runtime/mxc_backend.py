@@ -1006,14 +1006,19 @@ def _session_settings_environment(scope: TrustedSandboxScope) -> dict[str, str]:
 
 
 def _scope_key(scope: TrustedSandboxScope) -> str:
-    material = "\0".join(
+    # Room rebindings must never reuse a prior generation's MXC worker,
+    # filesystem or scoped environment.
+    material = json.dumps(
         (
             scope.deployment_id,
             scope.principal_id,
             scope.project_id,
             scope.scope_kind,
             scope.scope_id,
-        )
+            scope.binding_generation,
+        ),
+        ensure_ascii=False,
+        separators=(",", ":"),
     )
     return hashlib.sha256(material.encode("utf-8")).hexdigest()
 
