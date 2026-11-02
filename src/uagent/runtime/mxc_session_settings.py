@@ -123,8 +123,10 @@ def _check_directory(path: Path, *, require_private: bool = True) -> None:
         info, "st_file_attributes", 0
     ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
         raise PermissionError("sandbox settings directory is not a real directory")
-    if require_private and os.name != "nt" and (
-        info.st_uid != os.getuid() or info.st_mode & 0o077
+    if (
+        require_private
+        and os.name != "nt"
+        and (info.st_uid != os.getuid() or info.st_mode & 0o077)
     ):
         raise PermissionError("sandbox settings directory must be private")
 
