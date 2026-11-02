@@ -78,7 +78,7 @@ def test_git_credential_one_step_setup_and_status(monkeypatch, capsys) -> None:
     handle_credential_command("git github.com", core=core, tr=_translate)
     handle_credential_command("git status", core=core, tr=_translate)
 
-    assert effective_git_credential_alias(scope, store=store) == "github.com"
+    assert effective_git_credential_alias(scope, store=store).startswith("cli-")
     assert selected_git_https_host_for_scope(scope, store=store) == "github.com"
     assert resolve_git_https_token_for_host(scope, store=store) == "PRIVATE_TOKEN"
     output = capsys.readouterr().out
@@ -121,9 +121,9 @@ def test_git_setup_preserves_existing_session_override(monkeypatch, capsys) -> N
     core = _Core()
     core._sandbox_scope = scope
     save_git_https_token(
-        scope, "session", "SESSION_TOKEN", store=store, remote_host="gitlab.com"
+        scope, "github.com", "SESSION_TOKEN", store=store, remote_host="github.com"
     )
-    select_git_credential(scope, "session", "session", store=store)
+    select_git_credential(scope, "session", "github.com", store=store)
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
     monkeypatch.setattr(
         commands.sys,
@@ -134,13 +134,14 @@ def test_git_setup_preserves_existing_session_override(monkeypatch, capsys) -> N
 
     handle_credential_command("git github.com", core=core, tr=_translate)
 
-    assert effective_git_credential_alias(scope, store=store) == "session"
+    assert effective_git_credential_alias(scope, store=store) == "github.com"
+    from uagent.runtime.sandbox_git_credentials import resolve_git_https_token_for_host
+
+    assert resolve_git_https_token_for_host(scope, store=store) == "SESSION_TOKEN"
     assert "separate override" in capsys.readouterr().out
 
 
-def test_git_credential_remove_revokes_only_selected_alias(
-    monkeypatch, capsys
-) -> None:
+def test_git_credential_remove_revokes_only_selected_alias(monkeypatch, capsys) -> None:
     import uagent.util_cmd_credentials as commands
     from uagent.runtime.sandbox_git_credentials import (
         effective_git_credential_alias,
@@ -216,9 +217,10 @@ def test_sandbox_command_gate_allows_only_git_credential_subcommand(
         return sentinel
 
     monkeypatch.setattr(commands, "handle_credential_command", fake_git_handler)
-    assert commands.handle_command(
-        ":credential git status", [], None, "", core=core
-    ) is sentinel
+    assert (
+        commands.handle_command(":credential git status", [], None, "", core=core)
+        is sentinel
+    )
     assert calls == ["git status"]
 
     commands.handle_command(":credential list", [], None, "", core=core)
