@@ -92,6 +92,16 @@ def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
         # Verify real DNS and TCP egress, not only that an MXC worker starts.
         egress_code = (
             "import socket\n"
+            "from pathlib import Path\n"
+            "resolv = Path('/etc/resolv.conf')\n"
+            "print('RESOLVER_FILE=' + str(resolv.is_file()))\n"
+            "print('SLIRP_DNS=' + str('10.0.2.3' in resolv.read_text() if resolv.is_file() else False))\n"
+            "print('NSS_FILE=' + str(Path('/etc/nsswitch.conf').is_file()))\n"
+            "try:\n"
+            "    with socket.create_connection(('1.1.1.1', 443), timeout=5):\n"
+            "        print('IP_EGRESS_OK')\n"
+            "except OSError as exc:\n"
+            "    print('IP_EGRESS_ERROR=' + type(exc).__name__)\n"
             "with socket.create_connection(('example.com', 443), timeout=8):\n"
             "    print('EGRESS_OK')\n"
         )
