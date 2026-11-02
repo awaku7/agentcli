@@ -196,7 +196,6 @@ def resolve_git_https_token_for_host(
     return entry.secret
 
 
-
 def selected_git_https_host_for_scope(
     scope: TrustedSandboxScope,
     *,
