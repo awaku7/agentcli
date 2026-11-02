@@ -97,7 +97,11 @@ class FakeOpener:
 def test_advertisement_uses_scoped_https_header_without_exposing_secret(scope, store):
     opener = FakeOpener()
     result = exchange_git_smart_http(
-        scope, _REMOTE, service="git-upload-pack", advertise=True, store=store,
+        scope,
+        _REMOTE,
+        service="git-upload-pack",
+        advertise=True,
+        store=store,
         opener=opener,
     )
     request, timeout = opener.requests[0]
@@ -158,25 +162,36 @@ def test_invalid_or_mismatched_remotes_fail_without_network(scope, store, url):
     opener = FakeOpener()
     with pytest.raises((ValueError, PermissionError)):
         exchange_git_smart_http(
-            scope, url, service="git-upload-pack", advertise=True,
-            store=store, opener=opener,
+            scope,
+            url,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=opener,
         )
     assert opener.requests == []
 
 
-@pytest.mark.parametrize("host", ["", "localhost", "x..y", "127.0.0.1", "a/b", "a:443", "ä.example"])
+@pytest.mark.parametrize(
+    "host", ["", "localhost", "x..y", "127.0.0.1", "a/b", "a:443", "ä.example"]
+)
 def test_invalid_registered_host_is_rejected(scope, host):
     with pytest.raises(ValueError):
-        save_git_https_token(scope, "github", _TOKEN, remote_host=host,
-                             store=InMemoryCredentialStore())
+        save_git_https_token(
+            scope, "github", _TOKEN, remote_host=host, store=InMemoryCredentialStore()
+        )
 
 
 def test_receive_pack_requires_explicit_host_authorization(scope, store):
     opener = FakeOpener()
     with pytest.raises(PermissionError, match="push authorization"):
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-receive-pack", advertise=True,
-            store=store, opener=opener,
+            scope,
+            _REMOTE,
+            service="git-receive-pack",
+            advertise=True,
+            store=store,
+            opener=opener,
         )
     assert opener.requests == []
 
@@ -187,34 +202,53 @@ def test_selected_credential_must_be_explicitly_bound(scope):
     select_git_credential(scope, "user", "legacy", store=store)
     with pytest.raises(PermissionError, match="not bound"):
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-upload-pack", advertise=True,
-            store=store, opener=FakeOpener(),
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=FakeOpener(),
         )
 
 
 def test_never_fallback_to_other_principal_or_realm(scope, store):
     other = TrustedSandboxScope(
-        "web", scope.principal_id, "project", "web-room", "room",
+        "web",
+        scope.principal_id,
+        "project",
+        "web-room",
+        "room",
         settings_session_id="room",
     )
     with pytest.raises(PermissionError, match="not selected"):
         exchange_git_smart_http(
-            other, _REMOTE, service="git-upload-pack", advertise=True,
-            store=store, opener=FakeOpener(),
+            other,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=FakeOpener(),
         )
 
 
 def test_reject_redirect_without_leaking_credentials(scope, store):
     opener = FakeOpener(
         error=HTTPError(
-            _REMOTE, 302, "Redirect", {"Location": "https://attacker.example"},
+            _REMOTE,
+            302,
+            "Redirect",
+            {"Location": "https://attacker.example"},
             None,
         )
     )
     with pytest.raises(RuntimeError, match="HTTP 302") as exc:
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-upload-pack", advertise=True,
-            store=store, opener=opener,
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=opener,
         )
     assert _TOKEN not in str(exc.value)
 
@@ -222,7 +256,10 @@ def test_reject_redirect_without_leaking_credentials(scope, store):
 def test_unexpected_content_type_and_redirected_url_are_rejected(scope, store):
     with pytest.raises(RuntimeError, match="content type"):
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-upload-pack", advertise=True,
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
             store=store,
             opener=FakeOpener(
                 FakeResponse(
@@ -233,11 +270,12 @@ def test_unexpected_content_type_and_redirected_url_are_rejected(scope, store):
         )
     with pytest.raises(RuntimeError, match="rejected request"):
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-upload-pack", advertise=True,
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
             store=store,
-            opener=FakeOpener(
-                FakeResponse(url="https://attacker.example/collect")
-            ),
+            opener=FakeOpener(FakeResponse(url="https://attacker.example/collect")),
         )
 
 
@@ -246,7 +284,11 @@ def test_request_types_size_and_services_are_validated(scope, store):
         dict(service="https", advertise=True),
         dict(service="git-upload-pack", advertise=False),
         dict(service="git-upload-pack", advertise=True, body=b"unexpected"),
-        dict(service="git-upload-pack", advertise=False, body=b"x" * (16 * 1024 * 1024 + 1)),
+        dict(
+            service="git-upload-pack",
+            advertise=False,
+            body=b"x" * (16 * 1024 * 1024 + 1),
+        ),
     ):
         opener = FakeOpener()
         with pytest.raises(ValueError):
@@ -265,13 +307,18 @@ def test_reject_oversized_git_response(scope, store):
     )
     with pytest.raises(RuntimeError, match="size limit"):
         exchange_git_smart_http(
-            scope, _REMOTE, service="git-upload-pack", advertise=True,
-            store=store, opener=opener,
+            scope,
+            _REMOTE,
+            service="git-upload-pack",
+            advertise=True,
+            store=store,
+            opener=opener,
         )
 
 
 def test_validate_git_remote_and_host_canonicalization():
     assert validate_git_host("GITHUB.com") == "github.com"
     assert _remote_url("https://github.com/acme/repo.git") == (
-        "github.com", "https://github.com/acme/repo.git"
+        "github.com",
+        "https://github.com/acme/repo.git",
     )
