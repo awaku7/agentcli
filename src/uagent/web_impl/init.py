@@ -282,6 +282,9 @@ def init_web():
 
     cb = tools.context.get_callbacks()
     cb.is_gui = True
+    from .io import web_tool_trace
+
+    cb.tool_trace = web_tool_trace
 
     # Register ask-user hook for project instruction selection (AGENTS.md).
     # runtime_instructions must not import web (circular); use this callback.

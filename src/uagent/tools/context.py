@@ -35,6 +35,9 @@ class ToolCallbacks:
     image_event: Optional[Callable[[dict[str, Any]], None]] = None
     prompt_history_append: Optional[Callable[[str], None]] = None
 
+    # Host display hook receives only the masked, bounded tool description.
+    tool_trace: Optional[Callable[[str, str], None]] = None
+
     # Environment variable access
     get_env: Optional[Callable[[str], str]] = None
     get_env_url: Optional[Callable[[str, Optional[str]], str]] = None
