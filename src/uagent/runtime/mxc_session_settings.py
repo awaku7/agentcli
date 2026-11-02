@@ -74,15 +74,27 @@ def settings_path(root: Path, scope: TrustedSandboxScope, level: str) -> Path:
     if level == "user":
         parts = (realm, scope.principal_id)
     elif level == "session":
-        parts = (
-            realm,
-            scope.principal_id,
-            scope.deployment_id,
-            scope.project_id,
-            scope.scope_kind,
-            scope.settings_session_id or scope.scope_id,
-            scope.binding_generation,
-        )
+        if scope.settings_session_id:
+            parts = (
+                realm,
+                scope.principal_id,
+                scope.deployment_id,
+                scope.project_id,
+                scope.scope_kind,
+                scope.settings_session_id,
+                scope.binding_generation,
+            )
+        else:
+            # Preserve the previously written key for scopes created before
+            # stable logical session IDs were introduced.
+            parts = (
+                scope.deployment_id,
+                scope.principal_id,
+                scope.project_id,
+                scope.scope_kind,
+                scope.scope_id,
+                scope.binding_generation,
+            )
     else:
         raise ValueError("settings level must be user or session")
     identity = json.dumps(parts, ensure_ascii=False, separators=(",", ":"))
