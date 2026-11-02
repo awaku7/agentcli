@@ -90,7 +90,7 @@ async function probeHost() {
     if (!passed) throw new Error("macOS Seatbelt host smoke did not prove the required isolation");
     writeHost({
       ok: true,
-      sdk: "@microsoft/mxc-sdk@1.0.0",
+      sdk: "@microsoft/mxc-sdk@1.0.1",
       node: process.versions.node,
       platform: process.platform,
       arch: process.arch,
@@ -140,7 +140,7 @@ async function probeHost() {
     const accepted = terminal?.exitCode === 0 && terminal?.timedOut !== true;
     writeHost({
       ok: accepted,
-      sdk: "@microsoft/mxc-sdk@1.0.0",
+      sdk: "@microsoft/mxc-sdk@1.0.1",
       node: process.versions.node,
       platform: process.platform,
       arch: process.arch,
@@ -189,7 +189,7 @@ async function probeHost() {
   );
   writeHost({
     ok: accepted,
-    sdk: "@microsoft/mxc-sdk@1.0.0",
+    sdk: "@microsoft/mxc-sdk@1.0.1",
     node: process.versions.node,
     platform: process.platform,
     arch: process.arch,
