@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import socket
+import ssl
 from io import BytesIO
 from urllib.error import HTTPError
 
@@ -17,8 +18,10 @@ from uagent.runtime.sandbox_git_credentials import (
 )
 from uagent.runtime.sandbox_git_http_broker import (
     _PinnedHTTPSConnection,
+    _PinnedHTTPSHandler,
     _remote_url,
     _trusted_https_opener,
+    _trusted_ssl_context,
     exchange_git_smart_http,
     validate_git_host,
 )
@@ -440,16 +443,32 @@ def test_pinned_https_connects_to_validated_ip_without_reresolution(monkeypatch)
 def test_default_https_opener_disables_implicit_proxy(monkeypatch):
     monkeypatch.setenv("HTTPS_PROXY", "http://attacker.example:8080")
     opener = _trusted_https_opener()
-    proxy_handlers = [
-        handler
-        for handler in opener.handlers
-        if isinstance(
-            handler,
-            __import__("urllib.request", fromlist=["ProxyHandler"]).ProxyHandler,
-        )
-    ]
-    assert proxy_handlers
-    assert proxy_handlers[0].proxies == {}
+    # An empty ProxyHandler is intentionally not retained by build_opener.
+    # The absence of any proxy_open handler confirms no implicit proxy path.
+    assert not any(hasattr(handler, "proxy_open") for handler in opener.handlers)
+
+
+def test_project_ssl_cert_file_cannot_override_system_trust(monkeypatch, tmp_path):
+    custom_ca = tmp_path / "untrusted-ca.pem"
+    custom_ca.write_text("not a valid CA certificate", encoding="ascii")
+    monkeypatch.setenv("SSL_CERT_FILE", str(custom_ca))
+    monkeypatch.setenv("SSL_CERT_DIR", str(tmp_path))
+    context = _trusted_ssl_context()
+    assert context.check_hostname
+    assert context.verify_mode == ssl.CERT_REQUIRED
+
+
+def test_https_handler_does_not_pass_removed_python314_keyword(monkeypatch):
+    context = object()
+    handler = _PinnedHTTPSHandler(context=context)
+    captured = []
+    monkeypatch.setattr(
+        handler,
+        "do_open",
+        lambda connection, request, **options: captured.append(options),
+    )
+    handler.https_open(object())
+    assert captured == [{"context": context}]
 
 
 def test_validate_git_remote_and_host_canonicalization():
