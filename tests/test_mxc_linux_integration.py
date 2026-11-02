@@ -89,6 +89,16 @@ def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
         assert "LOOPBACK=0" not in result["stdout"], result
         assert report.get("backend") == "bubblewrap", report
 
+        # Verify real DNS and TCP egress, not only that an MXC worker starts.
+        egress_code = (
+            "import socket\n"
+            "with socket.create_connection(('example.com', 443), timeout=8):\n"
+            "    print('EGRESS_OK')\n"
+        )
+        egress_result = _python_result(manager, scope, egress_code)
+        assert egress_result["returncode"] == 0, egress_result
+        assert "EGRESS_OK" in egress_result["stdout"], egress_result
+
         child_marker = "linux-mxc-child-marker.txt"
         child_script = (
             "import pathlib, time\n"
