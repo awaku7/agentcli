@@ -5389,3 +5389,8 @@ msgstr ""
 
 msgid "Read-only local status: enabled, last export result, last success and failure times. It does not contact Admin."
 msgstr ""
+
+#: src/uagent/runtime/sandbox_config.py
+#, python-format
+msgid "Sandbox: %(state)s"
+msgstr "Homokozó: %(state)s"
