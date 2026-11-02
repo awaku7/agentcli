@@ -151,6 +151,9 @@ class TrustedSandboxScope:
     scope_kind: str
     scope_id: str
     binding_generation: str = ""
+    # Stable settings identity; scope_id still includes a process-specific
+    # component to isolate live MXC workers and their workspaces.
+    settings_session_id: str = ""
 
     def __post_init__(self) -> None:
         required = (
