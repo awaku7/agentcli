@@ -68,7 +68,11 @@ def test_git_credential_one_step_setup_and_status(monkeypatch, capsys) -> None:
     core = _Core()
     core._sandbox_scope = scope
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
-    monkeypatch.setattr(commands.sys, "stdin", type("TTY", (), {"isatty": lambda self: True})())
+    monkeypatch.setattr(
+        commands.sys,
+        "stdin",
+        type("TTY", (), {"isatty": lambda self: True})(),
+    )
     monkeypatch.setattr(commands.getpass, "getpass", lambda prompt: "PRIVATE_TOKEN")
 
     handle_credential_command("git github.com", core=core, tr=_translate)
@@ -121,7 +125,11 @@ def test_git_setup_preserves_existing_session_override(monkeypatch, capsys) -> N
     )
     select_git_credential(scope, "session", "session", store=store)
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
-    monkeypatch.setattr(commands.sys, "stdin", type("TTY", (), {"isatty": lambda self: True})())
+    monkeypatch.setattr(
+        commands.sys,
+        "stdin",
+        type("TTY", (), {"isatty": lambda self: True})(),
+    )
     monkeypatch.setattr(commands.getpass, "getpass", lambda prompt: "USER_TOKEN")
 
     handle_credential_command("git github.com", core=core, tr=_translate)
@@ -153,13 +161,20 @@ def test_git_credential_remove_revokes_only_selected_alias(
     select_git_credential(scope, "user", "user", store=store)
     select_git_credential(scope, "session", "session", store=store)
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
-    monkeypatch.setattr(commands.sys, "stdin", type("TTY", (), {"isatty": lambda self: True})())
+    monkeypatch.setattr(
+        commands.sys,
+        "stdin",
+        type("TTY", (), {"isatty": lambda self: True})(),
+    )
     monkeypatch.setattr("builtins.input", lambda prompt: "y")
 
     handle_credential_command("git remove", core=core, tr=_translate)
 
     assert effective_git_credential_alias(scope, store=store) == "user"
-    assert store.get("sandbox/git/v1/" + "not-a-real-key") is None
+    from uagent.runtime.sandbox_git_credentials import _token_key
+
+    assert store.get(_token_key(scope, "session")) is None
+    assert store.get(_token_key(scope, "user")) is not None
     assert "revoked" in capsys.readouterr().out
 
 
@@ -171,7 +186,11 @@ def test_git_credential_requires_tty_and_trusted_cli_scope(monkeypatch, capsys) 
     core = _Core()
     core._sandbox_scope = _git_scope()
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
-    monkeypatch.setattr(commands.sys, "stdin", type("Pipe", (), {"isatty": lambda self: False})())
+    monkeypatch.setattr(
+        commands.sys,
+        "stdin",
+        type("Pipe", (), {"isatty": lambda self: False})(),
+    )
     handle_credential_command("git github.com", core=core, tr=_translate)
     assert "interactive terminal" in capsys.readouterr().out
 
