@@ -692,6 +692,12 @@ async function serveWorker() {
       throw new Error(`invalid host worker configuration: ${key}`);
     }
   }
+  // Linux firewall helpers live in sbin on distributions whose sanitized
+  // host PATH only includes bin. These are fixed system directories, never
+  // paths supplied by a project or by the model.
+  if (process.platform === "linux") {
+    process.env.PATH = `${process.env.PATH || ""}:/usr/sbin:/sbin`;
+  }
   const { spawn } = await import("@microsoft/mxc-sdk/v1");
   const workspace = path.resolve(config.workspace);
   const pythonRoot = path.resolve(config.pythonRoot);
