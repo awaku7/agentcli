@@ -219,3 +219,29 @@ def test_credentials_are_not_exposed_by_selection_metadata(cli, store):
     assert "top-secret" not in repr(
         store.get(sandbox_git_credentials._token_key(cli, alias))
     )
+
+
+def test_git_bridge_host_selection_is_nonsecret_and_scope_isolated(cli, store):
+    from uagent.runtime.sandbox_git_credentials import (
+        selected_git_https_host_for_scope,
+    )
+
+    assert selected_git_https_host_for_scope(cli, store=store) is None
+    sandbox_git_credentials.save_git_https_token(
+        cli,
+        "github",
+        "NEVER_RETURN_THIS_TOKEN",
+        store=store,
+        remote_host="GITHUB.COM",
+    )
+    sandbox_git_credentials.select_git_credential(cli, "user", "github", store=store)
+    assert selected_git_https_host_for_scope(cli, store=store) == "github.com"
+    web = TrustedSandboxScope(
+        "web",
+        cli.principal_id,
+        cli.project_id,
+        "web-room",
+        "room",
+        settings_session_id="room",
+    )
+    assert selected_git_https_host_for_scope(web, store=store) is None

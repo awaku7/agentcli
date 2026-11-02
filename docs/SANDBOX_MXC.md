@@ -383,12 +383,30 @@ trickle of response bytes. Invalid, incomplete or out-of-order frames terminate
 the affected command session. The host `_MxcSession.run()` exchanges these
 frames within the existing tool deadline and returns only the final tool result.
 
-**Integration status:** The host's framing logic is implemented and covered
-by unit tests, but the MXC Node adapter and the contained Git remote helper
-do **not yet emit these frames**. Private `git clone/fetch/push` are therefore
-still unsupported through the Sandbox. The next change must connect the
-Node helper and the contained Git client, with the same fail-closed size
-and process-lifecycle guarantees.
+**Integration status:** The MXC Node adapter now relays Git HTTP frames
+between the isolated Python root process and the trusted host IPC. Its
+read-only `git-remote-uag` helper uses Git's protocol-v2
+`stateless-connect git-upload-pack`, with an ephemeral sandbox-only mailbox
+to connect the Git subprocess to the root process's standard pipes.
+The host never reads a file controlled by the sandbox and does not deliver
+credential bytes or credential-helper answers into it.
+
+When a user/session selects an HTTPS token bound to a Git hostname, Git
+commands launched directly through `command_exec` rewrite only that exact
+HTTPS hostname to the isolated `git-remote-uag` transport. For example,
+`git clone https://github.com/owner/repo.git` and subsequent `git fetch`
+run without needing the model or user to pass a token or extra flag.
+Public remotes on other hosts keep ordinary Git networking, and users with
+no selected credentials keep ordinary public Git access. `git push` through
+the authenticated helper remains disabled until trusted host approval is
+integrated, even though ordinary public Git commands remain allowed.
+
+The initial implementation requires Git wire protocol v2, has bounded
+request/response frames and a short command execution deadline. Large Git
+packfiles still exceed the initial 64 MiB Git HTTP response cap and are not
+yet supported. Windows Git remote-helper launcher behavior and real private
+Git server communication must be validated on Windows host hardware before
+claiming platform-complete support.
 
 ### General command execution in Sandbox
 
