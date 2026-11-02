@@ -30,12 +30,14 @@ class GitHttpIPC:
         *,
         revoked: Callable[[], bool],
         exchange: Callable[..., GitHttpResponse] = exchange_git_smart_http,
+        deadline: float | None = None,
     ) -> None:
         if not isinstance(scope, TrustedSandboxScope):
             raise TypeError("a trusted MXC scope is required")
         self._scope = scope
         self._revoked = revoked
         self._exchange = exchange
+        self._deadline = deadline
         self._count = 0
         self._reset()
 
@@ -121,13 +123,18 @@ class GitHttpIPC:
                 raise ValueError("Git IPC request is not ready")
             parameters = self._request
             # Never grant push merely because a sandbox frame requested it.
+            options = {
+                "service": parameters["service"],
+                "advertise": parameters["advertise"],
+                "protocol_version": parameters["protocol_version"],
+                "body": bytes(self._body),
+            }
+            if self._deadline is not None:
+                options["deadline"] = self._deadline
             result = self._exchange(
                 self._scope,
                 parameters["remote_url"],
-                service=parameters["service"],
-                advertise=parameters["advertise"],
-                protocol_version=parameters["protocol_version"],
-                body=bytes(self._body),
+                **options,
             )
             # Scope may have been revoked during the blocking HTTPS request.
             # Never deliver completed pack data to a revoked command.
