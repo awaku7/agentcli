@@ -11,6 +11,7 @@
 
 - Preserve reasoning order around Web tool results and treat colon-prefixed text as ordinary user input; keep mode commands out of chat messages.
 - Refresh Web session history when the tab regains focus and periodically; use the latest activity timestamp for session metadata.
+- Raise the minimum `llmcapa` dependency version to `0.5.76`.
 
 ## [0.7.40] - 2026-10-31
 
