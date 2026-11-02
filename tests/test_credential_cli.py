@@ -105,7 +105,7 @@ def test_git_setup_rejects_invalid_host_without_secret_prompt(
         "git https://github.com/owner/repo", core=core, tr=_translate
     )
     assert "Invalid Git host" in capsys.readouterr().out
-    assert not store.list_names()
+    assert not store._credentials
 
 
 def test_git_setup_preserves_existing_session_override(monkeypatch, capsys) -> None:
