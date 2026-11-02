@@ -1583,9 +1583,17 @@ class _MxcSession:
                 and name in {"python_exec", "command_exec"}
                 else None
             )
-            self._write_line(
-                {"operation": "run", "payload": {"name": name, "args": args}}
-            )
+            payload = {"name": name, "args": args}
+            if name == "command_exec":
+                # A user may register/revoke their Git token while this worker
+                # is live. Resolve only the nonsecret hostname at every call;
+                # never reuse a stale startup selection.
+                from .sandbox_git_credentials import selected_git_https_host_for_scope
+
+                payload["gitRemoteHost"] = selected_git_https_host_for_scope(
+                    self._scope
+                )
+            self._write_line({"operation": "run", "payload": payload})
             timeout_seconds = 60 if name in {"python_exec", "command_exec"} else 45
             deadline = time.monotonic() + timeout_seconds
             response = self._read_response(timeout=timeout_seconds)
