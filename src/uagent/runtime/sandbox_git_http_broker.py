@@ -8,6 +8,7 @@ The Git transport IPC will use this primitive; it is not an LLM tool.
 from __future__ import annotations
 
 import base64
+import ipaddress
 import re
 import urllib.error
 import urllib.request
@@ -54,7 +55,11 @@ def validate_git_host(host: str) -> str:
         or any(not _HOST_LABEL.fullmatch(label) for label in normalized.split("."))
     ):
         raise ValueError("Git remote host must be a valid DNS hostname")
-    return normalized
+    try:
+        ipaddress.ip_address(normalized)
+    except ValueError:
+        return normalized
+    raise ValueError("Git remote host must not be an IP literal")
 
 
 def _remote_url(remote_url: str) -> tuple[str, str]:
