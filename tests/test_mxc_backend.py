@@ -28,8 +28,8 @@ def test_node_helper_pins_the_verified_mxc_sdk_version():
     )
     manifest = json.loads((helper / "package.json").read_text(encoding="utf-8"))
     lock = json.loads((helper / "package-lock.json").read_text(encoding="utf-8"))
-    assert manifest["dependencies"]["@microsoft/mxc-sdk"] == "1.0.0"
-    assert lock["packages"]["node_modules/@microsoft/mxc-sdk"]["version"] == "1.0.0"
+    assert manifest["dependencies"]["@microsoft/mxc-sdk"] == "1.0.1"
+    assert lock["packages"]["node_modules/@microsoft/mxc-sdk"]["version"] == "1.0.1"
 
 
 def test_mxc_host_paths_ignore_project_dotenv_values(monkeypatch, tmp_path):
