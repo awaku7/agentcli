@@ -237,6 +237,34 @@ workspace. Non-Web scopes are not evicted; if no idle Web worker can be parked,
 the request fails closed. Failure to create or assign the Job Object rejects the
 operation.
 
+### General command execution in Sandbox
+
+The `command_exec` tool executes an installed program using an `argv` array,
+with an optional workspace-relative `cwd`. For example:
+`{"argv":["git","--version"]}` or
+`{"argv":["python","-m","pip","--version"]}`. There is no implicit shell,
+command-specific allowlist, extra startup option, or Host-side execution
+fallback. Explicit shell invocations (for example `["sh","-c","..."]`) are
+possible when a shell is available inside MXC.
+
+Each command uses the existing **one-shot MXC** process, just like
+`python_exec`, rather than running an unbounded subprocess in the persistent
+worker. The 25-second command timeout, 30-second one-shot watchdog, bounded
+stdout/stderr, workspace quota, and verified process-tree cleanup all remain
+enforced. The command runs under the session's workspace/environment, not the
+Host environment. It can connect outward over the already-enabled network,
+but the Host loopback and inaccessible Host files stay isolated.
+
+Commands depend on executables already visible inside the OS-specific MXC
+filesystem policy; installing or provisioning Node/npm, Git, compilers, and
+Python packages across all supported hosts is a separate step. The default
+`git_ops` tool remains restricted to offline operations, while `command_exec`
+may invoke the Git CLI directly where available. Host Git credentials, SSH
+agents, system package-manager access, and arbitrary Host environment variables
+are **not** automatically passed into a session. For Git pushes to private
+remotes, session-scoped credential provisioning still needs its own design.
+This feature does not change those identity or privilege boundaries.
+
 Web and A2A use the same static MXC tool allowlist. Web Room scopes are bound
 to authenticated server-created Room/Principal context. Spawned per-turn workers
 send fixed-schema Sandbox tool requests over a size-bounded private JSON pipe;
