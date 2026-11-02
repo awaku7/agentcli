@@ -197,10 +197,16 @@ def handle_command(
         return CommandResult()
 
     if bool(getattr(core, "_sandbox_enabled", False)):
+        # Host-only Git credential setup is a deliberate local CLI command.
+        # All other credential operations remain unavailable in Sandbox mode.
+        if cmd in {"credential", "credentials"} and (arg or "").split()[:1] == [
+            "git"
+        ]:
+            return handle_credential_command(arg, core=core, tr=tr)
         if cmd in ("help", "h", "?"):
             print(
                 tr("Sandbox-safe commands:")
-                + "\n  :help\n  :otel\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
+                + "\n  :help\n  :otel\n  :reasoning\n  :verbosity\n  :tools on|off\n  :credential git [HOST|status|remove]\n  :exit / :quit"
             )
             return True
         if cmd in ("r", "reasoning"):
