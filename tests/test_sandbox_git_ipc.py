@@ -230,10 +230,11 @@ def test_mxc_command_rejects_incomplete_git_exchange(monkeypatch, scope):
     session.close = lambda: closed.append(True)
 
     class NoNetworkGitIPC(GitHttpIPC):
-        def __init__(self, received_scope, *, revoked):
+        def __init__(self, received_scope, *, revoked, deadline=None):
             super().__init__(
                 received_scope,
                 revoked=revoked,
+                deadline=deadline,
                 exchange=lambda *_args, **_kwargs: GitHttpResponse(
                     "application/x-git-upload-pack-advertisement", b"0000"
                 ),
@@ -244,3 +245,21 @@ def test_mxc_command_rejects_incomplete_git_exchange(monkeypatch, scope):
         session.run("command_exec", {"argv": ["git", "--version"]})
     assert session._revoked.is_set()
     assert closed
+
+
+def test_git_ipc_forwards_absolute_deadline_to_http_transport(scope):
+    recorded = []
+
+    def exchange(_scope, _url, **kwargs):
+        recorded.append(kwargs)
+        return GitHttpResponse("application/x-git-upload-pack-advertisement", b"0000")
+
+    broker = GitHttpIPC(
+        scope,
+        revoked=lambda: False,
+        exchange=exchange,
+        deadline=12345.5,
+    )
+    broker.handle(_begin(advertise=True))
+    broker.handle(_frame("execute"))
+    assert recorded[0]["deadline"] == 12345.5
