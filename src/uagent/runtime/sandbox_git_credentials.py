@@ -72,9 +72,8 @@ def save_git_https_token(
         from .sandbox_git_http_broker import validate_git_host
 
         metadata["remote_host"] = validate_git_host(remote_host)
-        if (
-            not isinstance(username, str)
-            or not re.fullmatch(r"[A-Za-z0-9_.@-]{1,80}", username)
+        if not isinstance(username, str) or not re.fullmatch(
+            r"[A-Za-z0-9_.@-]{1,80}", username
         ):
             raise ValueError("invalid Git HTTPS username")
         metadata["username"] = username
