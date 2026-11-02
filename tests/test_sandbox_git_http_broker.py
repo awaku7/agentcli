@@ -505,6 +505,49 @@ def test_socket_deadline_stops_trickling_response_reads(monkeypatch):
     assert connection.sock.read_count == 2
 
 
+def test_https_handshake_rechecks_deadline_after_tcp_connect(monkeypatch):
+    from uagent.runtime import sandbox_git_http_broker as broker
+
+    clock = {"now": 19.0}
+    monkeypatch.setattr(broker.time, "monotonic", lambda: clock["now"])
+    monkeypatch.setattr(
+        broker.socket,
+        "getaddrinfo",
+        lambda *_args, **_kwargs: [
+            (socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP,
+             "", ("203.0.113.10", 443))
+        ],
+    )
+    observed = []
+
+    class FakeSocket:
+        def __init__(self):
+            self.timeouts = []
+
+        def settimeout(self, timeout):
+            self.timeouts.append(timeout)
+
+        def connect(self, _address):
+            clock["now"] = 19.9
+
+        def close(self):
+            pass
+
+    class FakeContext:
+        def wrap_socket(self, raw, server_hostname):
+            observed.append((server_hostname, raw.timeouts))
+            return raw
+
+    monkeypatch.setattr(broker.socket, "socket", lambda *_args: FakeSocket())
+    connection = _PinnedHTTPSConnection("github.com", timeout=30)
+    connection._uag_deadline = 20.0
+    connection._context = FakeContext()
+    connection.connect()
+    assert observed[0][0] == "github.com"
+    assert observed[0][1][0] == pytest.approx(1.0)
+    assert observed[0][1][1] == pytest.approx(0.1)
+
+
 def test_dns_resolution_has_absolute_deadline(monkeypatch):
     import time as realtime
 
