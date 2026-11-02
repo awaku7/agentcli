@@ -1598,6 +1598,10 @@ class _MxcSession:
                         if remaining <= 0:
                             raise TimeoutError("Git IPC execution deadline expired")
                         response = self._read_response(timeout=remaining)
+                    if not git_ipc.is_idle:
+                        raise ValueError(
+                            "Git HTTP IPC exchange ended before completion"
+                        )
                 except Exception:
                     # Never allow untrusted frames to put this IPC stream
                     # back into service after an incomplete Git exchange.
