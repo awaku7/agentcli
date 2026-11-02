@@ -245,3 +245,39 @@ def test_git_bridge_host_selection_is_nonsecret_and_scope_isolated(cli, store):
         settings_session_id="room",
     )
     assert selected_git_https_host_for_scope(web, store=store) is None
+
+
+def test_live_mxc_worker_uses_latest_git_selection_each_command(
+    monkeypatch, cli, store
+):
+    import threading
+
+    session = object.__new__(mxc_backend._MxcSession)
+    session._scope = cli
+    session._lock = threading.RLock()
+    session._revoked = threading.Event()
+    session._mac_scope = None
+    requests = []
+    session._write_line = requests.append
+    session._read_response = lambda *, timeout: {"ok": True, "result": "ok"}
+
+    monkeypatch.setattr(sandbox_git_credentials, "_store", lambda supplied: store)
+    args = {"argv": ["git", "fetch"]}
+    assert session.run("command_exec", args) == "ok"
+    assert requests[-1]["payload"]["gitRemoteHost"] is None
+
+    sandbox_git_credentials.save_git_https_token(
+        cli, "github.com", "secret", store=store, remote_host="github.com"
+    )
+    sandbox_git_credentials.select_git_credential(
+        cli, "user", "github.com", store=store
+    )
+    assert session.run("command_exec", args) == "ok"
+    assert requests[-1]["payload"]["gitRemoteHost"] == "github.com"
+    assert "secret" not in repr(requests)
+
+    sandbox_git_credentials.reset_git_credential_selection(
+        cli, "user", store=store
+    )
+    assert session.run("command_exec", args) == "ok"
+    assert requests[-1]["payload"]["gitRemoteHost"] is None
