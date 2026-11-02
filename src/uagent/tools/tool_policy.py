@@ -159,20 +159,31 @@ def _confirmation_reply_kind(raw_reply: Any) -> str:
     def normalize(value: Any) -> str:
         return unicodedata.normalize("NFKC", str(value or "")).strip().casefold()
 
+    def localized_aliases(key: str) -> list[str]:
+        aliases = _tool_(key, default=[])
+        if isinstance(aliases, str):
+            aliases = [aliases]
+        if not isinstance(aliases, (list, tuple)):
+            return []
+        return [
+            item.strip() for item in aliases if isinstance(item, str) and item.strip()
+        ]
+
     reply = normalize(raw_reply)
     if not reply:
         return _CONFIRM_REPLY_DENY
 
-    if reply in {
-        normalize(item)
-        for item in ("n", "no", "c", "cancel", _tool_("confirm.reply_no", default="no"))
-    }:
+    no_replies = [
+        "n",
+        "no",
+        "c",
+        "cancel",
+        _tool_("confirm.reply_no", default="no"),
+        *localized_aliases("confirm.reply_no_aliases"),
+    ]
+    if reply in {normalize(item) for item in no_replies}:
         return _CONFIRM_REPLY_DENY
-    localized_all_aliases = _tool_("confirm.reply_all_aliases", default=[])
-    if isinstance(localized_all_aliases, str):
-        localized_all_aliases = [localized_all_aliases]
-    if not isinstance(localized_all_aliases, (list, tuple)):
-        localized_all_aliases = []
+
     all_replies = [
         "all",
         "a",
@@ -181,25 +192,18 @@ def _confirmation_reply_kind(raw_reply: Any) -> str:
         "\u3059\u3079\u3066\u306f\u3044",
         "\u5168\u3066\u306f\u3044",
         _tool_("confirm.reply_all", default="all"),
-        *(
-            item
-            for item in localized_all_aliases
-            if isinstance(item, str) and item.strip()
-        ),
+        *localized_aliases("confirm.reply_all_aliases"),
     ]
     if reply in {normalize(item) for item in all_replies}:
         return _CONFIRM_REPLY_ALL
-    if reply in {
-        normalize(item)
-        for item in (
-            "y",
-            "yes",
-            "\u627f\u8a8d",
-            "\u8a31\u53ef",
-            "\u306f\u3044",
-            _tool_("confirm.reply_yes", default="yes"),
-        )
-    }:
+
+    yes_replies = [
+        "y",
+        "yes",
+        _tool_("confirm.reply_yes", default="yes"),
+        *localized_aliases("confirm.reply_yes_aliases"),
+    ]
+    if reply in {normalize(item) for item in yes_replies}:
         return _CONFIRM_REPLY_YES
     return _CONFIRM_REPLY_DENY
 

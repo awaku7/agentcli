@@ -36,14 +36,19 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
     labels = _LOCALE_DATA.get(language)
     if language == "en":
         expected = ("yes", "no", "all")
-        all_aliases = []
+        yes_aliases = no_aliases = all_aliases = []
     else:
         assert labels is not None
         expected = tuple(
             labels["confirm.reply_" + name] for name in ("yes", "no", "all")
         )
+        yes_aliases = labels["confirm.reply_yes_aliases"]
+        no_aliases = labels["confirm.reply_no_aliases"]
         all_aliases = labels["confirm.reply_all_aliases"]
-        assert isinstance(all_aliases, list) and all_aliases
+        assert all(
+            isinstance(aliases, list) and aliases
+            for aliases in (yes_aliases, no_aliases, all_aliases)
+        )
     assert len(set(expected)) == 3
     assert all(label.strip() for label in expected)
     assert (
@@ -56,6 +61,12 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
     assert tool_policy._confirmation_reply_kind(expected[0]) == "yes"
     assert tool_policy._confirmation_reply_kind(expected[1]) == "deny"
     assert tool_policy._confirmation_reply_kind(expected[2]) == "all"
+    assert all(
+        tool_policy._confirmation_reply_kind(alias) == "yes" for alias in yes_aliases
+    )
+    assert all(
+        tool_policy._confirmation_reply_kind(alias) == "deny" for alias in no_aliases
+    )
     assert all(
         tool_policy._confirmation_reply_kind(alias) == "all" for alias in all_aliases
     )
@@ -74,7 +85,7 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
         ("ja", "いいえ", "deny"),
         ("ja", "はい", "yes"),
         ("fr", "OUI", "yes"),
-        ("es", "SI", "deny"),
+        ("es", "SI", "yes"),
         ("es", "SI" + chr(0x301), "yes"),
         ("zh_CN", "全部", "all"),
         ("ko", "아니요", "deny"),
@@ -175,8 +186,13 @@ def test_confirmation_help_shows_ascii_answers_next_to_localized_words(
     assert "y = " + expected[0] in message
     assert "n = " + expected[1] in message
     assert "all" in message
-    for alias in labels.get("confirm.reply_all_aliases", []):
-        assert alias in message
+    for key in (
+        "confirm.reply_yes_aliases",
+        "confirm.reply_no_aliases",
+        "confirm.reply_all_aliases",
+    ):
+        for alias in labels.get(key, []):
+            assert alias in message
 
 
 @pytest.mark.parametrize(

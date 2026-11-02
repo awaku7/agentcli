@@ -16,7 +16,14 @@ _PRINTF_PLACEHOLDER_RE = re.compile(
 )
 _FORMATTER = Formatter()
 _BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-_VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms", "confirm.reply_all_aliases"})
+_VARIABLE_LENGTH_LIST_KEYS = frozenset(
+    {
+        "x_search_terms",
+        "confirm.reply_all_aliases",
+        "confirm.reply_yes_aliases",
+        "confirm.reply_no_aliases",
+    }
+)
 
 
 def _normalize_lang_tag(tag: Optional[str]) -> str:

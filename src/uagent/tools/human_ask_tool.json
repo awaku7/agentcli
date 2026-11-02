@@ -31,7 +31,20 @@
     "ui.all_yes": "- 「全て」と入力すると、このセッション中はこのツールの確認を省略します。",
     "confirm.side_effecting_tool": "副作用のあるツール「%(tool)s」の実行を許可しますか？続行するには「はい」、キャンセルするには「いいえ」と答えてください。",
     "confirm.reply_yes": "はい",
+    "confirm.reply_yes_aliases": [
+      "うん",
+      "ええ",
+      "承知",
+      "許可",
+      "承認"
+    ],
     "confirm.reply_no": "いいえ",
+    "confirm.reply_no_aliases": [
+      "いや",
+      "だめ",
+      "拒否",
+      "キャンセル"
+    ],
     "confirm.reply_all": "全て",
     "confirm.reply_all_aliases": [
       "すべて",
@@ -71,7 +84,17 @@
     "ui.howto": "Cómo responder:\n - Escriba su respuesta y presione Entrar\n - Escriba 'f' para ingresar al modo multilínea\n - Escriba 'c' o 'cancelar' para cancelar\n",
     "confirm.side_effecting_tool": "¿Permitir que se ejecute la herramienta con efectos secundarios '%(tool)s'? Responda sí para continuar o no para cancelar.",
     "confirm.reply_yes": "sí",
+    "confirm.reply_yes_aliases": [
+      "si",
+      "claro",
+      "de acuerdo",
+      "acepto"
+    ],
     "confirm.reply_no": "no",
+    "confirm.reply_no_aliases": [
+      "cancelar",
+      "rechazar"
+    ],
     "confirm.reply_all": "todos",
     "confirm.reply_all_aliases": [
       "todo",
@@ -111,7 +134,16 @@
     "ui.howto": "Comment répondre :\n - Tapez votre réponse et appuyez sur Entrée\n - Tapez 'f' pour accéder au mode multiligne\n - Tapez 'c' ou 'cancel' pour annuler\n",
     "confirm.side_effecting_tool": "Autoriser l’exécution de l’outil à effets de bord « %(tool)s » ? Répondez oui pour continuer ou non pour annuler.",
     "confirm.reply_yes": "oui",
+    "confirm.reply_yes_aliases": [
+      "d'accord",
+      "ouais",
+      "j'accepte"
+    ],
     "confirm.reply_no": "non",
+    "confirm.reply_no_aliases": [
+      "annuler",
+      "refuser"
+    ],
     "confirm.reply_all": "tous",
     "confirm.reply_all_aliases": [
       "tout",
@@ -151,7 +183,17 @@
     "ui.howto": "답변 방법:\n - 답변을 입력하고 Enter를 누르세요\n - 'f'를 입력하여 여러 줄 모드로 들어갑니다\n - 'c' 또는 'cancel'을 입력하여 취소\n",
     "confirm.side_effecting_tool": "부작용이 있는 도구 '%(tool)s'의 실행을 허용하시겠습니까? 계속하려면 예, 취소하려면 아니요라고 답하세요.",
     "confirm.reply_yes": "예",
+    "confirm.reply_yes_aliases": [
+      "네",
+      "승인",
+      "허용"
+    ],
     "confirm.reply_no": "아니요",
+    "confirm.reply_no_aliases": [
+      "아니오",
+      "취소",
+      "거부"
+    ],
     "confirm.reply_all": "모두",
     "confirm.reply_all_aliases": [
       "전부",
@@ -191,7 +233,16 @@
     "ui.howto": "So antworten Sie:\n – Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n – Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n – Geben Sie „c“ oder „Abbrechen“ ein, um abzubrechen\n",
     "confirm.side_effecting_tool": "Soll das nebenwirkungsbehaftete Tool '%(tool)s' ausgeführt werden? Antworten Sie mit Ja zum Fortfahren oder Nein zum Abbrechen.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "jawohl",
+      "einverstanden",
+      "erlauben"
+    ],
     "confirm.reply_no": "nein",
+    "confirm.reply_no_aliases": [
+      "abbrechen",
+      "ablehnen"
+    ],
     "confirm.reply_all": "alle",
     "confirm.reply_all_aliases": [
       "alles",
@@ -231,7 +282,16 @@
     "ui.howto": "Come rispondere:\n - Digita la risposta e premi Invio\n - Digita \"f\" per accedere alla modalità multilinea\n - Digita \"c\" o \"annulla\" per annullare\n",
     "confirm.side_effecting_tool": "Consentire l’esecuzione dello strumento con effetti collaterali '%(tool)s'? Rispondi sì per continuare o no per annullare.",
     "confirm.reply_yes": "sì",
+    "confirm.reply_yes_aliases": [
+      "si",
+      "certo",
+      "approvo"
+    ],
     "confirm.reply_no": "no",
+    "confirm.reply_no_aliases": [
+      "annulla",
+      "rifiuto"
+    ],
     "confirm.reply_all": "tutti",
     "confirm.reply_all_aliases": [
       "tutto",
@@ -271,7 +331,16 @@
     "ui.howto": "Как ответить:\n – Введите ответ и нажмите Enter\n – Введите «f», чтобы войти в многострочный режим\n – Введите «c» или «отмена», чтобы отменить\n",
     "confirm.side_effecting_tool": "Разрешить запуск инструмента с побочными эффектами «%(tool)s»? Ответьте «да», чтобы продолжить, или «нет», чтобы отменить.",
     "confirm.reply_yes": "да",
+    "confirm.reply_yes_aliases": [
+      "конечно",
+      "ага",
+      "разрешить"
+    ],
     "confirm.reply_no": "нет",
+    "confirm.reply_no_aliases": [
+      "отмена",
+      "отклонить"
+    ],
     "confirm.reply_all": "все",
     "confirm.reply_all_aliases": [
       "всё"
@@ -310,7 +379,18 @@
     "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n",
     "confirm.side_effecting_tool": "Permitir a execução da ferramenta com efeitos colaterais '%(tool)s'? Responda sim para continuar ou não para cancelar.",
     "confirm.reply_yes": "sim",
+    "confirm.reply_yes_aliases": [
+      "sim",
+      "claro",
+      "aceito",
+      "permitir"
+    ],
     "confirm.reply_no": "não",
+    "confirm.reply_no_aliases": [
+      "nao",
+      "cancelar",
+      "recusar"
+    ],
     "confirm.reply_all": "todos",
     "confirm.reply_all_aliases": [
       "tudo",
@@ -350,7 +430,18 @@
     "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n",
     "confirm.side_effecting_tool": "Permitir a execução da ferramenta com efeitos secundários '%(tool)s'? Responda sim para continuar ou não para cancelar.",
     "confirm.reply_yes": "sim",
+    "confirm.reply_yes_aliases": [
+      "sim",
+      "claro",
+      "aceito",
+      "permitir"
+    ],
     "confirm.reply_no": "não",
+    "confirm.reply_no_aliases": [
+      "nao",
+      "cancelar",
+      "recusar"
+    ],
     "confirm.reply_all": "todos",
     "confirm.reply_all_aliases": [
       "tudo",
@@ -390,7 +481,16 @@
     "ui.howto": "Cara menjawab:\n - Ketik jawaban Anda dan tekan Enter\n - Ketik 'f' untuk masuk ke mode multi-baris\n - Ketik 'c' atau 'cancel' untuk membatalkan\n",
     "confirm.side_effecting_tool": "Izinkan alat yang menimbulkan efek samping '%(tool)s' dijalankan? Jawab ya untuk melanjutkan atau tidak untuk membatalkan.",
     "confirm.reply_yes": "ya",
+    "confirm.reply_yes_aliases": [
+      "iya",
+      "setuju",
+      "izinkan"
+    ],
     "confirm.reply_no": "tidak",
+    "confirm.reply_no_aliases": [
+      "batal",
+      "tolak"
+    ],
     "confirm.reply_all": "semua",
     "confirm.reply_all_aliases": [
       "seluruh",
@@ -430,7 +530,16 @@
     "ui.howto": "Cách trả lời:\n - Nhập câu trả lời của bạn và nhấn Enter\n - Gõ 'f' để vào chế độ nhiều dòng\n - Gõ 'c' hoặc 'cancel' để hủy\n",
     "confirm.side_effecting_tool": "Cho phép chạy công cụ có tác dụng phụ '%(tool)s'? Trả lời có để tiếp tục hoặc không để hủy.",
     "confirm.reply_yes": "có",
+    "confirm.reply_yes_aliases": [
+      "đồng ý",
+      "chấp nhận",
+      "cho phép"
+    ],
     "confirm.reply_no": "không",
+    "confirm.reply_no_aliases": [
+      "hủy",
+      "từ chối"
+    ],
     "confirm.reply_all": "tất cả",
     "confirm.reply_all_aliases": [
       "mọi thứ",
@@ -470,7 +579,15 @@
     "ui.howto": "Jak odpowiedzieć:\n – Wpisz odpowiedź i naciśnij Enter\n – Wpisz „f”, aby przejść do trybu wielowierszowego\n – Wpisz „c” lub „anuluj”, aby anulować\n",
     "confirm.side_effecting_tool": "Czy zezwolić na uruchomienie narzędzia wywołującego skutki uboczne „%(tool)s”? Odpowiedz tak, aby kontynuować, lub nie, aby anulować.",
     "confirm.reply_yes": "tak",
+    "confirm.reply_yes_aliases": [
+      "zgoda",
+      "zezwalam"
+    ],
     "confirm.reply_no": "nie",
+    "confirm.reply_no_aliases": [
+      "anuluj",
+      "odmawiam"
+    ],
     "confirm.reply_all": "wszystkie",
     "confirm.reply_all_aliases": [
       "wszystko",
@@ -510,7 +627,17 @@
     "ui.howto": "कैसे उत्तर दें:\n- अपना उत्तर टाइप करें और एंटर दबाएं\n- मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n- रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें\n",
     "confirm.side_effecting_tool": "साइड-इफ़ेक्ट वाले टूल '%(tool)s' को चलाने की अनुमति दें? जारी रखने के लिए हाँ या रद्द करने के लिए नहीं लिखें।",
     "confirm.reply_yes": "हाँ",
+    "confirm.reply_yes_aliases": [
+      "हां",
+      "ठीक है",
+      "मंज़ूर"
+    ],
     "confirm.reply_no": "नहीं",
+    "confirm.reply_no_aliases": [
+      "ना",
+      "रद्द",
+      "अस्वीकार"
+    ],
     "confirm.reply_all": "सभी",
     "confirm.reply_all_aliases": [
       "सब",
@@ -550,7 +677,17 @@
     "ui.howto": "كيفية الإجابة: \n - اكتب إجابتك واضغط على Enter \n - اكتب \"f\" للدخول إلى وضع متعدد الأسطر \n - اكتب \"c\" أو \"إلغاء\" للإلغاء \n",
     "confirm.side_effecting_tool": "السماح بتشغيل الأداة ذات الآثار الجانبية '%(tool)s'؟ أجب بنعم للمتابعة أو لا للإلغاء.",
     "confirm.reply_yes": "نعم",
+    "confirm.reply_yes_aliases": [
+      "أجل",
+      "موافق",
+      "أوافق"
+    ],
     "confirm.reply_no": "لا",
+    "confirm.reply_no_aliases": [
+      "كلا",
+      "إلغاء",
+      "أرفض"
+    ],
     "confirm.reply_all": "الكل",
     "confirm.reply_all_aliases": [
       "الجميع",
@@ -591,7 +728,15 @@
     "ui.howto": "Så här svarar:\n - Skriv ditt svar och tryck på Enter\n - Skriv 'f' för att gå till flerradsläge\n - Skriv 'c' eller 'avbryt' för att avbryta\n",
     "confirm.side_effecting_tool": "Tillåt att verktyget med sidoeffekter '%(tool)s' körs? Svara ja för att fortsätta eller nej för att avbryta.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "javisst",
+      "godkänn"
+    ],
     "confirm.reply_no": "nej",
+    "confirm.reply_no_aliases": [
+      "avbryt",
+      "neka"
+    ],
     "confirm.reply_all": "alla",
     "confirm.reply_all_aliases": [
       "allt",
@@ -631,7 +776,16 @@
     "ui.howto": "Jinsi ya kujibu:\n - Andika jibu lako na ubonyeze Enter\n - Andika 'f' ili kuingiza hali ya mistari mingi\n - Andika 'c' au 'ghairi' ili kughairi\n",
     "confirm.side_effecting_tool": "Ruhusu zana yenye athari za ziada '%(tool)s' iendeshe? Jibu ndiyo kuendelea au hapana kughairi.",
     "confirm.reply_yes": "ndiyo",
+    "confirm.reply_yes_aliases": [
+      "ndio",
+      "kubali",
+      "ruhusu"
+    ],
     "confirm.reply_no": "hapana",
+    "confirm.reply_no_aliases": [
+      "ghairi",
+      "kataa"
+    ],
     "confirm.reply_all": "zote",
     "confirm.reply_all_aliases": [
       "wote",
@@ -672,7 +826,15 @@
     "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n",
     "confirm.side_effecting_tool": "Tillat at verktøyet med bivirkninger «%(tool)s» kjører? Svar ja for å fortsette eller nei for å avbryte.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "javisst",
+      "godkjenn"
+    ],
     "confirm.reply_no": "nei",
+    "confirm.reply_no_aliases": [
+      "avbryt",
+      "avslå"
+    ],
     "confirm.reply_all": "alle",
     "confirm.reply_all_aliases": [
       "alt",
@@ -712,7 +874,16 @@
     "ui.howto": "Zo antwoordt u:\n - Typ uw antwoord en druk op Enter\n - Typ 'f' om de modus met meerdere regels te openen\n - Typ 'c' of 'annuleren' om te annuleren\n",
     "confirm.side_effecting_tool": "Toestaan dat de tool met neveneffecten '%(tool)s' wordt uitgevoerd? Antwoord ja om door te gaan of nee om te annuleren.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "akkoord",
+      "jawel",
+      "toestaan"
+    ],
     "confirm.reply_no": "nee",
+    "confirm.reply_no_aliases": [
+      "annuleren",
+      "weigeren"
+    ],
     "confirm.reply_all": "alle",
     "confirm.reply_all_aliases": [
       "alles",
@@ -752,7 +923,16 @@
     "ui.howto": "Kuinka vastata:\n - Kirjoita vastauksesi ja paina Enter\n - Kirjoita 'f' siirtyäksesi moniriviseen tilaan. - Kirjoita 'c' tai 'peruuta' peruuttaaksesi",
     "confirm.side_effecting_tool": "Sallitaanko sivuvaikutuksia aiheuttavan työkalun '%(tool)s' suoritus? Vastaa kyllä jatkaaksesi tai ei peruuttaaksesi.",
     "confirm.reply_yes": "kyllä",
+    "confirm.reply_yes_aliases": [
+      "kylla",
+      "hyväksy",
+      "salli"
+    ],
     "confirm.reply_no": "ei",
+    "confirm.reply_no_aliases": [
+      "peruuta",
+      "kiellä"
+    ],
     "confirm.reply_all": "kaikki",
     "confirm.reply_all_aliases": [
       "kaiken",
@@ -792,7 +972,15 @@
     "ui.howto": "Jak odpovědět:\n – Napište svou odpověď a stiskněte Enter\n – Napište „f“ pro vstup do víceřádkového režimu\n – Napište „c“ nebo „zrušit“ pro zrušení\n",
     "confirm.side_effecting_tool": "Povolit spuštění nástroje s vedlejšími účinky „%(tool)s“? Odpovězte ano pro pokračování nebo ne pro zrušení.",
     "confirm.reply_yes": "ano",
+    "confirm.reply_yes_aliases": [
+      "souhlasím",
+      "povolit"
+    ],
     "confirm.reply_no": "ne",
+    "confirm.reply_no_aliases": [
+      "zrušit",
+      "odmítnout"
+    ],
     "confirm.reply_all": "vše",
     "confirm.reply_all_aliases": [
       "všichni",
@@ -833,7 +1021,16 @@
     "ui.howto": "Як відповісти:\n - Введіть відповідь і натисніть Enter\n - Введіть «f», щоб увійти в багаторядковий режим\n - Введіть «c» або «скасувати», щоб скасувати\n",
     "confirm.side_effecting_tool": "Дозволити запуск інструмента з побічними ефектами «%(tool)s»? Відповідайте «так», щоб продовжити, або «ні», щоб скасувати.",
     "confirm.reply_yes": "так",
+    "confirm.reply_yes_aliases": [
+      "звісно",
+      "дозволити",
+      "погоджуюсь"
+    ],
     "confirm.reply_no": "ні",
+    "confirm.reply_no_aliases": [
+      "відхилити",
+      "скасувати"
+    ],
     "confirm.reply_all": "всі",
     "confirm.reply_all_aliases": [
       "усі",
@@ -874,7 +1071,16 @@
     "ui.howto": "Nasıl cevap verilir:\n - Cevabınızı yazın ve Enter'a basın\n - Çok hatlı moda girmek için 'f' yazın\n - İptal etmek için 'c' veya 'iptal' yazın\n",
     "confirm.side_effecting_tool": "Yan etkilere sahip '%(tool)s' aracının çalıştırılmasına izin verilsin mi? Devam etmek için evet, iptal etmek için hayır yanıtını verin.",
     "confirm.reply_yes": "evet",
+    "confirm.reply_yes_aliases": [
+      "tamam",
+      "onaylıyorum",
+      "izin ver"
+    ],
     "confirm.reply_no": "hayır",
+    "confirm.reply_no_aliases": [
+      "iptal",
+      "reddet"
+    ],
     "confirm.reply_all": "tümü",
     "confirm.reply_all_aliases": [
       "hepsi",
@@ -914,7 +1120,15 @@
     "ui.howto": "วิธีตอบ:\n - พิมพ์คำตอบของคุณแล้วกด Enter\n - พิมพ์ 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n - พิมพ์ 'c' หรือ 'cancel' เพื่อยกเลิก\n",
     "confirm.side_effecting_tool": "อนุญาตให้เรียกใช้เครื่องมือที่มีผลข้างเคียง '%(tool)s' หรือไม่ ตอบใช่เพื่อดำเนินการต่อ หรือไม่เพื่อยกเลิก",
     "confirm.reply_yes": "ใช่",
+    "confirm.reply_yes_aliases": [
+      "ตกลง",
+      "อนุญาต"
+    ],
     "confirm.reply_no": "ไม่",
+    "confirm.reply_no_aliases": [
+      "ยกเลิก",
+      "ปฏิเสธ"
+    ],
     "confirm.reply_all": "ทั้งหมด",
     "confirm.reply_all_aliases": [
       "ทุกอย่าง",
@@ -954,7 +1168,18 @@
     "ui.howto": "如何回答：\n - 输入您的答案并按 Enter \n - 输入“f”进入多行模式\n - 输入“c”或“取消”取消\n",
     "confirm.side_effecting_tool": "允许运行有副作用的工具“%(tool)s”吗？回复“是”继续，回复“否”取消。",
     "confirm.reply_yes": "是",
+    "confirm.reply_yes_aliases": [
+      "是的",
+      "同意",
+      "允许"
+    ],
     "confirm.reply_no": "否",
+    "confirm.reply_no_aliases": [
+      "否",
+      "不",
+      "取消",
+      "拒绝"
+    ],
     "confirm.reply_all": "全部",
     "confirm.reply_all_aliases": [
       "所有",
@@ -994,7 +1219,18 @@
     "ui.howto": "如何回答：\n - 輸入您的答案並按 Enter \n - 輸入“f”進入多行模式\n - 輸入“c”或“取消”取消\n",
     "confirm.side_effecting_tool": "允許執行具有副作用的工具「%(tool)s」嗎？回覆「是」以繼續，回覆「否」以取消。",
     "confirm.reply_yes": "是",
+    "confirm.reply_yes_aliases": [
+      "是的",
+      "同意",
+      "允許"
+    ],
     "confirm.reply_no": "否",
+    "confirm.reply_no_aliases": [
+      "否",
+      "不",
+      "取消",
+      "拒絕"
+    ],
     "confirm.reply_all": "全部",
     "confirm.reply_all_aliases": [
       "所有",
@@ -1034,7 +1270,16 @@
     "ui.howto": "কিভাবে উত্তর দিতে হবে:\n- আপনার উত্তর টাইপ করুন এবং এন্টার টিপুন\n- মাল্টি-লাইন মোডে প্রবেশ করতে 'f' টাইপ করুন\n- বাতিল করতে 'c' বা 'বাতিল' টাইপ করুন\n",
     "confirm.side_effecting_tool": "পার্শ্বপ্রতিক্রিয়াযুক্ত টুল '%(tool)s' চালানোর অনুমতি দেবেন? চালিয়ে যেতে হ্যাঁ, বাতিল করতে না উত্তর দিন।",
     "confirm.reply_yes": "হ্যাঁ",
+    "confirm.reply_yes_aliases": [
+      "জি",
+      "সম্মত",
+      "অনুমতি দিন"
+    ],
     "confirm.reply_no": "না",
+    "confirm.reply_no_aliases": [
+      "বাতিল",
+      "প্রত্যাখ্যান"
+    ],
     "confirm.reply_all": "সব",
     "confirm.reply_all_aliases": [
       "সবকিছু",
@@ -1074,7 +1319,17 @@
     "ui.howto": "نحوه پاسخگویی:\n- پاسخ خود را تایپ کرده و Enter را فشار دهید\n- برای وارد شدن به حالت چند خطی 'f' را تایپ کنید\n- برای لغو عبارت \"c\" یا \"cancel\" را تایپ کنید\n",
     "confirm.side_effecting_tool": "آیا اجازه اجرای ابزار دارای عوارض جانبی «%(tool)s» را می‌دهید؟ برای ادامه بله و برای لغو خیر پاسخ دهید.",
     "confirm.reply_yes": "بله",
+    "confirm.reply_yes_aliases": [
+      "آری",
+      "موافقم",
+      "اجازه"
+    ],
     "confirm.reply_no": "خیر",
+    "confirm.reply_no_aliases": [
+      "خیر",
+      "لغو",
+      "رد"
+    ],
     "confirm.reply_all": "همه",
     "confirm.reply_all_aliases": [
       "تمام",
@@ -1114,7 +1369,15 @@
     "ui.howto": "Хэрхэн хариулах вэ:\n - Хариугаа бичээд Enter товч дарна\n - Олон мөрт горимд орохын тулд 'f' гэж бичнэ үү\n - Цуцлах бол 'c' эсвэл 'цуцлах' гэж бичнэ үү\n",
     "confirm.side_effecting_tool": "Гаж нөлөөтэй '%(tool)s' хэрэгслийг ажиллуулах уу? Үргэлжлүүлэх бол тийм, цуцлах бол үгүй гэж хариулна уу.",
     "confirm.reply_yes": "тийм",
+    "confirm.reply_yes_aliases": [
+      "за",
+      "зөвшөөрөх"
+    ],
     "confirm.reply_no": "үгүй",
+    "confirm.reply_no_aliases": [
+      "цуцлах",
+      "татгалзах"
+    ],
     "confirm.reply_all": "бүгд",
     "confirm.reply_all_aliases": [
       "бүх",
@@ -1154,7 +1417,17 @@
     "ui.howto": "उत्तर कसे द्यावे:\n - तुमचे उत्तर टाइप करा आणि एंटर दाबा\n - मल्टी-लाइन मोडमध्ये प्रवेश करण्यासाठी 'f' टाइप करा\n - रद्द करण्यासाठी 'c' किंवा 'रद्द करा' टाइप करा\n",
     "confirm.side_effecting_tool": "दुष्परिणाम करणारे साधन '%(tool)s' चालवण्याची परवानगी द्यायची का? पुढे जाण्यासाठी होय किंवा रद्द करण्यासाठी नाही उत्तर द्या.",
     "confirm.reply_yes": "होय",
+    "confirm.reply_yes_aliases": [
+      "हो",
+      "ठीक आहे",
+      "परवानगी"
+    ],
     "confirm.reply_no": "नाही",
+    "confirm.reply_no_aliases": [
+      "नको",
+      "रद्द",
+      "नकार"
+    ],
     "confirm.reply_all": "सर्व",
     "confirm.reply_all_aliases": [
       "सगळे",
@@ -1194,7 +1467,16 @@
     "ui.howto": "Πώς να απαντήσετε:\n - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n - Πληκτρολογήστε 'f' για να μπείτε σε λειτουργία πολλαπλών γραμμών\n - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
     "confirm.side_effecting_tool": "Να επιτραπεί η εκτέλεση του εργαλείου με παρενέργειες «%(tool)s»; Απαντήστε ναι για συνέχεια ή όχι για ακύρωση.",
     "confirm.reply_yes": "ναι",
+    "confirm.reply_yes_aliases": [
+      "βεβαίως",
+      "συμφωνώ",
+      "επιτρέπω"
+    ],
     "confirm.reply_no": "όχι",
+    "confirm.reply_no_aliases": [
+      "ακύρωση",
+      "αρνούμαι"
+    ],
     "confirm.reply_all": "όλα",
     "confirm.reply_all_aliases": [
       "όλοι",
@@ -1234,7 +1516,16 @@
     "ui.howto": "איך לענות:\n - הקלד את תשובתך והקש Enter\n - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n - הקלד 'c' או 'ביטול' כדי לבטל\n",
     "confirm.side_effecting_tool": "לאפשר להפעיל את הכלי בעל תופעות הלוואי '%(tool)s'? השב כן כדי להמשיך או לא כדי לבטל.",
     "confirm.reply_yes": "כן",
+    "confirm.reply_yes_aliases": [
+      "בוודאי",
+      "מאשר",
+      "אישור"
+    ],
     "confirm.reply_no": "לא",
+    "confirm.reply_no_aliases": [
+      "ביטול",
+      "מסרב"
+    ],
     "confirm.reply_all": "הכל",
     "confirm.reply_all_aliases": [
       "כולם",
@@ -1275,7 +1566,15 @@
     "ui.howto": "Hogyan válaszoljon:\n - Írja be a választ, és nyomja meg az Enter billentyűt. - Írja be az \"f\" billentyűt a többsoros módba való belépéshez",
     "confirm.side_effecting_tool": "Engedélyezi a mellékhatással járó „%(tool)s” eszköz futtatását? A folytatáshoz igennel, a megszakításhoz nemmel válaszoljon.",
     "confirm.reply_yes": "igen",
+    "confirm.reply_yes_aliases": [
+      "rendben",
+      "engedélyezem"
+    ],
     "confirm.reply_no": "nem",
+    "confirm.reply_no_aliases": [
+      "mégse",
+      "elutasítom"
+    ],
     "confirm.reply_all": "összes",
     "confirm.reply_all_aliases": [
       "minden",
@@ -1315,7 +1614,16 @@
     "ui.howto": "Cum să răspunzi:\n - Tastați răspunsul și apăsați Enter\n - Tastați „f” pentru a intra în modul cu mai multe linii\n - Tastați „c” sau „anulați” pentru a anula\n",
     "confirm.side_effecting_tool": "Permiteți rularea instrumentului cu efecte secundare „%(tool)s”? Răspundeți da pentru a continua sau nu pentru a anula.",
     "confirm.reply_yes": "da",
+    "confirm.reply_yes_aliases": [
+      "sigur",
+      "accept",
+      "permite"
+    ],
     "confirm.reply_no": "nu",
+    "confirm.reply_no_aliases": [
+      "anulează",
+      "refuz"
+    ],
     "confirm.reply_all": "toate",
     "confirm.reply_all_aliases": [
       "toți",
@@ -1355,7 +1663,17 @@
     "ui.howto": "Paano sasagot:\n - I-type ang iyong sagot at pindutin ang Enter\n - I-type ang 'f' para pumasok sa multi-line mode\n - I-type ang 'c' o 'kanselahin' para kanselahin\n",
     "confirm.side_effecting_tool": "Payagan bang patakbuhin ang tool na may side effect na '%(tool)s'? Sumagot ng oo para magpatuloy o hindi para magkansela.",
     "confirm.reply_yes": "oo",
+    "confirm.reply_yes_aliases": [
+      "opo",
+      "sige",
+      "payagan"
+    ],
     "confirm.reply_no": "hindi",
+    "confirm.reply_no_aliases": [
+      "huwag",
+      "kanselahin",
+      "tanggihan"
+    ],
     "confirm.reply_all": "lahat",
     "confirm.reply_all_aliases": [
       "lahat-lahat",
@@ -1395,7 +1713,16 @@
     "ui.howto": "Cara menjawab:\n - Taip jawapan anda dan tekan Enter\n - Taip 'f' untuk memasuki mod berbilang talian\n - Taip 'c' atau 'batal' untuk membatalkan\n",
     "confirm.side_effecting_tool": "Benarkan alat yang mempunyai kesan sampingan '%(tool)s' dijalankan? Jawab ya untuk meneruskan atau tidak untuk membatalkan.",
     "confirm.reply_yes": "ya",
+    "confirm.reply_yes_aliases": [
+      "iya",
+      "setuju",
+      "benarkan"
+    ],
     "confirm.reply_no": "tidak",
+    "confirm.reply_no_aliases": [
+      "batal",
+      "tolak"
+    ],
     "confirm.reply_all": "semua",
     "confirm.reply_all_aliases": [
       "semuanya",
@@ -1435,7 +1762,15 @@
     "ui.howto": "Sådan svarer du:\n - Indtast dit svar, og tryk på Enter\n - Skriv 'f' for at gå ind i multi-line mode\n - Skriv 'c' eller 'cancel' for at annullere\n",
     "confirm.side_effecting_tool": "Tillad, at værktøjet med bivirkninger '%(tool)s' kører? Svar ja for at fortsætte eller nej for at annullere.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "jo",
+      "godkend"
+    ],
     "confirm.reply_no": "nej",
+    "confirm.reply_no_aliases": [
+      "annuller",
+      "afvis"
+    ],
     "confirm.reply_all": "alle",
     "confirm.reply_all_aliases": [
       "alt",
@@ -1475,7 +1810,15 @@
     "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n",
     "confirm.side_effecting_tool": "Tillat at verktøyet med biverknader «%(tool)s» køyrer? Svar ja for å halde fram eller nei for å avbryte.",
     "confirm.reply_yes": "ja",
+    "confirm.reply_yes_aliases": [
+      "jau",
+      "godkjenn"
+    ],
     "confirm.reply_no": "nei",
+    "confirm.reply_no_aliases": [
+      "avbryt",
+      "avslå"
+    ],
     "confirm.reply_all": "alle",
     "confirm.reply_all_aliases": [
       "alt",
