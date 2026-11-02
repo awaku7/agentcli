@@ -70,7 +70,7 @@ python -m pip install "uag[core,providers,tools]"
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Ο διακομιστής Web μπορεί να επιχειρήσει εγκατάσταση FastAPI και Uvicorn κατά την εκκίνηση. Η προεγκατάσταση αποτρέπει την εξάρτηση από την αυτόματη εγκατάσταση. Λεπτομέρειες: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

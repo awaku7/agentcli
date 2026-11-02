@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (حلقة stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | خادم الويب (FastAPI) |
+| `uagw` | `python -m uag_web` | خادم الويب (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | خادم A2A HTTP |
 
 ______________________________________________________________________

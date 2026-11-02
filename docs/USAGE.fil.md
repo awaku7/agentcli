@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (stdin loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Web server (FastAPI) |
+| `uagw` | `python -m uag_web` | Web server (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP server |
 
 ______________________________________________________________________

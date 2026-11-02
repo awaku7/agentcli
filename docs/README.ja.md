@@ -94,7 +94,7 @@ OS固有の連携はオプションです。
 python -m pip install "uag[platform]"
 
 # Web UI（認証関連、FastAPI、Uvicorn）
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Webサーバーは起動時にFastAPIやUvicornのインストールを試みることもありますが、

@@ -1,5 +1,13 @@
 # 変更履歴
 
+## [0.7.42] - 未リリース
+
+### 変更
+
+- Svelteフロントエンド、FastAPI/WebSocketホスト、UI成果物を独立した`uag-web`へ移管。`pip install uag-web`で導入し、`uagw`を起動する。本体を同一プロセスのPythonライブラリとして利用する。
+- CLI・GUI・A2A、共通認証、Session、Memory、Sandbox、OpenTelemetryは本体に維持。所有権の状態参照を公開API化し、epoch・認可の検証処理は維持。
+- Web専用テストを独立側へ移し、CIで本体との統合を検証。本体のwheel/sdistからWebコードとUI成果物を除外。
+
 ## [0.7.41] - 2026-11-01
 
 ### 追加

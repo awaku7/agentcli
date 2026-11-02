@@ -5,7 +5,7 @@
 - エントリポイント:
   - **CUI**: `python -m uagent`（コマンド: `uag`）
   - **GUI**: `python -m uagent.gui`（コマンド: `uagg`）
-  - **Web**: `python -m uagent.web`（コマンド: `uagw`）
+  - **Web**: `python -m uag_web`（コマンド: `uagw`）
 
 ______________________________________________________________________
 

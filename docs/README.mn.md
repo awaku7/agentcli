@@ -70,7 +70,7 @@ Desktop болон Web нь `uag[core,providers,tools]` анхны суулга�
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Web сервер эхлэхдээ FastAPI, Uvicorn суулгахыг оролдож болно. Урьдчилан суулгавал автомат суулгалтаас хамаарахгүй. Дэлгэрэнгүй: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

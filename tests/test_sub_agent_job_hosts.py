@@ -48,41 +48,6 @@ def _manager(**overrides) -> SubAgentJobManager:
     )
 
 
-def test_web_job_runtime_is_bound_to_the_authenticated_room(monkeypatch):
-    from uagent.web_impl.rooms import (
-        WebRoom,
-        set_context_web_room,
-        reset_context_web_room,
-    )
-    from uagent.web_impl.rooms import web_manager
-
-    room = WebRoom("room-a")
-    room.session_id = "private-session-a"
-    manager = object()
-    monkeypatch.setattr(web_manager, "sub_agent_job_manager", manager, raising=False)
-    token = set_context_web_room(room)
-    try:
-        with bind_turn_context(_turn("web", "private-session-a", "room-a")):
-            assert get_job_runtime_context() == (
-                manager,
-                SubAgentJobOwner(
-                    entry_point="web",
-                    session_id="private-session-a",
-                    room_id="room-a",
-                    principal_id="local",
-                ),
-            )
-            from uagent import tools
-
-            assert tools._sub_agent_job_tools_visible() is True
-        with bind_turn_context(_turn("web", "other-session", "room-a")):
-            assert get_job_runtime_context() is None
-        with bind_turn_context(_turn("web", "private-session-a", "room-b")):
-            assert get_job_runtime_context() is None
-    finally:
-        reset_context_web_room(token)
-
-
 def test_gui_job_runtime_requires_the_current_gui_session(monkeypatch):
     import uagent.core as core
 
@@ -177,49 +142,6 @@ def test_background_and_synchronous_subagents_cannot_use_host_job_runtime(
             reset_active_sub_agent(active_token)
 
 
-def test_web_job_confirmation_is_room_owned_and_cancel_wakes_waiter(monkeypatch):
-    from uagent.web_impl.rooms import WebRoom, web_manager
-    from uagent.web_impl.sub_agent_jobs import _web_confirmation_handler
-
-    room = WebRoom("room-web")
-    room.session_id = "session-web"
-    room.active_connections.append(object())
-    monkeypatch.setattr(web_manager, "get_room", lambda _room_id: room)
-    owner = SubAgentJobOwner(
-        entry_point="web",
-        session_id="session-web",
-        room_id="room-web",
-        principal_id="alice",
-    )
-    manager = _manager(confirmation_handler=_web_confirmation_handler)
-    try:
-        accepted = manager.spawn(
-            owner=owner,
-            agent_name="reviewer",
-            task="ask the Web user",
-            worker=lambda context: context.ask_user("Approve this patch?"),
-        )
-        state = ""
-        for _ in range(100):
-            state = manager.get(owner=owner, job_id=accepted["job_id"])["state"]
-            if state == "waiting_for_user":
-                break
-            threading.Event().wait(0.02)
-        assert state == "waiting_for_user"
-        assert room.human_ask_pending is True
-        assert "Background Job" in room.human_ask_message
-        manager.cancel(owner=owner, job_id=accepted["job_id"], reason="test cancel")
-        result = manager.wait(owner=owner, job_id=accepted["job_id"], timeout=2)
-        assert result["state"] == "cancelled"
-        for _ in range(100):
-            if not room.human_ask_pending:
-                break
-            threading.Event().wait(0.02)
-        assert room.human_ask_pending is False
-    finally:
-        manager.shutdown()
-
-
 def test_gui_job_runtime_initialization_binds_owner_and_shuts_down():
     from uagent.scheckgui_impl.sub_agent_jobs import (
         initialize_gui_job_runtime,
@@ -247,29 +169,6 @@ def test_gui_job_runtime_initialization_binds_owner_and_shuts_down():
     assert not hasattr(core, "_sub_agent_job_manager")
 
 
-def test_web_private_room_is_retained_while_owned_background_job_runs():
-    from uagent.web_impl.rooms import WebManager
-
-    manager = WebManager()
-    room, _ = manager.get_or_create_room("private-room")
-    room.private_session = True
-    room.session_id = "private-session"
-    room.last_activity = 1.0
-
-    class ActiveJobManager:
-        active = True
-
-        def running_count_for_room(self, room_id):
-            assert room_id == "private-room"
-            return 1 if self.active else 0
-
-    jobs = ActiveJobManager()
-    manager.sub_agent_job_manager = jobs
-    assert manager.evict_idle_rooms(idle_ttl_seconds=0, now=10.0) == []
-    jobs.active = False
-    assert manager.evict_idle_rooms(idle_ttl_seconds=0, now=10.0) == ["private-room"]
-
-
 def test_gui_mainwindow_job_controls_import_when_qt_is_available():
     import pytest
 
@@ -278,29 +177,6 @@ def test_gui_mainwindow_job_controls_import_when_qt_is_available():
 
     assert callable(MainWindow._show_sub_agent_jobs)
     assert callable(MainWindow._on_job_confirmation_request)
-
-
-def test_web_job_runtime_lifecycle_creates_and_stops_manager():
-    from uagent.web_impl.rooms import web_manager
-    from uagent.web_impl.sub_agent_jobs import (
-        initialize_web_job_runtime,
-        shutdown_web_job_runtime,
-    )
-
-    manager = initialize_web_job_runtime()
-    try:
-        assert web_manager.sub_agent_job_manager is manager
-        assert (
-            manager.running_count(
-                owner=SubAgentJobOwner(
-                    entry_point="web", session_id="session", room_id="room"
-                )
-            )
-            == 0
-        )
-    finally:
-        shutdown_web_job_runtime()
-    assert web_manager.sub_agent_job_manager is None
 
 
 def test_a2a_job_runtime_is_scoped_to_the_bound_task():

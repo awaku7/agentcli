@@ -439,8 +439,8 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | runtime/policy_engine.py / ToolPolicy / EnterprisePolicy | 既存の副作用・認可を活用し、ExecutionClass と Backend 能力判定を独立追加 |
 | runtime/identity_context.py / TurnContext | Trusted Scope 生成・Principal/Project/Room/Session 境界検証の基礎として再利用 |
 | runtime/session_store.py | Lease Registry への安全なリンク。履歴と Sandbox 実体の寿命を混同しない |
-| web_impl/process_workers.py | PR #236 の **1-turn subprocess** をセキュリティ Sandbox と誤認しない。Broker/SessionManager は 1-turn 子プロセスとは独立の長寿命 Owner が保持 |
-| web_impl/rooms.py / Room Access | Room 削除・Private Room 期限切れ・認可取消で Lease を回収。Socket 切断のみで破棄しない |
+| uag_web/process_workers.py | PR #236 の **1-turn subprocess** をセキュリティ Sandbox と誤認しない。Broker/SessionManager は 1-turn 子プロセスとは独立の長寿命 Owner が保持 |
+| uag_web/rooms.py / Room Access | Room 削除・Private Room 期限切れ・認可取消で Lease を回収。Socket 切断のみで破棄しない |
 | a2a/engine.py / a2a/server.py / a2a/auth.py | 現行は単一 A2A Bearer Token を確認するが、個々の Principal ID までは識別しておらず、engine の resolved_turn_context() に task_id が自動で埋まるわけでもない。**Server 側 Service Principal / 強制的な Task ID Binding** を先に追加し、Task Cancel/終了で Lease Cleanup。将来の Multi-tenant は別の信頼できる Identity Binding が必須 |
 | CLI Session 切替 / GUI の既存Session操作 | 既存の操作でSessionや履歴が変わる場合のみ切替先Scopeを認可し、健全なLeaseを再利用・新規作成。GUIの会話切替UIは追加しない。Session終了・削除イベントが存在する場合はCleanup |
 | Background Job / Sub-Agent | 元 Scope からの派生権限、独立 Job の終了と取消、orphan cleanup を明示 |

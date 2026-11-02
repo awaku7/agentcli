@@ -491,7 +491,7 @@ Relevant existing components include:
 
 ```text
 runtime/identity_context.py
-web_impl/connection_identity.py
+uag_web/connection_identity.py
 auth/oidc_sessions.py
 auth/oidc_verifier.py
 auth/oidc_callback.py

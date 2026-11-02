@@ -70,7 +70,7 @@ Työpöytä- ja verkkokäyttöliittymät tarvitsevat lisäriippuvuuksia, joita `
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Verkkopalvelin voi yrittää asentaa FastAPI:n ja Uvicornin käynnistyessään. Asentaminen etukäteen poistaa riippuvuuden automaattisesta asennuksesta. Lisätiedot: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

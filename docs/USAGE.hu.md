@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (stdin hurok) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Webszerver (FastAPI) |
+| `uagw` | `python -m uag_web` | Webszerver (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP szerver |
 
 ______________________________________________________________________

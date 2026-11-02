@@ -34,7 +34,7 @@ ______________________________________________________________________
 | `util_cmd_auto.py` | `_ask_reviewer_judgment()` | Run an isolated reviewer query through `run_llm_rounds(judgment_mode=True)` |
 | `util_cmd_auto.py` | `_build_judgment_messages()` / `_get_followup_prompt()` | Build the reviewer context and continuation prompt |
 | `util_tools.py` | imports and dispatch | Preserve command-handler exports and route `:auto` |
-| `cli_impl/main.py`, `scheckgui_impl/worker.py`, `web_impl/agent_worker.py` | turn orchestration | Invoke the shared auto-pilot loop from CLI, GUI, and Web flows |
+| `cli_impl/main.py`, `scheckgui_impl/worker.py`, `uag_web/agent_worker.py` | turn orchestration | Invoke the shared auto-pilot loop from CLI, GUI, and Web flows |
 | `uagent_llm.py` | `run_llm_rounds()` | Shared provider path; judgment mode suppresses tool execution and main-conversation side effects |
 | `core.py` | `auto_pilot_*` state | Auto-pilot flags, stop request, goal, and round limit |
 

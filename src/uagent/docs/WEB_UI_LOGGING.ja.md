@@ -1,6 +1,8 @@
 # WEB_UI_LOGGING（Web UI のログ/メッセージ経路）
 
-このドキュメントは `src/uagent/web.py` の Web UI 表示に関する「ログ経路」と「メッセージ経路」を整理します。\
+Implementation: [awaku7/uag-web](https://github.com/awaku7/uag-web).
+
+このドキュメントは `uag_web/server.py` の Web UI 表示に関する「ログ経路」と「メッセージ経路」を整理します。\
 Web では stdout/stderr を WebSocket に流す機構があるため、どの文字列がどの経路で表示されるかを明確にします。
 
 ______________________________________________________________________

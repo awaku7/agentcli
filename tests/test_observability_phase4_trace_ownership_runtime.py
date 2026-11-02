@@ -14,7 +14,7 @@ from uagent.runtime.observability.settings import ObservabilitySettings
 from uagent.runtime.observability.trace_ownership_runtime import (
     _reset_trace_ownership_runtime_for_tests,
     _runtime_index_snapshot_for_tests,
-    _runtime_state,
+    get_trace_ownership_state,
     admit_current_segment,
     install_trace_ownership_span_binding,
 )
@@ -276,7 +276,7 @@ def test_phase4d_backend_authority_is_rechecked_before_epoch_replacement(
     )
 
     def run_stale() -> None:
-        stale_result["state"] = _runtime_state(stale_backend)
+        stale_result["state"] = get_trace_ownership_state(stale_backend)
 
     stale_thread = threading.Thread(
         target=run_stale,
@@ -286,7 +286,7 @@ def test_phase4d_backend_authority_is_rechecked_before_epoch_replacement(
     assert stale_waiting.wait(timeout=5.0)
 
     current["backend"] = current_backend
-    active, current_index, current_epoch = _runtime_state(current_backend)
+    active, current_index, current_epoch = get_trace_ownership_state(current_backend)
     assert active is True
     handle = current_index.admit_segment(
         trace_id="1" * 32,

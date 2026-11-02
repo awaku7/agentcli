@@ -111,7 +111,6 @@ def test_host_adapters_use_resolved_turn_context_helper() -> None:
         "src/uagent/cli_impl/main.py": 'entry_point="cli"',
         "src/uagent/cli_startup.py": 'entry_point="cli"',
         "src/uagent/scheckgui_impl/worker.py": 'entry_point="gui"',
-        "src/uagent/web_impl/agent_worker.py": 'entry_point="web"',
         "src/uagent/a2a/engine.py": 'entry_point="a2a"',
     }
     for relative, marker in expected.items():
@@ -169,17 +168,6 @@ def test_llm_call_thread_receives_current_turn_context(tmp_path, monkeypatch) ->
     assert turn.principal_id == "local"
     assert turn.entry_point == "cli"
     assert turn.session_id == "session-thread"
-
-
-def test_web_turn_prefers_bound_room_session_over_process_default() -> None:
-    root = Path(__file__).resolve().parents[1]
-    source = (root / "src/uagent/web_impl/agent_worker.py").read_text(encoding="utf-8")
-    assert (
-        'session_id=str(room.session_id or getattr(core, "session_id", "") or ""),'
-        in source
-    )
-    assert "_ensure_public_room_session(" in source
-    assert "_room_session_runtime = bind_room_session_runtime(core, room)" in source
 
 
 def test_gui_image_preprocessing_uses_turn_context() -> None:

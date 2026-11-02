@@ -70,7 +70,7 @@ Desktop og Web krever ekstra avhengigheter som ikke er inkludert i `uag[core,pro
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Webserveren kan prøve å installere FastAPI og Uvicorn ved oppstart. Forhåndsinstallasjon gjør deg uavhengig av dette. Se: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

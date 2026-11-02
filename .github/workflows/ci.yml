@@ -42,7 +42,7 @@ jobs:
               'python -m pip install --upgrade uag' \
               'python -m pip install "uag[core,providers,tools]"' \
               'python -m pip install "uag[platform]"' \
-              'python -m pip install "uag[web]" fastapi uvicorn' \
+              'python -m pip install uag-web' \
               'UAGENT_PROVIDER' 'tool_catalog' 'tool_load' \
               'artifact_read' 'human_ask' ':auto' 'F12' 'SQLite' \
               'README.translations.md' \
@@ -228,17 +228,6 @@ jobs:
                   "tests/test_memory_projection.py",
                   "tests/test_memory_v2_acceptance.py",
                   "tests/test_memory_v3_projection.py",
-                  "tests/test_memory_v3_web_api.py",
-              ],
-              "src/uagent/web_impl/routes_api.py": [
-                  "tests/test_memory_v3_web_api.py",
-                  "tests/test_web_authorization_hardening.py",
-                  "tests/test_web_memory_store_lifetime.py",
-                  "tests/test_web_room_lifecycle.py",
-                  "tests/test_web_session_portability.py",
-                  "tests/test_observability_phase4_trace_query_final_revalidation.py",
-                  "tests/test_observability_phase4_trace_query_projection.py",
-                  "tests/test_observability_phase4_trace_query_route.py",
               ],
           }
 
@@ -415,7 +404,7 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - name: Install CLI, Desktop, and Web dependencies
+      - name: Install CLI and Desktop dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[core,providers,platform,web]" pytest fastapi uvicorn
@@ -424,12 +413,12 @@ jobs:
       - name: Compile Python sources
         run: python -m compileall -q src
 
-      - name: Smoke test macOS CLI, Desktop, and Web imports
+      - name: Smoke test macOS CLI and Desktop imports
         env:
           PYTHONPATH: src
           QT_QPA_PLATFORM: offscreen
         run: |
-          for module in uagent.cli_entry uagent.cli uagent.gui uagent.web uagent.scheckgui_impl.main; do
+          for module in uagent.cli_entry uagent.cli uagent.gui uagent.scheckgui_impl.main; do
             UAG_IMPORT_MODULE="$module" python - <<'PY'
           import importlib
           import os
@@ -459,7 +448,6 @@ jobs:
           # on those hosts while checking all other MXC contracts on macOS.
           python -m pytest -q \
             tests/test_session_portability.py \
-            tests/test_web_session_portability.py \
             tests/test_mxc_backend.py \
             -k 'not test_mxc_host_paths_accept_only_pre_dotenv_overrides'
 
@@ -498,7 +486,6 @@ jobs:
           # suite covers 3.12 for non-documentation changes and nightly on all four.
           python -m pytest -q \
             tests/test_session_portability.py \
-            tests/test_web_session_portability.py \
             tests/test_capability_resolver.py \
             tests/test_context_recovery_integration.py \
             tests/test_legacy_claude_round.py \
@@ -553,21 +540,22 @@ jobs:
           PYTHONPATH: src
         run: python -m pytest -q . --durations=30
 
-  web-socket-lifecycle:
+  independent-web-integration:
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
         with:
-          node-version: "24.21.0"
-      - name: Test WebSocket reconnection and bundled UI
-        run: node --test frontend/tests/*.test.mjs
-      - name: Verify Vite build and command picker assets
-        working-directory: frontend
+          repository: awaku7/uag-web
+          ref: d4b49a5eb016c62594ec64fe9aeb9adc962720cb
+          path: .uag-web
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[core,web]" -e ".uag-web[test]" build
+      - name: Verify independent Web against this execution library
+        run: python -m pytest -q .uag-web/tests --durations=20
+      - name: Verify core wheel and source distribution
         run: |
-          npm ci
-          npm run build
-          test -f ../src/uagent/static/command-picker.mjs
-          test -f ../src/uagent/static/command-picker.css
+          python -m build
+          python scripts/check_core_distribution.py

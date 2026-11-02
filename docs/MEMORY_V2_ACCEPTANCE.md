@@ -17,7 +17,7 @@ The acceptance contract covers:
 
 - CLI: `src/uagent/cli_impl/main.py`
 - GUI: `src/uagent/scheckgui_impl/worker.py`
-- Web: `src/uagent/web_impl/agent_worker.py`
+- Web: `uag-web/src/uag_web/agent_worker.py`
 - A2A: `src/uagent/a2a/engine.py`
 
 `tests/test_memory_v2_acceptance.py` fails if one of these hosts no longer

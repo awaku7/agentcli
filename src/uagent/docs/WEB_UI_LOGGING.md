@@ -1,6 +1,8 @@
 # WEB_UI_LOGGING (Web UI log/message paths)
 
-This document explains how `src/uagent/web.py` routes output to the Web UI.
+Implementation: [awaku7/uag-web](https://github.com/awaku7/uag-web).
+
+This document explains how `uag_web/server.py` routes output to the Web UI.
 
 Two channels:
 

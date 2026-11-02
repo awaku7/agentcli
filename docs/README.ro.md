@@ -70,7 +70,7 @@ Interfețele Desktop și Web necesită dependențe suplimentare, care nu sunt in
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Serverul Web poate încerca să instaleze FastAPI și Uvicorn la pornire. Instalarea lor în avans elimină această dependență. Detalii: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

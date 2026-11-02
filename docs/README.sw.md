@@ -70,7 +70,7 @@ Desktop na Web zinahitaji vitegemezi vya ziada ambavyo havipo kwenye usakinishaj
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Seva ya Web inaweza kujaribu kusakinisha FastAPI na Uvicorn inapoanza. Kuzisakinisha mapema huondoa utegemezi wa usakinishaji wa kiotomatiki. Maelezo: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

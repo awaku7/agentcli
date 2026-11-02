@@ -828,9 +828,9 @@ src/uagent/runtime/identity_context.py
 src/uagent/runtime/auth_management.py
 src/uagent/runtime/project_access.py
 src/uagent/runtime/room_access.py
-src/uagent/web_impl/connection_identity.py
-src/uagent/web_impl/routes_auth.py
-src/uagent/web_impl/routes_api.py
+uag-web/src/uag_web/connection_identity.py
+uag-web/src/uag_web/routes_auth.py
+uag-web/src/uag_web/routes_api.py
 ```
 
 関連テスト:

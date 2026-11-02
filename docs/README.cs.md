@@ -70,7 +70,7 @@ Desktop a Web vyžadují další závislosti, které základní instalace `uag[c
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Webový server může při startu zkusit nainstalovat FastAPI a Uvicorn. Instalace předem tuto závislost na automatickém postupu odstraní. Podrobnosti: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

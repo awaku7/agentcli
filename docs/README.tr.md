@@ -70,7 +70,7 @@ Desktop ve Web, ilk `uag[core,providers,tools]` kurulumuna dahil olmayan ek bağ
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 Web sunucusu başlangıçta FastAPI ve Uvicorn kurmayı deneyebilir. Önceden yüklemek otomatik kurulum bağımlılığını önler. Ayrıntılar: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (vòng lặp stdin) |
 | `uagg` | `python -m uagent.gui` | Giao diện đồ họa (tkinter) |
-| `uagw` | `python -m uagent.web` | Máy chủ web (FastAPI) |
+| `uagw` | `python -m uag_web` | Máy chủ web (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | Máy chủ A2A HTTP |
 
 ______________________________________________________________________

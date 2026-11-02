@@ -2,7 +2,7 @@
 
 Session portability is implemented by `runtime/session_portability.py` (bounded
 encrypted format and canonical projection), atomic `SessionStore` imports,
-`session_cli.py` and `web_impl/routes_portability.py`. `cli_entry.py` dispatches
+`session_cli.py` and `uag_web/routes_portability.py`. `cli_entry.py` dispatches
 `uag session` before interactive/provider initialization. Imported references are
 inert provenance, never authorization or execution state. See
 [the wire format and security invariants](../../../docs/SESSION_PORTABILITY.md).
@@ -47,7 +47,7 @@ authorization.
 
 Web foreground concurrency is configurable with `uagw --room-workers N` or
 `UAGENT_WEB_ROOM_WORKERS=N`. The default is 5. Explicitly selecting 1 retains the serial worker; counts greater
-than 1 use the bounded spawn/IPC bridge in `web_impl/process_workers.py`.
+than 1 use the bounded spawn/IPC bridge in `uag_web/process_workers.py`.
 See [Web room concurrency](../../../docs/WEB_ROOM_CONCURRENCY.md) for isolation,
 startup precedence, lifecycle and current process-lifetime limitations.
 Run `tests/test_web_process_workers.py` when changing this path.
@@ -68,7 +68,7 @@ This document is developer-facing notes for **uag** (a local tool-execution agen
 - Entry points:
   - CLI: `python -m uagent` (command: `uag`)
   - GUI: `python -m uagent.gui` (command: `uagg`)
-  - Web: `python -m uagent.web` (command: `uagw`)
+  - Web: `python -m uag_web` (command: `uagw`)
 
 Notes:
 
@@ -395,7 +395,7 @@ removes its grants. Project/Room policy changes participate in the authorization
 checks used to build and reuse projections. A genuine access invalidation aborts
 the pending LLM tool continuation and discards its Responses ID.
 
-Web Memory stores are request-local resources. `web_impl/app.py` tracks stores
+Web Memory stores are request-local resources. `uag_web/app.py` tracks stores
 opened through the Web API in a request-local `ContextVar` and closes them at the
 end of the HTTP request, including denied/error paths that fail before a helper can
 return the handle to its caller. Explicit route-level `finally: store.close()`
@@ -1057,7 +1057,7 @@ flowchart TD
     subgraph EntryPoints["エントリポイント"]
         CLI["cli.py<br/>stdin_loop / main"]
         GUI["scheckgui.py<br/>PySide6 MainWindow"]
-        WEB["web.py<br/>FastAPI + WebSocket"]
+        WEB["uag-web<br/>FastAPI + WebSocket"]
         A2A["a2a/server.py<br/>A2A Protocol Server"]
     end
 
@@ -1364,3 +1364,16 @@ and registers its room-owned Job resolver with
 `runtime.sub_agent_job_access.register_web_job_runtime_resolver`.
 The common runtime must not import Web host modules. Authentication and foreground
 Job gates remain in UAG; room/session ownership checks remain in the host adapter.
+
+## Independent Web distribution
+
+UAG 0.7.42 contains the execution library and CLI/GUI/A2A entry points.
+Install the independent Web host with `python -m pip install uag-web` and run
+`uagw` or `python -m uag_web`. Its source and Web tests live in
+[awaku7/uag-web](https://github.com/awaku7/uag-web).
+
+The `independent-web-integration` CI job tests that host against this core.
+Web-specific cases formerly mixed into shared test modules have moved to the
+Web repository; common runtime cases remain here. After `python -m build`, run
+`python scripts/check_core_distribution.py` to check both wheel and sdist.
+The Web distribution owns its static resources and its `uagw` entry point.

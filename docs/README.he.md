@@ -70,7 +70,7 @@ Desktop ו-Web דורשים תלויות נוספות שאינן כלולות ב
 python -m pip install "uag[platform]"
 
 # Web UI (authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
+python -m pip install uag-web
 ~~~
 
 שרת האינטרנט עשוי לנסות להתקין FastAPI ו-Uvicorn בעת ההפעלה. התקנה מראש מונעת תלות בהתקנה האוטומטית. לפרטים: [CLI usage](USAGE.md) · [Environment](ENVIRONMENT.md).

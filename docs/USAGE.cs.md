@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (smyčka stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Webový server (FastAPI) |
+| `uagw` | `python -m uag_web` | Webový server (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | Server A2A HTTP |
 
 ______________________________________________________________________

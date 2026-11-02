@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uag"
-version = "0.7.41"
+version = "0.7.42"
 description = "A powerful tool execution agent"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -167,7 +167,6 @@ location-linux = ["dbus-next>=0.2.3; sys_platform == 'linux'"]
 uag = "uagent.cli_entry:main"
 uaga = "uagent.a2a.server:main"
 uag_setup = "uagent.setup_cli:main"
-uagw = "uagent.web:main"
 
 [project.gui-scripts]
 
@@ -188,8 +187,6 @@ uagent = [
     "tools/**/*",
     "data/**/*",
     "tools_rust/*_tool.py",
-    "static/**/*",
-    "templates/**/*",
     "locales/**/*",
     "docs/**/*"
 ]

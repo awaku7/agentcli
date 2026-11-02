@@ -16,7 +16,6 @@ FIXTURE = ROOT / "tests" / "fixtures" / "memory_evaluation_cases.json"
     [
         ("cli", "src/uagent/cli_impl/main.py", "llm_util.run_llm_rounds"),
         ("gui", "src/uagent/scheckgui_impl/worker.py", "util_run_llm_rounds"),
-        ("web", "src/uagent/web_impl/agent_worker.py", "llm_util.run_llm_rounds"),
         ("a2a", "src/uagent/a2a/engine.py", "llm_util.run_llm_rounds"),
     ],
 )

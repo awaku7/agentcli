@@ -6,7 +6,6 @@ import io
 import sys
 
 import uagent.core as core
-from uagent import web as webmod
 
 
 def test_print_status_line_force_closes_open_stream(monkeypatch):
@@ -88,15 +87,6 @@ def test_set_status_uses_reasoning_label_for_generic_llm(monkeypatch):
     assert core.status_label == "LLM:auto"
 
 
-def test_web_room_status_uses_reasoning_label(monkeypatch):
-    monkeypatch.setenv("UAGENT_REASONING", "high")
-    room = webmod.WebRoom("test-room")
-
-    room.set_status(True, "LLM")
-
-    assert room.status["label"] == "LLM:high"
-
-
 def test_set_status_keeps_generic_llm_when_reasoning_is_off(monkeypatch):
     monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setattr(core, "status_busy", False)
@@ -119,14 +109,6 @@ def test_print_stream_delta_tracks_open_line(monkeypatch):
     core.print_stream_delta(" world" + chr(10))
     assert core._stream_line_open is False
     assert stdout.getvalue() == "hello world" + chr(10)
-
-
-def test_strip_state_markers_web():
-    assert webmod._strip_state_markers("[STATE] BUSY [tool:parallel]") == ""
-    assert (
-        webmod._strip_state_markers("hello [STATE] BUSY [LLM] world") == "hello  world"
-    )
-    assert webmod._strip_state_markers("plain text") == "plain text"
 
 
 def test_print_status_line_windows_never_emits_ansi(monkeypatch):

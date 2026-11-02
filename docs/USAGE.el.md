@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (βρόχος stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Διακομιστής ιστού (FastAPI) |
+| `uagw` | `python -m uag_web` | Διακομιστής ιστού (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | Διακομιστής A2A HTTP |
 
 ______________________________________________________________________

@@ -9,7 +9,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 - `src/uagent/` — main Python package
   - `cli.py` — CLI entry point (`python -m uagent`, command: `uag`)
   - `gui.py` — GUI entry point (`python -m uagent.gui`, command: `uagg`)
-  - `web.py` — Web entry point (`python -m uagent.web`, command: `uagw`)
+  - Web host lives in the separate `awaku7/uag-web` repository (`uagw`)
   - `core.py` — core state and UI integration
   - `uagent_llm.py` — LLM orchestration entrypoint
   - `llm_helpers.py`, `llm_message_helpers.py`, `llm_round_helpers.py`, `llm_flow_helpers.py` — round/message/tool-call helpers
@@ -31,7 +31,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 |---|---|
 | `python -m uagent` (or `uag`) | Interactive CLI |
 | `python -m uagent.gui` (or `uagg`) | GUI mode |
-| `python -m uagent.web` (or `uagw`) | Web UI |
+| `uagw` (install `uag-web`) | Independent Web UI |
 | `python -m uagent.a2a.server` | A2A server (default port 8765) |
 
 ## Startup flow

@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (stdin döngüsü) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Web sunucusu (FastAPI) |
+| `uagw` | `python -m uag_web` | Web sunucusu (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP sunucusu |
 
 ______________________________________________________________________

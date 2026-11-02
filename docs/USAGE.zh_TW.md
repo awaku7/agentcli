@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI（標準輸入循環） |
 | `uagg` | `python -m uagent.gui` | 圖形介面 (tkinter) |
-| `uagw` | `python -m uagent.web` | 網頁伺服器 (FastAPI) |
+| `uagw` | `python -m uag_web` | 網頁伺服器 (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP 伺服器 |
 
 ______________________________________________________________________

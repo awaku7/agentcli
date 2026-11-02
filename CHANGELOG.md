@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.42] - Unreleased
+
+### Changed
+
+- Move the Svelte frontend, FastAPI/WebSocket host and UI assets to the independent `uag-web` distribution. Install it with `pip install uag-web`; it owns `uagw` and uses this execution library in the same process.
+- Keep CLI, GUI, A2A, common authorization, Session, Memory, Sandbox and OpenTelemetry in UAG. Expose the trace ownership state query for independent hosts without changing epoch or authorization checks.
+- Move Web-specific tests to the Web repository and verify the separate host against the core in CI. UAG wheels and source distributions no longer contain Web code or UI build artifacts.
+
 ## [0.7.41] - 2026-11-01
 
 ### Added

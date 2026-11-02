@@ -26,7 +26,7 @@
   <a href="docs/README.translations.md">Other languages</a>
 </p>
 
----
+______________________________________________________________________
 
 **UAG is an open-source, local-first AI agent runtime** that connects the language model
 you choose to the tools and systems you use. Work with code, files, browsers,
@@ -42,15 +42,16 @@ to a single model provider.
 > does not mean entirely offline or isolated by default.
 
 ## Quick start
+
 <!-- README-SYNC:quick-start -->
 
 Requires **Python 3.11+**. Install from [PyPI](https://pypi.org/project/uag/)
 and launch the interactive CLI:
 
-~~~bash
+```bash
 python -m pip install --upgrade uag
 uag
-~~~
+```
 
 On first launch, the setup wizard helps you choose a provider and configure its
 credentials. You can also configure providers through environment variables or
@@ -58,18 +59,18 @@ the credential store.
 
 For a larger set of provider and tool dependencies up front:
 
-~~~bash
+```bash
 python -m pip install "uag[core,providers,tools]"
-~~~
+```
 
 Then try asking:
 
-~~~text
+```text
 > What changed in this Git repository? Summarize the risks.
 > Find the latest documentation for this library and explain the migration steps.
 > Inspect these files and produce a concise report.
 > :help
-~~~
+```
 
 **New to UAG?** See the [Windows installation walkthrough](docs/QUICKSTART.md)
 (including Git and virtual-environment prerequisites) or the
@@ -77,6 +78,7 @@ Then try asking:
 are optional.
 
 ## Interfaces
+
 <!-- README-SYNC:interfaces -->
 
 Use the same agent runtime and tool registry from multiple entry points.
@@ -89,23 +91,25 @@ Use the same agent runtime and tool registry from multiple entry points.
 | **A2A** | `uaga` | Agent-to-agent integration |
 | **VS Code** | [Extension guide](docs/VSCODE.md) | Working alongside code |
 
-Desktop and Web interfaces use additional dependencies that are not included
-in the quick-start `uag[core,providers,tools]` installation:
+Desktop and Web interfaces are installed separately from the quick-start
+`uag[core,providers,tools]` installation:
 
-~~~bash
+```bash
 # Desktop GUI (PySide6 and platform integrations)
 python -m pip install "uag[platform]"
 
-# Web UI (web authentication dependencies, FastAPI, and Uvicorn)
-python -m pip install "uag[web]" fastapi uvicorn
-~~~
+# Independent Web UI (includes UAG and Web server dependencies)
+python -m pip install uag-web
+```
 
-The Web server can also attempt to install FastAPI and Uvicorn at launch;
-installing them up front does not depend on runtime auto-installation.
+The Web application is developed and distributed in
+[awaku7/uag-web](https://github.com/awaku7/uag-web). It uses UAG as a Python
+library in the same server process; no additional gateway service is required.
 See [interface options](docs/USAGE.md) and
 [environment configuration](docs/ENVIRONMENT.md) for further setup.
 
 ## What you can build
+
 <!-- README-SYNC:capabilities -->
 
 | Capability | What UAG provides |
@@ -118,9 +122,10 @@ See [interface options](docs/USAGE.md) and
 | **Beyond the terminal** | Cloud and communication integrations, documents, media, realtime voice, and supported IoT protocols. |
 
 ### One runtime, many integrations
+
 <!-- README-SYNC:integrations -->
 
-~~~mermaid
+```mermaid
 flowchart LR
     UI["CLI · Desktop · Web · VS Code · A2A"] --> UAG["UAG agent runtime"]
     UAG --> MODELS["Hosted & local models"]
@@ -128,25 +133,26 @@ flowchart LR
     UAG --> STATE["Sessions & context"]
     TOOLS --> SYSTEMS["Files · Code · Web · MCP · Cloud · IoT"]
     POLICY["Confirmation · Credentials · Policy"] -.-> UAG
-~~~
+```
 
 **Provider examples:** OpenAI, Anthropic, Gemini, Vertex AI, Azure OpenAI,
 Amazon Bedrock, Grok, DeepSeek, OpenRouter, Ollama, llama.cpp, and LM Studio.
 For provider-specific settings, see [Environment variables](docs/ENVIRONMENT.md).
 
 ### Customize it with skills and plugins
+
 <!-- README-SYNC:extensions -->
 
 Extend UAG without modifying the core. Install Agent Skills from SkillsMP or
 ClawHub, connect MCP servers, or load Claude Code-compatible plugins with tools,
 skills, agents, and hooks.
 
-~~~text
+```text
 :skills mp_search browser automation
 :plugin list
 :plugin install <source>
 :plugin marketplace list
-~~~
+```
 
 Custom tools can expose `TOOL_SPEC` and `run_tool()`; Rust-backed tools are also
 supported. Start with the [Tool Creator Guide](TOOL_CREATOR_GUIDE.md),
@@ -154,9 +160,11 @@ supported. Start with the [Tool Creator Guide](TOOL_CREATOR_GUIDE.md),
 [MCP OAuth / Proxy Guide](docs/MCP_OAUTH_PROXY_GUIDE.md).
 
 ## Built for real workflows
+
 <!-- README-SYNC:workflows -->
 
 ### Context and memory
+
 <!-- README-SYNC:context-memory -->
 
 Large tool results can be saved as **Artifacts** instead of crowding the active
@@ -169,6 +177,7 @@ and explicit memory review workflows.
 - [Session portability](docs/SESSION_PORTABILITY.md)
 
 ### Automation and collaboration
+
 <!-- README-SYNC:automation -->
 
 UAG supports parallel independent read operations, multi-agent coordination,
@@ -181,6 +190,7 @@ Auto-pilot stop.
 - [Multi-agent runtime](docs/MULTI_AGENT_RUNTIME.md)
 
 ### Security and observability
+
 <!-- README-SYNC:security -->
 
 Sensitive operations can require `human_ask` confirmation. Credentials can be
@@ -200,6 +210,7 @@ execution is sandboxed. See the deployment and policy guides before exposing
 UAG to untrusted users or networks.
 
 ### Languages, devices, and voice
+
 <!-- README-SYNC:languages -->
 
 UAG includes resources for **38 locales** (English plus 37 translations),
@@ -211,6 +222,7 @@ Matter, ECHONET Lite, BACnet, Modbus TCP, and OPC UA.
 - [Communication tools](docs/COMMUNICATION.md)
 
 ## Documentation
+
 <!-- README-SYNC:documentation -->
 
 | Start here | Go deeper |
@@ -227,21 +239,22 @@ Browse the [documentation directory](docs/) or read the
 [other translations](docs/README.translations.md).
 
 ## Development and contributing
+
 <!-- README-SYNC:contributing -->
 
-~~~bash
+```bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
 python -m pip install -e ".[core,providers,test]"
-~~~
+```
 
 Before a **Python code** pull request, run the relevant tests and project checks:
 
-~~~bash
+```bash
 python -m ruff check src tests
 python -m black --check src tests
 python -m pytest -q .
-~~~
+```
 
 Read [AGENTS.md](AGENTS.md) and the
 [developer guide](src/uagent/docs/DEVELOP.md) for detailed contribution
@@ -249,6 +262,7 @@ guidelines. Issues, documentation improvements, tools, translations,
 and focused pull requests are welcome.
 
 ## License
+
 <!-- README-SYNC:license -->
 
 UAG is released under the [Apache License 2.0](LICENSE).

@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag` | `python -m uagent` | CLI (stdin लूप) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | वेब सर्वर (FastAPI) |
+| `uagw` | `python -m uag_web` | वेब सर्वर (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP सर्वर |
 
 ______________________________________________________________________

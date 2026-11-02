@@ -37,57 +37,6 @@ def test_browser_cookie_default_is_stable_per_client_and_isolated_between_client
     assert first.get("/whoami").json()["principal"] == first_principal
 
 
-def test_browser_cookie_default_keeps_web_history_per_browser(tmp_path, monkeypatch):
-    from uagent.runtime.session_store import SessionStore
-    from uagent.web_impl import routes_api, routes_auth  # noqa: F401
-    from uagent.web_impl.app import app
-
-    monkeypatch.delenv("UAGENT_IDENTITY_MODE", raising=False)
-    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "http://testserver")
-    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
-    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
-    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
-    store = SessionStore(tmp_path / "sessions.sqlite3")
-    monkeypatch.setattr(routes_api.core, "session_store", store, raising=False)
-    monkeypatch.setattr(routes_api.core, "session_id", None, raising=False)
-
-    first = TestClient(app)
-    second = TestClient(app)
-    headers = {"Origin": "http://testserver"}
-    try:
-        first_room = first.post("/api/me/private-room", headers=headers)
-        second_room = second.post("/api/me/private-room", headers=headers)
-        assert first_room.status_code == 200, first_room.text
-        assert second_room.status_code == 200, second_room.text
-        first_session = first_room.json()["session_id"]
-        second_session = second_room.json()["session_id"]
-        store.append_message(first_session, "user", "first browser history")
-        store.append_message(second_session, "user", "second browser history")
-
-        first_logs = first.get("/api/logs").json()["logs"]
-        second_logs = second.get("/api/logs").json()["logs"]
-        assert [item["path"] for item in first_logs] == [first_session]
-        assert [item["path"] for item in second_logs] == [second_session]
-        assert first.cookies.get("uag_browser_session")
-        assert second.cookies.get("uag_browser_session")
-        assert first.cookies.get("uag_browser_session") != second.cookies.get(
-            "uag_browser_session"
-        )
-        previous_cookie = first.cookies.get("uag_browser_session")
-        logout = first.post("/auth/logout", headers=headers)
-        assert logout.status_code == 200
-        assert any(
-            value.startswith("uag_browser_session=") and "max-age=0" in value.lower()
-            for value in logout.headers.get_list("set-cookie")
-        )
-        first.cookies.clear()
-        next_identity = first.get("/api/auth/status").json()
-        assert next_identity["authn_kind"] == "browser"
-        assert first.cookies.get("uag_browser_session") != previous_cookie
-    finally:
-        store.close()
-
-
 def test_browser_logout_does_not_remint_a_missing_cookie(monkeypatch):
     from fastapi import FastAPI
     from fastapi.responses import Response
