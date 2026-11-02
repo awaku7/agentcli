@@ -205,7 +205,6 @@ def test_mxc_node_adapter_relays_git_frames_without_host_file_reads():
         subprocess.run([node, "--check", str(helper)], check=True, capture_output=True)
 
 
-
 def test_mxc_host_line_queue_has_no_idle_deadline():
     node = shutil.which("node")
     if not node:
