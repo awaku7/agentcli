@@ -173,7 +173,10 @@ def save_environment(
     # The existing UAG data root may be shared by other UAG features and
     # need not be mode 0700. The new settings subtree must be private.
     parent = path.parent.parent.parent
-    _check_directory(parent, require_private=False)
+    if parent.exists() or parent.is_symlink():
+        _check_directory(parent, require_private=False)
+    else:
+        parent.mkdir(mode=0o700)
     for directory in (path.parent.parent, path.parent):
         if directory.exists() or directory.is_symlink():
             _check_directory(directory)
