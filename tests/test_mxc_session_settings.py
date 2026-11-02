@@ -277,9 +277,7 @@ def test_local_principal_ignores_username_environment(monkeypatch, tmp_path):
 
 
 def test_legacy_scope_keeps_preexisting_session_settings_filename(tmp_path):
-    scope = TrustedSandboxScope(
-        "a2a", "a2a-service", "project", "a2a-task", "task-42"
-    )
+    scope = TrustedSandboxScope("a2a", "a2a-service", "project", "a2a-task", "task-42")
     old_fields = (
         scope.deployment_id,
         scope.principal_id,
