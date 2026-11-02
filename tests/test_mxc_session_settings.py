@@ -82,6 +82,10 @@ def test_session_environment_isolated_by_principal_and_scope(tmp_path, scope):
         {"UAGENT_MXC_NODE": "/tmp/node"},
         {"GIT_CONFIG_COUNT": "1"},
         {"API_TOKEN": "not-allowed"},
+        {"OPENAI_API_KEY": "not-allowed"},
+        {"ANTHROPIC_API_KEY": "not-allowed"},
+        {"GEMINI_API_KEY": "not-allowed"},
+        {"GIT_AUTH_TOKEN": "not-allowed"},
         {"HTTP_PROXY": "http://alice:password@example.test:8080"},
         {"AN_ENV": "line\nnext"},
     ],
@@ -116,6 +120,34 @@ def test_symbolic_settings_file_is_rejected(tmp_path, scope):
         mxc_session_settings.save_environment(
             tmp_path, scope, "session", {"TEAM": "safe"}
         )
+
+
+def test_settings_save_rejects_oversized_payload_without_clobbering_old(
+    tmp_path, scope
+):
+    mxc_session_settings.save_environment(
+        tmp_path, scope, "user", {"TEAM": "old"}
+    )
+    with pytest.raises(ValueError, match="16 KiB"):
+        mxc_session_settings.save_environment(
+            tmp_path,
+            scope,
+            "user",
+            {"VAR_" + str(i): "x" * 2048 for i in range(10)},
+        )
+    assert mxc_session_settings.effective_environment(tmp_path, scope) == {
+        "TEAM": "old"
+    }
+
+
+def test_uag_settings_ancestor_cannot_be_symlink(tmp_path, scope):
+    if os.name == "nt":
+        pytest.skip("symlink creation may require Windows privileges")
+    original = tmp_path / "other-uag"
+    original.mkdir(mode=0o700)
+    (tmp_path / "uag").symlink_to(original, target_is_directory=True)
+    with pytest.raises(PermissionError):
+        mxc_session_settings.effective_environment(tmp_path, scope)
 
 
 def test_unconfigured_environment_is_empty(tmp_path, scope):
