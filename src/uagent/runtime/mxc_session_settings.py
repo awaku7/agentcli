@@ -53,6 +53,8 @@ _SECRET_PARTS = (
     "ACCESS_KEY",
     "CREDENTIAL",
     "AUTH_SOCK",
+    "API_KEY",
+    "AUTHORIZATION",
 )
 
 
@@ -89,6 +91,8 @@ def _validate_environment(environment: Any) -> dict[str, str]:
             name in _RESERVED
             or name.startswith(_RESERVED_PREFIXES)
             or any(part in name for part in _SECRET_PARTS)
+            or name.endswith("_KEY")
+            or re.search(r"(^|_)AUTH($|_)", name) is not None
         ):
             raise ValueError("protected or credential environment variable")
         if not isinstance(value, str) or len(value) > 2048:
@@ -127,6 +131,7 @@ def _check_directory(path: Path, *, require_private: bool = True) -> None:
 
 def _read_environment(path: Path) -> dict[str, str]:
     # Existing files must not be symlinks, junctions, or accessible by others.
+    _check_directory(path.parent.parent.parent, require_private=False)
     _check_directory(path.parent.parent)
     _check_directory(path.parent)
     try:
