@@ -710,6 +710,7 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     for filename in (
         "mxc_adapter.mjs",
         "sandbox_git_remote_helper.py",
+        "sandbox_git_command.py",
         "seatbelt_smoke.mjs",
         "package.json",
         "package-lock.json",
