@@ -277,7 +277,8 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
     assert names == sandbox_worker._ALLOWED
     assert "command_exec" in names
     command = next(
-        spec for spec in mxc_backend.sandbox_tool_specs()
+        spec
+        for spec in mxc_backend.sandbox_tool_specs()
         if spec["function"]["name"] == "command_exec"
     )
     properties = command["function"]["parameters"]["properties"]
