@@ -801,7 +801,8 @@ async function serveWorker() {
     throw new Error("invalid scoped MXC environment");
   }
   for (const [name, value] of Object.entries(config.sessionEnv)) {
-    if (typeof value !== "string" || Object.hasOwn(environment, name)) {
+    if (typeof value !== "string" ||
+        (Object.hasOwn(environment, name) && name !== "LANG")) {
       throw new Error("invalid scoped MXC environment override");
     }
     environment[name] = value;
