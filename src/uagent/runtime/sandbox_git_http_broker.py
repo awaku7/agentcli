@@ -15,7 +15,11 @@ import urllib.request
 from dataclasses import dataclass
 from urllib.parse import urlsplit
 
-from ..auth.credential_store import CredentialKind, CredentialStore, get_default_credential_store
+from ..auth.credential_store import (
+    CredentialKind,
+    CredentialStore,
+    get_default_credential_store,
+)
 from .execution_broker import TrustedSandboxScope
 from .sandbox_git_credentials import (
     _TOKEN_PURPOSE,
@@ -99,7 +103,9 @@ def _remote_url(remote_url: str) -> tuple[str, str]:
     return host, f"https://{host}{parsed.path}"
 
 
-def _authorization(scope: TrustedSandboxScope, host: str, store: CredentialStore) -> str:
+def _authorization(
+    scope: TrustedSandboxScope, host: str, store: CredentialStore
+) -> str:
     if not isinstance(scope, TrustedSandboxScope):
         raise TypeError("trusted scope is required")
     alias = effective_git_credential_alias(scope, store=store)
@@ -162,15 +168,15 @@ def exchange_git_smart_http(
     credentials = store if store is not None else get_default_credential_store()
     auth = _authorization(scope, host, credentials)
     endpoint = (
-        f"{origin}/info/refs?service={service}"
-        if advertise
-        else f"{origin}/{service}"
+        f"{origin}/info/refs?service={service}" if advertise else f"{origin}/{service}"
     )
     headers = {
         "Authorization": auth,
-        "Accept": f"application/x-{service}-advertisement"
-        if advertise
-        else f"application/x-{service}-result",
+        "Accept": (
+            f"application/x-{service}-advertisement"
+            if advertise
+            else f"application/x-{service}-result"
+        ),
         "Accept-Encoding": "identity",
         "Cache-Control": "no-cache",
     }
@@ -195,11 +201,18 @@ def exchange_git_smart_http(
                 if advertise
                 else f"application/x-{service}-result"
             )
-            content_type = response.headers.get("Content-Type", "").split(";")[0].strip().lower()
+            content_type = (
+                response.headers.get("Content-Type", "").split(";")[0].strip().lower()
+            )
             if content_type != expected_type:
                 raise RuntimeError("Git HTTP upstream returned an invalid content type")
-            if response.headers.get("Content-Encoding", "identity").lower() != "identity":
-                raise RuntimeError("Git HTTP upstream returned unsupported content encoding")
+            if (
+                response.headers.get("Content-Encoding", "identity").lower()
+                != "identity"
+            ):
+                raise RuntimeError(
+                    "Git HTTP upstream returned unsupported content encoding"
+                )
             data = response.read(_MAX_RESPONSE_BYTES + 1)
             if len(data) > _MAX_RESPONSE_BYTES:
                 raise RuntimeError("Git HTTP response exceeds size limit")
