@@ -688,7 +688,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
 async function executeCommandInContainer(config, baseRequest, args, spawnMxc) {
   const argv = args?.argv;
   if (!Array.isArray(argv) || argv.length < 1 || argv.length > 64 ||
-      argv.some((arg) => typeof arg !== "string" || Buffer.byteLength(arg, "utf8") > 4096 || arg.includes("\\0")) ||
+      argv.some((arg) => typeof arg !== "string" || Buffer.byteLength(arg, "utf8") > 4096 || arg.includes(String.fromCharCode(0))) ||
       !argv[0]) {
     throw new Error("command argv must contain 1 to 64 bounded strings and a non-empty executable");
   }
@@ -723,7 +723,7 @@ async function executeCommandInContainer(config, baseRequest, args, spawnMxc) {
     "    print(f'Command could not start: {type(exc).__name__}: {exc}', file=sys.stderr)",
     "    raise SystemExit(127)",
     "raise SystemExit(__uag_result.returncode)",
-  ].join("\\n");
+  ].join("\n");
   return executePythonInContainer(config, baseRequest, { code }, spawnMxc);
 }
 
