@@ -202,13 +202,39 @@ def _read_environment(path: Path) -> dict[str, str]:
     flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
     flags |= getattr(os, "O_NOFOLLOW", 0)
     if os.name == "nt":
+        import msvcrt
+        import win32api
+        import win32con
+        import win32file
+
         with _guard_windows_parent(path):
-            current = path.lstat()
-            if not stat.S_ISREG(current.st_mode) or getattr(
-                current, "st_file_attributes", 0
-            ) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
-                raise PermissionError("sandbox settings file must not be a link")
-            fd = os.open(path, flags)
+            handle = win32file.CreateFile(
+                str(path),
+                win32con.GENERIC_READ,
+                win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE,
+                None,
+                win32con.OPEN_EXISTING,
+                win32con.FILE_FLAG_OPEN_REPARSE_POINT,
+                None,
+            )
+            try:
+                attributes = win32file.GetFileInformationByHandle(handle)[0]
+                if attributes & (
+                    win32con.FILE_ATTRIBUTE_REPARSE_POINT
+                    | win32con.FILE_ATTRIBUTE_DIRECTORY
+                ):
+                    raise PermissionError("sandbox settings file must not be a link")
+                native_handle = handle.Detach()
+                try:
+                    fd = msvcrt.open_osfhandle(
+                        native_handle,
+                        os.O_RDONLY | getattr(os, "O_NOINHERIT", 0),
+                    )
+                except OSError:
+                    win32api.CloseHandle(native_handle)
+                    raise
+            finally:
+                handle.Close()
     else:
         directory_fd = _open_private_directory(path.parent)
         try:
