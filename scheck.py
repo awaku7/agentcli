@@ -9,7 +9,7 @@ MODES = {
     "cli": "uagent.cli",
     "a2a": "uagent.a2a.server",
     "gui": "uagent.gui",
-    "web": "uagent.web",
+    "web": "uag_web.server",
     "ws": "uagent.ws_server",
     "setup": "uagent.setup_cli",
 }
@@ -61,10 +61,15 @@ def main():
         mod = __import__(module_path, fromlist=["main"])
     except ImportError as e:
         print(f"Error: {e}")
-        print(
-            "Ensure you are in the project root directory "
-            "and the 'src' directory exists."
-        )
+        if mode == "web" and getattr(e, "name", "") in {"uag_web", "uag_web.server"}:
+            print(
+                "Install the independent Web application: python -m pip install uag-web"
+            )
+        else:
+            print(
+                "Ensure you are in the project root directory "
+                "and the 'src' directory exists."
+            )
         sys.exit(1)
 
     if mode in ("ws", "setup"):
