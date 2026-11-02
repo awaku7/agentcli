@@ -27,7 +27,7 @@ def _launcher(directory: Path, python_exe: str, helper_script: str) -> None:
         # Command file is only a launcher for the trusted, immutable helper;
         # it contains no token or host credential.
         launcher = directory / "git-remote-uag.cmd"
-        if any(char in python_exe + helper_script for char in "\r\n%\""):
+        if any(char in python_exe + helper_script for char in '\r\n%"'):
             raise ValueError("unsafe Git helper launcher path")
         launcher.write_text(
             f'@echo off\r\n"{python_exe}" -I -u "{helper_script}" %*\r\n',
@@ -59,7 +59,9 @@ def _relay(mailbox: Path, marker: str, stop: threading.Event) -> None:
                 raise RuntimeError("invalid Git bridge request")
             # Only the trusted Node adapter recognizes this random per-call
             # marker; the command's regular stdout is forwarded unchanged.
-            sys.stdout.write(marker + " " + json.dumps(frame, separators=(",", ":")) + "\n")
+            sys.stdout.write(
+                marker + " " + json.dumps(frame, separators=(",", ":")) + "\n"
+            )
             sys.stdout.flush()
             answer = sys.stdin.buffer.readline(_MAX_FRAME + 1)
             if not answer or len(answer) > _MAX_FRAME:
@@ -137,5 +139,7 @@ def execute(
             stop.set()
             thread.join(timeout=0.5)
         if errors:
-            raise RuntimeError("Git bridge failed while relaying a request") from errors[0]
+            raise RuntimeError(
+                "Git bridge failed while relaying a request"
+            ) from errors[0]
         return process.returncode
