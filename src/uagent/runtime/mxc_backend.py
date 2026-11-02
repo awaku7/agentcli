@@ -1326,9 +1326,9 @@ class _MxcSession:
         self._scope = scope
         # Reject malformed or unsafe settings before starting any MXC process.
         session_env = _session_settings_environment(scope)
-        from .sandbox_git_credentials import selected_git_https_host_for_scope
-
-        git_remote_host = selected_git_https_host_for_scope(scope)
+        # Git credentials may be revoked between worker creation and use.
+        # The host revalidates a nonsecret hostname on each direct Git call.
+        git_remote_host = None
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
             self.workspace.parent, self.workspace.name
@@ -1583,9 +1583,27 @@ class _MxcSession:
                 and name in {"python_exec", "command_exec"}
                 else None
             )
-            self._write_line(
-                {"operation": "run", "payload": {"name": name, "args": args}}
-            )
+            payload = {"name": name, "args": args}
+            if name == "command_exec":
+                # Only direct Git commands need credential resolution. A token
+                # revoked by another session must not block unrelated commands.
+                # Git itself stays fail-closed for invalid/stale selections.
+                argv = args.get("argv")
+                is_git = (
+                    isinstance(argv, list)
+                    and bool(argv)
+                    and isinstance(argv[0], str)
+                    and argv[0].lower() in {"git", "git.exe"}
+                )
+                git_remote_host = None
+                if is_git:
+                    from .sandbox_git_credentials import (
+                        selected_git_https_host_for_scope,
+                    )
+
+                    git_remote_host = selected_git_https_host_for_scope(self._scope)
+                payload["gitRemoteHost"] = git_remote_host
+            self._write_line({"operation": "run", "payload": payload})
             timeout_seconds = 60 if name in {"python_exec", "command_exec"} else 45
             deadline = time.monotonic() + timeout_seconds
             response = self._read_response(timeout=timeout_seconds)

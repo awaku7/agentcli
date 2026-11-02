@@ -13,6 +13,48 @@ for the current decision and explicit limits.
 
 ## Usage
 
+### Quick start: local CLI and private Git
+
+For an interactive local CLI, enable Sandbox once:
+
+```console
+uag --sandbox mxc
+```
+
+If MXC's pinned SDK is missing, the CLI asks once before installing it
+in the user profile; a supported Node.js runtime must already be available.
+Inside the CLI, register a Git HTTPS host with one command:
+
+```text
+:credential git github.com
+```
+
+Enter the personal access token at the hidden terminal prompt. The trusted
+host stores it in the encrypted CredentialStore and immediately selects it
+as the **user default** for local CLI/GUI scopes. The token is never written
+to a Sandbox environment, command argument, or workspace. Normal
+`git clone https://github.com/owner/repo.git` and `git fetch` through
+Sandbox `command_exec` then use that host's credential automatically.
+No separate alias or session selection is required for normal use.
+Registering a replacement token creates a new reference rather than overwriting
+a token still selected by another session. Older encrypted references are not
+automatically revoked; revoke obsolete credentials with the Git provider when
+rotating tokens.
+
+Use `:credential git status` to show the selected *hostname only* or
+`:credential git remove` to revoke the selected credential after a terminal
+confirmation. These are local CLI commands, not LLM tools, and require
+an active CLI Sandbox session and an interactive terminal. Existing session
+overrides are not silently replaced; advanced per-session selection remains
+available through the trusted-host API. CLI/GUI share the OS user default,
+but this **does not yet provide GUI, Web, or A2A settings screens**. Web and
+A2A retain separate authenticated realms and cannot inherit local CLI tokens.
+
+This initial read-only bridge supports Git protocol v2 with a bounded
+response size. Authenticated `git push`, SSH credentials, shell-launched
+Git credential forwarding, and large packfiles remain unsupported.
+Real Windows MXC/private Git server acceptance is still pending.
+
 - Trusted local CLI/GUI and Web with exact `127.0.0.1` bind plus `browser`
   (default guest cookie) or explicit `local` identity retain Sandbox-off behavior
   unless explicitly enabled; when off, they do not probe MXC or install
@@ -310,10 +352,10 @@ independent session overrides.
 
 ### Trusted-host Git smart-HTTP transport
 
-`runtime/sandbox_git_http_broker.py` implements the transport-side authenticated
-Git HTTP request primitive, but **does not yet connect Git's command-line client
-inside MXC to this host broker**. As a result, private `git clone/fetch/push`
-are not yet enabled automatically.
+`runtime/sandbox_git_http_broker.py` implements the trusted-host authenticated
+Git HTTP transport. The MXC Git remote-helper/IPC bridge connects direct
+`command_exec` Git protocol-v2 clone/fetch calls to this transport. Authenticated
+push is not enabled.
 
 The trusted host registers a token with `save_git_https_token(scope, alias,
 token, remote_host="github.com")`, and selects it at the user or session
@@ -346,22 +388,14 @@ scope and operation authorization before each request. This transport:
 - Returns only the Git smart-HTTP response bytes. Tokens never enter MXC
   variables, files, Git command arguments or tool responses.
 
-The transport deliberately does not support generic HTTP requests, arbitrary
-HTTP method/path combinations, or direct access to host loopback. Its next
-integration step is a bounded binary transport between the isolated Git
-remote helper and the trusted host, including cancellation, progress,
-streaming of large packfiles and push authorization.
-
-**This PR does not yet connect the credential to Git traffic.** Private
-`git clone/fetch/push` remain unauthenticated inside the Sandbox until a
-separate host-side authenticated HTTPS Git transport broker is implemented.
-HTTPS-only token support is the initial target; SSH remains out of scope.
-The selected credential *identity* and the actual scoped Git authentication
-broker are separate work; this change does not enable private-remote pushes
-or pass host Git credentials into the Sandbox. Existing Git identity variables
-(e.g. `GIT_AUTHOR_NAME`) can be shared per user and overridden per session
-without sharing a credential. A process able to execute arbitrary commands
-can inspect any environment variable assigned to its own Sandbox.
+The transport deliberately does not support generic HTTP requests,
+arbitrary HTTP method/path combinations, or access to host loopback. A
+bounded binary IPC bridge now handles direct Git clone/fetch traffic. Its
+remaining limitations include large-packfile streaming and the separately
+authorized push flow. HTTPS tokens remain host-only; SSH is out of scope.
+Existing Git identity variables (e.g. `GIT_AUTHOR_NAME`) remain non-secret
+user/session environment settings. A process able to execute arbitrary
+commands can inspect any variable assigned to its own Sandbox.
 
 ### Authenticated Git IPC framing (trusted host)
 
