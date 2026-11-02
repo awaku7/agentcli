@@ -96,6 +96,8 @@ def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
             "resolv = Path('/etc/resolv.conf')\n"
             "print('RESOLVER_FILE=' + str(resolv.is_file()))\n"
             "print('SLIRP_DNS=' + str('10.0.2.3' in resolv.read_text() if resolv.is_file() else False))\n"
+            "print('DNS_SERVERS=' + repr([line for line in "
+            "resolv.read_text().splitlines() if line.startswith('nameserver')]))\n"
             "print('NSS_FILE=' + str(Path('/etc/nsswitch.conf').is_file()))\n"
             "try:\n"
             "    with socket.create_connection(('1.1.1.1', 443), timeout=5):\n"
