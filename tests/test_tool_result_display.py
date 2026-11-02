@@ -268,6 +268,9 @@ def test_web_tool_trace_uses_the_cli_description_without_raw_results(
 ) -> None:
     from uagent import core, tools as tools_pkg
     from uagent.web_impl import rooms
+    from uagent.web_impl.io import web_tool_trace
+
+    monkeypatch.setattr(tools_pkg.get_callbacks(), "tool_trace", web_tool_trace)
 
     displayed = []
     room = SimpleNamespace(add_message=displayed.append)
@@ -298,6 +301,9 @@ def test_web_tool_trace_does_not_fallback_to_other_rooms(
 ) -> None:
     from uagent import core, tools as tools_pkg
     from uagent.web_impl import rooms
+    from uagent.web_impl.io import web_tool_trace
+
+    monkeypatch.setattr(tools_pkg.get_callbacks(), "tool_trace", web_tool_trace)
 
     monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
     monkeypatch.setattr(core, "_is_web", True, raising=False)

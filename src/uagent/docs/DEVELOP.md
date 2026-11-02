@@ -1354,3 +1354,13 @@ implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.m
 ### Tools available in MXC Sandbox
 
 The static MXC catalog provides workspace-only file listing/search/grep/hash/count, create/read/replace/diff/rename/delete, ZIP create/list/view/extract, structured JSON/CSV/XML/TOML/YAML inspection, read-only SQLite queries, Python AST inspection, EML/document text extraction (PDF, DOCX, PPTX, XLSX, ODT, RTF), file-type detection, safe arithmetic, redacted credential-pattern scanning, bounded binary edits, optional local image transforms/QR generation, and offline Git operations confined to a repository inside the workspace. Git mutations require confirmation; remote/network subcommands are not exposed, and Git works only if its executable is already installed in MXC. Optional format/image support is available only when the required library is already present in the sandbox; no dependency is installed dynamically. Archive extraction rejects traversal and links and enforces file/size limits; SQLite is opened read-only; image and document processing is size-bounded. All paths are relative to the isolated workspace. These tools do not access the host filesystem, devices, host credentials, browser, or desktop. Outbound network access is available to code running inside MXC, but Git remote subcommands are not yet exposed by `git_ops`; access to host-only services and other sessions remains restricted. Operations requiring host resources remain unavailable in Sandbox unless separately implemented through a narrow broker.
+
+## Independent Web host boundary
+
+The migration plan and dependency inventory are in
+[`docs/UAG_WEB_MIGRATION.ja.md`](../../../docs/UAG_WEB_MIGRATION.ja.md).
+Web installs its masked tool-description sink through `ToolCallbacks.tool_trace`
+and registers its room-owned Job resolver with
+`runtime.sub_agent_job_access.register_web_job_runtime_resolver`.
+The common runtime must not import Web host modules. Authentication and foreground
+Job gates remain in UAG; room/session ownership checks remain in the host adapter.

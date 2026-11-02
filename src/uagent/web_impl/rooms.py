@@ -17,6 +17,7 @@ from .. import core
 from ..env_utils import env_get
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.room_access import private_room_idle_ttl_seconds
+from ..runtime.sub_agent_job_access import register_web_job_runtime_resolver
 from ..runtime.identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
@@ -981,3 +982,13 @@ def reset_context_web_room(token) -> None:
 def get_context_web_room() -> WebRoom | None:
     room = _web_room_context.get()
     return room if isinstance(room, WebRoom) else None
+
+
+def _resolve_host_job_runtime(turn):
+    from .sub_agent_jobs import get_web_job_runtime_context
+
+    return get_web_job_runtime_context(turn)
+
+
+# Register from the host; the common runtime never imports Web modules.
+register_web_job_runtime_resolver(_resolve_host_job_runtime)

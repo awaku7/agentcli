@@ -1,0 +1,635 @@
+{
+  "source_commit": "7523ee1a9a4d238ba0a964862c9eecdba8f58e05",
+  "modules": {
+    "src/uagent/web_impl/rooms.py": {
+      "core_imports": [
+        "..",
+        "..env_utils",
+        "..i18n",
+        "..runtime",
+        "..runtime.identity_context",
+        "..runtime.room_access",
+        "..runtime.sub_agent_job_access",
+        "..welcome"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/routes_pages.py": {
+      "core_imports": [
+        "..",
+        "..i18n",
+        "..runtime.identity_context"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "get_root"
+        },
+        {
+          "method": "GET",
+          "path": "/room/{room_id}",
+          "handler": "get_room"
+        },
+        {
+          "method": "POST",
+          "path": "/upload",
+          "handler": "upload_files"
+        },
+        {
+          "method": "GET",
+          "path": "/local-file",
+          "handler": "get_local_file"
+        }
+      ]
+    },
+    "src/uagent/web_impl/routes_observability.py": {
+      "core_imports": [
+        "..runtime.identity_context",
+        "..runtime.memory_access",
+        "..runtime.observability.bootstrap",
+        "..runtime.observability.settings",
+        "..runtime.observability.trace_ownership_index",
+        "..runtime.observability.trace_ownership_runtime",
+        "..runtime.observability.trace_query_projection",
+        "..runtime.project_access",
+        "..runtime.room_access"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/observability/traces/{trace_id}",
+          "handler": "get_observability_trace"
+        }
+      ]
+    },
+    "src/uagent/web_impl/routes_integration.py": {
+      "core_imports": [
+        "..env_utils",
+        "..runtime.instance_identity",
+        "..runtime.project_access",
+        "..tools",
+        "..utils.paths"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/admin/integration/v1/manifest",
+          "handler": "get_integration_manifest"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/integration/v1/sessions",
+          "handler": "get_integration_sessions"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/integration/v1/projects/{project_id}/members",
+          "handler": "get_integration_project_members"
+        }
+      ]
+    },
+    "src/uagent/web_impl/agent_worker.py": {
+      "core_imports": [
+        "..",
+        "..env_utils",
+        "..hooks_engine",
+        "..i18n",
+        "..image_session",
+        "..llm_helpers",
+        "..providers",
+        "..runtime.agent_state",
+        "..runtime.execution",
+        "..runtime.execution_broker",
+        "..runtime.identity_context",
+        "..runtime.logging_setup",
+        "..runtime.memory_projection",
+        "..runtime.mxc_backend",
+        "..runtime.round_outcome",
+        "..runtime.session_store",
+        "..runtime.turn_context_runtime",
+        "..util_cmd_session"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/helpers.py": {
+      "core_imports": [
+        "..",
+        "..utils.paths"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/init.py": {
+      "core_imports": [
+        "..",
+        ".._pip_auto",
+        "..decision.settings",
+        "..env_utils",
+        "..hooks_engine",
+        "..i18n",
+        "..runtime",
+        "..runtime.execution_broker",
+        "..runtime.identity_context",
+        "..runtime.logging_setup",
+        "..runtime.mxc_backend",
+        "..runtime.observability.trusted_ingress",
+        "..runtime.policy_engine",
+        "..runtime.process_registry",
+        "..runtime.runtime_instructions",
+        "..runtime.runtime_plugins",
+        "..runtime.sandbox_config",
+        "..runtime.session_store",
+        "..tools.mcp_servers_shared",
+        "..welcome"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/history.py": {
+      "core_imports": [
+        "..",
+        "..hooks_engine",
+        "..i18n",
+        "..runtime",
+        "..runtime.agent_state",
+        "..runtime.identity_context",
+        "..runtime.runtime_instructions",
+        "..runtime.runtime_plugins",
+        "..runtime.session_command_service",
+        "..runtime.session_restore",
+        "..tools",
+        "..util_cmd_session"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/process_workers.py": {
+      "core_imports": [
+        "..",
+        "..decision.settings",
+        "..env_utils",
+        "..i18n",
+        "..runtime.execution_broker",
+        "..runtime.identity_context",
+        "..runtime.mxc_backend",
+        "..runtime.runtime_plugins",
+        "..runtime.session_store",
+        "..runtime.turn_context_runtime",
+        "..tools._genre_control_util",
+        "..util_mode"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/__init__.py": {
+      "core_imports": [],
+      "routes": []
+    },
+    "src/uagent/web_impl/sandbox_rpc.py": {
+      "core_imports": [
+        "..runtime.execution_broker",
+        "..runtime.mxc_backend"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/routes_api.py": {
+      "core_imports": [
+        "..",
+        "..auth.oidc_sessions",
+        "..env_utils",
+        "..i18n",
+        "..providers",
+        "..runtime.identity_context",
+        "..runtime.memory_access",
+        "..runtime.memory_scope",
+        "..runtime.memory_store",
+        "..runtime.project_access",
+        "..runtime.project_context",
+        "..runtime.room_access",
+        "..runtime.runtime_workdir",
+        "..runtime.session_portability",
+        "..runtime.session_store",
+        "..tools",
+        "..util_cmd_session",
+        "..util_help"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/artifacts/cleanup/report",
+          "handler": "artifact_cleanup_report"
+        },
+        {
+          "method": "POST",
+          "path": "/api/artifacts/cleanup",
+          "handler": "artifact_cleanup"
+        },
+        {
+          "method": "GET",
+          "path": "/api/sandbox-status",
+          "handler": "get_sandbox_status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tools-enabled",
+          "handler": "get_tools_enabled"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tools-enabled",
+          "handler": "set_tools_enabled"
+        },
+        {
+          "method": "POST",
+          "path": "/api/me/private-room",
+          "handler": "create_my_private_room"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/memories",
+          "handler": "get_my_memories"
+        },
+        {
+          "method": "POST",
+          "path": "/api/me/memories",
+          "handler": "add_my_memory"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/me/memories/{memory_id}",
+          "handler": "update_my_memory"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/me/memories/{memory_id}",
+          "handler": "delete_my_memory"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/memories/{memory_id}/grants",
+          "handler": "list_memory_grants"
+        },
+        {
+          "method": "POST",
+          "path": "/api/me/memories/{memory_id}/grants",
+          "handler": "share_memory"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/me/memories/{memory_id}/grants/{grant_id}",
+          "handler": "revoke_memory_grant"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/shared-memories",
+          "handler": "get_shared_memories"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/shared-memories/{memory_id}",
+          "handler": "get_shared_memory"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/projects",
+          "handler": "get_my_projects"
+        },
+        {
+          "method": "POST",
+          "path": "/api/project-context",
+          "handler": "select_project_context"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/projects/{project_id}/rooms/{room_id}",
+          "handler": "bind_project_room"
+        },
+        {
+          "method": "GET",
+          "path": "/api/projects/{project_id}/members",
+          "handler": "get_project_members"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/projects/{project_id}/members/{principal_id}",
+          "handler": "set_project_member"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/projects/{project_id}/members/{principal_id}",
+          "handler": "delete_project_member"
+        },
+        {
+          "method": "GET",
+          "path": "/api/projects/{project_id}/memories",
+          "handler": "get_project_memories"
+        },
+        {
+          "method": "POST",
+          "path": "/api/projects/{project_id}/memories",
+          "handler": "add_project_memory"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/projects/{project_id}/memories/{memory_id}",
+          "handler": "update_project_memory"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/projects/{project_id}/memories/{memory_id}",
+          "handler": "delete_project_memory"
+        },
+        {
+          "method": "GET",
+          "path": "/api/rooms/{room_id}/memories",
+          "handler": "get_room_memories"
+        },
+        {
+          "method": "POST",
+          "path": "/api/rooms/{room_id}/memories",
+          "handler": "add_room_memory"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/rooms/{room_id}/memories/{memory_id}",
+          "handler": "update_room_memory"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/rooms/{room_id}/memories/{memory_id}",
+          "handler": "delete_room_memory"
+        },
+        {
+          "method": "GET",
+          "path": "/api/rooms/{room_id}/members",
+          "handler": "get_room_members"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/rooms/{room_id}/members/{principal_id}",
+          "handler": "set_room_member"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/rooms/{room_id}/members/{principal_id}",
+          "handler": "delete_room_member"
+        },
+        {
+          "method": "GET",
+          "path": "/api/memories",
+          "handler": "get_memories"
+        },
+        {
+          "method": "POST",
+          "path": "/api/memories",
+          "handler": "add_memory"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/memories/{index}",
+          "handler": "update_memory"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/memories/{index}",
+          "handler": "delete_memory"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile",
+          "handler": "get_profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/me/profile",
+          "handler": "get_my_profile"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/me/profile",
+          "handler": "update_my_profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/profile/clear",
+          "handler": "clear_profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/profile/fromlog",
+          "handler": "profile_from_logs"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/profile",
+          "handler": "update_profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/logs",
+          "handler": "get_logs"
+        },
+        {
+          "method": "GET",
+          "path": "/api/logs/preview-by-path",
+          "handler": "get_log_preview_by_path"
+        },
+        {
+          "method": "GET",
+          "path": "/api/logs/{index}/preview",
+          "handler": "get_log_preview"
+        },
+        {
+          "method": "GET",
+          "path": "/api/commands",
+          "handler": "api_commands"
+        },
+        {
+          "method": "POST",
+          "path": "/api/command",
+          "handler": "api_command"
+        }
+      ]
+    },
+    "src/uagent/web_impl/routes_ws.py": {
+      "core_imports": [
+        "..",
+        "..i18n",
+        "..providers",
+        "..runtime.identity_context",
+        "..runtime.observability.trusted_ingress",
+        "..runtime.web_origin_policy",
+        "..tools.pybitchat_shared",
+        "..util_cmd_session"
+      ],
+      "routes": [
+        {
+          "method": "WEBSOCKET",
+          "path": "/ws",
+          "handler": "websocket_endpoint"
+        }
+      ]
+    },
+    "src/uagent/web_impl/connection_identity.py": {
+      "core_imports": [
+        "..auth.oidc_sessions",
+        "..runtime.auth_management",
+        "..runtime.identity_context",
+        "..runtime.memory_store",
+        "..runtime.project_access",
+        "..runtime.room_access",
+        "..runtime.session_store",
+        "..tools"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/routes_portability.py": {
+      "core_imports": [
+        "..runtime.memory_access",
+        "..runtime.session_portability"
+      ],
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/api/sessions/{session_id}/export",
+          "handler": "export_session"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions/import",
+          "handler": "import_session"
+        }
+      ]
+    },
+    "src/uagent/web_impl/sub_agent_jobs.py": {
+      "core_imports": [
+        "..runtime.sub_agent_jobs"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/app.py": {
+      "core_imports": [
+        ".._pip_auto",
+        "..admin_pairing",
+        "..env_utils",
+        "..runtime.browser_identity",
+        "..runtime.enterprise_identity",
+        "..runtime.identity_context",
+        "..runtime.mxc_backend",
+        "..runtime.project_access",
+        "..runtime.room_access",
+        "..runtime.web_origin_policy"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/command_policy.py": {
+      "core_imports": [],
+      "routes": []
+    },
+    "src/uagent/web_impl/routes_integration_write.py": {
+      "core_imports": [
+        "..env_utils",
+        "..runtime.instance_identity",
+        "..runtime.memory_access",
+        "..runtime.memory_store",
+        "..runtime.project_membership_mutation",
+        "..tools"
+      ],
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/api/admin/integration/v1/projects/{project_id}/memberships",
+          "handler": "mutate_integration_project_members"
+        }
+      ]
+    },
+    "src/uagent/web_impl/io.py": {
+      "core_imports": [
+        "..",
+        "..env_utils",
+        "..gui_ansi"
+      ],
+      "routes": []
+    },
+    "src/uagent/web_impl/routes_auth.py": {
+      "core_imports": [
+        "..auth.oidc_callback",
+        "..auth.oidc_sessions",
+        "..auth.oidc_transactions",
+        "..auth.oidc_verifier",
+        "..env_utils",
+        "..runtime.auth_management",
+        "..runtime.browser_identity",
+        "..runtime.identity_context",
+        "..runtime.room_access"
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/auth/oidc/login",
+          "handler": "oidc_login"
+        },
+        {
+          "method": "GET",
+          "path": "/auth/oidc/callback",
+          "handler": "oidc_callback"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/status",
+          "handler": "auth_status"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/auth/status",
+          "handler": "admin_auth_status"
+        },
+        {
+          "method": "POST",
+          "path": "/auth/logout",
+          "handler": "oidc_logout"
+        }
+      ]
+    }
+  },
+  "web_tests": [
+    "tests/test_sub_agent_job_hosts.py",
+    "tests/test_web_compact_tool_activity.py",
+    "tests/test_web_agent_worker_display_order.py",
+    "tests/test_browser_identity.py",
+    "tests/test_search_web_i18n_invariants.py",
+    "tests/test_web_sandbox_status.py",
+    "tests/test_execution_broker.py",
+    "tests/test_web_room_session_recovery.py",
+    "tests/test_web_single_status_display.py",
+    "tests/test_integration_management_write.py",
+    "tests/test_memory_v3_web_api.py",
+    "tests/test_observability_phase3_trusted_ingress.py",
+    "tests/test_web_tool_running_badge.py",
+    "tests/test_web_loaded_session_runtime.py",
+    "tests/test_integration_management_history.py",
+    "tests/test_genre_control_removed.py",
+    "tests/test_web_authorization_hardening.py",
+    "tests/test_websocket_origin_policy.py",
+    "tests/test_web_session_portability.py",
+    "tests/test_web_structured_compaction_rooms.py",
+    "tests/test_web_sandbox_lifecycle_hooks.py",
+    "tests/test_web_human_ask_parallel.py",
+    "tests/test_web_process_workers.py",
+    "tests/test_web_oidc_turn_revalidation.py",
+    "tests/test_web_room_lifecycle.py",
+    "tests/test_observability_phase4_trace_query_route.py",
+    "tests/test_observability_phase4_trace_query_projection.py",
+    "tests/test_tool_result_display.py",
+    "tests/test_web_sidebar_readability.py",
+    "tests/test_observability_phase4_trace_query_final_revalidation.py",
+    "tests/test_mxc_backend.py",
+    "tests/test_web_full_history_search.py",
+    "tests/test_web_connection_identity.py",
+    "tests/test_web_command_catalog.py",
+    "tests/test_responses_web_search_openai.py",
+    "tests/test_web_remote_command_policy.py",
+    "tests/test_web_sub_agent_job_identity.py",
+    "tests/test_web_chat_scroll_follow.py",
+    "tests/test_web_sandbox_parallel.py",
+    "tests/test_web_memory_store_lifetime.py",
+    "tests/test_integration_management_api.py"
+  ]
+}

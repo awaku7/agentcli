@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from contextvars import ContextVar
-from typing import Any
+from typing import Any, Callable
 
 from .identity_context import get_current_turn_context
 from .subagent_context import get_active_sub_agent_name
@@ -13,6 +13,21 @@ from .sub_agent_jobs import current_sub_agent_job_mode
 _A2A_JOB_RUNTIME_CONTEXT: ContextVar[tuple[Any, Any, Any] | None] = ContextVar(
     "uagent_a2a_sub_agent_job_runtime", default=None
 )
+
+
+_web_job_runtime_resolver: Callable[[Any], tuple[Any, Any] | None] | None = None
+
+
+def register_web_job_runtime_resolver(
+    resolver: Callable[[Any], tuple[Any, Any] | None],
+) -> None:
+    """Register a trusted in-process host adapter, never a request-supplied resolver.
+
+    The adapter must revalidate its current room/session ownership. The runtime
+    retains authentication and foreground-only gates before invoking it.
+    """
+    global _web_job_runtime_resolver
+    _web_job_runtime_resolver = resolver
 
 
 @contextmanager
@@ -60,9 +75,8 @@ def get_job_runtime_context() -> tuple[Any, Any] | None:
         if not turn.authenticated:
             return None
         try:
-            from ..web_impl.sub_agent_jobs import get_web_job_runtime_context
-
-            return get_web_job_runtime_context(turn)
+            resolver = _web_job_runtime_resolver
+            return resolver(turn) if resolver is not None else None
         except Exception:
             return None
     if turn.entry_point == "gui":
@@ -100,6 +114,7 @@ def get_job_runtime_context() -> tuple[Any, Any] | None:
 
 __all__ = [
     "bind_a2a_job_runtime_context",
+    "register_web_job_runtime_resolver",
     "get_cli_job_runtime_context",
     "get_job_runtime_context",
 ]

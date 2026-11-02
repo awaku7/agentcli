@@ -21,6 +21,15 @@ from .rooms import (
 )
 
 
+def web_tool_trace(name: str, content: str) -> None:
+    """Deliver the runtime's masked description only to the current room."""
+    from . import rooms
+
+    room = rooms.get_context_web_room() or getattr(rooms._thread_ctx, "room", None)
+    if room is not None:
+        room.add_message({"role": "tool", "name": name, "content": content})
+
+
 def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
     cancel_event = args.get("_cancel_event")
     if cancel_event is None:
