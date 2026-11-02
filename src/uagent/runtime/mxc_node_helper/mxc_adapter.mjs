@@ -769,7 +769,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc, for
 }
 
 
-async function executeCommandInContainer(config, baseRequest, args, spawnMxc) {
+async function executeCommandInContainer(config, baseRequest, args, spawnMxc, nextHostLine) {
   const argv = args?.argv;
   if (!Array.isArray(argv) || argv.length < 1 || argv.length > 64 ||
       argv.some((arg) => typeof arg !== "string" || Buffer.byteLength(arg, "utf8") > 4096 || arg.includes(String.fromCharCode(0))) ||
@@ -794,6 +794,34 @@ async function executeCommandInContainer(config, baseRequest, args, spawnMxc) {
   // descendant checks apply to all commands, including Git, pip and npm.
   // argv is executed without an implicit shell; callers can explicitly
   // run sh/cmd when shell syntax is required.
+  const gitCommand = (argv[0] === "git" || argv[0].toLowerCase() === "git.exe");
+  const gitHost = config.gitRemoteHost;
+  if (gitCommand && typeof gitHost === "string" &&
+      /^[a-z0-9.-]{1,253}$/.test(gitHost)) {
+    const marker = `__UAG_GIT_BRIDGE_${crypto.randomBytes(16).toString("hex")}__`;
+    const code = [
+      "import sys",
+      `sys.path.insert(0, ${JSON.stringify(config.helperRoot)})`,
+      "from sandbox_git_command import execute",
+      `raise SystemExit(execute(${JSON.stringify(argv)}, ${JSON.stringify(cwd)}, ${JSON.stringify(gitHost)}, ${JSON.stringify(path.join(config.helperRoot, "sandbox_git_remote_helper.py"))}, ${JSON.stringify(config.pythonExe)}, ${JSON.stringify(marker)}))`,
+    ].join("\n");
+    return executePythonInContainer(
+      config, baseRequest, { code, gitBridgeMarker: marker }, spawnMxc,
+      async (frame, input) => {
+        if (!frame || frame.bridge !== "git_http") {
+          throw new Error("invalid Git bridge frame");
+        }
+        writeHost(frame);
+        const line = await nextHostLine(30_000);
+        if (line === null) throw new Error("host disconnected from Git bridge");
+        const reply = JSON.parse(line);
+        if (!reply || reply.bridge !== "git_http") {
+          throw new Error("invalid trusted host Git IPC response");
+        }
+        input.write(JSON.stringify(reply) + "\n");
+      },
+    );
+  }
   const code = [
     "import subprocess, sys",
     `__uag_argv = ${JSON.stringify(argv)}`,
@@ -958,10 +986,13 @@ async function serveWorker() {
       : process.platform === "darwin" ? "mxc-seatbelt" : "mxc-bubblewrap",
   });
   const hostLines = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
+  const nextHostLine = createHostLineQueue(hostLines);
   process.stdin.on("close", () => { void stopWorker(); });
   process.stdin.on("error", () => { void stopWorker(); });
   try {
-    for await (const line of hostLines) {
+    while (true) {
+      const line = await nextHostLine();
+      if (line === null) break;
       if (Buffer.byteLength(line, "utf8") > MAX_FRAME_BYTES) throw new Error("host request frame is too large");
       const request = JSON.parse(line);
       if (request.operation === "close") {
@@ -976,7 +1007,7 @@ async function serveWorker() {
       if (request.payload.name === "python_exec" || request.payload.name === "command_exec") {
         try {
           const result = await (request.payload.name === "command_exec"
-            ? executeCommandInContainer(config, baseRequest, request.payload.args || {}, spawn)
+            ? executeCommandInContainer(config, baseRequest, request.payload.args || {}, spawn, nextHostLine)
             : executePythonInContainer(config, baseRequest, request.payload.args || {}, spawn));
           if (result.process_tree_unverified) {
             writeHost({ ok: false, terminate: true, error: `Python process tree termination could not be verified (${result.process_tree_failure_reason || "unknown"}); the isolated worker was terminated` });
