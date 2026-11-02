@@ -87,6 +87,23 @@ def test_git_ipc_uses_trusted_scope_and_streams_binary(scope):
     assert broker.handle(_begin(advertise=True)) == _frame("ready")
 
 
+def test_git_ipc_rechecks_revocation_after_blocking_http(scope):
+    state = {"revoked": False}
+
+    def exchange(*_args, **_kwargs):
+        state["revoked"] = True
+        return GitHttpResponse("application/x-git-upload-pack-advertisement", b"0000")
+
+    broker = GitHttpIPC(
+        scope,
+        revoked=lambda: state["revoked"],
+        exchange=exchange,
+    )
+    broker.handle(_begin(advertise=True))
+    with pytest.raises(PermissionError, match="revoked"):
+        broker.handle(_frame("execute"))
+
+
 def test_git_ipc_denies_receive_pack_without_host_approval(scope):
     broker = GitHttpIPC(scope, revoked=lambda: False)
     with pytest.raises(PermissionError, match="receive-pack"):
