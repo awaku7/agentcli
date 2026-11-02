@@ -194,9 +194,10 @@ def test_mxc_command_execution_forwards_git_frames_to_host(monkeypatch, scope):
     session._read_response = lambda **kwargs: received.pop(0)
 
     class StubGitIPC:
-        def __init__(self, received_scope, *, revoked):
+        def __init__(self, received_scope, *, revoked, deadline=None):
             assert received_scope == scope
             assert not revoked()
+            self.is_idle = True
 
         def handle(self, frame):
             assert frame == {"bridge": "git_http", "op": "begin"}
