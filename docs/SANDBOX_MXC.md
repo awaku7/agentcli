@@ -376,10 +376,12 @@ IPC frame, model tool argument or Sandbox environment.
 advertisement boolean and protocol version, followed by bounded base64
 `body` frames, `execute` and paged `next` response frames. It enforces
 16 MiB request size, 128 KiB frame chunks, the existing 64 MiB response cap,
-64 exchanges per command, and revocation checks before every frame. Invalid
-or out-of-order frames terminate the affected command session. The host
-`_MxcSession.run()` exchanges these frames within the existing tool
-deadline, then returns only the final tool result.
+64 exchanges per command, and revocation checks before every frame and
+again after blocking network calls. An absolute command deadline bounds DNS
+resolution, TCP/TLS connect and Git HTTP socket transfers, including a slow
+trickle of response bytes. Invalid, incomplete or out-of-order frames terminate
+the affected command session. The host `_MxcSession.run()` exchanges these
+frames within the existing tool deadline and returns only the final tool result.
 
 **Integration status:** The host's framing logic is implemented and covered
 by unit tests, but the MXC Node adapter and the contained Git remote helper
