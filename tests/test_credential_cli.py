@@ -199,3 +199,28 @@ def test_git_credential_requires_tty_and_trusted_cli_scope(monkeypatch, capsys) 
     )
     handle_credential_command("git github.com", core=core, tr=_translate)
     assert "local CLI" in capsys.readouterr().out
+
+
+def test_sandbox_command_gate_allows_only_git_credential_subcommand(
+    monkeypatch, capsys
+) -> None:
+    import uagent.util_tools as commands
+
+    core = _Core()
+    core._sandbox_enabled = True
+    calls = []
+    sentinel = object()
+
+    def fake_git_handler(arg, *, core, tr):
+        calls.append(arg)
+        return sentinel
+
+    monkeypatch.setattr(commands, "handle_credential_command", fake_git_handler)
+    assert commands.handle_command(
+        ":credential git status", [], None, "", core=core
+    ) is sentinel
+    assert calls == ["git status"]
+
+    commands.handle_command(":credential list", [], None, "", core=core)
+    assert calls == ["git status"]
+    assert "unavailable in Sandbox mode" in capsys.readouterr().out
