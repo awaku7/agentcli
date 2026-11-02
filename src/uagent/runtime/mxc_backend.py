@@ -1317,6 +1317,8 @@ class _MxcSession:
         self._closed = False
         self._workspace_preserved = False
         self._scope = scope
+        # Reject malformed or unsafe settings before starting any MXC process.
+        session_env = _session_settings_environment(scope)
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
             self.workspace.parent, self.workspace.name
@@ -1456,7 +1458,7 @@ class _MxcSession:
             "pythonEnvRoot": str(python_env_root),
             "workerScript": str(worker_script),
             "helperRoot": str(runtime),
-            "sessionEnv": _session_settings_environment(scope),
+            "sessionEnv": session_env,
             "deniedPaths": [],
         }
         try:
