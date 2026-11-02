@@ -281,6 +281,37 @@ configuration management must verify ownership and authorization first.
 
 **Do not store Git tokens, SSH private keys, passwords, or credential-helper
 secrets in these JSON files.** They are intentionally non-secret settings.
+
+### Scoped Git HTTPS credential references (host-side only)
+
+Git HTTPS tokens and their user/session selections use the existing
+encrypted `CredentialStore`, never the MXC environment or workspace files.
+The trusted-host module `uagent.runtime.sandbox_git_credentials` provides:
+
+- `save_git_https_token(scope, alias, token)`: register a user's Git token
+  under a user/realm-isolated CredentialStore name
+- `select_git_credential(scope, "user", alias)`: choose a user default
+- `select_git_credential(scope, "session", alias)`: override it for one
+  logical CLI/GUI session, Web Room generation, or A2A Task
+- `select_git_credential(scope, "session", None)`: explicitly disable
+  inherited Git credentials for that session
+- `reset_git_credential_selection(scope, "session")`: remove the override;
+  restore user inheritance
+- `remove_git_https_token(scope, alias)`: revoke the token
+
+`effective_git_credential_alias` returns an alias only. The
+`resolve_git_https_token_for_host` method is intentionally broker-only:
+the caller MUST first validate trusted scope membership, remote host/repository,
+and allowed Git operation. It returns sensitive credentials and must never be
+exposed as an LLM tool, Tool result, command argument, or injected environment
+variable. Tokens are not copied across different Principals or between the
+local OS, Web and A2A realms. CLI and GUI share an OS user default but maintain
+independent session overrides.
+
+**This PR does not yet connect the credential to Git traffic.** Private
+`git clone/fetch/push` remain unauthenticated inside the Sandbox until a
+separate host-side authenticated HTTPS Git transport broker is implemented.
+HTTPS-only token support is the initial target; SSH remains out of scope.
 The selected credential *identity* and the actual scoped Git authentication
 broker are separate work; this change does not enable private-remote pushes
 or pass host Git credentials into the Sandbox. Existing Git identity variables
