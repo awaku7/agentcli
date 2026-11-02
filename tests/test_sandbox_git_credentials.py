@@ -276,8 +276,38 @@ def test_live_mxc_worker_uses_latest_git_selection_each_command(
     assert requests[-1]["payload"]["gitRemoteHost"] == "github.com"
     assert "secret" not in repr(requests)
 
-    sandbox_git_credentials.reset_git_credential_selection(
-        cli, "user", store=store
-    )
+    sandbox_git_credentials.reset_git_credential_selection(cli, "user", store=store)
     assert session.run("command_exec", args) == "ok"
     assert requests[-1]["payload"]["gitRemoteHost"] is None
+
+
+def test_revoked_git_token_does_not_block_unrelated_commands(
+    monkeypatch, cli, store
+):
+    import threading
+
+    session = object.__new__(mxc_backend._MxcSession)
+    session._scope = cli
+    session._lock = threading.RLock()
+    session._revoked = threading.Event()
+    session._mac_scope = None
+    requests = []
+    session._write_line = requests.append
+    session._read_response = lambda *, timeout: {"ok": True, "result": "ok"}
+    monkeypatch.setattr(sandbox_git_credentials, "_store", lambda supplied: store)
+
+    sandbox_git_credentials.save_git_https_token(
+        cli, "shared", "secret", store=store, remote_host="github.com"
+    )
+    sandbox_git_credentials.select_git_credential(
+        cli, "user", "shared", store=store
+    )
+    assert session.run("command_exec", {"argv": ["git", "fetch"]}) == "ok"
+    assert requests[-1]["payload"]["gitRemoteHost"] == "github.com"
+
+    sandbox_git_credentials.remove_git_https_token(cli, "shared", store=store)
+    assert session.run("command_exec", {"argv": ["echo", "hello"]}) == "ok"
+    assert requests[-1]["payload"]["gitRemoteHost"] is None
+    with pytest.raises(PermissionError, match="not available"):
+        session.run("command_exec", {"argv": ["git", "fetch"]})
+    assert requests[-1]["payload"]["args"]["argv"] == ["echo", "hello"]
