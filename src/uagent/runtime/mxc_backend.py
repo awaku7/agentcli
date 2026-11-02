@@ -709,6 +709,7 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     source = _helper_source_dir()
     for filename in (
         "mxc_adapter.mjs",
+        "sandbox_git_remote_helper.py",
         "seatbelt_smoke.mjs",
         "package.json",
         "package-lock.json",
@@ -1324,6 +1325,9 @@ class _MxcSession:
         self._scope = scope
         # Reject malformed or unsafe settings before starting any MXC process.
         session_env = _session_settings_environment(scope)
+        from .sandbox_git_credentials import selected_git_https_host_for_scope
+
+        git_remote_host = selected_git_https_host_for_scope(scope)
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
             self.workspace.parent, self.workspace.name
@@ -1464,6 +1468,7 @@ class _MxcSession:
             "workerScript": str(worker_script),
             "helperRoot": str(runtime),
             "sessionEnv": session_env,
+            "gitRemoteHost": git_remote_host,
             "deniedPaths": [],
         }
         try:
