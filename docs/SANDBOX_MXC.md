@@ -332,8 +332,12 @@ scope and operation authorization before each request. This transport:
   registered host; cross-principal and cross-realm selection remain isolated.
 - Forbids HTTP redirects; resolves target DNS names, rejects loopback
   and link-local destinations, and connects to the validated IP with TLS
-  verification and the original hostname as SNI. Untrusted process proxy
-  environment variables are ignored for this initial direct-HTTPS transport.
+  verification and the original hostname as SNI. The TLS CA trust comes
+  from Windows native certificate stores or OpenSSL's compiled system CA paths,
+  never project-controlled SSL_CERT_FILE / SSL_CERT_DIR overrides. Untrusted
+  process proxy environment variables are ignored for this initial
+  direct-HTTPS transport; an authenticated enterprise proxy requires a
+  separately trusted proxy configuration.
 - Preserves the caller's explicit Git protocol version (0, 1, or 2) across
   advertisement and RPC requests rather than silently negotiating v2.
 - Validates Git content types and bounds request/response sizes.
