@@ -8,6 +8,7 @@ only exchanges bounded Git packet bytes through its per-command mailbox.
 from __future__ import annotations
 
 import base64
+from contextlib import contextmanager
 import json
 import os
 import re
@@ -149,6 +150,49 @@ def _request_message(stream) -> bytes | None:
         size = int(header, 16)
 
 
+@contextmanager
+def _serialized_git_session(directory: Path, deadline: float):
+    """Serialize whole Git helper sessions using one host IPC state machine."""
+    lock = directory / ".git-ipc-session.lock"
+    while True:
+        if time.monotonic() >= deadline:
+            raise TimeoutError("concurrent Git remote helpers exceeded deadline")
+        try:
+            fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        except FileExistsError:
+            time.sleep(0.01)
+            continue
+        else:
+            os.close(fd)
+            break
+    try:
+        yield
+    finally:
+        lock.unlink(missing_ok=True)
+
+
+def _serve_git_transport(helper: _RemoteHelper, source, output) -> None:
+    advertisement = helper.http(advertise=True)
+    banner = b"001e# service=git-upload-pack\n0000"
+    capability_data = (
+        advertisement[len(banner) :]
+        if advertisement.startswith(banner)
+        else advertisement
+    )
+    if not capability_data.startswith(b"000eversion 2\n"):
+        raise RuntimeError("Git remote did not negotiate protocol v2")
+    output.write(b"\n" + capability_data)
+    output.flush()
+    for _ in range(_MAX_REQUESTS):
+        body = _request_message(source)
+        if body is None:
+            return
+        response = helper.http(advertise=False, body=body)
+        output.write(response + b"0002")
+        output.flush()
+    raise RuntimeError("Git remote helper request limit exceeded")
+
+
 def main() -> int:
     if len(sys.argv) < 3:
         raise ValueError("Git helper requires remote name and URL")
@@ -168,29 +212,9 @@ def main() -> int:
             continue
         if command != b"stateless-connect git-upload-pack\n":
             raise PermissionError("only Git upload-pack protocol v2 is supported")
-        advertisement = helper.http(advertise=True)
-        # A protocol-v2 HTTP server advertises capabilities directly, while
-        # legacy smart-HTTP discovery may include a service banner first.
-        banner = b"001e# service=git-upload-pack\n0000"
-        capability_data = (
-            advertisement[len(banner) :]
-            if advertisement.startswith(banner)
-            else advertisement
-        )
-        if not capability_data.startswith(b"000eversion 2\n"):
-            raise RuntimeError("Git remote did not negotiate protocol v2")
-        output.write(b"\n" + capability_data)
-        output.flush()
-        for _ in range(_MAX_REQUESTS):
-            body = _request_message(source)
-            if body is None:
-                return 0
-            response = helper.http(advertise=False, body=body)
-            # Git's stateless-connect transport requires response-end after
-            # each complete HTTP response, not just the server flush packet.
-            output.write(response + b"0002")
-            output.flush()
-        raise RuntimeError("Git remote helper request limit exceeded")
+        with _serialized_git_session(helper.directory, helper.deadline):
+            _serve_git_transport(helper, source, output)
+        return 0
     return 0
 
 
