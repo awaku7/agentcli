@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web server (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP server |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP server |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ I-disable ang session store at itago ang mga tool-management na tool (`tool_cata
 
 ______________________________________________________________________
 
-## Mga pagpipilian ng A2A server (`uaga`)
+## Mga pagpipilian ng A2A server (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Numero ng port para sa A2A HTTP server (default: `8765`, maaaring baguhin gamit 
 Pinapagana ang hot reload sa mga pagbabago sa code (default: naka-off, maaaring baguhin gamit ang `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A server sa localhost na may pasadyang port
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### I-disable ang mga tool para sa maliit na modelo

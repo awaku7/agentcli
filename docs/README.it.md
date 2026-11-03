@@ -60,7 +60,7 @@ Tutti i punti di accesso usano lo stesso runtime dell'agente e lo stesso registr
 | **CLI** | `uag` | Lavoro nel terminale e automazione |
 | **Desktop** | `uagg` | Conversazioni in un'applicazione nativa |
 | **Web** | `uagw` | Conversazioni e stanze dal browser |
-| **A2A** | `uaga` | Integrazione tra agenti |
+| **A2A** | `uaga2a` | Integrazione tra agenti |
 | **VS Code** | [Guida all'estensione](VSCODE.md) | Lavorare accanto al codice |
 
 Le interfacce Desktop e Web richiedono dipendenze aggiuntive non incluse nell'installazione iniziale `uag[core,providers,tools]`:

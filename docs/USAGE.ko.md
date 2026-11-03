@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin 루프) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | 웹 서버 (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP 서버 |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP 서버 |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ HTML 템플릿이나 정적 프론트엔드 파일 없이 API만 실행합니다
 
 ______________________________________________________________________
 
-## A2A 서버 옵션 (`uaga`)
+## A2A 서버 옵션 (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A HTTP 서버의 포트 번호(기본값: `8765`, `UAGENT_A2A_PORT`로 재정�
 코드 변경 시 핫 리로드를 활성화합니다(기본값: 비활성화, `UAGENT_A2A_RELOAD`으로 재정의 가능).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### 사용자 지정 포트를 사용하는 로컬호스트의 A2A 서버
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### 소규모 모델에 대한 도구 비활성화

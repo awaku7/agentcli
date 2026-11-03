@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (ciclo stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Server web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | server A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | server A2A HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Disabilita l’archivio delle sessioni e nasconde gli strumenti di gestione (`to
 
 ______________________________________________________________________
 
-## Opzioni del server A2A (`uaga`)
+## Opzioni del server A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Numero di porta per il server A2A HTTP (impostazione predefinita: `8765`, sovras
 Abilita il ricaricamento a caldo in caso di modifiche al codice (impostazione predefinita: disabilitato, sovrascrivibile tramite `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -220,7 +220,7 @@ uagw --host 0.0.0.0
 ### Server A2A su localhost con porta personalizzata
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Disabilitare gli strumenti per un modello di piccole dimensioni

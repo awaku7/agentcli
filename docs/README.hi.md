@@ -60,7 +60,7 @@ python -m pip install "uag[core,providers,tools]"
 | **CLI** | `uag` | टर्मिनल और स्वचालन |
 | **Desktop** | `uagg` | डेस्कटॉप ऐप में बातचीत |
 | **Web** | `uagw` | ब्राउज़र में बातचीत और कमरे |
-| **A2A** | `uaga` | एजेंटों के बीच एकीकरण |
+| **A2A** | `uaga2a` | एजेंटों के बीच एकीकरण |
 | **VS Code** | [एक्सटेंशन मार्गदर्शिका](VSCODE.md) | कोड के साथ काम |
 
 Desktop और Web को अतिरिक्त निर्भरताएँ चाहिए, जो प्रारंभिक `uag[core,providers,tools]` स्थापना में नहीं हैं:

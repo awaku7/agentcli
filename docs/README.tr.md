@@ -60,7 +60,7 @@ Tüm giriş noktaları aynı ajan çalışma ortamını ve araç kaydını kulla
 | **CLI** | `uag` | Terminal ve otomasyon |
 | **Desktop** | `uagg` | Yerel masaüstü görüşmeleri |
 | **Web** | `uagw` | Tarayıcıdaki görüşmeler ve odalar |
-| **A2A** | `uaga` | Ajanlar arası entegrasyon |
+| **A2A** | `uaga2a` | Ajanlar arası entegrasyon |
 | **VS Code** | [Eklenti kılavuzu](VSCODE.md) | Kodla birlikte çalışma |
 
 Desktop ve Web, ilk `uag[core,providers,tools]` kurulumuna dahil olmayan ek bağımlılıklar gerektirir:

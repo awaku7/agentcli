@@ -60,7 +60,7 @@ Minden belépési pont ugyanazt az ügynökfuttatót és eszközregisztert haszn
 | **CLI** | `uag` | Terminál és automatizálás |
 | **Desktop** | `uagg` | Natív asztali beszélgetések |
 | **Web** | `uagw` | Böngészős beszélgetések és szobák |
-| **A2A** | `uaga` | Ügynökök közti együttműködés |
+| **A2A** | `uaga2a` | Ügynökök közti együttműködés |
 | **VS Code** | [Bővítmény útmutató](VSCODE.md) | Munka a forráskód mellett |
 
 Az asztali és webes felülethez további függőségek szükségesek, amelyeket a `uag[core,providers,tools]` nem tartalmaz:

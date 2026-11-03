@@ -60,7 +60,7 @@ Miingiliano yote hutumia mazingira yale yale ya wakala na orodha moja ya zana.
 | **CLI** | `uag` | Kazi za terminali na uendeshaji otomatiki |
 | **Desktop** | `uagg` | Mazungumzo katika programu ya kompyuta |
 | **Web** | `uagw` | Mazungumzo na vyumba kwenye kivinjari |
-| **A2A** | `uaga` | Ushirikiano kati ya mawakala |
+| **A2A** | `uaga2a` | Ushirikiano kati ya mawakala |
 | **VS Code** | [Mwongozo wa kiendelezi](VSCODE.md) | Kufanya kazi pamoja na msimbo |
 
 Desktop na Web zinahitaji vitegemezi vya ziada ambavyo havipo kwenye usakinishaji wa `uag[core,providers,tools]`:

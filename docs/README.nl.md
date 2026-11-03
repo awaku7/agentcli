@@ -60,7 +60,7 @@ Alle ingangen gebruiken dezelfde agentruntime en hetzelfde register met hulpmidd
 | **CLI** | `uag` | Terminalwerk en automatisering |
 | **Desktop** | `uagg` | Gesprekken in een native toepassing |
 | **Web** | `uagw` | Gesprekken en ruimtes in de browser |
-| **A2A** | `uaga` | Samenwerking tussen agenten |
+| **A2A** | `uaga2a` | Samenwerking tussen agenten |
 | **VS Code** | [Extensiehandleiding](VSCODE.md) | Werken naast broncode |
 
 Voor Desktop en Web zijn extra afhankelijkheden vereist die niet in de eerste installatie `uag[core,providers,tools]` zitten:

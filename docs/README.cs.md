@@ -60,7 +60,7 @@ Všechna rozhraní používají stejné jádro agenta i registr nástrojů.
 | **CLI** | `uag` | Terminál a automatizace |
 | **Desktop** | `uagg` | Nativní desktopové konverzace |
 | **Web** | `uagw` | Konverzace a místnosti v prohlížeči |
-| **A2A** | `uaga` | Propojení agentů |
+| **A2A** | `uaga2a` | Propojení agentů |
 | **VS Code** | [Průvodce rozšířením](VSCODE.md) | Práce vedle zdrojového kódu |
 
 Desktop a Web vyžadují další závislosti, které základní instalace `uag[core,providers,tools]` neobsahuje:

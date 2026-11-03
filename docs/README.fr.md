@@ -60,7 +60,7 @@ Toutes les interfaces utilisent le même moteur d’agent et le même registre d
 | **CLI** | `uag` | Travail dans le terminal et automatisation |
 | **Desktop** | `uagg` | Discussions dans une application native |
 | **Web** | `uagw` | Discussions et espaces depuis un navigateur |
-| **A2A** | `uaga` | Interopérabilité entre agents |
+| **A2A** | `uaga2a` | Interopérabilité entre agents |
 | **VS Code** | [Guide de l’extension](VSCODE.md) | Travail au plus près du code |
 
 Les interfaces Desktop et Web nécessitent des dépendances supplémentaires, absentes du groupe `uag[core,providers,tools]` utilisé au démarrage :

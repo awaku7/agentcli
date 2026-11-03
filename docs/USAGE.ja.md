@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin ループ) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web サーバー (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP サーバー |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP サーバー |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ HTML テンプレートや静的なフロントエンドファイルを使用せ
 
 ______________________________________________________________________
 
-## A2A サーバーオプション (`uaga`)
+## A2A サーバーオプション (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A HTTP サーバーのポート番号（デフォルト: `8765`、`UAGENT_A2A_
 コード変更時のホットリロードを有効にする（デフォルト：オフ、`UAGENT_A2A_RELOAD`で上書き可能）。
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### ローカルホスト上のカスタムポートで動作する A2A サーバー
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### 小規模なモデルでツールを無効にする

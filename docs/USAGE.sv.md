@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin-loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Webbserver (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP-server |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP-server |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Inaktivera sessionslagret och dölj verktygshanteringsverktygen (`tool_catalog`,
 
 ______________________________________________________________________
 
-## A2A-serveralternativ (`uaga`)
+## A2A-serveralternativ (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Portnummer för A2A- och HTTP-servern (standard: `8765`, kan ändras med `UAGENT
 Aktivera automatisk omladdning vid kodändringar (standard: av, kan ändras med `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A-server på localhost med anpassad port
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Inaktivera verktyg för en liten modell

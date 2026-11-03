@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (buclă stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Server web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | serverul A2A și HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | serverul A2A și HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Dezactivează stocarea sesiunilor și ascunde instrumentele de gestionare a inst
 
 ______________________________________________________________________
 
-## Opțiuni server A2A (`uaga`)
+## Opțiuni server A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Numărul portului pentru serverul A2A HTTP (implicit: `8765`, poate fi suprascri
 Activează reîncărcarea din mers la modificările de cod (implicit: dezactivat, poate fi suprascris de `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### Serverul A2A pe localhost cu port personalizat
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Dezactivare instrumente pentru un model mic

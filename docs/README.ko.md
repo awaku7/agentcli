@@ -60,7 +60,7 @@ python -m pip install "uag[core,providers,tools]"
 | **CLI** | `uag` | 터미널 작업과 자동화 |
 | **데스크톱** | `uagg` | 네이티브 앱에서 대화 |
 | **웹** | `uagw` | 브라우저 대화와 룸 |
-| **A2A** | `uaga` | 에이전트 간 연동 |
+| **A2A** | `uaga2a` | 에이전트 간 연동 |
 | **VS Code** | [확장 안내](VSCODE.md) | 코드 작업과 병행 |
 
 데스크톱과 웹 인터페이스에는 빠른 설치의 `uag[core,providers,tools]`에 포함되지 않은 추가 의존성이 필요합니다:

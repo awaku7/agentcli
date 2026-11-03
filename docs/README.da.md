@@ -60,7 +60,7 @@ De forskellige grænseflader deler samme agent-runtime og værktøjsregister.
 | **CLI** | `uag` | Terminalarbejde og automatisering |
 | **Desktop** | `uagg` | Samtaler i en lokal applikation |
 | **Web** | `uagw` | Samtaler og rum i browseren |
-| **A2A** | `uaga` | Integration mellem agenter |
+| **A2A** | `uaga2a` | Integration mellem agenter |
 | **VS Code** | [Udvidelsesvejledning](VSCODE.md) | Arbejde ved siden af koden |
 
 Desktop og Web kræver ekstra afhængigheder, som ikke indgår i den indledende installation `uag[core,providers,tools]`:

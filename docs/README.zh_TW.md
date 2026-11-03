@@ -60,7 +60,7 @@ python -m pip install "uag[core,providers,tools]"
 | **CLI** | `uag` | 終端機工作與自動化 |
 | **桌面** | `uagg` | 原生桌面對話 |
 | **Web** | `uagw` | 瀏覽器中的對話及房間 |
-| **A2A** | `uaga` | 代理之間的整合 |
+| **A2A** | `uaga2a` | 代理之間的整合 |
 | **VS Code** | [擴充功能指南](VSCODE.md) | 與程式碼編輯並行工作 |
 
 桌面與 Web 介面需要額外的相依套件，快速入門的 `uag[core,providers,tools]` 安裝並未包含這些套件：

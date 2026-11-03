@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin-lus) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Webserver (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP-server |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP-server |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Schakel de sessieopslag uit en verberg de tools voor toolbeheer (`tool_catalog`,
 
 ______________________________________________________________________
 
-## A2A-serveropties (`uaga`)
+## A2A-serveropties (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Poortnummer voor de A2A HTTP-server (standaard: `8765`, kan worden overschreven 
 Hot reload inschakelen bij wijzigingen in de code (standaard: uitgeschakeld, kan worden overschreven door `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A-server op localhost met aangepaste poort
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Hulpprogramma’s uitschakelen voor een klein model

@@ -60,7 +60,7 @@ Alle grensesnitt deler samme agentkjøretid og verktøyregister.
 | **CLI** | `uag` | Terminal og automatisering |
 | **Desktop** | `uagg` | Samtaler i skrivebordsprogram |
 | **Web** | `uagw` | Samtaler og rom i nettleseren |
-| **A2A** | `uaga` | Samhandling mellom agenter |
+| **A2A** | `uaga2a` | Samhandling mellom agenter |
 | **VS Code** | [Utvidelsesveiledning](VSCODE.md) | Arbeid med kildekode |
 
 Desktop og Web krever ekstra avhengigheter som ikke er inkludert i `uag[core,providers,tools]`:

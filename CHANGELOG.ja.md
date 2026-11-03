@@ -5,7 +5,7 @@
 ### 変更
 
 - 既存の所有権・epoch照会を`get_trace_ownership_state`として公開し、任意導入の独立版`uag-web`から利用。認可の検証処理は維持。
-- 本体Web・UI成果物・`uagw`・A2A用`uaga`は維持。独立版は別コマンド`uag-web`で起動し、本体Webと同時には起動しない。
+- 本体Web・UI成果物・`uagw`は維持。独立版Web/avatarの`uaga`と競合しないよう、A2Aコマンドを`uaga2a`へ改名。A2Aのモジュール起動方法と機能は維持し、両Webは同時起動しない。
 
 ## [0.7.41] - 2026-11-01
 

@@ -60,7 +60,7 @@ python -m pip install "uag[core,providers,tools]"
 | **CLI** | `uag` | 终端工作和自动化 |
 | **桌面** | `uagg` | 原生桌面会话 |
 | **Web** | `uagw` | 浏览器中的对话和会话房间 |
-| **A2A** | `uaga` | 智能体之间的集成 |
+| **A2A** | `uaga2a` | 智能体之间的集成 |
 | **VS Code** | [扩展指南](VSCODE.md) | 在编码时使用智能体 |
 
 桌面和 Web 界面需要额外的依赖项，快速入门的 `uag[core,providers,tools]` 安装并不包含它们：

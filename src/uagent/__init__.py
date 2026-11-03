@@ -10,7 +10,7 @@ from __future__ import annotations
 import warnings
 
 # Suppress pkg_resources deprecation warning from jieba/_compat.py
-# Applied at package level so all entry points (uag/uagw/uagg/uaga/scheck) are covered.
+# Applied at package level so all entry points (uag/uagw/uagg/uaga2a/uaga/scheck) are covered.
 warnings.filterwarnings(
     "ignore",
     message="pkg_resources is deprecated as an API.*",

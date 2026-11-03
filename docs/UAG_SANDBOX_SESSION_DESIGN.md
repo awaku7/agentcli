@@ -84,7 +84,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 | CLI (uag) | CLI runtime session UUID | local: off | CLI Session 終了、明示破棄 |
 | GUI (uagg) | 現在の GUI Session / 会話 ID + runtime 所有情報 | local: off | 現在のSessionの終了・破棄で回収。既存のSession切替／履歴復帰経路がある場合のみ切替先へ |
 | Web (uagw) | **room_id + principal_id** | Identity既定は`browser`（署名付き匿名guest cookie、本人認証ではない）。厳密な`127.0.0.1` bindではtrusted local WebとしてSandbox off。その他のbindはRemote profileで既定`auto`（MXC ProcessContainer） | 認可済み Room の存続中に Principal ごとに保持。削除・Private Room TTL・認可取消で破棄 |
-| A2A (uaga) | **task_id** | remote tools: required | Task の完了・取消・期限切れで破棄 |
+| A2A (uaga2a) | **task_id** | remote tools: required | Task の完了・取消・期限切れで破棄 |
 
 - Web の一時的な WebSocket 切断は Room 終了ではない。再接続しても同一 Scope の健全な Sandbox を再利用する。
 - 同じ Principal/Project でも **異なる room_id の Sandbox は共有しない**。同じ Shared Room でも Principal が異なれば別 Lease を割り当て、Private / shared Room の可変状態は共有しない。Room 自体が共有資産でも、Sandbox 内のファイル・プロセスは自動的に他参加者へ共有しない。
@@ -397,7 +397,7 @@ uag  --sandbox mxc           # MXC Adapter を明示
 uagg --sandbox auto          # GUI opt-in
 uagw --sandbox off           # Web既定。127.0.0.1 + local単独利用・非公開なら従来実行
 uagw --sandbox auto          # Web opt-in（Remoteは適合する強隔離Backendが必要）
-uaga --sandbox auto          # A2A remote toolsには適合Backendが必要
+uaga2a --sandbox auto          # A2A remote toolsには適合Backendが必要
 ```
 
 - 新規設定は可能な限り単一の共通引数にまとめ、Backend 固有の細かなオプションを環境変数として大量追加しない。

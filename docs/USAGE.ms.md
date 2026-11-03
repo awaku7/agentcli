@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (gelung stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web server (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP pelayan |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP pelayan |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Mematikan stor sesi dan menyembunyikan alat pengurusan (`tool_catalog`, `tool_lo
 
 ______________________________________________________________________
 
-## Pilihan pelayan A2A (`uaga`)
+## Pilihan pelayan A2A (`uaga2a`)
 
 ### `--host <alamat>`
 
@@ -142,7 +142,7 @@ Nombor port untuk pelayan A2A HTTP (lalai: `8765`, boleh diubah oleh `UAGENT_A2A
 Mengaktifkan pemuatan semula panas untuk perubahan kod (laluan lalai: dimatikan, boleh diubah oleh `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A pelayan pada localhost dengan port tersuai
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Lumpuhkan alat untuk model kecil

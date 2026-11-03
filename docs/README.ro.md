@@ -60,7 +60,7 @@ Toate intrările folosesc același motor de agenți și același registru de ins
 | **CLI** | `uag` | Terminal și automatizare |
 | **Desktop** | `uagg` | Conversații în aplicația nativă |
 | **Web** | `uagw` | Conversații și camere în browser |
-| **A2A** | `uaga` | Colaborare între agenți |
+| **A2A** | `uaga2a` | Colaborare între agenți |
 | **VS Code** | [Ghidul extensiei](VSCODE.md) | Lucru alături de cod |
 
 Interfețele Desktop și Web necesită dependențe suplimentare, care nu sunt incluse în `uag[core,providers,tools]`:

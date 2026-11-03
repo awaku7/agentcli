@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (loop stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Server web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | server A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | server A2A HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Menonaktifkan penyimpanan sesi dan menyembunyikan alat manajemen (`tool_catalog`
 
 ______________________________________________________________________
 
-## Opsi server A2A (`uaga`)
+## Opsi server A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Nomor port untuk server A2A HTTP (default: `8765`, dapat diganti dengan `UAGENT_
 Aktifkan pemuatan ulang otomatis saat terjadi perubahan kode (default: nonaktif, dapat diganti dengan `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### Server A2A di localhost dengan port khusus
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Menonaktifkan alat untuk model kecil

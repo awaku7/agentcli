@@ -60,7 +60,7 @@ Wszystkie interfejsy wykorzystują to samo środowisko agentów i ten sam rejest
 | **CLI** | `uag` | Praca terminalowa i automatyzacja |
 | **Desktop** | `uagg` | Rozmowy w aplikacji natywnej |
 | **Web** | `uagw` | Rozmowy i pokoje w przeglądarce |
-| **A2A** | `uaga` | Integracja agentów |
+| **A2A** | `uaga2a` | Integracja agentów |
 | **VS Code** | [Instrukcja rozszerzenia](VSCODE.md) | Praca z kodem źródłowym |
 
 Interfejsy Desktop i Web wymagają dodatkowych zależności, których nie ma w podstawowej instalacji `uag[core,providers,tools]`:

@@ -86,7 +86,7 @@ Use the same agent runtime and tool registry from multiple entry points.
 | **CLI** | `uag` | Terminal-first work and automation |
 | **Desktop** | `uagg` | Native desktop conversations |
 | **Web** | `uagw` | Browser-based conversations and rooms |
-| **A2A** | `uaga` | Agent-to-agent integration |
+| **A2A** | `uaga2a` | Agent-to-agent integration |
 | **VS Code** | [Extension guide](docs/VSCODE.md) | Working alongside code |
 
 Desktop and Web interfaces use additional dependencies that are not included

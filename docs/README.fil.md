@@ -60,7 +60,7 @@ Iisang agent runtime at tool registry ang ginagamit sa lahat ng interface.
 | **CLI** | `uag` | Terminal at automation |
 | **Desktop** | `uagg` | Mga pag-uusap sa desktop app |
 | **Web** | `uagw` | Mga pag-uusap at kuwarto sa browser |
-| **A2A** | `uaga` | Ugnayan ng mga agent |
+| **A2A** | `uaga2a` | Ugnayan ng mga agent |
 | **VS Code** | [Gabay sa extension](VSCODE.md) | Paggawa katabi ng code |
 
 Kailangan ng Desktop at Web ng karagdagang dependency na hindi kasama sa `uag[core,providers,tools]`:

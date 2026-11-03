@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin-silmukka) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Verkkopalvelin (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP-palvelin |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP-palvelin |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Poistaa istuntotallennustilan käytöstä ja piilottaa työkalujen hallintatyök
 
 ______________________________________________________________________
 
-## A2A-palvelimen asetukset (`uaga`)
+## A2A-palvelimen asetukset (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A- ja HTTP-palvelimen porttinumero (oletus: `8765`, voidaan ohittaa `UAGENT_A2
 Ota käyttöön koodin muutosten yhteydessä tapahtuva automaattinen uudelleenlataaminen (oletus: pois päältä, voidaan ohittaa `UAGENT_A2A_RELOAD`-muuttujalla).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A-palvelin localhostissa mukautetulla portilla
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Työkalujen poistaminen käytöstä pienessä mallissa

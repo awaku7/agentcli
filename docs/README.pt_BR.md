@@ -60,7 +60,7 @@ Os diferentes pontos de entrada usam o mesmo mecanismo de agentes e o mesmo regi
 | **CLI** | `uag` | Trabalho no terminal e automação |
 | **Desktop** | `uagg` | Conversas em aplicativo nativo |
 | **Web** | `uagw` | Conversas e salas no navegador |
-| **A2A** | `uaga` | Comunicação entre agentes |
+| **A2A** | `uaga2a` | Comunicação entre agentes |
 | **VS Code** | [Guia da extensão](VSCODE.md) | Trabalho ao lado do código |
 
 As interfaces Desktop e Web exigem dependências extras que não fazem parte de `uag[core,providers,tools]` da instalação inicial:

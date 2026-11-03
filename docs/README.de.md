@@ -60,7 +60,7 @@ Alle Einstiegspunkte verwenden dieselbe Agentenlaufzeit und dasselbe Werkzeugreg
 | **CLI** | `uag` | Terminal-Arbeit und Automatisierung |
 | **Desktop** | `uagg` | Native Desktop-Unterhaltungen |
 | **Web** | `uagw` | Unterhaltungen und Räume im Browser |
-| **A2A** | `uaga` | Kommunikation zwischen Agenten |
+| **A2A** | `uaga2a` | Kommunikation zwischen Agenten |
 | **VS Code** | [Erweiterungsleitfaden](VSCODE.md) | Arbeit direkt neben dem Quellcode |
 
 Desktop- und Web-Oberfläche benötigen zusätzliche Abhängigkeiten, die nicht im Schnellstart-Extra `uag[core,providers,tools]` enthalten sind:

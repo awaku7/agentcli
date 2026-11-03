@@ -60,7 +60,7 @@ Alle grensesnitta nyttar den same agentkøyretida og det same verktøyregisteret
 | **CLI** | `uag` | Terminal og automatisering |
 | **Desktop** | `uagg` | Samtalar i skrivebordsprogram |
 | **Web** | `uagw` | Samtalar og rom i nettlesaren |
-| **A2A** | `uaga` | Samspel mellom agentar |
+| **A2A** | `uaga2a` | Samspel mellom agentar |
 | **VS Code** | [Rettleiing for utvidinga](VSCODE.md) | Arbeid med kjeldekode |
 
 Desktop og Web treng ekstra avhengnader som ikkje er med i `uag[core,providers,tools]`:

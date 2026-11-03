@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (loop de stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Servidor web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | servidor A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | servidor A2A HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Desativa o armazenamento de sessão e oculta as ferramentas de gerenciamento de 
 
 ______________________________________________________________________
 
-## Opções do servidor A2A (`uaga`)
+## Opções do servidor A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Número da porta para o servidor A2A HTTP (padrão: `8765`, pode ser substituíd
 Ativa a recarga dinâmica ao alterar o código (padrão: desativado, pode ser substituído por `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### Servidor A2A no localhost com porta personalizada
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Desativar ferramentas para um modelo pequeno

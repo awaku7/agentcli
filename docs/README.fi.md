@@ -60,7 +60,7 @@ Kaikki käyttöliittymät käyttävät samaa agenttisuoritusympäristöä ja ty�
 | **CLI** | `uag` | Pääte ja automaatio |
 | **Desktop** | `uagg` | Natiivit työpöytäkeskustelut |
 | **Web** | `uagw` | Selainkeskustelut ja huoneet |
-| **A2A** | `uaga` | Agenttien välinen integraatio |
+| **A2A** | `uaga2a` | Agenttien välinen integraatio |
 | **VS Code** | [Laajennusopas](VSCODE.md) | Työskentely koodin rinnalla |
 
 Työpöytä- ja verkkokäyttöliittymät tarvitsevat lisäriippuvuuksia, joita `uag[core,providers,tools]`-perusasennus ei sisällä:

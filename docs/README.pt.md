@@ -60,7 +60,7 @@ Todas as formas de acesso utilizam o mesmo ambiente de execução de agentes e o
 | **CLI** | `uag` | Trabalho no terminal e automação |
 | **Desktop** | `uagg` | Conversas numa aplicação nativa |
 | **Web** | `uagw` | Conversas e salas no navegador |
-| **A2A** | `uaga` | Comunicação entre agentes |
+| **A2A** | `uaga2a` | Comunicação entre agentes |
 | **VS Code** | [Guia da extensão](VSCODE.md) | Trabalhar junto do código |
 
 As interfaces Desktop e Web precisam de dependências adicionais não incluídas no conjunto inicial `uag[core,providers,tools]`:

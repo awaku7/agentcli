@@ -87,7 +87,7 @@ def test_launcher_without_otel_flag_does_not_clear_existing_override():
     first_argv = ["uag", "--no-otel"]
     consume_process_otel_cli_flags(first_argv)
 
-    second_argv = ["uaga", "--host", "0.0.0.0"]
+    second_argv = ["uaga2a", "--host", "0.0.0.0"]
     consume_process_otel_cli_flags(second_argv)
 
     settings = refresh_observability_settings(environ={"UAGENT_OTEL_ENABLED": "1"})
@@ -135,7 +135,7 @@ def test_explicit_override_wins_after_project_dotenv_reload(monkeypatch, tmp_pat
     assert settings.enabled_source == "explicit"
 
 
-@pytest.mark.parametrize("launcher", ["uag", "uagw", "uagg", "uaga"])
+@pytest.mark.parametrize("launcher", ["uag", "uagw", "uagg", "uaga2a", "uaga"])
 @pytest.mark.parametrize(
     ("flags", "env_value", "expected"),
     [([], None, False), (["--otel"], "0", True), (["--no-otel"], "1", False)],

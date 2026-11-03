@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin hurok) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Webszerver (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP szerver |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP szerver |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Letiltja a munkamenet-tárolót és elrejti az eszközkezelő eszközöket (`too
 
 ______________________________________________________________________
 
-## A2A szerveropciók (`uaga`)
+## A2A szerveropciók (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A A2A HTTP szerver portszáma (alapértelmezett: `8765`, felülírható a `UAGEN
 A kódváltozások esetén történő forró újratöltés engedélyezése (alapértelmezett: ki, felülírható a `UAGENT_A2A_RELOAD` paranccsal).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A szerver a localhost-on egyéni porttal
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Eszközök letiltása egy kis méretű modell esetében

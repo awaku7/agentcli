@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin-Schleife) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Webserver (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP-Server |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP-Server |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Deaktiviert den Sitzenspeicher und blendet die Tools zur Tool-Verwaltung aus (`t
 
 ______________________________________________________________________
 
-## A2A-Serveroptionen (`uaga`)
+## A2A-Serveroptionen (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Portnummer für den A2A- und HTTP-Server (Standard: `8765`, kann durch `UAGENT_A
 Hot-Reload bei Codeänderungen aktivieren (Standard: deaktiviert, kann durch `UAGENT_A2A_RELOAD` überschrieben werden).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A-Server auf localhost mit benutzerdefiniertem Port
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Tools für ein kleines Modell deaktivieren

@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (bucle de entrada estándar) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Servidor web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | servidor A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | servidor A2A HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Desactiva el almacén de sesiones y oculta las herramientas de gestión de herra
 
 ______________________________________________________________________
 
-## Opciones del servidor A2A (`uaga`)
+## Opciones del servidor A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Número de puerto del servidor A2A HTTP (por defecto: `8765`, se puede anular me
 Activa la recarga en caliente al realizar cambios en el código (por defecto: desactivada, se puede anular mediante `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -220,7 +220,7 @@ uagw --host 0.0.0.0
 ### Servidor A2A en localhost con puerto personalizado
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Desactivar herramientas para un modelo pequeño

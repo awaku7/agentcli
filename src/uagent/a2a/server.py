@@ -749,7 +749,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     import sys
 
     sys.stdout.reconfigure(encoding="utf-8")
-    parser = argparse.ArgumentParser(prog="uaga", add_help=True)
+    parser = argparse.ArgumentParser(prog="uaga2a", add_help=True)
     add_decision_provider_argument(parser)
     parser.add_argument(
         "--host",

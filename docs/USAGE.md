@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web server (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP server |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP server |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Disable the session store and hide tool-management tools (`tool_catalog`, `tool_
 
 ______________________________________________________________________
 
-## A2A server options (`uaga`)
+## A2A server options (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Port number for the A2A HTTP server (default: `8765`, overridable by `UAGENT_A2A
 Enable hot reload on code changes (default: off, overridable by `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A server on localhost with custom port
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Disable tools for a small model

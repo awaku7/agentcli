@@ -32,7 +32,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `python -m uagent` (or `uag`) | Interactive CLI |
 | `python -m uagent.gui` (or `uagg`) | GUI mode |
 | `python -m uagent.web` (or `uagw`) | Web UI |
-| `python -m uagent.a2a.server` | A2A server (default port 8765) |
+| `uaga2a` (or `python -m uagent.a2a.server`) | A2A server (default port 8765) |
 
 ## Startup flow
 

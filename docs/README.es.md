@@ -60,7 +60,7 @@ La misma ejecución de agentes y el mismo registro de herramientas sirven para t
 | **CLI** | `uag` | Trabajo en terminal y automatización |
 | **Escritorio** | `uagg` | Conversaciones en una aplicación nativa |
 | **Web** | `uagw` | Conversaciones y salas en el navegador |
-| **A2A** | `uaga` | Integración entre agentes |
+| **A2A** | `uaga2a` | Integración entre agentes |
 | **VS Code** | [Guía de la extensión](VSCODE.md) | Trabajo junto al código fuente |
 
 Las interfaces de escritorio y web necesitan dependencias adicionales que no incluye la instalación inicial `uag[core,providers,tools]`:

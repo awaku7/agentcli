@@ -60,7 +60,7 @@ Semua pintu masuk menggunakan masa jalan ejen dan daftar alat yang sama.
 | **CLI** | `uag` | Terminal dan automasi |
 | **Desktop** | `uagg` | Perbualan dalam aplikasi desktop |
 | **Web** | `uagw` | Perbualan dan bilik dalam pelayar |
-| **A2A** | `uaga` | Integrasi antara ejen |
+| **A2A** | `uaga2a` | Integrasi antara ejen |
 | **VS Code** | [Panduan sambungan](VSCODE.md) | Bekerja bersama kod |
 
 Desktop dan Web memerlukan kebergantungan tambahan yang tidak disertakan dalam `uag[core,providers,tools]`:

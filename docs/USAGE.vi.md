@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (vòng lặp stdin) |
 | `uagg` | `python -m uagent.gui` | Giao diện đồ họa (tkinter) |
 | `uagw` | `python -m uagent.web` | Máy chủ web (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | Máy chủ A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | Máy chủ A2A HTTP |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Vô hiệu hóa bộ lưu trữ phiên và ẩn các công cụ quản lý công
 
 ______________________________________________________________________
 
-## Tùy chọn máy chủ A2A (`uaga`)
+## Tùy chọn máy chủ A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ Số cổng cho máy chủ A2A HTTP (mặc định: `8765`, có thể thay đổ
 Bật tính năng tải lại nóng khi có thay đổi mã (mặc định: tắt, có thể thay đổi bằng biến môi trường `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### Máy chủ A2A trên localhost với cổng tùy chỉnh
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Tắt các công cụ cho mô hình nhỏ

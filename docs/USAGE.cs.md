@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (smyčka stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Webový server (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | Server A2A HTTP |
+| `uaga2a` | `python -m uagent.a2a.server` | Server A2A HTTP |
 
 ______________________________________________________________________
 
@@ -150,7 +150,7 @@ Zakáže úložiště relací a skryje nástroje pro správu nástrojů (`tool_c
 
 ______________________________________________________________________
 
-## Možnosti serveru A2A (`uaga`)
+## Možnosti serveru A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -165,7 +165,7 @@ Adresa pro vazbu serveru A2A HTTP (výchozí: `0.0.0.0`, lze přepsat proměnnou
 Zapne automatické načtení změn kódu za běhu (výchozí: vypnuto, lze přepsat proměnnou `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -244,7 +244,7 @@ uagw --host 0.0.0.0
 ### Server A2A na localhostu s vlastním portem
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Zakázat nástroje pro malý model

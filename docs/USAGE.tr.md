@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (stdin döngüsü) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web sunucusu (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP sunucusu |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP sunucusu |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ Oturum deposunu devre dışı bırakır ve araç yönetim araçlarını (`tool_c
 
 ______________________________________________________________________
 
-## A2A sunucu seçenekleri (`uaga`)
+## A2A sunucu seçenekleri (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A HTTP sunucusu için bağlantı noktası numarası (varsayılan: `8765`, `UAG
 Kod değişikliklerinde anında yeniden yüklemeyi etkinleştirir (varsayılan: kapalı, `UAGENT_A2A_RELOAD` ile değiştirilebilir).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### Özel bağlantı noktasına sahip localhost üzerinde A2A sunucusu
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Küçük bir model için araçları devre dışı bırak

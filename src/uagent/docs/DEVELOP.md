@@ -1369,8 +1369,10 @@ Job gates remain in UAG; room/session ownership checks remain in the host adapte
 
 The bundled Web, `frontend/`, static assets and templates remain in UAG.
 `uagw` and `python -m uagent.web` keep starting that bundled application.
-The optional `uag-web` distribution uses its own `uag-web` console command
-and `python -m uag_web`; it does not replace `uagw` or the A2A command `uaga`.
+The optional `uag-web` distribution uses its own `uaga` console command
+and `python -m uag_web`; it does not replace `uagw`. A2A moves from `uaga` to `uaga2a` to avoid
+conflicting console-script ownership. The module entry point
+`python -m uagent.a2a.server` remains unchanged.
 Both Web applications retain port 8000 and are used one at a time.
 
 `runtime.observability.trace_ownership_runtime.get_trace_ownership_state` exposes

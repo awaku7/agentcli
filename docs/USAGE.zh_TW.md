@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI（標準輸入循環） |
 | `uagg` | `python -m uagent.gui` | 圖形介面 (tkinter) |
 | `uagw` | `python -m uagent.web` | 網頁伺服器 (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP 伺服器 |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP 伺服器 |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ uagw --host 192.168.1.10
 
 ______________________________________________________________________
 
-## A2A 伺服器選項 (`uaga`)
+## A2A 伺服器選項 (`uaga2a`)
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A HTTP 伺服器的連接埠號碼（預設：`8765`，可透過 `UAGENT_A2A_P
 啟用程式碼變更時的熱重新載入（預設：關閉，可透過 `UAGENT_A2A_RELOAD` 覆寫）。
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### 在本地主機上以自訂埠號運行 A2A 伺服器
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### 針對小型模型停用工具

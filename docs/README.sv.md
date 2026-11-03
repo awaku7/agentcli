@@ -60,7 +60,7 @@ Samma agentkörmiljö och verktygsregister används från flera ingångar.
 | **CLI** | `uag` | Terminalarbete och automatisering |
 | **Desktop** | `uagg` | Samtal i ett inbyggt skrivbordsprogram |
 | **Web** | `uagw` | Samtal och rum i webbläsaren |
-| **A2A** | `uaga` | Integration mellan agenter |
+| **A2A** | `uaga2a` | Integration mellan agenter |
 | **VS Code** | [Guide för tillägg](VSCODE.md) | Arbete intill koden |
 
 Desktop och Web behöver extra beroenden som inte ingår i snabbstartens `uag[core,providers,tools]`:

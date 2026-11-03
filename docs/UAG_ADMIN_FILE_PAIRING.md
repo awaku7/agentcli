@@ -61,7 +61,7 @@ Adminへ取り込む前のOTLP送信は404（未登録なら401）、Admin停止
 | CLI | `uag --otel` | `uag --no-otel` |
 | Web | `uagw --otel` | `uagw --no-otel` |
 | GUI | `uagg --otel` | `uagg --no-otel` |
-| A2A | `uaga --otel` | `uaga --no-otel` |
+| A2A | `uaga2a --otel` | `uaga2a --no-otel` |
 
 無指定の既定はOFFです。ただし、作業フォルダーの `.env` / `.env.sec` またはプロセス環境で `UAGENT_OTEL_ENABLED=1` が設定されていれば有効になります。`--no-otel` はその設定より優先します。連携ファイルが保存されているだけでは有効になりません。無効時はOTel依存確認・exporter生成・送信を実行しません。
 

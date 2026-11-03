@@ -1,6 +1,6 @@
 # UAGのプロセス自己登録（UAG Admin監視用）
 
-UAGの通常の実行入口 `uag`（CLI）、`uagg`（GUI）、`uagw`（Web）、`uaga`（A2A）は、起動時の設定と作業ディレクトリを解決した後、ユーザー専用状態ディレクトリ（既定 `~/.uag/process_registry`）に小さなJSONを自己登録します。**追加の起動オプション、PID入力、専用トークンの手入力は不要**です。`uag admin export`などの管理用サブコマンドは実行中UAGとして登録しません。
+UAGの通常の実行入口 `uag`（CLI）、`uagg`（GUI）、`uagw`（Web）、`uaga2a`（A2A）は、起動時の設定と作業ディレクトリを解決した後、ユーザー専用状態ディレクトリ（既定 `~/.uag/process_registry`）に小さなJSONを自己登録します。**追加の起動オプション、PID入力、専用トークンの手入力は不要**です。`uag admin export`などの管理用サブコマンドは実行中UAGとして登録しません。
 
 ## 記録内容と安全性
 

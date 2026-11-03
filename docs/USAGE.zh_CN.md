@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI（标准输入循环） |
 | `uagg` | `python -m uagent.gui` | GUI（tkinter）|
 | `uagw` | `python -m uagent.web` | Web 服务器 (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP 服务器 |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP 服务器 |
 
 ______________________________________________________________________
 
@@ -127,7 +127,7 @@ uagw --host 192.168.1.10
 
 ______________________________________________________________________
 
-## A2A 服务器选项（`uaga`）
+## A2A 服务器选项（`uaga2a`）
 
 ### `--host <address>`
 
@@ -142,7 +142,7 @@ A2A HTTP 服务器的端口号（默认：`8765`，可通过 `UAGENT_A2A_PORT` �
 启用代码更改时的热重载（默认：关闭，可通过 `UAGENT_A2A_RELOAD` 覆盖）。
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -221,7 +221,7 @@ uagw --host 0.0.0.0
 ### A2A 在本地主机上运行服务器并使用自定义端口
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### 禁用小型模型的工具

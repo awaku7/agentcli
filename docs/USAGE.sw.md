@@ -11,7 +11,7 @@ ______________________________________________________________________
 | `uag` | `python -m uagent` | CLI (mzunguko wa stdin) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Seva ya wavuti (FastAPI) |
-| `uaga` | `python -m uagent.a2a.server` | A2A HTTP seva |
+| `uaga2a` | `python -m uagent.a2a.server` | A2A HTTP seva |
 
 ______________________________________________________________________
 
@@ -150,7 +150,7 @@ Zima hifadhi ya kikao na kuficha zana za usimamizi wa zana (`tool_catalog`, `too
 
 ______________________________________________________________________
 
-## Chaguzi za seva ya A2A (`uaga`)
+## Chaguzi za seva ya A2A (`uaga2a`)
 
 ### `--host <address>`
 
@@ -165,7 +165,7 @@ Nambari ya bandari kwa seva ya A2A HTTP (kawaida: `8765`, inaweza kubadilishwa n
 Wezesha upakiaji moto wakati wa mabadiliko ya msimbo (chaguo-msingi: imezimwa, inaweza kubadilishwa na `UAGENT_A2A_RELOAD`).
 
 ```
-uaga --host 127.0.0.1 --port 8080 --reload
+uaga2a --host 127.0.0.1 --port 8080 --reload
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -244,7 +244,7 @@ uagw --host 0.0.0.0
 ### A2A seva kwenye localhost na bandari maalum
 
 ```
-uaga --host 127.0.0.1 --port 8080
+uaga2a --host 127.0.0.1 --port 8080
 ```
 
 ### Zima zana kwa mfano mdogo

@@ -48,7 +48,7 @@ The required startup sequence is:
 
 A2A has two invocation forms and both are part of the supported surface:
 
-- normal process launch through `uaga` / `sys.argv`;
+- normal process launch through `uaga2a` / `sys.argv`;
 - programmatic `uagent.a2a.server.main(argv=[...])`.
 
 The explicit `argv` form accepts `--otel` / `--no-otel` directly and publishes the same entry-point override before dotenv refresh.

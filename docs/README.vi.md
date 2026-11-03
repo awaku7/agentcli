@@ -60,7 +60,7 @@ Mọi giao diện đều dùng chung môi trường chạy tác nhân và danh m
 | **CLI** | `uag` | Công việc dòng lệnh và tự động hóa |
 | **Desktop** | `uagg` | Hội thoại trong ứng dụng máy tính |
 | **Web** | `uagw` | Hội thoại và phòng trong trình duyệt |
-| **A2A** | `uaga` | Kết nối giữa các tác nhân |
+| **A2A** | `uaga2a` | Kết nối giữa các tác nhân |
 | **VS Code** | [Hướng dẫn tiện ích](VSCODE.md) | Làm việc cùng mã nguồn |
 
 Desktop và Web cần phụ thuộc bổ sung, không có trong bộ cài ban đầu `uag[core,providers,tools]`:

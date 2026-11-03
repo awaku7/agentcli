@@ -60,7 +60,7 @@ python -m pip install "uag[core,providers,tools]"
 | **CLI** | `uag` | מסוף ואוטומציה |
 | **Desktop** | `uagg` | שיחות ביישום שולחני |
 | **Web** | `uagw` | שיחות וחדרים בדפדפן |
-| **A2A** | `uaga` | חיבור בין סוכנים |
+| **A2A** | `uaga2a` | חיבור בין סוכנים |
 | **VS Code** | [מדריך הרחבה](VSCODE.md) | עבודה לצד קוד המקור |
 
 Desktop ו-Web דורשים תלויות נוספות שאינן כלולות בהתקנה הראשונית `uag[core,providers,tools]`:
