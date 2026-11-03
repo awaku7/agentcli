@@ -11,6 +11,7 @@
   let chatBox = $state(null);
   let streamState = $state({ id: null, active: false, done: false, text: '', reasoning: '' });
   let imageStreamState = $state({ src: '', mime: '', partial: false, visible: false });
+  let lastMessageCount = 0;
 
   // Follow new content only while the reader is near the bottom.
   // A deliberate upward scroll pauses following until they scroll back down.
@@ -47,13 +48,16 @@
 
 
 
-  // When new messages arrive from history (sync), clear completed bubble
+  // Clear completed stream text when its final message arrives, or when a new
+  // user turn begins (some providers only send the stream, not a final message).
   $effect(() => {
-    if (messages.length > 0) {
-      const last = messages[messages.length - 1];
-      if (last?.role === 'assistant' && streamState.done) {
-        streamState = { ...streamState, done: false };
-      }
+    const count = messages.length;
+    const last = count > 0 ? messages[count - 1] : null;
+    const newUserMessage = count > lastMessageCount && last?.role === 'user';
+    lastMessageCount = count;
+    if ((newUserMessage && (streamState.active || streamState.done))
+      || (streamState.done && last?.role === 'assistant')) {
+      streamState = { id: null, active: false, done: false, text: '', reasoning: '' };
     }
   });
 
