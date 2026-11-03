@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.42] - 2026-11-02
+
+### Changed
+
+- Summarize complete session histories while preserving the user's goal, success criteria, and outstanding work.
+- Improve localized confirmation replies and Web host boundaries; include related fixes and dependency updates.
+
 ## [0.7.41] - 2026-11-01
 
 ### Added
