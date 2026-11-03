@@ -13,6 +13,7 @@
 - Refresh Web session history when the tab regains focus and periodically; use the latest activity timestamp for session metadata.
 - Raise the minimum `llmcapa` dependency version to `0.5.76`.
 - Recognize localized affirmative, negative, and allow-all replies in tool confirmations, and show the accepted variants.
+- Summarize complete session histories and preserve the user's goal, success criteria, and outstanding work in rolling history summaries.
 
 ## [0.7.40] - 2026-10-31
 

@@ -1182,7 +1182,7 @@ def compress_history_with_llm(
                 )
                 % {"locale": active_locale}
                 + _t(
-                    "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+                    "- Keep the summary concise, but state the user's main goal and success criteria; include key decisions, constraints, current status, completed work, and pending next steps. Preserve critical names, values, and identifiers, and do not invent or silently drop unresolved requirements.\n"
                 )
                 + _t("- Output should be directly usable as a system message.")
             )
@@ -1194,9 +1194,11 @@ def compress_history_with_llm(
         else:
             summary_system_prompt = (
                 _t("- You are updating an existing conversation summary.\n")
-                + _t("- Preserve important facts from the previous summary.\n")
                 + _t(
-                    "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+                    "- Preserve the user's main goal, success criteria, and important facts from the previous summary.\n"
+                )
+                + _t(
+                    "- Merge in the new chunk, updating current status while preserving constraints, decisions, completed work, and pending next steps.\n"
                 )
                 + _t("- Keep the result concise and suitable for a system message.")
             )

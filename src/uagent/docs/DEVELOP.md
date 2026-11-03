@@ -963,6 +963,15 @@ Common checks during development:
 
 ### Session summary diagnostics
 
+`:sessions summarize` summarizes the full stored message history for each selected
+session; bulk operation is still limited to ten sessions per invocation. It uses
+the rolling, token-budgeted history compressor with no recent-message tail and
+asks the model to retain the user's goal, success criteria, status, decisions,
+constraints, and pending work. Automatic in-conversation compression uses the
+same compressor but preserves the recent tail. Very long sessions can require
+multiple sequential model requests; CLI exit summarization runs by default and
+can be disabled with `UAGENT_SUMMARY_ON_EXIT=0`.
+
 Set `UAGENT_SESSION_SUMMARY_DEBUG=1` before launching the CLI to write
 `[session-summary-debug]` diagnostic records to stderr while `:sessions summarize`
 or history compression runs. The records include provider/model, selected API

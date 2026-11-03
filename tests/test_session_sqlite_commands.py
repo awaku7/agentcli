@@ -439,6 +439,49 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     db.close()
 
 
+def test_sessions_summarize_passes_the_full_session_to_compressor(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    for index in range(14):
+        role = "user" if index % 2 == 0 else "assistant"
+        db.append_message(session.session_id, role, f"message-{index}")
+
+    received = []
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+
+    def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
+        received.extend(messages)
+        return [
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:"
+                + chr(10)
+                + "Full session summary",
+            }
+        ]
+
+    core.compress_history_with_llm = fake_compress
+    from uagent.util_cmd_session import _handle_cmd_sessions
+
+    assert _handle_cmd_sessions(
+        f"summarize {session.session_id}",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+
+    assert len(received) == 14
+    assert received[0]["content"] == "message-0"
+    assert received[-1]["content"] == "message-13"
+    assert db.get_session_summary(session.session_id) == "Full session summary"
+    db.close()
+
+
 def test_sessions_summarize_folds_compressor_tail_into_persisted_summary(
     monkeypatch, tmp_path
 ):
@@ -491,7 +534,7 @@ def test_sessions_summarize_folds_compressor_tail_into_persisted_summary(
     db.close()
 
 
-def test_sessions_summarize_only_processes_first_ten_records(
+def test_sessions_summarize_bulk_limits_selected_sessions_to_ten(
     monkeypatch, tmp_path, capsys
 ):
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")

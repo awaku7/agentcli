@@ -1447,11 +1447,11 @@ def _handle_cmd_sessions(
                     skipped += 1
                     continue
             try:
-                # Keep the interactive summary operation bounded: summarize
-                # only the first ten stored messages for each session. Unlike
-                # live-history compression, a session summary must cover every
-                # selected message, so do not preserve a recent-message tail.
-                stored = store.list_messages(sid)[:10]
+                # Summarize every stored message in the selected session. The
+                # shared compressor handles long histories in token-budgeted
+                # chunks. Unlike live-history compression, do not preserve a
+                # recent-message tail in this durable session overview.
+                stored = store.list_messages(sid)
                 if len(stored) < 2:
                     print(
                         _("[%(index)d/%(total)d] %(id)s  skipped (too short)")
