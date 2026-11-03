@@ -14,36 +14,13 @@ _ = make_tool_translator(__file__)
 
 
 def confirmation_short_answer_hint(include_all: bool = True) -> str:
-    """Render ASCII keys beside each localized confirmation term."""
-
-    def localized_terms(label_key: str, aliases_key: str, default: str) -> list[str]:
-        label = str(_(label_key, default=default)).strip()
-        aliases = _(aliases_key, default=[])
-        if isinstance(aliases, str):
-            aliases = [aliases]
-        if not isinstance(aliases, (list, tuple)):
-            aliases = []
-        terms = []
-        seen = set()
-        for word in (label, *aliases):
-            if not isinstance(word, str):
-                continue
-            word = word.strip()
-            normalized = word.casefold()
-            if word and normalized not in seen:
-                seen.add(normalized)
-                terms.append(word)
-        return terms
-
-    yes_terms = localized_terms("confirm.reply_yes", "confirm.reply_yes_aliases", "yes")
-    no_terms = localized_terms("confirm.reply_no", "confirm.reply_no_aliases", "no")
-    hint = "  - y = " + " / ".join(yes_terms)
-    hint += " / n = " + " / ".join(no_terms)
+    """Show concise ASCII shortcuts and canonical localized reply terms."""
+    yes_word = str(_("confirm.reply_yes", default="yes")).strip()
+    no_word = str(_("confirm.reply_no", default="no")).strip()
+    hint = "  - y = " + yes_word + " / n = " + no_word
     if include_all:
-        all_terms = localized_terms(
-            "confirm.reply_all", "confirm.reply_all_aliases", "all"
-        )
-        hint += " / all = " + " / ".join(all_terms)
+        all_word = str(_("confirm.reply_all", default="all")).strip()
+        hint += " / all" if all_word.casefold() == "all" else " / all = " + all_word
     return hint
 
 

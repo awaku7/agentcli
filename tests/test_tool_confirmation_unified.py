@@ -143,11 +143,11 @@ def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, appro
         tool_policy.reset_confirmation_grants()
 
 
-@pytest.mark.parametrize("language", ["ja", "en", "fr", "ko", "ar"])
-def test_confirmation_help_shows_ascii_answers_next_to_localized_words(
+@pytest.mark.parametrize("language", _CONFIRM_LANGUAGES)
+def test_confirmation_help_shows_canonical_replies_without_alias_lists(
     monkeypatch, language
 ):
-    """The ASCII replies are accepted everywhere, so the help must name them."""
+    """Show concise canonical words and shortcuts, not every accepted alias."""
     from uagent import core
     from uagent.tools import tool_policy
 
@@ -182,17 +182,14 @@ def test_confirmation_help_shows_ascii_answers_next_to_localized_words(
     finally:
         tool_policy.reset_confirmation_grants()
 
+    from uagent.tools.human_ask_tool import confirmation_short_answer_hint
+
     message = seen[0]["message"]
-    assert "y = " + expected[0] in message
-    assert "n = " + expected[1] in message
-    assert "all" in message
-    for key in (
-        "confirm.reply_yes_aliases",
-        "confirm.reply_no_aliases",
-        "confirm.reply_all_aliases",
-    ):
-        for alias in labels.get(key, []):
-            assert alias in message
+    expected_hint = "  - y = " + expected[0] + " / n = " + expected[1]
+    expected_hint += " / all" if expected[2] == "all" else " / all = " + expected[2]
+    hint = confirmation_short_answer_hint()
+    assert hint == expected_hint
+    assert hint in message
 
 
 @pytest.mark.parametrize(
