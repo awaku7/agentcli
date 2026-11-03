@@ -23,7 +23,7 @@ from ..runtime.observability.trace_ownership_index import (
     TraceOwnershipIndex,
     TraceOwnershipSnapshot,
 )
-from ..runtime.observability.trace_ownership_runtime import _runtime_state
+from ..runtime.observability.trace_ownership_runtime import get_trace_ownership_state
 from ..runtime.observability.trace_query_projection import (
     get_trace_query_backend_adapter,
     project_trace_view,
@@ -78,7 +78,7 @@ def _feature_enabled() -> bool:
 def _query_index_state() -> _TraceQueryIndexState | None:
     try:
         backend = get_observability_backend()
-        active, index, epoch = _runtime_state(backend)
+        active, index, epoch = get_trace_ownership_state(backend)
     except Exception:
         return None
     if not active:

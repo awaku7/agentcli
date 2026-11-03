@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.42] - Unreleased
+
+### Changed
+
+- Expose the existing trace ownership/epoch query as `get_trace_ownership_state` for the optional independent `uag-web` application. Authorization checks remain unchanged.
+- Retain bundled Web code, UI assets, `uagw`, and A2A command `uaga`. The independent application uses the separate `uag-web` command and is not run concurrently with the bundled Web.
+
 ## [0.7.41] - 2026-11-01
 
 ### Added

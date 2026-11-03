@@ -1364,3 +1364,15 @@ and registers its room-owned Job resolver with
 `runtime.sub_agent_job_access.register_web_job_runtime_resolver`.
 The common runtime must not import Web host modules. Authentication and foreground
 Job gates remain in UAG; room/session ownership checks remain in the host adapter.
+
+## Optional independent Web application
+
+The bundled Web, `frontend/`, static assets and templates remain in UAG.
+`uagw` and `python -m uagent.web` keep starting that bundled application.
+The optional `uag-web` distribution uses its own `uag-web` console command
+and `python -m uag_web`; it does not replace `uagw` or the A2A command `uaga`.
+Both Web applications retain port 8000 and are used one at a time.
+
+`runtime.observability.trace_ownership_runtime.get_trace_ownership_state` exposes
+the existing ownership/epoch query to the independent host without changing its
+checks. The bundled Web uses this public query as well.

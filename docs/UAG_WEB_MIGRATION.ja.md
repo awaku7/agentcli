@@ -1,5 +1,10 @@
 # UAG Web 独立化: 調査と段階的移行設計
 
+> 2026-11-03 方針変更: 本体Web・UIは残し、独立版との同時起動はサポートしない。
+> 本体Webは`uagw`、独立版は`uag-web`、既存A2Aは`uaga`で起動する。
+> 旧Web削除のPR #331は取り下げ済み。以下の削除計画は旧方針の記録。
+> 最新仕様は[uag-webの共存手順](https://github.com/awaku7/uag-web/blob/migration/web-package/docs/COEXISTENCE.ja.md)を参照。
+
 ## 調査基準と現在の状態
 
 調査基準は main の `7523ee1a9a4d238ba0a964862c9eecdba8f58e05`

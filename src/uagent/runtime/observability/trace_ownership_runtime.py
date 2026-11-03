@@ -36,7 +36,7 @@ _CURRENT_BINDING: ContextVar[TraceOwnershipBinding | None] = ContextVar(
 )
 
 
-def _runtime_state(
+def get_trace_ownership_state(
     backend: ObservabilityBackend,
 ) -> tuple[bool, TraceOwnershipIndex, int]:
     """Return the active index epoch for the authoritative process backend."""
@@ -177,7 +177,7 @@ def admit_current_segment(
 ) -> TraceOwnershipBinding | None:
     """Admit the active canonical Agent span as one trusted local segment root."""
 
-    active, index, epoch = _runtime_state(backend)
+    active, index, epoch = get_trace_ownership_state(backend)
     if not active or turn_context is None:
         return None
 
@@ -255,7 +255,7 @@ def register_current_span(
         _poison_binding(binding, "unknown")
         return False
 
-    active, index, epoch = _runtime_state(backend)
+    active, index, epoch = get_trace_ownership_state(backend)
     if not active or index is not binding.index or epoch != binding.epoch:
         return False
 
