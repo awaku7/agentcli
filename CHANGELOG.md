@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.43] - 2026-11-03
+
+### Changed
+
+- Clear stale assistant stream bubbles when a new user turn begins or its final assistant message arrives, preventing duplicate and lingering Web chat output.
+
 ## [0.7.42] - 2026-11-02
 
 ### Changed
