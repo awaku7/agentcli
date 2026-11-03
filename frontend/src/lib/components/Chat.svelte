@@ -53,9 +53,12 @@
   $effect(() => {
     const count = messages.length;
     const last = count > 0 ? messages[count - 1] : null;
-    const newUserMessage = count > lastMessageCount && last?.role === 'user';
+    const newMessage = count > lastMessageCount;
+    const newUserMessage = newMessage && last?.role === 'user';
+    const newAssistantMessage = newMessage && last?.role === 'assistant';
     lastMessageCount = count;
     if ((newUserMessage && (streamState.active || streamState.done))
+      || (newAssistantMessage && (streamState.active || streamState.done))
       || (streamState.done && last?.role === 'assistant')) {
       streamState = { id: null, active: false, done: false, text: '', reasoning: '' };
     }
