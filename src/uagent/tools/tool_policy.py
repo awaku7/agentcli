@@ -405,9 +405,7 @@ def default_confirmation_callback(
         )
     from .human_ask_tool import confirmation_short_answer_hint
 
-    confirmation_message += "\n" + confirmation_short_answer_hint(
-        include_all=allow_all
-    )
+    confirmation_message += "\n" + confirmation_short_answer_hint(include_all=allow_all)
     # Web human_ask is routed through its authenticated Room UI wrapper.
     # Calling human_ask_tool directly would wait on an unused CLI queue.
     try:
