@@ -144,10 +144,8 @@ def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, appro
 
 
 @pytest.mark.parametrize("language", _CONFIRM_LANGUAGES)
-def test_confirmation_help_shows_canonical_replies_without_alias_lists(
-    monkeypatch, language
-):
-    """Show concise canonical words and shortcuts, not every accepted alias."""
+def test_confirmation_prompt_shows_only_canonical_shortcuts(monkeypatch, language):
+    """Show y/n/all mapped to one canonical localized answer, without aliases."""
     from uagent import core
     from uagent.tools import tool_policy
 
@@ -182,14 +180,11 @@ def test_confirmation_help_shows_canonical_replies_without_alias_lists(
     finally:
         tool_policy.reset_confirmation_grants()
 
-    from uagent.tools.human_ask_tool import confirmation_short_answer_hint
-
     message = seen[0]["message"]
-    expected_hint = "  - y = " + expected[0] + " / n = " + expected[1]
-    expected_hint += " / all" if expected[2] == "all" else " / all = " + expected[2]
-    hint = confirmation_short_answer_hint()
-    assert hint == expected_hint
-    assert hint in message
+    expected_hint = (
+        "  - y = " + expected[0] + " / n = " + expected[1] + " / all = " + expected[2]
+    )
+    assert expected_hint in message
 
 
 @pytest.mark.parametrize(

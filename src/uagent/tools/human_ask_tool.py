@@ -14,13 +14,13 @@ _ = make_tool_translator(__file__)
 
 
 def confirmation_short_answer_hint(include_all: bool = True) -> str:
-    """Show concise ASCII shortcuts and canonical localized reply terms."""
+    """Show the single canonical localized answer for each shortcut."""
     yes_word = str(_("confirm.reply_yes", default="yes")).strip()
     no_word = str(_("confirm.reply_no", default="no")).strip()
     hint = "  - y = " + yes_word + " / n = " + no_word
     if include_all:
         all_word = str(_("confirm.reply_all", default="all")).strip()
-        hint += " / all" if all_word.casefold() == "all" else " / all = " + all_word
+        hint += " / all = " + all_word
     return hint
 
 
@@ -272,7 +272,6 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
                 ),
                 flush=True,
             )
-            print(confirmation_short_answer_hint(), flush=True)
 
     if cb.human_ask_lock is None:
         return _error_result(
