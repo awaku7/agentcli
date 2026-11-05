@@ -49,8 +49,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "parse RSS",
                 "feed parser",
                 "news feed",
-                "RSSを解析",
-                "フィードを読む",
+                "parse feed XML",
             ],
         ),
         "x_search_terms_en": [
