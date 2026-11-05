@@ -109,7 +109,6 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 - `"web"`: Web/browser automation and transit search tools
 - `"utility"`: System and maintenance utilities
 
-
 Example:
 
 ```python
@@ -120,7 +119,6 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": { ... }
 }
 ```
-
 
 ### 3.3 External data flag (prompt injection defense)
 
@@ -139,7 +137,7 @@ Tools with this flag have their output wrapped in `---BEGIN_UAGENT_EXTERNAL_CONT
 `---END_UAGENT_EXTERNAL_CONTENT---` markers. The system prompt instructs the LLM not to
 follow any instructions found within these markers, providing defense against prompt injection.
 
-See `fetch_url_tool.py`, `bluesky_tool.py`, or `gmail_read_tool.py` for examples.
+See `fetch_url_tool.py`, `bluesky_tool.py`, `gmail_read_tool.py`, or `parse_feed_tool.py` for examples.
 
 ### 3.4 Suppressing tool trace and controlling execution
 

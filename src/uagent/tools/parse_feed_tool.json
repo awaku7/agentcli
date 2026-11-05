@@ -1,0 +1,372 @@
+{
+  "ar": {
+    "tool.description": "قم بتحليل خلاصة RSS أو Atom XML من عنوان URL HTTP(S) أو XML content المتوفر وإرجاع JSON الذي تمت تسويته. مطلوب بالضبط واحد من url أو content. الخلاصة الخارجية content غير موثوق بها.",
+    "x_search_terms": ["RSS خلاصة", "RSS خلاصة أخبار", "Atom خلاصة", "RSS محلل خلاصة", "قراءة RSS خلاصة"],
+    "param.url.description": "HTTP أو HTTPS عنوان URL للخلاصة RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content للتحليل مباشرة.",
+    "param.encoding.description": "تجاوز ترميز المصدر الاختياري (على سبيل المثال، utf-8 أو shift_jis).",
+    "param.limit.description": "الحد الأقصى لعدد الإدخالات المراد إرجاعها (1-100).",
+    "param.strip_html.description": "إزالة علامات HTML من ملخصات الإدخال وإرجاع نص عادي.",
+    "param.timeout.description": "HTTP مهلة الطلب بالثواني (1-30)."
+  },
+  "bn": {
+    "tool.description": "একটি HTTP(S) URL থেকে একটি RSS বা Atom XML ফিড পার্স করুন বা সরবরাহ করা XML content এবং স্বাভাবিক JSON ফেরত দিন। ঠিক url বা content এর মধ্যে একটি প্রয়োজন৷ বাহ্যিক ফিড content অবিশ্বস্ত।",
+    "x_search_terms": ["RSS ফিড", "RSS নিউজ ফিড", "Atom ফিড", "RSS ফিড পার্সার", "RSS ফিড পড়ুন"],
+    "param.url.description": "RSS/Atom ফিডের HTTP বা HTTPS URL।",
+    "param.content.description": "RSS/Atom XML content সরাসরি পার্স করতে।",
+    "param.encoding.description": "ঐচ্ছিক উৎস এনকোডিং ওভাররাইড (উদাহরণস্বরূপ, utf-8 বা shift_jis)।",
+    "param.limit.description": "ফেরত দেওয়ার জন্য সর্বাধিক সংখ্যক এন্ট্রি (1-100)।",
+    "param.strip_html.description": "এন্ট্রি সারাংশ থেকে HTML মার্কআপ সরান এবং প্লেইন টেক্সট রিটার্ন করুন।",
+    "param.timeout.description": "HTTP সেকেন্ডে অনুরোধের সময়সীমা (1-30)।"
+  },
+  "cs": {
+    "tool.description": "Analyzujte zdroj RSS nebo Atom XML z adresy URL HTTP(S) nebo dodaného XML content a vraťte normalizované JSON. Je vyžadován přesně jeden z url nebo content. Externí zdroj content je nedůvěryhodný.",
+    "x_search_terms": ["RSS zdroj", "RSS zdroj zpráv", "Atom zdroj", "RSS analyzátor zdroje", "číst zdroj RSS"],
+    "param.url.description": "HTTP nebo HTTPS URL zdroje RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content přímo analyzovat.",
+    "param.encoding.description": "Volitelné přepsání zdrojového kódování (například utf-8 nebo shift_jis).",
+    "param.limit.description": "Maximální počet položek k vrácení (1-100).",
+    "param.strip_html.description": "Odstraňte HTML značky ze souhrnů položek a vraťte prostý text.",
+    "param.timeout.description": "Časový limit požadavku HTTP v sekundách (1–30)."
+  },
+  "da": {
+    "tool.description": "Parse et RSS- eller Atom XML-feed fra en HTTP(S)-URL eller den angivne XML content og returner normaliseret JSON. Præcis én af url eller content er påkrævet. Eksternt feed content er ikke tillid til.",
+    "x_search_terms": ["RSS feed", "RSS nyhedsfeed", "Atom feed", "RSS feedparser", "læs RSS feed"],
+    "param.url.description": "HTTP eller HTTPS URL for RSS/Atom feed.",
+    "param.content.description": "RSS/Atom XML content for at parse direkte.",
+    "param.encoding.description": "Valgfri tilsidesættelse af kildekodning (f.eks. utf-8 eller shift_jis).",
+    "param.limit.description": "Maksimalt antal poster at returnere (1-100).",
+    "param.strip_html.description": "Fjern HTML-markering fra indgangsoversigter og returner almindelig tekst.",
+    "param.timeout.description": "HTTP anmodning om timeout i sekunder (1-30)."
+  },
+  "de": {
+    "tool.description": "Analysieren Sie einen RSS- oder Atom XML-Feed von einer HTTP(S)-URL oder einem bereitgestellten XML content und geben Sie normalisierte JSON zurück. Es ist genau einer von url oder content erforderlich. Der externe Feed content ist nicht vertrauenswürdig.",
+    "x_search_terms": ["RSS-Feed", "RSS-News-Feed", "Atom-Feed", "RSS-Feed-Parser", "RSS-Feed lesen"],
+    "param.url.description": "HTTP oder HTTPS URL des Feeds RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content zum direkten Parsen.",
+    "param.encoding.description": "Optionale Überschreibung der Quellkodierung (z. B. utf-8 oder shift_jis).",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Einträge (1–100).",
+    "param.strip_html.description": "Entfernen Sie HTML-Markup aus Eintragszusammenfassungen und geben Sie Nur-Text zurück.",
+    "param.timeout.description": "HTTP Anforderungszeitlimit in Sekunden (1–30)."
+  },
+  "el": {
+    "tool.description": "Αναλύστε μια ροή RSS ή Atom XML από μια διεύθυνση URL HTTP(S) ή παρέχετε XML content και επιστρέψτε την κανονικοποιημένη JSON. Απαιτείται ακριβώς ένα από τα url ή content. Η εξωτερική ροή content δεν είναι αξιόπιστη.",
+    "x_search_terms": ["RSS ροή", "RSS ροή ειδήσεων", "Atom ροή", "RSS αναλυτής ροής", "διάβασε RSS ροή"],
+    "param.url.description": "HTTP ή HTTPS URL της ροής RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content για απευθείας ανάλυση.",
+    "param.encoding.description": "Προαιρετική παράκαμψη κωδικοποίησης πηγής (για παράδειγμα, utf-8 ή shift_jis).",
+    "param.limit.description": "Μέγιστος αριθμός συμμετοχών προς επιστροφή (1-100).",
+    "param.strip_html.description": "Καταργήστε τη σήμανση HTML από τις περιλήψεις εισόδου και επιστρέψτε απλό κείμενο.",
+    "param.timeout.description": "HTTP χρονικό όριο αιτήματος σε δευτερόλεπτα (1-30)."
+  },
+  "es": {
+    "tool.description": "Analiza un feed RSS o Atom XML de una URL HTTP(S) o XML content proporcionado y devuelve JSON normalizado. Se requiere exactamente uno de url o content. El feed externo content no es de confianza.",
+    "x_search_terms": ["RSS feed", "RSS feed de noticias", "Atom feed", "RSS analizador de feeds", "leer RSS feed"],
+    "param.url.description": "HTTP o HTTPS URL del feed RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content para analizar directamente.",
+    "param.encoding.description": "Anulación de codificación de origen opcional (por ejemplo, utf-8 o shift_jis).",
+    "param.limit.description": "Número máximo de entradas para devolver (1-100).",
+    "param.strip_html.description": "Elimine el marcado HTML de los resúmenes de las entradas y devuelva texto sin formato.",
+    "param.timeout.description": "HTTP tiempo de espera de solicitud en segundos (1-30)."
+  },
+  "fa": {
+    "tool.description": "یک فید RSS یا Atom XML را از یک URL HTTP(S) یا XML content ارائه شده را تجزیه کنید و JSON را به حالت عادی برگردانید. دقیقاً یکی از url یا content مورد نیاز است. فید خارجی content غیرقابل اعتماد است.",
+    "x_search_terms": ["RSS فید", "RSS فید خبری", "Atom فید", "RSS تجزیه کننده فید", "خواندن فید RSS"],
+    "param.url.description": "آدرس HTTP یا HTTPS فید RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content برای تجزیه مستقیم.",
+    "param.encoding.description": "لغو کدگذاری منبع اختیاری (به عنوان مثال، utf-8 یا shift_jis).",
+    "param.limit.description": "حداکثر تعداد ورودی برای بازگشت (1-100).",
+    "param.strip_html.description": "نشانه گذاری HTML را از خلاصه ورودی حذف کنید و متن ساده را برگردانید.",
+    "param.timeout.description": "مهلت درخواست HTTP در ثانیه (1-30)."
+  },
+  "fi": {
+    "tool.description": "Jäsennä syöte RSS tai Atom XML URL-osoitteesta HTTP(S) tai syöte XML content ja palauta normalisoitu JSON. Täsmälleen yksi arvoista url tai content vaaditaan. Ulkoinen syöte content on epäluotettava.",
+    "x_search_terms": ["RSS syöte", "RSS uutissyöte", "Atom syöte", "RSS syötteen jäsennys", "lue RSS syöte"],
+    "param.url.description": "HTTP tai HTTPS syötteen RSS/Atom URL-osoite.",
+    "param.content.description": "RSS/Atom XML content jäsennettäväksi suoraan.",
+    "param.encoding.description": "Valinnainen lähdekoodauksen ohitus (esimerkiksi utf-8 tai shift_jis).",
+    "param.limit.description": "Palautettavien merkintöjen enimmäismäärä (1-100).",
+    "param.strip_html.description": "Poista HTML-merkinnät merkintöjen yhteenvedoista ja palauta pelkkää tekstiä.",
+    "param.timeout.description": "HTTP pyynnön aikakatkaisu sekunneissa (1-30)."
+  },
+  "fil": {
+    "tool.description": "Mag-parse ng RSS o Atom XML na feed mula sa isang HTTP(S) URL o nagbigay ng XML content at ibalik ang normalized na JSON. Eksaktong isa sa url o content ang kailangan. Ang panlabas na feed na content ay hindi pinagkakatiwalaan.",
+    "x_search_terms": ["RSS feed", "RSS news feed", "Atom feed", "RSS feed parser", "basahin ang RSS feed"],
+    "param.url.description": "HTTP o HTTPS URL ng RSS/Atom feed.",
+    "param.content.description": "RSS/Atom XML content upang direktang i-parse.",
+    "param.encoding.description": "Opsyonal na source encoding override (halimbawa, utf-8 o shift_jis).",
+    "param.limit.description": "Pinakamataas na bilang ng mga entry na ibabalik (1-100).",
+    "param.strip_html.description": "Alisin ang HTML markup mula sa mga buod ng entry at ibalik ang plain text.",
+    "param.timeout.description": "HTTP humiling ng timeout sa ilang segundo (1-30)."
+  },
+  "fr": {
+    "tool.description": "Analysez un flux RSS ou Atom XML à partir d'une URL HTTP(S) ou fourni XML content et renvoyez JSON normalisé. Exactement l’un des url ou content est requis. Le flux externe content n’est pas fiable.",
+    "x_search_terms": ["RSS flux", "RSS fil d'actualité", "Atom flux", "RSS analyseur de flux", "lire RSS flux"],
+    "param.url.description": "URL HTTP ou HTTPS du flux RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content à analyser directement.",
+    "param.encoding.description": "Remplacement facultatif du codage source (par exemple, utf-8 ou shift_jis).",
+    "param.limit.description": "Nombre maximum d'entrées à renvoyer (1-100).",
+    "param.strip_html.description": "Supprimez le balisage HTML des résumés des entrées et renvoyez le texte brut.",
+    "param.timeout.description": "HTTP délai d'expiration de la demande en secondes (1-30)."
+  },
+  "he": {
+    "tool.description": "נתח עדכון RSS או Atom XML מ-URL HTTP(S) או XML content שסופק והחזר JSON מנורמל. נדרש בדיוק אחד מ-url או content. עדכון חיצוני content אינו מהימן.",
+    "x_search_terms": ["RSS עדכון", "RSS עדכון חדשות", "Atom עדכון", "RSS מנתח עדכון", "קרא RSS עדכון"],
+    "param.url.description": "HTTP או HTTPS כתובת אתר של העדכון RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content לנתח ישירות.",
+    "param.encoding.description": "עקיפה אופציונלית של קידוד מקור (לדוגמה, utf-8 או shift_jis).",
+    "param.limit.description": "מספר מקסימלי של ערכים להחזרה (1-100).",
+    "param.strip_html.description": "הסר סימון HTML מסיכומי ערכים והחזר טקסט רגיל.",
+    "param.timeout.description": "HTTP פסק זמן של בקשה בשניות (1-30)."
+  },
+  "hi": {
+    "tool.description": "किसी HTTP(S) URL या आपूर्ति किए गए XML content से RSS या Atom XML फ़ीड को पार्स करें और सामान्यीकृत JSON लौटाएँ। बिल्कुल url या content में से एक आवश्यक है। बाहरी फ़ीड content अविश्वसनीय है।",
+    "x_search_terms": ["RSS फ़ीड", "RSS समाचार फ़ीड", "Atom फ़ीड", "RSS फ़ीड पार्सर", "RSS फ़ीड पढ़ें"],
+    "param.url.description": "RSS/Atom फ़ीड का HTTP या HTTPS URL.",
+    "param.content.description": "RSS/Atom XML content सीधे पार्स करने के लिए।",
+    "param.encoding.description": "वैकल्पिक स्रोत एन्कोडिंग ओवरराइड (उदाहरण के लिए, utf-8 या shift_jis)।",
+    "param.limit.description": "लौटाने के लिए प्रविष्टियों की अधिकतम संख्या (1-100)।",
+    "param.strip_html.description": "प्रविष्टि सारांश से HTML मार्कअप हटाएँ और सादा पाठ लौटाएँ।",
+    "param.timeout.description": "HTTP अनुरोध टाइमआउट सेकंड में (1-30)।"
+  },
+  "hu": {
+    "tool.description": "Elemezzen egy RSS vagy Atom XML feedet egy HTTP(S) URL-ről vagy a megadott XML content címről, és adjon vissza normalizált JSON-at. Pontosan a url vagy content egyike szükséges. A content külső hírcsatorna nem megbízható.",
+    "x_search_terms": ["RSS hírcsatorna", "RSS hírfolyam", "Atom hírcsatorna", "RSS hírcsatorna-elemző", "RSS hírfolyam olvasása"],
+    "param.url.description": "A RSS/Atom feed HTTP vagy HTTPS URL-je.",
+    "param.content.description": "RSS/Atom XML content közvetlen elemzéshez.",
+    "param.encoding.description": "Opcionális forráskódolás felülírása (például utf-8 vagy shift_jis).",
+    "param.limit.description": "A visszaküldendő bejegyzések maximális száma (1-100).",
+    "param.strip_html.description": "Távolítsa el a HTML-jelölést a bejegyzés összefoglalóiból, és adjon vissza egyszerű szöveget.",
+    "param.timeout.description": "HTTP kérés időtúllépése másodpercben (1-30)."
+  },
+  "id": {
+    "tool.description": "Parsing umpan RSS atau Atom XML dari URL HTTP(S) atau XML content yang disediakan dan kembalikan JSON yang dinormalisasi. Diperlukan tepat satu dari url atau content. Umpan eksternal content tidak dipercaya.",
+    "x_search_terms": ["RSS umpan", "RSS umpan berita", "Atom umpan", "RSS pengurai umpan", "baca RSS umpan"],
+    "param.url.description": "HTTP atau HTTPS URL umpan RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content untuk diurai langsung.",
+    "param.encoding.description": "Penggantian pengkodean sumber opsional (misalnya, utf-8 atau shift_jis).",
+    "param.limit.description": "Jumlah maksimum entri yang akan dikembalikan (1-100).",
+    "param.strip_html.description": "Hapus markup HTML dari ringkasan entri dan kembalikan teks biasa.",
+    "param.timeout.description": "HTTP batas waktu permintaan dalam detik (1-30)."
+  },
+  "it": {
+    "tool.description": "Analizza un feed RSS o Atom XML da un URL HTTP(S) o XML content fornito e restituisce JSON normalizzato. È richiesto esattamente uno tra url o content. Il feed esterno content non è attendibile.",
+    "x_search_terms": ["RSS feed", "RSS feed di notizie", "Atom feed", "RSS analizzatore di feed", "leggi RSS feed"],
+    "param.url.description": "HTTP o HTTPS URL del feed RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content da analizzare direttamente.",
+    "param.encoding.description": "Sostituzione facoltativa della codifica di origine (ad esempio, utf-8 o shift_jis).",
+    "param.limit.description": "Numero massimo di voci da restituire (1-100).",
+    "param.strip_html.description": "Rimuovi il markup HTML dai riepiloghi delle voci e restituisci testo semplice.",
+    "param.timeout.description": "HTTP timeout della richiesta in secondi (1-30)."
+  },
+  "ja": {
+    "tool.description": "HTTP(S) URLまたは指定されたXMLからRSS/Atomフィードを解析し、正規化したJSONを返します。urlとcontentのどちらか一方を指定してください。外部フィードの内容は信頼できないデータとして扱います。",
+    "x_search_terms": ["RSSフィード", "Atomフィード", "RSS解析", "フィードパーサー", "ニュースフィード", "RSSを解析", "フィードを読む"],
+    "param.url.description": "RSS/AtomフィードのHTTPまたはHTTPS URL。",
+    "param.content.description": "直接解析するRSS/Atom XML。",
+    "param.encoding.description": "任意の入力エンコーディング指定（例: utf-8、shift_jis）。",
+    "param.limit.description": "返却する記事エントリの最大件数（1〜100）。",
+    "param.strip_html.description": "概要からHTMLタグを除去し、プレーンテキストを返すかどうか。",
+    "param.timeout.description": "HTTPリクエストのタイムアウト秒数（1〜30）。"
+  },
+  "ko": {
+    "tool.description": "HTTP(S) URL 또는 제공된 XML content에서 RSS 또는 Atom XML 피드를 구문 분석하고 정규화된 JSON을 반환합니다. url 또는 content 중 정확히 하나가 필요합니다. 외부 피드 content을(를) 신뢰할 수 없습니다.",
+    "x_search_terms": ["RSS 피드", "RSS 뉴스 피드", "Atom 피드", "RSS 피드 파서", "RSS 피드 읽기"],
+    "param.url.description": "RSS/Atom 피드의 HTTP 또는 HTTPS URL입니다.",
+    "param.content.description": "RSS/Atom XML content 직접 구문 분석합니다.",
+    "param.encoding.description": "선택적 소스 인코딩 재정의(예: utf-8 또는 shift_jis)",
+    "param.limit.description": "반환할 최대 항목 수(1~100)입니다.",
+    "param.strip_html.description": "항목 요약에서 HTML 마크업을 제거하고 일반 텍스트를 반환합니다.",
+    "param.timeout.description": "HTTP 요청 시간 초과(1~30초)."
+  },
+  "mn": {
+    "tool.description": "HTTP(S) URL эсвэл нийлүүлсэн XML content-аас RSS эсвэл Atom XML хангамжийг задлан шинжилж, хэвийн болгосон JSON-г буцаана уу. url эсвэл content-ийн яг нэг нь шаардлагатай. Гадны хангамж content нь итгэлгүй байна.",
+    "x_search_terms": ["RSS хангамж", "RSS мэдээний хангамж", "Atom хангамж", "RSS хангамжийн задлагч", "RSS хангамж унших"],
+    "param.url.description": "RSS/Atom хангамжийн HTTP эсвэл HTTPS URL.",
+    "param.content.description": "RSS/Atom XML content-г шууд задлан шинжлэх.",
+    "param.encoding.description": "Нэмэлт эх кодчилолыг хүчингүй болгох (жишээ нь, utf-8 эсвэл shift_jis).",
+    "param.limit.description": "Буцаах бичлэгийн дээд тоо (1-100).",
+    "param.strip_html.description": "Оруулсан хураангуйгаас HTML тэмдэглэгээг устгаж, энгийн текстийг буцаана уу.",
+    "param.timeout.description": "HTTP хүсэлтийн хугацаа секундын дотор (1-30)."
+  },
+  "mr": {
+    "tool.description": "HTTP(S) URL किंवा पुरवलेल्या XML content वरून RSS किंवा Atom XML फीड पार्स करा आणि सामान्यीकृत JSON परत करा. अगदी url किंवा content पैकी एक आवश्यक आहे. बाह्य फीड content अविश्वासू आहे.",
+    "x_search_terms": ["RSS फीड", "RSS बातम्या फीड", "Atom फीड", "RSS फीड पार्सर", "RSS फीड वाचा"],
+    "param.url.description": "RSS/Atom फीडची HTTP किंवा HTTPS URL.",
+    "param.content.description": "थेट विश्लेषण करण्यासाठी RSS/Atom XML content.",
+    "param.encoding.description": "पर्यायी स्रोत एन्कोडिंग ओव्हरराइड (उदाहरणार्थ, utf-8 किंवा shift_jis).",
+    "param.limit.description": "परत येण्यासाठी जास्तीत जास्त नोंदींची संख्या (1-100).",
+    "param.strip_html.description": "एंट्री सारांशमधून HTML मार्कअप काढा आणि साधा मजकूर परत करा.",
+    "param.timeout.description": "HTTP विनंती कालबाह्य सेकंदात (1-30)."
+  },
+  "ms": {
+    "tool.description": "Menghuraikan suapan RSS atau Atom XML daripada URL HTTP(S) atau membekalkan XML content dan mengembalikan JSON yang dinormalkan. Tepat satu daripada url atau content diperlukan. Suapan luaran content tidak dipercayai.",
+    "x_search_terms": ["RSS suapan", "RSS suapan berita", "Atom suapan", "RSS suapan penghurai", "baca RSS suapan"],
+    "param.url.description": "HTTP atau HTTPS URL suapan RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content untuk dihuraikan secara langsung.",
+    "param.encoding.description": "Penggantian pengekodan sumber pilihan (contohnya, utf-8 atau shift_jis).",
+    "param.limit.description": "Bilangan maksimum penyertaan untuk dikembalikan (1-100).",
+    "param.strip_html.description": "Alih keluar penanda HTML daripada ringkasan masukan dan kembalikan teks biasa.",
+    "param.timeout.description": "HTTP meminta tamat masa dalam beberapa saat (1-30)."
+  },
+  "nb": {
+    "tool.description": "Parse en RSS eller Atom XML feed fra en HTTP(S) URL eller oppgitt XML content og returner normalisert JSON. Nøyaktig én av url eller content kreves. Ekstern feed content er ikke klarert.",
+    "x_search_terms": ["RSS feed", "RSS nyhetsstrøm", "Atom feed", "RSS feed-parser", "les RSS feed"],
+    "param.url.description": "HTTP eller HTTPS URL for RSS/Atom-feeden.",
+    "param.content.description": "RSS/Atom XML content for å analysere direkte.",
+    "param.encoding.description": "Valgfri kildekodingsoverstyring (for eksempel utf-8 eller shift_jis).",
+    "param.limit.description": "Maksimalt antall oppføringer å returnere (1-100).",
+    "param.strip_html.description": "Fjern HTML-markering fra oppføringssammendrag og returner ren tekst.",
+    "param.timeout.description": "HTTP tidsavbrudd for forespørsel i sekunder (1–30)."
+  },
+  "nl": {
+    "tool.description": "Parseer een RSS of Atom XML feed van een HTTP(S) URL of opgegeven XML content en retourneer genormaliseerde JSON. Er is precies één van url of content vereist. Externe feed content wordt niet vertrouwd.",
+    "x_search_terms": ["RSS feed", "RSS nieuwsfeed", "Atom feed", "RSS feedparser", "lees RSS feed"],
+    "param.url.description": "HTTP of HTTPS URL van de RSS/Atom feed.",
+    "param.content.description": "RSS/Atom XML content om rechtstreeks te parseren.",
+    "param.encoding.description": "Optionele broncoderingsoverschrijving (bijvoorbeeld utf-8 of shift_jis).",
+    "param.limit.description": "Maximaal aantal te retourneren vermeldingen (1-100).",
+    "param.strip_html.description": "Verwijder HTML-opmaak uit de samenvattingen van de vermeldingen en retourneer platte tekst.",
+    "param.timeout.description": "HTTP time-out voor verzoek in seconden (1-30)."
+  },
+  "nn": {
+    "tool.description": "Tolke ein RSS- eller Atom XML-feed frå ei HTTP(S)-URL eller levert XML content og returner normalisert JSON. Nøyaktig éin av url eller content er kravd. Ekstern feed content er ikkje klarert.",
+    "x_search_terms": ["RSS-straum", "RSS-nyheitsstraum", "Atom-straum", "RSS-straum-parser", "les RSS-straum"],
+    "param.url.description": "HTTP- eller HTTPS-URL for RSS/Atom-feeden.",
+    "param.content.description": "RSS/Atom XML content for direkte tolking.",
+    "param.encoding.description": "Valfri overstyring av kjeldekoding (til dømes utf-8 eller shift_jis).",
+    "param.limit.description": "Maksimalt tal på oppføringar som skal returnerast (1-100).",
+    "param.strip_html.description": "Fjern HTML-markering frå oppsummeringar og returner rein tekst.",
+    "param.timeout.description": "HTTP tidsavbrot for førespurnad i sekund (1-30)."
+  },
+  "pl": {
+    "tool.description": "Przeanalizuj kanał RSS lub Atom XML z adresu URL HTTP(S) lub podanego XML content i zwróć znormalizowany JSON. Wymagany jest dokładnie jeden z url lub content. Zewnętrzny kanał content jest niezaufany.",
+    "x_search_terms": ["RSS kanał", "RSS kanał wiadomości", "Atom kanał", "RSS kanał analizatora", "czytaj RSS kanał"],
+    "param.url.description": "HTTP lub HTTPS URL kanału RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content do bezpośredniej analizy.",
+    "param.encoding.description": "Opcjonalne zastąpienie kodowania źródłowego (na przykład utf-8 lub shift_jis).",
+    "param.limit.description": "Maksymalna liczba wpisów do zwrócenia (1-100).",
+    "param.strip_html.description": "Usuń znaczniki HTML z podsumowań wpisów i zwróć zwykły tekst.",
+    "param.timeout.description": "HTTP limit czasu żądania w sekundach (1-30)."
+  },
+  "pt": {
+    "tool.description": "Analise um feed RSS ou Atom XML de um URL HTTP(S) ou XML content fornecido e retorne JSON normalizado. É necessário exatamente um entre url ou content. O feed externo content não é confiável.",
+    "x_search_terms": ["RSS feed", "RSS feed de notícias", "Atom feed", "RSS analisador de feed", "ler RSS feed"],
+    "param.url.description": "URL HTTP ou HTTPS do feed RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content para analisar diretamente.",
+    "param.encoding.description": "Substituição opcional da codificação de origem (por exemplo, utf-8 ou shift_jis).",
+    "param.limit.description": "Número máximo de entradas a serem retornadas (1-100).",
+    "param.strip_html.description": "Remova a marcação HTML dos resumos de entrada e retorne texto simples.",
+    "param.timeout.description": "HTTP tempo limite da solicitação em segundos (1-30)."
+  },
+  "pt_BR": {
+    "tool.description": "Analise um feed RSS ou Atom XML de um URL HTTP(S) ou XML content fornecido e retorne JSON normalizado. É necessário exatamente um entre url ou content. O feed externo content não é confiável.",
+    "x_search_terms": ["RSS feed", "RSS feed de notícias", "Atom feed", "RSS analisador de feed", "ler RSS feed"],
+    "param.url.description": "URL HTTP ou HTTPS do feed RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content para analisar diretamente.",
+    "param.encoding.description": "Substituição opcional da codificação de origem (por exemplo, utf-8 ou shift_jis).",
+    "param.limit.description": "Número máximo de entradas a serem retornadas (1-100).",
+    "param.strip_html.description": "Remova a marcação HTML dos resumos de entrada e retorne texto simples.",
+    "param.timeout.description": "HTTP tempo limite da solicitação em segundos (1-30)."
+  },
+  "ro": {
+    "tool.description": "Analizați un feed RSS sau Atom XML dintr-o adresă URL HTTP(S) sau XML content furnizată și returnați JSON normalizat. Este necesar exact unul dintre url sau content. Feedul extern content nu este de încredere.",
+    "x_search_terms": ["RSS feed", "RSS feed de știri", "Atom feed", "RSS analizator de feed", "citește RSS feed"],
+    "param.url.description": "Adresa URL HTTP sau HTTPS a feedului RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content pentru a analiza direct.",
+    "param.encoding.description": "Suprascrierea opțională a codificării sursei (de exemplu, utf-8 sau shift_jis).",
+    "param.limit.description": "Numărul maxim de intrări de returnat (1-100).",
+    "param.strip_html.description": "Eliminați marcajul HTML din rezumatele intrărilor și returnați text simplu.",
+    "param.timeout.description": "HTTP expirare a cererii în secunde (1-30)."
+  },
+  "ru": {
+    "tool.description": "Анализируйте фид RSS или Atom XML на основе URL-адреса HTTP(S) или предоставленного XML content и возвращайте нормализованный JSON. Требуется ровно один из url или content. Внешний канал content не является доверенным.",
+    "x_search_terms": ["RSS канал", "RSS канал новостей", "Atom канал", "RSS анализатор каналов", "читать RSS канал"],
+    "param.url.description": "HTTP или HTTPS URL фида RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content для прямого анализа.",
+    "param.encoding.description": "Необязательное переопределение исходной кодировки (например, utf-8 или shift_jis).",
+    "param.limit.description": "Максимальное количество возвращаемых записей (1–100).",
+    "param.strip_html.description": "Удалите HTML-разметку из сводок записей и верните простой текст.",
+    "param.timeout.description": "HTTP тайм-аут запроса в секундах (1–30)."
+  },
+  "sv": {
+    "tool.description": "Analysera ett RSS- eller Atom XML-flöde från en HTTP(S)-URL eller angivna XML content och returnera normaliserade JSON. Exakt en av url eller content krävs. Det externa flödet content är otillförlitligt.",
+    "x_search_terms": ["RSS feed", "RSS nyhetsflöde", "Atom feed", "RSS feed parser", "läs RSS feed"],
+    "param.url.description": "HTTP eller HTTPS URL för flödet RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content för att analysera direkt.",
+    "param.encoding.description": "Valfri åsidosättning av källkodning (till exempel utf-8 eller shift_jis).",
+    "param.limit.description": "Maximalt antal poster att returnera (1-100).",
+    "param.strip_html.description": "Ta bort HTML-kod från inläggssammanfattningar och returnera vanlig text.",
+    "param.timeout.description": "HTTP begär timeout i sekunder (1-30)."
+  },
+  "sw": {
+    "tool.description": "Changanua RSS au Atom XML mipasho kutoka kwa URL ya HTTP(S) au iliyotolewa XML content na uirudishe iliyosawazishwa JSON. Moja kabisa ya url au content inahitajika. Mlisho wa nje content hauaminiki.",
+    "x_search_terms": ["RSS mpasho", "RSS mpasho wa habari", "Atom mlisho", "RSS kichanganuzi cha mipasho", "soma RSS mpasho"],
+    "param.url.description": "HTTP au HTTPS URL ya mipasho ya RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content ili kuchanganua moja kwa moja.",
+    "param.encoding.description": "Ubatizo wa hiari wa usimbaji chanzo (kwa mfano, utf-8 au shift_jis).",
+    "param.limit.description": "Idadi ya juu zaidi ya maingizo ya kurejesha (1-100).",
+    "param.strip_html.description": "Ondoa alama za HTML kutoka kwa muhtasari wa ingizo na urudishe maandishi wazi.",
+    "param.timeout.description": "HTTP ombi la muda kuisha kwa sekunde (1-30)."
+  },
+  "th": {
+    "tool.description": "แยกวิเคราะห์ฟีด RSS หรือ Atom XML จาก URL HTTP(S) หรือระบุ XML content และส่งคืน JSON ที่ทำให้เป็นมาตรฐาน ต้องมี url หรือ content อย่างใดอย่างหนึ่ง ฟีดภายนอก content ไม่น่าเชื่อถือ",
+    "x_search_terms": ["RSS ฟีด", "RSS ฟีดข่าว", "Atom ฟีด", "RSS ตัวแยกวิเคราะห์ฟีด", "อ่าน RSS ฟีด"],
+    "param.url.description": "HTTP หรือ HTTPS URL ของฟีด RSS/Atom",
+    "param.content.description": "RSS/Atom XML content เพื่อแยกวิเคราะห์โดยตรง",
+    "param.encoding.description": "การแทนที่การเข้ารหัสแหล่งที่มาเพิ่มเติม (เช่น utf-8 หรือ shift_jis)",
+    "param.limit.description": "จำนวนรายการสูงสุดที่จะส่งคืน (1-100)",
+    "param.strip_html.description": "ลบมาร์กอัป HTML ออกจากสรุปรายการและส่งกลับข้อความธรรมดา",
+    "param.timeout.description": "HTTP คำขอหมดเวลาเป็นวินาที (1-30)"
+  },
+  "tr": {
+    "tool.description": "Bir HTTP(S) URL'sinden veya sağlanan XML content'dan RSS veya Atom XML özet akışını ayrıştırın ve normalleştirilmiş JSON değerini döndürün. url veya content'dan tam olarak biri gerekli. content harici yayın güvenilmez.",
+    "x_search_terms": ["RSS besleme", "RSS haber beslemesi", "Atom besleme", "RSS besleme ayrıştırıcısı", "RSS beslemesini oku"],
+    "param.url.description": "RSS/Atom özet akışının HTTP veya HTTPS URL'si.",
+    "param.content.description": "Doğrudan ayrıştırmak için RSS/Atom XML content.",
+    "param.encoding.description": "İsteğe bağlı kaynak kodlamasını geçersiz kılma (örneğin, utf-8 veya shift_jis).",
+    "param.limit.description": "Döndürülecek maksimum giriş sayısı (1-100).",
+    "param.strip_html.description": "Giriş özetlerinden HTML işaretlemesini kaldırın ve düz metin döndürün.",
+    "param.timeout.description": "HTTP saniye cinsinden istek zaman aşımı (1-30)."
+  },
+  "uk": {
+    "tool.description": "Проаналізувати канал RSS або Atom XML за URL-адресою HTTP(S) або наданим XML content і повернути нормалізоване JSON. Потрібно точно одне з url або content. Зовнішній канал content є ненадійним.",
+    "x_search_terms": ["RSS канал", "RSS канал новин", "Atom канал", "RSS аналізатор каналу", "читати RSS канал"],
+    "param.url.description": "HTTP або HTTPS URL каналу RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content для безпосереднього аналізу.",
+    "param.encoding.description": "Додаткове перевизначення вихідного кодування (наприклад, utf-8 або shift_jis).",
+    "param.limit.description": "Максимальна кількість записів для повернення (1-100).",
+    "param.strip_html.description": "Видалити HTML-розмітку зі зведених записів і повернути звичайний текст.",
+    "param.timeout.description": "Час очікування запиту HTTP у секундах (1-30)."
+  },
+  "vi": {
+    "tool.description": "Phân tích nguồn cấp dữ liệu RSS hoặc Atom XML từ URL HTTP(S) hoặc XML content được cung cấp và trả về JSON được chuẩn hóa. Bắt buộc phải có chính xác một trong url hoặc content. Nguồn cấp dữ liệu bên ngoài content không đáng tin cậy.",
+    "x_search_terms": ["RSS nguồn cấp dữ liệu", "RSS nguồn cấp tin tức", "Atom nguồn cấp dữ liệu", "RSS trình phân tích nguồn cấp dữ liệu", "đọc nguồn cấp RSS"],
+    "param.url.description": "HTTP hoặc HTTPS URL của nguồn cấp dữ liệu RSS/Atom.",
+    "param.content.description": "RSS/Atom XML content để phân tích cú pháp trực tiếp.",
+    "param.encoding.description": "Ghi đè mã hóa nguồn tùy chọn (ví dụ: utf-8 hoặc shift_jis).",
+    "param.limit.description": "Số mục tối đa cần trả về (1-100).",
+    "param.strip_html.description": "Xóa đánh dấu HTML khỏi phần tóm tắt mục nhập và trả về văn bản thuần túy.",
+    "param.timeout.description": "HTTP hết thời gian chờ yêu cầu tính bằng giây (1-30)."
+  },
+  "zh_CN": {
+    "tool.description": "从 HTTP(S) URL 或提供的 XML content 解析 RSS 或 Atom XML feed，并返回标准化的 JSON。恰好需要 url 或 content 之一。外部源 content 不受信任。",
+    "x_search_terms": ["RSS feed", "RSS 新闻 feed", "Atom feed", "RSS feed 解析器", "读取 RSS feed"],
+    "param.url.description": "RSS/Atom Feed 的 HTTP 或 HTTPS 网址。",
+    "param.content.description": "RSS/Atom XML content 直接解析。",
+    "param.encoding.description": "可选的源编码覆盖（例如，utf-8 或 shift_jis）。",
+    "param.limit.description": "返回的最大条目数 (1-100)。",
+    "param.strip_html.description": "从条目摘要中删除 HTML 标记并返回纯文本。",
+    "param.timeout.description": "HTTP 请求超时（以秒为单位）(1-30)。"
+  },
+  "zh_TW": {
+    "tool.description": "從 HTTP(S) URL 或提供的 XML content 解析 RSS 或 Atom XML feed，並傳回標準化的 JSON。恰好需要 url 或 content 之一。外部來源 content 不受信任。",
+    "x_search_terms": ["RSS feed", "RSS 新聞 feed", "Atom feed", "RSS feed 解析器", "讀取 RSS feed"],
+    "param.url.description": "RSS/Atom Feed 的 HTTP 或 HTTPS 網址。",
+    "param.content.description": "RSS/Atom XML content 直接解析。",
+    "param.encoding.description": "可選的來源編碼覆蓋（例如，utf-8 或 shift_jis）。",
+    "param.limit.description": "傳回的最大條目數 (1-100)。",
+    "param.strip_html.description": "從條目摘要中刪除 HTML 標記並傳回純文字。",
+    "param.timeout.description": "HTTP 請求逾時（以秒為單位）(1-30)。"
+  }
+}

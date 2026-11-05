@@ -101,9 +101,11 @@ _ALLOWED_PACKAGES = {
         # Packages used by tool-level lazy installers.
         "PySide6",
         "catboost",
+        "charset-normalizer",
         "chronos-forecasting",
         "ewmh",
         "exstruct",
+        "feedparser",
         "holidays",
         "janome",
         "jieba",
