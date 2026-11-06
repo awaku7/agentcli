@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 from types import SimpleNamespace
 
@@ -191,3 +192,82 @@ def test_process_policy_overrides_dotenv(
     monkeypatch.setattr(bootstrap.sys, "argv", ["uag"])
     assert bootstrap._project_auto_install_policy() is None
     assert _pip_auto._may_install("uag-envsec")
+
+
+def _scheduled_fixture(monkeypatch: pytest.MonkeyPatch, tmp_path, workdir: str):
+    payload_dir = tmp_path / "scheduled_payloads"
+    payload_dir.mkdir(mode=0o700)
+    payload_id = "a" * 32
+    payload_path = payload_dir / f"{payload_id}.json"
+    payload_path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "message": "test scheduled job",
+                "on_timeout_prompt": "",
+                "workdir": workdir,
+                "enable_tools": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        bootstrap.sys,
+        "argv",
+        [
+            "uag",
+            "--scheduled-payload-id",
+            payload_id,
+            "--scheduled-payload-dir",
+            str(payload_dir),
+        ],
+    )
+    return payload_path
+
+
+def test_scheduled_workdir_policy_blocks_repair(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    (project / ".env").write_text("UAGENT_AUTO_INSTALL=off\n", encoding="utf-8")
+    (tmp_path / ".env").write_text("UAGENT_AUTO_INSTALL=allow\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    payload_path = _scheduled_fixture(monkeypatch, tmp_path, str(project))
+    monkeypatch.setattr(
+        bootstrap.importlib,
+        "import_module",
+        lambda name: (_ for _ in ()).throw(_missing("uag_envsec")),
+    )
+    monkeypatch.setattr(
+        bootstrap.subprocess,
+        "run",
+        lambda *args, **kwargs: pytest.fail("pip ran despite scheduled project policy"),
+    )
+    with pytest.raises(ModuleNotFoundError, match="--force-reinstall"):
+        bootstrap.ensure_envsec_available()
+    assert payload_path.exists()  # Must not consume the one-shot payload.
+
+
+def test_scheduled_payload_empty_workdir_falls_back(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    project = tmp_path / "fallback"
+    project.mkdir()
+    (project / ".env").write_text("UAGENT_AUTO_INSTALL=prompt\n", encoding="utf-8")
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    _scheduled_fixture(monkeypatch, tmp_path, "")
+    bootstrap.sys.argv.extend(["-C", str(project)])
+    assert bootstrap._project_auto_install_policy() == "prompt"
+
+
+def test_unavailable_scheduled_payload_fails_closed(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    _scheduled_fixture(monkeypatch, tmp_path, str(tmp_path))
+    (tmp_path / "scheduled_payloads" / f"{'a' * 32}.json").unlink()
+    assert bootstrap._project_auto_install_policy() == "off"
