@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import warnings
 
+from ._envsec_bootstrap import ensure_envsec_available
+
 # Suppress pkg_resources deprecation warning from jieba/_compat.py
 # Applied at package level so all entry points (uag/uagw/uagg/uaga/scheck) are covered.
 warnings.filterwarnings(
@@ -34,3 +36,5 @@ def __getattr__(name: str):
 
 
 __all__ = ["__version__"]
+
+ensure_envsec_available()

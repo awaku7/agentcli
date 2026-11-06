@@ -13,6 +13,7 @@ _ALLOWED_PACKAGES = {
     pkg.lower()
     for pkg in {
         # Core/provider packages that may be installed on first use.
+        "uag-envsec",
         "openai",
         "lmstudio",
         "anthropic",
@@ -185,9 +186,14 @@ def _confirm_install(label: str) -> bool:
     return answer.strip().lower() in {"y", "yes"}
 
 
-def _may_install(package_name: str, *, display_name: str | None = None) -> bool:
+def _may_install(
+    package_name: str,
+    *,
+    display_name: str | None = None,
+    policy_override: str | None = None,
+) -> bool:
     label = display_name or package_name
-    policy = _install_policy()
+    policy = policy_override if policy_override is not None else _install_policy()
     if policy == "off":
         _policy_message(label, policy)
         return False
