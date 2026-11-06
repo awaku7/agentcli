@@ -42,7 +42,9 @@ def test_missing_envsec_is_reinstalled_once(monkeypatch: pytest.MonkeyPatch) -> 
         return subprocess.CompletedProcess(command, 0)
 
     monkeypatch.setattr(bootstrap.importlib, "import_module", importing)
-    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: name == "uag-envsec")
+    monkeypatch.setattr(
+        _pip_auto, "_may_install", lambda name, **kwargs: name == "uag-envsec"
+    )
     monkeypatch.setattr(bootstrap.subprocess, "run", running)
 
     bootstrap.ensure_envsec_available()
