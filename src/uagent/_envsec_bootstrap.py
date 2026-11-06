@@ -16,7 +16,6 @@ _REPAIR_HINT = "python -m pip install --force-reinstall --no-deps 'uag-envsec>=0
 _POLICY_LINE = re.compile(r"^\s*(?:export\s+)?UAGENT_AUTO_INSTALL\s*=\s*(.*)$")
 
 
-
 def _scheduled_payload_workdir(payload_id: str, payload_dir: str | None) -> str:
     """Inspect an OS schedule's project without consuming its one-shot payload.
 
@@ -55,6 +54,7 @@ def _scheduled_payload_workdir(payload_id: str, payload_dir: str | None) -> str:
     if not isinstance(workdir, str) or len(workdir) > 4096:
         raise ValueError("invalid scheduled working directory")
     return workdir
+
 
 def _startup_workdir() -> Path:
     """Resolve the selected workdir without importing the full runtime."""
