@@ -42,7 +42,7 @@ def test_missing_envsec_is_reinstalled_once(monkeypatch: pytest.MonkeyPatch) -> 
         return subprocess.CompletedProcess(command, 0)
 
     monkeypatch.setattr(bootstrap.importlib, "import_module", importing)
-    monkeypatch.setattr(_pip_auto, "_may_install", lambda name: name == "uag-envsec")
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: name == "uag-envsec")
     monkeypatch.setattr(bootstrap.subprocess, "run", running)
 
     bootstrap.ensure_envsec_available()
@@ -66,7 +66,7 @@ def test_policy_off_does_not_install(monkeypatch: pytest.MonkeyPatch) -> None:
         raise _missing("uag_envsec")
 
     monkeypatch.setattr(bootstrap.importlib, "import_module", missing)
-    monkeypatch.setattr(_pip_auto, "_may_install", lambda name: False)
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: False)
 
     def unexpected(*args, **kwargs):
         pytest.fail("pip must not run when auto-install is disabled")
@@ -96,7 +96,7 @@ def test_failed_repair_includes_manual_command(monkeypatch: pytest.MonkeyPatch) 
         raise subprocess.CalledProcessError(1, command)
 
     monkeypatch.setattr(bootstrap.importlib, "import_module", missing)
-    monkeypatch.setattr(_pip_auto, "_may_install", lambda name: True)
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
     monkeypatch.setattr(bootstrap.subprocess, "run", failing)
     with pytest.raises(ModuleNotFoundError, match="--force-reinstall"):
         bootstrap.ensure_envsec_available()
@@ -109,7 +109,7 @@ def test_missing_after_reinstall_includes_manual_command(
         raise _missing("uag_envsec")
 
     monkeypatch.setattr(bootstrap.importlib, "import_module", missing)
-    monkeypatch.setattr(_pip_auto, "_may_install", lambda name: True)
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
     monkeypatch.setattr(
         bootstrap.subprocess,
         "run",
@@ -117,3 +117,75 @@ def test_missing_after_reinstall_includes_manual_command(
     )
     with pytest.raises(ModuleNotFoundError, match="still missing after repair"):
         bootstrap.ensure_envsec_available()
+
+
+def _always_missing_envsec(name: str) -> None:
+    raise _missing("uag_envsec")
+
+
+def test_project_dotenv_off_prevents_install(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    (tmp_path / ".env").write_text("UAGENT_AUTO_INSTALL=off\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(bootstrap.sys, "argv", ["uag"])
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    monkeypatch.setattr(bootstrap.importlib, "import_module", _always_missing_envsec)
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("pip ran despite the project's off policy")
+
+    monkeypatch.setattr(bootstrap.subprocess, "run", unexpected)
+    with pytest.raises(ModuleNotFoundError, match="--force-reinstall"):
+        bootstrap.ensure_envsec_available()
+
+
+def test_project_dotenv_prompt_respected(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    (tmp_path / ".env").write_text(
+        'export UAGENT_AUTO_INSTALL="prompt"\n', encoding="utf-8"
+    )
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(bootstrap.sys, "argv", ["uag"])
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    monkeypatch.setattr(bootstrap.importlib, "import_module", _always_missing_envsec)
+    prompted = []
+
+    def confirm(label):
+        prompted.append(label)
+        return False
+
+    monkeypatch.setattr(_pip_auto, "_confirm_install", confirm)
+    monkeypatch.setattr(
+        bootstrap.subprocess,
+        "run",
+        lambda *args, **kwargs: pytest.fail("pip ran without consent"),
+    )
+    with pytest.raises(ModuleNotFoundError):
+        bootstrap.ensure_envsec_available()
+    assert prompted == ["uag-envsec"]
+
+
+def test_cli_workdir_policy_is_used(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    (project / ".env").write_text("UAGENT_AUTO_INSTALL=off\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(bootstrap.sys, "argv", ["uag", "-C", str(project)])
+    monkeypatch.delenv("UAGENT_AUTO_INSTALL", raising=False)
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    assert bootstrap._project_auto_install_policy() == "off"
+
+
+def test_process_policy_overrides_dotenv(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    (tmp_path / ".env").write_text("UAGENT_AUTO_INSTALL=off\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("UAGENT_AUTO_INSTALL", "allow")
+    monkeypatch.setattr(bootstrap.sys, "argv", ["uag"])
+    assert bootstrap._project_auto_install_policy() is None
+    assert _pip_auto._may_install("uag-envsec")
