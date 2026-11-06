@@ -13,6 +13,7 @@ _ALLOWED_PACKAGES = {
     pkg.lower()
     for pkg in {
         # Core/provider packages that may be installed on first use.
+        "uag-envsec",
         "openai",
         "lmstudio",
         "anthropic",
