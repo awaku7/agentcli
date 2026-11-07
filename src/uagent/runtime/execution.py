@@ -89,12 +89,17 @@ def _attach_turn_correlation(
             attach_pseudonymous_correlation,
         )
         from .observability.settings import get_observability_settings
+        from .observability.user_identity import user_attributes
+
+        settings = get_observability_settings()
+        for key, value in user_attributes(turn_context, settings).items():
+            observability_span.set_attribute(key, value)
 
         return bool(
             attach_pseudonymous_correlation(
                 observability_span,
                 turn_context,
-                get_observability_settings(),
+                settings,
             )
         )
     except Exception:

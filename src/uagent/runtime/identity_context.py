@@ -47,6 +47,7 @@ class IdentityContext:
     subject: str = ""
     display_name: str = ""
     groups: tuple[str, ...] = ()
+    username: str = ""
 
     def __post_init__(self) -> None:
         principal_id = str(self.principal_id or "").strip()
@@ -60,6 +61,9 @@ class IdentityContext:
         object.__setattr__(self, "issuer", str(self.issuer or "").strip())
         object.__setattr__(self, "subject", str(self.subject or "").strip())
         object.__setattr__(self, "display_name", str(self.display_name or "").strip())
+        object.__setattr__(
+            self, "username", self.username if type(self.username) is str else ""
+        )
         object.__setattr__(
             self,
             "groups",

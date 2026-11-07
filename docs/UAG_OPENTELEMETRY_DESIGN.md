@@ -1,3 +1,11 @@
+> Current user-attribute extension: when OTel is enabled, authenticated Agent
+> spans can export standard `user.id` / verified `user.name`. Local CLI/GUI use
+> the OS account. This supersedes historical blanket identity exclusions below
+> for these two attributes only. Pseudonymous-correlation mode still suppresses
+> raw user attributes; credentials, raw subject/display-name/group claims,
+> room/project/session IDs and metric-label restrictions remain unchanged.
+> See `src/uagent/docs/DEVELOP_OBSERVABILITY.md` for the current contract.
+
 # UAG OpenTelemetry Integration Design
 
 Status: Implemented on `main` through Phase 4D<br>

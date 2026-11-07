@@ -1373,3 +1373,16 @@ and registers its room-owned Job resolver with
 `runtime.sub_agent_job_access.register_web_job_runtime_resolver`.
 The common runtime must not import Web host modules. Authentication and foreground
 Job gates remain in UAG; room/session ownership checks remain in the host adapter.
+
+
+### Standard OTel user attributes
+
+With OTel enabled, canonical `invoke_agent` spans include `user.id` for an
+authenticated turn and `user.name` when a verified login name is available.
+CLI/GUI use the local OS account (`local:<hostname>:<username>` for `user.id`).
+Web/A2A never substitute the server OS account for a remote user. OIDC uses the
+verified `preferred_username` claim; enterprise verifiers may supply `username`.
+Anonymous guests omit both fields. Existing pseudonymous-correlation mode omits
+raw user attributes. No additional Admin setting or content-capture flag is
+required for user attributes. Values are bounded to 512 characters, reject control
+characters, and do not become metric labels or authorization inputs.

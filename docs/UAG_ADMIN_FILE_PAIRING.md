@@ -88,3 +88,16 @@ Supervisor連携を一度設定した後で `--rotate` を指定すると、mani
 - 状態は画面を開く・更新するときに取得します。**定期監視通知とプロセス起動・停止は未実装**です。Supervisorのread bearerには書き込み権限を与えません。
 
 詳しくは [UAGのプロセス自己登録](UAG_PROCESS_REGISTRY.md) を参照してください。
+
+
+### Standard OTel user attributes
+
+With OTel enabled, canonical `invoke_agent` spans include `user.id` for an
+authenticated turn and `user.name` when a verified login name is available.
+CLI/GUI use the local OS account (`local:<hostname>:<username>` for `user.id`).
+Web/A2A never substitute the server OS account for a remote user. OIDC uses the
+verified `preferred_username` claim; enterprise verifiers may supply `username`.
+Anonymous guests omit both fields. Existing pseudonymous-correlation mode omits
+raw user attributes. No additional Admin setting or content-capture flag is
+required for user attributes. Values are bounded to 512 characters, reject control
+characters, and do not become metric labels or authorization inputs.

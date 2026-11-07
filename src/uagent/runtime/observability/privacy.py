@@ -85,7 +85,8 @@ def sanitize_attributes(
 ) -> dict[str, Any]:
     """Return an OTel-safe metadata-only attribute mapping.
 
-    Identity/session/authorization secrets are always excluded. Content-like
+    Raw internal identity/session/authorization fields are always excluded.
+    Standard user.id/user.name are supplied by the canonical actor boundary. Content-like
     fields are excluded unless the server/operator explicitly enables content
     capture. Runtime instrumentation should still prefer metadata-only inputs.
     """
