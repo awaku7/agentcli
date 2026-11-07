@@ -380,3 +380,7 @@ Anonymous guests omit both fields. Existing pseudonymous-correlation mode omits
 raw user attributes. No additional Admin setting or content-capture flag is
 required for user attributes. Values are bounded to 512 characters, reject control
 characters, and do not become metric labels or authorization inputs.
+
+Web workers bind the supplied authenticated identity before entering the canonical
+lifecycle span, including workers started in a fresh WebSocket thread. The binding
+covers normal rounds and auto-pilot and is restored when the lifecycle exits.

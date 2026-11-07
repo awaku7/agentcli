@@ -122,3 +122,126 @@ def test_real_sdk_canonical_span_exports_bound_user_and_late_cli_identity(monkey
         assert "principal_id" not in spans[0].attributes
     finally:
         backend.shutdown()
+
+
+@pytest.mark.parametrize("fail_round", [False, True])
+def test_web_worker_binds_supplied_oidc_identity_before_canonical_span(
+    monkeypatch, tmp_path, fail_round
+):
+    import threading
+    from types import SimpleNamespace
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+    from opentelemetry.sdk.trace.export.in_memory_span_exporter import (
+        InMemorySpanExporter,
+    )
+    from uagent.runtime.identity_context import (
+        get_current_identity_context,
+        get_current_turn_context,
+    )
+    from uagent.runtime.observability.otel_backend import OpenTelemetryBackend
+    from uagent.runtime.session_store import project_id_from_path
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.rooms import WebRoom
+
+    settings = ObservabilitySettings(enabled=True)
+    provider = TracerProvider()
+    exporter = InMemorySpanExporter()
+    provider.add_span_processor(SimpleSpanProcessor(exporter))
+    backend = OpenTelemetryBackend(
+        tracer=provider.get_tracer(__name__), provider=provider, settings=settings
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.settings.get_observability_settings",
+        lambda: settings,
+    )
+    monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
+    monkeypatch.setattr(agent_worker.web_manager, "room_worker_pool", None)
+    monkeypatch.setattr(
+        agent_worker.web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(
+        agent_worker.web_manager, "sandbox_enabled", False, raising=False
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        auto_pilot_active=False,
+        interrupt_lock=threading.Lock(),
+        interrupt_requested=False,
+        status_busy=False,
+        status_label="IDLE",
+        _last_round_outcome={},
+    )
+    monkeypatch.setattr(agent_worker, "core", core)
+    monkeypatch.setattr(
+        agent_worker.providers,
+        "make_client",
+        lambda core: ("offline-test", object(), "test-model"),
+    )
+    seen = []
+
+    def run_round(_provider, _client, _model, history, **kwargs):
+        identity = get_current_identity_context()
+        seen.append(identity.username)
+        message = {"role": "assistant", "content": "done"}
+        history.append(message)
+        core.log_message(message)
+        if fail_round:
+            raise RuntimeError("simulated provider failure")
+
+    monkeypatch.setattr(agent_worker.llm_util, "run_llm_rounds", run_round)
+    errors = []
+
+    def fresh_worker_thread():
+        try:
+            assert get_current_identity_context() is None
+            for username in ("alice", "bob"):
+                identity = IdentityContext(
+                    f"oidc:{username}", True, "oidc", username=username
+                )
+                room = WebRoom(f"oidc-{username}")
+                room.base_dir = str(tmp_path)
+                room.history_initialized = True
+                room.private_session = True
+                turn = TurnContext.from_identity(
+                    identity,
+                    entry_point="web",
+                    room_id=room.room_id,
+                    project_id=project_id_from_path(str(tmp_path)),
+                    private_session=True,
+                )
+                agent_worker.run_agent_worker(
+                    room,
+                    "hello",
+                    turn_context=turn,
+                    identity_context=identity,
+                    project_path=str(tmp_path),
+                )
+                assert get_current_identity_context() is None
+                assert get_current_turn_context() is None
+        except BaseException as exc:
+            errors.append(exc)
+
+    try:
+        thread = threading.Thread(target=fresh_worker_thread)
+        thread.start()
+        thread.join(timeout=15)
+        assert not thread.is_alive()
+        assert not errors
+        assert seen == ["alice", "bob"]
+        spans = [
+            span
+            for span in exporter.get_finished_spans()
+            if span.attributes.get("gen_ai.operation.name") == "invoke_agent"
+        ]
+        assert len(spans) == 2
+        assert [
+            (span.attributes.get("user.id"), span.attributes.get("user.name"))
+            for span in spans
+        ] == [("oidc:alice", "alice"), ("oidc:bob", "bob")]
+    finally:
+        backend.shutdown()
