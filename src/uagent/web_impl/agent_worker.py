@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import nullcontext
 from dataclasses import replace as dataclass_replace
 import os
 import time
@@ -29,6 +30,7 @@ from ..runtime.identity_context import (
     IdentityContext,
     IdentityResolutionError,
     TurnContext,
+    bind_turn_context,
     call_with_turn_context,
     resolve_identity_mode,
 )
@@ -872,11 +874,21 @@ def run_agent_worker(
                 except Exception:
                     pass
 
-            with lifecycle_execution(
-                cancel_exceptions=(LLMWaitInterrupted,),
-                on_transition=_on_lifecycle,
-                turn_context=turn_context,
-            ) as lifecycle:
+            # WebSocket threads receive identity as an argument, not through
+            # inherited ContextVars. Bind it before opening the canonical span.
+            identity_scope = (
+                bind_turn_context(turn_context, identity_context=identity_context)
+                if turn_context is not None
+                else nullcontext()
+            )
+            with (
+                identity_scope,
+                lifecycle_execution(
+                    cancel_exceptions=(LLMWaitInterrupted,),
+                    on_transition=_on_lifecycle,
+                    turn_context=turn_context,
+                ) as lifecycle,
+            ):
                 try:
                     room.agent_lifecycle = lifecycle
                 except Exception:

@@ -38,6 +38,7 @@ class VerifiedEnterpriseIdentity:
     subject: str
     display_name: str = ""
     groups: tuple[str, ...] = ()
+    username: str = ""
 
     def __post_init__(self) -> None:
         if not str(self.namespace or "").strip() or not str(self.subject or "").strip():
@@ -219,6 +220,7 @@ class _VerifiedAdapterResolver(IdentityResolver):
             issuer=verified.namespace,
             subject=verified.subject,
             display_name=verified.display_name,
+            username=verified.username,
             groups=verified.groups,
         )
 

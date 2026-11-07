@@ -173,6 +173,7 @@ def _verify_id_token(
             subject=subject,
             display_name=str(claims.get("name") or ""),
             groups=groups,
+            username=claims.get("preferred_username", ""),
         )
         return identity, group_overage
     except (jwt.PyJWTError, ValueError, TypeError, KeyError) as exc:

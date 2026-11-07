@@ -227,3 +227,26 @@ def test_invalid_or_overage_group_claims_do_not_resolve(
     private_key, jwks = signing_material
     with pytest.raises(IdentityResolutionError, match="group"):
         verify(signed_token(private_key, metadata, **changes), metadata, jwks)
+
+
+def test_verified_preferred_username_is_carried_without_changing_ownership(
+    signing_material, metadata
+):
+    private_key, jwks = signing_material
+    first = verify(
+        signed_token(private_key, metadata, preferred_username="alice"), metadata, jwks
+    )
+    renamed = verify(
+        signed_token(private_key, metadata, preferred_username="alice-new"),
+        metadata,
+        jwks,
+    )
+    assert first.username == "alice"
+    assert renamed.username == "alice-new"
+    assert first.principal_id == renamed.principal_id
+    assert (
+        verify(
+            signed_token(private_key, metadata, preferred_username=42), metadata, jwks
+        ).username
+        == ""
+    )
