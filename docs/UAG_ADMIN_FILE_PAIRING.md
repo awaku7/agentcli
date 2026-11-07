@@ -101,3 +101,30 @@ Anonymous guests omit both fields. Existing pseudonymous-correlation mode omits
 raw user attributes. No additional Admin setting or content-capture flag is
 required for user attributes. Values are bounded to 512 characters, reject control
 characters, and do not become metric labels or authorization inputs.
+
+
+### Tool and image-generation telemetry
+
+All centralized Tool spans carry `gen_ai.tool.name` and the dispatch call ID as
+`gen_ai.tool.call.id`. The built-in `generate_image` keeps the canonical
+`execute_tool` span and adds provider/model, requested/generated image count,
+size, quality and format (`uag.image.*` for image-specific metadata).
+Existing content-capture categories `tool_arguments` and `tool_result` opt into
+a reviewed projection of the prompt and the result (success, image count, opaque
+artifact IDs). No image bytes/base64, file paths, download URLs, raw exceptions,
+API keys or arbitrary result metadata are exported. Other unreviewed tools still
+emit execution metadata without exporting their raw arguments/results.
+
+The actual provider responses report input/output usage when present; multi-call
+Responses/Meta requests sum the returned values. Streaming uses the final usage
+observation once, not intermediate cumulative totals. Missing/invalid usage stays
+absent; no token or monetary estimate is fabricated. Returned image-generation
+errors mark the Tool span as ERROR, even if the runner returns an error string.
+The instrumentation is best-effort and does not change Tool return values.
+
+Grok SDK protobuf usage uses `prompt_tokens`/`completion_tokens`; only present
+protobuf fields are admitted so default zeros do not become reported usage.
+A Grok batch shares one request's usage across image wrappers and is counted once.
+When an SDK explicitly reports `cost_usd`, the request totals are exported as
+`uag.image.cost_usd`; zero is retained only when reported, not filled in for missing
+costs. No rate lookup, inferred charge or currency conversion is performed.

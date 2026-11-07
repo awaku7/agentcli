@@ -225,7 +225,7 @@ assistant reply is emitted, not spurious additional generation choices. A
 plain-text tool result is wrapped as a JSON object. No content attributes
 appear on `chat`, internal, provider SDK or remote spans. Filtering, bounded
 budgets, credential redaction and independent explicit category opt-in are
-unchanged. The UAG Admin collector remains **metadata-only**.
+unchanged. UAG Admin can persist reviewed content and Tool/image metadata in encrypted storage.
 Reference: https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-agent-spans.md
 
 
@@ -233,7 +233,7 @@ Phase 4A controlled content capture is runtime-bound and fail-closed:
 
 - reviewed plain-text `user_input` and `assistant_output` may be emitted only on the canonical `invoke_agent` span;
 - reviewed `tool_arguments` and ordinary `tool_result` content may be emitted only on the canonical `execute_tool` span;
-- the initial reviewed tool adapters are the built-in `calculator` and `get_current_time` tools only;
+- the initial reviewed tool adapters are the built-in `calculator` and `get_current_time`; `generate_image` additionally supplies its bounded built-in projection described below;
 - tool capture requires the active runner to be the exact reviewed built-in `run_tool` implementation and its current `TOOL_SPEC` parameter schema to match the reviewed schema fingerprint;
 - same-name external/plugin replacements, unsupported tools, schema drift, malformed values, disabled categories, and unreviewed provenance are omitted rather than generalized into capture;
 - argument/result candidates are inspected only after bounded candidate admission, and rendered content is subject to per-field and per-span limits;
@@ -384,3 +384,30 @@ characters, and do not become metric labels or authorization inputs.
 Web workers bind the supplied authenticated identity before entering the canonical
 lifecycle span, including workers started in a fresh WebSocket thread. The binding
 covers normal rounds and auto-pilot and is restored when the lifecycle exits.
+
+
+### Tool and image-generation telemetry
+
+All centralized Tool spans carry `gen_ai.tool.name` and the dispatch call ID as
+`gen_ai.tool.call.id`. The built-in `generate_image` keeps the canonical
+`execute_tool` span and adds provider/model, requested/generated image count,
+size, quality and format (`uag.image.*` for image-specific metadata).
+Existing content-capture categories `tool_arguments` and `tool_result` opt into
+a reviewed projection of the prompt and the result (success, image count, opaque
+artifact IDs). No image bytes/base64, file paths, download URLs, raw exceptions,
+API keys or arbitrary result metadata are exported. Other unreviewed tools still
+emit execution metadata without exporting their raw arguments/results.
+
+The actual provider responses report input/output usage when present; multi-call
+Responses/Meta requests sum the returned values. Streaming uses the final usage
+observation once, not intermediate cumulative totals. Missing/invalid usage stays
+absent; no token or monetary estimate is fabricated. Returned image-generation
+errors mark the Tool span as ERROR, even if the runner returns an error string.
+The instrumentation is best-effort and does not change Tool return values.
+
+Grok SDK protobuf usage uses `prompt_tokens`/`completion_tokens`; only present
+protobuf fields are admitted so default zeros do not become reported usage.
+A Grok batch shares one request's usage across image wrappers and is counted once.
+When an SDK explicitly reports `cost_usd`, the request totals are exported as
+`uag.image.cost_usd`; zero is retained only when reported, not filled in for missing
+costs. No rate lookup, inferred charge or currency conversion is performed.
