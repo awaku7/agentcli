@@ -1549,7 +1549,7 @@ def gemini_chat_with_tools(
                 elapsed=f"{time.monotonic() - _request_started:.3f}s",
                 error=type(e).__name__,
             )
-            from uagent.llm_errors import _is_rate_limit_error
+            from ..llm_errors import _is_rate_limit_error
 
             if _is_rate_limit_error(e):
                 raise e
