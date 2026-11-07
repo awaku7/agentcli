@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.44] - 2026-11-07
+
+### Added
+
+- Add localized RSS and Atom feed parser search terms and translations.
+
+### Fixed
+
+- Repair missing standalone `uag-envsec` during startup while respecting project auto-install policy, including scheduled projects.
+
+
 ## [0.7.43] - 2026-11-03
 
 ### Changed
