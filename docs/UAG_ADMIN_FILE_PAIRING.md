@@ -121,3 +121,10 @@ observation once, not intermediate cumulative totals. Missing/invalid usage stay
 absent; no token or monetary estimate is fabricated. Returned image-generation
 errors mark the Tool span as ERROR, even if the runner returns an error string.
 The instrumentation is best-effort and does not change Tool return values.
+
+Grok SDK protobuf usage uses `prompt_tokens`/`completion_tokens`; only present
+protobuf fields are admitted so default zeros do not become reported usage.
+A Grok batch shares one request's usage across image wrappers and is counted once.
+When an SDK explicitly reports `cost_usd`, the request totals are exported as
+`uag.image.cost_usd`; zero is retained only when reported, not filled in for missing
+costs. No rate lookup, inferred charge or currency conversion is performed.

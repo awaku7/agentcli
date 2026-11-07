@@ -7,6 +7,7 @@ URLs, credentials and raw exception messages never enter the projection.
 from __future__ import annotations
 
 import json
+import math
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 from functools import wraps
@@ -37,6 +38,7 @@ class _Observation:
     buffer: Any = None
     succeeded: bool = False
     usage: dict[str, int] = field(default_factory=dict)
+    cost_usd: float | None = None
 
 
 _CURRENT: ContextVar[_Observation | None] = ContextVar(
@@ -161,27 +163,43 @@ def record_image_usage(usage: object) -> None:
         return
     try:
         if not isinstance(usage, dict):
+            listed = getattr(usage, "ListFields", None)
             dump = getattr(usage, "model_dump", None)
-            usage = (
-                dump()
-                if callable(dump)
-                else {
+            if callable(listed):
+                # Protobuf scalar getters return zero even when unreported.
+                usage = {descriptor.name: value for descriptor, value in listed()}
+            elif callable(dump):
+                usage = dump()
+            else:
+                usage = {
                     key: getattr(usage, key, None)
                     for key in (
                         "input_tokens",
                         "output_tokens",
                         "prompt_token_count",
                         "candidates_token_count",
+                        "prompt_tokens",
+                        "completion_tokens",
                     )
                 }
-            )
         if type(usage) is not dict:
             return
         for name, aliases in {
-            "input_tokens": ("input_tokens", "prompt_token_count"),
-            "output_tokens": ("output_tokens", "candidates_token_count"),
+            "input_tokens": ("input_tokens", "prompt_token_count", "prompt_tokens"),
+            "output_tokens": (
+                "output_tokens",
+                "candidates_token_count",
+                "completion_tokens",
+            ),
         }.items():
-            value = next((usage[k] for k in aliases if k in usage), None)
+            value = next(
+                (
+                    usage[k]
+                    for k in aliases
+                    if type(usage.get(k)) is int and 0 <= usage[k] <= 10**12
+                ),
+                None,
+            )
             if type(value) is int and 0 <= value <= 10**12:
                 total = state.usage.get(name, 0) + value
                 if total <= 10**12:
@@ -236,5 +254,21 @@ def record_image_response_usage(response: object, *, field: str = "usage") -> No
             else getattr(response, field, None)
         )
         record_image_usage(usage)
+        state = _CURRENT.get()
+        if state is not None:
+            cost = (
+                response.get("cost_usd")
+                if type(response) is dict
+                else getattr(response, "cost_usd", None)
+            )
+            if (
+                type(cost) in {int, float}
+                and math.isfinite(cost)
+                and 0 <= cost <= 10**9
+            ):
+                total = (state.cost_usd or 0.0) + float(cost)
+                if total <= 10**9:
+                    state.cost_usd = total
+                    state.active.span.set_attribute("uag.image.cost_usd", total)
     except Exception:
         pass

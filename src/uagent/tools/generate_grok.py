@@ -257,10 +257,13 @@ def generate_image_grok(
     b64_list: list[str] = []
     items: list[dict[str, Any]] = []
 
-    for idx, resp in enumerate(responses, start=1):
+    # sample_batch exposes one request's usage through every image wrapper.
+    # The SDK itself records responses[0].usage once, not once per image.
+    if responses:
         from ..runtime.observability.image_generation import record_image_response_usage
 
-        record_image_response_usage(resp)
+        record_image_response_usage(responses[0])
+    for idx, resp in enumerate(responses, start=1):
         item_meta: dict[str, Any] = {"index": idx}
         try:
             item_meta["respect_moderation"] = bool(

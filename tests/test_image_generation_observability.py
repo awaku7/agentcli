@@ -227,3 +227,86 @@ def test_image_prompt_obeys_category_and_secret_redaction(monkeypatch, image_too
     _, span = _run(monkeypatch, tool, args)
     assert "NEVER_EXPORT_THIS_KEY" not in str(dict(span.attributes))
     assert "gen_ai.tool.call.arguments" in span.attributes
+
+
+@pytest.mark.parametrize("count", [1, 2])
+def test_real_grok_protobuf_usage_is_recorded_once_per_request(
+    monkeypatch, image_tool, count
+):
+    from xai_sdk.image import BaseImageResponse
+    from xai_sdk.proto import image_pb2, usage_pb2
+    from uagent.tools import generate_grok
+
+    tool, args = image_tool
+    proto = image_pb2.ImageResponse(
+        usage=usage_pb2.SamplingUsage(
+            prompt_tokens=11, completion_tokens=23, cost_in_usd_ticks=2500000000
+        )
+    )
+    for _ in range(count):
+        proto.images.add(base64="aW1hZ2UtYnl0ZXM=", respect_moderation=True)
+    responses = [BaseImageResponse(proto, index) for index in range(count)]
+    client = SimpleNamespace(
+        image=SimpleNamespace(
+            sample=lambda **kwargs: responses[0],
+            sample_batch=lambda **kwargs: responses,
+        )
+    )
+    monkeypatch.setattr(
+        generate_grok,
+        "_get_grok_client_and_model",
+        lambda: (client, "grok-imagine-image"),
+    )
+    monkeypatch.setattr(tool, "_get_provider", lambda: "grok")
+    monkeypatch.setattr(tool, "_get_image_depname", lambda *args: "grok-imagine-image")
+    args["n"] = count
+    _, span = _run(monkeypatch, tool, args)
+    assert span.attributes["gen_ai.usage.input_tokens"] == 11
+    assert span.attributes["gen_ai.usage.output_tokens"] == 23
+    assert span.attributes["uag.image.generated_count"] == count
+    assert span.attributes["uag.image.cost_usd"] == pytest.approx(0.25)
+
+
+def test_unreported_protobuf_usage_does_not_create_zero_counts(monkeypatch, image_tool):
+    from xai_sdk.image import BaseImageResponse
+    from xai_sdk.proto import image_pb2
+    from uagent.runtime.observability.image_generation import (
+        record_image_response_usage,
+    )
+
+    tool, args = image_tool
+    proto = image_pb2.ImageResponse()
+    proto.images.add(base64="aW1hZ2UtYnl0ZXM=")
+    response = BaseImageResponse(proto, 0)
+
+    def provider(**kwargs):
+        record_image_response_usage(response)
+        return {"b64_list": ["aW1hZ2UtYnl0ZXM="], "url_list": [], "items": []}
+
+    monkeypatch.setattr(tool, "_run_openai_images", provider)
+    _, span = _run(monkeypatch, tool, args)
+    assert "gen_ai.usage.input_tokens" not in span.attributes
+    assert "gen_ai.usage.output_tokens" not in span.attributes
+
+    assert "uag.image.cost_usd" not in span.attributes
+
+
+def test_reported_zero_cost_is_distinct_from_unreported_cost(monkeypatch, image_tool):
+    from xai_sdk.image import BaseImageResponse
+    from xai_sdk.proto import image_pb2, usage_pb2
+    from uagent.runtime.observability.image_generation import (
+        record_image_response_usage,
+    )
+
+    tool, args = image_tool
+    proto = image_pb2.ImageResponse(usage=usage_pb2.SamplingUsage(cost_in_usd_ticks=0))
+    proto.images.add(base64="aW1hZ2UtYnl0ZXM=")
+
+    def provider(**kwargs):
+        record_image_response_usage(BaseImageResponse(proto, 0))
+        return {"b64_list": ["aW1hZ2UtYnl0ZXM="], "url_list": [], "items": []}
+
+    monkeypatch.setattr(tool, "_run_openai_images", provider)
+    _, span = _run(monkeypatch, tool, args)
+    assert span.attributes["uag.image.cost_usd"] == 0.0
+    assert "gen_ai.usage.input_tokens" not in span.attributes
