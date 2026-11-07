@@ -258,6 +258,9 @@ def generate_image_grok(
     items: list[dict[str, Any]] = []
 
     for idx, resp in enumerate(responses, start=1):
+        from ..runtime.observability.image_generation import record_image_response_usage
+
+        record_image_response_usage(resp)
         item_meta: dict[str, Any] = {"index": idx}
         try:
             item_meta["respect_moderation"] = bool(

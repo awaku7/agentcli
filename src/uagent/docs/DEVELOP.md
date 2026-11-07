@@ -1386,3 +1386,6 @@ Anonymous guests omit both fields. Existing pseudonymous-correlation mode omits
 raw user attributes. No additional Admin setting or content-capture flag is
 required for user attributes. Values are bounded to 512 characters, reject control
 characters, and do not become metric labels or authorization inputs.
+
+Image-generation telemetry and reviewed content projection are documented in
+`DEVELOP_OBSERVABILITY.md` under "Tool and image-generation telemetry".

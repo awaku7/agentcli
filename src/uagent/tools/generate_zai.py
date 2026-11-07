@@ -187,6 +187,9 @@ def generate_image_zai(
 
     try:
         resp = client.images.generations(**gen_kwargs)
+        from ..runtime.observability.image_generation import record_image_response_usage
+
+        record_image_response_usage(resp)
     except Exception as e:
         err = str(e)
         return {

@@ -29,6 +29,13 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..image_defaults import default_image_model
+from ..runtime.observability.image_generation import (
+    observe_image_generation,
+    record_image_request,
+    record_image_usage,
+    record_image_response_usage,
+    record_image_success,
+)
 from ..image_output import (
     image_extension as _image_extension,
     image_mime as _image_mime,
@@ -448,6 +455,7 @@ def _run_meta_images(*, image_model: str, prompt: str, n: int) -> dict[str, Any]
             model=image_model,
             input=prompt,
         )
+        record_image_response_usage(response)
         response_id = str(getattr(response, "id", "") or "").strip()
         if response_id.startswith("resp_"):
             response_ids.append(response_id)
@@ -585,6 +593,7 @@ def _run_responses_images(
             input=prompt,
             tools=[tool],
         )
+        record_image_response_usage(response)
         output = getattr(response, "output", None) or []
         if isinstance(output, dict):
             output = [output]
@@ -764,10 +773,13 @@ def _run_openai_images(
 
     if stream:
         partial_b64_list: list[str] = []
+        stream_usage = None
         for event in resp:
             payload = event if isinstance(event, dict) else {}
             if not payload and hasattr(event, "model_dump"):
                 payload = event.model_dump()
+            if isinstance(payload, dict) and payload.get("usage") is not None:
+                stream_usage = payload["usage"]
             candidate = payload.get("b64_json") if isinstance(payload, dict) else None
             if not candidate and isinstance(payload, dict):
                 data = payload.get("data")
@@ -816,6 +828,7 @@ def _run_openai_images(
                         )
                     except Exception:
                         pass
+        record_image_usage(stream_usage)
         return {
             "b64_list": b64_list,
             "partial_b64_list": partial_b64_list,
@@ -823,6 +836,7 @@ def _run_openai_images(
             "items": items,
         }
 
+    record_image_response_usage(resp)
     data_list = getattr(resp, "data", None) or []
     for idx, item in enumerate(data_list, start=1):
         item_meta: dict[str, Any] = {"index": idx}
@@ -974,6 +988,7 @@ def _run_gemini_images(
     except Exception:
         traceback.print_exc(file=sys.stderr)
         raise
+    record_image_response_usage(resp, field="usage_metadata")
     if not b64_list:
         raise RuntimeError(
             _msg(
@@ -984,6 +999,7 @@ def _run_gemini_images(
     return b64_list
 
 
+@observe_image_generation
 def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
@@ -1176,6 +1192,14 @@ def run_tool(args: dict[str, Any]) -> str:
             spinner.start()
         size2 = _sanitize_size_for_provider(size)
         meta_payload["size"] = size2
+        record_image_request(
+            provider=provider,
+            model=image_model,
+            size=size2,
+            n=n,
+            quality=quality,
+            output_format=save_format,
+        )
         if provider == "meta":
             res = _run_meta_images(image_model=image_model, prompt=prompt, n=n)
             b64_list = res.get("b64_list") or []
@@ -1442,6 +1466,8 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception:
         artifacts = []
         partial_artifacts = []
+
+    record_image_success(len(saved), artifacts)
 
     data: dict[str, Any] = {
         "provider": provider,

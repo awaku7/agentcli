@@ -17,6 +17,7 @@ from .noop import NOOP_SPAN
 class _PendingToolSpan:
     name: str
     side_effect: str = ""
+    tool_call_id: str = ""
 
 
 @dataclass
@@ -265,6 +266,7 @@ def before_structured_event(event_code: str, fields: Mapping[str, Any]) -> None:
             _PendingToolSpan(
                 name=str(fields.get("tool") or "").strip(),
                 side_effect=str(fields.get("side_effect") or "").strip(),
+                tool_call_id=str(fields.get("tool_call_id") or "").strip(),
             )
         )
         return
@@ -281,7 +283,7 @@ def before_structured_event(event_code: str, fields: Mapping[str, Any]) -> None:
             active.span.set_attribute("uag.error.type", error_type)
         active.span.set_status("error", error_type or None)
         active.span.add_event("tool.failed")
-    elif event_code == "tool.completed":
+    elif event_code == "tool.completed" and not active.failed:
         active.span.set_attribute("uag.status", "ok")
         active.span.set_status("ok")
         active.span.add_event("tool.completed")
@@ -323,6 +325,8 @@ def start_pending_tool_span() -> None:
         tool_name = pending.name
         if pending.name:
             attributes["uag.tool.name"] = pending.name
+        if pending.tool_call_id:
+            attributes["gen_ai.tool.call.id"] = pending.tool_call_id
         if pending.side_effect:
             attributes["uag.tool.side_effect"] = pending.side_effect
     try:
