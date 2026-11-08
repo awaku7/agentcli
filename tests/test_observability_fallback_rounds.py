@@ -367,6 +367,7 @@ def test_fallback_span_keeps_provider_cache_subset_separate(monkeypatch) -> None
     assert attrs["uag.tokens.context.messages"] > 0
     assert "SECRET" not in str(attrs)
 
+
 def test_legacy_observer_estimates_selected_tool_definitions(monkeypatch) -> None:
     backend = _install_backend(monkeypatch)
     core = SimpleNamespace(
