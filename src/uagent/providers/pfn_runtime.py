@@ -22,10 +22,11 @@ from ..runtime.round_contracts import (
 )
 from .llm_pfn import (
     _pfn_messages,
+    _value,
     iter_pfn_stream_content,
     parse_pfn_response,
 )
-from .openai_compatible_runtime import OpenAICompatibleRuntime
+from .openai_compatible_runtime import OpenAICompatibleRuntime, _reported_usage
 
 
 class PfnProviderRuntime(OpenAICompatibleRuntime):
@@ -60,17 +61,38 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
             if cancellation.is_cancelled():
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
                 return
+            if use_stream:
+                # The final usage-only chunk is opt-in on PLaMo.
+                options = dict(payload.get("stream_options") or {})
+                options.setdefault("include_usage", True)
+                payload["stream_options"] = options
             response = self._client.chat.completions.create(
                 **payload,
                 stream=use_stream,
             )
+            measured_usage: dict[str, int] = {}
             if use_stream:
-                for text in iter_pfn_stream_content(response):
+
+                def chunks_with_usage() -> Iterator[Any]:
+                    nonlocal measured_usage
+                    for chunk in response:
+                        if not (_value(chunk, "choices") or []):
+                            terminal = _reported_usage(
+                                _value(chunk, "usage"), responses=False
+                            )
+                            if terminal:
+                                measured_usage = terminal
+                        yield chunk
+
+                for text in iter_pfn_stream_content(chunks_with_usage()):
                     if cancellation.is_cancelled():
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})
                         return
                     yield self._event("TextDelta", {"text": text})
             else:
+                measured_usage = _reported_usage(
+                    _value(response, "usage"), responses=False
+                )
                 text, calls = parse_pfn_response(response)
                 if text:
                     yield self._event("TextDelta", {"text": text})
@@ -97,7 +119,10 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
                         },
                     )
                 yield from self._complete_tools(normalized)
-            yield self._event("ResponseCompleted", {})
+            yield self._event(
+                "ResponseCompleted",
+                {"usage": measured_usage} if measured_usage else {},
+            )
         except Exception as exc:
             yield self._event(
                 "ResponseFailed",

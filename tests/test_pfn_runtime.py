@@ -74,10 +74,13 @@ def test_pfn_runtime_normalizes_text_stream() -> None:
         "ResponseCompleted",
     ]
     assert client.chat.completions.calls[0]["stream"] is True
+    assert client.chat.completions.calls[0]["stream_options"]["include_usage"] is True
+    assert events[-1].data == {}
 
 
 def test_pfn_runtime_normalizes_complete_tool_response() -> None:
     response = SimpleNamespace(
+        usage={"prompt_tokens": 12, "completion_tokens": 3, "total_tokens": 15},
         choices=[
             SimpleNamespace(
                 message=SimpleNamespace(
@@ -92,7 +95,7 @@ def test_pfn_runtime_normalizes_complete_tool_response() -> None:
                     ],
                 )
             )
-        ]
+        ],
     )
     client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions(response)))
     runtime = PfnProviderRuntime(
@@ -125,6 +128,121 @@ def test_pfn_runtime_normalizes_complete_tool_response() -> None:
     ]
     assert events[2].data["name"] == "read_file"
     assert client.chat.completions.calls[0]["stream"] is False
+    assert "stream_options" not in client.chat.completions.calls[0]
+    assert events[-1].data["usage"] == {
+        "input_tokens": 12,
+        "output_tokens": 3,
+        "total_tokens": 15,
+    }
+
+
+def test_pfn_stream_reports_only_final_measured_usage() -> None:
+    chunks = [
+        {
+            "choices": [{"delta": {"content": "hello"}}],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 1, "total_tokens": 11},
+        },
+        {
+            "choices": [{"delta": {"content": " world"}}],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 2, "total_tokens": 12},
+        },
+        {
+            "choices": [],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 2, "total_tokens": 12},
+        },
+    ]
+    client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions(chunks)))
+    runtime = PfnProviderRuntime(
+        client=client,
+        provider="pfn",
+        model="plamo-3.1-prime",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(
+        runtime.run(
+            _request({"model": "plamo-3.1-prime", "messages": [], "tools": []}),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+    assert events[-1].data["usage"] == {
+        "input_tokens": 10,
+        "output_tokens": 2,
+        "total_tokens": 12,
+    }
+    assert client.chat.completions.calls[0]["stream_options"]["include_usage"] is True
+
+
+def test_pfn_stream_without_terminal_usage_does_not_report_partial_counts() -> None:
+    chunks = [
+        {
+            "choices": [{"delta": {"content": "hello"}}],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 1, "total_tokens": 11},
+        }
+    ]
+    client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions(chunks)))
+    runtime = PfnProviderRuntime(
+        client=client,
+        provider="pfn",
+        model="plamo-3.1-prime",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(
+        runtime.run(
+            _request({"model": "plamo-3.1-prime", "messages": [], "tools": []}),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert events[-1].type == "ResponseCompleted"
+    assert events[-1].data == {}
+
+
+def test_pfn_stream_respects_explicit_include_usage_false() -> None:
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=_Completions([{"choices": [{"delta": {"content": "hello"}}]}])
+        )
+    )
+    runtime = PfnProviderRuntime(
+        client=client,
+        provider="pfn",
+        model="plamo-3.1-prime",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(
+        runtime.run(
+            _request(
+                {
+                    "model": "plamo-3.1-prime",
+                    "messages": [],
+                    "tools": [],
+                    "stream_options": {"include_usage": False},
+                }
+            ),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert client.chat.completions.calls[0]["stream_options"] == {
+        "include_usage": False
+    }
+    assert events[-1].data == {}
 
 
 __all__ = []
