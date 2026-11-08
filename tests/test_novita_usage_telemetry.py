@@ -51,7 +51,11 @@ def _chunk(*, content=None, usage=None, tool_calls=None):
         content=content, reasoning_content=None, tool_calls=tool_calls or []
     )
     return SimpleNamespace(
-        choices=[SimpleNamespace(delta=delta)] if content is not None or tool_calls else [],
+        choices=(
+            [SimpleNamespace(delta=delta)]
+            if content is not None or tool_calls
+            else []
+        ),
         usage=usage,
     )
 
