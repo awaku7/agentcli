@@ -931,7 +931,9 @@ def test_gateway_chat_stream_respects_explicit_usage_opt_out(provider: str) -> N
     request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
     events = list(runtime.run(request, _Cancellation()))
     validate_stream_events(events)
-    assert client.chat.completions.calls[0]["stream_options"] == {"include_usage": False}
+    assert client.chat.completions.calls[0]["stream_options"] == {
+        "include_usage": False
+    }
     assert "usage" not in events[-1].data
 
 
