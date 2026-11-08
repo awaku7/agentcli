@@ -47,7 +47,9 @@ def test_tree_sitter_extracts_symbols(
     pack = tree_sitter_module._load_language_pack()
     assert pack is not None, "Optional Tree-sitter pack failed to initialize"
     try:
-        parser = pack.get_parser(tree_sitter_module.TREE_SITTER_LANGUAGE_BY_SOURCE[language])
+        parser = pack.get_parser(
+            tree_sitter_module.TREE_SITTER_LANGUAGE_BY_SOURCE[language]
+        )
         raw = path.read_bytes()
         parse_bytes = getattr(parser, "parse_bytes", None)
         tree = parse_bytes(raw) if callable(parse_bytes) else parser.parse(raw)
@@ -55,7 +57,9 @@ def test_tree_sitter_extracts_symbols(
         root = tree_sitter_module._node_value(tree, "root_node")
         assert root is not None
     except Exception as exc:
-        pytest.fail(f"Language-pack parser preflight failed: {type(exc).__name__}: {exc!r}")
+        pytest.fail(
+            f"Language-pack parser preflight failed: {type(exc).__name__}: {exc!r}"
+        )
 
     symbols = extract_tree_sitter_symbols(str(path), language)
     actual = {item["name"]: (item["line"], item["type"]) for item in symbols}
