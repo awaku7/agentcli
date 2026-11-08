@@ -177,9 +177,7 @@ def test_together_stream_round_requests_and_publishes_usage(monkeypatch) -> None
     assert result[0] is True
     assert result[2] == "answer"
     assert client.calls[0]["stream"] is True
-    assert client.calls[0]["extra_body"]["stream_options"] == {
-        "include_usage": True
-    }
+    assert client.calls[0]["extra_body"]["stream_options"] == {"include_usage": True}
     assert core._last_responses_usage == _expected()
     assert core._last_responses_usage is not previous
 
