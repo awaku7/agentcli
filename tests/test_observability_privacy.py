@@ -52,6 +52,32 @@ def test_token_usage_metrics_are_preserved_while_credentials_are_blocked() -> No
     }
 
 
+def test_reasoning_token_metric_survives_real_adapter_without_content() -> None:
+    class RawSpan:
+        def __init__(self) -> None:
+            self.attributes = {}
+
+        def set_attribute(self, key, value) -> None:
+            self.attributes[key] = value
+
+    raw = RawSpan()
+    span = OpenTelemetrySpan(raw, capture_content=False)
+    span.set_attribute("gen_ai.usage.output_tokens", 20)
+    span.set_attribute("gen_ai.usage.reasoning.output_tokens", 12)
+    span.set_attribute("gen_ai.output.messages.reasoning", "PRIVATE_REASONING")
+    span.set_attribute("uag.reasoning.content", "PRIVATE_REASONING")
+    assert raw.attributes == {
+        "gen_ai.usage.output_tokens": 20,
+        "gen_ai.usage.reasoning.output_tokens": 12,
+    }
+    for invalid in (True, "12", 1.5, -1, 10**12 + 1):
+        invalid_span = RawSpan()
+        OpenTelemetrySpan(invalid_span, capture_content=False).set_attribute(
+            "gen_ai.usage.reasoning.output_tokens", invalid
+        )
+        assert invalid_span.attributes == {}
+
+
 def test_exception_export_records_type_without_raw_message_or_stack() -> None:
     class RawSpan:
         def __init__(self) -> None:

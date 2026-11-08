@@ -423,3 +423,36 @@ def test_claude_fallback_span_exports_standard_cache_read_and_write(
     assert attrs["gen_ai.usage.cache_read.input_tokens"] == 60
     assert attrs["gen_ai.usage.cache_write.input_tokens"] == 35
     assert "PRIVATE_TEXT" not in str(attrs)
+
+
+def test_gemini_vertex_otel_exports_prompt_cache_and_reasoning(monkeypatch) -> None:
+    from uagent.runtime.telemetry import gemini_usage_to_dict
+
+    backend = _install_backend(monkeypatch)
+    for provider in ("gemini", "vertexai"):
+        previous = {"input_tokens": 9999}
+        core = SimpleNamespace(_last_responses_usage=previous)
+        with observability_runtime.fallback_chat_span(
+            provider=provider,
+            model="gemini-test",
+            request_input=[{"role": "user", "content": "PRIVATE_TEXT"}],
+            core=core,
+        ):
+            core._last_responses_usage = gemini_usage_to_dict(
+                {
+                    "prompt_token_count": 100,
+                    "cached_content_token_count": 40,
+                    "candidates_token_count": 8,
+                    "thoughts_token_count": 12,
+                    "tool_use_prompt_token_count": 5,
+                }
+            )
+
+    for event in backend.spans:
+        attrs = event["span"].attributes
+        assert attrs["uag.tokens.reported.input"] == 105
+        assert attrs["uag.tokens.reported.output"] == 20
+        assert attrs["gen_ai.usage.cache_read.input_tokens"] == 40
+        assert attrs["gen_ai.usage.reasoning.output_tokens"] == 12
+        assert "gen_ai.usage.cache_write.input_tokens" not in attrs
+        assert "PRIVATE_TEXT" not in str(attrs)

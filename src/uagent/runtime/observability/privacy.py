@@ -94,6 +94,11 @@ def sanitize_attributes(
     safe: dict[str, Any] = {}
     for key, value in dict(attributes or {}).items():
         name = str(key or "").strip()
+        if name == "gen_ai.usage.reasoning.output_tokens":
+            # This standard metric is a numeric token count, never chain-of-thought.
+            if type(value) is int and 0 <= value <= 10**12:
+                safe[name] = value
+            continue
         if not name or _blocked(name, capture_content=capture_content):
             continue
         sanitized = _sanitize_value(value)
