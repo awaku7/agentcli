@@ -520,6 +520,7 @@ def test_together_fallback_otel_exports_measured_cache_and_reasoning(
     assert "gen_ai.usage.cache_write.input_tokens" not in attrs
     assert "PRIVATE_TEXT" not in str(attrs)
 
+
 def test_vllm_legacy_fallback_otel_exports_measured_cache_and_reasoning(
     monkeypatch,
 ) -> None:
