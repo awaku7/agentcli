@@ -1033,3 +1033,28 @@ def test_azure_streaming_usage_option_requires_supported_api_version(
     assert events[-1].type == "ResponseCompleted"
     options = client.chat.completions.calls[0].get("stream_options", {})
     assert options.get("include_usage", False) is expected
+
+
+def test_provider_usage_reports_cached_input_without_double_counting() -> None:
+    from uagent.providers.openai_compatible_runtime import _reported_usage
+
+    responses = {
+        "input_tokens": 200,
+        "output_tokens": 15,
+        "input_tokens_details": {"cached_tokens": 160},
+    }
+    assert _reported_usage(responses, responses=True) == {
+        "input_tokens": 200,
+        "output_tokens": 15,
+        "cache_read_input_tokens": 160,
+    }
+    completion = SimpleNamespace(
+        prompt_tokens=90,
+        completion_tokens=8,
+        prompt_tokens_details=SimpleNamespace(cached_tokens=32),
+    )
+    assert _reported_usage(completion, responses=False) == {
+        "input_tokens": 90,
+        "output_tokens": 8,
+        "cache_read_input_tokens": 32,
+    }
