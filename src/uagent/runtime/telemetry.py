@@ -257,6 +257,43 @@ def zai_chat_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
+def together_chat_usage_to_dict(usage: Any) -> dict[str, int]:
+    """Normalize Together AI SDK Chat Completions usage without double counting.
+
+    Cached prompt tokens and reasoning completion tokens are subsets of the
+    provider-reported totals. Together may report cached_tokens at the top
+    level or within prompt_tokens_details, depending on the model.
+    """
+    if usage is None:
+        return {}
+
+    def valid(value: Any) -> bool:
+        return type(value) is int and 0 <= value <= 10**12
+
+    prompt = _field(usage, "prompt_tokens")
+    completion = _field(usage, "completion_tokens")
+    details = _field(usage, "prompt_tokens_details")
+    cached = _field(details, "cached_tokens")
+    if cached is None:
+        cached = _field(usage, "cached_tokens")
+    reasoning = _field(_field(usage, "completion_tokens_details"), "reasoning_tokens")
+
+    result: dict[str, int] = {}
+    if valid(prompt):
+        result["input_tokens"] = prompt
+        if valid(cached) and cached <= prompt:
+            result["cache_read_input_tokens"] = cached
+    if valid(completion):
+        result["output_tokens"] = completion
+        if valid(reasoning) and reasoning <= completion:
+            result["reasoning_output_tokens"] = reasoning
+    if "input_tokens" in result and "output_tokens" in result:
+        total = result["input_tokens"] + result["output_tokens"]
+        if total <= 10**12:
+            result["total_tokens"] = total
+    return result
+
+
 def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     """Normalize native xAI gRPC usage (distinct completion and reasoning).
 
@@ -342,6 +379,7 @@ __all__ = [
     "gemini_usage_to_dict",
     "deepseek_chat_usage_to_dict",
     "zai_chat_usage_to_dict",
+    "together_chat_usage_to_dict",
     "xai_usage_to_dict",
     "estimate_context_components",
 ]
