@@ -296,10 +296,10 @@ def _parse_vercel_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal(
-                "ResponseCompleted",
-                {"usage": measured_usage} if measured_usage and not stream_failed else {},
+            terminal_data = (
+                {"usage": measured_usage} if measured_usage and not stream_failed else {}
             )
+            callbacks.on_terminal("ResponseCompleted", terminal_data)
         except Exception:
             pass
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
