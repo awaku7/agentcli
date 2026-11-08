@@ -143,9 +143,7 @@ def test_vercel_stream_requests_usage_only_when_streaming() -> None:
             )
 
     completions = _Completions()
-    client = types.SimpleNamespace(
-        chat=types.SimpleNamespace(completions=completions)
-    )
+    client = types.SimpleNamespace(chat=types.SimpleNamespace(completions=completions))
     core = types.SimpleNamespace(_is_web=True)
     for stream in (True, False):
         success, *_ = vercel_chat_with_tools(
