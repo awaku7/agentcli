@@ -3,6 +3,8 @@ from __future__ import annotations
 from contextlib import contextmanager
 from types import SimpleNamespace
 
+import pytest
+
 from uagent.runtime import (
     legacy_openai_round,
     legacy_provider_dispatch,
@@ -590,3 +592,85 @@ def test_novita_fallback_otel_exports_measured_token_subsets(monkeypatch) -> Non
     assert attrs["gen_ai.usage.cache_write.input_tokens"] == 10
     assert attrs["gen_ai.usage.reasoning.output_tokens"] == 8
     assert "PRIVATE_TEXT" not in str(attrs)
+
+
+@pytest.mark.parametrize("streaming", [True, False])
+def test_vercel_legacy_round_publishes_measured_tokens_to_chat_span(
+    monkeypatch, streaming: bool
+) -> None:
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_STREAMING", "1" if streaming else "0")
+    previous = {"input_tokens": 900, "output_tokens": 300, "total_tokens": 1200}
+    core = SimpleNamespace(_is_web=True, _last_responses_usage=previous)
+
+    class Completions:
+        def __init__(self) -> None:
+            self.calls: list[dict] = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            if kwargs.get("stream"):
+                return iter(
+                    [
+                        SimpleNamespace(
+                            choices=[
+                                SimpleNamespace(
+                                    delta=SimpleNamespace(
+                                        content="answer", tool_calls=[]
+                                    )
+                                )
+                            ],
+                            usage=None,
+                        ),
+                        SimpleNamespace(
+                            choices=[],
+                            usage=SimpleNamespace(
+                                prompt_tokens=80,
+                                completion_tokens=20,
+                                total_tokens=100,
+                            ),
+                        ),
+                    ]
+                )
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(content="answer", tool_calls=[])
+                    )
+                ],
+                usage=SimpleNamespace(
+                    prompt_tokens=80, completion_tokens=20, total_tokens=100
+                ),
+            )
+
+    completions = Completions()
+    client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
+    result = legacy_provider_dispatch.call_legacy_reasoning_round(
+        provider="vercel",
+        client=client,
+        depname="test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: ("vercel", client),
+        call_maybe_thread_fn=lambda action: action(),
+        send_tools_this_round=False,
+        max_retries_429=1,
+        retry_base=0.1,
+        retry_cap=1.0,
+    )
+
+    assert result[0] is True
+    assert core._last_responses_usage == {
+        "input_tokens": 80,
+        "output_tokens": 20,
+        "total_tokens": 100,
+    }
+    assert core._last_responses_usage is not previous
+    if streaming:
+        assert completions.calls[0]["stream_options"]["include_usage"] is True
+    else:
+        assert "stream_options" not in completions.calls[0]
+    span = next(record["span"] for record in backend.spans if record["operation"] == "chat")
+    assert span.attributes["uag.tokens.reported.input"] == 80
+    assert span.attributes["uag.tokens.reported.output"] == 20
+    assert span.attributes["uag.tokens.reported.total"] == 100
