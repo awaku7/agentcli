@@ -277,7 +277,10 @@ def test_vllm_legacy_publication_uses_fresh_normalized_snapshot():
 
 
 def test_vllm_captures_completed_responses_even_after_created_event():
-    sink: list[dict[str, int]] = []
+    from uagent.providers.llm_vllm_usage import publish_vllm_legacy_usage
+
+    sink: list[object] = []
+    usage = _responses_usage()
     source = [
         SimpleNamespace(
             type="response.created",
@@ -285,17 +288,23 @@ def test_vllm_captures_completed_responses_even_after_created_event():
         ),
         SimpleNamespace(
             type="response.completed",
-            response=SimpleNamespace(id="resp_1", usage=_responses_usage()),
+            response=SimpleNamespace(id="resp_1", usage=usage),
         ),
     ]
     assert (
         list(capture_vllm_responses_usage(source, provider="vllm", sink=sink)) == source
     )
-    assert sink == [_expected()]
+    assert sink == [usage]
+    # Exercise the capture -> owner publication boundary, including subsets.
+    previous = {"input_tokens": 999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    publish_vllm_legacy_usage(core, sink[-1], responses=True)
+    assert core._last_responses_usage == _expected()
+    assert core._last_responses_usage is not previous
 
 
 def test_vllm_responses_capture_skips_incomplete_and_other_provider():
-    sink: list[dict[str, int]] = []
+    sink: list[object] = []
     incomplete = [SimpleNamespace(type="response.created")]
     assert (
         list(capture_vllm_responses_usage(incomplete, provider="vllm", sink=sink))
