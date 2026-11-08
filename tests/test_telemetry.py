@@ -223,9 +223,12 @@ def test_gemini_usage_rejects_invalid_components_independently() -> None:
     assert gemini_usage_to_dict(
         {"prompt_token_count": True, "candidates_token_count": 5}
     ) == {"output_tokens": 5}
-    assert gemini_usage_to_dict(
-        {"prompt_token_count": 10**12, "tool_use_prompt_token_count": 1}
-    ) == {}
+    assert (
+        gemini_usage_to_dict(
+            {"prompt_token_count": 10**12, "tool_use_prompt_token_count": 1}
+        )
+        == {}
+    )
     assert gemini_usage_to_dict(
         {"prompt_token_count": 7, "total_token_count": 10000}
     ) == {"input_tokens": 7}
