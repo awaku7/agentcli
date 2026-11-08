@@ -1125,9 +1125,11 @@ def test_perplexity_responses_reports_measured_cache_and_reasoning(
         ),
     )
     client = _Client(
-        events=[SimpleNamespace(type="response.completed", response=response)]
-        if streaming
-        else response
+        events=(
+            [SimpleNamespace(type="response.completed", response=response)]
+            if streaming
+            else response
+        )
     )
     runtime = OpenAICompatibleRuntime(
         client=client,
