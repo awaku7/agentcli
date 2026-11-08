@@ -1068,7 +1068,10 @@ def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta", "sakana"])
+@pytest.mark.parametrize(
+    "provider",
+    ["openai", "lmstudio", "ollama", "meta", "sakana", "perplexity", "bedrock"],
+)
 def test_registry_responses_usage_from_terminal_response(
     streaming: bool, provider: str
 ) -> None:
@@ -1100,6 +1103,73 @@ def test_registry_responses_usage_from_terminal_response(
     assert events[-1].data == {
         "response_id": "resp_1",
         "usage": {"input_tokens": 23, "output_tokens": 8, "total_tokens": 31},
+    }
+
+
+@pytest.mark.parametrize("streaming", [False, True])
+def test_perplexity_responses_reports_measured_cache_and_reasoning(
+    streaming: bool,
+) -> None:
+    response = SimpleNamespace(
+        id="resp_perplexity",
+        output_text="answer",
+        output=[],
+        usage=SimpleNamespace(
+            input_tokens=120,
+            output_tokens=40,
+            total_tokens=160,
+            input_tokens_details=SimpleNamespace(
+                cached_tokens=30, cache_write_tokens=15
+            ),
+            output_tokens_details=SimpleNamespace(reasoning_tokens=12),
+        ),
+    )
+    client = _Client(
+        events=[SimpleNamespace(type="response.completed", response=response)]
+        if streaming
+        else response
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="perplexity",
+        model="perplexity/kimi-k3",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=streaming,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {
+        "input_tokens": 120,
+        "output_tokens": 40,
+        "total_tokens": 160,
+        "cache_read_input_tokens": 30,
+        "cache_write_input_tokens": 15,
+        "reasoning_output_tokens": 12,
+    }
+    assert "stream_options" not in client.responses.calls[0]
+
+
+def test_perplexity_responses_rejects_invalid_usage_subsets() -> None:
+    from uagent.providers.openai_compatible_runtime import _reported_usage
+
+    usage = {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "input_tokens_details": {
+            "cached_tokens": 6,
+            "cache_write_tokens": 11,
+        },
+        "output_tokens_details": {"reasoning_tokens": 7},
+    }
+    assert _reported_usage(usage, responses=True, provider="perplexity") == {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "cache_read_input_tokens": 6,
     }
 
 
