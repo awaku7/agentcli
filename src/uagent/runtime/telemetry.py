@@ -50,12 +50,65 @@ def _field(value: Any, name: str) -> Any:
 
 def provider_cache_usage(usage: Any, *, responses: bool) -> dict[str, int]:
     """Read provider-reported cache subset counts (never estimate them)."""
+    result: dict[str, int] = {}
+    for key in ("cache_read_input_tokens", "cache_write_input_tokens"):
+        value = _field(usage, key)
+        if type(value) is int and 0 <= value <= 10**12:
+            result[key] = value
     details_key = "input_tokens_details" if responses else "prompt_tokens_details"
     details = _field(usage, details_key)
     cached = _field(details, "cached_tokens")
-    if type(cached) is int and 0 <= cached <= 10**12:
-        return {"cache_read_input_tokens": cached}
-    return {}
+    if (
+        "cache_read_input_tokens" not in result
+        and type(cached) is int
+        and 0 <= cached <= 10**12
+    ):
+        result["cache_read_input_tokens"] = cached
+    return result
+
+
+def anthropic_usage_to_dict(usage: Any) -> dict[str, int]:
+    """Normalize Claude response usage to per-request totals, including cache.
+
+    Anthropic reports uncached input separately from cache reads and writes.
+    Standard GenAI input usage must contain all three portions. Missing cache
+    fields remain unreported (not forced to zero in the telemetry output).
+    """
+    if usage is None:
+        return {}
+    fields: dict[str, int] = {}
+    for name in (
+        "input_tokens",
+        "output_tokens",
+        "cache_read_input_tokens",
+        "cache_creation_input_tokens",
+    ):
+        value = _field(usage, name)
+        if type(value) is int and 0 <= value <= 10**12:
+            fields[name] = value
+    result: dict[str, int] = {}
+    output = fields.get("output_tokens")
+    if output is not None:
+        result["output_tokens"] = output
+    uncached = fields.get("input_tokens")
+    if uncached is not None:
+        total = (
+            uncached
+            + fields.get("cache_read_input_tokens", 0)
+            + fields.get("cache_creation_input_tokens", 0)
+        )
+        if total <= 10**12:
+            result["input_tokens"] = total
+            if output is not None and total + output <= 10**12:
+                result["total_tokens"] = total + output
+    if "input_tokens" in result:
+        for source, target in (
+            ("cache_read_input_tokens", "cache_read_input_tokens"),
+            ("cache_creation_input_tokens", "cache_write_input_tokens"),
+        ):
+            if source in fields:
+                result[target] = fields[source]
+    return result
 
 
 def estimate_context_components(
@@ -103,5 +156,6 @@ def estimate_context_components(
 __all__ = [
     "reconcile_usage",
     "provider_cache_usage",
+    "anthropic_usage_to_dict",
     "estimate_context_components",
 ]
