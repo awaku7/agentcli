@@ -260,6 +260,11 @@ def _parse_vercel_stream(
     except Exception:
         stream_failed = True
 
+    if measured_usage and not stream_failed and core is not None:
+        # The legacy observability span reads a fresh per-response snapshot
+        # from core; production callbacks only render text.
+        core._last_responses_usage = dict(measured_usage)
+
     if is_web and core is not None:
         try:
             lm = getattr(core, "log_message", None)
@@ -443,6 +448,11 @@ def vercel_chat_with_tools(
                 assistant_text, reasoning_content, tool_calls_list = (
                     _parse_vercel_response(resp)
                 )
+                measured_usage = _reported_usage(
+                    getattr(resp, "usage", None), responses=False
+                )
+                if measured_usage and core is not None:
+                    core._last_responses_usage = dict(measured_usage)
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
