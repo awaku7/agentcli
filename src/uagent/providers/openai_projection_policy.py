@@ -442,7 +442,11 @@ def build_openai_projection(
             options["response_format"] = response_format
 
     verbosity = (env_get("UAGENT_VERBOSITY", "") or "").strip().lower()
-    if use_responses_api and verbosity in {"low", "medium", "high"}:
+    if (
+        use_responses_api
+        and provider_key != "perplexity"
+        and verbosity in {"low", "medium", "high"}
+    ):
         text = options.get("text")
         text = dict(text) if isinstance(text, dict) else {}
         text["verbosity"] = verbosity
