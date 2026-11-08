@@ -235,14 +235,13 @@ class RoundOrchestrator:
         observability_span.set_attribute(
             "uag.tokens.estimate.input", summary.request_tokens
         )
-        if backend := get_observability_backend():
-            if backend.enabled:
-                for key, value in estimate_context_components(
-                    request.payload,
-                    provider=request.provider,
-                    model=request.model,
-                ).items():
-                    observability_span.set_attribute(key, value)
+        if get_observability_backend().enabled:
+            for key, value in estimate_context_components(
+                request.payload,
+                provider=request.provider,
+                model=request.model,
+            ).items():
+                observability_span.set_attribute(key, value)
         reported_names = {
             "input_tokens_delta": "uag.tokens.reported.input",
             "output_tokens_delta": "uag.tokens.reported.output",
