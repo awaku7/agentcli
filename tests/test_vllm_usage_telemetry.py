@@ -195,7 +195,7 @@ def test_vllm_chat_nonstream_reports_usage_without_stream_options():
 
 def test_vllm_does_not_change_other_chat_providers():
     client = _Client([_chunk(content="answer")])
-    _run(_runtime(client, provider="moonshot"))
+    _run(_runtime(client, provider="perplexity"))
     assert "stream_options" not in client.chat.completions.calls[0]
 
 

@@ -21,6 +21,7 @@ from .llm_openrouter_usage import (
     request_openrouter_stream_usage,
 )
 from .llm_nvidia_usage import create_nvidia_chat_completion
+from .llm_moonshot_usage import moonshot_chat_usage_to_dict
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -76,6 +77,8 @@ def _reported_usage(
         return vllm_usage_to_dict(usage, responses=responses)
     if provider == "openrouter":
         return openrouter_usage_to_dict(usage, responses=responses)
+    if provider == "moonshot" and not responses:
+        return moonshot_chat_usage_to_dict(usage)
     fields = (
         ("input_tokens", "input_tokens" if responses else "prompt_tokens"),
         ("output_tokens", "output_tokens" if responses else "completion_tokens"),
@@ -438,7 +441,7 @@ class OpenAICompatibleRuntime:
                 elif self._streaming and (
                     self._provider
                     in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
-                    or self._provider == "alibaba"
+                    or self._provider in {"alibaba", "moonshot"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
