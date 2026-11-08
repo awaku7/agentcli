@@ -265,6 +265,20 @@ replaces the previous per-request usage snapshot; rejected/retried requests
 do not generate extra usage counts. Missing or invalid provider usage is
 not replaced by an invented measured count.
 
+Gemini Developer API and Vertex AI share the google-genai response
+`usage_metadata` format. UAG uses `prompt_token_count` plus
+`tool_use_prompt_token_count` for measured input; cached tokens from
+`cached_content_token_count` are already included in the prompt count and
+are exported as a cache-read subset, **never added twice**. Measured output
+uses `candidates_token_count + thoughts_token_count`; the thinking portion
+is also exported through standard
+`gen_ai.usage.reasoning.output_tokens` as an output subset. Partial
+streaming chunks contain cumulative metadata, so only the latest complete
+stream metadata is recorded, not a sum of chunks. User-interrupted or failed
+streams do not report incomplete usage as a measured total. Missing or
+invalid components remain unknown, never fabricated. This does not change
+the existing opt-in policy for full message capture.
+
 Total token usage is derivable from input/output counts, not redundantly
 exported.
 
