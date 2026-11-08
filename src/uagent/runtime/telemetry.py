@@ -173,6 +173,53 @@ def gemini_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
+def deepseek_chat_usage_to_dict(usage: Any) -> dict[str, int]:
+    """Normalize DeepSeek Chat Completions usage without double counting.
+
+    Cache hits are already included in prompt_tokens. Reasoning tokens are
+    already included in completion_tokens, unlike native xAI gRPC usage.
+    """
+    if usage is None:
+        return {}
+
+    def valid(value: Any) -> bool:
+        return type(value) is int and 0 <= value <= 10**12
+
+    prompt = _field(usage, "prompt_tokens")
+    completion = _field(usage, "completion_tokens")
+    cache_hit = _field(usage, "prompt_cache_hit_tokens")
+    cache_miss = _field(usage, "prompt_cache_miss_tokens")
+    details_cache = _field(_field(usage, "prompt_tokens_details"), "cached_tokens")
+    reasoning = _field(_field(usage, "completion_tokens_details"), "reasoning_tokens")
+    cached = cache_hit if cache_hit is not None else details_cache
+
+    result: dict[str, int] = {}
+    input_valid = (
+        valid(prompt)
+        and (cached is None or (valid(cached) and cached <= prompt))
+        and (cache_miss is None or (valid(cache_miss) and cache_miss <= prompt))
+        and (cache_hit is None or details_cache is None or cache_hit == details_cache)
+        and (cached is None or cache_miss is None or cached + cache_miss == prompt)
+    )
+    if input_valid:
+        result["input_tokens"] = prompt
+        if cached is not None:
+            result["cache_read_input_tokens"] = cached
+
+    if valid(completion) and (
+        reasoning is None or (valid(reasoning) and reasoning <= completion)
+    ):
+        result["output_tokens"] = completion
+        if reasoning is not None:
+            result["reasoning_output_tokens"] = reasoning
+
+    if "input_tokens" in result and "output_tokens" in result:
+        total = result["input_tokens"] + result["output_tokens"]
+        if total <= 10**12:
+            result["total_tokens"] = total
+    return result
+
+
 def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     """Normalize native xAI gRPC usage (distinct completion and reasoning).
 
@@ -256,6 +303,7 @@ __all__ = [
     "provider_cache_usage",
     "anthropic_usage_to_dict",
     "gemini_usage_to_dict",
+    "deepseek_chat_usage_to_dict",
     "xai_usage_to_dict",
     "estimate_context_components",
 ]

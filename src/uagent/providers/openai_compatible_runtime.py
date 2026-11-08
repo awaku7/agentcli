@@ -14,7 +14,7 @@ import time
 from typing import TYPE_CHECKING, Any, Iterator, Mapping
 
 from ..env_utils import env_get
-from ..runtime.telemetry import provider_cache_usage
+from ..runtime.telemetry import deepseek_chat_usage_to_dict, provider_cache_usage
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -60,8 +60,12 @@ def _mapping_value(value: Any, key: str) -> Any:
     return getattr(value, key, None)
 
 
-def _reported_usage(usage: Any, *, responses: bool) -> dict[str, int]:
+def _reported_usage(
+    usage: Any, *, responses: bool, provider: str = ""
+) -> dict[str, int]:
     """Read request-scoped provider counts, never estimated or cumulative values."""
+    if provider == "deepseek" and not responses:
+        return deepseek_chat_usage_to_dict(usage)
     fields = (
         ("input_tokens", "input_tokens" if responses else "prompt_tokens"),
         ("output_tokens", "output_tokens" if responses else "completion_tokens"),
@@ -73,11 +77,24 @@ def _reported_usage(usage: Any, *, responses: bool) -> dict[str, int]:
         if type(value) is int and 0 <= value <= 1_000_000_000_000:
             result[target] = value
     result.update(provider_cache_usage(usage, responses=responses))
+    if provider == "deepseek" and responses:
+        reasoning = _mapping_value(
+            _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
+        )
+        output = result.get("output_tokens")
+        if type(reasoning) is int and type(output) is int and 0 <= reasoning <= output:
+            result["reasoning_output_tokens"] = reasoning
+        cached = result.get("cache_read_input_tokens")
+        input_tokens = result.get("input_tokens")
+        if cached is not None and input_tokens is not None and cached > input_tokens:
+            del result["cache_read_input_tokens"]
     return result
 
 
-def _terminal_usage(usage: Any, *, responses: bool) -> dict[str, Any]:
-    reported = _reported_usage(usage, responses=responses)
+def _terminal_usage(
+    usage: Any, *, responses: bool, provider: str = ""
+) -> dict[str, Any]:
+    reported = _reported_usage(usage, responses=responses, provider=provider)
     return {"usage": reported} if reported else {}
 
 
@@ -405,7 +422,7 @@ class OpenAICompatibleRuntime:
                 # Request final usage only on known-compatible endpoints.
                 # Older Azure API versions reject stream_options entirely.
                 if self._streaming and (
-                    self._provider == "openai"
+                    self._provider in {"openai", "deepseek"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
@@ -480,7 +497,11 @@ class OpenAICompatibleRuntime:
         yield from self._complete_tools(tool_calls)
         yield self._event(
             "ResponseCompleted",
-            _terminal_usage(_mapping_value(response, "usage"), responses=False),
+            _terminal_usage(
+                _mapping_value(response, "usage"),
+                responses=False,
+                provider=self._provider,
+            ),
         )
 
     def _responses_response_events(
@@ -540,7 +561,13 @@ class OpenAICompatibleRuntime:
         yield from self._complete_tools(tool_calls)
         response_id = getattr(response, "id", None)
         data = {"response_id": str(response_id)} if response_id else {}
-        data.update(_terminal_usage(_mapping_value(response, "usage"), responses=True))
+        data.update(
+            _terminal_usage(
+                _mapping_value(response, "usage"),
+                responses=True,
+                provider=self._provider,
+            )
+        )
         yield self._event("ResponseCompleted", data)
 
     def _event(self, event_type: str, data: Mapping[str, Any]) -> StreamEvent:
@@ -566,7 +593,11 @@ class OpenAICompatibleRuntime:
             if cancellation.is_cancelled():
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
                 return
-            reported = _reported_usage(_mapping_value(chunk, "usage"), responses=False)
+            reported = _reported_usage(
+                _mapping_value(chunk, "usage"),
+                responses=False,
+                provider=self._provider,
+            )
             if reported:
                 usage = reported
             choices = getattr(chunk, "choices", None) or []
@@ -811,7 +842,11 @@ class OpenAICompatibleRuntime:
                 response_id = getattr(response, "id", None) if response else None
                 data = {"response_id": str(response_id)} if response_id else {}
                 data.update(
-                    _terminal_usage(_mapping_value(response, "usage"), responses=True)
+                    _terminal_usage(
+                        _mapping_value(response, "usage"),
+                        responses=True,
+                        provider=self._provider,
+                    )
                 )
                 yield self._event("ResponseCompleted", data)
                 return
