@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import os
 import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -257,3 +258,72 @@ def test_redacted_thinking_block_is_ignored(capsys, monkeypatch):
     out = capsys.readouterr().out
     assert "[Claude Thinking]" not in out
     assert text == "final"
+
+
+def test_claude_success_stores_only_current_response_usage() -> None:
+    client = FakeClient([Block("text", text="ok")])
+    usage = SimpleNamespace(
+        input_tokens=9,
+        output_tokens=4,
+        cache_read_input_tokens=80,
+        cache_creation_input_tokens=11,
+    )
+    client.messages.create = lambda **_kwargs: SimpleNamespace(
+        content=[Block("text", text="ok")], usage=usage
+    )
+    old = {"input_tokens": 10000, "output_tokens": 8000}
+    core = SimpleNamespace(_last_responses_usage=old)
+    text, calls = claude_chat_with_tools(
+        client, "claude-fable-5", MSGS, core=core, send_tools=False
+    )
+    assert (text, calls) == ("ok", [])
+    assert core._last_responses_usage == {
+        "input_tokens": 100,
+        "output_tokens": 4,
+        "total_tokens": 104,
+        "cache_read_input_tokens": 80,
+        "cache_write_input_tokens": 11,
+    }
+    assert core._last_responses_usage is not old
+
+
+def test_claude_missing_usage_does_not_reuse_previous_response() -> None:
+    client = FakeClient([Block("text", text="ok")])
+    previous = {"input_tokens": 5000}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    text, calls = claude_chat_with_tools(
+        client, "claude-fable-5", MSGS, core=core, send_tools=False
+    )
+    assert (text, calls) == ("ok", [])
+    assert core._last_responses_usage is previous
+
+
+def test_claude_retry_only_records_final_successful_usage() -> None:
+    client = FakeClient([Block("text", text="ok")], reject_enabled=True)
+    original_create = client.messages.create
+
+    def succeeding_with_usage(**kwargs):
+        response = original_create(**kwargs)
+        response.usage = SimpleNamespace(
+            input_tokens=12,
+            output_tokens=2,
+            cache_read_input_tokens=50,
+            cache_creation_input_tokens=0,
+        )
+        return response
+
+    client.messages.create = succeeding_with_usage
+    core = SimpleNamespace(_last_responses_usage={"input_tokens": 9999})
+    out_cfg = build_claude_output_config_for_effort("claude-opus-4-5", "high")
+    text, calls = claude_chat_with_tools(
+        client,
+        "claude-opus-4-5",
+        MSGS,
+        output_config=out_cfg,
+        core=core,
+        send_tools=False,
+    )
+    assert (text, calls) == ("ok", [])
+    assert len(client.messages.calls) == 2
+    assert core._last_responses_usage["input_tokens"] == 62
+    assert core._last_responses_usage["cache_read_input_tokens"] == 50

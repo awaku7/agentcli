@@ -917,4 +917,17 @@ def claude_chat_with_tools(
     if thinking_text:
         assistant_text = f"<thinking>\n{thinking_text}\n</thinking>\n" + assistant_text
 
+    # Preserve the successfully completed API response's usage as a new
+    # per-request snapshot. The fallback chat span maps it to standard GenAI
+    # attributes; a rejected API attempt never contributes a second count.
+    if core is not None:
+        from ..runtime.telemetry import anthropic_usage_to_dict
+
+        measured = anthropic_usage_to_dict(getattr(response, "usage", None))
+        if measured:
+            try:
+                core._last_responses_usage = measured
+            except (AttributeError, TypeError):
+                pass
+
     return assistant_text, tool_calls_list

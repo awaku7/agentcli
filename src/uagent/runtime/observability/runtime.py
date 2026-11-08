@@ -249,13 +249,18 @@ def fallback_chat_span(
                             }
                             from ..telemetry import provider_cache_usage
 
+                            cache_attribute_names = {
+                                "cache_read_input_tokens": (
+                                    "gen_ai.usage.cache_read.input_tokens"
+                                ),
+                                "cache_write_input_tokens": (
+                                    "gen_ai.usage.cache_write.input_tokens"
+                                ),
+                            }
                             for key, value in provider_cache_usage(
                                 usage_after_raw, responses=True
                             ).items():
-                                if key == "cache_read_input_tokens":
-                                    span.set_attribute(
-                                        "gen_ai.usage.cache_read.input_tokens", value
-                                    )
+                                span.set_attribute(cache_attribute_names[key], value)
                             for key, attribute_name in reported_names.items():
                                 value = usage_after_raw.get(key)
                                 if isinstance(value, (int, float)) and not isinstance(
