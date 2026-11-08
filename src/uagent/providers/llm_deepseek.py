@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import sys
 import uuid
-from typing import Any
+from typing import Any, Callable
 from urllib.error import URLError
 
 from .. import tools as _tools
@@ -524,6 +524,7 @@ def parse_deepseek_stream(
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
     usage_sink: list[dict[str, int]] | None = None,
+    usage_normalizer: Callable[[Any], dict[str, int]] = deepseek_chat_usage_to_dict,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from DeepSeek.
 
@@ -548,7 +549,7 @@ def parse_deepseek_stream(
     try:
         for chunk in stream:
             if usage_sink is not None:
-                reported = deepseek_chat_usage_to_dict(getattr(chunk, "usage", None))
+                reported = usage_normalizer(getattr(chunk, "usage", None))
                 if reported:
                     latest_usage = reported
             if not chunk.choices:
