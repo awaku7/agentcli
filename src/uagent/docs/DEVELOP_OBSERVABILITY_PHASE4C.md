@@ -4,12 +4,10 @@ Phase 4C is optional, metadata-only, and OFF by default. It is active only when
 core OpenTelemetry is enabled and the resolved provider selector contains the
 logical provider being called.
 
-Supported selection is exact:
+The provider SDK selector is an advanced operator setting, not a launcher flag.
+Use the following environment setting when diagnosing selected providers:
 
 ```text
---otel-provider-instrumentation openai
---otel-provider-instrumentation claude
---otel-provider-instrumentation openai,claude
 UAGENT_OTEL_PROVIDER_INSTRUMENTATION=openai,claude
 ```
 
