@@ -556,3 +556,36 @@ def test_vllm_legacy_fallback_otel_exports_measured_cache_and_reasoning(
     assert attrs["gen_ai.usage.cache_write.input_tokens"] == 10
     assert attrs["gen_ai.usage.reasoning.output_tokens"] == 8
     assert "PRIVATE_TEXT" not in str(attrs)
+
+def test_novita_fallback_otel_exports_measured_token_subsets(monkeypatch) -> None:
+    from uagent.providers.llm_novita_usage import novita_chat_usage_to_dict
+
+    backend = _install_backend(monkeypatch)
+    previous = {"input_tokens": 9999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    with observability_runtime.fallback_chat_span(
+        provider="novita",
+        model="novita-model",
+        request_input=[{"role": "user", "content": "PRIVATE_TEXT"}],
+        core=core,
+    ):
+        core._last_responses_usage = novita_chat_usage_to_dict(
+            {
+                "prompt_tokens": 80,
+                "completion_tokens": 20,
+                "prompt_tokens_details": {
+                    "cached_tokens": 30,
+                    "cache_write_tokens": 10,
+                },
+                "completion_tokens_details": {"reasoning_tokens": 8},
+            }
+        )
+
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 80
+    assert attrs["uag.tokens.reported.output"] == 20
+    assert attrs["uag.tokens.reported.total"] == 100
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 30
+    assert attrs["gen_ai.usage.cache_write.input_tokens"] == 10
+    assert attrs["gen_ai.usage.reasoning.output_tokens"] == 8
+    assert "PRIVATE_TEXT" not in str(attrs)
