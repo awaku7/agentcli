@@ -49,7 +49,9 @@ def _usage(prompt: int, completion: int, reasoning: int, cache: int = 0):
 
 def _request() -> SerializedRequest:
     return SerializedRequest(
-        identifiers=RoundIdentifiers("turn", "round", "attempt", "request", "stream", 1),
+        identifiers=RoundIdentifiers(
+            "turn", "round", "attempt", "request", "stream", 1
+        ),
         plan_id="plan",
         projection_id="projection",
         provider="grok",
