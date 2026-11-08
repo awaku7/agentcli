@@ -95,7 +95,7 @@ def test_pfn_runtime_normalizes_complete_tool_response() -> None:
                     ],
                 )
             )
-        ]
+        ],
     )
     client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions(response)))
     runtime = PfnProviderRuntime(
@@ -213,9 +213,7 @@ def test_pfn_stream_without_terminal_usage_does_not_report_partial_counts() -> N
 def test_pfn_stream_respects_explicit_include_usage_false() -> None:
     client = SimpleNamespace(
         chat=SimpleNamespace(
-            completions=_Completions(
-                [{"choices": [{"delta": {"content": "hello"}}]}]
-            )
+            completions=_Completions([{"choices": [{"delta": {"content": "hello"}}]}])
         )
     )
     runtime = PfnProviderRuntime(
