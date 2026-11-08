@@ -158,7 +158,7 @@ def _load_language_pack() -> Any | None:
             "tree-sitter-language-pack",
             "tree_sitter_language_pack",
             display_name="tree-sitter-language-pack",
-            version_spec=">=1.14.3",
+            version_spec=">=0.13.0",
         ):
             return None
         try:
