@@ -5,7 +5,7 @@ This module deliberately does not duplicate the shared Chat/Responses runtime.
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import Any, Iterator, Mapping
 
 
 def _field(value: Any, name: str) -> Any:
@@ -66,6 +66,33 @@ def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
         if total <= 10**12:
             result["total_tokens"] = total
     return result
+
+
+
+def capture_vllm_responses_usage(
+    stream: Any, *, provider: str, sink: list[dict[str, int]]
+) -> Any:
+    """Capture vLLM terminal usage without changing other providers' streams."""
+    if provider != "vllm":
+        return stream
+
+    def _events() -> Iterator[Any]:
+        source = (
+            stream.iter_events()
+            if callable(getattr(stream, "iter_events", None))
+            else stream
+        )
+        for event in source:
+            if getattr(event, "type", None) == "response.completed":
+                response = getattr(event, "response", None)
+                measured = vllm_usage_to_dict(
+                    _field(response, "usage"), responses=True
+                )
+                if measured:
+                    sink.append(measured)
+            yield event
+
+    return _events()
 
 
 def publish_vllm_legacy_usage(core: Any, usage: Any, *, responses: bool) -> None:
