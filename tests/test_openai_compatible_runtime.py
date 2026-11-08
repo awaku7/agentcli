@@ -851,6 +851,7 @@ def test_runtime_cancellation_is_terminal() -> None:
         "nvidia",
         "alibaba",
         "moonshot",
+        "meta",
     ],
 )
 def test_registry_chat_usage_is_reported_once(
@@ -903,6 +904,7 @@ def test_registry_chat_usage_is_reported_once(
         "nvidia",
         "alibaba",
         "moonshot",
+        "meta",
     }:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
@@ -957,7 +959,7 @@ def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot"],
+    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
 )
 def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
@@ -990,7 +992,7 @@ def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama"])
+@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta"])
 def test_registry_responses_usage_from_terminal_response(
     streaming: bool, provider: str
 ) -> None:
@@ -1025,6 +1027,62 @@ def test_registry_responses_usage_from_terminal_response(
     }
 
 
+@pytest.mark.parametrize("streaming", [False, True])
+def test_meta_responses_usage_includes_measured_cache_and_reasoning(
+    streaming: bool,
+) -> None:
+    response = SimpleNamespace(
+        id="resp_meta",
+        output_text="answer",
+        output=[],
+        usage=SimpleNamespace(
+            input_tokens=120,
+            output_tokens=40,
+            total_tokens=160,
+            input_tokens_details=SimpleNamespace(cached_tokens=30),
+            output_tokens_details=SimpleNamespace(reasoning_tokens=16),
+        ),
+    )
+    stream = [SimpleNamespace(type="response.completed", response=response)]
+    client = _Client(events=stream if streaming else response)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="meta",
+        model="muse-spark-1.3",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=streaming,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {
+        "input_tokens": 120,
+        "output_tokens": 40,
+        "total_tokens": 160,
+        "cache_read_input_tokens": 30,
+        "reasoning_output_tokens": 16,
+    }
+    assert "stream_options" not in client.responses.calls[0]
+
+
+def test_meta_responses_rejects_invalid_reasoning_count() -> None:
+    from uagent.providers.openai_compatible_runtime import _reported_usage
+
+    usage = {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "output_tokens_details": {"reasoning_tokens": 7},
+    }
+    assert _reported_usage(usage, responses=True, provider="meta") == {
+        "input_tokens": 10,
+        "output_tokens": 5,
+    }
+
+
 @pytest.mark.parametrize(
     ("usage", "expected"),
     [
@@ -1044,7 +1102,7 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot"],
+    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
 )
 def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
