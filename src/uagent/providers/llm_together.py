@@ -472,9 +472,13 @@ def together_chat_with_tools(
 
             if stream:
                 usage_snapshots: list[dict[str, int]] = []
-                # Together's newer serving stack requires this flag to emit
-                # a terminal usage-only chunk for streamed responses.
-                chat_kwargs["stream_options"] = {"include_usage": True}
+                # The native Together SDK accepts streaming usage options
+                # only through extra_body (not as a top-level SDK keyword).
+                extra_body = dict(chat_kwargs.get("extra_body") or {})
+                stream_options = dict(extra_body.get("stream_options") or {})
+                stream_options["include_usage"] = True
+                extra_body["stream_options"] = stream_options
+                chat_kwargs["extra_body"] = extra_body
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: _parse_together_stream(
