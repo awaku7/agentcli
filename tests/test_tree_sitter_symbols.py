@@ -65,7 +65,7 @@ def test_vba_and_lotusscript_keep_regex_support(tmp_path: Path) -> None:
 
 def test_tree_sitter_new_method_based_binding(monkeypatch, tmp_path: Path) -> None:
     """The modern pack accepts bytes via parse_bytes and uses node methods."""
-    source = "class Demo:\\n    def greet(self):\\n        return 1\\n"
+    source = "class Demo:\n    def greet(self):\n        return 1\n"
     source_bytes = source.encode("utf-8")
     path = tmp_path / "new.py"
     path.write_text(source, encoding="utf-8")
@@ -133,7 +133,7 @@ def test_tree_sitter_new_method_based_binding(monkeypatch, tmp_path: Path) -> No
 def test_tree_sitter_legacy_property_binding(monkeypatch, tmp_path: Path) -> None:
     """The old core tree-sitter Parser/Node attributes remain supported."""
     path = tmp_path / "legacy.py"
-    source = b"class Demo:\\n"
+    source = b"class Demo:\n"
     path.write_bytes(source)
     identifier = SimpleNamespace(
         type="identifier",
