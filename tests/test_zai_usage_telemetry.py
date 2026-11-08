@@ -85,9 +85,7 @@ def _round(monkeypatch, client, core, *, stream=True, wait=None):
 
 def test_zai_normalizes_reported_cache_and_optional_reasoning_subsets() -> None:
     assert zai_chat_usage_to_dict(_usage()) == _expected()
-    assert zai_chat_usage_to_dict(
-        {"prompt_tokens": 14, "completion_tokens": 5}
-    ) == {
+    assert zai_chat_usage_to_dict({"prompt_tokens": 14, "completion_tokens": 5}) == {
         "input_tokens": 14,
         "output_tokens": 5,
         "total_tokens": 19,
@@ -115,13 +113,16 @@ def test_zai_invalid_usage_is_never_fabricated() -> None:
             "prompt_tokens_details": {"cached_tokens": 11},
         }
     ) == {"output_tokens": 5}
-    assert zai_chat_usage_to_dict(
-        {
-            "prompt_tokens": True,
-            "completion_tokens": 5,
-            "completion_tokens_details": {"reasoning_tokens": 6},
-        }
-    ) == {}
+    assert (
+        zai_chat_usage_to_dict(
+            {
+                "prompt_tokens": True,
+                "completion_tokens": 5,
+                "completion_tokens_details": {"reasoning_tokens": 6},
+            }
+        )
+        == {}
+    )
     assert zai_chat_usage_to_dict(
         {
             "prompt_tokens": 10,
