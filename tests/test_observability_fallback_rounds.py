@@ -345,3 +345,24 @@ def test_inception_direct_fallback_gets_its_own_chat_span(monkeypatch) -> None:
         "uag.llm.model": "mercury-test",
     }
     assert backend.spans[1]["span"].status[-1] == ("ok", None)
+
+
+def test_fallback_span_keeps_provider_cache_subset_separate(monkeypatch) -> None:
+    backend = _install_backend(monkeypatch)
+    core = SimpleNamespace(_last_responses_usage={})
+    with observability_runtime.fallback_chat_span(
+        provider="openai",
+        model="gpt-test",
+        request_input=[{"role": "user", "content": "SECRET"}],
+        core=core,
+    ):
+        core._last_responses_usage = {
+            "input_tokens": 100,
+            "output_tokens": 5,
+            "input_tokens_details": {"cached_tokens": 75},
+        }
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 100
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 75
+    assert attrs["uag.tokens.context.messages"] > 0
+    assert "SECRET" not in str(attrs)
