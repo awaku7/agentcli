@@ -680,7 +680,27 @@ def test_vercel_legacy_round_publishes_measured_tokens_to_chat_span(
 
 @pytest.mark.parametrize(
     "provider",
-    ["hf", "minimax", "sakura", "sarashina", "foundry_local", "llama_cpp"],
+    [
+        "openai",
+        "azure",
+        "nvidia",
+        "openrouter",
+        "perplexity",
+        "alibaba",
+        "moonshot",
+        "bedrock",
+        "ollama",
+        "lmstudio",
+        "meta",
+        "sakana",
+        "inception",
+        "hf",
+        "minimax",
+        "sakura",
+        "sarashina",
+        "foundry_local",
+        "llama_cpp",
+    ],
 )
 @pytest.mark.parametrize("has_usage", [True, False])
 def test_remaining_openai_compatible_legacy_chat_reports_only_measured_usage(
