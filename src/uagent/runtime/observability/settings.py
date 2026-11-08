@@ -210,7 +210,7 @@ class ObservabilitySettings:
         # The single CLI content opt-in always requests all four reviewed
         # categories. The advanced environment/programmatic selectors remain
         # separate from the public launcher flags.
-        if cli.capture_content is True and explicit_capture_content is None:
+        if cli.capture_content is True and explicit_capture_categories is None:
             capture_categories, categories_valid = _CAPTURE_CATEGORIES, True
         else:
             capture_categories, categories_valid = _parse_csv(
