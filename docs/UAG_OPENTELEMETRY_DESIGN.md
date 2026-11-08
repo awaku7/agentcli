@@ -107,9 +107,10 @@ For CLI:
 ```text
 --otel
 --no-otel
+--otel-content
 ```
 
-The CLI value is tri-state: explicitly enabled, explicitly disabled, or unspecified.
+Core activation is tri-state: explicitly enabled, explicitly disabled, or unspecified. `--otel-content` separately opts into the reviewed conversation/Tool content categories when core OTel is enabled. Other observability features are controlled through advanced operator environment/programmatic settings rather than separate CLI flags.
 
 Resolution order:
 

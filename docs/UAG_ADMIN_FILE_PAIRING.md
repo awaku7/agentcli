@@ -63,6 +63,8 @@ Adminへ取り込む前のOTLP送信は404（未登録なら401）、Admin停止
 | GUI | `uagg --otel` | `uagg --no-otel` |
 | A2A | `uaga --otel` | `uaga --no-otel` |
 
+会話・Tool本文も取得する場合は、それぞれの起動コマンドに `--otel-content` を追加します（例: `uag --otel --otel-content`）。送信する本文は4カテゴリ（ユーザー入力・アシスタント応答・レビュー済みTool引数・レビュー済みTool結果）のみで、未レビューのMCP ToolやSkillの生データは送信しません。Tool名、実行時間、成否、呼び出しIDは `--otel` のみで取得します。詳細な旧OTel起動オプションは廃止されました。
+
 無指定の既定はOFFです。ただし、作業フォルダーの `.env` / `.env.sec` またはプロセス環境で `UAGENT_OTEL_ENABLED=1` が設定されていれば有効になります。`--no-otel` はその設定より優先します。連携ファイルが保存されているだけでは有効になりません。無効時はOTel依存確認・exporter生成・送信を実行しません。
 
 

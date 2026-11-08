@@ -46,28 +46,28 @@ Effective core `--no-otel` is authoritative. When core OTel is OFF, every Phase 
 
 Browser/WebSocket/A2A/MCP/tool/provider/query/header/cookie/baggage/trace content MUST NOT alter process settings.
 
-The shared observability settings resolver exposes **exactly** the following Phase 4 public settings. `None` in a programmatic field means "not explicitly supplied at this precedence level"; it does not itself override an environment value.
+The shared observability resolver retains the following settings for advanced operator and programmatic use. Only **three OTel launcher flags** are supported across CLI, GUI, Web and A2A: `--otel`, `--no-otel`, and `--otel-content`. The last of these explicitly enables all four reviewed content categories (`user_input`, `assistant_output`, `tool_arguments`, `tool_result`); it requires core OTel to be effective. It never enables unreviewed Tool input/output capture. Obsolete per-feature launcher flags are rejected, not treated as aliases. `None` in a programmatic field means "not explicitly supplied at this precedence level"; it does not override an environment value.
 
 | Setting | CLI | Environment | Programmatic/application field | Effective safe default |
 |---|---|---|---|---|
-| controlled-content activation | `--otel-capture-content` / `--no-otel-capture-content` | `UAGENT_OTEL_CAPTURE_CONTENT` | `capture_content: bool | None` | `false` |
-| controlled-content categories | `--otel-capture-categories <csv>` | `UAGENT_OTEL_CAPTURE_CATEGORIES` | `capture_categories: str | None` | empty set |
-| per-field content bound | `--otel-capture-max-field-chars <n>` | `UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS` | `capture_max_field_chars: int | None` | `2048` |
-| per-span content bound | `--otel-capture-max-span-chars <n>` | `UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS` | `capture_max_span_chars: int | None` | `8192` |
-| pseudonymous-correlation activation | `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation` | `UAGENT_OTEL_PSEUDONYMOUS_CORRELATION` | `pseudonymous_correlation: bool | None` | `false` |
-| deployment scope | `--otel-deployment-scope <scope>` | `UAGENT_OTEL_DEPLOYMENT_SCOPE` | `deployment_scope: str | None` | absent; pseudonym emission disabled |
-| correlation credential name | `--otel-correlation-key-name <name>` | `UAGENT_OTEL_CORRELATION_KEY_NAME` | `correlation_key_name: str | None` | `observability/correlation` |
-| correlation key version | `--otel-correlation-key-version <version>` | `UAGENT_OTEL_CORRELATION_KEY_VERSION` | `correlation_key_version: str | None` | `v1` |
-| provider SDK selector | `--otel-provider-instrumentation <csv>` | `UAGENT_OTEL_PROVIDER_INSTRUMENTATION` | `provider_instrumentation: str | None` | empty / OFF |
-| ordinary-user trace-query activation | `--otel-trace-query` / `--no-otel-trace-query` | `UAGENT_OTEL_TRACE_QUERY_ENABLED` | `trace_query_enabled: bool | None` | `false` |
+| controlled-content activation | `--otel-content` (all four reviewed categories) | `UAGENT_OTEL_CAPTURE_CONTENT` | `capture_content: bool | None` | `false` |
+| controlled-content categories | not separately exposed; `--otel-content` selects all four | `UAGENT_OTEL_CAPTURE_CATEGORIES` | `capture_categories: str | None` | empty set |
+| per-field content bound | not exposed | `UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS` | `capture_max_field_chars: int | None` | `2048` |
+| per-span content bound | not exposed | `UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS` | `capture_max_span_chars: int | None` | `8192` |
+| pseudonymous-correlation activation | not exposed | `UAGENT_OTEL_PSEUDONYMOUS_CORRELATION` | `pseudonymous_correlation: bool | None` | `false` |
+| deployment scope | not exposed | `UAGENT_OTEL_DEPLOYMENT_SCOPE` | `deployment_scope: str | None` | absent; pseudonym emission disabled |
+| correlation credential name | not exposed | `UAGENT_OTEL_CORRELATION_KEY_NAME` | `correlation_key_name: str | None` | `observability/correlation` |
+| correlation key version | not exposed | `UAGENT_OTEL_CORRELATION_KEY_VERSION` | `correlation_key_version: str | None` | `v1` |
+| provider SDK selector | not exposed | `UAGENT_OTEL_PROVIDER_INSTRUMENTATION` | `provider_instrumentation: str | None` | empty / OFF |
+| ordinary-user trace-query activation | not exposed | `UAGENT_OTEL_TRACE_QUERY_ENABLED` | `trace_query_enabled: bool | None` | `false` |
 
-No alternate CLI spelling, environment alias, or second programmatic field is part of the initial contract. CLI/GUI/Web/A2A entry points that expose Phase 4 settings MUST feed these same resolver fields rather than implementing independent parsing or precedence.
+The launcher content flag takes precedence over environment-level content category selection; advanced programmatic settings remain independently validated. No additional OTel launcher aliases are provided.
 
 Phase 4C is OFF unless the resolved provider selector contains at least one valid selected provider. There is no independent implicit enable.
 
 ### 2.2 Boolean parsing
 
-Boolean CLI controls are presence-only flags and accept no string argument. When positive and negative forms both occur, the last explicit CLI flag wins.
+OTel CLI controls are presence-only flags and accept no string argument. For `--otel` / `--no-otel`, the last explicit flag wins. `--otel-content` is a positive content-capture opt-in with no separate CLI disable flag; `--no-otel` always disables capture.
 
 Programmatic/application boolean inputs MUST satisfy `type(value) is bool` or be `None`. `int`, `str`, subclasses, and objects with truthiness hooks are invalid; implementations MUST NOT call `bool(value)` to coerce them.
 
@@ -82,7 +82,7 @@ No other whitespace, Unicode case folding, numeric spelling, or token is accepte
 
 ### 2.3 Integer parsing
 
-CLI/environment integer controls use the exact ASCII grammar:
+Environment integer controls use the exact ASCII grammar:
 
 ```text
 0 | [1-9][0-9]*
@@ -1043,15 +1043,15 @@ Implementation is incomplete until tests prove at least:
 ### Configuration
 
 - CLI > env > default precedence;
-- the complete section 2.1 resolver matrix has one and only one CLI/environment/programmatic name and the documented default for every Phase 4 setting;
+- the only OTel launcher flags are `--otel`, `--no-otel`, and `--otel-content`; old per-feature flags are rejected, and all advanced settings have the documented environment/programmatic names and defaults;
 - all Phase 4A/4B/4D booleans default OFF;
 - Phase 4D route is exactly `GET /api/observability/traces/{trace_id}` and returns the exact disabled `404 {"error":"not_found"}` response before trace-query work when core OTel/trace query is OFF;
-- last positive/negative CLI boolean wins;
+- the last `--otel` / `--no-otel` wins, and `--otel-content` selects all four reviewed categories but never bypasses core-OFF;
 - exact programmatic bool/int/string type gates reject subclasses/coercion;
 - env booleans accept only the defined normalized tokens and reject other whitespace/tokens;
-- numeric CLI/env grammar rejects signs, whitespace, Unicode digits, leading zeros, overlength, and out-of-range values;
+- numeric environment grammar rejects signs, whitespace, Unicode digits, leading zeros, overlength, and out-of-range values;
 - category/provider CSV parsing follows exact ASCII trim/no-normalization rules;
-- each deployment-scope/correlation-key/provider selector CLI/environment control resolves into the exact shared field named in section 2.1;
+- each deployment-scope/correlation-key/provider selector environment control resolves into the exact shared field named in section 2.1;
 - `--no-otel` suppresses all Phase 4 behavior.
 
 ### Content

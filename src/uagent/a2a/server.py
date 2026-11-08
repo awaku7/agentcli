@@ -817,6 +817,12 @@ def main(argv: Optional[list[str]] = None) -> None:
         default=None,
         help=_("Disable OpenTelemetry observability for this process."),
     )
+    parser.add_argument(
+        "--otel-content",
+        action="store_true",
+        default=False,
+        help=_("Capture reviewed conversation and tool content (requires OTel)."),
+    )
 
     args = parser.parse_args(argv)
 
@@ -826,6 +832,12 @@ def main(argv: Optional[list[str]] = None) -> None:
         )
 
         set_observability_entrypoint_override(bool(args.otel_enabled))
+    if args.otel_content:
+        from ..runtime.observability.settings import (
+            set_observability_content_entrypoint_override,
+        )
+
+        set_observability_content_entrypoint_override(True)
 
     # Keep env in sync with runtime arguments (helps agent card URL calculation).
     try:

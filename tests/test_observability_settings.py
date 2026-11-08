@@ -3,7 +3,7 @@ import pytest
 from uagent.runtime.observability.settings import (
     ObservabilitySettings,
     _reset_observability_settings_for_tests,
-    consume_otel_cli_flags,
+    consume_observability_cli_flags,
     consume_process_otel_cli_flags,
     get_observability_settings,
     refresh_observability_settings,
@@ -59,16 +59,19 @@ def test_invalid_environment_value_fails_closed():
 
 
 def test_consume_otel_cli_flags_preserves_other_arguments():
-    enabled, remaining = consume_otel_cli_flags(
-        ["--workdir", "C:/tmp", "--otel", "input.txt"]
+    overrides, remaining = consume_observability_cli_flags(
+        ["--workdir", "C:/tmp", "--otel", "--otel-content", "input.txt"]
     )
-    assert enabled is True
+    assert overrides.enabled is True
+    assert overrides.capture_content is True
     assert remaining == ["--workdir", "C:/tmp", "input.txt"]
 
 
 def test_last_otel_cli_flag_wins():
-    enabled, remaining = consume_otel_cli_flags(["--otel", "input.txt", "--no-otel"])
-    assert enabled is False
+    overrides, remaining = consume_observability_cli_flags(
+        ["--otel", "input.txt", "--no-otel"]
+    )
+    assert overrides.enabled is False
     assert remaining == ["input.txt"]
 
 

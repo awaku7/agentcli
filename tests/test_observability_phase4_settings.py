@@ -1,4 +1,7 @@
+import pytest
+
 from uagent.runtime.observability.settings import (
+    ObservabilityCliOverrides,
     ObservabilitySettings,
     _reset_observability_settings_for_tests,
     consume_observability_cli_flags,
@@ -115,57 +118,47 @@ def test_provider_selector_keeps_valid_siblings_and_ignores_unknowns():
     assert settings.provider_instrumentation == frozenset({"openai", "claude"})
 
 
-def test_phase4_cli_surface_is_consumed_and_last_boolean_wins():
+def test_phase4_cli_has_only_three_supported_flags():
     overrides, remaining = consume_observability_cli_flags(
-        [
-            "--otel",
-            "--otel-capture-content",
-            "--otel-capture-categories",
-            "user_input,assistant_output",
-            "--otel-capture-max-field-chars",
-            "1024",
-            "--otel-capture-max-span-chars",
-            "4096",
-            "--otel-pseudonymous-correlation",
-            "--otel-deployment-scope",
-            "prod",
-            "--otel-correlation-key-name",
-            "observability/correlation",
-            "--otel-correlation-key-version",
-            "v2",
-            "--otel-provider-instrumentation",
-            "openai,claude",
-            "--otel-trace-query",
-            "--no-otel-trace-query",
-            "--host",
-            "127.0.0.1",
-        ]
+        ["--otel", "--otel-content", "--host", "127.0.0.1", "--no-otel"]
     )
 
-    assert overrides.enabled is True
+    assert overrides.enabled is False
     assert overrides.capture_content is True
-    assert overrides.capture_categories == "user_input,assistant_output"
-    assert overrides.capture_max_field_chars == "1024"
-    assert overrides.capture_max_span_chars == "4096"
-    assert overrides.pseudonymous_correlation is True
-    assert overrides.deployment_scope == "prod"
-    assert overrides.correlation_key_version == "v2"
-    assert overrides.provider_instrumentation == "openai,claude"
-    assert overrides.trace_query_enabled is False
     assert remaining == ["--host", "127.0.0.1"]
 
 
-def test_process_phase4_cli_survives_dotenv_refresh_and_strips_launcher_argv():
+@pytest.mark.parametrize(
+    "retired",
+    [
+        "--otel-capture-content",
+        "--no-otel-capture-content",
+        "--otel-capture-categories",
+        "--otel-capture-max-field-chars",
+        "--otel-capture-max-span-chars",
+        "--otel-pseudonymous-correlation",
+        "--no-otel-pseudonymous-correlation",
+        "--otel-deployment-scope",
+        "--otel-correlation-key-name",
+        "--otel-correlation-key-version",
+        "--otel-provider-instrumentation",
+        "--otel-trace-query",
+        "--no-otel-trace-query",
+    ],
+)
+def test_retired_otel_flags_are_rejected(retired):
+    with pytest.raises(ValueError, match="Unsupported OTel option"):
+        consume_observability_cli_flags(["--otel", retired])
+
+
+def test_process_content_cli_survives_dotenv_and_captures_all_categories():
     argv = [
         "uagw",
         "--otel",
-        "--otel-capture-content",
-        "--otel-capture-categories",
-        "user_input",
+        "--otel-content",
         "--host",
         "0.0.0.0",
     ]
-
     consume_process_otel_cli_flags(argv)
     settings = refresh_observability_settings(
         environ={
@@ -178,21 +171,48 @@ def test_process_phase4_cli_survives_dotenv_refresh_and_strips_launcher_argv():
     assert argv == ["uagw", "--host", "0.0.0.0"]
     assert settings.enabled is True
     assert settings.capture_content is True
-    assert settings.capture_categories == frozenset({"user_input"})
-
-
-def test_missing_cli_value_is_consumed_and_fails_closed():
-    argv = [
-        "uag",
-        "--otel",
-        "--otel-capture-content",
-        "--otel-capture-categories",
-    ]
-
-    consume_process_otel_cli_flags(argv)
-    settings = refresh_observability_settings(
-        environ={"UAGENT_OTEL_CAPTURE_CATEGORIES": "user_input"}
+    assert settings.capture_categories == frozenset(
+        {"user_input", "assistant_output", "tool_arguments", "tool_result"}
     )
 
+
+@pytest.mark.parametrize(
+    ("categories", "expected_categories", "capture_enabled"),
+    [
+        ("user_input", frozenset({"user_input"}), True),
+        ("", frozenset(), True),
+        ("user_input,unknown", frozenset(), False),
+    ],
+)
+def test_cli_content_preserves_explicit_programmatic_category_restrictions(
+    categories, expected_categories, capture_enabled
+):
+    settings = ObservabilitySettings.resolve(
+        explicit_enabled=True,
+        explicit_capture_categories=categories,
+        cli_overrides=ObservabilityCliOverrides(capture_content=True),
+        environ={"UAGENT_OTEL_CAPTURE_CATEGORIES": "assistant_output"},
+    )
+
+    assert settings.capture_content is capture_enabled
+    assert settings.capture_categories == expected_categories
+
+
+def test_explicit_programmatic_content_off_overrides_cli_opt_in():
+    settings = ObservabilitySettings.resolve(
+        explicit_enabled=True,
+        explicit_capture_content=False,
+        cli_overrides=ObservabilityCliOverrides(capture_content=True),
+    )
+    assert settings.capture_content is False
+
+
+def test_no_otel_prevents_content_capture_even_with_content_flag():
+    argv = ["uag", "--otel-content", "--no-otel"]
+    consume_process_otel_cli_flags(argv)
+    settings = refresh_observability_settings(
+        environ={"UAGENT_OTEL_ENABLED": "1", "UAGENT_OTEL_CAPTURE_CONTENT": "1"}
+    )
     assert argv == ["uag"]
+    assert settings.enabled is False
     assert settings.capture_content is False

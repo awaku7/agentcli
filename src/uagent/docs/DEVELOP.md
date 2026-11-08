@@ -492,7 +492,7 @@ HMAC framing, attachment, and security contract.
 ## OpenTelemetry provider SDK diagnostics (Phase 4C)
 
 Phase 4C is separately opt-in and metadata-only. The resolved
-`--otel-provider-instrumentation` / `UAGENT_OTEL_PROVIDER_INSTRUMENTATION` selector
+`UAGENT_OTEL_PROVIDER_INSTRUMENTATION` operator selector
 accepts only the exact logical provider IDs `openai` and `claude`; the default is
 empty/OFF. For a selected provider call, UAG creates at most one UAG-controlled
 `provider_sdk` child under the active canonical `chat` span.
