@@ -33,6 +33,7 @@ from ..llm_helpers import (
 )
 
 from ..runtime.stream_renderer import StreamCallbacks
+from ..runtime.telemetry import zai_chat_usage_to_dict
 
 # Reuse DeepSeek response parsers (compatible with zai-sdk response format)
 from .llm_deepseek import (
@@ -315,6 +316,7 @@ def zai_chat_with_tools(
                     pass
 
             if stream:
+                usage_snapshots: list[dict[str, int]] = []
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: parse_deepseek_stream(
@@ -333,9 +335,18 @@ def zai_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
+                            usage_sink=usage_snapshots,
+                            usage_normalizer=zai_chat_usage_to_dict,
                         )
                     )
                 )
+                # Only the owner of the request publishes measured usage:
+                # an interrupted worker thread must never update shared core.
+                if usage_snapshots and core is not None:
+                    try:
+                        core._last_responses_usage = usage_snapshots[-1]
+                    except (AttributeError, TypeError):
+                        pass
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
@@ -343,6 +354,12 @@ def zai_chat_with_tools(
                 assistant_text, reasoning_content, tool_calls_list = (
                     parse_deepseek_response(resp)
                 )
+                measured = zai_chat_usage_to_dict(getattr(resp, "usage", None))
+                if measured and core is not None:
+                    try:
+                        core._last_responses_usage = measured
+                    except (AttributeError, TypeError):
+                        pass
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
