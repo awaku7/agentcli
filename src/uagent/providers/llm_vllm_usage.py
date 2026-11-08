@@ -67,6 +67,7 @@ def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
             result["total_tokens"] = total
     return result
 
+
 def publish_vllm_legacy_usage(core: Any, usage: Any, *, responses: bool) -> None:
     """Publish a fresh measured snapshot only after a successful legacy round."""
     if core is None:
