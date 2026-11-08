@@ -77,6 +77,7 @@ def anthropic_usage_to_dict(usage: Any) -> dict[str, int]:
     if usage is None:
         return {}
     fields: dict[str, int] = {}
+    invalid_input = False
     for name in (
         "input_tokens",
         "output_tokens",
@@ -84,14 +85,20 @@ def anthropic_usage_to_dict(usage: Any) -> dict[str, int]:
         "cache_creation_input_tokens",
     ):
         value = _field(usage, name)
+        if value is None:
+            continue
         if type(value) is int and 0 <= value <= 10**12:
             fields[name] = value
+        elif name != "output_tokens":
+            # An explicitly malformed component cannot be silently counted
+            # as zero in a provider-reported input total.
+            invalid_input = True
     result: dict[str, int] = {}
     output = fields.get("output_tokens")
     if output is not None:
         result["output_tokens"] = output
     uncached = fields.get("input_tokens")
-    if uncached is not None:
+    if uncached is not None and not invalid_input:
         total = (
             uncached
             + fields.get("cache_read_input_tokens", 0)
