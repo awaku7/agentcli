@@ -46,7 +46,9 @@ def _runtime(client, *, transport="chat_completions", streaming=True, provider="
         client=client,
         provider=provider,
         model="served-model",
-        identifiers=RoundIdentifiers("turn", "round", "attempt", "request", "stream", 1),
+        identifiers=RoundIdentifiers(
+            "turn", "round", "attempt", "request", "stream", 1
+        ),
         transport=transport,
         streaming=streaming,
     )
@@ -151,7 +153,9 @@ def test_vllm_missing_invalid_and_inconsistent_usage(responses):
 
 
 def test_vllm_stream_request_preserves_explicit_options():
-    payload = {"stream_options": {"include_usage": False, "continuous_usage_stats": True}}
+    payload = {
+        "stream_options": {"include_usage": False, "continuous_usage_stats": True}
+    }
     request_vllm_chat_stream_usage(payload)
     assert payload == {
         "stream_options": {
@@ -208,9 +212,7 @@ def test_vllm_stream_failure_does_not_report_partial_usage():
 
 def test_vllm_cancelled_stream_does_not_report_usage():
     client = _Client([_chunk(content="answer", usage=_chat_usage())])
-    events = _run(
-        _runtime(client), cancellation=_Cancellation(cancelled=True)
-    )
+    events = _run(_runtime(client), cancellation=_Cancellation(cancelled=True))
     assert [event.type for event in events] == [
         "ResponseStarted",
         "ResponseCancelled",
@@ -246,3 +248,29 @@ def test_vllm_without_usage_does_not_fabricate_counts():
     events = _run(_runtime(_Client([_chunk(content="answer")])))
     assert events[-1].type == "ResponseCompleted"
     assert "usage" not in events[-1].data
+
+def test_vllm_legacy_publication_uses_fresh_normalized_snapshot():
+    from uagent.providers.llm_vllm_usage import publish_vllm_legacy_usage
+
+    old = {"input_tokens": 999}
+    core = SimpleNamespace(_last_responses_usage=old)
+    publish_vllm_legacy_usage(core, None, responses=False)
+    assert core._last_responses_usage is old
+
+    publish_vllm_legacy_usage(core, _chat_usage(), responses=False)
+    assert core._last_responses_usage == _expected()
+    assert core._last_responses_usage is not old
+
+    raw = {
+        "input_tokens": 20,
+        "output_tokens": 4,
+        "input_tokens_details": {"cached_tokens": 7, "cache_write_tokens": 3},
+    }
+    publish_vllm_legacy_usage(core, raw, responses=True)
+    assert core._last_responses_usage == {
+        "input_tokens": 20,
+        "output_tokens": 4,
+        "total_tokens": 24,
+        "cache_read_input_tokens": 7,
+        "cache_write_input_tokens": 3,
+    }
