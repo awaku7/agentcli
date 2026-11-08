@@ -270,11 +270,15 @@ class OpenAICompatibleRuntime:
                     options.pop("truncation")
                 text_options = options.get("text")
                 if isinstance(text_options, Mapping) and "verbosity" in text_options:
-                    options["text"] = {
+                    filtered_text = {
                         key: value
                         for key, value in text_options.items()
                         if key != "verbosity"
                     }
+                    if filtered_text:
+                        options["text"] = filtered_text
+                    else:
+                        options.pop("text", None)
             if self._provider == "bedrock":
                 from .llm_bedrock_responses import build_bedrock_responses_request
 
