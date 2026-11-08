@@ -19,6 +19,8 @@ class _Client:
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self.create))
 
     def create(self, **kwargs):
+        # Together's native SDK rejects this as a top-level keyword.
+        assert "stream_options" not in kwargs
         self.calls.append(kwargs)
         return self.response
 
@@ -79,6 +81,16 @@ def _round(monkeypatch, client, core, *, stream=True, wait=None):
     )
 
 
+def test_together_native_sdk_exposes_extra_body_keyword() -> None:
+    """Keep the real SDK call contract covered, not just permissive mocks."""
+    from inspect import signature
+
+    from together import Together
+
+    client = Together(api_key="unit-test-placeholder")
+    assert "extra_body" in signature(client.chat.completions.create).parameters
+
+
 def test_together_normalizes_reported_subset_counts() -> None:
     assert together_chat_usage_to_dict(_usage()) == _expected()
     assert together_chat_usage_to_dict(
@@ -118,9 +130,7 @@ def test_together_invalid_or_missing_counts_are_not_invented() -> None:
         }
     ) == {"input_tokens": 10, "output_tokens": 4, "total_tokens": 14}
     assert (
-        together_chat_usage_to_dict(
-            {"prompt_tokens": True, "completion_tokens": -3}
-        )
+        together_chat_usage_to_dict({"prompt_tokens": True, "completion_tokens": -3})
         == {}
     )
     assert together_chat_usage_to_dict(
@@ -167,7 +177,9 @@ def test_together_stream_round_requests_and_publishes_usage(monkeypatch) -> None
     assert result[0] is True
     assert result[2] == "answer"
     assert client.calls[0]["stream"] is True
-    assert client.calls[0]["stream_options"] == {"include_usage": True}
+    assert client.calls[0]["extra_body"]["stream_options"] == {
+        "include_usage": True
+    }
     assert core._last_responses_usage == _expected()
     assert core._last_responses_usage is not previous
 
