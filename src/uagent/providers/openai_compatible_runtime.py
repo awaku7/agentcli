@@ -93,6 +93,27 @@ def _reported_usage(
         if type(value) is int and 0 <= value <= 1_000_000_000_000:
             result[target] = value
     result.update(provider_cache_usage(usage, responses=responses))
+    if provider == "perplexity" and responses:
+        input_tokens = result.get("input_tokens")
+        output_tokens = result.get("output_tokens")
+        written = _mapping_value(
+            _mapping_value(usage, "input_tokens_details"), "cache_write_tokens"
+        )
+        reasoning = _mapping_value(
+            _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
+        )
+        if (
+            type(written) is int
+            and input_tokens is not None
+            and 0 <= written <= input_tokens
+        ):
+            result["cache_write_input_tokens"] = written
+        if (
+            type(reasoning) is int
+            and output_tokens is not None
+            and 0 <= reasoning <= output_tokens
+        ):
+            result["reasoning_output_tokens"] = reasoning
     if provider == "meta" and responses:
         reasoning = _mapping_value(
             _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
