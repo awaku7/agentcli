@@ -118,6 +118,61 @@ def anthropic_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
+def gemini_usage_to_dict(usage: Any) -> dict[str, int]:
+    """Normalize Gemini/Vertex per-response metadata without double counting.
+
+    Google counts cached content inside prompt_token_count, and reports
+    tool_use_prompt_token_count as an additional input portion. Thinking
+    tokens are output, not a second request or a separate billed request.
+    """
+    if usage is None:
+        return {}
+    fields: dict[str, int] = {}
+    invalid_input = False
+    invalid_output = False
+    for key in (
+        "prompt_token_count",
+        "tool_use_prompt_token_count",
+        "candidates_token_count",
+        "thoughts_token_count",
+        "cached_content_token_count",
+    ):
+        value = _field(usage, key)
+        if value is None:
+            continue
+        if type(value) is int and 0 <= value <= 10**12:
+            fields[key] = value
+        elif key in ("candidates_token_count", "thoughts_token_count"):
+            invalid_output = True
+        else:
+            invalid_input = True
+
+    result: dict[str, int] = {}
+    prompt = fields.get("prompt_token_count")
+    cache = fields.get("cached_content_token_count")
+    if prompt is not None and not invalid_input:
+        count = prompt + fields.get("tool_use_prompt_token_count", 0)
+        if count <= 10**12 and (cache is None or cache <= count):
+            result["input_tokens"] = count
+            if cache is not None:
+                result["cache_read_input_tokens"] = cache
+
+    candidate = fields.get("candidates_token_count")
+    thoughts = fields.get("thoughts_token_count")
+    if candidate is not None and not invalid_output:
+        count = candidate + (thoughts or 0)
+        if count <= 10**12:
+            result["output_tokens"] = count
+            if thoughts is not None:
+                result["reasoning_output_tokens"] = thoughts
+
+    if "input_tokens" in result and "output_tokens" in result:
+        total = result["input_tokens"] + result["output_tokens"]
+        if total <= 10**12:
+            result["total_tokens"] = total
+    return result
+
+
 def estimate_context_components(
     request: Any, *, provider: str = "", model: str = ""
 ) -> dict[str, int]:
@@ -164,5 +219,6 @@ __all__ = [
     "reconcile_usage",
     "provider_cache_usage",
     "anthropic_usage_to_dict",
+    "gemini_usage_to_dict",
     "estimate_context_components",
 ]
