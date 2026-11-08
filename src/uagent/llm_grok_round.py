@@ -283,6 +283,14 @@ def _call_grok_round(
             else:
                 resp = chat.sample()
                 assistant_text, tool_calls_list = parse_xai_response(resp, core=core)
+                from .runtime.telemetry import xai_usage_to_dict
+
+                measured = xai_usage_to_dict(getattr(resp, "usage", None))
+                if measured and core is not None:
+                    try:
+                        core._last_responses_usage = measured
+                    except (AttributeError, TypeError):
+                        pass
                 _debug_log(
                     "nonstream_xai_done",
                     assistant_text_len=len(assistant_text),
