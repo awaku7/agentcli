@@ -676,3 +676,81 @@ def test_vercel_legacy_round_publishes_measured_tokens_to_chat_span(
     assert span.attributes["uag.tokens.reported.input"] == 80
     assert span.attributes["uag.tokens.reported.output"] == 20
     assert span.attributes["uag.tokens.reported.total"] == 100
+
+
+@pytest.mark.parametrize("provider", ["hf", "minimax", "sakura"])
+@pytest.mark.parametrize("has_usage", [True, False])
+def test_remaining_openai_compatible_legacy_chat_reports_only_measured_usage(
+    monkeypatch, provider: str, has_usage: bool
+) -> None:
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    previous = {"input_tokens": 999, "output_tokens": 888}
+    core = SimpleNamespace(
+        _is_web=True,
+        responses_state={},
+        _last_responses_usage=previous,
+    )
+    usage = (
+        SimpleNamespace(prompt_tokens=50, completion_tokens=13, total_tokens=63)
+        if has_usage
+        else SimpleNamespace(
+            prompt_tokens=True, completion_tokens=-1, total_tokens="invalid"
+        )
+    )
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    content="answer", tool_calls=[], reasoning_content=None
+                )
+            )
+        ],
+        usage=usage,
+    )
+    calls: list[dict] = []
+
+    def create(**kwargs):
+        calls.append(kwargs)
+        return response
+
+    client = SimpleNamespace(
+        chat=SimpleNamespace(completions=SimpleNamespace(create=create))
+    )
+    result = legacy_provider_dispatch.call_legacy_openai_azure_round(
+        provider=provider,
+        client=client,
+        depname="test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: (provider, client),
+        call_maybe_thread_fn=lambda call: call(),
+        use_responses_api=False,
+        stream_responses=False,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+    )
+    assert result[0] is True
+    assert "stream_options" not in calls[0]
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    if has_usage:
+        assert core._last_responses_usage == {
+            "input_tokens": 50,
+            "output_tokens": 13,
+            "total_tokens": 63,
+        }
+        assert core._last_responses_usage is not previous
+        assert span.attributes["uag.tokens.reported.input"] == 50
+        assert span.attributes["uag.tokens.reported.output"] == 13
+        assert span.attributes["uag.tokens.reported.total"] == 63
+    else:
+        assert core._last_responses_usage is previous
+        assert not any(
+            key.startswith("uag.tokens.reported.") for key in span.attributes
+        )

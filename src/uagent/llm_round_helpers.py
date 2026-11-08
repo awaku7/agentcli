@@ -1762,6 +1762,18 @@ def _call_openai_azure_round(
         if raw_usage is not legacy_usage_before:
             publish_vllm_legacy_usage(core, raw_usage, responses=use_responses_api)
 
+    if provider in {"hf", "minimax", "sakura"} and not use_responses_api:
+        # These providers use the non-streaming OpenAI-compatible legacy path.
+        # Publish only measured Chat usage to the existing OTel boundary.
+        from .providers.openai_compatible_runtime import _reported_usage
+
+        measured_usage = _reported_usage(getattr(resp, "usage", None), responses=False)
+        if measured_usage and core is not None:
+            try:
+                core._last_responses_usage = measured_usage
+            except (AttributeError, TypeError):
+                pass
+
     _record_legacy_usage_telemetry(
         core=core,
         provider=provider,

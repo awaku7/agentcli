@@ -250,7 +250,7 @@ def test_deepseek_legacy_stream_keeps_usage_local_until_owner_returns() -> None:
     assert core._last_responses_usage is previous
 
 
-def test_deepseek_legacy_round_requests_final_usage_without_affecting_mimo(
+def test_deepseek_and_mimo_legacy_stream_usage_with_provider_safe_options(
     monkeypatch,
 ) -> None:
     monkeypatch.setattr(
@@ -287,4 +287,84 @@ def test_deepseek_legacy_round_requests_final_usage_without_affecting_mimo(
             assert core._last_responses_usage == _expected()
         else:
             assert "stream_options" not in client.calls[0]
-            assert core._last_responses_usage == {"input_tokens": 999}
+            assert core._last_responses_usage == _expected()
+
+
+def test_mimo_legacy_nonstream_uses_reported_usage(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.llm_deepseek.build_deepseek_chat_kwargs",
+        lambda **_kwargs: ({"model": "mimo", "messages": []}, None),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.llm_deepseek.native_structured_output_request_for_runtime",
+        lambda *_args, **_kwargs: None,
+    )
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    content="answer", reasoning_content=None, tool_calls=[]
+                )
+            )
+        ],
+        usage=_usage(),
+    )
+    previous = {"input_tokens": 900}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    client = _Client(response)
+    result = deepseek_chat_with_tools(
+        client=client,
+        depname="mimo-v2.6-pro",
+        call_messages=[],
+        core=core,
+        make_client_fn=lambda _core: (None, client),
+        call_maybe_thread_fn=lambda fn: fn(),
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.0,
+        retry_cap=0.0,
+        stream=False,
+        provider="mimo",
+        callbacks=_callbacks(),
+    )
+    assert result[0] is True
+    assert "stream_options" not in client.calls[0]
+    assert core._last_responses_usage == _expected()
+    assert core._last_responses_usage is not previous
+
+
+def test_mimo_stream_error_does_not_publish_partial_usage(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.llm_deepseek.build_deepseek_chat_kwargs",
+        lambda **_kwargs: ({"model": "mimo", "messages": []}, None),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.llm_deepseek.native_structured_output_request_for_runtime",
+        lambda *_args, **_kwargs: None,
+    )
+
+    def broken_stream():
+        yield _chunk(text="partial", usage=_usage())
+        raise OSError("stream interrupted")
+
+    previous = {"input_tokens": 900}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    client = _Client(broken_stream())
+    result = deepseek_chat_with_tools(
+        client=client,
+        depname="mimo-v2.6-pro",
+        call_messages=[],
+        core=core,
+        make_client_fn=lambda _core: (None, client),
+        call_maybe_thread_fn=lambda fn: fn(),
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.0,
+        retry_cap=0.0,
+        stream=True,
+        provider="mimo",
+        callbacks=_callbacks(),
+    )
+    assert result[0] is True
+    assert core._last_responses_usage is previous
+    assert "stream_options" not in client.calls[0]

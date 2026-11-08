@@ -781,7 +781,9 @@ def deepseek_chat_with_tools(
                             core=core,
                             callbacks=callbacks,
                             usage_sink=(
-                                usage_snapshots if provider == "deepseek" else None
+                                usage_snapshots
+                                if provider in {"deepseek", "mimo"}
+                                else None
                             ),
                         )
                     )
@@ -798,7 +800,7 @@ def deepseek_chat_with_tools(
                 assistant_text, reasoning_content, tool_calls_list = (
                     parse_deepseek_response(resp)
                 )
-                if provider == "deepseek" and core is not None:
+                if provider in {"deepseek", "mimo"} and core is not None:
                     measured = deepseek_chat_usage_to_dict(getattr(resp, "usage", None))
                     if measured:
                         try:
