@@ -242,7 +242,17 @@ input/output tokens, UAG emits a separately labeled approximate count as
 `uag.tokens.estimate.input` / `uag.tokens.estimate.output` when request/output
 text is available. Admin displays estimated and measured values separately,
 with reported values taking precedence per field. No estimated value is ever
-placed in `gen_ai.usage.*`. Total token usage
+placed in `gen_ai.usage.*`. Where the provider reports cached input, the
+LLM `chat` span additionally exports `gen_ai.usage.cache_read.input_tokens`
+as a **subset** of the measured `gen_ai.usage.input_tokens` (never added to
+the total). Missing cache usage remains unknown rather than zero. For an
+enabled OTel session, UAG also reports metadata-only approximate request
+components as `uag.tokens.context.instructions`,
+`uag.tokens.context.messages`, and `uag.tokens.context.tools`. These are
+per-request estimates, not a provider's actual input counts or a guaranteed
+complete/tokenizer-equivalent partition. They never include raw messages,
+system instructions, or Tool definitions in the attributes.
+Total token usage
 is derivable from input/output counts, not redundantly exported.
 
 Registry Chat Completions and Responses adapters forward verified, non-negative
