@@ -26,9 +26,7 @@ def sakana_responses_usage_to_dict(usage: Any) -> dict[str, int]:
     cache = _field(input_details, "cached_tokens")
     orchestration_input = _field(input_details, "orchestration_input_tokens")
     orchestration_output = _field(output_details, "orchestration_output_tokens")
-    orchestration_cache = _field(
-        input_details, "orchestration_input_cached_tokens"
-    )
+    orchestration_cache = _field(input_details, "orchestration_input_cached_tokens")
 
     result: dict[str, int] = {}
     if _tokens(prompt):
