@@ -1320,6 +1320,18 @@ def gemini_chat_with_tools(
     tool_calls_list: list[dict[str, Any]] = []
     gemini_content_dump: dict[str, Any] = {}
 
+    def _record_usage(usage: Any) -> None:
+        if core is None:
+            return
+        from ..runtime.telemetry import gemini_usage_to_dict
+
+        measured = gemini_usage_to_dict(usage)
+        if measured:
+            try:
+                core._last_responses_usage = measured
+            except (AttributeError, TypeError):
+                pass
+
     def _collect_from_response_obj(
         response_obj: Any,
         *,
@@ -1498,6 +1510,8 @@ def gemini_chat_with_tools(
             pass
 
         text_so_far = ""
+        latest_usage = None
+        stream_complete = True
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
             for response in stream_iter:
@@ -1513,9 +1527,14 @@ def gemini_chat_with_tools(
                     if core is not None:
                         with core.interrupt_lock:
                             if core.interrupt_requested:
+                                stream_complete = False
                                 break
                 except Exception:
                     pass
+                usage = getattr(response, "usage_metadata", None)
+                if usage is not None:
+                    # Streaming metadata is cumulative; never sum chunks.
+                    latest_usage = usage
                 (
                     chunk_text,
                     chunk_tool_calls,
@@ -1539,6 +1558,7 @@ def gemini_chat_with_tools(
                 tool_calls=len(tool_calls_list),
             )
         except Exception as e:
+            stream_complete = False
             if (
                 "input token count exceeds" in str(e).lower()
                 or "maximum number of tokens allowed" in str(e).lower()
@@ -1610,6 +1630,8 @@ def gemini_chat_with_tools(
             except Exception:
                 pass
 
+        if stream_complete:
+            _record_usage(latest_usage)
         return assistant_content, tool_calls_list, gemini_content_dump
 
     _request_started = time.monotonic()
@@ -1660,4 +1682,5 @@ def gemini_chat_with_tools(
             unique_tcs.append(tc)
     tool_calls_list = unique_tcs
 
+    _record_usage(getattr(response, "usage_metadata", None))
     return assistant_content, tool_calls_list, gemini_content_dump
