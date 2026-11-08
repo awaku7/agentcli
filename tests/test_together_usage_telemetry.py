@@ -107,9 +107,7 @@ def test_together_normalizes_reported_subset_counts() -> None:
 
 def test_together_invalid_or_missing_counts_are_not_invented() -> None:
     assert together_chat_usage_to_dict(None) == {}
-    assert together_chat_usage_to_dict({"completion_tokens": 2}) == {
-        "output_tokens": 2
-    }
+    assert together_chat_usage_to_dict({"completion_tokens": 2}) == {"output_tokens": 2}
     assert together_chat_usage_to_dict(
         {
             "prompt_tokens": 10,
@@ -119,9 +117,12 @@ def test_together_invalid_or_missing_counts_are_not_invented() -> None:
             "total_tokens": 999,
         }
     ) == {"input_tokens": 10, "output_tokens": 4, "total_tokens": 14}
-    assert together_chat_usage_to_dict(
-        {"prompt_tokens": True, "completion_tokens": -3}
-    ) == {}
+    assert (
+        together_chat_usage_to_dict(
+            {"prompt_tokens": True, "completion_tokens": -3}
+        )
+        == {}
+    )
     assert together_chat_usage_to_dict(
         {"prompt_tokens": 10**12, "completion_tokens": 4}
     ) == {"input_tokens": 10**12, "output_tokens": 4}
