@@ -171,6 +171,31 @@ def test_inception_stream_reports_measured_terminal_usage(diffusing: bool) -> No
     }
 
 
+def test_inception_legacy_renderer_publishes_fresh_measured_usage() -> None:
+    previous = {"input_tokens": 900, "output_tokens": 200}
+    core = types.SimpleNamespace(
+        _is_web=False,
+        _last_responses_usage=previous,
+    )
+    final = types.SimpleNamespace(
+        choices=[],
+        usage={"prompt_tokens": 21, "completion_tokens": 9, "total_tokens": 30},
+    )
+    result = parse_inception_stream(
+        [_Chunk("answer"), final],
+        core=core,
+        print_delta_fn=lambda _: None,
+    )
+
+    assert result[0] == "answer"
+    assert core._last_responses_usage == {
+        "input_tokens": 21,
+        "output_tokens": 9,
+        "total_tokens": 30,
+    }
+    assert core._last_responses_usage is not previous
+
+
 def test_inception_stream_ignores_invalid_reported_usage() -> None:
     invalid = types.SimpleNamespace(
         choices=[],
