@@ -69,7 +69,7 @@ def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
 
 
 def capture_vllm_responses_usage(
-    stream: Any, *, provider: str, sink: list[dict[str, int]]
+    stream: Any, *, provider: str, sink: list[Any]
 ) -> Any:
     """Capture vLLM terminal usage without changing other providers' streams."""
     if provider != "vllm":
@@ -84,9 +84,10 @@ def capture_vllm_responses_usage(
         for event in source:
             if getattr(event, "type", None) == "response.completed":
                 response = getattr(event, "response", None)
-                measured = vllm_usage_to_dict(_field(response, "usage"), responses=True)
-                if measured:
-                    sink.append(measured)
+                usage = _field(response, "usage")
+                if usage is not None:
+                    # Keep the original API object; normalize once on publish.
+                    sink.append(usage)
             yield event
 
     return _events()
