@@ -790,9 +790,7 @@ def test_common_legacy_chat_preserves_provider_measured_usage_subsets(
         completion_tokens=40,
         total_tokens=999,
         cached_tokens=30,
-        prompt_tokens_details=SimpleNamespace(
-            cached_tokens=30, cache_write_tokens=10
-        ),
+        prompt_tokens_details=SimpleNamespace(cached_tokens=30, cache_write_tokens=10),
         completion_tokens_details=SimpleNamespace(reasoning_tokens=12),
     )
     response = SimpleNamespace(
