@@ -29,6 +29,11 @@ from ..llm_helpers import (
 )
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from .llm_novita_usage import (
+    novita_chat_usage_to_dict,
+    publish_novita_usage,
+    request_novita_stream_usage,
+)
 from .._lazy_sdk import is_openai_error
 
 _LABEL = "Novita"
@@ -204,6 +209,7 @@ def _parse_novita_stream(
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from Novita.
 
@@ -213,6 +219,8 @@ def _parse_novita_stream(
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
+    last_usage: dict[str, int] = {}
+    stream_failed = False
     is_web = bool(getattr(core, "_is_web", False)) if core else False
     callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
@@ -224,6 +232,10 @@ def _parse_novita_stream(
 
     try:
         for chunk in stream:
+            if usage_sink is not None:
+                reported = novita_chat_usage_to_dict(getattr(chunk, "usage", None))
+                if reported:
+                    last_usage = reported
             if not chunk.choices:
                 continue
             delta = chunk.choices[0].delta
@@ -295,7 +307,7 @@ def _parse_novita_stream(
                     if isinstance(fn_args, str):
                         acc["function"]["arguments"] += fn_args
     except Exception:
-        pass
+        stream_failed = True
 
     # Web UI: signal stream end
     if is_web and core is not None:
@@ -337,6 +349,10 @@ def _parse_novita_stream(
             callbacks.on_terminal("ResponseCompleted", {})
         except Exception:
             pass
+
+    # The owner, not a worker thread, publishes the completed request's usage.
+    if usage_sink is not None and not stream_failed and last_usage:
+        usage_sink.append(last_usage)
 
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
 
@@ -477,6 +493,8 @@ def novita_chat_with_tools(
                     pass
 
             if stream:
+                usage_snapshots: list[dict[str, int]] = []
+                request_novita_stream_usage(chat_kwargs)
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: _parse_novita_stream(
@@ -495,15 +513,21 @@ def novita_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
+                            usage_sink=usage_snapshots,
                         )
                     )
                 )
+                if usage_snapshots:
+                    publish_novita_usage(core, usage_snapshots[-1])
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
                 )
                 assistant_text, reasoning_content, tool_calls_list = (
                     _parse_novita_response(resp)
+                )
+                publish_novita_usage(
+                    core, novita_chat_usage_to_dict(getattr(resp, "usage", None))
                 )
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
