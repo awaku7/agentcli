@@ -14,11 +14,8 @@ import time
 from typing import TYPE_CHECKING, Any, Iterator, Mapping
 
 from ..env_utils import env_get
-from ..runtime.telemetry import (
-    deepseek_chat_usage_to_dict,
-    provider_cache_usage,
-    vllm_usage_to_dict,
-)
+from ..runtime.telemetry import deepseek_chat_usage_to_dict, provider_cache_usage
+from .llm_vllm_usage import request_vllm_chat_stream_usage, vllm_usage_to_dict
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -427,8 +424,10 @@ class OpenAICompatibleRuntime:
                 }
                 # Request final usage only on known-compatible endpoints.
                 # Older Azure API versions reject stream_options entirely.
-                if self._streaming and (
-                    self._provider in {"openai", "deepseek", "vllm"}
+                if self._streaming and self._provider == "vllm":
+                    request_vllm_chat_stream_usage(chat_payload)
+                elif self._streaming and (
+                    self._provider in {"openai", "deepseek"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
