@@ -777,3 +777,70 @@ def test_remaining_openai_compatible_legacy_chat_reports_only_measured_usage(
         assert not any(
             key.startswith("uag.tokens.reported.") for key in span.attributes
         )
+
+
+@pytest.mark.parametrize("provider", ["openrouter", "moonshot"])
+def test_common_legacy_chat_preserves_provider_measured_usage_subsets(
+    monkeypatch, provider: str
+) -> None:
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    usage = SimpleNamespace(
+        prompt_tokens=100,
+        completion_tokens=40,
+        total_tokens=999,
+        cached_tokens=30,
+        prompt_tokens_details=SimpleNamespace(
+            cached_tokens=30, cache_write_tokens=10
+        ),
+        completion_tokens_details=SimpleNamespace(reasoning_tokens=12),
+    )
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    content="answer", tool_calls=[], reasoning_content=None
+                )
+            )
+        ],
+        usage=usage,
+    )
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=SimpleNamespace(create=lambda **_kwargs: response)
+        )
+    )
+    core = SimpleNamespace(
+        _is_web=True,
+        responses_state={},
+        _last_responses_usage={"input_tokens": 900},
+    )
+    result = legacy_provider_dispatch.call_legacy_openai_azure_round(
+        provider=provider,
+        client=client,
+        depname="test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: (provider, client),
+        call_maybe_thread_fn=lambda call: call(),
+        use_responses_api=False,
+        stream_responses=False,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+    )
+    assert result[0] is True
+    assert core._last_responses_usage["total_tokens"] == 140
+    assert core._last_responses_usage["cache_read_input_tokens"] == 30
+    assert core._last_responses_usage["reasoning_output_tokens"] == 12
+    if provider == "openrouter":
+        assert core._last_responses_usage["cache_write_input_tokens"] == 10
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    assert span.attributes["uag.tokens.reported.total"] == 140
+    assert span.attributes["gen_ai.usage.cache_read.input_tokens"] == 30
+    assert span.attributes["gen_ai.usage.reasoning.output_tokens"] == 12
