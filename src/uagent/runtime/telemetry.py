@@ -173,6 +173,41 @@ def gemini_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
+
+def xai_usage_to_dict(usage: Any) -> dict[str, int]:
+    """Normalize native xAI gRPC usage (distinct completion and reasoning).
+
+    Native SDK completion_tokens excludes reasoning_tokens, unlike OpenAI
+    compatible REST. Cached prompt text is already part of prompt_tokens.
+    """
+    if usage is None:
+        return {}
+    result: dict[str, int] = {}
+    prompt = _field(usage, "prompt_tokens")
+    completion = _field(usage, "completion_tokens")
+    reasoning = _field(usage, "reasoning_tokens")
+    cached = _field(usage, "cached_prompt_text_tokens")
+
+    valid = lambda value: type(value) is int and 0 <= value <= 10**12
+
+    if valid(prompt) and (cached is None or (valid(cached) and cached <= prompt)):
+        result["input_tokens"] = prompt
+        if cached is not None:
+            result["cache_read_input_tokens"] = cached
+
+    if valid(completion) and (reasoning is None or valid(reasoning)):
+        total_output = completion + (reasoning or 0)
+        if total_output <= 10**12:
+            result["output_tokens"] = total_output
+            if reasoning is not None:
+                result["reasoning_output_tokens"] = reasoning
+
+    if "input_tokens" in result and "output_tokens" in result:
+        total = result["input_tokens"] + result["output_tokens"]
+        if total <= 10**12:
+            result["total_tokens"] = total
+    return result
+
 def estimate_context_components(
     request: Any, *, provider: str = "", model: str = ""
 ) -> dict[str, int]:
@@ -220,5 +255,6 @@ __all__ = [
     "provider_cache_usage",
     "anthropic_usage_to_dict",
     "gemini_usage_to_dict",
+    "xai_usage_to_dict",
     "estimate_context_components",
 ]
