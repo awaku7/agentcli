@@ -1027,6 +1027,62 @@ def test_registry_responses_usage_from_terminal_response(
     }
 
 
+@pytest.mark.parametrize("streaming", [False, True])
+def test_meta_responses_usage_includes_measured_cache_and_reasoning(
+    streaming: bool,
+) -> None:
+    response = SimpleNamespace(
+        id="resp_meta",
+        output_text="answer",
+        output=[],
+        usage=SimpleNamespace(
+            input_tokens=120,
+            output_tokens=40,
+            total_tokens=160,
+            input_tokens_details=SimpleNamespace(cached_tokens=30),
+            output_tokens_details=SimpleNamespace(reasoning_tokens=16),
+        ),
+    )
+    stream = [SimpleNamespace(type="response.completed", response=response)]
+    client = _Client(events=stream if streaming else response)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="meta",
+        model="muse-spark-1.3",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=streaming,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {
+        "input_tokens": 120,
+        "output_tokens": 40,
+        "total_tokens": 160,
+        "cache_read_input_tokens": 30,
+        "reasoning_output_tokens": 16,
+    }
+    assert "stream_options" not in client.responses.calls[0]
+
+
+def test_meta_responses_rejects_invalid_reasoning_count() -> None:
+    from uagent.providers.openai_compatible_runtime import _reported_usage
+
+    usage = {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "output_tokens_details": {"reasoning_tokens": 7},
+    }
+    assert _reported_usage(usage, responses=True, provider="meta") == {
+        "input_tokens": 10,
+        "output_tokens": 5,
+    }
+
+
 @pytest.mark.parametrize(
     ("usage", "expected"),
     [
