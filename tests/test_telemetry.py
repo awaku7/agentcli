@@ -29,9 +29,12 @@ def test_cache_read_usage_is_a_subset_not_a_second_input_total() -> None:
     assert provider_cache_usage(
         {"prompt_tokens_details": {"cached_tokens": 9}}, responses=False
     ) == {"cache_read_input_tokens": 9}
-    assert provider_cache_usage(
-        {"input_tokens_details": {"cached_tokens": "unknown"}}, responses=True
-    ) == {}
+    assert (
+        provider_cache_usage(
+            {"input_tokens_details": {"cached_tokens": "unknown"}}, responses=True
+        )
+        == {}
+    )
     assert reconcile_usage(
         None, {"input_tokens": 50, "cache_read_input_tokens": 27}
     ) == {
