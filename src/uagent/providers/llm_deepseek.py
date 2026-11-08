@@ -523,7 +523,7 @@ def parse_deepseek_stream(
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
-    capture_usage: bool = False,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from DeepSeek.
 
@@ -547,7 +547,7 @@ def parse_deepseek_stream(
 
     try:
         for chunk in stream:
-            if capture_usage:
+            if usage_sink is not None:
                 reported = deepseek_chat_usage_to_dict(getattr(chunk, "usage", None))
                 if reported:
                     latest_usage = reported
@@ -629,11 +629,10 @@ def parse_deepseek_stream(
     except Exception:
         stream_failed = True
 
-    if capture_usage and not stream_failed and latest_usage and core is not None:
-        try:
-            core._last_responses_usage = latest_usage
-        except (AttributeError, TypeError):
-            pass
+    # Never mutate the shared core from an abandoned worker thread.
+    # The caller publishes this only after its waiting function returns.
+    if usage_sink is not None and not stream_failed and latest_usage:
+        usage_sink.append(latest_usage)
 
     # Web UI: signal stream end
     if is_web and core is not None:
@@ -759,6 +758,7 @@ def deepseek_chat_with_tools(
                     pass
 
             if stream:
+                usage_snapshots: list[dict[str, int]] = []
                 if provider == "deepseek":
                     chat_kwargs["stream_options"] = {"include_usage": True}
                 assistant_text, reasoning_content, tool_calls_list = (
@@ -779,10 +779,17 @@ def deepseek_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
-                            capture_usage=(provider == "deepseek"),
+                            usage_sink=(
+                                usage_snapshots if provider == "deepseek" else None
+                            ),
                         )
                     )
                 )
+                if usage_snapshots and core is not None:
+                    try:
+                        core._last_responses_usage = usage_snapshots[-1]
+                    except (AttributeError, TypeError):
+                        pass
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
