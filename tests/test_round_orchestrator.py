@@ -379,3 +379,74 @@ def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
         cancellation=_Cancellation(),
     )
     assert span.attributes["uag.tokens.estimate.output"] == len('search{"q":"abc"}')
+
+
+def test_orchestrator_exports_numeric_reasoning_usage_through_privacy_adapter(
+    monkeypatch,
+) -> None:
+    from contextlib import contextmanager
+
+    from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
+
+    class RawSpan:
+        def __init__(self):
+            self.attributes = {}
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            pass
+
+        def set_status(self, status, description=None):
+            pass
+
+    class Backend:
+        enabled = True
+
+        @contextmanager
+        def start_span(self, operation, *, attributes=None, root=False):
+            yield OpenTelemetrySpan(raw, capture_content=False)
+
+    class ReportedRuntime(_Runtime):
+        def run(self, request, cancellation):
+            yield StreamEvent(
+                "ResponseStarted",
+                request.identifiers,
+                0,
+                0.0,
+                {"stream_mode": "delta"},
+            )
+            yield StreamEvent(
+                "ResponseCompleted",
+                request.identifiers,
+                1,
+                0.0,
+                {
+                    "usage": {
+                        "input_tokens": 100,
+                        "output_tokens": 35,
+                        "reasoning_output_tokens": 23,
+                        "cache_read_input_tokens": 40,
+                    }
+                },
+            )
+
+    raw = RawSpan()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: Backend(),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", ReportedRuntime())
+    RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "PRIVATE_CONTENT"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    )
+    assert raw.attributes["gen_ai.usage.input_tokens"] == 100
+    assert raw.attributes["gen_ai.usage.output_tokens"] == 35
+    assert raw.attributes["gen_ai.usage.cache_read.input_tokens"] == 40
+    assert raw.attributes["gen_ai.usage.reasoning.output_tokens"] == 23
+    assert "PRIVATE_CONTENT" not in str(raw.attributes)

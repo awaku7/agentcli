@@ -8,6 +8,7 @@ from uagent.runtime.telemetry import (
     estimate_context_components,
     provider_cache_usage,
     reconcile_usage,
+    xai_usage_to_dict,
 )
 
 
@@ -252,3 +253,83 @@ def test_gemini_reasoning_and_cache_are_non_additive_subsets() -> None:
         "total_tokens_delta": 120,
         "cache_read_input_tokens_delta": 30,
     }
+
+
+def test_xai_native_usage_adds_reasoning_without_double_counting_cache() -> None:
+    usage = SimpleNamespace(
+        prompt_tokens=110,
+        prompt_text_tokens=100,
+        prompt_image_tokens=10,
+        cached_prompt_text_tokens=40,
+        completion_tokens=12,
+        reasoning_tokens=23,
+        total_tokens=145,
+    )
+    assert xai_usage_to_dict(usage) == {
+        "input_tokens": 110,
+        "cache_read_input_tokens": 40,
+        "output_tokens": 35,
+        "reasoning_output_tokens": 23,
+        "total_tokens": 145,
+    }
+
+
+def test_xai_native_usage_preserves_absence_and_valid_zeroes() -> None:
+    assert xai_usage_to_dict(None) == {}
+    assert xai_usage_to_dict({"prompt_tokens": 14}) == {"input_tokens": 14}
+    assert xai_usage_to_dict({"completion_tokens": 3}) == {"output_tokens": 3}
+    assert xai_usage_to_dict(
+        {
+            "prompt_tokens": 15,
+            "cached_prompt_text_tokens": 0,
+            "completion_tokens": 4,
+            "reasoning_tokens": 0,
+        }
+    ) == {
+        "input_tokens": 15,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4,
+        "reasoning_output_tokens": 0,
+        "total_tokens": 19,
+    }
+
+
+def test_xai_native_usage_rejects_malformed_components_independently() -> None:
+    assert xai_usage_to_dict(
+        {
+            "prompt_tokens": 30,
+            "cached_prompt_text_tokens": 40,
+            "completion_tokens": 4,
+        }
+    ) == {"output_tokens": 4}
+    assert (
+        xai_usage_to_dict(
+            {
+                "prompt_tokens": True,
+                "completion_tokens": 4,
+                "reasoning_tokens": -1,
+            }
+        )
+        == {}
+    )
+    assert xai_usage_to_dict(
+        {
+            "prompt_tokens": 20,
+            "completion_tokens": 4,
+            "reasoning_tokens": "invalid",
+        }
+    ) == {"input_tokens": 20}
+    assert xai_usage_to_dict(
+        {
+            "prompt_tokens": 10**12,
+            "completion_tokens": 1,
+            "reasoning_tokens": 1,
+        }
+    ) == {"input_tokens": 10**12, "output_tokens": 2, "reasoning_output_tokens": 1}
+    assert (
+        xai_usage_to_dict(
+            {"prompt_tokens": 10**12, "cached_prompt_text_tokens": 10**12 + 1}
+        )
+        == {}
+    )
+    assert xai_usage_to_dict({"completion_tokens": 10**12, "reasoning_tokens": 1}) == {}

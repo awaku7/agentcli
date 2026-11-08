@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 import uuid
-from typing import Any, Iterator, Optional
+from typing import Any, Callable, Iterator, Optional
 
 
 from ..env_utils import env_get
@@ -465,9 +465,13 @@ def _normalize_xai_stream_tool_call(tool_call: Any) -> dict[str, Any] | None:
     }
 
 
-def iter_xai_stream_parts(stream_iter: Any) -> Iterator[tuple[str, Any]]:
-    """Yield normalized xAI stream parts without buffering provider output."""
-    for _response, chunk in stream_iter:
+def iter_xai_stream_parts(
+    stream_iter: Any, *, on_response: Callable[[Any], None] | None = None
+) -> Iterator[tuple[str, Any]]:
+    """Yield xAI stream parts, optionally observing cumulative response usage."""
+    for response, chunk in stream_iter:
+        if on_response is not None:
+            on_response(response)
         content = getattr(chunk, "content", "") or ""
         if content:
             yield "text", _as_str(content)
@@ -497,6 +501,14 @@ def parse_xai_stream(
             pass
     reasoning_started = False
     saw_reasoning = False
+    latest_usage: dict[str, int] = {}
+    stream_complete = True
+
+    def observe_response(response: Any) -> None:
+        nonlocal latest_usage
+        from ..runtime.telemetry import xai_usage_to_dict
+
+        latest_usage = xai_usage_to_dict(getattr(response, "usage", None))
 
     def _print_delta(s: str) -> None:
         if callable(callbacks.on_delta):
@@ -514,7 +526,9 @@ def parse_xai_stream(
             print(s, end="", flush=True)
 
     try:
-        for part_type, value in iter_xai_stream_parts(stream_iter):
+        for part_type, value in iter_xai_stream_parts(
+            stream_iter, on_response=observe_response
+        ):
             if part_type == "text":
                 if saw_reasoning:
                     _print_delta("\n")
@@ -540,7 +554,14 @@ def parse_xai_stream(
             elif part_type == "tool_call":
                 tool_calls_list.append(value)
     except Exception as exc:
+        stream_complete = False
         _debug_log("stream_error", error=str(exc))
+
+    if stream_complete and latest_usage and core is not None:
+        try:
+            core._last_responses_usage = latest_usage
+        except (AttributeError, TypeError):
+            pass
 
     # Print final newline after streaming to avoid state messages on same line.
     _print_delta(chr(10))
