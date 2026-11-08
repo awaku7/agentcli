@@ -10,8 +10,8 @@ from typing import Any, Iterator
 
 from ..runtime.round_contracts import RoundIdentifiers, StreamEvent
 from ..runtime.inception_stream_compat import collect_inception_stream_events
-from .responses_runtime import _responses_session_generation
 from .openai_compatible_runtime import _reported_usage
+from .responses_runtime import _responses_session_generation
 
 
 def inception_stream_events(
