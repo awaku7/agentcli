@@ -456,3 +456,32 @@ def test_gemini_vertex_otel_exports_prompt_cache_and_reasoning(monkeypatch) -> N
         assert attrs["gen_ai.usage.reasoning.output_tokens"] == 12
         assert "gen_ai.usage.cache_write.input_tokens" not in attrs
         assert "PRIVATE_TEXT" not in str(attrs)
+
+def test_zai_fallback_otel_exports_measured_cache_and_reasoning(monkeypatch) -> None:
+    from uagent.runtime.telemetry import zai_chat_usage_to_dict
+
+    backend = _install_backend(monkeypatch)
+    previous = {"input_tokens": 9999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    with observability_runtime.fallback_chat_span(
+        provider="zai",
+        model="glm-test",
+        request_input=[{"role": "user", "content": "PRIVATE_TEXT"}],
+        core=core,
+    ):
+        core._last_responses_usage = zai_chat_usage_to_dict(
+            {
+                "prompt_tokens": 100,
+                "completion_tokens": 25,
+                "prompt_tokens_details": {"cached_tokens": 40},
+                "completion_tokens_details": {"reasoning_tokens": 10},
+            }
+        )
+
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 100
+    assert attrs["uag.tokens.reported.output"] == 25
+    assert attrs["uag.tokens.reported.total"] == 125
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 40
+    assert attrs["gen_ai.usage.reasoning.output_tokens"] == 10
+    assert "PRIVATE_TEXT" not in str(attrs)
