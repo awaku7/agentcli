@@ -411,7 +411,7 @@ def _call_openai_azure_round(
     )
     if not isinstance(legacy_usage_before, dict):
         legacy_usage_before = {}
-    vllm_stream_usage: list[dict[str, int]] = []
+    vllm_stream_usage: list[Any] = []
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
