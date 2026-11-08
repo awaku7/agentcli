@@ -1741,6 +1741,16 @@ def _call_openai_azure_round(
         traceback.print_exc()
         return False, client, "", "", []
 
+    if provider == "vllm":
+        from .providers.llm_vllm_usage import publish_vllm_legacy_usage
+
+        raw_usage = (
+            getattr(core, "_last_responses_usage", None)
+            if use_responses_api
+            else getattr(resp, "usage", None)
+        )
+        publish_vllm_legacy_usage(core, raw_usage, responses=use_responses_api)
+
     _record_legacy_usage_telemetry(
         core=core,
         provider=provider,
