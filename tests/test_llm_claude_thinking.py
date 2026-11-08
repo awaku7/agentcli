@@ -260,7 +260,6 @@ def test_redacted_thinking_block_is_ignored(capsys, monkeypatch):
     assert text == "final"
 
 
-
 def test_claude_success_stores_only_current_response_usage() -> None:
     client = FakeClient([Block("text", text="ok")])
     usage = SimpleNamespace(
