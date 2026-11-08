@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.providers.llm_deepseek import deepseek_chat_with_tools, parse_deepseek_stream
+from uagent.providers.llm_deepseek import (
+    deepseek_chat_with_tools,
+    parse_deepseek_stream,
+)
 from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
 from uagent.runtime.round_contracts import (
     RoundIdentifiers,
@@ -66,7 +69,9 @@ def _chunk(*, text=None, usage=None):
     choices = (
         [
             SimpleNamespace(
-                delta=SimpleNamespace(content=text, reasoning_content=None, tool_calls=[])
+                delta=SimpleNamespace(
+                    content=text, reasoning_content=None, tool_calls=[]
+                )
             )
         ]
         if text is not None
@@ -163,7 +168,11 @@ def test_deepseek_usage_rejects_malformed_and_inconsistent_subsets() -> None:
         }
     ) == {}
     assert deepseek_chat_usage_to_dict(
-        {"prompt_tokens": 5, "completion_tokens": 2, "completion_tokens_details": {"reasoning_tokens": -1}}
+        {
+            "prompt_tokens": 5,
+            "completion_tokens": 2,
+            "completion_tokens_details": {"reasoning_tokens": -1},
+        }
     ) == {"input_tokens": 5}
 
 
@@ -245,9 +254,7 @@ def test_deepseek_legacy_round_requests_final_usage_without_affecting_mimo(
         "uagent.providers.llm_deepseek.native_structured_output_request_for_runtime",
         lambda *_args, **_kwargs: None,
     )
-    monkeypatch.setattr(
-        "uagent.providers.llm_deepseek.env_get", lambda _name: ""
-    )
+    monkeypatch.setattr("uagent.providers.llm_deepseek.env_get", lambda _name: "")
 
     for provider in ("deepseek", "mimo"):
         core = SimpleNamespace(_last_responses_usage={"input_tokens": 999})
