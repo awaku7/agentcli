@@ -852,6 +852,8 @@ def test_runtime_cancellation_is_terminal() -> None:
         "alibaba",
         "moonshot",
         "meta",
+        "perplexity",
+        "bedrock",
     ],
 )
 def test_registry_chat_usage_is_reported_once(
@@ -905,10 +907,32 @@ def test_registry_chat_usage_is_reported_once(
         "alibaba",
         "moonshot",
         "meta",
+        "perplexity",
+        "bedrock",
     }:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in kwargs
+
+
+@pytest.mark.parametrize("provider", ["perplexity", "bedrock"])
+def test_gateway_chat_stream_respects_explicit_usage_opt_out(provider: str) -> None:
+    client = _Client(chunks=[])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider=provider,
+        model="test-model",
+        identifiers=_identifiers(),
+        options={"stream_options": {"include_usage": False}},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert client.chat.completions.calls[0]["stream_options"] == {"include_usage": False}
+    assert "usage" not in events[-1].data
 
 
 @pytest.mark.parametrize(
@@ -999,7 +1023,17 @@ def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
+    [
+        "openai",
+        "lmstudio",
+        "ollama",
+        "nvidia",
+        "alibaba",
+        "moonshot",
+        "meta",
+        "perplexity",
+        "bedrock",
+    ],
 )
 def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
@@ -1142,7 +1176,17 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
+    [
+        "openai",
+        "lmstudio",
+        "ollama",
+        "nvidia",
+        "alibaba",
+        "moonshot",
+        "meta",
+        "perplexity",
+        "bedrock",
+    ],
 )
 def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
