@@ -457,6 +457,7 @@ def test_gemini_vertex_otel_exports_prompt_cache_and_reasoning(monkeypatch) -> N
         assert "gen_ai.usage.cache_write.input_tokens" not in attrs
         assert "PRIVATE_TEXT" not in str(attrs)
 
+
 def test_zai_fallback_otel_exports_measured_cache_and_reasoning(monkeypatch) -> None:
     from uagent.runtime.telemetry import zai_chat_usage_to_dict
 
