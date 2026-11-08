@@ -32,6 +32,7 @@ from ..llm_helpers import (
 )
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from ..runtime.telemetry import together_chat_usage_to_dict
 from .._lazy_sdk import is_openai_error
 
 _LABEL = "Together"
@@ -192,6 +193,7 @@ def _parse_together_stream(
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from Together.
 
@@ -200,6 +202,8 @@ def _parse_together_stream(
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
+    latest_usage: dict[str, int] = {}
+    stream_failed = False
     is_web = bool(getattr(core, "_is_web", False)) if core else False
     callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
@@ -211,6 +215,10 @@ def _parse_together_stream(
 
     try:
         for chunk in stream:
+            if usage_sink is not None:
+                reported = together_chat_usage_to_dict(getattr(chunk, "usage", None))
+                if reported:
+                    latest_usage = reported
             if not chunk.choices:
                 continue
             delta = chunk.choices[0].delta
@@ -282,7 +290,12 @@ def _parse_together_stream(
                     if isinstance(fn_args, str):
                         acc["function"]["arguments"] += fn_args
     except Exception:
-        pass
+        stream_failed = True
+
+    # The owning request publishes usage only after its waiting call returns;
+    # abandoned worker threads must never mutate shared core state.
+    if usage_sink is not None and not stream_failed and latest_usage:
+        usage_sink.append(latest_usage)
 
     if is_web and core is not None:
         try:
@@ -458,6 +471,10 @@ def together_chat_with_tools(
                     pass
 
             if stream:
+                usage_snapshots: list[dict[str, int]] = []
+                # Together's newer serving stack requires this flag to emit
+                # a terminal usage-only chunk for streamed responses.
+                chat_kwargs["stream_options"] = {"include_usage": True}
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: _parse_together_stream(
@@ -476,9 +493,15 @@ def together_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
+                            usage_sink=usage_snapshots,
                         )
                     )
                 )
+                if usage_snapshots and core is not None:
+                    try:
+                        core._last_responses_usage = usage_snapshots[-1]
+                    except (AttributeError, TypeError):
+                        pass
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
@@ -486,6 +509,12 @@ def together_chat_with_tools(
                 assistant_text, reasoning_content, tool_calls_list = (
                     _parse_together_response(resp)
                 )
+                measured = together_chat_usage_to_dict(getattr(resp, "usage", None))
+                if measured and core is not None:
+                    try:
+                        core._last_responses_usage = measured
+                    except (AttributeError, TypeError):
+                        pass
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
