@@ -187,15 +187,15 @@ set UAGENT_RESPONSES=0
 - `UAGENT_OPENROUTER_API_KEY`（必須）
 - `UAGENT_OPENROUTER_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
 
-#### Perplexity Router API
+#### Perplexity Orchestrator API
 
 `UAGENT_PROVIDER=perplexity` の場合に必要：
 
 - `UAGENT_PERPLEXITY_API_KEY`（必須。`PERPLEXITY_API_KEY` も利用可）
-- `UAGENT_PERPLEXITY_BASE_URL`（省略可、既定: `https://api.perplexity.ai/router/v1`）
+- `UAGENT_PERPLEXITY_BASE_URL`（省略可、既定: `https://api.perplexity.ai/orchestrator/v1`）
 - `UAGENT_PERPLEXITY_DEPNAME`（省略可、既定: `perplexity/kimi-k3`）
 
-RouterはOpenAI互換のChat CompletionsとResponsesに対応します。Responsesを使うには`UAGENT_RESPONSES=1`を設定してください。APIはステートレスのため、UAGは`previous_response_id`ではなく会話履歴を送信します。Routerは現在プレビュー中で、利用可能なPerplexity APIアカウントが必要です。
+Orchestrator APIはOpenAI互換のChat CompletionsとResponsesに対応します。Responsesを使うには`UAGENT_RESPONSES=1`を設定してください。APIはステートレスのため、UAGは毎回会話履歴を送信し、`previous_response_id`や`store=true`は使用しません。Orchestrator APIは現在プライベートプレビュー中で、利用可能なPerplexity APIアカウントが必要です。旧`/router/v1`は公式に互換URLとして案内されています。
 
 #### Inception Labs / Mercury
 
