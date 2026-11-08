@@ -252,6 +252,18 @@ class RoundOrchestrator:
         for key, attribute_name in reported_names.items():
             if key in usage_delta:
                 observability_span.set_attribute(attribute_name, usage_delta[key])
+        # Reasoning tokens are part of output, not an additional usage total.
+        if status == "completed" and isinstance(reported_usage, Mapping):
+            reasoning = reported_usage.get("reasoning_output_tokens")
+            output = reported_usage.get("output_tokens")
+            if (
+                type(reasoning) is int
+                and type(output) is int
+                and 0 <= reasoning <= output <= 10**12
+            ):
+                observability_span.set_attribute(
+                    "gen_ai.usage.reasoning.output_tokens", reasoning
+                )
         # Estimated usage is UAG-specific; never export it via GenAI usage.
         # The collector selects a measured value first, then this fallback.
         if status == "completed" and "output_tokens_delta" not in usage_delta:
