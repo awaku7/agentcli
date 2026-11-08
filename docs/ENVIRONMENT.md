@@ -81,9 +81,10 @@ Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an option
 
 OpenTelemetry support is opt-in and disabled by default. CLI flags override the environment:
 
-```text
-uag --otel
-uag --no-otel
+````text
+uag --otel                     # metadata-only Agent/LLM/Tool spans
+uag --otel --otel-content      # also capture reviewed conversation/Tool content
+uag --no-otel                  # disable all observability
 ```
 
 The process-level activation fallback is:
@@ -111,8 +112,8 @@ not enable uag observability or trigger dependency installation.
 
 Advanced Phase 4 diagnostics are independently opt-in: controlled content capture,
 pseudonymous correlation, provider SDK diagnostics, and authorization-aware trace query.
-Their exact CLI/environment setting names, accepted values, defaults, limits, precedence,
-and failure behavior are defined only in the
+The launcher offers no further OTel flags. Advanced operator environment and programmatic
+settings, accepted values, defaults, limits, precedence, and failure behavior are defined in the
 [OpenTelemetry Phase 4 Normative Contract](UAG_OPENTELEMETRY_PHASE4_CONTRACT.md#2-configuration-contract).
 Keep that contract as the single source of truth rather than duplicating its settings matrix here.
 
