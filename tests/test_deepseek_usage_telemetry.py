@@ -160,13 +160,16 @@ def test_deepseek_usage_rejects_malformed_and_inconsistent_subsets() -> None:
             "prompt_tokens_details": {"cached_tokens": 4},
         }
     ) == {"output_tokens": 5}
-    assert deepseek_chat_usage_to_dict(
-        {
-            "prompt_tokens": True,
-            "completion_tokens": 5,
-            "completion_tokens_details": {"reasoning_tokens": 6},
-        }
-    ) == {}
+    assert (
+        deepseek_chat_usage_to_dict(
+            {
+                "prompt_tokens": True,
+                "completion_tokens": 5,
+                "completion_tokens_details": {"reasoning_tokens": 6},
+            }
+        )
+        == {}
+    )
     assert deepseek_chat_usage_to_dict(
         {
             "prompt_tokens": 5,
