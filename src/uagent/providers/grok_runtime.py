@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Any, Iterator, Mapping
 
 from ..runtime.round_contracts import CancellationToken, SerializedRequest, StreamEvent
+from ..runtime.telemetry import xai_usage_to_dict
 from .llm_grok import (
     build_xai_messages,
     build_xai_tools,
@@ -46,6 +47,12 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
             options.setdefault("tool_choice", "auto")
 
         yield self._event("ResponseStarted", {"stream_mode": "delta"})
+        latest_usage: dict[str, int] = {}
+
+        def observe_response(response: Any) -> None:
+            nonlocal latest_usage
+            latest_usage = xai_usage_to_dict(getattr(response, "usage", None))
+
         try:
             if cancellation.is_cancelled():
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
@@ -57,7 +64,9 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
             )
             if self._streaming:
                 pending_tool_calls: dict[str, Mapping[str, Any]] = {}
-                parts = iter(iter_xai_stream_parts(chat.stream()))
+                parts = iter(
+                    iter_xai_stream_parts(chat.stream(), on_response=observe_response)
+                )
                 while True:
                     if cancellation.is_cancelled():
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})
@@ -92,13 +101,17 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
                 yield from tool_events
                 yield from self._complete_tools(normalized)
             else:
-                text, tool_calls = parse_xai_response(chat.sample())
+                response = chat.sample()
+                text, tool_calls = parse_xai_response(response)
+                observe_response(response)
                 if text:
                     yield self._event("TextDelta", {"text": text})
                 normalized, tool_events = self._normalize_tool_calls(tool_calls)
                 yield from tool_events
                 yield from self._complete_tools(normalized)
-            yield self._event("ResponseCompleted", {})
+            yield self._event(
+                "ResponseCompleted", {"usage": latest_usage} if latest_usage else {}
+            )
         except Exception as exc:
             yield self._event(
                 "ResponseFailed",
