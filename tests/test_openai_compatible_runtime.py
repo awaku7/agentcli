@@ -911,6 +911,46 @@ def test_registry_chat_usage_is_reported_once(
         assert "stream_options" not in kwargs
 
 
+@pytest.mark.parametrize(
+    ("model", "include_usage"),
+    [("fugu", True), ("fugu-ultra-v2.0", True), ("sakana-namazu", False)],
+)
+def test_sakana_chat_usage_option_respects_model_support(
+    model: str, include_usage: bool
+) -> None:
+    chunk = SimpleNamespace(
+        choices=[
+            SimpleNamespace(delta=SimpleNamespace(content="answer", tool_calls=[]))
+        ],
+        usage=None,
+    )
+    final = SimpleNamespace(
+        choices=[],
+        usage=SimpleNamespace(prompt_tokens=42, completion_tokens=6, total_tokens=48),
+    )
+    client = _Client(chunks=[chunk, final])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="sakana",
+        model=model,
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {
+        "input_tokens": 42,
+        "output_tokens": 6,
+        "total_tokens": 48,
+    }
+    options = client.chat.completions.calls[0].get("stream_options", {})
+    assert options.get("include_usage", False) is include_usage
+
+
 def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
     first = SimpleNamespace(
         choices=[
@@ -992,7 +1032,7 @@ def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta"])
+@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta", "sakana"])
 def test_registry_responses_usage_from_terminal_response(
     streaming: bool, provider: str
 ) -> None:
