@@ -67,7 +67,6 @@ def test_context_breakdown_does_not_expose_message_bodies() -> None:
     assert estimate_context_components({}, provider="openai") == {}
 
 
-
 def test_anthropic_usage_includes_cache_read_and_write_in_total_input() -> None:
     usage = SimpleNamespace(
         input_tokens=12,
@@ -85,9 +84,7 @@ def test_anthropic_usage_includes_cache_read_and_write_in_total_input() -> None:
 
 
 def test_anthropic_usage_preserves_explicit_zero_and_unreported_fields() -> None:
-    assert anthropic_usage_to_dict(
-        {"input_tokens": 14, "output_tokens": 2}
-    ) == {
+    assert anthropic_usage_to_dict({"input_tokens": 14, "output_tokens": 2}) == {
         "input_tokens": 14,
         "output_tokens": 2,
         "total_tokens": 16,
