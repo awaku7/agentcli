@@ -255,7 +255,6 @@ def test_gemini_reasoning_and_cache_are_non_additive_subsets() -> None:
     }
 
 
-
 def test_xai_native_usage_adds_reasoning_without_double_counting_cache() -> None:
     usage = SimpleNamespace(
         prompt_tokens=110,
@@ -303,13 +302,16 @@ def test_xai_native_usage_rejects_malformed_components_independently() -> None:
             "completion_tokens": 4,
         }
     ) == {"output_tokens": 4}
-    assert xai_usage_to_dict(
-        {
-            "prompt_tokens": True,
-            "completion_tokens": 4,
-            "reasoning_tokens": -1,
-        }
-    ) == {}
+    assert (
+        xai_usage_to_dict(
+            {
+                "prompt_tokens": True,
+                "completion_tokens": 4,
+                "reasoning_tokens": -1,
+            }
+        )
+        == {}
+    )
     assert xai_usage_to_dict(
         {
             "prompt_tokens": 20,
@@ -324,9 +326,10 @@ def test_xai_native_usage_rejects_malformed_components_independently() -> None:
             "reasoning_tokens": 1,
         }
     ) == {"input_tokens": 10**12, "output_tokens": 2, "reasoning_output_tokens": 1}
-    assert xai_usage_to_dict(
-        {"prompt_tokens": 10**12, "cached_prompt_text_tokens": 10**12 + 1}
-    ) == {}
-    assert xai_usage_to_dict(
-        {"completion_tokens": 10**12, "reasoning_tokens": 1}
-    ) == {}
+    assert (
+        xai_usage_to_dict(
+            {"prompt_tokens": 10**12, "cached_prompt_text_tokens": 10**12 + 1}
+        )
+        == {}
+    )
+    assert xai_usage_to_dict({"completion_tokens": 10**12, "reasoning_tokens": 1}) == {}
