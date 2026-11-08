@@ -269,6 +269,16 @@ def fallback_chat_span(
                                     span.set_attribute(
                                         attribute_name, max(0, int(value))
                                     )
+                            reasoning = usage_after_raw.get("reasoning_output_tokens")
+                            total_output = usage_after_raw.get("output_tokens")
+                            if (
+                                type(reasoning) is int
+                                and type(total_output) is int
+                                and 0 <= reasoning <= total_output <= 10**12
+                            ):
+                                span.set_attribute(
+                                    "gen_ai.usage.reasoning.output_tokens", reasoning
+                                )
                     except Exception:
                         pass
 
