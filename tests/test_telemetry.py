@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 from uagent.runtime.telemetry import (
     anthropic_usage_to_dict,
+    gemini_usage_to_dict,
     estimate_context_components,
     provider_cache_usage,
     reconcile_usage,
@@ -158,4 +159,85 @@ def test_normalized_provider_cache_usage_includes_cache_write() -> None:
         "total_tokens_delta": 69,
         "cache_read_input_tokens_delta": 20,
         "cache_write_input_tokens_delta": 30,
+    }
+
+
+def test_gemini_usage_counts_cached_prompt_only_once() -> None:
+    usage = SimpleNamespace(
+        prompt_token_count=100,
+        tool_use_prompt_token_count=12,
+        candidates_token_count=20,
+        thoughts_token_count=30,
+        cached_content_token_count=75,
+        total_token_count=162,
+    )
+    assert gemini_usage_to_dict(usage) == {
+        "input_tokens": 112,
+        "output_tokens": 50,
+        "total_tokens": 162,
+        "cache_read_input_tokens": 75,
+        "reasoning_output_tokens": 30,
+    }
+
+
+def test_vertex_usage_preserves_missing_fields_without_inventing_zeroes() -> None:
+    assert gemini_usage_to_dict(
+        {"prompt_token_count": 14, "candidates_token_count": 4}
+    ) == {"input_tokens": 14, "output_tokens": 4, "total_tokens": 18}
+    assert gemini_usage_to_dict(
+        {"prompt_token_count": 14, "cached_content_token_count": 0}
+    ) == {"input_tokens": 14, "cache_read_input_tokens": 0}
+    assert gemini_usage_to_dict(None) == {}
+
+
+def test_gemini_usage_rejects_invalid_components_independently() -> None:
+    assert gemini_usage_to_dict(
+        {
+            "prompt_token_count": 50,
+            "tool_use_prompt_token_count": "invalid",
+            "candidates_token_count": 10,
+        }
+    ) == {"output_tokens": 10}
+    assert gemini_usage_to_dict(
+        {
+            "prompt_token_count": 30,
+            "cached_content_token_count": 40,
+            "candidates_token_count": 4,
+        }
+    ) == {"output_tokens": 4}
+    assert gemini_usage_to_dict(
+        {
+            "prompt_token_count": 20,
+            "candidates_token_count": 10,
+            "thoughts_token_count": -1,
+        }
+    ) == {"input_tokens": 20}
+    assert gemini_usage_to_dict(
+        {"prompt_token_count": True, "candidates_token_count": 5}
+    ) == {"output_tokens": 5}
+    assert gemini_usage_to_dict(
+        {"prompt_token_count": 10**12, "tool_use_prompt_token_count": 1}
+    ) == {}
+    assert gemini_usage_to_dict(
+        {"prompt_token_count": 7, "total_token_count": 10000}
+    ) == {"input_tokens": 7}
+
+
+def test_gemini_reasoning_and_cache_are_non_additive_subsets() -> None:
+    usage = gemini_usage_to_dict(
+        {
+            "prompt_token_count": 100,
+            "cached_content_token_count": 30,
+            "candidates_token_count": 5,
+            "thoughts_token_count": 15,
+        }
+    )
+    assert provider_cache_usage(usage, responses=True) == {
+        "cache_read_input_tokens": 30
+    }
+    assert reconcile_usage(None, usage) == {
+        "input_tokens_delta": 100,
+        "output_tokens_delta": 20,
+        "total_tokens_delta": 120,
+        "cache_read_input_tokens_delta": 30,
     }
