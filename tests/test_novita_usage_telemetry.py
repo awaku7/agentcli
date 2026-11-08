@@ -28,9 +28,7 @@ def _usage():
         prompt_tokens=90,
         completion_tokens=25,
         total_tokens=115,
-        prompt_tokens_details=SimpleNamespace(
-            cached_tokens=20, cache_write_tokens=10
-        ),
+        prompt_tokens_details=SimpleNamespace(cached_tokens=20, cache_write_tokens=10),
         completion_tokens_details=SimpleNamespace(reasoning_tokens=7),
     )
 
@@ -52,9 +50,7 @@ def _chunk(*, content=None, usage=None, tool_calls=None):
     )
     return SimpleNamespace(
         choices=(
-            [SimpleNamespace(delta=delta)]
-            if content is not None or tool_calls
-            else []
+            [SimpleNamespace(delta=delta)] if content is not None or tool_calls else []
         ),
         usage=usage,
     )
@@ -95,9 +91,11 @@ def test_novita_native_openai_sdk_accepts_stream_options() -> None:
 
 def test_novita_measured_counts_and_subsets() -> None:
     assert novita_chat_usage_to_dict(_usage()) == _expected()
-    assert novita_chat_usage_to_dict(
-        {"prompt_tokens": 12, "completion_tokens": 5}
-    ) == {"input_tokens": 12, "output_tokens": 5, "total_tokens": 17}
+    assert novita_chat_usage_to_dict({"prompt_tokens": 12, "completion_tokens": 5}) == {
+        "input_tokens": 12,
+        "output_tokens": 5,
+        "total_tokens": 17,
+    }
     assert novita_chat_usage_to_dict(
         {
             "prompt_tokens": 4,
@@ -120,9 +118,7 @@ def test_novita_measured_counts_and_subsets() -> None:
 
 def test_novita_missing_invalid_and_inconsistent_values() -> None:
     assert novita_chat_usage_to_dict(None) == {}
-    assert novita_chat_usage_to_dict({"completion_tokens": 3}) == {
-        "output_tokens": 3
-    }
+    assert novita_chat_usage_to_dict({"completion_tokens": 3}) == {"output_tokens": 3}
     assert novita_chat_usage_to_dict(
         {
             "prompt_tokens": 10,
@@ -135,18 +131,17 @@ def test_novita_missing_invalid_and_inconsistent_values() -> None:
             "completion_tokens_details": {"reasoning_tokens": 6},
         }
     ) == {"input_tokens": 10, "output_tokens": 5, "total_tokens": 15}
-    assert novita_chat_usage_to_dict(
-        {"prompt_tokens": True, "completion_tokens": -1}
-    ) == {}
+    assert (
+        novita_chat_usage_to_dict({"prompt_tokens": True, "completion_tokens": -1})
+        == {}
+    )
     assert novita_chat_usage_to_dict(
         {"prompt_tokens": 10**12, "completion_tokens": 2}
     ) == {"input_tokens": 10**12, "output_tokens": 2}
 
 
 def test_novita_stream_option_preserves_caller_choices() -> None:
-    payload = {
-        "stream_options": {"include_usage": False, "include_obfuscation": False}
-    }
+    payload = {"stream_options": {"include_usage": False, "include_obfuscation": False}}
     request_novita_stream_usage(payload)
     assert payload["stream_options"] == {
         "include_usage": False,
@@ -175,9 +170,7 @@ def test_novita_stream_drops_partial_measurement_on_error() -> None:
         raise RuntimeError("connection dropped")
 
     sink: list[dict[str, int]] = []
-    _parse_novita_stream(
-        interrupted(), callbacks=_callbacks(), usage_sink=sink
-    )
+    _parse_novita_stream(interrupted(), callbacks=_callbacks(), usage_sink=sink)
     assert sink == []
 
 
