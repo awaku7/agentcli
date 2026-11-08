@@ -15,7 +15,6 @@ _CAPTURE_CATEGORIES = frozenset(
 _PROVIDER_SELECTORS = frozenset({"openai", "claude"})
 _DEFAULT_CAPTURE_MAX_FIELD_CHARS = 2048
 _DEFAULT_CAPTURE_MAX_SPAN_CHARS = 8192
-_INVALID = object()
 
 
 def _ascii_lower(value: str) -> str:
@@ -142,15 +141,6 @@ def _resolve_raw_string(
 class ObservabilityCliOverrides:
     enabled: object = None
     capture_content: object = None
-    capture_categories: object = None
-    capture_max_field_chars: object = None
-    capture_max_span_chars: object = None
-    pseudonymous_correlation: object = None
-    deployment_scope: object = None
-    correlation_key_name: object = None
-    correlation_key_version: object = None
-    provider_instrumentation: object = None
-    trace_query_enabled: object = None
 
 
 @dataclass(frozen=True)
@@ -213,17 +203,23 @@ class ObservabilitySettings:
 
         categories_raw, _ = _resolve_value_setting(
             explicit=explicit_capture_categories,
-            cli=cli.capture_categories,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_CAPTURE_CATEGORIES",
         )
-        capture_categories, categories_valid = _parse_csv(
-            categories_raw, valid_tokens=_CAPTURE_CATEGORIES
-        )
+        # The single CLI content opt-in always requests all four reviewed
+        # categories. The advanced environment/programmatic selectors remain
+        # separate from the public launcher flags.
+        if cli.capture_content is True and explicit_capture_content is None:
+            capture_categories, categories_valid = _CAPTURE_CATEGORIES, True
+        else:
+            capture_categories, categories_valid = _parse_csv(
+                categories_raw, valid_tokens=_CAPTURE_CATEGORIES
+            )
 
         field_raw, field_origin = _resolve_value_setting(
             explicit=explicit_capture_max_field_chars,
-            cli=cli.capture_max_field_chars,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS",
         )
@@ -235,7 +231,7 @@ class ObservabilitySettings:
 
         span_raw, span_origin = _resolve_value_setting(
             explicit=explicit_capture_max_span_chars,
-            cli=cli.capture_max_span_chars,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS",
         )
@@ -255,28 +251,28 @@ class ObservabilitySettings:
 
         pseudonymous_correlation, _ = _resolve_bool_setting(
             explicit=explicit_pseudonymous_correlation,
-            cli=cli.pseudonymous_correlation,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_PSEUDONYMOUS_CORRELATION",
             default=False,
         )
         deployment_scope, _ = _resolve_raw_string(
             explicit=explicit_deployment_scope,
-            cli=cli.deployment_scope,
+            cli=None,
             env_present="UAGENT_OTEL_DEPLOYMENT_SCOPE" in env,
             env_value=env.get("UAGENT_OTEL_DEPLOYMENT_SCOPE"),
             default=None,
         )
         correlation_key_name, _ = _resolve_raw_string(
             explicit=explicit_correlation_key_name,
-            cli=cli.correlation_key_name,
+            cli=None,
             env_present="UAGENT_OTEL_CORRELATION_KEY_NAME" in env,
             env_value=env.get("UAGENT_OTEL_CORRELATION_KEY_NAME"),
             default="observability/correlation",
         )
         correlation_key_version, _ = _resolve_raw_string(
             explicit=explicit_correlation_key_version,
-            cli=cli.correlation_key_version,
+            cli=None,
             env_present="UAGENT_OTEL_CORRELATION_KEY_VERSION" in env,
             env_value=env.get("UAGENT_OTEL_CORRELATION_KEY_VERSION"),
             default="v1",
@@ -284,7 +280,7 @@ class ObservabilitySettings:
 
         provider_raw, _ = _resolve_value_setting(
             explicit=explicit_provider_instrumentation,
-            cli=cli.provider_instrumentation,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_PROVIDER_INSTRUMENTATION",
         )
@@ -292,7 +288,7 @@ class ObservabilitySettings:
 
         trace_query_enabled, _ = _resolve_bool_setting(
             explicit=explicit_trace_query_enabled,
-            cli=cli.trace_query_enabled,
+            cli=None,
             env=env,
             env_name="UAGENT_OTEL_TRACE_QUERY_ENABLED",
             default=False,
@@ -377,74 +373,30 @@ def _resolve_integer_value(
     return (value if valid and value is not None else default), valid
 
 
-_VALUE_FLAGS = {
-    "--otel-capture-categories": "capture_categories",
-    "--otel-capture-max-field-chars": "capture_max_field_chars",
-    "--otel-capture-max-span-chars": "capture_max_span_chars",
-    "--otel-deployment-scope": "deployment_scope",
-    "--otel-correlation-key-name": "correlation_key_name",
-    "--otel-correlation-key-version": "correlation_key_version",
-    "--otel-provider-instrumentation": "provider_instrumentation",
-}
 _BOOL_FLAGS = {
     "--otel": ("enabled", True),
     "--no-otel": ("enabled", False),
-    "--otel-capture-content": ("capture_content", True),
-    "--no-otel-capture-content": ("capture_content", False),
-    "--otel-pseudonymous-correlation": ("pseudonymous_correlation", True),
-    "--no-otel-pseudonymous-correlation": ("pseudonymous_correlation", False),
-    "--otel-trace-query": ("trace_query_enabled", True),
-    "--no-otel-trace-query": ("trace_query_enabled", False),
+    "--otel-content": ("capture_content", True),
 }
 
 
 def consume_observability_cli_flags(
     arguments: Sequence[str],
 ) -> tuple[ObservabilityCliOverrides, list[str]]:
-    """Consume the closed UAG observability CLI surface from launcher arguments."""
+    """Consume the three supported OTel launcher flags and reject retired flags."""
 
     overrides = ObservabilityCliOverrides()
     remaining: list[str] = []
-    index = 0
-    while index < len(arguments):
-        argument = arguments[index]
+    for argument in arguments:
         bool_flag = _BOOL_FLAGS.get(argument)
         if bool_flag is not None:
             field_name, value = bool_flag
             overrides = replace(overrides, **{field_name: value})
-            index += 1
-            continue
-
-        value_field = _VALUE_FLAGS.get(argument)
-        if value_field is not None:
-            if index + 1 >= len(arguments):
-                overrides = replace(overrides, **{value_field: _INVALID})
-                index += 1
-                continue
-            value = arguments[index + 1]
-            overrides = replace(overrides, **{value_field: value})
-            index += 2
-            continue
-
-        remaining.append(argument)
-        index += 1
+        elif argument.startswith(("--otel-", "--no-otel-")):
+            raise ValueError(f"Unsupported OTel option: {argument}")
+        else:
+            remaining.append(argument)
     return overrides, remaining
-
-
-def consume_otel_cli_flags(arguments: Sequence[str]) -> tuple[bool | None, list[str]]:
-    """Consume only ``--otel`` / ``--no-otel`` for backwards-compatible callers."""
-
-    explicit_enabled: bool | None = None
-    remaining: list[str] = []
-    for argument in arguments:
-        if argument == "--otel":
-            explicit_enabled = True
-            continue
-        if argument == "--no-otel":
-            explicit_enabled = False
-            continue
-        remaining.append(argument)
-    return explicit_enabled, remaining
 
 
 def resolve_observability_settings(
@@ -487,13 +439,19 @@ _CURRENT_SETTINGS = ObservabilitySettings()
 
 
 def set_observability_entrypoint_override(enabled: bool | None) -> None:
-    """Remember an explicit launcher core-OTel override.
-
-    The override is retained until dotenv loading completes.
-    """
+    """Remember an explicit launcher core-OTel override until dotenv loads."""
 
     global _ENTRYPOINT_CLI_OVERRIDES
     _ENTRYPOINT_CLI_OVERRIDES = replace(_ENTRYPOINT_CLI_OVERRIDES, enabled=enabled)
+
+
+def set_observability_content_entrypoint_override(enabled: bool) -> None:
+    """Enable reviewed content categories for an explicit A2A argv launch."""
+
+    global _ENTRYPOINT_CLI_OVERRIDES
+    _ENTRYPOINT_CLI_OVERRIDES = replace(
+        _ENTRYPOINT_CLI_OVERRIDES, capture_content=enabled
+    )
 
 
 def consume_process_otel_cli_flags(argv: list[str] | None = None) -> bool | None:
