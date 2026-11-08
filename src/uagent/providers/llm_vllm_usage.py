@@ -84,9 +84,7 @@ def capture_vllm_responses_usage(
         for event in source:
             if getattr(event, "type", None) == "response.completed":
                 response = getattr(event, "response", None)
-                measured = vllm_usage_to_dict(
-                    _field(response, "usage"), responses=True
-                )
+                measured = vllm_usage_to_dict(_field(response, "usage"), responses=True)
                 if measured:
                     sink.append(measured)
             yield event
