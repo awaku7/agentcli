@@ -392,3 +392,35 @@ def test_legacy_observer_estimates_selected_tool_definitions(monkeypatch) -> Non
     assert attrs["uag.tokens.context.messages"] > 0
     assert "read_file" not in str(attrs)
     assert "SECRET_USER_TEXT" not in str(attrs)
+
+
+
+def test_claude_fallback_span_exports_standard_cache_read_and_write(
+    monkeypatch,
+) -> None:
+    from uagent.runtime.telemetry import anthropic_usage_to_dict
+
+    backend = _install_backend(monkeypatch)
+    previous = {"input_tokens": 9999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    with observability_runtime.fallback_chat_span(
+        provider="claude",
+        model="claude-test",
+        request_input=[{"role": "user", "content": "PRIVATE_TEXT"}],
+        core=core,
+    ):
+        core._last_responses_usage = anthropic_usage_to_dict(
+            {
+                "input_tokens": 5,
+                "output_tokens": 3,
+                "cache_read_input_tokens": 60,
+                "cache_creation_input_tokens": 35,
+            }
+        )
+
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 100
+    assert attrs["uag.tokens.reported.output"] == 3
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 60
+    assert attrs["gen_ai.usage.cache_write.input_tokens"] == 35
+    assert "PRIVATE_TEXT" not in str(attrs)
