@@ -992,7 +992,7 @@ def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama"])
+@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta"])
 def test_registry_responses_usage_from_terminal_response(
     streaming: bool, provider: str
 ) -> None:
