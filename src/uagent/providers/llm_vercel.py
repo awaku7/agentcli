@@ -301,9 +301,9 @@ def _parse_vercel_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            terminal_data = (
-                {"usage": measured_usage} if measured_usage and not stream_failed else {}
-            )
+            terminal_data: dict[str, Any] = {}
+            if measured_usage and not stream_failed:
+                terminal_data["usage"] = measured_usage
             callbacks.on_terminal("ResponseCompleted", terminal_data)
         except Exception:
             pass
