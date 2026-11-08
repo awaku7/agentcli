@@ -63,3 +63,103 @@ def test_chat_reasoning_stream_parsers_use_host_callbacks(
     assert reasoning == ["internal"]
     assert tool_calls and tool_calls[0]["id"] == "call_1"
     assert terminals == ["ResponseStarted", "ResponseCompleted"]
+
+
+def test_vercel_stream_reports_measured_usage_from_final_chunk() -> None:
+    from uagent.providers.llm_vercel import _parse_vercel_stream
+
+    terminals: list[tuple[str, dict]] = []
+    data_chunk = types.SimpleNamespace(
+        choices=[
+            types.SimpleNamespace(
+                delta=types.SimpleNamespace(
+                    content="answer", reasoning_content=None, tool_calls=[]
+                )
+            )
+        ],
+        usage=None,
+    )
+    final = types.SimpleNamespace(
+        choices=[],
+        usage=types.SimpleNamespace(
+            prompt_tokens=80, completion_tokens=20, total_tokens=100
+        ),
+    )
+    output = _parse_vercel_stream(
+        [data_chunk, final],
+        callbacks=StreamCallbacks(
+            on_delta=lambda _: None,
+            on_terminal=lambda event, data: terminals.append((event, dict(data))),
+        ),
+    )
+
+    assert output[0] == "answer"
+    assert terminals[-1] == (
+        "ResponseCompleted",
+        {"usage": {"input_tokens": 80, "output_tokens": 20, "total_tokens": 100}},
+    )
+
+
+def test_vercel_stream_does_not_report_usage_after_interruption() -> None:
+    from uagent.providers.llm_vercel import _parse_vercel_stream
+
+    def broken_stream():
+        yield types.SimpleNamespace(
+            choices=[],
+            usage={"prompt_tokens": 4, "completion_tokens": 2, "total_tokens": 6},
+        )
+        raise OSError("connection interrupted")
+
+    terminals: list[tuple[str, dict]] = []
+    _parse_vercel_stream(
+        broken_stream(),
+        callbacks=StreamCallbacks(
+            on_terminal=lambda event, data: terminals.append((event, dict(data))),
+        ),
+    )
+
+    assert terminals[-1] == ("ResponseCompleted", {})
+
+
+def test_vercel_stream_requests_usage_only_when_streaming() -> None:
+    from uagent.providers.llm_vercel import vercel_chat_with_tools
+
+    class _Completions:
+        def __init__(self) -> None:
+            self.calls: list[dict] = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            if kwargs.get("stream"):
+                return iter([types.SimpleNamespace(choices=[], usage=None)])
+            return types.SimpleNamespace(
+                choices=[
+                    types.SimpleNamespace(
+                        message=types.SimpleNamespace(
+                            content="ok", reasoning_content=None, tool_calls=[]
+                        )
+                    )
+                ]
+            )
+
+    completions = _Completions()
+    client = types.SimpleNamespace(chat=types.SimpleNamespace(completions=completions))
+    core = types.SimpleNamespace(_is_web=True)
+    for stream in (True, False):
+        success, *_ = vercel_chat_with_tools(
+            client=client,
+            depname="test-model",
+            call_messages=[{"role": "user", "content": "hello"}],
+            core=core,
+            make_client_fn=lambda _: ("vercel", client),
+            call_maybe_thread_fn=lambda callback: callback(),
+            send_tools_this_round=False,
+            max_retries_429=0,
+            retry_base=0.1,
+            retry_cap=1.0,
+            stream=stream,
+            callbacks=StreamCallbacks(on_terminal=lambda *_: None),
+        )
+        assert success is True
+    assert completions.calls[0]["stream_options"]["include_usage"] is True
+    assert "stream_options" not in completions.calls[1]

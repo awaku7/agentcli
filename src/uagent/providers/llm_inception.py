@@ -10,6 +10,7 @@ from typing import Any, Iterator
 
 from ..runtime.round_contracts import RoundIdentifiers, StreamEvent
 from ..runtime.inception_stream_compat import collect_inception_stream_events
+from .openai_compatible_runtime import _reported_usage
 from .responses_runtime import _responses_session_generation
 
 
@@ -52,6 +53,7 @@ def inception_stream_events(
         raise
 
     tool_calls_acc: dict[int, dict[str, str]] = {}
+    measured_usage: dict[str, int] = {}
 
     try:
         for chunk in stream:
@@ -60,6 +62,10 @@ def inception_stream_events(
             ):
                 yield emit("ResponseCancelled", {"reason": "cancelled"})
                 return
+
+            reported = _reported_usage(getattr(chunk, "usage", None), responses=False)
+            if reported:
+                measured_usage = reported
 
             choices = getattr(chunk, "choices", None) or []
             if not choices:
@@ -119,7 +125,10 @@ def inception_stream_events(
                     "validated_arguments": validated_arguments,
                 },
             )
-        yield emit("ResponseCompleted", {})
+        yield emit(
+            "ResponseCompleted",
+            {"usage": measured_usage} if measured_usage else {},
+        )
     except TimeoutError:
         yield emit("ResponseTimedOut", {"reason": "timeout"})
     except Exception as exc:

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import types
 
+import pytest
+
 from uagent.providers.llm_inception import (
     inception_stream_events,
     parse_inception_stream,
@@ -142,6 +144,67 @@ def test_inception_snapshot_adapter_never_mixes_delta_events() -> None:
         "ResponseCompleted",
     ]
     assert events[-2].data["text"] == "Hello"
+
+
+@pytest.mark.parametrize("diffusing", [False, True])
+def test_inception_stream_reports_measured_terminal_usage(diffusing: bool) -> None:
+    final = types.SimpleNamespace(
+        choices=[],
+        usage=types.SimpleNamespace(
+            prompt_tokens=21, completion_tokens=9, total_tokens=30
+        ),
+    )
+    events = list(
+        inception_stream_events(
+            [_Chunk("answer"), final],
+            identifiers=_identifiers(),
+            diffusing=diffusing,
+        )
+    )
+
+    validate_stream_events(events)
+    assert events[-1].type == "ResponseCompleted"
+    assert events[-1].data["usage"] == {
+        "input_tokens": 21,
+        "output_tokens": 9,
+        "total_tokens": 30,
+    }
+
+
+def test_inception_legacy_renderer_publishes_fresh_measured_usage() -> None:
+    previous = {"input_tokens": 900, "output_tokens": 200}
+    core = types.SimpleNamespace(
+        _is_web=False,
+        _last_responses_usage=previous,
+    )
+    final = types.SimpleNamespace(
+        choices=[],
+        usage={"prompt_tokens": 21, "completion_tokens": 9, "total_tokens": 30},
+    )
+    result = parse_inception_stream(
+        [_Chunk("answer"), final],
+        core=core,
+        print_delta_fn=lambda _: None,
+    )
+
+    assert result[0] == "answer"
+    assert core._last_responses_usage == {
+        "input_tokens": 21,
+        "output_tokens": 9,
+        "total_tokens": 30,
+    }
+    assert core._last_responses_usage is not previous
+
+
+def test_inception_stream_ignores_invalid_reported_usage() -> None:
+    invalid = types.SimpleNamespace(
+        choices=[],
+        usage={"prompt_tokens": True, "completion_tokens": -1, "total_tokens": "3"},
+    )
+    events = list(inception_stream_events([invalid], identifiers=_identifiers()))
+
+    validate_stream_events(events)
+    assert "usage" not in events[-1].data
 
 
 def test_inception_adapter_emits_tool_call_completion_before_terminal() -> None:

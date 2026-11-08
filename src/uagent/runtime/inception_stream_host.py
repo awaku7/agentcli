@@ -153,6 +153,11 @@ def render_inception_stream_events(
             core._last_inception_stream_terminal = terminal
         except Exception:
             pass
+        if terminal == "ResponseCompleted":
+            measured_usage = rendered.terminal_data.get("usage")
+            if isinstance(measured_usage, dict) and measured_usage:
+                # Legacy fallback spans consume this request-scoped snapshot.
+                core._last_responses_usage = dict(measured_usage)
     return result_text, "", tool_calls
 
 
