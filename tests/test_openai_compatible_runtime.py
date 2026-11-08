@@ -851,6 +851,7 @@ def test_runtime_cancellation_is_terminal() -> None:
         "nvidia",
         "alibaba",
         "moonshot",
+        "meta",
     ],
 )
 def test_registry_chat_usage_is_reported_once(
@@ -903,6 +904,7 @@ def test_registry_chat_usage_is_reported_once(
         "nvidia",
         "alibaba",
         "moonshot",
+        "meta",
     }:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
@@ -957,7 +959,7 @@ def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot"],
+    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
 )
 def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
@@ -1044,7 +1046,7 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot"],
+    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
 )
 def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
