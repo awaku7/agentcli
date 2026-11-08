@@ -93,6 +93,27 @@ def _reported_usage(
         if type(value) is int and 0 <= value <= 1_000_000_000_000:
             result[target] = value
     result.update(provider_cache_usage(usage, responses=responses))
+    if provider == "perplexity" and responses:
+        input_tokens = result.get("input_tokens")
+        output_tokens = result.get("output_tokens")
+        written = _mapping_value(
+            _mapping_value(usage, "input_tokens_details"), "cache_write_tokens"
+        )
+        reasoning = _mapping_value(
+            _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
+        )
+        if (
+            type(written) is int
+            and input_tokens is not None
+            and 0 <= written <= input_tokens
+        ):
+            result["cache_write_input_tokens"] = written
+        if (
+            type(reasoning) is int
+            and output_tokens is not None
+            and 0 <= reasoning <= output_tokens
+        ):
+            result["reasoning_output_tokens"] = reasoning
     if provider == "meta" and responses:
         reasoning = _mapping_value(
             _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
@@ -230,6 +251,34 @@ class OpenAICompatibleRuntime:
         tool_specs = plan.tool_specs
         options = dict(self._options)
         if self._transport == "responses":
+            if self._provider == "perplexity":
+                # Orchestrator Responses is stateless and rejects OpenAI-only
+                # continuation, storage, and background request fields.
+                for key in (
+                    "previous_response_id",
+                    "context_management",
+                    "store",
+                    "background",
+                    "max_tool_calls",
+                    "top_logprobs",
+                    "stream_options",
+                    "presence_penalty",
+                    "frequency_penalty",
+                ):
+                    options.pop(key, None)
+                if options.get("truncation") == "auto":
+                    options.pop("truncation")
+                text_options = options.get("text")
+                if isinstance(text_options, Mapping) and "verbosity" in text_options:
+                    filtered_text = {
+                        key: value
+                        for key, value in text_options.items()
+                        if key != "verbosity"
+                    }
+                    if filtered_text:
+                        options["text"] = filtered_text
+                    else:
+                        options.pop("text", None)
             if self._provider == "bedrock":
                 from .llm_bedrock_responses import build_bedrock_responses_request
 
@@ -452,6 +501,7 @@ class OpenAICompatibleRuntime:
                     self._provider
                     in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
                     or self._provider in {"alibaba", "moonshot", "meta"}
+                    or self._provider in {"perplexity", "bedrock"}
                     or (
                         self._provider == "sakana"
                         and self._model.lower().startswith("fugu")

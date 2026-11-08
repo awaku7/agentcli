@@ -386,7 +386,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                     core,
                     env_get(
                         "UAGENT_PERPLEXITY_BASE_URL",
-                        "https://api.perplexity.ai/router/v1",
+                        "https://api.perplexity.ai/orchestrator/v1",
                     ),
                 )
             }

@@ -238,15 +238,15 @@ Required if `UAGENT_PROVIDER=openrouter`:
 - `UAGENT_OPENROUTER_API_KEY` (required)
 - `UAGENT_OPENROUTER_DEPNAME` (optional, default: `gpt-5.4-nano`)
 
-#### Perplexity Router API
+#### Perplexity Orchestrator API
 
 Required if `UAGENT_PROVIDER=perplexity`:
 
 - `UAGENT_PERPLEXITY_API_KEY` (required; `PERPLEXITY_API_KEY` is also accepted)
-- `UAGENT_PERPLEXITY_BASE_URL` (optional, default: `https://api.perplexity.ai/router/v1`)
+- `UAGENT_PERPLEXITY_BASE_URL` (optional, default: `https://api.perplexity.ai/orchestrator/v1`)
 - `UAGENT_PERPLEXITY_DEPNAME` (optional, default: `perplexity/kimi-k3`)
 
-The Router supports OpenAI Chat Completions and Responses. Set `UAGENT_RESPONSES=1` to use Responses; requests are stateless, so UAG sends the conversation history rather than `previous_response_id`. The Router is currently in private preview and requires an enabled Perplexity API account.
+The Orchestrator API supports OpenAI Chat Completions and Responses. Set `UAGENT_RESPONSES=1` to use Responses; it is stateless, so UAG sends the full conversation rather than `previous_response_id` or `store=true`. Orchestrator is currently in private preview and requires an enabled Perplexity API account. The old `/router/v1` remains supported by the vendor.
 
 #### Inception Labs / Mercury
 

@@ -442,7 +442,11 @@ def build_openai_projection(
             options["response_format"] = response_format
 
     verbosity = (env_get("UAGENT_VERBOSITY", "") or "").strip().lower()
-    if use_responses_api and verbosity in {"low", "medium", "high"}:
+    if (
+        use_responses_api
+        and provider_key != "perplexity"
+        and verbosity in {"low", "medium", "high"}
+    ):
         text = options.get("text")
         text = dict(text) if isinstance(text, dict) else {}
         text["verbosity"] = verbosity
@@ -504,7 +508,7 @@ def build_openai_projection(
         options["service_tier"] = "fast"
 
     if use_responses_api:
-        # Perplexity Router's Responses endpoint is stateless and rejects
+        # Perplexity Orchestrator's Responses endpoint is stateless and rejects
         # unknown fields such as OpenAI's context_management extension.
         if provider_key != "perplexity":
             options["context_management"] = [

@@ -579,7 +579,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         api_key = _provider_api_key(core, "PERPLEXITY")
         base_url = core.get_env_url(
             "UAGENT_PERPLEXITY_BASE_URL",
-            "https://api.perplexity.ai/router/v1",
+            "https://api.perplexity.ai/orchestrator/v1",
         )
         http_client = make_httpx_client()
         try:

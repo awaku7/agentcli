@@ -72,7 +72,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("azure", "Azure OpenAI"),
     ("bedrock", "Bedrock OpenAI-compatible gateway"),
     ("openrouter", "OpenRouter"),
-    ("perplexity", "Perplexity Router API"),
+    ("perplexity", "Perplexity Orchestrator API"),
     ("gemini", "Gemini"),
     ("vertexai", "Vertex AI"),
     ("grok", "Grok"),
@@ -179,14 +179,14 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_PERPLEXITY_BASE_URL",
             False,
             _(
-                "Perplexity Router base URL (optional, default: "
-                "https://api.perplexity.ai/router/v1)"
+                "Perplexity Orchestrator base URL (optional, default: "
+                "https://api.perplexity.ai/orchestrator/v1)"
             ),
         ),
         (
             "UAGENT_PERPLEXITY_DEPNAME",
             False,
-            _("Perplexity Router model ID (optional, e.g. perplexity/kimi-k3)"),
+            _("Perplexity Orchestrator model ID (optional, e.g. perplexity/kimi-k3)"),
         ),
     ],
     "gemini": [

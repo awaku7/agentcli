@@ -193,9 +193,10 @@ def test_vllm_chat_nonstream_reports_usage_without_stream_options():
     assert events[-1].data["usage"] == _expected()
 
 
-def test_vllm_does_not_change_other_chat_providers():
+@pytest.mark.parametrize("provider", ["sarashina", "foundry_local"])
+def test_vllm_does_not_change_other_chat_providers(provider):
     client = _Client([_chunk(content="answer")])
-    _run(_runtime(client, provider="perplexity"))
+    _run(_runtime(client, provider=provider))
     assert "stream_options" not in client.chat.completions.calls[0]
 
 

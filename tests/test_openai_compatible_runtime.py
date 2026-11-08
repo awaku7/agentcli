@@ -852,6 +852,8 @@ def test_runtime_cancellation_is_terminal() -> None:
         "alibaba",
         "moonshot",
         "meta",
+        "perplexity",
+        "bedrock",
     ],
 )
 def test_registry_chat_usage_is_reported_once(
@@ -905,10 +907,34 @@ def test_registry_chat_usage_is_reported_once(
         "alibaba",
         "moonshot",
         "meta",
+        "perplexity",
+        "bedrock",
     }:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in kwargs
+
+
+@pytest.mark.parametrize("provider", ["perplexity", "bedrock"])
+def test_gateway_chat_stream_respects_explicit_usage_opt_out(provider: str) -> None:
+    client = _Client(chunks=[])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider=provider,
+        model="test-model",
+        identifiers=_identifiers(),
+        options={"stream_options": {"include_usage": False}},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert client.chat.completions.calls[0]["stream_options"] == {
+        "include_usage": False
+    }
+    assert "usage" not in events[-1].data
 
 
 @pytest.mark.parametrize(
@@ -999,7 +1025,17 @@ def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
+    [
+        "openai",
+        "lmstudio",
+        "ollama",
+        "nvidia",
+        "alibaba",
+        "moonshot",
+        "meta",
+        "perplexity",
+        "bedrock",
+    ],
 )
 def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
@@ -1032,7 +1068,10 @@ def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "meta", "sakana"])
+@pytest.mark.parametrize(
+    "provider",
+    ["openai", "lmstudio", "ollama", "meta", "sakana", "perplexity", "bedrock"],
+)
 def test_registry_responses_usage_from_terminal_response(
     streaming: bool, provider: str
 ) -> None:
@@ -1064,6 +1103,135 @@ def test_registry_responses_usage_from_terminal_response(
     assert events[-1].data == {
         "response_id": "resp_1",
         "usage": {"input_tokens": 23, "output_tokens": 8, "total_tokens": 31},
+    }
+
+
+def test_perplexity_responses_omits_unsupported_stateful_request_fields() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[
+            {"role": "user", "content": "first question"},
+            {"role": "assistant", "content": "first answer"},
+            {"role": "user", "content": "second question"},
+        ],
+        policy={"provider": "perplexity", "model": "perplexity/kimi-k3"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="perplexity",
+        model="perplexity/kimi-k3",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={
+            "previous_response_id": "resp_previous",
+            "store": True,
+            "background": True,
+            "max_tool_calls": 2,
+            "top_logprobs": 1,
+            "stream_options": {"include_usage": True},
+            "context_management": [{"type": "compaction"}],
+            "truncation": "auto",
+            "presence_penalty": 0.5,
+            "frequency_penalty": 0.5,
+            "text": {
+                "verbosity": "medium",
+                "format": {"type": "text"},
+            },
+            "temperature": 0.2,
+            "prompt_cache_key": "cache-key",
+        },
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+    for field in (
+        "previous_response_id",
+        "store",
+        "background",
+        "max_tool_calls",
+        "top_logprobs",
+        "stream_options",
+        "context_management",
+        "truncation",
+        "presence_penalty",
+        "frequency_penalty",
+    ):
+        assert field not in request.payload
+    assert request.payload["text"] == {"format": {"type": "text"}}
+    assert request.payload["temperature"] == 0.2
+    assert request.payload["prompt_cache_key"] == "cache-key"
+    assert "first question" in str(request.payload["input"])
+    assert "second question" in str(request.payload["input"])
+
+
+@pytest.mark.parametrize("streaming", [False, True])
+def test_perplexity_responses_reports_measured_cache_and_reasoning(
+    streaming: bool,
+) -> None:
+    response = SimpleNamespace(
+        id="resp_perplexity",
+        output_text="answer",
+        output=[],
+        usage=SimpleNamespace(
+            input_tokens=120,
+            output_tokens=40,
+            total_tokens=160,
+            input_tokens_details=SimpleNamespace(
+                cached_tokens=30, cache_write_tokens=15
+            ),
+            output_tokens_details=SimpleNamespace(reasoning_tokens=12),
+        ),
+    )
+    client = _Client(
+        events=(
+            [SimpleNamespace(type="response.completed", response=response)]
+            if streaming
+            else response
+        )
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="perplexity",
+        model="perplexity/kimi-k3",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=streaming,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+    events = list(runtime.run(request, _Cancellation()))
+    validate_stream_events(events)
+    assert events[-1].data["usage"] == {
+        "input_tokens": 120,
+        "output_tokens": 40,
+        "total_tokens": 160,
+        "cache_read_input_tokens": 30,
+        "cache_write_input_tokens": 15,
+        "reasoning_output_tokens": 12,
+    }
+    assert "stream_options" not in client.responses.calls[0]
+
+
+def test_perplexity_responses_rejects_invalid_usage_subsets() -> None:
+    from uagent.providers.openai_compatible_runtime import _reported_usage
+
+    usage = {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "input_tokens_details": {
+            "cached_tokens": 6,
+            "cache_write_tokens": 11,
+        },
+        "output_tokens_details": {"reasoning_tokens": 7},
+    }
+    assert _reported_usage(usage, responses=True, provider="perplexity") == {
+        "input_tokens": 10,
+        "output_tokens": 5,
+        "cache_read_input_tokens": 6,
     }
 
 
@@ -1142,7 +1310,17 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
 
 @pytest.mark.parametrize(
     "provider",
-    ["openai", "lmstudio", "ollama", "nvidia", "alibaba", "moonshot", "meta"],
+    [
+        "openai",
+        "lmstudio",
+        "ollama",
+        "nvidia",
+        "alibaba",
+        "moonshot",
+        "meta",
+        "perplexity",
+        "bedrock",
+    ],
 )
 def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
