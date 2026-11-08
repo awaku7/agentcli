@@ -670,7 +670,9 @@ def test_vercel_legacy_round_publishes_measured_tokens_to_chat_span(
         assert completions.calls[0]["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in completions.calls[0]
-    span = next(record["span"] for record in backend.spans if record["operation"] == "chat")
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
     assert span.attributes["uag.tokens.reported.input"] == 80
     assert span.attributes["uag.tokens.reported.output"] == 20
     assert span.attributes["uag.tokens.reported.total"] == 100
