@@ -174,9 +174,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[core,providers,test,quality]"
 
-      - name: Preload Tree-sitter test grammars
-        run: python tests/preload_tree_sitter_ci.py
-
       - name: Full test suite
         env:
           PYTHONPATH: src
@@ -202,9 +199,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[core,providers,test,quality]"
-
-      - name: Preload Tree-sitter test grammars
-        run: python tests/preload_tree_sitter_ci.py
 
       - name: Run changed-area tests (full-suite fallback for unmapped changes)
         env:
