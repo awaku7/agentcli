@@ -83,6 +83,7 @@ def test_perplexity_responses_projection_omits_unsupported_context_management(
     ):
         monkeypatch.delenv(name, raising=False)
 
+    monkeypatch.setenv("UAGENT_VERBOSITY", "low")
     projection = build_openai_projection(
         provider="perplexity",
         model="perplexity/kimi-k3",
@@ -101,6 +102,7 @@ def test_perplexity_responses_projection_omits_unsupported_context_management(
     assert "perplexity" in RESPONSES_PROVIDERS
     assert provider_allows_responses_api("perplexity", "perplexity/kimi-k3")
     assert "context_management" not in projection.options
+    assert "text" not in projection.options
 
 
 def test_perplexity_responses_maps_json_object_to_strict_json_schema(monkeypatch):
