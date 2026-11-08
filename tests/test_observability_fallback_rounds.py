@@ -394,7 +394,6 @@ def test_legacy_observer_estimates_selected_tool_definitions(monkeypatch) -> Non
     assert "SECRET_USER_TEXT" not in str(attrs)
 
 
-
 def test_claude_fallback_span_exports_standard_cache_read_and_write(
     monkeypatch,
 ) -> None:
