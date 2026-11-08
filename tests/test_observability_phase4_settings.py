@@ -1,6 +1,7 @@
 import pytest
 
 from uagent.runtime.observability.settings import (
+    ObservabilityCliOverrides,
     ObservabilitySettings,
     _reset_observability_settings_for_tests,
     consume_observability_cli_flags,
@@ -173,6 +174,37 @@ def test_process_content_cli_survives_dotenv_and_captures_all_categories():
     assert settings.capture_categories == frozenset(
         {"user_input", "assistant_output", "tool_arguments", "tool_result"}
     )
+
+
+@pytest.mark.parametrize(
+    ("categories", "expected_categories", "capture_enabled"),
+    [
+        ("user_input", frozenset({"user_input"}), True),
+        ("", frozenset(), True),
+        ("user_input,unknown", frozenset(), False),
+    ],
+)
+def test_cli_content_preserves_explicit_programmatic_category_restrictions(
+    categories, expected_categories, capture_enabled
+):
+    settings = ObservabilitySettings.resolve(
+        explicit_enabled=True,
+        explicit_capture_categories=categories,
+        cli_overrides=ObservabilityCliOverrides(capture_content=True),
+        environ={"UAGENT_OTEL_CAPTURE_CATEGORIES": "assistant_output"},
+    )
+
+    assert settings.capture_content is capture_enabled
+    assert settings.capture_categories == expected_categories
+
+
+def test_explicit_programmatic_content_off_overrides_cli_opt_in():
+    settings = ObservabilitySettings.resolve(
+        explicit_enabled=True,
+        explicit_capture_content=False,
+        cli_overrides=ObservabilityCliOverrides(capture_content=True),
+    )
+    assert settings.capture_content is False
 
 
 def test_no_otel_prevents_content_capture_even_with_content_flag():
