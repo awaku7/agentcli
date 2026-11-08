@@ -557,6 +557,7 @@ def test_vllm_legacy_fallback_otel_exports_measured_cache_and_reasoning(
     assert attrs["gen_ai.usage.reasoning.output_tokens"] == 8
     assert "PRIVATE_TEXT" not in str(attrs)
 
+
 def test_novita_fallback_otel_exports_measured_token_subsets(monkeypatch) -> None:
     from uagent.providers.llm_novita_usage import novita_chat_usage_to_dict
 
