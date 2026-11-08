@@ -841,7 +841,7 @@ def test_runtime_cancellation_is_terminal() -> None:
 
 
 @pytest.mark.parametrize(
-    "provider", ["openai", "azure", "openrouter", "ollama", "lmstudio"]
+    "provider", ["openai", "azure", "openrouter", "ollama", "lmstudio", "nvidia"]
 )
 def test_registry_chat_usage_is_reported_once(
     provider: str, monkeypatch: pytest.MonkeyPatch
@@ -884,13 +884,13 @@ def test_registry_chat_usage_is_reported_once(
         "total_tokens": 38,
     }
     kwargs = client.chat.completions.calls[0]
-    if provider in {"openai", "azure", "openrouter", "lmstudio", "ollama"}:
+    if provider in {"openai", "azure", "openrouter", "lmstudio", "ollama", "nvidia"}:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in kwargs
 
 
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama"])
+@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "nvidia"])
 def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
         choices=[
@@ -974,7 +974,7 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
     assert payload == ({"usage": expected} if expected else {})
 
 
-@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama"])
+@pytest.mark.parametrize("provider", ["openai", "lmstudio", "ollama", "nvidia"])
 def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
         chunks=[
