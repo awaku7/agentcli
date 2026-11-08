@@ -223,6 +223,12 @@ def fallback_chat_span(
                             model=str(model or ""),
                         ),
                     )
+                    from ..telemetry import estimate_context_components
+
+                    for key, value in estimate_context_components(
+                        request_input, provider=provider, model=model
+                    ).items():
+                        span.set_attribute(key, value)
                 except Exception:
                     pass
             try:
@@ -241,6 +247,15 @@ def fallback_chat_span(
                                 "output_tokens": "uag.tokens.reported.output",
                                 "total_tokens": "uag.tokens.reported.total",
                             }
+                            from ..telemetry import provider_cache_usage
+
+                            for key, value in provider_cache_usage(
+                                usage_after_raw, responses=True
+                            ).items():
+                                if key == "cache_read_input_tokens":
+                                    span.set_attribute(
+                                        "gen_ai.usage.cache_read.input_tokens", value
+                                    )
                             for key, attribute_name in reported_names.items():
                                 value = usage_after_raw.get(key)
                                 if isinstance(value, (int, float)) and not isinstance(
