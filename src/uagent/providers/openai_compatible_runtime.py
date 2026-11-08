@@ -251,6 +251,30 @@ class OpenAICompatibleRuntime:
         tool_specs = plan.tool_specs
         options = dict(self._options)
         if self._transport == "responses":
+            if self._provider == "perplexity":
+                # Orchestrator Responses is stateless and rejects OpenAI-only
+                # continuation, storage, and background request fields.
+                for key in (
+                    "previous_response_id",
+                    "context_management",
+                    "store",
+                    "background",
+                    "max_tool_calls",
+                    "top_logprobs",
+                    "stream_options",
+                    "presence_penalty",
+                    "frequency_penalty",
+                ):
+                    options.pop(key, None)
+                if options.get("truncation") == "auto":
+                    options.pop("truncation")
+                text_options = options.get("text")
+                if isinstance(text_options, Mapping) and "verbosity" in text_options:
+                    options["text"] = {
+                        key: value
+                        for key, value in text_options.items()
+                        if key != "verbosity"
+                    }
             if self._provider == "bedrock":
                 from .llm_bedrock_responses import build_bedrock_responses_request
 
