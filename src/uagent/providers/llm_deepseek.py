@@ -30,6 +30,7 @@ from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..runtime.capability_resolver import native_structured_output_request_for_runtime
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from ..runtime.telemetry import deepseek_chat_usage_to_dict
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -522,6 +523,7 @@ def parse_deepseek_stream(
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
+    capture_usage: bool = False,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from DeepSeek.
 
@@ -532,6 +534,8 @@ def parse_deepseek_stream(
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
+    latest_usage: dict[str, int] = {}
+    stream_failed = False
     is_web = bool(getattr(core, "_is_web", False)) if core else False
     callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
@@ -543,6 +547,10 @@ def parse_deepseek_stream(
 
     try:
         for chunk in stream:
+            if capture_usage:
+                reported = deepseek_chat_usage_to_dict(getattr(chunk, "usage", None))
+                if reported:
+                    latest_usage = reported
             if not chunk.choices:
                 continue
             delta = chunk.choices[0].delta
@@ -619,7 +627,13 @@ def parse_deepseek_stream(
                     if isinstance(fn_args, str):
                         acc["function"]["arguments"] += fn_args
     except Exception:
-        pass
+        stream_failed = True
+
+    if capture_usage and not stream_failed and latest_usage and core is not None:
+        try:
+            core._last_responses_usage = latest_usage
+        except (AttributeError, TypeError):
+            pass
 
     # Web UI: signal stream end
     if is_web and core is not None:
@@ -745,6 +759,8 @@ def deepseek_chat_with_tools(
                     pass
 
             if stream:
+                if provider == "deepseek":
+                    chat_kwargs["stream_options"] = {"include_usage": True}
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: parse_deepseek_stream(
@@ -763,6 +779,7 @@ def deepseek_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
+                            capture_usage=(provider == "deepseek"),
                         )
                     )
                 )
@@ -773,6 +790,13 @@ def deepseek_chat_with_tools(
                 assistant_text, reasoning_content, tool_calls_list = (
                     parse_deepseek_response(resp)
                 )
+                if provider == "deepseek" and core is not None:
+                    measured = deepseek_chat_usage_to_dict(getattr(resp, "usage", None))
+                    if measured:
+                        try:
+                            core._last_responses_usage = measured
+                        except (AttributeError, TypeError):
+                            pass
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
