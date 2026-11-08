@@ -173,7 +173,6 @@ def gemini_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
-
 def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     """Normalize native xAI gRPC usage (distinct completion and reasoning).
 
@@ -208,6 +207,7 @@ def xai_usage_to_dict(usage: Any) -> dict[str, int]:
         if total <= 10**12:
             result["total_tokens"] = total
     return result
+
 
 def estimate_context_components(
     request: Any, *, provider: str = "", model: str = ""
