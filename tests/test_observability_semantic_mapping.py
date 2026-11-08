@@ -124,3 +124,18 @@ def test_cancellation_and_disabled_remain_distinguishable_from_unset_or_ok() -> 
     assert map_attributes({"uag.status": "cancelled"}) == {"uag.status": "cancelled"}
     assert map_attributes({"uag.status": "disabled"}) == {"uag.status": "disabled"}
     assert map_attributes({"uag.status": "completed"}) == {}
+
+
+def test_standard_cache_subset_and_uag_context_estimates_coexist() -> None:
+    mapped = map_attributes(
+        {
+            "uag.tokens.reported.input": 100,
+            "gen_ai.usage.cache_read.input_tokens": 75,
+            "uag.tokens.context.tools": 30,
+        }
+    )
+    assert mapped == {
+        "gen_ai.usage.input_tokens": 100,
+        "gen_ai.usage.cache_read.input_tokens": 75,
+        "uag.tokens.context.tools": 30,
+    }

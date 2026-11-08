@@ -345,3 +345,50 @@ def test_inception_direct_fallback_gets_its_own_chat_span(monkeypatch) -> None:
         "uag.llm.model": "mercury-test",
     }
     assert backend.spans[1]["span"].status[-1] == ("ok", None)
+
+
+def test_fallback_span_keeps_provider_cache_subset_separate(monkeypatch) -> None:
+    backend = _install_backend(monkeypatch)
+    core = SimpleNamespace(_last_responses_usage={})
+    with observability_runtime.fallback_chat_span(
+        provider="openai",
+        model="gpt-test",
+        request_input=[{"role": "user", "content": "SECRET"}],
+        core=core,
+    ):
+        core._last_responses_usage = {
+            "input_tokens": 100,
+            "output_tokens": 5,
+            "input_tokens_details": {"cached_tokens": 75},
+        }
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 100
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 75
+    assert attrs["uag.tokens.context.messages"] > 0
+    assert "SECRET" not in str(attrs)
+
+
+def test_legacy_observer_estimates_selected_tool_definitions(monkeypatch) -> None:
+    backend = _install_backend(monkeypatch)
+    core = SimpleNamespace(
+        _last_responses_usage={},
+        context_tool_specs=[{"type": "function", "name": "read_file"}],
+    )
+
+    monkeypatch.setattr(
+        legacy_provider_dispatch,
+        "_call_claude_round",
+        lambda **kwargs: (True, "client", "answer", []),
+    )
+    result = legacy_provider_dispatch.call_legacy_claude_round(
+        depname="claude-model",
+        call_messages=[{"role": "user", "content": "SECRET_USER_TEXT"}],
+        core=core,
+        send_tools=True,
+    )
+    assert result[0] is True
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.context.tools"] > 0
+    assert attrs["uag.tokens.context.messages"] > 0
+    assert "read_file" not in str(attrs)
+    assert "SECRET_USER_TEXT" not in str(attrs)

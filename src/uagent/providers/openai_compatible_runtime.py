@@ -14,6 +14,7 @@ import time
 from typing import TYPE_CHECKING, Any, Iterator, Mapping
 
 from ..env_utils import env_get
+from ..runtime.telemetry import provider_cache_usage
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -71,6 +72,7 @@ def _reported_usage(usage: Any, *, responses: bool) -> dict[str, int]:
         value = _mapping_value(usage, source)
         if type(value) is int and 0 <= value <= 1_000_000_000_000:
             result[target] = value
+    result.update(provider_cache_usage(usage, responses=responses))
     return result
 
 

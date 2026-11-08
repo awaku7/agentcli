@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import Any, Callable, Mapping
 
 from .context_tokens import estimate_tokens
-from .telemetry import reconcile_usage
+from .telemetry import estimate_context_components, reconcile_usage
 
 from .round_contracts import (
     CancellationToken,
@@ -235,10 +235,19 @@ class RoundOrchestrator:
         observability_span.set_attribute(
             "uag.tokens.estimate.input", summary.request_tokens
         )
+        if getattr(get_observability_backend(), "enabled", False):
+            for key, value in estimate_context_components(
+                request.payload,
+                provider=request.provider,
+                model=request.model,
+            ).items():
+                observability_span.set_attribute(key, value)
         reported_names = {
             "input_tokens_delta": "uag.tokens.reported.input",
             "output_tokens_delta": "uag.tokens.reported.output",
             "total_tokens_delta": "uag.tokens.reported.total",
+            "cache_read_input_tokens_delta": "gen_ai.usage.cache_read.input_tokens",
+            "cache_write_input_tokens_delta": "gen_ai.usage.cache_write.input_tokens",
         }
         for key, attribute_name in reported_names.items():
             if key in usage_delta:

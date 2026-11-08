@@ -32,6 +32,19 @@ _LEGACY_GEMINI_ROUND_CALLERS = {
 }
 
 
+def _observed_request_parts(kwargs: dict[str, Any], provider: str) -> Any:
+    """Capture available selected tool schemas for metadata-only estimates."""
+    messages = kwargs.get("call_messages") or ()
+    send_tools = kwargs.get(
+        "send_tools", kwargs.get("send_tools_this_round", provider == "claude")
+    )
+    core = kwargs.get("core")
+    selected = getattr(core, "context_tool_specs", None) if send_tools else None
+    if isinstance(selected, (list, tuple)) and selected:
+        return {"messages": messages, "tools": selected}
+    return messages
+
+
 def _call_with_fallback_chat_span(
     *,
     provider: str,
@@ -48,7 +61,7 @@ def _call_with_fallback_chat_span(
     with fallback_chat_span(
         provider=provider,
         model=str(kwargs.get("depname") or ""),
-        request_input=kwargs.get("call_messages") or (),
+        request_input=_observed_request_parts(kwargs, provider),
         core=kwargs.get("core"),
     ) as observability_span:
         with provider_sdk_diagnostic_span(provider) as provider_diagnostic:
@@ -99,7 +112,7 @@ def _call_inception_streaming_round(**kwargs: Any) -> Any:
         with fallback_chat_span(
             provider="inception",
             model=str(kwargs.get("depname") or ""),
-            request_input=kwargs.get("call_messages") or (),
+            request_input=_observed_request_parts(kwargs, "inception"),
             core=kwargs.get("core"),
         ) as observability_span:
             result = call_maybe_thread_fn(fn, *args, **call_kwargs)
