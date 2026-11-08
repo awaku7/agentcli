@@ -294,6 +294,19 @@ when DeepSeek returns it on a chunk without content. Failed/interrupted
 streams are not reported as completed measured usage. DeepSeek Responses
 usage continues through the existing Responses terminal event path.
 
+Z.AI (Zhipu GLM) native `zai-sdk` Chat Completions report
+`prompt_tokens` and `completion_tokens` as per-response measured counts.
+`prompt_tokens_details.cached_tokens` is a subset of prompt tokens;
+optional `completion_tokens_details.reasoning_tokens` is a subset of
+completion tokens when supplied. No additional measured tokens are inferred
+from reasoning text. Z.AI streaming publishes the last chunk's `usage`
+snapshot only after the owning request has completed; interrupted worker
+threads and failed/incomplete streams cannot overwrite the shared usage
+snapshot. Z.AI's documented streaming response includes final usage
+without requiring the DeepSeek-specific `stream_options.include_usage`
+request. Existing metadata-only context estimation and opt-in content
+capture policy are unchanged.
+
 Native Grok xAI gRPC SDK `response.usage` reports `prompt_tokens`,
 `completion_tokens` (final text) and `reasoning_tokens` (additional output)
 separately. Measured output is their sum; reasoning is exported only as the
