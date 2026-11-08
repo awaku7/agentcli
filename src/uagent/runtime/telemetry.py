@@ -188,7 +188,8 @@ def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     reasoning = _field(usage, "reasoning_tokens")
     cached = _field(usage, "cached_prompt_text_tokens")
 
-    valid = lambda value: type(value) is int and 0 <= value <= 10**12
+    def valid(value: Any) -> bool:
+        return type(value) is int and 0 <= value <= 10**12
 
     if valid(prompt) and (cached is None or (valid(cached) and cached <= prompt)):
         result["input_tokens"] = prompt
