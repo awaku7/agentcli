@@ -20,6 +20,7 @@ from .llm_openrouter_usage import (
     openrouter_usage_to_dict,
     request_openrouter_stream_usage,
 )
+from .llm_nvidia_usage import create_nvidia_chat_completion
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -435,15 +436,21 @@ class OpenAICompatibleRuntime:
                 elif self._streaming and self._provider == "openrouter":
                     request_openrouter_stream_usage(chat_payload)
                 elif self._streaming and (
-                    self._provider in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
+                    self._provider
+                    in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
                     stream_options.setdefault("include_usage", True)
                     chat_payload["stream_options"] = stream_options
-                stream = self._client.chat.completions.create(
-                    **chat_payload, stream=self._streaming
-                )
+                if self._provider == "nvidia":
+                    stream = create_nvidia_chat_completion(
+                        self._client, chat_payload, streaming=self._streaming
+                    )
+                else:
+                    stream = self._client.chat.completions.create(
+                        **chat_payload, stream=self._streaming
+                    )
                 if self._streaming:
                     yield from self._chat_events(stream, cancellation)
                 else:
