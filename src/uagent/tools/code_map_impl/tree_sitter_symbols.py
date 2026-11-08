@@ -336,10 +336,11 @@ def extract_tree_sitter_symbols(
                     "import",
                     "from",
                 }:
+                    line = _node_row(node) + 1
                     symbols.append(
                         {
                             "name": name,
-                            "line": _node_row(node) + 1,
+                            "line": line,
                             "end_line": _node_row(node, end=True) + 1,
                             "type": symbol_type,
                         }
