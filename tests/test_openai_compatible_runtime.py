@@ -882,7 +882,7 @@ def test_registry_chat_usage_is_reported_once(
         "total_tokens": 38,
     }
     kwargs = client.chat.completions.calls[0]
-    if provider in {"openai", "azure"}:
+    if provider in {"openai", "azure", "openrouter"}:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in kwargs
