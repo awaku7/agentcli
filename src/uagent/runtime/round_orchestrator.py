@@ -235,7 +235,7 @@ class RoundOrchestrator:
         observability_span.set_attribute(
             "uag.tokens.estimate.input", summary.request_tokens
         )
-        if get_observability_backend().enabled:
+        if getattr(get_observability_backend(), "enabled", False):
             for key, value in estimate_context_components(
                 request.payload,
                 provider=request.provider,
