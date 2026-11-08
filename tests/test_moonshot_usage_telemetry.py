@@ -60,8 +60,11 @@ def test_moonshot_sdk_object_accepts_nested_cached_tokens():
             {"input_tokens": 5, "output_tokens": 2, "total_tokens": 7},
         ),
         (
-            {"prompt_tokens": 5, "completion_tokens": 2,
-             "completion_tokens_details": {"reasoning_tokens": 7}},
+            {
+                "prompt_tokens": 5,
+                "completion_tokens": 2,
+                "completion_tokens_details": {"reasoning_tokens": 7},
+            },
             {"input_tokens": 5, "output_tokens": 2, "total_tokens": 7},
         ),
     ],
