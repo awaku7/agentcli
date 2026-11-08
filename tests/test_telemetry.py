@@ -104,14 +104,17 @@ def test_anthropic_usage_preserves_explicit_zero_and_unreported_fields() -> None
 
 
 def test_anthropic_usage_rejects_invalid_counts_without_fabricating_totals() -> None:
-    assert anthropic_usage_to_dict(
-        {
-            "input_tokens": 10,
-            "output_tokens": True,
-            "cache_read_input_tokens": -1,
-            "cache_creation_input_tokens": "unknown",
-        }
-    ) == {}
+    assert (
+        anthropic_usage_to_dict(
+            {
+                "input_tokens": 10,
+                "output_tokens": True,
+                "cache_read_input_tokens": -1,
+                "cache_creation_input_tokens": "unknown",
+            }
+        )
+        == {}
+    )
     assert anthropic_usage_to_dict(
         {
             "input_tokens": 10,
