@@ -7,6 +7,7 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.providers.llm_vllm_usage import (
+    capture_vllm_responses_usage,
     request_vllm_chat_stream_usage,
     vllm_usage_to_dict,
 )
@@ -170,9 +171,7 @@ def test_vllm_chat_stream_requests_usage_and_emits_final_subsets():
         [_chunk(content="answer"), _chunk(usage=SimpleNamespace(**_chat_usage()))]
     )
     events = _run(_runtime(client))
-    assert client.chat.completions.calls[0]["stream_options"] == {
-        "include_usage": True
-    }
+    assert client.chat.completions.calls[0]["stream_options"] == {"include_usage": True}
     assert [event.type for event in events] == [
         "ResponseStarted",
         "TextDelta",
@@ -249,6 +248,7 @@ def test_vllm_without_usage_does_not_fabricate_counts():
     assert events[-1].type == "ResponseCompleted"
     assert "usage" not in events[-1].data
 
+
 def test_vllm_legacy_publication_uses_fresh_normalized_snapshot():
     from uagent.providers.llm_vllm_usage import publish_vllm_legacy_usage
 
@@ -274,3 +274,35 @@ def test_vllm_legacy_publication_uses_fresh_normalized_snapshot():
         "cache_read_input_tokens": 7,
         "cache_write_input_tokens": 3,
     }
+
+def test_vllm_captures_completed_responses_even_after_created_event():
+    sink: list[dict[str, int]] = []
+    source = [
+        SimpleNamespace(
+            type="response.created",
+            response=SimpleNamespace(id="resp_1"),
+        ),
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_1", usage=_responses_usage()),
+        ),
+    ]
+    assert list(
+        capture_vllm_responses_usage(source, provider="vllm", sink=sink)
+    ) == source
+    assert sink == [_expected()]
+
+
+def test_vllm_responses_capture_skips_incomplete_and_other_provider():
+    sink: list[dict[str, int]] = []
+    incomplete = [SimpleNamespace(type="response.created")]
+    assert list(
+        capture_vllm_responses_usage(incomplete, provider="vllm", sink=sink)
+    ) == incomplete
+    assert sink == []
+
+    other = [SimpleNamespace(type="response.completed")]
+    assert capture_vllm_responses_usage(
+        other, provider="openai", sink=sink
+    ) is other
+    assert sink == []
