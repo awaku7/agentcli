@@ -381,7 +381,6 @@ def test_orchestrator_estimates_tool_arguments_only_once(monkeypatch):
     assert span.attributes["uag.tokens.estimate.output"] == len('search{"q":"abc"}')
 
 
-
 def test_orchestrator_exports_numeric_reasoning_usage_through_privacy_adapter(
     monkeypatch,
 ) -> None:
