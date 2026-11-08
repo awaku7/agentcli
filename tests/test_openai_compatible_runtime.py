@@ -99,7 +99,7 @@ def test_chat_runtime_projects_and_normalizes_events() -> None:
     assert client.chat.completions.calls[0]["model"] == "gpt-test"
 
 
-@pytest.mark.parametrize("provider", ["openai", "nvidia", "moonshot"])
+@pytest.mark.parametrize("provider", ["openai", "nvidia", "moonshot", "lmstudio"])
 def test_chat_runtime_normalizes_tool_call_fragments(provider: str) -> None:
     first = SimpleNamespace(
         choices=[
@@ -840,7 +840,9 @@ def test_runtime_cancellation_is_terminal() -> None:
     assert normalized[-1].type == "ResponseCancelled"
 
 
-@pytest.mark.parametrize("provider", ["openai", "azure", "openrouter", "ollama"])
+@pytest.mark.parametrize(
+    "provider", ["openai", "azure", "openrouter", "ollama", "lmstudio"]
+)
 def test_registry_chat_usage_is_reported_once(
     provider: str, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -882,13 +884,14 @@ def test_registry_chat_usage_is_reported_once(
         "total_tokens": 38,
     }
     kwargs = client.chat.completions.calls[0]
-    if provider in {"openai", "azure", "openrouter"}:
+    if provider in {"openai", "azure", "openrouter", "lmstudio"}:
         assert kwargs["stream_options"]["include_usage"] is True
     else:
         assert "stream_options" not in kwargs
 
 
-def test_registry_chat_nonstream_usage_from_mapping() -> None:
+@pytest.mark.parametrize("provider", ["openai", "lmstudio"])
+def test_registry_chat_nonstream_usage_from_mapping(provider: str) -> None:
     response = SimpleNamespace(
         choices=[
             SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
@@ -897,7 +900,7 @@ def test_registry_chat_nonstream_usage_from_mapping() -> None:
     )
     runtime = OpenAICompatibleRuntime(
         client=_Client(chunks=response),
-        provider="openai",
+        provider=provider,
         model="test-model",
         identifiers=_identifiers(),
         streaming=False,
@@ -919,7 +922,10 @@ def test_registry_chat_nonstream_usage_from_mapping() -> None:
 
 
 @pytest.mark.parametrize("streaming", [False, True])
-def test_registry_responses_usage_from_terminal_response(streaming: bool) -> None:
+@pytest.mark.parametrize("provider", ["openai", "lmstudio"])
+def test_registry_responses_usage_from_terminal_response(
+    streaming: bool, provider: str
+) -> None:
     response = SimpleNamespace(
         id="resp_1",
         output_text="answer",
@@ -929,7 +935,7 @@ def test_registry_responses_usage_from_terminal_response(streaming: bool) -> Non
     stream = [SimpleNamespace(type="response.completed", response=response)]
     runtime = OpenAICompatibleRuntime(
         client=_Client(events=stream if streaming else response),
-        provider="openai",
+        provider=provider,
         model="test-model",
         identifiers=_identifiers(),
         transport="responses",
@@ -968,7 +974,8 @@ def test_registry_never_invents_missing_or_invalid_chat_usage(usage, expected) -
     assert payload == ({"usage": expected} if expected else {})
 
 
-def test_stream_without_final_usage_does_not_invent_counts() -> None:
+@pytest.mark.parametrize("provider", ["openai", "lmstudio"])
+def test_stream_without_final_usage_does_not_invent_counts(provider: str) -> None:
     client = _Client(
         chunks=[
             SimpleNamespace(
@@ -983,7 +990,7 @@ def test_stream_without_final_usage_does_not_invent_counts() -> None:
     )
     runtime = OpenAICompatibleRuntime(
         client=client,
-        provider="openai",
+        provider=provider,
         model="test-model",
         identifiers=_identifiers(),
     )
