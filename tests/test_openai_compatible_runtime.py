@@ -909,7 +909,6 @@ def test_registry_chat_usage_is_reported_once(
         assert "stream_options" not in kwargs
 
 
-
 def test_moonshot_stream_reports_terminal_usage_and_cache_once() -> None:
     first = SimpleNamespace(
         choices=[
