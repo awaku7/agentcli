@@ -307,6 +307,20 @@ without requiring the DeepSeek-specific `stream_options.include_usage`
 request. Existing metadata-only context estimation and opt-in content
 capture policy are unchanged.
 
+Together AI's native `together` SDK Chat Completions returns request-scoped
+`prompt_tokens` and `completion_tokens`. Streaming requests include
+`stream_options={"include_usage": true}` so the terminal, possibly
+empty-choice chunk carries `usage`. The nonstreaming response's `usage`
+is also captured. When present, `prompt_tokens_details.cached_tokens`
+(or Together's flat `cached_tokens`) is a subset of input and
+`completion_tokens_details.reasoning_tokens` is a subset of output,
+exported to standard `gen_ai.usage.*` breakdown attributes. Absent,
+invalid, or inconsistent breakdowns are omitted rather than estimated.
+The total is derived only when both validated input and output counts exist.
+The owning request publishes usage after successful stream completion; an
+interrupted worker or failed stream cannot publish its partial counts.
+No new telemetry settings or content collection are introduced.
+
 Native Grok xAI gRPC SDK `response.usage` reports `prompt_tokens`,
 `completion_tokens` (final text) and `reasoning_tokens` (additional output)
 separately. Measured output is their sum; reasoning is exported only as the
