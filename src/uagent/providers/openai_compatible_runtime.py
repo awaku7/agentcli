@@ -90,6 +90,13 @@ def _reported_usage(
         if type(value) is int and 0 <= value <= 1_000_000_000_000:
             result[target] = value
     result.update(provider_cache_usage(usage, responses=responses))
+    if provider == "meta" and responses:
+        reasoning = _mapping_value(
+            _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
+        )
+        output = result.get("output_tokens")
+        if type(reasoning) is int and type(output) is int and 0 <= reasoning <= output:
+            result["reasoning_output_tokens"] = reasoning
     if provider == "deepseek" and responses:
         reasoning = _mapping_value(
             _mapping_value(usage, "output_tokens_details"), "reasoning_tokens"
