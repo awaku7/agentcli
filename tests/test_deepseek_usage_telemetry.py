@@ -221,28 +221,32 @@ def test_deepseek_registry_cancel_and_error_never_export_partial_usage() -> None
     assert "usage" not in events[-1].data
 
 
-def test_deepseek_legacy_stream_keeps_only_successful_final_usage() -> None:
-    core = SimpleNamespace(_last_responses_usage={"input_tokens": 999})
+def test_deepseek_legacy_stream_keeps_usage_local_until_owner_returns() -> None:
+    previous = {"input_tokens": 999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    snapshots: list[dict[str, int]] = []
     parse_deepseek_stream(
         [_chunk(text="a"), _chunk(usage=_usage())],
         core=core,
         callbacks=_callbacks(),
-        capture_usage=True,
+        usage_sink=snapshots,
     )
-    assert core._last_responses_usage == _expected()
-
-    previous = core._last_responses_usage
+    assert snapshots == [_expected()]
+    # Worker must not touch the shared core, even if its owner was interrupted.
+    assert core._last_responses_usage is previous
 
     def failed_stream():
         yield _chunk(text="b", usage=_usage())
         raise RuntimeError("broken stream")
 
+    failed_snapshots: list[dict[str, int]] = []
     parse_deepseek_stream(
         failed_stream(),
         core=core,
         callbacks=_callbacks(),
-        capture_usage=True,
+        usage_sink=failed_snapshots,
     )
+    assert failed_snapshots == []
     assert core._last_responses_usage is previous
 
 
