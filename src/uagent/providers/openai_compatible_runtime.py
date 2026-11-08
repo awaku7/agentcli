@@ -437,7 +437,7 @@ class OpenAICompatibleRuntime:
                     request_openrouter_stream_usage(chat_payload)
                 elif self._streaming and (
                     self._provider
-                    in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
+                    in {"openai", "deepseek", "lmstudio", "ollama", "nvidia", "alibaba"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):
                     stream_options = dict(chat_payload.get("stream_options") or {})
