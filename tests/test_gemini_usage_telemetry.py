@@ -36,6 +36,9 @@ def _fake_google_sdk(monkeypatch) -> None:
         Tool=_FakeType,
         GoogleSearch=_FakeType,
         GenerateContentConfig=_FakeType,
+        ThinkingConfig=_FakeType,
+        FunctionCallingConfig=_FakeType,
+        ToolConfig=_FakeType,
         SafetySetting=_FakeType,
         HarmBlockThreshold=SimpleNamespace(BLOCK_NONE="none"),
         HarmCategory=SimpleNamespace(
