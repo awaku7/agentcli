@@ -452,6 +452,7 @@ class OpenAICompatibleRuntime:
                     self._provider
                     in {"openai", "deepseek", "lmstudio", "ollama", "nvidia"}
                     or self._provider in {"alibaba", "moonshot", "meta"}
+                    or self._provider in {"perplexity", "bedrock"}
                     or (
                         self._provider == "sakana"
                         and self._model.lower().startswith("fugu")
