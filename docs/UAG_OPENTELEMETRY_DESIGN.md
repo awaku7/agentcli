@@ -326,6 +326,21 @@ server startup flags and models determine which details are returned.
 Only completed requests publish usage; failed or cancelled streams do not.
 OTel content collection policy and other providers remain unchanged.
 
+Novita AI's OpenAI-compatible Chat Completions API reports measured
+`prompt_tokens` and `completion_tokens` per response. Streaming requests
+use `stream_options={"include_usage": true}` to retrieve an optional
+terminal usage-only chunk, including when `choices=[]`. The completed
+nonstreaming response's usage is captured as well. The Novita-specific
+`llm_novita_usage.py` helper validates counts and passes any reported
+`prompt_tokens_details.cached_tokens`, `cache_write_tokens`, and
+`completion_tokens_details.reasoning_tokens` as subsets of input/output
+usage, without double counting. Missing or malformed measurements are
+omitted; actual breakdown support varies by model and response. The owning
+request publishes measurements only after the wait function returns.
+Partial usage from a failed stream and usage from an abandoned worker are
+not published. No new OTel settings, content capture, or other provider
+changes are introduced.
+
 Together AI's native `together` SDK Chat Completions returns request-scoped
 `prompt_tokens` and `completion_tokens`. Streaming requests include
 `stream_options={"include_usage": true}` so the terminal, possibly
