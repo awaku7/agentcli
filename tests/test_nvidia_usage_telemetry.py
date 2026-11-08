@@ -32,7 +32,8 @@ def test_nvidia_usage_option_success_does_not_retry():
     chat = _Chat()
     client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
     result = create_nvidia_chat_completion(
-        client, {"model": "supported", "stream_options": {"include_usage": True}},
+        client,
+        {"model": "supported", "stream_options": {"include_usage": True}},
         streaming=True,
     )
     assert result == {"choices": []}
@@ -69,7 +70,8 @@ def test_nvidia_unrelated_api_error_does_not_retry(status, message):
     client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
     with pytest.raises(_APIError):
         create_nvidia_chat_completion(
-            client, {"model": "model", "stream_options": {"include_usage": True}},
+            client,
+            {"model": "model", "stream_options": {"include_usage": True}},
             streaming=True,
         )
     assert len(chat.calls) == 1
@@ -87,7 +89,8 @@ def test_nvidia_explicit_stream_option_preserved_until_rejection():
     chat = _Chat(_APIError(422, "stream_options is not supported"))
     client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
     create_nvidia_chat_completion(
-        client, {"model": "model", "stream_options": {"include_usage": False}},
+        client,
+        {"model": "model", "stream_options": {"include_usage": False}},
         streaming=True,
     )
     assert chat.calls[0]["stream_options"]["include_usage"] is False
