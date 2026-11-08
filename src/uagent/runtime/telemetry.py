@@ -152,7 +152,7 @@ def gemini_usage_to_dict(usage: Any) -> dict[str, int]:
     cache = fields.get("cached_content_token_count")
     if prompt is not None and not invalid_input:
         count = prompt + fields.get("tool_use_prompt_token_count", 0)
-        if count <= 10**12 and (cache is None or cache <= count):
+        if count <= 10**12 and (cache is None or cache <= prompt):
             result["input_tokens"] = count
             if cache is not None:
                 result["cache_read_input_tokens"] = cache
