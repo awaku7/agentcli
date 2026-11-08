@@ -279,6 +279,18 @@ streams do not report incomplete usage as a measured total. Missing or
 invalid components remain unknown, never fabricated. This does not change
 the existing opt-in policy for full message capture.
 
+Native Grok xAI gRPC SDK `response.usage` reports `prompt_tokens`,
+`completion_tokens` (final text) and `reasoning_tokens` (additional output)
+separately. Measured output is their sum; reasoning is exported only as the
+standard `gen_ai.usage.reasoning.output_tokens` subset. Cached prompt text
+(`cached_prompt_text_tokens`) is a subset of `prompt_tokens`, never added
+to input again. For streamed native SDK responses, the last accumulated
+response usage is recorded only after successful stream exhaustion. Failed
+or cancelled requests do not export partial usage. The same normalization
+applies to the registry runtime and the legacy gRPC fallback; OpenAI-compatible
+xAI REST remains on the existing OpenAI-compatible usage mapping. No text or
+reasoning content is added to observability attributes.
+
 Total token usage is derivable from input/output counts, not redundantly
 exported.
 
