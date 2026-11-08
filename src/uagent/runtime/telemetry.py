@@ -294,55 +294,6 @@ def together_chat_usage_to_dict(usage: Any) -> dict[str, int]:
     return result
 
 
-def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
-    """Normalize vLLM Chat/Responses usage, preserving measured subsets only.
-
-    vLLM reports prompt-cache reads/writes within input token totals and
-    reasoning tokens within output token totals. They are never added twice.
-    Cache and reasoning details vary by server version and startup flags.
-    """
-    if usage is None:
-        return {}
-
-    def valid(value: Any) -> bool:
-        return type(value) is int and 0 <= value <= 10**12
-
-    input_key = "input_tokens" if responses else "prompt_tokens"
-    output_key = "output_tokens" if responses else "completion_tokens"
-    input_tokens = _field(usage, input_key)
-    output_tokens = _field(usage, output_key)
-    result: dict[str, int] = {}
-
-    if valid(input_tokens):
-        result["input_tokens"] = input_tokens
-        input_details = _field(
-            usage, "input_tokens_details" if responses else "prompt_tokens_details"
-        )
-        cached = _field(input_details, "cached_tokens")
-        written = _field(
-            input_details, "cache_write_tokens" if responses else "created_cache_tokens"
-        )
-        if valid(cached) and cached <= input_tokens:
-            result["cache_read_input_tokens"] = cached
-        if valid(written) and written <= input_tokens:
-            result["cache_write_input_tokens"] = written
-
-    if valid(output_tokens):
-        result["output_tokens"] = output_tokens
-        output_details = _field(
-            usage, "output_tokens_details" if responses else "completion_tokens_details"
-        )
-        reasoning = _field(output_details, "reasoning_tokens")
-        if valid(reasoning) and reasoning <= output_tokens:
-            result["reasoning_output_tokens"] = reasoning
-
-    if "input_tokens" in result and "output_tokens" in result:
-        total = result["input_tokens"] + result["output_tokens"]
-        if total <= 10**12:
-            result["total_tokens"] = total
-    return result
-
-
 def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     """Normalize native xAI gRPC usage (distinct completion and reasoning).
 
@@ -429,7 +380,6 @@ __all__ = [
     "deepseek_chat_usage_to_dict",
     "zai_chat_usage_to_dict",
     "together_chat_usage_to_dict",
-    "vllm_usage_to_dict",
     "xai_usage_to_dict",
     "estimate_context_components",
 ]
