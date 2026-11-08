@@ -279,6 +279,21 @@ streams do not report incomplete usage as a measured total. Missing or
 invalid components remain unknown, never fabricated. This does not change
 the existing opt-in policy for full message capture.
 
+DeepSeek Chat Completions (registry and legacy direct SDK routes) export
+per-request measured `prompt_tokens` and `completion_tokens` without
+estimating or double-counting. DeepSeek's `prompt_cache_hit_tokens` (or
+`prompt_tokens_details.cached_tokens` when the dedicated field is absent)
+is a subset of input tokens; `prompt_cache_miss_tokens` is used only for
+consistency checks. `completion_tokens_details.reasoning_tokens` is a
+subset of `completion_tokens`, not an extra output portion, and is
+projected to standard `gen_ai.usage.reasoning.output_tokens`. Explicit
+invalid cache/reasoning breakdowns are not exported as measured totals.
+Chat Completions streaming uses `stream_options.include_usage`; the
+terminal usage snapshot is recorded once after stream completion, including
+when DeepSeek returns it on a chunk without content. Failed/interrupted
+streams are not reported as completed measured usage. DeepSeek Responses
+usage continues through the existing Responses terminal event path.
+
 Native Grok xAI gRPC SDK `response.usage` reports `prompt_tokens`,
 `completion_tokens` (final text) and `reasoning_tokens` (additional output)
 separately. Measured output is their sum; reasoning is exported only as the
