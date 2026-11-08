@@ -28,6 +28,7 @@ from ..llm_helpers import (
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
 from .._lazy_sdk import is_openai_error
+from .openai_compatible_runtime import _reported_usage
 
 _LABEL = "Vercel"
 _ENV_PREFIX = "UAGENT_VERCEL"
@@ -170,6 +171,8 @@ def _parse_vercel_stream(
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
+    measured_usage: dict[str, int] = {}
+    stream_failed = False
     is_web = bool(getattr(core, "_is_web", False)) if core else False
     callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
@@ -181,6 +184,9 @@ def _parse_vercel_stream(
 
     try:
         for chunk in stream:
+            reported = _reported_usage(getattr(chunk, "usage", None), responses=False)
+            if reported:
+                measured_usage = reported
             if not chunk.choices:
                 continue
             delta = chunk.choices[0].delta
@@ -252,7 +258,7 @@ def _parse_vercel_stream(
                     if isinstance(fn_args, str):
                         acc["function"]["arguments"] += fn_args
     except Exception:
-        pass
+        stream_failed = True
 
     if is_web and core is not None:
         try:
@@ -290,7 +296,10 @@ def _parse_vercel_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(
+                "ResponseCompleted",
+                {"usage": measured_usage} if measured_usage and not stream_failed else {},
+            )
         except Exception:
             pass
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
@@ -402,6 +411,10 @@ def vercel_chat_with_tools(
                     pass
 
             if stream:
+                # Chat usage is reported in a final, empty-choices stream chunk.
+                options = dict(chat_kwargs.get("stream_options") or {})
+                options.setdefault("include_usage", True)
+                chat_kwargs["stream_options"] = options
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
                         lambda: _parse_vercel_stream(
