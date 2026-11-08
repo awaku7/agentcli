@@ -205,7 +205,7 @@ def test_deepseek_registry_nonstream_reports_usage() -> None:
 
 def test_deepseek_registry_cancel_and_error_never_export_partial_usage() -> None:
     client = _Client([_chunk(text="a", usage=_usage()), _chunk(text="b")])
-    events = list(_runtime(client).run(_request(), _CancelAfter(3)))
+    events = list(_runtime(client).run(_request(), _CancelAfter(2)))
     assert events[-1].type == "ResponseCancelled"
     assert "usage" not in events[-1].data
 
