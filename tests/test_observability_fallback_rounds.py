@@ -486,3 +486,36 @@ def test_zai_fallback_otel_exports_measured_cache_and_reasoning(monkeypatch) -> 
     assert attrs["gen_ai.usage.cache_read.input_tokens"] == 40
     assert attrs["gen_ai.usage.reasoning.output_tokens"] == 10
     assert "PRIVATE_TEXT" not in str(attrs)
+
+
+def test_together_fallback_otel_exports_measured_cache_and_reasoning(
+    monkeypatch,
+) -> None:
+    from uagent.runtime.telemetry import together_chat_usage_to_dict
+
+    backend = _install_backend(monkeypatch)
+    previous = {"input_tokens": 9999}
+    core = SimpleNamespace(_last_responses_usage=previous)
+    with observability_runtime.fallback_chat_span(
+        provider="together",
+        model="together-test",
+        request_input=[{"role": "user", "content": "PRIVATE_TEXT"}],
+        core=core,
+    ):
+        core._last_responses_usage = together_chat_usage_to_dict(
+            {
+                "prompt_tokens": 80,
+                "completion_tokens": 20,
+                "cached_tokens": 30,
+                "completion_tokens_details": {"reasoning_tokens": 8},
+            }
+        )
+
+    attrs = backend.spans[0]["span"].attributes
+    assert attrs["uag.tokens.reported.input"] == 80
+    assert attrs["uag.tokens.reported.output"] == 20
+    assert attrs["uag.tokens.reported.total"] == 100
+    assert attrs["gen_ai.usage.cache_read.input_tokens"] == 30
+    assert attrs["gen_ai.usage.reasoning.output_tokens"] == 8
+    assert "gen_ai.usage.cache_write.input_tokens" not in attrs
+    assert "PRIVATE_TEXT" not in str(attrs)
