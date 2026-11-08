@@ -92,6 +92,14 @@ def test_anthropic_usage_preserves_explicit_zero_and_unreported_fields() -> None
     assert anthropic_usage_to_dict(
         {"input_tokens": 6, "cache_read_input_tokens": 0}
     ) == {"input_tokens": 6, "cache_read_input_tokens": 0}
+    assert anthropic_usage_to_dict(
+        {
+            "input_tokens": 14,
+            "output_tokens": 2,
+            "cache_read_input_tokens": None,
+            "cache_creation_input_tokens": None,
+        }
+    ) == {"input_tokens": 14, "output_tokens": 2, "total_tokens": 16}
     assert anthropic_usage_to_dict(None) == {}
 
 
@@ -103,7 +111,21 @@ def test_anthropic_usage_rejects_invalid_counts_without_fabricating_totals() -> 
             "cache_read_input_tokens": -1,
             "cache_creation_input_tokens": "unknown",
         }
-    ) == {"input_tokens": 10}
+    ) == {}
+    assert anthropic_usage_to_dict(
+        {
+            "input_tokens": 10,
+            "output_tokens": 2,
+            "cache_read_input_tokens": 10**12 + 1,
+        }
+    ) == {"output_tokens": 2}
+    assert anthropic_usage_to_dict(
+        {
+            "input_tokens": 10,
+            "output_tokens": 2,
+            "cache_creation_input_tokens": False,
+        }
+    ) == {"output_tokens": 2}
     assert anthropic_usage_to_dict(
         {
             "input_tokens": 10**12,
