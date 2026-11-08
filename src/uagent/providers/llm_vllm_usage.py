@@ -66,3 +66,15 @@ def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
         if total <= 10**12:
             result["total_tokens"] = total
     return result
+
+def publish_vllm_legacy_usage(core: Any, usage: Any, *, responses: bool) -> None:
+    """Publish a fresh measured snapshot only after a successful legacy round."""
+    if core is None:
+        return
+    measured = vllm_usage_to_dict(usage, responses=responses)
+    if not measured:
+        return
+    try:
+        core._last_responses_usage = measured
+    except (AttributeError, TypeError):
+        pass
