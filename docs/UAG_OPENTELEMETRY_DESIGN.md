@@ -252,8 +252,21 @@ components as `uag.tokens.context.instructions`,
 per-request estimates, not a provider's actual input counts or a guaranteed
 complete/tokenizer-equivalent partition. They never include raw messages,
 system instructions, or Tool definitions in the attributes.
-Total token usage
-is derivable from input/output counts, not redundantly exported.
+
+For Anthropic's non-streaming Messages API, response `usage.input_tokens`
+covers **uncached input only**. UAG therefore exports measured input as
+`usage.input_tokens + usage.cache_read_input_tokens +
+usage.cache_creation_input_tokens` (valid available integer fields only).
+Cache reads and creations are separately mapped to standard
+`gen_ai.usage.cache_read.input_tokens` and
+`gen_ai.usage.cache_write.input_tokens`. Both are included in the measured
+input total, never counted again in Admin. A successful Claude response
+replaces the previous per-request usage snapshot; rejected/retried requests
+do not generate extra usage counts. Missing or invalid provider usage is
+not replaced by an invented measured count.
+
+Total token usage is derivable from input/output counts, not redundantly
+exported.
 
 Registry Chat Completions and Responses adapters forward verified, non-negative
 per-request usage from the provider response (including final streaming usage
