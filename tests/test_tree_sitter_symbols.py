@@ -44,9 +44,25 @@ def test_tree_sitter_extracts_symbols(
     path = tmp_path / filename
     path.write_text(source, encoding="utf-8")
 
+    pack = tree_sitter_module._load_language_pack()
+    assert pack is not None, "Optional Tree-sitter pack failed to initialize"
+    try:
+        parser = pack.get_parser(tree_sitter_module.TREE_SITTER_LANGUAGE_BY_SOURCE[language])
+        raw = path.read_bytes()
+        parse_bytes = getattr(parser, "parse_bytes", None)
+        tree = parse_bytes(raw) if callable(parse_bytes) else parser.parse(raw)
+        assert tree is not None
+        root = tree_sitter_module._node_value(tree, "root_node")
+        assert root is not None
+    except Exception as exc:
+        pytest.fail(f"Language-pack parser preflight failed: {type(exc).__name__}: {exc!r}")
+
     symbols = extract_tree_sitter_symbols(str(path), language)
     actual = {item["name"]: (item["line"], item["type"]) for item in symbols}
-    assert actual == expected
+    assert actual == expected, (
+        f"root={root!r}, root_type={tree_sitter_module._node_type(root)!r}, "
+        f"named_children={len(tree_sitter_module._node_children(root))}"
+    )
 
 
 def test_vba_and_lotusscript_keep_regex_support(tmp_path: Path) -> None:
