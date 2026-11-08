@@ -195,9 +195,7 @@ def _node_children(node: Any) -> list[Any]:
     get_child = getattr(node, "named_child", None)
     if type(count) is int and callable(get_child):
         return [
-            child
-            for index in range(count)
-            if (child := get_child(index)) is not None
+            child for index in range(count) if (child := get_child(index)) is not None
         ]
     children = _node_value(node, "children") or ()
     return [child for child in children if _node_value(child, "is_named") is not False]
