@@ -504,7 +504,7 @@ def build_openai_projection(
         options["service_tier"] = "fast"
 
     if use_responses_api:
-        # Perplexity Router's Responses endpoint is stateless and rejects
+        # Perplexity Orchestrator's Responses endpoint is stateless and rejects
         # unknown fields such as OpenAI's context_management extension.
         if provider_key != "perplexity":
             options["context_management"] = [
