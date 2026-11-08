@@ -18,9 +18,21 @@ def _unsupported_stream_options(error: Exception) -> bool:
     if body is not None:
         text += " " + str(body)
     lowered = text.lower()
+    markers = (
+        "unsupported",
+        "not supported",
+        "unrecognized",
+        "unknown",
+        "extra",
+        "not permitted",
+        "not allowed",
+        "invalid",
+        "unexpected",
+        "forbidden",
+        "reject",
+    )
     return "stream_options" in lowered and any(
-        marker in lowered
-        for marker in ("unsupported", "not supported", "unrecognized", "unknown", "extra", "not permitted", "not allowed", "invalid", "unexpected", "forbidden", "reject")
+        marker in lowered for marker in markers
     )
 
 
