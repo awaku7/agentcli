@@ -68,7 +68,6 @@ def vllm_usage_to_dict(usage: Any, *, responses: bool) -> dict[str, int]:
     return result
 
 
-
 def capture_vllm_responses_usage(
     stream: Any, *, provider: str, sink: list[dict[str, int]]
 ) -> Any:
