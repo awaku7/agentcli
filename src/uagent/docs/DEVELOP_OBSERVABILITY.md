@@ -10,6 +10,7 @@ Supported process-level controls:
 
 - `--otel`: explicitly enable observability for the current process.
 - `--no-otel`: explicitly disable observability for the current process.
+- `--otel-content`: opt into the four reviewed conversation and Tool content categories. Core OTel must also be enabled. Tool metadata remains available with plain `--otel`.
 - `UAGENT_OTEL_ENABLED`: environment fallback when no explicit entry-point override is supplied.
 - `UAGENT_OTEL_CAPTURE_CONTENT`: controls content capture policy. The default is OFF.
 - `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`: optional comma/semicolon-separated IP/CIDR allowlist for trusted Web reverse-proxy trace ingress. Missing or invalid configuration means OFF.
@@ -19,7 +20,7 @@ Supported process-level controls:
 - `UAGENT_OTEL_CORRELATION_KEY_VERSION`: correlation key version label; default `v1`.
 - `UAGENT_OTEL_PROVIDER_INSTRUMENTATION`: comma-separated Phase 4C provider selector. The default is empty/OFF; the closed tokens are `openai` and `claude`.
 
-Equivalent launcher controls are `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`, `--otel-deployment-scope`, `--otel-correlation-key-name`, `--otel-correlation-key-version`, and `--otel-provider-instrumentation`.
+Advanced correlation, provider SDK and trace-query controls are operator environment or programmatic settings only; the former per-feature CLI options are no longer recognized.
 
 Activation precedence is:
 
@@ -37,7 +38,7 @@ The launcher must not fully resolve observability settings at import time, becau
 
 The required startup sequence is:
 
-1. Collect any explicit launcher override (`--otel` / `--no-otel`) without resolving environment fallback yet.
+1. Collect the supported launcher flags (`--otel`, `--no-otel`, `--otel-content`) without resolving environment fallback yet.
 2. Select/apply the effective working directory.
 3. Load or reload `.env` and `.env.sec` for that directory.
 4. Call `refresh_observability_settings()`.
@@ -51,7 +52,7 @@ A2A has two invocation forms and both are part of the supported surface:
 - normal process launch through `uaga` / `sys.argv`;
 - programmatic `uagent.a2a.server.main(argv=[...])`.
 
-The explicit `argv` form accepts `--otel` / `--no-otel` directly and publishes the same entry-point override before dotenv refresh.
+The explicit `argv` form accepts `--otel`, `--no-otel`, and `--otel-content` directly and publishes the same entry-point overrides before dotenv refresh.
 
 ## Runtime architecture
 
