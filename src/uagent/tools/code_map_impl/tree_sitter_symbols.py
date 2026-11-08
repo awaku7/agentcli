@@ -169,24 +169,38 @@ def _load_language_pack() -> Any | None:
         return _PACK
 
 
+def _node_value(node: Any, name: str) -> Any:
+    """Read either a core tree-sitter property or a language-pack method."""
+    value = getattr(node, name, None)
+    return value() if callable(value) else value
+
+
 def _node_type(node: Any) -> str:
     """Get a node type across supported tree-sitter Python bindings."""
-    value = getattr(node, "type", None)
+    value = _node_value(node, "type")
     if value is None:
-        value = getattr(node, "kind", "")
-    return str(value)
+        value = _node_value(node, "kind")
+    return str(value or "")
 
 
 def _node_children(node: Any) -> list[Any]:
-    """Return named children without depending on one binding's API shape."""
-    children = getattr(node, "named_children", None)
+    """Return named children from either the core or newer pack binding."""
+    children = _node_value(node, "named_children")
     if children is not None:
         try:
             return list(children)
         except TypeError:
             pass
-    children = getattr(node, "children", ())
-    return [child for child in children if getattr(child, "is_named", True)]
+    count = _node_value(node, "named_child_count")
+    get_child = getattr(node, "named_child", None)
+    if type(count) is int and callable(get_child):
+        return [
+            child
+            for index in range(count)
+            if (child := get_child(index)) is not None
+        ]
+    children = _node_value(node, "children") or ()
+    return [child for child in children if _node_value(child, "is_named") is not False]
 
 
 def _field_child(node: Any, field_name: str) -> Any | None:
@@ -221,16 +235,30 @@ def _find_name_node(node: Any, depth: int = 0) -> Any | None:
 
 
 def _node_text(node: Any, source: bytes) -> str:
-    """Read node text, supporting bindings with and without ``Node.text``."""
-    value = getattr(node, "text", None)
+    """Read node text, supporting both tree-sitter binding APIs."""
+    value = _node_value(node, "text")
     if value is not None:
         if isinstance(value, bytes):
             return value.decode("utf-8", errors="replace")
         return str(value)
-    try:
-        return source[node.start_byte : node.end_byte].decode("utf-8", errors="replace")
-    except (AttributeError, TypeError):
-        return ""
+    start = _node_value(node, "start_byte")
+    end = _node_value(node, "end_byte")
+    if type(start) is int and type(end) is int:
+        return source[start:end].decode("utf-8", errors="replace")
+    return ""
+
+
+def _node_row(node: Any, *, end: bool = False) -> int:
+    """Read the zero-based row from old Point or new position methods."""
+    point = _node_value(node, "end_point" if end else "start_point")
+    if point is None:
+        point = _node_value(node, "end_position" if end else "start_position")
+    if point is None:
+        return 0
+    row = getattr(point, "row", None)
+    if row is None:
+        row = point[0]
+    return int(row)
 
 
 def _symbol_type(node_type: str, source_language: str) -> str | None:
@@ -280,8 +308,11 @@ def extract_tree_sitter_symbols(
 
     try:
         parser = pack.get_parser(language_name)
-        tree = parser.parse(source)
-        root = tree.root_node
+        parse_bytes = getattr(parser, "parse_bytes", None)
+        tree = parse_bytes(source) if callable(parse_bytes) else parser.parse(source)
+        if tree is None:
+            return []
+        root = _node_value(tree, "root_node")
     except Exception:
         return []
 
@@ -305,14 +336,11 @@ def extract_tree_sitter_symbols(
                     "import",
                     "from",
                 }:
-                    start_point = getattr(node, "start_point", (0, 0))
-                    end_point = getattr(node, "end_point", start_point)
-                    line = int(start_point[0]) + 1
                     symbols.append(
                         {
                             "name": name,
-                            "line": line,
-                            "end_line": int(end_point[0]) + 1,
+                            "line": _node_row(node) + 1,
+                            "end_line": _node_row(node, end=True) + 1,
                             "type": symbol_type,
                         }
                     )
