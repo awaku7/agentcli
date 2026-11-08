@@ -219,6 +219,7 @@ def deepseek_chat_usage_to_dict(usage: Any) -> dict[str, int]:
             result["total_tokens"] = total
     return result
 
+
 def xai_usage_to_dict(usage: Any) -> dict[str, int]:
     """Normalize native xAI gRPC usage (distinct completion and reasoning).
 
