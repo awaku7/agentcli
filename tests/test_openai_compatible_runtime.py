@@ -1106,6 +1106,66 @@ def test_registry_responses_usage_from_terminal_response(
     }
 
 
+def test_perplexity_responses_omits_unsupported_stateful_request_fields() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[
+            {"role": "user", "content": "first question"},
+            {"role": "assistant", "content": "first answer"},
+            {"role": "user", "content": "second question"},
+        ],
+        policy={"provider": "perplexity", "model": "perplexity/kimi-k3"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="perplexity",
+        model="perplexity/kimi-k3",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={
+            "previous_response_id": "resp_previous",
+            "store": True,
+            "background": True,
+            "max_tool_calls": 2,
+            "top_logprobs": 1,
+            "stream_options": {"include_usage": True},
+            "context_management": [{"type": "compaction"}],
+            "truncation": "auto",
+            "presence_penalty": 0.5,
+            "frequency_penalty": 0.5,
+            "text": {
+                "verbosity": "medium",
+                "format": {"type": "text"},
+            },
+            "temperature": 0.2,
+            "prompt_cache_key": "cache-key",
+        },
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+    for field in (
+        "previous_response_id",
+        "store",
+        "background",
+        "max_tool_calls",
+        "top_logprobs",
+        "stream_options",
+        "context_management",
+        "truncation",
+        "presence_penalty",
+        "frequency_penalty",
+    ):
+        assert field not in request.payload
+    assert request.payload["text"] == {"format": {"type": "text"}}
+    assert request.payload["temperature"] == 0.2
+    assert request.payload["prompt_cache_key"] == "cache-key"
+    assert "first question" in str(request.payload["input"])
+    assert "second question" in str(request.payload["input"])
+
+
 @pytest.mark.parametrize("streaming", [False, True])
 def test_perplexity_responses_reports_measured_cache_and_reasoning(
     streaming: bool,
