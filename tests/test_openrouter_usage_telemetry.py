@@ -35,7 +35,9 @@ def test_openrouter_usage_maps_measured_subsets(responses):
         "reasoning_output_tokens": 12,
     }
     assert openrouter_usage_to_dict(usage, responses=responses) == expected
-    assert _reported_usage(usage, responses=responses, provider="openrouter") == expected
+    assert (
+        _reported_usage(usage, responses=responses, provider="openrouter") == expected
+    )
 
 
 def test_openrouter_usage_accepts_sdk_objects():
@@ -64,10 +66,13 @@ def test_openrouter_usage_rejects_invalid_subsets_and_counts():
         },
         responses=False,
     ) == {"input_tokens": 5, "output_tokens": 2, "total_tokens": 7}
-    assert openrouter_usage_to_dict(
-        {"prompt_tokens": True, "completion_tokens": -1, "total_tokens": 8},
-        responses=False,
-    ) == {}
+    assert (
+        openrouter_usage_to_dict(
+            {"prompt_tokens": True, "completion_tokens": -1, "total_tokens": 8},
+            responses=False,
+        )
+        == {}
+    )
 
 
 def test_openrouter_stream_options_preserve_explicit_choice():
