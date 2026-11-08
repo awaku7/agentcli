@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, Any, Iterator, Mapping
 
 from ..env_utils import env_get
 from ..runtime.telemetry import deepseek_chat_usage_to_dict, provider_cache_usage
+from .llm_vllm_usage import request_vllm_chat_stream_usage, vllm_usage_to_dict
 
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
@@ -66,6 +67,8 @@ def _reported_usage(
     """Read request-scoped provider counts, never estimated or cumulative values."""
     if provider == "deepseek" and not responses:
         return deepseek_chat_usage_to_dict(usage)
+    if provider == "vllm":
+        return vllm_usage_to_dict(usage, responses=responses)
     fields = (
         ("input_tokens", "input_tokens" if responses else "prompt_tokens"),
         ("output_tokens", "output_tokens" if responses else "completion_tokens"),
@@ -421,7 +424,9 @@ class OpenAICompatibleRuntime:
                 }
                 # Request final usage only on known-compatible endpoints.
                 # Older Azure API versions reject stream_options entirely.
-                if self._streaming and (
+                if self._streaming and self._provider == "vllm":
+                    request_vllm_chat_stream_usage(chat_payload)
+                elif self._streaming and (
                     self._provider in {"openai", "deepseek"}
                     or (self._provider == "azure" and _azure_stream_usage_supported())
                 ):

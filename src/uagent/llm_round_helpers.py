@@ -411,6 +411,7 @@ def _call_openai_azure_round(
     )
     if not isinstance(legacy_usage_before, dict):
         legacy_usage_before = {}
+    vllm_stream_usage: list[Any] = []
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
@@ -734,13 +735,20 @@ def _call_openai_azure_round(
                     apply_lmstudio_transport(resp_kwargs, responses=True)
 
                 if stream_responses:
+                    from .providers.llm_vllm_usage import capture_vllm_responses_usage
+
+                    vllm_stream_usage.clear()
                     _stream_result = call_maybe_thread_fn(
                         lambda: parse_responses_stream(
-                            create_vllm_responses(
-                                client,
-                                resp_kwargs,
+                            capture_vllm_responses_usage(
+                                create_vllm_responses(
+                                    client,
+                                    resp_kwargs,
+                                    provider=provider,
+                                    stream=True,
+                                ),
                                 provider=provider,
-                                stream=True,
+                                sink=vllm_stream_usage,
                             ),
                             provider=provider,
                             # In Web mode, parse_responses_stream streams deltas via core.log_message.
@@ -1740,6 +1748,19 @@ def _call_openai_azure_round(
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})
         traceback.print_exc()
         return False, client, "", "", []
+
+    if provider == "vllm":
+        from .providers.llm_vllm_usage import publish_vllm_legacy_usage
+
+        if use_responses_api and stream_responses:
+            raw_usage = vllm_stream_usage[-1] if vllm_stream_usage else None
+        elif use_responses_api:
+            raw_usage = getattr(core, "_last_responses_usage", None)
+        else:
+            raw_usage = getattr(resp, "usage", None)
+        # A missing/aborted response must not relabel old usage as fresh.
+        if raw_usage is not legacy_usage_before:
+            publish_vllm_legacy_usage(core, raw_usage, responses=use_responses_api)
 
     _record_legacy_usage_telemetry(
         core=core,

@@ -307,6 +307,25 @@ without requiring the DeepSeek-specific `stream_options.include_usage`
 request. Existing metadata-only context estimation and opt-in content
 capture policy are unchanged.
 
+vLLM's OpenAI-compatible Chat Completions and Responses API report
+request-scoped `prompt_tokens` / `completion_tokens` or `input_tokens` /
+`output_tokens`. For streamed Chat Completions, UAG requests
+`stream_options.include_usage=true` (unless explicitly overridden) so
+the final usage-only chunk is collected; Responses usage comes from the
+completed response or `response.completed` event. A vLLM-specific provider
+module, `src/uagent/providers/llm_vllm_usage.py`, owns the usage schema and
+stream-option policy while the shared OpenAI-compatible runtime retains
+transport/event handling. Both registry and completed legacy calls use
+provider-reported values. The optional Chat cache fields
+`prompt_tokens_details.cached_tokens` / `created_cache_tokens`, Responses
+`input_tokens_details.cached_tokens` / `cache_write_tokens`, and
+`completion_tokens_details.reasoning_tokens` /
+`output_tokens_details.reasoning_tokens` are subsets, never added to the
+input/output totals. Missing and inconsistent measurements are omitted;
+server startup flags and models determine which details are returned.
+Only completed requests publish usage; failed or cancelled streams do not.
+OTel content collection policy and other providers remain unchanged.
+
 Together AI's native `together` SDK Chat Completions returns request-scoped
 `prompt_tokens` and `completion_tokens`. Streaming requests include
 `stream_options={"include_usage": true}` so the terminal, possibly
