@@ -31,9 +31,7 @@ def _unsupported_stream_options(error: Exception) -> bool:
         "forbidden",
         "reject",
     )
-    return "stream_options" in lowered and any(
-        marker in lowered for marker in markers
-    )
+    return "stream_options" in lowered and any(marker in lowered for marker in markers)
 
 
 def create_nvidia_chat_completion(
