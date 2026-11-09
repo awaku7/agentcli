@@ -71,9 +71,7 @@ class _ActUsage:
         if not self._rounds:
             return {}
         measured = {
-            key: count
-            for key, count in self._sums.items()
-            if self._complete[key]
+            key: count for key, count in self._sums.items() if self._complete[key]
         }
         if len(measured) == 2:
             measured["total_tokens"] = (
