@@ -1254,9 +1254,7 @@ def _call_openai_azure_round(
                 if (
                     provider == "lmstudio"
                     and stream_responses
-                    and (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "")
-                    .strip()
-                    .lower()
+                    and (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
                     == "sdk"
                 ):
                     from .runtime.legacy_lmstudio_sdk_stream import (
