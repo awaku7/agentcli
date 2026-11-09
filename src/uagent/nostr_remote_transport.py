@@ -3,9 +3,11 @@
 This module deliberately does not alter the legacy bitchat Nostr transport or
 start a CLI remote-control service. It publishes already-created kind-1059
 NIP-17 gift wraps to their verified inbox-relay lists and listens for addressed
-wraps. The separate foreground dispatcher can validate and map accepted rumors
-to the existing CLI event kinds, but pairing-store wiring, service lifecycle,
-response delivery, and the local relay/egress allowlist remain caller-owned.
+wraps. The listener can optionally persist verified encrypted wraps in a SQLite
+inbox before notifying its callback; the caller still owns inbox recovery,
+foreground dispatch, pairing-store wiring, service lifecycle, response delivery,
+and the local relay/egress allowlist. The separate foreground dispatcher only
+handles requests after another runtime component enqueues them.
 """
 
 from __future__ import annotations
@@ -27,6 +29,7 @@ from .nostr_nip17 import (
     _validate_relay_uri,
     unwrap_nip17_private_message,
 )
+from .nostr_remote_inbox import InboxFullError, SQLiteNostrInboxStore
 from .nostr_remote_state import SQLiteReplayStore, validate_rumor_timestamp
 from .tools.nostr_transport import _verify_event
 
@@ -302,7 +305,9 @@ async def listen_nip17_messages(
     on_message: Callable[[dict[str, Any]], Any | Awaitable[Any]],
     *,
     authorize_sender: Callable[[str], bool | Awaitable[bool]],
-    replay_store: SQLiteReplayStore,
+    replay_store: SQLiteReplayStore | None = None,
+    inbox_store: SQLiteNostrInboxStore | None = None,
+    target_session_id: str | None = None,
     since: int | None = None,
     now_fn: Callable[[], int] | None = None,
     max_age_seconds: int = 600,
@@ -316,13 +321,16 @@ async def listen_nip17_messages(
     Invalid, oversized, unauthenticated, unauthorized, stale, or duplicate
     messages are ignored. The authenticated seal author is passed to
     ``authorize_sender``; only after it approves and the rumor's own timestamp
-    passes freshness checks is the sender/rumor pair atomically claimed in
-    ``replay_store``. The callback therefore only sees authorized, fresh,
-    first-seen rumors. Claim-before-callback is intentionally at-most-once: if
-    the callback or process fails after the claim but before it durably hands
-    off the request, the rumor can be lost rather than replayed. A retryable
-    inbox/outbox transaction is required before promising delivery. This
-    function does not reconnect; the caller owns reconnect/backoff and CLI
+    passes freshness checks, deduplication is persisted. Supply exactly one of
+    ``replay_store`` or ``inbox_store``. Legacy replay-store mode claims before
+    invoking the callback and may lose a request if that handoff fails. Durable
+    inbox mode persists the encrypted outer gift wrap and its target session
+    before invoking the callback; a callback failure leaves a pending row that
+    the caller must enumerate with ``list_pending`` after restart. Claiming an
+    inbox row moves it to ``dispatching`` permanently; after a crash, inspect
+    ``list_dispatching`` and do not automatically re-execute it. This preserves
+    at-most-once CLI side effects but may require manual reconciliation. The
+    function does not reconnect; the caller owns recovery, backoff, and CLI
     dispatch policy.
     """
     relay_url = _validate_relay_uri(relay_url)
@@ -333,8 +341,23 @@ async def listen_nip17_messages(
         raise TypeError("on_message must be callable")
     if not callable(authorize_sender):
         raise TypeError("authorize_sender must be callable")
-    if not callable(getattr(replay_store, "claim", None)):
-        raise TypeError("replay_store must provide an atomic claim method")
+    if (replay_store is None) == (inbox_store is None):
+        raise ValueError("provide exactly one of replay_store or inbox_store")
+    if replay_store is not None:
+        if not callable(getattr(replay_store, "claim", None)):
+            raise TypeError("replay_store must provide an atomic claim method")
+    else:
+        if not callable(getattr(inbox_store, "enqueue_verified_wrap", None)):
+            raise TypeError("inbox_store must provide enqueue_verified_wrap()")
+        if (
+            not isinstance(target_session_id, str)
+            or not target_session_id
+            or len(target_session_id) > 128
+            or any(
+                ord(char) < 32 or 127 <= ord(char) < 160 for char in target_session_id
+            )
+        ):
+            raise ValueError("target_session_id is required for durable inbox mode")
     if now_fn is not None and not callable(now_fn):
         raise TypeError("now_fn must be callable")
 
@@ -412,7 +435,24 @@ async def listen_nip17_messages(
                 if not _verify_event(event):
                     continue
                 try:
-                    rumor = unwrap_nip17_private_message(event, private_key)
+                    # NIP-01's event id covers these fields only. Drop any
+                    # relay-added, unsigned keys before decrypting or storing.
+                    canonical_event = {
+                        field: event[field]
+                        for field in (
+                            "id",
+                            "pubkey",
+                            "created_at",
+                            "kind",
+                            "tags",
+                            "content",
+                            "sig",
+                        )
+                    }
+                except (KeyError, TypeError):
+                    continue
+                try:
+                    rumor = unwrap_nip17_private_message(canonical_event, private_key)
                 except (ValueError, TypeError, KeyError):
                     continue
                 sender = rumor["pubkey"]
@@ -431,7 +471,25 @@ async def listen_nip17_messages(
                     )
                 except ValueError:
                     continue
-                if not replay_store.claim(sender, rumor["id"], received_at=received_at):
+                if inbox_store is not None:
+                    try:
+                        enqueued = inbox_store.enqueue_verified_wrap(
+                            sender,
+                            rumor["id"],
+                            canonical_event,
+                            created_at=rumor["created_at"],
+                            received_at=received_at,
+                            session_id=target_session_id,
+                        )
+                    except (ValueError, InboxFullError):
+                        # A malformed/oversized event or saturated local inbox
+                        # rejects this request, not the entire relay listener.
+                        continue
+                    if not enqueued:
+                        continue
+                elif not replay_store.claim(
+                    sender, rumor["id"], received_at=received_at
+                ):
                     continue
                 result = on_message(rumor)
                 if inspect.isawaitable(result):
