@@ -127,3 +127,29 @@ def test_abandoned_inception_worker_stays_silent_after_stop_reset(
     assert events == [{"type": "assistant_stream_delta", "delta": "before"}]
     assert core._last_responses_usage is previous
     assert measured == []
+
+
+def test_inception_stop_before_first_event_closes_sdk_stream(monkeypatch) -> None:
+    monkeypatch.setattr(core_module, "interrupt_requested", False)
+
+    class UnstartedStream:
+        def __init__(self) -> None:
+            self.closed = False
+            self.iterated = False
+
+        def __iter__(self):
+            self.iterated = True
+            return iter(())
+
+        def close(self) -> None:
+            self.closed = True
+
+    stream = UnstartedStream()
+    core = SimpleNamespace(_is_web=True, interrupt_requested=True)
+    with pytest.raises(LLMWaitInterrupted, match="interrupted"):
+        render_legacy_inception_stream(
+            stream, diffusing=False, print_delta_fn=None, core=core
+        )
+
+    assert stream.closed is True
+    assert stream.iterated is False
