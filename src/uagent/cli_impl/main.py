@@ -516,6 +516,32 @@ def main() -> int:
                 _startup_timing_mark("first_event_received")
             kind = ev.get("kind")
 
+            if kind == "nostr_remote_request":
+                # This event is only produced by the isolated experimental
+                # Nostr ingress. Re-check pairing and the selected session on
+                # the foreground thread before reusing the regular CLI paths.
+                # No network listener or pairing callback is installed unless
+                # a future remote-runtime component explicitly supplies one.
+                from ..nostr_remote_dispatch import (
+                    RemoteCLIRequestError,
+                    authorize_nostr_remote_request,
+                )
+
+                authorize_sender = getattr(core, "_nostr_remote_authorize_sender", None)
+                try:
+                    remote_action = authorize_nostr_remote_request(
+                        ev,
+                        current_session_id=str(getattr(core, "session_id", "") or ""),
+                        authorize_sender=authorize_sender,
+                    )
+                except RemoteCLIRequestError as exc:
+                    # Do not echo untrusted DM contents or expose detailed
+                    # authorization state to the remote sender.
+                    log_event("nostr.remote_request_rejected", reason=str(exc)[:160])
+                    continue
+                kind = remote_action.kind
+                ev = {"kind": kind, "text": remote_action.text}
+
             if kind == "command":
                 line = ev.get("text", "")
                 if dispatch_cli_receipt_command_event(

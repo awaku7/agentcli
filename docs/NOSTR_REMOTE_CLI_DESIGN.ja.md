@@ -80,7 +80,7 @@ flowchart TB
 |---|---|
 | `:remote on` | リモート機能を有効化。専用鍵・受信Relay設定を確認して接続 |
 | `:remote status` | 接続Relay、専用npub、接続状態、対象CLIセッション、登録端末数 |
-| `:remote pair` | スマホのnpubをローカルで確認・登録し、**PCと同等のCLI操作権限（full-control）**を明示的に許可 |
+| `:remote pair` | スマホのnpubをローカルで確認・登録し、PCと同等のCLI操作権限（full-control）を明示的に許可 |
 | `:remote devices` | 許可した端末・権限・最終接続情報（内容は表示しない） |
 | `:remote revoke` | 対話式に対象端末を選び、許可を即時失効 |
 | `:remote off` | 受信・送信処理を停止（登録端末情報は残す） |
@@ -242,11 +242,17 @@ GCP Cloud Run functionsおよびAWS Lambdaは、**NIP-01標準のWSS Relayをそ
 
 **実装前に検証して確定する事項**
 
-- 採用するNIP-17ライブラリがNIP-44 v2公式テストベクトル、NIP-59 gift-wrap、NIP-17 kind 14/10050を満たすこと。満たさない場合は独自暗号実装で補わず、別ライブラリまたは実装計画を再検討する。
+- NIP-44 v2は、採用する外部ライブラリまたはUAG内の独立Python実装のいずれかで実装する。公式テストベクトル（有効・無効・拡張長）、別実装との相互運用、セキュリティレビューを通過するまで本番Remote transportへ接続しない。テスト対象からベクトルを除外したり、独自暗号に置き換えたりして合格扱いにしない。
+- NIP-17/NIP-59生成・復号が外部ライブラリ内のNIP-44を暗黙に呼ぶ場合、UAG独自NIP-44との混在・取り違えを防止し、合成イベントで外部実装との往復を検証する。
 - 想定するスマートフォンDMクライアントとの送受信・kind 10050取得・Relay指定の相互運用性。検証対象アプリとバージョンをテスト計画に記録する。
 - CLIランタイムの直列投入、セッション一覧・切替、終了通知、中断、human_ask、逐次出力、ファイル・成果物I/Oの既存APIと、スマホ操作を**同等に処理する**接続点。
 - 5分の未来許容幅・10分の最大メッセージ年齢、SQLiteの保持期間、返信再送上限を実機試験で確認する。保持期間を過ぎた重複排除記録を削除する場合も、古いイベントを再実行しない期限ポリシーを維持する。
 - 初期Relayの可用性目標と、全Relay停止・相手のkind 10050未設定・返信送信失敗時に表示する利用者向け文言。
+
+**候補検証状況（2026-11-09）**
+
+- 公開PyPI版`nostr-sdk==0.45.1`は通常のNIP-44/NIP-17/NIP-59試験には利用できるが、拡張長メッセージを65,408バイト付近で拒否するため、NIP-44完全準拠候補としては採用しない。
+- UAG内のPython NIP-44 v2試作は、公式ベクトルの`get_conversation_key`（35件）、`get_message_keys`、`calc_padded_len`（24件）、`encrypt_decrypt`（10件）、`encrypt_decrypt_long_msg`（3件）、`invalid.decrypt`（12件）と`invalid.get_conversation_key`を通過した。ベクトルファイル全項目を網羅した試験ではない。kind 14/13/1059の短文DMについて、nostr-sdk 0.45.1との往復スモーク試験も通過した。別途、kind 10050 relay-list helper、ローカルegress allowlistとの積集合に送信先を制限するNIP-42対応WSS送受信primitive、rumor時刻検証・SQLite replay claimの試作を追加し、fake WebSocket／状態ストアのテストを通過した。今回、検証済みrumorをセッションID付き型イベントとしてCLIキューへ入れ、foreground event loopで送信者の再認可・rumor時刻・現在のセッションを再検証したうえで、通常会話または明示的な`/uag cmd :...`を既存のuser/command経路へ渡すDispatcher境界を追加した。未対応の`/uag`操作はLLMへ流さず拒否する。SQLite replay claimはcallback前に確定するため、現状はat-most-onceであり、claim後・キュー引き渡し前のプロセス障害では要求を失う可能性がある。再試行可能な永続inbox/outboxは未実装。本番のRelay listener、ペアリングストアとの認可callback設定、応答DM送信も未接続で、実Relay・NIP-42実機・複数OS試験、統合セキュリティレビューは未実施であり、本番採用は決定していない。
 
 ## 14. 参照
 
