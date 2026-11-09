@@ -283,10 +283,9 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
                 raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
             th.join(0.05)
     except BaseException:
-        # Ctrl-C raises KeyboardInterrupt in the waiting thread without setting
-        # interrupt_requested. Latch abandonment for the worker in that case too.
-        if th.is_alive():
-            abandoned.set()
+        # Ctrl-C during Thread.join() may make is_alive() report False while
+        # the worker is still executing. Always latch abandonment on exit.
+        abandoned.set()
         raise
 
     if box.get("exc") is not None:
