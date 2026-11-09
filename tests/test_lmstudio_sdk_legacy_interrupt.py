@@ -13,7 +13,9 @@ from uagent.runtime.legacy_lmstudio_sdk_stream import collect_lmstudio_sdk_strea
 
 
 def _chunk(content: str):
-    return SimpleNamespace(choices=[SimpleNamespace(delta=SimpleNamespace(content=content))])
+    return SimpleNamespace(
+        choices=[SimpleNamespace(delta=SimpleNamespace(content=content))]
+    )
 
 
 def test_lmstudio_sdk_stream_stops_on_host_interrupt_without_end_event(
