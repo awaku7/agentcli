@@ -1271,6 +1271,7 @@ def _call_openai_azure_round(
                     )
                 elif provider == "inception" and stream_responses:
                     inception_stream_usage: list[dict[str, int]] = []
+
                     # Inception exposes streaming on Chat Completions rather
                     # than the Responses API. Reuse the OpenAI-compatible
                     # tool/reasoning delta parser.
