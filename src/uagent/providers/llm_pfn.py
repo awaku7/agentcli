@@ -308,9 +308,7 @@ def pfn_chat_with_tools(
                 # usage publisher; hand off a fresh measured snapshot here.
                 from .openai_compatible_runtime import _reported_usage
 
-                measured_usage = _reported_usage(
-                    _value(resp, "usage"), responses=False
-                )
+                measured_usage = _reported_usage(_value(resp, "usage"), responses=False)
                 if measured_usage and core is not None:
                     try:
                         core._last_responses_usage = measured_usage
