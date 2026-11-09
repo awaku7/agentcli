@@ -304,6 +304,18 @@ def pfn_chat_with_tools(
                     lambda: client.chat.completions.create(**kwargs)
                 )
                 text, calls = parse_pfn_response(resp)
+                # The special legacy PFN route returns before the generic Chat
+                # usage publisher; hand off a fresh measured snapshot here.
+                from .openai_compatible_runtime import _reported_usage
+
+                measured_usage = _reported_usage(
+                    _value(resp, "usage"), responses=False
+                )
+                if measured_usage and core is not None:
+                    try:
+                        core._last_responses_usage = measured_usage
+                    except (AttributeError, TypeError):
+                        pass
             return True, client, text, "", calls
         except Exception as exc:
             attempt, new_client, action = retry_coordinator.rate_limit_step(
