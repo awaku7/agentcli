@@ -117,7 +117,7 @@ development = [
     "mermaid-cli",
     "oletools",
     "packaging",
-    "tree-sitter==0.26.0",
+    "tree-sitter==0.26.1",
     "tree-sitter-language-pack==1.25.0",
 ]
 platform = [
@@ -135,6 +135,7 @@ web = [
 test = [
     # SDKs imported directly by provider and compatibility tests.
     # Tree-sitter tests must not depend on lazy pip installation during pytest.
+    "tree-sitter==0.26.1",
     "tree-sitter-language-pack==1.25.0",
     "httpx>=0.28.1",
     "openai>=2.45.0",
