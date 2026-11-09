@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from contextlib import contextmanager
 from types import SimpleNamespace
 
@@ -913,6 +914,82 @@ def test_pfn_special_legacy_chat_reports_only_fresh_measured_usage(
         assert span.attributes["uag.tokens.reported.input"] == 50
         assert span.attributes["uag.tokens.reported.output"] == 13
         assert span.attributes["uag.tokens.reported.total"] == 63
+    else:
+        assert core._last_responses_usage is previous
+        assert not any(
+            name.startswith("uag.tokens.reported.") for name in span.attributes
+        )
+
+
+@pytest.mark.parametrize("kind", ["valid", "invalid", "partial", "missing"])
+def test_lmstudio_native_sdk_respond_stats_reach_fallback_otel(
+    monkeypatch, kind: str
+) -> None:
+    from uagent.providers.llm_lmstudio_sdk import LMStudioSDKClient
+
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_LMSTUDIO_TRANSPORT", "sdk")
+    monkeypatch.setitem(
+        sys.modules,
+        "lmstudio",
+        SimpleNamespace(Chat=SimpleNamespace(from_history=lambda _history: "sdk-chat")),
+    )
+    backend = _install_backend(monkeypatch)
+    stats_by_kind = {
+        "valid": SimpleNamespace(prompt_tokens_count=31, predicted_tokens_count=9),
+        "invalid": SimpleNamespace(prompt_tokens_count=True, predicted_tokens_count=-2),
+        "partial": SimpleNamespace(prompt_tokens_count=31),
+        "missing": None,
+    }
+    stats = stats_by_kind[kind]
+    model = SimpleNamespace(
+        respond=lambda _prompt: SimpleNamespace(content="answer", stats=stats)
+    )
+    core = SimpleNamespace(
+        _is_web=True,
+        responses_state={},
+        _last_responses_usage={"input_tokens": 999},
+    )
+    previous = core._last_responses_usage
+    client = LMStudioSDKClient.__new__(LMStudioSDKClient)
+    client._core = core
+    client._model = model
+    client.chat = SimpleNamespace(completions=SimpleNamespace(create=client.create))
+    result = legacy_provider_dispatch.call_legacy_openai_azure_round(
+        provider="lmstudio",
+        client=client,
+        depname="local-test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: ("lmstudio", client),
+        call_maybe_thread_fn=lambda callback: callback(),
+        use_responses_api=False,
+        stream_responses=False,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+    )
+
+    assert result[0] is True
+    assert result[2] == "answer"
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    if kind in {"valid", "partial"}:
+        expected = {"input_tokens": 31}
+        if kind == "valid":
+            expected.update(output_tokens=9, total_tokens=40)
+        assert core._last_responses_usage == expected
+        assert core._last_responses_usage is not previous
+        assert span.attributes["uag.tokens.reported.input"] == 31
+        if kind == "valid":
+            assert span.attributes["uag.tokens.reported.output"] == 9
+            assert span.attributes["uag.tokens.reported.total"] == 40
+        else:
+            assert "uag.tokens.reported.output" not in span.attributes
     else:
         assert core._last_responses_usage is previous
         assert not any(

@@ -31,6 +31,22 @@ def _fragment_text(value: Any) -> str:
     return _SYNTHETIC_REASONING.sub("", str(value or ""))
 
 
+def _sdk_chat_usage(result: Any) -> dict[str, int]:
+    """Preserve only request-scoped token counts reported by LM Studio."""
+    stats = getattr(result, "stats", None)
+    usage: dict[str, int] = {}
+    for target, name in (
+        ("prompt_tokens", "prompt_tokens_count"),
+        ("completion_tokens", "predicted_tokens_count"),
+    ):
+        count = getattr(stats, name, None)
+        if type(count) is int and 0 <= count <= 10**12:
+            usage[target] = count
+    if "prompt_tokens" in usage and "completion_tokens" in usage:
+        usage["total_tokens"] = usage["prompt_tokens"] + usage["completion_tokens"]
+    return usage
+
+
 def _chat_input(messages: list[dict[str, Any]] | None) -> Any:
     """Build the SDK Chat object while retaining role boundaries."""
     import lmstudio as lms
@@ -197,7 +213,8 @@ class LMStudioSDKClient:
                 SimpleNamespace(
                     message=SimpleNamespace(content=text), finish_reason="stop"
                 )
-            ]
+            ],
+            usage=_sdk_chat_usage(result),
         )
 
     def _act_text(self, prompt: Any, sdk_tools: list[Any]) -> str:
