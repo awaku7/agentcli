@@ -21,9 +21,11 @@ from ..env_utils import env_get
 from ..i18n import _
 from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..llm_helpers import (
+    LLMWaitInterrupted,
     _extract_latest_user_text,
     _is_thinking_task,
     _maybe_print_certifi_where,
+    llm_call_abandoned,
 )
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
@@ -161,12 +163,28 @@ def _parse_vercel_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
     return assistant_text, reasoning_content, tool_calls_list
 
 
+def _vercel_stream_interrupted(core: Any) -> bool:
+    """Block abandoned call threads from emitting into a newer turn."""
+    if llm_call_abandoned():
+        return True
+    from .. import core as core_module
+
+    with core_module.interrupt_lock:
+        if core_module.interrupt_requested:
+            return True
+    if bool(getattr(core, "interrupt_requested", False)):
+        return True
+    cancellation = getattr(core, "cancellation_token", None)
+    return cancellation is not None and cancellation.is_cancelled()
+
+
 def _parse_vercel_stream(
     stream: Any,
     *,
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
@@ -176,6 +194,8 @@ def _parse_vercel_stream(
     is_web = bool(getattr(core, "_is_web", False)) if core else False
     callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
+    if _vercel_stream_interrupted(core):
+        raise LLMWaitInterrupted("Vercel stream interrupted")
     if callable(callbacks.on_terminal):
         try:
             callbacks.on_terminal("ResponseStarted", {})
@@ -184,6 +204,8 @@ def _parse_vercel_stream(
 
     try:
         for chunk in stream:
+            if _vercel_stream_interrupted(core):
+                raise LLMWaitInterrupted("Vercel stream interrupted")
             reported = _reported_usage(getattr(chunk, "usage", None), responses=False)
             if reported:
                 measured_usage = reported
@@ -193,6 +215,8 @@ def _parse_vercel_stream(
 
             rc_delta = getattr(delta, "reasoning_content", None)
             if isinstance(rc_delta, str) and rc_delta:
+                if _vercel_stream_interrupted(core):
+                    raise LLMWaitInterrupted("Vercel stream interrupted")
                 reasoning_parts.append(rc_delta)
                 if callable(callbacks.on_reasoning):
                     try:
@@ -211,6 +235,8 @@ def _parse_vercel_stream(
 
             content_delta = getattr(delta, "content", None)
             if isinstance(content_delta, str) and content_delta:
+                if _vercel_stream_interrupted(core):
+                    raise LLMWaitInterrupted("Vercel stream interrupted")
                 text_parts.append(content_delta)
                 delta_to_emit = content_delta
                 if _reasoning_printed:
@@ -260,10 +286,12 @@ def _parse_vercel_stream(
     except Exception:
         stream_failed = True
 
-    if measured_usage and not stream_failed and core is not None:
-        # The legacy observability span reads a fresh per-response snapshot
-        # from core; production callbacks only render text.
-        core._last_responses_usage = dict(measured_usage)
+    if _vercel_stream_interrupted(core):
+        raise LLMWaitInterrupted("Vercel stream interrupted")
+    # The owning request publishes only after its waiting call returns.
+    # A worker abandoned by Stop/Ctrl-C must not mutate shared core state.
+    if measured_usage and not stream_failed and usage_sink is not None:
+        usage_sink.append(dict(measured_usage))
 
     if is_web and core is not None:
         try:
@@ -416,6 +444,7 @@ def vercel_chat_with_tools(
                     pass
 
             if stream:
+                usage_snapshots: list[dict[str, int]] = []
                 # Chat usage is reported in a final, empty-choices stream chunk.
                 options = dict(chat_kwargs.get("stream_options") or {})
                 options.setdefault("include_usage", True)
@@ -438,9 +467,12 @@ def vercel_chat_with_tools(
                             ),
                             core=core,
                             callbacks=callbacks,
+                            usage_sink=usage_snapshots,
                         )
                     )
                 )
+                if usage_snapshots and core is not None:
+                    core._last_responses_usage = usage_snapshots[-1]
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
