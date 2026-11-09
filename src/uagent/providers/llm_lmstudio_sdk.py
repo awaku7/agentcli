@@ -47,6 +47,39 @@ def _sdk_chat_usage(result: Any) -> dict[str, int]:
     return usage
 
 
+class _ActUsage:
+    """Aggregate only complete measured counts across SDK act() rounds."""
+
+    def __init__(self) -> None:
+        self._rounds = 0
+        self._sums = {"prompt_tokens": 0, "completion_tokens": 0}
+        self._complete = {"prompt_tokens": True, "completion_tokens": True}
+
+    def on_prediction_completed(self, result: Any) -> None:
+        self._rounds += 1
+        measured = _sdk_chat_usage(result)
+        for key in self._sums:
+            value = measured.get(key)
+            if type(value) is not int:
+                self._complete[key] = False
+            elif self._complete[key]:
+                self._sums[key] += value
+                if self._sums[key] > 10**12:
+                    self._complete[key] = False
+
+    def usage(self) -> dict[str, int]:
+        if not self._rounds:
+            return {}
+        measured = {
+            key: count for key, count in self._sums.items() if self._complete[key]
+        }
+        if len(measured) == 2:
+            measured["total_tokens"] = (
+                measured["prompt_tokens"] + measured["completion_tokens"]
+            )
+        return measured
+
+
 def _chat_input(messages: list[dict[str, Any]] | None) -> Any:
     """Build the SDK Chat object while retaining role boundaries."""
     import lmstudio as lms
@@ -196,13 +229,14 @@ class LMStudioSDKClient:
         if sdk_tools:
             if stream:
                 return self._act_stream(prompt, sdk_tools)
-            text = self._act_text(prompt, sdk_tools)
+            text, usage = self._act_text(prompt, sdk_tools)
             return SimpleNamespace(
                 choices=[
                     SimpleNamespace(
                         message=SimpleNamespace(content=text), finish_reason="stop"
                     )
-                ]
+                ],
+                usage=usage,
             )
         if stream:
             return self._stream(prompt)
@@ -217,8 +251,11 @@ class LMStudioSDKClient:
             usage=_sdk_chat_usage(result),
         )
 
-    def _act_text(self, prompt: Any, sdk_tools: list[Any]) -> str:
-        """Run SDK act() and collect visible prediction fragments."""
+    def _act_text(
+        self, prompt: Any, sdk_tools: list[Any]
+    ) -> tuple[str, dict[str, int]]:
+        """Run SDK act() and collect text and each completed round's usage."""
+        usage = _ActUsage()
         parts: list[str] = []
         pending = ""
         marker_seen = False
@@ -237,15 +274,21 @@ class LMStudioSDKClient:
                 parts.append(pending[match.end() :])
                 pending = ""
 
-        self._model.act(prompt, sdk_tools, on_prediction_fragment=on_fragment)
+        self._model.act(
+            prompt,
+            sdk_tools,
+            on_prediction_fragment=on_fragment,
+            on_prediction_completed=usage.on_prediction_completed,
+        )
         if not marker_seen:
             parts.append(pending)
-        return "".join(parts).strip()
+        return "".join(parts).strip(), usage.usage()
 
     def _act_stream(self, prompt: str, sdk_tools: list[Any]):
         """Bridge SDK act() callbacks to the OpenAI-style delta iterator."""
         events: queue.Queue[tuple[str, Any]] = queue.Queue()
         done = object()
+        usage = _ActUsage()
 
         marker_seen = False
         pending = ""
@@ -272,10 +315,13 @@ class LMStudioSDKClient:
                     prompt,
                     sdk_tools,
                     on_prediction_fragment=on_fragment,
+                    on_prediction_completed=usage.on_prediction_completed,
                 )
                 if not marker_seen and pending:
                     events.put(("delta", pending))
                 events.put(("result", _text(result)))
+                if usage.usage():
+                    events.put(("usage", usage.usage()))
             except BaseException as exc:
                 events.put(("error", exc))
             finally:
@@ -298,18 +344,30 @@ class LMStudioSDKClient:
                     yield SimpleNamespace(
                         choices=[SimpleNamespace(delta=SimpleNamespace(content=value))]
                     )
+            elif kind == "usage":
+                yield SimpleNamespace(choices=[], usage=value)
             elif kind == "error":
                 raise value
             elif kind == "done":
                 break
 
     def _stream(self, prompt: str):
-        for fragment in self._model.respond_stream(prompt):
+        stream = self._model.respond_stream(prompt)
+        for fragment in stream:
             text = _fragment_text(fragment)
             if text:
                 yield SimpleNamespace(
                     choices=[SimpleNamespace(delta=SimpleNamespace(content=text))]
                 )
+        # The official SDK exposes final stats after successful exhaustion.
+        result_fn = getattr(stream, "result", None)
+        if callable(result_fn):
+            try:
+                measured = _sdk_chat_usage(result_fn())
+            except Exception:
+                return
+            if measured:
+                yield SimpleNamespace(choices=[], usage=measured)
 
 
 def make_client(core: Any) -> LMStudioSDKClient:
