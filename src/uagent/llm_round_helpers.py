@@ -1762,23 +1762,14 @@ def _call_openai_azure_round(
         if raw_usage is not legacy_usage_before:
             publish_vllm_legacy_usage(core, raw_usage, responses=use_responses_api)
 
-    if (
-        provider
-        in {
-            "hf",
-            "minimax",
-            "sakura",
-            "sarashina",
-            "foundry_local",
-            "llama_cpp",
-        }
-        and not use_responses_api
-    ):
-        # These providers use the non-streaming OpenAI-compatible legacy path.
-        # Publish only measured Chat usage to the existing OTel boundary.
+    if not use_responses_api and provider != "vllm":
+        # All other OpenAI-compatible Chat fallbacks share this response path.
+        # vLLM has its own dedicated publisher above.
         from .providers.openai_compatible_runtime import _reported_usage
 
-        measured_usage = _reported_usage(getattr(resp, "usage", None), responses=False)
+        measured_usage = _reported_usage(
+            getattr(resp, "usage", None), responses=False, provider=provider
+        )
         if measured_usage and core is not None:
             try:
                 core._last_responses_usage = measured_usage
