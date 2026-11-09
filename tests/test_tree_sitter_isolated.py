@@ -69,8 +69,9 @@ def _require_language_pack() -> None:
         pytest.skip("Tree-sitter language pack is not installed")
 
 
-def test_native_worker_reused_across_files(tmp_path: Path) -> None:
+def test_native_worker_reused_across_files(monkeypatch, tmp_path: Path) -> None:
     _require_language_pack()
+    monkeypatch.setenv("PYTHONIOENCODING", "cp1252")
     source = tmp_path / "日本語ファイル.py"
     source.write_text("class Demo:\n    def greet(self):\n        return 1\n")
 
