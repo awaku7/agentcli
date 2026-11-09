@@ -1105,9 +1105,7 @@ def test_inception_legacy_stream_publishes_owner_usage_to_fallback_otel(
                 SimpleNamespace(
                     choices=[
                         SimpleNamespace(
-                            delta=SimpleNamespace(
-                                content="answer", tool_calls=[]
-                            )
+                            delta=SimpleNamespace(content="answer", tool_calls=[])
                         )
                     ]
                 ),
@@ -1157,6 +1155,6 @@ def test_inception_legacy_stream_publishes_owner_usage_to_fallback_otel(
     assert span.attributes["uag.tokens.reported.input"] == 21
     assert span.attributes["uag.tokens.reported.output"] == 9
     assert span.attributes["uag.tokens.reported.total"] == 30
-    assert [x["delta"] for x in events if x.get("type") == "assistant_stream_delta"] == [
-        "answer"
-    ]
+    assert [
+        x["delta"] for x in events if x.get("type") == "assistant_stream_delta"
+    ] == ["answer"]
