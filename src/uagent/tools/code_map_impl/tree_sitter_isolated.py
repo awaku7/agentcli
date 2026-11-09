@@ -56,6 +56,7 @@ def _start_worker() -> None:
         stdout=subprocess.PIPE,
         text=True,
         encoding="utf-8",
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
         bufsize=1,
     )
     responses: queue.Queue[str | None] = queue.Queue()
