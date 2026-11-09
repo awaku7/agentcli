@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from contextlib import contextmanager
 import sys
+from contextlib import contextmanager
 from types import SimpleNamespace
 
 import pytest
@@ -932,9 +932,7 @@ def test_lmstudio_native_sdk_respond_stats_reach_fallback_otel(
     monkeypatch.setitem(
         sys.modules,
         "lmstudio",
-        SimpleNamespace(
-            Chat=SimpleNamespace(from_history=lambda _history: "sdk-chat")
-        ),
+        SimpleNamespace(Chat=SimpleNamespace(from_history=lambda _history: "sdk-chat")),
     )
     backend = _install_backend(monkeypatch)
     stats_by_kind = {
@@ -956,9 +954,7 @@ def test_lmstudio_native_sdk_respond_stats_reach_fallback_otel(
     client = LMStudioSDKClient.__new__(LMStudioSDKClient)
     client._core = core
     client._model = model
-    client.chat = SimpleNamespace(
-        completions=SimpleNamespace(create=client.create)
-    )
+    client.chat = SimpleNamespace(completions=SimpleNamespace(create=client.create))
     result = legacy_provider_dispatch.call_legacy_openai_azure_round(
         provider="lmstudio",
         client=client,
