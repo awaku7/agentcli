@@ -1251,7 +1251,25 @@ def _call_openai_azure_round(
                         )
                     )
 
-                if provider == "inception" and stream_responses:
+                if (
+                    provider == "lmstudio"
+                    and stream_responses
+                    and (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "")
+                    .strip()
+                    .lower()
+                    == "sdk"
+                ):
+                    from .runtime.legacy_lmstudio_sdk_stream import (
+                        collect_lmstudio_sdk_stream,
+                    )
+
+                    resp = call_maybe_thread_fn(
+                        lambda: collect_lmstudio_sdk_stream(
+                            client.chat.completions.create(**chat_kwargs, stream=True),
+                            core=core,
+                        )
+                    )
+                elif provider == "inception" and stream_responses:
                     # Inception exposes streaming on Chat Completions rather
                     # than the Responses API. Reuse the OpenAI-compatible
                     # tool/reasoning delta parser.
