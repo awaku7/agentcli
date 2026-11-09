@@ -1295,6 +1295,14 @@ def _call_openai_azure_round(
                             usage_sink=inception_stream_usage,
                         )
 
+                    # The Inception fallback span ends inside the traced
+                    # waiter, before this caller resumes. Expose its local
+                    # usage sink so the waiter can publish on successful
+                    # return while the span is still open.
+                    _legacy_inception_stream._uag_inception_usage_sink = (
+                        inception_stream_usage
+                    )
+
                     use_orchestrator = (
                         _inception_registry_enabled()
                         if provider == "inception"
