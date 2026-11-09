@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from contextvars import copy_context
+from contextvars import ContextVar, copy_context
 import re
 import threading
 from typing import Any
@@ -15,6 +15,17 @@ except Exception:
 
 
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
+# The waiter can abandon a daemon LLM call before its stream iterator finishes.
+# Keep that decision local to the worker even when a later turn resets Stop.
+_LLM_CALL_ABANDONED: ContextVar[threading.Event | None] = ContextVar(
+    "uag_llm_call_abandoned", default=None
+)
+
+
+def llm_call_abandoned() -> bool:
+    """Whether this worker belongs to an already interrupted LLM wait."""
+    signal = _LLM_CALL_ABANDONED.get()
+    return signal is not None and signal.is_set()
 
 
 class LLMWaitInterrupted(BaseException):
@@ -238,12 +249,17 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
         return fn()
 
     box: dict[str, Any] = {"res": None, "exc": None}
+    abandoned = threading.Event()
 
     def _runner() -> None:
+        token = _LLM_CALL_ABANDONED.set(abandoned)
         try:
-            box["res"] = fn()
-        except BaseException as e:
-            box["exc"] = e
+            try:
+                box["res"] = fn()
+            except BaseException as e:
+                box["exc"] = e
+        finally:
+            _LLM_CALL_ABANDONED.reset(token)
 
     caller_context = copy_context()
     th = threading.Thread(
@@ -263,7 +279,9 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
         except Exception:
             interrupted = False
         if interrupted:
-            # Leave daemon thread running; outer round/worker handles stop.
+            # The caller has abandoned this worker; suppress any later deltas
+            # even if a subsequent turn clears the global interrupt flag.
+            abandoned.set()
             raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
         th.join(0.05)
 
