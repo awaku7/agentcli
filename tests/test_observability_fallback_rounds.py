@@ -842,3 +842,79 @@ def test_common_legacy_chat_preserves_provider_measured_usage_subsets(
     assert span.attributes["uag.tokens.reported.total"] == 140
     assert span.attributes["gen_ai.usage.cache_read.input_tokens"] == 30
     assert span.attributes["gen_ai.usage.reasoning.output_tokens"] == 12
+
+
+@pytest.mark.parametrize("has_valid_usage", [True, False])
+def test_pfn_special_legacy_chat_reports_only_fresh_measured_usage(
+    monkeypatch, has_valid_usage: bool
+) -> None:
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_STREAMING", "1")
+    previous = {"input_tokens": 900, "output_tokens": 100}
+    core = SimpleNamespace(
+        _is_web=True,
+        context_tool_specs=[],
+        _last_responses_usage=previous,
+    )
+    usage = (
+        SimpleNamespace(prompt_tokens=50, completion_tokens=13, total_tokens=63)
+        if has_valid_usage
+        else SimpleNamespace(
+            prompt_tokens=True, completion_tokens=-1, total_tokens="invalid"
+        )
+    )
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
+        ],
+        usage=usage,
+    )
+    request_kwargs: list[dict] = []
+
+    def create(**kwargs):
+        request_kwargs.append(kwargs)
+        return response
+
+    client = SimpleNamespace(
+        chat=SimpleNamespace(completions=SimpleNamespace(create=create))
+    )
+    result = legacy_provider_dispatch.call_legacy_openai_azure_round(
+        provider="pfn",
+        client=client,
+        depname="plamo-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: ("pfn", client),
+        call_maybe_thread_fn=lambda action: action(),
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+    )
+    assert result[0] is True
+    assert result[2] == "answer"
+    # PLaMo's tool-enabled legacy route remains non-streaming by design.
+    assert request_kwargs[0]["stream"] is False
+    assert "stream_options" not in request_kwargs[0]
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    if has_valid_usage:
+        assert core._last_responses_usage == {
+            "input_tokens": 50,
+            "output_tokens": 13,
+            "total_tokens": 63,
+        }
+        assert core._last_responses_usage is not previous
+        assert span.attributes["uag.tokens.reported.input"] == 50
+        assert span.attributes["uag.tokens.reported.output"] == 13
+        assert span.attributes["uag.tokens.reported.total"] == 63
+    else:
+        assert core._last_responses_usage is previous
+        assert not any(
+            name.startswith("uag.tokens.reported.") for name in span.attributes
+        )
