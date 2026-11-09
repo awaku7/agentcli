@@ -13,6 +13,7 @@ import json
 import secrets
 import time
 from typing import Any
+from urllib.parse import urlsplit
 
 from .nostr_nip44 import nip44_v2_decrypt, nip44_v2_encrypt
 
@@ -207,6 +208,98 @@ def create_nip17_private_messages(
             _make_gift_wrap(seal=seal, receiver_public_key=receiver, now=timestamp)
         )
     return wraps
+
+
+def _validate_relay_uri(uri: Any) -> str:
+    """Validate NIP-17 inbox relay URI syntax, not destination trust."""
+    if not isinstance(uri, str) or not uri or uri != uri.strip():
+        raise ValueError("relay URI must be a non-empty trimmed string")
+    if any(char.isspace() or ord(char) < 0x20 for char in uri):
+        raise ValueError("relay URI contains whitespace or control characters")
+
+    try:
+        parsed = urlsplit(uri)
+        # Accessing .port validates its numeric range and syntax.
+        _ = parsed.port
+    except ValueError as exc:
+        raise ValueError("relay URI is malformed") from exc
+
+    if (
+        parsed.scheme.lower() != "wss"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.fragment
+    ):
+        raise ValueError("relay URI must be a credential-free wss URL")
+    return uri
+
+
+def create_nip17_relay_list_event(
+    relay_uris: list[str], private_key: bytes, *, now: int | None = None
+) -> dict[str, Any]:
+    """Create and sign a NIP-17 kind-10050 inbox relay list event."""
+    if not isinstance(relay_uris, list):
+        raise TypeError("relay_uris must be a list of URLs")
+    if not relay_uris:
+        raise ValueError("at least one inbox relay is required")
+
+    private_key = _validate_private_key(private_key)
+    public_key = _public_key_x(private_key)
+    tags: list[list[str]] = []
+    seen: set[str] = set()
+    for uri in relay_uris:
+        relay_uri = _validate_relay_uri(uri)
+        if relay_uri not in seen:
+            tags.append(["relay", relay_uri])
+            seen.add(relay_uri)
+
+    event: dict[str, Any] = {
+        "pubkey": public_key.hex(),
+        "created_at": int(time.time()) if now is None else int(now),
+        "kind": 10050,
+        "tags": tags,
+        "content": "",
+    }
+    return _sign_event(event, private_key)
+
+
+def extract_nip17_relay_list(
+    event: dict[str, Any], expected_pubkey_hex: str
+) -> list[str]:
+    """Verify and extract a participant's signed kind-10050 relay list.
+
+    The expected key must come from the authenticated DM participant, not from
+    this event. Returned URLs are not trusted destinations by themselves;
+    callers must apply local egress/relay policy before connecting.
+    """
+    if not isinstance(expected_pubkey_hex, str) or len(expected_pubkey_hex) != 64:
+        raise ValueError("expected_pubkey_hex must be a 32-byte hex public key")
+    try:
+        expected_pubkey = bytes.fromhex(expected_pubkey_hex).hex()
+    except ValueError as exc:
+        raise ValueError("expected_pubkey_hex is malformed") from exc
+
+    event = _validate_event_shape(event, kind=10050, name="relay-list event")
+    if event["pubkey"] != expected_pubkey or not _verify_event(event):
+        raise ValueError("relay-list event author or signature is invalid")
+    if event["content"] != "":
+        raise ValueError("NIP-17 relay-list event content must be empty")
+
+    relay_uris: list[str] = []
+    seen: set[str] = set()
+    for tag in event["tags"]:
+        if not isinstance(tag, list) or not tag or tag[0] != "relay":
+            continue
+        if len(tag) != 2:
+            raise ValueError("NIP-17 relay tags must contain exactly one URI")
+        uri = _validate_relay_uri(tag[1])
+        if uri not in seen:
+            relay_uris.append(uri)
+            seen.add(uri)
+    if not relay_uris:
+        raise ValueError("relay-list event contains no valid inbox relays")
+    return relay_uris
 
 
 def _validate_event_shape(event: Any, *, kind: int, name: str) -> dict[str, Any]:
