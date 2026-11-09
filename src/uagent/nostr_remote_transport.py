@@ -134,6 +134,7 @@ async def publish_nip17_gift_wrap(
     event_id = str(event.get("id", ""))
     auth_challenges: set[str] = set()
     pending_auth_event_id: str | None = None
+    event_auth_required = False
     try:
         async with asyncio.timeout(float(timeout)):
             async with connect(
@@ -186,6 +187,7 @@ async def publish_nip17_gift_wrap(
                                 )
                             # NIP-42 relays may reject the initial EVENT with a
                             # challenge. Retry it only after AUTH is accepted.
+                            event_auth_required = False
                             await websocket.send(
                                 json.dumps(
                                     ["EVENT", event],
@@ -195,18 +197,35 @@ async def publish_nip17_gift_wrap(
                             )
                             continue
                         if frame[1] == event_id:
+                            accepted = frame[2] is True
+                            message = str(frame[3])[:512]
+                            if not accepted and message.lower().startswith(
+                                "auth-required"
+                            ):
+                                # NIP-42 publication flow can reject EVENT
+                                # before sending the AUTH challenge. Treat this
+                                # OK as provisional and continue reading.
+                                event_auth_required = True
+                                continue
                             return RelayDelivery(
                                 relay_url=relay_url,
                                 event_id=event_id,
-                                accepted=frame[2] is True,
-                                message=str(frame[3])[:512],
+                                accepted=accepted,
+                                message=message,
                             )
                     if frame[0] == "NOTICE" and len(frame) >= 2:
                         notice = str(frame[1])[:512]
                         if notice.lower().startswith("auth-required"):
-                            return RelayDelivery(relay_url, event_id, False, notice)
+                            event_auth_required = True
+                            continue
     except TimeoutError:
-        return RelayDelivery(relay_url, event_id, False, "relay response timed out")
+        if pending_auth_event_id is not None:
+            message = "relay AUTH response timed out"
+        elif event_auth_required:
+            message = "relay required AUTH but sent no usable challenge"
+        else:
+            message = "relay response timed out"
+        return RelayDelivery(relay_url, event_id, False, message)
     except Exception as exc:
         # Keep relay errors bounded and avoid logging event contents or keys.
         return RelayDelivery(

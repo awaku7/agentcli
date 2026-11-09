@@ -142,6 +142,35 @@ def test_publish_nip17_wrap_handles_nip42_auth() -> None:
     assert _verify_event(auth_event)
 
 
+def test_publish_waits_for_auth_challenge_after_auth_required_ok() -> None:
+    event = create_nip17_private_messages(
+        "auth-required first", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    socket = FakeWebSocket(
+        [
+            ["OK", event["id"], False, "auth-required: please authenticate"],
+            ["AUTH", "relay-challenge-after-rejection"],
+        ]
+    )
+
+    result = asyncio.run(
+        publish_nip17_gift_wrap(
+            "wss://relay.example.org",
+            event,
+            _secret(1),
+            allowed_relay_urls=["wss://relay.example.org"],
+            connect_factory=lambda _url, **_kwargs: socket,
+        )
+    )
+
+    assert result.accepted is True
+    assert [frame[0] for frame in socket.sent] == ["EVENT", "AUTH", "EVENT"]
+    assert socket.sent[1][1]["tags"] == [
+        ["relay", "wss://relay.example.org"],
+        ["challenge", "relay-challenge-after-rejection"],
+    ]
+
+
 def test_publish_routes_each_wrap_only_to_its_recipient_inboxes() -> None:
     wraps = create_nip17_private_messages(
         "hello", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
