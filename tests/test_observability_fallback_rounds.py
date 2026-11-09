@@ -1029,16 +1029,12 @@ def test_lmstudio_sdk_stream_legacy_routes_and_reports_usage(
 
         def result(self):
             return SimpleNamespace(
-                stats=SimpleNamespace(
-                    prompt_tokens_count=20, predicted_tokens_count=7
-                )
+                stats=SimpleNamespace(prompt_tokens_count=20, predicted_tokens_count=7)
             )
 
     client = LMStudioSDKClient.__new__(LMStudioSDKClient)
     client._core = core
-    client._model = SimpleNamespace(
-        respond_stream=lambda _prompt: PredictionStream()
-    )
+    client._model = SimpleNamespace(respond_stream=lambda _prompt: PredictionStream())
     client.chat = SimpleNamespace(completions=SimpleNamespace(create=client.create))
     outcome = legacy_openai_round.call_legacy_openai_compatible_outcome(
         provider="lmstudio",
