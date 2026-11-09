@@ -53,9 +53,7 @@ def test_vercel_successful_stream_only_returns_usage_to_owning_caller(
         ),
     )
     assert response[0] == "answer"
-    assert collected == [
-        {"input_tokens": 30, "output_tokens": 10, "total_tokens": 40}
-    ]
+    assert collected == [{"input_tokens": 30, "output_tokens": 10, "total_tokens": 40}]
     # Only vercel_chat_with_tools may publish this to the shared core after
     # the threaded call returns successfully to the owning request.
     assert core._last_responses_usage is previous
