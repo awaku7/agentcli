@@ -6,7 +6,7 @@ import re
 from typing import Any
 
 from .language_detection import SYMBOL_PATTERNS, detect_source_language
-from .tree_sitter_symbols import extract_tree_sitter_symbols
+from .tree_sitter_isolated import extract_tree_sitter_symbols
 
 
 def extract_symbols(filepath: str) -> list[dict[str, Any]]:
