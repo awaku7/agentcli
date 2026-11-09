@@ -269,21 +269,25 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     )
     th.start()
 
-    while th.is_alive():
-        # Honor Stop / interrupt without waiting for the full network call.
-        try:
-            from uagent import core as _core_module
+    try:
+        while th.is_alive():
+            # Honor Stop / interrupt without waiting for the full network call.
+            try:
+                from uagent import core as _core_module
 
-            with _core_module.interrupt_lock:
-                interrupted = bool(_core_module.interrupt_requested)
-        except Exception:
-            interrupted = False
-        if interrupted:
-            # The caller has abandoned this worker; suppress any later deltas
-            # even if a subsequent turn clears the global interrupt flag.
+                with _core_module.interrupt_lock:
+                    interrupted = bool(_core_module.interrupt_requested)
+            except Exception:
+                interrupted = False
+            if interrupted:
+                raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
+            th.join(0.05)
+    except BaseException:
+        # Ctrl-C raises KeyboardInterrupt in the waiting thread without setting
+        # interrupt_requested. Latch abandonment for the worker in that case too.
+        if th.is_alive():
             abandoned.set()
-            raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
-        th.join(0.05)
+        raise
 
     if box.get("exc") is not None:
         raise box["exc"]
