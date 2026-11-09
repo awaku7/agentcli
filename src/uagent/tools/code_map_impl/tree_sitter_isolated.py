@@ -147,7 +147,9 @@ def extract_tree_sitter_symbols(
             _WORKER.stdin.flush()
             line = _RESPONSES.get(timeout=_WORKER_TIMEOUT_SECONDS)
             if line is None:
-                raise RuntimeError(f"worker output stopped (exit code {_WORKER.poll()})")
+                raise RuntimeError(
+                    f"worker output stopped (exit code {_WORKER.poll()})"
+                )
             result = json.loads(line)
             if not isinstance(result, list):
                 raise ValueError("invalid worker response")
