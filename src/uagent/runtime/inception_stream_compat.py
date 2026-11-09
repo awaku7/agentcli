@@ -20,6 +20,7 @@ def render_legacy_inception_stream(
     diffusing: bool,
     print_delta_fn: object,
     core: object,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, object]]]:
     """Render the historical Inception stream through the host boundary."""
     # Imports remain lazy because the provider adapter imports this compatibility
@@ -54,6 +55,7 @@ def render_legacy_inception_stream(
         diffusing=diffusing,
         print_delta_fn=print_delta_fn,
         core=core,
+        usage_sink=usage_sink,
         callbacks=build_inception_stream_callbacks(
             print_delta_fn=print_delta_fn,
             core=core,
