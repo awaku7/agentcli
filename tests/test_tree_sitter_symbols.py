@@ -88,7 +88,7 @@ def test_tree_sitter_new_method_based_binding(monkeypatch, tmp_path: Path) -> No
     source = "class Demo:\n    def greet(self):\n        return 1\n"
     source_bytes = source.encode("utf-8")
     path = tmp_path / "new.py"
-    path.write_text(source, encoding="utf-8")
+    path.write_bytes(source_bytes)
 
     class Node:
         def __init__(self, kind, text, row, children=(), name=None):
