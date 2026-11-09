@@ -15,6 +15,7 @@ import subprocess
 import sys
 import threading
 import warnings
+from pathlib import Path
 from typing import Any
 
 from .tree_sitter_symbols import TREE_SITTER_LANGUAGE_BY_SOURCE
@@ -44,19 +45,27 @@ def _read_worker_output(
         assert process.stdout is not None
         for line in process.stdout:
             responses.put(line)
+    except (OSError, UnicodeError, ValueError):
+        pass
     finally:
         responses.put(None)
 
 
 def _start_worker() -> None:
     global _WORKER, _RESPONSES, _REQUESTS
+    worker_env = os.environ.copy()
+    worker_env["PYTHONIOENCODING"] = "utf-8"
+    package_root = str(Path(__file__).resolve().parents[3])
+    worker_env["PYTHONPATH"] = os.pathsep.join(
+        filter(None, (package_root, worker_env.get("PYTHONPATH", "")))
+    )
     process = subprocess.Popen(
         _worker_command(),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         text=True,
         encoding="utf-8",
-        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        env=worker_env,
         bufsize=1,
     )
     responses: queue.Queue[str | None] = queue.Queue()
@@ -138,7 +147,7 @@ def extract_tree_sitter_symbols(
             _WORKER.stdin.flush()
             line = _RESPONSES.get(timeout=_WORKER_TIMEOUT_SECONDS)
             if line is None:
-                raise RuntimeError(f"worker exited with code {_WORKER.wait()}")
+                raise RuntimeError(f"worker output stopped (exit code {_WORKER.poll()})")
             result = json.loads(line)
             if not isinstance(result, list):
                 raise ValueError("invalid worker response")
