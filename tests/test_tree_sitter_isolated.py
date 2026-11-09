@@ -66,7 +66,7 @@ def _require_language_pack() -> None:
 
 def test_native_worker_reused_across_files(tmp_path: Path) -> None:
     _require_language_pack()
-    source = tmp_path / "sample.py"
+    source = tmp_path / "日本語ファイル.py"
     source.write_text("class Demo:\n    def greet(self):\n        return 1\n")
 
     symbols = tree_sitter_isolated.extract_tree_sitter_symbols(str(source), "Python")
