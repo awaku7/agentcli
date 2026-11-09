@@ -127,6 +127,10 @@ def test_lmstudio_sdk_ctrl_c_abandons_worker_even_without_stop_flag(
     def interrupt_join(thread, timeout=None):
         if thread.name == "uagent-llm-call":
             assert ready.wait(4)
+            # Invoke the real join first, then reproduce CPython's SIGINT
+            # behavior: is_alive can be false while this worker is blocked.
+            original_join(thread, 0.01)
+            monkeypatch.setattr(thread, "is_alive", lambda: False)
             raise KeyboardInterrupt("Ctrl-C")
         return original_join(thread, timeout)
 
