@@ -14,11 +14,7 @@ from uagent.runtime.inception_stream_compat import render_legacy_inception_strea
 
 def _delta(text: str) -> SimpleNamespace:
     return SimpleNamespace(
-        choices=[
-            SimpleNamespace(
-                delta=SimpleNamespace(content=text, tool_calls=[])
-            )
-        ]
+        choices=[SimpleNamespace(delta=SimpleNamespace(content=text, tool_calls=[]))]
     )
 
 
