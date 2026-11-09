@@ -995,3 +995,93 @@ def test_lmstudio_native_sdk_respond_stats_reach_fallback_otel(
         assert not any(
             name.startswith("uag.tokens.reported.") for name in span.attributes
         )
+
+
+@pytest.mark.parametrize("interrupted", [False, True])
+def test_lmstudio_sdk_stream_legacy_routes_and_reports_usage(
+    monkeypatch, interrupted: bool
+) -> None:
+    from uagent.providers.llm_lmstudio_sdk import LMStudioSDKClient
+
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_LMSTUDIO_TRANSPORT", "sdk")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setitem(
+        sys.modules,
+        "lmstudio",
+        SimpleNamespace(Chat=SimpleNamespace(from_history=lambda _history: "chat")),
+    )
+    events: list[dict] = []
+    previous = {"input_tokens": 999}
+    core = SimpleNamespace(
+        _is_web=True,
+        responses_state={},
+        _last_responses_usage=previous,
+        log_message=events.append,
+    )
+
+    class PredictionStream:
+        def __iter__(self):
+            yield SimpleNamespace(content="hello ")
+            if interrupted:
+                raise RuntimeError("stream interrupted")
+            yield SimpleNamespace(content="world")
+
+        def result(self):
+            return SimpleNamespace(
+                stats=SimpleNamespace(
+                    prompt_tokens_count=20, predicted_tokens_count=7
+                )
+            )
+
+    client = LMStudioSDKClient.__new__(LMStudioSDKClient)
+    client._core = core
+    client._model = SimpleNamespace(
+        respond_stream=lambda _prompt: PredictionStream()
+    )
+    client.chat = SimpleNamespace(completions=SimpleNamespace(create=client.create))
+    outcome = legacy_openai_round.call_legacy_openai_compatible_outcome(
+        provider="lmstudio",
+        client=client,
+        depname="local-test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: ("lmstudio", client),
+        call_maybe_thread_fn=lambda callback: callback(),
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+        round_count=1,
+    )
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    assert outcome.capabilities.host_rendered is True
+    assert any(event.get("type") == "assistant_stream_end" for event in events)
+    if interrupted:
+        assert outcome.status == "return"
+        assert core._last_responses_usage is previous
+        assert not any(
+            key.startswith("uag.tokens.reported.") for key in span.attributes
+        )
+    else:
+        assert outcome.status == "ok"
+        assert outcome.assistant_text == "hello world"
+        assert core._last_responses_usage == {
+            "input_tokens": 20,
+            "output_tokens": 7,
+            "total_tokens": 27,
+        }
+        assert span.attributes["uag.tokens.reported.input"] == 20
+        assert span.attributes["uag.tokens.reported.output"] == 7
+        assert span.attributes["uag.tokens.reported.total"] == 27
+        assert [
+            event["delta"]
+            for event in events
+            if event.get("type") == "assistant_stream_delta"
+        ] == ["hello ", "world"]
