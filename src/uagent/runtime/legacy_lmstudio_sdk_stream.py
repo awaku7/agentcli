@@ -9,8 +9,24 @@ from __future__ import annotations
 from types import SimpleNamespace
 from typing import Any, Iterable
 
+from ..llm_helpers import LLMWaitInterrupted, llm_call_abandoned
 from ..providers.openai_compatible_runtime import _reported_usage
 from .stream_host import build_stream_callbacks
+
+
+def _stream_interrupted(core: Any) -> bool:
+    """Check host Stop and the durable signal of an abandoned call thread."""
+    if llm_call_abandoned():
+        return True
+    from .. import core as core_module
+
+    with core_module.interrupt_lock:
+        if core_module.interrupt_requested:
+            return True
+    if bool(getattr(core, "interrupt_requested", False)):
+        return True
+    cancellation = getattr(core, "cancellation_token", None)
+    return cancellation is not None and cancellation.is_cancelled()
 
 
 def collect_lmstudio_sdk_stream(stream: Iterable[Any], *, core: Any) -> Any:
@@ -28,9 +44,8 @@ def collect_lmstudio_sdk_stream(stream: Iterable[Any], *, core: Any) -> Any:
     last_usage: Any = None
     try:
         for chunk in stream:
-            cancellation = getattr(core, "cancellation_token", None)
-            if cancellation is not None and cancellation.is_cancelled():
-                raise RuntimeError("LM Studio SDK stream cancelled")
+            if _stream_interrupted(core):
+                raise LLMWaitInterrupted("LM Studio SDK stream interrupted")
             raw_usage = getattr(chunk, "usage", None)
             if _reported_usage(raw_usage, responses=False):
                 last_usage = raw_usage
@@ -38,16 +53,22 @@ def collect_lmstudio_sdk_stream(stream: Iterable[Any], *, core: Any) -> Any:
                 delta = getattr(choice, "delta", None)
                 content = getattr(delta, "content", None)
                 if isinstance(content, str) and content:
+                    if _stream_interrupted(core):
+                        raise LLMWaitInterrupted("LM Studio SDK stream interrupted")
                     parts.append(content)
                     if callable(callbacks.on_delta):
                         callbacks.on_delta(content)
+        if _stream_interrupted(core):
+            raise LLMWaitInterrupted("LM Studio SDK stream interrupted")
     finally:
-        if web:
-            log_message = getattr(core, "log_message", None)
-            if callable(log_message):
-                log_message({"type": "assistant_stream_end"})
-        elif parts and callable(callbacks.on_delta):
-            callbacks.on_delta(chr(10))
+        # A completed older worker must never terminate a newer Web stream.
+        if not _stream_interrupted(core):
+            if web:
+                log_message = getattr(core, "log_message", None)
+                if callable(log_message):
+                    log_message({"type": "assistant_stream_end"})
+            elif parts and callable(callbacks.on_delta):
+                callbacks.on_delta(chr(10))
 
     return SimpleNamespace(
         choices=[
