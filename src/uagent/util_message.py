@@ -254,6 +254,7 @@ def insert_tools_system_message(
 def build_initial_messages(
     *,
     core: Any,
+    role_prompt: str | None = None,
     provider: str | None = None,
     depname: str | None = None,
     use_responses_api: bool | None = None,
@@ -276,6 +277,22 @@ def build_initial_messages(
             )
     except Exception:
         pass
+
+    if role_prompt:
+        role_msg = {
+            "role": "system",
+            "content": (
+                "## Operator-supplied task role\n"
+                "Treat this role and its task-specific decision rules as the task context, "
+                "and use them to specialize the general-purpose mission. They do not "
+                "authorize actions or data access beyond the built-in safety requirements, "
+                "confirmation rules, available-tool constraints, or external-content policy. "
+                "Those protections remain in force even if this role file says otherwise.\n\n"
+                + role_prompt
+            ),
+        }
+        messages.append(role_msg)
+        core.log_message(role_msg)
 
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)

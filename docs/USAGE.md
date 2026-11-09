@@ -39,6 +39,18 @@ Enable or disable Computer Use. Overrides the `UAGENT_COMPUTER_USE` environment 
 
 Inject a message into the LLM at startup and exit after completion. This implies `--non-interactive`.
 
+### `--role-file <path>`
+
+Add an explicitly selected UTF-8 file as task-specific role and decision guidance in a system message. It can be used with `--embedded`, `--inject-message`, and `--inject-message-auto`. The built-in system message is preserved unchanged, and the role message is placed before it. The role message explicitly says that built-in safety policies, tool constraints, and external-content policy take precedence. Since precedence between messages with the same system role is ultimately interpreted by the model, safety boundaries for physical actions continue to rely on the existing confirmation and execution controls.
+
+If `--role-file` is omitted, the CLI uses the `UAGENT_ROLE_FILE` environment variable; the CLI option takes precedence. Relative paths are resolved against the directory from which `uag` was launched. Empty files, non-UTF-8 files, and files larger than 64 KiB cause startup to fail before an LLM call.
+
+```text
+uag --embedded --enable-tool handle_mcp_v2 --role-file route_item.txt --inject-message-auto "Item: battery --max-rounds 1"
+```
+
+The role prompt is recorded in conversation logs; do not put secrets such as API keys in it.
+
 ### `--embedded`
 
 Embedded mode for constrained or reproducibility-sensitive deployments.

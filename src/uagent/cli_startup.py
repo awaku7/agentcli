@@ -4,7 +4,48 @@ import subprocess
 import sys
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
+
+
+_ROLE_FILE_MAX_BYTES = 64 * 1024
+
+
+def _read_role_file(role_file: str, *, base_dir: str) -> str:
+    """Read a deliberately selected UTF-8 role prompt with a bounded size."""
+    raw_path = str(role_file).strip()
+    if not raw_path:
+        raise ValueError("the role-file path is empty")
+
+    path = Path(raw_path).expanduser()
+    if not path.is_absolute():
+        path = Path(base_dir) / path
+    try:
+        path = path.resolve(strict=True)
+    except (OSError, RuntimeError) as exc:
+        raise ValueError(f"cannot resolve {raw_path!r}: {exc}") from exc
+
+    if not path.is_file():
+        raise ValueError(f"{str(path)!r} is not a regular file")
+    try:
+        with path.open("rb") as role_stream:
+            data = role_stream.read(_ROLE_FILE_MAX_BYTES + 1)
+    except OSError as exc:
+        raise ValueError(f"cannot read {str(path)!r}: {exc}") from exc
+
+    if len(data) > _ROLE_FILE_MAX_BYTES:
+        raise ValueError(
+            f"{str(path)!r} exceeds the {_ROLE_FILE_MAX_BYTES}-byte limit"
+        )
+    try:
+        text = data.decode("utf-8-sig")
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"{str(path)!r} is not valid UTF-8") from exc
+    if "\x00" in text:
+        raise ValueError(f"{str(path)!r} contains a NUL character")
+    if not text.strip():
+        raise ValueError(f"{str(path)!r} is empty")
+    return text.strip()
 
 
 @dataclass
@@ -125,6 +166,7 @@ def run_cli_startup(
     env_workdir,
     initial_file_arg,
     non_interactive: bool,
+    role_file: str | None = None,
     inject_message: str | None = None,
     inject_message_auto: str | None = None,
     complete_regex: str | None = None,
@@ -135,6 +177,7 @@ def run_cli_startup(
     import io
     import os
 
+    startup_cwd = os.getcwd()
     if non_interactive:
         os.environ["UAGENT_NON_INTERACTIVE"] = "1"
 
@@ -230,6 +273,21 @@ def run_cli_startup(
                 apply_workdir(decision)
                 _timing_started = time.perf_counter()
                 reload_dotenv_custom()
+                selected_role_file = (
+                    role_file
+                    if role_file is not None
+                    else (env_get("UAGENT_ROLE_FILE") or "").strip() or None
+                )
+                role_prompt = None
+                if selected_role_file is not None:
+                    try:
+                        role_prompt = _read_role_file(
+                            selected_role_file, base_dir=startup_cwd
+                        )
+                    except ValueError as exc:
+                        print(f"[FATAL] Invalid role file: {exc}", file=sys.stderr)
+                        raise SystemExit(2) from exc
+
                 from .runtime.process_registry import activate_tracking
 
                 activate_tracking("cli")
@@ -400,7 +458,7 @@ def run_cli_startup(
             core.set_status(False, "")
 
             messages = build_initial_messages(
-                core=core, provider=provider, depname=depname
+                core=core, role_prompt=role_prompt, provider=provider, depname=depname
             )
             _startup_timing_mark("messages")
             print("[INFO] " + _("Loaded long-term memory."))

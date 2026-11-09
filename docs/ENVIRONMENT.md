@@ -518,6 +518,7 @@ not the normal chat-completions endpoint.
 
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
+- `UAGENT_ROLE_FILE`: CLI startup file containing task-specific role instructions. The `--role-file` CLI option takes precedence. Relative paths are resolved from the directory where `uag` was launched; see `USAGE.md` for details.
 - `UAGENT_WEB_HOST`: Web server bind address (default: `127.0.0.1`). Set to `0.0.0.0` to allow external access.
 - `UAGENT_IDENTITY_MODE`: Web identity mode (default: `browser`). The default mints an opaque, per-browser HttpOnly guest cookie and isolates that browser's history/private Project; it is not person authentication. Set `oidc` or a secured enterprise mode for identified multi-user access. Set `local` explicitly only for trusted single-user use; all browser clients then share one principal/history. Only exact `127.0.0.1` bind with `browser` (default guest-cookie identity) or explicit `local` uses the trusted local Web profile. Other bind/identity combinations use the Remote MXC baseline.
 - `UAGENT_BROWSER_SESSION_TTL`: Signed browser guest cookie lifetime in seconds (default: `31536000`, one year). Deleting/losing the cookie loses access to that guest identity's history; clearing it does not revoke a copied cookie before expiry.

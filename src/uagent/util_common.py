@@ -291,6 +291,15 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         ),
     )
     parser.add_argument(
+        "--role-file",
+        dest="role_file",
+        default=None,
+        help=_(
+            "Load explicit task-specific role instructions as a system message. "
+            "UAGENT_ROLE_FILE is used when this option is omitted."
+        ),
+    )
+    parser.add_argument(
         "--complete-regex",
         dest="complete_regex",
         default=None,

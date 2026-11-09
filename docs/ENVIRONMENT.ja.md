@@ -475,6 +475,7 @@ Decisions API（`/api/alpha/decisions`）を使用します。
 
 - `UAGENT_LANG`: ホスト UI の言語（例: `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`）。
 - `UAGENT_WORKDIR`: エージェントが操作を行うデフォルトの作業ディレクトリ。
+- `UAGENT_ROLE_FILE`: CLI の起動時に読み込むタスク固有の役割文ファイル。`--role-file` が指定されている場合は CLI オプションが優先されます。相対パスは `uag` の起動ディレクトリから解決されます。詳細は `USAGE.ja.md` の `--role-file` を参照してください。
 - `UAGENT_WEB_HOST`: Web サーバーのバインドアドレス（既定: `127.0.0.1`）。外部アクセスを許可するには `0.0.0.0` に設定します。
 - `UAGENT_STREAMING`: LLM 応答のストリーミング表示の有効/無効（`1`: 有効（既定）、`0`: 無効）。
 - `UAGENT_VERBOSITY`: ログ出力の冗長性（`off`, `low`, `medium`, `high`）。

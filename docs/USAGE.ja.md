@@ -39,6 +39,18 @@ Computer Use を有効または無効にします。 環境変数 `UAGENT_COMPUT
 
 起動時に LLM にメッセージを挿入し、完了後に終了します。 これは `--non-interactive` を意味します。
 
+### `--role-file <path>`
+
+明示した UTF-8 ファイルを、起動時のタスク固有の役割・判断規則として system メッセージに追加します。`--embedded`、`--inject-message`、`--inject-message-auto` と併用できます。既定の system メッセージは変更・削除されず、役割文はその前に追加されます。役割文には既定の安全規則、ツール制約、外部コンテンツ方針より下位であることを明記します。ただし、同じ system role の指示間の優先順位はモデルが解釈するため、物理操作などの安全境界は既存の確認・実行制御に依存します。
+
+`--role-file` を省略した場合は `UAGENT_ROLE_FILE` 環境変数を使用します。CLI オプションが環境変数より優先されます。相対パスは `uag` を起動したディレクトリから解決されます。空ファイル、UTF-8 以外のファイル、64 KiB を超えるファイルが指定された場合は、LLM を呼び出さず起動エラーになります。
+
+```text
+uag --embedded --enable-tool handle_mcp_v2 --role-file route_item.txt --inject-message-auto "品目: 電池 --max-rounds 1"
+```
+
+役割文の内容は会話ログにも記録されます。API キーなどの秘密情報は含めないでください。
+
 ### `--embedded`
 
 制約のある、または再現性が重要なデプロイメント向けの組み込みモードです。
