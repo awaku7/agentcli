@@ -249,7 +249,8 @@ def test_act_stream_tool_keeps_remote_sandbox_and_authorization_context(
     assert "no compliant sandbox backend" in results[0]
     assert calls == []
     assert any(
-        getattr(chunk, "usage", None) == {
+        getattr(chunk, "usage", None)
+        == {
             "prompt_tokens": 20,
             "completion_tokens": 7,
             "total_tokens": 27,
