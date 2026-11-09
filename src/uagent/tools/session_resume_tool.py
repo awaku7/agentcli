@@ -161,11 +161,12 @@ def _matching_ids(
     topic: str,
     *,
     project: str | None,
+    limit: int,
 ) -> set[str] | None:
     if not topic:
         return None
     try:
-        results = service.search(topic, project=project)
+        results = service.search(topic, project=project, limit=limit)
     except Exception:
         return set()
     return {
@@ -195,7 +196,9 @@ def _candidates(
             and (project is None or str(row.get("project") or "") == project)
         ]
     service = SessionCommandService(store)
-    matching_ids = _matching_ids(service, request.topic, project=project)
+    matching_ids = _matching_ids(
+        service, request.topic, project=project, limit=max(1, len(sessions))
+    )
     return list_session_resume_candidates(
         (row for row in sessions if row.get("entry_point") != "sub-agent"),
         request,
@@ -213,6 +216,7 @@ def _candidate_payload(candidate: SessionResumeCandidate, index: int) -> dict[st
         "index": index,
         "session_id": candidate.session_id,
         "created_at": candidate.created_at,
+        "last_activity_at": candidate.last_activity_at,
         "project": candidate.project,
         "summary": _clip(candidate.summary),
         "first_message": _clip(candidate.first_message),

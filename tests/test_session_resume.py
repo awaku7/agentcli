@@ -113,6 +113,31 @@ def test_day_offset_two_means_day_before_yesterday_in_local_calendar():
     assert candidate.session_id == "target"
 
 
+def test_week_offset_uses_last_activity_for_a_long_lived_session():
+    jst = timezone(timedelta(hours=9))
+    now = datetime(2026, 9, 22, 18, 0, tzinfo=jst)
+    sessions = [
+        {
+            "session_id": "long-lived",
+            "created_at": "2026-08-01 03:00:00",
+            "last_activity_at": "2026-09-16 03:00:00",
+        },
+        {
+            "session_id": "inactive",
+            "created_at": "2026-08-01 03:00:00",
+            "last_activity_at": "2026-09-10 03:00:00",
+        },
+    ]
+
+    candidates = list_session_resume_candidates(
+        sessions, SessionResumeRequest(week_offset=1), now=now
+    )
+
+    assert [candidate.session_id for candidate in candidates] == ["long-lived"]
+    assert candidates[0].created_at == "2026-08-01 03:00:00"
+    assert candidates[0].last_activity_at == "2026-09-16 03:00:00"
+
+
 def test_week_offset_one_uses_previous_local_monday_to_sunday():
     jst = timezone(timedelta(hours=9))
     now = datetime(2026, 9, 22, 18, 0, tzinfo=jst)  # Tuesday

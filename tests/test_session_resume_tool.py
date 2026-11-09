@@ -198,6 +198,61 @@ def test_yesterday_with_multiple_matches_requires_user_choice():
         queue.get_nowait()
 
 
+def test_week_resume_finds_old_session_active_last_week_beyond_search_top_20():
+    now = datetime.now().astimezone()
+    this_monday = now.date() - timedelta(days=now.weekday())
+    last_week_wednesday = this_monday - timedelta(days=5)
+    target_activity = datetime.combine(
+        last_week_wednesday,
+        datetime.min.time().replace(hour=12),
+        tzinfo=now.tzinfo,
+    )
+    rows = [
+        {
+            "session_id": "active",
+            "project": "app",
+            "created_at": now.isoformat(),
+        },
+        {
+            "session_id": "older-session",
+            "project": "app",
+            "created_at": (target_activity - timedelta(days=30)).isoformat(),
+            "last_activity_at": target_activity.isoformat(),
+            "summary": "Last week's work",
+        },
+    ]
+    recent_ids = []
+    this_monday_at_midnight = datetime.combine(
+        this_monday, datetime.min.time(), tzinfo=now.tzinfo
+    )
+    for index in range(21):
+        session_id = f"newer-{index:02d}"
+        recent_ids.append(session_id)
+        rows.append(
+            {
+                "session_id": session_id,
+                "project": "app",
+                # Newer search hits in the current ISO week.
+                "created_at": this_monday_at_midnight.replace(
+                    minute=index
+                ).isoformat(),
+            }
+        )
+    store = _FakeStore(
+        rows,
+        topic_hits={"memory": {"older-session", *recent_ids}},
+    )
+    queue = Queue()
+
+    result = _run_with_callbacks(
+        store, queue, {"week_offset": 1, "topic": "memory"}
+    )
+
+    assert result["ok"] is True
+    assert result["session_id"] == "older-session"
+    assert queue.get_nowait()["text"] == ":sessions load older-session"
+
+
 def test_explicit_candidate_session_id_queues_selected_session():
     store = _FakeStore(
         [

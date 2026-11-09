@@ -1528,6 +1528,7 @@ class SessionStore:
         rows = self._execute(
             "SELECT s.session_id, s.project, s.project_path, s.entry_point, "
             "s.created_at, s.last_used_at, s.principal_id, s.room_id, "
+            "MAX(s.created_at, COALESCE(s.last_used_at, s.created_at), COALESCE((SELECT MAX(m.created_at) FROM messages m WHERE m.session_id = s.session_id), s.created_at)) AS last_activity_at, "
             "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id ASC LIMIT 1) AS first_message, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id DESC LIMIT 1) AS last_message, "

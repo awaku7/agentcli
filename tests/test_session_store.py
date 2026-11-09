@@ -177,6 +177,21 @@ def test_list_sessions_orders_by_last_used_at(tmp_path):
     assert rows[0]["last_used_at"] == "2026-09-22 11:00:00"
 
 
+def test_list_sessions_exposes_latest_message_activity(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store._execute(
+        "UPDATE sessions SET created_at = ?, last_used_at = ? WHERE session_id = ?",
+        ("2001-02-03 04:05:06", "2001-02-03 04:05:06", session.session_id),
+    )
+    store.append_message(session.session_id, "user", "work resumed much later")
+
+    row = store.list_sessions()[0]
+
+    assert row["created_at"] == "2001-02-03 04:05:06"
+    assert row["last_activity_at"] > row["created_at"]
+
+
 def test_legacy_session_schema_recovers_created_at_and_preserves_last_used(tmp_path):
     db_path = tmp_path / "legacy.sqlite3"
     connection = sqlite3.connect(db_path)

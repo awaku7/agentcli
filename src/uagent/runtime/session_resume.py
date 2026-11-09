@@ -30,6 +30,7 @@ class SessionResumeCandidate:
     first_message: str = ""
     last_message: str = ""
     summary: str = ""
+    last_activity_at: str = ""
 
 
 def _parse_created_at(value: Any) -> datetime | None:
@@ -141,15 +142,24 @@ def list_session_resume_candidates(
             continue
         if matching_session_ids is not None and session_id not in matching_session_ids:
             continue
-        created_at = _parse_created_at(row.get("created_at"))
-        if created_at is None or not _session_in_window(created_at, request, local_now):
+        last_activity_at = str(
+            row.get("last_activity_at")
+            or row.get("last_used_at")
+            or row.get("created_at")
+            or ""
+        )
+        activity_time = _parse_created_at(last_activity_at)
+        if activity_time is None or not _session_in_window(
+            activity_time, request, local_now
+        ):
             continue
         candidates.append(
             (
-                created_at,
+                activity_time,
                 SessionResumeCandidate(
                     session_id=session_id,
                     created_at=str(row.get("created_at") or ""),
+                    last_activity_at=last_activity_at,
                     project=str(row.get("project") or ""),
                     first_message=str(row.get("first_message") or ""),
                     last_message=str(row.get("last_message") or ""),

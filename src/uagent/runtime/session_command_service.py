@@ -244,9 +244,16 @@ class SessionCommandService:
             }
         else:
             # Keep compatibility with lightweight stores and older adapters.
+            try:
+                message_hits = self._store.search(
+                    query, project=project, limit=max(1, int(limit))
+                )
+            except TypeError:
+                # Older/test adapters may not expose the optional limit.
+                message_hits = self._store.search(query, project=project)
             results = [
                 row
-                for row in self._store.search(query, project=project)
+                for row in message_hits
                 if str(row.get("role") or "") != "system"
             ]
             session_rows = {}
