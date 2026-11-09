@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from contextvars import copy_context
+from contextvars import ContextVar, copy_context
 import re
 import threading
 from typing import Any
@@ -15,6 +15,17 @@ except Exception:
 
 
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
+# The waiter can abandon a daemon LLM call before its stream iterator finishes.
+# Keep that decision local to the worker even when a later turn resets Stop.
+_LLM_CALL_ABANDONED: ContextVar[threading.Event | None] = ContextVar(
+    "uag_llm_call_abandoned", default=None
+)
+
+
+def llm_call_abandoned() -> bool:
+    """Whether this worker belongs to an already interrupted LLM wait."""
+    signal = _LLM_CALL_ABANDONED.get()
+    return signal is not None and signal.is_set()
 
 
 class LLMWaitInterrupted(BaseException):
@@ -238,12 +249,17 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
         return fn()
 
     box: dict[str, Any] = {"res": None, "exc": None}
+    abandoned = threading.Event()
 
     def _runner() -> None:
+        token = _LLM_CALL_ABANDONED.set(abandoned)
         try:
-            box["res"] = fn()
-        except BaseException as e:
-            box["exc"] = e
+            try:
+                box["res"] = fn()
+            except BaseException as e:
+                box["exc"] = e
+        finally:
+            _LLM_CALL_ABANDONED.reset(token)
 
     caller_context = copy_context()
     th = threading.Thread(
@@ -253,19 +269,24 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     )
     th.start()
 
-    while th.is_alive():
-        # Honor Stop / interrupt without waiting for the full network call.
-        try:
-            from uagent import core as _core_module
+    try:
+        while th.is_alive():
+            # Honor Stop / interrupt without waiting for the full network call.
+            try:
+                from uagent import core as _core_module
 
-            with _core_module.interrupt_lock:
-                interrupted = bool(_core_module.interrupt_requested)
-        except Exception:
-            interrupted = False
-        if interrupted:
-            # Leave daemon thread running; outer round/worker handles stop.
-            raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
-        th.join(0.05)
+                with _core_module.interrupt_lock:
+                    interrupted = bool(_core_module.interrupt_requested)
+            except Exception:
+                interrupted = False
+            if interrupted:
+                raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
+            th.join(0.05)
+    except BaseException:
+        # Ctrl-C during Thread.join() may make is_alive() report False while
+        # the worker is still executing. Always latch abandonment on exit.
+        abandoned.set()
+        raise
 
     if box.get("exc") is not None:
         raise box["exc"]

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..env_utils import env_get
 from .legacy_special_provider_fallback import call_legacy_grok_grpc_round
 from .legacy_provider_dispatch import call_legacy_openai_azure_round
 from .legacy_round_registry import (
@@ -147,7 +148,17 @@ def call_legacy_openai_compatible_outcome(
         capabilities=RoundOutcomeCapabilities(
             host_rendered=bool(
                 kwargs.get("stream_responses")
-                and (is_xai_grpc or str(kwargs.get("provider") or "") == "inception")
+                and (
+                    is_xai_grpc
+                    or str(kwargs.get("provider") or "") == "inception"
+                    or (
+                        str(kwargs.get("provider") or "") == "lmstudio"
+                        and (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "")
+                        .strip()
+                        .lower()
+                        == "sdk"
+                    )
+                )
             ),
             supports_tool_continuation=bool(tool_calls),
         ),
