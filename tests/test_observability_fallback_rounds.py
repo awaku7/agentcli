@@ -865,9 +865,7 @@ def test_pfn_special_legacy_chat_reports_only_fresh_measured_usage(
     )
     response = SimpleNamespace(
         choices=[
-            SimpleNamespace(
-                message=SimpleNamespace(content="answer", tool_calls=[])
-            )
+            SimpleNamespace(message=SimpleNamespace(content="answer", tool_calls=[]))
         ],
         usage=usage,
     )
