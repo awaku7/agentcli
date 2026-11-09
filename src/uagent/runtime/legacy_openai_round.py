@@ -153,9 +153,9 @@ def call_legacy_openai_compatible_outcome(
                     or str(kwargs.get("provider") or "") == "inception"
                     or (
                         str(kwargs.get("provider") or "") == "lmstudio"
-                        and (
-                            env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or ""
-                        ).strip().lower()
+                        and (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "")
+                        .strip()
+                        .lower()
                         == "sdk"
                     )
                 )
