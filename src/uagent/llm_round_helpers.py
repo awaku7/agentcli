@@ -77,6 +77,7 @@ def _render_inception_stream(
     diffusing: bool,
     print_delta_fn: Any,
     core: Any,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Compatibility wrapper for the shared Inception host boundary."""
     return render_legacy_inception_stream(
@@ -84,6 +85,7 @@ def _render_inception_stream(
         diffusing=diffusing,
         print_delta_fn=print_delta_fn,
         core=core,
+        usage_sink=usage_sink,
     )
 
 
@@ -1268,6 +1270,8 @@ def _call_openai_azure_round(
                         )
                     )
                 elif provider == "inception" and stream_responses:
+                    inception_stream_usage: list[dict[str, int]] = []
+
                     # Inception exposes streaming on Chat Completions rather
                     # than the Responses API. Reuse the OpenAI-compatible
                     # tool/reasoning delta parser.
@@ -1288,7 +1292,16 @@ def _call_openai_azure_round(
                                 )
                             ),
                             core=core,
+                            usage_sink=inception_stream_usage,
                         )
+
+                    # The Inception fallback span ends inside the traced
+                    # waiter, before this caller resumes. Expose its local
+                    # usage sink so the waiter can publish on successful
+                    # return while the span is still open.
+                    _legacy_inception_stream._uag_inception_usage_sink = (
+                        inception_stream_usage
+                    )
 
                     use_orchestrator = (
                         _inception_registry_enabled()
@@ -1374,6 +1387,10 @@ def _call_openai_azure_round(
                         assistant_text, reasoning_content, tool_calls_list = (
                             call_maybe_thread_fn(_legacy_inception_stream)
                         )
+                    # Only the owning waiter publishes completed legacy
+                    # streaming usage; abandoned workers cannot update core.
+                    if inception_stream_usage and core is not None:
+                        core._last_responses_usage = inception_stream_usage[-1]
                     resp = None
                 else:
                     resp = call_maybe_thread_fn(

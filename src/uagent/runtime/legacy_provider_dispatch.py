@@ -116,6 +116,12 @@ def _call_inception_streaming_round(**kwargs: Any) -> Any:
             core=kwargs.get("core"),
         ) as observability_span:
             result = call_maybe_thread_fn(fn, *args, **call_kwargs)
+            # The owning waiter returns before the fallback span closes.
+            # A detached worker can only update its local sink, not core.
+            usage_sink = getattr(fn, "_uag_inception_usage_sink", None)
+            core = kwargs.get("core")
+            if usage_sink and core is not None:
+                core._last_responses_usage = usage_sink[-1]
             observability_span.set_attribute("uag.status", "completed")
             observability_span.set_status("ok")
             return result

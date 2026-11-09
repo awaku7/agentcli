@@ -1081,3 +1081,81 @@ def test_lmstudio_sdk_stream_legacy_routes_and_reports_usage(
             for event in events
             if event.get("type") == "assistant_stream_delta"
         ] == ["hello ", "world"]
+
+
+def test_inception_legacy_stream_publishes_owner_usage_to_fallback_otel(
+    monkeypatch,
+) -> None:
+    backend = _install_backend(monkeypatch)
+    monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "0")
+    monkeypatch.setenv("UAGENT_INCEPTION_DIFFUSING", "0")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    previous = {"input_tokens": 900, "output_tokens": 300}
+    events: list[dict] = []
+    calls: list[dict] = []
+    core = SimpleNamespace(
+        _is_web=True,
+        _last_responses_usage=previous,
+        log_message=events.append,
+    )
+
+    def create(**kwargs):
+        calls.append(kwargs)
+        return iter(
+            [
+                SimpleNamespace(
+                    choices=[
+                        SimpleNamespace(
+                            delta=SimpleNamespace(content="answer", tool_calls=[])
+                        )
+                    ]
+                ),
+                SimpleNamespace(
+                    choices=[],
+                    usage={
+                        "prompt_tokens": 21,
+                        "completion_tokens": 9,
+                        "total_tokens": 30,
+                    },
+                ),
+            ]
+        )
+
+    client = SimpleNamespace(
+        chat=SimpleNamespace(completions=SimpleNamespace(create=create))
+    )
+    result = legacy_provider_dispatch.call_legacy_openai_azure_round(
+        provider="inception",
+        client=client,
+        depname="mercury-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=lambda _: ("inception", client),
+        call_maybe_thread_fn=lambda action: action(),
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.1,
+        retry_cap=1.0,
+        messages=[{"role": "user", "content": "hello"}],
+        responses_state={},
+    )
+    assert result[0] is True
+    assert result[2] == "answer"
+    assert calls[0]["stream"] is True
+    assert core._last_responses_usage == {
+        "input_tokens": 21,
+        "output_tokens": 9,
+        "total_tokens": 30,
+    }
+    assert core._last_responses_usage is not previous
+    span = next(
+        record["span"] for record in backend.spans if record["operation"] == "chat"
+    )
+    assert span.attributes["uag.tokens.reported.input"] == 21
+    assert span.attributes["uag.tokens.reported.output"] == 9
+    assert span.attributes["uag.tokens.reported.total"] == 30
+    assert [
+        x["delta"] for x in events if x.get("type") == "assistant_stream_delta"
+    ] == ["answer"]

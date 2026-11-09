@@ -15,6 +15,29 @@ from .round_contracts import StreamEvent
 from .stream_renderer import CallbackStreamRenderer, StreamCallbacks
 
 
+def _inception_stream_interrupted(core: Any) -> bool:
+    """Reject obsolete worker output even after a newer turn resets Stop."""
+    from .. import core as core_module
+    from ..llm_helpers import llm_call_abandoned
+
+    if llm_call_abandoned():
+        return True
+    with core_module.interrupt_lock:
+        if core_module.interrupt_requested:
+            return True
+    if bool(getattr(core, "interrupt_requested", False)):
+        return True
+    cancellation = getattr(core, "cancellation_token", None)
+    return cancellation is not None and cancellation.is_cancelled()
+
+
+def _raise_if_interrupted(core: Any) -> None:
+    if _inception_stream_interrupted(core):
+        from ..llm_helpers import LLMWaitInterrupted
+
+        raise LLMWaitInterrupted("Inception stream interrupted")
+
+
 def _emit_snapshot(
     text: str, *, print_delta_fn: Any, core: Any, previous_lines: int = 0
 ) -> int:
@@ -91,6 +114,7 @@ def render_inception_stream_events(
     print_delta_fn: Any = None,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Render and collect normalized Inception events at the host boundary.
 
@@ -105,8 +129,11 @@ def render_inception_stream_events(
             core=core,
         )
     )
+    _raise_if_interrupted(core)
     for event in events:
+        _raise_if_interrupted(core)
         renderer.on_event(event)
+    _raise_if_interrupted(core)
 
     rendered = renderer.result()
     result_text = rendered.assistant_text
@@ -156,8 +183,12 @@ def render_inception_stream_events(
         if terminal == "ResponseCompleted":
             measured_usage = rendered.terminal_data.get("usage")
             if isinstance(measured_usage, dict) and measured_usage:
-                # Legacy fallback spans consume this request-scoped snapshot.
-                core._last_responses_usage = dict(measured_usage)
+                # Threaded legacy calls must publish only after their waiter
+                # returns; direct host consumers retain their old behavior.
+                if usage_sink is not None:
+                    usage_sink.append(dict(measured_usage))
+                else:
+                    core._last_responses_usage = dict(measured_usage)
     return result_text, "", tool_calls
 
 

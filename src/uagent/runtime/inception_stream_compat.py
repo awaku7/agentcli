@@ -20,6 +20,7 @@ def render_legacy_inception_stream(
     diffusing: bool,
     print_delta_fn: object,
     core: object,
+    usage_sink: list[dict[str, int]] | None = None,
 ) -> tuple[str, str, list[dict[str, object]]]:
     """Render the historical Inception stream through the host boundary."""
     # Imports remain lazy because the provider adapter imports this compatibility
@@ -49,16 +50,38 @@ def render_legacy_inception_stream(
         diffusing=diffusing,
         cancellation=getattr(core, "cancellation_token", None),
     )
-    return render_inception_stream_events(
-        events,
-        diffusing=diffusing,
-        print_delta_fn=print_delta_fn,
-        core=core,
-        callbacks=build_inception_stream_callbacks(
+    started = False
+
+    def watched_events():
+        nonlocal started
+        started = True
+        yield from events
+
+    watched = watched_events()
+    try:
+        return render_inception_stream_events(
+            watched,
+            diffusing=diffusing,
             print_delta_fn=print_delta_fn,
             core=core,
-        ),
-    )
+            usage_sink=usage_sink,
+            callbacks=build_inception_stream_callbacks(
+                print_delta_fn=print_delta_fn,
+                core=core,
+            ),
+        )
+    finally:
+        # Closing an unstarted Python generator does not run its finally
+        # block. Close the SDK stream directly when Stop arrived before the
+        # first event, and close started generators on interrupted rendering.
+        watched.close()
+        if not started:
+            close = getattr(stream, "close", None)
+            if callable(close):
+                try:
+                    close()
+                except Exception:
+                    pass
 
 
 __all__ = ["collect_inception_stream_events", "render_legacy_inception_stream"]
