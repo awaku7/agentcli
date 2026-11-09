@@ -149,3 +149,110 @@ def test_act_usage_is_not_reused_across_requests(monkeypatch) -> None:
     }
     assert client.create(**kwargs).usage["total_tokens"] == 16
     assert client.create(**kwargs).usage == {}
+
+
+def test_act_stream_tool_keeps_remote_sandbox_and_authorization_context(
+    monkeypatch, tmp_path
+) -> None:
+    from uagent import tools as uagent_tools
+    from uagent.llm_helpers import _call_maybe_thread
+    from uagent.runtime import mxc_backend
+    from uagent.runtime.execution_broker import (
+        SecurityProfile,
+        TrustedSandboxScope,
+        current_authorization_valid,
+        current_profile,
+        current_sandbox_enabled,
+        current_scope,
+        execution_profile,
+    )
+
+    monkeypatch.setitem(
+        sys.modules,
+        "lmstudio",
+        SimpleNamespace(
+            Chat=SimpleNamespace(from_history=lambda _history: "sdk-chat"),
+            ToolFunctionDef=lambda **kwargs: SimpleNamespace(**kwargs),
+        ),
+    )
+    policy_path = tmp_path / "policy.json"
+    policy_path.write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(policy_path))
+    calls: list[str] = []
+    monkeypatch.setattr(
+        uagent_tools, "_ensure_loaded", lambda: calls.append("plugin_load")
+    )
+    monkeypatch.setitem(
+        uagent_tools._RUNNERS,
+        "python_exec",
+        lambda _args: calls.append("host_runner") or "unsafe",
+    )
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: None)
+
+    scope = TrustedSandboxScope(
+        deployment_id="test",
+        principal_id="alice",
+        project_id="project",
+        scope_kind="web-room",
+        scope_id="room-1",
+    )
+    seen_context: list[tuple] = []
+    results: list[str] = []
+
+    def act(_prompt, definitions, *, on_prediction_fragment, on_prediction_completed):
+        seen_context.append(
+            (
+                current_profile(),
+                current_sandbox_enabled(),
+                current_scope(),
+                current_authorization_valid(require_check=True),
+            )
+        )
+        results.append(definitions[0].implementation(code="print('blocked')"))
+        on_prediction_completed(SimpleNamespace(stats=_stats(20, 7)))
+        return SimpleNamespace(content="finished")
+
+    client = sdk.LMStudioSDKClient.__new__(sdk.LMStudioSDKClient)
+    client._core = None
+    client._model = SimpleNamespace(act=act)
+
+    def invoke():
+        return list(
+            client.create(
+                messages=[{"role": "user", "content": "hello"}],
+                tools=[
+                    {
+                        "type": "function",
+                        "function": {
+                            "name": "python_exec",
+                            "parameters": {
+                                "type": "object",
+                                "properties": {"code": {"type": "string"}},
+                            },
+                        },
+                    }
+                ],
+                stream=True,
+            )
+        )
+
+    with execution_profile(
+        SecurityProfile.REMOTE,
+        sandbox_enabled=True,
+        scope=scope,
+        authorization_check=lambda: True,
+    ):
+        chunks = _call_maybe_thread(invoke, use_llm_thread=True)
+
+    assert seen_context == [(SecurityProfile.REMOTE, True, scope, True)]
+    assert len(results) == 1
+    assert "no compliant sandbox backend" in results[0]
+    assert calls == []
+    assert any(
+        getattr(chunk, "usage", None) == {
+            "prompt_tokens": 20,
+            "completion_tokens": 7,
+            "total_tokens": 27,
+        }
+        for chunk in chunks
+    )
