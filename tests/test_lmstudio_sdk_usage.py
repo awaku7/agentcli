@@ -46,13 +46,12 @@ def test_respond_stream_reports_usage_only_after_success(
         def result(self):
             if stream_result == "failure":
                 raise RuntimeError("no completed result")
-            return SimpleNamespace(
-                stats=(
-                    _stats(20, 7)
-                    if stream_result == "valid"
-                    else _stats(True, -1) if stream_result == "invalid" else None
-                )
-            )
+            stats = None
+            if stream_result == "valid":
+                stats = _stats(20, 7)
+            elif stream_result == "invalid":
+                stats = _stats(True, -1)
+            return SimpleNamespace(stats=stats)
 
     client = _client(
         monkeypatch,
@@ -126,12 +125,12 @@ def test_act_failure_never_reports_partial_usage(monkeypatch, streaming: bool) -
         raise RuntimeError("act interrupted")
 
     client = _client(monkeypatch, SimpleNamespace(act=act), use_tools=True)
-    response = client.create(
-        messages=[{"role": "user", "content": "hello"}],
-        tools=[{"function": {"name": "demo"}}],
-        stream=streaming,
-    )
     with pytest.raises(RuntimeError, match="act interrupted"):
+        response = client.create(
+            messages=[{"role": "user", "content": "hello"}],
+            tools=[{"function": {"name": "demo"}}],
+            stream=streaming,
+        )
         if streaming:
             list(response)
 
