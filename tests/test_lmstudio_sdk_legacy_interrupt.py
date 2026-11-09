@@ -94,3 +94,51 @@ def test_lmstudio_sdk_abandoned_worker_stays_silent_after_stop_reset(
     assert finished.wait(4)
     assert suppressed == [True]
     assert rendered == [{"type": "assistant_stream_delta", "delta": "before"}]
+
+
+def test_lmstudio_sdk_ctrl_c_abandons_worker_even_without_stop_flag(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(core_module, "interrupt_requested", False)
+    rendered: list[dict] = []
+    ready = threading.Event()
+    release = threading.Event()
+    finished = threading.Event()
+    suppressed: list[bool] = []
+    core = SimpleNamespace(_is_web=True, log_message=rendered.append)
+
+    def stream():
+        yield _chunk("before")
+        ready.set()
+        if not release.wait(4):
+            raise AssertionError("test worker was never released")
+        yield _chunk("after")
+
+    def worker():
+        try:
+            collect_lmstudio_sdk_stream(stream(), core=core)
+        except LLMWaitInterrupted:
+            suppressed.append(True)
+        finally:
+            finished.set()
+
+    original_join = threading.Thread.join
+
+    def interrupt_join(thread, timeout=None):
+        if thread.name == "uagent-llm-call":
+            assert ready.wait(4)
+            raise KeyboardInterrupt("Ctrl-C")
+        return original_join(thread, timeout)
+
+    monkeypatch.setattr(threading.Thread, "join", interrupt_join)
+    try:
+        with pytest.raises(KeyboardInterrupt, match="Ctrl-C"):
+            _call_maybe_thread(worker, use_llm_thread=True)
+    finally:
+        # Ctrl-C does not need to set the global Stop flag. The next request
+        # can proceed while the old SDK network stream is still in flight.
+        release.set()
+
+    assert finished.wait(4)
+    assert suppressed == [True]
+    assert rendered == [{"type": "assistant_stream_delta", "delta": "before"}]
