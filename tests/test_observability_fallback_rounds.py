@@ -1088,6 +1088,7 @@ def test_inception_legacy_stream_publishes_owner_usage_to_fallback_otel(
 ) -> None:
     backend = _install_backend(monkeypatch)
     monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "0")
+    monkeypatch.setenv("UAGENT_INCEPTION_DIFFUSING", "0")
     monkeypatch.setenv("UAGENT_REASONING", "off")
     previous = {"input_tokens": 900, "output_tokens": 300}
     events: list[dict] = []
