@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import sys
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
@@ -88,6 +89,10 @@ def test_native_worker_reused_across_files(monkeypatch, tmp_path: Path) -> None:
     assert tree_sitter_isolated._WORKER.pid == pid
 
 
+@pytest.mark.skipif(
+    os.environ.get("UAGENT_RUN_TREE_SITTER_REPO_SCAN") != "1",
+    reason="Full repository Tree-sitter scan is reserved for scheduled/manual CI",
+)
 def test_native_worker_analyzes_agentcli_repository() -> None:
     """Analyze UAG's actual source, not just an artificial parser fixture."""
     _require_language_pack()
