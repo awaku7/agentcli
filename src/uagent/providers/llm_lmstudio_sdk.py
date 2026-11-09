@@ -7,6 +7,7 @@ uag tool specifications and exposes the small client surface used by uagent.
 
 from __future__ import annotations
 
+from contextvars import copy_context
 import queue
 import re
 import threading
@@ -327,7 +328,14 @@ class LMStudioSDKClient:
             finally:
                 events.put(("done", done))
 
-        worker = threading.Thread(target=run, name="lmstudio-sdk-act", daemon=True)
+        # Preserve the caller's trusted execution policy and authorization
+        # scope for SDK tool callbacks executed on this inner worker thread.
+        caller_context = copy_context()
+        worker = threading.Thread(
+            target=lambda: caller_context.run(run),
+            name="lmstudio-sdk-act",
+            daemon=True,
+        )
         worker.start()
         emitted = False
         while True:
