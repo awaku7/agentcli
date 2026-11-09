@@ -252,9 +252,7 @@ class SessionCommandService:
                 # Older/test adapters may not expose the optional limit.
                 message_hits = self._store.search(query, project=project)
             results = [
-                row
-                for row in message_hits
-                if str(row.get("role") or "") != "system"
+                row for row in message_hits if str(row.get("role") or "") != "system"
             ]
             session_rows = {}
             session_match_counts = {}

@@ -9,7 +9,9 @@ from uagent.util_common import parse_startup_args
 def test_role_file_flag_is_parsed(monkeypatch, tmp_path):
     role_file = tmp_path / "role.txt"
     role_file.write_text("route batteries to a person", encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["uag", "--embedded", "--role-file", str(role_file)])
+    monkeypatch.setattr(
+        sys, "argv", ["uag", "--embedded", "--role-file", str(role_file)]
+    )
 
     args, unknown = parse_startup_args()
 
@@ -71,7 +73,9 @@ def test_initial_messages_put_role_before_unchanged_base_prompt(monkeypatch):
         def log_message(message):
             logged.append(message)
 
-    messages = build_initial_messages(core=Core(), role_prompt="route batteries to a person")
+    messages = build_initial_messages(
+        core=Core(), role_prompt="route batteries to a person"
+    )
 
     assert [message["role"] for message in messages[:2]] == ["system", "system"]
     assert "route batteries to a person" in messages[0]["content"]

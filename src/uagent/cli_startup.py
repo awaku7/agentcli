@@ -7,7 +7,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 _ROLE_FILE_MAX_BYTES = 64 * 1024
 
 
@@ -34,9 +33,7 @@ def _read_role_file(role_file: str, *, base_dir: str) -> str:
         raise ValueError(f"cannot read {str(path)!r}: {exc}") from exc
 
     if len(data) > _ROLE_FILE_MAX_BYTES:
-        raise ValueError(
-            f"{str(path)!r} exceeds the {_ROLE_FILE_MAX_BYTES}-byte limit"
-        )
+        raise ValueError(f"{str(path)!r} exceeds the {_ROLE_FILE_MAX_BYTES}-byte limit")
     try:
         text = data.decode("utf-8-sig")
     except UnicodeDecodeError as exc:

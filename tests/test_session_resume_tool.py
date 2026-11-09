@@ -233,9 +233,7 @@ def test_week_resume_finds_old_session_active_last_week_beyond_search_top_20():
                 "session_id": session_id,
                 "project": "app",
                 # Newer search hits in the current ISO week.
-                "created_at": this_monday_at_midnight.replace(
-                    minute=index
-                ).isoformat(),
+                "created_at": this_monday_at_midnight.replace(minute=index).isoformat(),
             }
         )
     store = _FakeStore(
@@ -244,9 +242,7 @@ def test_week_resume_finds_old_session_active_last_week_beyond_search_top_20():
     )
     queue = Queue()
 
-    result = _run_with_callbacks(
-        store, queue, {"week_offset": 1, "topic": "memory"}
-    )
+    result = _run_with_callbacks(store, queue, {"week_offset": 1, "topic": "memory"})
 
     assert result["ok"] is True
     assert result["session_id"] == "older-session"
