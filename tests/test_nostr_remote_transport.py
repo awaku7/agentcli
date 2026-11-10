@@ -9,11 +9,13 @@ import pytest
 
 from uagent.nostr_nip17 import (
     create_nip17_private_messages,
+    create_nip17_relay_list_event,
     unwrap_nip17_private_message,
 )
 from uagent.nostr_remote_inbox import SQLiteNostrInboxStore
 from uagent.nostr_remote_state import SQLiteReplayStore
 from uagent.nostr_remote_transport import (
+    fetch_nip17_relay_list,
     listen_nip17_messages,
     publish_nip17_gift_wrap,
     publish_nip17_gift_wraps,
@@ -500,3 +502,95 @@ def test_listener_rejects_unpaired_sender_before_replay_claim(replay_store) -> N
     # The unpaired sender was denied before its rumor ID was claimed.
     rumor = unwrap_nip17_private_message(gift_wrap, _secret(2))
     assert replay_store.claim(SENDER_PUBLIC_HEX, rumor["id"], received_at=1_700_000_000)
+
+
+class FakeRelayListSocket:
+    def __init__(self, event: dict, *, require_auth: bool = False) -> None:
+        self.event = event
+        self.require_auth = require_auth
+        self.authenticated = False
+        self.frames: list[list[object]] = []
+        self.subscription_id = ""
+        self.sent: list[list[object]] = []
+
+    async def __aenter__(self) -> "FakeRelayListSocket":
+        return self
+
+    async def __aexit__(self, *_exc: object) -> None:
+        return None
+
+    async def send(self, raw: str) -> None:
+        frame = json.loads(raw)
+        self.sent.append(frame)
+        if frame[0] == "REQ":
+            self.subscription_id = frame[1]
+            if self.require_auth and not self.authenticated:
+                self.frames = [["AUTH", "relay-auth-challenge"]]
+            else:
+                self.frames = [
+                    ["EVENT", self.subscription_id, self.event],
+                    ["EOSE", self.subscription_id],
+                ]
+        elif frame[0] == "AUTH":
+            self.authenticated = True
+            self.frames = [["OK", frame[1]["id"], True, "authenticated"]]
+
+    async def recv(self) -> str:
+        return json.dumps(self.frames.pop(0))
+
+
+def test_fetch_relay_list_verifies_author_and_uses_local_lookup_relay() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(signed_event)
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert socket.sent[0][2]["kinds"] == [10050]
+    assert socket.sent[-1] == ["CLOSE", socket.subscription_id]
+
+
+def test_fetch_relay_list_refuses_unapproved_lookup_destination() -> None:
+    called = False
+
+    def no_connect(*_args, **_kwargs):
+        nonlocal called
+        called = True
+        raise AssertionError("unapproved destination must not connect")
+
+    with pytest.raises(ValueError, match="local relay allowlist"):
+        asyncio.run(
+            fetch_nip17_relay_list(
+                SENDER_PUBLIC_HEX,
+                ["wss://attacker.example"],
+                allowed_relay_urls=["wss://local.example"],
+                connect_factory=no_connect,
+            )
+        )
+    assert not called
+
+
+def test_fetch_relay_list_handles_nip42_auth() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(signed_event, require_auth=True)
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            auth_private_key=_secret(2),
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert any(frame[0] == "AUTH" for frame in socket.sent)
+    assert sum(frame[0] == "REQ" for frame in socket.sent) == 2

@@ -4,10 +4,10 @@ This module deliberately does not alter the legacy bitchat Nostr transport or
 start a CLI remote-control service. It publishes already-created kind-1059
 NIP-17 gift wraps to their verified inbox-relay lists and listens for addressed
 wraps. The listener can optionally persist verified encrypted wraps in a SQLite
-inbox before notifying its callback; the caller still owns inbox recovery,
-foreground dispatch, pairing-store wiring, service lifecycle, response delivery,
-and the local relay/egress allowlist. The separate foreground dispatcher only
-handles requests after another runtime component enqueues them.
+inbox before notifying its callback. The opt-in CLI runtime owns inbox recovery,
+foreground dispatch, pairing-store wiring, and service lifecycle. This module
+still does not send response DMs; incoming relay destinations come from the
+locally configured Nostr transport relay list.
 """
 
 from __future__ import annotations
@@ -27,6 +27,7 @@ from .nostr_nip17 import (
     _sign_event,
     _validate_private_key,
     _validate_relay_uri,
+    extract_nip17_relay_list,
     unwrap_nip17_private_message,
 )
 from .nostr_remote_inbox import InboxFullError, SQLiteNostrInboxStore
@@ -297,6 +298,137 @@ async def publish_nip17_gift_wraps(
                 )
             )
     return results
+
+
+async def fetch_nip17_relay_list(
+    participant_pubkey_hex: str,
+    lookup_relays: Sequence[str],
+    *,
+    allowed_relay_urls: Sequence[str],
+    auth_private_key: bytes | None = None,
+    connect_factory: Callable[..., Any] | None = None,
+    timeout: float = 5.0,
+) -> list[str]:
+    """Fetch the participant's newest signed kind-10050 inbox relay list.
+
+    Lookup connections are restricted to the caller's local relay allowlist.
+    The returned destinations are signature-verified but still must be
+    intersected with that allowlist before publishing any gift wraps.
+    """
+    if not isinstance(participant_pubkey_hex, str) or len(participant_pubkey_hex) != 64:
+        raise ValueError("participant pubkey must be 32-byte hex")
+    try:
+        participant_pubkey_hex = bytes.fromhex(participant_pubkey_hex).hex()
+    except ValueError as exc:
+        raise ValueError("participant pubkey must be 32-byte hex") from exc
+    if isinstance(lookup_relays, (str, bytes)) or not lookup_relays:
+        raise ValueError("at least one local lookup relay is required")
+    if isinstance(allowed_relay_urls, (str, bytes)) or not allowed_relay_urls:
+        raise ValueError("a non-empty local relay allowlist is required")
+    allowed = {_validate_relay_uri(url) for url in allowed_relay_urls}
+    relays = list(dict.fromkeys(_validate_relay_uri(url) for url in lookup_relays))
+    if len(relays) > 10 or any(url not in allowed for url in relays):
+        raise ValueError("lookup relays must be in the local relay allowlist")
+    if not isinstance(timeout, (int, float)) or timeout <= 0:
+        raise ValueError("timeout must be a positive number")
+    auth_key = (
+        None if auth_private_key is None else _validate_private_key(auth_private_key)
+    )
+
+    connect = _connect_factory(connect_factory)
+    candidates: list[tuple[int, list[str]]] = []
+    for relay_url in relays:
+        subscription_id = "uag-relay-list-" + secrets.token_hex(8)
+        request = [
+            "REQ",
+            subscription_id,
+            {"kinds": [10050], "authors": [participant_pubkey_hex], "limit": 10},
+        ]
+        auth_challenges: set[str] = set()
+        pending_auth_event_id: str | None = None
+        try:
+            async with asyncio.timeout(float(timeout)):
+                async with connect(
+                    relay_url,
+                    ssl=ssl.create_default_context(),
+                    open_timeout=float(timeout),
+                    close_timeout=min(float(timeout), 5.0),
+                    max_size=MAX_RELAY_FRAME_BYTES,
+                ) as websocket:
+                    await websocket.send(
+                        json.dumps(request, separators=(",", ":"), ensure_ascii=False)
+                    )
+                    while True:
+                        frame = _decode_relay_frame(await websocket.recv())
+                        if frame is None or not frame:
+                            continue
+                        if frame[0] == "AUTH" and len(frame) >= 2:
+                            challenge = frame[1]
+                            if (
+                                auth_key is None
+                                or not isinstance(challenge, str)
+                                or not challenge
+                                or challenge in auth_challenges
+                                or len(auth_challenges) >= 3
+                            ):
+                                raise PermissionError(
+                                    "relay AUTH challenge is unusable"
+                                )
+                            auth_challenges.add(challenge)
+                            auth_event = _make_auth_event(
+                                relay_url, challenge, auth_key
+                            )
+                            pending_auth_event_id = auth_event["id"]
+                            await websocket.send(
+                                json.dumps(["AUTH", auth_event], separators=(",", ":"))
+                            )
+                            continue
+                        if (
+                            frame[0] == "OK"
+                            and len(frame) >= 4
+                            and frame[1] == pending_auth_event_id
+                        ):
+                            pending_auth_event_id = None
+                            if frame[2] is not True:
+                                raise PermissionError("relay rejected NIP-42 AUTH")
+                            await websocket.send(
+                                json.dumps(
+                                    request, separators=(",", ":"), ensure_ascii=False
+                                )
+                            )
+                            continue
+                        if (
+                            frame[0] == "EVENT"
+                            and len(frame) >= 3
+                            and frame[1] == subscription_id
+                            and isinstance(frame[2], dict)
+                        ):
+                            event = frame[2]
+                            try:
+                                inbox_relays = extract_nip17_relay_list(
+                                    event, participant_pubkey_hex
+                                )
+                            except (TypeError, ValueError):
+                                continue
+                            candidates.append((event["created_at"], inbox_relays))
+                        elif (
+                            frame[0] in {"EOSE", "CLOSED"}
+                            and len(frame) >= 2
+                            and frame[1] == subscription_id
+                        ):
+                            break
+                    try:
+                        await websocket.send(json.dumps(["CLOSE", subscription_id]))
+                    except Exception:
+                        pass
+        except Exception:
+            # Try other locally configured relays; never follow a relay URL
+            # supplied by the untrusted participant during discovery.
+            continue
+
+    if not candidates:
+        raise ValueError("no valid participant kind-10050 relay list was found")
+    return max(candidates, key=lambda candidate: candidate[0])[1]
 
 
 async def listen_nip17_messages(

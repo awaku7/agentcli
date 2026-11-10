@@ -3,8 +3,8 @@
 The registry stores public keys and locally chosen labels only; it never stores
 Nostr private keys or decrypted DM text. ``approved=True`` is a guard for the
 caller, not proof of consent: pair() must only be called after a local operator
-has explicitly reviewed and approved the device. This store is not yet wired to
-CLI commands or to a running Relay listener.
+has explicitly reviewed and approved the device. Local CLI commands manage the
+registry, and the opt-in remote runtime uses it to authorize each request.
 """
 
 from __future__ import annotations

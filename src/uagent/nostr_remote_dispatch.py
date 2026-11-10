@@ -1,10 +1,10 @@
 """Foreground CLI dispatch boundary for experimental Nostr remote requests.
 
-The relay listener must verify/decrypt the NIP-17 event, authorize pairing, and
-claim its rumor ID in the durable replay store before enqueueing it. This module
-then revalidates the sender and the session on the CLI thread immediately before
-routing chat or an explicitly requested CLI command through the existing input
-paths. It does not start a relay listener, create pairings, or send DM replies.
+The relay listener verifies/decrypts the NIP-17 event and persists its encrypted
+kind-1059 wrap before queueing a minimal request reference. The foreground CLI
+then claims the durable inbox row, matches it to the decrypted rumor, rechecks
+pairing and session, and routes chat or an explicit CLI command through existing
+input paths. This module does not start a relay listener or send DM replies.
 """
 
 from __future__ import annotations
@@ -119,6 +119,18 @@ def _parse_action(text: str) -> tuple[Literal["user", "command"], str]:
             or "\x00" in command
         ):
             raise RemoteCLIRequestError("invalid explicit CLI command")
+        command_parts = command.split(maxsplit=2)
+        command_head = command_parts[0].lower()
+        if command_head == ":nostr" and len(command_parts) >= 2:
+            nostr_subcommand = command_parts[1].lower()
+        elif command_head.startswith(":nostr:"):
+            nostr_subcommand = command_head.split(":", 2)[2]
+        else:
+            nostr_subcommand = ""
+        if nostr_subcommand in {"pair", "revoke", "remote"}:
+            raise RemoteCLIRequestError(
+                "Nostr device and listener management are local-only"
+            )
         return "command", command
 
     return "user", text

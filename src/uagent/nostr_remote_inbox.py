@@ -14,8 +14,8 @@ and ciphertext clearing from growing SQLite files without bound. On migration
 from the earlier schema, only still-retained ciphertext bytes can be counted;
 bytes cleared before migration are unrecoverable, so the cumulative budget
 starts from the migration baseline. Terminal tombstones are not automatically
-pruned. This store is not yet connected to CLI startup/shutdown or a response
-outbox.
+pruned. The opt-in CLI runtime restores pending rows and performs at-most-once
+dispatch. Response outbox delivery is still outside this store.
 """
 
 from __future__ import annotations
