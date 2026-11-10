@@ -872,14 +872,14 @@ def start_nostr_remote_runtime(
     try:
         runtime.start()
     except Exception:
+        try:
+            runtime.stop(timeout=2.0)
+        except Exception:
+            runtime._status_stop.set()
         for name in ("_nostr_remote_runtime", "_nostr_remote_authorize_sender"):
             try:
                 delattr(core, name)
             except AttributeError:
                 pass
-        runtime.inbox_store.close()
-        runtime.pairing_store.close()
-        if runtime.outbox_store is not None:
-            runtime.outbox_store.close()
         raise
     return runtime
