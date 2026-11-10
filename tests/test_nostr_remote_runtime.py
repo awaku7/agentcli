@@ -166,6 +166,44 @@ def test_listener_runtime_stops_cleanly(tmp_path, monkeypatch) -> None:
             stop_nostr_remote_runtime(core)
 
 
+def test_listener_runtime_retries_failed_relay_independently(
+    tmp_path, monkeypatch
+) -> None:
+    import asyncio
+    import uagent.nostr_remote_runtime as runtime_module
+
+    calls: dict[str, int] = {}
+
+    async def flaky_listener(relay, _key, _callback, *, stop_event, **_kwargs):
+        calls[relay] = calls.get(relay, 0) + 1
+        if relay == "wss://broken.example.org" and calls[relay] == 1:
+            raise RuntimeError("temporary relay failure")
+        if relay == "wss://broken.example.org":
+            stop_event.set()
+        await stop_event.wait()
+
+    monkeypatch.setattr(runtime_module, "listen_nip17_messages", flaky_listener)
+    monkeypatch.setattr("uagent.utils.paths.get_dbs_dir", lambda: tmp_path / "db")
+    inbox = SQLiteNostrInboxStore(tmp_path / "retry-inbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "retry-pairings.sqlite3")
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=_secret(2),
+        relays=["wss://broken.example.org", "wss://healthy.example.org"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+    )
+    try:
+        asyncio.run(runtime._listen())
+        assert calls["wss://broken.example.org"] == 2
+        assert calls["wss://healthy.example.org"] == 1
+        assert "temporary relay failure" in runtime._error
+    finally:
+        inbox.close()
+        pairings.close()
+
+
 def test_invalid_rumor_is_queued_by_reference_without_plaintext(tmp_path) -> None:
     event_queue = queue.Queue()
     inbox = SQLiteNostrInboxStore(tmp_path / "invalid-rumor-inbox.sqlite3")

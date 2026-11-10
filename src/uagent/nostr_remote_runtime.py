@@ -181,21 +181,43 @@ class NostrRemoteRuntime:
         self._thread.start()
         self._ready.wait(timeout=2.0)
 
-    async def _listen(self) -> None:
-        self._loop = asyncio.get_running_loop()
-        self._stop_event = asyncio.Event()
-        self._ready.set()
-        tasks = [
-            asyncio.create_task(
-                listen_nip17_messages(
+    async def _listen_relay(self, relay: str, index: int) -> None:
+        stop_event = self._stop_event
+        if stop_event is None:
+            raise RuntimeError("Nostr remote listener is not initialized")
+        retry_delay = 1.0
+        while not stop_event.is_set():
+            try:
+                await listen_nip17_messages(
                     relay,
                     self.private_key,
                     self._queue_rumor,
                     authorize_sender=self.authorize_sender,
                     inbox_store=self.inbox_store,
                     target_session_id=self.session_id,
-                    stop_event=self._stop_event,
-                ),
+                    stop_event=stop_event,
+                )
+                if stop_event.is_set():
+                    return
+                raise RuntimeError("Nostr listener stopped unexpectedly")
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                with self._state_lock:
+                    self._error = f"{relay}: {type(exc).__name__}: {str(exc)[:200]}"
+                try:
+                    await asyncio.wait_for(stop_event.wait(), timeout=retry_delay)
+                except asyncio.TimeoutError:
+                    pass
+                retry_delay = min(retry_delay * 2, 30.0)
+
+    async def _listen(self) -> None:
+        self._loop = asyncio.get_running_loop()
+        self._stop_event = asyncio.Event()
+        self._ready.set()
+        tasks = [
+            asyncio.create_task(
+                self._listen_relay(relay, index),
                 name=f"uag-nostr-remote-{index}",
             )
             for index, relay in enumerate(self.relays)

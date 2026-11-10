@@ -412,6 +412,19 @@ async def fetch_nip17_relay_list(
                                 continue
                             candidates.append((event["created_at"], inbox_relays))
                         elif (
+                            frame[0] == "CLOSED"
+                            and len(frame) >= 3
+                            and frame[1] == subscription_id
+                            and pending_auth_event_id is not None
+                            and isinstance(frame[2], str)
+                            and frame[2].startswith("auth-required:")
+                        ):
+                            # Some relays close the initial unauthenticated
+                            # subscription before acknowledging our AUTH event.
+                            # Keep the socket open so the OK frame can trigger
+                            # an authenticated REQ retry.
+                            continue
+                        elif (
                             frame[0] in {"EOSE", "CLOSED"}
                             and len(frame) >= 2
                             and frame[1] == subscription_id

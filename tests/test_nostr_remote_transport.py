@@ -505,9 +505,16 @@ def test_listener_rejects_unpaired_sender_before_replay_claim(replay_store) -> N
 
 
 class FakeRelayListSocket:
-    def __init__(self, event: dict, *, require_auth: bool = False) -> None:
+    def __init__(
+        self,
+        event: dict,
+        *,
+        require_auth: bool = False,
+        close_before_auth_ack: bool = False,
+    ) -> None:
         self.event = event
         self.require_auth = require_auth
+        self.close_before_auth_ack = close_before_auth_ack
         self.authenticated = False
         self.frames: list[list[object]] = []
         self.subscription_id = ""
@@ -526,6 +533,14 @@ class FakeRelayListSocket:
             self.subscription_id = frame[1]
             if self.require_auth and not self.authenticated:
                 self.frames = [["AUTH", "relay-auth-challenge"]]
+                if self.close_before_auth_ack:
+                    self.frames.append(
+                        [
+                            "CLOSED",
+                            self.subscription_id,
+                            "auth-required: authentication required",
+                        ]
+                    )
             else:
                 self.frames = [
                     ["EVENT", self.subscription_id, self.event],
@@ -533,7 +548,11 @@ class FakeRelayListSocket:
                 ]
         elif frame[0] == "AUTH":
             self.authenticated = True
-            self.frames = [["OK", frame[1]["id"], True, "authenticated"]]
+            acknowledgement = ["OK", frame[1]["id"], True, "authenticated"]
+            if self.close_before_auth_ack:
+                self.frames.append(acknowledgement)
+            else:
+                self.frames = [acknowledgement]
 
     async def recv(self) -> str:
         return json.dumps(self.frames.pop(0))
@@ -594,3 +613,25 @@ def test_fetch_relay_list_handles_nip42_auth() -> None:
     assert result == ["wss://recipient-inbox.example.org"]
     assert any(frame[0] == "AUTH" for frame in socket.sent)
     assert sum(frame[0] == "REQ" for frame in socket.sent) == 2
+
+
+def test_fetch_relay_list_waits_for_auth_ack_after_auth_required_closed() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(
+        signed_event, require_auth=True, close_before_auth_ack=True
+    )
+
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            auth_private_key=_secret(2),
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert [frame[0] for frame in socket.sent] == ["REQ", "AUTH", "REQ", "CLOSE"]
