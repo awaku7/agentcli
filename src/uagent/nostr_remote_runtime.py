@@ -27,10 +27,12 @@ def dispatch_nostr_remote_inbox_event(
     current_session_id: str,
 ) -> RemoteCLIAction:
     """Claim, authenticate, reauthorize, and terminally record one inbox item."""
-    sender = event.get("sender_pubkey") if isinstance(event, dict) else None
-    rumor_id = event.get("rumor_id") if isinstance(event, dict) else None
+    if not isinstance(event, dict) or event.get("session_id") != current_session_id:
+        raise RemoteCLIRequestError("remote request belongs to a different CLI session")
+    sender = event.get("sender_pubkey")
+    rumor_id = event.get("rumor_id")
     try:
-        record = inbox_store.claim(sender, rumor_id)
+        record = inbox_store.claim(sender, rumor_id, session_id=current_session_id)
     except (TypeError, ValueError) as exc:
         raise RemoteCLIRequestError("invalid durable inbox reference") from exc
     if record is None:
@@ -106,9 +108,21 @@ class NostrRemoteRuntime:
             state = self._state
             error = self._error
             closed = self._closed
-        pending = 0 if closed else len(self.inbox_store.list_pending(limit=1000))
+        pending = (
+            0
+            if closed
+            else len(
+                self.inbox_store.list_pending(limit=1000, session_id=self.session_id)
+            )
+        )
         dispatching = (
-            0 if closed else len(self.inbox_store.list_dispatching(limit=1000))
+            0
+            if closed
+            else len(
+                self.inbox_store.list_dispatching(
+                    limit=1000, session_id=self.session_id
+                )
+            )
         )
         return {
             "state": state,
@@ -173,7 +187,9 @@ class NostrRemoteRuntime:
                 raise RuntimeError("Nostr remote runtime is already closed")
             self._state = "running"
             self._error = ""
-        for record in self.inbox_store.list_pending(limit=1000):
+        for record in self.inbox_store.list_pending(
+            limit=1000, session_id=self.session_id
+        ):
             self._queue_record(record)
         self._thread = threading.Thread(
             target=self._thread_main, name="uag-nostr-remote", daemon=True

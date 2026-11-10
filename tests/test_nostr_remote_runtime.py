@@ -141,6 +141,55 @@ def test_durable_dispatch_rejects_queue_ciphertext_mismatch(tmp_path) -> None:
         pairings.close()
 
 
+def test_runtime_recovery_and_dispatch_are_scoped_to_session(
+    tmp_path, monkeypatch
+) -> None:
+    import uagent.nostr_remote_runtime as runtime_module
+
+    async def wait_for_stop(_relay, _key, _callback, *, stop_event, **_kwargs):
+        await stop_event.wait()
+
+    monkeypatch.setattr(runtime_module, "listen_nip17_messages", wait_for_stop)
+    inbox, pairings, private_key, session_a_event = _setup_request(tmp_path)
+    sender_key = _secret(1)
+    other_wrap = create_nip17_private_messages(
+        "session B request", sender_key, _public_key_bytes(private_key)
+    )[0]
+    other_rumor = unwrap_nip17_private_message(other_wrap, private_key)
+    inbox.enqueue_verified_wrap(
+        other_rumor["pubkey"],
+        other_rumor["id"],
+        other_wrap,
+        created_at=other_rumor["created_at"],
+        session_id="session-b",
+    )
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=private_key,
+        relays=["wss://relay.example.org"],
+        session_id="session-b",
+        inbox_store=inbox,
+        pairing_store=pairings,
+    )
+    try:
+        with pytest.raises(RemoteCLIRequestError, match="different CLI session"):
+            runtime.dispatch_event(session_a_event, current_session_id="session-b")
+        session_a_record = inbox.get(
+            session_a_event["sender_pubkey"], session_a_event["rumor_id"]
+        )
+        assert session_a_record is not None
+        assert session_a_record.status == "pending"
+
+        runtime.start()
+        recovered = runtime.event_queue.get_nowait()
+        assert recovered["rumor_id"] == other_rumor["id"]
+        assert recovered["session_id"] == "session-b"
+        assert runtime.event_queue.empty()
+        assert inbox.list_pending(session_id="active-session")
+    finally:
+        runtime.stop()
+
+
 def test_listener_runtime_stops_cleanly(tmp_path, monkeypatch) -> None:
     import uagent.nostr_remote_runtime as runtime_module
 

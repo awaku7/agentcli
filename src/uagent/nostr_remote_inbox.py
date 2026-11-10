@@ -346,25 +346,41 @@ class SQLiteNostrInboxStore:
                     self._connection.execute("ROLLBACK")
                 raise
 
-    def _list(self, status: str, limit: int) -> list[InboxRecord]:
+    def _list(
+        self, status: str, limit: int, *, session_id: str | None = None
+    ) -> list[InboxRecord]:
         if not isinstance(limit, int) or isinstance(limit, bool) or limit < 1:
             raise ValueError("limit must be a positive integer")
+        if session_id is not None:
+            session_id = _normalize_session_id(session_id)
         with self._lock:
-            rows = self._connection.execute(
-                f"SELECT {self._SELECT_COLUMNS} FROM nostr_remote_inbox "
-                "WHERE status = ? ORDER BY received_at, sender_pubkey, rumor_id "
-                "LIMIT ?",
-                (status, limit),
-            ).fetchall()
+            if session_id is None:
+                rows = self._connection.execute(
+                    f"SELECT {self._SELECT_COLUMNS} FROM nostr_remote_inbox "
+                    "WHERE status = ? ORDER BY received_at, sender_pubkey, rumor_id "
+                    "LIMIT ?",
+                    (status, limit),
+                ).fetchall()
+            else:
+                rows = self._connection.execute(
+                    f"SELECT {self._SELECT_COLUMNS} FROM nostr_remote_inbox "
+                    "WHERE status = ? AND session_id = ? "
+                    "ORDER BY received_at, sender_pubkey, rumor_id LIMIT ?",
+                    (status, session_id, limit),
+                ).fetchall()
         return [_record_from_row(row) for row in rows]
 
-    def list_pending(self, *, limit: int = 100) -> list[InboxRecord]:
+    def list_pending(
+        self, *, limit: int = 100, session_id: str | None = None
+    ) -> list[InboxRecord]:
         """Return pending requests in stable receive order for restart recovery."""
-        return self._list("pending", limit)
+        return self._list("pending", limit, session_id=session_id)
 
-    def list_dispatching(self, *, limit: int = 100) -> list[InboxRecord]:
+    def list_dispatching(
+        self, *, limit: int = 100, session_id: str | None = None
+    ) -> list[InboxRecord]:
         """List requests with an uncertain outcome; these must not auto-replay."""
-        return self._list("dispatching", limit)
+        return self._list("dispatching", limit, session_id=session_id)
 
     def get(self, sender_pubkey_hex: str, rumor_id_hex: str) -> InboxRecord | None:
         sender = _hex32(sender_pubkey_hex, "sender_pubkey_hex")
@@ -383,6 +399,7 @@ class SQLiteNostrInboxStore:
         rumor_id_hex: str,
         *,
         claimed_at: int | None = None,
+        session_id: str | None = None,
     ) -> InboxRecord | None:
         """Atomically claim one pending request for at-most-once dispatch.
 
@@ -396,14 +413,24 @@ class SQLiteNostrInboxStore:
         claimed_at = _nonnegative_int(
             int(time.time()) if claimed_at is None else claimed_at, "claimed_at"
         )
+        if session_id is not None:
+            session_id = _normalize_session_id(session_id)
         with self._lock:
             self._connection.execute("BEGIN IMMEDIATE")
             try:
-                cursor = self._connection.execute(
-                    "UPDATE nostr_remote_inbox SET status = 'dispatching', claimed_at = ? "
-                    "WHERE sender_pubkey = ? AND rumor_id = ? AND status = 'pending'",
-                    (claimed_at, sender, rumor_id),
-                )
+                if session_id is None:
+                    cursor = self._connection.execute(
+                        "UPDATE nostr_remote_inbox SET status = 'dispatching', claimed_at = ? "
+                        "WHERE sender_pubkey = ? AND rumor_id = ? AND status = 'pending'",
+                        (claimed_at, sender, rumor_id),
+                    )
+                else:
+                    cursor = self._connection.execute(
+                        "UPDATE nostr_remote_inbox SET status = 'dispatching', claimed_at = ? "
+                        "WHERE sender_pubkey = ? AND rumor_id = ? AND status = 'pending' "
+                        "AND session_id = ?",
+                        (claimed_at, sender, rumor_id, session_id),
+                    )
                 if cursor.rowcount != 1:
                     self._connection.execute("COMMIT")
                     return None
