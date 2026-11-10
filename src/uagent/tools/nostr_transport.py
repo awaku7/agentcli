@@ -1233,7 +1233,12 @@ def _cmd_nostr_pair(arg: str, **kwargs: Any) -> Any:
 
     parts = arg.strip().split(maxsplit=1)
     if not parts:
-        print("Usage: :nostr pair <pubkey_hex> [label]")
+        print(
+            _(
+                "nostr.pair_usage",
+                default="Usage: :nostr pair <pubkey_hex> [label]",
+            )
+        )
         return CommandResult()
 
     try:
@@ -1243,9 +1248,22 @@ def _cmd_nostr_pair(arg: str, **kwargs: Any) -> Any:
             record = store.pair(
                 parts[0], parts[1] if len(parts) > 1 else "", approved=True
             )
-        print(f"Paired Nostr device: {record.pubkey} ({record.label or 'unnamed'})")
+        print(
+            _(
+                "nostr.pair_success",
+                default="Paired Nostr device: %(pubkey)s (%(label)s)",
+                pubkey=record.pubkey,
+                label=record.label or "unnamed",
+            )
+        )
     except Exception as exc:
-        print(f"Could not pair Nostr device: {exc}")
+        print(
+            _(
+                "nostr.pair_error",
+                default="Could not pair Nostr device: %(error)s",
+                error=exc,
+            )
+        )
     return CommandResult()
 
 
@@ -1256,7 +1274,12 @@ def _cmd_nostr_revoke(arg: str, **kwargs: Any) -> Any:
 
     pubkey = arg.strip()
     if not pubkey or any(char.isspace() for char in pubkey):
-        print("Usage: :nostr revoke <pubkey_hex>")
+        print(
+            _(
+                "nostr.revoke_usage",
+                default="Usage: :nostr revoke <pubkey_hex>",
+            )
+        )
         return CommandResult()
 
     try:
@@ -1264,9 +1287,22 @@ def _cmd_nostr_revoke(arg: str, **kwargs: Any) -> Any:
         os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
         with SQLitePairingStore(path) as store:
             revoked = store.revoke(pubkey)
-        print("Nostr device revoked." if revoked else "No active pairing for that key.")
+        print(
+            _("nostr.device_revoked", default="Nostr device revoked.")
+            if revoked
+            else _(
+                "nostr.no_active_pairing",
+                default="No active pairing for that key.",
+            )
+        )
     except Exception as exc:
-        print(f"Could not revoke Nostr device: {exc}")
+        print(
+            _(
+                "nostr.revoke_error",
+                default="Could not revoke Nostr device: %(error)s",
+                error=exc,
+            )
+        )
     return CommandResult()
 
 
@@ -1277,7 +1313,12 @@ def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
 
     option = arg.strip().lower()
     if option not in ("", "all"):
-        print("Usage: :nostr devices [all]")
+        print(
+            _(
+                "nostr.devices_usage",
+                default="Usage: :nostr devices [all]",
+            )
+        )
         return CommandResult()
 
     try:
@@ -1286,12 +1327,31 @@ def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
         with SQLitePairingStore(path) as store:
             records = store.list_devices(include_revoked=option == "all")
         if not records:
-            print("No paired Nostr devices.")
+            print(
+                _(
+                    "nostr.no_paired_devices",
+                    default="No paired Nostr devices.",
+                )
+            )
         for record in records:
             status = "revoked" if record.revoked_at is not None else "active"
-            print(f"{record.pubkey}  {record.label or 'unnamed'}  [{status}]")
+            print(
+                _(
+                    "nostr.device_status",
+                    default="%(pubkey)s  %(label)s  [%(status)s]",
+                    pubkey=record.pubkey,
+                    label=record.label or "unnamed",
+                    status=status,
+                )
+            )
     except Exception as exc:
-        print(f"Could not list Nostr devices: {exc}")
+        print(
+            _(
+                "nostr.devices_error",
+                default="Could not list Nostr devices: %(error)s",
+                error=exc,
+            )
+        )
     return CommandResult()
 
 
@@ -1359,18 +1419,33 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
 
     parts = arg.strip().split()
     if not parts or parts[0].lower() not in {"start", "stop", "status"}:
-        print("Usage: :nostr remote start|stop|status")
+        print(
+            _(
+                "nostr.remote_usage",
+                default="Usage: :nostr remote start|stop|status",
+            )
+        )
         return CommandResult()
     operation = parts[0].lower()
     core = kwargs.get("core")
     if core is None:
-        print("Nostr remote listener requires an active CLI session.")
+        print(
+            _(
+                "nostr.remote_requires_session",
+                default="Nostr remote listener requires an active CLI session.",
+            )
+        )
         return CommandResult()
 
     if operation == "start":
         instance = get_nostr_instance()
         if instance is None or not instance.is_running:
-            print("Run :nostr connect first, then :nostr remote start.")
+            print(
+                _(
+                    "nostr.remote_connect_first",
+                    default="Run :nostr connect first, then :nostr remote start.",
+                )
+            )
             return CommandResult()
         try:
             from ..nostr_nip17 import _public_key_x, _validate_private_key
@@ -1378,21 +1453,33 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
 
             private_key = _validate_private_key(bytes.fromhex(instance._priv_hex))
             if _public_key_x(private_key).hex() != instance.pubkey_hex:
-                raise ValueError("active Nostr key does not match its public key")
+                raise ValueError(
+                    _(
+                        "nostr.active_key_mismatch",
+                        default="active Nostr key does not match its public key",
+                    )
+                )
             runtime = start_nostr_remote_runtime(
                 core,
                 private_key=private_key,
                 relays=list(instance.relays),
             )
             print(
-                "Nostr remote listener started on "
-                + ", ".join(runtime.relays)
-                + f" (session {runtime.session_id})."
+                _(
+                    "nostr.remote_started",
+                    default="Nostr remote listener started on %(relays)s (session %(session_id)s).",
+                    relays=", ".join(runtime.relays),
+                    session_id=runtime.session_id,
+                )
             )
         except Exception as exc:
             print(
-                f"Could not start Nostr remote listener: "
-                f"{type(exc).__name__}: {exc}"
+                _(
+                    "nostr.remote_start_error",
+                    default="Could not start Nostr remote listener: %(error_type)s: %(error)s",
+                    error_type=type(exc).__name__,
+                    error=exc,
+                )
             )
         return CommandResult()
 
@@ -1401,30 +1488,64 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
 
         result = stop_nostr_remote_runtime(core)
         message = (
-            "Nostr remote listener stopped."
+            _(
+                "nostr.remote_stopped",
+                default="Nostr remote listener stopped.",
+            )
             if result["stopped"]
-            else "Listener is still stopping."
+            else _(
+                "nostr.remote_still_stopping",
+                default="Listener is still stopping.",
+            )
         )
         print(message)
         return CommandResult()
 
     runtime = getattr(core, "_nostr_remote_runtime", None)
     if runtime is None:
-        print("Nostr remote listener: stopped.")
+        print(
+            _(
+                "nostr.remote_status_stopped",
+                default="Nostr remote listener: stopped.",
+            )
+        )
         return CommandResult()
     try:
         status = runtime.status()
         print(
-            "Nostr remote listener: "
-            f"{status['state']}; pending={status['pending']}; "
-            f"dispatching={status['dispatching']}"
+            _(
+                "nostr.remote_status",
+                default="Nostr remote listener: %(state)s; pending=%(pending)s; dispatching=%(dispatching)s",
+                state=status["state"],
+                pending=status["pending"],
+                dispatching=status["dispatching"],
+            )
         )
         if status["error"]:
-            print(f"  error: {status['error']}")
+            print(
+                _(
+                    "nostr.remote_status_error",
+                    default="  error: %(error)s",
+                    error=status["error"],
+                )
+            )
         for relay in status["relays"]:
-            print(f"  relay: {relay}")
+            print(
+                _(
+                    "nostr.remote_status_relay",
+                    default="  relay: %(relay)s",
+                    relay=relay,
+                )
+            )
     except Exception as exc:
-        print(f"Could not read Nostr remote status: {type(exc).__name__}: {exc}")
+        print(
+            _(
+                "nostr.remote_status_read_error",
+                default="Could not read Nostr remote status: %(error_type)s: %(error)s",
+                error_type=type(exc).__name__,
+                error=exc,
+            )
+        )
     return CommandResult()
 
 
