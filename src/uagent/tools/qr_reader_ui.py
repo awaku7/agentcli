@@ -40,7 +40,7 @@ class QRReaderWindow:
         ttk.Button(toolbar, text="Stop camera", command=self.stop_camera).pack(
             side="left", padx=3
         )
-        ttk.Button(toolbar, text="Open image…", command=self.open_image).pack(
+        ttk.Button(toolbar, text="Open image...", command=self.open_image).pack(
             side="left", padx=(12, 3)
         )
         ttk.Button(toolbar, text="Copy latest", command=self.copy_latest).pack(
@@ -101,7 +101,7 @@ class QRReaderWindow:
             self.output.insert("end", f"[{stamp}]\n{value}\n\n")
             self.output.see("end")
             self.last_data = value
-            self.status.set("QR code decoded. Use ‘Copy latest’ to copy its contents.")
+            self.status.set("QR code decoded. Use 'Copy latest' to copy its contents.")
 
     def _show_frame(self, frame: Any) -> None:
         height, width = frame.shape[:2]
@@ -133,7 +133,7 @@ class QRReaderWindow:
             )
             return
         self.capture = capture
-        self.status.set(f"Scanning with camera {index}. Press ‘Stop camera’ to stop.")
+        self.status.set(f"Scanning with camera {index}. Press 'Stop camera' to stop.")
         self._camera_tick()
 
     def _camera_tick(self) -> None:
