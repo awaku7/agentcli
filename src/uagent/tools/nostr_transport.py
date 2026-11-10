@@ -1219,6 +1219,142 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
+def _pairing_database_path() -> Any:
+    """Return the local pairing registry path under UAG's database directory."""
+    from ..utils.paths import get_dbs_dir
+
+    return get_dbs_dir() / "nostr_remote_pairings.sqlite3"
+
+
+def _cmd_nostr_pair(arg: str, **kwargs: Any) -> Any:
+    """Locally approve a Nostr device by its x-only public-key hex."""
+    from ..nostr_remote_pairing import SQLitePairingStore
+    from ..util_tools import CommandResult
+
+    parts = arg.strip().split(maxsplit=1)
+    if not parts:
+        print(
+            _(
+                "nostr.pair_usage",
+                default="Usage: :nostr pair <pubkey_hex> [label]",
+            )
+        )
+        return CommandResult()
+
+    try:
+        path = _pairing_database_path()
+        os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
+        with SQLitePairingStore(path) as store:
+            record = store.pair(
+                parts[0], parts[1] if len(parts) > 1 else "", approved=True
+            )
+        print(
+            _(
+                "nostr.pair_success",
+                default="Paired Nostr device: %(pubkey)s (%(label)s)",
+                pubkey=record.pubkey,
+                label=record.label or "unnamed",
+            )
+        )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.pair_error",
+                default="Could not pair Nostr device: %(error)s",
+                error=exc,
+            )
+        )
+    return CommandResult()
+
+
+def _cmd_nostr_revoke(arg: str, **kwargs: Any) -> Any:
+    """Locally revoke a paired Nostr device by its x-only public-key hex."""
+    from ..nostr_remote_pairing import SQLitePairingStore
+    from ..util_tools import CommandResult
+
+    pubkey = arg.strip()
+    if not pubkey or any(char.isspace() for char in pubkey):
+        print(
+            _(
+                "nostr.revoke_usage",
+                default="Usage: :nostr revoke <pubkey_hex>",
+            )
+        )
+        return CommandResult()
+
+    try:
+        path = _pairing_database_path()
+        os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
+        with SQLitePairingStore(path) as store:
+            revoked = store.revoke(pubkey)
+        print(
+            _("nostr.device_revoked", default="Nostr device revoked.")
+            if revoked
+            else _(
+                "nostr.no_active_pairing",
+                default="No active pairing for that key.",
+            )
+        )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.revoke_error",
+                default="Could not revoke Nostr device: %(error)s",
+                error=exc,
+            )
+        )
+    return CommandResult()
+
+
+def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
+    """List locally paired Nostr devices; append 'all' to include revoked ones."""
+    from ..nostr_remote_pairing import SQLitePairingStore
+    from ..util_tools import CommandResult
+
+    option = arg.strip().lower()
+    if option not in ("", "all"):
+        print(
+            _(
+                "nostr.devices_usage",
+                default="Usage: :nostr devices [all]",
+            )
+        )
+        return CommandResult()
+
+    try:
+        path = _pairing_database_path()
+        os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
+        with SQLitePairingStore(path) as store:
+            records = store.list_devices(include_revoked=option == "all")
+        if not records:
+            print(
+                _(
+                    "nostr.no_paired_devices",
+                    default="No paired Nostr devices.",
+                )
+            )
+        for record in records:
+            status = "revoked" if record.revoked_at is not None else "active"
+            print(
+                _(
+                    "nostr.device_status",
+                    default="%(pubkey)s  %(label)s  [%(status)s]",
+                    pubkey=record.pubkey,
+                    label=record.label or "unnamed",
+                    status=status,
+                )
+            )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.devices_error",
+                default="Could not list Nostr devices: %(error)s",
+                error=exc,
+            )
+        )
+    return CommandResult()
+
+
 CMD_SPECS = [
     {
         "command": "nostr",
@@ -1251,3 +1387,173 @@ CMD_SPECS = [
         "help_text": "  :nostr timeline [limit]      Fetch recent public notes (Kind 1) from relays",
     },
 ]
+
+
+CMD_SPECS.extend(
+    [
+        {
+            "command": "nostr",
+            "subcommand": "pair",
+            "handler": _cmd_nostr_pair,
+            "help_text": "  :nostr pair <pubkey_hex> [label]  Locally approve a remote device",
+        },
+        {
+            "command": "nostr",
+            "subcommand": "revoke",
+            "handler": _cmd_nostr_revoke,
+            "help_text": "  :nostr revoke <pubkey_hex>    Revoke a remote device",
+        },
+        {
+            "command": "nostr",
+            "subcommand": "devices",
+            "handler": _cmd_nostr_devices,
+            "help_text": "  :nostr devices [all]         List paired devices",
+        },
+    ]
+)
+
+
+def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
+    """Start, stop, or inspect the opt-in NIP-17 CLI inbox listener."""
+    from ..util_tools import CommandResult
+
+    parts = arg.strip().split()
+    if not parts or parts[0].lower() not in {"start", "stop", "status"}:
+        print(
+            _(
+                "nostr.remote_usage",
+                default="Usage: :nostr remote start|stop|status",
+            )
+        )
+        return CommandResult()
+    operation = parts[0].lower()
+    core = kwargs.get("core")
+    if core is None:
+        print(
+            _(
+                "nostr.remote_requires_session",
+                default="Nostr remote listener requires an active CLI session.",
+            )
+        )
+        return CommandResult()
+
+    if operation == "start":
+        instance = get_nostr_instance()
+        if instance is None or not instance.is_running:
+            print(
+                _(
+                    "nostr.remote_connect_first",
+                    default="Run :nostr connect first, then :nostr remote start.",
+                )
+            )
+            return CommandResult()
+        try:
+            from ..nostr_nip17 import _public_key_x, _validate_private_key
+            from ..nostr_remote_runtime import start_nostr_remote_runtime
+
+            private_key = _validate_private_key(bytes.fromhex(instance._priv_hex))
+            if _public_key_x(private_key).hex() != instance.pubkey_hex:
+                raise ValueError(
+                    _(
+                        "nostr.active_key_mismatch",
+                        default="active Nostr key does not match its public key",
+                    )
+                )
+            runtime = start_nostr_remote_runtime(
+                core,
+                private_key=private_key,
+                relays=list(instance.relays),
+            )
+            print(
+                _(
+                    "nostr.remote_started",
+                    default="Nostr remote listener started on %(relays)s (session %(session_id)s).",
+                    relays=", ".join(runtime.relays),
+                    session_id=runtime.session_id,
+                )
+            )
+        except Exception as exc:
+            print(
+                _(
+                    "nostr.remote_start_error",
+                    default="Could not start Nostr remote listener: %(error_type)s: %(error)s",
+                    error_type=type(exc).__name__,
+                    error=exc,
+                )
+            )
+        return CommandResult()
+
+    if operation == "stop":
+        from ..nostr_remote_runtime import stop_nostr_remote_runtime
+
+        result = stop_nostr_remote_runtime(core)
+        message = (
+            _(
+                "nostr.remote_stopped",
+                default="Nostr remote listener stopped.",
+            )
+            if result["stopped"]
+            else _(
+                "nostr.remote_still_stopping",
+                default="Listener is still stopping.",
+            )
+        )
+        print(message)
+        return CommandResult()
+
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        print(
+            _(
+                "nostr.remote_status_stopped",
+                default="Nostr remote listener: stopped.",
+            )
+        )
+        return CommandResult()
+    try:
+        status = runtime.status()
+        print(
+            _(
+                "nostr.remote_status",
+                default="Nostr remote listener: %(state)s; pending=%(pending)s; dispatching=%(dispatching)s",
+                state=status["state"],
+                pending=status["pending"],
+                dispatching=status["dispatching"],
+            )
+        )
+        if status["error"]:
+            print(
+                _(
+                    "nostr.remote_status_error",
+                    default="  error: %(error)s",
+                    error=status["error"],
+                )
+            )
+        for relay in status["relays"]:
+            print(
+                _(
+                    "nostr.remote_status_relay",
+                    default="  relay: %(relay)s",
+                    relay=relay,
+                )
+            )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.remote_status_read_error",
+                default="Could not read Nostr remote status: %(error_type)s: %(error)s",
+                error_type=type(exc).__name__,
+                error=exc,
+            )
+        )
+    return CommandResult()
+
+
+CMD_SPECS.append(
+    {
+        "command": "nostr",
+        "subcommand": "remote",
+        "handler": _cmd_nostr_remote,
+        "help_text": "  :nostr remote start|stop|status  Manage the opt-in private inbox listener",
+    }
+)

@@ -9,10 +9,13 @@ import pytest
 
 from uagent.nostr_nip17 import (
     create_nip17_private_messages,
+    create_nip17_relay_list_event,
     unwrap_nip17_private_message,
 )
+from uagent.nostr_remote_inbox import SQLiteNostrInboxStore
 from uagent.nostr_remote_state import SQLiteReplayStore
 from uagent.nostr_remote_transport import (
+    fetch_nip17_relay_list,
     listen_nip17_messages,
     publish_nip17_gift_wrap,
     publish_nip17_gift_wraps,
@@ -260,6 +263,162 @@ def test_listener_subscribes_for_own_p_tag_and_delivers_unwrapped_rumor(
     assert received[0]["pubkey"] == SENDER_PUBLIC_HEX
 
 
+def test_listener_requires_exactly_one_deduplication_store(
+    replay_store: SQLiteReplayStore, tmp_path
+) -> None:
+    common = (
+        "wss://recipient-inbox.example.org",
+        _secret(2),
+        lambda _rumor: None,
+    )
+    with pytest.raises(ValueError, match="exactly one"):
+        asyncio.run(
+            listen_nip17_messages(
+                *common,
+                authorize_sender=_authorize_sender,
+                connect_factory=lambda *_a, **_k: None,
+            )
+        )
+
+    with SQLiteNostrInboxStore(tmp_path / "listener-both-stores.sqlite3") as inbox:
+        with pytest.raises(ValueError, match="exactly one"):
+            asyncio.run(
+                listen_nip17_messages(
+                    *common,
+                    authorize_sender=_authorize_sender,
+                    replay_store=replay_store,
+                    inbox_store=inbox,
+                    target_session_id="active-session",
+                    connect_factory=lambda *_a, **_k: None,
+                )
+            )
+
+
+def test_listener_persists_encrypted_wrap_before_callback(tmp_path) -> None:
+    gift_wrap = create_nip17_private_messages(
+        "do not store plaintext", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    relay_plaintext = "relay-added field must not be persisted"
+    relayed_event = {**gift_wrap, "relay_added_plaintext": relay_plaintext}
+    rumor = unwrap_nip17_private_message(gift_wrap, _secret(2))
+    socket = FakeListenSocket(relayed_event)
+    stop_event = asyncio.Event()
+    callback_messages: list[dict] = []
+
+    with SQLiteNostrInboxStore(tmp_path / "durable-inbox.sqlite3") as inbox:
+
+        def on_message(received_rumor: dict) -> None:
+            # The durable handoff must exist before the callback can enqueue
+            # work into the in-memory CLI event queue.
+            record = inbox.get(received_rumor["pubkey"], received_rumor["id"])
+            assert record is not None
+            assert record.status == "pending"
+            assert record.wrapped_event == gift_wrap
+            callback_messages.append(received_rumor)
+            stop_event.set()
+
+        asyncio.run(
+            listen_nip17_messages(
+                "wss://recipient-inbox.example.org",
+                _secret(2),
+                on_message,
+                authorize_sender=_authorize_sender,
+                inbox_store=inbox,
+                target_session_id="active-session",
+                now_fn=lambda: 1_700_000_000,
+                stop_event=stop_event,
+                connect_factory=lambda _url, **_kwargs: socket,
+            )
+        )
+
+        pending = inbox.list_pending()
+        assert len(pending) == 1
+        assert pending[0].session_id == "active-session"
+        assert pending[0].created_at == rumor["created_at"]
+        assert pending[0].received_at == 1_700_000_000
+        assert "do not store plaintext" not in json.dumps(pending[0].wrapped_event)
+        assert relay_plaintext not in json.dumps(pending[0].wrapped_event)
+        assert len(callback_messages) == 1
+
+
+def test_listener_keeps_running_when_durable_inbox_is_full(tmp_path) -> None:
+    existing_wrap = create_nip17_private_messages(
+        "already pending", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    existing_rumor = unwrap_nip17_private_message(existing_wrap, _secret(2))
+    incoming_wrap = create_nip17_private_messages(
+        "inbox capacity exceeded", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    stop_event = asyncio.Event()
+
+    class StopAfterOneListenSocket(FakeListenSocket):
+        async def recv(self) -> str:
+            raw = await super().recv()
+            stop_event.set()
+            return raw
+
+    with SQLiteNostrInboxStore(
+        tmp_path / "full-listener-inbox.sqlite3", max_pending=1
+    ) as inbox:
+        assert inbox.enqueue_verified_wrap(
+            existing_rumor["pubkey"],
+            existing_rumor["id"],
+            existing_wrap,
+            created_at=existing_rumor["created_at"],
+            session_id="active-session",
+        )
+        callback_calls: list[dict] = []
+        socket = StopAfterOneListenSocket(incoming_wrap)
+
+        asyncio.run(
+            listen_nip17_messages(
+                "wss://recipient-inbox.example.org",
+                _secret(2),
+                callback_calls.append,
+                authorize_sender=_authorize_sender,
+                inbox_store=inbox,
+                target_session_id="active-session",
+                now_fn=lambda: 1_700_000_000,
+                stop_event=stop_event,
+                connect_factory=lambda _url, **_kwargs: socket,
+            )
+        )
+
+        assert callback_calls == []
+        assert len(inbox.list_pending()) == 1
+        assert inbox.list_pending()[0].rumor_id == existing_rumor["id"]
+
+
+def test_listener_callback_failure_leaves_durable_pending_request(tmp_path) -> None:
+    gift_wrap = create_nip17_private_messages(
+        "persist before callback", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    socket = FakeListenSocket(gift_wrap)
+
+    def fail_callback(_rumor: dict) -> None:
+        raise RuntimeError("simulated queue handoff failure")
+
+    with SQLiteNostrInboxStore(tmp_path / "callback-failure.sqlite3") as inbox:
+        with pytest.raises(RuntimeError, match="simulated"):
+            asyncio.run(
+                listen_nip17_messages(
+                    "wss://recipient-inbox.example.org",
+                    _secret(2),
+                    fail_callback,
+                    authorize_sender=_authorize_sender,
+                    inbox_store=inbox,
+                    target_session_id="active-session",
+                    now_fn=lambda: 1_700_000_000,
+                    connect_factory=lambda _url, **_kwargs: socket,
+                )
+            )
+
+        pending = inbox.list_pending()
+        assert len(pending) == 1
+        assert pending[0].status == "pending"
+        assert pending[0].wrapped_event == gift_wrap
+
+
 def test_publish_never_connects_to_relay_outside_local_egress_allowlist() -> None:
     wraps = create_nip17_private_messages(
         "hello", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
@@ -343,3 +502,136 @@ def test_listener_rejects_unpaired_sender_before_replay_claim(replay_store) -> N
     # The unpaired sender was denied before its rumor ID was claimed.
     rumor = unwrap_nip17_private_message(gift_wrap, _secret(2))
     assert replay_store.claim(SENDER_PUBLIC_HEX, rumor["id"], received_at=1_700_000_000)
+
+
+class FakeRelayListSocket:
+    def __init__(
+        self,
+        event: dict,
+        *,
+        require_auth: bool = False,
+        close_before_auth_ack: bool = False,
+    ) -> None:
+        self.event = event
+        self.require_auth = require_auth
+        self.close_before_auth_ack = close_before_auth_ack
+        self.authenticated = False
+        self.frames: list[list[object]] = []
+        self.subscription_id = ""
+        self.sent: list[list[object]] = []
+
+    async def __aenter__(self) -> "FakeRelayListSocket":
+        return self
+
+    async def __aexit__(self, *_exc: object) -> None:
+        return None
+
+    async def send(self, raw: str) -> None:
+        frame = json.loads(raw)
+        self.sent.append(frame)
+        if frame[0] == "REQ":
+            self.subscription_id = frame[1]
+            if self.require_auth and not self.authenticated:
+                self.frames = [["AUTH", "relay-auth-challenge"]]
+                if self.close_before_auth_ack:
+                    self.frames.append(
+                        [
+                            "CLOSED",
+                            self.subscription_id,
+                            "auth-required: authentication required",
+                        ]
+                    )
+            else:
+                self.frames = [
+                    ["EVENT", self.subscription_id, self.event],
+                    ["EOSE", self.subscription_id],
+                ]
+        elif frame[0] == "AUTH":
+            self.authenticated = True
+            acknowledgement = ["OK", frame[1]["id"], True, "authenticated"]
+            if self.close_before_auth_ack:
+                self.frames.append(acknowledgement)
+            else:
+                self.frames = [acknowledgement]
+
+    async def recv(self) -> str:
+        return json.dumps(self.frames.pop(0))
+
+
+def test_fetch_relay_list_verifies_author_and_uses_local_lookup_relay() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(signed_event)
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert socket.sent[0][2]["kinds"] == [10050]
+    assert socket.sent[-1] == ["CLOSE", socket.subscription_id]
+
+
+def test_fetch_relay_list_refuses_unapproved_lookup_destination() -> None:
+    called = False
+
+    def no_connect(*_args, **_kwargs):
+        nonlocal called
+        called = True
+        raise AssertionError("unapproved destination must not connect")
+
+    with pytest.raises(ValueError, match="local relay allowlist"):
+        asyncio.run(
+            fetch_nip17_relay_list(
+                SENDER_PUBLIC_HEX,
+                ["wss://attacker.example"],
+                allowed_relay_urls=["wss://local.example"],
+                connect_factory=no_connect,
+            )
+        )
+    assert not called
+
+
+def test_fetch_relay_list_handles_nip42_auth() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(signed_event, require_auth=True)
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            auth_private_key=_secret(2),
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert any(frame[0] == "AUTH" for frame in socket.sent)
+    assert sum(frame[0] == "REQ" for frame in socket.sent) == 2
+
+
+def test_fetch_relay_list_waits_for_auth_ack_after_auth_required_closed() -> None:
+    signed_event = create_nip17_relay_list_event(
+        ["wss://recipient-inbox.example.org"], _secret(3), now=1_700_000_000
+    )
+    socket = FakeRelayListSocket(
+        signed_event, require_auth=True, close_before_auth_ack=True
+    )
+
+    result = asyncio.run(
+        fetch_nip17_relay_list(
+            signed_event["pubkey"],
+            ["wss://local-lookup.example.org"],
+            allowed_relay_urls=["wss://local-lookup.example.org"],
+            auth_private_key=_secret(2),
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+
+    assert result == ["wss://recipient-inbox.example.org"]
+    assert [frame[0] for frame in socket.sent] == ["REQ", "AUTH", "REQ", "CLOSE"]

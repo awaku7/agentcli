@@ -100,6 +100,29 @@ def test_explicit_remote_cli_command_is_separate_from_chat() -> None:
     assert action.text == ":help"
 
 
+@pytest.mark.parametrize(
+    "content",
+    [
+        "/uag cmd :nostr pair abcd",
+        "/uag cmd :NOSTR revoke abcd",
+        "/uag cmd :nostr remote start",
+        "/uag cmd :nostr:pair abcd",
+        "/uag cmd :nostr:remote start",
+        "/uag cmd ::nostr pair abcd",
+        "/uag cmd ::nostr:revoke abcd",
+        "/uag cmd ::nostr remote start",
+    ],
+)
+def test_pairing_changes_are_local_only(content: str) -> None:
+    with pytest.raises(RemoteCLIRequestError, match="local-only"):
+        authorize_nostr_remote_request(
+            _event(content),
+            current_session_id="active-session",
+            authorize_sender=lambda _sender: True,
+            now=1_700_000_000,
+        )
+
+
 def test_unknown_uag_operation_is_not_forwarded_as_chat() -> None:
     with pytest.raises(RemoteCLIRequestError, match="unsupported"):
         authorize_nostr_remote_request(

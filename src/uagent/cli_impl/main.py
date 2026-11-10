@@ -107,6 +107,54 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _send_nostr_remote_reply(
+    core: Any, request_event: dict[str, Any], text: str
+) -> None:
+    """Best-effort NIP-17 reply; never fail the local CLI turn on send errors."""
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        return
+    try:
+        result = runtime.send_reply(request_event, text)
+    except Exception as exc:
+        log_event("nostr.remote_reply_failed", error_type=type(exc).__name__)
+    else:
+        log_event(
+            "nostr.remote_reply_sent",
+            delivery_count=len(result.get("event_ids", [])),
+        )
+
+
+def _finish_nostr_remote_request(
+    core: Any, request_event: dict[str, Any], outcome: str
+) -> None:
+    """Persist the actual outcome after the foreground action has run."""
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        return
+    try:
+        if not runtime.finish_event(request_event, outcome):
+            log_event(
+                "nostr.remote_request_finalize_failed",
+                outcome=outcome,
+                reason="inbox row was not dispatching",
+            )
+    except Exception as exc:
+        log_event(
+            "nostr.remote_request_finalize_failed",
+            outcome=outcome,
+            error_type=type(exc).__name__,
+        )
+
+
+def _new_assistant_text(messages: list[dict[str, Any]], start_index: int) -> str:
+    """Return assistant text added since one CLI event began, if any."""
+    try:
+        return tools_util.extract_last_assistant_text(messages[start_index:]) or ""
+    except Exception:
+        return ""
+
+
 def _resolve_realtime_sandbox_mode() -> str:
     """Load the selected workdir configuration and resolve its Sandbox mode."""
     from ..runtime.runtime_init import (
@@ -514,31 +562,50 @@ def main() -> int:
             if not first_event_received:
                 first_event_received = True
                 _startup_timing_mark("first_event_received")
+            remote_request_event = None
+            remote_execution_outcome = "completed"
+            remote_message_start = len(messages)
             kind = ev.get("kind")
 
             if kind == "nostr_remote_request":
-                # This event is only produced by the isolated experimental
-                # Nostr ingress. Re-check pairing and the selected session on
-                # the foreground thread before reusing the regular CLI paths.
-                # No network listener or pairing callback is installed unless
-                # a future remote-runtime component explicitly supplies one.
-                from ..nostr_remote_dispatch import (
-                    RemoteCLIRequestError,
-                    authorize_nostr_remote_request,
-                )
+                # Revalidate durable inbox ownership, message identity, current
+                # pairing, freshness, and session on the foreground CLI thread.
+                from ..nostr_remote_dispatch import RemoteCLIRequestError
 
-                authorize_sender = getattr(core, "_nostr_remote_authorize_sender", None)
+                remote_runtime = getattr(core, "_nostr_remote_runtime", None)
                 try:
-                    remote_action = authorize_nostr_remote_request(
-                        ev,
-                        current_session_id=str(getattr(core, "session_id", "") or ""),
-                        authorize_sender=authorize_sender,
-                    )
+                    if remote_runtime is not None:
+                        remote_action = remote_runtime.dispatch_event(
+                            ev,
+                            current_session_id=str(
+                                getattr(core, "session_id", "") or ""
+                            ),
+                        )
+                    else:
+                        from ..nostr_remote_dispatch import (
+                            authorize_nostr_remote_request,
+                        )
+
+                        remote_action = authorize_nostr_remote_request(
+                            ev,
+                            current_session_id=str(
+                                getattr(core, "session_id", "") or ""
+                            ),
+                            authorize_sender=getattr(
+                                core, "_nostr_remote_authorize_sender", None
+                            ),
+                        )
                 except RemoteCLIRequestError as exc:
                     # Do not echo untrusted DM contents or expose detailed
                     # authorization state to the remote sender.
                     log_event("nostr.remote_request_rejected", reason=str(exc)[:160])
                     continue
+                except Exception as exc:
+                    log_event(
+                        "nostr.remote_request_failed", error_type=type(exc).__name__
+                    )
+                    continue
+                remote_request_event = ev
                 kind = remote_action.kind
                 ev = {"kind": kind, "text": remote_action.text}
 
@@ -547,8 +614,24 @@ def main() -> int:
                 if dispatch_cli_receipt_command_event(
                     line, core=core, store=session_store, owner=job_owner
                 ):
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
+                    if remote_request_event is not None:
+                        _send_nostr_remote_reply(
+                            core, remote_request_event, "Command processed by CLI."
+                        )
                     continue
                 if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
+                    if remote_request_event is not None:
+                        _send_nostr_remote_reply(
+                            core, remote_request_event, "Command accepted by CLI."
+                        )
                     continue
                 session_transition = is_cli_session_transition_command(line)
                 old_owner = job_owner
@@ -572,18 +655,41 @@ def main() -> int:
                             "Session switch cancelled; Sub-Agent workers are still running: "
                             + ", ".join(lingering)
                         )
+                        if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, "rejected"
+                            )
+                            _send_nostr_remote_reply(
+                                core,
+                                remote_request_event,
+                                "Session switch was cancelled.",
+                            )
                         continue
                 try:
                     result = handle_command(line, messages, client, depname, core=core)
+                except Exception:
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "failed"
+                        )
+                    raise
                 finally:
                     if session_transition:
                         job_owner = refresh_cli_job_owner(
                             job_manager, core, fallback_session_id
                         )
                 if not result:
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
+                        _send_nostr_remote_reply(
+                            core, remote_request_event, "CLI is exiting."
+                        )
                     running = False
                     break
-                if _set_status_for_command_result(core, result):
+                command_followed_by_llm = _set_status_for_command_result(core, result)
+                if command_followed_by_llm:
                     prompt = getattr(result, "prompt", None) or "Run the loaded skill."
                     user_msg = {"role": "user", "content": prompt}
                     messages.append(user_msg)
@@ -638,6 +744,8 @@ def main() -> int:
                             continue
                         except Exception as exc:
                             lifecycle.fail()
+                            if remote_request_event is not None:
+                                remote_execution_outcome = "failed"
                             print(_("LLM round interrupted: %(err)s") % {"err": exc})
 
                     if first_llm_started and not first_llm_completed:
@@ -679,8 +787,27 @@ def main() -> int:
                             process_exit_code, _noninteractive_exit_code()
                         )
                     if UAGENT_INJECT_MESSAGE_AUTO:
+                        if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, remote_execution_outcome
+                            )
                         running = False
                         break
+                if remote_request_event is not None:
+                    _finish_nostr_remote_request(
+                        core, remote_request_event, remote_execution_outcome
+                    )
+                    reply = (
+                        _new_assistant_text(messages, remote_message_start)
+                        if command_followed_by_llm
+                        else ""
+                    )
+                    _send_nostr_remote_reply(
+                        core,
+                        remote_request_event,
+                        reply or "Command processed by CLI.",
+                    )
+
                 continue
 
             if kind == "sub_agent_job_notice":
@@ -750,6 +877,15 @@ def main() -> int:
                             _reason = "Blocked by UserPromptSubmit hook."
                         print(_reason)
                         core.set_status(False, "")
+                        if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, "rejected"
+                            )
+                            _send_nostr_remote_reply(
+                                core,
+                                remote_request_event,
+                                "Request blocked by local policy.",
+                            )
                         continue
                     inject_hook_context(
                         messages,
@@ -898,6 +1034,8 @@ def main() -> int:
                         continue
                     except Exception as exc:
                         lifecycle.fail()
+                        if remote_request_event is not None:
+                            remote_execution_outcome = "failed"
                         source = "[bitchat] " if ev.get("src") == "bitchat" else ""
                         print(
                             source + _("LLM round interrupted: %(err)s") % {"err": exc}
@@ -913,6 +1051,17 @@ def main() -> int:
                         core.prompt_needs_redraw = True
                     except Exception:
                         pass
+                if remote_request_event is not None:
+                    _finish_nostr_remote_request(
+                        core, remote_request_event, remote_execution_outcome
+                    )
+                    reply = _new_assistant_text(messages, remote_message_start)
+                    _send_nostr_remote_reply(
+                        core,
+                        remote_request_event,
+                        reply or "No assistant response was produced.",
+                    )
+
                 continue
 
             print(
@@ -926,6 +1075,16 @@ def main() -> int:
         print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
     finally:
         _CLI_SHUTDOWN.set()
+
+        if getattr(core, "_nostr_remote_runtime", None) is not None:
+            try:
+                from ..nostr_remote_runtime import stop_nostr_remote_runtime
+
+                remote_stop = stop_nostr_remote_runtime(core)
+                if not remote_stop["stopped"]:
+                    log_event("nostr.remote_listener_shutdown_timeout")
+            except Exception:
+                pass
         # stdin_loop is intentionally a daemon while the CLI is running, but
         # it should not still be inside prompt_toolkit when Python starts
         # interpreter finalization. The prompt watcher above exits the
