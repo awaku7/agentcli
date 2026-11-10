@@ -287,12 +287,55 @@ class NostrRemoteRuntime:
             )
             return {"state": "failed", "error_type": "AuthorizationRevoked"}
 
-        from .nostr_remote_transport import publish_nip17_gift_wraps
-
         try:
+            from .nostr_remote_transport import (
+                fetch_nip17_relay_list,
+                publish_nip17_gift_wraps,
+            )
+
+            relay_lists = dict(record.relay_lists_by_pubkey)
+            recipients = {
+                tag[1]
+                for event in record.events
+                for tag in event.get("tags", [])
+                if isinstance(tag, list)
+                and len(tag) >= 2
+                and tag[0] == "p"
+                and isinstance(tag[1], str)
+            }
+            missing_routes = recipients - relay_lists.keys()
+            if missing_routes:
+                if missing_routes != {record.sender_pubkey}:
+                    store.fail(
+                        record.sender_pubkey,
+                        record.request_rumor_id,
+                        "InvalidRelayRoutes",
+                    )
+                    return {"state": "failed", "error_type": "InvalidRelayRoutes"}
+                remote_relays = await fetch_nip17_relay_list(
+                    record.sender_pubkey,
+                    self.relays,
+                    allowed_relay_urls=self.relays,
+                    auth_private_key=self.private_key,
+                    timeout=3.0,
+                )
+                allowed = set(self.relays)
+                recipient_relays = [
+                    relay for relay in remote_relays if relay in allowed
+                ]
+                if not recipient_relays:
+                    raise RuntimeError("NoPermittedRecipientRelay")
+                relay_lists[record.sender_pubkey] = recipient_relays[:1]
+                if not store.update_routes(
+                    record.sender_pubkey,
+                    record.request_rumor_id,
+                    relay_lists,
+                ):
+                    return {"state": "unknown", "event_ids": list(record.event_ids)}
+
             deliveries = await publish_nip17_gift_wraps(
                 record.events,
-                record.relay_lists_by_pubkey,
+                relay_lists,
                 self.private_key,
                 allowed_relay_urls=self.relays,
                 timeout=3.0,
@@ -438,32 +481,20 @@ class NostrRemoteRuntime:
             raise RuntimeError("Nostr reply outbox is unavailable")
         record = store.get(sender, request_id)
         if record is None:
-            from .nostr_remote_transport import fetch_nip17_relay_list
-
-            remote_relays = asyncio.run(
-                fetch_nip17_relay_list(
-                    sender,
-                    self.relays,
-                    allowed_relay_urls=self.relays,
-                    auth_private_key=self.private_key,
-                    timeout=3.0,
-                )
-            )
-            allowed = set(self.relays)
-            recipient_relays = [url for url in remote_relays if url in allowed]
-            if not recipient_relays:
-                raise ValueError(
-                    "no recipient inbox relay is permitted by local policy"
-                )
-
+            if not self.relays:
+                raise ValueError("no configured relay is available for the outbox")
             own_pubkey = _public_key_x(self.private_key).hex()
             events = create_nip17_private_messages(
                 text, self.private_key, bytes.fromhex(sender)
             )
-            relay_lists = {sender: recipient_relays[:1]}
-            if sender != own_pubkey:
-                relay_lists[own_pubkey] = [self.relays[0]]
-            record = store.enqueue(sender, request_id, events, relay_lists)
+            relay_lists = {own_pubkey: [self.relays[0]]}
+            record = store.enqueue(
+                sender,
+                request_id,
+                events,
+                relay_lists,
+                allow_missing_routes=True,
+            )
 
         if record.status == "delivered":
             return {

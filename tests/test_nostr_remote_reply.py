@@ -153,3 +153,79 @@ def test_reply_outbox_retries_the_same_encrypted_event_ids(
         inbox.close()
         outbox.close()
         pairings.close()
+
+
+def test_reply_is_persisted_before_transient_relay_list_lookup(
+    tmp_path, monkeypatch
+) -> None:
+    import asyncio
+    import json
+
+    from uagent import nostr_remote_transport as transport
+
+    local_key = _secret(2)
+    sender_key = _secret(1)
+    sender_pubkey = _public_key(sender_key).hex()
+    inbox = SQLiteNostrInboxStore(tmp_path / "lookup-reply-inbox.sqlite3")
+    outbox = SQLiteNostrOutboxStore(tmp_path / "lookup-reply-outbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "lookup-reply-pairings.sqlite3")
+    pairings.pair(sender_pubkey, "phone", approved=True, paired_at=100)
+    runtime = NostrRemoteRuntime(
+        event_queue=SimpleNamespace(put=lambda _event: None),
+        private_key=local_key,
+        relays=["wss://local.example"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+        outbox_store=outbox,
+    )
+    fetch_calls = 0
+    published_ids: list[list[str]] = []
+    published_routes: list[dict[str, list[str]]] = []
+
+    async def flaky_fetch(*_args, **_kwargs):
+        nonlocal fetch_calls
+        fetch_calls += 1
+        if fetch_calls == 1:
+            raise OSError("temporary relay lookup failure")
+        return ["wss://local.example"]
+
+    async def accept_publish(events, relay_lists_by_pubkey, *_args, **_kwargs):
+        published_ids.append([event["id"] for event in events])
+        published_routes.append(relay_lists_by_pubkey)
+        return [
+            SimpleNamespace(event_id=event["id"], accepted=True) for event in events
+        ]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", flaky_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", accept_publish)
+    request_id = "ef" * 32
+    try:
+        result = runtime.send_reply(
+            {"sender_pubkey": sender_pubkey, "rumor_id": request_id},
+            "Persist this private reply",
+        )
+        assert result["queued"] is True
+        pending = outbox.get(sender_pubkey, request_id)
+        assert pending is not None
+        assert pending.status == "pending"
+        assert pending.events is not None
+        assert sender_pubkey not in pending.relay_lists_by_pubkey
+        assert "Persist this private reply" not in json.dumps(pending.events)
+
+        claimed = outbox.claim(sender_pubkey, request_id, now=pending.next_attempt_at)
+        assert claimed is not None
+        retry_result = asyncio.run(runtime._deliver_outbox_record(claimed))
+        assert retry_result["state"] == "delivered"
+        assert fetch_calls == 2
+        assert len(published_ids) == 1
+        assert published_routes[0][sender_pubkey] == ["wss://local.example"]
+        delivered = outbox.get(sender_pubkey, request_id)
+        assert delivered is not None
+        assert delivered.status == "delivered"
+        assert delivered.events is None
+        assert delivered.relay_lists_by_pubkey is None
+    finally:
+        inbox.close()
+        outbox.close()
+        pairings.close()

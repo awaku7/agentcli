@@ -62,6 +62,8 @@ def _nonnegative_int(value: Any, field: str) -> int:
 def _normalize_payload(
     events: Sequence[dict[str, Any]],
     relay_lists_by_pubkey: Mapping[str, Sequence[str]],
+    *,
+    allow_missing_routes: bool = False,
 ) -> tuple[str, tuple[str, ...]]:
     if (
         isinstance(events, (str, bytes))
@@ -105,7 +107,11 @@ def _normalize_payload(
             raise ValueError("each outbox recipient needs one to ten relay URLs")
         normalized_routes[normalized_pubkey] = normalized_urls
 
-    if any(recipient not in normalized_routes for recipient in recipients):
+    if any(pubkey not in recipients for pubkey in normalized_routes):
+        raise ValueError("outbox relay routes must match gift-wrap recipients")
+    if not allow_missing_routes and any(
+        recipient not in normalized_routes for recipient in recipients
+    ):
         raise ValueError("each gift-wrap recipient must have an outbox relay route")
 
     payload = json.dumps(
@@ -252,10 +258,15 @@ class SQLiteNostrOutboxStore:
         relay_lists_by_pubkey: Mapping[str, Sequence[str]],
         *,
         created_at: int | None = None,
+        allow_missing_routes: bool = False,
     ) -> OutboxRecord:
         sender = _hex32(sender_pubkey, "sender_pubkey")
         request_id = _hex32(request_rumor_id, "request_rumor_id")
-        payload_json, event_ids = _normalize_payload(events, relay_lists_by_pubkey)
+        payload_json, event_ids = _normalize_payload(
+            events,
+            relay_lists_by_pubkey,
+            allow_missing_routes=allow_missing_routes,
+        )
         payload_bytes = len(payload_json.encode("utf-8"))
         if payload_bytes > self.max_record_bytes:
             raise OutboxFullError(
@@ -311,6 +322,63 @@ class SQLiteNostrOutboxStore:
         if record is None:
             raise RuntimeError("outbox insert did not create a record")
         return record
+
+    def update_routes(
+        self,
+        sender_pubkey: str,
+        request_rumor_id: str,
+        relay_lists_by_pubkey: Mapping[str, Sequence[str]],
+    ) -> bool:
+        """Persist verified relay routes while a reply is still deliverable."""
+        sender = _hex32(sender_pubkey, "sender_pubkey")
+        request_id = _hex32(request_rumor_id, "request_rumor_id")
+        with self._lock:
+            self._connection.execute("BEGIN IMMEDIATE")
+            try:
+                row = self._connection.execute(
+                    "SELECT status, payload_json, payload_bytes "
+                    "FROM nostr_remote_outbox WHERE sender_pubkey = ? "
+                    "AND request_rumor_id = ?",
+                    (sender, request_id),
+                ).fetchone()
+                if (
+                    row is None
+                    or row[0] not in {"pending", "sending"}
+                    or row[1] is None
+                ):
+                    self._connection.execute("COMMIT")
+                    return False
+                payload = json.loads(row[1])
+                events = payload.get("events") if isinstance(payload, dict) else None
+                if not isinstance(events, list):
+                    raise ValueError("outbox payload has an invalid shape")
+                payload_json, _event_ids = _normalize_payload(
+                    events, relay_lists_by_pubkey
+                )
+                payload_bytes = len(payload_json.encode("utf-8"))
+                if payload_bytes > self.max_record_bytes:
+                    raise OutboxFullError(
+                        "encrypted reply exceeds the outbox record size limit"
+                    )
+                total_bytes = self._connection.execute(
+                    "SELECT COALESCE(SUM(payload_bytes), 0) " "FROM nostr_remote_outbox"
+                ).fetchone()[0]
+                if total_bytes - row[2] + payload_bytes > self.max_total_bytes:
+                    raise OutboxFullError(
+                        "Nostr reply outbox payload budget is exhausted"
+                    )
+                self._connection.execute(
+                    "UPDATE nostr_remote_outbox SET payload_json = ?, payload_bytes = ? "
+                    "WHERE sender_pubkey = ? AND request_rumor_id = ? "
+                    "AND status IN ('pending', 'sending')",
+                    (payload_json, payload_bytes, sender, request_id),
+                )
+                self._connection.execute("COMMIT")
+                return True
+            except Exception:
+                if self._connection.in_transaction:
+                    self._connection.execute("ROLLBACK")
+                raise
 
     def _claim_locked(
         self, sender: str, request_id: str, now: int
