@@ -107,6 +107,75 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _nostr_remote_status_text(core: Any) -> str:
+    """Format a bounded status summary for an authorized remote device."""
+    busy = False
+    label = ""
+    try:
+        with core.status_lock:
+            busy = bool(core.status_busy)
+            raw_label = core.status_label
+        if isinstance(raw_label, str):
+            safe_label = "".join(ch if ch.isprintable() else " " for ch in raw_label)
+            label = " ".join(safe_label.split())[:80]
+    except Exception:
+        pass
+
+    lines = [f"CLI: {'busy' if busy else 'idle'}"]
+    if busy and label:
+        lines.append(f"Activity: {label}")
+
+    session_id = getattr(core, "session_id", None)
+    if isinstance(session_id, str) and session_id:
+        safe_session = "".join(ch if ch.isprintable() else " " for ch in session_id)
+        lines.append(f"Session: {' '.join(safe_session.split())[:128]}")
+
+    waiting_for_human = False
+    try:
+        with core.human_ask_lock:
+            waiting_for_human = bool(core.human_ask_active)
+    except Exception:
+        pass
+    if waiting_for_human:
+        lines.append("Waiting for human input: yes")
+
+    job_manager = getattr(core, "_sub_agent_job_manager", None)
+    job_owner = getattr(core, "_sub_agent_job_owner", None)
+    if job_manager is not None and job_owner is not None:
+        try:
+            running_jobs = job_manager.running_count(owner=job_owner)
+        except Exception:
+            running_jobs = None
+        if isinstance(running_jobs, int) and not isinstance(running_jobs, bool):
+            lines.append(f"Background jobs: {max(0, running_jobs)}")
+
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        lines.append("Nostr remote listener: stopped")
+    else:
+        try:
+            status = runtime.status()
+        except Exception:
+            status = None
+        if isinstance(status, dict):
+            state = status.get("state")
+            if not isinstance(state, str) or not state:
+                state = "unknown"
+            safe_state = "".join(ch if ch.isprintable() else " " for ch in state)
+            lines.append(f"Nostr remote listener: {' '.join(safe_state.split())[:32]}")
+            for key, heading in (
+                ("pending", "Pending remote requests"),
+                ("dispatching", "Requests needing reconciliation"),
+            ):
+                count = status.get(key)
+                if isinstance(count, int) and not isinstance(count, bool):
+                    lines.append(f"{heading}: {max(0, count)}")
+        else:
+            lines.append("Nostr remote listener: status unavailable")
+
+    return "\n".join(lines)
+
+
 def _send_nostr_remote_reply(
     core: Any, request_event: dict[str, Any], text: str
 ) -> None:
@@ -608,6 +677,13 @@ def main() -> int:
                 remote_request_event = ev
                 kind = remote_action.kind
                 ev = {"kind": kind, "text": remote_action.text}
+
+            if kind == "status" and remote_request_event is not None:
+                _finish_nostr_remote_request(core, remote_request_event, "completed")
+                _send_nostr_remote_reply(
+                    core, remote_request_event, _nostr_remote_status_text(core)
+                )
+                continue
 
             if kind == "command":
                 line = ev.get("text", "")

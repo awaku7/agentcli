@@ -100,6 +100,20 @@ def test_explicit_remote_cli_command_is_separate_from_chat() -> None:
     assert action.text == ":help"
 
 
+def test_remote_status_query_is_not_forwarded_as_chat_or_cli_command() -> None:
+    for content in ("/uag status", "/UAG STATUS"):
+        action = authorize_nostr_remote_request(
+            _event(content),
+            current_session_id="active-session",
+            authorize_sender=lambda _sender: True,
+            now=1_700_000_000,
+        )
+
+        assert action.kind == "status"
+        assert action.text == "status"
+        assert action.session_id == "active-session"
+
+
 @pytest.mark.parametrize(
     "content",
     [
@@ -124,13 +138,14 @@ def test_pairing_changes_are_local_only(content: str) -> None:
 
 
 def test_unknown_uag_operation_is_not_forwarded_as_chat() -> None:
-    with pytest.raises(RemoteCLIRequestError, match="unsupported"):
-        authorize_nostr_remote_request(
-            _event("/uag status"),
-            current_session_id="active-session",
-            authorize_sender=lambda _sender: True,
-            now=1_700_000_000,
-        )
+    for content in ("/uag sessions", "/uag status extra", "/UAG sessions"):
+        with pytest.raises(RemoteCLIRequestError, match="unsupported"):
+            authorize_nostr_remote_request(
+                _event(content),
+                current_session_id="active-session",
+                authorize_sender=lambda _sender: True,
+                now=1_700_000_000,
+            )
 
 
 def test_foreground_dispatch_fails_closed_for_unpaired_sender() -> None:

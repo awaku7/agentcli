@@ -30,7 +30,7 @@ class RemoteCLIRequestError(ValueError):
 class RemoteCLIAction:
     """Validated user action ready for the CLI's existing event handler."""
 
-    kind: Literal["user", "command"]
+    kind: Literal["user", "command", "status"]
     text: str
     sender_pubkey: str
     rumor_id: str
@@ -99,18 +99,26 @@ def enqueue_nostr_remote_request(
     event_queue.put(event)
 
 
-def _parse_action(text: str) -> tuple[Literal["user", "command"], str]:
-    """Separate natural chat from explicit ``/uag cmd :...`` requests."""
+def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]:
+    """Separate chat, status queries, and explicit ``/uag cmd :...`` requests."""
     stripped = text.strip()
     if not stripped:
         raise RemoteCLIRequestError("remote message is empty")
 
-    if stripped == "/uag" or stripped.startswith(("/uag ", "/uag\t", "/uag\n")):
-        if not stripped.startswith("/uag cmd "):
+    lowered = stripped.lower()
+    if lowered == "/uag" or lowered.startswith(("/uag ", "/uag\t", "/uag\n")):
+        parts = stripped.split(maxsplit=2)
+        if (
+            len(parts) == 2
+            and parts[0].lower() == "/uag"
+            and parts[1].lower() == "status"
+        ):
+            return "status", "status"
+        if len(parts) < 3 or parts[0].lower() != "/uag" or parts[1].lower() != "cmd":
             # In particular, never let unknown /uag control text fall through to
             # the LLM as ordinary conversation.
             raise RemoteCLIRequestError("unsupported /uag operation")
-        command = stripped[len("/uag cmd ") :].strip()
+        command = parts[2].strip()
         if (
             not command.startswith(":")
             or _utf8_size(command, "command") > MAX_REMOTE_COMMAND_BYTES
