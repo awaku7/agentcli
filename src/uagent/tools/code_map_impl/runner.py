@@ -6,6 +6,7 @@ import errno
 import json
 import os
 import re
+import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -177,8 +178,24 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 
-BUSY_LABEL = False
-STATUS_LABEL = None
+BUSY_LABEL = True
+STATUS_LABEL = "tool:code_map"
+
+
+def _report_progress(message: str) -> None:
+    """Publish bounded progress through the shared CLI/GUI/Web status hook."""
+    try:
+        from ..context import get_callbacks
+
+        set_status = get_callbacks().set_status
+        if callable(set_status):
+            # Keep this as status metadata, not stdout/log output: each frontend
+            # renders the same update on its own status surface.
+            set_status(True, f"{STATUS_LABEL}:{message[:96]}")
+    except Exception:
+        # A progress-display failure must never abort code-map generation.
+        pass
+
 
 # ---------------------------------------------------------------------------
 # Language detection
@@ -887,6 +904,7 @@ def run_tool(args: dict[str, Any]) -> str:
         result["office_script"] = script_source
 
     # Detect project files
+    _report_progress("Discovering project files")
     project_info = _find_project_files(str(root))
     if project_info["project_type"]:
         result["project"] = {
@@ -900,13 +918,21 @@ def run_tool(args: dict[str, Any]) -> str:
         }
 
     # Gather file list
+    _report_progress("Collecting source files")
     file_list = (
         list(project_info["sources"]) if project_only else _collect_source_files(root)
     )
+    file_count = len(file_list)
+    if file_count:
+        _report_progress(f"Indexing {file_count} source files")
+    else:
+        _report_progress("No source files found")
 
     # Extract symbols
     files_with_symbols: list[dict[str, Any]] = []
-    for fpath in file_list:
+    progress_interval = max(1, (file_count + 24) // 25)
+    last_progress_at = time.monotonic()
+    for file_index, fpath in enumerate(file_list, start=1):
         entry: dict[str, Any] = {"path": fpath}
         rel = (
             Path(fpath).relative_to(root) if Path(fpath).is_relative_to(root) else fpath
@@ -922,6 +948,20 @@ def run_tool(args: dict[str, Any]) -> str:
             else:
                 entry["symbols"] = []
         files_with_symbols.append(entry)
+        now = time.monotonic()
+        count_progress_due = (
+            file_index % progress_interval == 0 or file_index == file_count
+        )
+        if (
+            file_index == 1
+            or file_index == file_count
+            or (count_progress_due and now - last_progress_at >= 1.0)
+            or now - last_progress_at >= 5.0
+        ):
+            percent = file_index * 100 // file_count
+            phase = "Extracting symbols" if include_symbols else "Indexing files"
+            _report_progress(f"{phase} {file_index}/{file_count} ({percent}%)")
+            last_progress_at = now
 
     result["files"] = files_with_symbols
     result["total_files"] = len(files_with_symbols)
@@ -929,15 +969,18 @@ def run_tool(args: dict[str, Any]) -> str:
     # Build relations if requested
     relations: list[dict[str, Any]] = []
     if include_relations:
+        _report_progress("Building file relations")
         relations = build_relations(files_with_symbols, str(root))
 
     # Build tree structure
+    _report_progress("Building file tree")
     tree_root = build_tree(file_list, str(root), max_depth)
 
     def _timestamp() -> str:
         return datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
 
     def _save_file(content_str: str, ext: str) -> str:
+        _report_progress("Saving output")
         directory = Path(output_dir) if output_dir else Path.cwd()
         directory.mkdir(parents=True, exist_ok=True)
         stem = f"code_map_{_timestamp()}"
@@ -955,6 +998,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Mermaid output
     if output_format == "mermaid" and tree_root:
+        _report_progress("Rendering Mermaid diagram")
         mermaid_output = tree_to_mermaid(tree_root)
         saved_files = []
 
@@ -963,6 +1007,7 @@ def run_tool(args: dict[str, Any]) -> str:
             saved_files.append(mmd_path)
 
             if render_image:
+                _report_progress("Rendering Mermaid PNG")
                 png_path = mmd_path.replace(".mmd", ".png")
                 err = render_mermaid_to_image(mermaid_output, png_path)
                 if err is None:
@@ -984,6 +1029,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Ontology output (JSON-LD)
     if output_format == "ontology":
+        _report_progress("Building ontology")
         ontology = build_ontology(result, relations)
         json_output = json.dumps(ontology, ensure_ascii=False, indent=2)
 
@@ -1003,6 +1049,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Interactive HTML output
     if output_format == "html":
+        _report_progress("Building interactive HTML")
         ontology = build_ontology(result, relations)
         html_output = generate_ontology_html(
             ontology, title=f"Codebase Ontology - {root.name or str(root)}"
@@ -1021,6 +1068,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return html_output
 
     # JSON output (standard)
+    _report_progress("Serializing JSON output")
     if include_relations and relations:
         result["relations"] = relations
 
