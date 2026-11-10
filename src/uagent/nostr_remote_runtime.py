@@ -3,20 +3,93 @@
 from __future__ import annotations
 
 import asyncio
+import queue
 import threading
-from typing import Any
+import time
+from typing import Any, Callable
 
 from .nostr_nip17 import unwrap_nip17_private_message
 from .nostr_remote_dispatch import (
     RemoteCLIRequestError,
     RemoteCLIAction,
     authorize_nostr_remote_request,
-    enqueue_nostr_remote_request,
+    create_nostr_remote_request_event,
+    is_nostr_remote_status_request,
 )
 from .nostr_remote_inbox import InboxRecord, SQLiteNostrInboxStore
 from .nostr_remote_outbox import OutboxRecord, SQLiteNostrOutboxStore
 from .nostr_remote_pairing import SQLitePairingStore
 from .nostr_remote_transport import listen_nip17_messages
+
+
+def format_nostr_remote_status(core: Any) -> str:
+    """Format a bounded, sanitized CLI status summary for a paired device."""
+    busy = False
+    label = ""
+    try:
+        with core.status_lock:
+            busy = bool(core.status_busy)
+            raw_label = core.status_label
+        if isinstance(raw_label, str):
+            safe_label = "".join(ch if ch.isprintable() else " " for ch in raw_label)
+            label = " ".join(safe_label.split())[:80]
+    except Exception:
+        pass
+
+    lines = [f"CLI: {'busy' if busy else 'idle'}"]
+    if busy and label:
+        lines.append(f"Activity: {label}")
+
+    session_id = getattr(core, "session_id", None)
+    if isinstance(session_id, str) and session_id:
+        safe_session = "".join(ch if ch.isprintable() else " " for ch in session_id)
+        lines.append(f"Session: {' '.join(safe_session.split())[:128]}")
+
+    waiting_for_human = False
+    try:
+        with core.human_ask_lock:
+            waiting_for_human = bool(core.human_ask_active)
+    except Exception:
+        pass
+    if waiting_for_human:
+        lines.append("Waiting for human input: yes")
+
+    job_manager = getattr(core, "_sub_agent_job_manager", None)
+    job_owner = getattr(core, "_sub_agent_job_owner", None)
+    if job_manager is not None and job_owner is not None:
+        try:
+            running_jobs = job_manager.running_count(owner=job_owner)
+        except Exception:
+            running_jobs = None
+        if isinstance(running_jobs, int) and not isinstance(running_jobs, bool):
+            lines.append(f"Background jobs: {max(0, running_jobs)}")
+
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        lines.append("Nostr remote listener: stopped")
+    else:
+        try:
+            runtime_status = runtime.status()
+        except Exception:
+            runtime_status = None
+        if isinstance(runtime_status, dict):
+            state = runtime_status.get("state")
+            if not isinstance(state, str) or not state:
+                state = "unknown"
+            safe_state = "".join(ch if ch.isprintable() else " " for ch in state)
+            lines.append(f"Nostr remote listener: {' '.join(safe_state.split())[:32]}")
+            for key, heading in (
+                ("pending", "Pending remote requests"),
+                ("dispatching", "Requests needing reconciliation"),
+                ("outbox_pending", "Pending encrypted replies"),
+            ):
+                count = runtime_status.get(key)
+                if isinstance(count, int) and not isinstance(count, bool):
+                    lines.append(f"{heading}: {max(0, count)}")
+        else:
+            lines.append("Nostr remote listener: status unavailable")
+
+    return "\n".join(lines)
 
 
 def dispatch_nostr_remote_inbox_event(
@@ -85,6 +158,8 @@ class NostrRemoteRuntime:
         inbox_store: SQLiteNostrInboxStore,
         pairing_store: SQLitePairingStore,
         outbox_store: SQLiteNostrOutboxStore | None = None,
+        status_provider: Callable[[], str] | None = None,
+        current_session_id_provider: Callable[[], str] | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -93,6 +168,14 @@ class NostrRemoteRuntime:
         self.inbox_store = inbox_store
         self.pairing_store = pairing_store
         self.outbox_store = outbox_store
+        self._status_provider = status_provider
+        self._current_session_id_provider = current_session_id_provider or (
+            lambda: self.session_id
+        )
+        self._status_queue: queue.Queue[dict[str, Any]] = queue.Queue(maxsize=32)
+        self._status_recovery_needed = threading.Event()
+        self._status_stop = threading.Event()
+        self._status_thread: threading.Thread | None = None
         self._state_lock = threading.Lock()
         self._state = "stopped"
         self._error = ""
@@ -144,8 +227,8 @@ class NostrRemoteRuntime:
 
     def _queue_rumor(self, rumor: dict[str, Any]) -> None:
         try:
-            enqueue_nostr_remote_request(
-                self.event_queue, rumor, target_session_id=self.session_id
+            event = create_nostr_remote_request_event(
+                rumor, target_session_id=self.session_id
             )
         except RemoteCLIRequestError:
             # Invalid/oversized requests from an approved sender must not take
@@ -161,15 +244,158 @@ class NostrRemoteRuntime:
                     "text": "",
                 }
             )
+        else:
+            self._queue_event(event)
+
+    def _queue_event(self, event: dict[str, Any]) -> None:
+        """Route status queries to the bounded side worker; queue other input."""
+        worker = self._status_thread
+        if (
+            self._status_provider is not None
+            and worker is not None
+            and worker.is_alive()
+            and is_nostr_remote_status_request(str(event.get("text") or ""))
+        ):
+            try:
+                self._status_queue.put_nowait(event)
+                return
+            except queue.Full:
+                # Keep the durable request out of the foreground queue: status
+                # must never become ordinary chat when the side queue is busy.
+                self._status_recovery_needed.set()
+                return
+        self.event_queue.put(event)
+
+    def _recover_pending_status_events(self) -> None:
+        """Requeue durable status requests deferred by bounded-queue pressure."""
+        try:
+            records = self.inbox_store.list_pending(
+                limit=1000, session_id=self.session_id
+            )
+        except Exception:
+            self._status_recovery_needed.set()
+            return
+
+        for record in records:
+            if not isinstance(record.wrapped_event, dict):
+                continue
+            try:
+                rumor = unwrap_nip17_private_message(
+                    record.wrapped_event, self.private_key
+                )
+                event = create_nostr_remote_request_event(
+                    rumor, target_session_id=record.session_id
+                )
+            except Exception:
+                continue
+            if not is_nostr_remote_status_request(event["text"]):
+                continue
+            try:
+                self._status_queue.put_nowait(event)
+            except queue.Full:
+                self._status_recovery_needed.set()
+                return
+
+    def _process_status_event(self, event: dict[str, Any]) -> None:
+        """Authorize, answer, and finalize a status query off the CLI turn thread."""
+        try:
+            current_session_id = self._current_session_id_provider()
+            if not isinstance(current_session_id, str):
+                current_session_id = ""
+            action = self.dispatch_event(
+                event,
+                current_session_id=current_session_id,
+            )
+        except RemoteCLIRequestError as exc:
+            try:
+                from .runtime.logging_setup import log_event
+
+                log_event("nostr.remote_status_rejected", reason=str(exc)[:160])
+            except Exception:
+                pass
+            return
+        except Exception as exc:
+            try:
+                from .runtime.logging_setup import log_event
+
+                log_event("nostr.remote_status_failed", error_type=type(exc).__name__)
+            except Exception:
+                pass
+            return
+
+        if action.kind != "status":
+            self.finish_event(event, "rejected")
+            return
+        try:
+            response = self._status_provider() if self._status_provider else ""
+        except Exception:
+            response = "CLI status is temporarily unavailable."
+        if not isinstance(response, str) or not response.strip():
+            response = "CLI status is temporarily unavailable."
+        try:
+            finalized = self.finish_event(event, "completed")
+        except Exception as exc:
+            finalized = False
+            finalize_error = type(exc).__name__
+        else:
+            finalize_error = "inbox_row_not_dispatching"
+        if not finalized:
+            try:
+                from .runtime.logging_setup import log_event
+
+                log_event(
+                    "nostr.remote_status_finalize_failed",
+                    error_type=finalize_error,
+                )
+            except Exception:
+                pass
+            return
+        try:
+            self.send_reply(event, response)
+        except Exception as exc:
+            try:
+                from .runtime.logging_setup import log_event
+
+                log_event(
+                    "nostr.remote_status_reply_failed",
+                    error_type=type(exc).__name__,
+                )
+            except Exception:
+                pass
+
+    def _status_worker(self) -> None:
+        while not self._status_stop.is_set():
+            try:
+                event = self._status_queue.get(timeout=0.2)
+            except queue.Empty:
+                if self._status_recovery_needed.is_set():
+                    self._status_recovery_needed.clear()
+                    self._recover_pending_status_events()
+                continue
+            try:
+                self._process_status_event(event)
+            except Exception as exc:
+                try:
+                    from .runtime.logging_setup import log_event
+
+                    log_event(
+                        "nostr.remote_status_worker_failed",
+                        error_type=type(exc).__name__,
+                    )
+                except Exception:
+                    pass
+            finally:
+                self._status_queue.task_done()
 
     def _queue_record(self, record: InboxRecord) -> None:
         try:
             if not isinstance(record.wrapped_event, dict):
                 raise ValueError("missing ciphertext")
             rumor = unwrap_nip17_private_message(record.wrapped_event, self.private_key)
-            enqueue_nostr_remote_request(
-                self.event_queue, rumor, target_session_id=record.session_id
+            event = create_nostr_remote_request_event(
+                rumor, target_session_id=record.session_id
             )
+            self._queue_event(event)
         except Exception:
             # Let the foreground claim and terminally reject a damaged pending
             # row instead of silently leaving it stuck forever.
@@ -196,6 +422,14 @@ class NostrRemoteRuntime:
                 raise RuntimeError("Nostr remote runtime is already closed")
             self._state = "running"
             self._error = ""
+        self._status_stop.clear()
+        if self._status_provider is not None:
+            self._status_thread = threading.Thread(
+                target=self._status_worker,
+                name="uag-nostr-status",
+                daemon=True,
+            )
+            self._status_thread.start()
         for record in self.inbox_store.list_pending(
             limit=1000, session_id=self.session_id
         ):
@@ -422,6 +656,7 @@ class NostrRemoteRuntime:
             with self._state_lock:
                 self._state = "stopped"
         finally:
+            self._status_stop.set()
             self._loop = None
             self._stop_event = None
 
@@ -528,17 +763,24 @@ class NostrRemoteRuntime:
         raise RuntimeError("Nostr reply could not be delivered")
 
     def stop(self, *, timeout: float = 5.0) -> dict[str, Any]:
+        deadline = time.monotonic() + max(0.0, timeout)
+        self._status_stop.set()
         loop = self._loop
         stop_event = self._stop_event
         thread = self._thread
+        status_thread = self._status_thread
         if loop is not None and stop_event is not None:
             try:
                 loop.call_soon_threadsafe(stop_event.set)
             except RuntimeError:
                 pass
         if thread is not None and thread.is_alive():
-            thread.join(timeout=max(0.0, timeout))
-        stopped = thread is None or not thread.is_alive()
+            thread.join(timeout=max(0.0, deadline - time.monotonic()))
+        if status_thread is not None and status_thread.is_alive():
+            status_thread.join(timeout=max(0.0, deadline - time.monotonic()))
+        stopped = (thread is None or not thread.is_alive()) and (
+            status_thread is None or not status_thread.is_alive()
+        )
         if stopped:
             with self._state_lock:
                 self._state = "stopped"
@@ -594,6 +836,8 @@ def create_nostr_remote_runtime(
         inbox_store=inbox_store,
         pairing_store=pairing_store,
         outbox_store=outbox_store,
+        status_provider=lambda: format_nostr_remote_status(core),
+        current_session_id_provider=lambda: str(getattr(core, "session_id", "") or ""),
     )
     return runtime
 

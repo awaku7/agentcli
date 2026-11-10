@@ -50,21 +50,17 @@ def _utf8_size(value: str, field: str) -> int:
         raise RemoteCLIRequestError(f"invalid UTF-8 {field}") from exc
 
 
-def enqueue_nostr_remote_request(
-    event_queue: Any,
+def create_nostr_remote_request_event(
     rumor: Mapping[str, Any],
     *,
     target_session_id: str,
-) -> None:
-    """Queue a minimal event from a verified NIP-17 kind-14 rumor.
+) -> dict[str, Any]:
+    """Build a minimal CLI event from a verified NIP-17 kind-14 rumor.
 
-    Call only from the relay callback after signature/decryption checks, current
-    pairing authorization, timestamp validation, and atomic replay claiming have
-    succeeded. The session is captured at ingress and checked again on the CLI
-    thread, so queued work cannot silently follow a later session switch.
+    Call only after signature/decryption, pairing authorization, timestamp
+    validation, and durable inbox persistence. The captured session is checked
+    again when the CLI or remote-status worker dispatches the event.
     """
-    if not callable(getattr(event_queue, "put", None)):
-        raise TypeError("event_queue must provide put()")
     if not isinstance(rumor, Mapping) or rumor.get("kind") != 14:
         raise RemoteCLIRequestError("expected a NIP-17 kind-14 rumor")
     sender = _valid_hex32(rumor.get("pubkey"), "sender pubkey")
@@ -96,6 +92,22 @@ def enqueue_nostr_remote_request(
         "session_id": target_session_id,
         "text": text,
     }
+    return event
+
+
+def enqueue_nostr_remote_request(
+    event_queue: Any,
+    rumor: Mapping[str, Any],
+    *,
+    target_session_id: str,
+) -> None:
+    """Queue a minimal event from a verified, durably stored rumor."""
+    if not callable(getattr(event_queue, "put", None)):
+        raise TypeError("event_queue must provide put()")
+    event = create_nostr_remote_request_event(
+        rumor,
+        target_session_id=target_session_id,
+    )
     event_queue.put(event)
 
 
@@ -147,6 +159,15 @@ def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]
         return "command", command
 
     return "user", text
+
+
+def is_nostr_remote_status_request(text: str) -> bool:
+    """Identify a status query for responsive handling outside the CLI loop."""
+    try:
+        kind, _action_text = _parse_action(text)
+    except RemoteCLIRequestError:
+        return False
+    return kind == "status"
 
 
 def authorize_nostr_remote_request(
