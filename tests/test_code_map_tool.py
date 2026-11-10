@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 from uagent.tools.code_map_tool import _tree_to_mermaid, run_tool
 
@@ -11,6 +12,56 @@ def _json_result(raw: str, *, load_saved: bool = True) -> dict:
     if load_saved and result.get("saved_files"):
         return json.loads(Path(result["saved_files"][0]).read_text(encoding="utf-8"))
     return result
+
+
+def test_code_map_reports_progress_through_shared_status_callback(
+    monkeypatch, tmp_path: Path
+) -> None:
+    import uagent.tools.context as tool_context
+    import uagent.tools.code_map_impl.runner as code_map_runner
+
+    class FakeClock:
+        now = 0.0
+
+        def monotonic(self) -> float:
+            self.now += 0.5
+            return self.now
+
+    monkeypatch.setattr(
+        code_map_runner, "time", SimpleNamespace(monotonic=FakeClock().monotonic)
+    )
+    statuses: list[tuple[bool, str]] = []
+    monkeypatch.setattr(
+        tool_context,
+        "get_callbacks",
+        lambda: SimpleNamespace(
+            set_status=lambda busy, label: statuses.append((busy, label))
+        ),
+    )
+    project = tmp_path / "project"
+    project.mkdir()
+    for index in range(25):
+        (project / f"module_{index}.py").write_text(
+            f"def function_{index}():\n    return {index}\n", encoding="utf-8"
+        )
+
+    run_tool(
+        {
+            "path": str(project),
+            "format": "json",
+            "include_relations": False,
+            "output_dir": str(tmp_path / "output"),
+        }
+    )
+
+    labels = [label for busy, label in statuses if busy]
+    assert labels[0] == "tool:code_map:Discovering project files"
+    assert "tool:code_map:Collecting source files" in labels
+    symbol_updates = [label for label in labels if "Extracting symbols" in label]
+    assert symbol_updates
+    assert any("25/25 (100%)" in label for label in symbol_updates)
+    assert len(symbol_updates) == 13
+    assert labels[-1] == "tool:code_map:Saving output"
 
 
 def test_python_relative_imports_and_source_lines(repo_tmp_path: Path) -> None:
