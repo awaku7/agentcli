@@ -249,6 +249,7 @@ class QRReaderWindow:
         )
         if not path:
             return
+        self.stop_camera()
         frame = self.cv2.imread(path)
         if frame is None:
             self.status.set(

@@ -74,6 +74,37 @@ def test_send_to_uag_emits_ascii_safe_json_for_unicode_payload(capsys) -> None:
     assert json.loads(output) == {"text": "café 日本語"}
 
 
+def test_open_image_stops_camera_before_processing_selected_image(monkeypatch) -> None:
+    import uagent.tools.qr_reader_ui as qr_reader_ui
+
+    actions: list[object] = []
+    monkeypatch.setattr(
+        qr_reader_ui.filedialog,
+        "askopenfilename",
+        lambda **_kwargs: "selected.png",
+    )
+    reader = object.__new__(QRReaderWindow)
+    reader.root = SimpleNamespace(
+        after_cancel=lambda callback_id: actions.append(("cancel", callback_id))
+    )
+    reader._camera_after_id = "after#9"
+    reader.capture = SimpleNamespace(release=lambda: actions.append(("release", None)))
+    reader.strings = {}
+    reader.status = SimpleNamespace(set=lambda text: actions.append(("status", text)))
+    reader.cv2 = SimpleNamespace(
+        imread=lambda path: actions.append(("read", path)) or object()
+    )
+    reader._decode = lambda _frame: (["image QR"], None)
+    reader._show_frame = lambda _frame: actions.append(("preview", None))
+    reader._record_results = lambda values: actions.append(("record", values))
+
+    reader.open_image()
+
+    assert actions[:2] == [("cancel", "after#9"), ("release", None)]
+    assert actions.index(("read", "selected.png")) > actions.index(("release", None))
+    assert ("record", ["image QR"]) in actions
+
+
 def test_stop_camera_cancels_pending_frame_callback() -> None:
     cancelled: list[str] = []
     released: list[bool] = []
