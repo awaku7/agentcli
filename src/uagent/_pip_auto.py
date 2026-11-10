@@ -325,6 +325,10 @@ def install_with_status(
             return True  # version check failed, assume OK
 
     def _verify(*, fresh: bool = False) -> bool:
+        # Check the installed distribution first: importing an old native
+        # extension before upgrading leaves its binary module loaded.
+        if not _check_version():
+            return False
         if fresh and target in sys.modules:
             del sys.modules[target]
             if verify_submodule and verify_submodule in sys.modules:
@@ -332,8 +336,6 @@ def install_with_status(
         try:
             __import__(target)
         except ImportError:
-            return False
-        if not _check_version():
             return False
         if verify_submodule:
             try:

@@ -155,6 +155,13 @@ def _load_language_pack() -> Any | None:
             return None
 
         if not install_with_status(
+            "tree-sitter",
+            "tree_sitter",
+            display_name="tree-sitter",
+            version_spec=">=0.26.1,<0.27",
+        ):
+            return None
+        if not install_with_status(
             "tree-sitter-language-pack",
             "tree_sitter_language_pack",
             display_name="tree-sitter-language-pack",
