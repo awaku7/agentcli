@@ -19,6 +19,13 @@ def test_reader_tool_launches_standalone_window(monkeypatch) -> None:
     monkeypatch.setattr(qr_reader_tool, "_ensure_dependencies", lambda: True)
     monkeypatch.setattr(qr_reader_tool, "_tkinter_available", lambda: True)
     monkeypatch.setattr(
+        qr_reader_tool,
+        "_",
+        lambda key, *, default, **_kwargs: (
+            "Lector QR" if key == "ui.title" else default
+        ),
+    )
+    monkeypatch.setattr(
         qr_reader_tool.subprocess,
         "Popen",
         lambda command, **kwargs: calls.append((command, kwargs)) or process,
@@ -36,6 +43,9 @@ def test_reader_tool_launches_standalone_window(monkeypatch) -> None:
     assert options["stdin"] is qr_reader_tool.subprocess.DEVNULL
     assert options["stdout"] is qr_reader_tool.subprocess.PIPE
     assert options["text"] is True
+    ui_strings = json.loads(options["env"]["UAGENT_QR_READER_STRINGS"])
+    assert ui_strings["ui.title"] == "Lector QR"
+    assert ui_strings["ui.camera_open_error"].count("%(index)s") == 1
 
 
 def test_reader_tool_does_not_open_duplicate_window(monkeypatch) -> None:

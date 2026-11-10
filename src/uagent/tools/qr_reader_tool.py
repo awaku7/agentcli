@@ -54,6 +54,76 @@ def _tkinter_available() -> bool:
     return True
 
 
+def _reader_ui_strings() -> dict[str, str]:
+    """Resolve standalone-window labels through the tool translator."""
+    return {
+        "ui.title": _("ui.title", default="UAG QR Reader"),
+        "ui.camera": _("ui.camera", default="Camera:"),
+        "ui.start_camera": _("ui.start_camera", default="Start camera"),
+        "ui.stop_camera": _("ui.stop_camera", default="Stop camera"),
+        "ui.open_image": _("ui.open_image", default="Open image..."),
+        "ui.copy_latest": _("ui.copy_latest", default="Copy latest"),
+        "ui.send_to_uag": _("ui.send_to_uag", default="Send to UAG"),
+        "ui.clear": _("ui.clear", default="Clear"),
+        "ui.results_cleared": _("ui.results_cleared", default="Results cleared."),
+        "ui.initial_status": _(
+            "ui.initial_status",
+            default="Choose an image or start the camera. QR data stays on this device.",
+        ),
+        "ui.preview_placeholder": _(
+            "ui.preview_placeholder", default="Camera preview / selected image"
+        ),
+        "ui.decoded_content": _("ui.decoded_content", default="Decoded QR content"),
+        "ui.decoded_status": _(
+            "ui.decoded_status",
+            default="QR code decoded. Use 'Copy latest' to copy its contents.",
+        ),
+        "ui.invalid_camera_index": _(
+            "ui.invalid_camera_index", default="Camera index must be a number."
+        ),
+        "ui.camera_open_error": _(
+            "ui.camera_open_error",
+            default="Could not open camera %(index)s. Try another index or open an image.",
+        ),
+        "ui.camera_scanning": _(
+            "ui.camera_scanning",
+            default="Scanning with camera %(index)s. Press 'Stop camera' to stop.",
+        ),
+        "ui.camera_stopped": _("ui.camera_stopped", default="Camera stopped."),
+        "ui.choose_image_title": _(
+            "ui.choose_image_title", default="Choose an image containing a QR code"
+        ),
+        "ui.image_files": _("ui.image_files", default="Image files"),
+        "ui.all_files": _("ui.all_files", default="All files"),
+        "ui.image_open_error": _(
+            "ui.image_open_error", default="Could not open the selected image."
+        ),
+        "ui.no_qr_found": _(
+            "ui.no_qr_found", default="No QR code was found in that image."
+        ),
+        "ui.copy_empty": _(
+            "ui.copy_empty", default="There is no decoded content to copy yet."
+        ),
+        "ui.copied": _(
+            "ui.copied", default="Latest QR content copied to the clipboard."
+        ),
+        "ui.send_empty": _(
+            "ui.send_empty", default="There is no decoded content to send yet."
+        ),
+        "ui.send_error": _(
+            "ui.send_error",
+            default="Could not send QR content to UAG: %(error_type)s",
+        ),
+        "ui.unavailable_title": _(
+            "ui.unavailable_title", default="QR Reader unavailable"
+        ),
+        "ui.missing_dependency": _(
+            "ui.missing_dependency",
+            default="Required image-scanning package is missing: %(error)s",
+        ),
+    }
+
+
 def _dependencies_available() -> bool:
     try:
         import cv2  # noqa: F401
@@ -129,6 +199,10 @@ def run_tool(args: dict[str, Any]) -> str:
         creationflags = (
             getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
         )
+        reader_env = os.environ.copy()
+        reader_env["UAGENT_QR_READER_STRINGS"] = json.dumps(
+            _reader_ui_strings(), ensure_ascii=True
+        )
         try:
             process = subprocess.Popen(
                 [sys.executable, str(ui_script)],
@@ -141,6 +215,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 text=True,
                 encoding="utf-8",
                 errors="replace",
+                env=reader_env,
             )
             _READER_PROCESS = process
         except Exception as exc:
