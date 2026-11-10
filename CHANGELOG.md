@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.45] - 2026-11-11
+
+### Added
+
+- Report scan progress during code-map generation.
+- Add Nostr remote CLI status queries and persistent reply delivery with retry support.
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.80`.
+- Clarify the local test execution policy.
+
+### Fixed
+
+- Finalize interrupted Nostr requests, handle status queries during foreground turns, persist replies before relay lookup, and stop status workers after startup failures.
+
 ## [0.7.44] - 2026-11-07
 
 ### Added
