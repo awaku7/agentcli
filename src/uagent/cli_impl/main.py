@@ -216,6 +216,14 @@ def _finish_nostr_remote_request(
         )
 
 
+def _interrupt_nostr_remote_request(core: Any, request_event: dict[str, Any]) -> None:
+    """Terminally record an interrupted request and notify its sender."""
+    _finish_nostr_remote_request(core, request_event, "failed")
+    _send_nostr_remote_reply(
+        core, request_event, "The remote request was interrupted on the CLI."
+    )
+
+
 def _new_assistant_text(messages: list[dict[str, Any]], start_index: int) -> str:
     """Return assistant text added since one CLI event began, if any."""
     try:
@@ -817,6 +825,10 @@ def main() -> int:
                             print()
                             print("[INTERRUPT] " + _("Stopped by user."))
                             print(_("Returning to prompt..."))
+                            if remote_request_event is not None:
+                                _interrupt_nostr_remote_request(
+                                    core, remote_request_event
+                                )
                             continue
                         except Exception as exc:
                             lifecycle.fail()
@@ -1107,6 +1119,8 @@ def main() -> int:
                         print()
                         print("[INTERRUPT] " + _("Stopped by user."))
                         print(_("Returning to prompt..."))
+                        if remote_request_event is not None:
+                            _interrupt_nostr_remote_request(core, remote_request_event)
                         continue
                     except Exception as exc:
                         lifecycle.fail()
