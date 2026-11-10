@@ -108,6 +108,9 @@ def test_explicit_remote_cli_command_is_separate_from_chat() -> None:
         "/uag cmd :nostr remote start",
         "/uag cmd :nostr:pair abcd",
         "/uag cmd :nostr:remote start",
+        "/uag cmd ::nostr pair abcd",
+        "/uag cmd ::nostr:revoke abcd",
+        "/uag cmd ::nostr remote start",
     ],
 )
 def test_pairing_changes_are_local_only(content: str) -> None:

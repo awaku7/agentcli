@@ -63,8 +63,9 @@ def dispatch_nostr_remote_inbox_event(
         inbox_store.finish(record.sender_pubkey, record.rumor_id, "failed")
         raise RemoteCLIRequestError("durable inbox verification failed") from exc
 
-    if not inbox_store.finish(record.sender_pubkey, record.rumor_id, "completed"):
-        raise RemoteCLIRequestError("could not finalize durable inbox item")
+    # Leave the row in dispatching until the foreground CLI has actually run
+    # the action. A crash or command failure after validation must remain
+    # visible for manual reconciliation, not look like a successful delivery.
     return action
 
 
@@ -241,6 +242,18 @@ class NostrRemoteRuntime:
             private_key=self.private_key,
             current_session_id=current_session_id,
         )
+
+    def finish_event(self, event: dict[str, Any], outcome: str) -> bool:
+        """Finalize a claimed inbox item after its foreground action completes."""
+        if not isinstance(event, dict):
+            raise ValueError("remote inbox event reference is invalid")
+        sender = event.get("sender_pubkey")
+        rumor_id = event.get("rumor_id")
+        if not isinstance(sender, str) or not isinstance(rumor_id, str):
+            raise ValueError("remote inbox event reference is invalid")
+        if outcome not in {"completed", "rejected", "failed"}:
+            raise ValueError("invalid remote inbox outcome")
+        return self.inbox_store.finish(sender, rumor_id, outcome)
 
     def send_reply(self, request_event: dict[str, Any], text: str) -> dict[str, Any]:
         """Send a short NIP-17 reply to a still-authorized request sender.

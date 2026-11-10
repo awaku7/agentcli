@@ -125,6 +125,28 @@ def _send_nostr_remote_reply(
         )
 
 
+def _finish_nostr_remote_request(
+    core: Any, request_event: dict[str, Any], outcome: str
+) -> None:
+    """Persist the actual outcome after the foreground action has run."""
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is None:
+        return
+    try:
+        if not runtime.finish_event(request_event, outcome):
+            log_event(
+                "nostr.remote_request_finalize_failed",
+                outcome=outcome,
+                reason="inbox row was not dispatching",
+            )
+    except Exception as exc:
+        log_event(
+            "nostr.remote_request_finalize_failed",
+            outcome=outcome,
+            error_type=type(exc).__name__,
+        )
+
+
 def _new_assistant_text(messages: list[dict[str, Any]], start_index: int) -> str:
     """Return assistant text added since one CLI event began, if any."""
     try:
@@ -541,6 +563,7 @@ def main() -> int:
                 first_event_received = True
                 _startup_timing_mark("first_event_received")
             remote_request_event = None
+            remote_execution_outcome = "completed"
             remote_message_start = len(messages)
             kind = ev.get("kind")
 
@@ -592,11 +615,19 @@ def main() -> int:
                     line, core=core, store=session_store, owner=job_owner
                 ):
                     if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
+                    if remote_request_event is not None:
                         _send_nostr_remote_reply(
                             core, remote_request_event, "Command processed by CLI."
                         )
                     continue
                 if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
                     if remote_request_event is not None:
                         _send_nostr_remote_reply(
                             core, remote_request_event, "Command accepted by CLI."
@@ -625,6 +656,9 @@ def main() -> int:
                             + ", ".join(lingering)
                         )
                         if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, "rejected"
+                            )
                             _send_nostr_remote_reply(
                                 core,
                                 remote_request_event,
@@ -633,6 +667,12 @@ def main() -> int:
                         continue
                 try:
                     result = handle_command(line, messages, client, depname, core=core)
+                except Exception:
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "failed"
+                        )
+                    raise
                 finally:
                     if session_transition:
                         job_owner = refresh_cli_job_owner(
@@ -640,6 +680,9 @@ def main() -> int:
                         )
                 if not result:
                     if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "completed"
+                        )
                         _send_nostr_remote_reply(
                             core, remote_request_event, "CLI is exiting."
                         )
@@ -701,6 +744,8 @@ def main() -> int:
                             continue
                         except Exception as exc:
                             lifecycle.fail()
+                            if remote_request_event is not None:
+                                remote_execution_outcome = "failed"
                             print(_("LLM round interrupted: %(err)s") % {"err": exc})
 
                     if first_llm_started and not first_llm_completed:
@@ -742,9 +787,16 @@ def main() -> int:
                             process_exit_code, _noninteractive_exit_code()
                         )
                     if UAGENT_INJECT_MESSAGE_AUTO:
+                        if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, remote_execution_outcome
+                            )
                         running = False
                         break
                 if remote_request_event is not None:
+                    _finish_nostr_remote_request(
+                        core, remote_request_event, remote_execution_outcome
+                    )
                     reply = (
                         _new_assistant_text(messages, remote_message_start)
                         if command_followed_by_llm
@@ -826,6 +878,9 @@ def main() -> int:
                         print(_reason)
                         core.set_status(False, "")
                         if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, "rejected"
+                            )
                             _send_nostr_remote_reply(
                                 core,
                                 remote_request_event,
@@ -979,6 +1034,8 @@ def main() -> int:
                         continue
                     except Exception as exc:
                         lifecycle.fail()
+                        if remote_request_event is not None:
+                            remote_execution_outcome = "failed"
                         source = "[bitchat] " if ev.get("src") == "bitchat" else ""
                         print(
                             source + _("LLM round interrupted: %(err)s") % {"err": exc}
@@ -995,6 +1052,9 @@ def main() -> int:
                     except Exception:
                         pass
                 if remote_request_event is not None:
+                    _finish_nostr_remote_request(
+                        core, remote_request_event, remote_execution_outcome
+                    )
                     reply = _new_assistant_text(messages, remote_message_start)
                     _send_nostr_remote_reply(
                         core,

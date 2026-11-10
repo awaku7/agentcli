@@ -119,14 +119,19 @@ def _parse_action(text: str) -> tuple[Literal["user", "command"], str]:
             or "\x00" in command
         ):
             raise RemoteCLIRequestError("invalid explicit CLI command")
-        command_parts = command.split(maxsplit=2)
-        command_head = command_parts[0].lower()
-        if command_head == ":nostr" and len(command_parts) >= 2:
-            nostr_subcommand = command_parts[1].lower()
-        elif command_head.startswith(":nostr:"):
-            nostr_subcommand = command_head.split(":", 2)[2]
-        else:
-            nostr_subcommand = ""
+        normalized_parts = command.lstrip(":").strip().split(maxsplit=1)
+        if not normalized_parts:
+            raise RemoteCLIRequestError("invalid explicit CLI command")
+        command_head = normalized_parts[0].lower()
+        nostr_subcommand = ""
+        if ":" in command_head:
+            command_name, subcommand = command_head.split(":", 1)
+            if command_name == "nostr":
+                nostr_subcommand = subcommand.lstrip(":").split(":", 1)[0]
+        elif command_head == "nostr" and len(normalized_parts) == 2:
+            nostr_subcommand = (
+                normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
+            )
         if nostr_subcommand in {"pair", "revoke", "remote"}:
             raise RemoteCLIRequestError(
                 "Nostr device and listener management are local-only"

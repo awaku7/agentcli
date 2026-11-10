@@ -61,18 +61,25 @@ def _public_key_bytes(secret: bytes) -> bytes:
     return _public_key_x(secret)
 
 
-def test_durable_dispatch_claims_verifies_and_completes_once(tmp_path) -> None:
+def test_durable_dispatch_stays_claimed_until_foreground_finishes(tmp_path) -> None:
     inbox, pairings, private_key, event = _setup_request(tmp_path)
     try:
-        action = dispatch_nostr_remote_inbox_event(
-            event,
+        runtime = NostrRemoteRuntime(
+            event_queue=queue.Queue(),
+            private_key=private_key,
+            relays=["wss://relay.example.org"],
+            session_id="active-session",
             inbox_store=inbox,
             pairing_store=pairings,
-            private_key=private_key,
-            current_session_id="active-session",
         )
+        action = runtime.dispatch_event(event, current_session_id="active-session")
         assert action.kind == "user"
         assert action.text == "hello"
+        record = inbox.get(event["sender_pubkey"], event["rumor_id"])
+        assert record is not None
+        assert record.status == "dispatching"
+        assert record.wrapped_event is not None
+        assert runtime.finish_event(event, "completed")
         record = inbox.get(event["sender_pubkey"], event["rumor_id"])
         assert record is not None
         assert record.status == "completed"
