@@ -166,6 +166,7 @@ def _nostr_remote_status_text(core: Any) -> str:
             for key, heading in (
                 ("pending", "Pending remote requests"),
                 ("dispatching", "Requests needing reconciliation"),
+                ("outbox_pending", "Pending encrypted replies"),
             ):
                 count = status.get(key)
                 if isinstance(count, int) and not isinstance(count, bool):
@@ -188,10 +189,16 @@ def _send_nostr_remote_reply(
     except Exception as exc:
         log_event("nostr.remote_reply_failed", error_type=type(exc).__name__)
     else:
-        log_event(
-            "nostr.remote_reply_sent",
-            delivery_count=len(result.get("event_ids", [])),
-        )
+        if result.get("queued"):
+            log_event(
+                "nostr.remote_reply_queued",
+                event_count=len(result.get("event_ids", [])),
+            )
+        else:
+            log_event(
+                "nostr.remote_reply_sent",
+                delivery_count=len(result.get("event_ids", [])),
+            )
 
 
 def _finish_nostr_remote_request(

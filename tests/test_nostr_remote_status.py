@@ -8,7 +8,12 @@ from uagent.cli_impl.main import _nostr_remote_status_text
 
 def test_status_summary_includes_cli_activity_and_remote_queue_state() -> None:
     runtime = SimpleNamespace(
-        status=lambda: {"state": "running", "pending": 2, "dispatching": 1}
+        status=lambda: {
+            "state": "running",
+            "pending": 2,
+            "dispatching": 1,
+            "outbox_pending": 3,
+        }
     )
     core = SimpleNamespace(
         status_lock=Lock(),
@@ -34,6 +39,7 @@ def test_status_summary_includes_cli_activity_and_remote_queue_state() -> None:
     assert "Nostr remote listener: running" in status
     assert "Pending remote requests: 2" in status
     assert "Requests needing reconciliation: 1" in status
+    assert "Pending encrypted replies: 3" in status
     assert "LLM\nworking" not in status
 
 

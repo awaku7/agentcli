@@ -14,6 +14,7 @@ from .nostr_remote_dispatch import (
     enqueue_nostr_remote_request,
 )
 from .nostr_remote_inbox import InboxRecord, SQLiteNostrInboxStore
+from .nostr_remote_outbox import OutboxRecord, SQLiteNostrOutboxStore
 from .nostr_remote_pairing import SQLitePairingStore
 from .nostr_remote_transport import listen_nip17_messages
 
@@ -83,6 +84,7 @@ class NostrRemoteRuntime:
         session_id: str,
         inbox_store: SQLiteNostrInboxStore,
         pairing_store: SQLitePairingStore,
+        outbox_store: SQLiteNostrOutboxStore | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -90,6 +92,7 @@ class NostrRemoteRuntime:
         self.session_id = session_id
         self.inbox_store = inbox_store
         self.pairing_store = pairing_store
+        self.outbox_store = outbox_store
         self._state_lock = threading.Lock()
         self._state = "stopped"
         self._error = ""
@@ -124,6 +127,11 @@ class NostrRemoteRuntime:
                 )
             )
         )
+        outbox_pending = (
+            0
+            if closed or self.outbox_store is None
+            else self.outbox_store.pending_count()
+        )
         return {
             "state": state,
             "relays": list(self.relays),
@@ -131,6 +139,7 @@ class NostrRemoteRuntime:
             "error": error,
             "pending": pending,
             "dispatching": dispatching,
+            "outbox_pending": outbox_pending,
         }
 
     def _queue_rumor(self, rumor: dict[str, Any]) -> None:
@@ -238,6 +247,10 @@ class NostrRemoteRuntime:
             )
             for index, relay in enumerate(self.relays)
         ]
+        if self.outbox_store is not None:
+            tasks.append(
+                asyncio.create_task(self._retry_outbox(), name="uag-nostr-outbox")
+            )
         stop_task = asyncio.create_task(self._stop_event.wait())
         try:
             done, pending = await asyncio.wait(
@@ -255,6 +268,105 @@ class NostrRemoteRuntime:
                 if not task.done():
                     task.cancel()
             await asyncio.gather(*tasks, stop_task, return_exceptions=True)
+
+    async def _deliver_outbox_record(self, record: OutboxRecord) -> dict[str, Any]:
+        """Publish one claimed reply bundle and persist its delivery outcome."""
+        store = self.outbox_store
+        if store is None:
+            return {"state": "unavailable"}
+        if record.events is None or record.relay_lists_by_pubkey is None:
+            store.fail(record.sender_pubkey, record.request_rumor_id, "InvalidPayload")
+            return {"state": "failed", "error_type": "InvalidPayload"}
+        try:
+            authorized = self.pairing_store.is_authorized(record.sender_pubkey)
+        except Exception:
+            authorized = False
+        if authorized is not True:
+            store.fail(
+                record.sender_pubkey, record.request_rumor_id, "AuthorizationRevoked"
+            )
+            return {"state": "failed", "error_type": "AuthorizationRevoked"}
+
+        from .nostr_remote_transport import publish_nip17_gift_wraps
+
+        try:
+            deliveries = await publish_nip17_gift_wraps(
+                record.events,
+                record.relay_lists_by_pubkey,
+                self.private_key,
+                allowed_relay_urls=self.relays,
+                timeout=3.0,
+            )
+        except asyncio.CancelledError:
+            # The sending lease expires after a crash or shutdown, allowing the
+            # exact same signed event IDs to be retried safely on next startup.
+            raise
+        except Exception as exc:
+            error_type = type(exc).__name__
+            updated = store.retry_or_fail(
+                record.sender_pubkey, record.request_rumor_id, error_type
+            )
+            return {
+                "state": updated.status if updated is not None else "unknown",
+                "error_type": error_type,
+                "attempts": (
+                    updated.attempts if updated is not None else record.attempts
+                ),
+            }
+
+        if deliveries and all(delivery.accepted for delivery in deliveries):
+            if store.mark_delivered(
+                record.sender_pubkey,
+                record.request_rumor_id,
+                event_ids=record.event_ids,
+            ):
+                try:
+                    from .runtime.logging_setup import log_event
+
+                    log_event(
+                        "nostr.remote_reply_delivered",
+                        sender=record.sender_pubkey[:12],
+                        attempts=record.attempts,
+                    )
+                except Exception:
+                    pass
+                return {
+                    "state": "delivered",
+                    "event_ids": list(record.event_ids),
+                    "delivery_count": len(deliveries),
+                }
+            return {"state": "unknown", "event_ids": list(record.event_ids)}
+
+        updated = store.retry_or_fail(
+            record.sender_pubkey, record.request_rumor_id, "RelayRejected"
+        )
+        return {
+            "state": updated.status if updated is not None else "unknown",
+            "error_type": "RelayRejected",
+            "attempts": updated.attempts if updated is not None else record.attempts,
+        }
+
+    async def _retry_outbox(self) -> None:
+        """Retry due ciphertext-only replies until the listener is stopped."""
+        stop_event = self._stop_event
+        store = self.outbox_store
+        if stop_event is None or store is None:
+            return
+        while not stop_event.is_set():
+            try:
+                record = store.claim_next_due()
+                if record is not None:
+                    await self._deliver_outbox_record(record)
+                    continue
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                with self._state_lock:
+                    self._error = f"reply outbox: {type(exc).__name__}"
+            try:
+                await asyncio.wait_for(stop_event.wait(), timeout=1.0)
+            except asyncio.TimeoutError:
+                pass
 
     def _thread_main(self) -> None:
         try:
@@ -294,31 +406,24 @@ class NostrRemoteRuntime:
         return self.inbox_store.finish(sender, rumor_id, outcome)
 
     def send_reply(self, request_event: dict[str, Any], text: str) -> dict[str, Any]:
-        """Send a short NIP-17 reply to a still-authorized request sender.
-
-        The recipient relay list is fetched only from the locally configured
-        relays, signature-verified, then intersected with the same local egress
-        allowlist. This prototype sends synchronously and does not retain an
-        outbox for retries.
-        """
+        """Durably enqueue and send a short reply to an authorized sender."""
         from .nostr_nip17 import _public_key_x, create_nip17_private_messages
-        from .nostr_remote_transport import (
-            fetch_nip17_relay_list,
-            publish_nip17_gift_wraps,
-        )
 
         if not isinstance(request_event, dict):
             raise ValueError("remote request metadata is invalid")
-        sender = request_event.get("sender_pubkey")
-        if not isinstance(sender, str):
-            raise ValueError("remote sender key is invalid")
+        sender_value = request_event.get("sender_pubkey")
+        request_id_value = request_event.get("rumor_id")
         try:
-            sender = bytes.fromhex(sender).hex()
-        except ValueError as exc:
+            sender = bytes.fromhex(sender_value).hex()
+        except (TypeError, ValueError) as exc:
             raise ValueError("remote sender key is invalid") from exc
-        if len(bytes.fromhex(sender)) != 32 or not self.pairing_store.is_authorized(
-            sender
-        ):
+        try:
+            request_id = bytes.fromhex(request_id_value).hex()
+        except (TypeError, ValueError) as exc:
+            raise ValueError("remote request rumor id is invalid") from exc
+        if len(bytes.fromhex(sender)) != 32 or len(bytes.fromhex(request_id)) != 32:
+            raise ValueError("remote request key or rumor id is invalid")
+        if not self.pairing_store.is_authorized(sender):
             raise PermissionError("remote sender is no longer paired")
         if not isinstance(text, str) or not text.strip():
             raise ValueError("reply text must be non-empty text")
@@ -328,42 +433,68 @@ class NostrRemoteRuntime:
             encoded = encoded[: 16_384 - len(suffix.encode("utf-8"))]
             text = encoded.decode("utf-8", errors="ignore") + suffix
 
-        remote_relays = asyncio.run(
-            fetch_nip17_relay_list(
-                sender,
-                self.relays,
-                allowed_relay_urls=self.relays,
-                auth_private_key=self.private_key,
-                timeout=3.0,
-            )
-        )
-        allowed = set(self.relays)
-        recipient_relays = [url for url in remote_relays if url in allowed]
-        if not recipient_relays:
-            raise ValueError("no recipient inbox relay is permitted by local policy")
+        store = self.outbox_store
+        if store is None:
+            raise RuntimeError("Nostr reply outbox is unavailable")
+        record = store.get(sender, request_id)
+        if record is None:
+            from .nostr_remote_transport import fetch_nip17_relay_list
 
-        own_pubkey = _public_key_x(self.private_key).hex()
-        events = create_nip17_private_messages(
-            text, self.private_key, bytes.fromhex(sender)
-        )
-        relay_lists = {sender: recipient_relays[:1]}
-        if sender != own_pubkey:
-            relay_lists[own_pubkey] = [self.relays[0]]
-        deliveries = asyncio.run(
-            publish_nip17_gift_wraps(
-                events,
-                relay_lists,
-                self.private_key,
-                allowed_relay_urls=self.relays,
-                timeout=3.0,
+            remote_relays = asyncio.run(
+                fetch_nip17_relay_list(
+                    sender,
+                    self.relays,
+                    allowed_relay_urls=self.relays,
+                    auth_private_key=self.private_key,
+                    timeout=3.0,
+                )
             )
-        )
-        if not deliveries or not all(delivery.accepted for delivery in deliveries):
-            raise RuntimeError("one or more NIP-17 reply deliveries were rejected")
-        return {
-            "ok": True,
-            "event_ids": [delivery.event_id for delivery in deliveries],
-        }
+            allowed = set(self.relays)
+            recipient_relays = [url for url in remote_relays if url in allowed]
+            if not recipient_relays:
+                raise ValueError(
+                    "no recipient inbox relay is permitted by local policy"
+                )
+
+            own_pubkey = _public_key_x(self.private_key).hex()
+            events = create_nip17_private_messages(
+                text, self.private_key, bytes.fromhex(sender)
+            )
+            relay_lists = {sender: recipient_relays[:1]}
+            if sender != own_pubkey:
+                relay_lists[own_pubkey] = [self.relays[0]]
+            record = store.enqueue(sender, request_id, events, relay_lists)
+
+        if record.status == "delivered":
+            return {
+                "ok": True,
+                "event_ids": list(record.event_ids),
+                "already_delivered": True,
+            }
+        if record.status == "failed":
+            raise RuntimeError("Nostr reply delivery previously failed")
+        if record.status == "sending":
+            return {"ok": True, "queued": True, "event_ids": list(record.event_ids)}
+
+        claimed = store.claim(sender, request_id)
+        if claimed is None:
+            record = store.get(sender, request_id)
+            if record is not None and record.status == "delivered":
+                return {"ok": True, "event_ids": list(record.event_ids)}
+            if record is not None and record.status in {"pending", "sending"}:
+                return {
+                    "ok": True,
+                    "queued": True,
+                    "event_ids": list(record.event_ids),
+                }
+            raise RuntimeError("Nostr reply could not be claimed from the outbox")
+
+        result = asyncio.run(self._deliver_outbox_record(claimed))
+        if result.get("state") == "delivered":
+            return {"ok": True, "event_ids": list(result.get("event_ids") or [])}
+        if result.get("state") == "pending":
+            return {"ok": True, "queued": True, "event_ids": list(record.event_ids)}
+        raise RuntimeError("Nostr reply could not be delivered")
 
     def stop(self, *, timeout: float = 5.0) -> dict[str, Any]:
         loop = self._loop
@@ -383,6 +514,8 @@ class NostrRemoteRuntime:
                 self._closed = True
             self.inbox_store.close()
             self.pairing_store.close()
+            if self.outbox_store is not None:
+                self.outbox_store.close()
         state = "stopped" if stopped else self.status()["state"]
         return {"state": state, "stopped": stopped}
 
@@ -410,10 +543,17 @@ def create_nostr_remote_runtime(
     db_dir = get_dbs_dir()
     db_dir.mkdir(parents=True, exist_ok=True)
     inbox_store = SQLiteNostrInboxStore(db_dir / "nostr_remote_inbox.sqlite3")
+    outbox_store = None
+    pairing_store = None
     try:
+        outbox_store = SQLiteNostrOutboxStore(db_dir / "nostr_remote_outbox.sqlite3")
         pairing_store = SQLitePairingStore(db_dir / "nostr_remote_pairings.sqlite3")
     except Exception:
         inbox_store.close()
+        if outbox_store is not None:
+            outbox_store.close()
+        if pairing_store is not None:
+            pairing_store.close()
         raise
     runtime = NostrRemoteRuntime(
         event_queue=event_queue,
@@ -422,6 +562,7 @@ def create_nostr_remote_runtime(
         session_id=session_id,
         inbox_store=inbox_store,
         pairing_store=pairing_store,
+        outbox_store=outbox_store,
     )
     return runtime
 
@@ -463,5 +604,7 @@ def start_nostr_remote_runtime(
                 pass
         runtime.inbox_store.close()
         runtime.pairing_store.close()
+        if runtime.outbox_store is not None:
+            runtime.outbox_store.close()
         raise
     return runtime
