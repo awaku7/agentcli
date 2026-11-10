@@ -94,10 +94,14 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 
 Choose checks according to the change. Documentation-only edits need Markdown
 formatting and `git diff --check`, not Python lint or pytest. During code iteration,
-run the affected tests; run the full suite once for the final code revision before
-submission, rather than repeating it for every intermediate edit. For CI-only
-changes, validate workflow syntax and changed routing behavior; the PR CI runs the
-Python checks. Prompt/skill Markdown and test fixtures are not documentation-only.
+run only the smallest relevant test selection; do not start the full suite after
+each edit, tool call, or intermediate response. **Never run the full suite locally
+unless the user explicitly requests and approves it**, regardless of whether the
+task appears complete. If more edits are expected, keep using targeted tests. If
+the relevant tests are unclear, inspect the diff and test layout or ask before
+running broader tests. CI is responsible for full-suite validation. For CI-only changes, validate workflow
+syntax and changed routing behavior; the PR CI runs the Python checks. Prompt/skill
+Markdown and test fixtures are not documentation-only.
 
 - **Python syntax**: `python -m py_compile src/uagent/` (catches import/syntax errors).
 - **Format/lint**: install the pinned toolchain with
@@ -108,8 +112,9 @@ Python checks. Prompt/skill Markdown and test fixtures are not documentation-onl
 - **Locale compile**: `python scripts/compile_locales.py` (after editing .po files).
 - **Locale QC**: `python scripts/po_qc_summary.py` (check translation quality).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
-- **CI-equivalent test run**: for the final code revision, after
-  `pip install -r requirements.txt`, run `python -m pytest -q . --durations=30`.
+- **Full test suite**: do not run locally unless the user explicitly requests
+  and approves it. CI runs the full PR suite; otherwise use targeted tests and
+  report that the full suite was not run.
 - **Tool catalogs**: `python scripts/tool_json_i18n_batch.py status` and validate
   each tool-side translation JSON with `scripts/i18n_validate.py`. English lives
   in Python `default=` values; tool JSON must not contain an `en` block.
