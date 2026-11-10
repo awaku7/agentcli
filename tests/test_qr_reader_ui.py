@@ -105,6 +105,34 @@ def test_open_image_stops_camera_before_processing_selected_image(monkeypatch) -
     assert ("record", ["image QR"]) in actions
 
 
+def test_duplicate_decode_updates_latest_payload_without_repeating_history(
+    monkeypatch,
+) -> None:
+    import uagent.tools.qr_reader_ui as qr_reader_ui
+
+    moments = iter([10.0, 10.5, 11.0])
+    monkeypatch.setattr(qr_reader_ui.time, "monotonic", lambda: next(moments))
+    inserted: list[str] = []
+    reader = object.__new__(QRReaderWindow)
+    reader._last_seen = {}
+    reader.output = SimpleNamespace(
+        insert=lambda _where, value: inserted.append(value),
+        see=lambda _where: None,
+    )
+    reader.strings = {}
+    reader.status = SimpleNamespace(set=lambda _text: None)
+    reader.last_data = ""
+
+    reader._record_results(["A"])
+    reader._record_results(["B"])
+    reader._record_results(["A"])
+
+    assert reader.last_data == "A"
+    assert len(inserted) == 2
+    assert "A" in inserted[0]
+    assert "B" in inserted[1]
+
+
 def test_stop_camera_cancels_pending_frame_callback() -> None:
     cancelled: list[str] = []
     released: list[bool] = []

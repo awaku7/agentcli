@@ -138,7 +138,10 @@ class QRReaderWindow:
     def _record_results(self, values: list[str]) -> None:
         now = time.monotonic()
         for value in values:
-            if not value or now - self._last_seen.get(value, 0.0) < 2.0:
+            if not value:
+                continue
+            self.last_data = value
+            if now - self._last_seen.get(value, 0.0) < 2.0:
                 continue
             self._last_seen[value] = now
             stamp = time.strftime("%H:%M:%S")
