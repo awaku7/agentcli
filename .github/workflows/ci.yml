@@ -551,6 +551,7 @@ jobs:
       - name: Full test suite
         env:
           PYTHONPATH: src
+          UAGENT_RUN_TREE_SITTER_REPO_SCAN: "1"
         run: python -m pytest -q . --durations=30
 
   web-socket-lifecycle:
