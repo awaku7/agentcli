@@ -107,6 +107,12 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _nostr_remote_status_text(core: Any) -> str:
+    from ..nostr_remote_runtime import format_nostr_remote_status
+
+    return format_nostr_remote_status(core)
+
+
 def _send_nostr_remote_reply(
     core: Any, request_event: dict[str, Any], text: str
 ) -> None:
@@ -119,10 +125,16 @@ def _send_nostr_remote_reply(
     except Exception as exc:
         log_event("nostr.remote_reply_failed", error_type=type(exc).__name__)
     else:
-        log_event(
-            "nostr.remote_reply_sent",
-            delivery_count=len(result.get("event_ids", [])),
-        )
+        if result.get("queued"):
+            log_event(
+                "nostr.remote_reply_queued",
+                event_count=len(result.get("event_ids", [])),
+            )
+        else:
+            log_event(
+                "nostr.remote_reply_sent",
+                delivery_count=len(result.get("event_ids", [])),
+            )
 
 
 def _finish_nostr_remote_request(
@@ -145,6 +157,14 @@ def _finish_nostr_remote_request(
             outcome=outcome,
             error_type=type(exc).__name__,
         )
+
+
+def _interrupt_nostr_remote_request(core: Any, request_event: dict[str, Any]) -> None:
+    """Terminally record an interrupted request and notify its sender."""
+    _finish_nostr_remote_request(core, request_event, "failed")
+    _send_nostr_remote_reply(
+        core, request_event, "The remote request was interrupted on the CLI."
+    )
 
 
 def _new_assistant_text(messages: list[dict[str, Any]], start_index: int) -> str:
@@ -609,6 +629,13 @@ def main() -> int:
                 kind = remote_action.kind
                 ev = {"kind": kind, "text": remote_action.text}
 
+            if kind == "status" and remote_request_event is not None:
+                _finish_nostr_remote_request(core, remote_request_event, "completed")
+                _send_nostr_remote_reply(
+                    core, remote_request_event, _nostr_remote_status_text(core)
+                )
+                continue
+
             if kind == "command":
                 line = ev.get("text", "")
                 if dispatch_cli_receipt_command_event(
@@ -741,6 +768,10 @@ def main() -> int:
                             print()
                             print("[INTERRUPT] " + _("Stopped by user."))
                             print(_("Returning to prompt..."))
+                            if remote_request_event is not None:
+                                _interrupt_nostr_remote_request(
+                                    core, remote_request_event
+                                )
                             continue
                         except Exception as exc:
                             lifecycle.fail()
@@ -1031,6 +1062,8 @@ def main() -> int:
                         print()
                         print("[INTERRUPT] " + _("Stopped by user."))
                         print(_("Returning to prompt..."))
+                        if remote_request_event is not None:
+                            _interrupt_nostr_remote_request(core, remote_request_event)
                         continue
                     except Exception as exc:
                         lifecycle.fail()

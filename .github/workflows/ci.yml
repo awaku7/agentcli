@@ -223,6 +223,23 @@ jobs:
           # without a reviewed mapping, run the full suite rather than silently
           # skipping tests.
           source_tests = {
+              "src/uagent/cli_impl/main.py": [
+                  "tests/test_nostr_remote_interrupt.py",
+                  "tests/test_nostr_remote_status.py",
+              ],
+              "src/uagent/nostr_remote_dispatch.py": [
+                  "tests/test_nostr_remote_dispatch.py",
+              ],
+              "src/uagent/nostr_remote_outbox.py": [
+                  "tests/test_nostr_remote_outbox.py",
+                  "tests/test_nostr_remote_reply.py",
+              ],
+              "src/uagent/nostr_remote_runtime.py": [
+                  "tests/test_nostr_remote_runtime.py",
+                  "tests/test_nostr_remote_outbox_runtime.py",
+                  "tests/test_nostr_remote_reply.py",
+                  "tests/test_nostr_remote_status.py",
+              ],
               "src/uagent/runtime/memory_scope.py": [
                   "tests/test_memory_scope_metadata.py",
                   "tests/test_memory_projection.py",
