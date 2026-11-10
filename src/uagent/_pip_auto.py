@@ -58,6 +58,7 @@ _ALLOWED_PACKAGES = {
         "pymupdf",
         "msoffcrypto-tool",
         "pillow",
+        "opencv-python-headless",
         "qrcode",
         "beautifulsoup4",
         "python-magic",
