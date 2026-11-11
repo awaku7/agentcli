@@ -1,6 +1,0 @@
-{
-  "ja": {
-    "nostr.remote_receive_diagnostics": "  受信: 接続中=%(connected)s/%(total)s; Gift Wrap=%(gift_wraps)s; 引渡し=%(queued)s",
-    "nostr.remote_rejection_diagnostics": "  破棄: 不正=%(invalid)s; 復号失敗=%(decrypt)s; 未承認=%(unpaired)s; 期限外=%(stale)s; 重複=%(duplicate)s; Inbox拒否=%(inbox)s"
-  }
-}
