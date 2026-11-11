@@ -116,3 +116,65 @@ def test_pair_command_supports_npub(tmp_path, monkeypatch) -> None:
 def test_remote_setup_command_is_rejected(command: str) -> None:
     with pytest.raises(RemoteCLIRequestError, match="local-only"):
         _parse_action(command)
+
+
+def test_pairing_confirmation_uses_translated_text_and_public_npub(monkeypatch) -> None:
+    import sys
+    from types import ModuleType
+
+    phone = _pubkey(31)
+    npub = nostr_transport.encode_npub(phone)
+    translated = []
+    dialogs = []
+    root_actions = []
+
+    tkinter = ModuleType("tkinter")
+    messagebox = ModuleType("tkinter.messagebox")
+    root = SimpleNamespace(
+        withdraw=lambda: root_actions.append("withdraw"),
+        destroy=lambda: root_actions.append("destroy"),
+    )
+    tkinter.Tk = lambda: root
+    tkinter.messagebox = messagebox
+
+    def askyesno(title, message, *, parent):
+        dialogs.append((title, message, parent))
+        return True
+
+    messagebox.askyesno = askyesno
+
+    def translate(message):
+        translated.append(message)
+        return "[translated] " + message
+
+    monkeypatch.setitem(sys.modules, "tkinter", tkinter)
+    monkeypatch.setitem(sys.modules, "tkinter.messagebox", messagebox)
+    monkeypatch.setattr(nostr_setup, "_", translate)
+
+    assert nostr_setup.confirm_local_pairing(phone) is True
+    assert len(translated) == 2
+    assert "%(pubkey)s" in translated[1]
+    assert dialogs == [
+        (
+            "[translated] UAG Nostr remote pairing",
+            "[translated] " + translated[1].replace("%(pubkey)s", npub),
+            root,
+        )
+    ]
+    assert root_actions == ["withdraw", "destroy"]
+
+
+def test_pairing_confirmation_fails_closed_if_dialog_unavailable(monkeypatch) -> None:
+    import sys
+    from types import ModuleType
+
+    tkinter = ModuleType("tkinter")
+
+    def unavailable():
+        raise RuntimeError("no local display")
+
+    tkinter.Tk = unavailable
+    tkinter.messagebox = ModuleType("tkinter.messagebox")
+    monkeypatch.setitem(sys.modules, "tkinter", tkinter)
+    monkeypatch.setitem(sys.modules, "tkinter.messagebox", tkinter.messagebox)
+    assert nostr_setup.confirm_local_pairing(_pubkey(32)) is False
