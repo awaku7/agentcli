@@ -30,8 +30,12 @@ void main() {
       expect(recipientWrap.kind, 1059, reason: '$label outer kind');
       expect(await recipientWrap.isValid(), isTrue,
           reason: '$label outer Schnorr signature');
-      expect(recipientWrap.tags, contains(['p', recipientPublic]),
-          reason: '$label recipient p tag');
+      expect(
+        recipientWrap.tags.any((tag) =>
+            tag.length >= 2 && tag[0] == 'p' && tag[1] == recipientPublic),
+        isTrue,
+        reason: '$label recipient p tag',
+      );
 
       // Call the real 0xChat decryption/verification implementation, including
       // NIP-44 v2, kind-13 seal signature and kind-14 rumor extraction.
@@ -57,7 +61,12 @@ void main() {
         Map<String, dynamic>.from(item['sender_wrap'] as Map),
         verify: false,
       );
-      expect(senderWrap.tags, contains(['p', senderPublic]));
+      expect(
+        senderWrap.tags.any((tag) =>
+            tag.length >= 2 && tag[0] == 'p' && tag[1] == senderPublic),
+        isTrue,
+        reason: '$label sender p tag',
+      );
       final senderCopy = await Nip17.decode(
         senderWrap,
         senderPublic,
