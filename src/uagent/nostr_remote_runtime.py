@@ -914,9 +914,7 @@ def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
         stop_quietly()
         lock = getattr(core, "print_lock", None)
         with lock if lock is not None else nullcontext():
-            toolkit_prompt = bool(
-                getattr(core, "_cli_prompt_toolkit_active", False)
-            )
+            toolkit_prompt = bool(getattr(core, "_cli_prompt_toolkit_active", False))
             if not toolkit_prompt:
                 if getattr(core, "_stream_line_open", False) or getattr(
                     core, "_prompt_line_open", False
