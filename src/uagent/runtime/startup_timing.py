@@ -6,7 +6,8 @@ import os
 import sys
 import time
 
-_STARTED = time.perf_counter()
+_CLOCK = time.perf_counter
+_STARTED = _CLOCK()
 _PREVIOUS = _STARTED
 
 
@@ -14,7 +15,7 @@ def checkpoint(name: str) -> None:
     """Report cumulative and inter-stage durations when startup timing is enabled."""
     global _PREVIOUS
 
-    now = time.perf_counter()
+    now = _CLOCK()
     elapsed = now - _STARTED
     delta = now - _PREVIOUS
     _PREVIOUS = now

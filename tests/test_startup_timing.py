@@ -7,7 +7,7 @@ def test_checkpoint_emits_cumulative_and_delta(monkeypatch, capsys):
     monkeypatch.setenv("UAGENT_STARTUP_TIMING", "1")
     monkeypatch.setattr(startup_timing, "_STARTED", 10.0)
     monkeypatch.setattr(startup_timing, "_PREVIOUS", 11.0)
-    monkeypatch.setattr(startup_timing.time, "perf_counter", lambda: 13.0)
+    monkeypatch.setattr(startup_timing, "_CLOCK", lambda: 13.0)
 
     startup_timing.checkpoint("sandbox_status_displayed")
 
@@ -21,7 +21,7 @@ def test_checkpoint_emits_cumulative_and_delta(monkeypatch, capsys):
 def test_checkpoint_silent_when_disabled(monkeypatch, capsys):
     monkeypatch.setenv("UAGENT_STARTUP_TIMING", "0")
     monkeypatch.setattr(startup_timing, "_PREVIOUS", 7.0)
-    monkeypatch.setattr(startup_timing.time, "perf_counter", lambda: 9.0)
+    monkeypatch.setattr(startup_timing, "_CLOCK", lambda: 9.0)
 
     startup_timing.checkpoint("provider_ready")
 
@@ -34,7 +34,7 @@ def test_checkpoint_uses_current_environment(monkeypatch, capsys):
     monkeypatch.setattr(startup_timing, "_STARTED", 10.0)
     monkeypatch.setattr(startup_timing, "_PREVIOUS", 10.0)
     ticks = iter((11.0, 13.0))
-    monkeypatch.setattr(startup_timing.time, "perf_counter", lambda: next(ticks))
+    monkeypatch.setattr(startup_timing, "_CLOCK", lambda: next(ticks))
 
     startup_timing.checkpoint("before_dotenv")
     monkeypatch.setenv("UAGENT_STARTUP_TIMING", "on")
