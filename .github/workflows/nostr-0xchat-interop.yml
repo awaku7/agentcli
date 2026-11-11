@@ -1,0 +1,62 @@
+name: Nostr 0xChat interoperability
+
+on:
+  pull_request:
+    paths:
+      - "src/uagent/nostr_nip17.py"
+      - "src/uagent/nostr_nip44.py"
+      - "tests/interop/**"
+      - ".github/workflows/nostr-0xchat-interop.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  decrypt-uag-replies-in-0xchat:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout UAG
+        uses: actions/checkout@v5
+
+      - name: Checkout upstream 0xChat implementation
+        uses: actions/checkout@v5
+        with:
+          repository: 0xchat-app/0xchat-app-main
+          ref: main
+          path: upstream
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install UAG fixture dependencies
+        run: python -m pip install -e . ecdsa cryptography
+
+      - name: Generate encrypted UAG NIP-17 messages
+        env:
+          PYTHONPATH: src
+        run: |
+          python tests/interop/build_0xchat_fixture.py "$RUNNER_TEMP/uag_nip17_fixture.json"
+
+      - name: Install Flutter/Dart for 0xChat code
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Prepare 0xChat unit test harness
+        run: |
+          cp tests/interop/verify_0xchat_nip17_test.dart \
+            upstream/packages/nostr-dart/test/uag_nip17_interop_test.dart
+          cd upstream/packages/nostr-dart
+          flutter pub add --dev flutter_test --sdk=flutter
+
+      - name: Decrypt UAG gift wraps with actual 0xChat decoder
+        working-directory: upstream/packages/nostr-dart
+        env:
+          UAG_NIP17_FIXTURE: ${{ runner.temp }}/uag_nip17_fixture.json
+        run: flutter test test/uag_nip17_interop_test.dart --reporter expanded
