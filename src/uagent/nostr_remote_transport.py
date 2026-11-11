@@ -354,7 +354,9 @@ async def read_back_nip17_gift_wrap(
     sub_id = "uag-readback-" + secrets.token_hex(8)
     request = ["REQ", sub_id, {"ids": [event_id], "kinds": [1059], "limit": 1}]
     connect = _readback_connect_factory(connect_factory)
-    auth_key = None if auth_private_key is None else _validate_private_key(auth_private_key)
+    auth_key = (
+        None if auth_private_key is None else _validate_private_key(auth_private_key)
+    )
     invalid_reply = False
     try:
         async with asyncio.timeout(float(timeout)):
