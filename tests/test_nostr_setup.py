@@ -178,3 +178,22 @@ def test_pairing_confirmation_fails_closed_if_dialog_unavailable(monkeypatch) ->
     monkeypatch.setitem(sys.modules, "tkinter", tkinter)
     monkeypatch.setitem(sys.modules, "tkinter.messagebox", tkinter.messagebox)
     assert nostr_setup.confirm_local_pairing(_pubkey(32)) is False
+
+
+def test_pairing_consent_has_japanese_gettext_catalog() -> None:
+    from uagent import i18n
+
+    token = i18n.set_contextvar_locale("ja")
+    try:
+        assert i18n._("UAG Nostr remote pairing") == "UAG Nostr リモートペアリング"
+        message = i18n._(
+            "Authorize this device for full control of this UAG CLI session?\n\n"
+            "Phone public key:\n%(pubkey)s\n\n"
+            "Only approve a key displayed by a phone you control. "
+            "Existing Sandbox and confirmation policies still apply.\n\n"
+            "The Nostr remote feature is experimental."
+        )
+        assert "スマートフォンの公開鍵" in message
+        assert "%(pubkey)s" in message
+    finally:
+        i18n.reset_contextvar_locale(token)
