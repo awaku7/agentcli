@@ -86,7 +86,10 @@ def test_readback_queries_exact_encrypted_event_id(outcome, expected) -> None:
     }
 
 
-def test_readback_authenticates_and_retries_subscription() -> None:
+@pytest.mark.parametrize("close_before_auth_ack", [False, True])
+def test_readback_authenticates_and_retries_subscription(
+    close_before_auth_ack: bool,
+) -> None:
     recipient = _public_key_x(_secret(2))
     event = create_nip17_private_messages("test reply", _secret(1), recipient)[0]
 
@@ -106,7 +109,9 @@ def test_readback_authenticates_and_retries_subscription() -> None:
             self.step += 1
             if self.step == 1:
                 return json.dumps(["AUTH", "test-challenge"])
-            if self.step == 2:
+            if self.step == 2 and close_before_auth_ack:
+                return json.dumps(["CLOSED", self.request[1], "auth-required:"])
+            if self.step == 2 + int(close_before_auth_ack):
                 assert self.sent[-1][0] == "AUTH"
                 auth_event = self.sent[-1][1]
                 assert auth_event["kind"] == 22242
