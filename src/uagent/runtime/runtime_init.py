@@ -71,6 +71,12 @@ def load_dotenv_custom() -> None:
     previous .env/.env.sec load masking file changes made by setup or users.
     """
 
+    # A cold OS keyring can take longer than uag-envsec's short default
+    # timeout. Give it a little more time on startup, while preserving an
+    # explicit user override from the process environment.
+    if not os.environ.get("UAGENT_KEYRING_TIMEOUT", "").strip():
+        os.environ["UAGENT_KEYRING_TIMEOUT"] = "10"
+
     try:
         from uag_envsec import migrate_key_file_to_keyring
 

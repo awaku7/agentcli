@@ -14,7 +14,7 @@ from .runtime_workdir import get_startup_workdir
 
 # Runtime-only flags that should not be treated as persistent startup config
 # or written into .env.sec.
-_RUNTIME_ONLY_UAGENT_KEYS = {"UAGENT_GUI_MODE"}
+_RUNTIME_ONLY_UAGENT_KEYS = {"UAGENT_GUI_MODE", "UAGENT_KEYRING_TIMEOUT"}
 
 
 def _format_env_value(value: str) -> str:
