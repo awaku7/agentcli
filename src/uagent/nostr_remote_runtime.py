@@ -824,6 +824,47 @@ class NostrRemoteRuntime:
             return {"ok": True, "queued": True, "event_ids": list(record.event_ids)}
         raise RuntimeError("Nostr reply could not be delivered")
 
+    def verify_latest_reply(self) -> dict[str, Any]:
+        """Read back both wraps of the latest delivered reply without plaintext."""
+        if self._closed or self.outbox_store is None:
+            return {"state": "unavailable"}
+        record = self.outbox_store.latest_delivered()
+        if record is None:
+            return {"state": "no_delivered_reply"}
+        if len(record.event_ids) != 2:
+            return {"state": "invalid_event_ids"}
+
+        from .nostr_remote_transport import read_back_nip17_gift_wrap
+
+        async def probe() -> list[dict[str, str]]:
+            async def one_relay(relay: str) -> dict[str, str]:
+                recipient, sender_copy = await asyncio.gather(
+                    *(
+                        read_back_nip17_gift_wrap(
+                            relay,
+                            event_id,
+                            allowed_relay_urls=self.relays,
+                            timeout=3.0,
+                        )
+                        for event_id in record.event_ids
+                    )
+                )
+                return {
+                    "relay": relay,
+                    "recipient": recipient,
+                    "sender_copy": sender_copy,
+                }
+
+            return await asyncio.gather(
+                *(one_relay(relay) for relay in self.relays)
+            )
+
+        return {
+            "state": "complete",
+            "event_ids": list(record.event_ids),
+            "relays": asyncio.run(probe()),
+        }
+
     def stop(self, *, timeout: float = 5.0) -> dict[str, Any]:
         deadline = time.monotonic() + max(0.0, timeout)
         self._status_stop.set()
