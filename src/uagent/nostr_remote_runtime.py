@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import nullcontext
 import queue
 import threading
 import time
@@ -907,8 +908,26 @@ def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
     if len(preview) > 2_000:
         preview = preview[:2_000] + "…"
     try:
-        print(f"\n[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
-        core.prompt_needs_redraw = True
+        from .runtime.spinner import stop_quietly
+
+        # Stop before taking print_lock: spinner.stop() acquires that lock.
+        stop_quietly()
+        lock = getattr(core, "print_lock", None)
+        with lock if lock is not None else nullcontext():
+            toolkit_prompt = bool(
+                getattr(core, "_cli_prompt_toolkit_active", False)
+            )
+            if not toolkit_prompt:
+                if getattr(core, "_stream_line_open", False) or getattr(
+                    core, "_prompt_line_open", False
+                ):
+                    print(flush=True)
+                core._stream_line_open = False
+                core._reasoning_stream_open = False
+                core._prompt_line_open = False
+            print(f"[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
+            if not toolkit_prompt:
+                core.prompt_needs_redraw = True
     except (OSError, UnicodeError):
         pass
 
