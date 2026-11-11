@@ -855,9 +855,7 @@ class NostrRemoteRuntime:
                     "sender_copy": sender_copy,
                 }
 
-            return await asyncio.gather(
-                *(one_relay(relay) for relay in self.relays)
-            )
+            return await asyncio.gather(*(one_relay(relay) for relay in self.relays))
 
         return {
             "state": "complete",
