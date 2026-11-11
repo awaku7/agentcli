@@ -27,8 +27,7 @@ def checkpoint(name: str) -> None:
         "on",
     }:
         print(
-            f"[startup-timing] timeline.{name}={elapsed:.3f}s "
-            f"delta={delta:.3f}s",
+            f"[startup-timing] timeline.{name}={elapsed:.3f}s delta={delta:.3f}s",
             file=sys.stderr,
             flush=True,
         )
