@@ -283,13 +283,13 @@ class NostrRemoteRuntime:
             )
         else:
             self._queue_event(event)
-        # Only verified, paired incoming messages reach this callback.
-        # Console output is opt-in, never stored or used for routing.
-        if self._incoming_message_display is not None:
-            try:
-                self._incoming_message_display(rumor)
-            except Exception:
-                pass
+            # Only well-formed, authenticated requests are echoed. Reject
+            # malformed commands without printing attacker-controlled content.
+            if self._incoming_message_display is not None:
+                try:
+                    self._incoming_message_display(rumor)
+                except Exception:
+                    pass
 
     def _queue_event(self, event: dict[str, Any]) -> None:
         """Route status queries to the bounded side worker; queue other input."""
