@@ -19,7 +19,10 @@ from .nostr_remote_dispatch import (
 from .nostr_remote_inbox import InboxRecord, SQLiteNostrInboxStore
 from .nostr_remote_outbox import OutboxRecord, SQLiteNostrOutboxStore
 from .nostr_remote_pairing import SQLitePairingStore
-from .nostr_remote_transport import listen_nip17_messages
+from .nostr_remote_transport import (
+    NostrRecipientRelayListUnavailable,
+    listen_nip17_messages,
+)
 
 
 def format_nostr_remote_status(core: Any) -> str:
@@ -160,6 +163,7 @@ class NostrRemoteRuntime:
         outbox_store: SQLiteNostrOutboxStore | None = None,
         status_provider: Callable[[], str] | None = None,
         current_session_id_provider: Callable[[], str] | None = None,
+        incoming_message_display: Callable[[dict[str, Any]], None] | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -169,6 +173,7 @@ class NostrRemoteRuntime:
         self.pairing_store = pairing_store
         self.outbox_store = outbox_store
         self._status_provider = status_provider
+        self._incoming_message_display = incoming_message_display
         self._current_session_id_provider = current_session_id_provider or (
             lambda: self.session_id
         )
@@ -235,10 +240,15 @@ class NostrRemoteRuntime:
                 )
             )
         )
+        outbox_summary = (
+            None
+            if closed or self.outbox_store is None
+            else self.outbox_store.status_summary()
+        )
         outbox_pending = (
             0
-            if closed or self.outbox_store is None
-            else self.outbox_store.pending_count()
+            if outbox_summary is None
+            else outbox_summary["pending"] + outbox_summary["sending"]
         )
         return {
             "state": state,
@@ -249,6 +259,7 @@ class NostrRemoteRuntime:
             "pending": pending,
             "dispatching": dispatching,
             "outbox_pending": outbox_pending,
+            "outbox_summary": outbox_summary,
         }
 
     def _queue_rumor(self, rumor: dict[str, Any]) -> None:
@@ -272,6 +283,13 @@ class NostrRemoteRuntime:
             )
         else:
             self._queue_event(event)
+        # Only verified, paired incoming messages reach this callback.
+        # Console output is opt-in, never stored or used for routing.
+        if self._incoming_message_display is not None:
+            try:
+                self._incoming_message_display(rumor)
+            except Exception:
+                pass
 
     def _queue_event(self, event: dict[str, Any]) -> None:
         """Route status queries to the bounded side worker; queue other input."""
@@ -588,7 +606,7 @@ class NostrRemoteRuntime:
                     relay for relay in remote_relays if relay in allowed
                 ]
                 if not recipient_relays:
-                    raise RuntimeError("NoPermittedRecipientRelay")
+                    raise ValueError("NoPermittedRecipientRelay")
                 relay_lists[record.sender_pubkey] = recipient_relays[:1]
                 if not store.update_routes(
                     record.sender_pubkey,
@@ -609,7 +627,18 @@ class NostrRemoteRuntime:
             # exact same signed event IDs to be retried safely on next startup.
             raise
         except Exception as exc:
-            error_type = type(exc).__name__
+            # Stable public-safe error types allow troubleshooting without
+            # exposing relay notices, message bodies or participant identities.
+            error_type = (
+                "RecipientRelayListUnavailable"
+                if isinstance(exc, NostrRecipientRelayListUnavailable)
+                else (
+                    "NoPermittedRecipientRelay"
+                    if isinstance(exc, ValueError)
+                    and str(exc) == "NoPermittedRecipientRelay"
+                    else type(exc).__name__
+                )
+            )
             updated = store.retry_or_fail(
                 record.sender_pubkey, record.request_rumor_id, error_type
             )
@@ -823,6 +852,24 @@ class NostrRemoteRuntime:
         return {"state": state, "stopped": stopped}
 
 
+def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
+    """Print a bounded one-line preview without terminal control sequences."""
+    sender = rumor.get("pubkey")
+    content = rumor.get("content")
+    if not isinstance(sender, str) or not isinstance(content, str):
+        return
+    preview = " ".join(
+        "".join(char if char.isprintable() else " " for char in content).split()
+    )
+    if len(preview) > 2_000:
+        preview = preview[:2_000] + "…"
+    try:
+        print(f"\n[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
+        core.prompt_needs_redraw = True
+    except (OSError, UnicodeError):
+        pass
+
+
 def create_nostr_remote_runtime(
     *,
     core: Any,
@@ -868,6 +915,7 @@ def create_nostr_remote_runtime(
         outbox_store=outbox_store,
         status_provider=lambda: format_nostr_remote_status(core),
         current_session_id_provider=lambda: str(getattr(core, "session_id", "") or ""),
+        incoming_message_display=lambda rumor: _display_nostr_incoming(core, rumor),
     )
     return runtime
 
