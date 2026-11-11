@@ -186,6 +186,8 @@ CLIの単一セッションから実装を始めることは可能だが、**同
 
 実験用のQR補助設定として、CLIの`:nostr setup`を追加した。既存Nostr接続を起動し、PC側の公開npubだけを端末QR表示し、既存のローカルQRリーダー（カメラ／画像ファイル選択）でスマホ側の公開鍵QRを読み取る。QR結果はNIP-19のnpub/nostr:npubまたは64桁の公開鍵HEXに限定し、チェックサムとsecp256k1公開鍵妥当性を検査する。`nsec`・URL・不正な文字列を拒否する。ペアリングにはPC上の確認ダイアログで明示承認が必要で、GUIを開けない環境では自動登録しない。手入力の場合は`:nostr pair <npub> [label]`も使用できる。承認後は現在のCLIセッションのremote listener起動を試みる。
 
+受信の切り分け用に、`:nostr remote status` へセッション内メモリの診断件数を追加する。WebSocket接続中Relay数、Relayから受け取ったkind 1059イベント数、CLI引渡し数、形式・署名不正／復号失敗／未承認送信者／時刻範囲外／重複／Inbox拒否の各件数のみを保持する。公開鍵・秘密鍵・本文・イベントIDは診断情報に含めず、永続化もしない。`connected` はWebSocketで受信購読要求を送れたRelay数であり、Relayへの配送成功やUAGでの処理成功を保証しない。`gift_wraps=0` の場合は宛先Relayとkind 1059配送経路を、`gift_wraps>0` で`queued=0` の場合は拒否件数を確認する。件数は起動中のRuntimeに対する集計であり、0に戻すにはRuntimeを再作成する。
+
 **これはセットアップ補助であり、リモート制御を本番利用可能にしたものではない。** 現在の秘密鍵は既存bitchat用の平文JSONを再利用し、リモート専用のOS安全領域保管、kind 10050の受信Relay自動公開、実Relay・0xChatでのE2E接続確認は別途実装・検証が必要。セットアップ画面にも警告を表示する。
 
 現段階では、`SQLitePairingStore`に接続した`:nostr pair <pubkey_hex> [label]`、`:nostr devices [all]`、`:nostr revoke <pubkey_hex>`と、`:nostr connect`後に使う明示的な`:nostr remote start|stop|status`を実装している。remote listenerは接続中のNostr transportで設定されたRelayだけを使い、暗号化wrapをSQLite Inboxへ保存してからCLI event queueへ通知する。foreground側では保存済みwrapを再検証し、ペアリング・時刻・対象セッションを確認してから通常のuser/command経路へ渡し、結果をat-most-onceで確定する。CLIでCtrl+Cによりリモート要求を中断した場合は、inboxを`failed`で終端記録し、送信者へ中断を返信する。未処理pending行はremote listenerの再起動時にキューへ戻す。pair/revoke/remote管理はNostr経由の明示コマンドから拒否する。応答はkind-10050署名済みRelay-listをローカルallowlistと照合してkind-1059で送る。返信本文は保存せず、署名済みkind-1059イベント（暗号文）をSQLite outboxへ先に永続化する。kind-10050から検証した宛先Relayはローカル許可リストとの積集合に制限して保存し、宛先取得・publish失敗時は同じevent IDで最大8回・24時間まで指数バックオフ再送する。再試行ごとに端末pairingを再確認し、配送完了・失効・期限切れ時に暗号文を消去する。NIP-17専用の秘密鍵保護と実Relay上での相互運用検証は未実装である。
