@@ -844,6 +844,7 @@ class NostrRemoteRuntime:
                             relay,
                             event_id,
                             allowed_relay_urls=self.relays,
+                            auth_private_key=self.private_key,
                             timeout=3.0,
                         )
                         for event_id in record.event_ids
