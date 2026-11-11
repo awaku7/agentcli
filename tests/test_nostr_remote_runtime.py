@@ -325,3 +325,62 @@ def test_receive_diagnostics_track_connections_and_drop_counts_in_memory(
     finally:
         inbox.close()
         pairings.close()
+
+
+def test_authenticated_incoming_message_is_echoed_once(tmp_path) -> None:
+    from uagent.nostr_remote_runtime import _display_nostr_incoming
+
+    inbox, pairings, private_key, request = _setup_request(
+        tmp_path, text="hello from 0xChat"
+    )
+    event_queue = queue.Queue()
+    core = SimpleNamespace(prompt_needs_redraw=False)
+    seen: list[dict] = []
+    runtime = NostrRemoteRuntime(
+        event_queue=event_queue,
+        private_key=private_key,
+        relays=["wss://relay.example.org"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+        incoming_message_display=lambda rumor: (
+            seen.append(rumor),
+            _display_nostr_incoming(core, rumor),
+        ),
+    )
+    try:
+        sender = request["sender_pubkey"]
+        rumor = {
+            "kind": 14,
+            "pubkey": sender,
+            "id": request["rumor_id"],
+            "created_at": request["created_at"],
+            "content": request["text"],
+        }
+        runtime._queue_rumor(rumor)
+        assert event_queue.get_nowait()["text"] == "hello from 0xChat"
+        assert len(seen) == 1
+        assert core.prompt_needs_redraw is True
+
+        # An invalid/empty command must never be printed to the terminal.
+        runtime._queue_rumor({**rumor, "content": ""})
+        assert len(seen) == 1
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_remote_cli_echo_escapes_terminal_controls(capsys) -> None:
+    from uagent.nostr_remote_runtime import _display_nostr_incoming
+
+    core = SimpleNamespace(prompt_needs_redraw=False)
+    _display_nostr_incoming(
+        core,
+        {"pubkey": "ab" * 32, "content": "hello\n\x1b[31mRED\x1b[0m"},
+    )
+    printed = capsys.readouterr().out
+    assert "[NOSTR] Received from abababababab: hello" in printed
+    assert "RED" in printed
+    assert "\x1b" not in printed
+    assert "hello\n" not in printed
+    assert core.prompt_needs_redraw is True
