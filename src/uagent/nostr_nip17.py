@@ -368,7 +368,9 @@ def unwrap_nip17_private_message(
         raise ValueError("seal payload could not be opened") from exc
 
     rumor = _validate_event_shape(rumor, kind=14, name="rumor")
-    if "sig" in rumor:
+    # Some NIP-17 clients serialize unsigned rumors with an empty signature.
+    # An empty string is not a signature; reject any non-empty or non-string value.
+    if "sig" in rumor and rumor["sig"] != "":
         raise ValueError("NIP-17 rumor must be unsigned")
     if rumor["pubkey"] != seal["pubkey"]:
         raise ValueError("rumor author does not match authenticated seal author")
