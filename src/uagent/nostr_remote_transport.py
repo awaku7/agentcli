@@ -304,6 +304,27 @@ async def publish_nip17_gift_wraps(
     return results
 
 
+def _readback_connect_factory(
+    connect_factory: Callable[..., Any] | None,
+) -> Callable[..., Any]:
+    """Refuse all HTTP redirects before they can leave the relay allowlist."""
+    if connect_factory is not None:
+        return connect_factory
+    try:
+        from websockets.asyncio.client import connect
+    except ImportError as exc:
+        raise ModuleNotFoundError("Nostr readback requires websockets") from exc
+
+    class NoRedirectConnect(connect):
+        def process_redirect(self, exc: Exception) -> Exception:
+            # websocket client follows redirects by default, including to a
+            # different WSS host. Reject even same-host redirects so the result
+            # always describes the exact configured relay we queried.
+            return exc
+
+    return NoRedirectConnect
+
+
 async def read_back_nip17_gift_wrap(
     relay_url: str,
     event_id: str,
@@ -336,7 +357,7 @@ async def read_back_nip17_gift_wrap(
     event_id = event_id.lower()
     sub_id = "uag-readback-" + secrets.token_hex(8)
     request = ["REQ", sub_id, {"ids": [event_id], "kinds": [1059], "limit": 1}]
-    connect = _connect_factory(connect_factory)
+    connect = _readback_connect_factory(connect_factory)
     invalid_reply = False
     try:
         async with asyncio.timeout(float(timeout)):
