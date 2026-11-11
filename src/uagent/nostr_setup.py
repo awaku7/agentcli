@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import json
 
+from .i18n import _
+
 _BECH32_ALPHABET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
 
 
@@ -80,15 +82,15 @@ def confirm_local_pairing(pubkey: str) -> bool:
         root = tk.Tk()
         root.withdraw()
         try:
-            return messagebox.askyesno(
-                "UAG Nostr remote pairing",
+            title = _("UAG Nostr remote pairing")
+            message = _(
                 "Authorize this device for full control of this UAG CLI session?\n\n"
-                f"Phone public key:\n{encode_npub(pubkey)}\n\n"
+                "Phone public key:\n%(pubkey)s\n\n"
                 "Only approve a key displayed by a phone you control. "
                 "Existing Sandbox and confirmation policies still apply.\n\n"
-                "The Nostr remote feature is experimental.",
-                parent=root,
-            )
+                "The Nostr remote feature is experimental."
+            ) % {"pubkey": encode_npub(pubkey)}
+            return messagebox.askyesno(title, message, parent=root)
         finally:
             root.destroy()
     except Exception:
