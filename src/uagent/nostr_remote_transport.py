@@ -410,6 +410,16 @@ async def read_back_nip17_gift_wrap(
                     elif frame[0] == "EOSE" and len(frame) >= 2 and frame[1] == sub_id:
                         return "unavailable" if invalid_reply else "not_returned"
                     elif (
+                        frame[0] == "CLOSED"
+                        and len(frame) >= 3
+                        and frame[1] == sub_id
+                        and pending_auth_event_id is not None
+                        and isinstance(frame[2], str)
+                        and frame[2].startswith("auth-required:")
+                    ):
+                        # The initial REQ may be rejected before AUTH is acknowledged.
+                        continue
+                    elif (
                         frame[0] == "CLOSED" and len(frame) >= 2 and frame[1] == sub_id
                     ):
                         return "unavailable"
