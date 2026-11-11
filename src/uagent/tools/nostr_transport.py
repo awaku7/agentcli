@@ -1574,51 +1574,130 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
     from ..util_tools import CommandResult
 
     if arg.strip():
-        print("Usage: :nostr setup")
+        print(_("nostr.setup_usage", default="Usage: :nostr setup"))
         return CommandResult()
     if kwargs.get("core") is None:
-        print("Nostr setup requires an active local CLI session.")
+        print(
+            _(
+                "nostr.setup_requires_session",
+                default="Nostr setup requires an active local CLI session.",
+            )
+        )
         return CommandResult()
 
     instance = get_nostr_instance()
     if instance is None or not instance.is_running:
         result = start_nostr()
         if not result.get("ok"):
-            print("Could not connect to Nostr relays.")
+            print(_("nostr.setup_connect_error", default="Could not connect to Nostr relays."))
             return CommandResult()
         instance = get_nostr_instance()
     if instance is None or not instance.is_running or not instance.pubkey_hex:
-        print("Nostr transport is not ready.")
+        print(_("nostr.setup_transport_error", default="Nostr transport is not ready."))
         return CommandResult()
 
     npub = encode_npub(instance.pubkey_hex)
-    print("Nostr remote setup (experimental; not approved for production).")
-    print("Warning: this currently reuses the legacy Nostr key stored in a JSON file.")
     print(
-        "Remote-key isolation, secure storage, and real-relay interoperability remain pending."
+        _(
+            "nostr.setup_intro",
+            default="Nostr remote setup (experimental; not approved for production).",
+        )
     )
-    print(f"PC public key: {npub}")
-    print("Scan this public-only QR code with your Nostr app:")
+    print(
+        _(
+            "nostr.setup_legacy_key_warning",
+            default="Warning: this currently reuses the legacy Nostr key stored in a JSON file.",
+        )
+    )
+    print(
+        _(
+            "nostr.setup_security_warning",
+            default=(
+                "Remote-key isolation, secure storage, and real-relay "
+                "interoperability remain pending."
+            ),
+        )
+    )
+    print(
+        _(
+            "nostr.setup_pc_pubkey",
+            default="PC public key: %(npub)s",
+            npub=npub,
+        )
+    )
+    print(
+        _(
+            "nostr.setup_scan_pc_qr",
+            default="Scan this public-only QR code with your Nostr app:",
+        )
+    )
     if not show_public_key_qr(npub):
-        print("QR display unavailable; use the public key above.")
-    print("Show the PHONE'S public-key QR to the PC camera, or open its image.")
-    print("Never scan or paste an nsec/private-key QR.")
+        print(
+            _(
+                "nostr.setup_qr_display_unavailable",
+                default="QR display unavailable; use the public key above.",
+            )
+        )
+    print(
+        _(
+            "nostr.setup_scan_phone_qr",
+            default="Show the PHONE'S public-key QR to the PC camera, or open its image.",
+        )
+    )
+    print(
+        _(
+            "nostr.setup_never_scan_secret",
+            default="Never scan or paste an nsec/private-key QR.",
+        )
+    )
 
     try:
         phone_pubkey = scan_mobile_pubkey()
     except (ValueError, RuntimeError, TypeError, KeyError) as exc:
-        print(f"Could not read a valid public-key QR: {exc}")
-        print("Alternatively use :nostr pair <npub> phone")
+        print(
+            _(
+                "nostr.setup_invalid_phone_qr",
+                default="Could not read a valid public-key QR: %(error)s",
+                error=exc,
+            )
+        )
+        print(
+            _(
+                "nostr.setup_manual_pair_hint",
+                default="Alternatively use :nostr pair <npub> phone",
+            )
+        )
         return CommandResult()
     if phone_pubkey is None:
-        print("Nostr setup cancelled; no device was paired.")
+        print(
+            _(
+                "nostr.setup_cancelled",
+                default="Nostr setup cancelled; no device was paired.",
+            )
+        )
         return CommandResult()
     if phone_pubkey == instance.pubkey_hex:
-        print("Refusing to pair the PC's own public key.")
+        print(
+            _(
+                "nostr.setup_self_pair_rejected",
+                default="Refusing to pair the PC's own public key.",
+            )
+        )
         return CommandResult()
     if not confirm_local_pairing(phone_pubkey):
-        print("Local authorization was declined or unavailable; nothing was paired.")
-        print(f"Manual alternative: :nostr pair {encode_npub(phone_pubkey)} phone")
+        print(
+            _(
+                "nostr.setup_approval_declined",
+                default="Local authorization was declined or unavailable; nothing was paired.",
+            )
+        )
+        print(
+            _(
+                "nostr.setup_manual_pair",
+                default="Manual alternative: :nostr pair %(npub)s phone",
+                npub=encode_npub(phone_pubkey),
+            )
+        )
         return CommandResult()
 
     try:
@@ -1627,15 +1706,32 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
         with SQLitePairingStore(path) as store:
             store.pair(phone_pubkey, "phone", approved=True)
     except (OSError, ValueError, RuntimeError) as exc:
-        print(f"Could not save Nostr pairing: {type(exc).__name__}")
+        print(
+            _(
+                "nostr.setup_pair_save_error",
+                default="Could not save Nostr pairing: %(error_type)s",
+                error_type=type(exc).__name__,
+            )
+        )
         return CommandResult()
 
-    print(f"Paired phone public key: {encode_npub(phone_pubkey)}")
+    print(
+        _(
+            "nostr.setup_paired_phone",
+            default="Paired phone public key: %(npub)s",
+            npub=encode_npub(phone_pubkey),
+        )
+    )
     _cmd_nostr_remote("start", **kwargs)
     print(
-        "Note: automatic NIP-17 kind-10050 relay-list publication is not yet "
-        "implemented. Configure matching receive relays on the phone; "
-        "encrypted DM delivery is not yet verified."
+        _(
+            "nostr.setup_relay_warning",
+            default=(
+                "Note: automatic NIP-17 kind-10050 relay-list publication is not yet "
+                "implemented. Configure matching receive relays on the phone; "
+                "encrypted DM delivery is not yet verified."
+            ),
+        )
     )
     return CommandResult()
 
