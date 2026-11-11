@@ -95,3 +95,31 @@ def test_remote_status_prints_aggregate_receive_diagnostics(
     assert "gift_wraps=2" in output
     assert "decrypt=1" in output
     assert "unpaired=1" in output
+    assert "replies:" not in output  # legacy runtimes may lack outbox statistics
+
+
+def test_remote_status_displays_reply_outbox_failure_category(capsys) -> None:
+    from types import SimpleNamespace
+
+    runtime = SimpleNamespace(
+        status=lambda: {
+            "state": "running",
+            "pending": 0,
+            "dispatching": 0,
+            "relays": ["wss://relay.example"],
+            "error": "",
+            "outbox_summary": {
+                "pending": 1,
+                "sending": 0,
+                "delivered": 0,
+                "failed": 0,
+                "last_error": "RecipientRelayListUnavailable",
+            },
+        }
+    )
+    nostr_transport._cmd_nostr_remote(
+        "status", core=SimpleNamespace(_nostr_remote_runtime=runtime)
+    )
+    output = capsys.readouterr().out
+    assert "replies: pending=1" in output
+    assert "last_error=RecipientRelayListUnavailable" in output
