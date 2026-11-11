@@ -601,6 +601,16 @@ class SQLiteNostrOutboxStore:
                 ).fetchone()[0]
             )
 
+    def latest_delivered(self) -> OutboxRecord | None:
+        """Return only the newest successful reply tombstone, without ciphertext."""
+        with self._lock:
+            row = self._connection.execute(
+                f"SELECT {self._SELECT_COLUMNS} FROM nostr_remote_outbox "
+                "WHERE status = 'delivered' "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 1"
+            ).fetchone()
+        return None if row is None else _record_from_row(row)
+
     def status_summary(self) -> dict[str, Any]:
         """Expose only aggregate delivery outcomes and sanitized failure types."""
         with self._lock:
