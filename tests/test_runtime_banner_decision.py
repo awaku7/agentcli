@@ -160,3 +160,30 @@ def test_decision_banner_uses_shipped_translation_for_every_locale(monkeypatch, 
     finally:
         i18n.reset_contextvar_locale(token)
         i18n._get_translation.cache_clear()
+
+
+def test_startup_banner_does_not_query_model_catalog(monkeypatch):
+    """Model capabilities must remain lazy until an actual LLM round."""
+    from uagent import llmcapa_util
+
+    def unexpected_catalog_lookup(*_args, **_kwargs):
+        raise AssertionError("startup banner should not query llmcapa")
+
+    monkeypatch.setattr(
+        llmcapa_util, "provider_allows_responses_api", unexpected_catalog_lookup
+    )
+    monkeypatch.setattr(
+        llmcapa_util, "deprecated_model_warning", unexpected_catalog_lookup
+    )
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-6-luna")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setattr(runtime_banner, "_startup_optional_model_infos", lambda: [])
+    monkeypatch.setattr(runtime_banner, "_", lambda text: text)
+
+    banner = runtime_banner.build_startup_banner(
+        core=SimpleNamespace(), workdir="workspace", workdir_source="test"
+    )
+
+    assert "LLM API mode = Responses (UAGENT_RESPONSES is enabled)" in banner
+

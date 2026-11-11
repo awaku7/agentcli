@@ -622,31 +622,15 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    try:
-        from ..llmcapa_util import (
-            current_model,
-            deprecated_model_warning,
-            provider_allows_responses_api,
-        )
+    # Do not cold-load the llmcapa model catalog just to display a banner.
+    # The LLM round checks model-level Responses support before selecting a
+    # transport. This line describes configured provider support, not a
+    # promise that the selected model will use the Responses transport.
+    _responses_supported = provider in RESPONSES_PROVIDERS
+    if provider == "lmstudio":
+        from ..providers.llm_lmstudio import responses_endpoint_available
 
-        _banner_model = current_model(provider)
-        if provider == "foundry_local" and not _banner_model:
-            _banner_model = (
-                env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini") or "phi-4-mini"
-            )
-        if provider == "lmstudio":
-            from ..providers.llm_lmstudio import responses_endpoint_available
-
-            _responses_supported = responses_endpoint_available(core)
-        else:
-            _responses_supported = provider_allows_responses_api(
-                provider, _banner_model
-            )
-        _dep_warn = deprecated_model_warning(_banner_model, provider)
-        if _dep_warn:
-            lines.append("[WARN] " + _dep_warn)
-    except Exception:
-        _responses_supported = provider in RESPONSES_PROVIDERS
+        _responses_supported = responses_endpoint_available(core)
 
     _lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
