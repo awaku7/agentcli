@@ -179,3 +179,43 @@ def test_remote_verify_command_prints_only_identifiers_and_results(
     assert "recipient=found; sender_copy=not_returned" in output
     assert "ab" * 32 in output
     assert "does not confirm delivery to 0xChat" in output
+
+
+def test_runtime_readback_uses_latest_tombstone_and_local_relays(
+    monkeypatch,
+) -> None:
+    from uagent import nostr_remote_transport
+    from uagent.nostr_remote_runtime import NostrRemoteRuntime
+
+    checked = []
+
+    async def fake_readback(relay, event_id, *, allowed_relay_urls, timeout):
+        checked.append((relay, event_id, list(allowed_relay_urls), timeout))
+        return "found" if event_id == "ab" * 32 else "not_returned"
+
+    monkeypatch.setattr(
+        nostr_remote_transport,
+        "read_back_nip17_gift_wrap",
+        fake_readback,
+    )
+    runtime = SimpleNamespace(
+        _closed=False,
+        outbox_store=SimpleNamespace(
+            latest_delivered=lambda: SimpleNamespace(
+                event_ids=("ab" * 32, "cd" * 32)
+            )
+        ),
+        relays=("wss://allowed-a.example", "wss://allowed-b.example"),
+    )
+    result = NostrRemoteRuntime.verify_latest_reply(runtime)
+    assert result["state"] == "complete"
+    assert len(result["relays"]) == 2
+    assert all(
+        row["recipient"] == "found" and row["sender_copy"] == "not_returned"
+        for row in result["relays"]
+    )
+    assert len(checked) == 4
+    assert all(
+        allowlist == list(runtime.relays) and timeout == 3.0
+        for _, _, allowlist, timeout in checked
+    )
