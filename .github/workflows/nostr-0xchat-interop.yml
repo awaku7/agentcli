@@ -50,6 +50,7 @@ jobs:
 
       - name: Prepare 0xChat unit test harness
         run: |
+          mkdir -p upstream/packages/nostr-dart/test
           cp tests/interop/verify_0xchat_nip17_test.dart \
             upstream/packages/nostr-dart/test/uag_nip17_interop_test.dart
           cd upstream/packages/nostr-dart
