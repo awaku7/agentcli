@@ -98,13 +98,22 @@ def _make_auth_event(
 
 
 def _connect_factory(connect_factory: Callable[..., Any] | None) -> Callable[..., Any]:
+    """Use exact configured relay URLs; do not follow implicit HTTP redirects."""
     if connect_factory is not None:
         return connect_factory
     try:
         from websockets.asyncio.client import connect
     except ImportError as exc:
         raise ModuleNotFoundError("Nostr remote transport requires websockets") from exc
-    return connect
+
+    class NoRedirectConnect(connect):
+        def process_redirect(self, exc: Exception) -> Exception:
+            # websockets follows 3xx redirects, including to unapproved hosts.
+            # An OK from such a destination must not be attributed to the
+            # originally configured relay.
+            return exc
+
+    return NoRedirectConnect
 
 
 async def publish_nip17_gift_wrap(
@@ -307,22 +316,8 @@ async def publish_nip17_gift_wraps(
 def _readback_connect_factory(
     connect_factory: Callable[..., Any] | None,
 ) -> Callable[..., Any]:
-    """Refuse all HTTP redirects before they can leave the relay allowlist."""
-    if connect_factory is not None:
-        return connect_factory
-    try:
-        from websockets.asyncio.client import connect
-    except ImportError as exc:
-        raise ModuleNotFoundError("Nostr readback requires websockets") from exc
-
-    class NoRedirectConnect(connect):
-        def process_redirect(self, exc: Exception) -> Exception:
-            # websocket client follows redirects by default, including to a
-            # different WSS host. Reject even same-host redirects so the result
-            # always describes the exact configured relay we queried.
-            return exc
-
-    return NoRedirectConnect
+    """Use the same no-redirect connector as NIP-17 publication and listening."""
+    return _connect_factory(connect_factory)
 
 
 async def read_back_nip17_gift_wrap(

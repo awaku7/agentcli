@@ -117,6 +117,30 @@ class FakeListenAuthSocket(FakeListenSocket):
         raise RuntimeError("listener should stop after callback")
 
 
+def test_all_remote_relay_connections_reject_http_redirects() -> None:
+    """Publisher, listener, and relay discovery must not escape the allowlist."""
+    from websockets.asyncio.client import connect
+    from websockets.datastructures import Headers
+    from websockets.exceptions import InvalidStatus
+    from websockets.http11 import Response
+
+    from uagent.nostr_remote_transport import _connect_factory
+
+    factory = _connect_factory(None)
+    assert issubclass(factory, connect)
+
+    for location in (
+        "wss://unapproved.example/events",
+        "ws://127.0.0.1:8080/private",
+        "wss://allowed.example/redirected",
+    ):
+        redirect = InvalidStatus(
+            Response(302, "Found", Headers({"Location": location}))
+        )
+        connection = factory("wss://allowed.example")
+        assert connection.process_redirect(redirect) is redirect
+
+
 def test_publish_nip17_wrap_handles_nip42_auth() -> None:
     event = create_nip17_private_messages(
         "hello", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
