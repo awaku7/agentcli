@@ -304,6 +304,89 @@ async def publish_nip17_gift_wraps(
     return results
 
 
+async def read_back_nip17_gift_wrap(
+    relay_url: str,
+    event_id: str,
+    *,
+    allowed_relay_urls: Sequence[str],
+    connect_factory: Callable[..., Any] | None = None,
+    timeout: float = 3.0,
+) -> str:
+    """Read an encrypted reply by its exact event ID; never expose the content.
+
+    A relay's publication OK does not prove that it retains an event. The
+    result is "found", "not_returned" (EOSE without the ID), or "unavailable"
+    (connection/auth/timeout/invalid response). Only locally allowed relays
+    are contacted, and no participant-supplied URLs are followed.
+    """
+    relay_url = _validate_relay_uri(relay_url)
+    if isinstance(allowed_relay_urls, (str, bytes)) or not allowed_relay_urls:
+        raise ValueError("a non-empty relay allowlist is required")
+    if relay_url not in {
+        _validate_relay_uri(url) for url in allowed_relay_urls
+    }:
+        raise ValueError("relay is not permitted by the local egress allowlist")
+    if (
+        not isinstance(event_id, str)
+        or len(event_id) != 64
+        or any(ch not in "0123456789abcdefABCDEF" for ch in event_id)
+    ):
+        raise ValueError("event ID must be 32-byte hex")
+    if not isinstance(timeout, (int, float)) or timeout <= 0:
+        raise ValueError("timeout must be positive")
+
+    event_id = event_id.lower()
+    sub_id = "uag-readback-" + secrets.token_hex(8)
+    request = ["REQ", sub_id, {"ids": [event_id], "kinds": [1059], "limit": 1}]
+    connect = _connect_factory(connect_factory)
+    invalid_reply = False
+    try:
+        async with asyncio.timeout(float(timeout)):
+            async with connect(
+                relay_url,
+                ssl=ssl.create_default_context(),
+                open_timeout=float(timeout),
+                close_timeout=min(float(timeout), 5.0),
+                max_size=MAX_RELAY_FRAME_BYTES,
+            ) as websocket:
+                await websocket.send(
+                    json.dumps(request, separators=(",", ":"))
+                )
+                while True:
+                    frame = _decode_relay_frame(await websocket.recv())
+                    if frame is None or not frame:
+                        continue
+                    if (
+                        frame[0] == "EVENT"
+                        and len(frame) >= 3
+                        and frame[1] == sub_id
+                        and isinstance(frame[2], dict)
+                        and frame[2].get("id") == event_id
+                    ):
+                        if frame[2].get("kind") == 1059 and _verify_event(
+                            frame[2]
+                        ):
+                            return "found"
+                        invalid_reply = True
+                    elif (
+                        frame[0] == "EOSE"
+                        and len(frame) >= 2
+                        and frame[1] == sub_id
+                    ):
+                        return "unavailable" if invalid_reply else "not_returned"
+                    elif (
+                        frame[0] == "CLOSED"
+                        and len(frame) >= 2
+                        and frame[1] == sub_id
+                    ):
+                        return "unavailable"
+                    elif frame[0] == "AUTH":
+                        # A readback that requires NIP-42 is indeterminate.
+                        return "unavailable"
+    except Exception:
+        return "unavailable"
+
+
 async def fetch_nip17_relay_list(
     participant_pubkey_hex: str,
     lookup_relays: Sequence[str],
