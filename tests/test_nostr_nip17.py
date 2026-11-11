@@ -7,6 +7,10 @@ import copy
 import pytest
 
 from uagent.nostr_nip17 import (
+    _make_gift_wrap,
+    _make_rumor,
+    _make_seal,
+    _public_key_x,
     create_nip17_private_messages,
     create_nip17_relay_list_event,
     extract_nip17_relay_list,
@@ -128,3 +132,51 @@ def test_kind_10050_rejects_unsafe_or_malformed_relay_urls() -> None:
 
     with pytest.raises(ValueError):
         create_nip17_relay_list_event([], private_key, now=1_700_000_000)
+
+
+@pytest.mark.parametrize(
+    ("signature", "accepted"),
+    [
+        ("", True),
+        ("0" * 128, False),
+        (None, False),
+        (0, False),
+    ],
+)
+def test_nip17_accepts_only_empty_serialized_rumor_signature(
+    signature: object, accepted: bool
+) -> None:
+    # 0xChat's NIP-17 encoder sets sig="" before serializing the
+    # otherwise unsigned rumor. Its event JSON always includes "sig".
+    sender_private = _secret(1)
+    recipient_private = _secret(2)
+    sender_public = _public_key_x(sender_private)
+    recipient_public = _public_key_x(recipient_private)
+    timestamp = 1_700_000_000
+
+    rumor = _make_rumor(
+        sender_public_key=sender_public,
+        recipient_public_key=recipient_public,
+        text="/uag status",
+        created_at=timestamp,
+    )
+    rumor["sig"] = signature
+    seal = _make_seal(
+        rumor=rumor,
+        sender_private_key=sender_private,
+        sender_public_key=sender_public,
+        receiver_public_key=recipient_public,
+        now=timestamp,
+    )
+    wrap = _make_gift_wrap(
+        seal=seal, receiver_public_key=recipient_public, now=timestamp
+    )
+
+    if accepted:
+        received = unwrap_nip17_private_message(wrap, recipient_private)
+        assert received["content"] == "/uag status"
+        assert received["sig"] == ""
+        assert received["pubkey"] == sender_public.hex()
+    else:
+        with pytest.raises(ValueError, match="rumor must be unsigned"):
+            unwrap_nip17_private_message(wrap, recipient_private)
