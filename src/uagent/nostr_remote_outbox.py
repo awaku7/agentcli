@@ -601,6 +601,27 @@ class SQLiteNostrOutboxStore:
                 ).fetchone()[0]
             )
 
+    def status_summary(self) -> dict[str, Any]:
+        """Expose only aggregate delivery outcomes and sanitized failure types."""
+        with self._lock:
+            rows = self._connection.execute(
+                "SELECT status, COUNT(*) FROM nostr_remote_outbox GROUP BY status"
+            ).fetchall()
+            last_failure = self._connection.execute(
+                "SELECT error_type FROM nostr_remote_outbox "
+                "WHERE status IN ('pending', 'sending', 'failed') "
+                "AND error_type != '' "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 1"
+            ).fetchone()
+        counts = {status: int(count) for status, count in rows}
+        return {
+            "pending": counts.get("pending", 0),
+            "sending": counts.get("sending", 0),
+            "delivered": counts.get("delivered", 0),
+            "failed": counts.get("failed", 0),
+            "last_error": last_failure[0] if last_failure else "",
+        }
+
     def close(self) -> None:
         with self._lock:
             self._connection.close()
