@@ -635,3 +635,51 @@ def test_fetch_relay_list_waits_for_auth_ack_after_auth_required_closed() -> Non
 
     assert result == ["wss://recipient-inbox.example.org"]
     assert [frame[0] for frame in socket.sent] == ["REQ", "AUTH", "REQ", "CLOSE"]
+
+
+@pytest.mark.parametrize(
+    ("mode", "result"),
+    [
+        ("accepted", "queued"),
+        ("unpaired", "unauthorized"),
+        ("bad_signature", "invalid"),
+    ],
+)
+def test_listener_diagnostics_count_receive_outcomes_without_message_data(
+    mode: str, result: str, replay_store: SQLiteReplayStore
+) -> None:
+    gift_wrap = create_nip17_private_messages(
+        "private DM must not appear in diagnostics",
+        _secret(1),
+        RECIPIENT_PUBLIC,
+        now=1_700_000_000,
+    )[0]
+    if mode == "bad_signature":
+        gift_wrap["content"] = "tampered"
+    stop_event = asyncio.Event()
+
+    class SingleEventSocket(FakeListenSocket):
+        async def recv(self) -> str:
+            raw = await super().recv()
+            stop_event.set()
+            return raw
+
+    socket = SingleEventSocket(gift_wrap)
+    diagnostics: list[str] = []
+    delivered: list[dict] = []
+    asyncio.run(
+        listen_nip17_messages(
+            "wss://recipient-inbox.example.org",
+            _secret(2),
+            delivered.append,
+            authorize_sender=lambda _sender: mode != "unpaired",
+            replay_store=replay_store,
+            now_fn=lambda: 1_700_000_000,
+            stop_event=stop_event,
+            connect_factory=lambda _url, **_kwargs: socket,
+            diagnostic_callback=diagnostics.append,
+        )
+    )
+    assert diagnostics == ["connected", "gift_wraps", result, "disconnected"]
+    assert len(delivered) == (1 if mode == "accepted" else 0)
+    assert "private DM" not in repr(diagnostics)
