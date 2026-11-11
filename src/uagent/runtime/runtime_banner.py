@@ -7,6 +7,7 @@ from ..env_utils import env_get
 from ..image_defaults import default_image_model
 from ..i18n import _
 from ..providers.provider_caps import RESPONSES_PROVIDERS
+from .startup_timing import measure_detail
 
 
 def _normalize_url(core: Any, url: str) -> str:
@@ -622,31 +623,38 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    try:
-        from ..llmcapa_util import (
-            current_model,
-            deprecated_model_warning,
-            provider_allows_responses_api,
-        )
+    with measure_detail("banner.llmcapa.total"):
+        try:
+            with measure_detail("banner.llmcapa.import"):
+                from ..llmcapa_util import (
+                    current_model,
+                    deprecated_model_warning,
+                    provider_allows_responses_api,
+                )
 
-        _banner_model = current_model(provider)
-        if provider == "foundry_local" and not _banner_model:
-            _banner_model = (
-                env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini") or "phi-4-mini"
-            )
-        if provider == "lmstudio":
-            from ..providers.llm_lmstudio import responses_endpoint_available
+            with measure_detail("banner.llmcapa.current_model"):
+                _banner_model = current_model(provider)
+                if provider == "foundry_local" and not _banner_model:
+                    _banner_model = (
+                        env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini")
+                        or "phi-4-mini"
+                    )
+            if provider == "lmstudio":
+                with measure_detail("banner.llmcapa.lmstudio_endpoint"):
+                    from ..providers.llm_lmstudio import responses_endpoint_available
 
-            _responses_supported = responses_endpoint_available(core)
-        else:
-            _responses_supported = provider_allows_responses_api(
-                provider, _banner_model
-            )
-        _dep_warn = deprecated_model_warning(_banner_model, provider)
-        if _dep_warn:
-            lines.append("[WARN] " + _dep_warn)
-    except Exception:
-        _responses_supported = provider in RESPONSES_PROVIDERS
+                    _responses_supported = responses_endpoint_available(core)
+            else:
+                with measure_detail("banner.llmcapa.responses_support"):
+                    _responses_supported = provider_allows_responses_api(
+                        provider, _banner_model
+                    )
+            with measure_detail("banner.llmcapa.deprecation"):
+                _dep_warn = deprecated_model_warning(_banner_model, provider)
+                if _dep_warn:
+                    lines.append("[WARN] " + _dep_warn)
+        except Exception:
+            _responses_supported = provider in RESPONSES_PROVIDERS
 
     _lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()

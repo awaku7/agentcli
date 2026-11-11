@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 
 from .env_utils import env_get
 from .i18n import _
+from .runtime.startup_timing import measure_detail
 
 # uag provider key -> ordered llmcapa provider candidates.
 # llmcapa already accepts some aliases (gemini/grok/bedrock/...), but we keep
@@ -120,7 +121,8 @@ def _get_capability_cached(
 ) -> Any | None:
     """Cached llmcapa.get with provider/model candidate fallbacks."""
     try:
-        import llmcapa
+        with measure_detail("llmcapa.catalog_import"):
+            import llmcapa
     except Exception:
         return None
 
@@ -138,10 +140,11 @@ def _get_capability_cached(
     for prov in providers:
         for mid in model_ids:
             try:
-                if prov is None:
-                    cap = llmcapa.get(mid)
-                else:
-                    cap = llmcapa.get(mid, provider=prov)
+                with measure_detail("llmcapa.scoped_get"):
+                    if prov is None:
+                        cap = llmcapa.get(mid)
+                    else:
+                        cap = llmcapa.get(mid, provider=prov)
                 if cap is not None:
                     return cap
             except Exception:
@@ -154,7 +157,8 @@ def _get_capability_cached(
     if provider_key:
         for mid in model_ids:
             try:
-                cap = llmcapa.get(mid)
+                with measure_detail("llmcapa.unscoped_get"):
+                    cap = llmcapa.get(mid)
                 if cap is not None:
                     return cap
             except Exception:
@@ -168,7 +172,8 @@ def _get_capability_cached(
                 needle = mid.split("/")[-1]
                 if len(needle) < 3:
                     continue
-                hits = search(needle, limit=8) or []
+                with measure_detail("llmcapa.prefix_search"):
+                    hits = search(needle, limit=8) or []
                 if not hits:
                     continue
                 if provider_key:

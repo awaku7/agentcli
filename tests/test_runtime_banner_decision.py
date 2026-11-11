@@ -160,3 +160,34 @@ def test_decision_banner_uses_shipped_translation_for_every_locale(monkeypatch, 
     finally:
         i18n.reset_contextvar_locale(token)
         i18n._get_translation.cache_clear()
+
+
+
+def test_startup_banner_llmcapa_timing_uses_existing_flag(monkeypatch, capsys):
+    from uagent import llmcapa_util
+
+    monkeypatch.setenv("UAGENT_STARTUP_TIMING", "1")
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setattr(runtime_banner, "_", lambda text: text)
+    monkeypatch.setattr(runtime_banner, "_startup_optional_model_infos", lambda: [])
+    monkeypatch.setattr(llmcapa_util, "current_model", lambda *_: "test-model")
+    monkeypatch.setattr(
+        llmcapa_util, "provider_allows_responses_api", lambda *_: True
+    )
+    monkeypatch.setattr(llmcapa_util, "deprecated_model_warning", lambda *_: None)
+
+    banner = runtime_banner.build_startup_banner(
+        core=SimpleNamespace(), workdir="workspace", workdir_source="cli"
+    )
+
+    output = capsys.readouterr().err
+    for detail in (
+        "banner.llmcapa.import",
+        "banner.llmcapa.current_model",
+        "banner.llmcapa.responses_support",
+        "banner.llmcapa.deprecation",
+        "banner.llmcapa.total",
+    ):
+        assert f"[startup-timing] detail.{detail}=" in output
+    assert "LLM API mode = Responses (UAGENT_RESPONSES is enabled)" in banner
