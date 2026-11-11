@@ -1,0 +1,68 @@
+name: Nostr Android native Schnorr diagnostic
+
+on:
+  pull_request:
+    paths:
+      - "tests/interop/0xchat-native/**"
+      - ".github/workflows/nostr-0xchat-native.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-signature:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout UAG
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install dependencies for UAG test-only signatures
+        run: python -m pip install -e . ecdsa cryptography
+      - name: Generate actual UAG gift-wrap and seal signature vectors
+        env:
+          PYTHONPATH: src
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import os
+          
+          from uagent.nostr_nip17 import _public_key_x, create_nip17_private_messages
+          from uagent.nostr_nip44 import nip44_v2_decrypt
+          from uagent.tools.nostr_transport import _verify_event
+          
+          sender = (1).to_bytes(32, "big")
+          recipient = (2).to_bytes(32, "big")
+          wraps = create_nip17_private_messages(
+              "UAG to Android / 日本語 / Schnorr 🔐", sender, _public_key_x(recipient)
+          )
+          vectors = []
+          for index, (wrap, private) in enumerate(zip(wraps, (recipient, sender))):
+              seal = json.loads(
+                  nip44_v2_decrypt(wrap["content"], private, bytes.fromhex(wrap["pubkey"]))
+              )
+              for label, event in ((f"{index}-wrap", wrap), (f"{index}-seal", seal)):
+                  assert _verify_event(event)
+                  columns = (event["sig"], event["id"], event["pubkey"])
+                  vectors.append("\t".join((label, "valid", *columns)))
+                  mutated = ("0" if columns[0][0] != "0" else "1") + columns[0][1:]
+                  vectors.append("\t".join((label + "-tampered", "invalid", mutated, *columns[1:])))
+          path = Path(os.environ["RUNNER_TEMP"]) / "nostr_schnorr_vectors.tsv"
+          path.write_text("\n".join(vectors) + "\n", encoding="utf-8")
+          print("Wrote", len(vectors), "test-only Schnorr vectors")
+          PY
+      - name: Verify UAG signatures with 0xChat native crypto library
+        run: |
+          mvn -B -q -f tests/interop/0xchat-native/pom.xml compile exec:java \
+            -Dexec.mainClass=NativeSchnorrCheck \
+            -Dexec.args="$RUNNER_TEMP/nostr_schnorr_vectors.tsv"
