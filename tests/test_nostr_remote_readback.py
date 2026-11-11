@@ -115,7 +115,6 @@ def test_readback_does_not_treat_invalid_event_as_found() -> None:
     assert result == "unavailable"
 
 
-
 def test_readback_default_websocket_connector_never_follows_redirects() -> None:
     from websockets.asyncio.client import connect
     from websockets.datastructures import Headers
