@@ -486,7 +486,7 @@ Decisions API（`/api/alpha/decisions`）を使用します。
 - より具体的なloop guardとして、同一tool+引数の反復4回、management targetの反復4回、または2〜4ラウンドの正確なtool呼び出しcycleが3回繰り返された場合にも停止します。cycle履歴は1回の`run_llm_rounds`内に限定し、引数は短いhashのみ保持します。
 - `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `512`）。異なる・反復しない作業の最終安全上限です。
 - `UAGENT_FILE_GREP_TURN_LIMIT`: 1回のユーザー操作で実行できる`file_grep`の最大回数（既定: `8`）。超過後は`read_file`、indexのsection、`code_map`などへ切り替えるよう促します。
-- `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。
+- `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。`[startup-timing] timeline.*` は CLI エントリーポイントからの累積時間と、直前のチェックポイントからの差分（`delta`）を出力します。Sandbox 状態表示、Decision Provider、プラグイン、長期記憶、ツール準備、起動フック、スケジューラーなどを個別に確認できます。既存の `total` は初期起動フェーズのみで、入力待ち開始までの総時間ではありません。Python インタープリター起動前の時間は含みません。
 - `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。公開statusは`completed`、`continue`、`failed`、`cancelled`、`interrupted`です。
 - `UAGENT_SHOW_USAGE`: `1` に設定すると、providerからusageを取得できた場合に`[USAGE]` token行をstderrへ出力します。
 - `UAGENT_MCP_SESSION_REUSE`: プロセス内でStreamable HTTP MCPセッションと`tools/list`結果を再利用します（既定: `1`）。`0`に設定すると呼び出しごとの接続作成に戻ります。

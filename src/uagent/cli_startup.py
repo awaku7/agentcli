@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .runtime.startup_timing import checkpoint
+
 _ROLE_FILE_MAX_BYTES = 64 * 1024
 
 
@@ -299,6 +301,7 @@ def run_cli_startup(
                 sys.exit(1)
 
             _startup_timing_mark("workdir")
+            checkpoint("workdir_ready")
 
             # Session persistence is deliberately opt-in during rollout.
             try:
@@ -319,6 +322,8 @@ def run_cli_startup(
                     + str(e),
                     file=sys.stderr,
                 )
+
+            checkpoint("session_store_ready")
 
             try:
                 _timing_started = time.perf_counter()
@@ -379,6 +384,7 @@ def run_cli_startup(
             decision_settings = configure_decision_settings(
                 cli_provider=decision_provider
             )
+            checkpoint("environment_validated")
             if sandbox_initializer is not None:
                 sandbox_enabled = bool(
                     sandbox_initializer(
@@ -386,12 +392,14 @@ def run_cli_startup(
                         str(getattr(core, "session_id", "") or session_id or ""),
                     )
                 )
+            checkpoint("sandbox_status_displayed")
             _preload_laya_torch_for_startup(
                 decision_settings,
                 sandbox_enabled=sandbox_enabled,
                 preload=preload_laya_torch_on_windows,
             )
             _startup_timing_mark("env")
+            checkpoint("decision_preload_complete")
 
             banner = build_startup_banner(
                 core=core,
@@ -403,6 +411,7 @@ def run_cli_startup(
 
             print_welcome()
             ensure_mcp_config_template()
+            checkpoint("startup_assets_ready")
 
             # Load and activate enabled plugins (MCP / agents / hooks)
             try:
@@ -415,6 +424,7 @@ def run_cli_startup(
                 pass
 
             _startup_timing_mark("plugins")
+            checkpoint("plugins_ready")
 
             try:
                 provider, client, depname = providers.make_client(core)
@@ -423,6 +433,7 @@ def run_cli_startup(
                 sys.exit(2)
 
             _startup_timing_mark("provider")
+            checkpoint("provider_ready")
 
             if banner:
                 print(banner, end="")
@@ -458,6 +469,7 @@ def run_cli_startup(
                 core=core, role_prompt=role_prompt, provider=provider, depname=depname
             )
             _startup_timing_mark("messages")
+            checkpoint("initial_messages_ready")
             print("[INFO] " + _("Loaded long-term memory."))
 
             try:
@@ -496,7 +508,9 @@ def run_cli_startup(
         raise
 
     _startup_timing_mark("memory")
+    checkpoint("long_memory_ready")
     _flush_startup_pager_and_continue()
+    checkpoint("startup_pager_complete")
 
     def _run_cli_startup_turn(fn, *args, **kwargs):
         return _call_cli_startup_turn(
@@ -579,6 +593,7 @@ def run_cli_startup(
         )
         _startup_timing_mark("complete")
         _startup_timing_emit()
+        checkpoint("startup_state_ready")
         return CliStartupState(
             provider=provider,
             client=client,
@@ -598,6 +613,7 @@ def run_cli_startup(
 
     _startup_timing_mark("complete")
     _startup_timing_emit()
+    checkpoint("startup_state_ready")
     return CliStartupState(
         provider=provider,
         client=client,

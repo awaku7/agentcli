@@ -30,6 +30,7 @@ from ..util_tools import (
 )
 from ..cli_startup import run_cli_startup as _run_cli_startup
 from ..runtime.sandbox_config import sandbox_startup_label
+from ..runtime.startup_timing import checkpoint
 from .history import _append_prompt_history_entry, _bootstrap_prompt_history
 from .startup import (
     INITIAL_FILE_ARG,
@@ -322,6 +323,7 @@ def main() -> int:
         enable_tools=UAGENT_ENABLE_TOOLS,
         sandbox_initializer=_initialize_cli_sandbox_after_dotenv,
     )
+    checkpoint("cli_startup_returned")
 
     provider = startup.provider
     client = startup.client
@@ -424,6 +426,7 @@ def main() -> int:
     )
     core._sub_agent_job_manager = job_manager
     core._sub_agent_job_owner = job_owner
+    checkpoint("job_manager_ready")
 
     # Computer Use backends are created lazily by the action handler.
     # Merely enabling the capability must not open a browser or desktop session.
@@ -436,6 +439,7 @@ def main() -> int:
     # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
     set_llm_event_queue(core.event_queue)
     core.start_interrupt_monitor()
+    checkpoint("background_services_started")
 
     # Optional synchronous plugin preloading is disabled by default; tool
     # modules otherwise load when the registry is first accessed.
@@ -444,6 +448,7 @@ def main() -> int:
             tools.start_tools_warmup()
         except Exception:
             pass
+    checkpoint("tool_warmup_requested")
 
     def _run_cli_hook(fn, *args):
         if sandbox_mode == "off":
@@ -482,6 +487,7 @@ def main() -> int:
             )
     except Exception:
         pass
+    checkpoint("session_hooks_complete")
 
     t = threading.Thread(
         target=stdin_loop,
@@ -490,6 +496,7 @@ def main() -> int:
     )
     t.start()
     _startup_timing_mark("stdin_loop_started")
+    checkpoint("stdin_thread_started")
 
     running = True
     first_event_received = False
@@ -506,6 +513,7 @@ def main() -> int:
         )
 
         scheduled_run_store = SchedulerRunStore()
+        checkpoint("scheduler_store_ready")
 
         def _run_llm_event(event, fn, *args, **kwargs):
             run_id = str(event.get("run_id") or "").strip()
@@ -571,6 +579,7 @@ def main() -> int:
                 {"kind": "command", "text": f":auto {startup.inject_message_auto}"}
             )
 
+        checkpoint("event_loop_ready")
         while running:
             try:
                 ev = core.event_queue.get()

@@ -14,6 +14,10 @@ def main() -> int:
         from .admin_pairing import main as admin_main
 
         return admin_main(sys.argv[2:])
+    from .runtime.startup_timing import checkpoint
+
+    checkpoint("cli_entry")
     from .cli import main as interactive_main
 
+    checkpoint("cli_imported")
     return interactive_main()
