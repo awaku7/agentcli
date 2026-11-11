@@ -55,6 +55,8 @@ jobs:
             upstream/packages/nostr-dart/test/uag_nip17_interop_test.dart
           cd upstream/packages/nostr-dart
           flutter pub add --dev flutter_test --sdk=flutter
+          # Upstream imports this in its signer module but omits the pubspec entry.
+          flutter pub add shared_preferences
 
       - name: Decrypt UAG gift wraps with actual 0xChat decoder
         working-directory: upstream/packages/nostr-dart
