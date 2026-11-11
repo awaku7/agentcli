@@ -1519,27 +1519,68 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
             readback = runtime.verify_latest_reply()
             state = readback.get("state")
             if state == "no_delivered_reply":
-                print("No delivered Nostr reply is available to verify.")
+                print(
+                    _(
+                        "nostr.remote_verify_no_reply",
+                        default="No delivered Nostr reply is available to verify.",
+                    )
+                )
             elif state != "complete":
-                print(f"Nostr reply readback unavailable: {state}")
+                print(
+                    _(
+                        "nostr.remote_verify_unavailable",
+                        default="Nostr reply readback unavailable: %(state)s",
+                        state=state,
+                    )
+                )
             else:
                 ids = readback["event_ids"]
-                print(f"Latest recipient gift-wrap event ID: {ids[0]}")
-                print(f"Latest sender-copy event ID: {ids[1]}")
+                print(
+                    _(
+                        "nostr.remote_verify_recipient_id",
+                        default="Latest recipient gift-wrap event ID: %(event_id)s",
+                        event_id=ids[0],
+                    )
+                )
+                print(
+                    _(
+                        "nostr.remote_verify_sender_id",
+                        default="Latest sender-copy event ID: %(event_id)s",
+                        event_id=ids[1],
+                    )
+                )
                 for item in readback["relays"]:
                     print(
-                        f"  relay {item['relay']}: "
-                        f"recipient={item['recipient']}; "
-                        f"sender_copy={item['sender_copy']}"
+                        _(
+                            "nostr.remote_verify_relay",
+                            default=(
+                                "  relay %(relay)s: recipient=%(recipient)s; "
+                                "sender_copy=%(sender_copy)s"
+                            ),
+                            relay=item["relay"],
+                            recipient=item["recipient"],
+                            sender_copy=item["sender_copy"],
+                        )
                     )
                 print(
-                    "found=relay returned a valid signed event; "
-                    "not_returned=EOSE without it; "
-                    "unavailable=readback could not be determined. "
-                    "This does not confirm delivery to 0xChat."
+                    _(
+                        "nostr.remote_verify_disclaimer",
+                        default=(
+                            "found=relay returned a valid signed event; "
+                            "not_returned=EOSE without it; "
+                            "unavailable=readback could not be determined. "
+                            "This does not confirm delivery to 0xChat."
+                        ),
+                    )
                 )
         except Exception as exc:
-            print(f"Nostr reply readback failed: {type(exc).__name__}")
+            print(
+                _(
+                    "nostr.remote_verify_error",
+                    default="Nostr reply readback failed: %(error_type)s",
+                    error_type=type(exc).__name__,
+                )
+            )
         return CommandResult()
 
     try:
