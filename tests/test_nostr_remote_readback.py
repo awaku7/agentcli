@@ -115,6 +115,29 @@ def test_readback_does_not_treat_invalid_event_as_found() -> None:
     assert result == "unavailable"
 
 
+
+def test_readback_default_websocket_connector_never_follows_redirects() -> None:
+    from websockets.asyncio.client import connect
+    from websockets.datastructures import Headers
+    from websockets.exceptions import InvalidStatus
+    from websockets.http11 import Response
+
+    from uagent.nostr_remote_transport import _readback_connect_factory
+
+    factory = _readback_connect_factory(None)
+    assert issubclass(factory, connect)
+
+    redirect = InvalidStatus(
+        Response(
+            302,
+            "Found",
+            Headers({"Location": "wss://unapproved.example/private"}),
+        )
+    )
+    connection = factory("wss://allowed.example")
+    assert connection.process_redirect(redirect) is redirect
+
+
 def test_readback_rejects_unapproved_relay_without_connecting() -> None:
     called = []
 
