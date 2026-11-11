@@ -386,6 +386,7 @@ def test_remote_cli_echo_stops_spinner_before_serialized_output(
         def __exit__(self, *_args):
             actions.append("unlock")
 
+    monkeypatch.setattr(spinner, "is_running", lambda: False)
     monkeypatch.setattr(spinner, "stop_quietly", lambda: actions.append("stop_spinner"))
     core = SimpleNamespace(
         print_lock=RecordingLock(),
@@ -408,12 +409,56 @@ def test_remote_cli_echo_stops_spinner_before_serialized_output(
     assert core.prompt_needs_redraw is True
 
 
+@pytest.mark.parametrize(
+    ("busy", "stream_open", "expected_resume"),
+    [(True, False, True), (False, False, False), (True, True, False)],
+)
+def test_remote_cli_echo_restores_only_active_busy_spinner(
+    monkeypatch, capsys, busy, stream_open, expected_resume
+) -> None:
+    from uagent.nostr_remote_runtime import _display_nostr_incoming
+    from uagent.runtime import spinner
+
+    actions: list[str] = []
+
+    class RecordingLock:
+        def __enter__(self):
+            actions.append("lock")
+            return self
+
+        def __exit__(self, *_args):
+            actions.append("unlock")
+
+    monkeypatch.setattr(spinner, "is_running", lambda: True)
+    monkeypatch.setattr(spinner, "stop_quietly", lambda: actions.append("stop"))
+    monkeypatch.setattr(spinner, "start", lambda: actions.append("start"))
+    core = SimpleNamespace(
+        print_lock=RecordingLock(),
+        status_busy=busy,
+        _stream_line_open=stream_open,
+        _reasoning_stream_open=False,
+        _prompt_line_open=False,
+        _cli_prompt_toolkit_active=False,
+        prompt_needs_redraw=False,
+    )
+    _display_nostr_incoming(core, {"pubkey": "ab" * 32, "content": "hello"})
+    capsys.readouterr()
+
+    assert actions == [
+        "stop",
+        "lock",
+        "unlock",
+        *(["start"] if expected_resume else []),
+    ]
+
+
 def test_remote_cli_echo_leaves_prompt_toolkit_redraw_to_patch_stdout(
     monkeypatch, capsys
 ) -> None:
     from uagent.nostr_remote_runtime import _display_nostr_incoming
     from uagent.runtime import spinner
 
+    monkeypatch.setattr(spinner, "is_running", lambda: False)
     monkeypatch.setattr(spinner, "stop_quietly", lambda: None)
     core = SimpleNamespace(
         _cli_prompt_toolkit_active=True,
