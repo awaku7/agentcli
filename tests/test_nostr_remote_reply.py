@@ -47,7 +47,11 @@ def test_reply_uses_verified_recipient_relays_intersected_with_local_allowlist(
         assert pubkey == sender_pubkey
         assert lookup_relays == tuple(local_relays)
         assert allowed_relay_urls == tuple(local_relays)
-        return ["wss://local-b.example", "wss://attacker.example"]
+        return [
+            "wss://local-b.example",
+            "wss://attacker.example",
+            "wss://local-a.example",
+        ]
 
     async def fake_publish(
         events,
@@ -74,7 +78,11 @@ def test_reply_uses_verified_recipient_relays_intersected_with_local_allowlist(
             "Reply from UAG",
         )
         assert result["ok"] is True
-        assert captured["routes"][sender_pubkey] == ["wss://local-b.example"]
+        assert captured["routes"][sender_pubkey] == [
+            "wss://local-b.example",
+            "wss://local-a.example",
+        ]
+        assert "wss://attacker.example" not in captured["routes"][sender_pubkey]
         assert "wss://attacker.example" not in captured["allowlist"]
         assert len(captured["events"]) == 2
         assert all(event["kind"] == 1059 for event in captured["events"])
