@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import nullcontext
 import queue
 import threading
 import time
@@ -906,11 +907,48 @@ def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
     )
     if len(preview) > 2_000:
         preview = preview[:2_000] + "…"
+    was_spinning = False
+    stream_was_open = False
     try:
-        print(f"\n[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
-        core.prompt_needs_redraw = True
+        from .runtime import spinner
+
+        # Do not resume a spinner that had already stopped for streaming.
+        was_spinning = spinner.is_running()
+        stream_was_open = bool(
+            getattr(core, "_stream_line_open", False)
+            or getattr(core, "_reasoning_stream_open", False)
+        )
+        # Stop before taking print_lock: spinner.stop() acquires that lock.
+        spinner.stop_quietly()
+        lock = getattr(core, "print_lock", None)
+        with lock if lock is not None else nullcontext():
+            toolkit_prompt = bool(getattr(core, "_cli_prompt_toolkit_active", False))
+            if not toolkit_prompt:
+                if getattr(core, "_stream_line_open", False) or getattr(
+                    core, "_prompt_line_open", False
+                ):
+                    print(flush=True)
+                core._stream_line_open = False
+                core._reasoning_stream_open = False
+                core._prompt_line_open = False
+            print(f"[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
+            if not toolkit_prompt:
+                core.prompt_needs_redraw = True
     except (OSError, UnicodeError):
         pass
+    finally:
+        # Restore the progress indicator only if it was active before this
+        # notification and the foreground is still waiting for work.
+        if (
+            was_spinning
+            and not stream_was_open
+            and getattr(core, "status_busy", False)
+            and not getattr(core, "_prompt_line_open", False)
+        ):
+            try:
+                spinner.start()
+            except Exception:
+                pass
 
 
 def create_nostr_remote_runtime(
