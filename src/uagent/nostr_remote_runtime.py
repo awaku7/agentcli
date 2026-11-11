@@ -177,6 +177,17 @@ class NostrRemoteRuntime:
         self._status_stop = threading.Event()
         self._status_thread: threading.Thread | None = None
         self._state_lock = threading.Lock()
+        self._connected_relays: set[str] = set()
+        self._receive_counts = {
+            "gift_wraps": 0,
+            "invalid": 0,
+            "decrypt_failed": 0,
+            "unauthorized": 0,
+            "stale": 0,
+            "duplicate": 0,
+            "inbox_rejected": 0,
+            "queued": 0,
+        }
         self._state = "stopped"
         self._error = ""
         self._thread: threading.Thread | None = None
@@ -189,11 +200,25 @@ class NostrRemoteRuntime:
     def authorize_sender(self):
         return self.pairing_store.is_authorized
 
+    def _record_receive_diagnostic(self, relay: str, event: str) -> None:
+        """Count receive outcomes without retaining message data or identities."""
+        with self._state_lock:
+            if event == "connected":
+                self._connected_relays.add(relay)
+            elif event == "disconnected":
+                self._connected_relays.discard(relay)
+            elif event in self._receive_counts:
+                self._receive_counts[event] += 1
+
     def status(self) -> dict[str, Any]:
         with self._state_lock:
             state = self._state
             error = self._error
             closed = self._closed
+            diagnostics = {
+                "connected_relays": len(self._connected_relays),
+                **self._receive_counts,
+            }
         pending = (
             0
             if closed
@@ -220,6 +245,7 @@ class NostrRemoteRuntime:
             "relays": list(self.relays),
             "session_id": self.session_id,
             "error": error,
+            "diagnostics": diagnostics,
             "pending": pending,
             "dispatching": dispatching,
             "outbox_pending": outbox_pending,
@@ -455,6 +481,9 @@ class NostrRemoteRuntime:
                     inbox_store=self.inbox_store,
                     target_session_id=self.session_id,
                     stop_event=stop_event,
+                    diagnostic_callback=lambda event: self._record_receive_diagnostic(
+                        relay, event
+                    ),
                 )
                 if stop_event.is_set():
                     return
@@ -463,6 +492,7 @@ class NostrRemoteRuntime:
                 raise
             except Exception as exc:
                 with self._state_lock:
+                    self._connected_relays.discard(relay)
                     self._error = f"{relay}: {type(exc).__name__}: {str(exc)[:200]}"
                 try:
                     await asyncio.wait_for(stop_event.wait(), timeout=retry_delay)

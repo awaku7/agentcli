@@ -59,3 +59,39 @@ def test_remote_listener_start_requires_explicit_nostr_connection(
     monkeypatch.setattr(nostr_transport, "get_nostr_instance", lambda: None)
     nostr_transport._cmd_nostr_remote("start", core=SimpleNamespace())
     assert "Run :nostr connect first" in capsys.readouterr().out
+
+
+def test_remote_status_prints_aggregate_receive_diagnostics(
+    capsys, monkeypatch
+) -> None:
+    from types import SimpleNamespace
+
+    import uagent.tools.i18n_helper as i18n_helper
+
+    monkeypatch.setattr(i18n_helper, "detect_lang", lambda: "en")
+    stats = {
+        "state": "running",
+        "pending": 0,
+        "dispatching": 0,
+        "error": "",
+        "relays": ["wss://relay.example.org"],
+        "diagnostics": {
+            "connected_relays": 1,
+            "gift_wraps": 2,
+            "queued": 0,
+            "invalid": 0,
+            "decrypt_failed": 1,
+            "unauthorized": 1,
+            "stale": 0,
+            "duplicate": 0,
+            "inbox_rejected": 0,
+        },
+    }
+    runtime = SimpleNamespace(status=lambda: stats)
+    core = SimpleNamespace(_nostr_remote_runtime=runtime)
+    nostr_transport._cmd_nostr_remote("status", core=core)
+    output = capsys.readouterr().out
+    assert "connected=1/1" in output
+    assert "gift_wraps=2" in output
+    assert "decrypt=1" in output
+    assert "unpaired=1" in output
