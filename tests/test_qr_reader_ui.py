@@ -91,9 +91,7 @@ def test_open_image_stops_camera_before_processing_selected_image(monkeypatch) -
     reader.capture = SimpleNamespace(release=lambda: actions.append(("release", None)))
     reader.strings = {}
     reader.status = SimpleNamespace(set=lambda text: actions.append(("status", text)))
-    reader.cv2 = SimpleNamespace(
-        imread=lambda path: actions.append(("read", path)) or object()
-    )
+    reader._read_image = lambda path: actions.append(("read", path)) or object()
     reader._decode = lambda _frame: (["image QR"], None)
     reader._show_frame = lambda _frame: actions.append(("preview", None))
     reader._record_results = lambda values: actions.append(("record", values))
@@ -103,6 +101,35 @@ def test_open_image_stops_camera_before_processing_selected_image(monkeypatch) -
     assert actions[:2] == [("cancel", "after#9"), ("release", None)]
     assert actions.index(("read", "selected.png")) > actions.index(("release", None))
     assert ("record", ["image QR"]) in actions
+
+
+def test_read_image_with_non_ascii_filename(tmp_path) -> None:
+    path = tmp_path / "日本語 QR 画像.png"
+    path.write_bytes(b"encoded image data")
+    decoded: list[tuple[bytes, int]] = []
+    reader = object.__new__(QRReaderWindow)
+    reader.cv2 = SimpleNamespace(
+        IMREAD_COLOR=1,
+        imdecode=lambda data, flags: decoded.append((data.tobytes(), flags))
+        or "decoded image",
+    )
+
+    assert reader._read_image(str(path)) == "decoded image"
+    assert decoded == [(b"encoded image data", 1)]
+
+
+def test_read_image_returns_none_for_missing_or_empty_files(tmp_path) -> None:
+    reader = object.__new__(QRReaderWindow)
+    reader.cv2 = SimpleNamespace(
+        IMREAD_COLOR=1,
+        imdecode=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("unexpected image decoding")
+        ),
+    )
+    assert reader._read_image(str(tmp_path / "missing.png")) is None
+    empty = tmp_path / "empty.png"
+    empty.write_bytes(b"")
+    assert reader._read_image(str(empty)) is None
 
 
 def test_duplicate_decode_updates_latest_payload_without_repeating_history(
