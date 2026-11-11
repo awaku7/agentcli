@@ -40,9 +40,10 @@ def main() -> None:
         assert len(wraps) == 2
         rumor = unwrap_nip17_private_message(wraps[0], _TEST_RECIPIENT_PRIVATE)
         assert rumor["content"] == content
-        assert unwrap_nip17_private_message(wraps[1], _TEST_SENDER_PRIVATE)[
-            "id"
-        ] == rumor["id"]
+        assert (
+            unwrap_nip17_private_message(wraps[1], _TEST_SENDER_PRIVATE)["id"]
+            == rumor["id"]
+        )
         cases.append(
             {
                 "name": name,
