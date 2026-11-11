@@ -117,7 +117,6 @@ class FakeListenAuthSocket(FakeListenSocket):
         raise RuntimeError("listener should stop after callback")
 
 
-
 def test_all_remote_relay_connections_reject_http_redirects() -> None:
     """Publisher, listener, and relay discovery must not escape the allowlist."""
     from websockets.asyncio.client import connect
@@ -140,7 +139,6 @@ def test_all_remote_relay_connections_reject_http_redirects() -> None:
         )
         connection = factory("wss://allowed.example")
         assert connection.process_redirect(redirect) is redirect
-
 
 
 def test_publish_nip17_wrap_handles_nip42_auth() -> None:
