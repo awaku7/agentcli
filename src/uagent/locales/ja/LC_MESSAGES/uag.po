@@ -14,6 +14,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/nostr_setup.py
+msgid "UAG Nostr remote pairing"
+msgstr "UAG Nostr リモートペアリング"
+
+#: src/uagent/nostr_setup.py
+#, python-format
+msgid "Authorize this device for full control of this UAG CLI session?\n\nPhone public key:\n%(pubkey)s\n\nOnly approve a key displayed by a phone you control. Existing Sandbox and confirmation policies still apply.\n\nThe Nostr remote feature is experimental."
+msgstr "この端末に現在のUAG CLIセッションを完全に操作する権限を付与しますか？\n\nスマートフォンの公開鍵：\n%(pubkey)s\n\n自分が管理するスマートフォンに表示された公開鍵であることを確認してから許可してください。既存のサンドボックスと確認ポリシーは引き続き適用されます。\n\nNostrリモート機能は実験段階です。"
+
 #: src/uag_envsec/secret_core.py:181
 msgid "[INFO] Migrated envsec key to OS keyring; legacy key file retained."
 msgstr "[INFO] envsecキーをOSキーリングへ移行しました。従来のキーファイルは保持されています。"
