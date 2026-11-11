@@ -86,7 +86,6 @@ def test_readback_queries_exact_encrypted_event_id(outcome, expected) -> None:
     }
 
 
-
 def test_readback_authenticates_and_retries_subscription() -> None:
     recipient = _public_key_x(_secret(2))
     event = create_nip17_private_messages("test reply", _secret(1), recipient)[0]
