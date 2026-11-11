@@ -334,6 +334,13 @@ def start(interval: float = 0.08) -> None:
             _thread.start()
 
 
+def is_running() -> bool:
+    """Whether a spinner worker is active (not necessarily drawing a frame)."""
+    with _lifecycle_lock:
+        with _lock:
+            return _thread is not None and _thread.is_alive() and not _stop.is_set()
+
+
 def _done_line_kept() -> bool:
     """Return True when the finished line should stay in scrollback."""
     try:
