@@ -1556,6 +1556,23 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                     inbox=diagnostics.get("inbox_rejected", 0),
                 )
             )
+        outbox_summary = status.get("outbox_summary")
+        if isinstance(outbox_summary, dict):
+            print(
+                _(
+                    "nostr.remote_reply_outbox_summary",
+                    default=(
+                        "  replies: pending=%(pending)s; sending=%(sending)s; "
+                        "delivered=%(delivered)s; failed=%(failed)s; "
+                        "last_error=%(error)s"
+                    ),
+                    pending=outbox_summary.get("pending", 0),
+                    sending=outbox_summary.get("sending", 0),
+                    delivered=outbox_summary.get("delivered", 0),
+                    failed=outbox_summary.get("failed", 0),
+                    error=outbox_summary.get("last_error") or "-",
+                )
+            )
         if status["error"]:
             print(
                 _(

@@ -229,3 +229,51 @@ def test_reply_is_persisted_before_transient_relay_list_lookup(
         inbox.close()
         outbox.close()
         pairings.close()
+
+
+def test_missing_signed_dm_relay_list_is_visible_in_outbox_status(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent import nostr_remote_transport as transport
+
+    sender_pubkey = _public_key(_secret(1)).hex()
+    inbox = SQLiteNostrInboxStore(tmp_path / "missing-list-inbox.sqlite3")
+    outbox = SQLiteNostrOutboxStore(tmp_path / "missing-list-outbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "missing-list-pairings.sqlite3")
+    pairings.pair(sender_pubkey, "phone", approved=True)
+    runtime = NostrRemoteRuntime(
+        event_queue=SimpleNamespace(put=lambda _event: None),
+        private_key=_secret(2),
+        relays=["wss://relay.example"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+        outbox_store=outbox,
+    )
+
+    async def no_relay_list(*_args, **_kwargs):
+        raise transport.NostrRecipientRelayListUnavailable(
+            "no valid participant kind-10050 relay list was found"
+        )
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", no_relay_list)
+    try:
+        result = runtime.send_reply(
+            {"sender_pubkey": sender_pubkey, "rumor_id": "ef" * 32},
+            "private status reply",
+        )
+        assert result["queued"] is True
+        status = runtime.status()
+        assert status["outbox_pending"] == 1
+        summary = status["outbox_summary"]
+        assert summary["pending"] == 1
+        assert summary["sending"] == 0
+        assert summary["delivered"] == 0
+        assert summary["failed"] == 0
+        assert summary["last_error"] == "RecipientRelayListUnavailable"
+        assert "private status reply" not in repr(summary)
+        assert sender_pubkey not in repr(summary)
+    finally:
+        inbox.close()
+        outbox.close()
+        pairings.close()

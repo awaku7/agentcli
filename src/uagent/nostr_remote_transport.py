@@ -38,6 +38,10 @@ MAX_RELAY_FRAME_BYTES = 1_000_000
 DEFAULT_RELAY_TIMEOUT_SECONDS = 15
 
 
+class NostrRecipientRelayListUnavailable(ValueError):
+    """No valid signed kind-10050 list could be read from permitted relays."""
+
+
 @dataclass(frozen=True)
 class RelayDelivery:
     """Result of one event publication attempt to one relay."""
@@ -440,7 +444,9 @@ async def fetch_nip17_relay_list(
             continue
 
     if not candidates:
-        raise ValueError("no valid participant kind-10050 relay list was found")
+        raise NostrRecipientRelayListUnavailable(
+            "no valid participant kind-10050 relay list was found"
+        )
     return max(candidates, key=lambda candidate: candidate[0])[1]
 
 
