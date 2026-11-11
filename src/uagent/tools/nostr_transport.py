@@ -1525,6 +1525,37 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                 dispatching=status["dispatching"],
             )
         )
+        diagnostics = status.get("diagnostics")
+        if isinstance(diagnostics, dict):
+            print(
+                _(
+                    "nostr.remote_receive_diagnostics",
+                    default=(
+                        "  receive: connected=%(connected)s/%(total)s; "
+                        "gift_wraps=%(gift_wraps)s; queued=%(queued)s"
+                    ),
+                    connected=diagnostics.get("connected_relays", 0),
+                    total=len(status["relays"]),
+                    gift_wraps=diagnostics.get("gift_wraps", 0),
+                    queued=diagnostics.get("queued", 0),
+                )
+            )
+            print(
+                _(
+                    "nostr.remote_rejection_diagnostics",
+                    default=(
+                        "  rejected: invalid=%(invalid)s; decrypt=%(decrypt)s; "
+                        "unpaired=%(unpaired)s; stale=%(stale)s; "
+                        "duplicate=%(duplicate)s; inbox=%(inbox)s"
+                    ),
+                    invalid=diagnostics.get("invalid", 0),
+                    decrypt=diagnostics.get("decrypt_failed", 0),
+                    unpaired=diagnostics.get("unauthorized", 0),
+                    stale=diagnostics.get("stale", 0),
+                    duplicate=diagnostics.get("duplicate", 0),
+                    inbox=diagnostics.get("inbox_rejected", 0),
+                )
+            )
         if status["error"]:
             print(
                 _(
