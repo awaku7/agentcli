@@ -460,6 +460,7 @@ async def listen_nip17_messages(
     stop_event: asyncio.Event | None = None,
     connect_factory: Callable[..., Any] | None = None,
     timeout: float = DEFAULT_RELAY_TIMEOUT_SECONDS,
+    diagnostic_callback: Callable[[str], None] | None = None,
 ) -> None:
     """Listen for addressed kind-1059 events on one configured inbox relay.
 
@@ -505,6 +506,16 @@ async def listen_nip17_messages(
             raise ValueError("target_session_id is required for durable inbox mode")
     if now_fn is not None and not callable(now_fn):
         raise TypeError("now_fn must be callable")
+    if diagnostic_callback is not None and not callable(diagnostic_callback):
+        raise TypeError("diagnostic_callback must be callable")
+
+    def record_diagnostic(event: str) -> None:
+        # Diagnostics are non-authoritative and must never interrupt receipt.
+        if diagnostic_callback is not None:
+            try:
+                diagnostic_callback(event)
+            except Exception:
+                pass
 
     connect = _connect_factory(connect_factory)
     pubkey = _public_key_x(private_key).hex()
@@ -526,6 +537,7 @@ async def listen_nip17_messages(
         await websocket.send(
             json.dumps(request_frame, separators=(",", ":"), ensure_ascii=False)
         )
+        record_diagnostic("connected")
         try:
             while stop_event is None or not stop_event.is_set():
                 if stop_event is None:
@@ -573,11 +585,14 @@ async def listen_nip17_messages(
                 event = frame[2]
                 if not isinstance(event, dict) or event.get("kind") != 1059:
                     continue
+                record_diagnostic("gift_wraps")
                 try:
                     _event_json_bytes(event)
                 except (TypeError, ValueError):
+                    record_diagnostic("invalid")
                     continue
                 if not _verify_event(event):
+                    record_diagnostic("invalid")
                     continue
                 try:
                     # NIP-01's event id covers these fields only. Drop any
@@ -595,16 +610,19 @@ async def listen_nip17_messages(
                         )
                     }
                 except (KeyError, TypeError):
+                    record_diagnostic("invalid")
                     continue
                 try:
                     rumor = unwrap_nip17_private_message(canonical_event, private_key)
                 except (ValueError, TypeError, KeyError):
+                    record_diagnostic("decrypt_failed")
                     continue
                 sender = rumor["pubkey"]
                 authorized = authorize_sender(sender)
                 if inspect.isawaitable(authorized):
                     authorized = await authorized
                 if not authorized:
+                    record_diagnostic("unauthorized")
                     continue
                 received_at = int(time.time()) if now_fn is None else now_fn()
                 try:
@@ -615,6 +633,7 @@ async def listen_nip17_messages(
                         future_tolerance_seconds=future_tolerance_seconds,
                     )
                 except ValueError:
+                    record_diagnostic("stale")
                     continue
                 if inbox_store is not None:
                     try:
@@ -629,17 +648,22 @@ async def listen_nip17_messages(
                     except (ValueError, InboxFullError):
                         # A malformed/oversized event or saturated local inbox
                         # rejects this request, not the entire relay listener.
+                        record_diagnostic("inbox_rejected")
                         continue
                     if not enqueued:
+                        record_diagnostic("duplicate")
                         continue
                 elif not replay_store.claim(
                     sender, rumor["id"], received_at=received_at
                 ):
+                    record_diagnostic("duplicate")
                     continue
                 result = on_message(rumor)
                 if inspect.isawaitable(result):
                     await result
+                record_diagnostic("queued")
         finally:
+            record_diagnostic("disconnected")
             try:
                 await websocket.send(json.dumps(["CLOSE", subscription_id]))
             except Exception:
