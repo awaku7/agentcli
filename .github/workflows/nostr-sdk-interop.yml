@@ -1,0 +1,32 @@
+name: Nostr SDK interoperability
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/nostr-sdk-interop.yml"
+      - "tests/test_nostr_sdk_interop.py"
+      - "src/uagent/nostr_nip17.py"
+      - "src/uagent/nostr_nip44.py"
+  workflow_dispatch:
+
+jobs:
+  interoperability:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install UAG and independent Nostr SDK
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,test]" "nostr-sdk==0.45.1"
+
+      - name: Test both directions with the real native SDK
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q -rs tests/test_nostr_sdk_interop.py
