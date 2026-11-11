@@ -386,9 +386,7 @@ def test_remote_cli_echo_stops_spinner_before_serialized_output(
         def __exit__(self, *_args):
             actions.append("unlock")
 
-    monkeypatch.setattr(
-        spinner, "stop_quietly", lambda: actions.append("stop_spinner")
-    )
+    monkeypatch.setattr(spinner, "stop_quietly", lambda: actions.append("stop_spinner"))
     core = SimpleNamespace(
         print_lock=RecordingLock(),
         _stream_line_open=True,
@@ -398,9 +396,7 @@ def test_remote_cli_echo_stops_spinner_before_serialized_output(
         prompt_needs_redraw=False,
     )
 
-    _display_nostr_incoming(
-        core, {"pubkey": "ab" * 32, "content": "hello from Nostr"}
-    )
+    _display_nostr_incoming(core, {"pubkey": "ab" * 32, "content": "hello from Nostr"})
 
     assert actions == ["stop_spinner", "lock", "unlock"]
     assert capsys.readouterr().out == (
