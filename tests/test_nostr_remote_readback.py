@@ -45,9 +45,7 @@ class FakeReadbackSocket:
         if self.outcome == "auth":
             return json.dumps(["AUTH", "challenge"])
         if self.outcome == "invalid":
-            return json.dumps(
-                ["EVENT", sub_id, {**self.event, "content": "invalid"}]
-            )
+            return json.dumps(["EVENT", sub_id, {**self.event, "content": "invalid"}])
         raise AssertionError("unexpected outcome")
 
 
@@ -201,9 +199,7 @@ def test_runtime_readback_uses_latest_tombstone_and_local_relays(
     runtime = SimpleNamespace(
         _closed=False,
         outbox_store=SimpleNamespace(
-            latest_delivered=lambda: SimpleNamespace(
-                event_ids=("ab" * 32, "cd" * 32)
-            )
+            latest_delivered=lambda: SimpleNamespace(event_ids=("ab" * 32, "cd" * 32))
         ),
         relays=("wss://allowed-a.example", "wss://allowed-b.example"),
     )
