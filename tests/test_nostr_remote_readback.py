@@ -86,6 +86,53 @@ def test_readback_queries_exact_encrypted_event_id(outcome, expected) -> None:
     }
 
 
+@pytest.mark.parametrize("close_before_auth_ack", [False, True])
+def test_readback_authenticates_and_retries_subscription(
+    close_before_auth_ack: bool,
+) -> None:
+    recipient = _public_key_x(_secret(2))
+    event = create_nip17_private_messages("test reply", _secret(1), recipient)[0]
+
+    class AuthSocket(FakeReadbackSocket):
+        def __init__(self) -> None:
+            super().__init__("found", event)
+            self.sent: list[list[object]] = []
+            self.step = 0
+
+        async def send(self, raw: str) -> None:
+            message = json.loads(raw)
+            self.sent.append(message)
+            if message[0] == "REQ":
+                self.request = message
+
+        async def recv(self) -> str:
+            self.step += 1
+            if self.step == 1:
+                return json.dumps(["AUTH", "test-challenge"])
+            if self.step == 2 and close_before_auth_ack:
+                return json.dumps(["CLOSED", self.request[1], "auth-required:"])
+            if self.step == 2 + int(close_before_auth_ack):
+                assert self.sent[-1][0] == "AUTH"
+                auth_event = self.sent[-1][1]
+                assert auth_event["kind"] == 22242
+                return json.dumps(["OK", auth_event["id"], True, ""])
+            assert self.sent[-1][0] == "REQ"
+            return json.dumps(["EVENT", self.request[1], self.event])
+
+    socket = AuthSocket()
+    result = asyncio.run(
+        read_back_nip17_gift_wrap(
+            "wss://allowed.example",
+            event["id"],
+            allowed_relay_urls=["wss://allowed.example"],
+            auth_private_key=_secret(1),
+            connect_factory=lambda *_args, **_kwargs: socket,
+        )
+    )
+    assert result == "found"
+    assert [message[0] for message in socket.sent] == ["REQ", "AUTH", "REQ"]
+
+
 def test_readback_does_not_treat_invalid_event_as_found() -> None:
     recipient = _public_key_x(_secret(2))
     event = create_nip17_private_messages("test reply", _secret(1), recipient)[0]
@@ -209,8 +256,12 @@ def test_runtime_readback_uses_latest_tombstone_and_local_relays(
 
     checked = []
 
-    async def fake_readback(relay, event_id, *, allowed_relay_urls, timeout):
-        checked.append((relay, event_id, list(allowed_relay_urls), timeout))
+    async def fake_readback(
+        relay, event_id, *, allowed_relay_urls, auth_private_key, timeout
+    ):
+        checked.append(
+            (relay, event_id, list(allowed_relay_urls), auth_private_key, timeout)
+        )
         return "found" if event_id == "ab" * 32 else "not_returned"
 
     monkeypatch.setattr(
@@ -224,6 +275,7 @@ def test_runtime_readback_uses_latest_tombstone_and_local_relays(
             latest_delivered=lambda: SimpleNamespace(event_ids=("ab" * 32, "cd" * 32))
         ),
         relays=("wss://allowed-a.example", "wss://allowed-b.example"),
+        private_key=_secret(1),
     )
     result = NostrRemoteRuntime.verify_latest_reply(runtime)
     assert result["state"] == "complete"
@@ -234,6 +286,8 @@ def test_runtime_readback_uses_latest_tombstone_and_local_relays(
     )
     assert len(checked) == 4
     assert all(
-        allowlist == list(runtime.relays) and timeout == 3.0
-        for _, _, allowlist, timeout in checked
+        allowlist == list(runtime.relays)
+        and auth_private_key == runtime.private_key
+        and timeout == 3.0
+        for _, _, allowlist, auth_private_key, timeout in checked
     )

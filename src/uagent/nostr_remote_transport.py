@@ -325,6 +325,7 @@ async def read_back_nip17_gift_wrap(
     event_id: str,
     *,
     allowed_relay_urls: Sequence[str],
+    auth_private_key: bytes | None = None,
     connect_factory: Callable[..., Any] | None = None,
     timeout: float = 3.0,
 ) -> str:
@@ -353,6 +354,9 @@ async def read_back_nip17_gift_wrap(
     sub_id = "uag-readback-" + secrets.token_hex(8)
     request = ["REQ", sub_id, {"ids": [event_id], "kinds": [1059], "limit": 1}]
     connect = _readback_connect_factory(connect_factory)
+    auth_key = (
+        None if auth_private_key is None else _validate_private_key(auth_private_key)
+    )
     invalid_reply = False
     try:
         async with asyncio.timeout(float(timeout)):
@@ -364,10 +368,37 @@ async def read_back_nip17_gift_wrap(
                 max_size=MAX_RELAY_FRAME_BYTES,
             ) as websocket:
                 await websocket.send(json.dumps(request, separators=(",", ":")))
+                auth_challenges: set[str] = set()
+                pending_auth_event_id: str | None = None
                 while True:
                     frame = _decode_relay_frame(await websocket.recv())
                     if frame is None or not frame:
                         continue
+                    if frame[0] == "AUTH" and len(frame) >= 2:
+                        challenge = frame[1]
+                        if (
+                            auth_key is None
+                            or not isinstance(challenge, str)
+                            or challenge in auth_challenges
+                            or len(auth_challenges) >= 2
+                        ):
+                            return "unavailable"
+                        auth_challenges.add(challenge)
+                        auth_event = _make_auth_event(relay_url, challenge, auth_key)
+                        pending_auth_event_id = auth_event["id"]
+                        await websocket.send(
+                            json.dumps(["AUTH", auth_event], separators=(",", ":"))
+                        )
+                        continue
+                    if frame[0] == "OK" and len(frame) >= 4:
+                        if frame[1] == pending_auth_event_id:
+                            if frame[2] is not True:
+                                return "unavailable"
+                            pending_auth_event_id = None
+                            await websocket.send(
+                                json.dumps(request, separators=(",", ":"))
+                            )
+                            continue
                     if (
                         frame[0] == "EVENT"
                         and len(frame) >= 3
@@ -381,11 +412,18 @@ async def read_back_nip17_gift_wrap(
                     elif frame[0] == "EOSE" and len(frame) >= 2 and frame[1] == sub_id:
                         return "unavailable" if invalid_reply else "not_returned"
                     elif (
+                        frame[0] == "CLOSED"
+                        and len(frame) >= 3
+                        and frame[1] == sub_id
+                        and pending_auth_event_id is not None
+                        and isinstance(frame[2], str)
+                        and frame[2].startswith("auth-required:")
+                    ):
+                        # The initial REQ may be rejected before AUTH is acknowledged.
+                        continue
+                    elif (
                         frame[0] == "CLOSED" and len(frame) >= 2 and frame[1] == sub_id
                     ):
-                        return "unavailable"
-                    elif frame[0] == "AUTH":
-                        # A readback that requires NIP-42 is indeterminate.
                         return "unavailable"
     except Exception:
         return "unavailable"
