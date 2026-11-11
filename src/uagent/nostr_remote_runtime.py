@@ -607,7 +607,10 @@ class NostrRemoteRuntime:
                 ]
                 if not recipient_relays:
                     raise ValueError("NoPermittedRecipientRelay")
-                relay_lists[record.sender_pubkey] = recipient_relays[:1]
+                # The recipient may read from any published DM inbox relay.
+                # Send the same signed gift wrap to every locally permitted
+                # kind-10050 relay instead of relying on the first one.
+                relay_lists[record.sender_pubkey] = recipient_relays
                 if not store.update_routes(
                     record.sender_pubkey,
                     record.request_rumor_id,
