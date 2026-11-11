@@ -628,9 +628,12 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     # promise that the selected model will use the Responses transport.
     _responses_supported = provider in RESPONSES_PROVIDERS
     if provider == "lmstudio":
-        from ..providers.llm_lmstudio import responses_endpoint_available
+        try:
+            from ..providers.llm_lmstudio import responses_endpoint_available
 
-        _responses_supported = responses_endpoint_available(core)
+            _responses_supported = responses_endpoint_available(core)
+        except Exception:
+            pass
 
     _lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
