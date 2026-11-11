@@ -188,6 +188,8 @@ CLIの単一セッションから実装を始めることは可能だが、**同
 
 受信の切り分け用に、`:nostr remote status` へセッション内メモリの診断件数を追加する。WebSocket接続中Relay数、Relayから受け取ったkind 1059イベント数、CLI引渡し数、形式・署名不正／復号失敗／未承認送信者／時刻範囲外／重複／Inbox拒否の各件数のみを保持する。公開鍵・秘密鍵・本文・イベントIDは診断情報に含めず、永続化もしない。`connected` はWebSocketで受信購読要求を送れたRelay数であり、Relayへの配送成功やUAGでの処理成功を保証しない。`gift_wraps=0` の場合は宛先Relayとkind 1059配送経路を、`gift_wraps>0` で`queued=0` の場合は拒否件数を確認する。件数は起動中のRuntimeに対する集計であり、0に戻すにはRuntimeを再作成する。
 
+送信側の切り分けにはローカル専用の`:nostr remote verify`を利用する。返信Outboxの最新の`delivered`記録に残る2つの暗号化kind-1059イベントID（受信者用・送信者控え）について、設定済みの許可RelayへNIP-01 `REQ`（`ids`と`kinds: [1059]`）で再取得を試みる。`found`は署名を検証できたイベントがRelayから返されたこと、`not_returned`はEOSEまでに返されなかったこと、`unavailable`は認証要求・接続失敗・タイムアウト等で判定不能だったことを意味する。Relayの`OK`だけでは保存を保証せず、`found`でも0xChatの受信・復号・表示までは保証しない。問い合わせによって再送・Outbox変更はせず、秘密鍵と本文も表示しない。全Relayが`not_returned`ならRelayの保持・応答を、いずれかが`found`ならクライアントの受信側を中心に調べる。ただし`unavailable`は不達と断定しない。
+
 受信した認証済み・形式検証済みNIP-17テキストDMは、CLIで`[NOSTR] Received from <公開鍵先頭12桁>: <本文>`として表示する。表示はその場限りで本文を診断DBに追加保存せず、制御文字を除外し、表示長は2000文字で制限する。`:nostr remote status`には返信Outboxのpending/sending/delivered/failedと、直近の未解決の失敗種別`last_error`も表示する。`RecipientRelayListUnavailable`は相手の署名済みkind 10050を設定済みRelayから取得できないこと、`NoPermittedRecipientRelay`は取得済みリストにローカル許可Relayがないことを意味する。NIP-17に従い、署名済みkind 10050を取得できない場合に受信元Relayなどへ返信を無条件送信するフォールバックは設けない。
 
 **これはセットアップ補助であり、リモート制御を本番利用可能にしたものではない。** 現在の秘密鍵は既存bitchat用の平文JSONを再利用し、リモート専用のOS安全領域保管、kind 10050の受信Relay自動公開、実Relay・0xChatでのE2E接続確認は別途実装・検証が必要。セットアップ画面にも警告を表示する。
