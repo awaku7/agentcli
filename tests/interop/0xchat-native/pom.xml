@@ -11,6 +11,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+    <!-- The JVM API classes are a separate Maven artifact from the JNI runtime. -->
+    <dependency>
+      <groupId>fr.acinq.secp256k1</groupId>
+      <artifactId>secp256k1-kmp-jvm</artifactId>
+      <version>0.19.0</version>
+    </dependency>
     <!-- Same secp256k1-kmp version as the Android 0xChat plugin.
          JVM JNI artifact uses the same libsecp256k1 implementation. -->
     <dependency>
