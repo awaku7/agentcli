@@ -1422,11 +1422,11 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
     from ..util_tools import CommandResult
 
     parts = arg.strip().split()
-    if not parts or parts[0].lower() not in {"start", "stop", "status"}:
+    if not parts or parts[0].lower() not in {"start", "stop", "status", "verify"}:
         print(
             _(
                 "nostr.remote_usage",
-                default="Usage: :nostr remote start|stop|status",
+                default="Usage: :nostr remote start|stop|status|verify",
             )
         )
         return CommandResult()
@@ -1514,6 +1514,34 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
             )
         )
         return CommandResult()
+    if operation == "verify":
+        try:
+            readback = runtime.verify_latest_reply()
+            state = readback.get("state")
+            if state == "no_delivered_reply":
+                print("No delivered Nostr reply is available to verify.")
+            elif state != "complete":
+                print(f"Nostr reply readback unavailable: {state}")
+            else:
+                ids = readback["event_ids"]
+                print(f"Latest recipient gift-wrap event ID: {ids[0]}")
+                print(f"Latest sender-copy event ID: {ids[1]}")
+                for item in readback["relays"]:
+                    print(
+                        f"  relay {item['relay']}: "
+                        f"recipient={item['recipient']}; "
+                        f"sender_copy={item['sender_copy']}"
+                    )
+                print(
+                    "found=relay returned a valid signed event; "
+                    "not_returned=EOSE without it; "
+                    "unavailable=readback could not be determined. "
+                    "This does not confirm delivery to 0xChat."
+                )
+        except Exception as exc:
+            print(f"Nostr reply readback failed: {type(exc).__name__}")
+        return CommandResult()
+
     try:
         status = runtime.status()
         print(
@@ -1606,7 +1634,7 @@ CMD_SPECS.append(
         "command": "nostr",
         "subcommand": "remote",
         "handler": _cmd_nostr_remote,
-        "help_text": "  :nostr remote start|stop|status  Manage the opt-in private inbox listener",
+        "help_text": "  :nostr remote start|stop|status|verify  Manage and diagnose the private inbox",
     }
 )
 
