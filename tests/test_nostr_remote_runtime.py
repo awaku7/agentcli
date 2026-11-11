@@ -281,3 +281,47 @@ def test_invalid_rumor_is_queued_by_reference_without_plaintext(tmp_path) -> Non
     finally:
         inbox.close()
         pairings.close()
+
+
+def test_receive_diagnostics_track_connections_and_drop_counts_in_memory(
+    tmp_path,
+) -> None:
+    inbox = SQLiteNostrInboxStore(tmp_path / "diagnostics-inbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "diagnostics-pairings.sqlite3")
+    relay = "wss://relay.example.org"
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=_secret(2),
+        relays=[relay],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+    )
+    try:
+        runtime._record_receive_diagnostic(relay, "connected")
+        runtime._record_receive_diagnostic(relay, "gift_wraps")
+        runtime._record_receive_diagnostic(relay, "unauthorized")
+        runtime._record_receive_diagnostic(relay, "queued")
+        status = runtime.status()
+        diagnostics = status["diagnostics"]
+        assert diagnostics["connected_relays"] == 1
+        assert diagnostics["gift_wraps"] == 1
+        assert diagnostics["unauthorized"] == 1
+        assert diagnostics["queued"] == 1
+        assert diagnostics["decrypt_failed"] == 0
+        assert set(diagnostics) == {
+            "connected_relays",
+            "gift_wraps",
+            "invalid",
+            "decrypt_failed",
+            "unauthorized",
+            "stale",
+            "duplicate",
+            "inbox_rejected",
+            "queued",
+        }
+        runtime._record_receive_diagnostic(relay, "disconnected")
+        assert runtime.status()["diagnostics"]["connected_relays"] == 0
+    finally:
+        inbox.close()
+        pairings.close()
