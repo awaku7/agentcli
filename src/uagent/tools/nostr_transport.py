@@ -1594,7 +1594,9 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
     npub = encode_npub(instance.pubkey_hex)
     print("Nostr remote setup (experimental; not approved for production).")
     print("Warning: this currently reuses the legacy Nostr key stored in a JSON file.")
-    print("Remote-key isolation, secure storage, and real-relay interoperability remain pending.")
+    print(
+        "Remote-key isolation, secure storage, and real-relay interoperability remain pending."
+    )
     print(f"PC public key: {npub}")
     print("Scan this public-only QR code with your Nostr app:")
     if not show_public_key_qr(npub):
