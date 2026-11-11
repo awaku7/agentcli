@@ -104,9 +104,7 @@ def test_pair_command_supports_npub(tmp_path, monkeypatch) -> None:
     db_path = tmp_path / "pairings.sqlite3"
     monkeypatch.setattr(nostr_transport, "_pairing_database_path", lambda: db_path)
     phone = _pubkey(25)
-    nostr_transport._cmd_nostr_pair(
-        nostr_transport.encode_npub(phone) + " Phone"
-    )
+    nostr_transport._cmd_nostr_pair(nostr_transport.encode_npub(phone) + " Phone")
     with SQLitePairingStore(db_path) as store:
         assert store.is_authorized(phone)
 
