@@ -1589,7 +1589,12 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
     if instance is None or not instance.is_running:
         result = start_nostr()
         if not result.get("ok"):
-            print(_("nostr.setup_connect_error", default="Could not connect to Nostr relays."))
+            print(
+                _(
+                    "nostr.setup_connect_error",
+                    default="Could not connect to Nostr relays.",
+                )
+            )
             return CommandResult()
         instance = get_nostr_instance()
     if instance is None or not instance.is_running or not instance.pubkey_hex:
