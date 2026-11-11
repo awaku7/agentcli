@@ -10,6 +10,8 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from typing import Any
 
+import numpy as np
+
 
 def _translate_ui(
     strings: dict[str, str], key: str, default: str, **kwargs: Any
@@ -236,6 +238,18 @@ class QRReaderWindow:
             self.capture = None
         self.status.set(self._t("ui.camera_stopped", "Camera stopped."))
 
+    def _read_image(self, path: str) -> Any:
+        """Decode file bytes to support Unicode image paths on Windows."""
+        try:
+            with open(path, "rb") as image_file:
+                image_bytes = image_file.read()
+            if not image_bytes:
+                return None
+            encoded = np.frombuffer(image_bytes, dtype=np.uint8)
+            return self.cv2.imdecode(encoded, self.cv2.IMREAD_COLOR)
+        except (OSError, ValueError):
+            return None
+
     def open_image(self) -> None:
         path = filedialog.askopenfilename(
             parent=self.root,
@@ -253,7 +267,7 @@ class QRReaderWindow:
         if not path:
             return
         self.stop_camera()
-        frame = self.cv2.imread(path)
+        frame = self._read_image(path)
         if frame is None:
             self.status.set(
                 self._t("ui.image_open_error", "Could not open the selected image.")
