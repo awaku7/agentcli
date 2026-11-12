@@ -8,6 +8,7 @@ from ..i18n import _
 from ..env_utils import env_get
 from ..auth.provider_credentials import get_provider_api_key
 from ..auth.credential_store import get_default_credential_store
+from ..runtime.startup_timing import measure_detail
 from .provider_caps import ALL_PROVIDERS
 
 
@@ -208,13 +209,15 @@ def make_httpx_client(
     """
     if is_ssl_verify_disabled():
         verify = False
-    try:
-        import httpx
-    except Exception:
-        return None
+    with measure_detail("provider.httpx.import"):
+        try:
+            import httpx
+        except Exception:
+            return None
 
     if timeout is None:
-        timeout = make_httpx_timeout()
+        with measure_detail("provider.httpx.timeout"):
+            timeout = make_httpx_timeout()
 
     kwargs: dict[str, Any] = {}
     if timeout is not None:
@@ -224,17 +227,19 @@ def make_httpx_client(
     if event_hooks is not None:
         kwargs["event_hooks"] = event_hooks
 
-    try:
-        c = httpx.Client(**kwargs)
-    except Exception:
-        # Fallback: drop event_hooks if that caused trouble
+    with measure_detail("provider.httpx.client"):
         try:
-            kwargs.pop("event_hooks", None)
             c = httpx.Client(**kwargs)
         except Exception:
-            return None
+            # Fallback: drop event_hooks if that caused trouble
+            try:
+                kwargs.pop("event_hooks", None)
+                c = httpx.Client(**kwargs)
+            except Exception:
+                return None
 
-    _register_httpx_client(c)
+    with measure_detail("provider.httpx.register"):
+        _register_httpx_client(c)
     return c
 
 
@@ -513,9 +518,12 @@ def _provider_api_key(core: Any, provider: str) -> str | None:
 def make_client(core: Any) -> tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
-    provider = detect_provider()
-    _ensure_provider_dependency(provider)
-    model_name = get_model_name()
+    with measure_detail("provider.detect"):
+        provider = detect_provider()
+    with measure_detail("provider.dependency"):
+        _ensure_provider_dependency(provider)
+    with measure_detail("provider.model"):
+        model_name = get_model_name()
 
     if provider == "azure":
         from openai import AzureOpenAI  # lazy
@@ -543,18 +551,25 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider in {"openai", "meta"}:
-        from openai import OpenAI  # lazy
+        with measure_detail("provider.openai.sdk_import"):
+            from openai import OpenAI  # lazy
 
         credential_provider = "META" if provider == "meta" else "OPENAI"
-        api_key = _provider_api_key(core, credential_provider)
-        base_url = core.get_env_url(
-            "UAGENT_META_BASE_URL" if provider == "meta" else "UAGENT_OPENAI_BASE_URL",
-            (
-                "https://api.meta.ai/v1"
-                if provider == "meta"
-                else "https://api.openai.com/v1"
-            ),
-        )
+        with measure_detail("provider.openai.credentials"):
+            api_key = _provider_api_key(core, credential_provider)
+        with measure_detail("provider.openai.base_url"):
+            base_url = core.get_env_url(
+                (
+                    "UAGENT_META_BASE_URL"
+                    if provider == "meta"
+                    else "UAGENT_OPENAI_BASE_URL"
+                ),
+                (
+                    "https://api.meta.ai/v1"
+                    if provider == "meta"
+                    else "https://api.openai.com/v1"
+                ),
+            )
 
         def _hook(resp: Any) -> None:
             try:
@@ -564,12 +579,16 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             except Exception:
                 return
 
-        http_client = make_httpx_client(event_hooks={"response": [_hook]})
+        with measure_detail("provider.openai.http_client"):
+            http_client = make_httpx_client(event_hooks={"response": [_hook]})
 
-        try:
-            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
-        except TypeError:
-            client = OpenAI(api_key=api_key, base_url=base_url)
+        with measure_detail("provider.openai.sdk_client"):
+            try:
+                client = OpenAI(
+                    api_key=api_key, base_url=base_url, http_client=http_client
+                )
+            except TypeError:
+                client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name
 
