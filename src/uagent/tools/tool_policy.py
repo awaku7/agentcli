@@ -247,6 +247,21 @@ def _delete_is_preview(args: dict[str, Any]) -> bool:
     )
 
 
+def _patch_deletes_file(args: dict[str, Any]) -> bool:
+    """True when an apply_patch patch text deletes at least one file."""
+    text = args.get("patch_text")
+    if not isinstance(text, str):
+        return False
+    for line in text.splitlines():
+        if line.startswith("+++"):
+            path = line[3:].strip()
+            if path.startswith("a/") or path.startswith("b/"):
+                path = path[2:]
+            if path in {"/dev/null", "dev/null"}:
+                return True
+    return False
+
+
 def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy:
     args = args or {}
 
@@ -321,6 +336,19 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
                 parallel_safe=True,
                 resource_key=_resource_key(tool_name, args),
             )
+    # A patch that deletes a file is destructive, like delete_file, even
+    # though ordinary apply_patch edits are idempotent writes. Previews
+    # (dry_run, the default) never delete, so only the real run is gated.
+    if (
+        tool_name == "apply_patch"
+        and not bool(args.get("dry_run", True))
+        and _patch_deletes_file(args)
+    ):
+        return ToolPolicy(
+            SideEffect.DESTRUCTIVE,
+            resource_key=_resource_key(tool_name, args),
+            requires_confirmation=True,
+        )
     if tool_name == "artifact_export" and bool(args.get("overwrite", False)):
         return ToolPolicy(
             SideEffect.DESTRUCTIVE,
