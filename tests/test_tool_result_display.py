@@ -406,6 +406,32 @@ def test_echonet_property_set_describer_includes_value() -> None:
     assert "1" in text
 
 
+def test_echonet_property_set_describer_matches_execution_precedence() -> None:
+    from uagent.tools import echonet_property_set_tool
+
+    # edt wins over value at execution time; the announcement must too.
+    text = echonet_property_set_tool.describe(
+        {"ip": "192.168.1.50", "epc": "80", "value": 49, "edt": "30"}
+    )
+    assert "30" in text
+    # eoj wins over obj; with neither, execution targets the node profile.
+    text = echonet_property_set_tool.describe(
+        {
+            "ip": "192.168.1.50",
+            "obj": "0290",
+            "eoj": "013001",
+            "epc": "80",
+            "value": 1,
+        }
+    )
+    assert "013001" in text
+    assert "029001" not in text
+    text = echonet_property_set_tool.describe(
+        {"ip": "192.168.1.50", "epc": "80", "value": 1}
+    )
+    assert "0EF001" in text
+
+
 def test_bacnet_write_describer_includes_value() -> None:
     from uagent.tools import bacnet_write_tool
 
