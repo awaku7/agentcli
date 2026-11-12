@@ -1,5 +1,7 @@
 {
   "ja": {
+    "describe.python": "Python を実行します: %(code)s",
+    "describe.python_multi": "Python を実行します（全%(lines)s行）: %(code)s",
     "param.code.description": "Pythonコード。",
     "x_search_terms": [
       "Pythonの実行",
@@ -17,6 +19,8 @@
     "tool.description": "Python コードを制御された方法で実行します。このツールは、計算、データ処理、または短いスクリプトの実行に使用します。このツールを使用する前に、`tool_catalog` で他の適切なツールを検索してください。"
   },
   "es": {
+    "describe.python_multi": "Ejecutando Python (%(lines)s líneas): %(code)s",
+    "describe.python": "Ejecutando Python: %(code)s",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "ejecutivo de Python",
@@ -34,6 +38,8 @@
     "tool.description": "Ejecute código Python de forma controlada. Utilice esta herramienta para cálculos, procesamiento de datos o ejecutar scripts cortos. Busque otras herramientas adecuadas a través de `tool_catalog` antes de usar esta herramienta."
   },
   "fr": {
+    "describe.python_multi": "Exécution de Python (%(lines)s lignes) : %(code)s",
+    "describe.python": "Exécution de Python : %(code)s",
     "param.code.description": "Code Python.",
     "x_search_terms": [
       "exécutable python",
@@ -51,6 +57,8 @@
     "tool.description": "Exécutez le code Python de manière contrôlée. Utilisez cet outil pour les calculs, le traitement des données ou l'exécution de scripts courts. Recherchez d'autres outils appropriés via `tool_catalog` avant d'utiliser cet outil."
   },
   "ko": {
+    "describe.python_multi": "Python 실행 중 (%(lines)s줄): %(code)s",
+    "describe.python": "Python 실행 중: %(code)s",
     "param.code.description": "Python 코드.",
     "x_search_terms": [
       "파이썬 exec",
@@ -68,6 +76,8 @@
     "tool.description": "통제된 방식으로 Python 코드를 실행하세요. 계산, 데이터 처리 또는 짧은 스크립트 실행에 이 도구를 사용하십시오. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요."
   },
   "de": {
+    "describe.python_multi": "Python wird ausgeführt (%(lines)s Zeilen): %(code)s",
+    "describe.python": "Python wird ausgeführt: %(code)s",
     "param.code.description": "Auszuführender Python-Code.",
     "x_search_terms": [
       "Python Exec",
@@ -85,6 +95,8 @@
     "tool.description": "Führen Sie Python-Code auf kontrollierte Weise aus. Verwenden Sie dieses Tool für Berechnungen, Datenverarbeitung oder die Ausführung kurzer Skripte. Suchen Sie über „tool_catalog“ nach anderen geeigneten Tools, bevor Sie dieses Tool verwenden."
   },
   "it": {
+    "describe.python_multi": "Esecuzione di Python (%(lines)s righe): %(code)s",
+    "describe.python": "Esecuzione di Python: %(code)s",
     "param.code.description": "Codice Python.",
     "x_search_terms": [
       "Python esecutivo",
@@ -102,6 +114,8 @@
     "tool.description": "Esegui il codice Python in modo controllato. Utilizzare questo strumento per calcoli, elaborazione dati o esecuzione di brevi script. Cerca altri strumenti adatti tramite `tool_catalog` prima di utilizzare questo strumento."
   },
   "ru": {
+    "describe.python_multi": "Выполнение Python (%(lines)s строк): %(code)s",
+    "describe.python": "Выполнение Python: %(code)s",
     "param.code.description": "Код Python.",
     "x_search_terms": [
       "Python-исполнитель",
@@ -119,6 +133,8 @@
     "tool.description": "Выполняйте код Python контролируемым образом. Используйте этот инструмент для вычислений, обработки данных или выполнения коротких сценариев. Прежде чем использовать этот инструмент, найдите другие подходящие инструменты через `tool_catalog`."
   },
   "pt_BR": {
+    "describe.python_multi": "Executando Python (%(lines)s linhas): %(code)s",
+    "describe.python": "Executando Python: %(code)s",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "executivo python",
@@ -136,6 +152,8 @@
     "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
   },
   "pt": {
+    "describe.python_multi": "A executar Python (%(lines)s linhas): %(code)s",
+    "describe.python": "A executar Python: %(code)s",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "executivo python",
@@ -153,6 +171,8 @@
     "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
   },
   "id": {
+    "describe.python_multi": "Menjalankan Python (%(lines)s baris): %(code)s",
+    "describe.python": "Menjalankan Python: %(code)s",
     "param.code.description": "Kode Python.",
     "x_search_terms": [
       "eksekutif python",
@@ -170,6 +190,8 @@
     "tool.description": "Jalankan kode Python dengan cara yang terkendali. Gunakan alat ini untuk penghitungan, pemrosesan data, atau menjalankan skrip pendek. Cari alat lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
   },
   "vi": {
+    "describe.python_multi": "Đang chạy Python (%(lines)s dòng): %(code)s",
+    "describe.python": "Đang chạy Python: %(code)s",
     "param.code.description": "Mã Python.",
     "x_search_terms": [
       "người thực thi python",
@@ -187,6 +209,8 @@
     "tool.description": "Thực thi mã Python theo cách được kiểm soát. Sử dụng công cụ này để tính toán, xử lý dữ liệu hoặc chạy các tập lệnh ngắn. Tìm kiếm các công cụ phù hợp khác thông qua `tool_catalog` trước khi sử dụng công cụ này."
   },
   "pl": {
+    "describe.python_multi": "Uruchamianie Pythona (%(lines)s linii): %(code)s",
+    "describe.python": "Uruchamianie Pythona: %(code)s",
     "param.code.description": "Kod Pythona.",
     "x_search_terms": [
       "wykonanie Pythona",
@@ -204,6 +228,8 @@
     "tool.description": "Wykonaj kod Pythona w kontrolowany sposób. Użyj tego narzędzia do obliczeń, przetwarzania danych lub uruchamiania krótkich skryptów. Przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia w `tool_catalog`."
   },
   "hi": {
+    "describe.python_multi": "Python चलाया जा रहा है (%(lines)s पंक्तियाँ): %(code)s",
+    "describe.python": "Python चलाया जा रहा है: %(code)s",
     "param.code.description": "उपयोग के लिए पॉवरशेल निष्पादन योग्य: 'pwsh' (पावरशेल 7+) या 'पॉवरशेल'।",
     "x_search_terms": [
       "अजगर निष्पादन",
@@ -221,6 +247,8 @@
     "tool.description": "पायथन कोड को नियंत्रित तरीके से निष्पादित करें। गणना, डेटा प्रोसेसिंग, या छोटी स्क्रिप्ट चलाने के लिए इस टूल का उपयोग करें। इसका उपयोग करने से पहले, अन्य उपयुक्त टूल के लिए tool_catalog खोजें।"
   },
   "ar": {
+    "describe.python_multi": "تشغيل Python (%(lines)s سطر): %(code)s",
+    "describe.python": "تشغيل Python: %(code)s",
     "param.code.description": "كود بايثون.",
     "x_search_terms": [
       "بايثون إكسيك",
@@ -238,6 +266,8 @@
     "tool.description": "تنفيذ كود Python بطريقة يمكن التحكم فيها. استخدم هذه الأداة لإجراء العمليات الحسابية أو معالجة البيانات أو تشغيل البرامج النصية القصيرة. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداة."
   },
   "sv": {
+    "describe.python_multi": "Kör Python (%(lines)s rader): %(code)s",
+    "describe.python": "Kör Python: %(code)s",
     "param.code.description": "Python-kod.",
     "x_search_terms": [
       "python exec",
@@ -255,6 +285,8 @@
     "tool.description": "Kör Python-koden på ett kontrollerat sätt. Använd det här verktyget för beräkningar, databearbetning eller köra korta skript. Sök efter andra lämpliga verktyg via `tool_catalog` innan du använder det här verktyget."
   },
   "sw": {
+    "describe.python_multi": "Kuendesha Python (mistari %(lines)s): %(code)s",
+    "describe.python": "Kuendesha Python: %(code)s",
     "param.code.description": "Msimbo wa chatu.",
     "x_search_terms": [
       "chatu tekeleza",
@@ -272,6 +304,8 @@
     "tool.description": "Tekeleza msimbo wa Python kwa njia inayodhibitiwa. Tumia zana hii kwa hesabu, kuchakata data, au kuendesha hati fupi. Tafuta zana zingine zinazofaa kupitia `tool_catalog` kabla ya kutumia zana hii."
   },
   "nb": {
+    "describe.python_multi": "Kjører Python (%(lines)s linjer): %(code)s",
+    "describe.python": "Kjører Python: %(code)s",
     "param.code.description": "Python-kode.",
     "x_search_terms": [
       "python exec",
@@ -289,6 +323,8 @@
     "tool.description": "Kjør Python-koden på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
   },
   "nl": {
+    "describe.python_multi": "Python uitvoeren (%(lines)s regels): %(code)s",
+    "describe.python": "Python uitvoeren: %(code)s",
     "param.code.description": "Uit te voeren Python-code.",
     "x_search_terms": [
       "python-exec",
@@ -306,6 +342,8 @@
     "tool.description": "Voer Python-code op een gecontroleerde manier uit. Gebruik deze tool voor berekeningen, gegevensverwerking of het uitvoeren van korte scripts. Zoek naar andere geschikte tools via `tool_catalog` voordat je deze tool gebruikt."
   },
   "fi": {
+    "describe.python_multi": "Suoritetaan Python (%(lines)s riviä): %(code)s",
+    "describe.python": "Suoritetaan Python: %(code)s",
     "param.code.description": "Python-koodi.",
     "x_search_terms": [
       "python exec",
@@ -323,6 +361,8 @@
     "tool.description": "Suorita Python-koodi hallitusti. Käytä tätä työkalua laskelmiin, tietojenkäsittelyyn tai lyhyiden komentosarjojen suorittamiseen. Etsi muita sopivia työkaluja työkaluluettelon avulla ennen tämän työkalun käyttöä."
   },
   "cs": {
+    "describe.python_multi": "Spuštění Pythonu (%(lines)s řádků): %(code)s",
+    "describe.python": "Spuštění Pythonu: %(code)s",
     "param.code.description": "kód Pythonu.",
     "x_search_terms": [
       "python exec",
@@ -340,6 +380,8 @@
     "tool.description": "Spouštějte kód Pythonu kontrolovaným způsobem. Tento nástroj použijte pro výpočty, zpracování dat nebo spouštění krátkých skriptů. Před použitím tohoto nástroje vyhledejte další vhodné nástroje prostřednictvím `tool_catalog`."
   },
   "uk": {
+    "describe.python_multi": "Виконання Python (%(lines)s рядків): %(code)s",
+    "describe.python": "Виконання Python: %(code)s",
     "param.code.description": "Код Python.",
     "x_search_terms": [
       "python exec",
@@ -357,6 +399,8 @@
     "tool.description": "Виконуйте код Python контрольованим способом. Використовуйте цей інструмент для обчислень, обробки даних або виконання коротких сценаріїв. Перш ніж використовувати цей інструмент, знайдіть інші відповідні інструменти за допомогою `tool_catalog`."
   },
   "tr": {
+    "describe.python_multi": "Python çalıştırılıyor (%(lines)s satır): %(code)s",
+    "describe.python": "Python çalıştırılıyor: %(code)s",
     "param.code.description": "Python kodu.",
     "x_search_terms": [
       "piton yöneticisi",
@@ -374,6 +418,8 @@
     "tool.description": "Python kodunu kontrollü bir şekilde yürütün. Bu aracı hesaplamalar, veri işleme veya kısa komut dosyalarını çalıştırmak için kullanın. Bu aracı kullanmadan önce `tool_catalog' aracılığıyla diğer uygun araçları arayın."
   },
   "th": {
+    "describe.python_multi": "กำลังเรียกใช้ Python (%(lines)s บรรทัด): %(code)s",
+    "describe.python": "กำลังเรียกใช้ Python: %(code)s",
     "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "x_search_terms": [
       "หลามผู้บริหาร",
@@ -391,6 +437,8 @@
     "tool.description": "รันโค้ด Python ด้วยวิธีที่มีการควบคุม ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล หรือการเรียกใช้สคริปต์สั้นๆ ค้นหาเครื่องมืออื่นๆ ที่เหมาะสมผ่าน `tool_catalog` ก่อนที่จะใช้เครื่องมือนี้"
   },
   "zh_CN": {
+    "describe.python_multi": "运行 Python（共 %(lines)s 行）：%(code)s",
+    "describe.python": "运行 Python：%(code)s",
     "param.code.description": "Python代码。",
     "x_search_terms": [
       "蟒蛇执行",
@@ -408,6 +456,8 @@
     "tool.description": "以受控方式执行 Python 代码。使用此工具进行计算、数据处理或运行简短的脚本。使用此工具之前，请先通过“tool_catalog”搜索其他合适的工具。"
   },
   "zh_TW": {
+    "describe.python_multi": "執行 Python（共 %(lines)s 行）：%(code)s",
+    "describe.python": "執行 Python：%(code)s",
     "param.code.description": "Python代码。",
     "x_search_terms": [
       "蟒蛇執行",
@@ -425,6 +475,8 @@
     "tool.description": "以受控方式執行 Python 程式碼。使用此工具進行計算、資料處理或執行簡短的腳本。在使用此工具之前，請先透過「tool_catalog」搜尋其他合適的工具。 "
   },
   "bn": {
+    "describe.python_multi": "Python চালানো হচ্ছে (%(lines)s লাইন): %(code)s",
+    "describe.python": "Python চালানো হচ্ছে: %(code)s",
     "param.code.description": "পাইথন কোড।",
     "x_search_terms": [
       "python exec",
@@ -442,6 +494,8 @@
     "tool.description": "নিয়ন্ত্রিত উপায়ে পাইথন কোড কার্যকর করুন। গণনা, ডেটা প্রসেসিং বা ছোট স্ক্রিপ্ট চালানোর জন্য এই টুলটি ব্যবহার করুন। এই টুলটি ব্যবহার করার আগে `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল খুঁজুন।"
   },
   "fa": {
+    "describe.python_multi": "در حال اجرای Python (%(lines)s خط): %(code)s",
+    "describe.python": "در حال اجرای Python: %(code)s",
     "param.code.description": "کد پایتون.",
     "x_search_terms": [
       "اجرای پایتون",
@@ -459,6 +513,8 @@
     "tool.description": "کد پایتون را به روشی کنترل شده اجرا کنید. از این ابزار برای محاسبات، پردازش داده ها یا اجرای اسکریپت های کوتاه استفاده کنید. قبل از استفاده از این ابزار، سایر ابزارهای مناسب را از طریق «tool_catalog» جستجو کنید."
   },
   "mn": {
+    "describe.python_multi": "Python ажиллуулж байна (%(lines)s мөр): %(code)s",
+    "describe.python": "Python ажиллуулж байна: %(code)s",
     "param.code.description": "Python код.",
     "x_search_terms": [
       "python exec",
@@ -476,6 +532,8 @@
     "tool.description": "Python кодыг хяналттай ажиллуулна уу. Тооцоолол хийх, өгөгдөл боловсруулах эсвэл богино скрипт ажиллуулахад энэ хэрэгслийг ашиглана уу. Энэ хэрэгслийг ашиглахаасаа өмнө `tool_catalog`-ээр өөр тохирох хэрэгслийг хайна уу."
   },
   "mr": {
+    "describe.python_multi": "Python चालवत आहे (%(lines)s ओळी): %(code)s",
+    "describe.python": "Python चालवत आहे: %(code)s",
     "param.code.description": "पायथन कोड.",
     "x_search_terms": [
       "python exec",
@@ -493,6 +551,8 @@
     "tool.description": "पायथन कोड नियंत्रित मार्गाने कार्यान्वित करा. गणना, डेटा प्रोसेसिंग किंवा शॉर्ट स्क्रिप्ट चालवण्यासाठी हे साधन वापरा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा."
   },
   "el": {
+    "describe.python_multi": "Εκτέλεση Python (%(lines)s γραμμές): %(code)s",
+    "describe.python": "Εκτέλεση Python: %(code)s",
     "param.code.description": "Κώδικας Python.",
     "x_search_terms": [
       "python exec",
@@ -510,6 +570,8 @@
     "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του \"tool_catalog\" πριν χρησιμοποιήσετε αυτό το εργαλείο."
   },
   "he": {
+    "describe.python_multi": "מריץ Python (%(lines)s שורות): %(code)s",
+    "describe.python": "מריץ Python: %(code)s",
     "param.code.description": "קוד Python.",
     "x_search_terms": [
       "מנהל פיתון",
@@ -527,6 +589,8 @@
     "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה."
   },
   "hu": {
+    "describe.python_multi": "Python futtatása (%(lines)s sor): %(code)s",
+    "describe.python": "Python futtatása: %(code)s",
     "param.code.description": "Python-kód.",
     "x_search_terms": [
       "python végrehajtó",
@@ -544,6 +608,8 @@
     "tool.description": "Futtassa a Python-kódot ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével."
   },
   "ro": {
+    "describe.python_multi": "Se rulează Python (%(lines)s linii): %(code)s",
+    "describe.python": "Se rulează Python: %(code)s",
     "param.code.description": "Cod Python.",
     "x_search_terms": [
       "python exec",
@@ -561,6 +627,8 @@
     "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
   },
   "fil": {
+    "describe.python_multi": "Pinapatakbo ang Python (%(lines)s linya): %(code)s",
+    "describe.python": "Pinapatakbo ang Python: %(code)s",
     "param.code.description": "Python code na ipapatakbo.",
     "x_search_terms": [
       "python exec",
@@ -578,6 +646,8 @@
     "tool.description": "Ipatupad ang Python code sa isang kinokontrol na paraan. Gamitin ang tool na ito para sa mga kalkulasyon, pagproseso ng data, o pagpapatakbo ng mga maiikling script. Maghanap ng iba pang naaangkop na tool sa pamamagitan ng `tool_catalog` bago gamitin ang tool na ito."
   },
   "ms": {
+    "describe.python_multi": "Menjalankan Python (%(lines)s baris): %(code)s",
+    "describe.python": "Menjalankan Python: %(code)s",
     "param.code.description": "Kod Python.",
     "x_search_terms": [
       "python exec",
@@ -595,6 +665,8 @@
     "tool.description": "Jalankan kod Python dengan cara terkawal. Gunakan alat ini untuk pengiraan, pemprosesan data atau menjalankan skrip pendek. Cari alatan lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
   },
   "da": {
+    "describe.python_multi": "Kører Python (%(lines)s linjer): %(code)s",
+    "describe.python": "Kører Python: %(code)s",
     "param.code.description": "Python kode.",
     "x_search_terms": [
       "python exec",
@@ -612,6 +684,8 @@
     "tool.description": "Udfør Python-kode på en kontrolleret måde. Brug dette værktøj til beregninger, databehandling eller til at køre korte scripts. Søg efter andre egnede værktøjer via `værktøjskatalog`, før du bruger dette værktøj."
   },
   "nn": {
+    "describe.python_multi": "Køyrer Python (%(lines)s linjer): %(code)s",
+    "describe.python": "Køyrer Python: %(code)s",
     "param.code.description": "Python-kode.",
     "x_search_terms": [
       "python exec",

@@ -734,3 +734,38 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
+
+
+def _short_action_value(value: Any) -> str:
+    if isinstance(value, str):
+        text = " ".join(value.split())
+    elif isinstance(value, (list, dict)):
+        text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    else:
+        text = str(value)
+    if len(text) > 40:
+        return text[:40] + "..."
+    return text
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    args = args or {}
+    ip = str(args.get("ip") or "").strip()
+    target = str(args.get("obj") or args.get("eoj") or "").strip()
+    epc = str(args.get("epc") or "").strip()
+    raw_value = args.get("value")
+    if raw_value is None:
+        raw_value = args.get("edt")
+    return _(
+        "describe.set_property",
+        default="Setting %(epc)s to %(value)s on %(target)s (%(ip)s)",
+    ) % {
+        "epc": epc or "?",
+        "value": _short_action_value(raw_value) if raw_value is not None else "?",
+        "target": target or "?",
+        "ip": ip or "?",
+    }
+
+
+TOOL_DESCRIBER = describe

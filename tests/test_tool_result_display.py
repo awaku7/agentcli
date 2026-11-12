@@ -354,6 +354,75 @@ def test_apply_patch_describer_includes_target_paths() -> None:
     assert "Applying" in apply or "適用" in apply
 
 
+def test_rename_path_describer_includes_src_and_dst() -> None:
+    from uagent.tools import rename_path_tool
+
+    text = rename_path_tool.describe({"src": "old/a.txt", "dst": "new/b.txt"})
+    assert "old/a.txt" in text
+    assert "new/b.txt" in text
+    assert rename_path_tool.describe({}).count("?") == 2
+
+
+def test_change_workdir_describer_includes_new_dir() -> None:
+    from uagent.tools import change_workdir_tool
+
+    text = change_workdir_tool.describe({"new_dir": "src/project"})
+    assert "src/project" in text
+    assert change_workdir_tool.describe({}).count("?") == 1
+
+
+def test_python_exec_describer_shows_first_lines_and_count() -> None:
+    from uagent.tools import python_exec_tool
+
+    text = python_exec_tool.describe({"code": "\nimport os\nprint(os.getcwd())\n"})
+    assert "import os" in text
+    assert "print(os.getcwd())" in text
+    assert "2" in text
+    single = python_exec_tool.describe({"code": "x = 1"})
+    assert "x = 1" in single
+    assert python_exec_tool.describe({}).count("?") == 1
+
+
+def test_analyze_image_describer_includes_image_and_prompt() -> None:
+    from uagent.tools import analyze_image_tool
+
+    text = analyze_image_tool.describe(
+        {"img": "shots/chart.png", "prompt": "read the title"}
+    )
+    assert "shots/chart.png" in text
+    assert "read the title" in text
+    plain = analyze_image_tool.describe({"img": "shots/chart.png"})
+    assert "shots/chart.png" in plain
+
+
+def test_echonet_property_set_describer_includes_value() -> None:
+    from uagent.tools import echonet_property_set_tool
+
+    text = echonet_property_set_tool.describe(
+        {"ip": "192.168.1.50", "obj": "013001", "epc": "80", "value": 1}
+    )
+    assert "192.168.1.50" in text
+    assert "80" in text
+    assert "1" in text
+
+
+def test_bacnet_write_describer_includes_value() -> None:
+    from uagent.tools import bacnet_write_tool
+
+    text = bacnet_write_tool.describe(
+        {
+            "ip": "192.168.1.60",
+            "object_type": "analogValue",
+            "object_instance": 3,
+            "property_name": "presentValue",
+            "value": 42.5,
+        }
+    )
+    assert "192.168.1.60" in text
+    assert "presentValue" in text
+    assert "42.5" in text
+
+
 def test_generic_tool_action_uses_localized_schema_metadata(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

@@ -330,3 +330,42 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
+
+
+def _short_action_value(value: Any) -> str:
+    if isinstance(value, str):
+        text = " ".join(value.split())
+    elif isinstance(value, (list, dict)):
+        text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    else:
+        text = str(value)
+    if len(text) > 40:
+        return text[:40] + "..."
+    return text
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    args = args or {}
+    ip = str(args.get("ip") or "").strip()
+    object_type = str(args.get("object_type") or "").strip()
+    object_instance = args.get("object_instance")
+    obj = object_type
+    if object_instance is not None and str(object_instance) != "":
+        obj = (
+            f"{object_type}:{object_instance}" if object_type else str(object_instance)
+        )
+    prop = str(args.get("property_name") or "presentValue").strip()
+    raw_value = args.get("value")
+    return _(
+        "describe.write_property",
+        default="Writing %(value)s to %(property)s of %(object)s (%(ip)s)",
+    ) % {
+        "value": _short_action_value(raw_value) if raw_value is not None else "?",
+        "property": prop or "?",
+        "object": obj or "?",
+        "ip": ip or "?",
+    }
+
+
+TOOL_DESCRIBER = describe

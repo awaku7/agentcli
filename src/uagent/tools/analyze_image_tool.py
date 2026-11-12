@@ -201,3 +201,20 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     raise RuntimeError(f"Unsupported provider: {provider}")
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    img = " ".join(str((args or {}).get("img") or "").split())[:80]
+    prompt = " ".join(str((args or {}).get("prompt") or "").split())[:60]
+    if prompt:
+        return _(
+            "describe.analyze_image_prompt",
+            default="Analyzing image %(img)s: %(prompt)s",
+        ) % {"img": img or "?", "prompt": prompt}
+    return _("describe.analyze_image", default="Analyzing image %(img)s") % {
+        "img": img or "?"
+    }
+
+
+TOOL_DESCRIBER = describe

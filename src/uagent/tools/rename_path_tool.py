@@ -126,3 +126,16 @@ def run_tool(args: dict[str, Any]) -> str:
         return f"[rename_path error] {type(e).__name__}: {e}"
 
     return f"[OK] renamed: {src} -> {dst}"
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    src = str((args or {}).get("src") or "").strip()
+    dst = str((args or {}).get("dst") or "").strip()
+    return _("describe.rename", default="Renaming %(src)s to %(dst)s") % {
+        "src": src or "?",
+        "dst": dst or "?",
+    }
+
+
+TOOL_DESCRIBER = describe

@@ -116,3 +116,14 @@ def run_tool(args: dict[str, Any]) -> str:
         pass
 
     return now
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    new_dir = str((args or {}).get("new_dir") or "").strip()
+    return _("describe.change_dir", default="Changing working directory to %(dir)s") % {
+        "dir": new_dir or "?"
+    }
+
+
+TOOL_DESCRIBER = describe
