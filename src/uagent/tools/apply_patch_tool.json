@@ -7,6 +7,8 @@
     "describe.write": "%(path)s を書き込みます",
     "describe.preview": "パッチをプレビューします",
     "describe.apply": "パッチを適用します",
+    "describe.deleted": "（削除）",
+    "err.deletion_leaves_content": "削除パッチがファイルの内容をすべて削除していません。",
     "describe.exec": "実行します: %(command)s",
     "tool.description": "パッチ（unified diff）を純粋 Python で適用します。dry-run プレビュー、ホワイトスペース共通、CRLF 保持に対応。",
     "x_search_terms": [
@@ -37,6 +39,8 @@
     "describe.write": "كتابة %(path)s",
     "describe.preview": "معاينة الرقعة",
     "describe.apply": "تطبيق الرقعة",
+    "describe.deleted": "(محذوف)",
+    "err.deletion_leaves_content": "لا يزيل تصحيح الحذف محتوى الملف بالكامل.",
     "describe.exec": "تنفيذ: %(command)s",
     "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF.",
     "x_search_terms": [
@@ -67,6 +71,8 @@
     "describe.write": "%(path)s লেখা হচ্ছে",
     "describe.preview": "প্যাচের পূর্বরূপ দেখানো হচ্ছে",
     "describe.apply": "প্যাচ প্রয়োগ করা হচ্ছে",
+    "describe.deleted": "(মুছে ফেলা হয়েছে)",
+    "err.deletion_leaves_content": "মুছে ফেলার প্যাচ ফাইলের সম্পূর্ণ বিষয়বস্তু সরায় না।",
     "describe.exec": "চালানো হচ্ছে: %(command)s",
     "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে।",
     "x_search_terms": [
@@ -97,6 +103,8 @@
     "describe.write": "Zápis %(path)s",
     "describe.preview": "Náhled patche",
     "describe.apply": "Aplikace patche",
+    "describe.deleted": "(smazáno)",
+    "err.deletion_leaves_content": "Záplata pro smazání neodstraní celý obsah souboru.",
     "describe.exec": "Provádění: %(command)s",
     "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF.",
     "x_search_terms": [
@@ -127,6 +135,8 @@
     "describe.write": "Schreiben von %(path)s",
     "describe.preview": "Patch-Vorschau",
     "describe.apply": "Patch anwenden",
+    "describe.deleted": "(gelöscht)",
+    "err.deletion_leaves_content": "Der Lösch-Patch entfernt nicht den gesamten Dateiinhalt.",
     "describe.exec": "Ausführen: %(command)s",
     "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung.",
     "x_search_terms": [
@@ -157,6 +167,8 @@
     "describe.write": "Εγγραφή %(path)s",
     "describe.preview": "Προεπισκόπηση patch",
     "describe.apply": "Εφαρμογή patch",
+    "describe.deleted": "(διαγράφηκε)",
+    "err.deletion_leaves_content": "Η ενημέρωση διαγραφής δεν αφαιρεί ολόκληρο το περιεχόμενο του αρχείου.",
     "describe.exec": "Εκτέλεση: %(command)s",
     "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF.",
     "x_search_terms": [
@@ -187,6 +199,8 @@
     "describe.write": "Escribiendo %(path)s",
     "describe.preview": "Previsualizando parche",
     "describe.apply": "Aplicando parche",
+    "describe.deleted": "(eliminado)",
+    "err.deletion_leaves_content": "El parche de eliminación no elimina todo el contenido del archivo.",
     "describe.exec": "Ejecutando: %(command)s",
     "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF.",
     "x_search_terms": [
@@ -217,6 +231,8 @@
     "describe.write": "نوشتن %(path)s",
     "describe.preview": "پیش‌نمایش وصله",
     "describe.apply": "اعمال وصله",
+    "describe.deleted": "(حذف‌شده)",
+    "err.deletion_leaves_content": "پچ حذف، تمام محتوای فایل را حذف نمی‌کند.",
     "describe.exec": "اجرا: %(command)s",
     "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند.",
     "x_search_terms": [
@@ -247,6 +263,8 @@
     "describe.write": "Kirjoitetaan %(path)s",
     "describe.preview": "Esikatsellaan patchia",
     "describe.apply": "Käytetään patchia",
+    "describe.deleted": "(poistettu)",
+    "err.deletion_leaves_content": "Poistokorjaus ei poista tiedoston koko sisältöä.",
     "describe.exec": "Suoritetaan: %(command)s",
     "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä.",
     "x_search_terms": [
@@ -277,6 +295,8 @@
     "describe.write": "Écriture de %(path)s",
     "describe.preview": "Aperçu du patch",
     "describe.apply": "Application du patch",
+    "describe.deleted": "(supprimé)",
+    "err.deletion_leaves_content": "Le patch de suppression ne supprime pas tout le contenu du fichier.",
     "describe.exec": "Exécution : %(command)s",
     "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF.",
     "x_search_terms": [
@@ -307,6 +327,8 @@
     "describe.write": "כותב את %(path)s",
     "describe.preview": "תצוגה מקדימה של patch",
     "describe.apply": "מחיל patch",
+    "describe.deleted": "(נמחק)",
+    "err.deletion_leaves_content": "טלאי המחיקה אינו מסיר את כל תוכן הקובץ.",
     "describe.exec": "מריץ: %(command)s",
     "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF.",
     "x_search_terms": [
@@ -337,6 +359,8 @@
     "describe.write": "%(path)s लिखा जा रहा है",
     "describe.preview": "पैच का पूर्वावलोकन",
     "describe.apply": "पैच लागू किया जा रहा है",
+    "describe.deleted": "(हटाया गया)",
+    "err.deletion_leaves_content": "हटाने वाला पैच फ़ाइल की पूरी सामग्री नहीं हटाता है।",
     "describe.exec": "चलाया जा रहा है: %(command)s",
     "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है।",
     "x_search_terms": [
@@ -367,6 +391,8 @@
     "describe.write": "%(path)s írása",
     "describe.preview": "Patch előnézete",
     "describe.apply": "Patch alkalmazása",
+    "describe.deleted": "(törölve)",
+    "err.deletion_leaves_content": "A törlési javítás nem távolítja el a fájl teljes tartalmát.",
     "describe.exec": "Végrehajtás: %(command)s",
     "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést.",
     "x_search_terms": [
@@ -397,6 +423,8 @@
     "describe.write": "Menulis %(path)s",
     "describe.preview": "Pratinjau patch",
     "describe.apply": "Menerapkan patch",
+    "describe.deleted": "(dihapus)",
+    "err.deletion_leaves_content": "Patch penghapusan tidak menghapus seluruh isi file.",
     "describe.exec": "Menjalankan: %(command)s",
     "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF.",
     "x_search_terms": [
@@ -427,6 +455,8 @@
     "describe.write": "Scrittura di %(path)s",
     "describe.preview": "Anteprima della patch",
     "describe.apply": "Applicazione della patch",
+    "describe.deleted": "(eliminato)",
+    "err.deletion_leaves_content": "La patch di eliminazione non rimuove l'intero contenuto del file.",
     "describe.exec": "Esecuzione: %(command)s",
     "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF.",
     "x_search_terms": [
@@ -457,6 +487,8 @@
     "describe.write": "%(path)s 쓰는 중",
     "describe.preview": "패치 미리보기 중",
     "describe.apply": "패치 적용 중",
+    "describe.deleted": "(삭제됨)",
+    "err.deletion_leaves_content": "삭제 패치가 파일 내용을 전부 제거하지 않습니다.",
     "describe.exec": "실행 중: %(command)s",
     "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다.",
     "x_search_terms": [
@@ -487,6 +519,8 @@
     "describe.write": "%(path)s-д бичиж байна",
     "describe.preview": "Патчийн урьдчилан харах",
     "describe.apply": "Патч хэрэглэж байна",
+    "describe.deleted": "(устгасан)",
+    "err.deletion_leaves_content": "Устгах нөхөөс нь файлын агуулгыг бүхэлд нь устгадаггүй.",
     "describe.exec": "Ажиллуулж байна: %(command)s",
     "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг.",
     "x_search_terms": [
@@ -517,6 +551,8 @@
     "describe.write": "%(path)s लिहिले जात आहे",
     "describe.preview": "पॅचचे पूर्वावलोकन",
     "describe.apply": "पॅच लागू होत आहे",
+    "describe.deleted": "(हटवले)",
+    "err.deletion_leaves_content": "हटवण्याचा पॅच फाइलमधील संपूर्ण मजकूर हटवत नाही.",
     "describe.exec": "चालवले जात आहे: %(command)s",
     "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते.",
     "x_search_terms": [
@@ -547,6 +583,8 @@
     "describe.write": "Skriver %(path)s",
     "describe.preview": "Forhåndsviser patch",
     "describe.apply": "Bruker patch",
+    "describe.deleted": "(slettet)",
+    "err.deletion_leaves_content": "Slettelappen fjerner ikke hele filinnholdet.",
     "describe.exec": "Kjører: %(command)s",
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [
@@ -577,6 +615,8 @@
     "describe.write": "Schrijven van %(path)s",
     "describe.preview": "Patch bekijken",
     "describe.apply": "Patch toepassen",
+    "describe.deleted": "(verwijderd)",
+    "err.deletion_leaves_content": "De verwijderpatch verwijdert niet de volledige bestandsinhoud.",
     "describe.exec": "Uitvoeren: %(command)s",
     "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud.",
     "x_search_terms": [
@@ -607,6 +647,8 @@
     "describe.write": "Zapis %(path)s",
     "describe.preview": "Podgląd patcha",
     "describe.apply": "Zastosowanie patcha",
+    "describe.deleted": "(usunięty)",
+    "err.deletion_leaves_content": "Poprawka usuwająca nie usuwa całej zawartości pliku.",
     "describe.exec": "Wykonywanie: %(command)s",
     "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF.",
     "x_search_terms": [
@@ -637,6 +679,8 @@
     "describe.write": "A escrever %(path)s",
     "describe.preview": "A pré-visualizar patch",
     "describe.apply": "A aplicar patch",
+    "describe.deleted": "(eliminado)",
+    "err.deletion_leaves_content": "O patch de eliminação não remove todo o conteúdo do ficheiro.",
     "describe.exec": "A executar: %(command)s",
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
     "x_search_terms": [
@@ -667,6 +711,8 @@
     "describe.write": "Gravando %(path)s",
     "describe.preview": "Pré-visualizando patch",
     "describe.apply": "Aplicando patch",
+    "describe.deleted": "(excluído)",
+    "err.deletion_leaves_content": "O patch de exclusão não remove todo o conteúdo do arquivo.",
     "describe.exec": "Executando: %(command)s",
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
     "x_search_terms": [
@@ -697,6 +743,8 @@
     "describe.write": "Scriere %(path)s",
     "describe.preview": "Previzualizare patch",
     "describe.apply": "Aplicare patch",
+    "describe.deleted": "(șters)",
+    "err.deletion_leaves_content": "Patch-ul de ștergere nu elimină întregul conținut al fișierului.",
     "describe.exec": "Executare: %(command)s",
     "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
     "x_search_terms": [
@@ -727,6 +775,8 @@
     "describe.write": "Запись %(path)s",
     "describe.preview": "Предпросмотр патча",
     "describe.apply": "Применение патча",
+    "describe.deleted": "(удалён)",
+    "err.deletion_leaves_content": "Патч удаления не удаляет всё содержимое файла.",
     "describe.exec": "Запуск: %(command)s",
     "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF.",
     "x_search_terms": [
@@ -757,6 +807,8 @@
     "describe.write": "Skriver %(path)s",
     "describe.preview": "Förhandsgranskar patch",
     "describe.apply": "Tillämpar patch",
+    "describe.deleted": "(borttagen)",
+    "err.deletion_leaves_content": "Borttagningskorrigeringen tar inte bort hela filinnehållet.",
     "describe.exec": "Kör: %(command)s",
     "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande.",
     "x_search_terms": [
@@ -787,6 +839,8 @@
     "describe.write": "Inaandika %(path)s",
     "describe.preview": "Inaonyesha kiraka",
     "describe.apply": "Inatumia kiraka",
+    "describe.deleted": "(imefutwa)",
+    "err.deletion_leaves_content": "Kiraka cha ufutaji hakiondoi maudhui yote ya faili.",
     "describe.exec": "Inaendesha: %(command)s",
     "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF.",
     "x_search_terms": [
@@ -817,6 +871,8 @@
     "describe.write": "กำลังเขียน %(path)s",
     "describe.preview": "กำลังดูตัวอย่างแพตช์",
     "describe.apply": "กำลังใช้แพตช์",
+    "describe.deleted": "(ลบแล้ว)",
+    "err.deletion_leaves_content": "แพตช์ลบไม่ได้ลบเนื้อหาไฟล์ทั้งหมด",
     "describe.exec": "กำลังเรียกใช้: %(command)s",
     "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
     "x_search_terms": [
@@ -847,6 +903,8 @@
     "describe.write": "%(path)s yazılıyor",
     "describe.preview": "Yama önizleniyor",
     "describe.apply": "Yama uygulanıyor",
+    "describe.deleted": "(silindi)",
+    "err.deletion_leaves_content": "Silme yaması dosya içeriğinin tamamını kaldırmıyor.",
     "describe.exec": "Çalıştırılıyor: %(command)s",
     "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler.",
     "x_search_terms": [
@@ -877,6 +935,8 @@
     "describe.write": "Запис %(path)s",
     "describe.preview": "Попередній перегляд патча",
     "describe.apply": "Застосування патча",
+    "describe.deleted": "(видалено)",
+    "err.deletion_leaves_content": "Патч видалення не видаляє весь вміст файлу.",
     "describe.exec": "Запуск: %(command)s",
     "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF.",
     "x_search_terms": [
@@ -907,6 +967,8 @@
     "describe.write": "Đang ghi %(path)s",
     "describe.preview": "Đang xem trước patch",
     "describe.apply": "Đang áp dụng patch",
+    "describe.deleted": "(đã xóa)",
+    "err.deletion_leaves_content": "Bản vá xóa không xóa toàn bộ nội dung tệp.",
     "describe.exec": "Đang chạy: %(command)s",
     "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF.",
     "x_search_terms": [
@@ -937,6 +999,8 @@
     "describe.write": "正在写入 %(path)s",
     "describe.preview": "正在预览补丁",
     "describe.apply": "正在应用补丁",
+    "describe.deleted": "(已删除)",
+    "err.deletion_leaves_content": "删除补丁未删除文件的全部内容。",
     "describe.exec": "正在执行：%(command)s",
     "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。",
     "x_search_terms": [
@@ -967,6 +1031,8 @@
     "describe.write": "正在寫入 %(path)s",
     "describe.preview": "正在預覽修補",
     "describe.apply": "正在套用修補",
+    "describe.deleted": "(已刪除)",
+    "err.deletion_leaves_content": "刪除補丁未刪除檔案的全部內容。",
     "describe.exec": "正在執行：%(command)s",
     "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。",
     "x_search_terms": [
@@ -997,6 +1063,8 @@
     "describe.write": "Isinusulat ang %(path)s",
     "describe.preview": "Sinusuri ang patch",
     "describe.apply": "Inilalapat ang patch",
+    "describe.deleted": "(tinanggal)",
+    "err.deletion_leaves_content": "Hindi inaalis ng delete patch ang buong nilalaman ng file.",
     "describe.exec": "Pinapatakbo: %(command)s",
     "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation.",
     "x_search_terms": [
@@ -1027,6 +1095,8 @@
     "describe.write": "Menulis %(path)s",
     "describe.preview": "Pratonton tampalan",
     "describe.apply": "Menggunakan tampalan",
+    "describe.deleted": "(dipadam)",
+    "err.deletion_leaves_content": "Tampalan pemadaman tidak mengalih keluar keseluruhan kandungan fail.",
     "describe.exec": "Menjalankan: %(command)s",
     "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF.",
     "x_search_terms": [
@@ -1057,6 +1127,8 @@
     "describe.write": "Skriver %(path)s",
     "describe.preview": "Viser patch",
     "describe.apply": "Anvender patch",
+    "describe.deleted": "(slettet)",
+    "err.deletion_leaves_content": "Sletterettelsen fjerner ikke hele filens indhold.",
     "describe.exec": "Kører: %(command)s",
     "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring.",
     "x_search_terms": [
@@ -1087,6 +1159,8 @@
     "describe.write": "Skriv %(path)s",
     "describe.preview": "Førehandsvising av patch",
     "describe.apply": "Brukar patch",
+    "describe.deleted": "(sletta)",
+    "err.deletion_leaves_content": "Slettelappen fjernar ikkje heile filinnhaldet.",
     "describe.exec": "Køyrer: %(command)s",
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [

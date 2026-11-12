@@ -141,11 +141,16 @@ class _Hunk:
 class _PatchFile:
     target_path: str
     hunks: list[_Hunk]
+    source_path: str = ""
 
 
-def _flush_patch(patches: list[_PatchFile], path: str, hunks: list[_Hunk]) -> None:
+def _flush_patch(
+    patches: list[_PatchFile], path: str, hunks: list[_Hunk], source: str = ""
+) -> None:
     if path and hunks:
-        patches.append(_PatchFile(target_path=path, hunks=list(hunks)))
+        patches.append(
+            _PatchFile(target_path=path, hunks=list(hunks), source_path=source)
+        )
         hunks.clear()
 
 
@@ -157,6 +162,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
     lines = patch_text.splitlines(keepends=True)
     patches: list[_PatchFile] = []
     current_path = ""
+    current_source = ""
     current_hunks: list[_Hunk] = []
     i = 0
 
@@ -164,7 +170,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
         line = lines[i]
         m = _PATH_HEADER_RE.match(line.strip())
         if m and line.startswith("+++"):
-            _flush_patch(patches, current_path, current_hunks)
+            _flush_patch(patches, current_path, current_hunks, current_source)
             current_path = ""
             path = m.group("path").strip()
             if path.startswith("a/") or path.startswith("b/"):
@@ -173,6 +179,12 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
             i += 1
             continue
         elif m and line.startswith("---"):
+            _flush_patch(patches, current_path, current_hunks, current_source)
+            current_path = ""
+            path = m.group("path").strip()
+            if path.startswith("a/") or path.startswith("b/"):
+                path = path[2:]
+            current_source = path
             i += 1
             continue
 
@@ -204,7 +216,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
             continue
         i += 1
 
-    _flush_patch(patches, current_path, current_hunks)
+    _flush_patch(patches, current_path, current_hunks, current_source)
     return patches
 
 
@@ -469,7 +481,10 @@ def run_tool(args: dict[str, Any]) -> str:
         all_ok = True
 
         for pf in patch_files:
-            target = _strip_path(pf.target_path, strip)
+            is_deletion = pf.target_path in {"/dev/null", "dev/null"}
+            target = _strip_path(
+                pf.source_path if is_deletion else pf.target_path, strip
+            )
             file_result: dict[str, Any] = {
                 "target": target,
                 "hunks_total": len(pf.hunks),
@@ -477,6 +492,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 "hunks_failed": 0,
                 "changed": False,
             }
+            if is_deletion:
+                file_result["deleted"] = True
 
             try:
                 content = _read_file(target, encoding, preserve_line_endings)
@@ -535,13 +552,30 @@ def run_tool(args: dict[str, Any]) -> str:
             if failed_hunks > 0:
                 all_ok = False
 
+            # A deletion patch is only safe to carry out when every hunk
+            # applied and nothing of the file remains; otherwise the file
+            # must be left untouched.
+            deletion_blocked = is_deletion and (failed_hunks > 0 or current != "")
+            if is_deletion and failed_hunks == 0 and current != "":
+                file_result["error"] = _(
+                    "err.deletion_leaves_content",
+                    default="Deletion patch does not remove the entire file content.",
+                )
+                file_result["ok"] = False
+                all_ok = False
+
             if dry_run:
                 file_result["dry_run"] = True
             else:
-                if applied_hunks > 0:
+                if applied_hunks > 0 and not deletion_blocked:
                     try:
                         backup = make_backup_before_overwrite(target)
-                        _write_file(target, current, encoding, preserve_line_endings)
+                        if is_deletion:
+                            os.remove(ensure_within_workdir(target))
+                        else:
+                            _write_file(
+                                target, current, encoding, preserve_line_endings
+                            )
                         file_result["backup"] = backup
                     except Exception as e:
                         file_result["error"] = str(e)
@@ -599,13 +633,17 @@ def describe(args: dict[str, Any]) -> str:
         patches = _parse_patch(patch_text)
     except Exception:
         patches = []
-    paths = list(
-        dict.fromkeys(
-            patch.target_path
-            for patch in patches
-            if patch.target_path and patch.target_path not in {"/dev/null", "dev/null"}
-        )
-    )
+    entries: list[str] = []
+    for patch in patches:
+        if patch.target_path in {"/dev/null", "dev/null"}:
+            if patch.source_path:
+                entries.append(
+                    f"{patch.source_path} "
+                    f"{_('describe.deleted', default='(deleted)')}"
+                )
+        elif patch.target_path:
+            entries.append(patch.target_path)
+    paths = list(dict.fromkeys(entries))
     if paths:
         return f"{action}: " + ", ".join(paths)
     return action

@@ -354,6 +354,29 @@ def test_apply_patch_describer_includes_target_paths() -> None:
     assert "Applying" in apply or "適用" in apply
 
 
+def test_apply_patch_describer_names_deleted_files() -> None:
+    from uagent.tools import apply_patch_tool
+
+    patch_text = "\n".join(
+        [
+            "--- a/old_config.yaml",
+            "+++ /dev/null",
+            "@@ -1,2 +0,0 @@",
+            "-key: value",
+            "-foo: bar",
+            "--- a/src/app.py",
+            "+++ b/src/app.py",
+            "@@ -1 +1 @@",
+            "-x = 1",
+            "+x = 2",
+        ]
+    )
+
+    text = apply_patch_tool.describe({"patch_text": patch_text, "dry_run": False})
+    assert "old_config.yaml" in text
+    assert "src/app.py" in text
+
+
 def test_rename_path_describer_includes_src_and_dst() -> None:
     from uagent.tools import rename_path_tool
 
