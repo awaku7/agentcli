@@ -53,6 +53,26 @@ def test_delete_file_preview_never_requires_destructive_confirmation() -> None:
         assert policy.requires_confirmation
 
 
+def test_apply_patch_deletion_requires_confirmation() -> None:
+    deletion = "--- a/old.txt\n+++ /dev/null\n@@ -1 +0,0 @@\n-gone\n"
+    modify = "--- a/f.txt\n+++ b/f.txt\n@@ -1 +1 @@\n-a\n+b\n"
+
+    preview = policy_for("apply_patch", {"patch_text": deletion, "dry_run": True})
+    assert preview.side_effect is SideEffect.IDEMPOTENT_WRITE
+    assert not preview.requires_confirmation
+
+    defaulted = policy_for("apply_patch", {"patch_text": deletion})
+    assert not defaulted.requires_confirmation
+
+    real = policy_for("apply_patch", {"patch_text": deletion, "dry_run": False})
+    assert real.side_effect is SideEffect.DESTRUCTIVE
+    assert real.requires_confirmation
+
+    edit = policy_for("apply_patch", {"patch_text": modify, "dry_run": False})
+    assert edit.side_effect is SideEffect.IDEMPOTENT_WRITE
+    assert not edit.requires_confirmation
+
+
 def test_delete_file_dispatcher_preserves_confirmation_gate(monkeypatch) -> None:
     from uagent import tools
     from uagent.runtime.policy_engine import PolicyDecision, UnifiedPolicy

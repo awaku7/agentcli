@@ -11,6 +11,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 from .i18n_helper import make_tool_translator
@@ -141,11 +142,16 @@ class _Hunk:
 class _PatchFile:
     target_path: str
     hunks: list[_Hunk]
+    source_path: str = ""
 
 
-def _flush_patch(patches: list[_PatchFile], path: str, hunks: list[_Hunk]) -> None:
+def _flush_patch(
+    patches: list[_PatchFile], path: str, hunks: list[_Hunk], source: str = ""
+) -> None:
     if path and hunks:
-        patches.append(_PatchFile(target_path=path, hunks=list(hunks)))
+        patches.append(
+            _PatchFile(target_path=path, hunks=list(hunks), source_path=source)
+        )
         hunks.clear()
 
 
@@ -157,6 +163,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
     lines = patch_text.splitlines(keepends=True)
     patches: list[_PatchFile] = []
     current_path = ""
+    current_source = ""
     current_hunks: list[_Hunk] = []
     i = 0
 
@@ -164,7 +171,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
         line = lines[i]
         m = _PATH_HEADER_RE.match(line.strip())
         if m and line.startswith("+++"):
-            _flush_patch(patches, current_path, current_hunks)
+            _flush_patch(patches, current_path, current_hunks, current_source)
             current_path = ""
             path = m.group("path").strip()
             if path.startswith("a/") or path.startswith("b/"):
@@ -173,6 +180,12 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
             i += 1
             continue
         elif m and line.startswith("---"):
+            _flush_patch(patches, current_path, current_hunks, current_source)
+            current_path = ""
+            path = m.group("path").strip()
+            if path.startswith("a/") or path.startswith("b/"):
+                path = path[2:]
+            current_source = path
             i += 1
             continue
 
@@ -204,7 +217,7 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
             continue
         i += 1
 
-    _flush_patch(patches, current_path, current_hunks)
+    _flush_patch(patches, current_path, current_hunks, current_source)
     return patches
 
 
@@ -291,6 +304,7 @@ def _find_hunk_position(
     before_lines: list[str],
     start_line: int,
     ignore_whitespace: bool,
+    exact_only: bool = False,
 ) -> int | None:
     if not before_lines:
         return min(start_line, len(text_lines))
@@ -319,6 +333,12 @@ def _find_hunk_position(
                         break
                 if ok:
                     return pos
+
+    if exact_only:
+        # Deletion hunks must match exactly (modulo the whitespace tolerance
+        # the caller explicitly requested); a fuzzy match could delete a
+        # file whose content changed after the patch was generated.
+        return None
 
     # Fuzzy match: SequenceMatcher, require 60% chars or 8 chars minimum
     before_text = "\n".join(norm_before)
@@ -352,6 +372,7 @@ def _apply_hunk_to_text(
     ignore_whitespace: bool,
     revert: bool,
     preserve: bool,
+    exact_only: bool = False,
 ) -> tuple[str, bool, str]:
     text_lines = text.splitlines(keepends=True)
     before = _build_before_lines(hunk)
@@ -369,7 +390,9 @@ def _apply_hunk_to_text(
         return text, False, ""
 
     hint_line = max(0, min(hunk.old_start - 1, len(text_lines) - 1))
-    pos = _find_hunk_position(text_lines, before, hint_line, ignore_whitespace)
+    pos = _find_hunk_position(
+        text_lines, before, hint_line, ignore_whitespace, exact_only
+    )
 
     if pos is None:
         return text, False, ""
@@ -427,6 +450,23 @@ def _write_file(path: str, text: str, encoding: str, preserve: bool) -> None:
         f.write(text)
 
 
+def _remove_file(path: str) -> None:
+    """Remove the named file, keeping the workdir guard.
+
+    When the target itself is a symlink, remove the link rather than its
+    referent: ensure_within_workdir resolves symlinks, so removing the
+    resolved path would delete the file the link points at and leave a
+    dangling link behind. The link's parent directory must still resolve
+    inside the workdir.
+    """
+    lexical = Path(os.getcwd(), path)
+    if os.path.islink(lexical):
+        ensure_within_workdir(str(lexical.parent))
+        os.remove(lexical)
+        return
+    os.remove(ensure_within_workdir(path))
+
+
 # ---------------------------------------------------------------------------
 # run_tool
 # ---------------------------------------------------------------------------
@@ -469,7 +509,10 @@ def run_tool(args: dict[str, Any]) -> str:
         all_ok = True
 
         for pf in patch_files:
-            target = _strip_path(pf.target_path, strip)
+            is_deletion = pf.target_path in {"/dev/null", "dev/null"}
+            target = _strip_path(
+                pf.source_path if is_deletion else pf.target_path, strip
+            )
             file_result: dict[str, Any] = {
                 "target": target,
                 "hunks_total": len(pf.hunks),
@@ -477,6 +520,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 "hunks_failed": 0,
                 "changed": False,
             }
+            if is_deletion:
+                file_result["deleted"] = True
 
             try:
                 content = _read_file(target, encoding, preserve_line_endings)
@@ -494,7 +539,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
             for hunk in pf.hunks:
                 new_text, applied, diff = _apply_hunk_to_text(
-                    current, hunk, ignore_whitespace, revert, preserve_line_endings
+                    current,
+                    hunk,
+                    ignore_whitespace,
+                    revert,
+                    preserve_line_endings,
+                    exact_only=is_deletion,
                 )
                 if applied:
                     current = new_text
@@ -535,13 +585,30 @@ def run_tool(args: dict[str, Any]) -> str:
             if failed_hunks > 0:
                 all_ok = False
 
+            # A deletion patch is only safe to carry out when every hunk
+            # applied and nothing of the file remains; otherwise the file
+            # must be left untouched.
+            deletion_blocked = is_deletion and (failed_hunks > 0 or current != "")
+            if is_deletion and failed_hunks == 0 and current != "":
+                file_result["error"] = _(
+                    "err.deletion_leaves_content",
+                    default="Deletion patch does not remove the entire file content.",
+                )
+                file_result["ok"] = False
+                all_ok = False
+
             if dry_run:
                 file_result["dry_run"] = True
             else:
-                if applied_hunks > 0:
+                if applied_hunks > 0 and not deletion_blocked:
                     try:
                         backup = make_backup_before_overwrite(target)
-                        _write_file(target, current, encoding, preserve_line_endings)
+                        if is_deletion:
+                            _remove_file(target)
+                        else:
+                            _write_file(
+                                target, current, encoding, preserve_line_endings
+                            )
                         file_result["backup"] = backup
                     except Exception as e:
                         file_result["error"] = str(e)
@@ -599,13 +666,17 @@ def describe(args: dict[str, Any]) -> str:
         patches = _parse_patch(patch_text)
     except Exception:
         patches = []
-    paths = list(
-        dict.fromkeys(
-            patch.target_path
-            for patch in patches
-            if patch.target_path and patch.target_path not in {"/dev/null", "dev/null"}
-        )
-    )
+    entries: list[str] = []
+    for patch in patches:
+        if patch.target_path in {"/dev/null", "dev/null"}:
+            if patch.source_path:
+                entries.append(
+                    f"{patch.source_path} "
+                    f"{_('describe.deleted', default='(deleted)')}"
+                )
+        elif patch.target_path:
+            entries.append(patch.target_path)
+    paths = list(dict.fromkeys(entries))
     if paths:
         return f"{action}: " + ", ".join(paths)
     return action
