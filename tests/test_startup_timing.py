@@ -88,7 +88,6 @@ def test_measure_detail_preserves_exceptions(monkeypatch, capsys):
     )
 
 
-
 def test_measure_detail_output_failure_does_not_change_behavior(monkeypatch):
     monkeypatch.setenv("UAGENT_STARTUP_TIMING", "1")
 
