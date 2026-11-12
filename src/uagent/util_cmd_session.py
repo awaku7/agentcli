@@ -1611,31 +1611,6 @@ def _handle_cmd_sessions(
                 % {"done": done, "skipped": skipped, "failed": failed}
             )
         return True
-    if command == "candidates":
-        if store is None or not session_id:
-            print(_("[sessions] Session store is not enabled."))
-            return True
-        candidates = store.list_memory_candidates(session_id)
-        if not candidates:
-            print(_("[sessions] No memory candidates."))
-            return True
-        print(_("[sessions] Memory candidates:"))
-        for index, candidate in enumerate(candidates, start=1):
-            print(f"[{index}] {candidate}")
-        return True
-    if command == "approve":
-        if store is None or not session_id:
-            print(_("[sessions] Session store is not enabled."))
-            return True
-        try:
-            index = int(parts[1]) - 1
-            candidate = store.list_memory_candidates(session_id)[index]
-        except (ValueError, IndexError):
-            print(_("[sessions] Usage: :sessions approve <number>"))
-            return True
-        personal_long_memory.append_long_memory(candidate)
-        print(_("[sessions] Memory candidate approved."))
-        return True
     if command == "import":
         if store is None:
             print(_("[sessions] Session store is not enabled."))
@@ -1842,7 +1817,7 @@ def _handle_cmd_sessions(
         return True
     if command != "search":
         print(
-            ":sessions list [--verbose] | load [<index|session_id>] | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
+            ":sessions list [--verbose] | load [<index|session_id>] | search <query> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
         )
         return True
     query_parts = parts[1:]
@@ -2369,7 +2344,39 @@ def _handle_cmd_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
+        source = str(rec.get("source") or "")
+        memory_id = str(rec.get("memory_id") or "")
+        print(
+            _("[%(idx)s] %(dt)s  %(note)s (source: %(source)s, id: %(memory_id)s)")
+            % {
+                "idx": idx,
+                "dt": dt,
+                "note": note,
+                "source": source or "-",
+                "memory_id": memory_id or "-",
+            }
+        )
+    return True
+
+
+def _handle_cmd_mem_restore(arg: str, *, tr: Any) -> bool:
+    """List tombstoned entries (no arg) or restore one by memory_id."""
+    target = (arg or "").strip()
+    if not target:
+        deleted = personal_long_memory.list_deleted_long_memory_records()
+        if not deleted:
+            print(_("No deleted long-term memory entries."))
+            return True
+        print(_("Deleted long-term memory entries (restore with :mem-restore <id>):"))
+        for rec in deleted:
+            note = str(rec.get("note", ""))
+            memory_id = str(rec.get("memory_id") or "")
+            print(f"- {note} (id: {memory_id})")
+        return True
+    if personal_long_memory.restore_long_memory_by_id(target):
+        print(_("Restored long-term memory entry (id: %(id)s).") % {"id": target})
+    else:
+        print(_("[mem-restore] No deleted entry with id=%(id)s.") % {"id": target})
     return True
 
 

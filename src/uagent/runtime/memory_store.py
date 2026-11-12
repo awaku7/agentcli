@@ -521,6 +521,72 @@ class MemoryStore:
             raise
         return True
 
+    def tombstone_by_id(
+        self, memory_id: str, *, expected_revision: int | None = None
+    ) -> bool:
+        """Mark one active record deleted without removing its row.
+
+        Tombstoned records disappear from ``records()`` and projection, but
+        the row (including its note) survives so the deletion can be undone
+        with :meth:`restore_by_id` and so re-learning paths can still see
+        that the content was deliberately forgotten.
+        """
+        current = self._get_by_id(str(memory_id))
+        if current is None or current.get("status") != "active":
+            return False
+        if expected_revision is not None and int(current.get("revision") or 0) != int(
+            expected_revision
+        ):
+            raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+        now = time.time()
+        try:
+            cursor = self.db.execute(
+                "UPDATE memories SET status = 'deleted', updated_at = ?, "
+                "revision = ? WHERE memory_id = ? AND status = 'active' "
+                "AND revision = ?",
+                (
+                    now,
+                    int(current.get("revision") or 0) + 1,
+                    str(memory_id),
+                    int(current.get("revision") or 0),
+                ),
+            )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
+    def restore_by_id(self, memory_id: str) -> bool:
+        """Undo a tombstone, returning the record to active status."""
+        current = self._get_by_id(str(memory_id))
+        if current is None or current.get("status") != "deleted":
+            return False
+        now = time.time()
+        try:
+            cursor = self.db.execute(
+                "UPDATE memories SET status = 'active', updated_at = ?, "
+                "revision = ? WHERE memory_id = ? AND status = 'deleted' "
+                "AND revision = ?",
+                (
+                    now,
+                    int(current.get("revision") or 0) + 1,
+                    str(memory_id),
+                    int(current.get("revision") or 0),
+                ),
+            )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
     def replace(self, records: list[dict[str, object]]) -> None:
         """Compatibility rewrite preserving supplied stable IDs when possible."""
         incoming_ids: set[str] = set()

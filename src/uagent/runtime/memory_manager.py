@@ -76,10 +76,9 @@ class MemoryManager:
                     snapshot.get(key, []) if isinstance(snapshot.get(key), list) else []
                 ):
                     items.append(MemoryItem("profile", str(note)))
-        if scope in (None, "session"):
-            if self.session_store is not None and self.session_id:
-                for note in self.session_store.list_memory_candidates(self.session_id):
-                    items.append(MemoryItem("session", str(note)))
+        # The "session" scope used to list pending marker candidates.
+        # Marked notes are now saved to long-term memory at write time by
+        # the session store, so the scope intentionally yields nothing.
         return [item for item in items if item.note]
 
     def records_for_prompt(

@@ -61,6 +61,31 @@ ______________________________________________________________________
 
 Local Long-term Memory stores stable notes such as preferences, constraints or persistent environment facts. Typical management tools include `add_long_memory` and `get_long_memory`.
 
+#### Agent-managed writes
+
+The agent maintains Local Long-term Memory conversationally through four
+tools: `add_long_memory`, `get_long_memory`, `update_long_memory` and
+`delete_long_memory`. Notes are addressed by `memory_id` (returned by
+`add_long_memory` and shown by `get_long_memory` and `:mem`). Saves go
+through a checked path (`save_long_memory`): notes that look like they
+contain credentials are rejected, exact duplicates are not stored twice,
+and every record keeps its `source` (`tool`, `marker`, `web`, ...)
+provenance. Deletion is a tombstone — the record stops being used
+immediately but can be restored with `:mem-restore <memory_id>` (`:mem`
+lists source and id for each entry). There is no approval step.
+
+Messages starting with `remember:` or `記憶：` are the fallback for
+models that do not call the tools reliably: the session store saves the
+marked note immediately when the message is written, keyed by a
+content-derived `source_id`, so history rewrites cannot duplicate it
+or resurrect it after it was forgotten. The former
+`:sessions candidates` / `:sessions approve` flow no longer exists.
+
+Opt out per feature: `UAGENT_MEMORY_TOOL_SAVE=0` unregisters the three
+write tools, `UAGENT_MEMORY_MARKER=0` disables the marker fallback, and
+`UAGENT_MEMORY=0` disables both. Opting out stops future writes only;
+already-saved notes remain until deleted.
+
 Local V2 scope defaults are:
 
 ```env

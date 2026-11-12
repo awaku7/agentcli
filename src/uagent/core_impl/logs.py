@@ -41,6 +41,20 @@ def log_message(message: dict[str, Any]) -> None:
     from ..runtime.logging_setup import append_masked_message
 
     append_masked_message(_core.LOG_FILE, message, _mask_message)
+    if isinstance(message, dict) and message.get("role") == "assistant":
+        _print_pending_memory_notices()
+
+
+def _print_pending_memory_notices() -> None:
+    """Show one-line notices for marker notes saved by the session store."""
+    try:
+        store = getattr(_core, "session_store", None)
+        if store is None:
+            return
+        for notice in store.drain_memory_notices():
+            print(notice)
+    except Exception:
+        pass
 
 
 def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:

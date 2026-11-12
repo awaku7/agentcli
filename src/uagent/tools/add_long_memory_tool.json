@@ -14,8 +14,14 @@
     ],
     "err.note_empty": "[add_long_memory エラー] ノートが空です",
     "param.note.description": "今後の会話で再利用できる簡潔なメモを 1 つだけ書きます (日本語が望ましい)。",
-    "tool.description": "将来の会話に役立つ可能性がある、ユーザー/環境に関する長期記憶メモを 1 つ保存します。",
-    "err.save": "[add_long_memory エラー] メモリの保存に失敗しました"
+    "tool.description": "将来の会話で役立ちそうな、ユーザーや環境についての長期メモリを1件保存します。保存するのは、ユーザーが述べた長く残る事実・好み・制約・決めたこと・約束です。一度きりの作業内容、推測、パスワードやトークンなどの認証情報を含むものは保存しません。似たメモが既にある場合は、重ねて追加せず update_long_memory で更新してください。",
+    "err.save": "[add_long_memory エラー] メモリの保存に失敗しました",
+    "result.saved": "[add_long_memory] 保存しました（memory_id: %(memory_id)s）",
+    "result.duplicate": "[add_long_memory] 同じメモが既に保存されています（memory_id: %(memory_id)s）",
+    "err.secret": "[add_long_memory error] メモに認証情報らしい内容が含まれています。パスワードや認証情報はメモリに保存できません",
+    "err.too_long": "[add_long_memory error] メモが長すぎます。簡潔な1件に絞ってください",
+    "describe.add": "長期メモリに保存",
+    "describe.add_with_note": "長期メモリに保存: %(note)s"
   },
   "es": {
     "x_search_terms": [
@@ -31,9 +37,15 @@
       "almacén de memoria"
     ],
     "err.note_empty": "La nota [add_long_memory error] está vacía",
-    "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que puede ser útil en futuras conversaciones.",
+    "tool.description": "Guarda una nota de memoria a largo plazo sobre el usuario o el entorno que puede ser útil en conversaciones futuras. Guarda hechos duraderos, preferencias, restricciones, decisiones y compromisos expresados por el usuario; no guardes detalles de tareas puntuales, suposiciones ni nada que contenga contraseñas, tokens u otras credenciales. Si ya existe una nota similar, actualízala con update_long_memory en lugar de añadir un duplicado.",
     "param.note.description": "Escriba exactamente una nota concisa (preferiblemente en japonés) que debería poder reutilizarse en futuras conversaciones.",
-    "err.save": "[add_long_memory error] no se pudo guardar la memoria"
+    "err.save": "[add_long_memory error] no se pudo guardar la memoria",
+    "result.saved": "[add_long_memory] guardado (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] ya hay una nota idéntica guardada (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] la nota parece contener una credencial; las credenciales no deben guardarse en la memoria",
+    "err.too_long": "[add_long_memory error] la nota es demasiado larga; resúmela en una sola nota concisa",
+    "describe.add": "Guardando en la memoria a largo plazo",
+    "describe.add_with_note": "Guardando en la memoria a largo plazo: %(note)s"
   },
   "fr": {
     "x_search_terms": [
@@ -49,9 +61,15 @@
       "magasin de mémoire"
     ],
     "err.note_empty": "[erreur add_long_memory] la note est vide",
-    "tool.description": "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui peut être utile dans les conversations futures.",
+    "tool.description": "Enregistre une note de mémoire à long terme sur l'utilisateur ou l'environnement, utile pour de futures conversations. Enregistrez les faits durables, préférences, contraintes, décisions et engagements énoncés par l'utilisateur ; n'enregistrez pas les détails de tâches ponctuelles, les suppositions, ni quoi que ce soit contenant des mots de passe, des jetons ou d'autres identifiants. Si une note similaire existe déjà, mettez-la à jour avec update_long_memory au lieu d'ajouter un doublon.",
     "param.note.description": "Écrivez exactement une note concise (de préférence en japonais) qui devrait être réutilisable dans les conversations futures.",
-    "err.save": "[add_long_memory erreur] échec de l’enregistrement de la mémoire"
+    "err.save": "[add_long_memory erreur] échec de l’enregistrement de la mémoire",
+    "result.saved": "[add_long_memory] enregistré (memory_id : %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] une note identique est déjà enregistrée (memory_id : %(memory_id)s)",
+    "err.secret": "[add_long_memory error] la note semble contenir un identifiant ; les identifiants ne doivent pas être stockés en mémoire",
+    "err.too_long": "[add_long_memory error] la note est trop longue ; réduisez-la à une note concise",
+    "describe.add": "Enregistrement dans la mémoire à long terme",
+    "describe.add_with_note": "Enregistrement dans la mémoire à long terme : %(note)s"
   },
   "ko": {
     "x_search_terms": [
@@ -68,8 +86,14 @@
     ],
     "err.note_empty": "[add_long_memory error] 메모가 비어 있습니다.",
     "param.note.description": "향후 대화에서 재사용할 수 있도록 정확히 하나의 간결한 메모(일본어 선호)를 작성하세요.",
-    "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 메모리 메모를 저장하세요.",
-    "err.save": "[add_long_memory 오류] 메모리 저장 실패"
+    "tool.description": "향후 대화에서 유용할 수 있는 사용자/환경에 대한 장기 기억 메모를 하나 저장합니다. 사용자가 말한 오래 지속되는 사실, 선호, 제약, 결정, 약속을 저장하세요. 일회성 작업 내용, 추측, 비밀번호·토큰 등 자격 증명이 포함된 내용은 저장하지 마세요. 비슷한 메모가 이미 있으면 중복해서 추가하지 말고 update_long_memory로 업데이트하세요.",
+    "err.save": "[add_long_memory 오류] 메모리 저장 실패",
+    "result.saved": "[add_long_memory] 저장됨 (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] 동일한 메모가 이미 저장되어 있습니다 (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] 메모에 자격 증명이 포함된 것 같습니다. 자격 증명은 메모리에 저장할 수 없습니다",
+    "err.too_long": "[add_long_memory error] 메모가 너무 깁니다. 간결한 메모 하나로 줄여 주세요",
+    "describe.add": "장기 기억에 저장 중",
+    "describe.add_with_note": "장기 기억에 저장 중: %(note)s"
   },
   "de": {
     "x_search_terms": [
@@ -86,8 +110,14 @@
     ],
     "err.note_empty": "[add_long_memory error] Notiz ist leer",
     "param.note.description": "Schreiben Sie genau eine prägnante Notiz (bevorzugt Japanisch), die in zukünftigen Gesprächen wiederverwendet werden sollte.",
-    "tool.description": "Speichern Sie eine einzelne Langzeitgedächtnisnotiz über den Benutzer/die Umgebung, die in zukünftigen Gesprächen nützlich sein kann.",
-    "err.save": "[add_long_memory Fehler] Speicher konnte nicht gespeichert werden"
+    "tool.description": "Speichert eine Langzeitgedächtnis-Notiz über den Benutzer oder die Umgebung, die in künftigen Gesprächen nützlich sein kann. Speichern Sie dauerhafte Fakten, Vorlieben, Einschränkungen, Entscheidungen und Zusagen des Benutzers; speichern Sie keine einmaligen Aufgabendetails, Vermutungen oder Inhalte mit Passwörtern, Tokens oder anderen Zugangsdaten. Wenn eine ähnliche Notiz bereits existiert, aktualisieren Sie sie mit update_long_memory, statt ein Duplikat hinzuzufügen.",
+    "err.save": "[add_long_memory Fehler] Speicher konnte nicht gespeichert werden",
+    "result.saved": "[add_long_memory] gespeichert (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] eine identische Notiz ist bereits gespeichert (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] die Notiz scheint Zugangsdaten zu enthalten; Zugangsdaten dürfen nicht im Gedächtnis gespeichert werden",
+    "err.too_long": "[add_long_memory error] die Notiz ist zu lang; bitte auf eine knappe Notiz kürzen",
+    "describe.add": "Im Langzeitgedächtnis speichern",
+    "describe.add_with_note": "Im Langzeitgedächtnis speichern: %(note)s"
   },
   "it": {
     "x_search_terms": [
@@ -104,8 +134,14 @@
     ],
     "err.note_empty": "La nota [add_long_memory error] è vuota",
     "param.note.description": "Scrivi esattamente una nota concisa (preferibilmente in giapponese) che dovrebbe essere riutilizzabile nelle conversazioni future.",
-    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future.",
-    "err.save": "[add_long_memory errore] impossibile salvare la memoria"
+    "tool.description": "Salva una nota di memoria a lungo termine sull'utente o sull'ambiente, utile nelle conversazioni future. Salva fatti duraturi, preferenze, vincoli, decisioni e impegni dichiarati dall'utente; non salvare dettagli di attività una tantum, ipotesi o qualsiasi cosa contenga password, token o altre credenziali. Se esiste già una nota simile, aggiornala con update_long_memory invece di aggiungere un duplicato.",
+    "err.save": "[add_long_memory errore] impossibile salvare la memoria",
+    "result.saved": "[add_long_memory] salvato (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] una nota identica è già salvata (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] la nota sembra contenere una credenziale; le credenziali non devono essere salvate in memoria",
+    "err.too_long": "[add_long_memory error] la nota è troppo lunga; riducila a una nota concisa",
+    "describe.add": "Salvataggio nella memoria a lungo termine",
+    "describe.add_with_note": "Salvataggio nella memoria a lungo termine: %(note)s"
   },
   "ru": {
     "x_search_terms": [
@@ -122,8 +158,14 @@
     ],
     "err.note_empty": "[add_long_memory error] заметка пуста",
     "param.note.description": "Напишите ровно одну краткую заметку (предпочтительно на японском языке), которую можно будет использовать повторно в будущих разговорах.",
-    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/среде, которая может пригодиться в будущих разговорах.",
-    "err.save": "[add_long_memory ошибка] не удалось сохранить память"
+    "tool.description": "Сохраняет одну заметку долговременной памяти о пользователе или окружении, которая может пригодиться в будущих разговорах. Сохраняйте устойчивые факты, предпочтения, ограничения, решения и обязательства, названные пользователем; не сохраняйте разовые детали задач, догадки и всё, что содержит пароли, токены или другие учётные данные. Если похожая заметка уже есть, обновите её через update_long_memory, а не добавляйте дубликат.",
+    "err.save": "[add_long_memory ошибка] не удалось сохранить память",
+    "result.saved": "[add_long_memory] сохранено (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] идентичная заметка уже сохранена (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] заметка, похоже, содержит учётные данные; учётные данные нельзя хранить в памяти",
+    "err.too_long": "[add_long_memory error] заметка слишком длинная; сократите её до одной краткой заметки",
+    "describe.add": "Сохранение в долговременную память",
+    "describe.add_with_note": "Сохранение в долговременную память: %(note)s"
   },
   "pt_BR": {
     "x_search_terms": [
@@ -140,8 +182,14 @@
     ],
     "err.note_empty": "[add_long_memory error] nota está vazia",
     "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras.",
-    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
-    "err.save": "[add_long_memory erro] falha ao salvar memória"
+    "tool.description": "Salva uma nota de memória de longo prazo sobre o usuário ou o ambiente que pode ser útil em conversas futuras. Salve fatos duradouros, preferências, restrições, decisões e compromissos declarados pelo usuário; não salve detalhes de tarefas pontuais, suposições nem nada que contenha senhas, tokens ou outras credenciais. Se uma nota semelhante já existir, atualize-a com update_long_memory em vez de adicionar uma duplicata.",
+    "err.save": "[add_long_memory erro] falha ao salvar memória",
+    "result.saved": "[add_long_memory] salvo (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] uma nota idêntica já está salva (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] a nota parece conter uma credencial; credenciais não devem ser armazenadas na memória",
+    "err.too_long": "[add_long_memory error] a nota é longa demais; reduza-a a uma nota concisa",
+    "describe.add": "Salvando na memória de longo prazo",
+    "describe.add_with_note": "Salvando na memória de longo prazo: %(note)s"
   },
   "pt": {
     "x_search_terms": [
@@ -157,9 +205,15 @@
       "armazenamento de memória"
     ],
     "err.note_empty": "[add_long_memory error] nota está vazia",
-    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
+    "tool.description": "Guarda uma nota de memória de longo prazo sobre o utilizador ou o ambiente que pode ser útil em conversas futuras. Guarde factos duradouros, preferências, restrições, decisões e compromissos declarados pelo utilizador; não guarde detalhes de tarefas pontuais, suposições nem nada que contenha palavras-passe, tokens ou outras credenciais. Se já existir uma nota semelhante, atualize-a com update_long_memory em vez de adicionar um duplicado.",
     "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras.",
-    "err.save": "[add_long_memory erro] falha ao guardar memória"
+    "err.save": "[add_long_memory erro] falha ao guardar memória",
+    "result.saved": "[add_long_memory] guardado (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] já existe uma nota idêntica guardada (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] a nota parece conter uma credencial; as credenciais não devem ser guardadas na memória",
+    "err.too_long": "[add_long_memory error] a nota é demasiado longa; reduza-a a uma nota concisa",
+    "describe.add": "A guardar na memória de longo prazo",
+    "describe.add_with_note": "A guardar na memória de longo prazo: %(note)s"
   },
   "id": {
     "x_search_terms": [
@@ -175,9 +229,15 @@
       "penyimpanan memori"
     ],
     "err.note_empty": "Catatan [add_long_memory error] kosong",
-    "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna dalam percakapan di masa mendatang.",
+    "tool.description": "Menyimpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna dalam percakapan mendatang. Simpan fakta yang bertahan lama, preferensi, batasan, keputusan, dan komitmen yang dinyatakan pengguna; jangan simpan detail tugas sekali saja, tebakan, atau apa pun yang berisi kata sandi, token, atau kredensial lainnya. Jika catatan serupa sudah ada, perbarui dengan update_long_memory daripada menambahkan duplikat.",
     "param.note.description": "Tulis satu catatan singkat (lebih disukai bahasa Jepang) yang dapat digunakan kembali dalam percakapan selanjutnya.",
-    "err.save": "[add_long_memory kesalahan] gagal menyimpan memori"
+    "err.save": "[add_long_memory kesalahan] gagal menyimpan memori",
+    "result.saved": "[add_long_memory] tersimpan (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] catatan yang sama sudah tersimpan (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] catatan tampaknya berisi kredensial; kredensial tidak boleh disimpan di memori",
+    "err.too_long": "[add_long_memory error] catatan terlalu panjang; buatlah satu catatan yang ringkas",
+    "describe.add": "Menyimpan ke memori jangka panjang",
+    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s"
   },
   "vi": {
     "x_search_terms": [
@@ -193,9 +253,15 @@
       "kho bộ nhớ"
     ],
     "err.note_empty": "[lỗi add_long_memory] ghi chú trống",
-    "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc hội thoại trong tương lai.",
+    "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện sau này. Hãy lưu các sự kiện lâu dài, sở thích, ràng buộc, quyết định và cam kết do người dùng nêu; không lưu chi tiết công việc một lần, suy đoán, hay bất cứ thứ gì chứa mật khẩu, token hoặc thông tin xác thực khác. Nếu đã có ghi chú tương tự, hãy cập nhật bằng update_long_memory thay vì thêm bản sao.",
     "param.note.description": "Viết chính xác một ghi chú ngắn gọn (ưu tiên tiếng Nhật) để có thể sử dụng lại trong các cuộc trò chuyện sau này.",
-    "err.save": "[add_long_memory lỗi] không lưu được bộ nhớ"
+    "err.save": "[add_long_memory lỗi] không lưu được bộ nhớ",
+    "result.saved": "[add_long_memory] đã lưu (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] ghi chú giống hệt đã được lưu (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] ghi chú có vẻ chứa thông tin xác thực; không được lưu thông tin xác thực vào bộ nhớ",
+    "err.too_long": "[add_long_memory error] ghi chú quá dài; hãy rút gọn thành một ghi chú ngắn gọn",
+    "describe.add": "Đang lưu vào bộ nhớ dài hạn",
+    "describe.add_with_note": "Đang lưu vào bộ nhớ dài hạn: %(note)s"
   },
   "pl": {
     "x_search_terms": [
@@ -212,8 +278,14 @@
     ],
     "err.note_empty": "[błąd add_long_memory] notatka jest pusta",
     "param.note.description": "Napisz dokładnie jedną zwięzłą notatkę (najlepiej po japońsku), która powinna zostać ponownie wykorzystana w przyszłych rozmowach.",
-    "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może być przydatna w przyszłych rozmowach.",
-    "err.save": "[add_long_memory błąd] nie udało się zapisać pamięci"
+    "tool.description": "Zapisuje jedną notatkę pamięci długotrwałej o użytkowniku lub środowisku, która może przydać się w przyszłych rozmowach. Zapisuj trwałe fakty, preferencje, ograniczenia, decyzje i zobowiązania podane przez użytkownika; nie zapisuj jednorazowych szczegółów zadań, domysłów ani niczego zawierającego hasła, tokeny lub inne dane uwierzytelniające. Jeśli podobna notatka już istnieje, zaktualizuj ją przez update_long_memory zamiast dodawać duplikat.",
+    "err.save": "[add_long_memory błąd] nie udało się zapisać pamięci",
+    "result.saved": "[add_long_memory] zapisano (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] identyczna notatka jest już zapisana (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] notatka wygląda na zawierającą dane uwierzytelniające; danych uwierzytelniających nie wolno zapisywać w pamięci",
+    "err.too_long": "[add_long_memory error] notatka jest za długa; skróć ją do jednej zwięzłej notatki",
+    "describe.add": "Zapisywanie do pamięci długotrwałej",
+    "describe.add_with_note": "Zapisywanie do pamięci długotrwałej: %(note)s"
   },
   "hi": {
     "x_search_terms": [
@@ -230,8 +302,14 @@
     ],
     "err.note_empty": "[add_long_memory त्रुटि] नोट खाली है",
     "param.note.description": "बिल्कुल एक संक्षिप्त नोट लिखें (जापानी पसंदीदा) जिसे भविष्य की बातचीत में पुन: उपयोग किया जाना चाहिए।",
-    "tool.description": "उपयोगकर्ता/पर्यावरण के बारे में एक दीर्घकालिक स्मृति नोट सहेजें जो भविष्य के सत्रों में उपयोगी हो सकता है। इसका उपयोग तब करें जब उपयोगकर्ता स्पष्ट रूप से कुछ याद रखने के लिए कहे।",
-    "err.save": "[add_long_memory त्रुटि] मेमरी सहेजने में विफल"
+    "tool.description": "उपयोगकर्ता या परिवेश के बारे में एक दीर्घकालिक स्मृति नोट सहेजता है जो भविष्य की बातचीत में उपयोगी हो सकता है। उपयोगकर्ता द्वारा बताए गए स्थायी तथ्य, प्राथमिकताएँ, बाधाएँ, निर्णय और प्रतिबद्धताएँ सहेजें; एकबारगी कार्य विवरण, अनुमान, या पासवर्ड, टोकन या अन्य क्रेडेंशियल वाली कोई भी चीज़ न सहेजें। यदि इसी तरह का नोट पहले से मौजूद है, तो डुप्लिकेट जोड़ने के बजाय update_long_memory से उसे अपडेट करें।",
+    "err.save": "[add_long_memory त्रुटि] मेमरी सहेजने में विफल",
+    "result.saved": "[add_long_memory] सहेजा गया (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] एक समान नोट पहले से सहेजा हुआ है (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] नोट में क्रेडेंशियल जैसा कुछ लगता है; क्रेडेंशियल मेमोरी में संग्रहीत नहीं किए जा सकते",
+    "err.too_long": "[add_long_memory error] नोट बहुत लंबा है; इसे एक संक्षिप्त नोट तक सीमित रखें",
+    "describe.add": "दीर्घकालिक स्मृति में सहेजा जा रहा है",
+    "describe.add_with_note": "दीर्घकालिक स्मृति में सहेजा जा रहा है: %(note)s"
   },
   "ar": {
     "x_search_terms": [
@@ -248,8 +326,14 @@
     ],
     "err.note_empty": "ملاحظة [add_long_memory error] فارغة",
     "param.note.description": "اكتب ملاحظة واحدة مختصرة (يفضل اللغة اليابانية) والتي ينبغي إعادة استخدامها في المحادثات المستقبلية.",
-    "tool.description": "احفظ ملاحظة واحدة للذاكرة طويلة المدى حول المستخدم/البيئة والتي قد تكون مفيدة في المحادثات المستقبلية.",
-    "err.save": "[add_long_memory خطأ] فشل حفظ الذاكرة"
+    "tool.description": "يحفظ ملاحظة واحدة في الذاكرة طويلة الأمد عن المستخدم أو البيئة قد تفيد في محادثات مستقبلية. احفظ الحقائق الدائمة والتفضيلات والقيود والقرارات والالتزامات التي يذكرها المستخدم؛ ولا تحفظ تفاصيل مهام لمرة واحدة أو تخمينات أو أي شيء يحتوي على كلمات مرور أو رموز أو بيانات اعتماد أخرى. إذا وُجدت ملاحظة مشابهة، حدّثها باستخدام update_long_memory بدلاً من إضافة نسخة مكررة.",
+    "err.save": "[add_long_memory خطأ] فشل حفظ الذاكرة",
+    "result.saved": "[add_long_memory] تم الحفظ (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] توجد ملاحظة مطابقة محفوظة بالفعل (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] يبدو أن الملاحظة تحتوي على بيانات اعتماد؛ لا يجوز تخزين بيانات الاعتماد في الذاكرة",
+    "err.too_long": "[add_long_memory error] الملاحظة طويلة جدًا؛ اختصرها في ملاحظة واحدة موجزة",
+    "describe.add": "الحفظ في الذاكرة طويلة الأمد",
+    "describe.add_with_note": "الحفظ في الذاكرة طويلة الأمد: %(note)s"
   },
   "sv": {
     "x_search_terms": [
@@ -266,8 +350,14 @@
     ],
     "err.note_empty": "[add_long_memory error]-anteckningen är tom",
     "param.note.description": "Skriv exakt en kortfattad anteckning (japanska föredras) som bör kunna återanvändas i framtida konversationer.",
-    "tool.description": "Spara en enda långtidsminnesanteckning om användaren/miljön som kan vara användbar i framtida konversationer.",
-    "err.save": "[add_long_memory fel] kunde inte spara minnet"
+    "tool.description": "Sparar en långtidsminnesanteckning om användaren eller miljön som kan vara användbar i framtida konversationer. Spara varaktiga fakta, preferenser, begränsningar, beslut och åtaganden som användaren anger; spara inte engångsdetaljer om uppgifter, gissningar eller något som innehåller lösenord, tokens eller andra inloggningsuppgifter. Om en liknande anteckning redan finns, uppdatera den med update_long_memory i stället för att lägga till en dubblett.",
+    "err.save": "[add_long_memory fel] kunde inte spara minnet",
+    "result.saved": "[add_long_memory] sparad (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] en identisk anteckning är redan sparad (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] anteckningen ser ut att innehålla inloggningsuppgifter; sådana får inte lagras i minnet",
+    "err.too_long": "[add_long_memory error] anteckningen är för lång; håll den till en kortfattad anteckning",
+    "describe.add": "Sparar i långtidsminnet",
+    "describe.add_with_note": "Sparar i långtidsminnet: %(note)s"
   },
   "sw": {
     "x_search_terms": [
@@ -284,8 +374,14 @@
     ],
     "err.note_empty": "[add_long_memory error] dokezo ni tupu",
     "param.note.description": "Andika kidokezo kimoja kifupi (kinachopendekezwa na Kijapani) ambacho kinafaa kutumika tena katika mazungumzo yajayo.",
-    "tool.description": "Hifadhi kumbukumbu moja ya muda mrefu kuhusu mtumiaji/mazingira ambayo inaweza kuwa muhimu katika mazungumzo yajayo.",
-    "err.save": "[add_long_memory hitilafu] imeshindwa kuhifadhi kumbukumbu"
+    "tool.description": "Huhifadhi kidokezo kimoja cha kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambacho kinaweza kuwa na manufaa katika mazungumzo yajayo. Hifadhi mambo ya kudumu, mapendeleo, vikwazo, maamuzi na ahadi zilizotajwa na mtumiaji; usihifadhi maelezo ya kazi za mara moja, dhana, au chochote chenye nywila, tokeni au vitambulisho vingine. Kama kidokezo kama hicho tayari kipo, kisasishe kwa update_long_memory badala ya kuongeza nakala.",
+    "err.save": "[add_long_memory hitilafu] imeshindwa kuhifadhi kumbukumbu",
+    "result.saved": "[add_long_memory] imehifadhiwa (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] kidokezo sawa tayari kimehifadhiwa (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] kidokezo kinaonekana kuwa na kitambulisho; vitambulisho havipaswi kuhifadhiwa kwenye kumbukumbu",
+    "err.too_long": "[add_long_memory error] kidokezo ni kirefu mno; kifanye kiwe kifupi kimoja",
+    "describe.add": "Kuhifadhi kwenye kumbukumbu ya muda mrefu",
+    "describe.add_with_note": "Kuhifadhi kwenye kumbukumbu ya muda mrefu: %(note)s"
   },
   "nb": {
     "x_search_terms": [
@@ -302,8 +398,14 @@
     ],
     "err.note_empty": "[add_long_memory error] notatet er tomt",
     "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
-    "tool.description": "Lagre et enkelt langtidsminnemerknad om brukeren/miljøet som kan være nyttig i fremtidige samtaler.",
-    "err.save": "[add_long_memory feil] kunne ikke lagre minne"
+    "tool.description": "Lagrer ett langtidsminnenotat om brukeren eller miljøet som kan være nyttig i fremtidige samtaler. Lagre varige fakta, preferanser, begrensninger, beslutninger og forpliktelser som brukeren oppgir; ikke lagre engangsdetaljer om oppgaver, gjetninger eller noe som inneholder passord, tokens eller annen legitimasjon. Hvis et lignende notat allerede finnes, oppdater det med update_long_memory i stedet for å legge til en duplikat.",
+    "err.save": "[add_long_memory feil] kunne ikke lagre minne",
+    "result.saved": "[add_long_memory] lagret (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] et identisk notat er allerede lagret (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] notatet ser ut til å inneholde legitimasjon; legitimasjon skal ikke lagres i minnet",
+    "err.too_long": "[add_long_memory error] notatet er for langt; hold det til ett kortfattet notat",
+    "describe.add": "Lagrer i langtidsminnet",
+    "describe.add_with_note": "Lagrer i langtidsminnet: %(note)s"
   },
   "nl": {
     "x_search_terms": [
@@ -320,8 +422,14 @@
     ],
     "err.note_empty": "[add_long_memory error] notitie is leeg",
     "param.note.description": "Schrijf precies één beknopte notitie (bij voorkeur Japans) die herbruikbaar moet zijn in toekomstige gesprekken.",
-    "tool.description": "Bewaar een enkele langetermijngeheugennotitie over de gebruiker/omgeving die nuttig kan zijn in toekomstige gesprekken.",
-    "err.save": "[add_long_memory fout] geheugen opslaan mislukt"
+    "tool.description": "Slaat één notitie in het langetermijngeheugen op over de gebruiker of omgeving die nuttig kan zijn in toekomstige gesprekken. Sla duurzame feiten, voorkeuren, beperkingen, beslissingen en toezeggingen van de gebruiker op; sla geen eenmalige taakdetails, gissingen of iets met wachtwoorden, tokens of andere inloggegevens op. Als er al een vergelijkbare notitie bestaat, werk die dan bij met update_long_memory in plaats van een duplicaat toe te voegen.",
+    "err.save": "[add_long_memory fout] geheugen opslaan mislukt",
+    "result.saved": "[add_long_memory] opgeslagen (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] een identieke notitie is al opgeslagen (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] de notitie lijkt inloggegevens te bevatten; inloggegevens mogen niet in het geheugen worden opgeslagen",
+    "err.too_long": "[add_long_memory error] de notitie is te lang; beperk het tot één beknopte notitie",
+    "describe.add": "Opslaan in langetermijngeheugen",
+    "describe.add_with_note": "Opslaan in langetermijngeheugen: %(note)s"
   },
   "fi": {
     "x_search_terms": [
@@ -338,8 +446,14 @@
     ],
     "err.note_empty": "[add_long_memory error] huomautus on tyhjä",
     "param.note.description": "Kirjoita täsmälleen yksi ytimekäs muistiinpano (mieluiten japanilainen), jota voidaan käyttää uudelleen tulevissa keskusteluissa.",
-    "tool.description": "Tallenna yksittäinen pitkäaikaiseen muistiin liittyvä muistiinpano käyttäjästä/ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa.",
-    "err.save": "[add_long_memory virhe] muistin tallennus epäonnistui"
+    "tool.description": "Tallentaa yhden pitkäkestoisen muistimerkinnän käyttäjästä tai ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa. Tallenna käyttäjän ilmoittamat pysyvät tosiasiat, mieltymykset, rajoitteet, päätökset ja sitoumukset; älä tallenna kertaluonteisia tehtävätietoja, arvauksia tai mitään, mikä sisältää salasanoja, tokeneita tai muita tunnistetietoja. Jos samankaltainen merkintä on jo olemassa, päivitä se update_long_memory-toiminnolla kaksoiskappaleen lisäämisen sijaan.",
+    "err.save": "[add_long_memory virhe] muistin tallennus epäonnistui",
+    "result.saved": "[add_long_memory] tallennettu (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] samanlainen merkintä on jo tallennettu (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] merkintä näyttää sisältävän tunnistetietoja; tunnistetietoja ei saa tallentaa muistiin",
+    "err.too_long": "[add_long_memory error] merkintä on liian pitkä; tiivistä se yhdeksi ytimekkääksi merkinnäksi",
+    "describe.add": "Tallennetaan pitkäkestoiseen muistiin",
+    "describe.add_with_note": "Tallennetaan pitkäkestoiseen muistiin: %(note)s"
   },
   "cs": {
     "x_search_terms": [
@@ -356,8 +470,14 @@
     ],
     "err.note_empty": "[add_long_memory error] poznámka je prázdná",
     "param.note.description": "Napište přesně jednu stručnou poznámku (nejlépe v japonštině), která by měla být znovu použitelná v budoucích konverzacích.",
-    "tool.description": "Uložte si jednu dlouhodobou paměťovou poznámku o uživateli/prostředí, která může být užitečná v budoucích konverzacích.",
-    "err.save": "[add_long_memory chyba] paměť se nepodařilo uložit"
+    "tool.description": "Uloží jednu poznámku dlouhodobé paměti o uživateli nebo prostředí, která se může hodit v budoucích konverzacích. Ukládejte trvalé skutečnosti, preference, omezení, rozhodnutí a závazky uvedené uživatelem; neukládejte jednorázové podrobnosti úkolů, odhady ani nic, co obsahuje hesla, tokeny nebo jiné přihlašovací údaje. Pokud podobná poznámka už existuje, aktualizujte ji pomocí update_long_memory místo přidání duplikátu.",
+    "err.save": "[add_long_memory chyba] paměť se nepodařilo uložit",
+    "result.saved": "[add_long_memory] uloženo (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] stejná poznámka je již uložena (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] poznámka zřejmě obsahuje přihlašovací údaje; přihlašovací údaje se nesmí ukládat do paměti",
+    "err.too_long": "[add_long_memory error] poznámka je příliš dlouhá; zkraťte ji na jednu stručnou poznámku",
+    "describe.add": "Ukládání do dlouhodobé paměti",
+    "describe.add_with_note": "Ukládání do dlouhodobé paměti: %(note)s"
   },
   "uk": {
     "x_search_terms": [
@@ -374,8 +494,14 @@
     ],
     "err.note_empty": "[помилка add_long_memory] примітка порожня",
     "param.note.description": "Напишіть лише одну коротку замітку (бажано японською), яку можна буде повторно використовувати в майбутніх розмовах.",
-    "tool.description": "Збережіть одну довгострокову пам’ять про користувача/оточення, яка може бути корисною в майбутніх розмовах.",
-    "err.save": "[add_long_memory помилка] не вдалося зберегти пам’ять"
+    "tool.description": "Зберігає одну нотатку довготривалої пам'яті про користувача чи середовище, яка може стати в пригоді в майбутніх розмовах. Зберігайте стійкі факти, уподобання, обмеження, рішення та зобов'язання, названі користувачем; не зберігайте разові деталі завдань, здогадки та все, що містить паролі, токени чи інші облікові дані. Якщо схожа нотатка вже є, оновіть її через update_long_memory, а не додавайте дублікат.",
+    "err.save": "[add_long_memory помилка] не вдалося зберегти пам’ять",
+    "result.saved": "[add_long_memory] збережено (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] ідентичну нотатку вже збережено (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] нотатка, схоже, містить облікові дані; облікові дані не можна зберігати в пам'яті",
+    "err.too_long": "[add_long_memory error] нотатка занадто довга; скоротіть її до однієї стислої нотатки",
+    "describe.add": "Збереження в довготривалу пам'ять",
+    "describe.add_with_note": "Збереження в довготривалу пам'ять: %(note)s"
   },
   "tr": {
     "x_search_terms": [
@@ -392,8 +518,14 @@
     ],
     "err.note_empty": "[add_long_memory hatası] notu boş",
     "param.note.description": "Gelecekteki konuşmalarda yeniden kullanılabilecek tam olarak kısa bir not yazın (Japonca tercih edilir).",
-    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı/ortam hakkında tek bir uzun vadeli bellek notu kaydedin.",
-    "err.save": "[add_long_memory hata] bellek kaydedilemedi"
+    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı veya ortam hakkında tek bir uzun süreli bellek notu kaydeder. Kullanıcının belirttiği kalıcı gerçekleri, tercihleri, kısıtlamaları, kararları ve taahhütleri kaydedin; tek seferlik görev ayrıntılarını, tahminleri veya parola, token ya da başka kimlik bilgileri içeren hiçbir şeyi kaydetmeyin. Benzer bir not zaten varsa, yinelenen eklemek yerine update_long_memory ile güncelleyin.",
+    "err.save": "[add_long_memory hata] bellek kaydedilemedi",
+    "result.saved": "[add_long_memory] kaydedildi (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] aynı not zaten kayıtlı (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] not kimlik bilgisi içeriyor gibi görünüyor; kimlik bilgileri belleğe kaydedilmemelidir",
+    "err.too_long": "[add_long_memory error] not çok uzun; tek bir özlü notla sınırlayın",
+    "describe.add": "Uzun süreli belleğe kaydediliyor",
+    "describe.add_with_note": "Uzun süreli belleğe kaydediliyor: %(note)s"
   },
   "th": {
     "x_search_terms": [
@@ -410,8 +542,14 @@
     ],
     "err.note_empty": "โน้ต [add_long_memory error] ว่างเปล่า",
     "param.note.description": "เขียนบันทึกย่อกระชับหนึ่งรายการ (ควรใช้ภาษาญี่ปุ่น) ซึ่งควรนำมาใช้ซ้ำในการสนทนาครั้งต่อๆ ไป",
-    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเดียวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาในอนาคต",
-    "err.save": "[add_long_memory ข้อผิดพลาด] บันทึกหน่วยความจำไม่สำเร็จ"
+    "tool.description": "บันทึกโน้ตความจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้หรือสภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาครั้งต่อไป ให้บันทึกข้อเท็จจริงที่คงอยู่ถาวร ความชอบ ข้อจำกัด การตัดสินใจ และข้อผูกพันที่ผู้ใช้ระบุ อย่าบันทึกรายละเอียดงานครั้งเดียว การคาดเดา หรือสิ่งใดที่มีรหัสผ่าน โทเคน หรือข้อมูลรับรองอื่น ๆ หากมีโน้ตคล้ายกันอยู่แล้ว ให้อัปเดตด้วย update_long_memory แทนการเพิ่มซ้ำ",
+    "err.save": "[add_long_memory ข้อผิดพลาด] บันทึกหน่วยความจำไม่สำเร็จ",
+    "result.saved": "[add_long_memory] บันทึกแล้ว (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] มีโน้ตเดียวกันบันทึกไว้แล้ว (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] โน้ตดูเหมือนมีข้อมูลรับรอง ห้ามเก็บข้อมูลรับรองไว้ในหน่วยความจำ",
+    "err.too_long": "[add_long_memory error] โน้ตยาวเกินไป โปรดย่อให้เป็นโน้ตสั้น ๆ หนึ่งรายการ",
+    "describe.add": "กำลังบันทึกในหน่วยความจำระยะยาว",
+    "describe.add_with_note": "กำลังบันทึกในหน่วยความจำระยะยาว: %(note)s"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -428,8 +566,14 @@
     ],
     "err.note_empty": "[add_long_memory错误]注释为空",
     "param.note.description": "准确地写下一张简明的笔记（最好是日语），以便在以后的对话中可以重复使用。",
-    "tool.description": "保存有关用户/环境的单个长期记忆注释，这可能在将来的对话中有用。",
-    "err.save": "[add_long_memory 错误] 保存记忆失败"
+    "tool.description": "保存一条关于用户或环境的长期记忆笔记，可能对今后的对话有用。应保存用户陈述的持久事实、偏好、约束、决定和承诺；不要保存一次性任务细节、猜测，或包含密码、令牌等凭据的内容。如果已有类似笔记，请使用 update_long_memory 更新它，而不是添加重复项。",
+    "err.save": "[add_long_memory 错误] 保存记忆失败",
+    "result.saved": "[add_long_memory] 已保存 (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] 已保存相同的笔记 (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] 笔记似乎包含凭据；凭据不得存入记忆",
+    "err.too_long": "[add_long_memory error] 笔记太长；请精简为一条简洁的笔记",
+    "describe.add": "保存到长期记忆",
+    "describe.add_with_note": "保存到长期记忆：%(note)s"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -446,8 +590,14 @@
     ],
     "err.note_empty": "[add_long_memory錯誤]註解為空",
     "param.note.description": "準確地寫下一張簡明的筆記（最好是日文），以便在以後的對話中可以重複使用。",
-    "tool.description": "保存有關使用者/環境的單一長期記憶註釋，這可能在將來的對話中有用。 ",
-    "err.save": "[add_long_memory 錯誤] 儲存記憶失敗"
+    "tool.description": "儲存一則關於使用者或環境的長期記憶筆記，可能對日後對話有用。應儲存使用者陳述的持久事實、偏好、限制、決定與承諾；不要儲存一次性任務細節、臆測，或包含密碼、權杖等憑證的內容。若已有類似筆記，請使用 update_long_memory 更新它，而不是新增重複項。",
+    "err.save": "[add_long_memory 錯誤] 儲存記憶失敗",
+    "result.saved": "[add_long_memory] 已儲存 (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] 已儲存相同的筆記 (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] 筆記似乎包含憑證；憑證不得存入記憶",
+    "err.too_long": "[add_long_memory error] 筆記太長；請精簡為一則簡潔的筆記",
+    "describe.add": "儲存到長期記憶",
+    "describe.add_with_note": "儲存到長期記憶：%(note)s"
   },
   "bn": {
     "x_search_terms": [
@@ -464,8 +614,14 @@
     ],
     "err.note_empty": "[add_long_memory error] নোট খালি",
     "param.note.description": "ঠিক একটি সংক্ষিপ্ত নোট লিখুন (জাপানি পছন্দের) যা ভবিষ্যতে কথোপকথনে পুনরায় ব্যবহারযোগ্য হওয়া উচিত।",
-    "tool.description": "ব্যবহারকারী/পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদী মেমরি নোট সংরক্ষণ করুন যা ভবিষ্যতে কথোপকথনে উপযোগী হতে পারে।",
-    "err.save": "[add_long_memory ত্রুটি] মেমরি সংরক্ষণ করা যায়নি"
+    "tool.description": "ব্যবহারকারী বা পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদি মেমরি নোট সংরক্ষণ করে যা ভবিষ্যতের কথোপকথনে কাজে লাগতে পারে। ব্যবহারকারীর বলা স্থায়ী তথ্য, পছন্দ, সীমাবদ্ধতা, সিদ্ধান্ত ও প্রতিশ্রুতি সংরক্ষণ করুন; একবারের কাজের বিবরণ, অনুমান, বা পাসওয়ার্ড, টোকেন বা অন্যান্য ক্রেডেনশিয়ালযুক্ত কিছু সংরক্ষণ করবেন না। অনুরূপ নোট ইতিমধ্যে থাকলে ডুপ্লিকেট যোগ না করে update_long_memory দিয়ে সেটি আপডেট করুন।",
+    "err.save": "[add_long_memory ত্রুটি] মেমরি সংরক্ষণ করা যায়নি",
+    "result.saved": "[add_long_memory] সংরক্ষিত হয়েছে (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] একই নোট ইতিমধ্যে সংরক্ষিত আছে (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] নোটে ক্রেডেনশিয়াল আছে বলে মনে হচ্ছে; ক্রেডেনশিয়াল মেমরিতে সংরক্ষণ করা যাবে না",
+    "err.too_long": "[add_long_memory error] নোটটি খুব দীর্ঘ; এটিকে একটি সংক্ষিপ্ত নোটে সীমিত রাখুন",
+    "describe.add": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে",
+    "describe.add_with_note": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে: %(note)s"
   },
   "fa": {
     "x_search_terms": [
@@ -482,8 +638,14 @@
     ],
     "err.note_empty": "یادداشت [add_long_memory error] خالی است",
     "param.note.description": "دقیقاً یک یادداشت مختصر (ترجیح ژاپنی) بنویسید که باید در مکالمات بعدی قابل استفاده مجدد باشد.",
-    "tool.description": "یک یادداشت حافظه بلندمدت در مورد کاربر/محیط را ذخیره کنید که ممکن است در مکالمات آینده مفید باشد.",
-    "err.save": "[add_long_memory خطا] ذخیره حافظه ناموفق بود"
+    "tool.description": "یک یادداشت حافظهٔ بلندمدت دربارهٔ کاربر یا محیط ذخیره می‌کند که ممکن است در گفتگوهای آینده مفید باشد. واقعیت‌های پایدار، ترجیحات، محدودیت‌ها، تصمیم‌ها و تعهداتی را که کاربر بیان می‌کند ذخیره کنید؛ جزئیات کارهای یک‌باره، حدس‌ها، یا هر چیزی حاوی گذرواژه، توکن یا سایر اعتبارنامه‌ها را ذخیره نکنید. اگر یادداشت مشابهی از قبل وجود دارد، به‌جای افزودن مورد تکراری، آن را با update_long_memory به‌روزرسانی کنید.",
+    "err.save": "[add_long_memory خطا] ذخیره حافظه ناموفق بود",
+    "result.saved": "[add_long_memory] ذخیره شد (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] یادداشت یکسانی از قبل ذخیره شده است (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] به نظر می‌رسد یادداشت حاوی اعتبارنامه است؛ اعتبارنامه‌ها نباید در حافظه ذخیره شوند",
+    "err.too_long": "[add_long_memory error] یادداشت خیلی طولانی است؛ آن را به یک یادداشت مختصر محدود کنید",
+    "describe.add": "در حال ذخیره در حافظهٔ بلندمدت",
+    "describe.add_with_note": "در حال ذخیره در حافظهٔ بلندمدت: %(note)s"
   },
   "mn": {
     "x_search_terms": [
@@ -500,8 +662,14 @@
     ],
     "err.note_empty": "[урт_санах ойн алдаа] тэмдэглэл хоосон байна",
     "param.note.description": "Ирээдүйн харилцан ярианд дахин ашиглах боломжтой яг нэг товч тэмдэглэл (Япон хэлийг илүүд үздэг) бич.",
-    "tool.description": "Ирээдүйн харилцан ярианд хэрэг болох хэрэглэгчийн/орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална уу.",
-    "err.save": "[add_long_memory алдаа] санах ойг хадгалж чадсангүй"
+    "tool.description": "Ирээдүйн ярианд хэрэг болж болзошгүй хэрэглэгч эсвэл орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална. Хэрэглэгчийн хэлсэн удаан хадгалагдах баримт, сонголт, хязгаарлалт, шийдвэр, амлалтыг хадгална уу; нэг удаагийн ажлын дэлгэрэнгүй, таамаглал, нууц үг, токен болон бусад нэвтрэх мэдээлэл агуулсан зүйлийг бүү хадгал. Төстэй тэмдэглэл аль хэдийн байвал давхардсан зүйл нэмэхийн оронд update_long_memory ашиглан шинэчилнэ үү.",
+    "err.save": "[add_long_memory алдаа] санах ойг хадгалж чадсангүй",
+    "result.saved": "[add_long_memory] хадгаллаа (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] ижил тэмдэглэл аль хэдийн хадгалагдсан байна (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] тэмдэглэлд нэвтрэх мэдээлэл агуулагдсан бололтой; нэвтрэх мэдээллийг санах ойд хадгалж болохгүй",
+    "err.too_long": "[add_long_memory error] тэмдэглэл хэт урт байна; нэг товч тэмдэглэл болгон хураангуйна уу",
+    "describe.add": "Урт хугацааны санах ойд хадгалж байна",
+    "describe.add_with_note": "Урт хугацааны санах ойд хадгалж байна: %(note)s"
   },
   "mr": {
     "x_search_terms": [
@@ -518,8 +686,14 @@
     ],
     "err.note_empty": "[add_long_memory error] टीप रिकामी आहे",
     "param.note.description": "भविष्यातील संभाषणांमध्ये पुन्हा वापरता येण्याजोग्या असलेली एक संक्षिप्त टीप (जपानी प्राधान्य) लिहा.",
-    "tool.description": "वापरकर्ता/वातावरणाबद्दल एक दीर्घकालीन मेमरी टीप जतन करा जी भविष्यातील संभाषणांमध्ये उपयुक्त असू शकते.",
-    "err.save": "[add_long_memory त्रुटी] मेमरी जतन करण्यात अयशस्वी"
+    "tool.description": "भविष्यातील संभाषणांमध्ये उपयुक्त ठरू शकेल अशी वापरकर्ता किंवा वातावरणाबद्दलची एक दीर्घकालीन स्मृती नोंद जतन करते. वापरकर्त्याने सांगितलेली टिकाऊ तथ्ये, पसंती, मर्यादा, निर्णय आणि वचनबद्धता जतन करा; एकवेळची कार्य तपशील, अंदाज, किंवा पासवर्ड, टोकन किंवा इतर क्रेडेन्शियल असलेले काहीही जतन करू नका. तत्सम नोंद आधीपासून असल्यास, डुप्लिकेट जोडण्याऐवजी update_long_memory ने ती अपडेट करा.",
+    "err.save": "[add_long_memory त्रुटी] मेमरी जतन करण्यात अयशस्वी",
+    "result.saved": "[add_long_memory] जतन केले (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] अगदी तशीच नोंद आधीच जतन केलेली आहे (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] नोंदीत क्रेडेन्शियल असल्यासारखे वाटते; क्रेडेन्शियल स्मृतीत साठवता येत नाहीत",
+    "err.too_long": "[add_long_memory error] नोंद खूप मोठी आहे; ती एका संक्षिप्त नोंदीपुरती मर्यादित ठेवा",
+    "describe.add": "दीर्घकालीन स्मृतीत जतन करत आहे",
+    "describe.add_with_note": "दीर्घकालीन स्मृतीत जतन करत आहे: %(note)s"
   },
   "el": {
     "x_search_terms": [
@@ -536,8 +710,14 @@
     ],
     "err.note_empty": "Η σημείωση [add_long_memory error] είναι κενή",
     "param.note.description": "Γράψτε ακριβώς μια συνοπτική σημείωση (προτιμάται η Ιαπωνική) που θα πρέπει να μπορεί να επαναχρησιμοποιηθεί σε μελλοντικές συνομιλίες.",
-    "tool.description": "Αποθηκεύστε μια μεμονωμένη σημείωση μακροπρόθεσμης μνήμης σχετικά με το χρήστη/περιβάλλον που μπορεί να είναι χρήσιμη σε μελλοντικές συνομιλίες.",
-    "err.save": "[add_long_memory σφάλμα] αποτυχία αποθήκευσης μνήμης"
+    "tool.description": "Αποθηκεύει μία σημείωση μακροχρόνιας μνήμης για τον χρήστη ή το περιβάλλον που μπορεί να φανεί χρήσιμη σε μελλοντικές συνομιλίες. Αποθηκεύστε διαρκή γεγονότα, προτιμήσεις, περιορισμούς, αποφάσεις και δεσμεύσεις που δηλώνει ο χρήστης· μην αποθηκεύετε λεπτομέρειες εφάπαξ εργασιών, εικασίες ή οτιδήποτε περιέχει κωδικούς πρόσβασης, token ή άλλα διαπιστευτήρια. Αν υπάρχει ήδη παρόμοια σημείωση, ενημερώστε την με update_long_memory αντί να προσθέσετε αντίγραφο.",
+    "err.save": "[add_long_memory σφάλμα] αποτυχία αποθήκευσης μνήμης",
+    "result.saved": "[add_long_memory] αποθηκεύτηκε (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] μια πανομοιότυπη σημείωση είναι ήδη αποθηκευμένη (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] η σημείωση φαίνεται να περιέχει διαπιστευτήρια· τα διαπιστευτήρια δεν πρέπει να αποθηκεύονται στη μνήμη",
+    "err.too_long": "[add_long_memory error] η σημείωση είναι πολύ μεγάλη· περιορίστε την σε μία σύντομη σημείωση",
+    "describe.add": "Αποθήκευση στη μακροχρόνια μνήμη",
+    "describe.add_with_note": "Αποθήκευση στη μακροχρόνια μνήμη: %(note)s"
   },
   "he": {
     "x_search_terms": [
@@ -554,8 +734,14 @@
     ],
     "err.note_empty": "הערה [add_long_memory error] ריקה",
     "param.note.description": "כתוב בדיוק הערה אחת תמציתית (עדיפות יפנית) שאמורה להיות ניתנת לשימוש חוזר בשיחות עתידיות.",
-    "tool.description": "שמור הערת זיכרון לטווח ארוך על המשתמש/הסביבה שעשויה להיות שימושית בשיחות עתידיות.",
-    "err.save": "[add_long_memory שגיאה] שמירת הזיכרון נכשלה"
+    "tool.description": "שומר הערת זיכרון ארוך־טווח אחת על המשתמש או הסביבה שעשויה להיות שימושית בשיחות עתידיות. שמרו עובדות מתמשכות, העדפות, מגבלות, החלטות והתחייבויות שהמשתמש מציין; אל תשמרו פרטי משימות חד־פעמיות, ניחושים או כל דבר המכיל סיסמאות, אסימונים או אישורים אחרים. אם כבר קיימת הערה דומה, עדכנו אותה עם update_long_memory במקום להוסיף כפילות.",
+    "err.save": "[add_long_memory שגיאה] שמירת הזיכרון נכשלה",
+    "result.saved": "[add_long_memory] נשמר (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] הערה זהה כבר שמורה (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] נראה שההערה מכילה אישורים; אסור לשמור אישורים בזיכרון",
+    "err.too_long": "[add_long_memory error] ההערה ארוכה מדי; צמצמו אותה להערה תמציתית אחת",
+    "describe.add": "שמירה בזיכרון ארוך־הטווח",
+    "describe.add_with_note": "שמירה בזיכרון ארוך־הטווח: %(note)s"
   },
   "hu": {
     "x_search_terms": [
@@ -572,8 +758,14 @@
     ],
     "err.note_empty": "Az [add_long_memory error] megjegyzés üres",
     "param.note.description": "Írjon pontosan egy tömör megjegyzést (előnyösen japánul), amelyet újra felhasználhat a jövőbeni beszélgetésekben.",
-    "tool.description": "Mentsen el egyetlen hosszú távú memóriajegyzetet a felhasználóról/környezetről, amely hasznos lehet a jövőbeni beszélgetéseknél.",
-    "err.save": "[add_long_memory hiba] a memória mentése sikertelen"
+    "tool.description": "Elment egy hosszú távú memóriajegyzetet a felhasználóról vagy a környezetről, amely hasznos lehet a jövőbeli beszélgetésekben. Mentse a felhasználó által megadott tartós tényeket, preferenciákat, korlátozásokat, döntéseket és vállalásokat; ne mentsen egyszeri feladat-részleteket, találgatásokat, vagy bármit, ami jelszót, tokent vagy más hitelesítő adatot tartalmaz. Ha már létezik hasonló jegyzet, frissítse azt az update_long_memory segítségével duplikátum hozzáadása helyett.",
+    "err.save": "[add_long_memory hiba] a memória mentése sikertelen",
+    "result.saved": "[add_long_memory] elmentve (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] egy azonos jegyzet már el van mentve (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] a jegyzet hitelesítő adatot tartalmazni látszik; hitelesítő adatokat nem szabad a memóriában tárolni",
+    "err.too_long": "[add_long_memory error] a jegyzet túl hosszú; szorítsa egy tömör jegyzetre",
+    "describe.add": "Mentés a hosszú távú memóriába",
+    "describe.add_with_note": "Mentés a hosszú távú memóriába: %(note)s"
   },
   "ro": {
     "x_search_terms": [
@@ -590,8 +782,14 @@
     ],
     "err.note_empty": "[add_long_memory error] nota este goală",
     "param.note.description": "Scrieți exact o notă concisă (de preferință în japoneză) care ar trebui să fie reutilizată în conversațiile viitoare.",
-    "tool.description": "Salvați o singură notă de memorie pe termen lung despre utilizator/mediu care poate fi utilă în conversațiile viitoare.",
-    "err.save": "[add_long_memory eroare] salvarea memoriei a eșuat"
+    "tool.description": "Salvează o notă de memorie pe termen lung despre utilizator sau mediu, care poate fi utilă în conversații viitoare. Salvează fapte durabile, preferințe, constrângeri, decizii și angajamente enunțate de utilizator; nu salva detalii de sarcini ocazionale, presupuneri sau orice conține parole, tokenuri sau alte acreditări. Dacă există deja o notă similară, actualizeaz-o cu update_long_memory în loc să adaugi un duplicat.",
+    "err.save": "[add_long_memory eroare] salvarea memoriei a eșuat",
+    "result.saved": "[add_long_memory] salvat (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] o notă identică este deja salvată (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] nota pare să conțină acreditări; acreditările nu trebuie stocate în memorie",
+    "err.too_long": "[add_long_memory error] nota este prea lungă; limiteaz-o la o notă concisă",
+    "describe.add": "Salvare în memoria pe termen lung",
+    "describe.add_with_note": "Salvare în memoria pe termen lung: %(note)s"
   },
   "fil": {
     "x_search_terms": [
@@ -608,8 +806,14 @@
     ],
     "err.note_empty": "[add_long_memory error] walang laman ang tala",
     "param.note.description": "Sumulat ng eksaktong isang maigsi na tala (ginustong Japanese) na dapat na magagamit muli sa mga pag-uusap sa hinaharap.",
-    "tool.description": "Mag-save ng isang tala ng pangmatagalang memorya tungkol sa user/kapaligiran na maaaring maging kapaki-pakinabang sa mga pag-uusap sa hinaharap.",
-    "err.save": "[add_long_memory error] nabigong i-save ang memory"
+    "tool.description": "Nagse-save ng isang long-term memory note tungkol sa user o environment na maaaring maging kapaki-pakinabang sa mga susunod na pag-uusap. I-save ang mga pangmatagalang katotohanan, kagustuhan, limitasyon, desisyon at pangako na sinabi ng user; huwag i-save ang mga one-off na detalye ng gawain, hula, o anumang may password, token o iba pang kredensyal. Kung may katulad nang note, i-update ito gamit ang update_long_memory sa halip na magdagdag ng duplicate.",
+    "err.save": "[add_long_memory error] nabigong i-save ang memory",
+    "result.saved": "[add_long_memory] na-save (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] may magkaparehong note nang naka-save (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] mukhang may kredensyal ang note; hindi dapat iimbak ang mga kredensyal sa memory",
+    "err.too_long": "[add_long_memory error] masyadong mahaba ang note; panatilihin ito sa isang maikling note",
+    "describe.add": "Sine-save sa long-term memory",
+    "describe.add_with_note": "Sine-save sa long-term memory: %(note)s"
   },
   "ms": {
     "x_search_terms": [
@@ -626,8 +830,14 @@
     ],
     "err.note_empty": "[add_long_memory error] nota kosong",
     "param.note.description": "Tulis satu nota ringkas dengan tepat (pilihan bahasa Jepun) yang sepatutnya boleh digunakan semula dalam perbualan akan datang.",
-    "tool.description": "Simpan satu nota ingatan jangka panjang tentang pengguna/persekitaran yang mungkin berguna dalam perbualan akan datang.",
-    "err.save": "[add_long_memory ralat] gagal menyimpan memori"
+    "tool.description": "Menyimpan satu nota memori jangka panjang tentang pengguna atau persekitaran yang mungkin berguna dalam perbualan akan datang. Simpan fakta berkekalan, keutamaan, kekangan, keputusan dan komitmen yang dinyatakan pengguna; jangan simpan butiran tugas sekali sahaja, tekaan, atau apa-apa yang mengandungi kata laluan, token atau kelayakan lain. Jika nota serupa sudah wujud, kemas kini dengan update_long_memory dan bukannya menambah pendua.",
+    "err.save": "[add_long_memory ralat] gagal menyimpan memori",
+    "result.saved": "[add_long_memory] disimpan (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] nota yang sama telah disimpan (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] nota kelihatan mengandungi kelayakan; kelayakan tidak boleh disimpan dalam memori",
+    "err.too_long": "[add_long_memory error] nota terlalu panjang; ringkaskan kepada satu nota padat",
+    "describe.add": "Menyimpan ke memori jangka panjang",
+    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s"
   },
   "da": {
     "x_search_terms": [
@@ -644,8 +854,14 @@
     ],
     "err.note_empty": "[add_long_memory error] noten er tom",
     "param.note.description": "Skriv præcis en kortfattet note (japansk foretrukket), som skal kunne genbruges i fremtidige samtaler.",
-    "tool.description": "Gem en enkelt langtidshukommelsesnotat om brugeren/miljøet, som kan være nyttigt i fremtidige samtaler.",
-    "err.save": "[add_long_memory fejl] kunne ikke gemme hukommelse"
+    "tool.description": "Gemmer en langtidsminde-note om brugeren eller miljøet, som kan være nyttig i fremtidige samtaler. Gem varige fakta, præferencer, begrænsninger, beslutninger og forpligtelser, som brugeren angiver; gem ikke engangsopgavedetaljer, gæt eller noget, der indeholder adgangskoder, tokens eller andre legitimationsoplysninger. Hvis en lignende note allerede findes, så opdater den med update_long_memory i stedet for at tilføje en dublet.",
+    "err.save": "[add_long_memory fejl] kunne ikke gemme hukommelse",
+    "result.saved": "[add_long_memory] gemt (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] en identisk note er allerede gemt (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] noten ser ud til at indeholde legitimationsoplysninger; de må ikke gemmes i hukommelsen",
+    "err.too_long": "[add_long_memory error] noten er for lang; begræns den til én kortfattet note",
+    "describe.add": "Gemmer i langtidshukommelsen",
+    "describe.add_with_note": "Gemmer i langtidshukommelsen: %(note)s"
   },
   "nn": {
     "x_search_terms": [
@@ -662,7 +878,13 @@
     ],
     "err.note_empty": "[add_long_memory error] notatet er tomt",
     "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
-    "tool.description": "Lagre et enkelt langtidsminne om brukeren/miljøet som kan være nyttig i fremtidige samtaler.",
-    "err.save": "[add_long_memory feil] klarte ikkje å lagre minne"
+    "tool.description": "Lagrar eit langtidshugenotat om brukaren eller miljøet som kan vere nyttig i framtidige samtalar. Lagre varige fakta, preferansar, avgrensingar, avgjerder og forpliktingar som brukaren oppgjev; ikkje lagre eingongsdetaljar om oppgåver, gjettingar eller noko som inneheld passord, token eller annan legitimasjon. Dersom eit liknande notat allereie finst, oppdater det med update_long_memory i staden for å leggje til ein duplikat.",
+    "err.save": "[add_long_memory feil] klarte ikkje å lagre minne",
+    "result.saved": "[add_long_memory] lagra (memory_id: %(memory_id)s)",
+    "result.duplicate": "[add_long_memory] eit identisk notat er allereie lagra (memory_id: %(memory_id)s)",
+    "err.secret": "[add_long_memory error] notatet ser ut til å innehalde legitimasjon; legitimasjon skal ikkje lagrast i minnet",
+    "err.too_long": "[add_long_memory error] notatet er for langt; avgrens det til eitt konsist notat",
+    "describe.add": "Lagrar i langtidshugen",
+    "describe.add_with_note": "Lagrar i langtidshugen: %(note)s"
   }
 }
