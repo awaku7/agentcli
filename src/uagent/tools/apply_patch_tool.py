@@ -11,6 +11,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 from .i18n_helper import make_tool_translator
@@ -439,6 +440,23 @@ def _write_file(path: str, text: str, encoding: str, preserve: bool) -> None:
         f.write(text)
 
 
+def _remove_file(path: str) -> None:
+    """Remove the named file, keeping the workdir guard.
+
+    When the target itself is a symlink, remove the link rather than its
+    referent: ensure_within_workdir resolves symlinks, so removing the
+    resolved path would delete the file the link points at and leave a
+    dangling link behind. The link's parent directory must still resolve
+    inside the workdir.
+    """
+    lexical = Path(os.getcwd(), path)
+    if os.path.islink(lexical):
+        ensure_within_workdir(str(lexical.parent))
+        os.remove(lexical)
+        return
+    os.remove(ensure_within_workdir(path))
+
+
 # ---------------------------------------------------------------------------
 # run_tool
 # ---------------------------------------------------------------------------
@@ -571,7 +589,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     try:
                         backup = make_backup_before_overwrite(target)
                         if is_deletion:
-                            os.remove(ensure_within_workdir(target))
+                            _remove_file(target)
                         else:
                             _write_file(
                                 target, current, encoding, preserve_line_endings

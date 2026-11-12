@@ -85,6 +85,39 @@ def test_apply_patch_delete_mismatched_context_fails(workdir: Path) -> None:
     assert target.exists()
 
 
+def test_apply_patch_delete_symlink_removes_link_not_referent(
+    workdir: Path,
+) -> None:
+    from uagent.tools import apply_patch_tool
+
+    real = workdir / "real.txt"
+    real.write_text("key: value\nfoo: bar\n", encoding="utf-8")
+    link = workdir / "link.txt"
+    try:
+        link.symlink_to(real)
+    except (OSError, NotImplementedError):
+        pytest.skip("symlinks not available on this platform")
+    patch_text = "\n".join(
+        [
+            "--- a/link.txt",
+            "+++ /dev/null",
+            "@@ -1,2 +0,0 @@",
+            "-key: value",
+            "-foo: bar",
+            "",
+        ]
+    )
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": patch_text, "dry_run": False})
+    )
+
+    assert result["ok"] is True
+    assert not link.exists() and not link.is_symlink()
+    assert real.exists()
+    assert real.read_text(encoding="utf-8") == "key: value\nfoo: bar\n"
+
+
 def test_apply_patch_mixed_modify_and_delete(workdir: Path) -> None:
     from uagent.tools import apply_patch_tool
 
