@@ -622,7 +622,7 @@ def find_long_memory_by_id(memory_id: str) -> dict[str, Any] | None:
     return None
 
 
-def _jsonl_assign_legacy_id(index: int) -> str:
+def _jsonl_assign_legacy_id(index: int) -> str | None:
     """Give the legacy JSONL record at active-list ``index`` a stable id.
 
     Pre-migration JSONL rows may carry no memory_id; index-based update
@@ -631,12 +631,13 @@ def _jsonl_assign_legacy_id(index: int) -> str:
     :func:`_legacy_jsonl_memory_id` derives from the row's position in
     the full record list, and it is persisted in place; the explicit
     migration keeps ids that are already present, so the two never
-    disagree once a row has been touched here.
+    disagree once a row has been touched here. Returns None when the
+    index does not resolve to a record.
     """
     try:
         records = _load_jsonl_records(include_deleted=True)
     except MemoryLoadError:
-        return ""
+        return None
     active_seen = -1
     for position, record in enumerate(records):
         if not _is_active(record):
@@ -650,18 +651,18 @@ def _jsonl_assign_legacy_id(index: int) -> str:
         memory_id = _legacy_jsonl_memory_id(record, position)
         record["memory_id"] = memory_id
         if not _rewrite_jsonl_records(records):
-            return ""
+            return None
         return memory_id
-    return ""
+    return None
 
 
-def _entry_memory_id(records: list[dict[str, Any]], index: int) -> str:
+def _entry_memory_id(records: list[dict[str, Any]], index: int) -> str | None:
     """Resolve an active-list index to a memory_id, migrating legacy rows."""
     memory_id = str(records[index].get("memory_id") or "")
     if memory_id:
         return memory_id
     if _use_sqlite():
-        return ""
+        return None
     return _jsonl_assign_legacy_id(index)
 
 
