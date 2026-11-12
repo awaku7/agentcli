@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.46] - 2026-11-12
+
+### Added
+
+- Add an NIP-17 SDK text-send test script.
+- Trace CLI startup through interactive readiness, with opt-in timing for llmcapa lookups and provider-client initialization.
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.81`.
+- Increase the keyring startup timeout for envsec initialization.
+
 ## [0.7.45] - 2026-11-11
 
 ### Added
