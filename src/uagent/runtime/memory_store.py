@@ -587,6 +587,51 @@ class MemoryStore:
             raise
         return True
 
+    def bind_source_id(
+        self, memory_id: str, *, source: str = "", source_id: str = ""
+    ) -> bool:
+        """Fill in empty provenance fields on an existing record.
+
+        Used when a checked save is rejected as a duplicate but carries
+        provenance the store has not recorded yet (for example a memory
+        marker): without the association, deleting the record later would
+        leave a tombstone that replays of that source cannot be matched
+        against, and forgotten content could silently come back. Existing
+        provenance is never overwritten, and a source_id already carried
+        by another record is left alone (the column is uniquely indexed).
+        Returns True when the record was updated.
+        """
+        target = str(memory_id or "").strip()
+        if not target:
+            return False
+        current = self._get_by_id(target)
+        if current is None:
+            return False
+        new_source = str(current.get("source") or "") or str(source or "")
+        new_source_id = str(current.get("source_id") or "") or str(source_id or "")
+        if new_source == str(current.get("source") or "") and new_source_id == str(
+            current.get("source_id") or ""
+        ):
+            return False
+        if new_source_id and new_source_id != str(current.get("source_id") or ""):
+            row = self.db.execute(
+                "SELECT memory_id FROM memories WHERE source_id = ? "
+                "AND memory_id <> ?",
+                (new_source_id, target),
+            ).fetchone()
+            if row is not None:
+                return False
+        try:
+            self.db.execute(
+                "UPDATE memories SET source = ?, source_id = ? " "WHERE memory_id = ?",
+                (new_source or None, new_source_id or None, target),
+            )
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
     def replace(self, records: list[dict[str, object]]) -> None:
         """Compatibility rewrite preserving supplied stable IDs when possible."""
         incoming_ids: set[str] = set()

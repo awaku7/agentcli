@@ -272,3 +272,88 @@ def test_marker_opt_out_switch(
     monkeypatch.setenv("UAGENT_MEMORY_MARKER", "1")
     monkeypatch.setenv("UAGENT_MEMORY", "0")
     assert marker_enabled() is False
+
+
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_marker_duplicate_binds_provenance_so_forget_sticks(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A note first saved through the tool, then repeated as a marker: the
+    # duplicate rejection must still record the marker's source_id, or a
+    # later history rewrite would resurrect the note after it is deleted.
+    from uagent.runtime.memory_marker import marker_source_id
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    note = "返事は日本語で"
+    source_id = marker_source_id(note)
+    first = long_memory.save_long_memory(note, source="tool")
+    assert first["saved"] is True
+
+    dup = long_memory.save_long_memory(note, source="marker", source_id=source_id)
+    assert dup["saved"] is False
+    assert dup["reason"] == "duplicate"
+
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    replay = long_memory.save_long_memory(note, source="marker", source_id=source_id)
+    assert replay["saved"] is False
+    assert replay["reason"] == "deleted"
+    assert long_memory.load_long_memory_records() == []
+
+
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_duplicate_detection_is_scoped_by_project(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    p1 = long_memory.save_long_memory("use pytest", source="tool", project="p1")
+    assert p1["saved"] is True
+    p2 = long_memory.save_long_memory("use pytest", source="tool", project="p2")
+    assert p2["saved"] is True
+    assert p2["memory_id"] != p1["memory_id"]
+
+    again = long_memory.save_long_memory("use pytest", source="tool", project="p1")
+    assert again["saved"] is False
+    assert again["reason"] == "duplicate"
+    assert again["memory_id"] == p1["memory_id"]
+    assert len(long_memory.load_long_memory_records()) == 2
+
+
+def test_legacy_jsonl_records_stay_editable_by_index(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    memory_file = repo_tmp_path / "mem.jsonl"
+    memory_file.write_text(
+        json.dumps({"ts": 1700000000.0, "note": "古いメモ1"})
+        + "\n"
+        + json.dumps({"ts": 1700000100.0, "note": "古いメモ2"})
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert long_memory.update_long_memory_entry(1, "書き換えたメモ2") is True
+    records = long_memory.load_long_memory_records()
+    assert [str(r.get("note")) for r in records] == ["古いメモ1", "書き換えたメモ2"]
+    assert str(records[1].get("memory_id") or "").startswith("legacy-jsonl-")
+
+    assert long_memory.delete_long_memory_entry(0) is True
+    records = long_memory.load_long_memory_records()
+    assert [str(r.get("note")) for r in records] == ["書き換えたメモ2"]
+    deleted = long_memory.list_deleted_long_memory_records()
+    assert [str(r.get("note")) for r in deleted] == ["古いメモ1"]

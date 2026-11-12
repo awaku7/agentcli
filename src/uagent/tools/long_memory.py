@@ -116,6 +116,19 @@ def _is_active(record: dict[str, Any]) -> bool:
     return status in {"", "active"}
 
 
+def _same_scope(record: dict[str, Any], owner: str, project: str) -> bool:
+    """Whether a record lives in the owner/project scope being saved to.
+
+    Duplicate detection is scope-local: the same note may legitimately
+    exist once per project, and retrieval never crosses project borders,
+    so an out-of-scope record must not block (or claim) a save.
+    """
+    return (
+        str(record.get("owner") or "") == owner
+        and str(record.get("project") or "") == project
+    )
+
+
 def _env_disabled(name: str) -> bool:
     return (env_get(name) or "").strip().lower() in ("0", "false", "no", "off")
 
@@ -182,7 +195,18 @@ def save_long_memory(
                                 "memory_id": str(record.get("memory_id") or ""),
                             }
                 for record in store.records():
-                    if _note_key(str(record.get("note") or "")) == key:
+                    if _note_key(str(record.get("note") or "")) == key and _same_scope(
+                        record, owner, project
+                    ):
+                        if source_id and not str(record.get("source_id") or ""):
+                            # Remember where this content also came from, so
+                            # a later tombstone still blocks replays of that
+                            # source even though this save added no record.
+                            store.bind_source_id(
+                                str(record.get("memory_id") or ""),
+                                source=source,
+                                source_id=source_id,
+                            )
                         return {
                             "saved": False,
                             "reason": "duplicate",
@@ -222,7 +246,19 @@ def save_long_memory(
                         "memory_id": str(record.get("memory_id") or ""),
                     }
         for record in existing:
-            if _is_active(record) and _note_key(str(record.get("note") or "")) == key:
+            if (
+                _is_active(record)
+                and _note_key(str(record.get("note") or "")) == key
+                and _same_scope(record, owner, project)
+            ):
+                if source_id and not str(record.get("source_id") or ""):
+                    # Same provenance binding as the SQLite path: record
+                    # where this content also came from so a later
+                    # tombstone still blocks replays of that source.
+                    record["source_id"] = source_id
+                    if source and not str(record.get("source") or ""):
+                        record["source"] = source
+                    _rewrite_jsonl_records(existing)
                 return {
                     "saved": False,
                     "reason": "duplicate",
@@ -586,6 +622,49 @@ def find_long_memory_by_id(memory_id: str) -> dict[str, Any] | None:
     return None
 
 
+def _jsonl_assign_legacy_id(index: int) -> str:
+    """Give the legacy JSONL record at active-list ``index`` a stable id.
+
+    Pre-migration JSONL rows may carry no memory_id; index-based update
+    and delete resolve through this so those rows stay editable instead
+    of failing the id check. The assigned id is the deterministic one
+    :func:`_legacy_jsonl_memory_id` derives from the row's position in
+    the full record list, and it is persisted in place; the explicit
+    migration keeps ids that are already present, so the two never
+    disagree once a row has been touched here.
+    """
+    try:
+        records = _load_jsonl_records(include_deleted=True)
+    except MemoryLoadError:
+        return ""
+    active_seen = -1
+    for position, record in enumerate(records):
+        if not _is_active(record):
+            continue
+        active_seen += 1
+        if active_seen != index:
+            continue
+        memory_id = str(record.get("memory_id") or "")
+        if memory_id:
+            return memory_id
+        memory_id = _legacy_jsonl_memory_id(record, position)
+        record["memory_id"] = memory_id
+        if not _rewrite_jsonl_records(records):
+            return ""
+        return memory_id
+    return ""
+
+
+def _entry_memory_id(records: list[dict[str, Any]], index: int) -> str:
+    """Resolve an active-list index to a memory_id, migrating legacy rows."""
+    memory_id = str(records[index].get("memory_id") or "")
+    if memory_id:
+        return memory_id
+    if _use_sqlite():
+        return ""
+    return _jsonl_assign_legacy_id(index)
+
+
 def update_long_memory_entry(index: int, note: str) -> bool:
     """Update one record by active-list index. Returns True on success."""
     try:
@@ -594,7 +673,7 @@ def update_long_memory_entry(index: int, note: str) -> bool:
         return False
     if index < 0 or index >= len(records):
         return False
-    memory_id = str(records[index].get("memory_id") or "")
+    memory_id = _entry_memory_id(records, index)
     if not memory_id:
         return False
     return bool(update_long_memory_by_id(memory_id, note)["saved"])
@@ -740,7 +819,7 @@ def delete_long_memory_entry(index: int, *, core: Any | None = None) -> bool:
         return False
     if index < 0 or index >= len(records):
         return False
-    memory_id = str(records[index].get("memory_id") or "")
+    memory_id = _entry_memory_id(records, index)
     if not memory_id:
         return False
     return delete_long_memory_by_id(memory_id, core=core)
