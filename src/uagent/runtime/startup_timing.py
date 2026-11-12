@@ -35,7 +35,6 @@ def checkpoint(name: str) -> None:
         )
 
 
-
 @contextmanager
 def measure_detail(name: str) -> Iterator[None]:
     """Log one opt-in timing detail, including when the wrapped call raises."""
@@ -53,8 +52,12 @@ def measure_detail(name: str) -> Iterator[None]:
         yield
     finally:
         elapsed = _CLOCK() - started
-        print(
-            f"[startup-timing] detail.{name}={elapsed:.3f}s",
-            file=sys.stderr,
-            flush=True,
-        )
+        try:
+            print(
+                f"[startup-timing] detail.{name}={elapsed:.3f}s",
+                file=sys.stderr,
+                flush=True,
+            )
+        except Exception:
+            # Diagnostic output must never change the wrapped operation.
+            pass

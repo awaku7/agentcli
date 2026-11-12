@@ -162,7 +162,6 @@ def test_decision_banner_uses_shipped_translation_for_every_locale(monkeypatch, 
         i18n._get_translation.cache_clear()
 
 
-
 def test_startup_banner_llmcapa_timing_uses_existing_flag(monkeypatch, capsys):
     from uagent import llmcapa_util
 
@@ -172,9 +171,7 @@ def test_startup_banner_llmcapa_timing_uses_existing_flag(monkeypatch, capsys):
     monkeypatch.setattr(runtime_banner, "_", lambda text: text)
     monkeypatch.setattr(runtime_banner, "_startup_optional_model_infos", lambda: [])
     monkeypatch.setattr(llmcapa_util, "current_model", lambda *_: "test-model")
-    monkeypatch.setattr(
-        llmcapa_util, "provider_allows_responses_api", lambda *_: True
-    )
+    monkeypatch.setattr(llmcapa_util, "provider_allows_responses_api", lambda *_: True)
     monkeypatch.setattr(llmcapa_util, "deprecated_model_warning", lambda *_: None)
 
     banner = runtime_banner.build_startup_banner(

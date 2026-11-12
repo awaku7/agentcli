@@ -47,7 +47,6 @@ def test_checkpoint_uses_current_environment(monkeypatch, capsys):
     )
 
 
-
 def test_measure_detail_reports_elapsed_time(monkeypatch, capsys):
     monkeypatch.setenv("UAGENT_STARTUP_TIMING", "1")
     ticks = iter((10.0, 11.25))
@@ -87,3 +86,21 @@ def test_measure_detail_preserves_exceptions(monkeypatch, capsys):
     assert capsys.readouterr().err == (
         "[startup-timing] detail.llmcapa.prefix_search=1.000s\n"
     )
+
+
+
+def test_measure_detail_output_failure_does_not_change_behavior(monkeypatch):
+    monkeypatch.setenv("UAGENT_STARTUP_TIMING", "1")
+
+    def broken_diagnostic(*_args, **_kwargs):
+        raise OSError("closed diagnostic pipe")
+
+    monkeypatch.setattr(startup_timing, "print", broken_diagnostic, raising=False)
+
+    with startup_timing.measure_detail("llmcapa.scoped_get"):
+        value = 42
+    assert value == 42
+
+    with pytest.raises(ValueError, match="original failure"):
+        with startup_timing.measure_detail("llmcapa.scoped_get"):
+            raise ValueError("original failure")
