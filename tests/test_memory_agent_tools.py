@@ -330,6 +330,34 @@ def test_duplicate_detection_is_scoped_by_project(
     assert len(long_memory.load_long_memory_records()) == 2
 
 
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_duplicate_detection_keeps_meaningful_punctuation(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory("Do not delete /tmp/a-b", source="tool")
+    assert first["saved"] is True
+    # Differing only in punctuation inside the text: a different note.
+    second = long_memory.save_long_memory("Do not delete /tmp/ab", source="tool")
+    assert second["saved"] is True
+    assert second["memory_id"] != first["memory_id"]
+
+    # Trailing sentence punctuation alone still counts as a duplicate.
+    note = long_memory.save_long_memory("返事は日本語で", source="tool")
+    assert note["saved"] is True
+    dotted = long_memory.save_long_memory("返事は日本語で。", source="tool")
+    assert dotted["saved"] is False
+    assert dotted["reason"] == "duplicate"
+    assert dotted["memory_id"] == note["memory_id"]
+    assert len(long_memory.load_long_memory_records()) == 3
+
+
 def test_legacy_jsonl_records_stay_editable_by_index(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

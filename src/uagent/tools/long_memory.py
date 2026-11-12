@@ -103,12 +103,28 @@ def looks_like_secret(text: str) -> bool:
     return bool(_SECRET_LABEL_RE.search(value) or _SECRET_SHAPE_RE.search(value))
 
 
+# Sentence punctuation ignored by _note_key: ideographic comma (U+3001),
+# ideographic full stop (U+3002) and katakana middle dot (U+30FB).
+# Written as escapes: utility modules keep non-ASCII out of code literals.
+_SENTENCE_PUNCTUATION = frozenset("\u3001\u3002\u30fb")
+_EDGE_PUNCTUATION = ".!?"
+
+
 def _note_key(text: str) -> str:
-    """Normalize a note for duplicate comparison (NFKC, casefold, no punctuation)."""
+    """Normalize a note for duplicate comparison.
+
+    NFKC + casefold, with whitespace and sentence punctuation (、。・)
+    ignored and sentence-final punctuation (. ! ?) ignored at the edges.
+    Punctuation inside the text is kept, because it can carry meaning:
+    "/tmp/a-b" and "/tmp/ab" are different notes, not duplicates.
+    """
     normalized = unicodedata.normalize("NFKC", str(text or "")).casefold()
-    return "".join(
-        char for char in normalized if not unicodedata.category(char).startswith("P")
-    ).strip()
+    key = "".join(
+        char
+        for char in normalized
+        if not char.isspace() and char not in _SENTENCE_PUNCTUATION
+    )
+    return key.strip(_EDGE_PUNCTUATION)
 
 
 def _is_active(record: dict[str, Any]) -> bool:
