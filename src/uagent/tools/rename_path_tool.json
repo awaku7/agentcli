@@ -1,5 +1,6 @@
 {
   "ja": {
+    "describe.rename": "%(src)s を %(dst)s に名前変更します",
     "param.dst.description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",
     "param.mkdirs.description": "true の場合、dst の親ディレクトリを作成してから実行します。",
     "param.overwrite.description": "true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。",
@@ -19,6 +20,7 @@
     ]
   },
   "es": {
+    "describe.rename": "Renombrando %(src)s a %(dst)s",
     "param.dst.description": "Ruta de destino (archivo/directorio). Se recomienda una ruta relativa.",
     "param.mkdirs.description": "Si es true, cree el directorio principal de dst antes de ejecutar.",
     "param.overwrite.description": "Si es true, elimine y reemplace dst si ya existe (se pedirá confirmación).",
@@ -38,6 +40,7 @@
     ]
   },
   "fr": {
+    "describe.rename": "Renommage de %(src)s en %(dst)s",
     "param.dst.description": "Chemin de destination (fichier/répertoire). Chemin relatif recommandé.",
     "param.mkdirs.description": "Si vrai, crée le répertoire parent de dst avant l'exécution.",
     "param.overwrite.description": "Si vrai, supprime et remplace dst s'il existe déjà (une confirmation sera demandée).",
@@ -57,6 +60,7 @@
     ]
   },
   "ko": {
+    "describe.rename": "%(src)s을(를) %(dst)s(으)로 이름 변경합니다",
     "param.dst.description": "대상 경로(파일/디렉터리). 상대 경로를 권장합니다.",
     "param.mkdirs.description": "true이면 dst의 상위 디렉터리를 만든 뒤 실행합니다.",
     "param.overwrite.description": "true이면 dst가 이미 존재할 때 삭제하고 교체합니다(확인이 요청됩니다).",
@@ -76,6 +80,7 @@
     ]
   },
   "de": {
+    "describe.rename": "%(src)s wird in %(dst)s umbenannt",
     "param.dst.description": "Zielpfad (Datei/Verzeichnis). Relativer Pfad empfohlen.",
     "param.mkdirs.description": "Wenn true, vor der Ausführung das übergeordnete Verzeichnis für dst erstellen.",
     "param.overwrite.description": "Wenn true, dst löschen und ersetzen, falls es bereits existiert (es wird um Bestätigung gebeten).",
@@ -95,6 +100,7 @@
     ]
   },
   "it": {
+    "describe.rename": "Rinomina di %(src)s in %(dst)s",
     "param.dst.description": "Percorso di destinazione (file/directory). Percorso relativo consigliato.",
     "param.mkdirs.description": "Se true, crea la directory padre di dst prima dell'esecuzione.",
     "param.overwrite.description": "Se true, elimina e sostituisce dst se già esiste (verrà chiesta conferma).",
@@ -114,6 +120,7 @@
     ]
   },
   "ru": {
+    "describe.rename": "Переименование %(src)s в %(dst)s",
     "param.dst.description": "Путь назначения (файл/каталог). Рекомендуется относительный путь.",
     "param.mkdirs.description": "Если true, создать родительский каталог для dst перед выполнением.",
     "param.overwrite.description": "Если true, удалить и заменить dst, если он уже существует (будет запрошено подтверждение).",
@@ -133,6 +140,7 @@
     ]
   },
   "pt_BR": {
+    "describe.rename": "Renomeando %(src)s para %(dst)s",
     "param.dst.description": "Caminho de destino (arquivo/diretório). Caminho relativo recomendado.",
     "param.mkdirs.description": "Se true, crie o diretório pai de dst antes de executar.",
     "param.overwrite.description": "Se true, exclua e substitua dst se já existir (será solicitada confirmação).",
@@ -152,6 +160,7 @@
     ]
   },
   "pt": {
+    "describe.rename": "A renomear %(src)s para %(dst)s",
     "param.dst.description": "Caminho de destino (arquivo/diretório). Caminho relativo recomendado.",
     "param.mkdirs.description": "Se for true, crie o diretório pai de dst antes de executar.",
     "param.overwrite.description": "Se for true, exclua e substitua dst se já existir (será solicitada confirmação).",
@@ -171,6 +180,7 @@
     ]
   },
   "id": {
+    "describe.rename": "Mengganti nama %(src)s menjadi %(dst)s",
     "param.dst.description": "Path tujuan (file/direktori). Disarankan path relatif.",
     "param.mkdirs.description": "Jika true, buat direktori induk untuk dst sebelum menjalankan.",
     "param.overwrite.description": "Jika true, hapus dan ganti dst jika sudah ada (Anda akan diminta konfirmasi).",
@@ -190,6 +200,7 @@
     ]
   },
   "vi": {
+    "describe.rename": "Đang đổi tên %(src)s thành %(dst)s",
     "param.dst.description": "Đường dẫn đích (tệp/thư mục). Đường dẫn tương đối được đề xuất.",
     "param.mkdirs.description": "Nếu true, hãy tạo thư mục cha của dst trước khi thực thi.",
     "param.overwrite.description": "Nếu true, hãy xóa và thay thế dst nếu nó đã tồn tại (bạn sẽ được yêu cầu xác nhận).",
@@ -209,6 +220,7 @@
     ]
   },
   "pl": {
+    "describe.rename": "Zmiana nazwy %(src)s na %(dst)s",
     "param.dst.description": "Ścieżka docelowa (plik/katalog). Zalecana ścieżka względna.",
     "param.mkdirs.description": "Jeśli ma wartość true, przed wykonaniem utwórz katalog nadrzędny dla dst.",
     "param.overwrite.description": "Jeśli prawda, usuń i zastąp dst, jeśli już istnieje (zostaniesz poproszony o potwierdzenie).",
@@ -228,6 +240,7 @@
     ]
   },
   "hi": {
+    "describe.rename": "%(src)s का नाम बदलकर %(dst)s किया जा रहा है",
     "param.dst.description": "गंतव्य पथ (फ़ाइल/निर्देशिका)। सापेक्ष पथ अनुशंसित.",
     "param.mkdirs.description": "यदि true है, तो निष्पादन से पहले dst के लिए मूल निर्देशिका बनाएं।",
     "param.overwrite.description": "यदि true है, तो dst पहले से मौजूद होने पर उसे हटाकर बदलें (आपसे पुष्टि मांगी जाएगी)।",
@@ -247,6 +260,7 @@
     ]
   },
   "ar": {
+    "describe.rename": "إعادة تسمية %(src)s إلى %(dst)s",
     "param.dst.description": "مسار الوجهة (ملف/دليل). يوصى بالمسار النسبي.",
     "param.mkdirs.description": "إذا كانت true، فأنشئ الدليل الأب لـ dst قبل التنفيذ.",
     "param.overwrite.description": "إذا كانت true، فاحذف dst واستبدله إذا كان موجودًا بالفعل (سيُطلب منك التأكيد).",
@@ -266,6 +280,7 @@
     ]
   },
   "sv": {
+    "describe.rename": "Döper om %(src)s till %(dst)s",
     "param.dst.description": "Målsökväg (fil/katalog). Relativ sökväg rekommenderas.",
     "param.mkdirs.description": "Om true, skapas överordnad katalog för dst före körning.",
     "param.overwrite.description": "Om true, tas dst bort och ersätts om den redan finns (du ombeds bekräfta).",
@@ -285,6 +300,7 @@
     ]
   },
   "sw": {
+    "describe.rename": "Kubadili jina la %(src)s kuwa %(dst)s",
     "param.dst.description": "Njia ya lengwa (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
     "param.mkdirs.description": "Ikiwa ni true, tengeneza saraka ya mzazi ya dst kabla ya kutekeleza.",
     "param.overwrite.description": "Ikiwa ni true, futa na ubadilishe dst ikiwa tayari ipo (utaombwa uthibitisho).",
@@ -304,6 +320,7 @@
     ]
   },
   "nb": {
+    "describe.rename": "Endrer navn på %(src)s til %(dst)s",
     "param.dst.description": "Destinasjonssti (fil/katalog). Relativ sti anbefales.",
     "param.mkdirs.description": "Hvis true, opprettes overordnet katalog for dst før kjøring.",
     "param.overwrite.description": "Hvis true, slettes og erstattes dst hvis den allerede finnes (du blir bedt om bekreftelse).",
@@ -323,6 +340,7 @@
     ]
   },
   "nl": {
+    "describe.rename": "%(src)s hernoemen naar %(dst)s",
     "param.dst.description": "Doelpad (bestand/map). Gebruik bij voorkeur een relatief pad.",
     "param.mkdirs.description": "Als true, maak de bovenliggende map voor dst aan vóór uitvoering.",
     "param.overwrite.description": "Als true, verwijder en vervang dst als het al bestaat (er wordt om bevestiging gevraagd).",
@@ -342,6 +360,7 @@
     ]
   },
   "fi": {
+    "describe.rename": "Nimetään %(src)s uudelleen nimellä %(dst)s",
     "param.dst.description": "Kohdepolku (tiedosto/hakemisto). Suhteellista polkua suositellaan.",
     "param.mkdirs.description": "Jos true, luo dst:n ylähakemisto ennen suorittamista.",
     "param.overwrite.description": "Jos true, poista ja korvaa dst, jos se on jo olemassa (vahvistus pyydetään).",
@@ -361,6 +380,7 @@
     ]
   },
   "cs": {
+    "describe.rename": "Přejmenování %(src)s na %(dst)s",
     "param.dst.description": "Cílová cesta (soubor/adresář). Doporučuje se relativní cesta.",
     "param.mkdirs.description": "Je-li true, vytvoří před spuštěním nadřazený adresář pro dst.",
     "param.overwrite.description": "Je-li true, dst se smaže a nahradí, pokud už existuje (bude vyžádáno potvrzení).",
@@ -380,6 +400,7 @@
     ]
   },
   "uk": {
+    "describe.rename": "Перейменування %(src)s на %(dst)s",
     "param.dst.description": "Шлях призначення (файл/каталог). Рекомендовано використовувати відносний шлях.",
     "param.mkdirs.description": "Якщо true, створити батьківський каталог для dst перед виконанням.",
     "param.overwrite.description": "Якщо true, видалити та замінити dst, якщо він уже існує (буде запитано підтвердження).",
@@ -399,6 +420,7 @@
     ]
   },
   "tr": {
+    "describe.rename": "%(src)s, %(dst)s olarak yeniden adlandırılıyor",
     "param.dst.description": "Hedef yol (dosya/dizin). Göreceli yol önerilir.",
     "param.mkdirs.description": "Doğruysa, çalıştırmadan önce dst için ana dizini oluşturun.",
     "param.overwrite.description": "Doğruysa, dst'yi silin ve zaten mevcutsa değiştirin (onay vermeniz istenecektir).",
@@ -418,6 +440,7 @@
     ]
   },
   "th": {
+    "describe.rename": "กำลังเปลี่ยนชื่อ %(src)s เป็น %(dst)s",
     "param.dst.description": "พาธปลายทาง (ไฟล์/ไดเร็กทอรี) แนะนำให้ใช้พาธสัมพัทธ์",
     "param.mkdirs.description": "หากเป็น true ให้สร้างไดเร็กทอรีแม่ของ dst ก่อนดำเนินการ",
     "param.overwrite.description": "หากเป็น true ให้ลบและแทนที่ dst หากมีอยู่แล้ว (จะมีการขอให้ยืนยัน)",
@@ -437,6 +460,7 @@
     ]
   },
   "zh_CN": {
+    "describe.rename": "将 %(src)s 重命名为 %(dst)s",
     "param.dst.description": "目标路径（文件/目录）。建议使用相对路径。",
     "param.mkdirs.description": "如果为 true，则在执行前为 dst 创建父目录。",
     "param.overwrite.description": "如果为 true，若 dst 已存在则删除并替换它（会要求确认）。",
@@ -456,6 +480,7 @@
     ]
   },
   "zh_TW": {
+    "describe.rename": "將 %(src)s 重新命名為 %(dst)s",
     "param.dst.description": "目的路徑（檔案／目錄）。建議使用相對路徑。",
     "param.mkdirs.description": "如果為 true，則在執行前為 dst 建立上層目錄。",
     "param.overwrite.description": "如果為 true，若 dst 已存在則刪除並取代它（會要求確認）。",
@@ -475,6 +500,7 @@
     ]
   },
   "bn": {
+    "describe.rename": "%(src)s এর নাম পরিবর্তন করে %(dst)s করা হচ্ছে",
     "param.dst.description": "গন্তব্য পাথ (ফাইল/ডিরেক্টরি)। আপেক্ষিক পাথ সুপারিশ করা হয়।",
     "param.mkdirs.description": "true হলে, চালানোর আগে dst-এর মূল ডিরেক্টরি তৈরি করুন।",
     "param.overwrite.description": "true হলে, dst আগে থেকে থাকলে তা মুছে প্রতিস্থাপন করুন (আপনাকে নিশ্চিত করতে বলা হবে)।",
@@ -494,6 +520,7 @@
     ]
   },
   "fa": {
+    "describe.rename": "تغییر نام %(src)s به %(dst)s",
     "param.dst.description": "مسیر مقصد (فایل/پوشه). مسیر نسبی توصیه می‌شود.",
     "param.mkdirs.description": "اگر true باشد، پوشهٔ والدِ dst را پیش از اجرا ایجاد کنید.",
     "param.overwrite.description": "اگر true باشد، dst را در صورت وجود حذف و جایگزین کنید (از شما تأیید خواسته می‌شود).",
@@ -513,6 +540,7 @@
     ]
   },
   "mn": {
+    "describe.rename": "%(src)s-г %(dst)s болгон нэрлэж байна",
     "param.dst.description": "Очих зам (файл/лавлах). Харьцангуй зам хэрэглэхийг зөвлөж байна.",
     "param.mkdirs.description": "true бол dst-ийн эцэг лавлахыг ажиллуулахын өмнө үүсгэнэ.",
     "param.overwrite.description": "true бол dst аль хэдийн байвал устгаад орлуулна (баталгаажуулахыг танаас асууна).",
@@ -532,6 +560,7 @@
     ]
   },
   "mr": {
+    "describe.rename": "%(src)s चे नाव %(dst)s असे बदलत आहे",
     "param.dst.description": "गंतव्य मार्ग (फाइल/डिरेक्टरी). सापेक्ष मार्ग सुचवला आहे.",
     "param.mkdirs.description": "true असल्यास, चालवण्यापूर्वी dst साठी पालक डिरेक्टरी तयार करा.",
     "param.overwrite.description": "true असल्यास, dst आधीच अस्तित्वात असेल तर ते हटवून बदलून टाका (आपल्याला पुष्टी विचारली जाईल).",
@@ -551,6 +580,7 @@
     ]
   },
   "el": {
+    "describe.rename": "Μετονομασία %(src)s σε %(dst)s",
     "param.dst.description": "Εάν ισχύει, διαγράψτε και αντικαταστήστε τον προορισμό εάν υπάρχει ήδη (απαιτείται επιβεβαίωση).",
     "param.mkdirs.description": "Αρχική διαδρομή (αρχείο/κατάλογος). Συνιστάται σχετική διαδρομή.",
     "param.overwrite.description": "Μετονομασία (μετακίνηση) αρχείου ή καταλόγου.",
@@ -570,6 +600,7 @@
     ]
   },
   "he": {
+    "describe.rename": "משנה את השם של %(src)s ל-%(dst)s",
     "param.dst.description": "אם נכון, מחק והחלף את היעד אם הוא כבר קיים (דורש אישור).",
     "param.mkdirs.description": "נתיב מקורי (קובץ/ספרייה). דרך יחסית מומלצת.",
     "param.overwrite.description": "שנה שם (הזז) של קובץ או ספריה.",
@@ -589,6 +620,7 @@
     ]
   },
   "hu": {
+    "describe.rename": "%(src)s átnevezése erre: %(dst)s",
     "param.dst.description": "Ha igaz, törölje és cserélje ki a célhelyet, ha már létezik (megerősítést igényel).",
     "param.mkdirs.description": "Eredeti elérési út (fájl/könyvtár). Relatív útvonal ajánlott.",
     "param.overwrite.description": "Fájl vagy könyvtár átnevezése (áthelyezése).",
@@ -608,6 +640,7 @@
     ]
   },
   "ro": {
+    "describe.rename": "Se redenumește %(src)s în %(dst)s",
     "param.dst.description": "Dacă este adevărat, creați directorul părinte pentru dst înainte de a executa.",
     "param.mkdirs.description": "Dacă este adevărat, ștergeți și înlocuiți destinația dacă aceasta există deja (necesită confirmare).",
     "param.overwrite.description": "Calea originală (fișier/director). Calea relativă recomandată.",
@@ -627,6 +660,7 @@
     ]
   },
   "fil": {
+    "describe.rename": "Pinapalitan ang pangalan ng %(src)s sa %(dst)s",
     "param.dst.description": "Destination path (file/directory). Inirerekomenda ang kamag-anak na landas.",
     "param.mkdirs.description": "Kung totoo, lumikha ng parent directory para sa dst bago i-execute.",
     "param.overwrite.description": "Kung totoo, tanggalin at palitan ang patutunguhan kung mayroon na ito (nangangailangan ng kumpirmasyon).",
@@ -646,6 +680,7 @@
     ]
   },
   "ms": {
+    "describe.rename": "Menamakan semula %(src)s kepada %(dst)s",
     "param.dst.description": "Laluan destinasi (fail/direktori). Laluan relatif disyorkan.",
     "param.mkdirs.description": "Jika benar, buat direktori induk untuk dst sebelum melaksanakan.",
     "param.overwrite.description": "Jika benar, padam dan gantikan destinasi jika ia sudah wujud (memerlukan pengesahan).",
@@ -665,6 +700,7 @@
     ]
   },
   "da": {
+    "describe.rename": "Omdøber %(src)s til %(dst)s",
     "param.dst.description": "Destinationssti (fil/mappe). Relativ vej anbefales.",
     "param.mkdirs.description": "Hvis det er sandt, skal du oprette det overordnede bibliotek for dst, før du udfører.",
     "param.overwrite.description": "Hvis det er sandt, skal du slette og erstatte destinationen, hvis den allerede eksisterer (kræver bekræftelse).",
@@ -684,6 +720,7 @@
     ]
   },
   "nn": {
+    "describe.rename": "Endrar namn på %(src)s til %(dst)s",
     "param.dst.description": "Destinasjonssti (fil/katalog). Relativ vei anbefales.",
     "param.mkdirs.description": "Hvis sant, opprett overordnet katalog for dst før du kjører.",
     "param.overwrite.description": "Hvis sant, slett og erstatt destinasjonen hvis den allerede eksisterer (krever bekreftelse).",

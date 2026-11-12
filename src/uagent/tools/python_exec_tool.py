@@ -145,3 +145,21 @@ def run_tool(args: dict[str, Any]) -> str:
     if "code" not in args:
         return _("[python_exec error] Provide 'code'.")
     return _run_python_code(args, cb)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    code = str((args or {}).get("code") or "")
+    lines = [line.strip() for line in code.splitlines() if line.strip()]
+    preview = " / ".join(lines[:3])[:200]
+    if len(lines) > 1:
+        return _(
+            "describe.python_multi",
+            default="Running Python (%(lines)s lines): %(code)s",
+        ) % {"lines": len(lines), "code": preview or "?"}
+    return _("describe.python", default="Running Python: %(code)s") % {
+        "code": preview or "?"
+    }
+
+
+TOOL_DESCRIBER = describe

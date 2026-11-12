@@ -734,3 +734,50 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
+
+
+def _short_action_value(value: Any) -> str:
+    if isinstance(value, str):
+        text = " ".join(value.split())
+    elif isinstance(value, (list, dict)):
+        text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    else:
+        text = str(value)
+    if len(text) > 40:
+        return text[:40] + "..."
+    return text
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    args = args or {}
+    ip = str(args.get("ip") or "").strip()
+    eoj_arg = str(args.get("eoj") or "").strip()
+    obj_arg = str(args.get("obj") or "").strip()
+    try:
+        # Use the execution resolver so the announced target matches the
+        # object that will actually receive the write (eoj wins over obj,
+        # node profile 0EF001 when both are omitted).
+        target = _resolve_target_eoj(eoj_arg or None, obj_arg or None)[0]
+    except Exception:
+        target = eoj_arg or obj_arg or "0EF001"
+    epc = str(args.get("epc") or "").strip()
+    raw_edt = args.get("edt")
+    if raw_edt is not None and str(raw_edt).strip():
+        # Execution gives a non-empty edt precedence over value; announce
+        # the value that will actually be sent.
+        raw_value: Any = raw_edt
+    else:
+        raw_value = args.get("value")
+    return _(
+        "describe.set_property",
+        default="Setting %(epc)s to %(value)s on %(target)s (%(ip)s)",
+    ) % {
+        "epc": epc or "?",
+        "value": _short_action_value(raw_value) if raw_value is not None else "?",
+        "target": target or "?",
+        "ip": ip or "?",
+    }
+
+
+TOOL_DESCRIBER = describe

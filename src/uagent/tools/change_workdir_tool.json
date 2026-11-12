@@ -1,5 +1,6 @@
 {
   "ja": {
+    "describe.change_dir": "作業ディレクトリを %(dir)s に変更します",
     "confirm.change_workdir": "作業ディレクトリを変更: {path}?\nyで続行、cでキャンセル。",
     "param.confirm.description": "ユーザー確認を求めるかどうか。",
     "param.new_dir.description": "切り替え先のディレクトリパス。",
@@ -18,6 +19,7 @@
     ]
   },
   "es": {
+    "describe.change_dir": "Cambiando el directorio de trabajo a %(dir)s",
     "confirm.change_workdir": "¿Cambiar el directorio de trabajo a: {path}?\nIngrese y para continuar o c para cancelar.",
     "param.confirm.description": "Si se debe pedir confirmación al usuario.",
     "param.new_dir.description": "La nueva ruta del directorio al que cambiar.",
@@ -36,6 +38,7 @@
     ]
   },
   "fr": {
+    "describe.change_dir": "Changement du répertoire de travail vers %(dir)s",
     "confirm.change_workdir": "Remplacer le répertoire de travail par : {path} ?\nEntrez y pour continuer ou c pour annuler.",
     "param.confirm.description": "S'il faut demander la confirmation de l'utilisateur.",
     "param.new_dir.description": "Le nouveau chemin du répertoire vers lequel basculer.",
@@ -54,6 +57,7 @@
     ]
   },
   "ko": {
+    "describe.change_dir": "작업 디렉터리를 %(dir)s(으)로 변경합니다",
     "confirm.change_workdir": "작업 디렉토리 변경: {path}?\ny 입력시 진행, c 입력시 취소.",
     "param.confirm.description": "사용자에게 확인을 요청할지 여부입니다.",
     "param.new_dir.description": "전환할 새 디렉터리 경로입니다.",
@@ -72,6 +76,7 @@
     ]
   },
   "de": {
+    "describe.change_dir": "Arbeitsverzeichnis wird zu %(dir)s gewechselt",
     "confirm.change_workdir": "Arbeitsverzeichnis ändern in: {path}?\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
     "param.confirm.description": "Ob eine Bestätigung vom Benutzer angefordert werden soll.",
     "param.new_dir.description": "Der neue Verzeichnispfad, zu dem gewechselt werden soll.",
@@ -90,6 +95,7 @@
     ]
   },
   "it": {
+    "describe.change_dir": "Cambio della directory di lavoro in %(dir)s",
     "confirm.change_workdir": "Cambia la directory di lavoro in: {path}?\nImmettere y per procedere oppure c per annullare.",
     "param.confirm.description": "Se richiedere la conferma dell'utente.",
     "param.new_dir.description": "Il nuovo percorso della directory a cui passare.",
@@ -108,6 +114,7 @@
     ]
   },
   "ru": {
+    "describe.change_dir": "Смена рабочего каталога на %(dir)s",
     "confirm.change_workdir": "Изменить рабочий каталог на: {path}?\nВведите y, чтобы продолжить, или c, чтобы отменить.",
     "param.confirm.description": "Запрашивать ли подтверждение пользователя.",
     "param.new_dir.description": "Новый путь к каталогу для переключения.",
@@ -126,6 +133,7 @@
     ]
   },
   "pt_BR": {
+    "describe.change_dir": "Alterando o diretório de trabalho para %(dir)s",
     "confirm.change_workdir": "Altere o diretório de trabalho para: {path}?\nDigite y para continuar ou c para cancelar.",
     "param.confirm.description": "Se deve ser solicitada confirmação do usuário.",
     "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
@@ -144,6 +152,7 @@
     ]
   },
   "pt": {
+    "describe.change_dir": "A alterar o diretório de trabalho para %(dir)s",
     "confirm.change_workdir": "Altere o diretório de trabalho para: {path}?\nDigite y para continuar ou c para cancelar.",
     "param.confirm.description": "Se deve ser solicitada a confirmação do usuário.",
     "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
@@ -162,6 +171,7 @@
     ]
   },
   "id": {
+    "describe.change_dir": "Mengubah direktori kerja ke %(dir)s",
     "confirm.change_workdir": "Ubah direktori kerja menjadi: {path}?\nMasukkan y untuk melanjutkan, atau c untuk membatalkan.",
     "param.confirm.description": "Apakah akan meminta konfirmasi pengguna.",
     "param.new_dir.description": "Jalur direktori baru untuk dialihkan ke sana.",
@@ -180,6 +190,7 @@
     ]
   },
   "vi": {
+    "describe.change_dir": "Đang đổi thư mục làm việc thành %(dir)s",
     "confirm.change_workdir": "Thay đổi thư mục công việc thành: {path}?\nNhập y để tiếp tục hoặc c để hủy.",
     "param.confirm.description": "Có yêu cầu xác nhận của người dùng hay không.",
     "param.new_dir.description": "Đường dẫn thư mục mới để chuyển sang.",
@@ -198,6 +209,7 @@
     ]
   },
   "pl": {
+    "describe.change_dir": "Zmiana katalogu roboczego na %(dir)s",
     "confirm.change_workdir": "Zmień katalog roboczy na: {path}?\nWpisz t, aby kontynuować, lub c, aby anulować.",
     "param.confirm.description": "Czy prosić o potwierdzenie użytkownika.",
     "param.new_dir.description": "Nowa ścieżka katalogu, do którego należy się przełączyć.",
@@ -216,6 +228,7 @@
     ]
   },
   "hi": {
+    "describe.change_dir": "कार्य निर्देशिका को %(dir)s में बदला जा रहा है",
     "confirm.change_workdir": "वर्कडिर को इसमें बदलें: {path}?\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।",
     "param.confirm.description": "उपयोगकर्ता से पुष्टि माँगनी है या नहीं।",
     "param.new_dir.description": "स्विच करने के लिए नई निर्देशिका का पथ।",
@@ -234,6 +247,7 @@
     ]
   },
   "ar": {
+    "describe.change_dir": "تغيير دليل العمل إلى %(dir)s",
     "confirm.change_workdir": "تغيير دليل العمل إلى: {path}؟\nأدخل y للمتابعة، أو c للإلغاء.",
     "param.confirm.description": "ما إذا كان سيتم طلب تأكيد المستخدم.",
     "param.new_dir.description": "مسار الدليل الجديد للتبديل إليه.",
@@ -252,6 +266,7 @@
     ]
   },
   "sv": {
+    "describe.change_dir": "Byter arbetskatalog till %(dir)s",
     "confirm.change_workdir": "Ändra arbetskatalog till: {path}?\nAnge y för att fortsätta, eller c för att avbryta.",
     "param.confirm.description": "Om användaren ska tillfrågas om bekräftelse.",
     "param.new_dir.description": "Den nya katalogsökvägen att byta till.",
@@ -270,6 +285,7 @@
     ]
   },
   "sw": {
+    "describe.change_dir": "Kubadilisha saraka ya kazi kuwa %(dir)s",
     "confirm.change_workdir": "Je, ungependa kubadilisha workdir iwe: {path}?\nWeka y ili kuendelea, au c kughairi.",
     "param.confirm.description": "Iwapo utaomba uthibitisho wa mtumiaji.",
     "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
@@ -288,6 +304,7 @@
     ]
   },
   "nb": {
+    "describe.change_dir": "Endrer arbeidskatalog til %(dir)s",
     "confirm.change_workdir": "Endre workdir til: {path}?\nSkriv inn y for å fortsette, eller c for å avbryte.",
     "param.confirm.description": "Om brukeren skal bli bedt om bekreftelse.",
     "param.new_dir.description": "Den nye katalogstien det skal byttes til.",
@@ -306,6 +323,7 @@
     ]
   },
   "nl": {
+    "describe.change_dir": "Werkmap wijzigen naar %(dir)s",
     "confirm.change_workdir": "Werkmap wijzigen in: {path}?\nVoer y in om door te gaan, of c om te annuleren.",
     "param.confirm.description": "Of om gebruikersbevestiging gevraagd moet worden.",
     "param.new_dir.description": "Het nieuwe mappad waarnaar moet worden overgeschakeld.",
@@ -324,6 +342,7 @@
     ]
   },
   "fi": {
+    "describe.change_dir": "Vaihdetaan työhakemisto hakemistoon %(dir)s",
     "confirm.change_workdir": "Muuta työhakemisto: {path}?\nSyötä y jatkaaksesi tai c peruuttaaksesi.",
     "param.confirm.description": "Pyydetäänkö käyttäjän vahvistus.",
     "param.new_dir.description": "Uusi hakemistopolku, johon vaihdetaan.",
@@ -342,6 +361,7 @@
     ]
   },
   "cs": {
+    "describe.change_dir": "Změna pracovního adresáře na %(dir)s",
     "confirm.change_workdir": "Změnit pracovní adresář na: {path}?\nZadejte y pro pokračování nebo c pro zrušení.",
     "param.confirm.description": "Zda vyžádat potvrzení od uživatele.",
     "param.new_dir.description": "Nová cesta k adresáři, do které se má přepnout.",
@@ -360,6 +380,7 @@
     ]
   },
   "uk": {
+    "describe.change_dir": "Зміна робочого каталогу на %(dir)s",
     "confirm.change_workdir": "Змінити робочий каталог на: {path}?\nВведіть y, щоб продовжити, або c, щоб скасувати.",
     "param.confirm.description": "Чи запитувати підтвердження у користувача.",
     "param.new_dir.description": "Шлях до нового каталогу, на який потрібно перейти.",
@@ -378,6 +399,7 @@
     ]
   },
   "tr": {
+    "describe.change_dir": "Çalışma dizini %(dir)s olarak değiştiriliyor",
     "confirm.change_workdir": "Çalışma dizinini şu şekilde değiştir: {path}?\nDevam etmek için y'yi, iptal etmek için c'yi girin.",
     "param.confirm.description": "Kullanıcı onayı istenip istenmeyeceği.",
     "param.new_dir.description": "Geçiş yapılacak yeni dizin yolu.",
@@ -396,6 +418,7 @@
     ]
   },
   "th": {
+    "describe.change_dir": "กำลังเปลี่ยนไดเรกทอรีทำงานเป็น %(dir)s",
     "confirm.change_workdir": "เปลี่ยน workdir เป็น: {path}?\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
     "param.confirm.description": "ว่าจะขอการยืนยันจากผู้ใช้หรือไม่",
     "param.new_dir.description": "เส้นทางไดเรกทอรีใหม่ที่จะเปลี่ยนไป",
@@ -414,6 +437,7 @@
     ]
   },
   "zh_CN": {
+    "describe.change_dir": "将工作目录切换为 %(dir)s",
     "confirm.change_workdir": "将工作目录更改为：{path}？\n输入 y 继续，或输入 c 取消。",
     "param.confirm.description": "是否要求用户确认。",
     "param.new_dir.description": "要切换到的新目录路径。",
@@ -432,6 +456,7 @@
     ]
   },
   "zh_TW": {
+    "describe.change_dir": "將工作目錄切換為 %(dir)s",
     "confirm.change_workdir": "將工作目錄改為：{path}？\n輸入 y 繼續，或輸入 c 取消。",
     "param.confirm.description": "是否要請求使用者確認。",
     "param.new_dir.description": "要切換到的新目錄路徑。",
@@ -450,6 +475,7 @@
     ]
   },
   "bn": {
+    "describe.change_dir": "কর্ম নির্দেশিকা %(dir)s এ পরিবর্তন করা হচ্ছে",
     "confirm.change_workdir": "workdir পরিবর্তন করুন: {path}?\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।",
     "param.confirm.description": "ব্যবহারকারীর নিশ্চিতকরণ চাওয়া হবে কি না।",
     "param.new_dir.description": "যে নতুন ডিরেক্টরিতে স্যুইচ করা হবে তার পথ।",
@@ -468,6 +494,7 @@
     ]
   },
   "fa": {
+    "describe.change_dir": "تغییر پوشه کاری به %(dir)s",
     "confirm.change_workdir": "تغییر مسیر کار به: {path}؟\nبرای ادامه y یا برای لغو c را وارد کنید.",
     "param.confirm.description": "اینکه از کاربر تأیید گرفته شود یا نه.",
     "param.new_dir.description": "مسیر دایرکتوری جدیدی که باید به آن رفت.",
@@ -486,6 +513,7 @@
     ]
   },
   "mn": {
+    "describe.change_dir": "Ажлын хавтсыг %(dir)s болгон өөрчилж байна",
     "confirm.change_workdir": "Ажлын директорийг {path} болгож өөрчлөх үү?\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу.",
     "param.confirm.description": "Хэрэглэгчийн баталгаажуулалт асуух эсэх.",
     "param.new_dir.description": "Шилжих шинэ лавлахын зам.",
@@ -504,6 +532,7 @@
     ]
   },
   "mr": {
+    "describe.change_dir": "कार्य निर्देशिका %(dir)s मध्ये बदलत आहे",
     "confirm.change_workdir": "वर्कडायरमध्ये बदलायचे: {path}?\nपुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा.",
     "param.confirm.description": "वापरकर्त्याची पुष्टी विचारायची की नाही.",
     "param.new_dir.description": "ज्या नवीन निर्देशिकेत स्विच करायचे त्याचा मार्ग.",
@@ -522,6 +551,7 @@
     ]
   },
   "el": {
+    "describe.change_dir": "Αλλαγή καταλόγου εργασίας σε %(dir)s",
     "confirm.change_workdir": "Αλλαγή της διεύθυνσης εργασίας σε: {path};\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
     "param.confirm.description": "Εάν θα ζητηθεί επιβεβαίωση χρήστη.",
     "param.new_dir.description": "Η νέα διαδρομή καταλόγου προς εναλλαγή.",
@@ -540,6 +570,7 @@
     ]
   },
   "he": {
+    "describe.change_dir": "משנה את תיקיית העבודה ל-%(dir)s",
     "confirm.change_workdir": "לשנות את workdir ל: {path}?\nהזן y כדי להמשיך, או c כדי לבטל.",
     "param.confirm.description": "האם לבקש אישור משתמש.",
     "param.new_dir.description": "נתיב הספרייה החדש שאליו יש לעבור.",
@@ -558,6 +589,7 @@
     ]
   },
   "hu": {
+    "describe.change_dir": "A munkakönyvtár váltása erre: %(dir)s",
     "confirm.change_workdir": "Módosítja a munkakönyvtárat a következőre: {path}?\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
     "param.confirm.description": "Kérjen-e felhasználói megerősítést.",
     "param.new_dir.description": "Az új könyvtár elérési útja, amelyre váltani kell.",
@@ -576,6 +608,7 @@
     ]
   },
   "ro": {
+    "describe.change_dir": "Se schimbă directorul de lucru în %(dir)s",
     "confirm.change_workdir": "Schimbați workdir în: {path}?\nIntroduceți y pentru a continua sau c pentru a anula.",
     "param.confirm.description": "Dacă trebuie să cereți confirmarea utilizatorului.",
     "param.new_dir.description": "Noua cale de director la care să comutați.",
@@ -594,6 +627,7 @@
     ]
   },
   "fil": {
+    "describe.change_dir": "Binabago ang working directory sa %(dir)s",
     "confirm.change_workdir": "Palitan ang workdir sa: {path}?\nIlagay ang y upang magpatuloy, o c upang kanselahin.",
     "param.confirm.description": "Kung hihilingin ang kumpirmasyon ng user.",
     "param.new_dir.description": "Ang bagong path ng direktoryo na lilipatan.",
@@ -612,6 +646,7 @@
     ]
   },
   "ms": {
+    "describe.change_dir": "Menukar direktori kerja kepada %(dir)s",
     "confirm.change_workdir": "Tukar workdir kepada: {path}?\nMasukkan y untuk meneruskan atau c untuk membatalkan.",
     "param.confirm.description": "Sama ada untuk meminta pengesahan pengguna.",
     "param.new_dir.description": "Laluan direktori baharu untuk beralih ke.",
@@ -630,6 +665,7 @@
     ]
   },
   "da": {
+    "describe.change_dir": "Skifter arbejdsmappe til %(dir)s",
     "confirm.change_workdir": "Skift workdir til: {path}?\nIndtast y for at fortsætte, eller c for at annullere.",
     "param.confirm.description": "Om man skal bede om brugerbekræftelse.",
     "param.new_dir.description": "Den nye mappesti at skifte til.",
@@ -648,6 +684,7 @@
     ]
   },
   "nn": {
+    "describe.change_dir": "Endrar arbeidskatalog til %(dir)s",
     "confirm.change_workdir": "Endre workdir til: {path}?\nSkriv inn y for å fortsette, eller c for å avbryte.",
     "param.confirm.description": "Om du skal be om brukerbekreftelse.",
     "param.new_dir.description": "Den nye katalogbanen å bytte til.",
