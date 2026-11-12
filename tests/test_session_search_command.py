@@ -45,23 +45,31 @@ def test_sessions_search_prints_one_row_per_session(tmp_path, capsys):
     assert messages[0]["content"] == "durable first hit"
 
 
-def test_sessions_candidates_can_be_approved(tmp_path, capsys, monkeypatch):
+def test_sessions_marker_is_saved_without_approval(tmp_path, capsys, monkeypatch):
     # Pin the gettext locale so the assertion is independent of the host.
     monkeypatch.setenv("UAGENT_LANG", "en")
     set_thread_lang("en")
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp_path / "mem.jsonl"))
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")
     store.append_message(session.session_id, "user", "remember: use pytest first")
     core = SimpleNamespace(session_store=store, session_id=session.session_id)
 
-    monkeypatch.setattr(
-        "uagent.util_cmd_session.personal_long_memory.append_long_memory",
-        lambda note: None,
-    )
+    from uagent.tools.long_memory import load_long_memory_records
+
+    # The marker saved the note at write time; there is no approval step.
+    assert [str(r.get("note")) for r in load_long_memory_records()] == [
+        "use pytest first"
+    ]
+    # The removed subcommands now fall through to the usage text and do
+    # not save anything a second time.
     assert _handle_cmd_sessions("candidates", core=core, tr=lambda text, **_: text)
-    assert "use pytest first" in capsys.readouterr().out
+    assert ":sessions list" in capsys.readouterr().out
     assert _handle_cmd_sessions("approve 1", core=core, tr=lambda text, **_: text)
-    assert "approved" in capsys.readouterr().out.lower()
+    assert ":sessions list" in capsys.readouterr().out
+    assert len(load_long_memory_records()) == 1
+    store.close()
 
 
 def test_sessions_load_matches_load_output_shape(tmp_path, monkeypatch, capsys):
