@@ -85,6 +85,23 @@ def test_apply_patch_delete_mismatched_context_fails(workdir: Path) -> None:
     assert target.exists()
 
 
+def test_apply_patch_delete_changed_content_fails(workdir: Path) -> None:
+    from uagent.tools import apply_patch_tool
+
+    # The file changed after the patch was generated (bar -> NEW). A fuzzy
+    # hunk match must not be enough to delete it.
+    target = workdir / "old_config.yaml"
+    target.write_text("key: value\nfoo: NEW\n", encoding="utf-8")
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": DELETE_PATCH, "dry_run": False})
+    )
+
+    assert result["ok"] is False
+    assert target.exists()
+    assert target.read_text(encoding="utf-8") == "key: value\nfoo: NEW\n"
+
+
 def test_apply_patch_delete_symlink_removes_link_not_referent(
     workdir: Path,
 ) -> None:

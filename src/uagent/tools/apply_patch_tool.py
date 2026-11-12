@@ -304,6 +304,7 @@ def _find_hunk_position(
     before_lines: list[str],
     start_line: int,
     ignore_whitespace: bool,
+    exact_only: bool = False,
 ) -> int | None:
     if not before_lines:
         return min(start_line, len(text_lines))
@@ -332,6 +333,12 @@ def _find_hunk_position(
                         break
                 if ok:
                     return pos
+
+    if exact_only:
+        # Deletion hunks must match exactly (modulo the whitespace tolerance
+        # the caller explicitly requested); a fuzzy match could delete a
+        # file whose content changed after the patch was generated.
+        return None
 
     # Fuzzy match: SequenceMatcher, require 60% chars or 8 chars minimum
     before_text = "\n".join(norm_before)
@@ -365,6 +372,7 @@ def _apply_hunk_to_text(
     ignore_whitespace: bool,
     revert: bool,
     preserve: bool,
+    exact_only: bool = False,
 ) -> tuple[str, bool, str]:
     text_lines = text.splitlines(keepends=True)
     before = _build_before_lines(hunk)
@@ -382,7 +390,9 @@ def _apply_hunk_to_text(
         return text, False, ""
 
     hint_line = max(0, min(hunk.old_start - 1, len(text_lines) - 1))
-    pos = _find_hunk_position(text_lines, before, hint_line, ignore_whitespace)
+    pos = _find_hunk_position(
+        text_lines, before, hint_line, ignore_whitespace, exact_only
+    )
 
     if pos is None:
         return text, False, ""
@@ -529,7 +539,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
             for hunk in pf.hunks:
                 new_text, applied, diff = _apply_hunk_to_text(
-                    current, hunk, ignore_whitespace, revert, preserve_line_endings
+                    current,
+                    hunk,
+                    ignore_whitespace,
+                    revert,
+                    preserve_line_endings,
+                    exact_only=is_deletion,
                 )
                 if applied:
                     current = new_text
