@@ -320,9 +320,11 @@ def test_receive_diagnostics_track_connections_and_drop_counts_in_memory(
             "inbox_rejected",
             "queued",
             "delivery_rejections",
+            "delivery_readback",
             "own_relay_list_accepted",
         }
         assert diagnostics["delivery_rejections"] == []
+        assert diagnostics["delivery_readback"] == []
         assert diagnostics["own_relay_list_accepted"] == 0
         runtime._record_receive_diagnostic(relay, "disconnected")
         assert runtime.status()["diagnostics"]["connected_relays"] == 0

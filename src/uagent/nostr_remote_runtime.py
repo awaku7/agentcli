@@ -25,6 +25,49 @@ from .nostr_remote_transport import (
     listen_nip17_messages,
 )
 
+_READBACK_TIMEOUT_SECONDS = 8.0
+_READBACK_ATTEMPTS = 2
+
+
+async def _read_back_wraps(
+    relays: Any,
+    private_key: bytes,
+    recipient_event_id: str,
+    sender_copy_event_id: str,
+) -> list[dict[str, str]]:
+    """Read both wraps of one reply back from each relay, with retries.
+
+    A single short attempt reported ``unavailable`` for events that were in
+    fact stored whenever a relay dropped the connection mid-readback, which
+    AUTH-gated relays do often; a longer window plus one retry separates a
+    genuine absence from a flaky readback. The result vocabulary matches
+    ``read_back_nip17_gift_wrap``: found / not_returned / unavailable.
+    """
+    from .nostr_remote_transport import read_back_nip17_gift_wrap
+
+    async def one_event(relay: str, event_id: str) -> str:
+        result = "unavailable"
+        for _attempt in range(_READBACK_ATTEMPTS):
+            result = await read_back_nip17_gift_wrap(
+                relay,
+                event_id,
+                allowed_relay_urls=relays,
+                auth_private_key=private_key,
+                timeout=_READBACK_TIMEOUT_SECONDS,
+            )
+            if result != "unavailable":
+                break
+        return result
+
+    async def one_relay(relay: str) -> dict[str, str]:
+        recipient, sender_copy = await asyncio.gather(
+            one_event(relay, recipient_event_id),
+            one_event(relay, sender_copy_event_id),
+        )
+        return {"relay": relay, "recipient": recipient, "sender_copy": sender_copy}
+
+    return await asyncio.gather(*(one_relay(relay) for relay in relays))
+
 
 def format_nostr_remote_status(core: Any) -> str:
     """Format a bounded, sanitized CLI status summary for a paired device."""
@@ -195,6 +238,8 @@ class NostrRemoteRuntime:
             "queued": 0,
         }
         self._delivery_rejections: list[dict[str, str]] = []
+        self._last_delivery_readback: list[dict[str, str]] = []
+        self._readback_threads: set[threading.Thread] = set()
         self._own_relay_list_accepted = 0
         self._state = "stopped"
         self._error = ""
@@ -228,6 +273,9 @@ class NostrRemoteRuntime:
                 **self._receive_counts,
                 "delivery_rejections": [
                     dict(item) for item in self._delivery_rejections
+                ],
+                "delivery_readback": [
+                    dict(item) for item in self._last_delivery_readback
                 ],
                 "own_relay_list_accepted": self._own_relay_list_accepted,
             }
@@ -790,6 +838,9 @@ class NostrRemoteRuntime:
                     )
                 except Exception:
                     pass
+                self._schedule_delivery_readback(
+                    deliveries, record, recipient_event_ids
+                )
                 return {
                     "state": "delivered",
                     "event_ids": list(record.event_ids),
@@ -805,6 +856,100 @@ class NostrRemoteRuntime:
             "error_type": "RelayRejected",
             "attempts": updated.attempts if updated is not None else record.attempts,
         }
+
+    async def _record_delivery_readback(
+        self,
+        deliveries: list[Any],
+        record: OutboxRecord,
+        recipient_event_ids: set[str],
+    ) -> None:
+        """Read the just-delivered wraps back from the accepting relays.
+
+        A relay OK does not prove the event was retained or can be served
+        again, which is how a reply can be "delivered" yet never appear in
+        the recipient's client. Probing automatically keeps the evidence in
+        the status diagnostics without a manual verify run; the probe never
+        fails the delivery. Only relays that accepted a wrap are probed.
+        """
+        event_ids = [str(event_id) for event_id in record.event_ids]
+        if len(event_ids) != 2 or len(recipient_event_ids) != 1:
+            return
+        recipient_event_id = next(iter(recipient_event_ids))
+        sender_copy_event_id = next(
+            event_id for event_id in event_ids if event_id != recipient_event_id
+        )
+        accepting_relays = [
+            relay
+            for relay in dict.fromkeys(
+                str(getattr(delivery, "relay_url", "") or "")
+                for delivery in deliveries
+                if getattr(delivery, "accepted", False)
+            )
+            if relay
+        ]
+        if not accepting_relays:
+            return
+        try:
+            readback = await _read_back_wraps(
+                accepting_relays,
+                self.private_key,
+                recipient_event_id,
+                sender_copy_event_id,
+            )
+        except Exception:
+            return
+        with self._state_lock:
+            self._last_delivery_readback = readback
+        try:
+            from .runtime.logging_setup import log_event
+
+            log_event(
+                "nostr.remote_reply_readback",
+                recipient_found=sum(
+                    1 for item in readback if item["recipient"] == "found"
+                ),
+                sender_copy_found=sum(
+                    1 for item in readback if item["sender_copy"] == "found"
+                ),
+                relays=len(readback),
+            )
+        except Exception:
+            pass
+
+    def _schedule_delivery_readback(
+        self,
+        deliveries: list[Any],
+        record: OutboxRecord,
+        recipient_event_ids: set[str],
+    ) -> None:
+        # The probe is diagnostics only: run it on its own thread so a slow
+        # or timing-out relay never stalls the reply path (send_reply runs
+        # delivery synchronously on the foreground loop) or outbox retries.
+        thread = threading.Thread(
+            target=self._run_delivery_readback,
+            args=(deliveries, record, recipient_event_ids),
+            name="nostr-delivery-readback",
+            daemon=True,
+        )
+        with self._state_lock:
+            self._readback_threads.add(thread)
+        thread.start()
+
+    def _run_delivery_readback(
+        self,
+        deliveries: list[Any],
+        record: OutboxRecord,
+        recipient_event_ids: set[str],
+    ) -> None:
+        try:
+            asyncio.run(
+                self._record_delivery_readback(deliveries, record, recipient_event_ids)
+            )
+        except Exception:
+            pass
+        finally:
+            with self._state_lock:
+                self._readback_threads.discard(threading.current_thread())
 
     async def _retry_outbox(self) -> None:
         """Retry due ciphertext-only replies until the listener is stopped."""
@@ -955,34 +1100,17 @@ class NostrRemoteRuntime:
         if len(record.event_ids) != 2:
             return {"state": "invalid_event_ids"}
 
-        from .nostr_remote_transport import read_back_nip17_gift_wrap
-
-        async def probe() -> list[dict[str, str]]:
-            async def one_relay(relay: str) -> dict[str, str]:
-                recipient, sender_copy = await asyncio.gather(
-                    *(
-                        read_back_nip17_gift_wrap(
-                            relay,
-                            event_id,
-                            allowed_relay_urls=self.relays,
-                            auth_private_key=self.private_key,
-                            timeout=3.0,
-                        )
-                        for event_id in record.event_ids
-                    )
-                )
-                return {
-                    "relay": relay,
-                    "recipient": recipient,
-                    "sender_copy": sender_copy,
-                }
-
-            return await asyncio.gather(*(one_relay(relay) for relay in self.relays))
-
         return {
             "state": "complete",
             "event_ids": list(record.event_ids),
-            "relays": asyncio.run(probe()),
+            "relays": asyncio.run(
+                _read_back_wraps(
+                    self.relays,
+                    self.private_key,
+                    record.event_ids[0],
+                    record.event_ids[1],
+                )
+            ),
         }
 
     def stop(self, *, timeout: float = 5.0) -> dict[str, Any]:

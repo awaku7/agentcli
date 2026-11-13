@@ -1751,6 +1751,23 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                                 message=item.get("message") or "-",
                             )
                         )
+            readback = diagnostics.get("delivery_readback")
+            if isinstance(readback, list):
+                for item in readback:
+                    if isinstance(item, dict) and item.get("relay"):
+                        print(
+                            _(
+                                "nostr.remote_delivery_readback",
+                                default=(
+                                    "  delivery readback: %(relay)s: "
+                                    "recipient=%(recipient)s; "
+                                    "sender_copy=%(sender_copy)s"
+                                ),
+                                relay=item["relay"],
+                                recipient=item.get("recipient") or "-",
+                                sender_copy=item.get("sender_copy") or "-",
+                            )
+                        )
         if status["error"]:
             print(
                 _(
