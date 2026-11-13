@@ -88,6 +88,49 @@ def test_consolidation_skips_secrets(
     ]
 
 
+def test_save_consolidation_notes_uses_given_project(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = memory_consolidation.save_consolidation_notes(
+        ["プロジェクト固定のメモ"], owner="tester", project="proj-x"
+    )
+    assert saved == 1
+    record = long_memory.load_long_memory_records()[0]
+    assert record.get("project") == "proj-x"
+    assert record.get("owner") == "tester"
+
+
+def test_run_async_captures_scope_at_launch(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The scope must be resolved on the calling thread, before the
+    # worker starts: resolving it at save time would use whatever
+    # project is current when the background extraction finishes.
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "proj-launch")
+    seen: list[tuple[str, str]] = []
+
+    def _fake_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
+        seen.append((owner, project))
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _fake_worker)
+    memory_consolidation.run_memory_consolidation_async(
+        [{"role": "user", "content": "hi"}], core=None
+    )
+    for _ in range(50):
+        if seen:
+            break
+        time.sleep(0.05)
+    assert seen and seen[0][1] == "proj-launch"
+    assert seen[0][0] != ""
+
+
 def test_consolidation_worker_uses_core_module_contract(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -132,7 +175,7 @@ def test_run_async_respects_local_boundary(
     _use_jsonl(monkeypatch, repo_tmp_path)
     calls: list[int] = []
 
-    def _fake_worker(messages, core):  # noqa: ANN001, ANN202
+    def _fake_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
         calls.append(len(messages))
 
     monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _fake_worker)

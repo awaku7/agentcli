@@ -72,11 +72,17 @@ def consolidation_source_id(note: str) -> str:
     return f"consolidation:{digest}"
 
 
-def save_consolidation_notes(notes: list[str]) -> int:
+def save_consolidation_notes(
+    notes: list[str], *, owner: str = "", project: str = ""
+) -> int:
     """Save extracted notes through the checked save path.
 
     Returns how many notes were newly saved. Duplicates, secrets and
     notes matching a tombstone are refused by the save path itself.
+    ``owner``/``project`` pin the scope captured when the pass was
+    launched; the save path would otherwise resolve the project at
+    save time (from the process CWD) and could file the notes under
+    whatever project is current when the background thread finishes.
     """
     from ..tools.long_memory import save_long_memory
 
@@ -87,6 +93,8 @@ def save_consolidation_notes(notes: list[str]) -> int:
             continue
         result = save_long_memory(
             note,
+            owner=owner,
+            project=project,
             source="consolidation",
             source_id=consolidation_source_id(note),
         )
@@ -115,15 +123,33 @@ def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) ->
         messages_copy = json.loads(json.dumps(messages))
     except Exception:
         return
+    # Capture the memory scope now: the worker thread runs later, and
+    # resolving the project at save time would use whatever directory
+    # or session is current then, not the one this conversation is in.
+    owner = ""
+    project = ""
+    try:
+        from .memory_scope import resolve_memory_owner, resolve_memory_project
+
+        owner = resolve_memory_owner()
+        project = resolve_memory_project()
+    except Exception:
+        owner = ""
+        project = ""
     thread = threading.Thread(
         target=_consolidation_worker,
-        args=(messages_copy, core),
+        args=(messages_copy, core, owner, project),
         daemon=True,
     )
     thread.start()
 
 
-def _consolidation_worker(messages: list[dict[str, Any]], core: Any) -> None:
+def _consolidation_worker(
+    messages: list[dict[str, Any]],
+    core: Any,
+    owner: str = "",
+    project: str = "",
+) -> None:
     """Background worker: extract durable notes and save them."""
     try:
         from ..profile_manager import _llm_simple_text, _sanitize_log_for_profiling
@@ -146,7 +172,7 @@ def _consolidation_worker(messages: list[dict[str, Any]], core: Any) -> None:
         )
         notes = _parse_notes(raw_response)
         if notes:
-            save_consolidation_notes(notes)
+            save_consolidation_notes(notes, owner=owner, project=project)
     except Exception:
         # Fail silently in background thread to avoid interrupting the user
         pass
