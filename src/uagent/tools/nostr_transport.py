@@ -175,13 +175,22 @@ def _write_key_file(priv_hex: str, pub_hex: str) -> None:
     os.makedirs(os.path.dirname(_NOSTR_KEY_FILE), exist_ok=True)
     tmp_path = _NOSTR_KEY_FILE + ".tmp"
     try:
-        with open(tmp_path, "w", encoding="utf-8", newline="\n") as f:
-            f.write(text)
-        if os.name != "nt":
-            try:
-                os.chmod(tmp_path, 0o600)
-            except OSError:
-                pass
+        # Create the temp file owner-only from the outset (and tighten a
+        # pre-existing temp file before writing), so the key material is
+        # never briefly readable by other local users.
+        fd = os.open(tmp_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        try:
+            if os.name != "nt":
+                try:
+                    os.fchmod(fd, 0o600)
+                except OSError:
+                    pass
+            handle = os.fdopen(fd, "w", encoding="utf-8", newline="\n")
+        except BaseException:
+            os.close(fd)
+            raise
+        with handle:
+            handle.write(text)
         os.replace(tmp_path, _NOSTR_KEY_FILE)
     finally:
         if os.path.exists(tmp_path):

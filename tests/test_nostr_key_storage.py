@@ -62,6 +62,25 @@ def test_legacy_plaintext_key_is_migrated(key_env):
 
 
 @pytest.mark.skipif(os.name == "nt", reason="POSIX permissions only")
+def test_temp_file_is_owner_only_from_creation(key_env, monkeypatch):
+    # A leftover temp file with loose permissions must not make the key
+    # briefly world-readable: the mode is forced before any content is
+    # written, without relying on chmod-after-write.
+    key_env.parent.mkdir(parents=True)
+    tmp_file = key_env.with_name(key_env.name + ".tmp")
+    tmp_file.write_text("stale", encoding="utf-8")
+    os.chmod(tmp_file, 0o644)
+
+    def _no_chmod(_path, _mode):
+        raise OSError("chmod unavailable")
+
+    monkeypatch.setattr(os, "chmod", _no_chmod)
+
+    nt._load_or_create_key()
+    assert key_env.stat().st_mode & 0o777 == 0o600
+
+
+@pytest.mark.skipif(os.name == "nt", reason="POSIX permissions only")
 def test_legacy_migration_tightens_permissions(key_env):
     key_env.parent.mkdir(parents=True)
     key_env.write_text(
