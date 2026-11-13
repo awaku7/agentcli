@@ -718,6 +718,14 @@ def compress_history_with_llm(
         pass
 
     try:
+        from ..runtime.memory_consolidation import run_memory_consolidation_async
+        import sys as _sys
+
+        run_memory_consolidation_async(messages, _sys.modules[__name__])
+    except Exception:
+        pass
+
+    try:
         from ..providers.gemini_cache_mgr import GeminiCacheManager
 
         mgr = GeminiCacheManager(depname)

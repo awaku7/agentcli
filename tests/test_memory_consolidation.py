@@ -1,0 +1,126 @@
+from __future__ import annotations
+
+import time
+from pathlib import Path
+
+import pytest
+
+
+def _use_jsonl(monkeypatch: pytest.MonkeyPatch, tmp: Path) -> None:
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp / "mem.jsonl"))
+
+
+def test_consolidation_opt_out_switches(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime.memory_consolidation import consolidation_enabled
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    assert consolidation_enabled() is True
+    monkeypatch.setenv("UAGENT_MEMORY_CONSOLIDATION", "0")
+    assert consolidation_enabled() is False
+    monkeypatch.setenv("UAGENT_MEMORY_CONSOLIDATION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY", "0")
+    assert consolidation_enabled() is False
+
+
+def test_parse_notes_variants() -> None:
+    from uagent.runtime.memory_consolidation import _parse_notes
+
+    assert _parse_notes('{"notes": ["a", "b"]}') == ["a", "b"]
+    assert _parse_notes('```json\n{"notes": ["a"]}\n```') == ["a"]
+    assert _parse_notes('["a"]') == ["a"]
+    assert _parse_notes("not json") == []
+    assert _parse_notes('{"notes": []}') == []
+    assert _parse_notes('{"notes": [1, "x", " "]}') == ["x"]
+
+
+def test_save_consolidation_notes_saves_once_and_reports(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    notes = ["勤務先は大阪の物流会社", "娘の名前は花"]
+    assert memory_consolidation.save_consolidation_notes(notes) == 2
+    records = long_memory.load_long_memory_records()
+    assert {str(r.get("note")) for r in records} == set(notes)
+    assert all(r.get("source") == "consolidation" for r in records)
+
+    # The same extraction again saves nothing new.
+    assert memory_consolidation.save_consolidation_notes(notes) == 0
+
+    # The pending notice accumulates and drains exactly once.
+    assert memory_consolidation.pop_pending_consolidation_count() == 2
+    assert memory_consolidation.pop_pending_consolidation_count() == 0
+
+
+def test_consolidation_cannot_resurrect_forgotten_note(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    assert memory_consolidation.save_consolidation_notes(["住所は京都市"]) == 1
+    record = long_memory.load_long_memory_records()[0]
+    assert long_memory.delete_long_memory_by_id(str(record["memory_id"])) is True
+
+    assert memory_consolidation.save_consolidation_notes(["住所は京都市"]) == 0
+    assert long_memory.load_long_memory_records() == []
+
+
+def test_consolidation_skips_secrets(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = memory_consolidation.save_consolidation_notes(
+        ["api_key = sk-1234567890abcdefghij", "普通のメモ"]
+    )
+    assert saved == 1
+    assert [str(r.get("note")) for r in long_memory.load_long_memory_records()] == [
+        "普通のメモ"
+    ]
+
+
+def test_run_async_respects_local_boundary(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    calls: list[int] = []
+
+    def _fake_worker(messages, core):  # noqa: ANN001, ANN202
+        calls.append(len(messages))
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _fake_worker)
+
+    web_turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id="s1",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        server_bound_project=True,
+    )
+    messages = [{"role": "user", "content": "hi"}]
+    with bind_turn_context(web_turn):
+        memory_consolidation.run_memory_consolidation_async(messages, core=None)
+    time.sleep(0.2)
+    assert calls == []
+
+    memory_consolidation.run_memory_consolidation_async(messages, core=None)
+    for _ in range(50):
+        if calls:
+            break
+        time.sleep(0.05)
+    assert calls == [1]

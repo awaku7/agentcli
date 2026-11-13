@@ -284,6 +284,20 @@ def get_current_turn_context() -> TurnContext | None:
     return _CURRENT_TURN.get()
 
 
+def current_turn_is_local() -> bool:
+    """Whether the bound turn (if any) runs under the local identity.
+
+    Legacy unscoped stores are fenced to local mode (the same boundary
+    as the legacy memory API), so writers to those stores use this to
+    decide whether the current turn may write. No bound turn means a
+    plain local entry point.
+    """
+    turn = get_current_turn_context()
+    if turn is None:
+        return True
+    return str(turn.authn_kind or "").strip().lower() == "local"
+
+
 @contextmanager
 def bind_turn_context(
     turn_context: TurnContext,
@@ -354,6 +368,7 @@ __all__ = [
     "call_with_turn_context",
     "create_identity_resolver",
     "get_current_identity_context",
+    "current_turn_is_local",
     "get_current_turn_context",
     "resolve_identity_mode",
     "resolve_turn_context",

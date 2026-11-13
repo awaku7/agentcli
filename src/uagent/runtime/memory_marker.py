@@ -66,14 +66,11 @@ def _local_identity_turn() -> bool:
     logging; their scoped writes go through the agent tools.
     """
     try:
-        from .identity_context import get_current_turn_context
+        from .identity_context import current_turn_is_local
 
-        turn = get_current_turn_context()
+        return current_turn_is_local()
     except Exception:
         return True
-    if turn is None:
-        return True
-    return str(turn.authn_kind or "").strip().lower() == "local"
 
 
 def save_memory_marker(content: str) -> dict[str, Any] | None:
