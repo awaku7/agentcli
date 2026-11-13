@@ -55,6 +55,17 @@ def _print_pending_memory_notices() -> None:
             print(notice)
     except Exception:
         pass
+    try:
+        from ..runtime.memory_consolidation import pop_pending_consolidation_count
+
+        auto_saved = pop_pending_consolidation_count()
+        if auto_saved:
+            print(
+                _("[memory] auto-saved %(count)d note(s) from past conversations")
+                % {"count": auto_saved}
+            )
+    except Exception:
+        pass
 
 
 def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:

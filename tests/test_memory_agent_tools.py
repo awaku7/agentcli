@@ -330,6 +330,210 @@ def test_duplicate_detection_is_scoped_by_project(
     assert len(long_memory.load_long_memory_records()) == 2
 
 
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_background_save_cannot_resurrect_forgotten_note(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory("住所は京都市", source="tool")
+    assert first["saved"] is True
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    # A background re-learn from old logs must not bring the note back,
+    # even under a fresh source_id.
+    relearn = long_memory.save_long_memory(
+        "住所は京都市", source="consolidation", source_id="consolidation:other"
+    )
+    assert relearn["saved"] is False
+    assert relearn["reason"] == "deleted"
+    assert long_memory.load_long_memory_records() == []
+
+    # A fresh in-conversation save is new intent, not a re-learn.
+    restated = long_memory.save_long_memory("住所は京都市", source="tool")
+    assert restated["saved"] is True
+
+
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_replay_save_cannot_resurrect_forgotten_note(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory(
+        "好物は抹茶", source="consolidation", source_id="consolidation:x"
+    )
+    assert first["saved"] is True
+    # The identical marker is only a duplicate: the record keeps the
+    # consolidation source_id, so the marker leaves no provenance that
+    # a later tombstone could be matched against.
+    dup = long_memory.save_long_memory("好物は抹茶", source="marker", source_id="mk:1")
+    assert dup["reason"] == "duplicate"
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    # A history-rewrite replay of that marker must stay forgotten.
+    replay = long_memory.save_long_memory(
+        "好物は抹茶", source="marker", source_id="mk:1", replay=True
+    )
+    assert replay["saved"] is False
+    assert replay["reason"] == "deleted"
+    assert long_memory.load_long_memory_records() == []
+
+    # The same marker as a new message is fresh intent and saves.
+    fresh = long_memory.save_long_memory(
+        "好物は抹茶", source="marker", source_id="mk:1"
+    )
+    assert fresh["saved"] is True
+
+
+def test_forgotten_note_keys_exclude_scoped_rows(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Scoped (Web) tombstones carry an owner_id; the local forget
+    # boundary must only contain local tombstones.
+    import time as _time
+
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.tools import long_memory
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("ローカルの忘却メモ", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        now = _time.time()
+        store.db.execute(
+            "INSERT INTO memories(memory_id, created_at, updated_at, note, "
+            "owner, owner_id, project, audience_type, audience_id, status) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, 'personal', ?, 'deleted')",
+            (
+                "scopedtombstone1",
+                now,
+                now,
+                "スコープ側の忘却メモ",
+                "alice",
+                "alice",
+                "demo",
+                "alice",
+            ),
+        )
+        store.db.commit()
+    finally:
+        store.close()
+
+    keys = long_memory.forgotten_note_keys()
+    assert long_memory.note_key_for("ローカルの忘却メモ") in keys
+    assert long_memory.note_key_for("スコープ側の忘却メモ") not in keys
+
+
+def test_profile_items_matching_forgotten_notes_are_dropped(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.profile_manager import _drop_forgotten_profile_items
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("テストは pytest を使う", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    profile = _drop_forgotten_profile_items(
+        {
+            "preferences": ["テストは pytest を使う", "エディタは vim を使う"],
+            "constraints": ["テストは pytest を使う"],
+        }
+    )
+    assert profile["preferences"] == ["エディタは vim を使う"]
+    assert profile["constraints"] == []
+
+
+def test_profile_forget_filter_does_not_apply_to_web_principals(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The forget boundary is built from the LOCAL store's tombstones;
+    # it must not filter a Web principal's profile learning.
+    from uagent.profile_manager import _drop_forgotten_profile_items
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("テストは pytest を使う", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    profile = {"preferences": ["テストは pytest を使う"], "constraints": []}
+    assert _drop_forgotten_profile_items(profile, "alice")["preferences"] == [
+        "テストは pytest を使う"
+    ]
+    assert _drop_forgotten_profile_items(profile)["preferences"] == []
+
+
+def test_scoped_marker_dedup_ignores_granted_notes(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A note shared with the principal through a read grant is readable
+    # but is not the principal's own record: it must not block the
+    # principal's own marker save of the same text.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        bob = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="bob",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        bob_record = bob.append("会議は月曜10時")
+        bob.share(str(bob_record["memory_id"]), "alice", expected_revision=1)
+    finally:
+        memory_store.close()
+
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        private_session=True,
+        server_bound_project=True,
+    )
+    with bind_turn_context(turn):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    store.close()
+
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        rows = memory_store.db.execute(
+            "SELECT owner_id, note FROM memories WHERE note = '会議は月曜10時'"
+        ).fetchall()
+    finally:
+        memory_store.close()
+    assert {str(dict(row)["owner_id"]) for row in rows} == {"bob", "alice"}
+
+
 def test_marker_not_saved_for_non_local_web_turn(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -373,6 +577,187 @@ def test_marker_not_saved_for_non_local_web_turn(
         store.append_message(session.session_id, "user", "remember: ローカルのメモ")
     records = long_memory.load_long_memory_records()
     assert [str(r.get("note")) for r in records] == ["ローカルのメモ"]
+    store.close()
+
+
+def test_marker_saved_to_scoped_memory_for_private_web_turn(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A non-local Web principal in a private session saves markers into
+    # their own scoped personal memory — never into the local owner's
+    # unscoped records.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+    from uagent.tools import long_memory
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+
+    def _turn(private: bool) -> TurnContext:
+        return TurnContext(
+            principal_id="alice",
+            room_id="room-1",
+            project_id="demo",
+            session_id=session.session_id,
+            entry_point="web",
+            authenticated=True,
+            authn_kind="oidc",
+            private_session=private,
+            server_bound_project=True,
+        )
+
+    def _scoped_rows() -> list[dict]:
+        memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+        try:
+            rows = memory_store.db.execute(
+                "SELECT note, owner, owner_id, audience_type, status "
+                "FROM memories WHERE owner_id = 'alice'"
+            ).fetchall()
+            return [dict(row) for row in rows]
+        finally:
+            memory_store.close()
+
+    with bind_turn_context(_turn(private=True)):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+        # A duplicate marker in the same scope saves nothing new.
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    rows = _scoped_rows()
+    assert len(rows) == 1
+    assert rows[0]["note"] == "会議は月曜10時"
+    assert rows[0]["audience_type"] == "personal"
+    assert rows[0]["status"] == "active"
+
+    # The scoped store forgets by hard deletion (its own semantics):
+    # the row is gone, and a later marker saves afresh, exactly like
+    # re-stating the fact. The local forget boundary is unaffected.
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        scoped = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="alice",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        record = scoped.records()[0]
+        scoped.forget(str(record["memory_id"]), expected_revision=1)
+    finally:
+        memory_store.close()
+    assert _scoped_rows() == []
+    with bind_turn_context(_turn(private=True)):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    rows = _scoped_rows()
+    assert len(rows) == 1
+    assert rows[0]["status"] == "active"
+
+    # A room (non-private) turn has no personal store to write to.
+    with bind_turn_context(_turn(private=False)):
+        store.append_message(session.session_id, "user", "remember: 部屋のメモ")
+    assert all(r["note"] != "部屋のメモ" for r in _scoped_rows())
+    assert long_memory.forgotten_note_keys() == set()
+    store.close()
+
+
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_source_id_match_is_scoped_to_project(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A source_id identifies one origin within one owner/project scope:
+    # the same marked text in another project is a different note, not
+    # a replay of the first project's (possibly forgotten) record.
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-a", source="marker", source_id="marker:abc"
+    )
+    assert first["saved"] is True
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    again_a = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-a", source="marker", source_id="marker:abc"
+    )
+    assert again_a["saved"] is False
+    assert again_a["reason"] == "deleted"
+
+    in_b = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-b", source="marker", source_id="marker:abc"
+    )
+    assert in_b["saved"] is True
+
+
+def test_scoped_marker_not_resurrected_by_history_rewrite(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The scoped store forgets by hard deletion, so a history rewrite
+    # must not re-fire the marker save: there is no tombstone left to
+    # block the re-scan.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        private_session=True,
+        server_bound_project=True,
+    )
+
+    def _scoped_notes() -> list[str]:
+        memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+        try:
+            rows = memory_store.db.execute(
+                "SELECT note FROM memories WHERE owner_id = 'alice'"
+            ).fetchall()
+            return [str(dict(row)["note"]) for row in rows]
+        finally:
+            memory_store.close()
+
+    with bind_turn_context(turn):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    assert _scoped_notes() == ["会議は月曜10時"]
+
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        scoped = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="alice",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        record = scoped.records()[0]
+        scoped.forget(str(record["memory_id"]), expected_revision=1)
+    finally:
+        memory_store.close()
+    assert _scoped_notes() == []
+
+    with bind_turn_context(turn):
+        store.replace_messages(
+            session.session_id,
+            [{"role": "user", "content": "remember: 会議は月曜10時"}],
+        )
+    assert _scoped_notes() == []
     store.close()
 
 

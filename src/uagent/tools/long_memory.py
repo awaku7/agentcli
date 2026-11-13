@@ -110,6 +110,11 @@ _SENTENCE_PUNCTUATION = frozenset("\u3001\u3002\u30fb")
 _EDGE_PUNCTUATION = ".!?"
 
 
+def note_key_for(text: str) -> str:
+    """Public alias of :func:`_note_key` for cross-module comparisons."""
+    return _note_key(text)
+
+
 def _note_key(text: str) -> str:
     """Normalize a note for duplicate comparison.
 
@@ -161,6 +166,21 @@ def tool_save_enabled() -> bool:
     return not _env_disabled("UAGENT_MEMORY_TOOL_SAVE")
 
 
+#: Save sources that re-derive notes from past logs in the background.
+#: They must never resurrect a forgotten note: when a tombstone with
+#: the same content exists in the target scope, the save is refused
+#: with reason "deleted" even if the source_id is new. Interactive
+#: saves (the agent tools acting on the current conversation) are not
+#: in this set: a user re-stating a fact in conversation is fresh
+#: intent, not a re-learn. History-rewrite replays are treated the
+#: same way via the ``replay`` parameter: re-scanning an old marker is
+#: mechanical, not fresh intent, and a marker that was only ever a
+#: duplicate of a background save carries no provenance of its own on
+#: the record (the store keeps one primary source_id), so the source
+#: check alone cannot keep its replays out.
+_BACKGROUND_SOURCES = frozenset({"consolidation"})
+
+
 def save_long_memory(
     note: str,
     *,
@@ -168,6 +188,7 @@ def save_long_memory(
     project: str = "",
     source: str = "",
     source_id: str = "",
+    replay: bool = False,
 ) -> dict[str, Any]:
     """Save one note through the checked save path used by agent-facing writers.
 
@@ -175,7 +196,12 @@ def save_long_memory(
     ``duplicate``, ``secret``, ``too_long``, ``empty`` or ``error`` and the
     ``memory_id`` when a record exists. The checks keep credentials and
     exact re-saves out of the store; ``source``/``source_id`` record the
-    provenance and make repeated saves of the same origin idempotent.
+    provenance and make repeated saves of the same origin idempotent
+    within the same owner/project scope (the same content saved under
+    another project is a different note). ``replay=True`` marks a save
+    re-derived from stored history (a history-rewrite re-scan); replays
+    get the background forget boundary described at
+    ``_BACKGROUND_SOURCES``.
     """
     from ..runtime.memory_scope import resolve_memory_owner
 
@@ -198,13 +224,27 @@ def save_long_memory(
             try:
                 if source_id:
                     for record in store.records(include_inactive=True):
-                        if str(record.get("source_id") or "") == source_id:
+                        if str(
+                            record.get("source_id") or ""
+                        ) == source_id and _same_scope(record, owner, project):
                             if _is_active(record):
                                 return {
                                     "saved": False,
                                     "reason": "duplicate",
                                     "memory_id": str(record.get("memory_id") or ""),
                                 }
+                            return {
+                                "saved": False,
+                                "reason": "deleted",
+                                "memory_id": str(record.get("memory_id") or ""),
+                            }
+                if source in _BACKGROUND_SOURCES or replay:
+                    for record in store.records(include_inactive=True):
+                        if (
+                            not _is_active(record)
+                            and _same_scope(record, owner, project)
+                            and _note_key(str(record.get("note") or "")) == key
+                        ):
                             return {
                                 "saved": False,
                                 "reason": "deleted",
@@ -249,13 +289,27 @@ def save_long_memory(
         existing = _load_jsonl_records(include_deleted=True)
         if source_id:
             for record in existing:
-                if str(record.get("source_id") or "") == source_id:
+                if str(record.get("source_id") or "") == source_id and _same_scope(
+                    record, owner, project
+                ):
                     if _is_active(record):
                         return {
                             "saved": False,
                             "reason": "duplicate",
                             "memory_id": str(record.get("memory_id") or ""),
                         }
+                    return {
+                        "saved": False,
+                        "reason": "deleted",
+                        "memory_id": str(record.get("memory_id") or ""),
+                    }
+        if source in _BACKGROUND_SOURCES or replay:
+            for record in existing:
+                if (
+                    not _is_active(record)
+                    and _same_scope(record, owner, project)
+                    and _note_key(str(record.get("note") or "")) == key
+                ):
                     return {
                         "saved": False,
                         "reason": "deleted",
@@ -621,6 +675,51 @@ def list_deleted_long_memory_records() -> list[dict[str, Any]]:
     deleted = [r for r in records if not _is_active(r)]
     deleted.sort(key=lambda r: float(r.get("updated_at") or r.get("ts") or 0))
     return deleted
+
+
+def forgotten_note_keys() -> set[str]:
+    """Note keys of tombstoned local records — the forget boundary.
+
+    Background re-learning paths (profile extraction, consolidation)
+    compare candidate notes against this set so content the user
+    deliberately forgot is not silently re-created from old logs.
+    Scoped (Web) records are excluded here: their saves never flow
+    through the local re-learning paths. Tombstones are kept as long
+    as the memory store itself is kept, which is also how long the
+    session logs they guard against remain re-readable.
+    """
+    keys: set[str] = set()
+    if _use_sqlite():
+        # The base record dicts do not carry owner_id, so query for the
+        # local rows directly: scoped (Web) rows always set owner_id,
+        # local rows never do.
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                rows = store.db.execute(
+                    "SELECT note FROM memories WHERE status <> 'active' "
+                    "AND (owner_id IS NULL OR owner_id = '')"
+                ).fetchall()
+            finally:
+                store.close()
+        except Exception:
+            return keys
+        for row in rows:
+            note = str(dict(row).get("note") or "")
+            if note:
+                keys.add(_note_key(note))
+        return keys
+    try:
+        records = list_deleted_long_memory_records()
+    except Exception:
+        return keys
+    for record in records:
+        note = str(record.get("note") or "")
+        if note:
+            keys.add(_note_key(note))
+    return keys
 
 
 def find_long_memory_by_id(memory_id: str) -> dict[str, Any] | None:
