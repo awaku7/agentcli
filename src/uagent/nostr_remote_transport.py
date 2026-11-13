@@ -639,6 +639,16 @@ async def fetch_nip17_relay_list(
     return max(candidates, key=lambda candidate: candidate[0])[1]
 
 
+def _unwrap_error_reason(exc: BaseException) -> str:
+    # The reason is diagnostic only: keep the unwrap failure's short
+    # structural message (which check rejected the wrap) and drop anything
+    # that could carry terminal controls or unbounded text into status
+    # output. Unwrap messages never contain message content or keys.
+    printable = "".join(char if char.isprintable() else " " for char in str(exc))
+    reason = " ".join(printable.split())[:120]
+    return reason or "unknown error"
+
+
 async def listen_nip17_messages(
     relay_url: str,
     private_key: bytes,
@@ -809,8 +819,9 @@ async def listen_nip17_messages(
                     continue
                 try:
                     rumor = unwrap_nip17_private_message(canonical_event, private_key)
-                except (ValueError, TypeError, KeyError):
+                except (ValueError, TypeError, KeyError) as exc:
                     record_diagnostic("decrypt_failed")
+                    record_diagnostic("unwrap_error:" + _unwrap_error_reason(exc))
                     continue
                 sender = rumor["pubkey"]
                 authorized = authorize_sender(sender)

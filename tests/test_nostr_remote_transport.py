@@ -759,3 +759,48 @@ def test_listener_diagnostics_count_receive_outcomes_without_message_data(
     assert diagnostics == ["connected", "gift_wraps", result, "disconnected"]
     assert len(delivered) == (1 if mode == "accepted" else 0)
     assert "private DM" not in repr(diagnostics)
+
+
+def test_listener_reports_unwrap_error_reason_for_undecryptable_wrap(
+    replay_store: SQLiteReplayStore,
+) -> None:
+    from uagent.nostr_nip17 import _public_key_x
+
+    gift_wrap = create_nip17_private_messages(
+        "addressed to someone else",
+        _secret(1),
+        _public_key_x(_secret(3)),
+        now=1_700_000_000,
+    )[0]
+    stop_event = asyncio.Event()
+
+    class SingleEventSocket(FakeListenSocket):
+        async def recv(self) -> str:
+            raw = await super().recv()
+            stop_event.set()
+            return raw
+
+    socket = SingleEventSocket(gift_wrap)
+    diagnostics: list[str] = []
+    delivered: list[dict] = []
+    asyncio.run(
+        listen_nip17_messages(
+            "wss://recipient-inbox.example.org",
+            _secret(2),
+            delivered.append,
+            authorize_sender=lambda _sender: True,
+            replay_store=replay_store,
+            now_fn=lambda: 1_700_000_000,
+            stop_event=stop_event,
+            connect_factory=lambda _url, **_kwargs: socket,
+            diagnostic_callback=diagnostics.append,
+        )
+    )
+    assert diagnostics == [
+        "connected",
+        "gift_wraps",
+        "decrypt_failed",
+        "unwrap_error:gift wrap is not addressed to this recipient",
+        "disconnected",
+    ]
+    assert delivered == []

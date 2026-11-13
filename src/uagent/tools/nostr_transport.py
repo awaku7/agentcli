@@ -1768,6 +1768,15 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                                 sender_copy=item.get("sender_copy") or "-",
                             )
                         )
+            last_unwrap_error = diagnostics.get("last_unwrap_error")
+            if isinstance(last_unwrap_error, str) and last_unwrap_error:
+                print(
+                    _(
+                        "nostr.remote_last_unwrap_error",
+                        default="  last unwrap error: %(error)s",
+                        error=last_unwrap_error,
+                    )
+                )
         if status["error"]:
             print(
                 _(
