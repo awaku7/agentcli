@@ -88,6 +88,41 @@ def test_consolidation_skips_secrets(
     ]
 
 
+def test_consolidation_worker_uses_core_module_contract(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # make_client() reads helpers such as get_env_url from the core
+    # argument; the worker must receive (and pass through) an object
+    # that provides them — the assembled uagent.core module does.
+    import uagent.core as core_module
+    from uagent import profile_manager
+    from uagent.providers import util_providers
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    seen: dict[str, bool] = {}
+
+    def _fake_make_client(core):  # noqa: ANN001, ANN202
+        seen["has_get_env_url"] = hasattr(core, "get_env_url")
+        return ("fake", object(), "fake-model")
+
+    monkeypatch.setattr(util_providers, "make_client", _fake_make_client)
+    monkeypatch.setattr(
+        profile_manager,
+        "_llm_simple_text",
+        lambda **kwargs: '{"notes": ["勤務先は大阪の物流会社"]}',
+    )
+    memory_consolidation._consolidation_worker(
+        [{"role": "user", "content": "私は大阪の物流会社で働いています"}],
+        core_module,
+    )
+    assert seen["has_get_env_url"] is True
+    assert [str(r.get("note")) for r in long_memory.load_long_memory_records()] == [
+        "勤務先は大阪の物流会社"
+    ]
+
+
 def test_run_async_respects_local_boundary(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

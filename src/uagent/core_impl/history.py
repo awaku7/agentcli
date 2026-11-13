@@ -710,18 +710,17 @@ def compress_history_with_llm(
 
     try:
         from ..profile_manager import run_profiling_async
-        import sys as _sys
 
-        _core_mod = _sys.modules[__name__]
-        run_profiling_async(messages, _core_mod)
+        # make_client() reads helpers such as get_env_url from the
+        # assembled core module; this split module does not have them.
+        run_profiling_async(messages, _core)
     except Exception:
         pass
 
     try:
         from ..runtime.memory_consolidation import run_memory_consolidation_async
-        import sys as _sys
 
-        run_memory_consolidation_async(messages, _sys.modules[__name__])
+        run_memory_consolidation_async(messages, _core)
     except Exception:
         pass
 
