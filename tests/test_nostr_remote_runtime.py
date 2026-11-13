@@ -321,11 +321,55 @@ def test_receive_diagnostics_track_connections_and_drop_counts_in_memory(
             "queued",
             "delivery_rejections",
             "delivery_readback",
+            "own_relay_list_accepted",
         }
         assert diagnostics["delivery_rejections"] == []
         assert diagnostics["delivery_readback"] == []
+        assert diagnostics["own_relay_list_accepted"] == 0
         runtime._record_receive_diagnostic(relay, "disconnected")
         assert runtime.status()["diagnostics"]["connected_relays"] == 0
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_publish_own_relay_list_counts_accepting_relays(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+    from uagent.nostr_nip17 import _public_key_x
+
+    inbox = SQLiteNostrInboxStore(tmp_path / "relay-list-inbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "relay-list-pairings.sqlite3")
+    relays = ["wss://relay-a.example", "wss://relay-b.example"]
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=_secret(2),
+        relays=relays,
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+    )
+    calls: list[tuple[str, dict]] = []
+
+    async def fake_publish(relay_url, event, _key, *, allowed_relay_urls):
+        calls.append((relay_url, event))
+        return SimpleNamespace(
+            accepted=relay_url == "wss://relay-a.example",
+            relay_url=relay_url,
+            event_id=event["id"],
+            message="",
+        )
+
+    monkeypatch.setattr(transport, "publish_relay_list_event", fake_publish)
+    try:
+        asyncio.run(runtime._publish_own_relay_list())  # noqa: SLF001
+        assert [relay for relay, _event in calls] == relays
+        event = calls[0][1]
+        assert event["kind"] == 10050
+        assert event["pubkey"] == _public_key_x(_secret(2)).hex()
+        assert event["tags"] == [["relay", relay] for relay in relays]
+        assert runtime.status()["diagnostics"]["own_relay_list_accepted"] == 1
     finally:
         inbox.close()
         pairings.close()
