@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.7.47] - 2026-11-13
+
+### Added
+
+- Publish the node's NIP-17 relay list when its listener starts.
+- Retry and verify NIP-17 reply delivery with read-back probes, keeping probes off the reply path.
+- Surface the reason an incoming NIP-17 gift wrap could not be opened.
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.83`.
+- Preload the selected provider SDK during CLI startup while keeping client creation and dependency installation on the foreground path.
+
+### Fixed
+
+- Initialize observability in isolated Web room workers, flush their spans on completion, and report worker export status to the Web process.
+- Serve `.mjs` files with a JavaScript MIME type so the Web command picker can load in Windows environments.
+
 ## [0.7.46] - 2026-11-12
 
 ### Added
