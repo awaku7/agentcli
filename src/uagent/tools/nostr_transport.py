@@ -132,22 +132,93 @@ _NOSTR_KEY_FILE = os.path.join(
 )
 
 
+def _parse_key_text(text: str) -> tuple[str, str] | None:
+    """Parse key-file JSON text into (private_key, public_key) hex."""
+    try:
+        data = json.loads(text)
+    except Exception:
+        return None
+    if not isinstance(data, dict):
+        return None
+    priv_hex = data.get("private_key", "")
+    pub_hex = data.get("public_key", "")
+    if priv_hex and pub_hex and len(priv_hex) == 64:
+        return priv_hex, pub_hex
+    return None
+
+
+def _write_key_file(priv_hex: str, pub_hex: str) -> None:
+    """Write the key file encrypted with uag_envsec, owner-only permissions.
+
+    Falls back to plaintext JSON (still written with 0600 permissions) when
+    the encryption helper is unavailable, so a key is never lost over a
+    storage failure.
+    """
+    payload = json.dumps({"private_key": priv_hex, "public_key": pub_hex})
+    text = payload
+    try:
+        from uag_envsec import encrypt_text, ensure_key_file
+
+        ensure_key_file()
+        text = encrypt_text(payload) + "\n"
+    except Exception:
+        pass
+    os.makedirs(os.path.dirname(_NOSTR_KEY_FILE), exist_ok=True)
+    tmp_path = _NOSTR_KEY_FILE + ".tmp"
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(text)
+        if os.name != "nt":
+            try:
+                os.chmod(tmp_path, 0o600)
+            except OSError:
+                pass
+        os.replace(tmp_path, _NOSTR_KEY_FILE)
+    finally:
+        if os.path.exists(tmp_path):
+            try:
+                os.unlink(tmp_path)
+            except OSError:
+                pass
+
+
+def _read_key_file() -> tuple[str, str] | None:
+    """Read the stored key pair, migrating legacy plaintext files.
+
+    New files hold a uag_envsec ciphertext token. A plaintext JSON file
+    (written by older versions) is still accepted and is rewritten in
+    encrypted form as a side effect of the read.
+    """
+    try:
+        with open(_NOSTR_KEY_FILE, "r", encoding="utf-8") as f:
+            raw = f.read()
+    except OSError:
+        return None
+    parsed = _parse_key_text(raw)
+    if parsed is not None:
+        try:
+            _write_key_file(*parsed)
+        except Exception:
+            pass
+        return parsed
+    try:
+        from uag_envsec import decrypt_text
+
+        return _parse_key_text(decrypt_text(raw.strip()))
+    except Exception:
+        return None
+
+
 def _load_or_create_key() -> tuple[str, str]:
     """Load existing Nostr key or generate a new secp256k1 key pair.
 
     Returns (nsec_hex, npub_hex) where nsec_hex is the 32-byte private key
     as hex, and npub_hex is the 32-byte x-only public key as hex.
     """
-    try:
-        if os.path.isfile(_NOSTR_KEY_FILE):
-            with open(_NOSTR_KEY_FILE, "r") as f:
-                data = json.load(f)
-            priv_hex = data.get("private_key", "")
-            pub_hex = data.get("public_key", "")
-            if priv_hex and pub_hex and len(priv_hex) == 64:
-                return priv_hex, pub_hex
-    except Exception:
-        pass
+    if os.path.isfile(_NOSTR_KEY_FILE):
+        existing = _read_key_file()
+        if existing is not None:
+            return existing
 
     _s = _import_secp()
     priv_bytes = _s.generate_private_key()
@@ -157,9 +228,7 @@ def _load_or_create_key() -> tuple[str, str]:
     pub_hex = pub_bytes.hex()
 
     try:
-        os.makedirs(os.path.dirname(_NOSTR_KEY_FILE), exist_ok=True)
-        with open(_NOSTR_KEY_FILE, "w") as f:
-            json.dump({"private_key": priv_hex, "public_key": pub_hex}, f)
+        _write_key_file(priv_hex, pub_hex)
     except Exception:
         pass
 
