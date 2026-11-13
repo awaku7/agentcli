@@ -149,6 +149,11 @@ def _save_scoped_marker(note: str) -> dict[str, Any] | None:
             scoped = ScopedMemoryStore(store, context)
             key = note_key_for(text)
             for record in scoped.records():
+                if str(record.get("owner_id") or "") != turn.principal_id:
+                    # Notes shared through read grants are readable but
+                    # are not the principal's own records: they must not
+                    # block (or stand in for) the principal's own save.
+                    continue
                 if note_key_for(str(record.get("note") or "")) == key:
                     return {
                         "saved": False,

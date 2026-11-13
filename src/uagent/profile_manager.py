@@ -628,14 +628,22 @@ def _update_profile_in_messages(
         pass
 
 
-def _drop_forgotten_profile_items(profile: dict[str, Any]) -> dict[str, Any]:
+def _drop_forgotten_profile_items(
+    profile: dict[str, Any], principal_id: str = ""
+) -> dict[str, Any]:
     """Remove extracted profile items that match forgotten memory notes.
 
     Profile learning re-reads conversation logs, so without this check
     it would quietly re-create content the user deleted from long-term
     memory. Matching uses the same normalized note key as memory
-    duplicate detection.
+    duplicate detection. The boundary comes from the LOCAL memory
+    store, so it applies only to local profile learning: a Web
+    principal's profile must not be filtered by the server-local
+    user's forgets (and the scoped store keeps no tombstones to build
+    a principal-specific boundary from).
     """
+    if principal_id:
+        return profile
     try:
         from .tools.long_memory import forgotten_note_keys, note_key_for
 
@@ -762,7 +770,7 @@ def _profile_worker(
             return
         # Forget boundary: never re-learn items the user deliberately
         # forgot from long-term memory.
-        new_profile = _drop_forgotten_profile_items(new_profile)
+        new_profile = _drop_forgotten_profile_items(new_profile, principal_id)
 
         # 4) Smart Merge and Save
         old_profile = load_profile(principal_id)

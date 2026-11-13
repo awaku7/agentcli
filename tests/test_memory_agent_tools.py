@@ -422,6 +422,81 @@ def test_profile_items_matching_forgotten_notes_are_dropped(
     assert profile["constraints"] == []
 
 
+def test_profile_forget_filter_does_not_apply_to_web_principals(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The forget boundary is built from the LOCAL store's tombstones;
+    # it must not filter a Web principal's profile learning.
+    from uagent.profile_manager import _drop_forgotten_profile_items
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("テストは pytest を使う", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    profile = {"preferences": ["テストは pytest を使う"], "constraints": []}
+    assert _drop_forgotten_profile_items(profile, "alice")["preferences"] == [
+        "テストは pytest を使う"
+    ]
+    assert _drop_forgotten_profile_items(profile)["preferences"] == []
+
+
+def test_scoped_marker_dedup_ignores_granted_notes(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A note shared with the principal through a read grant is readable
+    # but is not the principal's own record: it must not block the
+    # principal's own marker save of the same text.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        bob = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="bob",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        bob_record = bob.append("会議は月曜10時")
+        bob.share(str(bob_record["memory_id"]), "alice", expected_revision=1)
+    finally:
+        memory_store.close()
+
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        private_session=True,
+        server_bound_project=True,
+    )
+    with bind_turn_context(turn):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    store.close()
+
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        rows = memory_store.db.execute(
+            "SELECT owner_id, note FROM memories WHERE note = '会議は月曜10時'"
+        ).fetchall()
+    finally:
+        memory_store.close()
+    assert {str(dict(row)["owner_id"]) for row in rows} == {"bob", "alice"}
+
+
 def test_marker_not_saved_for_non_local_web_turn(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
