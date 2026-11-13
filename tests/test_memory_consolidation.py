@@ -122,7 +122,7 @@ def test_marker_replay_cannot_resurrect_consolidation_note(
     live = memory_marker.save_memory_marker(f"remember: {note}")
     assert live is not None and live.get("reason") == "duplicate"
     record = long_memory.load_long_memory_records()[0]
-    assert long_memory.delete_long_memory_entry(str(record["memory_id"]))
+    assert long_memory.delete_long_memory_by_id(str(record["memory_id"]))
     assert long_memory.load_long_memory_records() == []
     replayed = memory_marker.save_memory_marker(
         f"remember: {note}", allow_scoped=False, replay=True

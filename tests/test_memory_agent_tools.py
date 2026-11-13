@@ -359,6 +359,7 @@ def test_background_save_cannot_resurrect_forgotten_note(
     assert restated["saved"] is True
 
 
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
 def test_replay_save_cannot_resurrect_forgotten_note(
     backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
