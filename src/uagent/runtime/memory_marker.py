@@ -76,13 +76,17 @@ def _local_identity_turn() -> bool:
         return True
 
 
-def save_memory_marker(content: str) -> dict[str, Any] | None:
+def save_memory_marker(
+    content: str, *, allow_scoped: bool = True
+) -> dict[str, Any] | None:
     """Save the marked note in ``content`` immediately, if it has a marker.
 
     Returns the save result dict when a marker was present (saved or
     not), or None when the message carries no marker or the fallback is
     disabled. Never raises: the marker path must not break message
-    logging.
+    logging. ``allow_scoped=False`` (history rewrites) suppresses the
+    scoped save: the scoped store forgets by hard deletion, so a
+    rewrite re-scan could otherwise resurrect a forgotten scoped note.
     """
     if not marker_enabled():
         return None
@@ -90,6 +94,8 @@ def save_memory_marker(content: str) -> dict[str, Any] | None:
     if note is None:
         return None
     if not _local_identity_turn():
+        if not allow_scoped:
+            return None
         return _save_scoped_marker(note)
     try:
         from ..tools.long_memory import save_long_memory
@@ -107,8 +113,10 @@ def _save_scoped_marker(note: str) -> dict[str, Any] | None:
     private session has a scoped store of their own. The same screens
     as the checked save path apply (length, credentials) and duplicates
     are refused. The scoped store forgets by hard deletion, so — as in
-    the scoped Web API itself — a marker repeated after a forget saves
-    again; there is no tombstone to match against. Room (non-private)
+    the scoped Web API itself — a marker written again as a new message
+    after a forget saves again; there is no tombstone to match against.
+    History rewrites never re-fire scoped saves (see save_memory_marker).
+    Room (non-private)
     turns and the JSONL backend have no scoped personal store to write
     to, so they return None (no save), keeping the local-only fence
     for them.

@@ -85,8 +85,9 @@ store. Non-local Web turns are fenced off from that store just like
 the legacy memory API; an authenticated principal in a private Web
 session instead saves the marked note into their own scoped personal
 memory (the scoped store forgets by hard deletion, so a marker
-repeated after a scoped forget saves again, as in the scoped Web API
-itself). Room turns have no personal store and save nothing.
+written again as a new message after a scoped forget saves again, as
+in the scoped Web API itself; history rewrites never re-fire scoped
+saves). Room turns have no personal store and save nothing.
 
 #### Background consolidation and the forget boundary
 

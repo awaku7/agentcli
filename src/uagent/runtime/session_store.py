@@ -1361,12 +1361,16 @@ class SessionStore:
         self._save_memory_marker(content, role)
         return message_id
 
-    def _save_memory_marker(self, content: str, role: str) -> None:
+    def _save_memory_marker(
+        self, content: str, role: str, *, allow_scoped: bool = True
+    ) -> None:
         """Save a ``remember:``/``記憶：`` marked user note immediately.
 
         Runs after the message transaction commits and never raises: the
         marker fallback must not break message logging. Successful saves
         queue a one-line notice for the UI (see drain_memory_notices).
+        ``allow_scoped=False`` is used by history rewrites: scoped saves
+        must not re-fire there (see replace_messages).
         """
         if role != "user":
             return
@@ -1376,7 +1380,7 @@ class SessionStore:
             note = extract_memory_marker(content)
             if note is None:
                 return
-            result = save_memory_marker(content)
+            result = save_memory_marker(content, allow_scoped=allow_scoped)
             if result and result.get("saved"):
                 self._memory_notices.append(
                     _("[memory] saved from marker: %(note)s")
@@ -1653,13 +1657,19 @@ class SessionStore:
             except sqlite3.Error:
                 pass
             raise
-        # Marker saves are idempotent (keyed by note content), so scanning
-        # the rewritten history cannot duplicate or resurrect a note.
+        # Legacy marker saves are idempotent (keyed by note content and
+        # blocked by tombstones), so re-scanning the rewritten history
+        # cannot duplicate or resurrect a local note. Scoped saves are
+        # skipped here: the scoped store forgets by hard deletion, so
+        # there is no tombstone to stop a re-scan from bringing a
+        # forgotten scoped note back. Markers are detected when a
+        # message is written; a rewrite is not a new write.
         for message in messages:
             if isinstance(message, dict):
                 self._save_memory_marker(
                     str(message.get("content") or ""),
                     str(message.get("role") or ""),
+                    allow_scoped=False,
                 )
 
     @_db_locked

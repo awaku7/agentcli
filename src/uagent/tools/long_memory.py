@@ -190,7 +190,9 @@ def save_long_memory(
     ``duplicate``, ``secret``, ``too_long``, ``empty`` or ``error`` and the
     ``memory_id`` when a record exists. The checks keep credentials and
     exact re-saves out of the store; ``source``/``source_id`` record the
-    provenance and make repeated saves of the same origin idempotent.
+    provenance and make repeated saves of the same origin idempotent
+    within the same owner/project scope (the same content saved under
+    another project is a different note).
     """
     from ..runtime.memory_scope import resolve_memory_owner
 
@@ -213,7 +215,9 @@ def save_long_memory(
             try:
                 if source_id:
                     for record in store.records(include_inactive=True):
-                        if str(record.get("source_id") or "") == source_id:
+                        if str(
+                            record.get("source_id") or ""
+                        ) == source_id and _same_scope(record, owner, project):
                             if _is_active(record):
                                 return {
                                     "saved": False,
@@ -276,7 +280,9 @@ def save_long_memory(
         existing = _load_jsonl_records(include_deleted=True)
         if source_id:
             for record in existing:
-                if str(record.get("source_id") or "") == source_id:
+                if str(record.get("source_id") or "") == source_id and _same_scope(
+                    record, owner, project
+                ):
                     if _is_active(record):
                         return {
                             "saved": False,

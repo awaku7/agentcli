@@ -552,6 +552,104 @@ def test_marker_saved_to_scoped_memory_for_private_web_turn(
 
 
 @pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_source_id_match_is_scoped_to_project(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A source_id identifies one origin within one owner/project scope:
+    # the same marked text in another project is a different note, not
+    # a replay of the first project's (possibly forgotten) record.
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-a", source="marker", source_id="marker:abc"
+    )
+    assert first["saved"] is True
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    again_a = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-a", source="marker", source_id="marker:abc"
+    )
+    assert again_a["saved"] is False
+    assert again_a["reason"] == "deleted"
+
+    in_b = long_memory.save_long_memory(
+        "同じ文面のメモ", project="proj-b", source="marker", source_id="marker:abc"
+    )
+    assert in_b["saved"] is True
+
+
+def test_scoped_marker_not_resurrected_by_history_rewrite(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The scoped store forgets by hard deletion, so a history rewrite
+    # must not re-fire the marker save: there is no tombstone left to
+    # block the re-scan.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        private_session=True,
+        server_bound_project=True,
+    )
+
+    def _scoped_notes() -> list[str]:
+        memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+        try:
+            rows = memory_store.db.execute(
+                "SELECT note FROM memories WHERE owner_id = 'alice'"
+            ).fetchall()
+            return [str(dict(row)["note"]) for row in rows]
+        finally:
+            memory_store.close()
+
+    with bind_turn_context(turn):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    assert _scoped_notes() == ["会議は月曜10時"]
+
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        scoped = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="alice",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        record = scoped.records()[0]
+        scoped.forget(str(record["memory_id"]), expected_revision=1)
+    finally:
+        memory_store.close()
+    assert _scoped_notes() == []
+
+    with bind_turn_context(turn):
+        store.replace_messages(
+            session.session_id,
+            [{"role": "user", "content": "remember: 会議は月曜10時"}],
+        )
+    assert _scoped_notes() == []
+    store.close()
+
+
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
 def test_duplicate_detection_keeps_meaningful_punctuation(
     backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
