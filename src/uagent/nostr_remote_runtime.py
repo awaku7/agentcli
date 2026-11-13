@@ -559,18 +559,26 @@ class NostrRemoteRuntime:
     def _note_delivery_rejections(self, deliveries: list[Any]) -> None:
         """Remember which relays refused the latest reply, with their reasons.
 
-        Relay messages are remote-controlled text, so they are stored
-        whitespace-normalized and bounded, for status display and the
-        structured log only.
+        Relay messages are remote-controlled text, so they are stored with
+        non-printable characters replaced, whitespace-normalized and
+        bounded, for status display and the structured log only.
         """
         noted: list[dict[str, str]] = []
         for delivery in deliveries:
             if getattr(delivery, "accepted", False):
                 continue
-            relay = str(getattr(delivery, "relay_url", "") or "")[:128]
-            message = " ".join(str(getattr(delivery, "message", "") or "").split())[
-                :200
-            ]
+            relay = " ".join(
+                "".join(
+                    char if char.isprintable() else " "
+                    for char in str(getattr(delivery, "relay_url", "") or "")
+                ).split()
+            )[:128]
+            message = " ".join(
+                "".join(
+                    char if char.isprintable() else " "
+                    for char in str(getattr(delivery, "message", "") or "")
+                ).split()
+            )[:200]
             noted.append({"relay": relay, "message": message})
             if len(noted) >= 4:
                 break

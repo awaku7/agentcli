@@ -358,6 +358,32 @@ def test_reply_delivers_when_one_recipient_relay_rejects(tmp_path, monkeypatch):
         outbox.close()
 
 
+def test_delivery_rejection_sanitizes_terminal_control_characters(
+    tmp_path, monkeypatch
+):
+    runtime, outbox, _sender_pubkey, stores = _per_relay_runtime(
+        tmp_path, monkeypatch, rejected=set()
+    )
+    try:
+        runtime._note_delivery_rejections(  # noqa: SLF001
+            [
+                SimpleNamespace(
+                    accepted=False,
+                    relay_url="wss://local-b.example",
+                    message="blocked\x1b[31m\x07: no",
+                )
+            ]
+        )
+        rejections = runtime.status()["diagnostics"]["delivery_rejections"]
+        assert rejections == [
+            {"relay": "wss://local-b.example", "message": "blocked [31m : no"}
+        ]
+    finally:
+        for store in stores:
+            store.close()
+        outbox.close()
+
+
 def test_reply_not_delivered_when_every_recipient_relay_rejects(tmp_path, monkeypatch):
     runtime, outbox, sender_pubkey, stores = _per_relay_runtime(
         tmp_path,
