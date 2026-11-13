@@ -12,27 +12,43 @@ from ..runtime.startup_timing import measure_detail
 from .provider_caps import ALL_PROVIDERS
 
 
-def _ensure_provider_dependency(provider: str) -> None:
-    """Install a provider SDK only when that provider is actually selected."""
+def provider_sdk_module(provider: str) -> str | None:
+    """Return the importable SDK module required by a provider, if known.
+
+    ``None`` means the provider has its own lazy dependency handling, so the
+    CLI should not try to preload it in the background.
+    """
     # These providers already perform their own provider-specific lazy
     # installation/fallback handling in make_client(). Do not pre-install a
     # second SDK here.
     if provider in {"grok", "zai", "together", "openrouter"}:
-        return
+        return None
 
     if provider == "lmstudio":
         transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
-        if transport == "sdk":
-            packages = {"lmstudio": ("lmstudio", "lmstudio")}
-        else:
-            packages = {"lmstudio": ("openai", "openai")}
+        return "lmstudio" if transport == "sdk" else "openai"
+
+    return {
+        "claude": "anthropic",
+        "gemini": "google.genai",
+        "vertexai": "google.genai",
+    }.get(provider, "openai")
+
+
+def _ensure_provider_dependency(provider: str) -> None:
+    """Install a provider SDK only when that provider is actually selected."""
+    module_name = provider_sdk_module(provider)
+    if module_name is None:
+        return
+
+    if provider == "claude":
+        package_name = "anthropic"
+    elif provider in {"gemini", "vertexai"}:
+        package_name = "google-genai"
+    elif provider == "lmstudio" and module_name == "lmstudio":
+        package_name = "lmstudio"
     else:
-        packages = {
-            "claude": ("anthropic", "anthropic"),
-            "gemini": ("google-genai", "google.genai"),
-            "vertexai": ("google-genai", "google.genai"),
-        }
-    package_name, module_name = packages.get(provider, ("openai", "openai"))
+        package_name = "openai"
     try:
         from .._pip_auto import install_with_status
 

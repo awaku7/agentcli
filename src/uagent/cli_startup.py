@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .runtime.startup_timing import checkpoint
+from .runtime.startup_timing import checkpoint, measure_detail
 
 _ROLE_FILE_MAX_BYTES = 64 * 1024
 
@@ -69,6 +69,56 @@ def _preload_laya_torch_for_startup(
     """Never import host-side Laya dependencies during a sandboxed startup."""
     if not sandbox_enabled:
         preload(decision_settings)
+
+
+def _preload_provider_sdk(sdk_module: str) -> bool:
+    """Import provider SDKs only; client construction stays on the CLI thread."""
+    try:
+        with measure_detail("provider.sdk_preload"):
+            __import__(sdk_module, fromlist=["*"])
+    except Exception:
+        # Keep dependency installation and any prompt in the foreground path.
+        return False
+
+    # OpenAI-compatible clients also create an httpx.Client. Importing httpx
+    # here overlaps that cost without constructing a client or opening sockets.
+    if sdk_module == "openai":
+        try:
+            with measure_detail("provider.httpx_preload"):
+                __import__("httpx")
+        except Exception:
+            pass
+    return True
+
+
+def _start_provider_client_preload(providers: Any) -> tuple[Any, Any]:
+    """Start a known SDK import while independent startup work continues."""
+    try:
+        provider = providers.detect_provider()
+        sdk_module = providers.provider_sdk_module(provider)
+    except Exception:
+        return None, None
+    if not sdk_module:
+        return None, None
+
+    # The worker only imports modules. If the SDK is absent/broken, make_client
+    # later performs its usual foreground install/prompt fallback.
+    from concurrent.futures import ThreadPoolExecutor
+    from contextvars import copy_context
+
+    executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="uag-provider")
+    context = copy_context()
+    future = executor.submit(context.run, _preload_provider_sdk, sdk_module)
+    return executor, future
+
+
+def _resolve_provider_client_preload(
+    core: Any, providers: Any, future: Any | None
+) -> tuple[str, Any, str]:
+    """Wait for the SDK preload, then build the client on the startup thread."""
+    if future is not None:
+        future.result()
+    return providers.make_client(core)
 
 
 def _configure_cli_startup_tools(
@@ -251,6 +301,8 @@ def run_cli_startup(
 
     startup_capture_out = io.StringIO()
     startup_capture_err = io.StringIO()
+    provider_preload_executor = None
+    provider_preload_future = None
 
     def _flush_startup_pager_and_continue() -> None:
         combined = startup_capture_out.getvalue() + startup_capture_err.getvalue()
@@ -400,6 +452,13 @@ def run_cli_startup(
             _startup_timing_mark("env")
             checkpoint("decision_preload_complete")
 
+            # Pre-import the selected SDK while independent startup assets and
+            # plugins are prepared. The worker never constructs a client or
+            # invokes the installer; the normal foreground path does both.
+            provider_preload_executor, provider_preload_future = (
+                _start_provider_client_preload(providers)
+            )
+
             banner = build_startup_banner(
                 core=core,
                 workdir=decision.chosen_expanded,
@@ -426,7 +485,9 @@ def run_cli_startup(
             checkpoint("plugins_ready")
 
             try:
-                provider, client, depname = providers.make_client(core)
+                provider, client, depname = _resolve_provider_client_preload(
+                    core, providers, provider_preload_future
+                )
             except (ValueError, RuntimeError) as e:
                 print("error: " + _("%(err)s") % {"err": e}, file=sys.stderr)
                 sys.exit(2)
@@ -501,6 +562,9 @@ def run_cli_startup(
         except Exception:
             pass
         raise
+    finally:
+        if provider_preload_executor is not None:
+            provider_preload_executor.shutdown(wait=True, cancel_futures=True)
 
     _startup_timing_mark("memory")
     checkpoint("long_memory_ready")
