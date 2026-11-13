@@ -19,6 +19,7 @@ from uagent.nostr_remote_transport import (
     listen_nip17_messages,
     publish_nip17_gift_wrap,
     publish_nip17_gift_wraps,
+    publish_relay_list_event,
 )
 from uagent.tools.nostr_transport import _verify_event
 
@@ -167,6 +168,57 @@ def test_publish_nip17_wrap_handles_nip42_auth() -> None:
         ["challenge", "relay-challenge"],
     ]
     assert _verify_event(auth_event)
+
+
+def test_publish_relay_list_event_accepted() -> None:
+    event = create_nip17_relay_list_event(["wss://relay.example.org"], _secret(1))
+    socket = FakeWebSocket()
+
+    result = asyncio.run(
+        publish_relay_list_event(
+            "wss://relay.example.org",
+            event,
+            _secret(1),
+            allowed_relay_urls=["wss://relay.example.org"],
+            connect_factory=lambda _url, **_kwargs: socket,
+        )
+    )
+
+    assert result.accepted is True
+    assert result.event_id == event["id"]
+    assert socket.sent[0][0] == "EVENT"
+    assert socket.sent[0][1]["kind"] == 10050
+    assert socket.sent[0][1]["tags"] == [["relay", "wss://relay.example.org"]]
+
+
+def test_publish_relay_list_event_rejects_gift_wrap() -> None:
+    wrap = create_nip17_private_messages(
+        "hello", _secret(1), RECIPIENT_PUBLIC, now=1_700_000_000
+    )[0]
+    with pytest.raises(ValueError, match="kind-10050"):
+        asyncio.run(
+            publish_relay_list_event(
+                "wss://relay.example.org",
+                wrap,
+                _secret(1),
+                allowed_relay_urls=["wss://relay.example.org"],
+                connect_factory=lambda *_a, **_k: None,
+            )
+        )
+
+
+def test_publish_relay_list_event_rejects_foreign_author() -> None:
+    event = create_nip17_relay_list_event(["wss://relay.example.org"], _secret(2))
+    with pytest.raises(ValueError, match="does not match the signing key"):
+        asyncio.run(
+            publish_relay_list_event(
+                "wss://relay.example.org",
+                event,
+                _secret(1),
+                allowed_relay_urls=["wss://relay.example.org"],
+                connect_factory=lambda *_a, **_k: None,
+            )
+        )
 
 
 def test_publish_waits_for_auth_challenge_after_auth_required_ok() -> None:
