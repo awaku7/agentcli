@@ -142,6 +142,7 @@ from .util_cmd_session import (
     _handle_cmd_tokens,
     _handle_cmd_mem_list,
     _handle_cmd_mem_del,
+    _handle_cmd_mem_restore,
     _handle_cmd_mem_vacuum,
     _handle_cmd_shared_mem_list,
     _handle_cmd_profile_show,
@@ -326,6 +327,9 @@ def handle_command(
 
     if cmd == "mem-del":
         return _handle_cmd_mem_del(arg, tr=tr)
+
+    if cmd == "mem-restore":
+        return _handle_cmd_mem_restore(arg, tr=tr)
 
     if cmd == "mem-vacuum":
         return _handle_cmd_mem_vacuum(arg, tr=tr)

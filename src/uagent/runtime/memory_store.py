@@ -521,6 +521,117 @@ class MemoryStore:
             raise
         return True
 
+    def tombstone_by_id(
+        self, memory_id: str, *, expected_revision: int | None = None
+    ) -> bool:
+        """Mark one active record deleted without removing its row.
+
+        Tombstoned records disappear from ``records()`` and projection, but
+        the row (including its note) survives so the deletion can be undone
+        with :meth:`restore_by_id` and so re-learning paths can still see
+        that the content was deliberately forgotten.
+        """
+        current = self._get_by_id(str(memory_id))
+        if current is None or current.get("status") != "active":
+            return False
+        if expected_revision is not None and int(current.get("revision") or 0) != int(
+            expected_revision
+        ):
+            raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+        now = time.time()
+        try:
+            cursor = self.db.execute(
+                "UPDATE memories SET status = 'deleted', updated_at = ?, "
+                "revision = ? WHERE memory_id = ? AND status = 'active' "
+                "AND revision = ?",
+                (
+                    now,
+                    int(current.get("revision") or 0) + 1,
+                    str(memory_id),
+                    int(current.get("revision") or 0),
+                ),
+            )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
+    def restore_by_id(self, memory_id: str) -> bool:
+        """Undo a tombstone, returning the record to active status."""
+        current = self._get_by_id(str(memory_id))
+        if current is None or current.get("status") != "deleted":
+            return False
+        now = time.time()
+        try:
+            cursor = self.db.execute(
+                "UPDATE memories SET status = 'active', updated_at = ?, "
+                "revision = ? WHERE memory_id = ? AND status = 'deleted' "
+                "AND revision = ?",
+                (
+                    now,
+                    int(current.get("revision") or 0) + 1,
+                    str(memory_id),
+                    int(current.get("revision") or 0),
+                ),
+            )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
+    def bind_source_id(
+        self, memory_id: str, *, source: str = "", source_id: str = ""
+    ) -> bool:
+        """Fill in empty provenance fields on an existing record.
+
+        Used when a checked save is rejected as a duplicate but carries
+        provenance the store has not recorded yet (for example a memory
+        marker): without the association, deleting the record later would
+        leave a tombstone that replays of that source cannot be matched
+        against, and forgotten content could silently come back. Existing
+        provenance is never overwritten, and a source_id already carried
+        by another record is left alone (the column is uniquely indexed).
+        Returns True when the record was updated.
+        """
+        target = str(memory_id or "").strip()
+        if not target:
+            return False
+        current = self._get_by_id(target)
+        if current is None:
+            return False
+        new_source = str(current.get("source") or "") or str(source or "")
+        new_source_id = str(current.get("source_id") or "") or str(source_id or "")
+        if new_source == str(current.get("source") or "") and new_source_id == str(
+            current.get("source_id") or ""
+        ):
+            return False
+        if new_source_id and new_source_id != str(current.get("source_id") or ""):
+            row = self.db.execute(
+                "SELECT memory_id FROM memories WHERE source_id = ? "
+                "AND memory_id <> ?",
+                (new_source_id, target),
+            ).fetchone()
+            if row is not None:
+                return False
+        try:
+            self.db.execute(
+                "UPDATE memories SET source = ?, source_id = ? " "WHERE memory_id = ?",
+                (new_source or None, new_source_id or None, target),
+            )
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
     def replace(self, records: list[dict[str, object]]) -> None:
         """Compatibility rewrite preserving supplied stable IDs when possible."""
         incoming_ids: set[str] = set()

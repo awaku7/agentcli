@@ -6,9 +6,11 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 import time
+import unicodedata
 import uuid
 from pathlib import Path
 from typing import Any
@@ -75,8 +77,243 @@ def _resolve_project(project: str = "") -> str:
     return resolve_memory_project()
 
 
-def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool:
-    """Append one personal memory record and report whether it was saved."""
+#: Upper bound for one memory note saved through the checked save path.
+NOTE_MAX_CHARS = 1000
+
+_SECRET_LABEL_RE = re.compile(
+    r"(password|passwd|pwd|secret|private[_\s-]?key|api[_\s-]?key|access[_\s-]?token|auth[_\s-]?token)"
+    r"\s*[:=]\s*\S+",
+    re.IGNORECASE,
+)
+_SECRET_SHAPE_RE = re.compile(
+    r"(sk-[A-Za-z0-9_-]{16,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|"
+    r"AKIA[A-Z0-9]{16}|AIza[A-Za-z0-9_-]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|"
+    r"-----BEGIN [A-Z ]*PRIVATE KEY-----)"
+)
+
+
+def looks_like_secret(text: str) -> bool:
+    """Return True when a note clearly carries a credential value.
+
+    The check is deliberately conservative: it only matches labelled
+    secret assignments and well-known key shapes, so ordinary notes that
+    merely mention passwords or tokens are not rejected.
+    """
+    value = str(text or "")
+    return bool(_SECRET_LABEL_RE.search(value) or _SECRET_SHAPE_RE.search(value))
+
+
+# Sentence punctuation ignored by _note_key: ideographic comma (U+3001),
+# ideographic full stop (U+3002) and katakana middle dot (U+30FB).
+# Written as escapes: utility modules keep non-ASCII out of code literals.
+_SENTENCE_PUNCTUATION = frozenset("\u3001\u3002\u30fb")
+_EDGE_PUNCTUATION = ".!?"
+
+
+def _note_key(text: str) -> str:
+    """Normalize a note for duplicate comparison.
+
+    NFKC + casefold, with whitespace and sentence punctuation (、。・)
+    ignored and sentence-final punctuation (. ! ?) ignored at the edges.
+    Punctuation inside the text is kept, because it can carry meaning:
+    "/tmp/a-b" and "/tmp/ab" are different notes, not duplicates.
+    """
+    normalized = unicodedata.normalize("NFKC", str(text or "")).casefold()
+    key = "".join(
+        char
+        for char in normalized
+        if not char.isspace() and char not in _SENTENCE_PUNCTUATION
+    )
+    return key.strip(_EDGE_PUNCTUATION)
+
+
+def _is_active(record: dict[str, Any]) -> bool:
+    status = str(record.get("status") or "active").strip().lower()
+    return status in {"", "active"}
+
+
+def _same_scope(record: dict[str, Any], owner: str, project: str) -> bool:
+    """Whether a record lives in the owner/project scope being saved to.
+
+    Duplicate detection is scope-local: the same note may legitimately
+    exist once per project, and retrieval never crosses project borders,
+    so an out-of-scope record must not block (or claim) a save.
+    """
+    return (
+        str(record.get("owner") or "") == owner
+        and str(record.get("project") or "") == project
+    )
+
+
+def _env_disabled(name: str) -> bool:
+    return (env_get(name) or "").strip().lower() in ("0", "false", "no", "off")
+
+
+def tool_save_enabled() -> bool:
+    """Whether the agent-facing memory write tools are offered at all.
+
+    Opt out per feature with ``UAGENT_MEMORY_TOOL_SAVE=0`` (or everything
+    memory-related with the master ``UAGENT_MEMORY=0``). Read access via
+    get_long_memory is not affected.
+    """
+    if _env_disabled("UAGENT_MEMORY"):
+        return False
+    return not _env_disabled("UAGENT_MEMORY_TOOL_SAVE")
+
+
+def save_long_memory(
+    note: str,
+    *,
+    owner: str = "",
+    project: str = "",
+    source: str = "",
+    source_id: str = "",
+) -> dict[str, Any]:
+    """Save one note through the checked save path used by agent-facing writers.
+
+    Returns a result dict with ``saved`` plus a ``reason`` of ``saved``,
+    ``duplicate``, ``secret``, ``too_long``, ``empty`` or ``error`` and the
+    ``memory_id`` when a record exists. The checks keep credentials and
+    exact re-saves out of the store; ``source``/``source_id`` record the
+    provenance and make repeated saves of the same origin idempotent.
+    """
+    from ..runtime.memory_scope import resolve_memory_owner
+
+    text = str(note or "").strip()
+    if not text:
+        return {"saved": False, "reason": "empty", "memory_id": ""}
+    if len(text) > NOTE_MAX_CHARS:
+        return {"saved": False, "reason": "too_long", "memory_id": ""}
+    if looks_like_secret(text):
+        return {"saved": False, "reason": "secret", "memory_id": ""}
+
+    owner = resolve_memory_owner(owner)
+    project = _resolve_project(project)
+    key = _note_key(text)
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                if source_id:
+                    for record in store.records(include_inactive=True):
+                        if str(record.get("source_id") or "") == source_id:
+                            if _is_active(record):
+                                return {
+                                    "saved": False,
+                                    "reason": "duplicate",
+                                    "memory_id": str(record.get("memory_id") or ""),
+                                }
+                            return {
+                                "saved": False,
+                                "reason": "deleted",
+                                "memory_id": str(record.get("memory_id") or ""),
+                            }
+                for record in store.records():
+                    if _note_key(str(record.get("note") or "")) == key and _same_scope(
+                        record, owner, project
+                    ):
+                        if source_id and not str(record.get("source_id") or ""):
+                            # Remember where this content also came from, so
+                            # a later tombstone still blocks replays of that
+                            # source even though this save added no record.
+                            store.bind_source_id(
+                                str(record.get("memory_id") or ""),
+                                source=source,
+                                source_id=source_id,
+                            )
+                        return {
+                            "saved": False,
+                            "reason": "duplicate",
+                            "memory_id": str(record.get("memory_id") or ""),
+                        }
+                record = store.append(
+                    text,
+                    owner=owner,
+                    project=project,
+                    source=source,
+                    source_id=source_id,
+                )
+                return {
+                    "saved": True,
+                    "reason": "saved",
+                    "memory_id": str(record.get("memory_id") or ""),
+                }
+            finally:
+                store.close()
+        except Exception:
+            return {"saved": False, "reason": "error", "memory_id": ""}
+    memory_file = get_memory_file_path()
+    try:
+        existing = _load_jsonl_records(include_deleted=True)
+        if source_id:
+            for record in existing:
+                if str(record.get("source_id") or "") == source_id:
+                    if _is_active(record):
+                        return {
+                            "saved": False,
+                            "reason": "duplicate",
+                            "memory_id": str(record.get("memory_id") or ""),
+                        }
+                    return {
+                        "saved": False,
+                        "reason": "deleted",
+                        "memory_id": str(record.get("memory_id") or ""),
+                    }
+        for record in existing:
+            if (
+                _is_active(record)
+                and _note_key(str(record.get("note") or "")) == key
+                and _same_scope(record, owner, project)
+            ):
+                if source_id and not str(record.get("source_id") or ""):
+                    # Same provenance binding as the SQLite path: record
+                    # where this content also came from so a later
+                    # tombstone still blocks replays of that source.
+                    record["source_id"] = source_id
+                    if source and not str(record.get("source") or ""):
+                        record["source"] = source
+                    _rewrite_jsonl_records(existing)
+                return {
+                    "saved": False,
+                    "reason": "duplicate",
+                    "memory_id": str(record.get("memory_id") or ""),
+                }
+        dirpath = os.path.dirname(memory_file)
+        if dirpath:
+            os.makedirs(dirpath, exist_ok=True)
+        now = time.time()
+        record = {
+            "schema_version": JSONL_SCHEMA_VERSION,
+            "memory_id": uuid.uuid4().hex,
+            "created_at": now,
+            "updated_at": now,
+            "ts": now,
+            "note": text,
+            "owner": owner,
+            "project": project,
+            "kind": "note",
+            "source": source,
+            "source_id": source_id,
+            "revision": 1,
+            "status": "active",
+        }
+        with open(memory_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        return {"saved": True, "reason": "saved", "memory_id": record["memory_id"]}
+    except Exception:
+        return {"saved": False, "reason": "error", "memory_id": ""}
+
+
+def append_long_memory(
+    note: str, *, owner: str = "", project: str = "", source: str = ""
+) -> bool:
+    """Append one personal memory record and report whether it was saved.
+
+    Kept for existing callers; new agent-facing writers should use
+    :func:`save_long_memory` so duplicates and secrets are screened out.
+    """
     from ..runtime.memory_scope import resolve_memory_owner
 
     owner = resolve_memory_owner(owner)
@@ -87,7 +324,7 @@ def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool
 
             store = open_memory_store(_sqlite_path())
             try:
-                store.append(note, owner=owner, project=project)
+                store.append(note, owner=owner, project=project, source=source)
             finally:
                 store.close()
             return True
@@ -109,6 +346,8 @@ def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool
             "owner": owner,
             "project": project,
             "kind": "note",
+            "source": source,
+            "source_id": "",
             "revision": 1,
             "status": "active",
         }
@@ -266,9 +505,12 @@ def load_long_memory_raw() -> str:
                 json.dumps(record, ensure_ascii=False) + "\n" for record in records
             )
         else:
-            memory_file = get_memory_file_path()
-            with open(memory_file, encoding="utf-8") as f:
-                data = f.read(max_bytes + 1)
+            records = _load_jsonl_records(include_deleted=False)
+            if not records:
+                return _("msg.no_memory", default="(no long-term memory yet)")
+            data = "".join(
+                json.dumps(record, ensure_ascii=False) + "\n" for record in records
+            )
     except FileNotFoundError:
         return _("msg.no_memory", default="(no long-term memory yet)")
     except Exception as e:
@@ -314,6 +556,11 @@ def load_long_memory_records() -> list[dict[str, Any]]:
                 store.close()
         except Exception as exc:
             raise MemoryLoadError(type(exc).__name__) from None
+    return _load_jsonl_records(include_deleted=False)
+
+
+def _load_jsonl_records(*, include_deleted: bool) -> list[dict[str, Any]]:
+    """Read JSONL memory rows, hiding tombstoned rows unless requested."""
     memory_file = get_memory_file_path()
     records: list[dict[str, Any]] = []
     try:
@@ -327,7 +574,8 @@ def load_long_memory_records() -> list[dict[str, Any]]:
                 except Exception as exc:
                     raise MemoryLoadError(type(exc).__name__) from None
                 if isinstance(obj, dict) and "note" in obj:
-                    records.append(obj)
+                    if include_deleted or _is_active(obj):
+                        records.append(obj)
     except FileNotFoundError:
         pass
     except MemoryLoadError:
@@ -337,48 +585,10 @@ def load_long_memory_records() -> list[dict[str, Any]]:
     return records
 
 
-def update_long_memory_entry(index: int, note: str) -> bool:
-    """Update one record by index. Returns True on success."""
-    if _use_sqlite():
-        try:
-            records = load_long_memory_records()
-        except MemoryLoadError:
-            return False
-        if index < 0 or index >= len(records):
-            return False
-        target = records[index]
-        memory_id = str(target.get("memory_id") or "")
-        if not memory_id:
-            return False
-        try:
-            from ..runtime.memory_store import open_memory_store
-
-            store = open_memory_store(_sqlite_path())
-            try:
-                updated = store.update_by_id(
-                    memory_id,
-                    note,
-                    expected_revision=int(target.get("revision") or 1),
-                )
-            finally:
-                store.close()
-            return updated is not None
-        except Exception:
-            return False
-    try:
-        records = load_long_memory_records()
-    except MemoryLoadError:
-        return False
-    if index < 0 or index >= len(records):
-        return False
+def _rewrite_jsonl_records(records: list[dict[str, Any]]) -> bool:
+    """Rewrite the JSONL memory file with the full row set (incl. tombstones)."""
     memory_file = get_memory_file_path()
     try:
-        updated = dict(records[index])
-        updated["ts"] = time.time()
-        updated["note"] = note
-        updated["revision"] = int(updated.get("revision") or 1) + 1
-        updated["status"] = "active"
-        records[index] = updated
         dirpath = os.path.dirname(memory_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
@@ -388,6 +598,219 @@ def update_long_memory_entry(index: int, note: str) -> bool:
     except Exception:
         return False
     return True
+
+
+def list_deleted_long_memory_records() -> list[dict[str, Any]]:
+    """Return tombstoned records (status ``deleted``), newest first."""
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                records = store.records(include_inactive=True)
+            finally:
+                store.close()
+        except Exception:
+            return []
+    else:
+        try:
+            records = _load_jsonl_records(include_deleted=True)
+        except MemoryLoadError:
+            return []
+    deleted = [r for r in records if not _is_active(r)]
+    deleted.sort(key=lambda r: float(r.get("updated_at") or r.get("ts") or 0))
+    return deleted
+
+
+def find_long_memory_by_id(memory_id: str) -> dict[str, Any] | None:
+    """Return the active record for ``memory_id``, or None."""
+    target = str(memory_id or "").strip()
+    if not target:
+        return None
+    try:
+        records = load_long_memory_records()
+    except MemoryLoadError:
+        return None
+    for record in records:
+        if str(record.get("memory_id") or "") == target:
+            return record
+    return None
+
+
+def _jsonl_assign_legacy_id(index: int) -> str | None:
+    """Give the legacy JSONL record at active-list ``index`` a stable id.
+
+    Pre-migration JSONL rows may carry no memory_id; index-based update
+    and delete resolve through this so those rows stay editable instead
+    of failing the id check. The assigned id is the deterministic one
+    :func:`_legacy_jsonl_memory_id` derives from the row's position in
+    the full record list, and it is persisted in place; the explicit
+    migration keeps ids that are already present, so the two never
+    disagree once a row has been touched here. Returns None when the
+    index does not resolve to a record.
+    """
+    try:
+        records = _load_jsonl_records(include_deleted=True)
+    except MemoryLoadError:
+        return None
+    active_seen = -1
+    for position, record in enumerate(records):
+        if not _is_active(record):
+            continue
+        active_seen += 1
+        if active_seen != index:
+            continue
+        memory_id = str(record.get("memory_id") or "")
+        if memory_id:
+            return memory_id
+        memory_id = _legacy_jsonl_memory_id(record, position)
+        record["memory_id"] = memory_id
+        if not _rewrite_jsonl_records(records):
+            return None
+        return memory_id
+    return None
+
+
+def _entry_memory_id(records: list[dict[str, Any]], index: int) -> str | None:
+    """Resolve an active-list index to a memory_id, migrating legacy rows."""
+    memory_id = str(records[index].get("memory_id") or "")
+    if memory_id:
+        return memory_id
+    if _use_sqlite():
+        return None
+    return _jsonl_assign_legacy_id(index)
+
+
+def update_long_memory_entry(index: int, note: str) -> bool:
+    """Update one record by active-list index. Returns True on success."""
+    try:
+        records = load_long_memory_records()
+    except MemoryLoadError:
+        return False
+    if index < 0 or index >= len(records):
+        return False
+    memory_id = _entry_memory_id(records, index)
+    if not memory_id:
+        return False
+    return bool(update_long_memory_by_id(memory_id, note)["saved"])
+
+
+def update_long_memory_by_id(memory_id: str, note: str) -> dict[str, Any]:
+    """Replace the text of one active record, addressed by memory_id.
+
+    Returns a result dict like :func:`save_long_memory` (``saved`` is True
+    when the record now holds the new text). Secret-looking replacements
+    are rejected with reason ``secret``.
+    """
+    text = str(note or "").strip()
+    if not text:
+        return {"saved": False, "reason": "empty", "memory_id": ""}
+    if len(text) > NOTE_MAX_CHARS:
+        return {"saved": False, "reason": "too_long", "memory_id": ""}
+    if looks_like_secret(text):
+        return {"saved": False, "reason": "secret", "memory_id": ""}
+    target = find_long_memory_by_id(memory_id)
+    if target is None:
+        return {"saved": False, "reason": "not_found", "memory_id": ""}
+    target_id = str(target.get("memory_id") or "")
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                updated = store.update_by_id(
+                    target_id,
+                    text,
+                    expected_revision=int(target.get("revision") or 1),
+                )
+            finally:
+                store.close()
+            if updated is None:
+                return {"saved": False, "reason": "not_found", "memory_id": ""}
+            return {"saved": True, "reason": "saved", "memory_id": target_id}
+        except Exception:
+            return {"saved": False, "reason": "error", "memory_id": ""}
+    records = _load_jsonl_records(include_deleted=True)
+    for record in records:
+        if str(record.get("memory_id") or "") == target_id and _is_active(record):
+            record["note"] = text
+            record["updated_at"] = time.time()
+            record["ts"] = record["updated_at"]
+            record["revision"] = int(record.get("revision") or 1) + 1
+            if not _rewrite_jsonl_records(records):
+                return {"saved": False, "reason": "error", "memory_id": ""}
+            return {"saved": True, "reason": "saved", "memory_id": target_id}
+    return {"saved": False, "reason": "not_found", "memory_id": ""}
+
+
+def delete_long_memory_by_id(memory_id: str, *, core: Any | None = None) -> bool:
+    """Tombstone one active record by memory_id.
+
+    The row stays in the store with status ``deleted`` so the deletion can
+    be undone with :func:`restore_long_memory_by_id`; projections stop
+    using it immediately and the forget propagation invalidates any
+    in-flight snapshot.
+    """
+    target = find_long_memory_by_id(memory_id)
+    if target is None:
+        return False
+    target_id = str(target.get("memory_id") or "")
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                deleted = store.tombstone_by_id(
+                    target_id,
+                    expected_revision=int(target.get("revision") or 1),
+                )
+            finally:
+                store.close()
+        except Exception:
+            return False
+        if deleted:
+            _propagate_memory_forget(core)
+        return deleted
+    records = _load_jsonl_records(include_deleted=True)
+    for record in records:
+        if str(record.get("memory_id") or "") == target_id and _is_active(record):
+            record["status"] = "deleted"
+            record["updated_at"] = time.time()
+            record["revision"] = int(record.get("revision") or 1) + 1
+            if not _rewrite_jsonl_records(records):
+                return False
+            _propagate_memory_forget(core)
+            return True
+    return False
+
+
+def restore_long_memory_by_id(memory_id: str) -> bool:
+    """Undo a tombstone, returning the record to active status."""
+    target_id = str(memory_id or "").strip()
+    if not target_id:
+        return False
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                return store.restore_by_id(target_id)
+            finally:
+                store.close()
+        except Exception:
+            return False
+    records = _load_jsonl_records(include_deleted=True)
+    for record in records:
+        if str(record.get("memory_id") or "") == target_id and not _is_active(record):
+            record["status"] = "active"
+            record["updated_at"] = time.time()
+            record["revision"] = int(record.get("revision") or 1) + 1
+            return _rewrite_jsonl_records(records)
+    return False
 
 
 def _propagate_memory_forget(core: Any | None = None) -> None:
@@ -401,40 +824,22 @@ def _propagate_memory_forget(core: Any | None = None) -> None:
 
 
 def delete_long_memory_entry(index: int, *, core: Any | None = None) -> bool:
-    """Delete one record by index and invalidate stale runtime projections."""
-    if _use_sqlite():
-        try:
-            from ..runtime.memory_store import open_memory_store
+    """Tombstone one record by active-list index.
 
-            store = open_memory_store(_sqlite_path())
-            try:
-                deleted = store.delete(index)
-            finally:
-                store.close()
-        except Exception:
-            return False
-        if deleted:
-            _propagate_memory_forget(core)
-        return deleted
+    Deletion is a tombstone (see :func:`delete_long_memory_by_id`), not a
+    physical removal, so it can be undone and re-learning paths can still
+    see that the content was deliberately forgotten.
+    """
     try:
         records = load_long_memory_records()
     except MemoryLoadError:
         return False
     if index < 0 or index >= len(records):
         return False
-    memory_file = get_memory_file_path()
-    try:
-        records.pop(index)
-        dirpath = os.path.dirname(memory_file)
-        if dirpath:
-            os.makedirs(dirpath, exist_ok=True)
-        with open(memory_file, "w", encoding="utf-8") as f:
-            for rec in records:
-                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    except Exception:
+    memory_id = _entry_memory_id(records, index)
+    if not memory_id:
         return False
-    _propagate_memory_forget(core)
-    return True
+    return delete_long_memory_by_id(memory_id, core=core)
 
 
 def vacuum_long_memory() -> bool:

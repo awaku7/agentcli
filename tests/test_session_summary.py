@@ -18,15 +18,22 @@ def test_session_summary_is_persisted_and_reopened(tmp_path):
     )
 
 
-def test_memory_candidates_require_explicit_marker_and_are_not_saved(tmp_path):
+def test_marked_messages_are_saved_immediately(tmp_path, monkeypatch):
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp_path / "mem.jsonl"))
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="agentcli", entry_point="cli")
     store.append_message(session.session_id, "user", "remember: use pytest first")
     store.append_message(session.session_id, "user", "ordinary request")
 
-    candidates = store.list_memory_candidates(session.session_id)
-    assert candidates == ["use pytest first"]
-    # Candidate extraction is read-only; it does not write long-term memory.
+    from uagent.tools.long_memory import load_long_memory_records
+
+    notes = [str(r.get("note")) for r in load_long_memory_records()]
+    assert notes == ["use pytest first"]
+    notices = store.drain_memory_notices()
+    assert len(notices) == 1
+    assert "use pytest first" in notices[0]
+    store.close()
 
 
 def test_summary_is_stale_only_when_messages_follow_the_summary(tmp_path):

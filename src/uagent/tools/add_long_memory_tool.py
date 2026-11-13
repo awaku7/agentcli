@@ -13,6 +13,11 @@ from . import long_memory
 BUSY_LABEL = False
 
 
+def is_loadable() -> bool:
+    """UAGENT_MEMORY_TOOL_SAVE=0 opts out of agent-managed memory writes."""
+    return long_memory.tool_save_enabled()
+
+
 def _scope_description(kind: str) -> str:
     if get_locale() == "ja":
         if kind == "owner":
@@ -32,7 +37,10 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Save a single long-term memory note about the user/environment that may be useful in future conversations."
+                "Save a single long-term memory note about the user/environment that may be useful in future conversations. "
+                "Save durable facts, preferences, constraints, decisions and commitments stated by the user; "
+                "do not save one-off task details, guesses, or anything containing passwords, tokens or other credentials. "
+                "If a similar note already exists, update it with update_long_memory instead of adding a duplicate."
             ),
         ),
         "x_search_terms": _(
@@ -89,13 +97,55 @@ def run_tool(args: dict[str, Any]) -> str:
 
     owner = str(args.get("owner") or "").strip()
     project = str(args.get("project") or "").strip()
-    if owner or project:
-        saved = long_memory.append_long_memory(note, owner=owner, project=project)
-    else:
-        saved = long_memory.append_long_memory(note)
-    if not saved:
+    result = long_memory.save_long_memory(
+        note, owner=owner, project=project, source="tool"
+    )
+    if result["saved"]:
         return _(
-            "err.save",
-            default="[add_long_memory error] failed to save memory",
+            "result.saved",
+            default="[add_long_memory] saved (memory_id: %(memory_id)s)",
+            memory_id=result["memory_id"],
         )
-    return "[add_long_memory] saved"
+    if result["reason"] == "duplicate":
+        return _(
+            "result.duplicate",
+            default=(
+                "[add_long_memory] an identical note is already saved "
+                "(memory_id: %(memory_id)s)"
+            ),
+            memory_id=result["memory_id"],
+        )
+    if result["reason"] == "secret":
+        return _(
+            "err.secret",
+            default=(
+                "[add_long_memory error] note looks like it contains a "
+                "credential; credentials must not be stored in memory"
+            ),
+        )
+    if result["reason"] == "too_long":
+        return _(
+            "err.too_long",
+            default="[add_long_memory error] note is too long; keep it to one concise note",
+        )
+    return _(
+        "err.save",
+        default="[add_long_memory error] failed to save memory",
+    )
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
+    note = " ".join(str((args or {}).get("note") or "").split())
+    if len(note) > 80:
+        note = note[:79] + "…"
+    if note:
+        return _(
+            "describe.add_with_note",
+            default="Saving to long-term memory: %(note)s",
+            note=note,
+        )
+    return _("describe.add", default="Saving to long-term memory")
+
+
+TOOL_DESCRIBER = describe

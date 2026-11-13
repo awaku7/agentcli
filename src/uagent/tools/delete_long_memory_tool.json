@@ -1,0 +1,631 @@
+{
+  "ja": {
+    "tool.description": "保存済みの長期メモリ1件を、memory_id を指定して忘れます（memory_id は get_long_memory で確認できます）。削除は tombstone 方式です。すぐに使われなくなりますが、間違って消した場合は `:mem` から戻せます。ユーザーが「忘れて」と頼んだときや、保存したメモがもう正しくなく置き換えるものでもないときに使ってください。",
+    "x_search_terms": [
+      "delete_long_memory",
+      "長期メモリを忘れる",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "対象のメモの memory_id（get_long_memory または add_long_memory が返したもの）。",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id が空です",
+    "err.not_found": "[delete_long_memory error] その memory_id の有効なメモリがありません",
+    "err.delete": "[delete_long_memory error] メモリの削除に失敗しました",
+    "result.deleted": "[delete_long_memory] 忘れました (memory_id: %(memory_id)s)",
+    "describe.delete": "長期メモリを忘れる",
+    "describe.delete_with_id": "長期メモリを忘れる %(memory_id)s"
+  },
+  "es": {
+    "tool.description": "Olvida una nota de memoria a largo plazo guardada, identificada por su memory_id (consulta get_long_memory). La nota queda marcada (tombstone): deja de usarse de inmediato, pero puede restaurarse desde :mem si se eliminó por error. Úsalo cuando el usuario pida olvidar algo o cuando una nota guardada ya no sea cierta y no deba reemplazarse.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Olvidando memoria a largo plazo",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "El memory_id de la nota, devuelto por get_long_memory o add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id está vacío",
+    "err.not_found": "[delete_long_memory error] no hay memoria activa con ese memory_id",
+    "err.delete": "[delete_long_memory error] no se pudo eliminar la memoria",
+    "result.deleted": "[delete_long_memory] olvidado (memory_id: %(memory_id)s)",
+    "describe.delete": "Olvidando memoria a largo plazo",
+    "describe.delete_with_id": "Olvidando memoria a largo plazo %(memory_id)s"
+  },
+  "fr": {
+    "tool.description": "Oublie une note de mémoire à long terme enregistrée, désignée par son memory_id (voir get_long_memory). La note est marquée (tombstone) : elle cesse d'être utilisée immédiatement, mais peut être restaurée depuis :mem en cas d'erreur. Utilisez-le lorsque l'utilisateur demande d'oublier quelque chose, ou lorsqu'une note enregistrée n'est plus vraie et ne doit pas être remplacée.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Oubli de la mémoire à long terme",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Le memory_id de la note, tel que renvoyé par get_long_memory ou add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id est vide",
+    "err.not_found": "[delete_long_memory error] aucune mémoire active avec ce memory_id",
+    "err.delete": "[delete_long_memory error] échec de la suppression de la mémoire",
+    "result.deleted": "[delete_long_memory] oublié (memory_id: %(memory_id)s)",
+    "describe.delete": "Oubli de la mémoire à long terme",
+    "describe.delete_with_id": "Oubli de la mémoire à long terme %(memory_id)s"
+  },
+  "ko": {
+    "tool.description": "저장된 장기 기억 메모 하나를 memory_id로 지정하여 잊습니다(get_long_memory 참조). 메모는 tombstone 처리됩니다. 즉시 사용이 중단되지만 실수로 삭제한 경우 :mem에서 복원할 수 있습니다. 사용자가 잊어 달라고 요청하거나, 저장된 메모가 더 이상 사실이 아니며 교체할 것도 아닐 때 사용하세요.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "장기 기억 삭제 중",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "대상 메모의 memory_id(get_long_memory 또는 add_long_memory가 반환한 값).",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id가 비어 있습니다",
+    "err.not_found": "[delete_long_memory error] 해당 memory_id의 활성 메모리가 없습니다",
+    "err.delete": "[delete_long_memory error] 메모리를 삭제하지 못했습니다",
+    "result.deleted": "[delete_long_memory] 삭제됨 (memory_id: %(memory_id)s)",
+    "describe.delete": "장기 기억 삭제 중",
+    "describe.delete_with_id": "장기 기억 삭제 중 %(memory_id)s"
+  },
+  "de": {
+    "tool.description": "Vergisst eine gespeicherte Langzeitgedächtnis-Notiz, adressiert über ihre memory_id (siehe get_long_memory). Die Notiz wird tombstoned: Sie wird sofort nicht mehr verwendet, kann aber über :mem wiederhergestellt werden, falls sie versehentlich gelöscht wurde. Verwenden Sie dies, wenn der Benutzer Sie bittet, etwas zu vergessen, oder wenn eine gespeicherte Notiz nicht mehr zutrifft und nicht ersetzt werden soll.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Langzeitgedächtnis vergessen",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Die memory_id der Notiz, wie von get_long_memory oder add_long_memory zurückgegeben.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id ist leer",
+    "err.not_found": "[delete_long_memory error] kein aktiver Speicher mit dieser memory_id",
+    "err.delete": "[delete_long_memory error] Löschen des Speichers fehlgeschlagen",
+    "result.deleted": "[delete_long_memory] vergessen (memory_id: %(memory_id)s)",
+    "describe.delete": "Langzeitgedächtnis vergessen",
+    "describe.delete_with_id": "Langzeitgedächtnis vergessen %(memory_id)s"
+  },
+  "it": {
+    "tool.description": "Dimentica una nota di memoria a lungo termine salvata, identificata dal suo memory_id (vedi get_long_memory). La nota viene tombstonata: smette subito di essere usata, ma può essere ripristinata da :mem se eliminata per errore. Usalo quando l'utente chiede di dimenticare qualcosa o quando una nota salvata non è più vera e non va sostituita.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Dimenticanza della memoria a lungo termine",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Il memory_id della nota, restituito da get_long_memory o add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id è vuoto",
+    "err.not_found": "[delete_long_memory error] nessuna memoria attiva con quel memory_id",
+    "err.delete": "[delete_long_memory error] eliminazione della memoria non riuscita",
+    "result.deleted": "[delete_long_memory] dimenticato (memory_id: %(memory_id)s)",
+    "describe.delete": "Dimenticanza della memoria a lungo termine",
+    "describe.delete_with_id": "Dimenticanza della memoria a lungo termine %(memory_id)s"
+  },
+  "ru": {
+    "tool.description": "Забывает одну сохранённую заметку долговременной памяти по её memory_id (см. get_long_memory). Заметка помечается tombstone: она сразу перестаёт использоваться, но её можно восстановить через :mem, если удаление было ошибочным. Используйте, когда пользователь просит что-то забыть или когда сохранённая заметка больше не верна и не должна заменяться.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Забывание долговременной памяти",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id заметки, возвращённый get_long_memory или add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id пуст",
+    "err.not_found": "[delete_long_memory error] нет активной записи с таким memory_id",
+    "err.delete": "[delete_long_memory error] не удалось удалить память",
+    "result.deleted": "[delete_long_memory] забыто (memory_id: %(memory_id)s)",
+    "describe.delete": "Забывание долговременной памяти",
+    "describe.delete_with_id": "Забывание долговременной памяти %(memory_id)s"
+  },
+  "pt_BR": {
+    "tool.description": "Esquece uma nota de memória de longo prazo salva, identificada pelo seu memory_id (veja get_long_memory). A nota é marcada como excluída (tombstone): para de ser usada imediatamente, mas pode ser restaurada em :mem se foi excluída por engano. Use quando o usuário pedir para esquecer algo ou quando uma nota salva não for mais verdadeira e não deva ser substituída.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Esquecendo memória de longo prazo",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "O memory_id da nota, retornado por get_long_memory ou add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id está vazio",
+    "err.not_found": "[delete_long_memory error] nenhuma memória ativa com esse memory_id",
+    "err.delete": "[delete_long_memory error] falha ao excluir a memória",
+    "result.deleted": "[delete_long_memory] esquecido (memory_id: %(memory_id)s)",
+    "describe.delete": "Esquecendo memória de longo prazo",
+    "describe.delete_with_id": "Esquecendo memória de longo prazo %(memory_id)s"
+  },
+  "pt": {
+    "tool.description": "Esquece uma nota de memória de longo prazo guardada, identificada pelo seu memory_id (ver get_long_memory). A nota fica marcada (tombstone): deixa de ser usada de imediato, mas pode ser restaurada em :mem se tiver sido apagada por engano. Utilize quando o utilizador pedir para esquecer algo ou quando uma nota guardada já não for verdadeira e não deva ser substituída.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "A esquecer memória de longo prazo",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "O memory_id da nota, devolvido por get_long_memory ou add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id está vazio",
+    "err.not_found": "[delete_long_memory error] nenhuma memória ativa com esse memory_id",
+    "err.delete": "[delete_long_memory error] falha ao apagar a memória",
+    "result.deleted": "[delete_long_memory] esquecido (memory_id: %(memory_id)s)",
+    "describe.delete": "A esquecer memória de longo prazo",
+    "describe.delete_with_id": "A esquecer memória de longo prazo %(memory_id)s"
+  },
+  "id": {
+    "tool.description": "Melupakan satu catatan memori jangka panjang yang tersimpan, berdasarkan memory_id-nya (lihat get_long_memory). Catatan ditandai sebagai tombstone: langsung berhenti digunakan, tetapi dapat dipulihkan dari :mem jika terhapus secara tidak sengaja. Gunakan saat pengguna meminta untuk melupakan sesuatu, atau saat catatan tersimpan tidak lagi benar dan tidak perlu diganti.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Melupakan memori jangka panjang",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id catatan, seperti yang dikembalikan oleh get_long_memory atau add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id kosong",
+    "err.not_found": "[delete_long_memory error] tidak ada memori aktif dengan memory_id tersebut",
+    "err.delete": "[delete_long_memory error] gagal menghapus memori",
+    "result.deleted": "[delete_long_memory] dilupakan (memory_id: %(memory_id)s)",
+    "describe.delete": "Melupakan memori jangka panjang",
+    "describe.delete_with_id": "Melupakan memori jangka panjang %(memory_id)s"
+  },
+  "vi": {
+    "tool.description": "Quên một ghi chú bộ nhớ dài hạn đã lưu, xác định bằng memory_id của nó (xem get_long_memory). Ghi chú được đánh dấu tombstone: ngừng được sử dụng ngay lập tức nhưng có thể khôi phục từ :mem nếu xóa nhầm. Dùng khi người dùng yêu cầu quên điều gì đó, hoặc khi ghi chú đã lưu không còn đúng và không nên thay thế.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Đang quên bộ nhớ dài hạn",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id của ghi chú, do get_long_memory hoặc add_long_memory trả về.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id trống",
+    "err.not_found": "[delete_long_memory error] không có bộ nhớ đang hoạt động với memory_id đó",
+    "err.delete": "[delete_long_memory error] không xóa được bộ nhớ",
+    "result.deleted": "[delete_long_memory] đã quên (memory_id: %(memory_id)s)",
+    "describe.delete": "Đang quên bộ nhớ dài hạn",
+    "describe.delete_with_id": "Đang quên bộ nhớ dài hạn %(memory_id)s"
+  },
+  "pl": {
+    "tool.description": "Zapomina jedną zapisaną notatkę pamięci długotrwałej, wskazaną przez jej memory_id (zobacz get_long_memory). Notatka jest oznaczana jako tombstone: od razu przestaje być używana, ale można ją przywrócić z :mem, jeśli została usunięta przez pomyłkę. Używaj, gdy użytkownik prosi o zapomnienie czegoś lub gdy zapisana notatka nie jest już prawdziwa i nie powinna być zastępowana.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Zapominanie pamięci długotrwałej",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id notatki, zwrócone przez get_long_memory lub add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id jest puste",
+    "err.not_found": "[delete_long_memory error] brak aktywnej pamięci o tym memory_id",
+    "err.delete": "[delete_long_memory error] nie udało się usunąć pamięci",
+    "result.deleted": "[delete_long_memory] zapomniano (memory_id: %(memory_id)s)",
+    "describe.delete": "Zapominanie pamięci długotrwałej",
+    "describe.delete_with_id": "Zapominanie pamięci długotrwałej %(memory_id)s"
+  },
+  "hi": {
+    "tool.description": "किसी सहेजे गए दीर्घकालिक स्मृति नोट को उसकी memory_id से निर्दिष्ट करके भुलाता है (get_long_memory देखें)। नोट को tombstone किया जाता है: यह तुरंत उपयोग होना बंद हो जाता है, लेकिन गलती से हटाए जाने पर :mem से पुनर्स्थापित किया जा सकता है। जब उपयोगकर्ता कुछ भूलने को कहे, या जब कोई सहेजा गया नोट अब सत्य न हो और उसे बदला भी न जाना हो, तब इसका उपयोग करें।",
+    "x_search_terms": [
+      "delete_long_memory",
+      "दीर्घकालिक स्मृति भुलाई जा रही है",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "नोट की memory_id, जैसा कि get_long_memory या add_long_memory द्वारा लौटाया गया।",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id खाली है",
+    "err.not_found": "[delete_long_memory error] उस memory_id वाली कोई सक्रिय मेमोरी नहीं है",
+    "err.delete": "[delete_long_memory error] मेमोरी हटाने में विफल",
+    "result.deleted": "[delete_long_memory] भुला दिया गया (memory_id: %(memory_id)s)",
+    "describe.delete": "दीर्घकालिक स्मृति भुलाई जा रही है",
+    "describe.delete_with_id": "दीर्घकालिक स्मृति भुलाई जा रही है %(memory_id)s"
+  },
+  "ar": {
+    "tool.description": "ينسى ملاحظة واحدة محفوظة في الذاكرة طويلة الأمد، محددة بواسطة memory_id الخاص بها (راجع get_long_memory). تُعلَّم الملاحظة كـ tombstone: تتوقف عن الاستخدام فورًا، لكن يمكن استعادتها من :mem إذا حُذفت عن طريق الخطأ. استخدمه عندما يطلب المستخدم نسيان شيء ما، أو عندما لا تعود ملاحظة محفوظة صحيحة ولا ينبغي استبدالها.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "نسيان الذاكرة طويلة الأمد",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "‏memory_id الخاص بالملاحظة، كما يرجعه get_long_memory أو add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id فارغ",
+    "err.not_found": "[delete_long_memory error] لا توجد ذاكرة نشطة بهذا memory_id",
+    "err.delete": "[delete_long_memory error] فشل حذف الذاكرة",
+    "result.deleted": "[delete_long_memory] تم النسيان (memory_id: %(memory_id)s)",
+    "describe.delete": "نسيان الذاكرة طويلة الأمد",
+    "describe.delete_with_id": "نسيان الذاكرة طويلة الأمد %(memory_id)s"
+  },
+  "sv": {
+    "tool.description": "Glömmer en sparad långtidsminnesanteckning, angiven med dess memory_id (se get_long_memory). Anteckningen tombstonas: den slutar användas omedelbart men kan återställas från :mem om den togs bort av misstag. Använd detta när användaren ber dig glömma något, eller när en sparad anteckning inte längre stämmer och inte ska ersättas.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Glömmer långtidsminne",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id för anteckningen, som returneras av get_long_memory eller add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id är tomt",
+    "err.not_found": "[delete_long_memory error] inget aktivt minne med det memory_id",
+    "err.delete": "[delete_long_memory error] det gick inte att ta bort minnet",
+    "result.deleted": "[delete_long_memory] bortglömd (memory_id: %(memory_id)s)",
+    "describe.delete": "Glömmer långtidsminne",
+    "describe.delete_with_id": "Glömmer långtidsminne %(memory_id)s"
+  },
+  "sw": {
+    "tool.description": "Husahaulisha kidokezo kimoja cha kumbukumbu ya muda mrefu kilichohifadhiwa, kwa memory_id yake (tazama get_long_memory). Kidokezo huwekewa alama ya tombstone: huacha kutumika mara moja lakini kinaweza kurejeshwa kutoka :mem kama kilifutwa kimakosa. Tumia mtumiaji anapoomba kusahau kitu, au kidokezo kilichohifadhiwa hakina ukweli tena na hakipaswi kubadilishwa.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Kusahaulisha kumbukumbu ya muda mrefu",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id ya kidokezo, kama inavyorejeshwa na get_long_memory au add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id ni tupu",
+    "err.not_found": "[delete_long_memory error] hakuna kumbukumbu hai yenye memory_id hiyo",
+    "err.delete": "[delete_long_memory error] imeshindwa kufuta kumbukumbu",
+    "result.deleted": "[delete_long_memory] imesahaulika (memory_id: %(memory_id)s)",
+    "describe.delete": "Kusahaulisha kumbukumbu ya muda mrefu",
+    "describe.delete_with_id": "Kusahaulisha kumbukumbu ya muda mrefu %(memory_id)s"
+  },
+  "nb": {
+    "tool.description": "Glemmer ett lagret langtidsminnenotat, adressert med dets memory_id (se get_long_memory). Notatet tombstones: det slutter å brukes umiddelbart, men kan gjenopprettes fra :mem hvis det ble slettet ved en feil. Bruk dette når brukeren ber deg glemme noe, eller når et lagret notat ikke lenger er sant og ikke bør erstattes.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Glemmer langtidsminne",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id for notatet, som returnert av get_long_memory eller add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id er tom",
+    "err.not_found": "[delete_long_memory error] ingen aktivt minne med den memory_id",
+    "err.delete": "[delete_long_memory error] kunne ikke slette minnet",
+    "result.deleted": "[delete_long_memory] glemt (memory_id: %(memory_id)s)",
+    "describe.delete": "Glemmer langtidsminne",
+    "describe.delete_with_id": "Glemmer langtidsminne %(memory_id)s"
+  },
+  "nl": {
+    "tool.description": "Vergeet één opgeslagen notitie in het langetermijngeheugen, aangeduid met de memory_id (zie get_long_memory). De notitie wordt getombstoned: ze wordt onmiddellijk niet meer gebruikt, maar kan vanuit :mem worden hersteld als ze per ongeluk is verwijderd. Gebruik dit wanneer de gebruiker vraagt iets te vergeten, of wanneer een opgeslagen notitie niet langer klopt en niet vervangen moet worden.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Langetermijngeheugen vergeten",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "De memory_id van de notitie, zoals geretourneerd door get_long_memory of add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id is leeg",
+    "err.not_found": "[delete_long_memory error] geen actief geheugen met die memory_id",
+    "err.delete": "[delete_long_memory error] verwijderen van geheugen mislukt",
+    "result.deleted": "[delete_long_memory] vergeten (memory_id: %(memory_id)s)",
+    "describe.delete": "Langetermijngeheugen vergeten",
+    "describe.delete_with_id": "Langetermijngeheugen vergeten %(memory_id)s"
+  },
+  "fi": {
+    "tool.description": "Unohtaa yhden tallennetun pitkäkestoisen muistimerkinnän, joka osoitetaan sen memory_id:llä (katso get_long_memory). Merkintä tombstone-merkitään: sen käyttö loppuu heti, mutta sen voi palauttaa :mem-komennolla, jos se poistettiin vahingossa. Käytä tätä, kun käyttäjä pyytää unohtamaan jotakin, tai kun tallennettu merkintä ei enää pidä paikkaansa eikä sitä pidä korvata.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Unohdetaan pitkäkestoista muistia",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Merkinnän memory_id, jonka palauttaa get_long_memory tai add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id on tyhjä",
+    "err.not_found": "[delete_long_memory error] ei aktiivista muistia sillä memory_id:llä",
+    "err.delete": "[delete_long_memory error] muistin poistaminen epäonnistui",
+    "result.deleted": "[delete_long_memory] unohdettu (memory_id: %(memory_id)s)",
+    "describe.delete": "Unohdetaan pitkäkestoista muistia",
+    "describe.delete_with_id": "Unohdetaan pitkäkestoista muistia %(memory_id)s"
+  },
+  "cs": {
+    "tool.description": "Zapomene jednu uloženou poznámku dlouhodobé paměti určenou jejím memory_id (viz get_long_memory). Poznámka je označena jako tombstone: okamžitě se přestane používat, ale lze ji obnovit z :mem, pokud byla smazána omylem. Použijte, když uživatel požádá o zapomenutí něčeho, nebo když uložená poznámka již není pravdivá a nemá být nahrazena.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Zapomínání dlouhodobé paměti",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id poznámky, vrácené funkcí get_long_memory nebo add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id je prázdné",
+    "err.not_found": "[delete_long_memory error] žádná aktivní paměť s tímto memory_id",
+    "err.delete": "[delete_long_memory error] odstranění paměti se nezdařilo",
+    "result.deleted": "[delete_long_memory] zapomenuto (memory_id: %(memory_id)s)",
+    "describe.delete": "Zapomínání dlouhodobé paměti",
+    "describe.delete_with_id": "Zapomínání dlouhodobé paměti %(memory_id)s"
+  },
+  "uk": {
+    "tool.description": "Забуває одну збережену нотатку довготривалої пам'яті за її memory_id (див. get_long_memory). Нотатка позначається tombstone: вона одразу перестає використовуватися, але її можна відновити через :mem, якщо видалення було помилковим. Використовуйте, коли користувач просить щось забути або коли збережена нотатка більше не вірна і не повинна замінюватися.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Забування довготривалої пам'яті",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id нотатки, повернутий get_long_memory або add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id порожній",
+    "err.not_found": "[delete_long_memory error] немає активної пам'яті з таким memory_id",
+    "err.delete": "[delete_long_memory error] не вдалося видалити пам'ять",
+    "result.deleted": "[delete_long_memory] забуто (memory_id: %(memory_id)s)",
+    "describe.delete": "Забування довготривалої пам'яті",
+    "describe.delete_with_id": "Забування довготривалої пам'яті %(memory_id)s"
+  },
+  "tr": {
+    "tool.description": "Kaydedilmiş bir uzun süreli bellek notunu, memory_id ile belirterek unutur (bkz. get_long_memory). Not tombstone olarak işaretlenir: hemen kullanılmaz olur, ancak yanlışlıkla silindiyse :mem üzerinden geri yüklenebilir. Kullanıcı bir şeyi unutmanızı istediğinde veya kaydedilmiş bir not artık doğru olmadığında ve değiştirilmesi gerekmediğinde kullanın.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Uzun süreli bellek unutuluyor",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Notun memory_id değeri; get_long_memory veya add_long_memory tarafından döndürülür.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id boş",
+    "err.not_found": "[delete_long_memory error] bu memory_id ile etkin bellek yok",
+    "err.delete": "[delete_long_memory error] bellek silinemedi",
+    "result.deleted": "[delete_long_memory] unutuldu (memory_id: %(memory_id)s)",
+    "describe.delete": "Uzun süreli bellek unutuluyor",
+    "describe.delete_with_id": "Uzun süreli bellek unutuluyor %(memory_id)s"
+  },
+  "th": {
+    "tool.description": "ลืมโน้ตความจำระยะยาวที่บันทึกไว้หนึ่งรายการ โดยระบุด้วย memory_id (ดู get_long_memory) โน้ตจะถูกทำเครื่องหมาย tombstone คือหยุดใช้ทันที แต่กู้คืนได้จาก :mem หากลบผิด ใช้เมื่อผู้ใช้ขอให้ลืมบางสิ่ง หรือเมื่อโน้ตที่บันทึกไว้ไม่เป็นจริงอีกต่อไปและไม่ควรแทนที่",
+    "x_search_terms": [
+      "delete_long_memory",
+      "กำลังลืมหน่วยความจำระยะยาว",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id ของโน้ต ตามที่ get_long_memory หรือ add_long_memory ส่งคืน",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id ว่างเปล่า",
+    "err.not_found": "[delete_long_memory error] ไม่มีหน่วยความจำที่ใช้งานอยู่ที่มี memory_id นั้น",
+    "err.delete": "[delete_long_memory error] ลบหน่วยความจำไม่สำเร็จ",
+    "result.deleted": "[delete_long_memory] ลืมแล้ว (memory_id: %(memory_id)s)",
+    "describe.delete": "กำลังลืมหน่วยความจำระยะยาว",
+    "describe.delete_with_id": "กำลังลืมหน่วยความจำระยะยาว %(memory_id)s"
+  },
+  "zh_CN": {
+    "tool.description": "按 memory_id 遗忘一条已保存的长期记忆笔记（见 get_long_memory）。该笔记会被标记为已删除（tombstone）：立即停止使用，但如果误删可从 :mem 恢复。当用户要求遗忘某事，或某条已保存的笔记不再属实且不应被替换时使用。",
+    "x_search_terms": [
+      "delete_long_memory",
+      "遗忘长期记忆",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "笔记的 memory_id，由 get_long_memory 或 add_long_memory 返回。",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id 为空",
+    "err.not_found": "[delete_long_memory error] 没有具有该 memory_id 的有效记忆",
+    "err.delete": "[delete_long_memory error] 删除记忆失败",
+    "result.deleted": "[delete_long_memory] 已遗忘 (memory_id: %(memory_id)s)",
+    "describe.delete": "遗忘长期记忆",
+    "describe.delete_with_id": "遗忘长期记忆 %(memory_id)s"
+  },
+  "zh_TW": {
+    "tool.description": "依 memory_id 遺忘一則已儲存的長期記憶筆記（見 get_long_memory）。該筆記會被標記為已刪除（tombstone）：立即停止使用，但若誤刪可從 :mem 復原。當使用者要求遺忘某事，或某則已儲存的筆記不再屬實且不應被取代時使用。",
+    "x_search_terms": [
+      "delete_long_memory",
+      "遺忘長期記憶",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "筆記的 memory_id，由 get_long_memory 或 add_long_memory 傳回。",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id 為空",
+    "err.not_found": "[delete_long_memory error] 沒有具有該 memory_id 的有效記憶",
+    "err.delete": "[delete_long_memory error] 刪除記憶失敗",
+    "result.deleted": "[delete_long_memory] 已遺忘 (memory_id: %(memory_id)s)",
+    "describe.delete": "遺忘長期記憶",
+    "describe.delete_with_id": "遺忘長期記憶 %(memory_id)s"
+  },
+  "bn": {
+    "tool.description": "memory_id দিয়ে নির্দিষ্ট করে একটি সংরক্ষিত দীর্ঘমেয়াদি মেমরি নোট ভুলে যায় (get_long_memory দেখুন)। নোটটি tombstone করা হয়: এটি অবিলম্বে ব্যবহার বন্ধ হয়ে যায়, কিন্তু ভুল করে মোছা হলে :mem থেকে পুনরুদ্ধার করা যায়। ব্যবহারকারী কিছু ভুলতে বললে, অথবা সংরক্ষিত নোট আর সত্য না হলে এবং তা বদলানোও উচিত না হলে এটি ব্যবহার করুন।",
+    "x_search_terms": [
+      "delete_long_memory",
+      "দীর্ঘমেয়াদি মেমরি ভুলে যাওয়া হচ্ছে",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "নোটের memory_id, যা get_long_memory বা add_long_memory ফেরত দেয়।",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id খালি",
+    "err.not_found": "[delete_long_memory error] ওই memory_id সহ কোনো সক্রিয় মেমরি নেই",
+    "err.delete": "[delete_long_memory error] মেমরি মুছতে ব্যর্থ",
+    "result.deleted": "[delete_long_memory] ভুলে যাওয়া হয়েছে (memory_id: %(memory_id)s)",
+    "describe.delete": "দীর্ঘমেয়াদি মেমরি ভুলে যাওয়া হচ্ছে",
+    "describe.delete_with_id": "দীর্ঘমেয়াদি মেমরি ভুলে যাওয়া হচ্ছে %(memory_id)s"
+  },
+  "fa": {
+    "tool.description": "یک یادداشت حافظهٔ بلندمدت ذخیره‌شده را با memory_id آن فراموش می‌کند (get_long_memory را ببینید). یادداشت tombstone می‌شود: فوراً استفاده از آن متوقف می‌شود، اما اگر اشتباهی حذف شده باشد می‌توان آن را از :mem بازگرداند. وقتی کاربر می‌خواهد چیزی فراموش شود، یا یادداشت ذخیره‌شده دیگر درست نیست و نباید جایگزین شود، از این استفاده کنید.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "در حال فراموش‌کردن حافظهٔ بلندمدت",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "‏memory_id یادداشت، همان‌طور که get_long_memory یا add_long_memory برمی‌گرداند.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id خالی است",
+    "err.not_found": "[delete_long_memory error] حافظهٔ فعالی با آن memory_id وجود ندارد",
+    "err.delete": "[delete_long_memory error] حذف حافظه ناموفق بود",
+    "result.deleted": "[delete_long_memory] فراموش شد (memory_id: %(memory_id)s)",
+    "describe.delete": "در حال فراموش‌کردن حافظهٔ بلندمدت",
+    "describe.delete_with_id": "در حال فراموش‌کردن حافظهٔ بلندمدت %(memory_id)s"
+  },
+  "mn": {
+    "tool.description": "Хадгалагдсан урт хугацааны санах ойн нэг тэмдэглэлийг memory_id-аар нь зааж мартана (get_long_memory-г үзнэ үү). Тэмдэглэл tombstone тэмдэглэгдэнэ: ашиглалт нь шууд зогсох боловч эндүүрч устгасан бол :mem-ээс сэргээх боломжтой. Хэрэглэгч ямар нэг зүйлийг мартахыг хүсэх, эсвэл хадгалагдсан тэмдэглэл дахин үнэн биш болж, солих ч шаардлагагүй үед ашиглана уу.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Урт хугацааны санах ойг мартаж байна",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Тэмдэглэлийн memory_id; get_long_memory эсвэл add_long_memory буцаадаг.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id хоосон байна",
+    "err.not_found": "[delete_long_memory error] тухайн memory_id-тай идэвхтэй санах ой алга",
+    "err.delete": "[delete_long_memory error] санах ойг устгаж чадсангүй",
+    "result.deleted": "[delete_long_memory] мартлаа (memory_id: %(memory_id)s)",
+    "describe.delete": "Урт хугацааны санах ойг мартаж байна",
+    "describe.delete_with_id": "Урт хугацааны санах ойг мартаж байна %(memory_id)s"
+  },
+  "mr": {
+    "tool.description": "एका जतन केलेल्या दीर्घकालीन स्मृती नोंदीला तिच्या memory_id ने निर्दिष्ट करून विसरते (get_long_memory पहा). नोंद tombstone केली जाते: ती लगेच वापरातून बाहेर पडते, परंतु चुकून हटवली गेल्यास :mem मधून पुनर्संचयित करता येते. वापरकर्त्याने काही विसरण्यास सांगितल्यावर, किंवा जतन केलेली नोंद आता खरी नसल्यास आणि ती बदलायचीही नसल्यास याचा वापर करा.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "दीर्घकालीन स्मृती विसरत आहे",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "नोंदीची memory_id, get_long_memory किंवा add_long_memory ने परत केलेली.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id रिकामी आहे",
+    "err.not_found": "[delete_long_memory error] त्या memory_id सह कोणतीही सक्रिय स्मृती नाही",
+    "err.delete": "[delete_long_memory error] स्मृती हटवण्यात अयशस्वी",
+    "result.deleted": "[delete_long_memory] विसरलो (memory_id: %(memory_id)s)",
+    "describe.delete": "दीर्घकालीन स्मृती विसरत आहे",
+    "describe.delete_with_id": "दीर्घकालीन स्मृती विसरत आहे %(memory_id)s"
+  },
+  "el": {
+    "tool.description": "Ξεχνά μία αποθηκευμένη σημείωση μακροχρόνιας μνήμης, που προσδιορίζεται από το memory_id της (βλ. get_long_memory). Η σημείωση επισημαίνεται ως tombstone: σταματά να χρησιμοποιείται αμέσως, αλλά μπορεί να αποκατασταθεί από το :mem αν διαγράφηκε κατά λάθος. Χρησιμοποιήστε το όταν ο χρήστης ζητά να ξεχάσετε κάτι, ή όταν μια αποθηκευμένη σημείωση δεν ισχύει πλέον και δεν πρέπει να αντικατασταθεί.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Λήθη μακροχρόνιας μνήμης",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Το memory_id της σημείωσης, όπως επιστρέφεται από get_long_memory ή add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] το memory_id είναι κενό",
+    "err.not_found": "[delete_long_memory error] καμία ενεργή μνήμη με αυτό το memory_id",
+    "err.delete": "[delete_long_memory error] η διαγραφή της μνήμης απέτυχε",
+    "result.deleted": "[delete_long_memory] ξεχάστηκε (memory_id: %(memory_id)s)",
+    "describe.delete": "Λήθη μακροχρόνιας μνήμης",
+    "describe.delete_with_id": "Λήθη μακροχρόνιας μνήμης %(memory_id)s"
+  },
+  "he": {
+    "tool.description": "שוכח הערת זיכרון ארוך־טווח שמורה אחת, המצוינת באמצעות ה-memory_id שלה (ראו get_long_memory). ההערה מסומנת כ-tombstone: היא מפסיקה להיות בשימוש מיד, אך ניתן לשחזרה מ-:mem אם נמחקה בטעות. השתמשו בזה כאשר המשתמש מבקש לשכוח משהו, או כאשר הערה שמורה כבר אינה נכונה ואין להחליפה.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "שוכח זיכרון ארוך־טווח",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "ה-memory_id של ההערה, כפי שמוחזר על ידי get_long_memory או add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id ריק",
+    "err.not_found": "[delete_long_memory error] אין זיכרון פעיל עם memory_id זה",
+    "err.delete": "[delete_long_memory error] מחיקת הזיכרון נכשלה",
+    "result.deleted": "[delete_long_memory] נשכח (memory_id: %(memory_id)s)",
+    "describe.delete": "שוכח זיכרון ארוך־טווח",
+    "describe.delete_with_id": "שוכח זיכרון ארוך־טווח %(memory_id)s"
+  },
+  "hu": {
+    "tool.description": "Elfelejt egy elmentett hosszú távú memóriajegyzetet, amelyet a memory_id-ja azonosít (lásd get_long_memory). A jegyzet tombstone-olódik: azonnal megszűnik a használata, de a :mem parancsból visszaállítható, ha véletlenül törölték. Akkor használja, ha a felhasználó arra kér, hogy felejtsen el valamit, vagy ha egy elmentett jegyzet már nem igaz, és nem kell lecserélni.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Hosszú távú memória elfelejtése",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "A jegyzet memory_id-ja, ahogy a get_long_memory vagy az add_long_memory visszaadja.",
+    "err.memory_id_empty": "[delete_long_memory error] a memory_id üres",
+    "err.not_found": "[delete_long_memory error] nincs aktív memória ezzel a memory_id-val",
+    "err.delete": "[delete_long_memory error] a memória törlése sikertelen",
+    "result.deleted": "[delete_long_memory] elfelejtve (memory_id: %(memory_id)s)",
+    "describe.delete": "Hosszú távú memória elfelejtése",
+    "describe.delete_with_id": "Hosszú távú memória elfelejtése %(memory_id)s"
+  },
+  "ro": {
+    "tool.description": "Uită o notă de memorie pe termen lung salvată, identificată prin memory_id-ul ei (vezi get_long_memory). Nota este marcată tombstone: încetează imediat să fie folosită, dar poate fi restaurată din :mem dacă a fost ștearsă din greșeală. Folosește-l când utilizatorul cere să uiți ceva sau când o notă salvată nu mai este adevărată și nu trebuie înlocuită.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Uitare memorie pe termen lung",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id-ul notei, returnat de get_long_memory sau add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id este gol",
+    "err.not_found": "[delete_long_memory error] nicio memorie activă cu acel memory_id",
+    "err.delete": "[delete_long_memory error] ștergerea memoriei a eșuat",
+    "result.deleted": "[delete_long_memory] uitat (memory_id: %(memory_id)s)",
+    "describe.delete": "Uitare memorie pe termen lung",
+    "describe.delete_with_id": "Uitare memorie pe termen lung %(memory_id)s"
+  },
+  "fil": {
+    "tool.description": "Kinakalimutan ang isang naka-save na long-term memory note, na tinutukoy ng memory_id nito (tingnan ang get_long_memory). Ang note ay naka-tombstone: agad itong humihinto sa paggamit, ngunit maaaring ibalik mula sa :mem kung ito ay natanggal nang hindi sinasadya. Gamitin ito kapag hiniling ng user na kalimutan ang isang bagay, o kapag ang isang naka-save na note ay hindi na totoo at hindi dapat palitan.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Kinakalimutan ang long-term memory",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "Ang memory_id ng note, gaya ng ibinalik ng get_long_memory o add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] walang laman ang memory_id",
+    "err.not_found": "[delete_long_memory error] walang aktibong memory na may ganoong memory_id",
+    "err.delete": "[delete_long_memory error] nabigong i-delete ang memory",
+    "result.deleted": "[delete_long_memory] nakalimutan na (memory_id: %(memory_id)s)",
+    "describe.delete": "Kinakalimutan ang long-term memory",
+    "describe.delete_with_id": "Kinakalimutan ang long-term memory %(memory_id)s"
+  },
+  "ms": {
+    "tool.description": "Melupakan satu nota memori jangka panjang yang disimpan, dikenal pasti melalui memory_id-nya (lihat get_long_memory). Nota ditanda sebagai tombstone: ia berhenti digunakan serta-merta tetapi boleh dipulihkan daripada :mem jika terpadam secara tidak sengaja. Gunakan apabila pengguna meminta untuk melupakan sesuatu, atau apabila nota yang disimpan tidak lagi benar dan tidak patut diganti.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Melupakan memori jangka panjang",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id nota, seperti dikembalikan oleh get_long_memory atau add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id kosong",
+    "err.not_found": "[delete_long_memory error] tiada memori aktif dengan memory_id itu",
+    "err.delete": "[delete_long_memory error] gagal memadam memori",
+    "result.deleted": "[delete_long_memory] dilupakan (memory_id: %(memory_id)s)",
+    "describe.delete": "Melupakan memori jangka panjang",
+    "describe.delete_with_id": "Melupakan memori jangka panjang %(memory_id)s"
+  },
+  "da": {
+    "tool.description": "Glemmer en gemt langtidsminde-note, angivet med dens memory_id (se get_long_memory). Noten tombstones: den holder straks op med at blive brugt, men kan gendannes fra :mem, hvis den blev slettet ved en fejl. Brug dette, når brugeren beder dig glemme noget, eller når en gemt note ikke længere er sand og ikke skal erstattes.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Glemmer langtidshukommelse",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id for noten, som returneret af get_long_memory eller add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id er tom",
+    "err.not_found": "[delete_long_memory error] ingen aktiv hukommelse med det memory_id",
+    "err.delete": "[delete_long_memory error] kunne ikke slette hukommelsen",
+    "result.deleted": "[delete_long_memory] glemt (memory_id: %(memory_id)s)",
+    "describe.delete": "Glemmer langtidshukommelse",
+    "describe.delete_with_id": "Glemmer langtidshukommelse %(memory_id)s"
+  },
+  "nn": {
+    "tool.description": "Glemmer eit lagra langtidshugenotat, adressert med memory_id-en (sjå get_long_memory). Notatet blir tombstone-merkt: det sluttar å bli brukt med ein gong, men kan gjenopprettast frå :mem dersom det vart sletta ved ein feil. Bruk dette når brukaren ber deg gløyme noko, eller når eit lagra notat ikkje lenger er sant og ikkje bør bytast ut.",
+    "x_search_terms": [
+      "delete_long_memory",
+      "Glemmer langtidshug",
+      "memory note",
+      "long term memory",
+      "forget memory"
+    ],
+    "param.memory_id.description": "memory_id for notatet, som returnert av get_long_memory eller add_long_memory.",
+    "err.memory_id_empty": "[delete_long_memory error] memory_id er tom",
+    "err.not_found": "[delete_long_memory error] ingen aktivt minne med den memory_id",
+    "err.delete": "[delete_long_memory error] kunne ikkje slette minnet",
+    "result.deleted": "[delete_long_memory] glemd (memory_id: %(memory_id)s)",
+    "describe.delete": "Glemmer langtidshug",
+    "describe.delete_with_id": "Glemmer langtidshug %(memory_id)s"
+  }
+}

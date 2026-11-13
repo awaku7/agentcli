@@ -8,23 +8,19 @@ class Profile:
         return {"preferences": ["concise"], "constraints": ["no secrets"]}
 
 
-class Sessions:
-    def list_memory_candidates(self, session_id):
-        assert session_id == "s1"
-        return ["use project style"]
-
-
-def test_memory_manager_reads_profile_and_session_layers():
+def test_memory_manager_reads_profile_layer():
     manager = MemoryManager(
         personal=type("P", (), {"load_long_memory_records": lambda _: []})(),
         shared=type("S", (), {"load_shared_memory_records": lambda _: []})(),
         profile=Profile(),
-        session_store=Sessions(),
+        session_store=None,
         session_id="s1",
     )
     items = manager.list()
     assert [(item.scope, item.note) for item in items] == [
         ("profile", "concise"),
         ("profile", "no secrets"),
-        ("session", "use project style"),
     ]
+    # The session scope no longer surfaces pending marker candidates:
+    # marked notes are saved to long-term memory at write time.
+    assert manager.list(scope="session") == []

@@ -437,6 +437,7 @@ class SessionStore:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._db_lock = threading.RLock()
+        self._memory_notices: list[str] = []
         wait_ms = max(int(busy_timeout_ms), 0)
         try:
             # Multiple CLI/Web/A2A processes may share one store. WAL lets
@@ -1351,13 +1352,44 @@ class SessionStore:
                 session_id, role, content, payload=payload
             )
             self._connection.execute("COMMIT")
-            return message_id
         except Exception:
             try:
                 self._connection.execute("ROLLBACK")
             except sqlite3.Error:
                 pass
             raise
+        self._save_memory_marker(content, role)
+        return message_id
+
+    def _save_memory_marker(self, content: str, role: str) -> None:
+        """Save a ``remember:``/``記憶：`` marked user note immediately.
+
+        Runs after the message transaction commits and never raises: the
+        marker fallback must not break message logging. Successful saves
+        queue a one-line notice for the UI (see drain_memory_notices).
+        """
+        if role != "user":
+            return
+        try:
+            from .memory_marker import extract_memory_marker, save_memory_marker
+
+            note = extract_memory_marker(content)
+            if note is None:
+                return
+            result = save_memory_marker(content)
+            if result and result.get("saved"):
+                self._memory_notices.append(
+                    _("[memory] saved from marker: %(note)s")
+                    % {"note": " ".join(note.split())[:80]}
+                )
+        except Exception:
+            pass
+
+    def drain_memory_notices(self) -> list[str]:
+        """Return and clear queued memory-save notices."""
+        notices = list(self._memory_notices)
+        self._memory_notices.clear()
+        return notices
 
     @_db_locked
     def append_sub_agent_result_once(
@@ -1621,6 +1653,14 @@ class SessionStore:
             except sqlite3.Error:
                 pass
             raise
+        # Marker saves are idempotent (keyed by note content), so scanning
+        # the rewritten history cannot duplicate or resurrect a note.
+        for message in messages:
+            if isinstance(message, dict):
+                self._save_memory_marker(
+                    str(message.get("content") or ""),
+                    str(message.get("role") or ""),
+                )
 
     @_db_locked
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
@@ -3658,31 +3698,6 @@ class SessionStore:
         if not last_message_at or not summary_at:
             return False
         return str(last_message_at) > str(summary_at)
-
-    @_db_locked
-    def list_memory_candidates(self, session_id: str) -> list[str]:
-        """Return explicitly marked candidates without persisting them."""
-        self._require_session(session_id)
-        rows = self._execute(
-            "SELECT content FROM messages WHERE session_id = ? AND role = 'user' ORDER BY message_id",
-            (session_id,),
-        ).fetchall()
-        candidates = []
-        for row in rows:
-            content = str(row["content"])
-            marker = next(
-                (
-                    prefix
-                    for prefix in ("remember:", "記憶:")
-                    if content.lower().startswith(prefix)
-                ),
-                None,
-            )
-            if marker:
-                value = content[len(marker) :].strip()
-                if value:
-                    candidates.append(value)
-        return candidates
 
     @_db_locked
     def search(
