@@ -330,6 +330,56 @@ def test_duplicate_detection_is_scoped_by_project(
     assert len(long_memory.load_long_memory_records()) == 2
 
 
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_background_save_cannot_resurrect_forgotten_note(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory("住所は京都市", source="tool")
+    assert first["saved"] is True
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    # A background re-learn from old logs must not bring the note back,
+    # even under a fresh source_id.
+    relearn = long_memory.save_long_memory(
+        "住所は京都市", source="consolidation", source_id="consolidation:other"
+    )
+    assert relearn["saved"] is False
+    assert relearn["reason"] == "deleted"
+    assert long_memory.load_long_memory_records() == []
+
+    # A fresh in-conversation save is new intent, not a re-learn.
+    restated = long_memory.save_long_memory("住所は京都市", source="tool")
+    assert restated["saved"] is True
+
+
+def test_profile_items_matching_forgotten_notes_are_dropped(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.profile_manager import _drop_forgotten_profile_items
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("テストは pytest を使う", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    profile = _drop_forgotten_profile_items(
+        {
+            "preferences": ["テストは pytest を使う", "エディタは vim を使う"],
+            "constraints": ["テストは pytest を使う"],
+        }
+    )
+    assert profile["preferences"] == ["エディタは vim を使う"]
+    assert profile["constraints"] == []
+
+
 def test_marker_not_saved_for_non_local_web_turn(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

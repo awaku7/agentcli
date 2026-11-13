@@ -110,6 +110,11 @@ _SENTENCE_PUNCTUATION = frozenset("\u3001\u3002\u30fb")
 _EDGE_PUNCTUATION = ".!?"
 
 
+def note_key_for(text: str) -> str:
+    """Public alias of :func:`_note_key` for cross-module comparisons."""
+    return _note_key(text)
+
+
 def _note_key(text: str) -> str:
     """Normalize a note for duplicate comparison.
 
@@ -161,6 +166,16 @@ def tool_save_enabled() -> bool:
     return not _env_disabled("UAGENT_MEMORY_TOOL_SAVE")
 
 
+#: Save sources that re-derive notes from past logs in the background.
+#: They must never resurrect a forgotten note: when a tombstone with
+#: the same content exists in the target scope, the save is refused
+#: with reason "deleted" even if the source_id is new. Interactive
+#: saves (the agent tools acting on the current conversation) are not
+#: in this set: a user re-stating a fact in conversation is fresh
+#: intent, not a re-learn.
+_BACKGROUND_SOURCES = frozenset({"consolidation"})
+
+
 def save_long_memory(
     note: str,
     *,
@@ -205,6 +220,18 @@ def save_long_memory(
                                     "reason": "duplicate",
                                     "memory_id": str(record.get("memory_id") or ""),
                                 }
+                            return {
+                                "saved": False,
+                                "reason": "deleted",
+                                "memory_id": str(record.get("memory_id") or ""),
+                            }
+                if source in _BACKGROUND_SOURCES:
+                    for record in store.records(include_inactive=True):
+                        if (
+                            not _is_active(record)
+                            and _same_scope(record, owner, project)
+                            and _note_key(str(record.get("note") or "")) == key
+                        ):
                             return {
                                 "saved": False,
                                 "reason": "deleted",
@@ -256,6 +283,18 @@ def save_long_memory(
                             "reason": "duplicate",
                             "memory_id": str(record.get("memory_id") or ""),
                         }
+                    return {
+                        "saved": False,
+                        "reason": "deleted",
+                        "memory_id": str(record.get("memory_id") or ""),
+                    }
+        if source in _BACKGROUND_SOURCES:
+            for record in existing:
+                if (
+                    not _is_active(record)
+                    and _same_scope(record, owner, project)
+                    and _note_key(str(record.get("note") or "")) == key
+                ):
                     return {
                         "saved": False,
                         "reason": "deleted",
@@ -621,6 +660,31 @@ def list_deleted_long_memory_records() -> list[dict[str, Any]]:
     deleted = [r for r in records if not _is_active(r)]
     deleted.sort(key=lambda r: float(r.get("updated_at") or r.get("ts") or 0))
     return deleted
+
+
+def forgotten_note_keys() -> set[str]:
+    """Note keys of tombstoned local records — the forget boundary.
+
+    Background re-learning paths (profile extraction, consolidation)
+    compare candidate notes against this set so content the user
+    deliberately forgot is not silently re-created from old logs.
+    Scoped (Web) records are excluded here: their saves never flow
+    through the local re-learning paths. Tombstones are kept as long
+    as the memory store itself is kept, which is also how long the
+    session logs they guard against remain re-readable.
+    """
+    keys: set[str] = set()
+    try:
+        records = list_deleted_long_memory_records()
+    except Exception:
+        return keys
+    for record in records:
+        if str(record.get("owner_id") or ""):
+            continue
+        note = str(record.get("note") or "")
+        if note:
+            keys.add(_note_key(note))
+    return keys
 
 
 def find_long_memory_by_id(memory_id: str) -> dict[str, Any] | None:
