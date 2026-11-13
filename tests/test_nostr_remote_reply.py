@@ -66,8 +66,7 @@ def test_reply_uses_verified_recipient_relays_intersected_with_local_allowlist(
         captured["key"] = auth_private_key
         captured["allowlist"] = allowed_relay_urls
         return [
-            SimpleNamespace(event_id=str(index), accepted=True)
-            for index, _ in enumerate(events)
+            SimpleNamespace(event_id=event["id"], accepted=True) for event in events
         ]
 
     monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
@@ -285,3 +284,129 @@ def test_missing_signed_dm_relay_list_is_visible_in_outbox_status(
         inbox.close()
         outbox.close()
         pairings.close()
+
+
+def _per_relay_runtime(tmp_path, monkeypatch, *, rejected: set[str]):
+    """Runtime whose publish step rejects the given relays, accepts the rest."""
+    from uagent import nostr_remote_transport as transport
+
+    local_key = _secret(2)
+    sender_key = _secret(1)
+    sender_pubkey = _public_key(sender_key).hex()
+    local_relays = ["wss://local-a.example", "wss://local-b.example"]
+    inbox = SQLiteNostrInboxStore(tmp_path / "partial-inbox.sqlite3")
+    outbox = SQLiteNostrOutboxStore(tmp_path / "partial-outbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "partial-pairings.sqlite3")
+    pairings.pair(sender_pubkey, "phone", approved=True, paired_at=100)
+    runtime = NostrRemoteRuntime(
+        event_queue=SimpleNamespace(put=lambda _event: None),
+        private_key=local_key,
+        relays=local_relays,
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+        outbox_store=outbox,
+    )
+
+    async def fake_fetch(*_args, **_kwargs):
+        return list(local_relays)
+
+    async def fake_publish(events, relay_lists_by_pubkey, *_args, **_kwargs):
+        deliveries = []
+        for event in events:
+            recipient = next(tag[1] for tag in event["tags"] if tag[0] == "p")
+            for relay in relay_lists_by_pubkey[recipient]:
+                accepted = relay not in rejected
+                deliveries.append(
+                    SimpleNamespace(
+                        event_id=event["id"],
+                        relay_url=relay,
+                        accepted=accepted,
+                        message="" if accepted else "blocked: not in allowlist",
+                    )
+                )
+        return deliveries
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    return runtime, outbox, sender_pubkey, (inbox, pairings)
+
+
+def test_reply_delivers_when_one_recipient_relay_rejects(tmp_path, monkeypatch):
+    runtime, outbox, sender_pubkey, stores = _per_relay_runtime(
+        tmp_path, monkeypatch, rejected={"wss://local-b.example"}
+    )
+    try:
+        result = runtime.send_reply(
+            {"sender_pubkey": sender_pubkey, "rumor_id": "ab" * 32},
+            "Reply from UAG",
+        )
+        assert result["ok"] is True
+        record = outbox.get(sender_pubkey, "ab" * 32)
+        assert record is not None
+        assert record.status == "delivered"
+        rejections = runtime.status()["diagnostics"]["delivery_rejections"]
+        assert rejections == [
+            {
+                "relay": "wss://local-b.example",
+                "message": "blocked: not in allowlist",
+            }
+        ]
+    finally:
+        for store in stores:
+            store.close()
+        outbox.close()
+
+
+def test_delivery_rejection_sanitizes_terminal_control_characters(
+    tmp_path, monkeypatch
+):
+    runtime, outbox, _sender_pubkey, stores = _per_relay_runtime(
+        tmp_path, monkeypatch, rejected=set()
+    )
+    try:
+        runtime._note_delivery_rejections(  # noqa: SLF001
+            [
+                SimpleNamespace(
+                    accepted=False,
+                    relay_url="wss://local-b.example",
+                    message="blocked\x1b[31m\x07: no",
+                )
+            ]
+        )
+        rejections = runtime.status()["diagnostics"]["delivery_rejections"]
+        assert rejections == [
+            {"relay": "wss://local-b.example", "message": "blocked [31m : no"}
+        ]
+    finally:
+        for store in stores:
+            store.close()
+        outbox.close()
+
+
+def test_reply_not_delivered_when_every_recipient_relay_rejects(tmp_path, monkeypatch):
+    runtime, outbox, sender_pubkey, stores = _per_relay_runtime(
+        tmp_path,
+        monkeypatch,
+        rejected={"wss://local-a.example", "wss://local-b.example"},
+    )
+    try:
+        result = runtime.send_reply(
+            {"sender_pubkey": sender_pubkey, "rumor_id": "ac" * 32},
+            "Reply from UAG",
+        )
+        # The sender copy was accepted, but no recipient relay took the
+        # addressee's wrap, so the reply must stay queued for a retry.
+        assert result["queued"] is True
+        record = outbox.get(sender_pubkey, "ac" * 32)
+        assert record is not None
+        assert record.status == "pending"
+        rejections = runtime.status()["diagnostics"]["delivery_rejections"]
+        assert {item["relay"] for item in rejections} == {
+            "wss://local-a.example",
+            "wss://local-b.example",
+        }
+    finally:
+        for store in stores:
+            store.close()
+        outbox.close()

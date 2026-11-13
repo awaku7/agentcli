@@ -1738,6 +1738,19 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                     error=outbox_summary.get("last_error") or "-",
                 )
             )
+        if isinstance(diagnostics, dict):
+            rejections = diagnostics.get("delivery_rejections")
+            if isinstance(rejections, list):
+                for item in rejections:
+                    if isinstance(item, dict) and item.get("relay"):
+                        print(
+                            _(
+                                "nostr.remote_delivery_rejection",
+                                default=("  delivery rejected: %(relay)s: %(message)s"),
+                                relay=item["relay"],
+                                message=item.get("message") or "-",
+                            )
+                        )
         if status["error"]:
             print(
                 _(
