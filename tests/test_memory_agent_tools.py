@@ -359,6 +359,48 @@ def test_background_save_cannot_resurrect_forgotten_note(
     assert restated["saved"] is True
 
 
+def test_forgotten_note_keys_exclude_scoped_rows(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Scoped (Web) tombstones carry an owner_id; the local forget
+    # boundary must only contain local tombstones.
+    import time as _time
+
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.tools import long_memory
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    saved = long_memory.save_long_memory("ローカルの忘却メモ", source="tool")
+    assert saved["saved"] is True
+    assert long_memory.delete_long_memory_by_id(saved["memory_id"]) is True
+
+    store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        now = _time.time()
+        store.db.execute(
+            "INSERT INTO memories(memory_id, created_at, updated_at, note, "
+            "owner, owner_id, project, audience_type, audience_id, status) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, 'personal', ?, 'deleted')",
+            (
+                "scopedtombstone1",
+                now,
+                now,
+                "スコープ側の忘却メモ",
+                "alice",
+                "alice",
+                "demo",
+                "alice",
+            ),
+        )
+        store.db.commit()
+    finally:
+        store.close()
+
+    keys = long_memory.forgotten_note_keys()
+    assert long_memory.note_key_for("ローカルの忘却メモ") in keys
+    assert long_memory.note_key_for("スコープ側の忘却メモ") not in keys
+
+
 def test_profile_items_matching_forgotten_notes_are_dropped(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

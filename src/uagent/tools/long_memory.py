@@ -674,13 +674,33 @@ def forgotten_note_keys() -> set[str]:
     session logs they guard against remain re-readable.
     """
     keys: set[str] = set()
+    if _use_sqlite():
+        # The base record dicts do not carry owner_id, so query for the
+        # local rows directly: scoped (Web) rows always set owner_id,
+        # local rows never do.
+        try:
+            from ..runtime.memory_store import open_memory_store
+
+            store = open_memory_store(_sqlite_path())
+            try:
+                rows = store.db.execute(
+                    "SELECT note FROM memories WHERE status <> 'active' "
+                    "AND (owner_id IS NULL OR owner_id = '')"
+                ).fetchall()
+            finally:
+                store.close()
+        except Exception:
+            return keys
+        for row in rows:
+            note = str(dict(row).get("note") or "")
+            if note:
+                keys.add(_note_key(note))
+        return keys
     try:
         records = list_deleted_long_memory_records()
     except Exception:
         return keys
     for record in records:
-        if str(record.get("owner_id") or ""):
-            continue
         note = str(record.get("note") or "")
         if note:
             keys.add(_note_key(note))
