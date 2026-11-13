@@ -6,6 +6,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from contextvars import ContextVar
 import hmac
+import mimetypes
 import os
 import re
 import threading
@@ -74,6 +75,11 @@ async def _web_lifespan(_app):
 
 app = FastAPI(title="uag Web", lifespan=_web_lifespan)
 app.add_middleware(BrowserIdentityCookieMiddleware)
+
+# Python's Windows MIME registry commonly identifies ``.mjs`` as plain text.
+# Browsers reject module scripts served with that type, preventing standalone
+# Web modules such as the command picker from initializing.
+mimetypes.add_type("text/javascript", ".mjs")
 
 # web.py used to live directly under src/uagent; this module is one level
 # deeper (src/uagent/web_impl/), so step up one extra directory.

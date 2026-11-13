@@ -113,6 +113,52 @@ def room_worker_count(cli_value: int | None = None) -> int:
     return value
 
 
+def _initialize_worker_observability(settings) -> bool:
+    """Initialize the same resolved OTel policy in an isolated Room worker."""
+    if settings is None:
+        return False
+    try:
+        from ..runtime.observability.bootstrap import initialize_observability
+
+        initialize_observability(settings)
+        return True
+    except Exception:
+        return False
+
+
+def _finish_worker_observability(send, *, initialized: bool) -> None:
+    """Flush child spans and report the process-local export outcome to parent."""
+    if not initialized:
+        return
+    try:
+        from ..runtime.observability.bootstrap import get_observability_backend
+        from ..runtime.observability.delivery_status import delivery_status_snapshot
+
+        backend = get_observability_backend()
+        shutdown = getattr(backend, "shutdown", None)
+        if callable(shutdown):
+            shutdown()
+        send({"otel_status": delivery_status_snapshot()})
+    except Exception:
+        pass
+
+
+def _apply_worker_observability_status(snapshot) -> None:
+    """Mirror a trusted child status into the Web server's :otel snapshot."""
+    if not isinstance(snapshot, dict):
+        return
+    state = snapshot.get("state")
+    enabled = snapshot.get("enabled")
+    if not isinstance(state, str) or not isinstance(enabled, bool):
+        return
+    try:
+        from ..runtime.observability.delivery_status import update_delivery_status
+
+        update_delivery_status(state, enabled=enabled)
+    except Exception:
+        pass
+
+
 def _child_turn(connection, payload) -> None:
     """Spawn entry point; no parent locks, SQLite handles or clients are inherited."""
     from .. import core
@@ -124,6 +170,10 @@ def _child_turn(connection, payload) -> None:
     from .rooms import WebRoom, web_manager
 
     from ..util_mode import set_display_reasoning
+
+    observability_initialized = _initialize_worker_observability(
+        payload.get("observability_settings")
+    )
 
     # These are parent-selected trusted startup settings, not room/request data.
     # Preserve them in the spawned worker rather than re-deriving or weakening
@@ -357,6 +407,7 @@ def _child_turn(connection, payload) -> None:
         asyncio.run_coroutine_threadsafe(asyncio.sleep(0), loop).result(timeout=5)
         send({"state": room_state(room)})
     finally:
+        _finish_worker_observability(send, initialized=observability_initialized)
         finished.set()
         if sandbox_rpc_client is not None:
             sandbox_rpc_client.close_all()
@@ -502,6 +553,7 @@ class RoomWorkerPool:
         from ..i18n import _
         from ..decision.settings import get_decision_settings
         from ..util_mode import get_display_reasoning
+        from ..runtime.observability.settings import get_observability_settings
         from .agent_worker import (
             _ensure_public_room_session,
             _web_turn_execution_context,
@@ -598,6 +650,7 @@ class RoomWorkerPool:
                 "room": room_state(room),
                 "decision_provider": get_decision_settings().provider,
                 "display_reasoning": get_display_reasoning(),
+                "observability_settings": get_observability_settings(),
                 "input": user_input,
                 "attachments": attachments,
                 "core": {
@@ -740,6 +793,8 @@ class RoomWorkerPool:
                         state_received = True
                     elif "event" in value and isinstance(value["event"], dict):
                         self._relay(room, value["event"])
+                    elif "otel_status" in value:
+                        _apply_worker_observability_status(value["otel_status"])
                     else:
                         if process.is_alive():
                             process.terminate()
