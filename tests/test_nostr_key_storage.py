@@ -89,10 +89,33 @@ def test_write_falls_back_to_plaintext_when_envsec_fails(key_env, monkeypatch):
     assert nt._load_or_create_key() == (priv, pub)
 
 
-def test_corrupt_key_file_is_replaced(key_env):
+def test_corrupt_key_file_is_not_replaced(key_env):
     key_env.parent.mkdir(parents=True)
     key_env.write_text("not a key file", encoding="utf-8")
+    before = key_env.read_bytes()
 
+    with pytest.raises(nt.NostrKeyUnreadableError):
+        nt._load_or_create_key()
+    assert key_env.read_bytes() == before
+
+
+def test_undecryptable_key_file_is_not_replaced(key_env, monkeypatch):
+    import uag_envsec
+
+    # Store a valid encrypted key, then simulate a locked backend.
     priv, pub = nt._load_or_create_key()
-    assert len(priv) == 64 and len(pub) == 64
+    before = key_env.read_bytes()
+
+    def _boom(_text):
+        raise RuntimeError("keyring locked")
+
+    orig_decrypt = uag_envsec.decrypt_text
+    monkeypatch.setattr(uag_envsec, "decrypt_text", _boom)
+
+    with pytest.raises(nt.NostrKeyUnreadableError):
+        nt._load_or_create_key()
+    assert key_env.read_bytes() == before
+
+    # Once the backend works again, the original identity is intact.
+    monkeypatch.setattr(uag_envsec, "decrypt_text", orig_decrypt)
     assert nt._load_or_create_key() == (priv, pub)

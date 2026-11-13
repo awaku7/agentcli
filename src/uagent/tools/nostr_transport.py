@@ -132,6 +132,15 @@ _NOSTR_KEY_FILE = os.path.join(
 )
 
 
+class NostrKeyUnreadableError(RuntimeError):
+    """The stored Nostr key file exists but cannot be decrypted or parsed.
+
+    Raised instead of generating a replacement key, so a temporarily
+    unavailable encryption backend (for example a locked OS keyring) can
+    never silently destroy the stored identity.
+    """
+
+
 def _parse_key_text(text: str) -> tuple[str, str] | None:
     """Parse key-file JSON text into (private_key, public_key) hex."""
     try:
@@ -188,6 +197,10 @@ def _read_key_file() -> tuple[str, str] | None:
     New files hold a uag_envsec ciphertext token. A plaintext JSON file
     (written by older versions) is still accepted and is rewritten in
     encrypted form as a side effect of the read.
+
+    Returns None only when no key file exists. When the file exists but
+    cannot be decrypted or parsed, raises NostrKeyUnreadableError so the
+    caller never replaces the stored identity with a fresh key.
     """
     try:
         with open(_NOSTR_KEY_FILE, "r", encoding="utf-8") as f:
@@ -204,9 +217,14 @@ def _read_key_file() -> tuple[str, str] | None:
     try:
         from uag_envsec import decrypt_text
 
-        return _parse_key_text(decrypt_text(raw.strip()))
+        parsed = _parse_key_text(decrypt_text(raw.strip()))
     except Exception:
-        return None
+        parsed = None
+    if parsed is None:
+        raise NostrKeyUnreadableError(
+            "stored Nostr key file exists but cannot be decrypted: " + _NOSTR_KEY_FILE
+        )
+    return parsed
 
 
 def _load_or_create_key() -> tuple[str, str]:
