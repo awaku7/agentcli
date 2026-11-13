@@ -288,6 +288,44 @@ def test_runtime_readback_uses_latest_tombstone_and_local_relays(
     assert all(
         allowlist == list(runtime.relays)
         and auth_private_key == runtime.private_key
-        and timeout == 3.0
+        and timeout == 8.0
         for _, _, allowlist, auth_private_key, timeout in checked
     )
+
+
+def test_runtime_readback_retries_unavailable_results(monkeypatch) -> None:
+    from uagent import nostr_remote_transport
+    from uagent.nostr_remote_runtime import NostrRemoteRuntime
+
+    attempts: dict[tuple[str, str], int] = {}
+
+    async def fake_readback(
+        relay, event_id, *, allowed_relay_urls, auth_private_key, timeout
+    ):
+        key = (relay, event_id)
+        attempts[key] = attempts.get(key, 0) + 1
+        if attempts[key] == 1:
+            return "unavailable"
+        return "found" if event_id == "ab" * 32 else "not_returned"
+
+    monkeypatch.setattr(
+        nostr_remote_transport,
+        "read_back_nip17_gift_wrap",
+        fake_readback,
+    )
+    runtime = SimpleNamespace(
+        _closed=False,
+        outbox_store=SimpleNamespace(
+            latest_delivered=lambda: SimpleNamespace(event_ids=("ab" * 32, "cd" * 32))
+        ),
+        relays=("wss://allowed-a.example", "wss://allowed-b.example"),
+        private_key=_secret(1),
+    )
+    result = NostrRemoteRuntime.verify_latest_reply(runtime)
+    assert result["state"] == "complete"
+    assert all(
+        row["recipient"] == "found" and row["sender_copy"] == "not_returned"
+        for row in result["relays"]
+    )
+    assert len(attempts) == 4
+    assert all(count == 2 for count in attempts.values())

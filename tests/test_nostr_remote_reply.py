@@ -358,6 +358,42 @@ def test_reply_delivers_when_one_recipient_relay_rejects(tmp_path, monkeypatch):
         outbox.close()
 
 
+def test_delivered_reply_records_readback_from_accepting_relays(tmp_path, monkeypatch):
+    from uagent import nostr_remote_transport as transport
+
+    runtime, outbox, sender_pubkey, stores = _per_relay_runtime(
+        tmp_path, monkeypatch, rejected={"wss://local-b.example"}
+    )
+    probed: list[str] = []
+
+    async def fake_readback(
+        relay, event_id, *, allowed_relay_urls, auth_private_key, timeout
+    ):
+        probed.append(relay)
+        return "found"
+
+    monkeypatch.setattr(transport, "read_back_nip17_gift_wrap", fake_readback)
+    try:
+        result = runtime.send_reply(
+            {"sender_pubkey": sender_pubkey, "rumor_id": "ab" * 32},
+            "Reply from UAG",
+        )
+        assert result["ok"] is True
+        readback = runtime.status()["diagnostics"]["delivery_readback"]
+        assert readback == [
+            {
+                "relay": "wss://local-a.example",
+                "recipient": "found",
+                "sender_copy": "found",
+            }
+        ]
+        assert set(probed) == {"wss://local-a.example"}
+    finally:
+        for store in stores:
+            store.close()
+        outbox.close()
+
+
 def test_delivery_rejection_sanitizes_terminal_control_characters(
     tmp_path, monkeypatch
 ):
