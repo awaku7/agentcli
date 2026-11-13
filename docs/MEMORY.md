@@ -80,6 +80,9 @@ marked note immediately when the message is written, keyed by a
 content-derived `source_id`, so history rewrites cannot duplicate it
 or resurrect it after it was forgotten. The former
 `:sessions candidates` / `:sessions approve` flow no longer exists.
+Marker saves fire only under the local identity: the note lands in the
+legacy unscoped store, so non-local Web turns are fenced off just like
+the legacy memory API.
 
 Opt out per feature: `UAGENT_MEMORY_TOOL_SAVE=0` unregisters the three
 write tools, `UAGENT_MEMORY_MARKER=0` disables the marker fallback, and

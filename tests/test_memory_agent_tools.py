@@ -330,6 +330,52 @@ def test_duplicate_detection_is_scoped_by_project(
     assert len(long_memory.load_long_memory_records()) == 2
 
 
+def test_marker_not_saved_for_non_local_web_turn(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Marker saves land in the legacy unscoped store (owner = the
+    # server's OS login), so an authenticated non-local Web turn must
+    # not trigger one; the local identity still saves as before.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_marker import save_memory_marker
+    from uagent.runtime.session_store import SessionStore
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+
+    web_turn = TurnContext(
+        principal_id="alice",
+        room_id="room-1",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+        server_bound_project=True,
+    )
+    with bind_turn_context(web_turn):
+        assert save_memory_marker("remember: リモートからのメモ") is None
+        store.append_message(session.session_id, "user", "remember: リモートからのメモ")
+    assert long_memory.load_long_memory_records() == []
+
+    local_turn = TurnContext(
+        principal_id="local",
+        room_id="",
+        project_id="demo",
+        session_id=session.session_id,
+        entry_point="web",
+        authenticated=True,
+        authn_kind="local",
+    )
+    with bind_turn_context(local_turn):
+        store.append_message(session.session_id, "user", "remember: ローカルのメモ")
+    records = long_memory.load_long_memory_records()
+    assert [str(r.get("note")) for r in records] == ["ローカルのメモ"]
+    store.close()
+
+
 @pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
 def test_duplicate_detection_keeps_meaningful_punctuation(
     backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch

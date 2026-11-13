@@ -12,7 +12,9 @@ the same marker twice (nor resurrect it after it was forgotten),
 because the save is keyed by a content-derived ``source_id``.
 
 Opt out with ``UAGENT_MEMORY_MARKER=0`` (or the master
-``UAGENT_MEMORY=0``).
+``UAGENT_MEMORY=0``). Saves fire only under the local identity: the
+note lands in the legacy unscoped store, so non-local Web turns are
+fenced off the same way the legacy memory API is.
 """
 
 from __future__ import annotations
@@ -51,6 +53,29 @@ def marker_source_id(note: str) -> str:
     return f"marker:{digest}"
 
 
+def _local_identity_turn() -> bool:
+    """Whether the current turn runs under the local identity.
+
+    Marker saves land in the legacy (unscoped) memory store, whose owner
+    resolves to the server's OS login, and the Web memory API fences
+    that store to local mode (``_legacy_local_only``). The marker
+    fallback keeps the same boundary: it fires only when there is no
+    turn context (plain local entry points) or the turn's identity is
+    the local one. Non-local Web identities (token, OIDC, browser
+    guests) never write local memory as a side effect of message
+    logging; their scoped writes go through the agent tools.
+    """
+    try:
+        from .identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+    except Exception:
+        return True
+    if turn is None:
+        return True
+    return str(turn.authn_kind or "").strip().lower() == "local"
+
+
 def save_memory_marker(content: str) -> dict[str, Any] | None:
     """Save the marked note in ``content`` immediately, if it has a marker.
 
@@ -60,6 +85,8 @@ def save_memory_marker(content: str) -> dict[str, Any] | None:
     logging.
     """
     if not marker_enabled():
+        return None
+    if not _local_identity_turn():
         return None
     note = extract_memory_marker(content)
     if note is None:
