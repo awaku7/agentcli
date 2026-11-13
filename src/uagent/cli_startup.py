@@ -240,7 +240,6 @@ def run_cli_startup(
 
     # readme_util removed (README.md/QUICKSTART.md no longer bundled as package-data)
     from .tools import long_memory as personal_long_memory
-    from .tools import shared_memory
     from .tools.mcp_servers_shared import ensure_mcp_config_template
     from .welcome import _internal_pager, print_welcome
     from .util_tools import (
@@ -474,16 +473,12 @@ def run_cli_startup(
 
             try:
                 before_len = len(messages)
-                flags = append_long_memory_system_messages(
+                append_long_memory_system_messages(
                     core=core,
                     messages=messages,
                     build_long_memory_system_message_fn=build_long_memory_system_message,
                     personal_long_memory_mod=personal_long_memory,
-                    shared_memory_mod=shared_memory,
                 )
-
-                if flags.get("shared_enabled"):
-                    print("[INFO] " + _("Loaded shared long-term memory."))
 
                 for m in messages[before_len:]:
                     core.log_message(m)

@@ -78,8 +78,6 @@ def _safe_or_skip_reason(tool_name: str) -> str | None:
     if tool_name in {
         "add_long_memory",
         "get_long_memory",
-        "add_shared_memory",
-        "get_shared_memory",
     }:
         return "Environment-dependent persistence"
 

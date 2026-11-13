@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
-MemoryScope = Literal["personal", "shared", "profile", "session"]
+MemoryScope = Literal["personal", "profile", "session"]
 
 
 @dataclass(frozen=True)
@@ -17,25 +17,21 @@ class MemoryItem:
 
 
 class MemoryManager:
-    """Unified facade over the existing personal/shared memory stores."""
+    """Unified facade over the existing personal memory store."""
 
     def __init__(
         self,
         *,
         personal: Any = None,
-        shared: Any = None,
         profile: Any = None,
         session_store: Any = None,
         session_id: str | None = None,
     ) -> None:
         if personal is None:
             from ..tools import long_memory as personal
-        if shared is None:
-            from ..tools import shared_memory as shared
         if profile is None:
             from .. import profile_manager as profile
         self.personal = personal
-        self.shared = shared
         self.profile = profile
         self.session_store = session_store
         self.session_id = session_id
@@ -48,26 +44,17 @@ class MemoryManager:
             self.personal.append_long_memory(text)
         elif scope in ("profile", "session"):
             raise RuntimeError(f"{scope} memory is read-only through MemoryManager")
-        elif scope == "shared":
-            if not self.shared.is_enabled():
-                raise RuntimeError("shared memory is disabled")
-            self.shared.append_shared_memory(text)
         else:
             raise ValueError(f"unknown memory scope: {scope}")
 
     def list(self, *, scope: MemoryScope | None = None) -> list[MemoryItem]:
-        if scope not in (None, "personal", "shared", "profile", "session"):
+        if scope not in (None, "personal", "profile", "session"):
             raise ValueError(f"unknown memory scope: {scope}")
         items: list[MemoryItem] = []
         if scope in (None, "personal"):
             items.extend(
                 MemoryItem("personal", str(r.get("note", "")), r.get("ts"))
                 for r in self.personal.load_long_memory_records()
-            )
-        if scope in (None, "shared"):
-            items.extend(
-                MemoryItem("shared", str(r.get("note", "")), r.get("ts"))
-                for r in self.shared.load_shared_memory_records()
             )
         if scope in (None, "profile"):
             snapshot = self.profile.load_profile()

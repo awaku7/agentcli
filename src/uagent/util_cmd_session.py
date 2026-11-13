@@ -21,7 +21,6 @@ from . import tools
 from .env_utils import env_get
 from .i18n import _
 from .tools import long_memory as personal_long_memory
-from .tools import shared_memory
 from .tools.context import get_callbacks
 from .runtime.session_command_service import SessionCommandService
 from .runtime.session_restore import apply_persisted_state, bind_session
@@ -2412,35 +2411,6 @@ def _handle_cmd_mem_vacuum(arg: str, *, tr: Any) -> bool:
     return True
 
 
-def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
-    if not shared_memory.is_enabled():
-        print(
-            _(
-                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
-            )
-        )
-        return True
-
-    records = shared_memory.load_shared_memory_records()
-    if not records:
-        print(_("No shared long-term memory entries."))
-        return True
-
-    import time as _time
-
-    print(_("Shared long-term memory entries:"))
-    for idx, rec in enumerate(records):
-        ts = rec.get("ts")
-        if isinstance(ts, (int, float)):
-            dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
-        else:
-            dt = "(no-ts)"
-        note = str(rec.get("note", ""))
-        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
-
-    return True
-
-
 def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
     from .profile_manager import load_profile, profile_from_logs
     from .runtime.runtime_memory import _format_profile
@@ -2505,53 +2475,4 @@ def _handle_cmd_profile_clear(*, tr: Any) -> bool:
             )
     else:
         print(tr("No user profile file found to clear."))
-    return True
-
-
-def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
-    if not arg:
-        print(_(":shared-mem-del <index>"))
-        return True
-
-    if not shared_memory.is_enabled():
-        print(
-            _(
-                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
-            )
-        )
-        return True
-
-    try:
-        idx = int(arg)
-    except Exception:
-        print(
-            _("[shared-mem-del error] Failed to parse index as int: %(arg)r")
-            % {"arg": arg}
-        )
-        return True
-
-    records = shared_memory.load_shared_memory_records()
-    if idx < 0 or idx >= len(records):
-        print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
-        return True
-
-    try:
-        records.pop(idx)
-        path = shared_memory.get_shared_memory_file()
-        if not path:
-            print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
-            return True
-
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "w", encoding="utf-8") as f:
-            for rec in records:
-                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    except Exception as e:
-        print(
-            _("[shared-mem-del error] %(etype)s: %(err)s")
-            % {"etype": type(e).__name__, "err": e}
-        )
-        return True
-
-    print(_("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
     return True

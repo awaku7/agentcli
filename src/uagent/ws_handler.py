@@ -185,7 +185,6 @@ class WsHandler:
             from uagent import util_tools
             from uagent.runtime.runtime_memory import append_long_memory_system_messages
             from uagent.tools import long_memory as personal_long_memory
-            from uagent.tools import shared_memory
 
             if self._startup_cache is None:
                 provider_name, client, depname_out = _providers.make_client(_core)
@@ -196,7 +195,6 @@ class WsHandler:
                     messages=msgs,
                     build_long_memory_system_message_fn=util_tools.build_long_memory_system_message,
                     personal_long_memory_mod=personal_long_memory,
-                    shared_memory_mod=shared_memory,
                 )
 
                 self._startup_cache = {

@@ -15,7 +15,7 @@ What it covers (shared across CLI/Web/GUI):
 - validate startup environment when needed (`validate_or_exit_startup_env(context=...)`)
 - create the directory and `chdir`
 - build startup banner text
-- append personal long-term memory and shared memory as system messages
+- append personal long-term memory as system messages
 - load `.env` and `.env.sec` from the current working directory during startup initialization when `python-dotenv` is available
 
 Design policy:
@@ -118,27 +118,20 @@ ______________________________________________________________________
 
 ## 4. Long-term memory system messages
 
-`append_long_memory_system_messages()` consolidates the personal/shared long-term memory loading path.
+`append_long_memory_system_messages()` consolidates the personal long-term memory loading path.
 
 - Personal long-term memory is loaded via `tools.long_memory`
-- Shared memory is loaded via `tools.shared_memory` only when enabled
 - Any generated system message is appended to `messages`
 - Added messages are also passed to `core.log_message()`
 
 API:
 
-- `append_long_memory_system_messages(...) -> Dict[str, bool]`
-
-Returned flags:
-
-- `shared_enabled`: whether shared memory is enabled (`shared_memory_mod.is_enabled()`)
+- `append_long_memory_system_messages(...) -> None`
 
 Notes:
 
 - The function does not print.
 - The function swallows internal exceptions and leaves warning handling to the caller.
-- The current implementation does **not** prefix shared-memory content with a special label.
-- The current implementation does **not** return `personal_appended` / `shared_appended` flags.
 
 ______________________________________________________________________
 

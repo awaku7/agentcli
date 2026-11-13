@@ -203,7 +203,6 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             # single-user local deployment. Authenticated Web rooms receive
             # access-filtered turn-local projection in the LLM pipeline.
             from ..tools import long_memory as personal_long_memory
-            from ..tools import shared_memory
 
             print(_("[INFO] Loaded long-term memory."))
             try:
@@ -216,31 +215,19 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             except Exception:
                 pass
             try:
-                flags = _runtime_init.append_long_memory_system_messages(
+                _runtime_init.append_long_memory_system_messages(
                     core=core,
                     messages=room.history,
                     build_long_memory_system_message_fn=tools_util.build_long_memory_system_message,
                     personal_long_memory_mod=personal_long_memory,
-                    shared_memory_mod=shared_memory,
                 )
-                if flags.get("shared_enabled"):
-                    print(_("[INFO] Loaded shared long-term memory."))
-                    try:
-                        room.add_message(
-                            {
-                                "role": "assistant",
-                                "content": _("[INFO] Loaded shared long-term memory."),
-                            }
-                        )
-                    except Exception:
-                        pass
                 # These are room-scoped provider instructions, not raw turns.
                 # Logging them through the process-global core callback could
                 # write one room's memory into another room's active session.
             except Exception as exc:
                 print(
                     _(
-                        "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+                        "[WARN] Exception occurred while loading long-term memory: %(err)s"
                     )
                     % {"err": exc}
                 )

@@ -16,41 +16,24 @@ class FakePersonal:
         return list(self.records)
 
 
-class FakeShared:
-    def __init__(self, enabled=True):
-        self.enabled = enabled
-        self.records = []
-
-    def is_enabled(self):
-        return self.enabled
-
-    def append_shared_memory(self, note):
-        self.records.append({"note": note, "ts": 2})
-
-    def load_shared_memory_records(self):
-        return list(self.records)
-
-
 def test_memory_manager_routes_and_lists_scopes():
-    personal, shared = FakePersonal(), FakeShared()
+    personal = FakePersonal()
     manager = MemoryManager(
         personal=personal,
-        shared=shared,
         profile=type("Profile", (), {"load_profile": lambda _: {}})(),
     )
 
     manager.remember("private")
-    manager.remember("team", scope="shared")
 
-    assert [item.scope for item in manager.list()] == ["personal", "shared"]
-    assert manager.records_for_prompt(scope="shared")[0]["note"] == "team"
+    assert [item.scope for item in manager.list()] == ["personal"]
+    assert manager.records_for_prompt(scope="personal")[0]["note"] == "private"
 
 
-def test_memory_manager_rejects_disabled_shared_and_empty_notes():
-    manager = MemoryManager(personal=FakePersonal(), shared=FakeShared(False))
+def test_memory_manager_rejects_unknown_scope_and_empty_notes():
+    manager = MemoryManager(personal=FakePersonal())
     with pytest.raises(ValueError):
         manager.remember(" ")
-    with pytest.raises(RuntimeError):
+    with pytest.raises(ValueError):
         manager.remember("team", scope="shared")
     with pytest.raises(ValueError):
         manager.list(scope="unknown")

@@ -440,10 +440,9 @@ def prepare_memory_projection(
     allow_legacy_unknown = not strict_scope
     max_candidates = _positive_int("UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES", 20)
     personal_defaulted_owner = 0
-    shared_defaulted_owner = 0
     access_generation = 0
     try:
-        from ..tools import long_memory, shared_memory
+        from ..tools import long_memory
 
         if scoped_identity:
             personal_records, access_generation = _prepare_scoped_records(core, turn)
@@ -463,20 +462,6 @@ def prepare_memory_projection(
             max_candidates=max_candidates,
             allow_legacy_unknown=allow_legacy_unknown,
         )
-        shared_result: MemoryShadowResult | None = None
-        if not scoped_identity and shared_memory.is_enabled():
-            shared_records, shared_defaulted_owner = _records_with_default_owner(
-                shared_memory.load_shared_memory_records(), owner
-            )
-            shared_result = shadow_retrieve_memories(
-                shared_records,
-                query=query,
-                scope="shared",
-                owner=owner_filter,
-                project=project,
-                max_candidates=max_candidates,
-                allow_legacy_unknown=allow_legacy_unknown,
-            )
     except Exception as exc:
         return MemoryProjectionSnapshot(
             profile_content="",
@@ -523,10 +508,7 @@ def prepare_memory_projection(
         if scoped_identity
         else _items_from_result("personal", personal_result)
     )
-    if shared_result is not None:
-        items.extend(_items_from_result("shared", shared_result))
-
-    # A note may exist in both stores. Keep one evidence item for this turn.
+    # Keep one evidence item per distinct note for this turn.
     unique_items: list[MemoryProjectionItem] = []
     seen_notes: set[str] = set()
     for item in items:
@@ -600,14 +582,11 @@ def prepare_memory_projection(
         "memory_budget_used_chars": len(projected_evidence),
         "defaulted_owner_records": {
             "personal": personal_defaulted_owner,
-            "shared": shared_defaulted_owner,
         },
         "selection_reasons": {
             "personal": "query_match",
-            "shared": "query_match" if shared_result is not None else "disabled",
         },
         "personal": personal_result.to_dict(),
-        "shared": shared_result.to_dict() if shared_result is not None else None,
     }
     return MemoryProjectionSnapshot(
         profile_content=guidance.content,

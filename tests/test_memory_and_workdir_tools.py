@@ -44,35 +44,6 @@ def test_add_long_memory_rejects_empty_note(
     assert any(token in out.lower() for token in ("error", "empty", "エラー", "空"))
 
 
-def test_add_get_shared_memory_roundtrip(
-    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    from uagent.tools.add_shared_memory_tool import run_tool as add_shared_memory
-    from uagent.tools.get_shared_memory_tool import run_tool as get_shared_memory
-
-    shared = repo_tmp_path / "shared.jsonl"
-    monkeypatch.setenv("UAGENT_SHARED_MEMORY_FILE", str(shared))
-
-    out1 = add_shared_memory({"note": "shared-1"})
-    assert "appended" in out1.lower() or "1" in out1
-
-    out2 = get_shared_memory({})
-    assert isinstance(out2, str)
-    assert "shared-1" in out2
-
-
-def test_add_shared_memory_empty_note_is_noop(
-    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    from uagent.tools.add_shared_memory_tool import run_tool as add_shared_memory
-
-    shared = repo_tmp_path / "shared.jsonl"
-    monkeypatch.setenv("UAGENT_SHARED_MEMORY_FILE", str(shared))
-
-    out = add_shared_memory({"note": ""})
-    assert "nothing saved" in out.lower()
-
-
 def test_change_workdir_confirm_false(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

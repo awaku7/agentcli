@@ -261,22 +261,17 @@ class ScheckWorker(QtCore.QObject):
             cb.finish_skill = make_finish_skill_handler(self.messages, core)
 
             from ..tools import long_memory as personal_long_memory
-            from ..tools import shared_memory
 
             print("[INFO] " + _("Loaded long-term memory."))
 
             try:
                 before_len = len(self.messages)
-                flags = _runtime_init.append_long_memory_system_messages(
+                _runtime_init.append_long_memory_system_messages(
                     core=core,
                     messages=self.messages,
                     build_long_memory_system_message_fn=build_long_memory_system_message,
                     personal_long_memory_mod=personal_long_memory,
-                    shared_memory_mod=shared_memory,
                 )
-
-                if flags.get("shared_enabled"):
-                    print("[INFO] " + _("Loaded shared long-term memory."))
 
                 for m in self.messages[before_len:]:
                     core.log_message(m)

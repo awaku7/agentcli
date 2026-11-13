@@ -162,10 +162,8 @@ def append_long_memory_system_messages(
     messages: list[dict[str, Any]],
     build_long_memory_system_message_fn: Callable[[Any], dict[str, Any]],
     personal_long_memory_mod: Any,
-    shared_memory_mod: Any,
-) -> dict[str, bool]:
-    """Append personal/shared long-term memory system messages if available."""
-    flags: dict[str, bool] = {"shared_enabled": False}
+) -> None:
+    """Append personal long-term memory system messages if available."""
     _ensure_memory_log_boundary(core)
 
     # Inject user profile if profiling is enabled and profile exists.
@@ -188,13 +186,11 @@ def append_long_memory_system_messages(
     except Exception:
         pass
 
-    memory_manager = None
     try:
         from .memory_manager import MemoryManager
 
         memory_manager = MemoryManager(
             personal=personal_long_memory_mod,
-            shared=shared_memory_mod,
         )
         personal_records = memory_manager.records_for_prompt(scope="personal")
         personal_msg = build_long_memory_system_message_fn(personal_records)
@@ -206,32 +202,6 @@ def append_long_memory_system_messages(
             core.log_message(personal_msg)
     except Exception:
         pass
-
-    try:
-        shared_enabled = bool(shared_memory_mod.is_enabled())
-    except Exception:
-        shared_enabled = False
-
-    flags["shared_enabled"] = shared_enabled
-    if not shared_enabled:
-        return flags
-
-    try:
-        if memory_manager is not None:
-            shared_records = memory_manager.records_for_prompt(scope="shared")
-        else:
-            shared_records = shared_memory_mod.load_shared_memory_records()
-        shared_msg = build_long_memory_system_message_fn(shared_records)
-        if shared_msg:
-            messages.append(shared_msg)
-            _register_memory_system_content(
-                core, "shared", str(shared_msg.get("content") or "")
-            )
-            core.log_message(shared_msg)
-    except Exception:
-        pass
-
-    return flags
 
 
 __all__ = ["append_long_memory_system_messages"]
