@@ -77,7 +77,7 @@ def _local_identity_turn() -> bool:
 
 
 def save_memory_marker(
-    content: str, *, allow_scoped: bool = True
+    content: str, *, allow_scoped: bool = True, replay: bool = False
 ) -> dict[str, Any] | None:
     """Save the marked note in ``content`` immediately, if it has a marker.
 
@@ -87,6 +87,10 @@ def save_memory_marker(
     logging. ``allow_scoped=False`` (history rewrites) suppresses the
     scoped save: the scoped store forgets by hard deletion, so a
     rewrite re-scan could otherwise resurrect a forgotten scoped note.
+    ``replay=True`` (also history rewrites) applies the forget boundary
+    to the local save: a re-scanned marker is not fresh intent, so a
+    note the user has since forgotten stays forgotten even when the
+    marker itself was only ever a duplicate of a background save.
     """
     if not marker_enabled():
         return None
@@ -100,7 +104,9 @@ def save_memory_marker(
     try:
         from ..tools.long_memory import save_long_memory
 
-        return save_long_memory(note, source="marker", source_id=marker_source_id(note))
+        return save_long_memory(
+            note, source="marker", source_id=marker_source_id(note), replay=replay
+        )
     except Exception:
         return {"saved": False, "reason": "error", "memory_id": ""}
 

@@ -359,6 +359,42 @@ def test_background_save_cannot_resurrect_forgotten_note(
     assert restated["saved"] is True
 
 
+def test_replay_save_cannot_resurrect_forgotten_note(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    if backend == "jsonl":
+        _use_jsonl(monkeypatch, repo_tmp_path)
+    else:
+        _use_sqlite(monkeypatch, repo_tmp_path)
+
+    first = long_memory.save_long_memory(
+        "好物は抹茶", source="consolidation", source_id="consolidation:x"
+    )
+    assert first["saved"] is True
+    # The identical marker is only a duplicate: the record keeps the
+    # consolidation source_id, so the marker leaves no provenance that
+    # a later tombstone could be matched against.
+    dup = long_memory.save_long_memory("好物は抹茶", source="marker", source_id="mk:1")
+    assert dup["reason"] == "duplicate"
+    assert long_memory.delete_long_memory_by_id(first["memory_id"]) is True
+
+    # A history-rewrite replay of that marker must stay forgotten.
+    replay = long_memory.save_long_memory(
+        "好物は抹茶", source="marker", source_id="mk:1", replay=True
+    )
+    assert replay["saved"] is False
+    assert replay["reason"] == "deleted"
+    assert long_memory.load_long_memory_records() == []
+
+    # The same marker as a new message is fresh intent and saves.
+    fresh = long_memory.save_long_memory(
+        "好物は抹茶", source="marker", source_id="mk:1"
+    )
+    assert fresh["saved"] is True
+
+
 def test_forgotten_note_keys_exclude_scoped_rows(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

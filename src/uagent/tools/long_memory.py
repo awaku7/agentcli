@@ -172,7 +172,12 @@ def tool_save_enabled() -> bool:
 #: with reason "deleted" even if the source_id is new. Interactive
 #: saves (the agent tools acting on the current conversation) are not
 #: in this set: a user re-stating a fact in conversation is fresh
-#: intent, not a re-learn.
+#: intent, not a re-learn. History-rewrite replays are treated the
+#: same way via the ``replay`` parameter: re-scanning an old marker is
+#: mechanical, not fresh intent, and a marker that was only ever a
+#: duplicate of a background save carries no provenance of its own on
+#: the record (the store keeps one primary source_id), so the source
+#: check alone cannot keep its replays out.
 _BACKGROUND_SOURCES = frozenset({"consolidation"})
 
 
@@ -183,6 +188,7 @@ def save_long_memory(
     project: str = "",
     source: str = "",
     source_id: str = "",
+    replay: bool = False,
 ) -> dict[str, Any]:
     """Save one note through the checked save path used by agent-facing writers.
 
@@ -192,7 +198,10 @@ def save_long_memory(
     exact re-saves out of the store; ``source``/``source_id`` record the
     provenance and make repeated saves of the same origin idempotent
     within the same owner/project scope (the same content saved under
-    another project is a different note).
+    another project is a different note). ``replay=True`` marks a save
+    re-derived from stored history (a history-rewrite re-scan); replays
+    get the background forget boundary described at
+    ``_BACKGROUND_SOURCES``.
     """
     from ..runtime.memory_scope import resolve_memory_owner
 
@@ -229,7 +238,7 @@ def save_long_memory(
                                 "reason": "deleted",
                                 "memory_id": str(record.get("memory_id") or ""),
                             }
-                if source in _BACKGROUND_SOURCES:
+                if source in _BACKGROUND_SOURCES or replay:
                     for record in store.records(include_inactive=True):
                         if (
                             not _is_active(record)
@@ -294,7 +303,7 @@ def save_long_memory(
                         "reason": "deleted",
                         "memory_id": str(record.get("memory_id") or ""),
                     }
-        if source in _BACKGROUND_SOURCES:
+        if source in _BACKGROUND_SOURCES or replay:
             for record in existing:
                 if (
                     not _is_active(record)

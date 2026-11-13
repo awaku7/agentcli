@@ -100,10 +100,13 @@ is announced once, with the next session's memory notices.
 
 Forgotten content must not come back through re-learning. Background
 saves (consolidation) whose text matches a tombstone in the same
-scope are refused, and profile learning drops extracted preferences
-and constraints that match a forgotten note. A note re-stated in
-conversation and saved by the agent tools is fresh intent and is
-allowed. Tombstones are kept for as long as the memory store itself
+scope are refused, profile learning drops extracted preferences
+and constraints that match a forgotten note, and marker replays from
+history rewrites get the same content check — a re-scanned marker is
+not fresh intent, and it may never have left provenance of its own on
+the record (for example when it was only a duplicate of a
+consolidation save). A note re-stated in conversation and saved by
+the agent tools is fresh intent and is allowed. Tombstones are kept for as long as the memory store itself
 is kept — the same horizon over which the session logs they guard
 against remain re-readable.
 

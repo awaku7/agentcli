@@ -104,6 +104,36 @@ def test_save_consolidation_notes_uses_given_project(
     assert record.get("owner") == "tester"
 
 
+def test_marker_replay_cannot_resurrect_consolidation_note(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Consolidation saves the fact first; the user's identical marker
+    # is then just a duplicate and leaves no provenance of its own on
+    # the record (its source_id stays the consolidation one). After
+    # the user forgets the note, a history rewrite replays the marker:
+    # the replay is not fresh intent, so the forget boundary must stop
+    # it even though the marker's source_id matches nothing.
+    from uagent.runtime import memory_consolidation, memory_marker
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    note = "再演で戻らないメモ"
+    assert memory_consolidation.save_consolidation_notes([note]) == 1
+    live = memory_marker.save_memory_marker(f"remember: {note}")
+    assert live is not None and live.get("reason") == "duplicate"
+    record = long_memory.load_long_memory_records()[0]
+    assert long_memory.delete_long_memory_entry(str(record["memory_id"]))
+    assert long_memory.load_long_memory_records() == []
+    replayed = memory_marker.save_memory_marker(
+        f"remember: {note}", allow_scoped=False, replay=True
+    )
+    assert replayed is not None and not replayed.get("saved")
+    assert long_memory.load_long_memory_records() == []
+    # The same marker written as a new message is fresh intent.
+    fresh = memory_marker.save_memory_marker(f"remember: {note}")
+    assert fresh is not None and fresh.get("saved")
+
+
 def test_run_async_captures_scope_at_launch(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
