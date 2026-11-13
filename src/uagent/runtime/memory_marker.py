@@ -12,9 +12,11 @@ the same marker twice (nor resurrect it after it was forgotten),
 because the save is keyed by a content-derived ``source_id``.
 
 Opt out with ``UAGENT_MEMORY_MARKER=0`` (or the master
-``UAGENT_MEMORY=0``). Saves fire only under the local identity: the
-note lands in the legacy unscoped store, so non-local Web turns are
-fenced off the same way the legacy memory API is.
+``UAGENT_MEMORY=0``). Under the local identity the note lands in the
+legacy unscoped store; non-local Web turns are fenced off from that
+store the same way the legacy memory API is, but an authenticated
+principal in a private Web session saves into their own scoped
+personal memory instead.
 """
 
 from __future__ import annotations
@@ -63,7 +65,8 @@ def _local_identity_turn() -> bool:
     turn context (plain local entry points) or the turn's identity is
     the local one. Non-local Web identities (token, OIDC, browser
     guests) never write local memory as a side effect of message
-    logging; their scoped writes go through the agent tools.
+    logging; private-session principals use their scoped store
+    instead (see :func:`_save_scoped_marker`).
     """
     try:
         from .identity_context import current_turn_is_local
@@ -83,14 +86,74 @@ def save_memory_marker(content: str) -> dict[str, Any] | None:
     """
     if not marker_enabled():
         return None
-    if not _local_identity_turn():
-        return None
     note = extract_memory_marker(content)
     if note is None:
         return None
+    if not _local_identity_turn():
+        return _save_scoped_marker(note)
     try:
         from ..tools.long_memory import save_long_memory
 
         return save_long_memory(note, source="marker", source_id=marker_source_id(note))
     except Exception:
         return {"saved": False, "reason": "error", "memory_id": ""}
+
+
+def _save_scoped_marker(note: str) -> dict[str, Any] | None:
+    """Save a marked note into the turn principal's scoped personal memory.
+
+    Non-local turns cannot write the legacy unscoped store (see
+    :func:`_local_identity_turn`), but an authenticated principal in a
+    private session has a scoped store of their own. The same screens
+    as the checked save path apply (length, credentials) and duplicates
+    are refused. The scoped store forgets by hard deletion, so — as in
+    the scoped Web API itself — a marker repeated after a forget saves
+    again; there is no tombstone to match against. Room (non-private)
+    turns and the JSONL backend have no scoped personal store to write
+    to, so they return None (no save), keeping the local-only fence
+    for them.
+    """
+    try:
+        from .identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+        if turn is None or not turn.authenticated or not turn.private_session:
+            return None
+        from ..tools.long_memory import (
+            NOTE_MAX_CHARS,
+            _sqlite_path,
+            _use_sqlite,
+            looks_like_secret,
+            note_key_for,
+        )
+
+        if not _use_sqlite():
+            return None
+        text = str(note or "").strip()
+        if not text or len(text) > NOTE_MAX_CHARS or looks_like_secret(text):
+            return {"saved": False, "reason": "screened", "memory_id": ""}
+        from .memory_access import MemoryAccessContext, ScopedMemoryStore
+        from .memory_store import open_memory_store
+
+        store = open_memory_store(_sqlite_path())
+        try:
+            context = MemoryAccessContext.from_turn(turn, private_session=True)
+            scoped = ScopedMemoryStore(store, context)
+            key = note_key_for(text)
+            for record in scoped.records():
+                if note_key_for(str(record.get("note") or "")) == key:
+                    return {
+                        "saved": False,
+                        "reason": "duplicate",
+                        "memory_id": str(record.get("memory_id") or ""),
+                    }
+            record = scoped.append(text)
+            return {
+                "saved": True,
+                "reason": "saved",
+                "memory_id": str(record.get("memory_id") or ""),
+            }
+        finally:
+            store.close()
+    except Exception:
+        return None

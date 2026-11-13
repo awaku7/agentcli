@@ -80,14 +80,37 @@ marked note immediately when the message is written, keyed by a
 content-derived `source_id`, so history rewrites cannot duplicate it
 or resurrect it after it was forgotten. The former
 `:sessions candidates` / `:sessions approve` flow no longer exists.
-Marker saves fire only under the local identity: the note lands in the
-legacy unscoped store, so non-local Web turns are fenced off just like
-the legacy memory API.
+Marker saves under the local identity land in the legacy unscoped
+store. Non-local Web turns are fenced off from that store just like
+the legacy memory API; an authenticated principal in a private Web
+session instead saves the marked note into their own scoped personal
+memory (the scoped store forgets by hard deletion, so a marker
+repeated after a scoped forget saves again, as in the scoped Web API
+itself). Room turns have no personal store and save nothing.
+
+#### Background consolidation and the forget boundary
+
+A background pass (same shape as profile learning) re-reads the
+conversation when history is compressed, extracts durable facts,
+decisions and commitments the conversational saves missed, and stores
+them through the same checked path with `source="consolidation"`. It
+runs only under the local identity, and the number of notes it saved
+is announced once, with the next session's memory notices.
+
+Forgotten content must not come back through re-learning. Background
+saves (consolidation) whose text matches a tombstone in the same
+scope are refused, and profile learning drops extracted preferences
+and constraints that match a forgotten note. A note re-stated in
+conversation and saved by the agent tools is fresh intent and is
+allowed. Tombstones are kept for as long as the memory store itself
+is kept — the same horizon over which the session logs they guard
+against remain re-readable.
 
 Opt out per feature: `UAGENT_MEMORY_TOOL_SAVE=0` unregisters the three
-write tools, `UAGENT_MEMORY_MARKER=0` disables the marker fallback, and
-`UAGENT_MEMORY=0` disables both. Opting out stops future writes only;
-already-saved notes remain until deleted.
+write tools, `UAGENT_MEMORY_MARKER=0` disables the marker fallback,
+`UAGENT_MEMORY_CONSOLIDATION=0` disables the background consolidation
+pass, and `UAGENT_MEMORY=0` disables all of them. Opting out stops
+future writes only; already-saved notes remain until deleted.
 
 Local V2 scope defaults are:
 

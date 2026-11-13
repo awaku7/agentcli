@@ -468,6 +468,89 @@ def test_marker_not_saved_for_non_local_web_turn(
     store.close()
 
 
+def test_marker_saved_to_scoped_memory_for_private_web_turn(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A non-local Web principal in a private session saves markers into
+    # their own scoped personal memory — never into the local owner's
+    # unscoped records.
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+    from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
+    from uagent.runtime.memory_store import open_memory_store
+    from uagent.runtime.session_store import SessionStore
+    from uagent.tools import long_memory
+
+    _use_sqlite(monkeypatch, repo_tmp_path)
+    store = SessionStore(repo_tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="web")
+
+    def _turn(private: bool) -> TurnContext:
+        return TurnContext(
+            principal_id="alice",
+            room_id="room-1",
+            project_id="demo",
+            session_id=session.session_id,
+            entry_point="web",
+            authenticated=True,
+            authn_kind="oidc",
+            private_session=private,
+            server_bound_project=True,
+        )
+
+    def _scoped_rows() -> list[dict]:
+        memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+        try:
+            rows = memory_store.db.execute(
+                "SELECT note, owner, owner_id, audience_type, status "
+                "FROM memories WHERE owner_id = 'alice'"
+            ).fetchall()
+            return [dict(row) for row in rows]
+        finally:
+            memory_store.close()
+
+    with bind_turn_context(_turn(private=True)):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+        # A duplicate marker in the same scope saves nothing new.
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    rows = _scoped_rows()
+    assert len(rows) == 1
+    assert rows[0]["note"] == "会議は月曜10時"
+    assert rows[0]["audience_type"] == "personal"
+    assert rows[0]["status"] == "active"
+
+    # The scoped store forgets by hard deletion (its own semantics):
+    # the row is gone, and a later marker saves afresh, exactly like
+    # re-stating the fact. The local forget boundary is unaffected.
+    memory_store = open_memory_store(str(repo_tmp_path / "memory.sqlite3"))
+    try:
+        scoped = ScopedMemoryStore(
+            memory_store,
+            MemoryAccessContext(
+                principal_id="alice",
+                project_id="demo",
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        record = scoped.records()[0]
+        scoped.forget(str(record["memory_id"]), expected_revision=1)
+    finally:
+        memory_store.close()
+    assert _scoped_rows() == []
+    with bind_turn_context(_turn(private=True)):
+        store.append_message(session.session_id, "user", "remember: 会議は月曜10時")
+    rows = _scoped_rows()
+    assert len(rows) == 1
+    assert rows[0]["status"] == "active"
+
+    # A room (non-private) turn has no personal store to write to.
+    with bind_turn_context(_turn(private=False)):
+        store.append_message(session.session_id, "user", "remember: 部屋のメモ")
+    assert all(r["note"] != "部屋のメモ" for r in _scoped_rows())
+    assert long_memory.forgotten_note_keys() == set()
+    store.close()
+
+
 @pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
 def test_duplicate_detection_keeps_meaningful_punctuation(
     backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
