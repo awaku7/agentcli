@@ -239,6 +239,7 @@ class NostrRemoteRuntime:
         }
         self._delivery_rejections: list[dict[str, str]] = []
         self._last_delivery_readback: list[dict[str, str]] = []
+        self._readback_threads: set[threading.Thread] = set()
         self._own_relay_list_accepted = 0
         self._state = "stopped"
         self._error = ""
@@ -837,7 +838,7 @@ class NostrRemoteRuntime:
                     )
                 except Exception:
                     pass
-                await self._record_delivery_readback(
+                self._schedule_delivery_readback(
                     deliveries, record, recipient_event_ids
                 )
                 return {
@@ -914,6 +915,41 @@ class NostrRemoteRuntime:
             )
         except Exception:
             pass
+
+    def _schedule_delivery_readback(
+        self,
+        deliveries: list[Any],
+        record: OutboxRecord,
+        recipient_event_ids: set[str],
+    ) -> None:
+        # The probe is diagnostics only: run it on its own thread so a slow
+        # or timing-out relay never stalls the reply path (send_reply runs
+        # delivery synchronously on the foreground loop) or outbox retries.
+        thread = threading.Thread(
+            target=self._run_delivery_readback,
+            args=(deliveries, record, recipient_event_ids),
+            name="nostr-delivery-readback",
+            daemon=True,
+        )
+        with self._state_lock:
+            self._readback_threads.add(thread)
+        thread.start()
+
+    def _run_delivery_readback(
+        self,
+        deliveries: list[Any],
+        record: OutboxRecord,
+        recipient_event_ids: set[str],
+    ) -> None:
+        try:
+            asyncio.run(
+                self._record_delivery_readback(deliveries, record, recipient_event_ids)
+            )
+        except Exception:
+            pass
+        finally:
+            with self._state_lock:
+                self._readback_threads.discard(threading.current_thread())
 
     async def _retry_outbox(self) -> None:
         """Retry due ciphertext-only replies until the listener is stopped."""

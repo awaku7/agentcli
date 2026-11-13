@@ -379,6 +379,8 @@ def test_delivered_reply_records_readback_from_accepting_relays(tmp_path, monkey
             "Reply from UAG",
         )
         assert result["ok"] is True
+        for thread in list(runtime._readback_threads):
+            thread.join(timeout=5)
         readback = runtime.status()["diagnostics"]["delivery_readback"]
         assert readback == [
             {
