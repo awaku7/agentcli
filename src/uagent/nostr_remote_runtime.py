@@ -194,6 +194,7 @@ class NostrRemoteRuntime:
             "inbox_rejected": 0,
             "queued": 0,
         }
+        self._delivery_rejections: list[dict[str, str]] = []
         self._state = "stopped"
         self._error = ""
         self._thread: threading.Thread | None = None
@@ -224,6 +225,9 @@ class NostrRemoteRuntime:
             diagnostics = {
                 "connected_relays": len(self._connected_relays),
                 **self._receive_counts,
+                "delivery_rejections": [
+                    dict(item) for item in self._delivery_rejections
+                ],
             }
         pending = (
             0
@@ -552,6 +556,39 @@ class NostrRemoteRuntime:
                     task.cancel()
             await asyncio.gather(*tasks, stop_task, return_exceptions=True)
 
+    def _note_delivery_rejections(self, deliveries: list[Any]) -> None:
+        """Remember which relays refused the latest reply, with their reasons.
+
+        Relay messages are remote-controlled text, so they are stored
+        whitespace-normalized and bounded, for status display and the
+        structured log only.
+        """
+        noted: list[dict[str, str]] = []
+        for delivery in deliveries:
+            if getattr(delivery, "accepted", False):
+                continue
+            relay = str(getattr(delivery, "relay_url", "") or "")[:128]
+            message = " ".join(str(getattr(delivery, "message", "") or "").split())[
+                :200
+            ]
+            noted.append({"relay": relay, "message": message})
+            if len(noted) >= 4:
+                break
+        with self._state_lock:
+            self._delivery_rejections = noted
+        if noted:
+            try:
+                from .runtime.logging_setup import log_event
+
+                for item in noted:
+                    log_event(
+                        "nostr.remote_reply_relay_rejected",
+                        relay=item["relay"],
+                        message=item["message"],
+                    )
+            except Exception:
+                pass
+
     async def _deliver_outbox_record(self, record: OutboxRecord) -> dict[str, Any]:
         """Publish one claimed reply bundle and persist its delivery outcome."""
         store = self.outbox_store
@@ -654,7 +691,31 @@ class NostrRemoteRuntime:
                 ),
             }
 
-        if deliveries and all(delivery.accepted for delivery in deliveries):
+        self._note_delivery_rejections(deliveries)
+        accepted_event_ids = {
+            delivery.event_id for delivery in deliveries if delivery.accepted
+        }
+        recipient_event_ids = {
+            str(event.get("id"))
+            for event in record.events
+            if isinstance(event, dict)
+            and any(
+                isinstance(tag, list)
+                and len(tag) >= 2
+                and tag[0] == "p"
+                and tag[1] == record.sender_pubkey
+                for tag in event.get("tags") or []
+            )
+        }
+        # Delivered means the addressee's gift wrap was accepted by at least
+        # one of their inbox relays. One refusing relay in the recipient's
+        # signed list must not block the reply when another accepted it; the
+        # sender-copy wrap is attempted but does not gate delivery.
+        if (
+            deliveries
+            and recipient_event_ids
+            and recipient_event_ids <= accepted_event_ids
+        ):
             if store.mark_delivered(
                 record.sender_pubkey,
                 record.request_rumor_id,
