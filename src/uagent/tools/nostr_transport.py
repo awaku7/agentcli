@@ -1958,9 +1958,10 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
         _(
             "nostr.setup_relay_warning",
             default=(
-                "Note: automatic NIP-17 kind-10050 relay-list publication is not yet "
-                "implemented. Configure matching receive relays on the phone; "
-                "encrypted DM delivery is not yet verified."
+                "Note: this node publishes its NIP-17 kind-10050 relay list to "
+                "its configured relays when the remote listener starts; the "
+                "phone must read at least one of those relays for encrypted "
+                "DM delivery."
             ),
         )
     )

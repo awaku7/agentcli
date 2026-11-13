@@ -2,8 +2,9 @@
 
 This module deliberately does not alter the legacy bitchat Nostr transport or
 start a CLI remote-control service. It publishes already-created kind-1059
-NIP-17 gift wraps to their verified inbox-relay lists and listens for addressed
-wraps. The listener can optionally persist verified encrypted wraps in a SQLite
+NIP-17 gift wraps to their verified inbox-relay lists, publishes the node's
+own signed kind-10050 inbox relay list so peers can discover it, and listens
+for addressed wraps. The listener can optionally persist verified encrypted wraps in a SQLite
 inbox before notifying its callback. The opt-in CLI runtime owns inbox recovery,
 foreground dispatch, pairing-store wiring, and service lifecycle. This module
 still does not send response DMs; incoming relay destinations come from the
@@ -146,6 +147,69 @@ async def publish_nip17_gift_wrap(
     if not isinstance(timeout, (int, float)) or timeout <= 0:
         raise ValueError("timeout must be a positive number")
 
+    return await _publish_event(
+        relay_url,
+        event,
+        auth_private_key,
+        connect_factory=connect_factory,
+        timeout=timeout,
+    )
+
+
+async def publish_relay_list_event(
+    relay_url: str,
+    event: dict[str, Any],
+    auth_private_key: bytes,
+    *,
+    allowed_relay_urls: Sequence[str],
+    connect_factory: Callable[..., Any] | None = None,
+    timeout: float = DEFAULT_RELAY_TIMEOUT_SECONDS,
+) -> RelayDelivery:
+    """Publish this node's own signed kind-10050 inbox relay list to one relay.
+
+    Other NIP-17 clients refuse to send DMs to an identity that has not
+    published a kind-10050 list, so the node publishes its own on listener
+    start. The event author must be the AUTH key itself; this path exists
+    only for the node's own list and is not a general event relay.
+    """
+    relay_url = _validate_relay_uri(relay_url)
+    if isinstance(allowed_relay_urls, (str, bytes)) or not allowed_relay_urls:
+        raise ValueError("a non-empty local relay egress allowlist is required")
+    allowed = {_validate_relay_uri(url) for url in allowed_relay_urls}
+    if relay_url not in allowed:
+        raise ValueError("relay is not permitted by the local egress allowlist")
+    if not isinstance(event, dict) or event.get("kind") != 10050:
+        raise ValueError("only NIP-17 kind-10050 relay lists may be published")
+    _event_json_bytes(event)
+    if not _verify_event(event):
+        raise ValueError("relay-list event signature is invalid")
+    auth_private_key = _validate_private_key(auth_private_key)
+    if event.get("pubkey") != _public_key_x(auth_private_key).hex():
+        raise ValueError("relay-list event author does not match the signing key")
+    if not isinstance(timeout, (int, float)) or timeout <= 0:
+        raise ValueError("timeout must be a positive number")
+    return await _publish_event(
+        relay_url,
+        event,
+        auth_private_key,
+        connect_factory=connect_factory,
+        timeout=timeout,
+    )
+
+
+async def _publish_event(
+    relay_url: str,
+    event: dict[str, Any],
+    auth_private_key: bytes,
+    *,
+    connect_factory: Callable[..., Any] | None = None,
+    timeout: float = DEFAULT_RELAY_TIMEOUT_SECONDS,
+) -> RelayDelivery:
+    """Send one already-validated signed event and await its relay OK.
+
+    Shared by gift-wrap (kind 1059) and relay-list (kind 10050) publication;
+    callers validate the event kind, signature and authorship first.
+    """
     connect = _connect_factory(connect_factory)
     auth_private_key = _validate_private_key(auth_private_key)
     event_id = str(event.get("id", ""))

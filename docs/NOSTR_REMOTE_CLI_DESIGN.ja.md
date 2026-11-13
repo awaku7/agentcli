@@ -192,7 +192,7 @@ CLIの単一セッションから実装を始めることは可能だが、**同
 
 受信した認証済み・形式検証済みNIP-17テキストDMは、CLIで`[NOSTR] Received from <公開鍵先頭12桁>: <本文>`として表示する。表示はその場限りで本文を診断DBに追加保存せず、制御文字を除外し、表示長は2000文字で制限する。`:nostr remote status`には返信Outboxのpending/sending/delivered/failedと、直近の未解決の失敗種別`last_error`も表示する。`RecipientRelayListUnavailable`は相手の署名済みkind 10050を設定済みRelayから取得できないこと、`NoPermittedRecipientRelay`は取得済みリストにローカル許可Relayがないことを意味する。NIP-17に従い、署名済みkind 10050を取得できない場合に受信元Relayなどへ返信を無条件送信するフォールバックは設けない。
 
-**これはセットアップ補助であり、リモート制御を本番利用可能にしたものではない。** 現在の秘密鍵は既存bitchat用の平文JSONを再利用し、リモート専用のOS安全領域保管、kind 10050の受信Relay自動公開、実Relay・0xChatでのE2E接続確認は別途実装・検証が必要。セットアップ画面にも警告を表示する。
+**これはセットアップ補助であり、リモート制御を本番利用可能にしたものではない。** 現在の秘密鍵は既存bitchat用の鍵を再利用し、リモート専用のOS安全領域保管と実Relay・0xChatでのE2E接続確認は別途実装・検証が必要。kind 10050の受信Relay自動公開は、remote listener起動時に自ノードの署名済みkind 10050を設定済みRelayへ公開する形で実装済みである。セットアップ画面にも警告を表示する。
 
 現段階では、`SQLitePairingStore`に接続した`:nostr pair <pubkey_hex> [label]`、`:nostr devices [all]`、`:nostr revoke <pubkey_hex>`と、`:nostr connect`後に使う明示的な`:nostr remote start|stop|status`を実装している。remote listenerは接続中のNostr transportで設定されたRelayだけを使い、暗号化wrapをSQLite Inboxへ保存してからCLI event queueへ通知する。foreground側では保存済みwrapを再検証し、ペアリング・時刻・対象セッションを確認してから通常のuser/command経路へ渡し、結果をat-most-onceで確定する。CLIでCtrl+Cによりリモート要求を中断した場合は、inboxを`failed`で終端記録し、送信者へ中断を返信する。未処理pending行はremote listenerの再起動時にキューへ戻す。pair/revoke/remote管理はNostr経由の明示コマンドから拒否する。応答はkind-10050署名済みRelay-listをローカルallowlistと照合し、積集合に含まれるすべての受信Relayへ同じ署名済みkind-1059を送る（重複イベントIDは変えない）。返信本文は保存せず、署名済みkind-1059イベント（暗号文）をSQLite outboxへ先に永続化する。kind-10050から検証した宛先Relayはローカル許可リストとの積集合に制限して保存し、宛先取得・publish失敗時は同じevent IDで最大8回・24時間まで指数バックオフ再送する。再試行ごとに端末pairingを再確認し、配送完了・失効・期限切れ時に暗号文を消去する。NIP-17専用の秘密鍵保護と実Relay上での相互運用検証は未実装である。
 

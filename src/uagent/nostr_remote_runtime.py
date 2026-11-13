@@ -195,6 +195,7 @@ class NostrRemoteRuntime:
             "queued": 0,
         }
         self._delivery_rejections: list[dict[str, str]] = []
+        self._own_relay_list_accepted = 0
         self._state = "stopped"
         self._error = ""
         self._thread: threading.Thread | None = None
@@ -228,6 +229,7 @@ class NostrRemoteRuntime:
                 "delivery_rejections": [
                     dict(item) for item in self._delivery_rejections
                 ],
+                "own_relay_list_accepted": self._own_relay_list_accepted,
             }
         pending = (
             0
@@ -523,6 +525,48 @@ class NostrRemoteRuntime:
                     pass
                 retry_delay = min(retry_delay * 2, 30.0)
 
+    async def _publish_own_relay_list(self) -> None:
+        """Publish this node's signed kind-10050 list to its configured relays.
+
+        Strict NIP-17 clients refuse to compose a DM to an identity with no
+        published inbox relay list, so the list is announced on listener
+        start. Publication is best-effort: a relay that refuses or times out
+        must not stop the listener, so failures only lower the accepted
+        count kept in the status diagnostics.
+        """
+        from .nostr_nip17 import create_nip17_relay_list_event
+        from .nostr_remote_transport import publish_relay_list_event
+
+        try:
+            event = create_nip17_relay_list_event(list(self.relays), self.private_key)
+        except Exception:
+            return
+        accepted = 0
+        for relay in self.relays:
+            try:
+                delivery = await publish_relay_list_event(
+                    relay,
+                    event,
+                    self.private_key,
+                    allowed_relay_urls=[relay],
+                )
+            except Exception:
+                continue
+            if getattr(delivery, "accepted", False):
+                accepted += 1
+        with self._state_lock:
+            self._own_relay_list_accepted = accepted
+        try:
+            from .runtime.logging_setup import log_event
+
+            log_event(
+                "nostr.remote_relay_list_published",
+                accepted=accepted,
+                relays=len(self.relays),
+            )
+        except Exception:
+            pass
+
     async def _listen(self) -> None:
         self._loop = asyncio.get_running_loop()
         self._stop_event = asyncio.Event()
@@ -538,6 +582,11 @@ class NostrRemoteRuntime:
             tasks.append(
                 asyncio.create_task(self._retry_outbox(), name="uag-nostr-outbox")
             )
+        # Not part of the FIRST_COMPLETED wait set: this one-shot task is
+        # expected to finish while the listeners keep running.
+        publish_task = asyncio.create_task(
+            self._publish_own_relay_list(), name="uag-nostr-relay-list"
+        )
         stop_task = asyncio.create_task(self._stop_event.wait())
         try:
             done, pending = await asyncio.wait(
@@ -551,10 +600,12 @@ class NostrRemoteRuntime:
                         raise error
                     raise RuntimeError("Nostr listener stopped unexpectedly")
         finally:
-            for task in [*tasks, stop_task]:
+            for task in [*tasks, stop_task, publish_task]:
                 if not task.done():
                     task.cancel()
-            await asyncio.gather(*tasks, stop_task, return_exceptions=True)
+            await asyncio.gather(
+                *tasks, stop_task, publish_task, return_exceptions=True
+            )
 
     def _note_delivery_rejections(self, deliveries: list[Any]) -> None:
         """Remember which relays refused the latest reply, with their reasons.
