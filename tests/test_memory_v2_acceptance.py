@@ -92,7 +92,7 @@ def test_v2_non_strict_projection_exposes_legacy_compatibility_cost() -> None:
 def test_v2_completion_defaults_to_strict_projection(tmp_path, monkeypatch) -> None:
     from uagent.runtime import memory_projection, memory_scope
     from uagent.runtime.memory_projection import prepare_memory_projection
-    from uagent.tools import long_memory, shared_memory
+    from uagent.tools import long_memory
 
     monkeypatch.delenv("UAGENT_MEMORY_PROJECTION", raising=False)
     monkeypatch.delenv("UAGENT_MEMORY_STRICT_SCOPE", raising=False)
@@ -105,7 +105,6 @@ def test_v2_completion_defaults_to_strict_projection(tmp_path, monkeypatch) -> N
         "load_long_memory_records",
         lambda: [{"note": "database rule", "project": tmp_path.name}],
     )
-    monkeypatch.setattr(shared_memory, "is_enabled", lambda: False)
     monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
 
     core = type("Core", (), {})()

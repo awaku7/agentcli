@@ -11,7 +11,6 @@ class Profile:
 def test_memory_manager_reads_profile_layer():
     manager = MemoryManager(
         personal=type("P", (), {"load_long_memory_records": lambda _: []})(),
-        shared=type("S", (), {"load_shared_memory_records": lambda _: []})(),
         profile=Profile(),
         session_store=None,
         session_id="s1",

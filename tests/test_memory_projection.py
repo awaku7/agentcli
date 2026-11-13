@@ -238,7 +238,7 @@ def test_projection_is_enabled_by_default_and_can_be_disabled(
 ) -> None:
     from uagent.runtime import memory_projection, memory_scope
     from uagent.runtime.memory_projection import prepare_memory_projection
-    from uagent.tools import long_memory, shared_memory
+    from uagent.tools import long_memory
 
     monkeypatch.delenv("UAGENT_MEMORY_PROJECTION", raising=False)
     monkeypatch.delenv("UAGENT_MEMORY_STRICT_SCOPE", raising=False)
@@ -247,7 +247,6 @@ def test_projection_is_enabled_by_default_and_can_be_disabled(
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
     monkeypatch.setattr(memory_scope.getpass, "getuser", lambda: "alice")
     monkeypatch.setattr(long_memory, "load_long_memory_records", lambda: [])
-    monkeypatch.setattr(shared_memory, "is_enabled", lambda: False)
     monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
 
     messages = [{"role": "user", "content": "database"}]

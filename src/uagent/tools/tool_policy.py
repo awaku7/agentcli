@@ -40,7 +40,6 @@ _READ_ONLY = {
     "file_type",
     "get_env",
     "get_long_memory",
-    "get_shared_memory",
     "get_workdir",
     "read_file",
     "search_files",

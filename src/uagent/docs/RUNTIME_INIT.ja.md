@@ -15,7 +15,7 @@ CLI / Web / GUI で共通して行うこと:
 - 必要時の起動時環境検証 (`validate_or_exit_startup_env(context=...)`)
 - ディレクトリ作成と `chdir`
 - 起動時 banner の生成
-- 個人長期記憶 / 共有メモを system message として履歴へ追加
+- 個人長期記憶を system message として履歴へ追加
 - `python-dotenv` が利用可能な場合、起動初期化中にカレントディレクトリの `.env` と `.env.sec` を読み込む
 
 設計方針:
@@ -117,27 +117,20 @@ ______________________________________________________________________
 
 ## 4. 長期記憶の system message 追加
 
-`append_long_memory_system_messages()` は、個人 / 共有の長期記憶を読み込んで system message を追加する処理を共通化します。
+`append_long_memory_system_messages()` は、個人の長期記憶を読み込んで system message を追加する処理を共通化します。
 
 - 個人長期記憶は `tools.long_memory` から読み込みます。
-- 共有メモは `tools.shared_memory` が有効な場合のみ読み込みます。
 - 生成された system message があれば `messages` に append します。
 - 追加したメッセージは `core.log_message()` にも渡します。
 
 API:
 
-- `append_long_memory_system_messages(...) -> Dict[str, bool]`
-
-返却フラグ:
-
-- `shared_enabled`: 共有メモが有効かどうか（`shared_memory_mod.is_enabled()` の結果）
+- `append_long_memory_system_messages(...) -> None`
 
 注意:
 
 - この関数は print しません。
 - 内部例外は握りつぶし、警告は呼び出し側が出す前提です。
-- 現行実装では共有メモに特別な prefix は付けません。
-- 現行実装では `personal_appended` / `shared_appended` フラグは返しません。
 
 ______________________________________________________________________
 

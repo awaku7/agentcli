@@ -28,7 +28,6 @@ _METRIC_BOOLEAN_KEYS = {
     "uag.memory.identity_bound",
     "uag.memory.profile_present",
     "uag.memory.guidance_present",
-    "uag.memory.shared_enabled",
 }
 
 

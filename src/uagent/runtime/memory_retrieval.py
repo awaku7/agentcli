@@ -581,7 +581,7 @@ def observe_memory_shadow_retrieval(
     query_plan = build_memory_retrieval_query(messages, core, project=project)
     query = query_plan.text
     try:
-        from ..tools import long_memory, shared_memory
+        from ..tools import long_memory
 
         personal = shadow_retrieve_memories(
             long_memory.load_long_memory_records(),
@@ -591,16 +591,6 @@ def observe_memory_shadow_retrieval(
             project=project,
             max_candidates=max_candidates,
         )
-        shared = None
-        if shared_memory.is_enabled():
-            shared = shadow_retrieve_memories(
-                shared_memory.load_shared_memory_records(),
-                query=query,
-                scope="shared",
-                owner=owner,
-                project=project,
-                max_candidates=max_candidates,
-            )
         observation: dict[str, Any] = {
             "type": "memory_shadow_retrieval",
             "schema_version": 1,
@@ -610,7 +600,6 @@ def observe_memory_shadow_retrieval(
             "owner": owner or "unknown",
             "project": project,
             "personal": personal.to_dict(),
-            "shared": shared.to_dict() if shared is not None else None,
         }
     except Exception as exc:
         observation = {

@@ -55,7 +55,7 @@ JSONL remains a local compatibility backend, but authenticated multi-user V3 gra
 
 ______________________________________________________________________
 
-## 3. Local Long-term Memory and Shared Memory
+## 3. Local Long-term Memory
 
 ### Local Long-term Memory
 
@@ -127,11 +127,14 @@ UAGENT_MEMORY_PROJECT=
 
 `UAGENT_MEMORY_OWNER` is optional in local mode. When unset, the V2 compatibility path resolves the local owner from the current OS login. Strict Scope rejects records whose project boundary cannot be verified.
 
-### Shared Memory compatibility store
+### Shared Memory compatibility store (removed)
 
-The existing Shared Memory store is a compatibility mechanism for cross-session/agent context in trusted local deployments. It is not the same authorization model as V3 Room Memory or a direct per-user read grant.
-
-For multi-user Web, use the scoped Personal/Room APIs instead of treating the compatibility Shared Memory store as an access-control mechanism.
+The file-based Shared Memory store (`UAGENT_SHARED_MEMORY_FILE`, the
+`add_shared_memory` / `get_shared_memory` tools and the `:shared-mem`
+command handlers) has been removed. It had no checked save path, no deletion
+semantics and no authorization model. Sharing between users is
+covered by the scoped store instead: per-user read grants and Room
+Memory (see the shared-references API below).
 
 ______________________________________________________________________
 

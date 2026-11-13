@@ -144,10 +144,8 @@ from .util_cmd_session import (
     _handle_cmd_mem_del,
     _handle_cmd_mem_restore,
     _handle_cmd_mem_vacuum,
-    _handle_cmd_shared_mem_list,
     _handle_cmd_profile_show,
     _handle_cmd_profile_clear,
-    _handle_cmd_shared_mem_del,
 )
 
 # Default translation function used when core.tr is not provided.

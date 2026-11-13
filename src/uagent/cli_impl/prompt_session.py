@@ -299,27 +299,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         for value in values:
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))
-                    elif stripped.startswith(":shared-mem-del "):
-                        after_shared_mem = stripped[len(":shared-mem-del ") :]
-                        last = (
-                            after_shared_mem.split()[-1]
-                            if after_shared_mem.split()
-                            else ""
-                        )
-                        try:
-                            from ..tools import shared_memory
-
-                            values = [
-                                str(index)
-                                for index in range(
-                                    len(shared_memory.load_shared_memory_records())
-                                )
-                            ]
-                        except Exception:
-                            values = []
-                        for value in values:
-                            if value.startswith(last):
-                                yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":profile-fromlog "):
                         after_profile = stripped[len(":profile-fromlog ") :]
                         last = (

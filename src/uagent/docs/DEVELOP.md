@@ -1177,7 +1177,7 @@ flowchart TD
 browser_playwright, fetch_url, search_web, human_ask, calculator, get_geoip,
 wttrin, get_current_time, get_env, db_query, generate_qr_code, date_calc,
 zipcode_check, file_type, system_specs, list_windows_titles, change_workdir,
-get_workdir, add/get_long_memory, add/get_shared_memory, tool_catalog, generate_prompt
+get_workdir, add/get_long_memory, tool_catalog, generate_prompt
 
 **file**
 create_file, read_file, replace_in_file, delete_file, search_files, file_grep,
