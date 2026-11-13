@@ -321,11 +321,20 @@ def test_receive_diagnostics_track_connections_and_drop_counts_in_memory(
             "queued",
             "delivery_rejections",
             "delivery_readback",
+            "last_unwrap_error",
             "own_relay_list_accepted",
         }
         assert diagnostics["delivery_rejections"] == []
         assert diagnostics["delivery_readback"] == []
+        assert diagnostics["last_unwrap_error"] == ""
         assert diagnostics["own_relay_list_accepted"] == 0
+        runtime._record_receive_diagnostic(
+            relay, "unwrap_error:gift wrap is not addressed to this recipient"
+        )
+        assert (
+            runtime.status()["diagnostics"]["last_unwrap_error"]
+            == "gift wrap is not addressed to this recipient"
+        )
         runtime._record_receive_diagnostic(relay, "disconnected")
         assert runtime.status()["diagnostics"]["connected_relays"] == 0
     finally:

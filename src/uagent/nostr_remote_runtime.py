@@ -239,6 +239,7 @@ class NostrRemoteRuntime:
         }
         self._delivery_rejections: list[dict[str, str]] = []
         self._last_delivery_readback: list[dict[str, str]] = []
+        self._last_unwrap_error = ""
         self._readback_threads: set[threading.Thread] = set()
         self._own_relay_list_accepted = 0
         self._state = "stopped"
@@ -256,7 +257,9 @@ class NostrRemoteRuntime:
     def _record_receive_diagnostic(self, relay: str, event: str) -> None:
         """Count receive outcomes without retaining message data or identities."""
         with self._state_lock:
-            if event == "connected":
+            if event.startswith("unwrap_error:"):
+                self._last_unwrap_error = event[len("unwrap_error:") :][:120]
+            elif event == "connected":
                 self._connected_relays.add(relay)
             elif event == "disconnected":
                 self._connected_relays.discard(relay)
@@ -277,6 +280,7 @@ class NostrRemoteRuntime:
                 "delivery_readback": [
                     dict(item) for item in self._last_delivery_readback
                 ],
+                "last_unwrap_error": self._last_unwrap_error,
                 "own_relay_list_accepted": self._own_relay_list_accepted,
             }
         pending = (
