@@ -298,6 +298,85 @@ def _print_session_loaded_detail(
     )
 
 
+def _capture_outgoing_session(
+    messages_ref: list[dict[str, Any]] | None, *, core: Any
+) -> tuple[list[dict[str, Any]], str, str] | None:
+    """Snapshot the outgoing conversation for session-end consolidation.
+
+    The snapshot — messages, session id, memory project — must be
+    taken BEFORE a load applies the destination's context: restoring
+    a SQLite session rebinds the session id and the workdir first, so
+    a snapshot taken afterwards would consolidate the outgoing
+    conversation under the destination's id (marking the wrong
+    session as covered) and into the destination project's memory.
+    When a Web room owns the selection, the room's base directory
+    names the project: ``Room.set_base_dir()`` never changes the
+    process workdir, so the plain resolution would fall back to the
+    server's startup directory instead.
+    Returns None when there is nothing to snapshot.
+    """
+    try:
+        if not messages_ref:
+            return None
+        from .runtime.memory_scope import resolve_memory_project
+        from .runtime.session_store import project_id_from_path
+
+        owner = _session_selection_owner(core)
+        session_id = str(
+            getattr(owner, "session_id", None)
+            or getattr(core, "_session_store_active_id", "")
+            or getattr(core, "session_id", "")
+            or getattr(core, "SESSION_ID", "")
+            or ""
+        )
+        project = resolve_memory_project()
+        base_dir = str(getattr(owner, "base_dir", "") or "").strip()
+        if base_dir and not str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip():
+            # A Web room owns the selection: its directory, not the
+            # process workdir, names the outgoing conversation's
+            # project. The explicit UAGENT_MEMORY_PROJECT override
+            # (already applied by resolve_memory_project) still wins.
+            project = project_id_from_path(base_dir)
+        return list(messages_ref), session_id, project
+    except Exception:
+        return None
+
+
+def _consolidate_captured_session(
+    captured: tuple[list[dict[str, Any]], str, str] | None, *, core: Any
+) -> None:
+    """Fire session-end consolidation for a captured outgoing session.
+
+    Best-effort — a failure here must never block the switch itself.
+    """
+    try:
+        if not captured:
+            return
+        from .runtime.memory_consolidation import run_session_end_consolidation
+
+        messages, session_id, project = captured
+        run_session_end_consolidation(
+            messages, core, session_id=session_id, project=project
+        )
+    except Exception:
+        pass
+
+
+def _consolidate_outgoing_session(
+    messages_ref: list[dict[str, Any]] | None, *, core: Any
+) -> None:
+    """Capture and consolidate the outgoing conversation in one step.
+
+    For load paths that apply no destination context first (log-file
+    loads); SQLite loads capture before restoring and consolidate
+    after, via :func:`_capture_outgoing_session` and
+    :func:`_consolidate_captured_session`.
+    """
+    _consolidate_captured_session(
+        _capture_outgoing_session(messages_ref, core=core), core=core
+    )
+
+
 def _restore_sqlite_session_context(
     target: str, loaded: list[dict[str, Any]], *, core: Any, store: Any
 ) -> list[dict[str, Any]] | None:
@@ -1685,6 +1764,9 @@ def _handle_cmd_sessions(
         if target == session_id:
             print(_("[sessions] Session is already active."))
             return True
+        # Snapshot the outgoing conversation before the restore below
+        # rebinds the session id and workdir to the destination.
+        outgoing = _capture_outgoing_session(messages_ref, core=core)
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1696,6 +1778,7 @@ def _handle_cmd_sessions(
             if not restored:
                 print(_("[sessions] Session has no loadable messages."))
                 return True
+            _consolidate_captured_session(outgoing, core=core)
             messages_ref.clear()
             messages_ref.extend(restored)
             print(_tr("[sessions] Session loaded"))
@@ -1941,6 +2024,9 @@ def _handle_cmd_load(
         if target == getattr(_session_selection_owner(core), "session_id", None):
             print("[load] Session is already active.")
             return True
+        # Snapshot the outgoing conversation before the restore below
+        # rebinds the session id and workdir to the destination.
+        outgoing = _capture_outgoing_session(messages_ref, core=core)
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1954,6 +2040,7 @@ def _handle_cmd_load(
             if not restored:
                 print("[load] Session has no loadable messages.")
                 return True
+            _consolidate_captured_session(outgoing, core=core)
             messages_ref.clear()
             messages_ref.extend(restored)
             print(_tr("[load] SQLite session loaded"))
@@ -2000,6 +2087,7 @@ def _handle_cmd_load(
 
     _restore_session_tools(new_messages)
     new_messages = insert_tools_system_message(new_messages, core=core)
+    _consolidate_outgoing_session(messages_ref, core=core)
     messages_ref.clear()
     messages_ref.extend(new_messages)
 

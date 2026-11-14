@@ -112,6 +112,39 @@ them through the same checked path with `source="consolidation"`. It
 runs only under the local identity, and the number of notes it saved
 is announced once, with the next session's memory notices.
 
+So that ordinary sessions — too short to ever compress — are covered
+too, the same pass also runs when a session ends. Switching sessions
+(`:load`, `:sessions load`, loading a log file) consolidates the
+outgoing conversation before it is replaced, and when a session store
+attaches at startup, the newest previous session in the same project
+is caught up once from its stored messages (which also covers
+sessions that ended with the process). Only local sessions qualify:
+sessions bound to a Web principal or a room belong to that identity
+and are never read into the local memory, and candidates are
+filtered by the current session's stored workspace project, not by
+the memory-project override that only names where notes are saved.
+A startup that finds only sessions with too few turns, or sessions
+already consolidated, keeps looking at older rows for the newest
+one that still needs a pass, so a failed conversation is not hidden
+behind newer trivial sessions forever.
+A log-file session with no SQLite store is identified by the
+process log session id instead. Session-end passes need at
+least two user turns, and a per-session watermark in the state file
+records how many messages a completed pass already covered, together
+with a fingerprint of the last message. An unchanged session never
+costs a second provider call — a compression-triggered pass records
+the same watermark, so ending the session right after compression
+does not extract the same content again — a pass that failed or was
+interrupted leaves the session eligible for a later retry (including
+when the extraction worked but the memory backend failed to store the
+notes, or the extraction response itself was unusable), a history that shrank
+through compression cannot hide new turns behind an old count, and a
+session that resumes and grows past the watermark is consolidated
+again. While a pass is still running, a newer snapshot offered for
+the same session is kept, together with the memory project it was
+offered under, and consolidated right after it finishes,
+so turns added in the meantime are not lost.
+
 Forgotten content must not come back through re-learning. Background
 saves (consolidation) whose text matches a tombstone in the same
 scope are refused, profile learning drops extracted preferences

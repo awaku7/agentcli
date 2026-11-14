@@ -6,11 +6,23 @@ are missed. This pass re-reads the conversation in a background thread
 model for durable facts, decisions and commitments, and saves them
 through the checked save path with ``source="consolidation"``.
 
+The pass fires when history is compressed, and — so ordinary sessions
+that never grow long enough to compress are covered too — when a
+session ends: on a session switch (the outgoing conversation is
+consolidated before it is replaced) and at startup, where the newest
+previous session in the same project is caught up once from its stored
+messages if the process exited before any switch happened. Session-end
+passes are gated on a minimum of user turns and a per-session
+watermark, so an unchanged session never costs a second provider call.
+
 Two boundaries keep the pass safe:
 
 - It only runs under the local identity. The checked save path writes
   to the legacy unscoped store, which is fenced to local mode; scoped
-  Web memory is written through the agent tools instead.
+  Web memory is written through the agent tools instead. The startup
+  catch-up likewise only selects stored sessions with no Web
+  principal or room binding: a store attach can happen before any
+  turn identity exists, so the selection itself enforces the fence.
 - It can never resurrect a forgotten note. Saves carry a
   content-derived ``source_id``, and the checked save path refuses
   background sources whose content matches a tombstone.
@@ -34,6 +46,29 @@ from ..env_utils import env_get
 
 _MAX_NOTES_PER_PASS = 5
 _STATE_FILE_NAME = "memory_consolidation_state.json"
+_MIN_USER_TURNS_FOR_SESSION_END = 2
+_SAVE_ERROR_MESSAGE = "consolidation save failed: memory backend error"
+
+# Sessions with a consolidation pass already in flight, by session id.
+# Guards the session-end triggers (switch / startup catch-up) and the
+# compression hook from piling duplicate provider calls onto the same
+# conversation.
+_in_flight_lock = threading.Lock()
+_in_flight_sessions: set[str] = set()
+
+# Newest snapshot offered for a session whose pass is already running,
+# by session id: (messages, core, session_id, project). A trigger that
+# arrives mid-pass must not be dropped — the running worker only sees
+# its older snapshot, and once it records the watermark the newer
+# turns may never get another trigger. The follow-up pass runs when
+# the current one finishes; the coverage check inside the launch
+# still suppresses it if nothing actually changed.
+_pending_snapshots: dict[str, tuple[list[dict[str, Any]], Any, str, str | None]] = {}
+
+# Serializes read-modify-write cycles on the state file: pending-notice
+# accounting runs on worker threads while session-end watermarks are
+# marked on foreground threads, and unsynchronized cycles lose updates.
+_state_lock = threading.Lock()
 
 _EXTRACTION_PROMPT = (
     "You are a memory consolidation agent. Analyze the conversation log "
@@ -83,10 +118,17 @@ def save_consolidation_notes(
     launched; the save path would otherwise resolve the project at
     save time (from the process CWD) and could file the notes under
     whatever project is current when the background thread finishes.
+
+    Raises RuntimeError when the memory backend failed to store at
+    least one note (``reason="error"`` from the save path), so the
+    caller can leave the session eligible for a later retry instead
+    of marking it consolidated. Deliberate refusals (duplicate,
+    secret, tombstone) do not raise: that work is done.
     """
     from ..tools.long_memory import save_long_memory
 
     saved = 0
+    had_error = False
     for raw in notes[:_MAX_NOTES_PER_PASS]:
         note = str(raw or "").strip()
         if not note:
@@ -100,13 +142,46 @@ def save_consolidation_notes(
         )
         if result.get("saved"):
             saved += 1
+        elif result.get("reason") == "error":
+            had_error = True
     if saved:
         _record_pending_notice(saved)
+    if had_error:
+        raise RuntimeError(_SAVE_ERROR_MESSAGE)
     return saved
 
 
-def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) -> None:
-    """Run one consolidation pass over ``messages`` in a background thread."""
+def run_memory_consolidation_async(
+    messages: list[dict[str, Any]],
+    core: Any,
+    *,
+    session_id: str = "",
+    project: str | None = None,
+) -> None:
+    """Run one consolidation pass over ``messages`` in a background thread.
+
+    ``session_id`` names the session the messages belong to when the
+    caller is a session-end trigger: a per-session watermark in the
+    state file then suppresses repeat passes over an unchanged
+    session. When the caller supplies no id (the compression
+    trigger), it is resolved from the active session store id, or
+    the log session id, and used the same way — a completed
+    compression pass marks its session covered, so ending the
+    session right afterwards does not extract the same content a
+    second time. The watermark is recorded only after a pass
+    completes — a failed or interrupted pass leaves the session
+    eligible, so a later trigger (typically the startup catch-up)
+    can retry it. While a pass runs, an in-flight entry keyed by
+    session id keeps a burst of triggers (switch, startup,
+    compression) from queueing duplicate provider calls for the
+    same conversation.
+
+    ``project`` pins the memory project the notes belong to when the
+    caller captured it earlier (a session switch rebinds the workdir
+    before the pass would otherwise resolve it); ``None`` resolves
+    the project here, on the calling thread, before the pass is
+    queued or launched.
+    """
     if not consolidation_enabled():
         return
     if not messages:
@@ -118,30 +193,252 @@ def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) ->
             return
     except Exception:
         return
+    # Resolve the session identity once and use it for in-flight
+    # tracking, the coverage check and the watermark alike. The
+    # compression trigger supplies no explicit id, but the pass still
+    # belongs to the active session: leaving the watermark unrecorded
+    # would make a later session-end trigger extract the same
+    # content a second time. The chain matches
+    # run_session_end_consolidation so both triggers agree on the id.
+    resolved_session_id = (
+        session_id
+        or str(getattr(core, "_session_store_active_id", "") or "")
+        or str(getattr(core, "SESSION_ID", "") or "")
+    )
+    flight_key = resolved_session_id
+    # Resolve the memory scope now, on the calling thread: the worker
+    # runs later, and a snapshot queued while a pass runs launches
+    # after the user may have moved to another directory. Resolving
+    # at launch time would save the original conversation's facts
+    # into the wrong project.
+    owner = ""
+    if project is None:
+        project = ""
+        try:
+            from .memory_scope import resolve_memory_owner, resolve_memory_project
+
+            owner = resolve_memory_owner()
+            project = resolve_memory_project()
+        except Exception:
+            owner = ""
+            project = ""
+    else:
+        try:
+            from .memory_scope import resolve_memory_owner
+
+            owner = resolve_memory_owner()
+        except Exception:
+            owner = ""
+    with _in_flight_lock:
+        if flight_key and flight_key in _in_flight_sessions:
+            # A pass for this session is already running on an older
+            # snapshot. Keep the newest snapshot offered meanwhile and
+            # let the tracked worker launch it when it finishes,
+            # instead of dropping the newer turns on the floor.
+            try:
+                snapshot = json.loads(json.dumps(messages))
+            except Exception:
+                snapshot = None
+            if snapshot is not None:
+                # Always keep the newest offer. A later snapshot can
+                # be shorter than an earlier one when history
+                # compression intervened, so length is not recency:
+                # comparing lengths would discard the newer
+                # conversation, including turns added after the
+                # compression.
+                _pending_snapshots[flight_key] = (
+                    snapshot,
+                    core,
+                    resolved_session_id,
+                    project,
+                )
+            return
+        if resolved_session_id and _session_is_covered(resolved_session_id, messages):
+            return
+        if flight_key:
+            _in_flight_sessions.add(flight_key)
     # Deep copy messages to avoid thread-safety issues with the main loop
     try:
         messages_copy = json.loads(json.dumps(messages))
     except Exception:
+        with _in_flight_lock:
+            _in_flight_sessions.discard(flight_key)
         return
-    # Capture the memory scope now: the worker thread runs later, and
-    # resolving the project at save time would use whatever directory
-    # or session is current then, not the one this conversation is in.
-    owner = ""
-    project = ""
-    try:
-        from .memory_scope import resolve_memory_owner, resolve_memory_project
-
-        owner = resolve_memory_owner()
-        project = resolve_memory_project()
-    except Exception:
-        owner = ""
-        project = ""
     thread = threading.Thread(
-        target=_consolidation_worker,
-        args=(messages_copy, core, owner, project),
+        target=_run_worker_tracked,
+        args=(messages_copy, core, owner, project, flight_key),
+        kwargs={"session_id": resolved_session_id},
         daemon=True,
     )
-    thread.start()
+    try:
+        thread.start()
+    except Exception:
+        with _in_flight_lock:
+            _in_flight_sessions.discard(flight_key)
+        raise
+
+
+def _run_worker_tracked(
+    messages: list[dict[str, Any]],
+    core: Any,
+    owner: str,
+    project: str,
+    flight_key: str,
+    *,
+    session_id: str = "",
+) -> None:
+    """Run the consolidation worker and release its in-flight slot.
+
+    The session watermark is recorded here, after the worker reports
+    a completed pass — never at launch — so a pass that failed or was
+    cut short does not suppress the session's retry.
+    """
+    try:
+        try:
+            completed = bool(_consolidation_worker(messages, core, owner, project))
+        except Exception:
+            completed = False
+        if completed and session_id:
+            _mark_session_consolidated(session_id, messages)
+    finally:
+        pending: tuple[list[dict[str, Any]], Any, str, str | None] | None = None
+        if flight_key:
+            with _in_flight_lock:
+                _in_flight_sessions.discard(flight_key)
+                pending = _pending_snapshots.pop(flight_key, None)
+        if pending is not None:
+            # A newer snapshot arrived while this pass ran. Launch it
+            # now; the coverage check at launch drops it if the pass
+            # that just finished already covered the same content.
+            p_messages, p_core, p_session_id, p_project = pending
+            try:
+                run_memory_consolidation_async(
+                    p_messages,
+                    p_core,
+                    session_id=p_session_id,
+                    project=p_project,
+                )
+            except Exception:
+                pass
+
+
+def _user_turn_count(messages: list[dict[str, Any]]) -> int:
+    return sum(
+        1
+        for message in messages or []
+        if isinstance(message, dict) and message.get("role") == "user"
+    )
+
+
+def run_session_end_consolidation(
+    messages: list[dict[str, Any]],
+    core: Any,
+    *,
+    session_id: str = "",
+    project: str | None = None,
+) -> None:
+    """Consolidate a session that is ending (switch or startup catch-up).
+
+    Session-end triggers stay cheap: disabled and trivial sessions
+    return before any copying, and the per-session watermark in
+    :func:`run_memory_consolidation_async` keeps an unchanged session
+    from costing a second provider call. ``project`` pins the memory
+    project when the caller captured it before a context switch.
+    """
+    if not consolidation_enabled():
+        return
+    if _user_turn_count(messages) < _MIN_USER_TURNS_FOR_SESSION_END:
+        return
+    sid = (
+        session_id
+        or str(getattr(core, "_session_store_active_id", "") or "")
+        or str(getattr(core, "SESSION_ID", "") or "")
+    )
+    if not sid:
+        return
+    run_memory_consolidation_async(messages, core, session_id=sid, project=project)
+
+
+def run_startup_consolidation(
+    core: Any, store: Any, *, current_session_id: str = ""
+) -> None:
+    """Catch up the previous session when a session store attaches.
+
+    Sessions that ended because the process exited (or crashed) never
+    hit the switch trigger; the newest other session in the same
+    project that still needs a pass is consolidated once, from its
+    stored messages, the next time a store attaches. Only one pass
+    runs per startup — in the normal chain each startup handles the
+    session right before it — and only local sessions qualify: rows
+    bound to a Web principal or a room are skipped, since their
+    content belongs to that identity, not to the local memory owner.
+    A newer session with too few turns to consolidate, or one
+    already covered, must not hide an older conversation whose
+    startup pass failed: the scan continues past such rows instead
+    of stopping at the first one. Everything here is best-effort
+    and off the foreground path beyond a few store reads.
+    """
+    try:
+        if not consolidation_enabled() or store is None:
+            return
+        # Filter candidates by the current session's stored project —
+        # the workspace identifier the session rows actually carry.
+        # resolve_memory_project() is the *destination* namespace for
+        # extracted notes and may be overridden (UAGENT_MEMORY_PROJECT)
+        # to a value no session row carries, so filtering on it would
+        # skip every previous session.
+        session_project = ""
+        try:
+            current_row = (
+                store.get_session(current_session_id) if current_session_id else None
+            )
+            if isinstance(current_row, dict):
+                session_project = str(current_row.get("project") or "")
+        except Exception:
+            session_project = ""
+        if not session_project:
+            try:
+                from .memory_scope import resolve_memory_project
+
+                session_project = resolve_memory_project()
+            except Exception:
+                return
+        rows = store.list_sessions()
+        for row in rows or []:
+            if not isinstance(row, dict):
+                continue
+            sid = str(row.get("session_id") or "")
+            if not sid or sid == current_session_id:
+                continue
+            if str(row.get("entry_point") or "") == "sub-agent":
+                continue
+            if (
+                str(row.get("principal_id") or "").strip()
+                or str(row.get("room_id") or "").strip()
+            ):
+                # Sessions bound to a Web principal or a room belong to
+                # that identity, not to the local owner. The store can
+                # be attached (e.g. by the Web server) before any turn
+                # identity exists, so the local-identity check inside
+                # the pass cannot see this boundary — enforce it here.
+                continue
+            if str(row.get("project") or "") != session_project:
+                # A newer session from another project must not hide an
+                # older unconsolidated session of this project.
+                continue
+            messages = store.list_messages(sid) or []
+            # Keep searching past sessions that need no pass: one with
+            # too few turns to consolidate, or one already covered,
+            # must not hide an older conversation whose startup pass
+            # failed or never ran.
+            if _user_turn_count(messages) < _MIN_USER_TURNS_FOR_SESSION_END:
+                continue
+            if _session_is_covered(sid, messages):
+                continue
+            run_session_end_consolidation(messages, core, session_id=sid)
+            return
+    except Exception:
+        pass
 
 
 def _consolidation_worker(
@@ -149,18 +446,26 @@ def _consolidation_worker(
     core: Any,
     owner: str = "",
     project: str = "",
-) -> None:
-    """Background worker: extract durable notes and save them."""
+) -> bool:
+    """Background worker: extract durable notes and save them.
+
+    Returns True when the pass ran to completion — including when it
+    found nothing worth saving — so the caller may record the session
+    watermark. Returns False when the pass could not really run (no
+    provider client, the extraction call failed, or the memory
+    backend failed to store the extracted notes), leaving the
+    session eligible for a later retry.
+    """
     try:
         from ..profile_manager import _llm_simple_text, _sanitize_log_for_profiling
         from ..providers import util_providers
 
         provider, client, model_name = util_providers.make_client(core)
         if not client:
-            return
+            return False
         sanitized_log = _sanitize_log_for_profiling(messages)
         if not sanitized_log.strip():
-            return
+            return True
         raw_response = _llm_simple_text(
             provider=provider,
             client=client,
@@ -171,15 +476,29 @@ def _consolidation_worker(
             temperature=0.0,
         )
         notes = _parse_notes(raw_response)
+        if notes is None:
+            # The provider did not return a usable extraction result.
+            # Treat the pass as failed so the session stays eligible
+            # for a later retry instead of being watermarked as done.
+            return False
         if notes:
             save_consolidation_notes(notes, owner=owner, project=project)
+        return True
     except Exception:
         # Fail silently in background thread to avoid interrupting the user
-        pass
+        return False
 
 
-def _parse_notes(raw_response: str) -> list[str]:
-    """Parse the extraction response into a list of note strings."""
+def _parse_notes(raw_response: str) -> list[str] | None:
+    """Parse the extraction response into a list of note strings.
+
+    Returns None when the response is not a usable extraction result
+    (empty, malformed or truncated JSON, or a payload without a
+    ``notes`` list), so the caller can treat the pass as failed and
+    leave the session eligible for a later retry. A well-formed
+    response with no notes returns an empty list: the model looked
+    and found nothing, so that pass is done.
+    """
     cleaned = str(raw_response or "").strip()
     if cleaned.startswith("```"):
         lines = cleaned.splitlines()
@@ -191,10 +510,10 @@ def _parse_notes(raw_response: str) -> list[str]:
     try:
         payload = json.loads(cleaned)
     except Exception:
-        return []
+        return None
     items = payload.get("notes") if isinstance(payload, dict) else payload
     if not isinstance(items, list):
-        return []
+        return None
     return [
         str(item).strip()
         for item in items
@@ -208,38 +527,101 @@ def _state_path() -> Path:
     return Path(get_memory_file_path()).expanduser().parent / _STATE_FILE_NAME
 
 
-def _record_pending_notice(saved_count: int) -> None:
-    """Accumulate auto-saved counts until they are shown to the user."""
+def _load_state() -> dict[str, Any]:
+    try:
+        payload = json.loads(_state_path().read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except Exception:
+        return {}
+
+
+def _write_state(state: dict[str, Any]) -> None:
     try:
         path = _state_path()
-        pending = 0
-        try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
-            pending = int(payload.get("pending_saved") or 0)
-        except Exception:
-            pending = 0
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(
-            json.dumps(
-                {"pending_saved": pending + saved_count, "updated_at": time.time()}
-            ),
-            encoding="utf-8",
-        )
+        state["updated_at"] = time.time()
+        path.write_text(json.dumps(state), encoding="utf-8")
     except Exception:
         pass
 
 
+def _tail_fingerprint(messages: list[dict[str, Any]]) -> str:
+    """Short fingerprint of a conversation's last message.
+
+    Coverage cannot be a bare message count: history compression
+    replaces older messages with a summary, so a resumed session can
+    hold new turns in a *shorter* list whose length falls below the
+    recorded count. The tail survives compression (recent messages
+    are kept verbatim), so a changed tail means new content arrived
+    even when the count went down.
+    """
+    if not messages:
+        return ""
+    try:
+        payload = json.dumps(messages[-1], sort_keys=True, default=str)
+    except Exception:
+        return ""
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _session_is_covered(session_id: str, messages: list[dict[str, Any]]) -> bool:
+    """Whether a completed pass already covered this conversation state.
+
+    Covered means the recorded count reaches the current length AND
+    the tail fingerprint matches — a list that shrank through history
+    compression but gained new turns has a different tail and is not
+    covered. Entries without a fingerprint do not count as coverage.
+    """
+    try:
+        sessions = _load_state().get("sessions")
+        if isinstance(sessions, dict):
+            entry = sessions.get(session_id)
+            if isinstance(entry, dict):
+                if int(entry.get("count") or 0) < len(messages):
+                    return False
+                tail = str(entry.get("tail") or "")
+                return bool(tail) and tail == _tail_fingerprint(messages)
+    except Exception:
+        pass
+    return False
+
+
+def _mark_session_consolidated(session_id: str, messages: list[dict[str, Any]]) -> None:
+    with _state_lock:
+        state = _load_state()
+        sessions = state.get("sessions")
+        if not isinstance(sessions, dict):
+            sessions = {}
+        sessions[session_id] = {
+            "count": len(messages),
+            "tail": _tail_fingerprint(messages),
+            "at": time.time(),
+        }
+        state["sessions"] = sessions
+        _write_state(state)
+
+
+def _record_pending_notice(saved_count: int) -> None:
+    """Accumulate auto-saved counts until they are shown to the user."""
+    with _state_lock:
+        state = _load_state()
+        try:
+            pending = int(state.get("pending_saved") or 0)
+        except Exception:
+            pending = 0
+        state["pending_saved"] = pending + saved_count
+        _write_state(state)
+
+
 def pop_pending_consolidation_count() -> int:
     """Return and clear the number of auto-saved notes not yet shown."""
-    try:
-        path = _state_path()
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        count = int(payload.get("pending_saved") or 0)
+    with _state_lock:
+        state = _load_state()
+        try:
+            count = int(state.get("pending_saved") or 0)
+        except Exception:
+            count = 0
         if count:
-            path.write_text(
-                json.dumps({"pending_saved": 0, "updated_at": time.time()}),
-                encoding="utf-8",
-            )
+            state["pending_saved"] = 0
+            _write_state(state)
         return count
-    except Exception:
-        return 0
