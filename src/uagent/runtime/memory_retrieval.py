@@ -527,8 +527,17 @@ def shadow_retrieve_memories(
         )
         scored = [item for item in scored if item[3].item_id not in weaker_tier_ids]
     elif len(scored) > 1 and _uses_script_ngram(query):
-        candidate_notes = [item[3].content for item in scored]
-        candidate_ngrams = [_char_ngrams(note) for note in candidate_notes]
+        # Score each candidate on the same texts that matched it (the
+        # note plus its aliases); scoring the note alone would drop the
+        # strongest alias match as a weak discriminative match.
+        candidate_ngrams = []
+        for item in scored:
+            ngrams = _char_ngrams(item[3].content)
+            record = records[item[2]]
+            if isinstance(record, dict):
+                for alias in _record_aliases(record):
+                    ngrams |= _char_ngrams(alias)
+            candidate_ngrams.append(ngrams)
         document_frequency = Counter(
             ngram for note_ngrams in candidate_ngrams for ngram in note_ngrams
         )

@@ -96,6 +96,23 @@ def test_retrieval_without_alias_misses_paraphrase() -> None:
     assert result.candidates == []
 
 
+def test_alias_match_survives_discriminative_filter() -> None:
+    from uagent.runtime.memory_retrieval import shadow_retrieve_memories
+
+    # The query is not a substring of the alias, so no phrase match
+    # applies and the discriminative filter runs. It must score the
+    # alias text too, or the strongest alias match is dropped in favor
+    # of an incidental note match.
+    records = [
+        {"note": "マイカーを新調した", "aliases": ["自動車の購入"]},
+        {"note": "購入した本は小説です"},
+    ]
+    result = shadow_retrieve_memories(
+        records, query="自動車の購入について", scope="personal"
+    )
+    assert [c.content for c in result.candidates] == ["マイカーを新調した"]
+
+
 def test_retrieval_accepts_json_string_aliases() -> None:
     from uagent.runtime.memory_retrieval import shadow_retrieve_memories
 
