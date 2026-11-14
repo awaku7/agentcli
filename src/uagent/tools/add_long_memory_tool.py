@@ -95,6 +95,19 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
+                "aliases": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.aliases.description",
+                        default=(
+                            "Optional alternative phrasings of this note (synonyms, abbreviations, "
+                            "or another language) that future conversations might use for the same "
+                            "fact. Retrieval matches these too, so the note is still found when "
+                            "different words are used. Keep each phrasing short; up to 8 are kept."
+                        ),
+                    ),
+                },
             },
             "required": ["note"],
         },
@@ -111,7 +124,12 @@ def run_tool(args: dict[str, Any]) -> str:
     project = str(args.get("project") or "").strip()
     supersedes = str(args.get("supersedes") or "").strip()
     result = long_memory.save_long_memory(
-        note, owner=owner, project=project, source="tool", supersedes_id=supersedes
+        note,
+        owner=owner,
+        project=project,
+        source="tool",
+        supersedes_id=supersedes,
+        aliases=args.get("aliases"),
     )
     if result["saved"]:
         if result.get("superseded_id"):

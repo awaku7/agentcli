@@ -132,6 +132,46 @@ def _note_key(text: str) -> str:
     return key.strip(_EDGE_PUNCTUATION)
 
 
+MAX_ALIASES = 8
+
+
+def _clean_aliases(note: str, aliases: Any) -> list[str]:
+    """Normalize caller-supplied aliases for one note.
+
+    Aliases are alternative phrasings the writer expects future
+    conversations to use for the same fact; retrieval matches them in
+    addition to the note itself. Empty entries, duplicates (under the
+    same normalization as note dedup), the note itself, overlong
+    entries and anything that looks like a credential are dropped, and
+    the list is capped so a note stays cheap to match.
+    """
+    if aliases is None:
+        return []
+    if isinstance(aliases, str):
+        candidates: list[Any] = [aliases]
+    elif isinstance(aliases, (list, tuple)):
+        candidates = list(aliases)
+    else:
+        return []
+    note_key = _note_key(note)
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for item in candidates:
+        text = str(item or "").strip()
+        if not text or len(text) > NOTE_MAX_CHARS:
+            continue
+        if looks_like_secret(text):
+            continue
+        key = _note_key(text)
+        if not key or key == note_key or key in seen:
+            continue
+        seen.add(key)
+        cleaned.append(text)
+        if len(cleaned) >= MAX_ALIASES:
+            break
+    return cleaned
+
+
 def _is_active(record: dict[str, Any]) -> bool:
     status = str(record.get("status") or "active").strip().lower()
     return status in {"", "active"}
@@ -221,6 +261,7 @@ def save_long_memory(
     source_id: str = "",
     replay: bool = False,
     supersedes_id: str = "",
+    aliases: Any = None,
 ) -> dict[str, Any]:
     """Save one note through the checked save path used by agent-facing writers.
 
@@ -240,6 +281,9 @@ def save_long_memory(
     will not resurrect it — and the new record links back to it.
     An unknown, inactive, or out-of-scope ``supersedes_id`` is ignored.
     The result carries ``superseded_id`` when a record was superseded.
+    ``aliases`` optionally carries alternative phrasings of the note
+    (see :func:`_clean_aliases`); they are stored on the new record and
+    matched at retrieval time, but never shown as the note itself.
     A successful supersede also propagates a forget invalidation
     (:func:`_propagate_memory_forget`), like a tombstone: the retired
     fact must leave in-flight projections and provider continuations
@@ -258,6 +302,7 @@ def save_long_memory(
     owner = resolve_memory_owner(owner)
     project = _resolve_project(project)
     key = _note_key(text)
+    cleaned_aliases = _clean_aliases(text, aliases)
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
@@ -342,6 +387,7 @@ def save_long_memory(
                     source=source,
                     source_id=source_id,
                     supersedes_id=supersede_target,
+                    aliases=cleaned_aliases,
                 )
                 if supersede_target == str(record.get("memory_id") or ""):
                     # append() returned the target itself (its source_id
@@ -473,6 +519,7 @@ def save_long_memory(
             "revision": 1,
             "status": "active",
             "supersedes_id": supersede_target,
+            "aliases": cleaned_aliases,
         }
         with open(memory_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
