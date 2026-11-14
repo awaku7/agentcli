@@ -210,14 +210,18 @@ def run_memory_consolidation_async(
             except Exception:
                 snapshot = None
             if snapshot is not None:
-                pending = _pending_snapshots.get(flight_key)
-                if pending is None or len(snapshot) >= len(pending[0]):
-                    _pending_snapshots[flight_key] = (
-                        snapshot,
-                        core,
-                        session_id or flight_key,
-                        project,
-                    )
+                # Always keep the newest offer. A later snapshot can
+                # be shorter than an earlier one when history
+                # compression intervened, so length is not recency:
+                # comparing lengths would discard the newer
+                # conversation, including turns added after the
+                # compression.
+                _pending_snapshots[flight_key] = (
+                    snapshot,
+                    core,
+                    session_id or flight_key,
+                    project,
+                )
             return
         if session_id and _session_is_covered(session_id, messages):
             return

@@ -303,6 +303,58 @@ def test_pending_snapshot_keeps_offer_time_project(
     assert seen[1][1] == "proj-a"
 
 
+def test_pending_snapshot_latest_offer_wins_after_compression(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    started = threading.Event()
+    release = threading.Event()
+    seen: list[tuple[int, str]] = []
+
+    def _blocking_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
+        last = messages[-1] if messages else {}
+        seen.append((len(messages), str(last.get("content", ""))))
+        if len(seen) == 1:
+            started.set()
+            release.wait(timeout=10)
+        return True
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _blocking_worker)
+
+    first = _messages(2)
+    memory_consolidation.run_memory_consolidation_async(
+        first, core=None, session_id="s-order"
+    )
+    assert started.wait(timeout=5)
+
+    # A fuller snapshot arrives while the pass runs...
+    longer = _messages(3)
+    memory_consolidation.run_session_end_consolidation(
+        longer, core=None, session_id="s-order"
+    )
+    # ...and then history compression shrinks the live conversation,
+    # but the latest snapshot still holds turns added afterwards.
+    compressed = [
+        {"role": "system", "content": "sys"},
+        {"role": "assistant", "content": "（これまでの要約）"},
+        *longer[-2:],
+        {"role": "user", "content": "圧縮後の質問"},
+        {"role": "assistant", "content": "圧縮後の回答"},
+    ]
+    assert len(compressed) < len(longer)
+    memory_consolidation.run_session_end_consolidation(
+        compressed, core=None, session_id="s-order"
+    )
+
+    release.set()
+    _wait_for(seen, 2)
+    # The follow-up pass runs on the LATEST offer, not the longest:
+    # the pre-compression snapshot was superseded, not the new one.
+    assert seen[1] == (len(compressed), "圧縮後の回答")
+
+
 class _FakeStore:
     def __init__(self, rows: list[dict[str, Any]], messages: dict[str, list]) -> None:
         self._rows = rows
