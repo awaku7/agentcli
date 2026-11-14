@@ -47,6 +47,7 @@ from ..env_utils import env_get
 _MAX_NOTES_PER_PASS = 5
 _STATE_FILE_NAME = "memory_consolidation_state.json"
 _MIN_USER_TURNS_FOR_SESSION_END = 2
+_SAVE_ERROR_MESSAGE = "consolidation save failed: memory backend error"
 
 # Sessions with a consolidation pass already in flight, by session id.
 # Guards the session-end triggers (switch / startup catch-up) and the
@@ -117,10 +118,17 @@ def save_consolidation_notes(
     launched; the save path would otherwise resolve the project at
     save time (from the process CWD) and could file the notes under
     whatever project is current when the background thread finishes.
+
+    Raises RuntimeError when the memory backend failed to store at
+    least one note (``reason="error"`` from the save path), so the
+    caller can leave the session eligible for a later retry instead
+    of marking it consolidated. Deliberate refusals (duplicate,
+    secret, tombstone) do not raise: that work is done.
     """
     from ..tools.long_memory import save_long_memory
 
     saved = 0
+    had_error = False
     for raw in notes[:_MAX_NOTES_PER_PASS]:
         note = str(raw or "").strip()
         if not note:
@@ -134,8 +142,12 @@ def save_consolidation_notes(
         )
         if result.get("saved"):
             saved += 1
+        elif result.get("reason") == "error":
+            had_error = True
     if saved:
         _record_pending_notice(saved)
+    if had_error:
+        raise RuntimeError(_SAVE_ERROR_MESSAGE)
     return saved
 
 
@@ -418,7 +430,8 @@ def _consolidation_worker(
     Returns True when the pass ran to completion — including when it
     found nothing worth saving — so the caller may record the session
     watermark. Returns False when the pass could not really run (no
-    provider client, or the extraction call failed), leaving the
+    provider client, the extraction call failed, or the memory
+    backend failed to store the extracted notes), leaving the
     session eligible for a later retry.
     """
     try:

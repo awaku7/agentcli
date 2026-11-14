@@ -104,6 +104,59 @@ def test_save_consolidation_notes_uses_given_project(
     assert record.get("owner") == "tester"
 
 
+def test_save_consolidation_notes_raises_on_storage_error(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(
+        long_memory,
+        "save_long_memory",
+        lambda *args, **kwargs: {
+            "saved": False,
+            "reason": "error",
+            "memory_id": "",
+        },
+    )
+    with pytest.raises(RuntimeError):
+        memory_consolidation.save_consolidation_notes(["保存できないメモ"])
+
+
+def test_consolidation_worker_returns_false_on_storage_error(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent import profile_manager
+    from uagent.providers import util_providers
+    from uagent.runtime import memory_consolidation
+    from uagent.tools import long_memory
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(
+        util_providers, "make_client", lambda core: ("provider", object(), "model")
+    )
+    monkeypatch.setattr(
+        profile_manager,
+        "_llm_simple_text",
+        lambda **kwargs: '{"notes": ["保存できないメモ"]}',
+    )
+    monkeypatch.setattr(
+        long_memory,
+        "save_long_memory",
+        lambda *args, **kwargs: {
+            "saved": False,
+            "reason": "error",
+            "memory_id": "",
+        },
+    )
+    messages = [
+        {"role": "user", "content": "こんにちは"},
+        {"role": "assistant", "content": "こんにちは"},
+    ]
+    assert memory_consolidation._consolidation_worker(messages, core=None) is False
+
+
 def test_marker_replay_cannot_resurrect_consolidation_note(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

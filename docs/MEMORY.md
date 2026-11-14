@@ -129,7 +129,9 @@ least two user turns, and a per-session watermark in the state file
 records how many messages a completed pass already covered, together
 with a fingerprint of the last message. An unchanged session never
 costs a second provider call, a pass that failed or was interrupted
-leaves the session eligible for a later retry, a history that shrank
+leaves the session eligible for a later retry (including when the
+extraction worked but the memory backend failed to store the
+notes), a history that shrank
 through compression cannot hide new turns behind an old count, and a
 session that resumes and grows past the watermark is consolidated
 again. While a pass is still running, a newer snapshot offered for
