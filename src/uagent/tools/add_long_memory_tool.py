@@ -40,7 +40,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "Save a single long-term memory note about the user/environment that may be useful in future conversations. "
                 "Save durable facts, preferences, constraints, decisions and commitments stated by the user; "
                 "do not save one-off task details, guesses, or anything containing passwords, tokens or other credentials. "
-                "If a similar note already exists, update it with update_long_memory instead of adding a duplicate."
+                "If a similar note already exists, update it with update_long_memory instead of adding a duplicate. "
+                "When a fact has changed, save the new note with supersedes set to the old note's memory_id so the old fact stays retired, instead of editing it in place."
             ),
         ),
         "x_search_terms": _(
@@ -83,6 +84,17 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _scope_description("project"),
                 },
+                "supersedes": {
+                    "type": "string",
+                    "description": _(
+                        "param.supersedes.description",
+                        default=(
+                            "Optional memory_id of the existing note this one replaces when a fact has changed "
+                            "(look it up with get_long_memory first). The replaced note stops being retrieved "
+                            "but stays restorable, and background re-learning will not bring it back."
+                        ),
+                    ),
+                },
             },
             "required": ["note"],
         },
@@ -97,16 +109,38 @@ def run_tool(args: dict[str, Any]) -> str:
 
     owner = str(args.get("owner") or "").strip()
     project = str(args.get("project") or "").strip()
+    supersedes = str(args.get("supersedes") or "").strip()
     result = long_memory.save_long_memory(
-        note, owner=owner, project=project, source="tool"
+        note, owner=owner, project=project, source="tool", supersedes_id=supersedes
     )
     if result["saved"]:
+        if result.get("superseded_id"):
+            return _(
+                "result.saved_superseded",
+                default=(
+                    "[add_long_memory] saved (memory_id: %(memory_id)s), "
+                    "superseded (memory_id: %(superseded_id)s)"
+                ),
+                memory_id=result["memory_id"],
+                superseded_id=result["superseded_id"],
+            )
         return _(
             "result.saved",
             default="[add_long_memory] saved (memory_id: %(memory_id)s)",
             memory_id=result["memory_id"],
         )
     if result["reason"] == "duplicate":
+        if result.get("superseded_id"):
+            return _(
+                "result.duplicate_superseded",
+                default=(
+                    "[add_long_memory] an identical note is already saved "
+                    "(memory_id: %(memory_id)s), superseded "
+                    "(memory_id: %(superseded_id)s)"
+                ),
+                memory_id=result["memory_id"],
+                superseded_id=result["superseded_id"],
+            )
         return _(
             "result.duplicate",
             default=(

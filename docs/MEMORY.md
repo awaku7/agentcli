@@ -74,6 +74,20 @@ provenance. Deletion is a tombstone — the record stops being used
 immediately but can be restored with `:mem-restore <memory_id>` (`:mem`
 lists source and id for each entry). There is no approval step.
 
+When a fact changes, `add_long_memory` accepts a `supersedes`
+argument naming the `memory_id` of the note it replaces. The new note
+is saved through the same checked path and links back to the old one
+(`supersedes_id`); the old record is marked `superseded` — distinct
+from a tombstone, because the fact was replaced, not forgotten. A
+superseded record stops being retrieved, stays listed by
+`:mem-restore` (with its status) and can be restored the same way,
+and background re-learning treats it like a tombstone: the retired
+fact is not resurrected from old logs, while a conversational
+re-statement still saves as fresh intent. Prefer superseding over
+`update_long_memory` for changed facts: an in-place update erases the
+old text, which would leave nothing for the forget boundary to match
+against.
+
 Messages starting with `remember:` or `記憶：` are the fallback for
 models that do not call the tools reliably: the session store saves the
 marked note immediately when the message is written, keyed by a
