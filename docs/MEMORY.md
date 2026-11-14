@@ -120,7 +120,11 @@ attaches at startup, the newest previous session in the same project
 is caught up once from its stored messages (which also covers
 sessions that ended with the process). Only local sessions qualify:
 sessions bound to a Web principal or a room belong to that identity
-and are never read into the local memory. Session-end passes need at
+and are never read into the local memory, and candidates are
+filtered by the current session's stored workspace project, not by
+the memory-project override that only names where notes are saved.
+A log-file session with no SQLite store is identified by the
+process log session id instead. Session-end passes need at
 least two user turns, and a per-session watermark in the state file
 records how many messages a completed pass already covered, together
 with a fingerprint of the last message. An unchanged session never

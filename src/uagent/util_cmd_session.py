@@ -321,6 +321,7 @@ def _capture_outgoing_session(
             getattr(owner, "session_id", None)
             or getattr(core, "_session_store_active_id", "")
             or getattr(core, "session_id", "")
+            or getattr(core, "SESSION_ID", "")
             or ""
         )
         return list(messages_ref), session_id, resolve_memory_project()

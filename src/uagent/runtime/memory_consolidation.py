@@ -270,7 +270,11 @@ def run_session_end_consolidation(
         return
     if _user_turn_count(messages) < _MIN_USER_TURNS_FOR_SESSION_END:
         return
-    sid = session_id or str(getattr(core, "_session_store_active_id", "") or "")
+    sid = (
+        session_id
+        or str(getattr(core, "_session_store_active_id", "") or "")
+        or str(getattr(core, "SESSION_ID", "") or "")
+    )
     if not sid:
         return
     run_memory_consolidation_async(messages, core, session_id=sid, project=project)
@@ -295,12 +299,28 @@ def run_startup_consolidation(
     try:
         if not consolidation_enabled() or store is None:
             return
+        # Filter candidates by the current session's stored project —
+        # the workspace identifier the session rows actually carry.
+        # resolve_memory_project() is the *destination* namespace for
+        # extracted notes and may be overridden (UAGENT_MEMORY_PROJECT)
+        # to a value no session row carries, so filtering on it would
+        # skip every previous session.
+        session_project = ""
         try:
-            from .memory_scope import resolve_memory_project
-
-            current_project = resolve_memory_project()
+            current_row = (
+                store.get_session(current_session_id) if current_session_id else None
+            )
+            if isinstance(current_row, dict):
+                session_project = str(current_row.get("project") or "")
         except Exception:
-            return
+            session_project = ""
+        if not session_project:
+            try:
+                from .memory_scope import resolve_memory_project
+
+                session_project = resolve_memory_project()
+            except Exception:
+                return
         rows = store.list_sessions()
         candidate: dict[str, Any] | None = None
         for row in rows or []:
@@ -321,7 +341,7 @@ def run_startup_consolidation(
                 # identity exists, so the local-identity check inside
                 # the pass cannot see this boundary — enforce it here.
                 continue
-            if str(row.get("project") or "") != current_project:
+            if str(row.get("project") or "") != session_project:
                 # A newer session from another project must not hide an
                 # older unconsolidated session of this project.
                 continue

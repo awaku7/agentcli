@@ -228,6 +228,12 @@ class _FakeStore:
     def list_sessions(self) -> list[dict[str, Any]]:
         return list(self._rows)
 
+    def get_session(self, session_id: str) -> dict[str, Any] | None:
+        for row in self._rows:
+            if row.get("session_id") == session_id:
+                return dict(row)
+        return None
+
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
         return list(self._messages.get(session_id, []))
 
@@ -326,6 +332,31 @@ def test_startup_reaches_older_session_behind_other_project(
     assert calls == [len(_messages(2))]
 
 
+def test_startup_filters_by_stored_project_not_memory_override(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    # UAGENT_MEMORY_PROJECT overrides the *destination* namespace for
+    # extracted notes; session rows still carry the path-derived
+    # workspace identifier, which must be what filters candidates.
+    monkeypatch.setattr(
+        memory_scope, "resolve_memory_project", lambda: "memory-override"
+    )
+    calls = _record_worker(monkeypatch)
+
+    store = _FakeStore(
+        [_row("current"), _row("prev")],
+        {"prev": _messages(2)},
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, store, current_session_id="current"
+    )
+    _wait_for(calls, 1)
+    assert calls == [len(_messages(2))]
+
+
 def test_switch_hook_passes_outgoing_messages(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -392,3 +423,31 @@ def test_switch_capture_survives_destination_rebind(
     util_cmd_session._consolidate_captured_session(captured, core=core)
     # The pass still belongs to the outgoing session and its project.
     assert seen == [(len(messages), "outgoing-1", "proj-out")]
+
+
+def test_switch_hook_falls_back_to_log_session_id(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent import util_cmd_session
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    seen: list[tuple[int, str]] = []
+
+    def _fake_run(
+        messages, core, *, session_id="", project=None
+    ):  # noqa: ANN001, ANN202
+        seen.append((len(messages), session_id))
+
+    monkeypatch.setattr(
+        memory_consolidation, "run_session_end_consolidation", _fake_run
+    )
+
+    class _Core:
+        # No SQLite session store (UAGENT_SESSION_STORE=0): only the
+        # process log session id identifies the outgoing conversation.
+        SESSION_ID = "20261115_001234"
+
+    messages = _messages(2)
+    util_cmd_session._consolidate_outgoing_session(messages, core=_Core())
+    assert seen == [(len(messages), "20261115_001234")]
