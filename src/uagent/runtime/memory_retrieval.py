@@ -10,6 +10,7 @@ memory IDs.
 from __future__ import annotations
 
 from collections import Counter
+import json
 import math
 import re
 import unicodedata
@@ -85,6 +86,24 @@ def _field(record: dict[str, Any], *names: str) -> str:
         if value:
             return value
     return ""
+
+
+def _record_aliases(record: dict[str, Any]) -> list[str]:
+    """Return the record's stored alternative phrasings, if any.
+
+    Aliases arrive either as a list (SQLite rows are decoded on read,
+    JSONL records store the list directly) or as a raw JSON string from
+    other producers; anything else means the record has no aliases.
+    """
+    raw: Any = record.get("aliases")
+    if isinstance(raw, str) and raw.strip():
+        try:
+            raw = json.loads(raw)
+        except ValueError:
+            return []
+    if not isinstance(raw, (list, tuple)):
+        return []
+    return [text for item in raw if (text := _clean(item))]
 
 
 def _normalized_text(value: str) -> str:
@@ -419,7 +438,13 @@ def shadow_retrieve_memories(
             )
             continue
 
-        if not _may_match_query_prefilter(note, query_prefilter):
+        # Aliases widen matching only: the candidate text stays the
+        # note itself, so evidence never shows a phrasing the user did
+        # not actually have recorded as the fact.
+        match_texts = [note, *_record_aliases(record)]
+        if not any(
+            _may_match_query_prefilter(text, query_prefilter) for text in match_texts
+        ):
             diagnostics.append(
                 MemoryShadowDiagnostic(
                     index=index,
@@ -433,7 +458,7 @@ def shadow_retrieve_memories(
             continue
 
         normalized_note = note.casefold()
-        relevance = _relevance(query, note)
+        relevance = max(_relevance(query, text) for text in match_texts)
         if relevance <= 0.0:
             diagnostics.append(
                 MemoryShadowDiagnostic(
@@ -459,7 +484,7 @@ def shadow_retrieve_memories(
             )
             continue
         seen_notes.add(normalized_note)
-        if _phrase_match(query, note):
+        if any(_phrase_match(query, text) for text in match_texts):
             phrase_match_ids.add(item_id)
 
         candidate = ContextCandidate(

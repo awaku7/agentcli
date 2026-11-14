@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+import json
 import sqlite3
 import time
 import uuid
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 SCHEMA_VERSION = 5
 
@@ -50,7 +51,8 @@ class MemoryStore:
             "note TEXT NOT NULL, owner TEXT, project TEXT, "
             "kind TEXT NOT NULL DEFAULT 'note', source TEXT, source_id TEXT, "
             "revision INTEGER NOT NULL DEFAULT 1, "
-            "status TEXT NOT NULL DEFAULT 'active', supersedes_id TEXT)"
+            "status TEXT NOT NULL DEFAULT 'active', supersedes_id TEXT, "
+            "aliases TEXT)"
         )
         columns = {
             str(row["name"])
@@ -67,6 +69,7 @@ class MemoryStore:
             "revision": "INTEGER NOT NULL DEFAULT 1",
             "status": "TEXT NOT NULL DEFAULT 'active'",
             "supersedes_id": "TEXT",
+            "aliases": "TEXT",
             "owner_id": "TEXT",
             "audience_type": "TEXT NOT NULL DEFAULT 'legacy'",
             "audience_id": "TEXT",
@@ -341,17 +344,31 @@ class MemoryStore:
         self.db.close()
 
     @staticmethod
+    def _parse_aliases(value: Any) -> list[str]:
+        """Decode the stored aliases column (a JSON list) tolerantly."""
+        parsed: Any = value
+        if isinstance(value, str) and value.strip():
+            try:
+                parsed = json.loads(value)
+            except ValueError:
+                return []
+        if not isinstance(parsed, (list, tuple)):
+            return []
+        return [str(item) for item in parsed if str(item or "").strip()]
+
+    @staticmethod
     def _record_from_row(row: sqlite3.Row | None) -> dict[str, Any] | None:
         if row is None:
             return None
         record = dict(row)
         record["ts"] = record.get("created_at")
+        record["aliases"] = MemoryStore._parse_aliases(record.get("aliases"))
         return record
 
     def _get_by_id(self, memory_id: str) -> dict[str, Any] | None:
         row = self.db.execute(
             "SELECT id, memory_id, created_at, updated_at, note, owner, project, "
-            "kind, source, source_id, revision, status, supersedes_id "
+            "kind, source, source_id, revision, status, supersedes_id, aliases "
             "FROM memories WHERE memory_id = ?",
             (memory_id,),
         ).fetchone()
@@ -367,6 +384,7 @@ class MemoryStore:
         source: str = "",
         source_id: str = "",
         supersedes_id: str = "",
+        aliases: Sequence[str] = (),
     ) -> dict[str, Any]:
         """Append one record, or return the existing record for a source ID."""
         text = str(note or "")
@@ -388,8 +406,8 @@ class MemoryStore:
             self.db.execute(
                 "INSERT INTO memories("
                 "memory_id, created_at, updated_at, note, owner, project, kind, "
-                "source, source_id, revision, status, supersedes_id) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'active', ?)",
+                "source, source_id, revision, status, supersedes_id, aliases) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'active', ?, ?)",
                 (
                     memory_id,
                     now,
@@ -401,6 +419,14 @@ class MemoryStore:
                     str(source or ""),
                     str(source_id or "") or None,
                     str(supersedes_id or "") or None,
+                    (
+                        json.dumps(
+                            [str(item) for item in aliases if str(item or "").strip()],
+                            ensure_ascii=False,
+                        )
+                        if aliases
+                        else None
+                    ),
                 ),
             )
             self.db.commit()
@@ -428,7 +454,7 @@ class MemoryStore:
         where = "" if include_inactive else " WHERE status = 'active'"
         rows = self.db.execute(
             "SELECT id, memory_id, created_at, updated_at, note, owner, project, "
-            "kind, source, source_id, revision, status, supersedes_id "
+            "kind, source, source_id, revision, status, supersedes_id, aliases "
             "FROM memories" + where + " ORDER BY id"
         ).fetchall()
         return [self._record_from_row(row) for row in rows if row is not None]

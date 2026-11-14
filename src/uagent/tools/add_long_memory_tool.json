@@ -23,6 +23,7 @@
     "describe.add": "長期メモリに保存",
     "describe.add_with_note": "長期メモリに保存: %(note)s",
     "param.supersedes.description": "事実が変わったときに、このメモが置き換える既存メモの memory_id（任意。先に get_long_memory で調べてください）。置き換えられたメモは検索されなくなりますが、復元はでき、裏側の再学習で戻ることもありません。",
+    "param.aliases.description": "このメモの別の言い方（任意。同義語、略語、別の言語など）。今後の会話で同じ事実を指すときに使われそうな表現を書いてください。検索ではこれらも照合されるので、違う言葉で聞かれてもメモが見つかります。各表現は短く、最大8件まで保存されます。",
     "result.saved_superseded": "[add_long_memory] 保存しました（memory_id: %(memory_id)s）。置き換え済みにしました（memory_id: %(superseded_id)s）",
     "result.duplicate_superseded": "[add_long_memory] 同じメモが既に保存されています（memory_id: %(memory_id)s）。置き換え済みにしました（memory_id: %(superseded_id)s）"
   },
@@ -50,6 +51,7 @@
     "describe.add": "Guardando en la memoria a largo plazo",
     "describe.add_with_note": "Guardando en la memoria a largo plazo: %(note)s",
     "param.supersedes.description": "memory_id opcional de la nota existente que esta reemplaza cuando un dato ha cambiado (búscalo primero con get_long_memory). La nota reemplazada deja de recuperarse, pero se puede restaurar y el reaprendizaje en segundo plano no la traerá de vuelta.",
+    "param.aliases.description": "Formulaciones alternativas opcionales de esta nota (sinónimos, abreviaturas u otro idioma) que las conversaciones futuras podrían usar para el mismo dato. La búsqueda también las compara, así que la nota se encuentra aunque se usen otras palabras. Que cada formulación sea breve; se guardan hasta 8.",
     "result.saved_superseded": "[add_long_memory] guardado (memory_id: %(memory_id)s), reemplazado (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] ya hay una nota idéntica guardada (memory_id: %(memory_id)s), reemplazada (memory_id: %(superseded_id)s)"
   },
@@ -77,6 +79,7 @@
     "describe.add": "Enregistrement dans la mémoire à long terme",
     "describe.add_with_note": "Enregistrement dans la mémoire à long terme : %(note)s",
     "param.supersedes.description": "memory_id facultatif de la note existante que celle-ci remplace lorsqu'un fait a changé (recherchez-le d'abord avec get_long_memory). La note remplacée n'est plus récupérée, mais reste restaurable, et le réapprentissage en arrière-plan ne la ramènera pas.",
+    "param.aliases.description": "Formulations alternatives facultatives de cette note (synonymes, abréviations ou autre langue) que de futures conversations pourraient utiliser pour le même fait. La recherche les compare aussi, donc la note est retrouvée même avec d'autres mots. Gardez chaque formulation courte ; 8 au maximum sont conservées.",
     "result.saved_superseded": "[add_long_memory] enregistré (memory_id : %(memory_id)s), remplacé (memory_id : %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] une note identique est déjà enregistrée (memory_id : %(memory_id)s), remplacée (memory_id : %(superseded_id)s)"
   },
@@ -104,6 +107,7 @@
     "describe.add": "장기 기억에 저장 중",
     "describe.add_with_note": "장기 기억에 저장 중: %(note)s",
     "param.supersedes.description": "사실이 변경되었을 때 이 메모가 대체하는 기존 메모의 memory_id(선택 사항, 먼저 get_long_memory로 조회하세요). 대체된 메모는 더 이상 검색되지 않지만 복원할 수 있으며, 백그라운드 재학습으로 되돌아오지 않습니다.",
+    "param.aliases.description": "이 메모의 대체 표현입니다(선택 사항). 동의어, 약어, 다른 언어 등 이후 대화에서 같은 사실을 가리킬 때 쓸 수 있는 표현을 적으세요. 검색 시 이것들도 함께 대조되므로 다른 단어를 써도 메모를 찾을 수 있습니다. 각 표현은 짧게 유지하세요. 최대 8개까지 저장됩니다.",
     "result.saved_superseded": "[add_long_memory] 저장됨 (memory_id: %(memory_id)s), 대체됨 (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] 동일한 메모가 이미 저장되어 있습니다 (memory_id: %(memory_id)s), 대체됨 (memory_id: %(superseded_id)s)"
   },
@@ -131,6 +135,7 @@
     "describe.add": "Im Langzeitgedächtnis speichern",
     "describe.add_with_note": "Im Langzeitgedächtnis speichern: %(note)s",
     "param.supersedes.description": "Optionale memory_id der vorhandenen Notiz, die diese ersetzt, wenn sich ein Fakt geändert hat (zuerst mit get_long_memory nachschlagen). Die ersetzte Notiz wird nicht mehr abgerufen, bleibt aber wiederherstellbar, und erneutes Lernen im Hintergrund bringt sie nicht zurück.",
+    "param.aliases.description": "Optionale alternative Formulierungen dieser Notiz (Synonyme, Abkürzungen oder eine andere Sprache), die künftige Gespräche für denselben Fakt verwenden könnten. Die Suche gleicht auch diese ab, sodass die Notiz auch mit anderen Worten gefunden wird. Halten Sie jede Formulierung kurz; bis zu 8 werden gespeichert.",
     "result.saved_superseded": "[add_long_memory] gespeichert (memory_id: %(memory_id)s), ersetzt (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] eine identische Notiz ist bereits gespeichert (memory_id: %(memory_id)s), ersetzt (memory_id: %(superseded_id)s)"
   },
@@ -158,6 +163,7 @@
     "describe.add": "Salvataggio nella memoria a lungo termine",
     "describe.add_with_note": "Salvataggio nella memoria a lungo termine: %(note)s",
     "param.supersedes.description": "memory_id facoltativo della nota esistente che questa sostituisce quando un fatto è cambiato (cercalo prima con get_long_memory). La nota sostituita non viene più recuperata, ma resta ripristinabile e la riacquisizione in background non la riporterà.",
+    "param.aliases.description": "Formulazioni alternative facoltative di questa nota (sinonimi, abbreviazioni o un'altra lingua) che le conversazioni future potrebbero usare per lo stesso fatto. La ricerca confronta anche queste, così la nota viene trovata anche con parole diverse. Mantieni ogni formulazione breve; ne vengono conservate al massimo 8.",
     "result.saved_superseded": "[add_long_memory] salvato (memory_id: %(memory_id)s), sostituito (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] una nota identica è già salvata (memory_id: %(memory_id)s), sostituita (memory_id: %(superseded_id)s)"
   },
@@ -185,6 +191,7 @@
     "describe.add": "Сохранение в долговременную память",
     "describe.add_with_note": "Сохранение в долговременную память: %(note)s",
     "param.supersedes.description": "Необязательный memory_id существующей заметки, которую эта заменяет при изменении факта (сначала найдите её через get_long_memory). Заменённая заметка перестаёт извлекаться, но остаётся восстанавливаемой, и фоновое переобучение её не вернёт.",
+    "param.aliases.description": "Необязательные альтернативные формулировки этой заметки (синонимы, сокращения или другой язык), которые будущие разговоры могут использовать для того же факта. Поиск сверяется и с ними, поэтому заметка найдётся и при других словах. Формулировки должны быть короткими; сохраняется не более 8.",
     "result.saved_superseded": "[add_long_memory] сохранено (memory_id: %(memory_id)s), заменено (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] такая же заметка уже сохранена (memory_id: %(memory_id)s), заменена (memory_id: %(superseded_id)s)"
   },
@@ -212,6 +219,7 @@
     "describe.add": "Salvando na memória de longo prazo",
     "describe.add_with_note": "Salvando na memória de longo prazo: %(note)s",
     "param.supersedes.description": "memory_id opcional da nota existente que esta substitui quando um fato mudou (procure-o primeiro com get_long_memory). A nota substituída deixa de ser recuperada, mas continua restaurável, e o reaprendizado em segundo plano não a trará de volta.",
+    "param.aliases.description": "Formulações alternativas opcionais desta nota (sinônimos, abreviações ou outro idioma) que conversas futuras podem usar para o mesmo fato. A busca também as compara, então a nota é encontrada mesmo com outras palavras. Mantenha cada formulação curta; até 8 são guardadas.",
     "result.saved_superseded": "[add_long_memory] salvo (memory_id: %(memory_id)s), substituído (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] uma nota idêntica já está salva (memory_id: %(memory_id)s), substituída (memory_id: %(superseded_id)s)"
   },
@@ -239,6 +247,7 @@
     "describe.add": "A guardar na memória de longo prazo",
     "describe.add_with_note": "A guardar na memória de longo prazo: %(note)s",
     "param.supersedes.description": "memory_id opcional da nota existente que esta substitui quando um facto mudou (procure-o primeiro com get_long_memory). A nota substituída deixa de ser recuperada, mas continua restaurável, e a reaprendizagem em segundo plano não a trará de volta.",
+    "param.aliases.description": "Formulações alternativas opcionais desta nota (sinónimos, abreviaturas ou outro idioma) que conversas futuras podem usar para o mesmo facto. A pesquisa também as compara, por isso a nota é encontrada mesmo com outras palavras. Mantenha cada formulação curta; são guardadas até 8.",
     "result.saved_superseded": "[add_long_memory] guardado (memory_id: %(memory_id)s), substituído (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] já existe uma nota idêntica guardada (memory_id: %(memory_id)s), substituída (memory_id: %(superseded_id)s)"
   },
@@ -266,6 +275,7 @@
     "describe.add": "Menyimpan ke memori jangka panjang",
     "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s",
     "param.supersedes.description": "memory_id opsional dari catatan yang ada yang digantikan oleh catatan ini ketika sebuah fakta telah berubah (cari dulu dengan get_long_memory). Catatan yang diganti berhenti diambil, tetapi tetap dapat dipulihkan, dan pembelajaran ulang di latar belakang tidak akan membawanya kembali.",
+    "param.aliases.description": "Frasa alternatif opsional untuk catatan ini (sinonim, singkatan, atau bahasa lain) yang mungkin digunakan percakapan mendatang untuk fakta yang sama. Pencarian juga mencocokkan frasa ini, jadi catatan tetap ditemukan meski kata yang dipakai berbeda. Buat setiap frasa singkat; maksimal 8 yang disimpan.",
     "result.saved_superseded": "[add_long_memory] disimpan (memory_id: %(memory_id)s), diganti (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] catatan yang sama sudah disimpan (memory_id: %(memory_id)s), diganti (memory_id: %(superseded_id)s)"
   },
@@ -293,6 +303,7 @@
     "describe.add": "Đang lưu vào bộ nhớ dài hạn",
     "describe.add_with_note": "Đang lưu vào bộ nhớ dài hạn: %(note)s",
     "param.supersedes.description": "memory_id tùy chọn của ghi chú hiện có mà ghi chú này thay thế khi một sự kiện đã thay đổi (hãy tra cứu bằng get_long_memory trước). Ghi chú bị thay thế sẽ ngừng được truy xuất nhưng vẫn có thể khôi phục, và việc học lại ở nền sẽ không mang nó trở lại.",
+    "param.aliases.description": "Các cách diễn đạt thay thế tùy chọn của ghi chú này (từ đồng nghĩa, viết tắt hoặc ngôn ngữ khác) mà các cuộc trò chuyện sau này có thể dùng cho cùng một sự kiện. Tìm kiếm cũng đối chiếu các cách diễn đạt này, nên ghi chú vẫn được tìm thấy khi dùng từ khác. Giữ mỗi cách diễn đạt ngắn gọn; tối đa 8 mục được lưu.",
     "result.saved_superseded": "[add_long_memory] đã lưu (memory_id: %(memory_id)s), đã thay thế (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] một ghi chú giống hệt đã được lưu (memory_id: %(memory_id)s), đã thay thế (memory_id: %(superseded_id)s)"
   },
@@ -320,6 +331,7 @@
     "describe.add": "Zapisywanie do pamięci długotrwałej",
     "describe.add_with_note": "Zapisywanie do pamięci długotrwałej: %(note)s",
     "param.supersedes.description": "Opcjonalne memory_id istniejącej notatki, którą ta zastępuje, gdy zmienił się fakt (najpierw wyszukaj ją za pomocą get_long_memory). Zastąpiona notatka przestaje być pobierana, ale pozostaje możliwa do przywrócenia, a ponowne uczenie się w tle jej nie przywróci.",
+    "param.aliases.description": "Opcjonalne alternatywne sformułowania tej notatki (synonimy, skróty lub inny język), których przyszłe rozmowy mogą użyć dla tego samego faktu. Wyszukiwanie porównuje także je, więc notatka zostanie znaleziona nawet przy innych słowach. Każde sformułowanie powinno być krótkie; zapisywanych jest maksymalnie 8.",
     "result.saved_superseded": "[add_long_memory] zapisano (memory_id: %(memory_id)s), zastąpiono (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] identyczna notatka jest już zapisana (memory_id: %(memory_id)s), zastąpiona (memory_id: %(superseded_id)s)"
   },
@@ -347,6 +359,7 @@
     "describe.add": "दीर्घकालिक स्मृति में सहेजा जा रहा है",
     "describe.add_with_note": "दीर्घकालिक स्मृति में सहेजा जा रहा है: %(note)s",
     "param.supersedes.description": "जब कोई तथ्य बदल गया हो तो यह नोट जिस मौजूदा नोट को बदलता है, उसका वैकल्पिक memory_id (पहले get_long_memory से खोजें)। बदला गया नोट अब पुनः प्राप्त नहीं होगा, लेकिन पुनर्स्थापित किया जा सकता है, और पृष्ठभूमि में पुनः सीखने से वह वापस नहीं आएगा।",
+    "param.aliases.description": "इस नोट के वैकल्पिक शब्द-रूप (पर्यायवाची, संक्षिप्त रूप या दूसरी भाषा) जो भविष्य की बातचीत में इसी तथ्य के लिए इस्तेमाल हो सकते हैं। खोज इनसे भी मिलान करती है, इसलिए अलग शब्दों के साथ भी नोट मिल जाता है। हर शब्द-रूप छोटा रखें; अधिकतम 8 रखे जाते हैं।",
     "result.saved_superseded": "[add_long_memory] सहेजा गया (memory_id: %(memory_id)s), बदला गया (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] एक समान नोट पहले से सहेजा गया है (memory_id: %(memory_id)s), बदला गया (memory_id: %(superseded_id)s)"
   },
@@ -374,6 +387,7 @@
     "describe.add": "الحفظ في الذاكرة طويلة الأمد",
     "describe.add_with_note": "الحفظ في الذاكرة طويلة الأمد: %(note)s",
     "param.supersedes.description": "memory_id اختياري للملاحظة الحالية التي تحل هذه محلها عندما يتغير أحد الحقائق (ابحث عنه أولاً باستخدام get_long_memory). تتوقف الملاحظة المستبدلة عن الاسترجاع لكنها تبقى قابلة للاستعادة، ولن يعيدها التعلم في الخلفية.",
+    "param.aliases.description": "صياغات بديلة اختيارية لهذه الملاحظة (مرادفات أو اختصارات أو لغة أخرى) قد تستخدمها المحادثات المقبلة للإشارة إلى الحقيقة نفسها. يطابق البحث هذه الصياغات أيضًا، لذا تُعثر على الملاحظة حتى مع اختلاف الكلمات. اجعل كل صياغة قصيرة؛ يُحتفظ بما يصل إلى 8.",
     "result.saved_superseded": "[add_long_memory] تم الحفظ (memory_id: %(memory_id)s)، تم الاستبدال (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] توجد ملاحظة مطابقة محفوظة بالفعل (memory_id: %(memory_id)s)، تم الاستبدال (memory_id: %(superseded_id)s)"
   },
@@ -401,6 +415,7 @@
     "describe.add": "Sparar i långtidsminnet",
     "describe.add_with_note": "Sparar i långtidsminnet: %(note)s",
     "param.supersedes.description": "Valfritt memory_id för den befintliga anteckning som denna ersätter när ett faktum har ändrats (slå upp det med get_long_memory först). Den ersatta anteckningen hämtas inte längre, men kan återställas, och ominlärning i bakgrunden kommer inte att ta tillbaka den.",
+    "param.aliases.description": "Valfria alternativa formuleringar av den här anteckningen (synonymer, förkortningar eller ett annat språk) som framtida samtal kan använda för samma fakta. Sökningen matchar även dessa, så anteckningen hittas även med andra ord. Håll varje formulering kort; upp till 8 sparas.",
     "result.saved_superseded": "[add_long_memory] sparat (memory_id: %(memory_id)s), ersatt (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] en identisk anteckning är redan sparad (memory_id: %(memory_id)s), ersatt (memory_id: %(superseded_id)s)"
   },
@@ -428,6 +443,7 @@
     "describe.add": "Kuhifadhi kwenye kumbukumbu ya muda mrefu",
     "describe.add_with_note": "Kuhifadhi kwenye kumbukumbu ya muda mrefu: %(note)s",
     "param.supersedes.description": "memory_id ya hiari ya noti iliyopo ambayo hii inachukua nafasi yake wakati ukweli umebadilika (itafute kwanza kwa get_long_memory). Noti iliyobadilishwa huacha kurejeshwa, lakini inabaki inaweza kurejeshwa, na kujifunza upya chinichini hakutairudisha.",
+    "param.aliases.description": "Miundo mbadala ya hiari ya dokezo hili (visawe, vifupisho, au lugha nyingine) ambayo mazungumzo ya baadaye yanaweza kutumia kwa ukweli huo huo. Utafutaji hulinganisha pia miundo hii, kwa hiyo dokezo hupatikana hata kwa maneno tofauti. Kila muundo uwe mfupi; huhifadhiwa hadi 8.",
     "result.saved_superseded": "[add_long_memory] imehifadhiwa (memory_id: %(memory_id)s), imebadilishwa (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] noti inayofanana tayari imehifadhiwa (memory_id: %(memory_id)s), imebadilishwa (memory_id: %(superseded_id)s)"
   },
@@ -455,6 +471,7 @@
     "describe.add": "Lagrer i langtidsminnet",
     "describe.add_with_note": "Lagrer i langtidsminnet: %(note)s",
     "param.supersedes.description": "Valgfritt memory_id for den eksisterende notaten som denne erstatter når et faktum har endret seg (slå det opp med get_long_memory først). Den erstattede notaten hentes ikke lenger, men kan gjenopprettes, og ny læring i bakgrunnen vil ikke bringe den tilbake.",
+    "param.aliases.description": "Valgfrie alternative formuleringer av dette notatet (synonymer, forkortelser eller et annet språk) som fremtidige samtaler kan bruke om det samme faktumet. Søket matcher også disse, så notatet blir funnet selv med andre ord. Hold hver formulering kort; opptil 8 lagres.",
     "result.saved_superseded": "[add_long_memory] lagret (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] en identisk note er allerede lagret (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)"
   },
@@ -482,6 +499,7 @@
     "describe.add": "Opslaan in langetermijngeheugen",
     "describe.add_with_note": "Opslaan in langetermijngeheugen: %(note)s",
     "param.supersedes.description": "Optionele memory_id van de bestaande notitie die deze vervangt wanneer een feit is gewijzigd (zoek deze eerst op met get_long_memory). De vervangen notitie wordt niet langer opgehaald, maar blijft herstelbaar, en opnieuw leren op de achtergrond brengt haar niet terug.",
+    "param.aliases.description": "Optionele alternatieve formuleringen van deze notitie (synoniemen, afkortingen of een andere taal) die toekomstige gesprekken voor hetzelfde feit kunnen gebruiken. Het zoeken vergelijkt ook deze, dus de notitie wordt ook met andere woorden gevonden. Houd elke formulering kort; er worden er maximaal 8 bewaard.",
     "result.saved_superseded": "[add_long_memory] opgeslagen (memory_id: %(memory_id)s), vervangen (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] een identieke notitie is al opgeslagen (memory_id: %(memory_id)s), vervangen (memory_id: %(superseded_id)s)"
   },
@@ -509,6 +527,7 @@
     "describe.add": "Tallennetaan pitkäkestoiseen muistiin",
     "describe.add_with_note": "Tallennetaan pitkäkestoiseen muistiin: %(note)s",
     "param.supersedes.description": "Valinnainen memory_id olemassa olevalle muistiinpanolle, jonka tämä korvaa, kun jokin tosiasia on muuttunut (hae se ensin get_long_memory-työkalulla). Korvattua muistiinpanoa ei enää haeta, mutta se pysyy palautettavana, eikä taustalla tapahtuva uudelleenoppiminen tuo sitä takaisin.",
+    "param.aliases.description": "Tämän muistiinpanon valinnaiset vaihtoehtoiset muotoilut (synonyymit, lyhenteet tai toinen kieli), joita tulevat keskustelut voivat käyttää samasta asiasta. Haku vertaa myös näitä, joten muistiinpano löytyy eri sanoillakin. Pidä jokainen muotoilu lyhyenä; enintään 8 säilytetään.",
     "result.saved_superseded": "[add_long_memory] tallennettu (memory_id: %(memory_id)s), korvattu (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] identtinen muistiinpano on jo tallennettu (memory_id: %(memory_id)s), korvattu (memory_id: %(superseded_id)s)"
   },
@@ -536,6 +555,7 @@
     "describe.add": "Ukládání do dlouhodobé paměti",
     "describe.add_with_note": "Ukládání do dlouhodobé paměti: %(note)s",
     "param.supersedes.description": "Volitelné memory_id existující poznámky, kterou tato nahrazuje, když se změnil fakt (nejprve ji vyhledejte pomocí get_long_memory). Nahrazená poznámka se přestane načítat, ale zůstane obnovitelná a opětovné učení na pozadí ji nevrátí.",
+    "param.aliases.description": "Volitelné alternativní formulace této poznámky (synonyma, zkratky nebo jiný jazyk), které mohou budoucí konverzace použít pro tutéž skutečnost. Vyhledávání porovnává i tyto formulace, takže poznámka se najde i při jiných slovech. Každá formulace má být krátká; ukládá se nejvýše 8.",
     "result.saved_superseded": "[add_long_memory] uloženo (memory_id: %(memory_id)s), nahrazeno (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] totožná poznámka je již uložena (memory_id: %(memory_id)s), nahrazena (memory_id: %(superseded_id)s)"
   },
@@ -563,6 +583,7 @@
     "describe.add": "Збереження в довготривалу пам'ять",
     "describe.add_with_note": "Збереження в довготривалу пам'ять: %(note)s",
     "param.supersedes.description": "Необов'язковий memory_id наявної нотатки, яку ця замінює, коли факт змінився (спочатку знайдіть її через get_long_memory). Замінена нотатка перестає витягуватися, але залишається відновлюваною, і фонове перенавчання її не поверне.",
+    "param.aliases.description": "Необов'язкові альтернативні формулювання цієї нотатки (синоніми, скорочення або інша мова), які майбутні розмови можуть використовувати для того самого факту. Пошук звіряється і з ними, тож нотатка знайдеться й за інших слів. Формулювання мають бути короткими; зберігається не більше 8.",
     "result.saved_superseded": "[add_long_memory] збережено (memory_id: %(memory_id)s), замінено (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] така сама нотатка вже збережена (memory_id: %(memory_id)s), замінена (memory_id: %(superseded_id)s)"
   },
@@ -590,6 +611,7 @@
     "describe.add": "Uzun süreli belleğe kaydediliyor",
     "describe.add_with_note": "Uzun süreli belleğe kaydediliyor: %(note)s",
     "param.supersedes.description": "Bir bilgi değiştiğinde bu notun yerini aldığı mevcut notun isteğe bağlı memory_id değeri (önce get_long_memory ile bakın). Değiştirilen not artık getirilmez, ancak geri yüklenebilir durumda kalır ve arka planda yeniden öğrenme onu geri getirmez.",
+    "param.aliases.description": "Bu notun, gelecekteki konuşmaların aynı olgu için kullanabileceği isteğe bağlı alternatif ifadeleri (eş anlamlılar, kısaltmalar veya başka bir dil). Arama bunları da eşleştirir, böylece farklı kelimeler kullanılsa bile not bulunur. Her ifadeyi kısa tutun; en fazla 8 tane saklanır.",
     "result.saved_superseded": "[add_long_memory] kaydedildi (memory_id: %(memory_id)s), değiştirildi (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] aynı not zaten kayıtlı (memory_id: %(memory_id)s), değiştirildi (memory_id: %(superseded_id)s)"
   },
@@ -617,6 +639,7 @@
     "describe.add": "กำลังบันทึกในหน่วยความจำระยะยาว",
     "describe.add_with_note": "กำลังบันทึกในหน่วยความจำระยะยาว: %(note)s",
     "param.supersedes.description": "memory_id ที่ไม่บังคับของบันทึกที่มีอยู่ซึ่งบันทึกนี้จะแทนที่เมื่อข้อเท็จจริงเปลี่ยนไป (ค้นหาด้วย get_long_memory ก่อน) บันทึกที่ถูกแทนที่จะไม่ถูกเรียกค้นอีกต่อไป แต่ยังกู้คืนได้ และการเรียนรู้ซ้ำเบื้องหลังจะไม่นำมันกลับมา",
+    "param.aliases.description": "ถ้อยคำทางเลือกของบันทึกนี้ (ไม่บังคับ) เช่น คำพ้อง ตัวย่อ หรือภาษาอื่น ที่บทสนทนาในอนาคตอาจใช้เรียกข้อเท็จจริงเดียวกัน การค้นหาจะจับคู่ถ้อยคำเหล่านี้ด้วย จึงพบบันทึกได้แม้ใช้คำต่างออกไป แต่ละถ้อยคำควรสั้น เก็บไว้สูงสุด 8 รายการ",
     "result.saved_superseded": "[add_long_memory] บันทึกแล้ว (memory_id: %(memory_id)s) แทนที่แล้ว (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] มีบันทึกที่เหมือนกันบันทึกไว้แล้ว (memory_id: %(memory_id)s) แทนที่แล้ว (memory_id: %(superseded_id)s)"
   },
@@ -644,6 +667,7 @@
     "describe.add": "保存到长期记忆",
     "describe.add_with_note": "保存到长期记忆：%(note)s",
     "param.supersedes.description": "当事实发生变化时，本条目所取代的现有备忘录的 memory_id（可选；请先用 get_long_memory 查找）。被取代的备忘录将不再被检索，但仍可恢复，后台重新学习也不会将其带回。",
+    "param.aliases.description": "本条目的可选替代说法（同义词、缩写或其他语言），供今后的对话指代同一事实时使用。检索时也会匹配这些说法，因此即使换了措辞也能找到这条备忘。每个说法请保持简短，最多保留 8 个。",
     "result.saved_superseded": "[add_long_memory] 已保存 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] 已保存相同的备忘录 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)"
   },
@@ -671,6 +695,7 @@
     "describe.add": "儲存到長期記憶",
     "describe.add_with_note": "儲存到長期記憶：%(note)s",
     "param.supersedes.description": "當事實發生變化時，本筆記所取代的現有筆記的 memory_id（可選；請先用 get_long_memory 查詢）。被取代的筆記將不再被擷取，但仍可還原，背景重新學習也不會將其帶回。",
+    "param.aliases.description": "本條目的可選替代說法（同義詞、縮寫或其他語言），供今後的對話指代同一事實時使用。檢索時也會比對這些說法，因此即使換了措辭也能找到這條備忘。每個說法請保持簡短，最多保留 8 個。",
     "result.saved_superseded": "[add_long_memory] 已儲存 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] 已儲存相同的筆記 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)"
   },
@@ -698,6 +723,7 @@
     "describe.add": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে",
     "describe.add_with_note": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে: %(note)s",
     "param.supersedes.description": "কোনো তথ্য পরিবর্তিত হলে এই নোটটি যে বিদ্যমান নোটটিকে প্রতিস্থাপন করে তার ঐচ্ছিক memory_id (আগে get_long_memory দিয়ে খুঁজুন)। প্রতিস্থাপিত নোটটি আর পুনরুদ্ধার করা হয় না, তবে পুনরুদ্ধারযোগ্য থাকে এবং পেছনের পুনঃশিক্ষা এটিকে ফিরিয়ে আনবে না।",
+    "param.aliases.description": "এই নোটের ঐচ্ছিক বিকল্প শব্দরূপ (প্রতিশব্দ, সংক্ষেপ বা অন্য ভাষা) যা ভবিষ্যতের কথোপকথনে একই তথ্যের জন্য ব্যবহার হতে পারে। অনুসন্ধান এগুলোর সঙ্গেও মিলিয়ে দেখে, তাই আলাদা শব্দ ব্যবহার হলেও নোটটি পাওয়া যায়। প্রতিটি শব্দরূপ ছোট রাখুন; সর্বোচ্চ 8টি রাখা হয়।",
     "result.saved_superseded": "[add_long_memory] সংরক্ষিত (memory_id: %(memory_id)s), প্রতিস্থাপিত (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] একটি অভিন্ন নোট ইতিমধ্যে সংরক্ষিত আছে (memory_id: %(memory_id)s), প্রতিস্থাপিত (memory_id: %(superseded_id)s)"
   },
@@ -725,6 +751,7 @@
     "describe.add": "در حال ذخیره در حافظهٔ بلندمدت",
     "describe.add_with_note": "در حال ذخیره در حافظهٔ بلندمدت: %(note)s",
     "param.supersedes.description": "memory_id اختیاری یادداشت موجودی که این یادداشت هنگام تغییر یک واقعیت جایگزین آن می‌شود (ابتدا با get_long_memory آن را جستجو کنید). یادداشت جایگزین‌شده دیگر بازیابی نمی‌شود اما قابل بازگردانی می‌ماند و یادگیری مجدد در پس‌زمینه آن را برنمی‌گرداند.",
+    "param.aliases.description": "عبارت‌های جایگزین اختیاری برای این یادداشت (مترادف‌ها، اختصارها یا زبانی دیگر) که گفت‌وگوهای آینده ممکن است برای همان واقعیت به کار ببرند. جست‌وجو این عبارت‌ها را نیز تطبیق می‌دهد، پس یادداشت حتی با کلمات دیگر هم پیدا می‌شود. هر عبارت را کوتاه نگه دارید؛ حداکثر ۸ عبارت نگه داشته می‌شود.",
     "result.saved_superseded": "[add_long_memory] ذخیره شد (memory_id: %(memory_id)s)، جایگزین شد (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] یک یادداشت یکسان از قبل ذخیره شده است (memory_id: %(memory_id)s)، جایگزین شد (memory_id: %(superseded_id)s)"
   },
@@ -752,6 +779,7 @@
     "describe.add": "Урт хугацааны санах ойд хадгалж байна",
     "describe.add_with_note": "Урт хугацааны санах ойд хадгалж байна: %(note)s",
     "param.supersedes.description": "Баримт өөрчлөгдсөн үед энэ тэмдэглэлийн орлуулах одоо байгаа тэмдэглэлийн нэмэлт memory_id (эхлээд get_long_memory ашиглан хайна уу). Орлуулагдсан тэмдэглэл дахин татагдахгүй боловч сэргээх боломжтой хэвээр байх бөгөөд далд дахин суралцах явцад эргэж ирэхгүй.",
+    "param.aliases.description": "Энэ тэмдэглэлийн нэмэлт хувилбар илэрхийллүүд (ижил утгатай үг, товчлол эсвэл өөр хэл), ирээдүйн ярианууд ижил баримтыг илэрхийлэхэд ашиглаж болно. Хайлт эдгээрийг ч тааруулдаг тул өөр үг хэрэглэсэн ч тэмдэглэл олдоно. Илэрхийлэл бүрийг богино байлгана уу; дээд тал нь 8-г хадгална.",
     "result.saved_superseded": "[add_long_memory] хадгалагдлаа (memory_id: %(memory_id)s), орлуулагдлаа (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] ижил тэмдэглэл аль хэдийн хадгалагдсан (memory_id: %(memory_id)s), орлуулагдсан (memory_id: %(superseded_id)s)"
   },
@@ -779,6 +807,7 @@
     "describe.add": "दीर्घकालीन स्मृतीत जतन करत आहे",
     "describe.add_with_note": "दीर्घकालीन स्मृतीत जतन करत आहे: %(note)s",
     "param.supersedes.description": "एखादी वस्तुस्थिती बदलली असता हा नोट ज्या विद्यमान नोटला बदलतो तिचा ऐच्छिक memory_id (आधी get_long_memory ने शोधा). बदललेली नोट यापुढे पुनर्प्राप्त केली जाणार नाही, पण ती पुन्हा स्थापित करता येईल आणि पार्श्वभूमीतील पुनर्शिक्षण ती परत आणणार नाही.",
+    "param.aliases.description": "या नोंदीचे पर्यायी शब्दरूप (पर्यायवाची शब्द, संक्षेप किंवा दुसरी भाषा) जे भविष्यातील संभाषणांमध्ये त्याच तथ्यासाठी वापरले जाऊ शकतात. शोध यांच्याशीही जुळणी करतो, त्यामुळे वेगळे शब्द वापरले तरी नोंद सापडते. प्रत्येक शब्दरूप छोटे ठेवा; जास्तीत जास्त 8 ठेवले जातात.",
     "result.saved_superseded": "[add_long_memory] जतन केले (memory_id: %(memory_id)s), बदलले (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] एकसारखी नोट आधीच जतन केली आहे (memory_id: %(memory_id)s), बदलली (memory_id: %(superseded_id)s)"
   },
@@ -806,6 +835,7 @@
     "describe.add": "Αποθήκευση στη μακροχρόνια μνήμη",
     "describe.add_with_note": "Αποθήκευση στη μακροχρόνια μνήμη: %(note)s",
     "param.supersedes.description": "Προαιρετικό memory_id της υπάρχουσας σημείωσης που αντικαθιστά αυτή όταν ένα γεγονός έχει αλλάξει (αναζητήστε το πρώτα με το get_long_memory). Η αντικατασταθείσα σημείωση σταματά να ανακτάται, αλλά παραμένει επαναφέρσιμη και η επανεκμάθηση στο παρασκήνιο δεν θα την επαναφέρει.",
+    "param.aliases.description": "Προαιρετικές εναλλακτικές διατυπώσεις αυτής της σημείωσης (συνώνυμα, συντομογραφίες ή άλλη γλώσσα) που μελλοντικές συνομιλίες μπορεί να χρησιμοποιήσουν για το ίδιο γεγονός. Η αναζήτηση αντιστοιχίζει και αυτές, οπότε η σημείωση βρίσκεται ακόμη και με άλλες λέξεις. Κρατήστε κάθε διατύπωση σύντομη· διατηρούνται έως 8.",
     "result.saved_superseded": "[add_long_memory] αποθηκεύτηκε (memory_id: %(memory_id)s), αντικαταστάθηκε (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] μια πανομοιότυπη σημείωση είναι ήδη αποθηκευμένη (memory_id: %(memory_id)s), αντικαταστάθηκε (memory_id: %(superseded_id)s)"
   },
@@ -833,6 +863,7 @@
     "describe.add": "שמירה בזיכרון ארוך־הטווח",
     "describe.add_with_note": "שמירה בזיכרון ארוך־הטווח: %(note)s",
     "param.supersedes.description": "memory_id אופציונלי של ההערה הקיימת שהערה זו מחליפה כאשר עובדה השתנתה (חפשו אותו קודם עם get_long_memory). ההערה שהוחלפה מפסיקה להישלף אך נשארת ניתנת לשחזור, ולמידה מחדש ברקע לא תחזיר אותה.",
+    "param.aliases.description": "ניסוחים חלופיים אופציונליים של הפתק הזה (מילים נרדפות, קיצורים או שפה אחרת) ששיחות עתידיות עשויות להשתמש בהם לאותה עובדה. החיפוש מתאים גם אותם, כך שהפתק נמצא גם במילים אחרות. שמרו על כל ניסוח קצר; נשמרים עד 8.",
     "result.saved_superseded": "[add_long_memory] נשמר (memory_id: %(memory_id)s), הוחלף (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] הערה זהה כבר שמורה (memory_id: %(memory_id)s), הוחלפה (memory_id: %(superseded_id)s)"
   },
@@ -860,6 +891,7 @@
     "describe.add": "Mentés a hosszú távú memóriába",
     "describe.add_with_note": "Mentés a hosszú távú memóriába: %(note)s",
     "param.supersedes.description": "Annak a meglévő jegyzetnek az opcionális memory_id-ja, amelyet ez lecserél, ha egy tény megváltozott (először keresse meg a get_long_memory segítségével). A lecserélt jegyzet nem kerül többé előhívásra, de visszaállítható marad, és a háttérben történő újratanulás nem hozza vissza.",
+    "param.aliases.description": "A jegyzet opcionális alternatív megfogalmazásai (szinonimák, rövidítések vagy más nyelv), amelyeket a jövőbeli beszélgetések ugyanarra a tényre használhatnak. A keresés ezeket is összeveti, így a jegyzet más szavakkal is megtalálható. Minden megfogalmazás legyen rövid; legfeljebb 8 őrződik meg.",
     "result.saved_superseded": "[add_long_memory] mentve (memory_id: %(memory_id)s), lecserélve (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] egy azonos jegyzet már mentve van (memory_id: %(memory_id)s), lecserélve (memory_id: %(superseded_id)s)"
   },
@@ -887,6 +919,7 @@
     "describe.add": "Salvare în memoria pe termen lung",
     "describe.add_with_note": "Salvare în memoria pe termen lung: %(note)s",
     "param.supersedes.description": "memory_id opțional al notei existente pe care aceasta o înlocuiește atunci când un fapt s-a schimbat (caută-l mai întâi cu get_long_memory). Nota înlocuită nu mai este recuperată, dar rămâne restaurabilă, iar reînvățarea în fundal nu o va readuce.",
+    "param.aliases.description": "Formulări alternative opționale ale acestei note (sinonime, abrevieri sau altă limbă) pe care conversațiile viitoare le pot folosi pentru același fapt. Căutarea le compară și pe acestea, deci nota este găsită și cu alte cuvinte. Păstrați fiecare formulare scurtă; se păstrează cel mult 8.",
     "result.saved_superseded": "[add_long_memory] salvat (memory_id: %(memory_id)s), înlocuit (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] o notă identică este deja salvată (memory_id: %(memory_id)s), înlocuită (memory_id: %(superseded_id)s)"
   },
@@ -914,6 +947,7 @@
     "describe.add": "Sine-save sa long-term memory",
     "describe.add_with_note": "Sine-save sa long-term memory: %(note)s",
     "param.supersedes.description": "Opsyonal na memory_id ng umiiral na tala na pinapalitan nito kapag nagbago ang isang katotohanan (hanapin muna ito gamit ang get_long_memory). Ang pinalitan na tala ay hindi na kukunin, ngunit mananatiling maibabalik, at hindi ito ibabalik ng muling pagkatuto sa background.",
+    "param.aliases.description": "Opsyonal na alternatibong pagkasabi ng talang ito (mga kasingkahulugan, daglat, o ibang wika) na maaaring gamitin ng mga susunod na usapan para sa parehong katotohanan. Itinutugma rin ito ng paghahanap, kaya natatagpuan ang tala kahit ibang salita ang gamitin. Panatilihing maikli ang bawat pagkasabi; hanggang 8 ang itinatago.",
     "result.saved_superseded": "[add_long_memory] na-save (memory_id: %(memory_id)s), napalitan (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] may magkaparehong tala nang naka-save (memory_id: %(memory_id)s), napalitan (memory_id: %(superseded_id)s)"
   },
@@ -941,6 +975,7 @@
     "describe.add": "Menyimpan ke memori jangka panjang",
     "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s",
     "param.supersedes.description": "memory_id pilihan bagi nota sedia ada yang digantikan oleh nota ini apabila sesuatu fakta telah berubah (cari dahulu dengan get_long_memory). Nota yang digantikan berhenti diambil, tetapi kekal boleh dipulihkan, dan pembelajaran semula di latar belakang tidak akan membawanya kembali.",
+    "param.aliases.description": "Frasa alternatif pilihan bagi nota ini (sinonim, singkatan, atau bahasa lain) yang mungkin digunakan oleh perbualan akan datang untuk fakta yang sama. Carian turut memadankan frasa ini, jadi nota tetap ditemui walaupun kata yang digunakan berbeza. Pastikan setiap frasa ringkas; maksimum 8 disimpan.",
     "result.saved_superseded": "[add_long_memory] disimpan (memory_id: %(memory_id)s), digantikan (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] nota yang sama sudah disimpan (memory_id: %(memory_id)s), digantikan (memory_id: %(superseded_id)s)"
   },
@@ -968,6 +1003,7 @@
     "describe.add": "Gemmer i langtidshukommelsen",
     "describe.add_with_note": "Gemmer i langtidshukommelsen: %(note)s",
     "param.supersedes.description": "Valgfrit memory_id for den eksisterende note, som denne erstatter, når et faktum har ændret sig (slå det op med get_long_memory først). Den erstattede note hentes ikke længere, men kan gendannes, og genindlæring i baggrunden bringer den ikke tilbage.",
+    "param.aliases.description": "Valgfrie alternative formuleringer af denne note (synonymer, forkortelser eller et andet sprog), som fremtidige samtaler kan bruge om det samme faktum. Søgningen matcher også disse, så noten findes selv med andre ord. Hold hver formulering kort; der gemmes op til 8.",
     "result.saved_superseded": "[add_long_memory] gemt (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] en identisk note er allerede gemt (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)"
   },
@@ -995,6 +1031,7 @@
     "describe.add": "Lagrar i langtidshugen",
     "describe.add_with_note": "Lagrar i langtidshugen: %(note)s",
     "param.supersedes.description": "Valfritt memory_id for den eksisterande notaten som denne erstattar når eit faktum har endra seg (slå det opp med get_long_memory først). Den erstatta notaten blir ikkje lenger henta, men kan gjenopprettast, og ny læring i bakgrunnen vil ikkje bringe han tilbake.",
+    "param.aliases.description": "Valfrie alternative formuleringar av dette notatet (synonym, forkortingar eller eit anna språk) som framtidige samtalar kan bruke om det same faktumet. Søket matchar også desse, så notatet blir funne sjølv med andre ord. Hald kvar formulering kort; opptil 8 blir lagra.",
     "result.saved_superseded": "[add_long_memory] lagra (memory_id: %(memory_id)s), erstatta (memory_id: %(superseded_id)s)",
     "result.duplicate_superseded": "[add_long_memory] ein identisk note er allereie lagra (memory_id: %(memory_id)s), erstatta (memory_id: %(superseded_id)s)"
   }

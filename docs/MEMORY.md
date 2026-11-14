@@ -88,6 +88,15 @@ re-statement still saves as fresh intent. Prefer superseding over
 old text, which would leave nothing for the forget boundary to match
 against.
 
+Retrieval is lexical, so a note written with one wording is missed
+when a later conversation uses a synonym. To soften that, `add_long_memory`
+accepts an optional `aliases` list: alternative phrasings of the same
+fact (synonyms, abbreviations, another language) supplied by the
+writer at save time. Aliases are stored on the record (capped at 8,
+screened like notes) and matched alongside the note during retrieval;
+the evidence shown to the model is always the note itself, never an
+alias. Records without aliases behave exactly as before.
+
 Messages starting with `remember:` or `記憶：` are the fallback for
 models that do not call the tools reliably: the session store saves the
 marked note immediately when the message is written, keyed by a
