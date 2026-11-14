@@ -6,6 +6,15 @@ are missed. This pass re-reads the conversation in a background thread
 model for durable facts, decisions and commitments, and saves them
 through the checked save path with ``source="consolidation"``.
 
+The pass fires when history is compressed, and — so ordinary sessions
+that never grow long enough to compress are covered too — when a
+session ends: on a session switch (the outgoing conversation is
+consolidated before it is replaced) and at startup, where the newest
+previous session in the same project is caught up once from its stored
+messages if the process exited before any switch happened. Session-end
+passes are gated on a minimum of user turns and a per-session
+watermark, so an unchanged session never costs a second provider call.
+
 Two boundaries keep the pass safe:
 
 - It only runs under the local identity. The checked save path writes
@@ -34,6 +43,19 @@ from ..env_utils import env_get
 
 _MAX_NOTES_PER_PASS = 5
 _STATE_FILE_NAME = "memory_consolidation_state.json"
+_MIN_USER_TURNS_FOR_SESSION_END = 2
+
+# Sessions with a consolidation pass already in flight, by session id.
+# Guards the session-end triggers (switch / startup catch-up) and the
+# compression hook from piling duplicate provider calls onto the same
+# conversation.
+_in_flight_lock = threading.Lock()
+_in_flight_sessions: set[str] = set()
+
+# Serializes read-modify-write cycles on the state file: pending-notice
+# accounting runs on worker threads while session-end watermarks are
+# marked on foreground threads, and unsynchronized cycles lose updates.
+_state_lock = threading.Lock()
 
 _EXTRACTION_PROMPT = (
     "You are a memory consolidation agent. Analyze the conversation log "
@@ -105,8 +127,18 @@ def save_consolidation_notes(
     return saved
 
 
-def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) -> None:
-    """Run one consolidation pass over ``messages`` in a background thread."""
+def run_memory_consolidation_async(
+    messages: list[dict[str, Any]], core: Any, *, session_id: str = ""
+) -> None:
+    """Run one consolidation pass over ``messages`` in a background thread.
+
+    ``session_id`` names the session the messages belong to when the
+    caller is a session-end trigger: a per-session watermark in the
+    state file then suppresses repeat passes over an unchanged
+    session, and the pass is marked before the thread starts so a
+    burst of triggers (switch, startup, compression) cannot queue
+    duplicate provider calls for the same conversation.
+    """
     if not consolidation_enabled():
         return
     if not messages:
@@ -118,10 +150,22 @@ def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) ->
             return
     except Exception:
         return
+    flight_key = session_id or str(getattr(core, "_session_store_active_id", "") or "")
+    with _in_flight_lock:
+        if flight_key and flight_key in _in_flight_sessions:
+            return
+        if session_id and _consolidated_message_count(session_id) >= len(messages):
+            return
+        if flight_key:
+            _in_flight_sessions.add(flight_key)
+    if session_id:
+        _mark_session_consolidated(session_id, len(messages))
     # Deep copy messages to avoid thread-safety issues with the main loop
     try:
         messages_copy = json.loads(json.dumps(messages))
     except Exception:
+        with _in_flight_lock:
+            _in_flight_sessions.discard(flight_key)
         return
     # Capture the memory scope now: the worker thread runs later, and
     # resolving the project at save time would use whatever directory
@@ -137,11 +181,106 @@ def run_memory_consolidation_async(messages: list[dict[str, Any]], core: Any) ->
         owner = ""
         project = ""
     thread = threading.Thread(
-        target=_consolidation_worker,
-        args=(messages_copy, core, owner, project),
+        target=_run_worker_tracked,
+        args=(messages_copy, core, owner, project, flight_key),
         daemon=True,
     )
-    thread.start()
+    try:
+        thread.start()
+    except Exception:
+        with _in_flight_lock:
+            _in_flight_sessions.discard(flight_key)
+        raise
+
+
+def _run_worker_tracked(
+    messages: list[dict[str, Any]],
+    core: Any,
+    owner: str,
+    project: str,
+    flight_key: str,
+) -> None:
+    """Run the consolidation worker and release its in-flight slot."""
+    try:
+        _consolidation_worker(messages, core, owner, project)
+    finally:
+        if flight_key:
+            with _in_flight_lock:
+                _in_flight_sessions.discard(flight_key)
+
+
+def _user_turn_count(messages: list[dict[str, Any]]) -> int:
+    return sum(
+        1
+        for message in messages or []
+        if isinstance(message, dict) and message.get("role") == "user"
+    )
+
+
+def run_session_end_consolidation(
+    messages: list[dict[str, Any]], core: Any, *, session_id: str = ""
+) -> None:
+    """Consolidate a session that is ending (switch or startup catch-up).
+
+    Session-end triggers stay cheap: disabled and trivial sessions
+    return before any copying, and the per-session watermark in
+    :func:`run_memory_consolidation_async` keeps an unchanged session
+    from costing a second provider call.
+    """
+    if not consolidation_enabled():
+        return
+    if _user_turn_count(messages) < _MIN_USER_TURNS_FOR_SESSION_END:
+        return
+    sid = session_id or str(getattr(core, "_session_store_active_id", "") or "")
+    if not sid:
+        return
+    run_memory_consolidation_async(messages, core, session_id=sid)
+
+
+def run_startup_consolidation(
+    core: Any, store: Any, *, current_session_id: str = ""
+) -> None:
+    """Catch up the previous session when a session store attaches.
+
+    Sessions that ended because the process exited (or crashed) never
+    hit the switch trigger; the newest other session in the same
+    project is consolidated once, from its stored messages, the next
+    time a store attaches. Only that one session is considered — in
+    the normal chain each startup handles the session right before
+    it — and everything here is best-effort and off the foreground
+    path beyond two small store reads.
+    """
+    try:
+        if not consolidation_enabled() or store is None:
+            return
+        rows = store.list_sessions()
+        candidate: dict[str, Any] | None = None
+        for row in rows or []:
+            if not isinstance(row, dict):
+                continue
+            sid = str(row.get("session_id") or "")
+            if not sid or sid == current_session_id:
+                continue
+            if str(row.get("entry_point") or "") == "sub-agent":
+                continue
+            candidate = row
+            break
+        if candidate is None:
+            return
+        sid = str(candidate.get("session_id") or "")
+        try:
+            from .memory_scope import resolve_memory_project
+
+            if str(candidate.get("project") or "") != resolve_memory_project():
+                return
+        except Exception:
+            return
+        messages = store.list_messages(sid) or []
+        if messages and _consolidated_message_count(sid) >= len(messages):
+            return
+        run_session_end_consolidation(messages, core, session_id=sid)
+    except Exception:
+        pass
 
 
 def _consolidation_worker(
@@ -208,38 +347,69 @@ def _state_path() -> Path:
     return Path(get_memory_file_path()).expanduser().parent / _STATE_FILE_NAME
 
 
-def _record_pending_notice(saved_count: int) -> None:
-    """Accumulate auto-saved counts until they are shown to the user."""
+def _load_state() -> dict[str, Any]:
+    try:
+        payload = json.loads(_state_path().read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except Exception:
+        return {}
+
+
+def _write_state(state: dict[str, Any]) -> None:
     try:
         path = _state_path()
-        pending = 0
-        try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
-            pending = int(payload.get("pending_saved") or 0)
-        except Exception:
-            pending = 0
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(
-            json.dumps(
-                {"pending_saved": pending + saved_count, "updated_at": time.time()}
-            ),
-            encoding="utf-8",
-        )
+        state["updated_at"] = time.time()
+        path.write_text(json.dumps(state), encoding="utf-8")
     except Exception:
         pass
 
 
+def _consolidated_message_count(session_id: str) -> int:
+    """How many messages of ``session_id`` a pass has already covered."""
+    try:
+        sessions = _load_state().get("sessions")
+        if isinstance(sessions, dict):
+            entry = sessions.get(session_id)
+            if isinstance(entry, dict):
+                return int(entry.get("count") or 0)
+    except Exception:
+        pass
+    return 0
+
+
+def _mark_session_consolidated(session_id: str, message_count: int) -> None:
+    with _state_lock:
+        state = _load_state()
+        sessions = state.get("sessions")
+        if not isinstance(sessions, dict):
+            sessions = {}
+        sessions[session_id] = {"count": int(message_count), "at": time.time()}
+        state["sessions"] = sessions
+        _write_state(state)
+
+
+def _record_pending_notice(saved_count: int) -> None:
+    """Accumulate auto-saved counts until they are shown to the user."""
+    with _state_lock:
+        state = _load_state()
+        try:
+            pending = int(state.get("pending_saved") or 0)
+        except Exception:
+            pending = 0
+        state["pending_saved"] = pending + saved_count
+        _write_state(state)
+
+
 def pop_pending_consolidation_count() -> int:
     """Return and clear the number of auto-saved notes not yet shown."""
-    try:
-        path = _state_path()
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        count = int(payload.get("pending_saved") or 0)
+    with _state_lock:
+        state = _load_state()
+        try:
+            count = int(state.get("pending_saved") or 0)
+        except Exception:
+            count = 0
         if count:
-            path.write_text(
-                json.dumps({"pending_saved": 0, "updated_at": time.time()}),
-                encoding="utf-8",
-            )
+            state["pending_saved"] = 0
+            _write_state(state)
         return count
-    except Exception:
-        return 0

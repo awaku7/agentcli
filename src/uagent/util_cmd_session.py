@@ -298,6 +298,33 @@ def _print_session_loaded_detail(
     )
 
 
+def _consolidate_outgoing_session(
+    messages_ref: list[dict[str, Any]] | None, *, core: Any
+) -> None:
+    """Fire the session-end memory consolidation for the outgoing chat.
+
+    Called right before a load command replaces the live conversation:
+    the session being left may never have been compressed, in which
+    case nothing ever looked for durable facts in it. Best-effort —
+    a failure here must never block the switch itself.
+    """
+    try:
+        if not messages_ref:
+            return
+        from .runtime.memory_consolidation import run_session_end_consolidation
+
+        owner = _session_selection_owner(core)
+        session_id = str(
+            getattr(owner, "session_id", None)
+            or getattr(core, "_session_store_active_id", "")
+            or getattr(core, "session_id", "")
+            or ""
+        )
+        run_session_end_consolidation(list(messages_ref), core, session_id=session_id)
+    except Exception:
+        pass
+
+
 def _restore_sqlite_session_context(
     target: str, loaded: list[dict[str, Any]], *, core: Any, store: Any
 ) -> list[dict[str, Any]] | None:
@@ -1696,6 +1723,7 @@ def _handle_cmd_sessions(
             if not restored:
                 print(_("[sessions] Session has no loadable messages."))
                 return True
+            _consolidate_outgoing_session(messages_ref, core=core)
             messages_ref.clear()
             messages_ref.extend(restored)
             print(_tr("[sessions] Session loaded"))
@@ -1954,6 +1982,7 @@ def _handle_cmd_load(
             if not restored:
                 print("[load] Session has no loadable messages.")
                 return True
+            _consolidate_outgoing_session(messages_ref, core=core)
             messages_ref.clear()
             messages_ref.extend(restored)
             print(_tr("[load] SQLite session loaded"))
@@ -2000,6 +2029,7 @@ def _handle_cmd_load(
 
     _restore_session_tools(new_messages)
     new_messages = insert_tools_system_message(new_messages, core=core)
+    _consolidate_outgoing_session(messages_ref, core=core)
     messages_ref.clear()
     messages_ref.extend(new_messages)
 
