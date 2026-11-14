@@ -650,6 +650,55 @@ def test_switch_capture_survives_destination_rebind(
     assert seen == [(len(messages), "outgoing-1", "proj-out")]
 
 
+def test_switch_capture_uses_room_base_dir_project(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent import util_cmd_session
+    from uagent.runtime import memory_scope, session_store
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    # Plain resolution names the server's startup project; the room's
+    # directory must win for a room-owned selection, because
+    # Room.set_base_dir() never changes the process workdir.
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-server")
+    room_dir = repo_tmp_path / "room-work"
+    room_dir.mkdir()
+
+    class _Room:
+        session_id = "room-session-1"
+        base_dir = str(room_dir)
+
+    class _Core:
+        session_id = "core-session"
+        _session_store_active_id = "core-session"
+
+    token = util_cmd_session._SESSION_SELECTION_CONTEXT.set(_Room())
+    try:
+        captured = util_cmd_session._capture_outgoing_session(
+            _messages(2), core=_Core()
+        )
+    finally:
+        util_cmd_session._SESSION_SELECTION_CONTEXT.reset(token)
+    assert captured is not None
+    _msgs, sid, project = captured
+    assert sid == "room-session-1"
+    assert project == session_store.project_id_from_path(str(room_dir))
+    assert project != "proj-server"
+
+    # The explicit memory-project override still wins over the room.
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "proj-override")
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-override")
+    token = util_cmd_session._SESSION_SELECTION_CONTEXT.set(_Room())
+    try:
+        captured = util_cmd_session._capture_outgoing_session(
+            _messages(2), core=_Core()
+        )
+    finally:
+        util_cmd_session._SESSION_SELECTION_CONTEXT.reset(token)
+    assert captured is not None
+    assert captured[2] == "proj-override"
+
+
 def test_switch_hook_falls_back_to_log_session_id(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

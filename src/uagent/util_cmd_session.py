@@ -309,12 +309,17 @@ def _capture_outgoing_session(
     a snapshot taken afterwards would consolidate the outgoing
     conversation under the destination's id (marking the wrong
     session as covered) and into the destination project's memory.
+    When a Web room owns the selection, the room's base directory
+    names the project: ``Room.set_base_dir()`` never changes the
+    process workdir, so the plain resolution would fall back to the
+    server's startup directory instead.
     Returns None when there is nothing to snapshot.
     """
     try:
         if not messages_ref:
             return None
         from .runtime.memory_scope import resolve_memory_project
+        from .runtime.session_store import project_id_from_path
 
         owner = _session_selection_owner(core)
         session_id = str(
@@ -324,7 +329,15 @@ def _capture_outgoing_session(
             or getattr(core, "SESSION_ID", "")
             or ""
         )
-        return list(messages_ref), session_id, resolve_memory_project()
+        project = resolve_memory_project()
+        base_dir = str(getattr(owner, "base_dir", "") or "").strip()
+        if base_dir and not str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip():
+            # A Web room owns the selection: its directory, not the
+            # process workdir, names the outgoing conversation's
+            # project. The explicit UAGENT_MEMORY_PROJECT override
+            # (already applied by resolve_memory_project) still wins.
+            project = project_id_from_path(base_dir)
+        return list(messages_ref), session_id, project
     except Exception:
         return None
 
