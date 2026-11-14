@@ -19,7 +19,10 @@ Two boundaries keep the pass safe:
 
 - It only runs under the local identity. The checked save path writes
   to the legacy unscoped store, which is fenced to local mode; scoped
-  Web memory is written through the agent tools instead.
+  Web memory is written through the agent tools instead. The startup
+  catch-up likewise only selects stored sessions with no Web
+  principal or room binding: a store attach can happen before any
+  turn identity exists, so the selection itself enforces the fence.
 - It can never resurrect a forgotten note. Saves carry a
   content-derived ``source_id``, and the checked save path refuses
   background sources whose content matches a tombstone.
@@ -166,7 +169,7 @@ def run_memory_consolidation_async(
     with _in_flight_lock:
         if flight_key and flight_key in _in_flight_sessions:
             return
-        if session_id and _consolidated_message_count(session_id) >= len(messages):
+        if session_id and _session_is_covered(session_id, messages):
             return
         if flight_key:
             _in_flight_sessions.add(flight_key)
@@ -201,7 +204,7 @@ def run_memory_consolidation_async(
     thread = threading.Thread(
         target=_run_worker_tracked,
         args=(messages_copy, core, owner, project, flight_key),
-        kwargs={"session_id": session_id, "message_count": len(messages)},
+        kwargs={"session_id": session_id},
         daemon=True,
     )
     try:
@@ -220,7 +223,6 @@ def _run_worker_tracked(
     flight_key: str,
     *,
     session_id: str = "",
-    message_count: int = 0,
 ) -> None:
     """Run the consolidation worker and release its in-flight slot.
 
@@ -234,7 +236,7 @@ def _run_worker_tracked(
         except Exception:
             completed = False
         if completed and session_id:
-            _mark_session_consolidated(session_id, message_count)
+            _mark_session_consolidated(session_id, messages)
     finally:
         if flight_key:
             with _in_flight_lock:
@@ -284,8 +286,11 @@ def run_startup_consolidation(
     project is consolidated once, from its stored messages, the next
     time a store attaches. Only that one session is considered — in
     the normal chain each startup handles the session right before
-    it — and everything here is best-effort and off the foreground
-    path beyond two small store reads.
+    it — and only local sessions qualify: rows bound to a Web
+    principal or a room are skipped, since their content belongs to
+    that identity, not to the local memory owner. Everything here is
+    best-effort and off the foreground path beyond two small store
+    reads.
     """
     try:
         if not consolidation_enabled() or store is None:
@@ -306,6 +311,16 @@ def run_startup_consolidation(
                 continue
             if str(row.get("entry_point") or "") == "sub-agent":
                 continue
+            if (
+                str(row.get("principal_id") or "").strip()
+                or str(row.get("room_id") or "").strip()
+            ):
+                # Sessions bound to a Web principal or a room belong to
+                # that identity, not to the local owner. The store can
+                # be attached (e.g. by the Web server) before any turn
+                # identity exists, so the local-identity check inside
+                # the pass cannot see this boundary — enforce it here.
+                continue
             if str(row.get("project") or "") != current_project:
                 # A newer session from another project must not hide an
                 # older unconsolidated session of this project.
@@ -316,7 +331,7 @@ def run_startup_consolidation(
             return
         sid = str(candidate.get("session_id") or "")
         messages = store.list_messages(sid) or []
-        if messages and _consolidated_message_count(sid) >= len(messages):
+        if messages and _session_is_covered(sid, messages):
             return
         run_session_end_consolidation(messages, core, session_id=sid)
     except Exception:
@@ -413,26 +428,58 @@ def _write_state(state: dict[str, Any]) -> None:
         pass
 
 
-def _consolidated_message_count(session_id: str) -> int:
-    """How many messages of ``session_id`` a pass has already covered."""
+def _tail_fingerprint(messages: list[dict[str, Any]]) -> str:
+    """Short fingerprint of a conversation's last message.
+
+    Coverage cannot be a bare message count: history compression
+    replaces older messages with a summary, so a resumed session can
+    hold new turns in a *shorter* list whose length falls below the
+    recorded count. The tail survives compression (recent messages
+    are kept verbatim), so a changed tail means new content arrived
+    even when the count went down.
+    """
+    if not messages:
+        return ""
+    try:
+        payload = json.dumps(messages[-1], sort_keys=True, default=str)
+    except Exception:
+        return ""
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _session_is_covered(session_id: str, messages: list[dict[str, Any]]) -> bool:
+    """Whether a completed pass already covered this conversation state.
+
+    Covered means the recorded count reaches the current length AND
+    the tail fingerprint matches — a list that shrank through history
+    compression but gained new turns has a different tail and is not
+    covered. Entries without a fingerprint do not count as coverage.
+    """
     try:
         sessions = _load_state().get("sessions")
         if isinstance(sessions, dict):
             entry = sessions.get(session_id)
             if isinstance(entry, dict):
-                return int(entry.get("count") or 0)
+                if int(entry.get("count") or 0) < len(messages):
+                    return False
+                tail = str(entry.get("tail") or "")
+                return bool(tail) and tail == _tail_fingerprint(messages)
     except Exception:
         pass
-    return 0
+    return False
 
 
-def _mark_session_consolidated(session_id: str, message_count: int) -> None:
+def _mark_session_consolidated(session_id: str, messages: list[dict[str, Any]]) -> None:
     with _state_lock:
         state = _load_state()
         sessions = state.get("sessions")
         if not isinstance(sessions, dict):
             sessions = {}
-        sessions[session_id] = {"count": int(message_count), "at": time.time()}
+        sessions[session_id] = {
+            "count": len(messages),
+            "tail": _tail_fingerprint(messages),
+            "at": time.time(),
+        }
         state["sessions"] = sessions
         _write_state(state)
 

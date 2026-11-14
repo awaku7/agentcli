@@ -138,6 +138,88 @@ def test_failed_pass_leaves_session_eligible_for_retry(
     assert len(calls) == 3
 
 
+def test_session_end_coverage_survives_history_compression(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    calls = _record_worker(monkeypatch)
+
+    full = _messages(4)
+    memory_consolidation.run_session_end_consolidation(
+        full, core=None, session_id="s-comp"
+    )
+    _wait_for(calls, 1)
+    _settle()
+
+    # The session was resumed and its history compressed: the list is
+    # now SHORTER than the recorded count, but it ends with new turns.
+    # A bare count watermark would suppress this pass forever.
+    compressed = [
+        {"role": "system", "content": "sys"},
+        {"role": "assistant", "content": "（これまでの要約）"},
+        *full[-2:],
+        {"role": "user", "content": "新しい質問"},
+        {"role": "assistant", "content": "新しい回答"},
+    ]
+    assert len(compressed) < len(full)
+    memory_consolidation.run_session_end_consolidation(
+        compressed, core=None, session_id="s-comp"
+    )
+    _wait_for(calls, 2)
+    _settle()
+
+    # The same compressed state again: covered, no third pass.
+    memory_consolidation.run_session_end_consolidation(
+        compressed, core=None, session_id="s-comp"
+    )
+    _settle()
+    assert len(calls) == 2
+
+
+def test_startup_skips_principal_and_room_sessions(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-a")
+    calls = _record_worker(monkeypatch)
+
+    # Web-principal and room sessions in the same project are not the
+    # local owner's conversations and must never be caught up into
+    # the local memory.
+    bound_only = _FakeStore(
+        [
+            _row("current"),
+            _row("web-user", principal_id="user-1"),
+            _row("room-chat", room_id="room-1"),
+        ],
+        {"web-user": _messages(3), "room-chat": _messages(3)},
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, bound_only, current_session_id="current"
+    )
+    _settle()
+    assert calls == []
+
+    # A local session behind the bound ones is still reached.
+    mixed = _FakeStore(
+        [
+            _row("current"),
+            _row("web-user", principal_id="user-1"),
+            _row("prev"),
+        ],
+        {"web-user": _messages(3), "prev": _messages(2)},
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, mixed, current_session_id="current"
+    )
+    _wait_for(calls, 1)
+    assert calls == [len(_messages(2))]
+
+
 class _FakeStore:
     def __init__(self, rows: list[dict[str, Any]], messages: dict[str, list]) -> None:
         self._rows = rows
@@ -150,11 +232,19 @@ class _FakeStore:
         return list(self._messages.get(session_id, []))
 
 
-def _row(session_id: str, project: str = "proj-a", entry_point: str = "cli") -> dict:
+def _row(
+    session_id: str,
+    project: str = "proj-a",
+    entry_point: str = "cli",
+    principal_id: str = "",
+    room_id: str = "",
+) -> dict:
     return {
         "session_id": session_id,
         "project": project,
         "entry_point": entry_point,
+        "principal_id": principal_id,
+        "room_id": room_id,
     }
 
 
