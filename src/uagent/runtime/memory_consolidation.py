@@ -161,7 +161,8 @@ def run_memory_consolidation_async(
     ``project`` pins the memory project the notes belong to when the
     caller captured it earlier (a session switch rebinds the workdir
     before the pass would otherwise resolve it); ``None`` resolves
-    the project here, at launch.
+    the project here, on the calling thread, before the pass is
+    queued or launched.
     """
     if not consolidation_enabled():
         return
@@ -175,6 +176,29 @@ def run_memory_consolidation_async(
     except Exception:
         return
     flight_key = session_id or str(getattr(core, "_session_store_active_id", "") or "")
+    # Resolve the memory scope now, on the calling thread: the worker
+    # runs later, and a snapshot queued while a pass runs launches
+    # after the user may have moved to another directory. Resolving
+    # at launch time would save the original conversation's facts
+    # into the wrong project.
+    owner = ""
+    if project is None:
+        project = ""
+        try:
+            from .memory_scope import resolve_memory_owner, resolve_memory_project
+
+            owner = resolve_memory_owner()
+            project = resolve_memory_project()
+        except Exception:
+            owner = ""
+            project = ""
+    else:
+        try:
+            from .memory_scope import resolve_memory_owner
+
+            owner = resolve_memory_owner()
+        except Exception:
+            owner = ""
     with _in_flight_lock:
         if flight_key and flight_key in _in_flight_sessions:
             # A pass for this session is already running on an older
@@ -206,27 +230,6 @@ def run_memory_consolidation_async(
         with _in_flight_lock:
             _in_flight_sessions.discard(flight_key)
         return
-    # Capture the memory scope now: the worker thread runs later, and
-    # resolving the project at save time would use whatever directory
-    # or session is current then, not the one this conversation is in.
-    owner = ""
-    if project is None:
-        project = ""
-        try:
-            from .memory_scope import resolve_memory_owner, resolve_memory_project
-
-            owner = resolve_memory_owner()
-            project = resolve_memory_project()
-        except Exception:
-            owner = ""
-            project = ""
-    else:
-        try:
-            from .memory_scope import resolve_memory_owner
-
-            owner = resolve_memory_owner()
-        except Exception:
-            owner = ""
     thread = threading.Thread(
         target=_run_worker_tracked,
         args=(messages_copy, core, owner, project, flight_key),

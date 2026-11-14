@@ -133,7 +133,8 @@ leaves the session eligible for a later retry, a history that shrank
 through compression cannot hide new turns behind an old count, and a
 session that resumes and grows past the watermark is consolidated
 again. While a pass is still running, a newer snapshot offered for
-the same session is kept and consolidated right after it finishes,
+the same session is kept, together with the memory project it was
+offered under, and consolidated right after it finishes,
 so turns added in the meantime are not lost.
 
 Forgotten content must not come back through re-learning. Background

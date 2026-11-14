@@ -261,6 +261,48 @@ def test_in_flight_session_end_snapshot_runs_after_current_pass(
     assert calls[1] == len(newer)
 
 
+def test_pending_snapshot_keeps_offer_time_project(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    project = {"name": "proj-a"}
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: project["name"])
+    started = threading.Event()
+    release = threading.Event()
+    seen: list[tuple[int, str]] = []
+
+    def _blocking_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
+        seen.append((len(messages), project))
+        if len(seen) == 1:
+            started.set()
+            release.wait(timeout=10)
+        return True
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _blocking_worker)
+
+    first = _messages(2)
+    memory_consolidation.run_memory_consolidation_async(
+        first, core=None, session_id="s-pend"
+    )
+    assert started.wait(timeout=5)
+
+    # The second snapshot is offered while the session is still in
+    # proj-a; the workdir moves only afterwards, while the first pass
+    # is still running. The queued snapshot must still land in the
+    # project it was offered under, not the one current at launch.
+    newer = _messages(3)
+    memory_consolidation.run_memory_consolidation_async(
+        newer, core=None, session_id="s-pend"
+    )
+    project["name"] = "proj-b"
+    release.set()
+    _wait_for(seen, 2)
+    assert seen[0][1] == "proj-a"
+    assert seen[1][1] == "proj-a"
+
+
 class _FakeStore:
     def __init__(self, rows: list[dict[str, Any]], messages: dict[str, list]) -> None:
         self._rows = rows
