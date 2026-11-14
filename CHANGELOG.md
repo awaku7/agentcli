@@ -1,9 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [0.7.48] - 2026-11-14
 
 ### Changed
 
+- Improve localized tool action summaries across tools.
 - Raise the minimum `llmcapa` dependency version to `0.5.84`.
 
 ## [0.7.47] - 2026-11-13
