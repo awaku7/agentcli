@@ -128,16 +128,28 @@ def save_consolidation_notes(
 
 
 def run_memory_consolidation_async(
-    messages: list[dict[str, Any]], core: Any, *, session_id: str = ""
+    messages: list[dict[str, Any]],
+    core: Any,
+    *,
+    session_id: str = "",
+    project: str | None = None,
 ) -> None:
     """Run one consolidation pass over ``messages`` in a background thread.
 
     ``session_id`` names the session the messages belong to when the
     caller is a session-end trigger: a per-session watermark in the
     state file then suppresses repeat passes over an unchanged
-    session, and the pass is marked before the thread starts so a
-    burst of triggers (switch, startup, compression) cannot queue
+    session. The watermark is recorded only after a pass completes —
+    a failed or interrupted pass leaves the session eligible, so a
+    later trigger (typically the startup catch-up) can retry it.
+    While a pass runs, an in-flight entry keyed by session id keeps a
+    burst of triggers (switch, startup, compression) from queueing
     duplicate provider calls for the same conversation.
+
+    ``project`` pins the memory project the notes belong to when the
+    caller captured it earlier (a session switch rebinds the workdir
+    before the pass would otherwise resolve it); ``None`` resolves
+    the project here, at launch.
     """
     if not consolidation_enabled():
         return
@@ -158,8 +170,6 @@ def run_memory_consolidation_async(
             return
         if flight_key:
             _in_flight_sessions.add(flight_key)
-    if session_id:
-        _mark_session_consolidated(session_id, len(messages))
     # Deep copy messages to avoid thread-safety issues with the main loop
     try:
         messages_copy = json.loads(json.dumps(messages))
@@ -171,18 +181,27 @@ def run_memory_consolidation_async(
     # resolving the project at save time would use whatever directory
     # or session is current then, not the one this conversation is in.
     owner = ""
-    project = ""
-    try:
-        from .memory_scope import resolve_memory_owner, resolve_memory_project
-
-        owner = resolve_memory_owner()
-        project = resolve_memory_project()
-    except Exception:
-        owner = ""
+    if project is None:
         project = ""
+        try:
+            from .memory_scope import resolve_memory_owner, resolve_memory_project
+
+            owner = resolve_memory_owner()
+            project = resolve_memory_project()
+        except Exception:
+            owner = ""
+            project = ""
+    else:
+        try:
+            from .memory_scope import resolve_memory_owner
+
+            owner = resolve_memory_owner()
+        except Exception:
+            owner = ""
     thread = threading.Thread(
         target=_run_worker_tracked,
         args=(messages_copy, core, owner, project, flight_key),
+        kwargs={"session_id": session_id, "message_count": len(messages)},
         daemon=True,
     )
     try:
@@ -199,10 +218,23 @@ def _run_worker_tracked(
     owner: str,
     project: str,
     flight_key: str,
+    *,
+    session_id: str = "",
+    message_count: int = 0,
 ) -> None:
-    """Run the consolidation worker and release its in-flight slot."""
+    """Run the consolidation worker and release its in-flight slot.
+
+    The session watermark is recorded here, after the worker reports
+    a completed pass — never at launch — so a pass that failed or was
+    cut short does not suppress the session's retry.
+    """
     try:
-        _consolidation_worker(messages, core, owner, project)
+        try:
+            completed = bool(_consolidation_worker(messages, core, owner, project))
+        except Exception:
+            completed = False
+        if completed and session_id:
+            _mark_session_consolidated(session_id, message_count)
     finally:
         if flight_key:
             with _in_flight_lock:
@@ -218,14 +250,19 @@ def _user_turn_count(messages: list[dict[str, Any]]) -> int:
 
 
 def run_session_end_consolidation(
-    messages: list[dict[str, Any]], core: Any, *, session_id: str = ""
+    messages: list[dict[str, Any]],
+    core: Any,
+    *,
+    session_id: str = "",
+    project: str | None = None,
 ) -> None:
     """Consolidate a session that is ending (switch or startup catch-up).
 
     Session-end triggers stay cheap: disabled and trivial sessions
     return before any copying, and the per-session watermark in
     :func:`run_memory_consolidation_async` keeps an unchanged session
-    from costing a second provider call.
+    from costing a second provider call. ``project`` pins the memory
+    project when the caller captured it before a context switch.
     """
     if not consolidation_enabled():
         return
@@ -234,7 +271,7 @@ def run_session_end_consolidation(
     sid = session_id or str(getattr(core, "_session_store_active_id", "") or "")
     if not sid:
         return
-    run_memory_consolidation_async(messages, core, session_id=sid)
+    run_memory_consolidation_async(messages, core, session_id=sid, project=project)
 
 
 def run_startup_consolidation(
@@ -253,6 +290,12 @@ def run_startup_consolidation(
     try:
         if not consolidation_enabled() or store is None:
             return
+        try:
+            from .memory_scope import resolve_memory_project
+
+            current_project = resolve_memory_project()
+        except Exception:
+            return
         rows = store.list_sessions()
         candidate: dict[str, Any] | None = None
         for row in rows or []:
@@ -263,18 +306,15 @@ def run_startup_consolidation(
                 continue
             if str(row.get("entry_point") or "") == "sub-agent":
                 continue
+            if str(row.get("project") or "") != current_project:
+                # A newer session from another project must not hide an
+                # older unconsolidated session of this project.
+                continue
             candidate = row
             break
         if candidate is None:
             return
         sid = str(candidate.get("session_id") or "")
-        try:
-            from .memory_scope import resolve_memory_project
-
-            if str(candidate.get("project") or "") != resolve_memory_project():
-                return
-        except Exception:
-            return
         messages = store.list_messages(sid) or []
         if messages and _consolidated_message_count(sid) >= len(messages):
             return
@@ -288,18 +328,25 @@ def _consolidation_worker(
     core: Any,
     owner: str = "",
     project: str = "",
-) -> None:
-    """Background worker: extract durable notes and save them."""
+) -> bool:
+    """Background worker: extract durable notes and save them.
+
+    Returns True when the pass ran to completion — including when it
+    found nothing worth saving — so the caller may record the session
+    watermark. Returns False when the pass could not really run (no
+    provider client, or the extraction call failed), leaving the
+    session eligible for a later retry.
+    """
     try:
         from ..profile_manager import _llm_simple_text, _sanitize_log_for_profiling
         from ..providers import util_providers
 
         provider, client, model_name = util_providers.make_client(core)
         if not client:
-            return
+            return False
         sanitized_log = _sanitize_log_for_profiling(messages)
         if not sanitized_log.strip():
-            return
+            return True
         raw_response = _llm_simple_text(
             provider=provider,
             client=client,
@@ -312,9 +359,10 @@ def _consolidation_worker(
         notes = _parse_notes(raw_response)
         if notes:
             save_consolidation_notes(notes, owner=owner, project=project)
+        return True
     except Exception:
         # Fail silently in background thread to avoid interrupting the user
-        pass
+        return False
 
 
 def _parse_notes(raw_response: str) -> list[str]:

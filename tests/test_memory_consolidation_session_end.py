@@ -27,6 +27,7 @@ def _record_worker(monkeypatch: pytest.MonkeyPatch) -> list[int]:
 
     def _fake_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
         calls.append(len(messages))
+        return True
 
     monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _fake_worker)
     return calls
@@ -92,6 +93,49 @@ def test_session_end_watermark_blocks_repeat_passes(
         _messages(3), core=None, session_id="s1"
     )
     _wait_for(calls, 2)
+
+
+def test_failed_pass_leaves_session_eligible_for_retry(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    calls: list[int] = []
+    outcome = {"ok": False}
+
+    def _fake_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
+        calls.append(len(messages))
+        return outcome["ok"]
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _fake_worker)
+    messages = _messages(2)
+
+    # The pass ran but did not complete: no watermark is recorded, so
+    # the next trigger retries instead of skipping the session forever.
+    memory_consolidation.run_session_end_consolidation(
+        messages, core=None, session_id="s-retry"
+    )
+    _wait_for(calls, 1)
+    _settle()
+    memory_consolidation.run_session_end_consolidation(
+        messages, core=None, session_id="s-retry"
+    )
+    _wait_for(calls, 2)
+    _settle()
+
+    # Once a pass completes, the watermark takes over and blocks repeats.
+    outcome["ok"] = True
+    memory_consolidation.run_session_end_consolidation(
+        messages, core=None, session_id="s-retry"
+    )
+    _wait_for(calls, 3)
+    _settle()
+    memory_consolidation.run_session_end_consolidation(
+        messages, core=None, session_id="s-retry"
+    )
+    _settle()
+    assert len(calls) == 3
 
 
 class _FakeStore:
@@ -170,6 +214,28 @@ def test_startup_skips_other_projects_and_sub_agents(
     _wait_for(calls, 1)
 
 
+def test_startup_reaches_older_session_behind_other_project(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-a")
+    calls = _record_worker(monkeypatch)
+
+    # The newest other session belongs to another project; the older
+    # same-project session behind it must still be caught up.
+    store = _FakeStore(
+        [_row("current"), _row("newer-other", project="proj-b"), _row("older-same")],
+        {"newer-other": _messages(3), "older-same": _messages(2)},
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, store, current_session_id="current"
+    )
+    _wait_for(calls, 1)
+    assert calls == [len(_messages(2))]
+
+
 def test_switch_hook_passes_outgoing_messages(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -179,7 +245,9 @@ def test_switch_hook_passes_outgoing_messages(
     _use_jsonl(monkeypatch, repo_tmp_path)
     seen: list[tuple[int, str]] = []
 
-    def _fake_run(messages, core, *, session_id=""):  # noqa: ANN001, ANN202
+    def _fake_run(
+        messages, core, *, session_id="", project=None
+    ):  # noqa: ANN001, ANN202
         seen.append((len(messages), session_id))
 
     monkeypatch.setattr(
@@ -194,9 +262,43 @@ def test_switch_hook_passes_outgoing_messages(
     util_cmd_session._consolidate_outgoing_session(messages, core=_Core())
     assert seen == [(len(messages), "outgoing-1")]
 
-    def _boom(messages, core, *, session_id=""):  # noqa: ANN001, ANN202
+    def _boom(messages, core, *, session_id="", project=None):  # noqa: ANN001, ANN202
         raise RuntimeError("nope")
 
     monkeypatch.setattr(memory_consolidation, "run_session_end_consolidation", _boom)
     # A failing consolidation hook must never break the switch itself.
     util_cmd_session._consolidate_outgoing_session(messages, core=_Core())
+
+
+def test_switch_capture_survives_destination_rebind(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent import util_cmd_session
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-out")
+    seen: list[tuple[int, str, str | None]] = []
+
+    def _fake_run(
+        messages, core, *, session_id="", project=None
+    ):  # noqa: ANN001, ANN202
+        seen.append((len(messages), session_id, project))
+
+    monkeypatch.setattr(
+        memory_consolidation, "run_session_end_consolidation", _fake_run
+    )
+
+    class _Core:
+        session_id = "outgoing-1"
+        _session_store_active_id = "outgoing-1"
+
+    core = _Core()
+    messages = _messages(2)
+    captured = util_cmd_session._capture_outgoing_session(messages, core=core)
+    # The load restore now rebinds the core to the destination session.
+    core.session_id = "incoming-9"
+    core._session_store_active_id = "incoming-9"
+    util_cmd_session._consolidate_captured_session(captured, core=core)
+    # The pass still belongs to the outgoing session and its project.
+    assert seen == [(len(messages), "outgoing-1", "proj-out")]
