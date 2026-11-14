@@ -181,6 +181,9 @@ def tool_save_enabled() -> bool:
 _BACKGROUND_SOURCES = frozenset({"consolidation"})
 
 
+_NO_SUPERSEDE_TARGET = ""
+
+
 def _resolve_supersede_target(
     records: list[dict[str, Any]],
     supersedes_id: str,
@@ -197,7 +200,7 @@ def _resolve_supersede_target(
     or foreign id must not block or corrupt an otherwise valid save.
     """
     if not supersedes_id:
-        return ""
+        return _NO_SUPERSEDE_TARGET
     for record in records:
         if (
             str(record.get("memory_id") or "") == supersedes_id
@@ -206,7 +209,7 @@ def _resolve_supersede_target(
             and _same_scope(record, owner, project)
         ):
             return supersedes_id
-    return ""
+    return _NO_SUPERSEDE_TARGET
 
 
 def save_long_memory(
