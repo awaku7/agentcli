@@ -2370,7 +2370,8 @@ def _handle_cmd_mem_restore(arg: str, *, tr: Any) -> bool:
         for rec in deleted:
             note = str(rec.get("note", ""))
             memory_id = str(rec.get("memory_id") or "")
-            print(f"- {note} (id: {memory_id})")
+            status = str(rec.get("status") or "deleted")
+            print(f"- {note} (id: {memory_id}, status: {status})")
         return True
     if personal_long_memory.restore_long_memory_by_id(target):
         print(_("Restored long-term memory entry (id: %(id)s).") % {"id": target})

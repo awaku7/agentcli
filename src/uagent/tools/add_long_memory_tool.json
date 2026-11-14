@@ -14,14 +14,17 @@
     ],
     "err.note_empty": "[add_long_memory エラー] ノートが空です",
     "param.note.description": "今後の会話で再利用できる簡潔なメモを 1 つだけ書きます (日本語が望ましい)。",
-    "tool.description": "将来の会話で役立ちそうな、ユーザーや環境についての長期メモリを1件保存します。保存するのは、ユーザーが述べた長く残る事実・好み・制約・決めたこと・約束です。一度きりの作業内容、推測、パスワードやトークンなどの認証情報を含むものは保存しません。似たメモが既にある場合は、重ねて追加せず update_long_memory で更新してください。",
+    "tool.description": "将来の会話で役立ちそうな、ユーザーや環境についての長期メモリを1件保存します。保存するのは、ユーザーが述べた長く残る事実・好み・制約・決めたこと・約束です。一度きりの作業内容、推測、パスワードやトークンなどの認証情報を含むものは保存しません。似たメモが既にある場合は、重ねて追加せず update_long_memory で更新してください。事実が変わった場合は、その場で書き換えるのではなく、古いメモの memory_id を supersedes に指定して新しいメモを保存し、古い事実を引退させてください。",
     "err.save": "[add_long_memory エラー] メモリの保存に失敗しました",
     "result.saved": "[add_long_memory] 保存しました（memory_id: %(memory_id)s）",
     "result.duplicate": "[add_long_memory] 同じメモが既に保存されています（memory_id: %(memory_id)s）",
     "err.secret": "[add_long_memory error] メモに認証情報らしい内容が含まれています。パスワードや認証情報はメモリに保存できません",
     "err.too_long": "[add_long_memory error] メモが長すぎます。簡潔な1件に絞ってください",
     "describe.add": "長期メモリに保存",
-    "describe.add_with_note": "長期メモリに保存: %(note)s"
+    "describe.add_with_note": "長期メモリに保存: %(note)s",
+    "param.supersedes.description": "事実が変わったときに、このメモが置き換える既存メモの memory_id（任意。先に get_long_memory で調べてください）。置き換えられたメモは検索されなくなりますが、復元はでき、裏側の再学習で戻ることもありません。",
+    "result.saved_superseded": "[add_long_memory] 保存しました（memory_id: %(memory_id)s）。置き換え済みにしました（memory_id: %(superseded_id)s）",
+    "result.duplicate_superseded": "[add_long_memory] 同じメモが既に保存されています（memory_id: %(memory_id)s）。置き換え済みにしました（memory_id: %(superseded_id)s）"
   },
   "es": {
     "x_search_terms": [
@@ -37,7 +40,7 @@
       "almacén de memoria"
     ],
     "err.note_empty": "La nota [add_long_memory error] está vacía",
-    "tool.description": "Guarda una nota de memoria a largo plazo sobre el usuario o el entorno que puede ser útil en conversaciones futuras. Guarda hechos duraderos, preferencias, restricciones, decisiones y compromisos expresados por el usuario; no guardes detalles de tareas puntuales, suposiciones ni nada que contenga contraseñas, tokens u otras credenciales. Si ya existe una nota similar, actualízala con update_long_memory en lugar de añadir un duplicado.",
+    "tool.description": "Guarda una nota de memoria a largo plazo sobre el usuario o el entorno que puede ser útil en conversaciones futuras. Guarda hechos duraderos, preferencias, restricciones, decisiones y compromisos expresados por el usuario; no guardes detalles de tareas puntuales, suposiciones ni nada que contenga contraseñas, tokens u otras credenciales. Si ya existe una nota similar, actualízala con update_long_memory en lugar de añadir un duplicado. Cuando un dato haya cambiado, guarde la nota nueva con supersedes establecido en el memory_id de la nota antigua para que el dato antiguo quede retirado, en lugar de editarlo en el sitio.",
     "param.note.description": "Escriba exactamente una nota concisa (preferiblemente en japonés) que debería poder reutilizarse en futuras conversaciones.",
     "err.save": "[add_long_memory error] no se pudo guardar la memoria",
     "result.saved": "[add_long_memory] guardado (memory_id: %(memory_id)s)",
@@ -45,7 +48,10 @@
     "err.secret": "[add_long_memory error] la nota parece contener una credencial; las credenciales no deben guardarse en la memoria",
     "err.too_long": "[add_long_memory error] la nota es demasiado larga; resúmela en una sola nota concisa",
     "describe.add": "Guardando en la memoria a largo plazo",
-    "describe.add_with_note": "Guardando en la memoria a largo plazo: %(note)s"
+    "describe.add_with_note": "Guardando en la memoria a largo plazo: %(note)s",
+    "param.supersedes.description": "memory_id opcional de la nota existente que esta reemplaza cuando un dato ha cambiado (búscalo primero con get_long_memory). La nota reemplazada deja de recuperarse, pero se puede restaurar y el reaprendizaje en segundo plano no la traerá de vuelta.",
+    "result.saved_superseded": "[add_long_memory] guardado (memory_id: %(memory_id)s), reemplazado (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] ya hay una nota idéntica guardada (memory_id: %(memory_id)s), reemplazada (memory_id: %(superseded_id)s)"
   },
   "fr": {
     "x_search_terms": [
@@ -61,7 +67,7 @@
       "magasin de mémoire"
     ],
     "err.note_empty": "[erreur add_long_memory] la note est vide",
-    "tool.description": "Enregistre une note de mémoire à long terme sur l'utilisateur ou l'environnement, utile pour de futures conversations. Enregistrez les faits durables, préférences, contraintes, décisions et engagements énoncés par l'utilisateur ; n'enregistrez pas les détails de tâches ponctuelles, les suppositions, ni quoi que ce soit contenant des mots de passe, des jetons ou d'autres identifiants. Si une note similaire existe déjà, mettez-la à jour avec update_long_memory au lieu d'ajouter un doublon.",
+    "tool.description": "Enregistre une note de mémoire à long terme sur l'utilisateur ou l'environnement, utile pour de futures conversations. Enregistrez les faits durables, préférences, contraintes, décisions et engagements énoncés par l'utilisateur ; n'enregistrez pas les détails de tâches ponctuelles, les suppositions, ni quoi que ce soit contenant des mots de passe, des jetons ou d'autres identifiants. Si une note similaire existe déjà, mettez-la à jour avec update_long_memory au lieu d'ajouter un doublon. Lorsqu'un fait a changé, enregistrez la nouvelle note avec supersedes défini sur le memory_id de l'ancienne note afin que l'ancien fait soit retiré, au lieu de le modifier sur place.",
     "param.note.description": "Écrivez exactement une note concise (de préférence en japonais) qui devrait être réutilisable dans les conversations futures.",
     "err.save": "[add_long_memory erreur] échec de l’enregistrement de la mémoire",
     "result.saved": "[add_long_memory] enregistré (memory_id : %(memory_id)s)",
@@ -69,7 +75,10 @@
     "err.secret": "[add_long_memory error] la note semble contenir un identifiant ; les identifiants ne doivent pas être stockés en mémoire",
     "err.too_long": "[add_long_memory error] la note est trop longue ; réduisez-la à une note concise",
     "describe.add": "Enregistrement dans la mémoire à long terme",
-    "describe.add_with_note": "Enregistrement dans la mémoire à long terme : %(note)s"
+    "describe.add_with_note": "Enregistrement dans la mémoire à long terme : %(note)s",
+    "param.supersedes.description": "memory_id facultatif de la note existante que celle-ci remplace lorsqu'un fait a changé (recherchez-le d'abord avec get_long_memory). La note remplacée n'est plus récupérée, mais reste restaurable, et le réapprentissage en arrière-plan ne la ramènera pas.",
+    "result.saved_superseded": "[add_long_memory] enregistré (memory_id : %(memory_id)s), remplacé (memory_id : %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] une note identique est déjà enregistrée (memory_id : %(memory_id)s), remplacée (memory_id : %(superseded_id)s)"
   },
   "ko": {
     "x_search_terms": [
@@ -86,14 +95,17 @@
     ],
     "err.note_empty": "[add_long_memory error] 메모가 비어 있습니다.",
     "param.note.description": "향후 대화에서 재사용할 수 있도록 정확히 하나의 간결한 메모(일본어 선호)를 작성하세요.",
-    "tool.description": "향후 대화에서 유용할 수 있는 사용자/환경에 대한 장기 기억 메모를 하나 저장합니다. 사용자가 말한 오래 지속되는 사실, 선호, 제약, 결정, 약속을 저장하세요. 일회성 작업 내용, 추측, 비밀번호·토큰 등 자격 증명이 포함된 내용은 저장하지 마세요. 비슷한 메모가 이미 있으면 중복해서 추가하지 말고 update_long_memory로 업데이트하세요.",
+    "tool.description": "향후 대화에서 유용할 수 있는 사용자/환경에 대한 장기 기억 메모를 하나 저장합니다. 사용자가 말한 오래 지속되는 사실, 선호, 제약, 결정, 약속을 저장하세요. 일회성 작업 내용, 추측, 비밀번호·토큰 등 자격 증명이 포함된 내용은 저장하지 마세요. 비슷한 메모가 이미 있으면 중복해서 추가하지 말고 update_long_memory로 업데이트하세요. 사실이 변경된 경우, 제자리에서 수정하지 말고 supersedes를 이전 메모의 memory_id로 설정하여 새 메모를 저장함으로써 이전 사실을 은퇴시키세요.",
     "err.save": "[add_long_memory 오류] 메모리 저장 실패",
     "result.saved": "[add_long_memory] 저장됨 (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] 동일한 메모가 이미 저장되어 있습니다 (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] 메모에 자격 증명이 포함된 것 같습니다. 자격 증명은 메모리에 저장할 수 없습니다",
     "err.too_long": "[add_long_memory error] 메모가 너무 깁니다. 간결한 메모 하나로 줄여 주세요",
     "describe.add": "장기 기억에 저장 중",
-    "describe.add_with_note": "장기 기억에 저장 중: %(note)s"
+    "describe.add_with_note": "장기 기억에 저장 중: %(note)s",
+    "param.supersedes.description": "사실이 변경되었을 때 이 메모가 대체하는 기존 메모의 memory_id(선택 사항, 먼저 get_long_memory로 조회하세요). 대체된 메모는 더 이상 검색되지 않지만 복원할 수 있으며, 백그라운드 재학습으로 되돌아오지 않습니다.",
+    "result.saved_superseded": "[add_long_memory] 저장됨 (memory_id: %(memory_id)s), 대체됨 (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] 동일한 메모가 이미 저장되어 있습니다 (memory_id: %(memory_id)s), 대체됨 (memory_id: %(superseded_id)s)"
   },
   "de": {
     "x_search_terms": [
@@ -110,14 +122,17 @@
     ],
     "err.note_empty": "[add_long_memory error] Notiz ist leer",
     "param.note.description": "Schreiben Sie genau eine prägnante Notiz (bevorzugt Japanisch), die in zukünftigen Gesprächen wiederverwendet werden sollte.",
-    "tool.description": "Speichert eine Langzeitgedächtnis-Notiz über den Benutzer oder die Umgebung, die in künftigen Gesprächen nützlich sein kann. Speichern Sie dauerhafte Fakten, Vorlieben, Einschränkungen, Entscheidungen und Zusagen des Benutzers; speichern Sie keine einmaligen Aufgabendetails, Vermutungen oder Inhalte mit Passwörtern, Tokens oder anderen Zugangsdaten. Wenn eine ähnliche Notiz bereits existiert, aktualisieren Sie sie mit update_long_memory, statt ein Duplikat hinzuzufügen.",
+    "tool.description": "Speichert eine Langzeitgedächtnis-Notiz über den Benutzer oder die Umgebung, die in künftigen Gesprächen nützlich sein kann. Speichern Sie dauerhafte Fakten, Vorlieben, Einschränkungen, Entscheidungen und Zusagen des Benutzers; speichern Sie keine einmaligen Aufgabendetails, Vermutungen oder Inhalte mit Passwörtern, Tokens oder anderen Zugangsdaten. Wenn eine ähnliche Notiz bereits existiert, aktualisieren Sie sie mit update_long_memory, statt ein Duplikat hinzuzufügen. Wenn sich ein Fakt geändert hat, speichern Sie die neue Notiz mit supersedes auf die memory_id der alten Notiz gesetzt, damit der alte Fakt außer Kraft gesetzt wird, anstatt ihn direkt zu bearbeiten.",
     "err.save": "[add_long_memory Fehler] Speicher konnte nicht gespeichert werden",
     "result.saved": "[add_long_memory] gespeichert (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] eine identische Notiz ist bereits gespeichert (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] die Notiz scheint Zugangsdaten zu enthalten; Zugangsdaten dürfen nicht im Gedächtnis gespeichert werden",
     "err.too_long": "[add_long_memory error] die Notiz ist zu lang; bitte auf eine knappe Notiz kürzen",
     "describe.add": "Im Langzeitgedächtnis speichern",
-    "describe.add_with_note": "Im Langzeitgedächtnis speichern: %(note)s"
+    "describe.add_with_note": "Im Langzeitgedächtnis speichern: %(note)s",
+    "param.supersedes.description": "Optionale memory_id der vorhandenen Notiz, die diese ersetzt, wenn sich ein Fakt geändert hat (zuerst mit get_long_memory nachschlagen). Die ersetzte Notiz wird nicht mehr abgerufen, bleibt aber wiederherstellbar, und erneutes Lernen im Hintergrund bringt sie nicht zurück.",
+    "result.saved_superseded": "[add_long_memory] gespeichert (memory_id: %(memory_id)s), ersetzt (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] eine identische Notiz ist bereits gespeichert (memory_id: %(memory_id)s), ersetzt (memory_id: %(superseded_id)s)"
   },
   "it": {
     "x_search_terms": [
@@ -134,14 +149,17 @@
     ],
     "err.note_empty": "La nota [add_long_memory error] è vuota",
     "param.note.description": "Scrivi esattamente una nota concisa (preferibilmente in giapponese) che dovrebbe essere riutilizzabile nelle conversazioni future.",
-    "tool.description": "Salva una nota di memoria a lungo termine sull'utente o sull'ambiente, utile nelle conversazioni future. Salva fatti duraturi, preferenze, vincoli, decisioni e impegni dichiarati dall'utente; non salvare dettagli di attività una tantum, ipotesi o qualsiasi cosa contenga password, token o altre credenziali. Se esiste già una nota simile, aggiornala con update_long_memory invece di aggiungere un duplicato.",
+    "tool.description": "Salva una nota di memoria a lungo termine sull'utente o sull'ambiente, utile nelle conversazioni future. Salva fatti duraturi, preferenze, vincoli, decisioni e impegni dichiarati dall'utente; non salvare dettagli di attività una tantum, ipotesi o qualsiasi cosa contenga password, token o altre credenziali. Se esiste già una nota simile, aggiornala con update_long_memory invece di aggiungere un duplicato. Quando un fatto è cambiato, salva la nuova nota con supersedes impostato sul memory_id della vecchia nota, in modo che il vecchio fatto venga ritirato, invece di modificarlo sul posto.",
     "err.save": "[add_long_memory errore] impossibile salvare la memoria",
     "result.saved": "[add_long_memory] salvato (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] una nota identica è già salvata (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] la nota sembra contenere una credenziale; le credenziali non devono essere salvate in memoria",
     "err.too_long": "[add_long_memory error] la nota è troppo lunga; riducila a una nota concisa",
     "describe.add": "Salvataggio nella memoria a lungo termine",
-    "describe.add_with_note": "Salvataggio nella memoria a lungo termine: %(note)s"
+    "describe.add_with_note": "Salvataggio nella memoria a lungo termine: %(note)s",
+    "param.supersedes.description": "memory_id facoltativo della nota esistente che questa sostituisce quando un fatto è cambiato (cercalo prima con get_long_memory). La nota sostituita non viene più recuperata, ma resta ripristinabile e la riacquisizione in background non la riporterà.",
+    "result.saved_superseded": "[add_long_memory] salvato (memory_id: %(memory_id)s), sostituito (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] una nota identica è già salvata (memory_id: %(memory_id)s), sostituita (memory_id: %(superseded_id)s)"
   },
   "ru": {
     "x_search_terms": [
@@ -158,14 +176,17 @@
     ],
     "err.note_empty": "[add_long_memory error] заметка пуста",
     "param.note.description": "Напишите ровно одну краткую заметку (предпочтительно на японском языке), которую можно будет использовать повторно в будущих разговорах.",
-    "tool.description": "Сохраняет одну заметку долговременной памяти о пользователе или окружении, которая может пригодиться в будущих разговорах. Сохраняйте устойчивые факты, предпочтения, ограничения, решения и обязательства, названные пользователем; не сохраняйте разовые детали задач, догадки и всё, что содержит пароли, токены или другие учётные данные. Если похожая заметка уже есть, обновите её через update_long_memory, а не добавляйте дубликат.",
+    "tool.description": "Сохраняет одну заметку долговременной памяти о пользователе или окружении, которая может пригодиться в будущих разговорах. Сохраняйте устойчивые факты, предпочтения, ограничения, решения и обязательства, названные пользователем; не сохраняйте разовые детали задач, догадки и всё, что содержит пароли, токены или другие учётные данные. Если похожая заметка уже есть, обновите её через update_long_memory, а не добавляйте дубликат. Когда факт изменился, сохраняйте новую заметку, установив supersedes в memory_id старой заметки, чтобы старый факт был выведен из использования, а не редактируйте его на месте.",
     "err.save": "[add_long_memory ошибка] не удалось сохранить память",
     "result.saved": "[add_long_memory] сохранено (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] идентичная заметка уже сохранена (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] заметка, похоже, содержит учётные данные; учётные данные нельзя хранить в памяти",
     "err.too_long": "[add_long_memory error] заметка слишком длинная; сократите её до одной краткой заметки",
     "describe.add": "Сохранение в долговременную память",
-    "describe.add_with_note": "Сохранение в долговременную память: %(note)s"
+    "describe.add_with_note": "Сохранение в долговременную память: %(note)s",
+    "param.supersedes.description": "Необязательный memory_id существующей заметки, которую эта заменяет при изменении факта (сначала найдите её через get_long_memory). Заменённая заметка перестаёт извлекаться, но остаётся восстанавливаемой, и фоновое переобучение её не вернёт.",
+    "result.saved_superseded": "[add_long_memory] сохранено (memory_id: %(memory_id)s), заменено (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] такая же заметка уже сохранена (memory_id: %(memory_id)s), заменена (memory_id: %(superseded_id)s)"
   },
   "pt_BR": {
     "x_search_terms": [
@@ -182,14 +203,17 @@
     ],
     "err.note_empty": "[add_long_memory error] nota está vazia",
     "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras.",
-    "tool.description": "Salva uma nota de memória de longo prazo sobre o usuário ou o ambiente que pode ser útil em conversas futuras. Salve fatos duradouros, preferências, restrições, decisões e compromissos declarados pelo usuário; não salve detalhes de tarefas pontuais, suposições nem nada que contenha senhas, tokens ou outras credenciais. Se uma nota semelhante já existir, atualize-a com update_long_memory em vez de adicionar uma duplicata.",
+    "tool.description": "Salva uma nota de memória de longo prazo sobre o usuário ou o ambiente que pode ser útil em conversas futuras. Salve fatos duradouros, preferências, restrições, decisões e compromissos declarados pelo usuário; não salve detalhes de tarefas pontuais, suposições nem nada que contenha senhas, tokens ou outras credenciais. Se uma nota semelhante já existir, atualize-a com update_long_memory em vez de adicionar uma duplicata. Quando um fato tiver mudado, salve a nova nota com supersedes definido para o memory_id da nota antiga, para que o fato antigo seja aposentado, em vez de editá-lo no local.",
     "err.save": "[add_long_memory erro] falha ao salvar memória",
     "result.saved": "[add_long_memory] salvo (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] uma nota idêntica já está salva (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] a nota parece conter uma credencial; credenciais não devem ser armazenadas na memória",
     "err.too_long": "[add_long_memory error] a nota é longa demais; reduza-a a uma nota concisa",
     "describe.add": "Salvando na memória de longo prazo",
-    "describe.add_with_note": "Salvando na memória de longo prazo: %(note)s"
+    "describe.add_with_note": "Salvando na memória de longo prazo: %(note)s",
+    "param.supersedes.description": "memory_id opcional da nota existente que esta substitui quando um fato mudou (procure-o primeiro com get_long_memory). A nota substituída deixa de ser recuperada, mas continua restaurável, e o reaprendizado em segundo plano não a trará de volta.",
+    "result.saved_superseded": "[add_long_memory] salvo (memory_id: %(memory_id)s), substituído (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] uma nota idêntica já está salva (memory_id: %(memory_id)s), substituída (memory_id: %(superseded_id)s)"
   },
   "pt": {
     "x_search_terms": [
@@ -205,7 +229,7 @@
       "armazenamento de memória"
     ],
     "err.note_empty": "[add_long_memory error] nota está vazia",
-    "tool.description": "Guarda uma nota de memória de longo prazo sobre o utilizador ou o ambiente que pode ser útil em conversas futuras. Guarde factos duradouros, preferências, restrições, decisões e compromissos declarados pelo utilizador; não guarde detalhes de tarefas pontuais, suposições nem nada que contenha palavras-passe, tokens ou outras credenciais. Se já existir uma nota semelhante, atualize-a com update_long_memory em vez de adicionar um duplicado.",
+    "tool.description": "Guarda uma nota de memória de longo prazo sobre o utilizador ou o ambiente que pode ser útil em conversas futuras. Guarde factos duradouros, preferências, restrições, decisões e compromissos declarados pelo utilizador; não guarde detalhes de tarefas pontuais, suposições nem nada que contenha palavras-passe, tokens ou outras credenciais. Se já existir uma nota semelhante, atualize-a com update_long_memory em vez de adicionar um duplicado. Quando um facto tiver mudado, guarde a nova nota com supersedes definido para o memory_id da nota antiga, para que o facto antigo seja retirado, em vez de o editar no local.",
     "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras.",
     "err.save": "[add_long_memory erro] falha ao guardar memória",
     "result.saved": "[add_long_memory] guardado (memory_id: %(memory_id)s)",
@@ -213,7 +237,10 @@
     "err.secret": "[add_long_memory error] a nota parece conter uma credencial; as credenciais não devem ser guardadas na memória",
     "err.too_long": "[add_long_memory error] a nota é demasiado longa; reduza-a a uma nota concisa",
     "describe.add": "A guardar na memória de longo prazo",
-    "describe.add_with_note": "A guardar na memória de longo prazo: %(note)s"
+    "describe.add_with_note": "A guardar na memória de longo prazo: %(note)s",
+    "param.supersedes.description": "memory_id opcional da nota existente que esta substitui quando um facto mudou (procure-o primeiro com get_long_memory). A nota substituída deixa de ser recuperada, mas continua restaurável, e a reaprendizagem em segundo plano não a trará de volta.",
+    "result.saved_superseded": "[add_long_memory] guardado (memory_id: %(memory_id)s), substituído (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] já existe uma nota idêntica guardada (memory_id: %(memory_id)s), substituída (memory_id: %(superseded_id)s)"
   },
   "id": {
     "x_search_terms": [
@@ -229,7 +256,7 @@
       "penyimpanan memori"
     ],
     "err.note_empty": "Catatan [add_long_memory error] kosong",
-    "tool.description": "Menyimpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna dalam percakapan mendatang. Simpan fakta yang bertahan lama, preferensi, batasan, keputusan, dan komitmen yang dinyatakan pengguna; jangan simpan detail tugas sekali saja, tebakan, atau apa pun yang berisi kata sandi, token, atau kredensial lainnya. Jika catatan serupa sudah ada, perbarui dengan update_long_memory daripada menambahkan duplikat.",
+    "tool.description": "Menyimpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna dalam percakapan mendatang. Simpan fakta yang bertahan lama, preferensi, batasan, keputusan, dan komitmen yang dinyatakan pengguna; jangan simpan detail tugas sekali saja, tebakan, atau apa pun yang berisi kata sandi, token, atau kredensial lainnya. Jika catatan serupa sudah ada, perbarui dengan update_long_memory daripada menambahkan duplikat. Ketika sebuah fakta telah berubah, simpan catatan baru dengan supersedes diatur ke memory_id catatan lama agar fakta lama dipensiunkan, alih-alih mengeditnya di tempat.",
     "param.note.description": "Tulis satu catatan singkat (lebih disukai bahasa Jepang) yang dapat digunakan kembali dalam percakapan selanjutnya.",
     "err.save": "[add_long_memory kesalahan] gagal menyimpan memori",
     "result.saved": "[add_long_memory] tersimpan (memory_id: %(memory_id)s)",
@@ -237,7 +264,10 @@
     "err.secret": "[add_long_memory error] catatan tampaknya berisi kredensial; kredensial tidak boleh disimpan di memori",
     "err.too_long": "[add_long_memory error] catatan terlalu panjang; buatlah satu catatan yang ringkas",
     "describe.add": "Menyimpan ke memori jangka panjang",
-    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s"
+    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s",
+    "param.supersedes.description": "memory_id opsional dari catatan yang ada yang digantikan oleh catatan ini ketika sebuah fakta telah berubah (cari dulu dengan get_long_memory). Catatan yang diganti berhenti diambil, tetapi tetap dapat dipulihkan, dan pembelajaran ulang di latar belakang tidak akan membawanya kembali.",
+    "result.saved_superseded": "[add_long_memory] disimpan (memory_id: %(memory_id)s), diganti (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] catatan yang sama sudah disimpan (memory_id: %(memory_id)s), diganti (memory_id: %(superseded_id)s)"
   },
   "vi": {
     "x_search_terms": [
@@ -253,7 +283,7 @@
       "kho bộ nhớ"
     ],
     "err.note_empty": "[lỗi add_long_memory] ghi chú trống",
-    "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện sau này. Hãy lưu các sự kiện lâu dài, sở thích, ràng buộc, quyết định và cam kết do người dùng nêu; không lưu chi tiết công việc một lần, suy đoán, hay bất cứ thứ gì chứa mật khẩu, token hoặc thông tin xác thực khác. Nếu đã có ghi chú tương tự, hãy cập nhật bằng update_long_memory thay vì thêm bản sao.",
+    "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện sau này. Hãy lưu các sự kiện lâu dài, sở thích, ràng buộc, quyết định và cam kết do người dùng nêu; không lưu chi tiết công việc một lần, suy đoán, hay bất cứ thứ gì chứa mật khẩu, token hoặc thông tin xác thực khác. Nếu đã có ghi chú tương tự, hãy cập nhật bằng update_long_memory thay vì thêm bản sao. Khi một sự kiện đã thay đổi, hãy lưu ghi chú mới với supersedes được đặt thành memory_id của ghi chú cũ để sự kiện cũ được loại bỏ, thay vì chỉnh sửa tại chỗ.",
     "param.note.description": "Viết chính xác một ghi chú ngắn gọn (ưu tiên tiếng Nhật) để có thể sử dụng lại trong các cuộc trò chuyện sau này.",
     "err.save": "[add_long_memory lỗi] không lưu được bộ nhớ",
     "result.saved": "[add_long_memory] đã lưu (memory_id: %(memory_id)s)",
@@ -261,7 +291,10 @@
     "err.secret": "[add_long_memory error] ghi chú có vẻ chứa thông tin xác thực; không được lưu thông tin xác thực vào bộ nhớ",
     "err.too_long": "[add_long_memory error] ghi chú quá dài; hãy rút gọn thành một ghi chú ngắn gọn",
     "describe.add": "Đang lưu vào bộ nhớ dài hạn",
-    "describe.add_with_note": "Đang lưu vào bộ nhớ dài hạn: %(note)s"
+    "describe.add_with_note": "Đang lưu vào bộ nhớ dài hạn: %(note)s",
+    "param.supersedes.description": "memory_id tùy chọn của ghi chú hiện có mà ghi chú này thay thế khi một sự kiện đã thay đổi (hãy tra cứu bằng get_long_memory trước). Ghi chú bị thay thế sẽ ngừng được truy xuất nhưng vẫn có thể khôi phục, và việc học lại ở nền sẽ không mang nó trở lại.",
+    "result.saved_superseded": "[add_long_memory] đã lưu (memory_id: %(memory_id)s), đã thay thế (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] một ghi chú giống hệt đã được lưu (memory_id: %(memory_id)s), đã thay thế (memory_id: %(superseded_id)s)"
   },
   "pl": {
     "x_search_terms": [
@@ -278,14 +311,17 @@
     ],
     "err.note_empty": "[błąd add_long_memory] notatka jest pusta",
     "param.note.description": "Napisz dokładnie jedną zwięzłą notatkę (najlepiej po japońsku), która powinna zostać ponownie wykorzystana w przyszłych rozmowach.",
-    "tool.description": "Zapisuje jedną notatkę pamięci długotrwałej o użytkowniku lub środowisku, która może przydać się w przyszłych rozmowach. Zapisuj trwałe fakty, preferencje, ograniczenia, decyzje i zobowiązania podane przez użytkownika; nie zapisuj jednorazowych szczegółów zadań, domysłów ani niczego zawierającego hasła, tokeny lub inne dane uwierzytelniające. Jeśli podobna notatka już istnieje, zaktualizuj ją przez update_long_memory zamiast dodawać duplikat.",
+    "tool.description": "Zapisuje jedną notatkę pamięci długotrwałej o użytkowniku lub środowisku, która może przydać się w przyszłych rozmowach. Zapisuj trwałe fakty, preferencje, ograniczenia, decyzje i zobowiązania podane przez użytkownika; nie zapisuj jednorazowych szczegółów zadań, domysłów ani niczego zawierającego hasła, tokeny lub inne dane uwierzytelniające. Jeśli podobna notatka już istnieje, zaktualizuj ją przez update_long_memory zamiast dodawać duplikat. Gdy fakt się zmieni, zapisz nową notatkę z parametrem supersedes ustawionym na memory_id starej notatki, aby stary fakt został wycofany, zamiast edytować go w miejscu.",
     "err.save": "[add_long_memory błąd] nie udało się zapisać pamięci",
     "result.saved": "[add_long_memory] zapisano (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] identyczna notatka jest już zapisana (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] notatka wygląda na zawierającą dane uwierzytelniające; danych uwierzytelniających nie wolno zapisywać w pamięci",
     "err.too_long": "[add_long_memory error] notatka jest za długa; skróć ją do jednej zwięzłej notatki",
     "describe.add": "Zapisywanie do pamięci długotrwałej",
-    "describe.add_with_note": "Zapisywanie do pamięci długotrwałej: %(note)s"
+    "describe.add_with_note": "Zapisywanie do pamięci długotrwałej: %(note)s",
+    "param.supersedes.description": "Opcjonalne memory_id istniejącej notatki, którą ta zastępuje, gdy zmienił się fakt (najpierw wyszukaj ją za pomocą get_long_memory). Zastąpiona notatka przestaje być pobierana, ale pozostaje możliwa do przywrócenia, a ponowne uczenie się w tle jej nie przywróci.",
+    "result.saved_superseded": "[add_long_memory] zapisano (memory_id: %(memory_id)s), zastąpiono (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] identyczna notatka jest już zapisana (memory_id: %(memory_id)s), zastąpiona (memory_id: %(superseded_id)s)"
   },
   "hi": {
     "x_search_terms": [
@@ -302,14 +338,17 @@
     ],
     "err.note_empty": "[add_long_memory त्रुटि] नोट खाली है",
     "param.note.description": "बिल्कुल एक संक्षिप्त नोट लिखें (जापानी पसंदीदा) जिसे भविष्य की बातचीत में पुन: उपयोग किया जाना चाहिए।",
-    "tool.description": "उपयोगकर्ता या परिवेश के बारे में एक दीर्घकालिक स्मृति नोट सहेजता है जो भविष्य की बातचीत में उपयोगी हो सकता है। उपयोगकर्ता द्वारा बताए गए स्थायी तथ्य, प्राथमिकताएँ, बाधाएँ, निर्णय और प्रतिबद्धताएँ सहेजें; एकबारगी कार्य विवरण, अनुमान, या पासवर्ड, टोकन या अन्य क्रेडेंशियल वाली कोई भी चीज़ न सहेजें। यदि इसी तरह का नोट पहले से मौजूद है, तो डुप्लिकेट जोड़ने के बजाय update_long_memory से उसे अपडेट करें।",
+    "tool.description": "उपयोगकर्ता या परिवेश के बारे में एक दीर्घकालिक स्मृति नोट सहेजता है जो भविष्य की बातचीत में उपयोगी हो सकता है। उपयोगकर्ता द्वारा बताए गए स्थायी तथ्य, प्राथमिकताएँ, बाधाएँ, निर्णय और प्रतिबद्धताएँ सहेजें; एकबारगी कार्य विवरण, अनुमान, या पासवर्ड, टोकन या अन्य क्रेडेंशियल वाली कोई भी चीज़ न सहेजें। यदि इसी तरह का नोट पहले से मौजूद है, तो डुप्लिकेट जोड़ने के बजाय update_long_memory से उसे अपडेट करें। जब कोई तथ्य बदल जाए, तो उसे उसी स्थान पर संपादित करने के बजाय, पुराने तथ्य को सेवानिवृत्त करने के लिए supersedes को पुराने नोट के memory_id पर सेट करके नया नोट सहेजें।",
     "err.save": "[add_long_memory त्रुटि] मेमरी सहेजने में विफल",
     "result.saved": "[add_long_memory] सहेजा गया (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] एक समान नोट पहले से सहेजा हुआ है (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] नोट में क्रेडेंशियल जैसा कुछ लगता है; क्रेडेंशियल मेमोरी में संग्रहीत नहीं किए जा सकते",
     "err.too_long": "[add_long_memory error] नोट बहुत लंबा है; इसे एक संक्षिप्त नोट तक सीमित रखें",
     "describe.add": "दीर्घकालिक स्मृति में सहेजा जा रहा है",
-    "describe.add_with_note": "दीर्घकालिक स्मृति में सहेजा जा रहा है: %(note)s"
+    "describe.add_with_note": "दीर्घकालिक स्मृति में सहेजा जा रहा है: %(note)s",
+    "param.supersedes.description": "जब कोई तथ्य बदल गया हो तो यह नोट जिस मौजूदा नोट को बदलता है, उसका वैकल्पिक memory_id (पहले get_long_memory से खोजें)। बदला गया नोट अब पुनः प्राप्त नहीं होगा, लेकिन पुनर्स्थापित किया जा सकता है, और पृष्ठभूमि में पुनः सीखने से वह वापस नहीं आएगा।",
+    "result.saved_superseded": "[add_long_memory] सहेजा गया (memory_id: %(memory_id)s), बदला गया (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] एक समान नोट पहले से सहेजा गया है (memory_id: %(memory_id)s), बदला गया (memory_id: %(superseded_id)s)"
   },
   "ar": {
     "x_search_terms": [
@@ -326,14 +365,17 @@
     ],
     "err.note_empty": "ملاحظة [add_long_memory error] فارغة",
     "param.note.description": "اكتب ملاحظة واحدة مختصرة (يفضل اللغة اليابانية) والتي ينبغي إعادة استخدامها في المحادثات المستقبلية.",
-    "tool.description": "يحفظ ملاحظة واحدة في الذاكرة طويلة الأمد عن المستخدم أو البيئة قد تفيد في محادثات مستقبلية. احفظ الحقائق الدائمة والتفضيلات والقيود والقرارات والالتزامات التي يذكرها المستخدم؛ ولا تحفظ تفاصيل مهام لمرة واحدة أو تخمينات أو أي شيء يحتوي على كلمات مرور أو رموز أو بيانات اعتماد أخرى. إذا وُجدت ملاحظة مشابهة، حدّثها باستخدام update_long_memory بدلاً من إضافة نسخة مكررة.",
+    "tool.description": "يحفظ ملاحظة واحدة في الذاكرة طويلة الأمد عن المستخدم أو البيئة قد تفيد في محادثات مستقبلية. احفظ الحقائق الدائمة والتفضيلات والقيود والقرارات والالتزامات التي يذكرها المستخدم؛ ولا تحفظ تفاصيل مهام لمرة واحدة أو تخمينات أو أي شيء يحتوي على كلمات مرور أو رموز أو بيانات اعتماد أخرى. إذا وُجدت ملاحظة مشابهة، حدّثها باستخدام update_long_memory بدلاً من إضافة نسخة مكررة. عندما يتغير أحد الحقائق، احفظ الملاحظة الجديدة مع تعيين supersedes إلى memory_id الخاص بالملاحظة القديمة حتى يتم إيقاف الحقيقة القديمة، بدلاً من تحريرها في مكانها.",
     "err.save": "[add_long_memory خطأ] فشل حفظ الذاكرة",
     "result.saved": "[add_long_memory] تم الحفظ (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] توجد ملاحظة مطابقة محفوظة بالفعل (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] يبدو أن الملاحظة تحتوي على بيانات اعتماد؛ لا يجوز تخزين بيانات الاعتماد في الذاكرة",
     "err.too_long": "[add_long_memory error] الملاحظة طويلة جدًا؛ اختصرها في ملاحظة واحدة موجزة",
     "describe.add": "الحفظ في الذاكرة طويلة الأمد",
-    "describe.add_with_note": "الحفظ في الذاكرة طويلة الأمد: %(note)s"
+    "describe.add_with_note": "الحفظ في الذاكرة طويلة الأمد: %(note)s",
+    "param.supersedes.description": "memory_id اختياري للملاحظة الحالية التي تحل هذه محلها عندما يتغير أحد الحقائق (ابحث عنه أولاً باستخدام get_long_memory). تتوقف الملاحظة المستبدلة عن الاسترجاع لكنها تبقى قابلة للاستعادة، ولن يعيدها التعلم في الخلفية.",
+    "result.saved_superseded": "[add_long_memory] تم الحفظ (memory_id: %(memory_id)s)، تم الاستبدال (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] توجد ملاحظة مطابقة محفوظة بالفعل (memory_id: %(memory_id)s)، تم الاستبدال (memory_id: %(superseded_id)s)"
   },
   "sv": {
     "x_search_terms": [
@@ -350,14 +392,17 @@
     ],
     "err.note_empty": "[add_long_memory error]-anteckningen är tom",
     "param.note.description": "Skriv exakt en kortfattad anteckning (japanska föredras) som bör kunna återanvändas i framtida konversationer.",
-    "tool.description": "Sparar en långtidsminnesanteckning om användaren eller miljön som kan vara användbar i framtida konversationer. Spara varaktiga fakta, preferenser, begränsningar, beslut och åtaganden som användaren anger; spara inte engångsdetaljer om uppgifter, gissningar eller något som innehåller lösenord, tokens eller andra inloggningsuppgifter. Om en liknande anteckning redan finns, uppdatera den med update_long_memory i stället för att lägga till en dubblett.",
+    "tool.description": "Sparar en långtidsminnesanteckning om användaren eller miljön som kan vara användbar i framtida konversationer. Spara varaktiga fakta, preferenser, begränsningar, beslut och åtaganden som användaren anger; spara inte engångsdetaljer om uppgifter, gissningar eller något som innehåller lösenord, tokens eller andra inloggningsuppgifter. Om en liknande anteckning redan finns, uppdatera den med update_long_memory i stället för att lägga till en dubblett. När ett faktum har ändrats sparar du den nya anteckningen med supersedes satt till den gamla anteckningens memory_id, så att det gamla faktumet pensioneras, i stället för att redigera det på plats.",
     "err.save": "[add_long_memory fel] kunde inte spara minnet",
     "result.saved": "[add_long_memory] sparad (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] en identisk anteckning är redan sparad (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] anteckningen ser ut att innehålla inloggningsuppgifter; sådana får inte lagras i minnet",
     "err.too_long": "[add_long_memory error] anteckningen är för lång; håll den till en kortfattad anteckning",
     "describe.add": "Sparar i långtidsminnet",
-    "describe.add_with_note": "Sparar i långtidsminnet: %(note)s"
+    "describe.add_with_note": "Sparar i långtidsminnet: %(note)s",
+    "param.supersedes.description": "Valfritt memory_id för den befintliga anteckning som denna ersätter när ett faktum har ändrats (slå upp det med get_long_memory först). Den ersatta anteckningen hämtas inte längre, men kan återställas, och ominlärning i bakgrunden kommer inte att ta tillbaka den.",
+    "result.saved_superseded": "[add_long_memory] sparat (memory_id: %(memory_id)s), ersatt (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] en identisk anteckning är redan sparad (memory_id: %(memory_id)s), ersatt (memory_id: %(superseded_id)s)"
   },
   "sw": {
     "x_search_terms": [
@@ -374,14 +419,17 @@
     ],
     "err.note_empty": "[add_long_memory error] dokezo ni tupu",
     "param.note.description": "Andika kidokezo kimoja kifupi (kinachopendekezwa na Kijapani) ambacho kinafaa kutumika tena katika mazungumzo yajayo.",
-    "tool.description": "Huhifadhi kidokezo kimoja cha kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambacho kinaweza kuwa na manufaa katika mazungumzo yajayo. Hifadhi mambo ya kudumu, mapendeleo, vikwazo, maamuzi na ahadi zilizotajwa na mtumiaji; usihifadhi maelezo ya kazi za mara moja, dhana, au chochote chenye nywila, tokeni au vitambulisho vingine. Kama kidokezo kama hicho tayari kipo, kisasishe kwa update_long_memory badala ya kuongeza nakala.",
+    "tool.description": "Huhifadhi kidokezo kimoja cha kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambacho kinaweza kuwa na manufaa katika mazungumzo yajayo. Hifadhi mambo ya kudumu, mapendeleo, vikwazo, maamuzi na ahadi zilizotajwa na mtumiaji; usihifadhi maelezo ya kazi za mara moja, dhana, au chochote chenye nywila, tokeni au vitambulisho vingine. Kama kidokezo kama hicho tayari kipo, kisasishe kwa update_long_memory badala ya kuongeza nakala. Ukweli unapobadilika, hifadhi noti mpya ukiwa umeweka supersedes kuwa memory_id ya noti ya zamani ili ukweli wa zamani ustaafu, badala ya kuuhariri papo hapo.",
     "err.save": "[add_long_memory hitilafu] imeshindwa kuhifadhi kumbukumbu",
     "result.saved": "[add_long_memory] imehifadhiwa (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] kidokezo sawa tayari kimehifadhiwa (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] kidokezo kinaonekana kuwa na kitambulisho; vitambulisho havipaswi kuhifadhiwa kwenye kumbukumbu",
     "err.too_long": "[add_long_memory error] kidokezo ni kirefu mno; kifanye kiwe kifupi kimoja",
     "describe.add": "Kuhifadhi kwenye kumbukumbu ya muda mrefu",
-    "describe.add_with_note": "Kuhifadhi kwenye kumbukumbu ya muda mrefu: %(note)s"
+    "describe.add_with_note": "Kuhifadhi kwenye kumbukumbu ya muda mrefu: %(note)s",
+    "param.supersedes.description": "memory_id ya hiari ya noti iliyopo ambayo hii inachukua nafasi yake wakati ukweli umebadilika (itafute kwanza kwa get_long_memory). Noti iliyobadilishwa huacha kurejeshwa, lakini inabaki inaweza kurejeshwa, na kujifunza upya chinichini hakutairudisha.",
+    "result.saved_superseded": "[add_long_memory] imehifadhiwa (memory_id: %(memory_id)s), imebadilishwa (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] noti inayofanana tayari imehifadhiwa (memory_id: %(memory_id)s), imebadilishwa (memory_id: %(superseded_id)s)"
   },
   "nb": {
     "x_search_terms": [
@@ -398,14 +446,17 @@
     ],
     "err.note_empty": "[add_long_memory error] notatet er tomt",
     "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
-    "tool.description": "Lagrer ett langtidsminnenotat om brukeren eller miljøet som kan være nyttig i fremtidige samtaler. Lagre varige fakta, preferanser, begrensninger, beslutninger og forpliktelser som brukeren oppgir; ikke lagre engangsdetaljer om oppgaver, gjetninger eller noe som inneholder passord, tokens eller annen legitimasjon. Hvis et lignende notat allerede finnes, oppdater det med update_long_memory i stedet for å legge til en duplikat.",
+    "tool.description": "Lagrer ett langtidsminnenotat om brukeren eller miljøet som kan være nyttig i fremtidige samtaler. Lagre varige fakta, preferanser, begrensninger, beslutninger og forpliktelser som brukeren oppgir; ikke lagre engangsdetaljer om oppgaver, gjetninger eller noe som inneholder passord, tokens eller annen legitimasjon. Hvis et lignende notat allerede finnes, oppdater det med update_long_memory i stedet for å legge til en duplikat. Når et faktum har endret seg, lagrer du den nye notaten med supersedes satt til den gamle notatens memory_id, slik at det gamle faktumet pensjoneres, i stedet for å redigere det på stedet.",
     "err.save": "[add_long_memory feil] kunne ikke lagre minne",
     "result.saved": "[add_long_memory] lagret (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] et identisk notat er allerede lagret (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] notatet ser ut til å inneholde legitimasjon; legitimasjon skal ikke lagres i minnet",
     "err.too_long": "[add_long_memory error] notatet er for langt; hold det til ett kortfattet notat",
     "describe.add": "Lagrer i langtidsminnet",
-    "describe.add_with_note": "Lagrer i langtidsminnet: %(note)s"
+    "describe.add_with_note": "Lagrer i langtidsminnet: %(note)s",
+    "param.supersedes.description": "Valgfritt memory_id for den eksisterende notaten som denne erstatter når et faktum har endret seg (slå det opp med get_long_memory først). Den erstattede notaten hentes ikke lenger, men kan gjenopprettes, og ny læring i bakgrunnen vil ikke bringe den tilbake.",
+    "result.saved_superseded": "[add_long_memory] lagret (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] en identisk note er allerede lagret (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)"
   },
   "nl": {
     "x_search_terms": [
@@ -422,14 +473,17 @@
     ],
     "err.note_empty": "[add_long_memory error] notitie is leeg",
     "param.note.description": "Schrijf precies één beknopte notitie (bij voorkeur Japans) die herbruikbaar moet zijn in toekomstige gesprekken.",
-    "tool.description": "Slaat één notitie in het langetermijngeheugen op over de gebruiker of omgeving die nuttig kan zijn in toekomstige gesprekken. Sla duurzame feiten, voorkeuren, beperkingen, beslissingen en toezeggingen van de gebruiker op; sla geen eenmalige taakdetails, gissingen of iets met wachtwoorden, tokens of andere inloggegevens op. Als er al een vergelijkbare notitie bestaat, werk die dan bij met update_long_memory in plaats van een duplicaat toe te voegen.",
+    "tool.description": "Slaat één notitie in het langetermijngeheugen op over de gebruiker of omgeving die nuttig kan zijn in toekomstige gesprekken. Sla duurzame feiten, voorkeuren, beperkingen, beslissingen en toezeggingen van de gebruiker op; sla geen eenmalige taakdetails, gissingen of iets met wachtwoorden, tokens of andere inloggegevens op. Als er al een vergelijkbare notitie bestaat, werk die dan bij met update_long_memory in plaats van een duplicaat toe te voegen. Wanneer een feit is gewijzigd, slaat u de nieuwe notitie op met supersedes ingesteld op de memory_id van de oude notitie, zodat het oude feit wordt gepensioneerd, in plaats van het ter plekke te bewerken.",
     "err.save": "[add_long_memory fout] geheugen opslaan mislukt",
     "result.saved": "[add_long_memory] opgeslagen (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] een identieke notitie is al opgeslagen (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] de notitie lijkt inloggegevens te bevatten; inloggegevens mogen niet in het geheugen worden opgeslagen",
     "err.too_long": "[add_long_memory error] de notitie is te lang; beperk het tot één beknopte notitie",
     "describe.add": "Opslaan in langetermijngeheugen",
-    "describe.add_with_note": "Opslaan in langetermijngeheugen: %(note)s"
+    "describe.add_with_note": "Opslaan in langetermijngeheugen: %(note)s",
+    "param.supersedes.description": "Optionele memory_id van de bestaande notitie die deze vervangt wanneer een feit is gewijzigd (zoek deze eerst op met get_long_memory). De vervangen notitie wordt niet langer opgehaald, maar blijft herstelbaar, en opnieuw leren op de achtergrond brengt haar niet terug.",
+    "result.saved_superseded": "[add_long_memory] opgeslagen (memory_id: %(memory_id)s), vervangen (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] een identieke notitie is al opgeslagen (memory_id: %(memory_id)s), vervangen (memory_id: %(superseded_id)s)"
   },
   "fi": {
     "x_search_terms": [
@@ -446,14 +500,17 @@
     ],
     "err.note_empty": "[add_long_memory error] huomautus on tyhjä",
     "param.note.description": "Kirjoita täsmälleen yksi ytimekäs muistiinpano (mieluiten japanilainen), jota voidaan käyttää uudelleen tulevissa keskusteluissa.",
-    "tool.description": "Tallentaa yhden pitkäkestoisen muistimerkinnän käyttäjästä tai ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa. Tallenna käyttäjän ilmoittamat pysyvät tosiasiat, mieltymykset, rajoitteet, päätökset ja sitoumukset; älä tallenna kertaluonteisia tehtävätietoja, arvauksia tai mitään, mikä sisältää salasanoja, tokeneita tai muita tunnistetietoja. Jos samankaltainen merkintä on jo olemassa, päivitä se update_long_memory-toiminnolla kaksoiskappaleen lisäämisen sijaan.",
+    "tool.description": "Tallentaa yhden pitkäkestoisen muistimerkinnän käyttäjästä tai ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa. Tallenna käyttäjän ilmoittamat pysyvät tosiasiat, mieltymykset, rajoitteet, päätökset ja sitoumukset; älä tallenna kertaluonteisia tehtävätietoja, arvauksia tai mitään, mikä sisältää salasanoja, tokeneita tai muita tunnistetietoja. Jos samankaltainen merkintä on jo olemassa, päivitä se update_long_memory-toiminnolla kaksoiskappaleen lisäämisen sijaan. Kun tosiasia on muuttunut, tallenna uusi muistiinpano asettamalla supersedes vanhan muistiinpanon memory_id-arvoon, jotta vanha tosiasia poistuu käytöstä, sen sijaan että muokkaisit sitä paikallaan.",
     "err.save": "[add_long_memory virhe] muistin tallennus epäonnistui",
     "result.saved": "[add_long_memory] tallennettu (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] samanlainen merkintä on jo tallennettu (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] merkintä näyttää sisältävän tunnistetietoja; tunnistetietoja ei saa tallentaa muistiin",
     "err.too_long": "[add_long_memory error] merkintä on liian pitkä; tiivistä se yhdeksi ytimekkääksi merkinnäksi",
     "describe.add": "Tallennetaan pitkäkestoiseen muistiin",
-    "describe.add_with_note": "Tallennetaan pitkäkestoiseen muistiin: %(note)s"
+    "describe.add_with_note": "Tallennetaan pitkäkestoiseen muistiin: %(note)s",
+    "param.supersedes.description": "Valinnainen memory_id olemassa olevalle muistiinpanolle, jonka tämä korvaa, kun jokin tosiasia on muuttunut (hae se ensin get_long_memory-työkalulla). Korvattua muistiinpanoa ei enää haeta, mutta se pysyy palautettavana, eikä taustalla tapahtuva uudelleenoppiminen tuo sitä takaisin.",
+    "result.saved_superseded": "[add_long_memory] tallennettu (memory_id: %(memory_id)s), korvattu (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] identtinen muistiinpano on jo tallennettu (memory_id: %(memory_id)s), korvattu (memory_id: %(superseded_id)s)"
   },
   "cs": {
     "x_search_terms": [
@@ -470,14 +527,17 @@
     ],
     "err.note_empty": "[add_long_memory error] poznámka je prázdná",
     "param.note.description": "Napište přesně jednu stručnou poznámku (nejlépe v japonštině), která by měla být znovu použitelná v budoucích konverzacích.",
-    "tool.description": "Uloží jednu poznámku dlouhodobé paměti o uživateli nebo prostředí, která se může hodit v budoucích konverzacích. Ukládejte trvalé skutečnosti, preference, omezení, rozhodnutí a závazky uvedené uživatelem; neukládejte jednorázové podrobnosti úkolů, odhady ani nic, co obsahuje hesla, tokeny nebo jiné přihlašovací údaje. Pokud podobná poznámka už existuje, aktualizujte ji pomocí update_long_memory místo přidání duplikátu.",
+    "tool.description": "Uloží jednu poznámku dlouhodobé paměti o uživateli nebo prostředí, která se může hodit v budoucích konverzacích. Ukládejte trvalé skutečnosti, preference, omezení, rozhodnutí a závazky uvedené uživatelem; neukládejte jednorázové podrobnosti úkolů, odhady ani nic, co obsahuje hesla, tokeny nebo jiné přihlašovací údaje. Pokud podobná poznámka už existuje, aktualizujte ji pomocí update_long_memory místo přidání duplikátu. Když se změní fakt, uložte novou poznámku s parametrem supersedes nastaveným na memory_id staré poznámky, aby byl starý fakt vyřazen, místo abyste jej upravovali na místě.",
     "err.save": "[add_long_memory chyba] paměť se nepodařilo uložit",
     "result.saved": "[add_long_memory] uloženo (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] stejná poznámka je již uložena (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] poznámka zřejmě obsahuje přihlašovací údaje; přihlašovací údaje se nesmí ukládat do paměti",
     "err.too_long": "[add_long_memory error] poznámka je příliš dlouhá; zkraťte ji na jednu stručnou poznámku",
     "describe.add": "Ukládání do dlouhodobé paměti",
-    "describe.add_with_note": "Ukládání do dlouhodobé paměti: %(note)s"
+    "describe.add_with_note": "Ukládání do dlouhodobé paměti: %(note)s",
+    "param.supersedes.description": "Volitelné memory_id existující poznámky, kterou tato nahrazuje, když se změnil fakt (nejprve ji vyhledejte pomocí get_long_memory). Nahrazená poznámka se přestane načítat, ale zůstane obnovitelná a opětovné učení na pozadí ji nevrátí.",
+    "result.saved_superseded": "[add_long_memory] uloženo (memory_id: %(memory_id)s), nahrazeno (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] totožná poznámka je již uložena (memory_id: %(memory_id)s), nahrazena (memory_id: %(superseded_id)s)"
   },
   "uk": {
     "x_search_terms": [
@@ -494,14 +554,17 @@
     ],
     "err.note_empty": "[помилка add_long_memory] примітка порожня",
     "param.note.description": "Напишіть лише одну коротку замітку (бажано японською), яку можна буде повторно використовувати в майбутніх розмовах.",
-    "tool.description": "Зберігає одну нотатку довготривалої пам'яті про користувача чи середовище, яка може стати в пригоді в майбутніх розмовах. Зберігайте стійкі факти, уподобання, обмеження, рішення та зобов'язання, названі користувачем; не зберігайте разові деталі завдань, здогадки та все, що містить паролі, токени чи інші облікові дані. Якщо схожа нотатка вже є, оновіть її через update_long_memory, а не додавайте дублікат.",
+    "tool.description": "Зберігає одну нотатку довготривалої пам'яті про користувача чи середовище, яка може стати в пригоді в майбутніх розмовах. Зберігайте стійкі факти, уподобання, обмеження, рішення та зобов'язання, названі користувачем; не зберігайте разові деталі завдань, здогадки та все, що містить паролі, токени чи інші облікові дані. Якщо схожа нотатка вже є, оновіть її через update_long_memory, а не додавайте дублікат. Коли факт змінився, зберігайте нову нотатку, встановивши supersedes у memory_id старої нотатки, щоб старий факт було виведено з використання, замість редагування його на місці.",
     "err.save": "[add_long_memory помилка] не вдалося зберегти пам’ять",
     "result.saved": "[add_long_memory] збережено (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] ідентичну нотатку вже збережено (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] нотатка, схоже, містить облікові дані; облікові дані не можна зберігати в пам'яті",
     "err.too_long": "[add_long_memory error] нотатка занадто довга; скоротіть її до однієї стислої нотатки",
     "describe.add": "Збереження в довготривалу пам'ять",
-    "describe.add_with_note": "Збереження в довготривалу пам'ять: %(note)s"
+    "describe.add_with_note": "Збереження в довготривалу пам'ять: %(note)s",
+    "param.supersedes.description": "Необов'язковий memory_id наявної нотатки, яку ця замінює, коли факт змінився (спочатку знайдіть її через get_long_memory). Замінена нотатка перестає витягуватися, але залишається відновлюваною, і фонове перенавчання її не поверне.",
+    "result.saved_superseded": "[add_long_memory] збережено (memory_id: %(memory_id)s), замінено (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] така сама нотатка вже збережена (memory_id: %(memory_id)s), замінена (memory_id: %(superseded_id)s)"
   },
   "tr": {
     "x_search_terms": [
@@ -518,14 +581,17 @@
     ],
     "err.note_empty": "[add_long_memory hatası] notu boş",
     "param.note.description": "Gelecekteki konuşmalarda yeniden kullanılabilecek tam olarak kısa bir not yazın (Japonca tercih edilir).",
-    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı veya ortam hakkında tek bir uzun süreli bellek notu kaydeder. Kullanıcının belirttiği kalıcı gerçekleri, tercihleri, kısıtlamaları, kararları ve taahhütleri kaydedin; tek seferlik görev ayrıntılarını, tahminleri veya parola, token ya da başka kimlik bilgileri içeren hiçbir şeyi kaydetmeyin. Benzer bir not zaten varsa, yinelenen eklemek yerine update_long_memory ile güncelleyin.",
+    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı veya ortam hakkında tek bir uzun süreli bellek notu kaydeder. Kullanıcının belirttiği kalıcı gerçekleri, tercihleri, kısıtlamaları, kararları ve taahhütleri kaydedin; tek seferlik görev ayrıntılarını, tahminleri veya parola, token ya da başka kimlik bilgileri içeren hiçbir şeyi kaydetmeyin. Benzer bir not zaten varsa, yinelenen eklemek yerine update_long_memory ile güncelleyin. Bir bilgi değiştiğinde, eski bilgiyi yerinde düzenlemek yerine, supersedes eski notun memory_id değerine ayarlanmış şekilde yeni notu kaydedin, böylece eski bilgi kullanımdan kaldırılır.",
     "err.save": "[add_long_memory hata] bellek kaydedilemedi",
     "result.saved": "[add_long_memory] kaydedildi (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] aynı not zaten kayıtlı (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] not kimlik bilgisi içeriyor gibi görünüyor; kimlik bilgileri belleğe kaydedilmemelidir",
     "err.too_long": "[add_long_memory error] not çok uzun; tek bir özlü notla sınırlayın",
     "describe.add": "Uzun süreli belleğe kaydediliyor",
-    "describe.add_with_note": "Uzun süreli belleğe kaydediliyor: %(note)s"
+    "describe.add_with_note": "Uzun süreli belleğe kaydediliyor: %(note)s",
+    "param.supersedes.description": "Bir bilgi değiştiğinde bu notun yerini aldığı mevcut notun isteğe bağlı memory_id değeri (önce get_long_memory ile bakın). Değiştirilen not artık getirilmez, ancak geri yüklenebilir durumda kalır ve arka planda yeniden öğrenme onu geri getirmez.",
+    "result.saved_superseded": "[add_long_memory] kaydedildi (memory_id: %(memory_id)s), değiştirildi (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] aynı not zaten kayıtlı (memory_id: %(memory_id)s), değiştirildi (memory_id: %(superseded_id)s)"
   },
   "th": {
     "x_search_terms": [
@@ -542,14 +608,17 @@
     ],
     "err.note_empty": "โน้ต [add_long_memory error] ว่างเปล่า",
     "param.note.description": "เขียนบันทึกย่อกระชับหนึ่งรายการ (ควรใช้ภาษาญี่ปุ่น) ซึ่งควรนำมาใช้ซ้ำในการสนทนาครั้งต่อๆ ไป",
-    "tool.description": "บันทึกโน้ตความจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้หรือสภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาครั้งต่อไป ให้บันทึกข้อเท็จจริงที่คงอยู่ถาวร ความชอบ ข้อจำกัด การตัดสินใจ และข้อผูกพันที่ผู้ใช้ระบุ อย่าบันทึกรายละเอียดงานครั้งเดียว การคาดเดา หรือสิ่งใดที่มีรหัสผ่าน โทเคน หรือข้อมูลรับรองอื่น ๆ หากมีโน้ตคล้ายกันอยู่แล้ว ให้อัปเดตด้วย update_long_memory แทนการเพิ่มซ้ำ",
+    "tool.description": "บันทึกโน้ตความจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้หรือสภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาครั้งต่อไป ให้บันทึกข้อเท็จจริงที่คงอยู่ถาวร ความชอบ ข้อจำกัด การตัดสินใจ และข้อผูกพันที่ผู้ใช้ระบุ อย่าบันทึกรายละเอียดงานครั้งเดียว การคาดเดา หรือสิ่งใดที่มีรหัสผ่าน โทเคน หรือข้อมูลรับรองอื่น ๆ หากมีโน้ตคล้ายกันอยู่แล้ว ให้อัปเดตด้วย update_long_memory แทนการเพิ่มซ้ำ เมื่อข้อเท็จจริงเปลี่ยนไป ให้บันทึกบันทึกใหม่โดยตั้งค่า supersedes เป็น memory_id ของบันทึกเก่า เพื่อให้ข้อเท็จจริงเก่าถูกปลดออก แทนการแก้ไขในที่เดิม",
     "err.save": "[add_long_memory ข้อผิดพลาด] บันทึกหน่วยความจำไม่สำเร็จ",
     "result.saved": "[add_long_memory] บันทึกแล้ว (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] มีโน้ตเดียวกันบันทึกไว้แล้ว (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] โน้ตดูเหมือนมีข้อมูลรับรอง ห้ามเก็บข้อมูลรับรองไว้ในหน่วยความจำ",
     "err.too_long": "[add_long_memory error] โน้ตยาวเกินไป โปรดย่อให้เป็นโน้ตสั้น ๆ หนึ่งรายการ",
     "describe.add": "กำลังบันทึกในหน่วยความจำระยะยาว",
-    "describe.add_with_note": "กำลังบันทึกในหน่วยความจำระยะยาว: %(note)s"
+    "describe.add_with_note": "กำลังบันทึกในหน่วยความจำระยะยาว: %(note)s",
+    "param.supersedes.description": "memory_id ที่ไม่บังคับของบันทึกที่มีอยู่ซึ่งบันทึกนี้จะแทนที่เมื่อข้อเท็จจริงเปลี่ยนไป (ค้นหาด้วย get_long_memory ก่อน) บันทึกที่ถูกแทนที่จะไม่ถูกเรียกค้นอีกต่อไป แต่ยังกู้คืนได้ และการเรียนรู้ซ้ำเบื้องหลังจะไม่นำมันกลับมา",
+    "result.saved_superseded": "[add_long_memory] บันทึกแล้ว (memory_id: %(memory_id)s) แทนที่แล้ว (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] มีบันทึกที่เหมือนกันบันทึกไว้แล้ว (memory_id: %(memory_id)s) แทนที่แล้ว (memory_id: %(superseded_id)s)"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -566,14 +635,17 @@
     ],
     "err.note_empty": "[add_long_memory错误]注释为空",
     "param.note.description": "准确地写下一张简明的笔记（最好是日语），以便在以后的对话中可以重复使用。",
-    "tool.description": "保存一条关于用户或环境的长期记忆笔记，可能对今后的对话有用。应保存用户陈述的持久事实、偏好、约束、决定和承诺；不要保存一次性任务细节、猜测，或包含密码、令牌等凭据的内容。如果已有类似笔记，请使用 update_long_memory 更新它，而不是添加重复项。",
+    "tool.description": "保存一条关于用户或环境的长期记忆笔记，可能对今后的对话有用。应保存用户陈述的持久事实、偏好、约束、决定和承诺；不要保存一次性任务细节、猜测，或包含密码、令牌等凭据的内容。如果已有类似笔记，请使用 update_long_memory 更新它，而不是添加重复项。 当事实发生变化时，请将 supersedes 设置为旧备忘录的 memory_id 来保存新备忘录，使旧事实退役，而不是就地编辑它。",
     "err.save": "[add_long_memory 错误] 保存记忆失败",
     "result.saved": "[add_long_memory] 已保存 (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] 已保存相同的笔记 (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] 笔记似乎包含凭据；凭据不得存入记忆",
     "err.too_long": "[add_long_memory error] 笔记太长；请精简为一条简洁的笔记",
     "describe.add": "保存到长期记忆",
-    "describe.add_with_note": "保存到长期记忆：%(note)s"
+    "describe.add_with_note": "保存到长期记忆：%(note)s",
+    "param.supersedes.description": "当事实发生变化时，本条目所取代的现有备忘录的 memory_id（可选；请先用 get_long_memory 查找）。被取代的备忘录将不再被检索，但仍可恢复，后台重新学习也不会将其带回。",
+    "result.saved_superseded": "[add_long_memory] 已保存 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] 已保存相同的备忘录 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -590,14 +662,17 @@
     ],
     "err.note_empty": "[add_long_memory錯誤]註解為空",
     "param.note.description": "準確地寫下一張簡明的筆記（最好是日文），以便在以後的對話中可以重複使用。",
-    "tool.description": "儲存一則關於使用者或環境的長期記憶筆記，可能對日後對話有用。應儲存使用者陳述的持久事實、偏好、限制、決定與承諾；不要儲存一次性任務細節、臆測，或包含密碼、權杖等憑證的內容。若已有類似筆記，請使用 update_long_memory 更新它，而不是新增重複項。",
+    "tool.description": "儲存一則關於使用者或環境的長期記憶筆記，可能對日後對話有用。應儲存使用者陳述的持久事實、偏好、限制、決定與承諾；不要儲存一次性任務細節、臆測，或包含密碼、權杖等憑證的內容。若已有類似筆記，請使用 update_long_memory 更新它，而不是新增重複項。 當事實發生變化時，請將 supersedes 設定為舊筆記的 memory_id 來儲存新筆記，使舊事實退役，而不是就地編輯它。",
     "err.save": "[add_long_memory 錯誤] 儲存記憶失敗",
     "result.saved": "[add_long_memory] 已儲存 (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] 已儲存相同的筆記 (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] 筆記似乎包含憑證；憑證不得存入記憶",
     "err.too_long": "[add_long_memory error] 筆記太長；請精簡為一則簡潔的筆記",
     "describe.add": "儲存到長期記憶",
-    "describe.add_with_note": "儲存到長期記憶：%(note)s"
+    "describe.add_with_note": "儲存到長期記憶：%(note)s",
+    "param.supersedes.description": "當事實發生變化時，本筆記所取代的現有筆記的 memory_id（可選；請先用 get_long_memory 查詢）。被取代的筆記將不再被擷取，但仍可還原，背景重新學習也不會將其帶回。",
+    "result.saved_superseded": "[add_long_memory] 已儲存 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] 已儲存相同的筆記 (memory_id: %(memory_id)s)，已取代 (memory_id: %(superseded_id)s)"
   },
   "bn": {
     "x_search_terms": [
@@ -614,14 +689,17 @@
     ],
     "err.note_empty": "[add_long_memory error] নোট খালি",
     "param.note.description": "ঠিক একটি সংক্ষিপ্ত নোট লিখুন (জাপানি পছন্দের) যা ভবিষ্যতে কথোপকথনে পুনরায় ব্যবহারযোগ্য হওয়া উচিত।",
-    "tool.description": "ব্যবহারকারী বা পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদি মেমরি নোট সংরক্ষণ করে যা ভবিষ্যতের কথোপকথনে কাজে লাগতে পারে। ব্যবহারকারীর বলা স্থায়ী তথ্য, পছন্দ, সীমাবদ্ধতা, সিদ্ধান্ত ও প্রতিশ্রুতি সংরক্ষণ করুন; একবারের কাজের বিবরণ, অনুমান, বা পাসওয়ার্ড, টোকেন বা অন্যান্য ক্রেডেনশিয়ালযুক্ত কিছু সংরক্ষণ করবেন না। অনুরূপ নোট ইতিমধ্যে থাকলে ডুপ্লিকেট যোগ না করে update_long_memory দিয়ে সেটি আপডেট করুন।",
+    "tool.description": "ব্যবহারকারী বা পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদি মেমরি নোট সংরক্ষণ করে যা ভবিষ্যতের কথোপকথনে কাজে লাগতে পারে। ব্যবহারকারীর বলা স্থায়ী তথ্য, পছন্দ, সীমাবদ্ধতা, সিদ্ধান্ত ও প্রতিশ্রুতি সংরক্ষণ করুন; একবারের কাজের বিবরণ, অনুমান, বা পাসওয়ার্ড, টোকেন বা অন্যান্য ক্রেডেনশিয়ালযুক্ত কিছু সংরক্ষণ করবেন না। অনুরূপ নোট ইতিমধ্যে থাকলে ডুপ্লিকেট যোগ না করে update_long_memory দিয়ে সেটি আপডেট করুন। কোনো তথ্য পরিবর্তিত হলে, সেখানেই সম্পাদনা না করে পুরনো তথ্যটিকে অবসর দিতে পুরনো নোটের memory_id-তে supersedes সেট করে নতুন নোটটি সংরক্ষণ করুন।",
     "err.save": "[add_long_memory ত্রুটি] মেমরি সংরক্ষণ করা যায়নি",
     "result.saved": "[add_long_memory] সংরক্ষিত হয়েছে (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] একই নোট ইতিমধ্যে সংরক্ষিত আছে (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] নোটে ক্রেডেনশিয়াল আছে বলে মনে হচ্ছে; ক্রেডেনশিয়াল মেমরিতে সংরক্ষণ করা যাবে না",
     "err.too_long": "[add_long_memory error] নোটটি খুব দীর্ঘ; এটিকে একটি সংক্ষিপ্ত নোটে সীমিত রাখুন",
     "describe.add": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে",
-    "describe.add_with_note": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে: %(note)s"
+    "describe.add_with_note": "দীর্ঘমেয়াদি মেমরিতে সংরক্ষণ করা হচ্ছে: %(note)s",
+    "param.supersedes.description": "কোনো তথ্য পরিবর্তিত হলে এই নোটটি যে বিদ্যমান নোটটিকে প্রতিস্থাপন করে তার ঐচ্ছিক memory_id (আগে get_long_memory দিয়ে খুঁজুন)। প্রতিস্থাপিত নোটটি আর পুনরুদ্ধার করা হয় না, তবে পুনরুদ্ধারযোগ্য থাকে এবং পেছনের পুনঃশিক্ষা এটিকে ফিরিয়ে আনবে না।",
+    "result.saved_superseded": "[add_long_memory] সংরক্ষিত (memory_id: %(memory_id)s), প্রতিস্থাপিত (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] একটি অভিন্ন নোট ইতিমধ্যে সংরক্ষিত আছে (memory_id: %(memory_id)s), প্রতিস্থাপিত (memory_id: %(superseded_id)s)"
   },
   "fa": {
     "x_search_terms": [
@@ -638,14 +716,17 @@
     ],
     "err.note_empty": "یادداشت [add_long_memory error] خالی است",
     "param.note.description": "دقیقاً یک یادداشت مختصر (ترجیح ژاپنی) بنویسید که باید در مکالمات بعدی قابل استفاده مجدد باشد.",
-    "tool.description": "یک یادداشت حافظهٔ بلندمدت دربارهٔ کاربر یا محیط ذخیره می‌کند که ممکن است در گفتگوهای آینده مفید باشد. واقعیت‌های پایدار، ترجیحات، محدودیت‌ها، تصمیم‌ها و تعهداتی را که کاربر بیان می‌کند ذخیره کنید؛ جزئیات کارهای یک‌باره، حدس‌ها، یا هر چیزی حاوی گذرواژه، توکن یا سایر اعتبارنامه‌ها را ذخیره نکنید. اگر یادداشت مشابهی از قبل وجود دارد، به‌جای افزودن مورد تکراری، آن را با update_long_memory به‌روزرسانی کنید.",
+    "tool.description": "یک یادداشت حافظهٔ بلندمدت دربارهٔ کاربر یا محیط ذخیره می‌کند که ممکن است در گفتگوهای آینده مفید باشد. واقعیت‌های پایدار، ترجیحات، محدودیت‌ها، تصمیم‌ها و تعهداتی را که کاربر بیان می‌کند ذخیره کنید؛ جزئیات کارهای یک‌باره، حدس‌ها، یا هر چیزی حاوی گذرواژه، توکن یا سایر اعتبارنامه‌ها را ذخیره نکنید. اگر یادداشت مشابهی از قبل وجود دارد، به‌جای افزودن مورد تکراری، آن را با update_long_memory به‌روزرسانی کنید. وقتی واقعیتی تغییر کرد، یادداشت جدید را با تنظیم supersedes روی memory_id یادداشت قدیمی ذخیره کنید تا واقعیت قدیمی بازنشسته شود، به‌جای اینکه آن را درجا ویرایش کنید.",
     "err.save": "[add_long_memory خطا] ذخیره حافظه ناموفق بود",
     "result.saved": "[add_long_memory] ذخیره شد (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] یادداشت یکسانی از قبل ذخیره شده است (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] به نظر می‌رسد یادداشت حاوی اعتبارنامه است؛ اعتبارنامه‌ها نباید در حافظه ذخیره شوند",
     "err.too_long": "[add_long_memory error] یادداشت خیلی طولانی است؛ آن را به یک یادداشت مختصر محدود کنید",
     "describe.add": "در حال ذخیره در حافظهٔ بلندمدت",
-    "describe.add_with_note": "در حال ذخیره در حافظهٔ بلندمدت: %(note)s"
+    "describe.add_with_note": "در حال ذخیره در حافظهٔ بلندمدت: %(note)s",
+    "param.supersedes.description": "memory_id اختیاری یادداشت موجودی که این یادداشت هنگام تغییر یک واقعیت جایگزین آن می‌شود (ابتدا با get_long_memory آن را جستجو کنید). یادداشت جایگزین‌شده دیگر بازیابی نمی‌شود اما قابل بازگردانی می‌ماند و یادگیری مجدد در پس‌زمینه آن را برنمی‌گرداند.",
+    "result.saved_superseded": "[add_long_memory] ذخیره شد (memory_id: %(memory_id)s)، جایگزین شد (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] یک یادداشت یکسان از قبل ذخیره شده است (memory_id: %(memory_id)s)، جایگزین شد (memory_id: %(superseded_id)s)"
   },
   "mn": {
     "x_search_terms": [
@@ -662,14 +743,17 @@
     ],
     "err.note_empty": "[урт_санах ойн алдаа] тэмдэглэл хоосон байна",
     "param.note.description": "Ирээдүйн харилцан ярианд дахин ашиглах боломжтой яг нэг товч тэмдэглэл (Япон хэлийг илүүд үздэг) бич.",
-    "tool.description": "Ирээдүйн ярианд хэрэг болж болзошгүй хэрэглэгч эсвэл орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална. Хэрэглэгчийн хэлсэн удаан хадгалагдах баримт, сонголт, хязгаарлалт, шийдвэр, амлалтыг хадгална уу; нэг удаагийн ажлын дэлгэрэнгүй, таамаглал, нууц үг, токен болон бусад нэвтрэх мэдээлэл агуулсан зүйлийг бүү хадгал. Төстэй тэмдэглэл аль хэдийн байвал давхардсан зүйл нэмэхийн оронд update_long_memory ашиглан шинэчилнэ үү.",
+    "tool.description": "Ирээдүйн ярианд хэрэг болж болзошгүй хэрэглэгч эсвэл орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална. Хэрэглэгчийн хэлсэн удаан хадгалагдах баримт, сонголт, хязгаарлалт, шийдвэр, амлалтыг хадгална уу; нэг удаагийн ажлын дэлгэрэнгүй, таамаглал, нууц үг, токен болон бусад нэвтрэх мэдээлэл агуулсан зүйлийг бүү хадгал. Төстэй тэмдэглэл аль хэдийн байвал давхардсан зүйл нэмэхийн оронд update_long_memory ашиглан шинэчилнэ үү. Баримт өөрчлөгдсөн үед хуучин баримтыг тэтгэвэрт гаргахын тулд supersedes-г хуучин тэмдэглэлийн memory_id болгон тохируулж шинэ тэмдэглэлийг хадгална уу, оронд нь засахгүйгээр.",
     "err.save": "[add_long_memory алдаа] санах ойг хадгалж чадсангүй",
     "result.saved": "[add_long_memory] хадгаллаа (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] ижил тэмдэглэл аль хэдийн хадгалагдсан байна (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] тэмдэглэлд нэвтрэх мэдээлэл агуулагдсан бололтой; нэвтрэх мэдээллийг санах ойд хадгалж болохгүй",
     "err.too_long": "[add_long_memory error] тэмдэглэл хэт урт байна; нэг товч тэмдэглэл болгон хураангуйна уу",
     "describe.add": "Урт хугацааны санах ойд хадгалж байна",
-    "describe.add_with_note": "Урт хугацааны санах ойд хадгалж байна: %(note)s"
+    "describe.add_with_note": "Урт хугацааны санах ойд хадгалж байна: %(note)s",
+    "param.supersedes.description": "Баримт өөрчлөгдсөн үед энэ тэмдэглэлийн орлуулах одоо байгаа тэмдэглэлийн нэмэлт memory_id (эхлээд get_long_memory ашиглан хайна уу). Орлуулагдсан тэмдэглэл дахин татагдахгүй боловч сэргээх боломжтой хэвээр байх бөгөөд далд дахин суралцах явцад эргэж ирэхгүй.",
+    "result.saved_superseded": "[add_long_memory] хадгалагдлаа (memory_id: %(memory_id)s), орлуулагдлаа (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] ижил тэмдэглэл аль хэдийн хадгалагдсан (memory_id: %(memory_id)s), орлуулагдсан (memory_id: %(superseded_id)s)"
   },
   "mr": {
     "x_search_terms": [
@@ -686,14 +770,17 @@
     ],
     "err.note_empty": "[add_long_memory error] टीप रिकामी आहे",
     "param.note.description": "भविष्यातील संभाषणांमध्ये पुन्हा वापरता येण्याजोग्या असलेली एक संक्षिप्त टीप (जपानी प्राधान्य) लिहा.",
-    "tool.description": "भविष्यातील संभाषणांमध्ये उपयुक्त ठरू शकेल अशी वापरकर्ता किंवा वातावरणाबद्दलची एक दीर्घकालीन स्मृती नोंद जतन करते. वापरकर्त्याने सांगितलेली टिकाऊ तथ्ये, पसंती, मर्यादा, निर्णय आणि वचनबद्धता जतन करा; एकवेळची कार्य तपशील, अंदाज, किंवा पासवर्ड, टोकन किंवा इतर क्रेडेन्शियल असलेले काहीही जतन करू नका. तत्सम नोंद आधीपासून असल्यास, डुप्लिकेट जोडण्याऐवजी update_long_memory ने ती अपडेट करा.",
+    "tool.description": "भविष्यातील संभाषणांमध्ये उपयुक्त ठरू शकेल अशी वापरकर्ता किंवा वातावरणाबद्दलची एक दीर्घकालीन स्मृती नोंद जतन करते. वापरकर्त्याने सांगितलेली टिकाऊ तथ्ये, पसंती, मर्यादा, निर्णय आणि वचनबद्धता जतन करा; एकवेळची कार्य तपशील, अंदाज, किंवा पासवर्ड, टोकन किंवा इतर क्रेडेन्शियल असलेले काहीही जतन करू नका. तत्सम नोंद आधीपासून असल्यास, डुप्लिकेट जोडण्याऐवजी update_long_memory ने ती अपडेट करा. एखादी वस्तुस्थिती बदलली असता, ती जागेवर संपादित करण्याऐवजी, जुनी वस्तुस्थिती निवृत्त करण्यासाठी supersedes जुन्या नोटच्या memory_id वर सेट करून नवीन नोट जतन करा.",
     "err.save": "[add_long_memory त्रुटी] मेमरी जतन करण्यात अयशस्वी",
     "result.saved": "[add_long_memory] जतन केले (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] अगदी तशीच नोंद आधीच जतन केलेली आहे (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] नोंदीत क्रेडेन्शियल असल्यासारखे वाटते; क्रेडेन्शियल स्मृतीत साठवता येत नाहीत",
     "err.too_long": "[add_long_memory error] नोंद खूप मोठी आहे; ती एका संक्षिप्त नोंदीपुरती मर्यादित ठेवा",
     "describe.add": "दीर्घकालीन स्मृतीत जतन करत आहे",
-    "describe.add_with_note": "दीर्घकालीन स्मृतीत जतन करत आहे: %(note)s"
+    "describe.add_with_note": "दीर्घकालीन स्मृतीत जतन करत आहे: %(note)s",
+    "param.supersedes.description": "एखादी वस्तुस्थिती बदलली असता हा नोट ज्या विद्यमान नोटला बदलतो तिचा ऐच्छिक memory_id (आधी get_long_memory ने शोधा). बदललेली नोट यापुढे पुनर्प्राप्त केली जाणार नाही, पण ती पुन्हा स्थापित करता येईल आणि पार्श्वभूमीतील पुनर्शिक्षण ती परत आणणार नाही.",
+    "result.saved_superseded": "[add_long_memory] जतन केले (memory_id: %(memory_id)s), बदलले (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] एकसारखी नोट आधीच जतन केली आहे (memory_id: %(memory_id)s), बदलली (memory_id: %(superseded_id)s)"
   },
   "el": {
     "x_search_terms": [
@@ -710,14 +797,17 @@
     ],
     "err.note_empty": "Η σημείωση [add_long_memory error] είναι κενή",
     "param.note.description": "Γράψτε ακριβώς μια συνοπτική σημείωση (προτιμάται η Ιαπωνική) που θα πρέπει να μπορεί να επαναχρησιμοποιηθεί σε μελλοντικές συνομιλίες.",
-    "tool.description": "Αποθηκεύει μία σημείωση μακροχρόνιας μνήμης για τον χρήστη ή το περιβάλλον που μπορεί να φανεί χρήσιμη σε μελλοντικές συνομιλίες. Αποθηκεύστε διαρκή γεγονότα, προτιμήσεις, περιορισμούς, αποφάσεις και δεσμεύσεις που δηλώνει ο χρήστης· μην αποθηκεύετε λεπτομέρειες εφάπαξ εργασιών, εικασίες ή οτιδήποτε περιέχει κωδικούς πρόσβασης, token ή άλλα διαπιστευτήρια. Αν υπάρχει ήδη παρόμοια σημείωση, ενημερώστε την με update_long_memory αντί να προσθέσετε αντίγραφο.",
+    "tool.description": "Αποθηκεύει μία σημείωση μακροχρόνιας μνήμης για τον χρήστη ή το περιβάλλον που μπορεί να φανεί χρήσιμη σε μελλοντικές συνομιλίες. Αποθηκεύστε διαρκή γεγονότα, προτιμήσεις, περιορισμούς, αποφάσεις και δεσμεύσεις που δηλώνει ο χρήστης· μην αποθηκεύετε λεπτομέρειες εφάπαξ εργασιών, εικασίες ή οτιδήποτε περιέχει κωδικούς πρόσβασης, token ή άλλα διαπιστευτήρια. Αν υπάρχει ήδη παρόμοια σημείωση, ενημερώστε την με update_long_memory αντί να προσθέσετε αντίγραφο. Όταν ένα γεγονός έχει αλλάξει, αποθηκεύστε τη νέα σημείωση με το supersedes ορισμένο στο memory_id της παλιάς σημείωσης, ώστε το παλιό γεγονός να αποσυρθεί, αντί να το επεξεργαστείτε επί τόπου.",
     "err.save": "[add_long_memory σφάλμα] αποτυχία αποθήκευσης μνήμης",
     "result.saved": "[add_long_memory] αποθηκεύτηκε (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] μια πανομοιότυπη σημείωση είναι ήδη αποθηκευμένη (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] η σημείωση φαίνεται να περιέχει διαπιστευτήρια· τα διαπιστευτήρια δεν πρέπει να αποθηκεύονται στη μνήμη",
     "err.too_long": "[add_long_memory error] η σημείωση είναι πολύ μεγάλη· περιορίστε την σε μία σύντομη σημείωση",
     "describe.add": "Αποθήκευση στη μακροχρόνια μνήμη",
-    "describe.add_with_note": "Αποθήκευση στη μακροχρόνια μνήμη: %(note)s"
+    "describe.add_with_note": "Αποθήκευση στη μακροχρόνια μνήμη: %(note)s",
+    "param.supersedes.description": "Προαιρετικό memory_id της υπάρχουσας σημείωσης που αντικαθιστά αυτή όταν ένα γεγονός έχει αλλάξει (αναζητήστε το πρώτα με το get_long_memory). Η αντικατασταθείσα σημείωση σταματά να ανακτάται, αλλά παραμένει επαναφέρσιμη και η επανεκμάθηση στο παρασκήνιο δεν θα την επαναφέρει.",
+    "result.saved_superseded": "[add_long_memory] αποθηκεύτηκε (memory_id: %(memory_id)s), αντικαταστάθηκε (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] μια πανομοιότυπη σημείωση είναι ήδη αποθηκευμένη (memory_id: %(memory_id)s), αντικαταστάθηκε (memory_id: %(superseded_id)s)"
   },
   "he": {
     "x_search_terms": [
@@ -734,14 +824,17 @@
     ],
     "err.note_empty": "הערה [add_long_memory error] ריקה",
     "param.note.description": "כתוב בדיוק הערה אחת תמציתית (עדיפות יפנית) שאמורה להיות ניתנת לשימוש חוזר בשיחות עתידיות.",
-    "tool.description": "שומר הערת זיכרון ארוך־טווח אחת על המשתמש או הסביבה שעשויה להיות שימושית בשיחות עתידיות. שמרו עובדות מתמשכות, העדפות, מגבלות, החלטות והתחייבויות שהמשתמש מציין; אל תשמרו פרטי משימות חד־פעמיות, ניחושים או כל דבר המכיל סיסמאות, אסימונים או אישורים אחרים. אם כבר קיימת הערה דומה, עדכנו אותה עם update_long_memory במקום להוסיף כפילות.",
+    "tool.description": "שומר הערת זיכרון ארוך־טווח אחת על המשתמש או הסביבה שעשויה להיות שימושית בשיחות עתידיות. שמרו עובדות מתמשכות, העדפות, מגבלות, החלטות והתחייבויות שהמשתמש מציין; אל תשמרו פרטי משימות חד־פעמיות, ניחושים או כל דבר המכיל סיסמאות, אסימונים או אישורים אחרים. אם כבר קיימת הערה דומה, עדכנו אותה עם update_long_memory במקום להוסיף כפילות. כאשר עובדה השתנתה, שמרו את ההערה החדשה כאשר supersedes מוגדר ל-memory_id של ההערה הישנה, כדי שהעובדה הישנה תצא משימוש, במקום לערוך אותה במקום.",
     "err.save": "[add_long_memory שגיאה] שמירת הזיכרון נכשלה",
     "result.saved": "[add_long_memory] נשמר (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] הערה זהה כבר שמורה (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] נראה שההערה מכילה אישורים; אסור לשמור אישורים בזיכרון",
     "err.too_long": "[add_long_memory error] ההערה ארוכה מדי; צמצמו אותה להערה תמציתית אחת",
     "describe.add": "שמירה בזיכרון ארוך־הטווח",
-    "describe.add_with_note": "שמירה בזיכרון ארוך־הטווח: %(note)s"
+    "describe.add_with_note": "שמירה בזיכרון ארוך־הטווח: %(note)s",
+    "param.supersedes.description": "memory_id אופציונלי של ההערה הקיימת שהערה זו מחליפה כאשר עובדה השתנתה (חפשו אותו קודם עם get_long_memory). ההערה שהוחלפה מפסיקה להישלף אך נשארת ניתנת לשחזור, ולמידה מחדש ברקע לא תחזיר אותה.",
+    "result.saved_superseded": "[add_long_memory] נשמר (memory_id: %(memory_id)s), הוחלף (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] הערה זהה כבר שמורה (memory_id: %(memory_id)s), הוחלפה (memory_id: %(superseded_id)s)"
   },
   "hu": {
     "x_search_terms": [
@@ -758,14 +851,17 @@
     ],
     "err.note_empty": "Az [add_long_memory error] megjegyzés üres",
     "param.note.description": "Írjon pontosan egy tömör megjegyzést (előnyösen japánul), amelyet újra felhasználhat a jövőbeni beszélgetésekben.",
-    "tool.description": "Elment egy hosszú távú memóriajegyzetet a felhasználóról vagy a környezetről, amely hasznos lehet a jövőbeli beszélgetésekben. Mentse a felhasználó által megadott tartós tényeket, preferenciákat, korlátozásokat, döntéseket és vállalásokat; ne mentsen egyszeri feladat-részleteket, találgatásokat, vagy bármit, ami jelszót, tokent vagy más hitelesítő adatot tartalmaz. Ha már létezik hasonló jegyzet, frissítse azt az update_long_memory segítségével duplikátum hozzáadása helyett.",
+    "tool.description": "Elment egy hosszú távú memóriajegyzetet a felhasználóról vagy a környezetről, amely hasznos lehet a jövőbeli beszélgetésekben. Mentse a felhasználó által megadott tartós tényeket, preferenciákat, korlátozásokat, döntéseket és vállalásokat; ne mentsen egyszeri feladat-részleteket, találgatásokat, vagy bármit, ami jelszót, tokent vagy más hitelesítő adatot tartalmaz. Ha már létezik hasonló jegyzet, frissítse azt az update_long_memory segítségével duplikátum hozzáadása helyett. Ha egy tény megváltozott, mentse az új jegyzetet úgy, hogy a supersedes a régi jegyzet memory_id-jára van állítva, hogy a régi tény nyugdíjba vonuljon, ahelyett, hogy a helyén szerkesztené.",
     "err.save": "[add_long_memory hiba] a memória mentése sikertelen",
     "result.saved": "[add_long_memory] elmentve (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] egy azonos jegyzet már el van mentve (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] a jegyzet hitelesítő adatot tartalmazni látszik; hitelesítő adatokat nem szabad a memóriában tárolni",
     "err.too_long": "[add_long_memory error] a jegyzet túl hosszú; szorítsa egy tömör jegyzetre",
     "describe.add": "Mentés a hosszú távú memóriába",
-    "describe.add_with_note": "Mentés a hosszú távú memóriába: %(note)s"
+    "describe.add_with_note": "Mentés a hosszú távú memóriába: %(note)s",
+    "param.supersedes.description": "Annak a meglévő jegyzetnek az opcionális memory_id-ja, amelyet ez lecserél, ha egy tény megváltozott (először keresse meg a get_long_memory segítségével). A lecserélt jegyzet nem kerül többé előhívásra, de visszaállítható marad, és a háttérben történő újratanulás nem hozza vissza.",
+    "result.saved_superseded": "[add_long_memory] mentve (memory_id: %(memory_id)s), lecserélve (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] egy azonos jegyzet már mentve van (memory_id: %(memory_id)s), lecserélve (memory_id: %(superseded_id)s)"
   },
   "ro": {
     "x_search_terms": [
@@ -782,14 +878,17 @@
     ],
     "err.note_empty": "[add_long_memory error] nota este goală",
     "param.note.description": "Scrieți exact o notă concisă (de preferință în japoneză) care ar trebui să fie reutilizată în conversațiile viitoare.",
-    "tool.description": "Salvează o notă de memorie pe termen lung despre utilizator sau mediu, care poate fi utilă în conversații viitoare. Salvează fapte durabile, preferințe, constrângeri, decizii și angajamente enunțate de utilizator; nu salva detalii de sarcini ocazionale, presupuneri sau orice conține parole, tokenuri sau alte acreditări. Dacă există deja o notă similară, actualizeaz-o cu update_long_memory în loc să adaugi un duplicat.",
+    "tool.description": "Salvează o notă de memorie pe termen lung despre utilizator sau mediu, care poate fi utilă în conversații viitoare. Salvează fapte durabile, preferințe, constrângeri, decizii și angajamente enunțate de utilizator; nu salva detalii de sarcini ocazionale, presupuneri sau orice conține parole, tokenuri sau alte acreditări. Dacă există deja o notă similară, actualizeaz-o cu update_long_memory în loc să adaugi un duplicat. Când un fapt s-a schimbat, salvează nota nouă cu supersedes setat la memory_id-ul notei vechi, astfel încât faptul vechi să fie retras, în loc să îl editezi pe loc.",
     "err.save": "[add_long_memory eroare] salvarea memoriei a eșuat",
     "result.saved": "[add_long_memory] salvat (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] o notă identică este deja salvată (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] nota pare să conțină acreditări; acreditările nu trebuie stocate în memorie",
     "err.too_long": "[add_long_memory error] nota este prea lungă; limiteaz-o la o notă concisă",
     "describe.add": "Salvare în memoria pe termen lung",
-    "describe.add_with_note": "Salvare în memoria pe termen lung: %(note)s"
+    "describe.add_with_note": "Salvare în memoria pe termen lung: %(note)s",
+    "param.supersedes.description": "memory_id opțional al notei existente pe care aceasta o înlocuiește atunci când un fapt s-a schimbat (caută-l mai întâi cu get_long_memory). Nota înlocuită nu mai este recuperată, dar rămâne restaurabilă, iar reînvățarea în fundal nu o va readuce.",
+    "result.saved_superseded": "[add_long_memory] salvat (memory_id: %(memory_id)s), înlocuit (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] o notă identică este deja salvată (memory_id: %(memory_id)s), înlocuită (memory_id: %(superseded_id)s)"
   },
   "fil": {
     "x_search_terms": [
@@ -806,14 +905,17 @@
     ],
     "err.note_empty": "[add_long_memory error] walang laman ang tala",
     "param.note.description": "Sumulat ng eksaktong isang maigsi na tala (ginustong Japanese) na dapat na magagamit muli sa mga pag-uusap sa hinaharap.",
-    "tool.description": "Nagse-save ng isang long-term memory note tungkol sa user o environment na maaaring maging kapaki-pakinabang sa mga susunod na pag-uusap. I-save ang mga pangmatagalang katotohanan, kagustuhan, limitasyon, desisyon at pangako na sinabi ng user; huwag i-save ang mga one-off na detalye ng gawain, hula, o anumang may password, token o iba pang kredensyal. Kung may katulad nang note, i-update ito gamit ang update_long_memory sa halip na magdagdag ng duplicate.",
+    "tool.description": "Nagse-save ng isang long-term memory note tungkol sa user o environment na maaaring maging kapaki-pakinabang sa mga susunod na pag-uusap. I-save ang mga pangmatagalang katotohanan, kagustuhan, limitasyon, desisyon at pangako na sinabi ng user; huwag i-save ang mga one-off na detalye ng gawain, hula, o anumang may password, token o iba pang kredensyal. Kung may katulad nang note, i-update ito gamit ang update_long_memory sa halip na magdagdag ng duplicate. Kapag nagbago ang isang katotohanan, i-save ang bagong tala na may supersedes na nakatakda sa memory_id ng lumang tala upang ma-retire ang lumang katotohanan, sa halip na i-edit ito sa lugar.",
     "err.save": "[add_long_memory error] nabigong i-save ang memory",
     "result.saved": "[add_long_memory] na-save (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] may magkaparehong note nang naka-save (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] mukhang may kredensyal ang note; hindi dapat iimbak ang mga kredensyal sa memory",
     "err.too_long": "[add_long_memory error] masyadong mahaba ang note; panatilihin ito sa isang maikling note",
     "describe.add": "Sine-save sa long-term memory",
-    "describe.add_with_note": "Sine-save sa long-term memory: %(note)s"
+    "describe.add_with_note": "Sine-save sa long-term memory: %(note)s",
+    "param.supersedes.description": "Opsyonal na memory_id ng umiiral na tala na pinapalitan nito kapag nagbago ang isang katotohanan (hanapin muna ito gamit ang get_long_memory). Ang pinalitan na tala ay hindi na kukunin, ngunit mananatiling maibabalik, at hindi ito ibabalik ng muling pagkatuto sa background.",
+    "result.saved_superseded": "[add_long_memory] na-save (memory_id: %(memory_id)s), napalitan (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] may magkaparehong tala nang naka-save (memory_id: %(memory_id)s), napalitan (memory_id: %(superseded_id)s)"
   },
   "ms": {
     "x_search_terms": [
@@ -830,14 +932,17 @@
     ],
     "err.note_empty": "[add_long_memory error] nota kosong",
     "param.note.description": "Tulis satu nota ringkas dengan tepat (pilihan bahasa Jepun) yang sepatutnya boleh digunakan semula dalam perbualan akan datang.",
-    "tool.description": "Menyimpan satu nota memori jangka panjang tentang pengguna atau persekitaran yang mungkin berguna dalam perbualan akan datang. Simpan fakta berkekalan, keutamaan, kekangan, keputusan dan komitmen yang dinyatakan pengguna; jangan simpan butiran tugas sekali sahaja, tekaan, atau apa-apa yang mengandungi kata laluan, token atau kelayakan lain. Jika nota serupa sudah wujud, kemas kini dengan update_long_memory dan bukannya menambah pendua.",
+    "tool.description": "Menyimpan satu nota memori jangka panjang tentang pengguna atau persekitaran yang mungkin berguna dalam perbualan akan datang. Simpan fakta berkekalan, keutamaan, kekangan, keputusan dan komitmen yang dinyatakan pengguna; jangan simpan butiran tugas sekali sahaja, tekaan, atau apa-apa yang mengandungi kata laluan, token atau kelayakan lain. Jika nota serupa sudah wujud, kemas kini dengan update_long_memory dan bukannya menambah pendua. Apabila sesuatu fakta telah berubah, simpan nota baharu dengan supersedes ditetapkan kepada memory_id nota lama supaya fakta lama dibersarakan, bukannya mengeditnya di tempat.",
     "err.save": "[add_long_memory ralat] gagal menyimpan memori",
     "result.saved": "[add_long_memory] disimpan (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] nota yang sama telah disimpan (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] nota kelihatan mengandungi kelayakan; kelayakan tidak boleh disimpan dalam memori",
     "err.too_long": "[add_long_memory error] nota terlalu panjang; ringkaskan kepada satu nota padat",
     "describe.add": "Menyimpan ke memori jangka panjang",
-    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s"
+    "describe.add_with_note": "Menyimpan ke memori jangka panjang: %(note)s",
+    "param.supersedes.description": "memory_id pilihan bagi nota sedia ada yang digantikan oleh nota ini apabila sesuatu fakta telah berubah (cari dahulu dengan get_long_memory). Nota yang digantikan berhenti diambil, tetapi kekal boleh dipulihkan, dan pembelajaran semula di latar belakang tidak akan membawanya kembali.",
+    "result.saved_superseded": "[add_long_memory] disimpan (memory_id: %(memory_id)s), digantikan (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] nota yang sama sudah disimpan (memory_id: %(memory_id)s), digantikan (memory_id: %(superseded_id)s)"
   },
   "da": {
     "x_search_terms": [
@@ -854,14 +959,17 @@
     ],
     "err.note_empty": "[add_long_memory error] noten er tom",
     "param.note.description": "Skriv præcis en kortfattet note (japansk foretrukket), som skal kunne genbruges i fremtidige samtaler.",
-    "tool.description": "Gemmer en langtidsminde-note om brugeren eller miljøet, som kan være nyttig i fremtidige samtaler. Gem varige fakta, præferencer, begrænsninger, beslutninger og forpligtelser, som brugeren angiver; gem ikke engangsopgavedetaljer, gæt eller noget, der indeholder adgangskoder, tokens eller andre legitimationsoplysninger. Hvis en lignende note allerede findes, så opdater den med update_long_memory i stedet for at tilføje en dublet.",
+    "tool.description": "Gemmer en langtidsminde-note om brugeren eller miljøet, som kan være nyttig i fremtidige samtaler. Gem varige fakta, præferencer, begrænsninger, beslutninger og forpligtelser, som brugeren angiver; gem ikke engangsopgavedetaljer, gæt eller noget, der indeholder adgangskoder, tokens eller andre legitimationsoplysninger. Hvis en lignende note allerede findes, så opdater den med update_long_memory i stedet for at tilføje en dublet. Når et faktum har ændret sig, skal du gemme den nye note med supersedes sat til den gamle notes memory_id, så det gamle faktum pensioneres, i stedet for at redigere det på stedet.",
     "err.save": "[add_long_memory fejl] kunne ikke gemme hukommelse",
     "result.saved": "[add_long_memory] gemt (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] en identisk note er allerede gemt (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] noten ser ud til at indeholde legitimationsoplysninger; de må ikke gemmes i hukommelsen",
     "err.too_long": "[add_long_memory error] noten er for lang; begræns den til én kortfattet note",
     "describe.add": "Gemmer i langtidshukommelsen",
-    "describe.add_with_note": "Gemmer i langtidshukommelsen: %(note)s"
+    "describe.add_with_note": "Gemmer i langtidshukommelsen: %(note)s",
+    "param.supersedes.description": "Valgfrit memory_id for den eksisterende note, som denne erstatter, når et faktum har ændret sig (slå det op med get_long_memory først). Den erstattede note hentes ikke længere, men kan gendannes, og genindlæring i baggrunden bringer den ikke tilbage.",
+    "result.saved_superseded": "[add_long_memory] gemt (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] en identisk note er allerede gemt (memory_id: %(memory_id)s), erstattet (memory_id: %(superseded_id)s)"
   },
   "nn": {
     "x_search_terms": [
@@ -878,13 +986,16 @@
     ],
     "err.note_empty": "[add_long_memory error] notatet er tomt",
     "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
-    "tool.description": "Lagrar eit langtidshugenotat om brukaren eller miljøet som kan vere nyttig i framtidige samtalar. Lagre varige fakta, preferansar, avgrensingar, avgjerder og forpliktingar som brukaren oppgjev; ikkje lagre eingongsdetaljar om oppgåver, gjettingar eller noko som inneheld passord, token eller annan legitimasjon. Dersom eit liknande notat allereie finst, oppdater det med update_long_memory i staden for å leggje til ein duplikat.",
+    "tool.description": "Lagrar eit langtidshugenotat om brukaren eller miljøet som kan vere nyttig i framtidige samtalar. Lagre varige fakta, preferansar, avgrensingar, avgjerder og forpliktingar som brukaren oppgjev; ikkje lagre eingongsdetaljar om oppgåver, gjettingar eller noko som inneheld passord, token eller annan legitimasjon. Dersom eit liknande notat allereie finst, oppdater det med update_long_memory i staden for å leggje til ein duplikat. Når eit faktum har endra seg, lagrar du den nye notaten med supersedes sett til den gamle notaten sitt memory_id, slik at det gamle faktumet blir pensjonert, i staden for å redigere det på staden.",
     "err.save": "[add_long_memory feil] klarte ikkje å lagre minne",
     "result.saved": "[add_long_memory] lagra (memory_id: %(memory_id)s)",
     "result.duplicate": "[add_long_memory] eit identisk notat er allereie lagra (memory_id: %(memory_id)s)",
     "err.secret": "[add_long_memory error] notatet ser ut til å innehalde legitimasjon; legitimasjon skal ikkje lagrast i minnet",
     "err.too_long": "[add_long_memory error] notatet er for langt; avgrens det til eitt konsist notat",
     "describe.add": "Lagrar i langtidshugen",
-    "describe.add_with_note": "Lagrar i langtidshugen: %(note)s"
+    "describe.add_with_note": "Lagrar i langtidshugen: %(note)s",
+    "param.supersedes.description": "Valfritt memory_id for den eksisterande notaten som denne erstattar når eit faktum har endra seg (slå det opp med get_long_memory først). Den erstatta notaten blir ikkje lenger henta, men kan gjenopprettast, og ny læring i bakgrunnen vil ikkje bringe han tilbake.",
+    "result.saved_superseded": "[add_long_memory] lagra (memory_id: %(memory_id)s), erstatta (memory_id: %(superseded_id)s)",
+    "result.duplicate_superseded": "[add_long_memory] ein identisk note er allereie lagra (memory_id: %(memory_id)s), erstatta (memory_id: %(superseded_id)s)"
   }
 }

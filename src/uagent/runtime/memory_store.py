@@ -560,17 +560,54 @@ class MemoryStore:
             raise
         return True
 
-    def restore_by_id(self, memory_id: str) -> bool:
-        """Undo a tombstone, returning the record to active status."""
+    def supersede_by_id(self, memory_id: str) -> bool:
+        """Mark one active record superseded by a newer record.
+
+        Superseded records disappear from ``records()`` and projection
+        like tombstones, but the status stays distinct: the note was
+        retired because a newer fact replaced it, not because the user
+        asked to forget it. The row survives so the change stays
+        auditable, :meth:`restore_by_id` can undo it, and re-learning
+        paths can see the content was deliberately retired (the forget
+        boundary treats every non-active status alike). The link to
+        the replacement lives on the new record's ``supersedes_id``.
+        """
         current = self._get_by_id(str(memory_id))
-        if current is None or current.get("status") != "deleted":
+        if current is None or current.get("status") != "active":
+            return False
+        now = time.time()
+        try:
+            cursor = self.db.execute(
+                "UPDATE memories SET status = 'superseded', updated_at = ?, "
+                "revision = ? WHERE memory_id = ? AND status = 'active' "
+                "AND revision = ?",
+                (
+                    now,
+                    int(current.get("revision") or 0) + 1,
+                    str(memory_id),
+                    int(current.get("revision") or 0),
+                ),
+            )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+        return True
+
+    def restore_by_id(self, memory_id: str) -> bool:
+        """Undo a tombstone or a supersede, returning the record to active."""
+        current = self._get_by_id(str(memory_id))
+        if current is None or current.get("status") not in ("deleted", "superseded"):
             return False
         now = time.time()
         try:
             cursor = self.db.execute(
                 "UPDATE memories SET status = 'active', updated_at = ?, "
-                "revision = ? WHERE memory_id = ? AND status = 'deleted' "
-                "AND revision = ?",
+                "revision = ? WHERE memory_id = ? AND status IN "
+                "('deleted', 'superseded') AND revision = ?",
                 (
                     now,
                     int(current.get("revision") or 0) + 1,

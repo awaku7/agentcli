@@ -181,6 +181,34 @@ def tool_save_enabled() -> bool:
 _BACKGROUND_SOURCES = frozenset({"consolidation"})
 
 
+def _resolve_supersede_target(
+    records: list[dict[str, Any]],
+    supersedes_id: str,
+    *,
+    owner: str,
+    project: str,
+    exclude_id: str = "",
+) -> str:
+    """Return ``supersedes_id`` when it names a record this save may retire.
+
+    The target must be active, in the save's owner/project scope, and
+    different from ``exclude_id`` (the record the save resolves to, so
+    a note never supersedes itself). Anything else is ignored: a stale
+    or foreign id must not block or corrupt an otherwise valid save.
+    """
+    if not supersedes_id:
+        return ""
+    for record in records:
+        if (
+            str(record.get("memory_id") or "") == supersedes_id
+            and supersedes_id != exclude_id
+            and _is_active(record)
+            and _same_scope(record, owner, project)
+        ):
+            return supersedes_id
+    return ""
+
+
 def save_long_memory(
     note: str,
     *,
@@ -189,6 +217,7 @@ def save_long_memory(
     source: str = "",
     source_id: str = "",
     replay: bool = False,
+    supersedes_id: str = "",
 ) -> dict[str, Any]:
     """Save one note through the checked save path used by agent-facing writers.
 
@@ -201,7 +230,13 @@ def save_long_memory(
     another project is a different note). ``replay=True`` marks a save
     re-derived from stored history (a history-rewrite re-scan); replays
     get the background forget boundary described at
-    ``_BACKGROUND_SOURCES``.
+    ``_BACKGROUND_SOURCES``. ``supersedes_id`` names an existing active
+    record in the same scope that this note replaces (a changed fact):
+    on a successful save the old record is marked ``superseded`` — it
+    stops being retrieved, stays restorable, and background re-learning
+    will not resurrect it — and the new record links back to it.
+    An unknown, inactive, or out-of-scope ``supersedes_id`` is ignored.
+    The result carries ``superseded_id`` when a record was superseded.
     """
     from ..runtime.memory_scope import resolve_memory_owner
 
@@ -263,22 +298,60 @@ def save_long_memory(
                                 source=source,
                                 source_id=source_id,
                             )
+                        # A duplicate save can still retire the record it
+                        # replaces: the replacement fact may have been
+                        # saved earlier without naming its predecessor.
+                        superseded_id = ""
+                        target = _resolve_supersede_target(
+                            store.records(include_inactive=True),
+                            supersedes_id,
+                            owner=owner,
+                            project=project,
+                            exclude_id=str(record.get("memory_id") or ""),
+                        )
+                        if target:
+                            try:
+                                if store.supersede_by_id(target):
+                                    superseded_id = target
+                            except Exception:
+                                superseded_id = ""
                         return {
                             "saved": False,
                             "reason": "duplicate",
                             "memory_id": str(record.get("memory_id") or ""),
+                            "superseded_id": superseded_id,
                         }
+                supersede_target = _resolve_supersede_target(
+                    store.records(include_inactive=True),
+                    supersedes_id,
+                    owner=owner,
+                    project=project,
+                )
                 record = store.append(
                     text,
                     owner=owner,
                     project=project,
                     source=source,
                     source_id=source_id,
+                    supersedes_id=supersede_target,
                 )
+                if supersede_target == str(record.get("memory_id") or ""):
+                    # append() returned the target itself (its source_id
+                    # dedup): a record never supersedes itself.
+                    supersede_target = ""
+                if supersede_target:
+                    try:
+                        store.supersede_by_id(supersede_target)
+                    except Exception:
+                        # The save itself already committed; a failed
+                        # supersede leaves both records active, which is
+                        # recoverable, never corrupting.
+                        supersede_target = ""
                 return {
                     "saved": True,
                     "reason": "saved",
                     "memory_id": str(record.get("memory_id") or ""),
+                    "superseded_id": supersede_target,
                 }
             finally:
                 store.close()
@@ -321,6 +394,7 @@ def save_long_memory(
                 and _note_key(str(record.get("note") or "")) == key
                 and _same_scope(record, owner, project)
             ):
+                changed = False
                 if source_id and not str(record.get("source_id") or ""):
                     # Same provenance binding as the SQLite path: record
                     # where this content also came from so a later
@@ -328,15 +402,50 @@ def save_long_memory(
                     record["source_id"] = source_id
                     if source and not str(record.get("source") or ""):
                         record["source"] = source
+                    changed = True
+                # Same duplicate-save supersede as the SQLite path.
+                superseded_id = ""
+                target_id = _resolve_supersede_target(
+                    existing,
+                    supersedes_id,
+                    owner=owner,
+                    project=project,
+                    exclude_id=str(record.get("memory_id") or ""),
+                )
+                if target_id:
+                    for candidate in existing:
+                        if str(candidate.get("memory_id") or "") == target_id:
+                            candidate["status"] = "superseded"
+                            candidate["updated_at"] = time.time()
+                            candidate["revision"] = (
+                                int(candidate.get("revision") or 1) + 1
+                            )
+                            superseded_id = target_id
+                            changed = True
+                            break
+                if changed:
                     _rewrite_jsonl_records(existing)
                 return {
                     "saved": False,
                     "reason": "duplicate",
                     "memory_id": str(record.get("memory_id") or ""),
+                    "superseded_id": superseded_id,
                 }
         dirpath = os.path.dirname(memory_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
+        supersede_target = _resolve_supersede_target(
+            existing,
+            supersedes_id,
+            owner=owner,
+            project=project,
+        )
+        supersede_record: dict[str, Any] | None = None
+        if supersede_target:
+            for existing_record in existing:
+                if str(existing_record.get("memory_id") or "") == supersede_target:
+                    supersede_record = existing_record
+                    break
         now = time.time()
         record = {
             "schema_version": JSONL_SCHEMA_VERSION,
@@ -352,10 +461,27 @@ def save_long_memory(
             "source_id": source_id,
             "revision": 1,
             "status": "active",
+            "supersedes_id": supersede_target,
         }
         with open(memory_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
-        return {"saved": True, "reason": "saved", "memory_id": record["memory_id"]}
+        if supersede_record is not None:
+            supersede_record["status"] = "superseded"
+            supersede_record["updated_at"] = time.time()
+            supersede_record["revision"] = (
+                int(supersede_record.get("revision") or 1) + 1
+            )
+            existing.append(record)
+            if not _rewrite_jsonl_records(existing):
+                # The new note is saved either way; a failed rewrite
+                # leaves the old record active, which is recoverable.
+                supersede_target = ""
+        return {
+            "saved": True,
+            "reason": "saved",
+            "memory_id": record["memory_id"],
+            "superseded_id": supersede_target,
+        }
     except Exception:
         return {"saved": False, "reason": "error", "memory_id": ""}
 
