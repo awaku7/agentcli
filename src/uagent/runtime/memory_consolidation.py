@@ -348,14 +348,17 @@ def run_startup_consolidation(
 
     Sessions that ended because the process exited (or crashed) never
     hit the switch trigger; the newest other session in the same
-    project is consolidated once, from its stored messages, the next
-    time a store attaches. Only that one session is considered — in
-    the normal chain each startup handles the session right before
-    it — and only local sessions qualify: rows bound to a Web
-    principal or a room are skipped, since their content belongs to
-    that identity, not to the local memory owner. Everything here is
-    best-effort and off the foreground path beyond two small store
-    reads.
+    project that still needs a pass is consolidated once, from its
+    stored messages, the next time a store attaches. Only one pass
+    runs per startup — in the normal chain each startup handles the
+    session right before it — and only local sessions qualify: rows
+    bound to a Web principal or a room are skipped, since their
+    content belongs to that identity, not to the local memory owner.
+    A newer session with too few turns to consolidate, or one
+    already covered, must not hide an older conversation whose
+    startup pass failed: the scan continues past such rows instead
+    of stopping at the first one. Everything here is best-effort
+    and off the foreground path beyond a few store reads.
     """
     try:
         if not consolidation_enabled() or store is None:
@@ -383,7 +386,6 @@ def run_startup_consolidation(
             except Exception:
                 return
         rows = store.list_sessions()
-        candidate: dict[str, Any] | None = None
         for row in rows or []:
             if not isinstance(row, dict):
                 continue
@@ -406,15 +408,17 @@ def run_startup_consolidation(
                 # A newer session from another project must not hide an
                 # older unconsolidated session of this project.
                 continue
-            candidate = row
-            break
-        if candidate is None:
+            messages = store.list_messages(sid) or []
+            # Keep searching past sessions that need no pass: one with
+            # too few turns to consolidate, or one already covered,
+            # must not hide an older conversation whose startup pass
+            # failed or never ran.
+            if _user_turn_count(messages) < _MIN_USER_TURNS_FOR_SESSION_END:
+                continue
+            if _session_is_covered(sid, messages):
+                continue
+            run_session_end_consolidation(messages, core, session_id=sid)
             return
-        sid = str(candidate.get("session_id") or "")
-        messages = store.list_messages(sid) or []
-        if messages and _session_is_covered(sid, messages):
-            return
-        run_session_end_consolidation(messages, core, session_id=sid)
     except Exception:
         pass
 
@@ -454,6 +458,11 @@ def _consolidation_worker(
             temperature=0.0,
         )
         notes = _parse_notes(raw_response)
+        if notes is None:
+            # The provider did not return a usable extraction result.
+            # Treat the pass as failed so the session stays eligible
+            # for a later retry instead of being watermarked as done.
+            return False
         if notes:
             save_consolidation_notes(notes, owner=owner, project=project)
         return True
@@ -462,8 +471,16 @@ def _consolidation_worker(
         return False
 
 
-def _parse_notes(raw_response: str) -> list[str]:
-    """Parse the extraction response into a list of note strings."""
+def _parse_notes(raw_response: str) -> list[str] | None:
+    """Parse the extraction response into a list of note strings.
+
+    Returns None when the response is not a usable extraction result
+    (empty, malformed or truncated JSON, or a payload without a
+    ``notes`` list), so the caller can treat the pass as failed and
+    leave the session eligible for a later retry. A well-formed
+    response with no notes returns an empty list: the model looked
+    and found nothing, so that pass is done.
+    """
     cleaned = str(raw_response or "").strip()
     if cleaned.startswith("```"):
         lines = cleaned.splitlines()
@@ -475,10 +492,10 @@ def _parse_notes(raw_response: str) -> list[str]:
     try:
         payload = json.loads(cleaned)
     except Exception:
-        return []
+        return None
     items = payload.get("notes") if isinstance(payload, dict) else payload
     if not isinstance(items, list):
-        return []
+        return None
     return [
         str(item).strip()
         for item in items

@@ -31,7 +31,9 @@ def test_parse_notes_variants() -> None:
     assert _parse_notes('{"notes": ["a", "b"]}') == ["a", "b"]
     assert _parse_notes('```json\n{"notes": ["a"]}\n```') == ["a"]
     assert _parse_notes('["a"]') == ["a"]
-    assert _parse_notes("not json") == []
+    assert _parse_notes("not json") is None
+    assert _parse_notes('{"other": 1}') is None
+    assert _parse_notes("") is None
     assert _parse_notes('{"notes": []}') == []
     assert _parse_notes('{"notes": [1, "x", " "]}') == ["x"]
 
@@ -155,6 +157,37 @@ def test_consolidation_worker_returns_false_on_storage_error(
         {"role": "assistant", "content": "こんにちは"},
     ]
     assert memory_consolidation._consolidation_worker(messages, core=None) is False
+
+
+def test_consolidation_worker_rejects_invalid_extraction_response(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent import profile_manager
+    from uagent.providers import util_providers
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(
+        util_providers, "make_client", lambda core: ("provider", object(), "model")
+    )
+    messages = [
+        {"role": "user", "content": "こんにちは"},
+        {"role": "assistant", "content": "こんにちは"},
+    ]
+    # A truncated response is an extraction failure, not an empty
+    # result: the pass must fail so the session stays retryable.
+    monkeypatch.setattr(
+        profile_manager,
+        "_llm_simple_text",
+        lambda **kwargs: '{"notes": ["保存',
+    )
+    assert memory_consolidation._consolidation_worker(messages, core=None) is False
+
+    # A well-formed response with no notes is a completed pass.
+    monkeypatch.setattr(
+        profile_manager, "_llm_simple_text", lambda **kwargs: '{"notes": []}'
+    )
+    assert memory_consolidation._consolidation_worker(messages, core=None) is True
 
 
 def test_marker_replay_cannot_resurrect_consolidation_note(

@@ -355,6 +355,64 @@ def test_pending_snapshot_latest_offer_wins_after_compression(
     assert seen[1] == (len(compressed), "圧縮後の回答")
 
 
+def test_startup_scans_past_trivial_and_covered_sessions(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation, memory_scope
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    monkeypatch.setattr(memory_scope, "resolve_memory_project", lambda: "proj-a")
+    calls = _record_worker(monkeypatch)
+
+    # The newest other session ended after one user turn (below the
+    # gate) and the next one is already covered. A failed
+    # conversation behind them must still be caught up, not hidden
+    # behind the newer rows on every startup.
+    covered_messages = _messages(2)
+    memory_consolidation.run_session_end_consolidation(
+        covered_messages, core=None, session_id="covered"
+    )
+    _wait_for(calls, 1)
+    # Wait until the background thread actually wrote the watermark;
+    # the worker call alone does not mean the state file is updated.
+    state_path = repo_tmp_path / "memory_consolidation_state.json"
+    for _ in range(100):
+        if state_path.exists() and "covered" in state_path.read_text():
+            break
+        time.sleep(0.05)
+    assert "covered" in state_path.read_text()
+
+    store = _FakeStore(
+        [
+            _row("current"),
+            _row("trivial"),
+            _row("covered"),
+            _row("failed"),
+        ],
+        {
+            "trivial": _messages(1),
+            "covered": covered_messages,
+            "failed": _messages(3),
+        },
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, store, current_session_id="current"
+    )
+    _wait_for(calls, 2)
+    assert calls == [len(covered_messages), len(_messages(3))]
+
+    # When every older session is trivial or covered, nothing runs.
+    only_trivial = _FakeStore(
+        [_row("current"), _row("trivial")],
+        {"trivial": _messages(1)},
+    )
+    memory_consolidation.run_startup_consolidation(
+        None, only_trivial, current_session_id="current"
+    )
+    _settle()
+    assert calls == [len(covered_messages), len(_messages(3))]
+
+
 class _FakeStore:
     def __init__(self, rows: list[dict[str, Any]], messages: dict[str, list]) -> None:
         self._rows = rows

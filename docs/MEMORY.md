@@ -123,6 +123,10 @@ sessions bound to a Web principal or a room belong to that identity
 and are never read into the local memory, and candidates are
 filtered by the current session's stored workspace project, not by
 the memory-project override that only names where notes are saved.
+A startup that finds only sessions with too few turns, or sessions
+already consolidated, keeps looking at older rows for the newest
+one that still needs a pass, so a failed conversation is not hidden
+behind newer trivial sessions forever.
 A log-file session with no SQLite store is identified by the
 process log session id instead. Session-end passes need at
 least two user turns, and a per-session watermark in the state file
@@ -131,7 +135,7 @@ with a fingerprint of the last message. An unchanged session never
 costs a second provider call, a pass that failed or was interrupted
 leaves the session eligible for a later retry (including when the
 extraction worked but the memory backend failed to store the
-notes), a history that shrank
+notes, or the extraction response itself was unusable), a history that shrank
 through compression cannot hide new turns behind an old count, and a
 session that resumes and grows past the watermark is consolidated
 again. While a pass is still running, a newer snapshot offered for
