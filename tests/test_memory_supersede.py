@@ -173,6 +173,40 @@ def test_duplicate_save_can_still_supersede(
     assert active_notes == ["住所は大阪"]
 
 
+@pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
+def test_supersede_propagates_forget_invalidation(
+    backend: str, repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools import long_memory
+
+    _setup(backend, monkeypatch, repo_tmp_path)
+
+    calls: list[int] = []
+    monkeypatch.setattr(
+        long_memory,
+        "_propagate_memory_forget",
+        lambda core=None: calls.append(1),
+    )
+
+    old = long_memory.save_long_memory("住所は東京", source="tool")
+    assert calls == []
+
+    new = long_memory.save_long_memory(
+        "住所は大阪", source="tool", supersedes_id=old["memory_id"]
+    )
+    assert new["superseded_id"] == old["memory_id"]
+    assert len(calls) == 1
+
+    # The duplicate-save supersede path invalidates as well.
+    other = long_memory.save_long_memory("勤務先はA社", source="tool")
+    long_memory.save_long_memory("勤務先はB社", source="tool")
+    again = long_memory.save_long_memory(
+        "勤務先はB社", source="tool", supersedes_id=other["memory_id"]
+    )
+    assert again["superseded_id"] == other["memory_id"]
+    assert len(calls) == 2
+
+
 def test_store_supersede_and_restore(tmp_path: Path) -> None:
     from uagent.runtime.memory_store import open_memory_store
 

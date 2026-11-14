@@ -240,6 +240,10 @@ def save_long_memory(
     will not resurrect it — and the new record links back to it.
     An unknown, inactive, or out-of-scope ``supersedes_id`` is ignored.
     The result carries ``superseded_id`` when a record was superseded.
+    A successful supersede also propagates a forget invalidation
+    (:func:`_propagate_memory_forget`), like a tombstone: the retired
+    fact must leave in-flight projections and provider continuations
+    at once, not at the next turn.
     """
     from ..runtime.memory_scope import resolve_memory_owner
 
@@ -316,6 +320,7 @@ def save_long_memory(
                             try:
                                 if store.supersede_by_id(target):
                                     superseded_id = target
+                                    _propagate_memory_forget()
                             except Exception:
                                 superseded_id = ""
                         return {
@@ -345,6 +350,7 @@ def save_long_memory(
                 if supersede_target:
                     try:
                         store.supersede_by_id(supersede_target)
+                        _propagate_memory_forget()
                     except Exception:
                         # The save itself already committed; a failed
                         # supersede leaves both records active, which is
@@ -426,8 +432,10 @@ def save_long_memory(
                             superseded_id = target_id
                             changed = True
                             break
-                if changed:
-                    _rewrite_jsonl_records(existing)
+                if changed and not _rewrite_jsonl_records(existing):
+                    superseded_id = ""
+                elif superseded_id:
+                    _propagate_memory_forget()
                 return {
                     "saved": False,
                     "reason": "duplicate",
@@ -479,6 +487,8 @@ def save_long_memory(
                 # The new note is saved either way; a failed rewrite
                 # leaves the old record active, which is recoverable.
                 supersede_target = ""
+            else:
+                _propagate_memory_forget()
         return {
             "saved": True,
             "reason": "saved",
