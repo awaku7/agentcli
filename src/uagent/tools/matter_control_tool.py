@@ -658,3 +658,19 @@ def run_tool(args: dict[str, Any]) -> str:
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the Matter device, selected control action, and value."""
+
+    args = args or {}
+    purpose = str(_("tool.description", default="Control a Matter device."))
+    return (
+        f"{purpose} (device={args.get('dev') or '<missing>'}; "
+        f"action={args.get('action') or '<unknown>'}; value={args.get('value', '<not set>')}; "
+        f"controller={args.get('ctrl') or '<default>'}; bridge={args.get('bridge') or '<default>'}; "
+        f"dry_run={bool(args.get('dry_run', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

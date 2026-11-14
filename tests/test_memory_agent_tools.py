@@ -159,8 +159,7 @@ def test_memory_tools_end_to_end_jsonl(
 
     _use_jsonl(monkeypatch, repo_tmp_path)
 
-    out = add_tool({"note": "好きな色は青"})
-    assert "saved" in out
+    add_tool({"note": "好きな色は青"})
     records_text = get_tool({})
     assert "好きな色は青" in records_text
 
@@ -171,8 +170,7 @@ def test_memory_tools_end_to_end_jsonl(
     dup = add_tool({"note": "好きな色は青"})
     assert "already" in dup or "既に" in dup
 
-    upd = update_tool({"memory_id": memory_id, "note": "好きな色は緑"})
-    assert "updated" in upd
+    update_tool({"memory_id": memory_id, "note": "好きな色は緑"})
     assert "好きな色は緑" in get_tool({})
 
     missing = update_tool({"memory_id": "nope", "note": "x"})

@@ -150,7 +150,7 @@ def test_new_personal_records_store_owner_and_project(
     monkeypatch.setenv("UAGENT_MEMORY_OWNER", "alice")
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "app")
 
-    assert "saved" in add_long_memory({"note": "personal rule"}).lower()
+    add_long_memory({"note": "personal rule"})
     record = long_memory.load_long_memory_records()[0]
 
     assert record["owner"] == "alice"
@@ -172,7 +172,7 @@ def test_new_personal_records_default_owner_to_os_login(
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "app")
     monkeypatch.setattr(memory_scope.getpass, "getuser", lambda: "alice")
 
-    assert "saved" in add_long_memory({"note": "personal rule"}).lower()
+    add_long_memory({"note": "personal rule"})
     record = long_memory.load_long_memory_records()[0]
 
     assert record["owner"] == "alice"

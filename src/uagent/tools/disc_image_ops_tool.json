@@ -29,7 +29,19 @@
     "err.not_found": "必要な入力ファイルまたは依存関係が見つかりません。",
     "err.invalid": "ディスクイメージのオプション、パス、または形式が無効です。",
     "err.dependency": "必要なディスクイメージ依存関係を利用できません。",
-    "err.operation_failed": "ディスクイメージ処理に失敗しました。"
+    "err.operation_failed": "ディスクイメージ処理に失敗しました。",
+    "describe.action_labels": [
+      "イメージ情報を取得",
+      "イメージ内のファイルを一覧",
+      "イメージの整合性を検証",
+      "イメージを展開",
+      "イメージ形式を変換"
+    ],
+    "describe.output": "、出力先: %(path)s",
+    "describe.path_type": "パス形式: %(path_type)s",
+    "describe.deep": "全ファイルを読み取って検証",
+    "describe.overwrite": "既存出力の上書きを許可",
+    "describe.summary": "%(path)sを%(action)sします%(output)s%(details)s。"
   },
   "es": {
     "tool.description": "Inspecciona, enumera, verifica, extrae o convierte imágenes de disco ISO y CHD. Las operaciones ISO usan pycdlib; las operaciones CHD usan xverter. Las dependencias opcionales de Python se instalan automáticamente según UAGENT_AUTO_INSTALL.",
@@ -61,7 +73,19 @@
     "err.not_found": "No se encontró un archivo de entrada o una dependencia necesarios.",
     "err.invalid": "Una opción, ruta o formato de imagen de disco no es válido.",
     "err.dependency": "Una dependencia necesaria para imágenes de disco no está disponible.",
-    "err.operation_failed": "Falló la operación de imagen de disco."
+    "err.operation_failed": "Falló la operación de imagen de disco.",
+    "describe.action_labels": [
+      "Leer metadatos de imagen",
+      "Enumerar el contenido de la imagen",
+      "Verificar la integridad de la imagen",
+      "Extraer el contenido de la imagen",
+      "Convertir formato de imagen"
+    ],
+    "describe.output": "; salida: %(path)s",
+    "describe.path_type": "tipo de ruta: %(path_type)s",
+    "describe.deep": "verificación profunda",
+    "describe.overwrite": "sobrescribir permitido",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "fr": {
     "tool.description": "Inspecte, répertorie, vérifie, extrait ou convertit des images disque ISO et CHD. Les opérations ISO utilisent pycdlib ; les opérations CHD utilisent xverter. Les dépendances Python facultatives sont installées automatiquement selon UAGENT_AUTO_INSTALL.",
@@ -93,7 +117,19 @@
     "err.not_found": "Un fichier d'entrée ou une dépendance requis est introuvable.",
     "err.invalid": "Une option, un chemin ou un format d'image disque est invalide.",
     "err.dependency": "Une dépendance requise pour les images disque n'est pas disponible.",
-    "err.operation_failed": "L'opération d'image disque a échoué."
+    "err.operation_failed": "L'opération d'image disque a échoué.",
+    "describe.action_labels": [
+      "Lire les métadonnées de l'image",
+      "Liste du contenu de l'image",
+      "Vérifier l'intégrité de l'image",
+      "Extraire le contenu de l'image",
+      "Convertir le format de l'image"
+    ],
+    "describe.output": "; sortie : %(path)s",
+    "describe.path_type": "type de chemin : %(path_type)s",
+    "describe.deep": "vérification approfondie",
+    "describe.overwrite": "écrasement autorisé",
+    "describe.summary": "%(action)s : %(path)s%(output)s%(details)s."
   },
   "de": {
     "tool.description": "Untersucht, listet, prüft, extrahiert oder konvertiert ISO- und CHD-Datenträgerabbilder. ISO-Operationen verwenden pycdlib, CHD-Operationen xverter. Optionale Python-Abhängigkeiten werden gemäß UAGENT_AUTO_INSTALL automatisch installiert.",
@@ -125,7 +161,19 @@
     "err.not_found": "Eine erforderliche Eingabedatei oder Abhängigkeit wurde nicht gefunden.",
     "err.invalid": "Eine Option, ein Pfad oder ein Format für das Datenträgerabbild ist ungültig.",
     "err.dependency": "Eine erforderliche Abhängigkeit für Datenträgerabbilder ist nicht verfügbar.",
-    "err.operation_failed": "Die Datenträgerabbild-Operation ist fehlgeschlagen."
+    "err.operation_failed": "Die Datenträgerabbild-Operation ist fehlgeschlagen.",
+    "describe.action_labels": [
+      "Bildmetadaten lesen",
+      "Bildinhalte auflisten",
+      "Bildintegrität überprüfen",
+      "Bildinhalte extrahieren",
+      "Bildformat konvertieren"
+    ],
+    "describe.output": "; Ausgabe: %(path)s",
+    "describe.path_type": "Pfadtyp: %(path_type)s",
+    "describe.deep": "tiefe Überprüfung",
+    "describe.overwrite": "Überschreiben erlaubt",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "it": {
     "tool.description": "Ispeziona, elenca, verifica, estrae o converte immagini disco ISO e CHD. Le operazioni ISO usano pycdlib; le operazioni CHD usano xverter. Le dipendenze Python opzionali vengono installate automaticamente secondo UAGENT_AUTO_INSTALL.",
@@ -157,7 +205,19 @@
     "err.not_found": "Non è stato trovato un file di input o una dipendenza richiesta.",
     "err.invalid": "Un'opzione, un percorso o un formato dell'immagine disco non è valido.",
     "err.dependency": "Una dipendenza richiesta per le immagini disco non è disponibile.",
-    "err.operation_failed": "L'operazione sull'immagine disco non è riuscita."
+    "err.operation_failed": "L'operazione sull'immagine disco non è riuscita.",
+    "describe.action_labels": [
+      "Leggi i metadati dell'immagine",
+      "Elenca i contenuti dell'immagine",
+      "Verifica l'integrità dell'immagine",
+      "Estrai i contenuti dell'immagine",
+      "Converti il formato dell'immagine"
+    ],
+    "describe.output": "; uscita: %(path)s",
+    "describe.path_type": "tipo di percorso: %(path_type)s",
+    "describe.deep": "verifica profonda",
+    "describe.overwrite": "sovrascrittura consentita",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "pt": {
     "tool.description": "Inspeciona, lista, verifica, extrai ou converte imagens de disco ISO e CHD. As operações ISO usam pycdlib; as operações CHD usam xverter. As dependências Python opcionais são instaladas automaticamente de acordo com UAGENT_AUTO_INSTALL.",
@@ -189,7 +249,19 @@
     "err.not_found": "Não foi encontrado um ficheiro de entrada ou uma dependência necessária.",
     "err.invalid": "Uma opção, caminho ou formato de imagem de disco é inválido.",
     "err.dependency": "Uma dependência necessária para imagens de disco não está disponível.",
-    "err.operation_failed": "A operação de imagem de disco falhou."
+    "err.operation_failed": "A operação de imagem de disco falhou.",
+    "describe.action_labels": [
+      "Leia os metadados da imagem",
+      "Liste o conteúdo da imagem",
+      "Verifique a integridade da imagem",
+      "Extraia o conteúdo da imagem",
+      "Converta o formato da imagem"
+    ],
+    "describe.output": "; saída: %(path)s",
+    "describe.path_type": "tipo de caminho: %(path_type)s",
+    "describe.deep": "verificação profunda",
+    "describe.overwrite": "substituição permitida",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "pt_BR": {
     "tool.description": "Inspeciona, lista, verifica, extrai ou converte imagens de disco ISO e CHD. As operações ISO usam pycdlib; as operações CHD usam xverter. As dependências Python opcionais são instaladas automaticamente de acordo com UAGENT_AUTO_INSTALL.",
@@ -221,7 +293,19 @@
     "err.not_found": "Um arquivo de entrada ou uma dependência necessária não foi encontrado.",
     "err.invalid": "Uma opção, caminho ou formato de imagem de disco é inválido.",
     "err.dependency": "Uma dependência necessária para imagens de disco não está disponível.",
-    "err.operation_failed": "A operação de imagem de disco falhou."
+    "err.operation_failed": "A operação de imagem de disco falhou.",
+    "describe.action_labels": [
+      "Leia os metadados da imagem",
+      "Liste o conteúdo da imagem",
+      "Verifique a integridade da imagem",
+      "Extraia o conteúdo da imagem",
+      "Converta o formato da imagem"
+    ],
+    "describe.output": "; saída: %(path)s",
+    "describe.path_type": "tipo de caminho: %(path_type)s",
+    "describe.deep": "verificação profunda",
+    "describe.overwrite": "substituição permitida",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "nl": {
     "tool.description": "Inspecteert, vermeldt, verifieert, extraheert of converteert ISO- en CHD-schijfimages. ISO-bewerkingen gebruiken pycdlib; CHD-bewerkingen gebruiken xverter. Optionele Python-afhankelijkheden worden automatisch geïnstalleerd volgens UAGENT_AUTO_INSTALL.",
@@ -253,7 +337,19 @@
     "err.not_found": "Een vereist invoerbestand of een vereiste afhankelijkheid is niet gevonden.",
     "err.invalid": "Een schijfimageoptie, pad of formaat is ongeldig.",
     "err.dependency": "Een vereiste afhankelijkheid voor schijfimages is niet beschikbaar.",
-    "err.operation_failed": "De schijfimagebewerking is mislukt."
+    "err.operation_failed": "De schijfimagebewerking is mislukt.",
+    "describe.action_labels": [
+      "Metagegevens van afbeeldingen lezen",
+      "Lijst van afbeeldingsinhoud",
+      "Verifieer de afbeeldingsintegriteit",
+      "Extraheer afbeeldingsinhoud",
+      "Converteer afbeeldingsformaat"
+    ],
+    "describe.output": "; uitvoer: %(path)s",
+    "describe.path_type": "padtype: %(path_type)s",
+    "describe.deep": "diepgaande verificatie",
+    "describe.overwrite": "overschrijven toegestaan",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "sv": {
     "tool.description": "Inspekterar, listar, verifierar, extraherar eller konverterar ISO- och CHD-diskavbilder. ISO-operationer använder pycdlib; CHD-operationer använder xverter. Valfria Python-beroenden installeras automatiskt enligt UAGENT_AUTO_INSTALL.",
@@ -285,7 +381,19 @@
     "err.not_found": "En nödvändig indatafil eller ett beroende hittades inte.",
     "err.invalid": "Ett alternativ, en sökväg eller ett format för diskavbilden är ogiltigt.",
     "err.dependency": "Ett nödvändigt beroende för diskavbilden är inte tillgängligt.",
-    "err.operation_failed": "Diskavbildsåtgärden misslyckades."
+    "err.operation_failed": "Diskavbildsåtgärden misslyckades.",
+    "describe.action_labels": [
+      "Läs bildmetadata",
+      "Lista bildinnehåll",
+      "Verifiera bildens integritet",
+      "Extrahera bildinnehåll",
+      "Konvertera bildformat"
+    ],
+    "describe.output": "; utdata: %(path)s",
+    "describe.path_type": "sökvägstyp: %(path_type)s",
+    "describe.deep": "djup verifiering",
+    "describe.overwrite": "överskrivning tillåten",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "da": {
     "tool.description": "Inspicerer, lister, verificerer, udtrækker eller konverterer ISO- og CHD-diskafbildninger. ISO-operationer bruger pycdlib; CHD-operationer bruger xverter. Valgfrie Python-afhængigheder installeres automatisk i henhold til UAGENT_AUTO_INSTALL.",
@@ -317,7 +425,19 @@
     "err.not_found": "En nødvendig inputfil eller afhængighed blev ikke fundet.",
     "err.invalid": "En indstilling, sti eller et format for diskafbildningen er ugyldigt.",
     "err.dependency": "En nødvendig afhængighed til diskafbildninger er ikke tilgængelig.",
-    "err.operation_failed": "Diskafbildningsoperationen mislykkedes."
+    "err.operation_failed": "Diskafbildningsoperationen mislykkedes.",
+    "describe.action_labels": [
+      "Læs billedmetadata",
+      "Vis billedindhold",
+      "Bekræft billedintegritet",
+      "Udtræk billedindhold",
+      "Konverter billedformat"
+    ],
+    "describe.output": "; output: %(path)s",
+    "describe.path_type": "stitype: %(path_type)s",
+    "describe.deep": "dyb verifikation",
+    "describe.overwrite": "overskrivning tilladt",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "nb": {
     "tool.description": "Inspiserer, lister, verifiserer, trekker ut eller konverterer ISO- og CHD-diskavbilder. ISO-operasjoner bruker pycdlib; CHD-operasjoner bruker xverter. Valgfrie Python-avhengigheter installeres automatisk i henhold til UAGENT_AUTO_INSTALL.",
@@ -349,7 +469,19 @@
     "err.not_found": "En nødvendig inndatafil eller avhengighet ble ikke funnet.",
     "err.invalid": "Et alternativ, en sti eller et format for diskavbildningen er ugyldig.",
     "err.dependency": "En nødvendig avhengighet for diskavbildninger er ikke tilgjengelig.",
-    "err.operation_failed": "Diskavbildningsoperasjonen mislyktes."
+    "err.operation_failed": "Diskavbildningsoperasjonen mislyktes.",
+    "describe.action_labels": [
+      "Les bildemetadata",
+      "Liste bildeinnhold",
+      "Bekreft bildets integritet",
+      " Trekk ut bildeinnhold",
+      "Konverter bildeformat"
+    ],
+    "describe.output": "; utgang: %(path)s",
+    "describe.path_type": "banetype: %(path_type)s",
+    "describe.deep": "dyp verifisering",
+    "describe.overwrite": "overskriving tillatt",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "nn": {
     "tool.description": "Inspiserer, listar, verifiserer, trekkjer ut eller konverterer ISO- og CHD-diskavtrykk. ISO-operasjonar brukar pycdlib; CHD-operasjonar brukar xverter. Valfrie Python-avhengigheiter blir installerte automatisk etter UAGENT_AUTO_INSTALL.",
@@ -381,7 +513,19 @@
     "err.not_found": "Ei nødvendig inndatafil eller avhengigheit vart ikkje funnen.",
     "err.invalid": "Eit alternativ, ein sti eller eit format for diskavtrykket er ugyldig.",
     "err.dependency": "Ei nødvendig avhengigheit for diskavtrykk er ikkje tilgjengeleg.",
-    "err.operation_failed": "Diskavtrykk-operasjonen mislukkast."
+    "err.operation_failed": "Diskavtrykk-operasjonen mislukkast.",
+    "describe.action_labels": [
+      "Read image metadata",
+      "List image contents",
+      "Verify image integrity",
+      "Extract image contents",
+      "Convert image format"
+    ],
+    "describe.output": "; output: %(path)s",
+    "describe.path_type": "path type: %(path_type)s",
+    "describe.deep": "Djup",
+    "describe.overwrite": "Overskriv alt",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "fi": {
     "tool.description": "Tarkastelee, luettelee, varmistaa, purkaa tai muuntaa ISO- ja CHD-levykuvia. ISO-toiminnot käyttävät pycdlib-kirjastoa ja CHD-toiminnot xverteriä. Valinnaiset Python-riippuvuudet asennetaan automaattisesti UAGENT_AUTO_INSTALL-asetuksen mukaisesti.",
@@ -413,7 +557,19 @@
     "err.not_found": "Tarvittavaa syötetiedostoa tai riippuvuutta ei löytynyt.",
     "err.invalid": "Levykuvan valinta, polku tai muoto on virheellinen.",
     "err.dependency": "Tarvittava levykuvariippuvuus ei ole käytettävissä.",
-    "err.operation_failed": "Levykuvatoiminto epäonnistui."
+    "err.operation_failed": "Levykuvatoiminto epäonnistui.",
+    "describe.action_labels": [
+      "Lue kuvan metatiedot",
+      "Lista kuvan sisältö",
+      "Varmista kuvan eheys",
+      "Pura kuvan sisältö",
+      "Muunna kuvamuoto"
+    ],
+    "describe.output": "; lähtö: %(path)s",
+    "describe.path_type": "polun tyyppi: %(path_type)s",
+    "describe.deep": "syvä vahvistus",
+    "describe.overwrite": "päällekirjoitus sallittu",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "pl": {
     "tool.description": "Sprawdza, wyświetla listę, weryfikuje, rozpakowuje lub konwertuje obrazy dysków ISO i CHD. Operacje ISO używają pycdlib, a operacje CHD używają xverter. Opcjonalne zależności Pythona są instalowane automatycznie zgodnie z UAGENT_AUTO_INSTALL.",
@@ -445,7 +601,19 @@
     "err.not_found": "Nie znaleziono wymaganego pliku wejściowego lub zależności.",
     "err.invalid": "Opcja, ścieżka lub format obrazu dysku jest nieprawidłowy.",
     "err.dependency": "Wymagana zależność obsługi obrazu dysku jest niedostępna.",
-    "err.operation_failed": "Operacja obrazu dysku nie powiodła się."
+    "err.operation_failed": "Operacja obrazu dysku nie powiodła się.",
+    "describe.action_labels": [
+      "Odczyt metadanych obrazu",
+      "Wyświetl zawartość obrazu",
+      "Sprawdź integralność obrazu",
+      "Wyodrębnij zawartość obrazu",
+      "Konwertuj format obrazu"
+    ],
+    "describe.output": "; wyjście: %(path)s",
+    "describe.path_type": "typ ścieżki: %(path_type)s",
+    "describe.deep": "głęboka weryfikacja",
+    "describe.overwrite": "nadpisywanie dozwolone",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "cs": {
     "tool.description": "Kontroluje, vypisuje, ověřuje, extrahuje nebo převádí obrazy disků ISO a CHD. Operace ISO používají pycdlib, operace CHD používají xverter. Volitelné závislosti Pythonu se instalují automaticky podle UAGENT_AUTO_INSTALL.",
@@ -477,7 +645,19 @@
     "err.not_found": "Požadovaný vstupní soubor nebo závislost nebyly nalezeny.",
     "err.invalid": "Volba, cesta nebo formát obrazu disku je neplatný.",
     "err.dependency": "Požadovaná závislost pro obrazy disků není dostupná.",
-    "err.operation_failed": "Operace obrazu disku selhala."
+    "err.operation_failed": "Operace obrazu disku selhala.",
+    "describe.action_labels": [
+      "Číst metadata obrázku",
+      "Vypsat obsah obrázku",
+      "Ověřit integritu obrázku",
+      "Rozbalit obsah obrázku",
+      "Převést formát obrázku"
+    ],
+    "describe.output": "; výstup: %(path)s",
+    "describe.path_type": "typ cesty: %(path_type)s",
+    "describe.deep": "hluboké ověření",
+    "describe.overwrite": "přepsání povoleno",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "ro": {
     "tool.description": "Inspectează, listează, verifică, extrage sau convertește imagini de disc ISO și CHD. Operațiile ISO folosesc pycdlib, iar operațiile CHD folosesc xverter. Dependențele Python opționale sunt instalate automat conform UAGENT_AUTO_INSTALL.",
@@ -509,7 +689,19 @@
     "err.not_found": "Nu a fost găsit un fișier de intrare sau o dependență necesară.",
     "err.invalid": "O opțiune, cale sau un format pentru imaginea de disc este nevalid.",
     "err.dependency": "O dependență necesară pentru imaginile de disc nu este disponibilă.",
-    "err.operation_failed": "Operația pentru imaginea de disc a eșuat."
+    "err.operation_failed": "Operația pentru imaginea de disc a eșuat.",
+    "describe.action_labels": [
+      "Citiți metadatele imaginii",
+      "Enumerați conținutul imaginii",
+      "Verificați integritatea imaginii",
+      "Extrageți conținutul imaginii",
+      "Convertiți formatul imaginii"
+    ],
+    "describe.output": "; ieșire: %(path)s",
+    "describe.path_type": "tip cale: %(path_type)s",
+    "describe.deep": "verificare profundă",
+    "describe.overwrite": "suprascrie permisă",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "hu": {
     "tool.description": "Megvizsgálja, listázza, ellenőrzi, kibontja vagy átalakítja az ISO- és CHD-lemezképeket. Az ISO-műveletek a pycdlib, a CHD-műveletek az xverter használatával futnak. Az opcionális Python-függőségek az UAGENT_AUTO_INSTALL szerint automatikusan települnek.",
@@ -541,7 +733,19 @@
     "err.not_found": "Nem található a szükséges bemeneti fájl vagy függőség.",
     "err.invalid": "Érvénytelen lemezkép-beállítás, elérési út vagy formátum.",
     "err.dependency": "Egy szükséges lemezkép-függőség nem érhető el.",
-    "err.operation_failed": "A lemezképművelet sikertelen volt."
+    "err.operation_failed": "A lemezképművelet sikertelen volt.",
+    "describe.action_labels": [
+      "Kép metaadatainak olvasása",
+      "Képtartalom listázása",
+      "A kép integritásának ellenőrzése",
+      "Képtartalom kibontása",
+      "Képformátum konvertálása"
+    ],
+    "describe.output": "; kimenet: %(path)s",
+    "describe.path_type": "útvonal típusa: %(path_type)s",
+    "describe.deep": "mély ellenőrzés",
+    "describe.overwrite": "felülírás megengedett",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "el": {
     "tool.description": "Επιθεωρεί, παραθέτει, επαληθεύει, εξάγει ή μετατρέπει εικόνες δίσκου ISO και CHD. Οι λειτουργίες ISO χρησιμοποιούν pycdlib και οι λειτουργίες CHD xverter. Οι προαιρετικές εξαρτήσεις Python εγκαθίστανται αυτόματα σύμφωνα με το UAGENT_AUTO_INSTALL.",
@@ -573,7 +777,19 @@
     "err.not_found": "Δεν βρέθηκε απαιτούμενο αρχείο εισόδου ή εξάρτηση.",
     "err.invalid": "Μια επιλογή, διαδρομή ή μορφή εικόνας δίσκου δεν είναι έγκυρη.",
     "err.dependency": "Μια απαιτούμενη εξάρτηση εικόνας δίσκου δεν είναι διαθέσιμη.",
-    "err.operation_failed": "Η λειτουργία εικόνας δίσκου απέτυχε."
+    "err.operation_failed": "Η λειτουργία εικόνας δίσκου απέτυχε.",
+    "describe.action_labels": [
+      "Ανάγνωση μεταδεδομένων εικόνας",
+      "Λίστα περιεχομένων εικόνας",
+      "Επαλήθευση ακεραιότητας εικόνας",
+      "Εξαγωγή περιεχομένων εικόνας",
+      "Μετατροπή μορφής εικόνας"
+    ],
+    "describe.output": "; έξοδος: %(path)s",
+    "describe.path_type": "τύπος διαδρομής: %(path_type)s",
+    "describe.deep": "βαθιά επαλήθευση",
+    "describe.overwrite": "επιτρέπεται η αντικατάσταση",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "ru": {
     "tool.description": "Проверяет, перечисляет, верифицирует, извлекает или преобразует образы дисков ISO и CHD. Операции ISO используют pycdlib, операции CHD — xverter. Необязательные зависимости Python устанавливаются автоматически в соответствии с UAGENT_AUTO_INSTALL.",
@@ -605,7 +821,19 @@
     "err.not_found": "Не найден необходимый входной файл или зависимость.",
     "err.invalid": "Недопустимы параметр, путь или формат образа диска.",
     "err.dependency": "Необходимая зависимость для образов диска недоступна.",
-    "err.operation_failed": "Операция с образом диска завершилась ошибкой."
+    "err.operation_failed": "Операция с образом диска завершилась ошибкой.",
+    "describe.action_labels": [
+      "Чтение метаданных изображения",
+      "Составление списка содержимого изображения",
+      "Проверка целостности изображения",
+      "Извлечение содержимого изображения",
+      "Преобразование формата изображения"
+    ],
+    "describe.output": "; вывод: %(path)s",
+    "describe.path_type": "тип пути: %(path_type)s",
+    "describe.deep": "глубокая проверка",
+    "describe.overwrite": "перезапись разрешена",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "uk": {
     "tool.description": "Перевіряє, перелічує, верифікує, видобуває або перетворює образи дисків ISO і CHD. Операції ISO використовують pycdlib, а операції CHD — xverter. Необов'язкові залежності Python встановлюються автоматично відповідно до UAGENT_AUTO_INSTALL.",
@@ -637,7 +865,19 @@
     "err.not_found": "Не знайдено необхідний вхідний файл або залежність.",
     "err.invalid": "Параметр, шлях або формат образу диска є недійсним.",
     "err.dependency": "Необхідна залежність для образів диска недоступна.",
-    "err.operation_failed": "Операція з образом диска завершилася помилкою."
+    "err.operation_failed": "Операція з образом диска завершилася помилкою.",
+    "describe.action_labels": [
+      "Читання метаданих зображення",
+      "Перелік вмісту зображення",
+      "Перевірка цілісності зображення",
+      "Вилучення вмісту зображення",
+      "Перетворення формату зображення"
+    ],
+    "describe.output": "; вихід: %(path)s",
+    "describe.path_type": "тип шляху: %(path_type)s",
+    "describe.deep": "глибока перевірка",
+    "describe.overwrite": "дозволено перезапис",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "ar": {
     "tool.description": "يفحص صور الأقراص ISO وCHD ويسردها ويتحقق منها ويستخرجها أو يحولها. تستخدم عمليات ISO مكتبة pycdlib، وتستخدم عمليات CHD أداة xverter. يتم تثبيت تبعيات Python الاختيارية تلقائيًا وفقًا لإعداد UAGENT_AUTO_INSTALL.",
@@ -669,7 +909,19 @@
     "err.not_found": "لم يتم العثور على ملف إدخال أو تبعية مطلوبة.",
     "err.invalid": "خيار أو مسار أو تنسيق صورة القرص غير صالح.",
     "err.dependency": "تبعية مطلوبة لصور الأقراص غير متاحة.",
-    "err.operation_failed": "فشلت عملية صورة القرص."
+    "err.operation_failed": "فشلت عملية صورة القرص.",
+    "describe.action_labels": [
+      "قراءة البيانات الوصفية للصورة ",
+      " قائمة محتويات الصورة ",
+      " التحقق من سلامة الصورة ",
+      " استخراج محتويات الصورة ",
+      " تحويل تنسيق الصورة"
+    ],
+    "describe.output": "; الإخراج: %(path)s",
+    "describe.path_type": "نوع المسار: %(path_type)s",
+    "describe.deep": "التحقق العميق",
+    "describe.overwrite": "الكتابة الفوقية مسموح بها",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "bn": {
     "tool.description": "ISO এবং CHD ডিস্ক ইমেজ পরীক্ষা, তালিকাভুক্ত, যাচাই, এক্সট্র্যাক্ট বা রূপান্তর করে। ISO অপারেশনে pycdlib এবং CHD অপারেশনে xverter ব্যবহার করা হয়। UAGENT_AUTO_INSTALL অনুযায়ী ঐচ্ছিক Python নির্ভরতা স্বয়ংক্রিয়ভাবে ইনস্টল হয়।",
@@ -701,7 +953,19 @@
     "err.not_found": "প্রয়োজনীয় ইনপুট ফাইল বা নির্ভরতা পাওয়া যায়নি।",
     "err.invalid": "ডিস্ক ইমেজের বিকল্প, পথ বা ফরম্যাট অবৈধ।",
     "err.dependency": "প্রয়োজনীয় ডিস্ক ইমেজ নির্ভরতা উপলব্ধ নয়।",
-    "err.operation_failed": "ডিস্ক ইমেজ অপারেশন ব্যর্থ হয়েছে।"
+    "err.operation_failed": "ডিস্ক ইমেজ অপারেশন ব্যর্থ হয়েছে।",
+    "describe.action_labels": [
+      "ইমেজ মেটাডেটা পড়ুন",
+      "ছবির বিষয়বস্তু তালিকাভুক্ত করুন",
+      "ছবির অখণ্ডতা যাচাই করুন",
+      "ছবির বিষয়বস্তু বের করুন",
+      "চিত্র বিন্যাস রূপান্তর করুন"
+    ],
+    "describe.output": "; আউটপুট: %(path)s",
+    "describe.path_type": "পথের ধরন: %(path_type)s",
+    "describe.deep": "গভীর যাচাই",
+    "describe.overwrite": "ওভাররাইট অনুমোদিত",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "fa": {
     "tool.description": "تصاویر دیسک ISO و CHD را بررسی، فهرست، اعتبارسنجی، استخراج یا تبدیل می‌کند. عملیات ISO از pycdlib و عملیات CHD از xverter استفاده می‌کند. وابستگی‌های اختیاری Python مطابق UAGENT_AUTO_INSTALL به‌طور خودکار نصب می‌شوند.",
@@ -733,7 +997,19 @@
     "err.not_found": "فایل ورودی یا وابستگی لازم پیدا نشد.",
     "err.invalid": "گزینه، مسیر یا قالب تصویر دیسک نامعتبر است.",
     "err.dependency": "یک وابستگی لازم برای تصویر دیسک در دسترس نیست.",
-    "err.operation_failed": "عملیات تصویر دیسک ناموفق بود."
+    "err.operation_failed": "عملیات تصویر دیسک ناموفق بود.",
+    "describe.action_labels": [
+      "خواندن فراداده تصویر",
+      "لیست محتویات تصویر",
+      "تأیید صحت تصویر",
+      "استخراج محتویات تصویر",
+      "تبدیل فرمت تصویر"
+    ],
+    "describe.output": "; خروجی: %(path)s",
+    "describe.path_type": "نوع مسیر: %(path_type)s",
+    "describe.deep": "تایید عمیق",
+    "describe.overwrite": "بازنویسی مجاز است",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "fil": {
     "tool.description": "Sinusuri, inililista, bine-verify, ine-extract, o kino-convert ang mga ISO at CHD disc image. Gumagamit ang mga ISO operation ng pycdlib at ang mga CHD operation ng xverter. Awtomatikong ini-install ang mga opsyonal na Python dependency ayon sa UAGENT_AUTO_INSTALL.",
@@ -765,7 +1041,19 @@
     "err.not_found": "Hindi nakita ang kinakailangang input file o dependency.",
     "err.invalid": "Hindi wasto ang disc image option, path, o format.",
     "err.dependency": "Hindi available ang kinakailangang disc image dependency.",
-    "err.operation_failed": "Nabigo ang disc image operation."
+    "err.operation_failed": "Nabigo ang disc image operation.",
+    "describe.action_labels": [
+      "Basahin ang metadata ng larawan",
+      "Ilista ang mga nilalaman ng larawan",
+      "I-verify ang integridad ng larawan",
+      "I-extract ang mga nilalaman ng larawan",
+      "I-convert ang format ng larawan"
+    ],
+    "describe.output": "; output: %(path)s",
+    "describe.path_type": "uri ng landas: %(path_type)s",
+    "describe.deep": "malalim na pagpapatunay",
+    "describe.overwrite": "pinapayagan ang overwrite",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "he": {
     "tool.description": "בודק, מציג, מאמת, מחלץ או ממיר תמונות דיסק ISO ו-CHD. פעולות ISO משתמשות ב-pycdlib ופעולות CHD ב-xverter. תלויות Python אופציונליות מותקנות אוטומטית לפי UAGENT_AUTO_INSTALL.",
@@ -797,7 +1085,19 @@
     "err.not_found": "קובץ קלט או תלות נדרשים לא נמצאו.",
     "err.invalid": "אפשרות, נתיב או פורמט של תמונת דיסק אינם תקינים.",
     "err.dependency": "תלות נדרשת לתמונת דיסק אינה זמינה.",
-    "err.operation_failed": "פעולת תמונת הדיסק נכשלה."
+    "err.operation_failed": "פעולת תמונת הדיסק נכשלה.",
+    "describe.action_labels": [
+      "קרא מטא נתונים של תמונה",
+      "רשום תוכן תמונה",
+      "וודא שלמות התמונה",
+      "חלץ תוכן תמונה",
+      "המר פורמט תמונה"
+    ],
+    "describe.output": "; פלט: %(path)s",
+    "describe.path_type": "סוג נתיב: %(path_type)s",
+    "describe.deep": "אימות עמוק",
+    "describe.overwrite": "מותר להחליף",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "hi": {
     "tool.description": "ISO और CHD डिस्क इमेज का निरीक्षण, सूचीकरण, सत्यापन, निष्कर्षण या रूपांतरण करता है। ISO संचालन pycdlib और CHD संचालन xverter का उपयोग करते हैं। वैकल्पिक Python निर्भरताएँ UAGENT_AUTO_INSTALL के अनुसार स्वचालित रूप से स्थापित होती हैं।",
@@ -829,7 +1129,19 @@
     "err.not_found": "आवश्यक इनपुट फ़ाइल या निर्भरता नहीं मिली।",
     "err.invalid": "डिस्क इमेज विकल्प, पथ या प्रारूप अमान्य है।",
     "err.dependency": "आवश्यक डिस्क इमेज निर्भरता उपलब्ध नहीं है।",
-    "err.operation_failed": "डिस्क इमेज संचालन विफल हुआ।"
+    "err.operation_failed": "डिस्क इमेज संचालन विफल हुआ।",
+    "describe.action_labels": [
+      "छवि मेटाडेटा पढ़ें",
+      " छवि सामग्री सूचीबद्ध करें",
+      " छवि अखंडता सत्यापित करें",
+      " छवि सामग्री निकालें",
+      " छवि प्रारूप परिवर्तित करें"
+    ],
+    "describe.output": "; आउटपुट: %(path)s",
+    "describe.path_type": "पथ प्रकार: %(path_type)s",
+    "describe.deep": "गहन सत्यापन",
+    "describe.overwrite": "अधिलेखित करने की अनुमति है",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "id": {
     "tool.description": "Memeriksa, mencantumkan, memverifikasi, mengekstrak, atau mengonversi image disk ISO dan CHD. Operasi ISO menggunakan pycdlib; operasi CHD menggunakan xverter. Dependensi Python opsional diinstal otomatis sesuai UAGENT_AUTO_INSTALL.",
@@ -861,7 +1173,19 @@
     "err.not_found": "File input atau dependensi yang diperlukan tidak ditemukan.",
     "err.invalid": "Opsi, path, atau format image disk tidak valid.",
     "err.dependency": "Dependensi image disk yang diperlukan tidak tersedia.",
-    "err.operation_failed": "Operasi image disk gagal."
+    "err.operation_failed": "Operasi image disk gagal.",
+    "describe.action_labels": [
+      "Membaca metadata gambar",
+      "Daftar konten gambar",
+      "Verifikasi integritas gambar",
+      "Ekstrak konten gambar",
+      "Konversi format gambar"
+    ],
+    "describe.output": "; keluaran: %(path)s",
+    "describe.path_type": "jenis jalur: %(path_type)s",
+    "describe.deep": "verifikasi mendalam",
+    "describe.overwrite": "diperbolehkan menimpa",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "ko": {
     "tool.description": "ISO 및 CHD 디스크 이미지를 검사, 목록 조회, 검증, 추출 또는 변환합니다. ISO 작업은 pycdlib를 사용하고 CHD 작업은 xverter를 사용합니다. 선택적 Python 종속성은 UAGENT_AUTO_INSTALL 정책에 따라 자동 설치됩니다.",
@@ -893,7 +1217,19 @@
     "err.not_found": "필요한 입력 파일 또는 종속성을 찾을 수 없습니다.",
     "err.invalid": "디스크 이미지 옵션, 경로 또는 형식이 올바르지 않습니다.",
     "err.dependency": "필요한 디스크 이미지 종속성을 사용할 수 없습니다.",
-    "err.operation_failed": "디스크 이미지 작업이 실패했습니다."
+    "err.operation_failed": "디스크 이미지 작업이 실패했습니다.",
+    "describe.action_labels": [
+      "이미지 메타데이터 읽기",
+      "이미지 콘텐츠 나열",
+      "이미지 무결성 확인",
+      "이미지 콘텐츠 추출",
+      "이미지 형식 변환"
+    ],
+    "describe.output": "; 출력: %(path)s",
+    "describe.path_type": "경로 유형: %(path_type)s",
+    "describe.deep": "심층 검증",
+    "describe.overwrite": "덮어쓰기 허용됨",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "mn": {
     "tool.description": "ISO болон CHD диск дүрсийг шалгах, жагсаах, баталгаажуулах, задлах эсвэл хөрвүүлнэ. ISO үйлдэл pycdlib, CHD үйлдэл xverter ашиглана. Нэмэлт Python хамаарлууд UAGENT_AUTO_INSTALL-ын дагуу автоматаар суурилагдана.",
@@ -925,7 +1261,19 @@
     "err.not_found": "Шаардлагатай оролтын файл эсвэл хамаарал олдсонгүй.",
     "err.invalid": "Диск дүрсний сонголт, зам эсвэл формат буруу байна.",
     "err.dependency": "Шаардлагатай диск дүрсний хамаарал ашиглах боломжгүй байна.",
-    "err.operation_failed": "Диск дүрсний үйлдэл амжилтгүй боллоо."
+    "err.operation_failed": "Диск дүрсний үйлдэл амжилтгүй боллоо.",
+    "describe.action_labels": [
+      "Зургийн мета өгөгдлийг унших",
+      "Зургийн агуулгыг жагсаах",
+      "Зургийн бүрэн бүтэн байдлыг шалгах",
+      "Зургийн агуулгыг задлах",
+      "Зургийн форматыг хөрвүүлэх"
+    ],
+    "describe.output": "; гаралт: %(path)s",
+    "describe.path_type": "замын төрөл: %(path_type)s",
+    "describe.deep": "гүнзгий баталгаажуулалт",
+    "describe.overwrite": "дарж бичихийг зөвшөөрнө",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "mr": {
     "tool.description": "ISO आणि CHD डिस्क इमेज तपासते, सूचीबद्ध करते, पडताळते, एक्स्ट्रॅक्ट करते किंवा रूपांतरित करते. ISO ऑपरेशन्स pycdlib वापरतात आणि CHD ऑपरेशन्स xverter वापरतात. पर्यायी Python अवलंबित्वे UAGENT_AUTO_INSTALL नुसार आपोआप स्थापित होतात.",
@@ -957,7 +1305,19 @@
     "err.not_found": "आवश्यक इनपुट फाइल किंवा अवलंबित्व सापडले नाही.",
     "err.invalid": "डिस्क इमेज पर्याय, पथ किंवा फॉरमॅट अवैध आहे.",
     "err.dependency": "आवश्यक डिस्क इमेज अवलंबित्व उपलब्ध नाही.",
-    "err.operation_failed": "डिस्क इमेज ऑपरेशन अयशस्वी झाले."
+    "err.operation_failed": "डिस्क इमेज ऑपरेशन अयशस्वी झाले.",
+    "describe.action_labels": [
+      "इमेज मेटाडेटा वाचा",
+      "इमेज सामग्रीची यादी करा",
+      "प्रतिमेची अखंडता सत्यापित करा",
+      "प्रतिमा सामग्री काढा",
+      "इमेज फॉरमॅटमध्ये रूपांतरित करा"
+    ],
+    "describe.output": "; आउटपुट: %(path)s",
+    "describe.path_type": "पथ प्रकार: %(path_type)s",
+    "describe.deep": "खोल पडताळणी",
+    "describe.overwrite": "अधिलिखित करण्याची परवानगी आहे",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "ms": {
     "tool.description": "Memeriksa, menyenaraikan, mengesahkan, mengekstrak atau menukar imej cakera ISO dan CHD. Operasi ISO menggunakan pycdlib; operasi CHD menggunakan xverter. Kebergantungan Python pilihan dipasang secara automatik mengikut UAGENT_AUTO_INSTALL.",
@@ -989,7 +1349,19 @@
     "err.not_found": "Fail input atau kebergantungan yang diperlukan tidak ditemui.",
     "err.invalid": "Pilihan, laluan atau format imej cakera tidak sah.",
     "err.dependency": "Kebergantungan imej cakera yang diperlukan tidak tersedia.",
-    "err.operation_failed": "Operasi imej cakera gagal."
+    "err.operation_failed": "Operasi imej cakera gagal.",
+    "describe.action_labels": [
+      "Baca metadata imej",
+      "Senaraikan kandungan imej",
+      "Sahkan integriti imej",
+      "Ekstrak kandungan imej",
+      "Tukar format imej"
+    ],
+    "describe.output": "; keluaran: %(path)s",
+    "describe.path_type": "jenis laluan: %(path_type)s",
+    "describe.deep": "pengesahan yang mendalam",
+    "describe.overwrite": "timpa dibenarkan",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "sw": {
     "tool.description": "Hukagua, huorodhesha, huthibitisha, hutoa au hubadilisha picha za diski za ISO na CHD. Operesheni za ISO hutumia pycdlib; operesheni za CHD hutumia xverter. Vitegemezi vya hiari vya Python husakinishwa kiotomatiki kulingana na UAGENT_AUTO_INSTALL.",
@@ -1021,7 +1393,19 @@
     "err.not_found": "Faili ya ingizo au kitegemezi kinachohitajika hakikupatikana.",
     "err.invalid": "Chaguo, njia au muundo wa picha ya diski si halali.",
     "err.dependency": "Kitegemezi kinachohitajika cha picha ya diski hakipatikani.",
-    "err.operation_failed": "Operesheni ya picha ya diski imeshindwa."
+    "err.operation_failed": "Operesheni ya picha ya diski imeshindwa.",
+    "describe.action_labels": [
+      "Soma metadata ya picha",
+      "Orodhesha maudhui ya picha",
+      "Thibitisha uadilifu wa picha",
+      "Toa maudhui ya picha",
+      "Badilisha umbizo la picha"
+    ],
+    "describe.output": "; pato: %(path)s",
+    "describe.path_type": "aina ya njia: %(path_type)s",
+    "describe.deep": "uthibitishaji wa kina",
+    "describe.overwrite": "kubatilisha kuruhusiwa",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "th": {
     "tool.description": "ตรวจสอบ แสดงรายการ ตรวจยืนยัน แตกไฟล์ หรือแปลงอิมเมจดิสก์ ISO และ CHD การทำงานกับ ISO ใช้ pycdlib ส่วน CHD ใช้ xverter และติดตั้ง dependency ของ Python ที่เป็นตัวเลือกโดยอัตโนมัติตาม UAGENT_AUTO_INSTALL",
@@ -1053,7 +1437,19 @@
     "err.not_found": "ไม่พบไฟล์อินพุตหรือ dependency ที่จำเป็น",
     "err.invalid": "ตัวเลือก พาธ หรือรูปแบบอิมเมจดิสก์ไม่ถูกต้อง",
     "err.dependency": "dependency ของอิมเมจดิสก์ที่จำเป็นไม่พร้อมใช้งาน",
-    "err.operation_failed": "การทำงานกับอิมเมจดิสก์ล้มเหลว"
+    "err.operation_failed": "การทำงานกับอิมเมจดิสก์ล้มเหลว",
+    "describe.action_labels": [
+      "อ่านข้อมูลเมตาของภาพ",
+      "แสดงรายการเนื้อหาภาพ",
+      "ตรวจสอบความสมบูรณ์ของภาพ",
+      "แยกเนื้อหาภาพ",
+      "แปลงรูปแบบภาพ"
+    ],
+    "describe.output": "; เอาท์พุต: %(path)s",
+    "describe.path_type": "ประเภทเส้นทาง: %(path_type)s",
+    "describe.deep": "การตรวจสอบเชิงลึก",
+    "describe.overwrite": "อนุญาตให้เขียนทับ",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s"
   },
   "tr": {
     "tool.description": "ISO ve CHD disk görüntülerini inceler, listeler, doğrular, çıkarır veya dönüştürür. ISO işlemleri pycdlib, CHD işlemleri xverter kullanır. İsteğe bağlı Python bağımlılıkları UAGENT_AUTO_INSTALL ayarına göre otomatik olarak yüklenir.",
@@ -1085,7 +1481,19 @@
     "err.not_found": "Gerekli giriş dosyası veya bağımlılık bulunamadı.",
     "err.invalid": "Disk görüntüsü seçeneği, yolu veya biçimi geçersiz.",
     "err.dependency": "Gerekli bir disk görüntüsü bağımlılığı kullanılamıyor.",
-    "err.operation_failed": "Disk görüntüsü işlemi başarısız oldu."
+    "err.operation_failed": "Disk görüntüsü işlemi başarısız oldu.",
+    "describe.action_labels": [
+      "Görüntü meta verilerini okuyun",
+      "Görüntü içeriğini listeleyin",
+      "Görüntü bütünlüğünü doğrulayın",
+      "Görüntü içeriğini çıkarın",
+      "Görüntü formatını dönüştürün"
+    ],
+    "describe.output": "; çıktı: %(path)s",
+    "describe.path_type": "yol türü: %(path_type)s",
+    "describe.deep": "derin doğrulama",
+    "describe.overwrite": "üzerine yazmaya izin verildi",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "vi": {
     "tool.description": "Kiểm tra, liệt kê, xác minh, trích xuất hoặc chuyển đổi ảnh đĩa ISO và CHD. Các thao tác ISO dùng pycdlib; các thao tác CHD dùng xverter. Các phụ thuộc Python tùy chọn được tự động cài đặt theo UAGENT_AUTO_INSTALL.",
@@ -1117,7 +1525,19 @@
     "err.not_found": "Không tìm thấy tệp đầu vào hoặc phụ thuộc bắt buộc.",
     "err.invalid": "Tùy chọn, đường dẫn hoặc định dạng ảnh đĩa không hợp lệ.",
     "err.dependency": "Phụ thuộc ảnh đĩa bắt buộc không khả dụng.",
-    "err.operation_failed": "Thao tác ảnh đĩa thất bại."
+    "err.operation_failed": "Thao tác ảnh đĩa thất bại.",
+    "describe.action_labels": [
+      "Đọc siêu dữ liệu hình ảnh",
+      "Liệt kê nội dung hình ảnh",
+      "Xác minh tính toàn vẹn của hình ảnh",
+      "Trích xuất nội dung hình ảnh",
+      "Chuyển đổi định dạng hình ảnh"
+    ],
+    "describe.output": "; đầu ra: %(path)s",
+    "describe.path_type": "loại đường dẫn: %(path_type)s",
+    "describe.deep": "xác minh sâu",
+    "describe.overwrite": "cho phép ghi đè",
+    "describe.summary": "%(action)s: %(path)s%(output)s%(details)s."
   },
   "zh_CN": {
     "tool.description": "检查、列出、验证、提取或转换 ISO 和 CHD 光盘映像。ISO 操作使用 pycdlib，CHD 操作使用 xverter。可选 Python 依赖按照 UAGENT_AUTO_INSTALL 自动安装。",
@@ -1149,7 +1569,19 @@
     "err.not_found": "未找到所需的输入文件或依赖项。",
     "err.invalid": "光盘映像选项、路径或格式无效。",
     "err.dependency": "所需的光盘映像依赖项不可用。",
-    "err.operation_failed": "光盘映像操作失败。"
+    "err.operation_failed": "光盘映像操作失败。",
+    "describe.action_labels": [
+      "读取图像元数据",
+      "列出图像内容",
+      "验证图像完整性",
+      "提取图像内容",
+      "转换图像格式"
+    ],
+    "describe.output": ";输出：%(path)s",
+    "describe.path_type": "路径类型：%(path_type)s",
+    "describe.deep": "深度验证",
+    "describe.overwrite": "允许覆盖",
+    "describe.summary": "%(action)s：%(path)s%(output)s%(details)s。"
   },
   "zh_TW": {
     "tool.description": "檢查、列出、驗證、擷取或轉換 ISO 與 CHD 光碟映像。ISO 操作使用 pycdlib，CHD 操作使用 xverter。選用 Python 相依套件會依 UAGENT_AUTO_INSTALL 自動安裝。",
@@ -1181,6 +1613,18 @@
     "err.not_found": "找不到必要的輸入檔案或相依套件。",
     "err.invalid": "光碟映像選項、路徑或格式無效。",
     "err.dependency": "必要的光碟映像相依套件無法使用。",
-    "err.operation_failed": "光碟映像操作失敗。"
+    "err.operation_failed": "光碟映像操作失敗。",
+    "describe.action_labels": [
+      "讀取影像元資料",
+      "列出影像內容",
+      "驗證影像完整性",
+      "擷取影像內容",
+      "轉換影像格式"
+    ],
+    "describe.output": ";輸出：%(path)s",
+    "describe.path_type": "路徑類型：%(path_type)s",
+    "describe.deep": "深度驗證",
+    "describe.overwrite": "允許覆蓋",
+    "describe.summary": "%(action)s：%(path)s%(output)s%(details)s。"
   }
 }

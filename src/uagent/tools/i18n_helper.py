@@ -7,6 +7,7 @@ import re
 from functools import lru_cache
 from string import Formatter
 from typing import Any, Optional
+from urllib.parse import urlsplit, urlunsplit
 
 from ..env_utils import env_get
 from ..runtime.tool_execution_result import ToolExecutionText
@@ -289,3 +290,69 @@ def make_tool_translator(tool_py_file: str):
         return _mark_tool_error_translation(key, text)
 
     return _
+
+
+_SENSITIVE_URL_PATH_SEGMENT_RE = re.compile(
+    r"(?i)(?:token|secret|password|api[_-]?key|access[_-]?key|credential|signature|nsec)"
+)
+_SENSITIVE_URL_PATH_NAME_RE = re.compile(
+    r"(?i)^(?:tokens?|secrets?|passwords?|api[_-]?keys?|access[_-]?keys?|"
+    r"credentials?|signatures?|nsec)$"
+)
+_OPAQUE_URL_PATH_SEGMENT_RE = re.compile(r"[A-Za-z0-9._~%+-]{24,}")
+
+
+def _safe_url_path(path: str) -> str:
+    """Redact likely credentials and opaque identifiers from URL paths."""
+
+    segments = path.split("/")
+    redact_next = False
+    for index, segment in enumerate(segments):
+        if redact_next:
+            segments[index] = "[redacted]"
+            redact_next = False
+            continue
+        if _SENSITIVE_URL_PATH_NAME_RE.fullmatch(segment):
+            redact_next = True
+        elif _SENSITIVE_URL_PATH_SEGMENT_RE.search(segment):
+            segments[index] = "[redacted]"
+        elif (
+            len(segment) >= 24
+            and _OPAQUE_URL_PATH_SEGMENT_RE.fullmatch(segment)
+            and re.search(r"\d", segment)
+        ):
+            segments[index] = "[redacted]"
+    return "/".join(segments)
+
+
+def safe_display_url(value: Any) -> str:
+    """Return a URL preview without credentials, query values, or fragments."""
+
+    raw = " ".join(str(value or "").split())
+    if not raw:
+        return ""
+    try:
+        parsed = urlsplit(raw)
+        if not parsed.scheme and not parsed.netloc:
+            safe = _safe_url_path(raw.split("?", 1)[0].split("#", 1)[0])
+            return safe + ("?…" if "?" in raw else "")
+
+        hostname = parsed.hostname or ""
+        if ":" in hostname and not hostname.startswith("["):
+            hostname = f"[{hostname}]"
+        port = parsed.port
+        netloc = f"{hostname}:{port}" if port is not None else hostname
+        safe = urlunsplit((parsed.scheme, netloc, _safe_url_path(parsed.path), "", ""))
+        return safe + ("?…" if parsed.query else "")
+    except ValueError:
+        # Malformed URLs should not make a preview fail. At minimum, suppress
+        # userinfo, query values, and fragments; the tool itself validates URLs.
+        safe = raw.split("?", 1)[0].split("#", 1)[0]
+        safe = re.sub(
+            r"(?i)^((?:[a-z][a-z0-9+.-]*:)?//)[^/\s]*@",
+            r"\1",
+            safe,
+            count=1,
+        )
+        safe = _safe_url_path(safe)
+        return safe + ("?…" if "?" in raw else "")

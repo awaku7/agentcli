@@ -130,3 +130,18 @@ def run_tool(args: dict[str, Any]) -> str:
     finally:
         if cb.set_status:
             cb.set_status(False, "tool:a2a_send")
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the A2A destination without echoing the message payload."""
+
+    args = args or {}
+    profile = str(args.get("profile") or "default profile")
+    purpose = str(_("tool.description", default="Send a message to an A2A profile."))
+    return (
+        f"{purpose} (profile={profile}; "
+        f"return_immediately={bool(args.get('return_immediately', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

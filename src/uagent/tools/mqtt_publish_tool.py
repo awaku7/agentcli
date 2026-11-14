@@ -202,3 +202,18 @@ def run_tool(args: dict[str, Any]) -> str:
     finally:
         if client:
             disconnect(client)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Show MQTT destination and delivery settings without echoing the payload."""
+
+    args = args or {}
+    purpose = str(_("tool.description", default="Publish a message to an MQTT topic."))
+    return (
+        f"{purpose} (broker={args.get('host') or '<missing>'}:{args.get('port', 1883)}; "
+        f"topic={args.get('topic') or '<missing>'}; "
+        f"QoS={args.get('qos', 0)}; retain={bool(args.get('retain', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

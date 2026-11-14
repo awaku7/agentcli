@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import make_tool_translator, safe_display_url
 from . import _browser_session_registry as _session_reg
 
 _ = make_tool_translator(__file__)
@@ -414,6 +414,150 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+# ---------------------------------------------------------------------------
+# Pre-execution action summary
+# ---------------------------------------------------------------------------
+
+_ACTION_LABELS_EN = [
+    "Open a page",
+    "Click an element",
+    "Fill a field",
+    "Wait",
+    "Read page content",
+    "Take a screenshot",
+    "Press a key",
+    "Scroll",
+    "Select an option",
+    "Hover over an element",
+    "Run JavaScript on the page",
+    "Extract JSON from the page",
+    "Wait for a page state",
+    "Read element attributes",
+    "Move the mouse",
+    "Click with the mouse",
+    "Drag",
+    "Use the mouse wheel",
+    "Type text",
+    "Save browser state",
+    "Monitor network traffic",
+    "Switch tabs",
+    "Close a tab",
+    "List tabs",
+    "Wait for a new tab",
+    "Read the accessibility tree",
+    "Read console logs",
+    "Upload files",
+    "Take an element screenshot",
+    "Control page resource loading",
+    "Handle a dialog",
+    "Check element visibility",
+    "Export the page as PDF",
+    "Mock a network route",
+    "Switch to a frame",
+    "Return to the parent frame",
+    "Download a file",
+    "Start tracing",
+    "Stop tracing",
+    "Read the clipboard",
+    "Write to the clipboard",
+    "Inject a script",
+    "Resize the viewport",
+]
+
+
+def _describe_browser_action(args: dict[str, Any]) -> str:
+    """Describe the browser operation in plain language without exposing inputs."""
+
+    session_action = str(args.get("session_action") or "").strip().lower()
+    if session_action == "list":
+        return str(_("trace.session_list", default="List browser sessions."))
+    if session_action == "close":
+        return str(_("trace.session_close", default="Close the browser session."))
+    if session_action == "snapshot":
+        return str(
+            _(
+                "trace.session_snapshot",
+                default="Get the current browser page state.",
+            )
+        )
+
+    if session_action == "start":
+        mode = str(
+            _(
+                "trace.mode_start",
+                default="Start a browser session and perform actions",
+            )
+        )
+    elif session_action == "act":
+        mode = str(
+            _(
+                "trace.mode_act",
+                default="Perform actions in an existing browser session",
+            )
+        )
+    else:
+        mode = str(_("trace.mode_oneshot", default="Perform browser actions"))
+
+    actions = args.get("actions")
+    if not isinstance(actions, list):
+        actions = []
+
+    translated_labels = _(
+        "trace.action_labels",
+        default=_ACTION_LABELS_EN,
+    )
+    if not isinstance(translated_labels, list) or len(translated_labels) != len(
+        ACTION_ENUM
+    ):
+        translated_labels = _ACTION_LABELS_EN
+    labels_by_action = dict(zip(ACTION_ENUM, translated_labels))
+
+    def _action_label(item: dict[str, Any]) -> str:
+        action_type = str(item.get("type") or "")
+        label = str(labels_by_action.get(action_type, "Browser action"))
+        if action_type == "goto":
+            url = item.get("url")
+            if isinstance(url, str) and url.strip():
+                url = safe_display_url(url)
+                if len(url) > 160:
+                    url = url[:157] + "..."
+                label = str(
+                    _(
+                        "trace.open_page",
+                        default="%(label)s: %(url)s",
+                        label=label,
+                        url=url,
+                    )
+                )
+        return label
+
+    labels = [_action_label(item) for item in actions[:3] if isinstance(item, dict)]
+    if not labels:
+        return str(
+            _(
+                "trace.browser_action_no_steps",
+                default="%(mode)s (no browser actions were provided).",
+                mode=mode,
+            )
+        )
+
+    steps = " → ".join(labels)
+    if len(actions) > len(labels):
+        steps += " → …"
+    return str(
+        _(
+            "trace.browser_action",
+            default="%(mode)s: %(steps)s (%(count)s actions).",
+            mode=mode,
+            steps=steps,
+            count=len(actions),
+        )
+    )
+
+
+TOOL_DESCRIBER = _describe_browser_action
 
 
 # ---------------------------------------------------------------------------

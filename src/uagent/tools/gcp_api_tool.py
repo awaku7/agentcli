@@ -288,3 +288,36 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the Google API method/resource and request parameter names."""
+
+    args = args or {}
+    params = args.get("parameters")
+    param_keys = (
+        ", ".join(str(key) for key in list(params)[:8])
+        if isinstance(params, dict)
+        else "<none>"
+    )
+    if isinstance(params, dict) and len(params) > 8:
+        param_keys += ", ..."
+    body = args.get("body")
+    body_hint = (
+        "JSON fields: " + ", ".join(str(key) for key in list(body)[:8])
+        if isinstance(body, dict)
+        else (
+            f"body provided ({len(str(body))} chars)" if body is not None else "<none>"
+        )
+    )
+    purpose = str(_("tool.description", default="Call a Google API."))
+    return (
+        f"{purpose} (action={args.get('action') or '<unknown>'}; "
+        f"api={args.get('api') or '<missing>'}.{args.get('version') or ''}; "
+        f"method={args.get('method') or '<missing>'}; "
+        f"resource={args.get('resource') or '<missing>'}; parameters={param_keys}; "
+        f"{body_hint}; confirm_write={bool(args.get('confirm_write', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

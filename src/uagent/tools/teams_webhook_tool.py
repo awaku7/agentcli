@@ -238,3 +238,18 @@ def run_tool(args: dict[str, Any]) -> str:
     finally:
         if cb.set_status:
             cb.set_status(False, STATUS_LABEL)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the Teams destination without exposing message/card content."""
+
+    args = args or {}
+    payload_provided = bool(args.get("payload_json"))
+    purpose = str(_("tool.description", default="Post a message to Teams."))
+    return (
+        f"{purpose} (webhook setting={args.get('webhook_env') or DEFAULT_WEBHOOK_ENV}; "
+        f"custom payload provided={payload_provided})."
+    )
+
+
+TOOL_DESCRIBER = describe

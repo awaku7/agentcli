@@ -387,3 +387,73 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     return json.dumps(result, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the selected test framework, target, and execution settings."""
+
+    args = args or {}
+    framework = str(args.get("framework") or "auto").strip().lower()
+    framework_label = (
+        str(_("describe.framework_auto", default="automatic detection"))
+        if framework == "auto"
+        else framework
+    )
+    target = str(args.get("target") or "").strip() or str(
+        _("describe.default_target", default="default test target")
+    )
+    cwd = str(args.get("cwd") or "").strip() or str(
+        _("describe.current_directory", default="current working directory")
+    )
+    try:
+        timeout = int(args.get("timeout_sec", 120))
+    except (TypeError, ValueError):
+        timeout = 120
+
+    options = []
+    xargs = args.get("xargs")
+    if isinstance(xargs, list) and xargs:
+        extra = " ".join(str(value) for value in xargs[:5])
+        if len(xargs) > 5:
+            extra += " ..."
+        if len(extra) > 100:
+            extra = extra[:97] + "..."
+        options.append(
+            str(
+                _(
+                    "describe.extra_args",
+                    default="extra arguments: %(args)s",
+                    args=extra,
+                )
+            )
+        )
+
+    pythonpath = str(args.get("pythonpath") or "").strip()
+    if pythonpath:
+        options.append(
+            str(
+                _(
+                    "describe.pythonpath",
+                    default="PYTHONPATH: %(path)s",
+                    path=pythonpath,
+                )
+            )
+        )
+    option_suffix = "; " + "; ".join(options) if options else ""
+    return str(
+        _(
+            "describe.summary",
+            default=(
+                "Run tests (framework: %(framework)s; target: %(target)s; "
+                "working directory: %(cwd)s; timeout: %(timeout)s seconds%(options)s)."
+            ),
+            framework=framework_label,
+            target=target,
+            cwd=cwd,
+            timeout=timeout,
+            options=option_suffix,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

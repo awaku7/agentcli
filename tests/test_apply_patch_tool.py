@@ -160,3 +160,80 @@ def test_apply_patch_mixed_modify_and_delete(workdir: Path) -> None:
     assert result["ok"] is True
     assert not doomed.exists()
     assert app.read_text(encoding="utf-8") == "x = 2\n"
+
+
+CREATE_PATCH = "\n".join(
+    [
+        "--- /dev/null",
+        "+++ b/new_file.txt",
+        "@@ -0,0 +1,2 @@",
+        "+alpha",
+        "+beta",
+        "",
+    ]
+)
+
+
+def test_apply_patch_creates_new_file_and_dry_run_is_read_only(workdir: Path) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "new_file.txt"
+    preview = json.loads(
+        apply_patch_tool.run_tool({"patch_text": CREATE_PATCH, "dry_run": True})
+    )
+    assert preview["ok"] is True
+    assert preview["files"][0]["created"] is True
+    assert not target.exists()
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": CREATE_PATCH, "dry_run": False})
+    )
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == "alpha\nbeta\n"
+    assert result["files"][0]["created"] is True
+    assert "backup" not in result["files"][0]
+
+
+def test_apply_patch_reverse_delete_restores_file_and_counts_additions(
+    workdir: Path,
+) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "old_config.yaml"
+    preview = json.loads(
+        apply_patch_tool.run_tool(
+            {"patch_text": DELETE_PATCH, "dry_run": True, "revert": True}
+        )
+    )
+    assert preview["ok"] is True
+    assert preview["files"][0]["created"] is True
+    assert not target.exists()
+
+    result = json.loads(
+        apply_patch_tool.run_tool(
+            {"patch_text": DELETE_PATCH, "dry_run": False, "revert": True}
+        )
+    )
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == "key: value\nfoo: bar\n"
+    assert result["total_added"] == 2
+    assert result["total_removed"] == 0
+
+
+def test_apply_patch_reverse_creation_deletes_file_and_counts_removals(
+    workdir: Path,
+) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "new_file.txt"
+    target.write_text("alpha\nbeta\n", encoding="utf-8")
+    result = json.loads(
+        apply_patch_tool.run_tool(
+            {"patch_text": CREATE_PATCH, "dry_run": False, "revert": True}
+        )
+    )
+    assert result["ok"] is True
+    assert not target.exists()
+    assert result["files"][0]["deleted"] is True
+    assert result["total_added"] == 0
+    assert result["total_removed"] == 2

@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, HTTPSHandler, Request, build_opener
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import make_tool_translator, safe_display_url
 
 _ = make_tool_translator(__file__)
 
@@ -316,3 +316,38 @@ def run_tool(args: dict[str, Any]) -> str:
             {"ok": False, "url": url, "error": f"{type(exc).__name__}: {exc}"},
             ensure_ascii=False,
         )
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the HTTP method and destination while hiding query values."""
+
+    args = args or {}
+    method = str(args.get("method") or "GET").upper()
+    raw_url = str(args.get("url") or "")
+    target = safe_display_url(raw_url) or "<missing URL>"
+
+    query = args.get("query")
+    query_keys = (
+        ", ".join(str(key) for key in list(query)[:8])
+        if isinstance(query, dict)
+        else "<none>"
+    )
+    if isinstance(query, dict) and len(query) > 8:
+        query_keys += ", ..."
+    body = args.get("body")
+    if body is None:
+        body = args.get("body_text")
+    if isinstance(body, dict):
+        body_hint = "JSON fields: " + ", ".join(str(key) for key in list(body)[:8])
+    elif body is not None:
+        body_hint = f"body provided ({len(str(body))} chars)"
+    else:
+        body_hint = "<none>"
+    purpose = str(_("tool.description", default="Send an HTTP request."))
+    return (
+        f"{purpose} (method={method}; target={target}; query keys={query_keys}; "
+        f"{body_hint})."
+    )
+
+
+TOOL_DESCRIBER = describe

@@ -204,17 +204,14 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 def describe(args: dict[str, Any]) -> str:
-    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
-    img = " ".join(str((args or {}).get("img") or "").split())[:80]
-    prompt = " ".join(str((args or {}).get("prompt") or "").split())[:60]
-    if prompt:
-        return _(
-            "describe.analyze_image_prompt",
-            default="Analyzing image %(img)s: %(prompt)s",
-        ) % {"img": img or "?", "prompt": prompt}
-    return _("describe.analyze_image", default="Analyzing image %(img)s") % {
-        "img": img or "?"
-    }
+    """Describe image analysis without echoing user prompts or file paths."""
+    return str(
+        _(
+            "describe.analyze_image",
+            default="Analyze an image: %(img)s",
+            img=_("param.img.description", default="image"),
+        )
+    )
 
 
 TOOL_DESCRIBER = describe

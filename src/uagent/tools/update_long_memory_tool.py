@@ -117,17 +117,8 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 def describe(args: dict[str, Any]) -> str:
-    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
-    note = " ".join(str((args or {}).get("note") or "").split())
-    if len(note) > 80:
-        note = note[:79] + "…"
-    if note:
-        return _(
-            "describe.update_with_note",
-            default="Updating long-term memory: %(note)s",
-            note=note,
-        )
-    return _("describe.update", default="Updating long-term memory")
+    """Describe the memory update without echoing the private note."""
+    return str(_("describe.update", default="Updating long-term memory"))
 
 
 TOOL_DESCRIBER = describe

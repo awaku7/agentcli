@@ -19,7 +19,18 @@
     "msg.complete_payment_browser": "افتح continue_url في المتصفح لإكمال الدفع. بعد الدفع، استخدم ucp_checkout مع mode='poll' و checkout_id='{checkout_id}' لانتظار اكتمال الطلب.",
     "err.checkout_canceled": "تم إلغاء جلسة الدفع.",
     "err.poll_timeout": "لم يكتمل الدفع خلال {timeout} ثانية. قد يكون المستخدم لم يكمل الدفع في المتصفح بعد. جرّب mode='poll' مرة أخرى بمهلة أطول.",
-    "msg.payment_action_required": "يتطلب الدفع إجراءً من المستخدم في المتصفح."
+    "msg.payment_action_required": "يتطلب الدفع إجراءً من المستخدم في المتصفح.",
+    "describe.mode_labels": [
+      "إنشاء جلسة الخروج ",
+      " قراءة حالة الخروج ",
+      " تحديث تفاصيل الخروج ",
+      " إكمال الخروج ووضع اللمسات الأخيرة على الطلب / الدفع ",
+      " استطلاع لاستكمال الخروج"
+    ],
+    "describe.line_item": "%(item_id)s × %(quantity)s",
+    "describe.no_items": "لا يوجد بنود مباشرة",
+    "describe.payment_warning": " قد يؤدي هذا إلى وضع/إنهاء الطلب وبدء الدفع.",
+    "describe.summary": "%(action)s في %(business_url)s (الدفع: %(checkout_id)s؛ سلة التسوق: %(cart_id)s؛ العناصر: %(items)s؛ العملة: %(currency)s).%(warning)s"
   },
   "bn": {
     "tool.description": "একটি UCP চেকআউট সেশন পরিচালনা করুন। mode='create' — একটি নতুন চেকআউট শুরু করুন। \nmode='get' — বর্তমান চেকআউট স্থিতি আনুন। \nmode='update' — চেকআউট ক্ষেত্রগুলি পরিবর্তন করুন। \nmode='complete' — অর্ডার চূড়ান্ত করুন। যদি ব্যবসায় একটি continue_url এর সাথে প্রয়োজন_এসকেলেশন ফেরত দেয়, তাহলে পেমেন্ট সম্পূর্ণ করতে ব্যবহারকারীকে অবশ্যই একটি ব্রাউজারে সেই URL খুলতে হবে। ব্যবহারকারী ব্রাউজারে অর্থ প্রদান করার পরে, সমাপ্তির জন্য অপেক্ষা করতে mode='poll' ব্যবহার করুন। \nmode='poll' — পোল চেকআউট স্থিতি সম্পূর্ণ না হওয়া পর্যন্ত বা সময় শেষ না হওয়া পর্যন্ত। ব্যবহারকারী continue_url এর মাধ্যমে অর্থপ্রদান সম্পূর্ণ করার পরে ব্যবহার করুন।",
@@ -41,7 +52,18 @@
     "msg.complete_payment_browser": "পেমেন্ট সম্পূর্ণ করতে ব্রাউজারে continue_url খুলুন। পেমেন্টের পরে ucp_checkout-এ mode='poll' এবং checkout_id='{checkout_id}' ব্যবহার করে অর্ডার সম্পূর্ণ হওয়া পর্যন্ত অপেক্ষা করুন।",
     "err.checkout_canceled": "চেকআউট সেশন বাতিল করা হয়েছে।",
     "err.poll_timeout": "{timeout} সেকেন্ডের মধ্যে চেকআউট সম্পূর্ণ হয়নি। ব্যবহারকারী হয়তো এখনও ব্রাউজারে পেমেন্ট শেষ করেননি। দীর্ঘ timeout দিয়ে আবার mode='poll' চেষ্টা করুন।",
-    "msg.payment_action_required": "পেমেন্টের জন্য ব্রাউজারে ব্যবহারকারীর পদক্ষেপ প্রয়োজন।"
+    "msg.payment_action_required": "পেমেন্টের জন্য ব্রাউজারে ব্যবহারকারীর পদক্ষেপ প্রয়োজন।",
+    "describe.mode_labels": [
+      "একটি চেকআউট সেশন তৈরি করুন",
+      "চেকআউট স্ট্যাটাস পড়ুন",
+      "চেকআউটের বিবরণ আপডেট করুন",
+      "চেকআউট সম্পূর্ণ করুন এবং অর্ডার/পেমেন্ট চূড়ান্ত করুন",
+      "চেকআউট সম্পূর্ণ করার জন্য পোল"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "কোন সরাসরি লাইন আইটেম",
+    "describe.payment_warning": " এটি একটি অর্ডার স্থাপন/চূড়ান্ত করতে পারে এবং পেমেন্ট ট্রিগার করতে পারে।",
+    "describe.summary": "%(business_url)s এ %(action)s (চেকআউট: %(checkout_id)s; কার্ট: %(cart_id)s; আইটেম: %(items)s; মুদ্রা: %(currency)s)।%(warning)s"
   },
   "cs": {
     "tool.description": "Spravujte relaci pokladny UCP. mode='create' — spuštění nové pokladny.\nmode='get' — načtení aktuálního stavu pokladny.\nmode='update' — úprava polí pokladny.\nmode='complete' — dokončení objednávky. Pokud firma vrátí require_escalation s continue_url, MUSÍ uživatel tuto adresu URL otevřít v prohlížeči, aby mohl dokončit platbu. Poté, co uživatel zaplatí v prohlížeči, počkejte na dokončení pomocí mode='poll'.\nmode='poll' — stav zaplacení ankety do dokončení nebo do vypršení časového limitu. Použijte poté, co uživatel dokončí platbu prostřednictvím continue_url.",
@@ -63,7 +85,18 @@
     "msg.complete_payment_browser": "Otevřete continue_url v prohlížeči a dokončete platbu. Poté použijte ucp_checkout s mode='poll' a checkout_id='{checkout_id}' a počkejte na dokončení objednávky.",
     "err.checkout_canceled": "Relace checkout byla zrušena.",
     "err.poll_timeout": "Checkout nebyl dokončen do {timeout} sekund. Uživatel možná ještě nedokončil platbu v prohlížeči. Zkuste znovu mode='poll' s delším timeoutem.",
-    "msg.payment_action_required": "Platba vyžaduje akci uživatele v prohlížeči."
+    "msg.payment_action_required": "Platba vyžaduje akci uživatele v prohlížeči.",
+    "describe.mode_labels": [
+      "Vytvořte relaci pokladny",
+      "Přečtěte si stav pokladny",
+      "Aktualizujte podrobnosti pokladny",
+      "Dokončete pokladnu a dokončete objednávku/platbu",
+      "Dotazník pro dokončení pokladny"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "žádné přímé řádkové položky",
+    "describe.payment_warning": " To může zadat/dokončit objednávku a spustit platbu.",
+    "describe.summary": "%(action)s v %(business_url)s (pokladna: %(checkout_id)s; košík: %(cart_id)s; položky: %(items)s; měna: %(currency)s).%(warning)s"
   },
   "da": {
     "tool.description": "Administrer en UCP checkout session. mode='create' — start en ny kasse.\nmode='get' — hent den aktuelle kassestatus.\nmode='update' — modificer kassefelter.\nmode='complete' — færdiggør ordren. Hvis virksomheden returnerer requires_escalation med en continu_url, SKAL brugeren åbne denne URL i en browser for at gennemføre betalingen. Når brugeren har betalt i browseren, skal du bruge mode='afstemning' for at vente på fuldførelse.\nmode='afstemning' — status for afstemningscheck, indtil den er afsluttet eller timeout. Brug efter brugeren har gennemført betaling via continu_url.",
@@ -85,7 +118,18 @@
     "msg.complete_payment_browser": "Åbn continue_url i browseren for at gennemføre betalingen. Brug derefter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent på, at ordren fuldføres.",
     "err.checkout_canceled": "Checkout-sessionen blev annulleret.",
     "err.poll_timeout": "Checkout blev ikke fuldført inden for {timeout} sekunder. Brugeren har muligvis endnu ikke gennemført betalingen i browseren. Prøv mode='poll' igen med længere timeout.",
-    "msg.payment_action_required": "Betalingen kræver brugerhandling i browseren."
+    "msg.payment_action_required": "Betalingen kræver brugerhandling i browseren.",
+    "describe.mode_labels": [
+      "Opret en checkout session",
+      "Read checkout status",
+      "Update checkout details",
+      "Complete checkout and finalize the order/payment",
+      "Poll for checkout completion"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "ingen direkte linjeposter",
+    "describe.payment_warning": " Dette kan placere/afslutte en ordre og udløse betaling.",
+    "describe.summary": "%(action)s ved %(business_url)s (kasse: %(checkout_id)s; kurv: %(cart_id)s; varer: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "de": {
     "tool.description": "Verwalten Sie eine UCP-Checkout-Sitzung. mode='create' – einen neuen Checkout starten.\nmode='get' – aktuellen Checkout-Status abrufen.\nmode='update' – Checkout-Felder ändern.\nmode='complete' – Bestellung abschließen. Wenn das Unternehmen „requires_escalation“ mit einer continue_url zurückgibt, MUSS der Benutzer diese URL in einem Browser öffnen, um die Zahlung abzuschließen. Nachdem der Benutzer im Browser bezahlt hat, verwenden Sie mode='poll', um auf den Abschluss zu warten.\nmode='poll' – Checkout-Status bis zum Abschluss oder Zeitüberschreitung abfragen. Wird verwendet, nachdem der Benutzer die Zahlung über continue_url abgeschlossen hat.",
@@ -107,7 +151,18 @@
     "msg.complete_payment_browser": "Öffnen Sie continue_url im Browser, um die Zahlung abzuschließen. Verwenden Sie danach ucp_checkout mit mode='poll' und checkout_id='{checkout_id}', um auf den Abschluss der Bestellung zu warten.",
     "err.checkout_canceled": "Die Checkout-Sitzung wurde abgebrochen.",
     "err.poll_timeout": "Der Checkout wurde nicht innerhalb von {timeout} Sekunden abgeschlossen. Möglicherweise hat der Benutzer die Zahlung im Browser noch nicht beendet. Versuchen Sie mode='poll' erneut mit einem längeren Timeout.",
-    "msg.payment_action_required": "Die Zahlung erfordert eine Benutzeraktion im Browser."
+    "msg.payment_action_required": "Die Zahlung erfordert eine Benutzeraktion im Browser.",
+    "describe.mode_labels": [
+      "Erstellen Sie eine Checkout-Sitzung. Lesen Sie den Checkout-Status. Aktualisieren Sie die Checkout-Details. Schließen Sie den Checkout ab und schließen Sie die Bestellung/Zahlung ab. Fragen Sie nach dem Abschluss des Checkouts",
+      "Read checkout status",
+      "Update checkout details",
+      "Complete checkout and finalize the order/payment",
+      "Poll for checkout completion"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "Keine direkten Werbebuchungen",
+    "describe.payment_warning": " Dadurch kann eine Bestellung aufgegeben/abgeschlossen und die Zahlung ausgelöst werden.",
+    "describe.summary": "%(action)s um %(business_url)s (Kasse: %(checkout_id)s; Warenkorb: %(cart_id)s; Artikel: %(items)s; Währung: %(currency)s).%(warning)s"
   },
   "el": {
     "tool.description": "Διαχειριστείτε μια περίοδο ολοκλήρωσης αγοράς UCP. mode='create' — έναρξη νέας ολοκλήρωσης αγοράς.\nmode='get' — ανάκτηση της τρέχουσας κατάστασης ολοκλήρωσης αγοράς.\nmode='update' — τροποποίηση πεδίων ολοκλήρωσης αγοράς.\nmode='complete' — οριστικοποίηση της παραγγελίας. Εάν η επιχείρηση επιστρέφει requests_escalation με συνεχή_url, ο χρήστης ΠΡΕΠΕΙ να ανοίξει αυτήν τη διεύθυνση URL σε ένα πρόγραμμα περιήγησης για να ολοκληρώσει την πληρωμή. Αφού ο χρήστης πληρώσει στο πρόγραμμα περιήγησης, χρησιμοποιήστε τη λειτουργία='poll' για να περιμένετε την ολοκλήρωση.\nmode='poll' — κατάσταση ολοκλήρωσης ψηφοφορίας έως ότου ολοκληρωθεί ή λήξει. Χρησιμοποιήστε το αφού ο χρήστης ολοκληρώσει την πληρωμή μέσω του continue_url.",
@@ -129,7 +184,18 @@
     "msg.complete_payment_browser": "Ανοίξτε το continue_url στο πρόγραμμα περιήγησης για να ολοκληρώσετε την πληρωμή. Έπειτα χρησιμοποιήστε ucp_checkout με mode='poll' και checkout_id='{checkout_id}' και περιμένετε να ολοκληρωθεί η παραγγελία.",
     "err.checkout_canceled": "Η συνεδρία checkout ακυρώθηκε.",
     "err.poll_timeout": "Το checkout δεν ολοκληρώθηκε μέσα σε {timeout} δευτερόλεπτα. Ο χρήστης ίσως δεν έχει ολοκληρώσει ακόμη την πληρωμή στο πρόγραμμα περιήγησης. Δοκιμάστε ξανά mode='poll' με μεγαλύτερο timeout.",
-    "msg.payment_action_required": "Η πληρωμή απαιτεί ενέργεια χρήστη στο πρόγραμμα περιήγησης."
+    "msg.payment_action_required": "Η πληρωμή απαιτεί ενέργεια χρήστη στο πρόγραμμα περιήγησης.",
+    "describe.mode_labels": [
+      "Δημιουργία συνεδρίας ολοκλήρωσης αγοράς",
+      "Ανάγνωση κατάστασης ολοκλήρωσης αγοράς",
+      "Ενημέρωση στοιχείων ολοκλήρωσης αγοράς",
+      "Ολοκληρώστε την ολοκλήρωση αγοράς και οριστικοποιήστε την παραγγελία/πληρωμή",
+      "Δημοσκόπηση για την ολοκλήρωση ολοκλήρωσης αγοράς"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "δεν υπάρχουν στοιχεία απευθείας γραμμής",
+    "describe.payment_warning": " Αυτό μπορεί να τοποθετήσει/οριστικοποιήσει μια παραγγελία και να ενεργοποιήσει την πληρωμή.",
+    "describe.summary": "%(action)s στο %(business_url)s (ταμείο: %(checkout_id)s; καλάθι: %(cart_id)s; είδη: %(items)s; νόμισμα: %(currency)s).%(warning)s"
   },
   "es": {
     "tool.description": "Administrar una sesión de pago UCP. mode='create' - iniciar un nuevo pago.\nmode='get' - obtener el estado de pago actual.\nmode='update' - modificar los campos de pago.\nmode='complete' - finalizar el pedido. Si la empresa devuelve require_escalation con continue_url, el usuario DEBE abrir esa URL en un navegador para completar el pago. Después de que el usuario pague en el navegador, use mode='poll' para esperar a que se complete. \nmode='poll': estado de pago de la encuesta hasta que se complete o se agote el tiempo de espera. Úselo después de que el usuario complete el pago a través de continue_url.",
@@ -151,7 +217,18 @@
     "msg.complete_payment_browser": "Abre continue_url en el navegador para completar el pago. Después, usa ucp_checkout con mode='poll' y checkout_id='{checkout_id}' y espera a que se complete el pedido.",
     "err.checkout_canceled": "La sesión de checkout fue cancelada.",
     "err.poll_timeout": "El checkout no se completó en {timeout} segundos. Es posible que el usuario aún no haya completado el pago en el navegador. Vuelve a intentar mode='poll' con un timeout mayor.",
-    "msg.payment_action_required": "El pago requiere una acción del usuario en el navegador."
+    "msg.payment_action_required": "El pago requiere una acción del usuario en el navegador.",
+    "describe.mode_labels": [
+      "Crear una sesión de pago",
+      "Leer el estado de pago",
+      "Actualizar los detalles de pago",
+      "Completar el pago y finalizar el pedido/pago",
+      "Encuesta para completar el pago"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "sin líneas de pedido directas",
+    "describe.payment_warning": " Esto puede realizar/finalizar un pedido y activar el pago.",
+    "describe.summary": "%(action)s en %(business_url)s (pagar: %(checkout_id)s; carrito: %(cart_id)s; artículos: %(items)s; moneda: %(currency)s).%(warning)s"
   },
   "fa": {
     "tool.description": "یک جلسه پرداخت UCP را مدیریت کنید. mode='create' — شروع تسویه حساب جدید.\nmode='get' — واکشی وضعیت پرداخت فعلی.\nmode='update' — اصلاح فیلدهای تسویه حساب.\nmode='complete' - سفارش را نهایی کنید. اگر کسب‌وکار دارای requires_escalation با یک continue_url است، کاربر باید برای تکمیل پرداخت، آن URL را در مرورگر باز کند. پس از اینکه کاربر در مرورگر پول پرداخت کرد، از mode='poll' استفاده کنید تا منتظر تکمیل شدن بمانید.\nmode='poll' — وضعیت پرداخت نظرسنجی تا تکمیل یا اتمام زمان. پس از تکمیل پرداخت توسط کاربر از طریق continue_url استفاده کنید.",
@@ -173,7 +250,18 @@
     "msg.complete_payment_browser": "برای تکمیل پرداخت، continue_url را در مرورگر باز کنید. سپس ucp_checkout را با mode='poll' و checkout_id='{checkout_id}' اجرا کنید و منتظر تکمیل سفارش بمانید.",
     "err.checkout_canceled": "جلسه checkout لغو شد.",
     "err.poll_timeout": "checkout در {timeout} ثانیه تکمیل نشد. ممکن است کاربر هنوز پرداخت را در مرورگر کامل نکرده باشد. mode='poll' را با timeout طولانی‌تر دوباره امتحان کنید.",
-    "msg.payment_action_required": "پرداخت به اقدام کاربر در مرورگر نیاز دارد."
+    "msg.payment_action_required": "پرداخت به اقدام کاربر در مرورگر نیاز دارد.",
+    "describe.mode_labels": [
+      "ایجاد یک جلسه تسویه حساب",
+      "خواندن وضعیت تسویه حساب",
+      "به روز رسانی جزئیات تسویه حساب",
+      "تسویه حساب را کامل کنید و سفارش/پرداخت را نهایی کنید",
+      "نظرسنجی برای تکمیل پرداخت"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "بدون موارد خط مستقیم",
+    "describe.payment_warning": " این ممکن است سفارش را انجام دهد/ نهایی کند و پرداخت را آغاز کند.",
+    "describe.summary": "%(action)s در %(business_url)s (تسویه حساب: %(checkout_id)s؛ سبد خرید: %(cart_id)s؛ موارد: %(items)s؛ واحد پول: %(currency)s).%(warning)s"
   },
   "fi": {
     "tool.description": "Hallinnoi UCP checkout istuntoa. mode='create' — aloita uusi kassa.\nmode='get' — hae nykyinen kassatila.\nmode='update' — muokkaa kassakenttiä.\nmode='complete' — viimeistele tilaus. Jos yritys palauttaa request_escalation ja jatka_url-osoitetta, käyttäjän PITÄÄ avata URL-osoite selaimessa suorittaakseen maksun loppuun. Kun käyttäjä on maksanut selaimessa, odota valmistumista käyttämällä mode='poll'.\nmode='poll' — kyselyn tila, kunnes se on valmis tai aikakatkaisu. Käytä sen jälkeen, kun käyttäjä on suorittanut maksun jatka_url-osoitteen kautta.",
@@ -195,7 +283,18 @@
     "msg.complete_payment_browser": "Avaa continue_url selaimessa ja suorita maksu loppuun. Käytä sitten ucp_checkout-komentoa asetuksilla mode='poll' ja checkout_id='{checkout_id}' ja odota tilauksen valmistumista.",
     "err.checkout_canceled": "Checkout-istunto peruttiin.",
     "err.poll_timeout": "Checkout ei valmistunut {timeout} sekunnissa. Käyttäjä ei ehkä ole vielä suorittanut maksua selaimessa. Kokeile mode='poll' uudelleen pidemmällä aikakatkaisulla.",
-    "msg.payment_action_required": "Maksu vaatii käyttäjän toimia selaimessa."
+    "msg.payment_action_required": "Maksu vaatii käyttäjän toimia selaimessa.",
+    "describe.mode_labels": [
+      "Luo kassalla",
+      "Read checkout status",
+      "Update checkout details",
+      "Complete checkout and finalize the order/payment",
+      "Poll for checkout completion"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "ei suoria rivikohtia",
+    "describe.payment_warning": " Tämä voi tehdä / viimeistellä tilauksen ja käynnistää maksun.",
+    "describe.summary": "%(action)s klo %(business_url)s (kassalle: %(checkout_id)s; ostoskori: %(cart_id)s; tuotteet: %(items)s; valuutta: %(currency)s).%(warning)s"
   },
   "fil": {
     "tool.description": "Pamahalaan ang isang UCP checkout session. mode='create' — magsimula ng bagong checkout.\nmode='get' — kunin ang kasalukuyang status ng checkout.\nmode='update' — baguhin ang checkout fields.\nmode='complete' — tapusin ang order. Kung ang pagbabalik ng negosyo ay nangangailangan ng_escalation na may continue_url, DAPAT buksan ng user ang URL na iyon sa isang browser upang makumpleto ang pagbabayad. Pagkatapos magbayad ng user sa browser, gamitin ang mode='poll' upang maghintay para sa pagkumpleto.\nmode='poll' — status ng pag-checkout ng poll hanggang sa makumpleto o mag-timeout. Gamitin pagkatapos makumpleto ng user ang pagbabayad sa pamamagitan ng continue_url.",
@@ -217,7 +316,18 @@
     "msg.complete_payment_browser": "Buksan ang continue_url sa browser para kumpletuhin ang bayad. Pagkatapos, gamitin ang ucp_checkout na may mode='poll' at checkout_id='{checkout_id}' at hintaying makumpleto ang order.",
     "err.checkout_canceled": "Kinansela ang checkout session.",
     "err.poll_timeout": "Hindi nakumpleto ang checkout sa loob ng {timeout} segundo. Maaaring hindi pa natatapos ng user ang bayad sa browser. Subukan muli ang mode='poll' na may mas mahabang timeout.",
-    "msg.payment_action_required": "Kailangan ng bayad ang aksyon ng user sa browser."
+    "msg.payment_action_required": "Kailangan ng bayad ang aksyon ng user sa browser.",
+    "describe.mode_labels": [
+      "Gumawa ng sesyon ng pag-checkout",
+      "Basahin ang status ng pag-checkout",
+      "I-update ang mga detalye ng pag-checkout",
+      "Kumpletuhin ang pag-checkout at tapusin ang order/pagbabayad",
+      "Poll para sa pagkumpleto ng pag-checkout"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "walang direktang line item",
+    "describe.payment_warning": " Ito ay maaaring maglagay/magtapos ng isang order at mag-trigger ng pagbabayad.",
+    "describe.summary": "%(action)s sa %(business_url)s (checkout: %(checkout_id)s; cart: %(cart_id)s; item: %(items)s; currency: %(currency)s).%(warning)s"
   },
   "fr": {
     "tool.description": "Gérer une session de paiement UCP. mode='create' — démarrer une nouvelle caisse.\nmode='get' — récupérer l'état actuel de la caisse.\nmode='update' — modifier les champs de caisse.\nmode='complete' — finaliser la commande. Si l'entreprise renvoie require_escalation avec une URL continue, l'utilisateur DOIT ouvrir cette URL dans un navigateur pour finaliser le paiement. Une fois que l'utilisateur a payé dans le navigateur, utilisez mode='poll' pour attendre la fin.\nmode='poll' — interroge l'état du paiement jusqu'à ce qu'il soit terminé ou expire. À utiliser une fois que l'utilisateur a terminé le paiement via continue_url.",
@@ -239,7 +349,18 @@
     "msg.complete_payment_browser": "Ouvrez continue_url dans le navigateur pour terminer le paiement. Ensuite, utilisez ucp_checkout avec mode='poll' et checkout_id='{checkout_id}' et attendez la fin de la commande.",
     "err.checkout_canceled": "La session de paiement a été annulée.",
     "err.poll_timeout": "Le paiement ne s’est pas terminé dans les {timeout} secondes. L’utilisateur n’a peut-être pas encore terminé le paiement dans le navigateur. Réessayez mode='poll' avec un délai plus long.",
-    "msg.payment_action_required": "Le paiement nécessite une action de l’utilisateur dans le navigateur."
+    "msg.payment_action_required": "Le paiement nécessite une action de l’utilisateur dans le navigateur.",
+    "describe.mode_labels": [
+      "Créer une session de paiement",
+      "Lire le statut du paiement",
+      "Mettre à jour les détails du paiement",
+      "Terminer le paiement et finaliser la commande/le paiement",
+      "Sondage pour finaliser le paiement"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "aucun élément de campagne direct",
+    "describe.payment_warning": " Cela peut passer/finaliser une commande et déclencher le paiement.",
+    "describe.summary": "%(action)s à %(business_url)s (caisse : %(checkout_id)s ; panier : %(cart_id)s ; articles : %(items)s ; devise : %(currency)s).%(warning)s"
   },
   "he": {
     "tool.description": "נהל סשן קופה של UCP. mode='create' — התחל קופה חדשה.\nmode='get' — אחזר את מצב הקופה הנוכחי.\nmode='update' — שנה שדות קופה.\nmode='complete' — סיים את ההזמנה. אם העסק חוזר requires_escalation עם continue_url, המשתמש חייב לפתוח את כתובת האתר בדפדפן כדי להשלים את התשלום. לאחר שהמשתמש משלם בדפדפן, השתמש ב-mode='poll' כדי להמתין לסיום. השתמש לאחר שהמשתמש משלים תשלום באמצעות continue_url.",
@@ -261,7 +382,18 @@
     "msg.complete_payment_browser": "פתח את continue_url בדפדפן כדי להשלים את התשלום. לאחר מכן השתמש ב-ucp_checkout עם mode='poll' ו-checkout_id='{checkout_id}' והמתן להשלמת ההזמנה.",
     "err.checkout_canceled": "הפעלת ה-checkout בוטלה.",
     "err.poll_timeout": "ה-checkout לא הושלם בתוך {timeout} שניות. ייתכן שהמשתמש עדיין לא השלים את התשלום בדפדפן. נסה שוב mode='poll' עם timeout ארוך יותר.",
-    "msg.payment_action_required": "התשלום דורש פעולה של המשתמש בדפדפן."
+    "msg.payment_action_required": "התשלום דורש פעולה של המשתמש בדפדפן.",
+    "describe.mode_labels": [
+      "צור סשן קופה",
+      "קריאת סטטוס קופה",
+      "עדכן פרטי קופה",
+      "השלם קופה וסיים את ההזמנה/תשלום",
+      "סקר להשלמת קופה"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "אין פריטים ישירים",
+    "describe.payment_warning": " זה עשוי לבצע/לסיים הזמנה ולהפעיל תשלום.",
+    "describe.summary": "%(action)s ב-%(business_url)s (תשלום: %(checkout_id)s; עגלה: %(cart_id)s; פריטים: %(items)s; מטבע: %(currency)s).%(warning)s"
   },
   "hi": {
     "tool.description": "यूसीपी चेकआउट सत्र प्रबंधित करें। mode='create' — एक नया चेकआउट शुरू करें।\nmode='get' — वर्तमान चेकआउट स्थिति प्राप्त करें।\nmode='update' — चेकआउट फ़ील्ड को संशोधित करें।\nmode='complete' — ऑर्डर को अंतिम रूप दें। यदि व्यवसाय जारी_यूआरएल के साथ आवश्यकता_एस्केलेशन लौटाता है, तो भुगतान पूरा करने के लिए उपयोगकर्ता को ब्राउज़र में उस यूआरएल को खोलना होगा। उपयोगकर्ता द्वारा ब्राउज़र में भुगतान करने के बाद, पूरा होने की प्रतीक्षा करने के लिए mode='poll' का उपयोग करें।\nmode='poll' - पूरा होने या समय समाप्त होने तक पोल चेकआउट स्थिति। उपयोगकर्ता द्वारा जारी_यूआरएल के माध्यम से भुगतान पूरा करने के बाद उपयोग करें।",
@@ -283,7 +415,18 @@
     "msg.complete_payment_browser": "भुगतान पूरा करने के लिए ब्राउज़र में continue_url खोलें। भुगतान के बाद ucp_checkout को mode='poll' और checkout_id='{checkout_id}' के साथ चलाएँ और ऑर्डर पूरा होने की प्रतीक्षा करें।",
     "err.checkout_canceled": "checkout सत्र रद्द कर दिया गया।",
     "err.poll_timeout": "checkout {timeout} सेकंड में पूरा नहीं हुआ। उपयोगकर्ता ने शायद ब्राउज़र में भुगतान अभी पूरा नहीं किया है। अधिक timeout के साथ mode='poll' फिर आज़माएँ।",
-    "msg.payment_action_required": "भुगतान के लिए ब्राउज़र में उपयोगकर्ता की कार्रवाई आवश्यक है।"
+    "msg.payment_action_required": "भुगतान के लिए ब्राउज़र में उपयोगकर्ता की कार्रवाई आवश्यक है।",
+    "describe.mode_labels": [
+      "एक चेकआउट सत्र बनाएं",
+      "चेकआउट स्थिति पढ़ें",
+      "चेकआउट विवरण अपडेट करें",
+      "चेकआउट पूरा करें और ऑर्डर/भुगतान को अंतिम रूप दें",
+      "चेकआउट पूरा करने के लिए मतदान करें"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "कोई सीधी लाइन आइटम नहीं",
+    "describe.payment_warning": " यह ऑर्डर दे सकता है/अंतिम रूप दे सकता है और भुगतान शुरू कर सकता है।",
+    "describe.summary": "%(action)s पर %(business_url)s (चेकआउट: %(checkout_id)s; कार्ट: %(cart_id)s; आइटम: %(items)s; मुद्रा: %(currency)s).%(warning)s"
   },
   "hu": {
     "tool.description": "UCP fizetési munkamenet kezelése. mode='create' — új fizetés indítása.\nmode='get' — aktuális fizetési állapot lekérése.\nmode='update' — fizetési mezők módosítása.\nmode='complete' — a megrendelés véglegesítése. Ha a vállalkozás a request_escalation-t a következővel adja vissza, akkor a felhasználónak meg KELL nyitnia ezt az URL-t egy böngészőben a fizetés befejezéséhez. Miután a felhasználó fizetett a böngészőben, a mode='poll' használatával várja meg a befejezést.\nmode='poll' – a szavazás fizetési állapota a befejezésig vagy időtúllépésig. Használja, miután a felhasználó befejezte a fizetést a jatka_url címen keresztül.",
@@ -305,7 +448,18 @@
     "msg.complete_payment_browser": "Nyissa meg a continue_url címet a böngészőben a fizetés befejezéséhez. Ezután használja az ucp_checkout parancsot mode='poll' és checkout_id='{checkout_id}' értékekkel, és várja meg a rendelés befejezését.",
     "err.checkout_canceled": "A checkout-munkamenet megszakadt.",
     "err.poll_timeout": "A checkout nem fejeződött be {timeout} másodpercen belül. Lehet, hogy a felhasználó még nem fejezte be a fizetést a böngészőben. Próbálja újra a mode='poll' módot hosszabb timeout értékkel.",
-    "msg.payment_action_required": "A fizetés felhasználói műveletet igényel a böngészőben."
+    "msg.payment_action_required": "A fizetés felhasználói műveletet igényel a böngészőben.",
+    "describe.mode_labels": [
+      "Fizetési munkamenet létrehozása",
+      "Olvassa el a fizetés állapotát",
+      " Frissítse a fizetés részleteit",
+      "Complete checkout and finalize the order/payment",
+      "Poll for checkout completion"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "nincs közvetlen sor",
+    "describe.payment_warning": " Ez feladhat/véglegesíthet egy rendelést, és fizetést válthat ki.",
+    "describe.summary": "%(action)s, %(business_url)s (pénztár: %(checkout_id)s; kosár: %(cart_id)s; tételek: %(items)s; pénznem: %(currency)s).%(warning)s"
   },
   "id": {
     "tool.description": "Kelola sesi checkout UCP. mode='buat' — memulai pembayaran baru.\nmode='dapatkan' — mengambil status pembayaran saat ini.\nmode='perbarui' — mengubah kolom pembayaran.\nmode='selesai' — menyelesaikan pesanan. Jika bisnis mengembalikan require_escalation dengan continue_url, pengguna HARUS membuka URL tersebut di browser untuk menyelesaikan pembayaran. Setelah pengguna membayar di browser, gunakan mode='poll' untuk menunggu penyelesaian.\nmode='poll' — status checkout polling hingga selesai atau batas waktu habis. Gunakan setelah pengguna menyelesaikan pembayaran melalui continue_url.",
@@ -327,7 +481,18 @@
     "msg.complete_payment_browser": "Buka continue_url di browser untuk menyelesaikan pembayaran. Setelah itu gunakan ucp_checkout dengan mode='poll' dan checkout_id='{checkout_id}' lalu tunggu hingga pesanan selesai.",
     "err.checkout_canceled": "Sesi checkout dibatalkan.",
     "err.poll_timeout": "Checkout tidak selesai dalam {timeout} detik. Pengguna mungkin belum menyelesaikan pembayaran di browser. Coba lagi mode='poll' dengan timeout yang lebih lama.",
-    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna di browser."
+    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna di browser.",
+    "describe.mode_labels": [
+      "Buat sesi checkout",
+      "Baca status checkout",
+      "Perbarui detail checkout",
+      "Selesaikan checkout dan selesaikan pesanan/pembayaran",
+      "Poll untuk penyelesaian checkout"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "tidak ada item baris langsung",
+    "describe.payment_warning": " Ini dapat menempatkan/menyelesaikan pesanan dan memicu pembayaran.",
+    "describe.summary": "%(action)s di %(business_url)s (checkout: %(checkout_id)s; keranjang: %(cart_id)s; item: %(items)s; mata uang: %(currency)s).%(warning)s"
   },
   "it": {
     "tool.description": "Gestisci una sessione di pagamento UCP. mode='create' — avvia un nuovo checkout.\nmode='get' — recupera lo stato corrente del checkout.\nmode='update' — modifica i campi del checkout.\nmode='complete' — finalizza l'ordine. Se l'azienda restituisce require_escalation con un continue_url, l'utente DEVE aprire quell'URL in un browser per completare il pagamento. Dopo che l'utente ha pagato nel browser, utilizza mode='poll' per attendere il completamento.\nmode='poll': sondaggi sullo stato del pagamento fino al completamento o timeout. Da utilizzare dopo che l'utente ha completato il pagamento tramite continue_url.",
@@ -349,7 +514,18 @@
     "msg.complete_payment_browser": "Apri continue_url nel browser per completare il pagamento. Poi usa ucp_checkout con mode='poll' e checkout_id='{checkout_id}' e attendi il completamento dell’ordine.",
     "err.checkout_canceled": "La sessione di checkout è stata annullata.",
     "err.poll_timeout": "Il checkout non è stato completato entro {timeout} secondi. L’utente potrebbe non aver ancora completato il pagamento nel browser. Riprova mode='poll' con un timeout più lungo.",
-    "msg.payment_action_required": "Il pagamento richiede un’azione dell’utente nel browser."
+    "msg.payment_action_required": "Il pagamento richiede un’azione dell’utente nel browser.",
+    "describe.mode_labels": [
+      "Crea una sessione di pagamento",
+      "Leggi lo stato del pagamento",
+      "Aggiorna i dettagli del pagamento",
+      "Completa il pagamento e finalizza l'ordine/pagamento",
+      "Sondaggio per il completamento del pagamento"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "nessun elemento pubblicitario diretto",
+    "describe.payment_warning": " Ciò potrebbe effettuare/finalizzare un ordine e attivare il pagamento.",
+    "describe.summary": "%(action)s alle %(business_url)s (pagamento: %(checkout_id)s; carrello: %(cart_id)s; articoli: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "ja": {
     "tool.description": "UCP チェックアウト セッションを管理します。 mode='create' — 新しいチェックアウトを開始します。\nmode='get' — 現在のチェックアウト ステータスを取得します。\nmode='update' — チェックアウト フィールドを変更します。\nmode='complete' — 注文を確定します。ビジネスが continue_url を含む require_escalation を返した場合、ユーザーはブラウザでその URL を開いて支払いを完了する必要があります。ユーザーがブラウザで支払いを行った後、mode='poll' を使用して完了を待ちます。\nmode='poll' — 完了するかタイムアウトになるまでチェックアウト ステータスをポーリングします。ユーザーが continue_url 経由で支払いを完了した後に使用します。",
@@ -371,7 +547,18 @@
     "msg.complete_payment_browser": "支払いを完了するにはブラウザで continue_url を開いてください。支払い後、ucp_checkout を mode='poll'、checkout_id='{checkout_id}' で実行し、注文の完了を待ちます。",
     "err.checkout_canceled": "チェックアウト セッションはキャンセルされました。",
     "err.poll_timeout": "チェックアウトは {timeout} 秒以内に完了しませんでした。ユーザーがブラウザでまだ支払いを完了していない可能性があります。より長い timeout で mode='poll' を再試行してください。",
-    "msg.payment_action_required": "支払いにはブラウザでのユーザー操作が必要です。"
+    "msg.payment_action_required": "支払いにはブラウザでのユーザー操作が必要です。",
+    "describe.mode_labels": [
+      "チェックアウトを作成",
+      "チェックアウト状態を取得",
+      "チェックアウト情報を更新",
+      "注文を確定してチェックアウトを完了",
+      "完了状態を確認"
+    ],
+    "describe.line_item": "%(item_id)s × %(quantity)s",
+    "describe.no_items": "商品明細は指定されていません",
+    "describe.payment_warning": " 支払いが実行される可能性があります。",
+    "describe.summary": "%(business_url)sで%(action)sします（チェックアウトID: %(checkout_id)s、カートID: %(cart_id)s、商品: %(items)s、通貨: %(currency)s）。%(warning)s"
   },
   "ko": {
     "tool.description": "UCP 체크아웃 세션을 관리합니다. mode='create' — 새 체크아웃을 시작합니다.\nmode='get' — 현재 체크아웃 상태를 가져옵니다.\nmode='update' — 체크아웃 필드를 수정합니다.\nmode='complete' — 주문을 완료합니다. 비즈니스가 continue_url과 함께 require_escalation을 반환하는 경우 사용자는 결제를 완료하기 위해 브라우저에서 해당 URL을 열어야 합니다. 사용자가 브라우저에서 결제한 후 mode='poll'을 사용하여 완료될 때까지 기다립니다.\nmode='poll' — 완료되거나 시간 초과될 때까지 체크아웃 상태를 폴링합니다. continue_url을 통해 사용자가 결제를 완료한 후 사용하세요.",
@@ -393,7 +580,18 @@
     "msg.complete_payment_browser": "결제를 완료하려면 브라우저에서 continue_url을 여세요. 결제 후 ucp_checkout을 mode='poll', checkout_id='{checkout_id}'로 실행하고 주문 완료를 기다리세요.",
     "err.checkout_canceled": "checkout 세션이 취소되었습니다.",
     "err.poll_timeout": "checkout이 {timeout}초 안에 완료되지 않았습니다. 사용자가 브라우저에서 아직 결제를 완료하지 않았을 수 있습니다. 더 긴 timeout으로 mode='poll'을 다시 시도하세요.",
-    "msg.payment_action_required": "결제에는 브라우저에서 사용자의 작업이 필요합니다."
+    "msg.payment_action_required": "결제에는 브라우저에서 사용자의 작업이 필요합니다.",
+    "describe.mode_labels": [
+      "체크아웃 세션 만들기",
+      "체크아웃 상태 읽기",
+      "체크아웃 세부정보 업데이트",
+      "체크아웃 완료 및 주문/결제 완료",
+      "체크아웃 완료 설문조사"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "직접 광고 항목 없음",
+    "describe.payment_warning": " 이로 인해 주문이 이루어지거나 완료되고 결제가 실행될 수 있습니다.",
+    "describe.summary": "%(action)s, %(business_url)s(결제: %(checkout_id)s, 장바구니: %(cart_id)s, 품목: %(items)s, 통화: %(currency)s).%(warning)s"
   },
   "mn": {
     "tool.description": "UCP тооцооны сессийг удирдах. mode='create' — шинэ тооцоо эхлүүлэх.\nmode='get' — одоогийн төлбөрийн төлөвийг дуудах.\nmode='update' — төлбөрийн талбаруудыг өөрчлөх.\nmode='complete' — захиалгыг дуусгах. Хэрэв бизнес нь үргэлжлүүлэх_url-тай_өсгөх шаардлагатай гэж буцаавал хэрэглэгч төлбөрөө дуусгахын тулд тэр URL-г хөтөч дээрээ нээх ЗААВАЛ ЗААВАЛ. Хэрэглэгч хөтчөөр төлбөрөө төлсний дараа дуусгахыг хүлээхийн тулд mode='poll'-г ашиглана уу.\nmode='poll' — санал асуулга дуусах хүртэл эсвэл хугацаа дуусах хүртэл санал асуулга. Хэрэглэгч continue_url-ээр төлбөрөө хийж дууссаны дараа ашиглана уу.",
@@ -415,7 +613,18 @@
     "msg.complete_payment_browser": "Төлбөрийг дуусгахын тулд continue_url-ийг хөтөч дээр нээнэ үү. Дараа нь ucp_checkout-ыг mode='poll', checkout_id='{checkout_id}'-тэй ажиллуулаад захиалга дуусахыг хүлээнэ үү.",
     "err.checkout_canceled": "Checkout session цуцлагдлаа.",
     "err.poll_timeout": "Checkout {timeout} секундэд дууссангүй. Хэрэглэгч хөтөч дээр төлбөрөө хараахан дуусгаагүй байж магадгүй. Илүү урт timeout-тай mode='poll'-ийг дахин оролдоно уу.",
-    "msg.payment_action_required": "Төлбөр хийхэд хэрэглэгч хөтөч дээр үйлдэл хийх шаардлагатай."
+    "msg.payment_action_required": "Төлбөр хийхэд хэрэглэгч хөтөч дээр үйлдэл хийх шаардлагатай.",
+    "describe.mode_labels": [
+      "Тооцоо хийх сесс үүсгэх",
+      "Төлбөрийн төлөвийг унших",
+      "Төлбөр тооцооны дэлгэрэнгүйг шинэчлэх",
+      "Төлбөрийг дуусгаж, захиалга/төлбөрийг дуусгах",
+      "Төлбөрийг дуусгах санал асуулга"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "шууд мөрийн зүйл байхгүй",
+    "describe.payment_warning": " Энэ нь захиалга хийж/эцэслэж, төлбөрийг өдөөж болно.",
+    "describe.summary": "%(action)s %(business_url)s (төлбөр хийх: %(checkout_id)s; сагс: %(cart_id)s; зүйлс: %(items)s; валют: %(currency)s).%(warning)s"
   },
   "mr": {
     "tool.description": "UCP चेकआउट सत्र व्यवस्थापित करा. mode='create' — एक नवीन चेकआउट सुरू करा.\nmode='get' — वर्तमान चेकआउट स्थिती आणा.\nmode='update' — चेकआउट फील्ड सुधारित करा.\nmode='complete' — ऑर्डर अंतिम करा. जर व्यवसायाने continue_url द्वारे Requis_escalation परत केले, तर पेमेंट पूर्ण करण्यासाठी वापरकर्त्याने ती URL ब्राउझरमध्ये उघडली पाहिजे. वापरकर्त्याने ब्राउझरमध्ये पैसे दिल्यानंतर, पूर्ण होण्याची प्रतीक्षा करण्यासाठी mode='poll' वापरा.\nmode='poll' — मतदान चेकआउट स्थिती पूर्ण होईपर्यंत किंवा कालबाह्य होईपर्यंत. वापरकर्त्याने continue_url द्वारे पेमेंट पूर्ण केल्यानंतर वापरा.",
@@ -437,7 +646,18 @@
     "msg.complete_payment_browser": "पेमेंट पूर्ण करण्यासाठी ब्राउझरमध्ये continue_url उघडा. त्यानंतर ucp_checkout mode='poll' आणि checkout_id='{checkout_id}' सह वापरा आणि ऑर्डर पूर्ण होईपर्यंत प्रतीक्षा करा.",
     "err.checkout_canceled": "checkout सत्र रद्द केले.",
     "err.poll_timeout": "checkout {timeout} सेकंदांत पूर्ण झाले नाही. वापरकर्त्याने ब्राउझरमध्ये पेमेंट अजून पूर्ण केले नसेल. अधिक timeout सह mode='poll' पुन्हा वापरा.",
-    "msg.payment_action_required": "पेमेंटसाठी ब्राउझरमध्ये वापरकर्त्याची कृती आवश्यक आहे."
+    "msg.payment_action_required": "पेमेंटसाठी ब्राउझरमध्ये वापरकर्त्याची कृती आवश्यक आहे.",
+    "describe.mode_labels": [
+      "चेकआउट सेशन तयार करा",
+      "चेकआउट स्टेटस वाचा",
+      "चेकआउट तपशील अपडेट करा",
+      " चेकआउट पूर्ण करा आणि ऑर्डर/पेमेंट फायनल करा",
+      " चेकआउट पूर्ण करण्यासाठी मतदान"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "थेट लाइन आयटम नाहीत",
+    "describe.payment_warning": " हे ऑर्डर देऊ शकते/अंतिम करू शकते आणि पेमेंट ट्रिगर करू शकते.",
+    "describe.summary": "%(business_url)s वाजता %(action)s (चेकआउट: %(checkout_id)s; कार्ट: %(cart_id)s; आयटम: %(items)s; चलन: %(currency)s).%(warning)s"
   },
   "ms": {
     "tool.description": "Uruskan sesi pembayaran UCP. mod='create' — mulakan pembayaran baharu.\nmode='get' — ambil status pembayaran semasa.\nmode='update' — ubah suai medan pembayaran.\nmode='complete' — memuktamadkan pesanan. Jika perniagaan kembali memerlukan_escalation dengan continue_url, pengguna MESTI membuka URL tersebut dalam penyemak imbas untuk menyelesaikan pembayaran. Selepas pengguna membayar dalam penyemak imbas, gunakan mode='poll' untuk menunggu selesai.\nmode='poll' — status daftar keluar tinjauan pendapat sehingga selesai atau tamat masa. Gunakan selepas pengguna menyelesaikan pembayaran melalui continue_url.",
@@ -459,7 +679,18 @@
     "msg.complete_payment_browser": "Buka continue_url dalam pelayar untuk melengkapkan pembayaran. Selepas itu gunakan ucp_checkout dengan mode='poll' dan checkout_id='{checkout_id}' dan tunggu pesanan selesai.",
     "err.checkout_canceled": "Sesi checkout dibatalkan.",
     "err.poll_timeout": "Checkout tidak selesai dalam {timeout} saat. Pengguna mungkin belum menyelesaikan pembayaran dalam pelayar. Cuba mode='poll' semula dengan timeout yang lebih panjang.",
-    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna dalam pelayar."
+    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna dalam pelayar.",
+    "describe.mode_labels": [
+      "Buat sesi daftar keluar",
+      "Baca status daftar keluar",
+      "Kemas kini butiran daftar keluar",
+      "Selesaikan pembayaran dan akhirkan pesanan/pembayaran",
+      "Tinjauan untuk penyelesaian pembayaran"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "tiada item baris langsung",
+    "describe.payment_warning": " Ini mungkin membuat/memuktamadkan pesanan dan mencetuskan pembayaran.",
+    "describe.summary": "%(action)s di %(business_url)s (daftar keluar: %(checkout_id)s; troli: %(cart_id)s; item: %(items)s; mata wang: %(currency)s).%(warning)s"
   },
   "nb": {
     "tool.description": "Administrer en UCP-utsjekkingsøkt. mode='create' — start en ny kasse.\nmode='get' — hent gjeldende kassestatus.\nmode='update' — endre kassefelt.\nmode='complete' — fullfør bestillingen. Hvis virksomheten returnerer requires_escalation med en continu_url, MÅ brukeren åpne denne URL-en i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.\nmode='poll' — avstemningsutsjekkingsstatus til fullført eller tidsavbrudd. Bruk etter at brukeren har fullført betaling via continu_url.",
@@ -481,7 +712,18 @@
     "msg.complete_payment_browser": "Åpne continue_url i nettleseren for å fullføre betalingen. Bruk deretter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent til ordren er fullført.",
     "err.checkout_canceled": "Checkout-økten ble avbrutt.",
     "err.poll_timeout": "Checkout ble ikke fullført innen {timeout} sekunder. Brukeren har kanskje ikke fullført betalingen i nettleseren ennå. Prøv mode='poll' igjen med lengre timeout.",
-    "msg.payment_action_required": "Betalingen krever brukerhandling i nettleseren."
+    "msg.payment_action_required": "Betalingen krever brukerhandling i nettleseren.",
+    "describe.mode_labels": [
+      "Opprett en kasseøkt",
+      "Les betalingsstatus",
+      "Oppdater betalingsdetaljer",
+      "Fullfør kassen og fullfør bestillingen/betalingen",
+      "Avstemning for fullføring av kassen"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "ingen direkte artikler",
+    "describe.payment_warning": " Dette kan legge inn/fullføre en bestilling og utløse betaling.",
+    "describe.summary": "%(action)s på %(business_url)s (kasse: %(checkout_id)s; handlekurv: %(cart_id)s; varer: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "nl": {
     "tool.description": "Beheer een UCP-afrekensessie. mode='create' — start een nieuwe checkout.\nmode='get' — haal de huidige checkout-status op.\nmode='update' — wijzig de checkout-velden.\nmode='complete' — voltooi de bestelling. Als het bedrijf retourneert_escalatie vereist met een continue_url, MOET de gebruiker die URL in een browser openen om de betaling te voltooien. Nadat de gebruiker in de browser heeft betaald, gebruikt u mode='poll' om te wachten op voltooiing.\nmode='poll' — afrekenstatus van poll tot voltooiing of time-out. Gebruiken nadat de gebruiker de betaling heeft voltooid via continue_url.",
@@ -503,7 +745,18 @@
     "msg.complete_payment_browser": "Open continue_url in de browser om de betaling te voltooien. Gebruik daarna ucp_checkout met mode='poll' en checkout_id='{checkout_id}' en wacht tot de bestelling is voltooid.",
     "err.checkout_canceled": "De checkout-sessie is geannuleerd.",
     "err.poll_timeout": "Checkout is niet binnen {timeout} seconden voltooid. De gebruiker heeft de betaling mogelijk nog niet in de browser afgerond. Probeer mode='poll' opnieuw met een langere timeout.",
-    "msg.payment_action_required": "De betaling vereist een actie van de gebruiker in de browser."
+    "msg.payment_action_required": "De betaling vereist een actie van de gebruiker in de browser.",
+    "describe.mode_labels": [
+      "Maak een afrekensessie aan",
+      "Lees de afrekenstatus",
+      "Werk de afrekengegevens bij",
+      "Voltooi het afrekenen en voltooi de bestelling/betaling",
+      "Poll voor voltooiing van het afrekenen"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "geen directe regelitems",
+    "describe.payment_warning": " Hierdoor kan een bestelling worden geplaatst/afgerond en de betaling worden geactiveerd.",
+    "describe.summary": "%(action)s om %(business_url)s (afrekenen: %(checkout_id)s; winkelwagen: %(cart_id)s; artikelen: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "nn": {
     "tool.description": "Administrer en UCP-utsjekkingssesjon. mode='create' — start en ny utsjekkingssesjon.modus='get' — hent gjeldende utsjekkingsstatus.modus='update' — modifiser utsjekkingsfelt. modus='complete' — fullfør bestillingen. Hvis bedriften returnerer requires_escalation med en continue_url, MÅ brukeren åpne denne nettadressen i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.timeout. Bruk etter at brukeren har fullført betalingen via continue_url.",
@@ -525,7 +778,18 @@
     "msg.complete_payment_browser": "Opne continue_url i nettlesaren for å fullføre betalinga. Bruk deretter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent til bestillinga er fullført.",
     "err.checkout_canceled": "Checkout-økta vart avbroten.",
     "err.poll_timeout": "Checkout vart ikkje fullført innan {timeout} sekund. Brukaren har kanskje ikkje fullført betalinga i nettlesaren enno. Prøv mode='poll' igjen med lengre timeout.",
-    "msg.payment_action_required": "Betalinga krev brukarhandling i nettlesaren."
+    "msg.payment_action_required": "Betalinga krev brukarhandling i nettlesaren.",
+    "describe.mode_labels": [
+      "Create a checkout session",
+      "Read checkout status",
+      "Update checkout details",
+      "Complete checkout and finalize the order/payment",
+      "Poll for checkout completion"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "Direktelinje",
+    "describe.payment_warning": "Jeg har nylig mottatt en ordre og ønsker å melde fra om en feil.",
+    "describe.summary": "%(action)s at %(business_url)s (checkout: %(checkout_id)s; cart: %(cart_id)s; items: %(items)s; currency: %(currency)s).%(warning)s"
   },
   "pl": {
     "tool.description": "Zarządzaj sesją realizacji transakcji UCP. mode='create' — rozpocznij nową transakcję.\nmode='get' — pobierz bieżący stan realizacji transakcji.\nmode='update' — zmodyfikuj pola kasy.\nmode='complete' — sfinalizuj zamówienie. Jeśli firma zwraca wymaga_eskalacji z adresem URL_kontynuacji, użytkownik MUSI otworzyć ten adres URL w przeglądarce, aby dokończyć płatność. Gdy użytkownik zapłaci w przeglądarce, użyj mode='poll', aby poczekać na zakończenie.\nmode='poll' — stan sprawdzania ankiety do zakończenia lub przekroczenia limitu czasu. Użyj, gdy użytkownik dokona płatności za pośrednictwem Continuous_url.",
@@ -547,7 +811,18 @@
     "msg.complete_payment_browser": "Otwórz continue_url w przeglądarce, aby zakończyć płatność. Następnie użyj ucp_checkout z mode='poll' i checkout_id='{checkout_id}' i poczekaj na zakończenie zamówienia.",
     "err.checkout_canceled": "Sesja checkout została anulowana.",
     "err.poll_timeout": "Checkout nie zakończył się w ciągu {timeout} sekund. Użytkownik mógł jeszcze nie zakończyć płatności w przeglądarce. Spróbuj ponownie mode='poll' z dłuższym timeoutem.",
-    "msg.payment_action_required": "Płatność wymaga działania użytkownika w przeglądarce."
+    "msg.payment_action_required": "Płatność wymaga działania użytkownika w przeglądarce.",
+    "describe.mode_labels": [
+      "Utwórz sesję realizacji transakcji",
+      "Przeczytaj status realizacji transakcji",
+      "Zaktualizuj szczegóły realizacji transakcji",
+      "Dokończ realizację transakcji i sfinalizuj zamówienie/płatność",
+      "Ankieta dotycząca zakończenia realizacji transakcji"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "brak bezpośrednich elementów zamówienia",
+    "describe.payment_warning": " Może to spowodować złożenie/sfinalizowanie zamówienia i uruchomienie płatności.",
+    "describe.summary": "%(action)s o %(business_url)s (zamówienie: %(checkout_id)s; koszyk: %(cart_id)s; produkty: %(items)s; waluta: %(currency)s).%(warning)s"
   },
   "pt": {
     "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
@@ -569,7 +844,18 @@
     "msg.complete_payment_browser": "Abra continue_url no navegador para concluir o pagamento. Depois, use ucp_checkout com mode='poll' e checkout_id='{checkout_id}' e aguarde a conclusão da encomenda.",
     "err.checkout_canceled": "A sessão de checkout foi cancelada.",
     "err.poll_timeout": "O checkout não foi concluído em {timeout} segundos. O utilizador pode ainda não ter concluído o pagamento no navegador. Tente novamente mode='poll' com um timeout maior.",
-    "msg.payment_action_required": "O pagamento requer uma ação do utilizador no navegador."
+    "msg.payment_action_required": "O pagamento requer uma ação do utilizador no navegador.",
+    "describe.mode_labels": [
+      "Crie uma sessão de checkout",
+      "Leia o status do checkout",
+      "Atualize os detalhes do checkout",
+      "Conclua o checkout e finalize o pedido/pagamento",
+      "Pesquisa para conclusão do checkout"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "nenhum item de linha direto",
+    "describe.payment_warning": " Isso pode fazer/finalizar um pedido e acionar o pagamento.",
+    "describe.summary": "%(action)s em %(business_url)s (checkout: %(checkout_id)s; carrinho: %(cart_id)s; itens: %(items)s; moeda: %(currency)s).%(warning)s"
   },
   "pt_BR": {
     "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
@@ -591,7 +877,18 @@
     "msg.complete_payment_browser": "Abra continue_url no navegador para concluir o pagamento. Depois, use ucp_checkout com mode='poll' e checkout_id='{checkout_id}' e aguarde a conclusão do pedido.",
     "err.checkout_canceled": "A sessão de checkout foi cancelada.",
     "err.poll_timeout": "O checkout não foi concluído em {timeout} segundos. O usuário pode ainda não ter concluído o pagamento no navegador. Tente novamente mode='poll' com um timeout maior.",
-    "msg.payment_action_required": "O pagamento requer uma ação do usuário no navegador."
+    "msg.payment_action_required": "O pagamento requer uma ação do usuário no navegador.",
+    "describe.mode_labels": [
+      "Crie uma sessão de checkout",
+      "Leia o status do checkout",
+      "Atualize os detalhes do checkout",
+      "Conclua o checkout e finalize o pedido/pagamento",
+      "Pesquisa para conclusão do checkout"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "nenhum item de linha direto",
+    "describe.payment_warning": " Isso pode fazer/finalizar um pedido e acionar o pagamento.",
+    "describe.summary": "%(action)s em %(business_url)s (checkout: %(checkout_id)s; carrinho: %(cart_id)s; itens: %(items)s; moeda: %(currency)s).%(warning)s"
   },
   "ro": {
     "tool.description": "Gestionați o sesiune de plată UCP. mode='create' — începeți o nouă casă.\nmode='get' — obțineți starea curentă de plată.\nmode='update' — modificați câmpurile de finalizare a plății.\nmode='complete' — finalizați comanda. Dacă afacerea revine requires_escalation cu un continue_url, utilizatorul TREBUIE să deschidă acea adresă URL într-un browser pentru a finaliza plata. După ce utilizatorul plătește în browser, utilizați mode='poll' pentru a aștepta finalizarea.\nmode='poll' — starea de verificare a sondajului până la finalizare sau expirare. Utilizați după ce utilizatorul finalizează plata prin continue_url.",
@@ -613,7 +910,18 @@
     "msg.complete_payment_browser": "Deschideți continue_url în browser pentru a finaliza plata. Apoi utilizați ucp_checkout cu mode='poll' și checkout_id='{checkout_id}' și așteptați finalizarea comenzii.",
     "err.checkout_canceled": "Sesiunea de checkout a fost anulată.",
     "err.poll_timeout": "Checkout-ul nu s-a finalizat în {timeout} secunde. Este posibil ca utilizatorul să nu fi finalizat încă plata în browser. Încercați din nou mode='poll' cu un timeout mai mare.",
-    "msg.payment_action_required": "Plata necesită o acțiune a utilizatorului în browser."
+    "msg.payment_action_required": "Plata necesită o acțiune a utilizatorului în browser.",
+    "describe.mode_labels": [
+      "Creați o sesiune de finalizare a comenzii",
+      "Citiți starea comenzii",
+      "Actualizați detaliile de plată",
+      "Finalizați finalizarea comenzii/plată",
+      "Sondaj pentru finalizarea comenzii"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "fără elemente rând directe",
+    "describe.payment_warning": " Acest lucru poate plasa/finaliza o comandă și poate declanșa plata.",
+    "describe.summary": "%(action)s la %(business_url)s (checkout: %(checkout_id)s; coș: %(cart_id)s; articole: %(items)s; moneda: %(currency)s).%(warning)s"
   },
   "ru": {
     "tool.description": "Управляйте сеансом оформления заказа UCP. mode='create' — начать новую проверку.\nmode='get' — получить текущий статус оформления заказа.\nmode='update' — изменить поля оформления заказа.\nmode='complete' — завершить заказ. Если бизнес возвращает require_escalation с continue_url, пользователь ДОЛЖЕН открыть этот URL-адрес в браузере для завершения платежа. После того, как пользователь оплатит в браузере, используйте mode='poll', чтобы дождаться завершения.\nmode='poll' — статус проверки опроса до завершения или истечения времени ожидания. Используйте после того, как пользователь завершит оплату через continue_url.",
@@ -635,7 +943,18 @@
     "msg.complete_payment_browser": "Откройте continue_url в браузере, чтобы завершить оплату. Затем используйте ucp_checkout с mode='poll' и checkout_id='{checkout_id}' и дождитесь завершения заказа.",
     "err.checkout_canceled": "Сеанс checkout был отменён.",
     "err.poll_timeout": "Checkout не завершился за {timeout} секунд. Возможно, пользователь ещё не завершил оплату в браузере. Повторите mode='poll' с большим timeout.",
-    "msg.payment_action_required": "Оплата требует действия пользователя в браузере."
+    "msg.payment_action_required": "Оплата требует действия пользователя в браузере.",
+    "describe.mode_labels": [
+      "Создать сеанс оформления заказа",
+      "Читать статус оформления заказа",
+      "Обновить детали оформления заказа",
+      "Завершить оформление заказа и завершить оформление заказа/платежа",
+      "Опрос для завершения оформления заказа"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "нет прямых позиций",
+    "describe.payment_warning": " Это может привести к размещению/завершению заказа и инициированию оплаты.",
+    "describe.summary": "%(action)s в %(business_url)s (оформление заказа: %(checkout_id)s; корзина: %(cart_id)s; товары: %(items)s; валюта: %(currency)s).%(warning)s"
   },
   "sv": {
     "tool.description": "Hantera en UCP-utcheckningssession. mode='skapa' — starta en ny utcheckning.\nmode='get' — hämta aktuell kassastatus.\nmode='uppdatera' — ändra kassafält.\nmode='komplett' — slutföra beställningen. Om företaget returnerar requires_escalation med en continu_url, MÅSTE användaren öppna den webbadressen i en webbläsare för att slutföra betalningen. Efter att användaren har betalat i webbläsaren, använd mode='poll' för att vänta på slutförandet.\nmode='poll' — omröstningsutcheckningsstatus tills den är klar eller timeout. Använd efter att användaren har slutfört betalningen via continu_url.",
@@ -657,7 +976,18 @@
     "msg.complete_payment_browser": "Öppna continue_url i webbläsaren för att slutföra betalningen. Använd sedan ucp_checkout med mode='poll' och checkout_id='{checkout_id}' och vänta tills beställningen är klar.",
     "err.checkout_canceled": "Checkout-sessionen avbröts.",
     "err.poll_timeout": "Checkout slutfördes inte inom {timeout} sekunder. Användaren kanske inte har slutfört betalningen i webbläsaren ännu. Försök mode='poll' igen med längre timeout.",
-    "msg.payment_action_required": "Betalningen kräver en användaråtgärd i webbläsaren."
+    "msg.payment_action_required": "Betalningen kräver en användaråtgärd i webbläsaren.",
+    "describe.mode_labels": [
+      "Skapa en kassasession",
+      "Läs kassastatus",
+      "Uppdatera kassainformation",
+      "Slutför kassan och slutför beställningen/betalningen",
+      "Omröstning för slutförande av kassan"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "inga direkta artiklar",
+    "describe.payment_warning": " Detta kan göra/slutföra en beställning och utlösa betalning.",
+    "describe.summary": "%(action)s vid %(business_url)s (utcheckning: %(checkout_id)s; kundvagn: %(cart_id)s; varor: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "sw": {
     "tool.description": "Dhibiti kipindi cha malipo cha UCP. mode='unda' - anza malipo mapya.\nmode='pata' - pata hali ya sasa ya kulipa.\nmode='sasisha' - rekebisha sehemu za kulipa.\nmode='complete' — kamilisha agizo. Ikiwa biashara inarejesha inahitaji_kupanda kwa kuendelea na url, ni LAZIMA mtumiaji afungue URL hiyo kwenye kivinjari ili kukamilisha malipo. Baada ya mtumiaji kulipa katika kivinjari, tumia mode='poll' kusubiri kukamilika.\nmode='poll' — hali ya kulipa kura hadi ikamilike au kuisha. Tumia baada ya mtumiaji kukamilisha malipo kupitia kuendelea_url.",
@@ -679,7 +1009,18 @@
     "msg.complete_payment_browser": "Fungua continue_url kwenye kivinjari ili kukamilisha malipo. Baada ya kulipa, tumia ucp_checkout na mode='poll' pamoja na checkout_id='{checkout_id}' na usubiri agizo likamilike.",
     "err.checkout_canceled": "Kikao cha checkout kimeghairiwa.",
     "err.poll_timeout": "Checkout haikukamilika ndani ya sekunde {timeout}. Huenda mtumiaji bado hajakamilisha malipo kwenye kivinjari. Jaribu mode='poll' tena kwa timeout ndefu zaidi.",
-    "msg.payment_action_required": "Malipo yanahitaji hatua ya mtumiaji kwenye kivinjari."
+    "msg.payment_action_required": "Malipo yanahitaji hatua ya mtumiaji kwenye kivinjari.",
+    "describe.mode_labels": [
+      "Unda kipindi cha kulipa",
+      "Soma hali ya kulipa",
+      "Sasisha maelezo ya kulipa",
+      "Kamilisha kulipa na ukamilishe agizo/malipo",
+      "Kura ya kukamilisha malipo"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "hakuna vitu vya mstari wa moja kwa moja",
+    "describe.payment_warning": " Hii inaweza kuweka/kukamilisha agizo na kuanzisha malipo.",
+    "describe.summary": "%(action)s kwa %(business_url)s (kulipa: %(checkout_id)s; rukwama: %(cart_id)s; vitu: %(items)s; sarafu: %(currency)s).%(warning)s"
   },
   "th": {
     "tool.description": "จัดการเซสชันการชำระเงิน UCP mode='create' — เริ่มการชำระเงินใหม่ \nmode='get' — ดึงข้อมูลสถานะการชำระเงินปัจจุบัน \nmode='update' — แก้ไขฟิลด์การชำระเงิน \nmode='complete' — เสร็จสิ้นการสั่งซื้อ หากธุรกิจส่งคืน need_escalation ด้วย Continue_url ผู้ใช้จะต้องเปิด URL นั้นในเบราว์เซอร์เพื่อชำระเงินให้เสร็จสิ้น หลังจากที่ผู้ใช้ชำระเงินในเบราว์เซอร์ ให้ใช้ mode='poll' เพื่อรอจนเสร็จสิ้น\nmode='poll' — สถานะการชำระเงินของโพลจนกว่าจะเสร็จสิ้นหรือหมดเวลา ใช้หลังจากที่ผู้ใช้ชำระเงินผ่าน Continue_url เรียบร้อยแล้ว",
@@ -701,7 +1042,18 @@
     "msg.complete_payment_browser": "เปิด continue_url ในเบราว์เซอร์เพื่อชำระเงินให้เสร็จ จากนั้นใช้ ucp_checkout ด้วย mode='poll' และ checkout_id='{checkout_id}' แล้วรอให้คำสั่งซื้อเสร็จสมบูรณ์",
     "err.checkout_canceled": "เซสชัน checkout ถูกยกเลิก",
     "err.poll_timeout": "checkout ไม่เสร็จภายใน {timeout} วินาที ผู้ใช้อาจยังชำระเงินในเบราว์เซอร์ไม่เสร็จ ลอง mode='poll' อีกครั้งด้วย timeout ที่นานขึ้น",
-    "msg.payment_action_required": "การชำระเงินต้องการการดำเนินการของผู้ใช้ในเบราว์เซอร์"
+    "msg.payment_action_required": "การชำระเงินต้องการการดำเนินการของผู้ใช้ในเบราว์เซอร์",
+    "describe.mode_labels": [
+      "สร้างเซสชันการชำระเงิน",
+      "อ่านสถานะการชำระเงิน",
+      "อัปเดตรายละเอียดการชำระเงิน",
+      "ชำระเงินให้เสร็จสิ้นและสรุปคำสั่งซื้อ/การชำระเงิน",
+      "สำรวจความคิดเห็นเพื่อชำระเงินให้เสร็จสิ้น"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "ไม่มีรายการโฆษณาโดยตรง",
+    "describe.payment_warning": " สิ่งนี้อาจวาง/สรุปคำสั่งซื้อและทริกเกอร์การชำระเงิน",
+    "describe.summary": "%(action)s ที่ %(business_url)s (ชำระเงิน: %(checkout_id)s; รถเข็น: %(cart_id)s; รายการ: %(items)s; สกุลเงิน: %(currency)s).%(warning)s"
   },
   "tr": {
     "tool.description": "UCP ödeme oturumunu yönetin. mode='create' — yeni bir ödeme başlat.\nmode='get' — mevcut ödeme durumunu getir.\nmode='update' — ödeme alanlarını değiştir.\nmode='complete' — siparişi sonlandır. İşletme, bir devam_url'si ile require_escalation değerini döndürürse, kullanıcının ödemeyi tamamlamak için bu URL'yi bir tarayıcıda açması GEREKİR. Kullanıcı tarayıcıda ödeme yaptıktan sonra, tamamlanmasını beklemek için mode='poll' komutunu kullanın.\nmode='poll' — tamamlanana veya zaman aşımına uğrayana kadar anket ödeme durumu. Kullanıcı devam_url yoluyla ödemeyi tamamladıktan sonra kullanın.",
@@ -723,7 +1075,18 @@
     "msg.complete_payment_browser": "Ödemeyi tamamlamak için continue_url adresini tarayıcıda açın. Ardından ucp_checkout'u mode='poll' ve checkout_id='{checkout_id}' ile kullanın ve siparişin tamamlanmasını bekleyin.",
     "err.checkout_canceled": "Checkout oturumu iptal edildi.",
     "err.poll_timeout": "Checkout {timeout} saniye içinde tamamlanmadı. Kullanıcı tarayıcıda ödemeyi henüz tamamlamamış olabilir. Daha uzun timeout ile mode='poll' tekrar deneyin.",
-    "msg.payment_action_required": "Ödeme, tarayıcıda kullanıcı işlemi gerektiriyor."
+    "msg.payment_action_required": "Ödeme, tarayıcıda kullanıcı işlemi gerektiriyor.",
+    "describe.mode_labels": [
+      "Ödeme oturumu oluşturun",
+      "Ödeme durumunu okuyun",
+      "Ödeme ayrıntılarını güncelleyin",
+      "Ödemeyi tamamlayın ve siparişi/ödemeyi sonlandırın",
+      "Ödeme işleminin tamamlanması için anket yapın"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "doğrudan satır öğesi yok",
+    "describe.payment_warning": " Bu, bir sipariş verebilir/sonlandırabilir ve ödemeyi tetikleyebilir.",
+    "describe.summary": "%(action)s, %(business_url)s (ödeme: %(checkout_id)s; sepet: %(cart_id)s; öğeler: %(items)s; para birimi: %(currency)s).%(warning)s"
   },
   "uk": {
     "tool.description": "Керуйте сеансом оформлення UCP. mode='create' — почати нову перевірку.\nmode='get' — отримати поточний статус перевірки.\nmode='update' — змінити поля перевірки.\nmode='complete' — завершити замовлення. Якщо компанія повертає запит requires_escalation із continue_url, користувач ПОВИНЕН відкрити цю URL-адресу в браузері, щоб завершити платіж. Після того, як користувач оплатить у браузері, використовуйте mode='poll', щоб дочекатися завершення.\nmode='poll' — статус перевірки опитування до завершення або час очікування. Використовуйте після того, як користувач завершить оплату через continue_url.",
@@ -745,7 +1108,18 @@
     "msg.complete_payment_browser": "Відкрийте continue_url у браузері, щоб завершити оплату. Потім використайте ucp_checkout з mode='poll' і checkout_id='{checkout_id}' та дочекайтеся завершення замовлення.",
     "err.checkout_canceled": "Сеанс checkout було скасовано.",
     "err.poll_timeout": "Checkout не завершився за {timeout} секунд. Можливо, користувач ще не завершив оплату в браузері. Спробуйте mode='poll' ще раз із більшим timeout.",
-    "msg.payment_action_required": "Оплата потребує дії користувача в браузері."
+    "msg.payment_action_required": "Оплата потребує дії користувача в браузері.",
+    "describe.mode_labels": [
+      "Створіть сеанс оформлення замовлення",
+      "Прочитайте статус оформлення замовлення",
+      "Оновіть деталі оформлення замовлення",
+      "Завершіть оформлення замовлення та завершіть замовлення/оплату",
+      "Опитування щодо завершення оформлення замовлення"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "немає прямих позицій",
+    "describe.payment_warning": " Це може розмістити/завершити замовлення та ініціювати платіж.",
+    "describe.summary": "%(action)s о %(business_url)s (оплата: %(checkout_id)s; кошик: %(cart_id)s; товари: %(items)s; валюта: %(currency)s).%(warning)s"
   },
   "vi": {
     "tool.description": "Quản lý phiên thanh toán UCP. mode='create' — bắt đầu một lần thanh toán mới.\nmode='get' — tìm nạp trạng thái thanh toán hiện tại.\nmode='update' — sửa đổi các trường thanh toán.\nmode='complete' — hoàn tất đơn hàng. Nếu doanh nghiệp trả về require_escalation bằng continue_url, người dùng PHẢI mở URL đó trong trình duyệt để hoàn tất thanh toán. Sau khi người dùng thanh toán trên trình duyệt, hãy sử dụng mode='poll' để chờ hoàn thành.\nmode='poll' — trạng thái kiểm tra cuộc thăm dò ý kiến ​​cho đến khi hoàn thành hoặc hết thời gian chờ. Sử dụng sau khi người dùng hoàn tất thanh toán qua continue_url.",
@@ -767,7 +1141,18 @@
     "msg.complete_payment_browser": "Mở continue_url trong trình duyệt để hoàn tất thanh toán. Sau đó dùng ucp_checkout với mode='poll' và checkout_id='{checkout_id}' rồi chờ đơn hàng hoàn tất.",
     "err.checkout_canceled": "Phiên checkout đã bị hủy.",
     "err.poll_timeout": "Checkout không hoàn tất trong {timeout} giây. Người dùng có thể chưa hoàn tất thanh toán trong trình duyệt. Hãy thử lại mode='poll' với timeout dài hơn.",
-    "msg.payment_action_required": "Thanh toán yêu cầu người dùng thao tác trong trình duyệt."
+    "msg.payment_action_required": "Thanh toán yêu cầu người dùng thao tác trong trình duyệt.",
+    "describe.mode_labels": [
+      "Tạo phiên thanh toán",
+      "Đọc trạng thái thanh toán",
+      "Cập nhật chi tiết thanh toán",
+      "Hoàn tất thanh toán và hoàn tất đơn hàng/thanh toán",
+      "Thăm dò ý kiến để hoàn tất thanh toán"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "không có mục hàng trực tiếp",
+    "describe.payment_warning": " Điều này có thể đặt/hoàn tất đơn hàng và kích hoạt thanh toán.",
+    "describe.summary": "%(action)s tại %(business_url)s (thanh toán: %(checkout_id)s; giỏ hàng: %(cart_id)s; mặt hàng: %(items)s; tiền tệ: %(currency)s).%(warning)s"
   },
   "zh_CN": {
     "tool.description": "管理 UCP 结帐会话。 mode='create' — 开始新的结帐。\nmode='get' — 获取当前结帐状态。\nmode='update' — 修改结帐字段。\nmode='complete' — 完成订单。如果企业返回带有 continue_url 的 require_escalation，则用户必须在浏览器中打开该 URL 才能完成付款。用户在浏览器中付款后，使用 mode='poll' 等待完成。\nmode='poll' — 轮询结帐状态，直到完成或超时。用户通过 continue_url 完成支付后使用。",
@@ -789,7 +1174,18 @@
     "msg.complete_payment_browser": "在浏览器中打开 continue_url 以完成付款。付款后，使用 ucp_checkout，设置 mode='poll' 和 checkout_id='{checkout_id}'，并等待订单完成。",
     "err.checkout_canceled": "checkout 会话已取消。",
     "err.poll_timeout": "checkout 未在 {timeout} 秒内完成。用户可能尚未在浏览器中完成付款。请使用更长的 timeout 再次尝试 mode='poll'。",
-    "msg.payment_action_required": "付款需要用户在浏览器中进行操作。"
+    "msg.payment_action_required": "付款需要用户在浏览器中进行操作。",
+    "describe.mode_labels": [
+      "创建结帐会话",
+      "读取结帐状态",
+      "更新结帐详细信息",
+      "完成结帐并完成订单/付款",
+      "轮询结帐完成情况"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "没有直接订单项",
+    "describe.payment_warning": " 这可能会下订单/完成订单并触发付款。",
+    "describe.summary": "%(action)s，%(business_url)s（结账：%(checkout_id)s；购物车：%(cart_id)s；商品：%(items)s；货币：%(currency)s）.%(warning)s"
   },
   "zh_TW": {
     "tool.description": "管理 UCP 結帳會話。 mode='create' — 開始新的結帳。 \nmode='get' — 取得目前結帳狀態。 \nmode='update' — 修改結帳欄位。 \nmode='complete' — 完成訂單。如果企業傳回帶有 continue_url 的 require_escalation，則使用者必須在瀏覽器中開啟該 URL 才能完成付款。用戶在瀏覽器中付款後，使用 mode='poll' 等待完成。 \nmode='poll' — 輪詢結帳狀態，直到完成或逾時。使用者透過 continue_url 完成付款後使用。",
@@ -811,6 +1207,17 @@
     "msg.complete_payment_browser": "在瀏覽器中開啟 continue_url 以完成付款。付款後，使用 ucp_checkout，設定 mode='poll' 和 checkout_id='{checkout_id}'，並等待訂單完成。",
     "err.checkout_canceled": "checkout 工作階段已取消。",
     "err.poll_timeout": "checkout 未在 {timeout} 秒內完成。使用者可能尚未在瀏覽器中完成付款。請使用更長的 timeout 再次嘗試 mode='poll'。",
-    "msg.payment_action_required": "付款需要使用者在瀏覽器中進行操作。"
+    "msg.payment_action_required": "付款需要使用者在瀏覽器中進行操作。",
+    "describe.mode_labels": [
+      "建立結帳會話",
+      "讀取結帳狀態",
+      "更新結帳詳細資料",
+      "完成結帳並完成訂單/付款",
+      "輪詢結帳完成情況"
+    ],
+    "describe.line_item": "%(item_id)s x %(quantity)s",
+    "describe.no_items": "沒有直接訂單項",
+    "describe.payment_warning": " 這可能會下訂單/完成訂單並觸發付款。",
+    "describe.summary": "%(action)s，%(business_url)s（結帳：%(checkout_id)s；購物車：%(cart_id)s；商品：%(items)s；貨幣：%(currency)s）.%(warning)s"
   }
 }

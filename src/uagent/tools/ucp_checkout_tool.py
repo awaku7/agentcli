@@ -5,7 +5,7 @@ Manage checkout sessions via UCP — create, get, update, complete, and poll.
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import make_tool_translator, safe_display_url
 
 _ = make_tool_translator(__file__)
 
@@ -466,3 +466,81 @@ def _build_escalation_response(checkout_id: str, exc: UCPBuyerInputError) -> str
     if continue_url:
         result["continue_url"] = continue_url
     return json.dumps(result, ensure_ascii=False, indent=2)
+
+
+_CHECKOUT_MODES = ["create", "get", "update", "complete", "poll"]
+_CHECKOUT_MODE_LABELS_EN = [
+    "Create a checkout session",
+    "Read checkout status",
+    "Update checkout details",
+    "Complete checkout and finalize the order/payment",
+    "Poll for checkout completion",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize checkout intent and the identifiers/amounts being used."""
+
+    args = args or {}
+    mode = str(args.get("mode") or "create")
+    labels = _(
+        "describe.mode_labels",
+        default=_CHECKOUT_MODE_LABELS_EN,
+    )
+    if not isinstance(labels, list) or len(labels) != len(_CHECKOUT_MODES):
+        labels = _CHECKOUT_MODE_LABELS_EN
+    action = dict(zip(_CHECKOUT_MODES, labels)).get(mode, mode)
+
+    item_parts = []
+    line_items = args.get("line_items")
+    if isinstance(line_items, list):
+        for item in line_items[:4]:
+            if isinstance(item, dict):
+                item_parts.append(
+                    str(
+                        _(
+                            "describe.line_item",
+                            default="%(item_id)s x %(quantity)s",
+                            item_id=str(item.get("item_id") or "<unknown item>"),
+                            quantity=item.get("quantity", "?"),
+                        )
+                    )
+                )
+    if isinstance(line_items, list) and len(line_items) > 4:
+        item_parts.append("...")
+    items = "; ".join(item_parts) or str(
+        _("describe.no_items", default="no direct line items")
+    )
+    checkout_id = str(args.get("checkout_id") or "")
+    cart_id = str(args.get("cart_id") or "")
+    currency = str(args.get("currency") or "")
+    warning = (
+        str(
+            _(
+                "describe.payment_warning",
+                default=" This may place/finalize an order and trigger payment.",
+            )
+        )
+        if mode == "complete"
+        else ""
+    )
+    return str(
+        _(
+            "describe.summary",
+            default=(
+                "%(action)s at %(business_url)s (checkout: %(checkout_id)s; "
+                "cart: %(cart_id)s; items: %(items)s; currency: %(currency)s).%(warning)s"
+            ),
+            action=action,
+            business_url=safe_display_url(args.get("business_url"))
+            or "<unknown business>",
+            checkout_id=checkout_id or "<not specified>",
+            cart_id=cart_id or "<not specified>",
+            items=items,
+            currency=currency or "<default>",
+            warning=warning,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

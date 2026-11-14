@@ -238,3 +238,18 @@ def run_tool(args: dict[str, Any]) -> str:
 
     except Exception as e:
         return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Preview email recipients and format without exposing subject or body."""
+
+    args = args or {}
+    purpose = str(_("tool.description", default="Send an email."))
+    return (
+        f"{purpose} (to={args.get('to') or '<missing>'}; "
+        f"cc={args.get('cc') or '<none>'}; bcc={args.get('bcc') or '<none>'}; "
+        f"html={bool(args.get('html', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

@@ -10,7 +10,7 @@ Mandates are persisted to ~/.uag/ucp_mandates.json.
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import make_tool_translator, safe_display_url
 
 _ = make_tool_translator(__file__)
 
@@ -415,3 +415,89 @@ def run_tool(args: dict[str, Any]) -> str:
         },
         ensure_ascii=False,
     )
+
+
+_AP2_MODES = ["mandate_create", "mandate_list", "execute", "verify"]
+_AP2_MODE_LABELS_EN = [
+    "Create a spending mandate (user approval required)",
+    "List active spending mandates",
+    "Generate a payment token for a checkout",
+    "Verify a payment token",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize AP2 authorization intent without exposing signed tokens."""
+
+    args = args or {}
+    mode = str(args.get("mode") or "")
+    labels = _("describe.mode_labels", default=_AP2_MODE_LABELS_EN)
+    if not isinstance(labels, list) or len(labels) != len(_AP2_MODES):
+        labels = _AP2_MODE_LABELS_EN
+    action = dict(zip(_AP2_MODES, labels)).get(
+        mode, mode or "Manage payment authorization"
+    )
+
+    details = []
+    merchant = str(args.get("merchant_name") or "")
+    if merchant:
+        details.append(
+            str(_("describe.merchant", default="merchant: %(name)s", name=merchant))
+        )
+    business_url = safe_display_url(args.get("business_url"))
+    if business_url:
+        details.append(
+            str(
+                _(
+                    "describe.business",
+                    default="business: %(url)s",
+                    url=business_url,
+                )
+            )
+        )
+    mandate_id = str(args.get("mandate_id") or "")
+    if mandate_id:
+        details.append(
+            str(
+                _(
+                    "describe.mandate",
+                    default="mandate: %(id)s",
+                    id=mandate_id,
+                )
+            )
+        )
+    checkout_id = str(args.get("checkout_id") or "")
+    if checkout_id:
+        details.append(
+            str(
+                _(
+                    "describe.checkout",
+                    default="checkout: %(id)s",
+                    id=checkout_id,
+                )
+            )
+        )
+    amount = args.get("max_amount") if mode == "mandate_create" else args.get("amount")
+    currency = str(args.get("currency") or "")
+    if amount is not None:
+        details.append(
+            str(
+                _(
+                    "describe.amount",
+                    default="amount limit/payment: %(amount)s %(currency)s",
+                    amount=amount,
+                    currency=currency,
+                )
+            )
+        )
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s (%(details)s).",
+            action=action,
+            details="; ".join(details) or "no additional identifiers",
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

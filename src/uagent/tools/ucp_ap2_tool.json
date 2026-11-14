@@ -9,7 +9,19 @@
     "param.mandate_id.description": "معرف التفويض من التفويض_السابق (للتنفيذ).",
     "param.checkout_id.description": "معرف جلسة الخروج لتنفيذ الدفع لـ (الوضع = \"تنفيذ\").",
     "param.amount.description": "مبلغ الدفع بوحدات ثانوية (الوضع='تنفيذ').",
-    "param.ap2_token.description": "تم توقيع رمز AP2 المميز JWT للتحقق (الوضع = \"التحقق\")."
+    "param.ap2_token.description": "تم توقيع رمز AP2 المميز JWT للتحقق (الوضع = \"التحقق\").",
+    "describe.mode_labels": [
+      "إنشاء تفويض إنفاق (يتطلب موافقة المستخدم) ",
+      "إدراج تفويضات الإنفاق النشطة ",
+      "إنشاء رمز مميز للدفع عند الخروج ",
+      "التحقق من رمز الدفع المميز"
+    ],
+    "describe.merchant": "التاجر: %(name)s",
+    "describe.business": "العمل: %(url)s",
+    "describe.mandate": "التفويض: %(id)s",
+    "describe.checkout": "الخروج: %(id)s",
+    "describe.amount": "حد المبلغ/الدفع: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "bn": {
     "tool.description": "AP2 (এজেন্ট পেমেন্ট প্রোটোকল) — স্বায়ত্তশাসিত অর্থপ্রদান ব্যবস্থাপনা।\n\nmode='mandate_create' — একটি নতুন ওপেন পেমেন্ট ম্যান্ডেট তৈরি করুন। এটি এজেন্টকে একটি নির্দিষ্ট সীমা পর্যন্ত স্বায়ত্তশাসিত কেনাকাটা করার অনুমতি দেয়। ব্যবহারকারীকে continue_url এর মাধ্যমে এটি অনুমোদন করতে হবে। \n\nmode='mandate_list' — সমস্ত সক্রিয় অর্থপ্রদান আদেশের তালিকা করুন। একটি স্বাক্ষরিত AP2 টোকেন ফেরত দেয় যা ap2_token হিসাবে ucp_checkout mode='complete'-এ পাস করা যেতে পারে। \n\nmode='verify' — একটি AP2 পেমেন্ট টোকেন যাচাই করুন এবং এর বিবরণ ফেরত দিন।",
@@ -21,7 +33,19 @@
     "param.mandate_id.description": "পূর্ববর্তী mandate_create থেকে ম্যান্ডেট আইডি (নির্বাহের জন্য)।",
     "param.checkout_id.description": "(mode='execute') এর জন্য অর্থপ্রদান কার্যকর করতে চেকআউট সেশন আইডি।",
     "param.amount.description": "ছোট ইউনিটে অর্থপ্রদানের পরিমাণ (মোড = 'এক্সিকিউট')।",
-    "param.ap2_token.description": "যাচাই করার জন্য স্বাক্ষরিত AP2 টোকেন JWT (mode='verify')।"
+    "param.ap2_token.description": "যাচাই করার জন্য স্বাক্ষরিত AP2 টোকেন JWT (mode='verify')।",
+    "describe.mode_labels": [
+      "একটি ব্যয় আদেশ তৈরি করুন (ব্যবহারকারীর অনুমোদন প্রয়োজন)",
+      "সক্রিয় ব্যয়ের আদেশ তালিকাভুক্ত করুন",
+      "চেকআউটের জন্য একটি অর্থপ্রদানের টোকেন তৈরি করুন",
+      "একটি অর্থপ্রদানের টোকেন যাচাই করুন"
+    ],
+    "describe.merchant": "বণিক: %(name)s",
+    "describe.business": "ব্যবসা: %(url)s",
+    "describe.mandate": "আদেশ: %(id)s",
+    "describe.checkout": "চেকআউট: %(id)s",
+    "describe.amount": "পরিমাণ সীমা/প্রদান: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)।"
   },
   "cs": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonomní správa plateb.\n\nmode='mandate_create' — Vytvořte nový otevřený platební mandát. To agenta opravňuje k provádění autonomních nákupů až do stanoveného limitu. Uživatel to musí schválit prostřednictvím continue_url.\n\nmode='mandate_list' — Zobrazí seznam všech aktivních platebních příkazů.\n\nmode='execute' — Provede platební token pomocí existujícího pověření pro konkrétní pokladnu. Vrátí podepsaný token AP2, který lze předat ucp_checkout mode='complete' jako ap2_token.\n\nmode='verify' — Ověřte platební token AP2 a vraťte jeho podrobnosti.",
@@ -33,7 +57,19 @@
     "param.mandate_id.description": "ID mandátu z předchozího mandate_create (pro provedení).",
     "param.checkout_id.description": "ID relace pokladny, za kterou se má provést platba (mode='execute').",
     "param.amount.description": "Částka platby v menších jednotkách (mode='execute').",
-    "param.ap2_token.description": "Podepsaný token AP2 JWT k ověření (mode='verify')."
+    "param.ap2_token.description": "Podepsaný token AP2 JWT k ověření (mode='verify').",
+    "describe.mode_labels": [
+      "Vytvořte zmocnění k útratě (vyžaduje schválení uživatele)",
+      "Seznam aktivních zmocnění k útratě",
+      "Vygenerujte platební token pro pokladnu",
+      "Ověřte platební token"
+    ],
+    "describe.merchant": "obchodník: %(name)s",
+    "describe.business": "firma: %(url)s",
+    "describe.mandate": "mandát: %(id)s",
+    "describe.checkout": "pokladna: %(id)s",
+    "describe.amount": "limit částky/platba: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "da": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonom betalingsstyring.\n\nmode='mandate_create' — Opret en ny åben betalingsmandat. Dette giver agenten tilladelse til at foretage autonome køb op til en specificeret grænse. Brugeren skal godkende dette via continu_url.\n\nmode='mandate_list' — Liste over alle aktive betalingsmandater.\n\nmode='execute' — Udfør et betalingstoken ved hjælp af en eksisterende fuldmagt til en specifik checkout. Returnerer et signeret AP2-token, der kan sendes til ucp_checkout mode='complete' som ap2_token.\n\nmode='verify' — Bekræft et AP2-betalingstoken og returner dets detaljer.",
@@ -45,7 +81,19 @@
     "param.mandate_id.description": "Mandat-id fra et tidligere mandate_create (til execute).",
     "param.checkout_id.description": "Checkout session-id til at udføre betaling for (mode='execute').",
     "param.amount.description": "Betalingsbeløb i mindre enheder (mode='execute').",
-    "param.ap2_token.description": "Signeret AP2-token JWT at verificere (mode='verify')."
+    "param.ap2_token.description": "Signeret AP2-token JWT at verificere (mode='verify').",
+    "describe.mode_labels": [
+      "Opret et forbrugsmandat (brugergodkendelse påkrævet)",
+      "Angiv aktive forbrugsmandater",
+      "Generer et betalingstoken til en kasse",
+      "Bekræft et betalingstoken"
+    ],
+    "describe.merchant": "sælger: %(name)s",
+    "describe.business": "virksomhed: %(url)s",
+    "describe.mandate": "mandat: %(id)s",
+    "describe.checkout": "kassen: %(id)s",
+    "describe.amount": "beløbsgrænse/betaling: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "de": {
     "tool.description": "AP2 (Agent Payments Protocol) – autonomes Zahlungsmanagement.\n\nmode='mandate_create' – Erstellen Sie ein neues offenes Zahlungsmandat. Dies ermächtigt den Agenten, bis zu einem festgelegten Limit selbstständig Einkäufe zu tätigen. Der Benutzer muss dies über continue_url genehmigen.\n\nmode='mandate_list' – Alle aktiven Zahlungsmandate auflisten.\n\nmode='execute' – Einen Zahlungstoken mit einem vorhandenen Mandat für einen bestimmten Checkout ausführen. Gibt ein signiertes AP2-Token zurück, das an ucp_checkout mode='complete' als ap2_token übergeben werden kann.\n\nmode='verify' – Verifiziert ein AP2-Zahlungstoken und gibt seine Details zurück.",
@@ -57,7 +105,19 @@
     "param.mandate_id.description": "Mandats-ID aus einem vorherigen Mandat_create (zur Ausführung).",
     "param.checkout_id.description": "Checkout-Sitzungs-ID, für die die Zahlung ausgeführt werden soll (mode='execute').",
     "param.amount.description": "Zahlungsbetrag in Nebeneinheiten (mode='execute').",
-    "param.ap2_token.description": "Signiertes AP2-Token-JWT zur Überprüfung (mode='verify')."
+    "param.ap2_token.description": "Signiertes AP2-Token-JWT zur Überprüfung (mode='verify').",
+    "describe.mode_labels": [
+      "Erstellen Sie ein Ausgabenmandat (Benutzergenehmigung erforderlich)",
+      "Aktive Ausgabenmandate auflisten",
+      "Generieren Sie einen Zahlungstoken für einen Checkout",
+      "Überprüfen Sie einen Zahlungstoken"
+    ],
+    "describe.merchant": "Händler: %(name)s",
+    "describe.business": "Geschäft: %(url)s",
+    "describe.mandate": "Mandat: %(id)s",
+    "describe.checkout": "Kasse: %(id)s",
+    "describe.amount": "Betragslimit/Zahlung: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "el": {
     "tool.description": "AP2 (Agent Payments Protocol) — αυτόνομη διαχείριση πληρωμών.\n\nmode='mandate_create' — Δημιουργήστε μια νέα ανοιχτή εντολή πληρωμής. Αυτό εξουσιοδοτεί τον αντιπρόσωπο να πραγματοποιεί αυτόνομες αγορές μέχρι ένα καθορισμένο όριο. Ο χρήστης πρέπει να το εγκρίνει μέσω του continue_url.\n\nmode='mandate_list' — Καταχωρίστε όλες τις ενεργές εντολές πληρωμής.\n\nmode='execute' — Εκτελέστε ένα διακριτικό πληρωμής χρησιμοποιώντας μια υπάρχουσα εντολή για μια συγκεκριμένη ολοκλήρωση αγοράς. Επιστρέφει ένα υπογεγραμμένο διακριτικό AP2 που μπορεί να μεταβιβαστεί στο ucp_checkout mode='complete' ως ap2_token.\n\nmode='verify' — Επαληθεύστε ένα διακριτικό πληρωμής AP2 και επιστρέψτε τα στοιχεία του.",
@@ -69,7 +129,19 @@
     "param.mandate_id.description": "Αναγνωριστικό εντολής από προηγούμενο mandate_create (για εκτέλεση).",
     "param.checkout_id.description": "Αναγνωριστικό περιόδου σύνδεσης ολοκλήρωσης αγοράς για την εκτέλεση πληρωμής (mode='execute').",
     "param.amount.description": "Ποσό πληρωμής σε δευτερεύουσες μονάδες (mode='execute').",
-    "param.ap2_token.description": "Υπογεγραμμένο διακριτικό AP2 JWT για επαλήθευση (mode='verify')."
+    "param.ap2_token.description": "Υπογεγραμμένο διακριτικό AP2 JWT για επαλήθευση (mode='verify').",
+    "describe.mode_labels": [
+      "Δημιουργία εντολής δαπανών (απαιτείται έγκριση χρήστη)",
+      "Κατάλογος ενεργών εντολών δαπανών",
+      "Δημιουργία διακριτικού πληρωμής για ταμείο",
+      "Επαλήθευση ενός διακριτικού πληρωμής"
+    ],
+    "describe.merchant": "έμπορος: %(name)s",
+    "describe.business": "επιχείρηση: %(url)s",
+    "describe.mandate": "εντολή: %(id)s",
+    "describe.checkout": "ταμείο: %(id)s",
+    "describe.amount": "όριο ποσού/πληρωμή: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "es": {
     "tool.description": "AP2 (Protocolo de pagos de agentes): gestión de pagos autónoma.\n\nmode='mandate_create': crea un nuevo mandato de pago abierto. Este autoriza al agente a realizar compras autónomas hasta un límite determinado. El usuario debe aprobar esto a través de continue_url.\n\nmode='mandate_list': enumera todos los mandatos de pago activos.\n\nmode='execute': ejecuta un token de pago utilizando un mandato existente para un pago específico. Devuelve un token AP2 firmado que se puede pasar a ucp_checkout mode='complete' como ap2_token.\n\nmode='verify': verifica un token de pago AP2 y devuelve sus detalles.",
@@ -81,7 +153,19 @@
     "param.mandate_id.description": "ID de mandato de un mandato_create anterior (para ejecutar).",
     "param.checkout_id.description": "ID de sesión de pago para ejecutar el pago (modo='ejecutar').",
     "param.amount.description": "Monto del pago en unidades menores (mode='execute').",
-    "param.ap2_token.description": "Token AP2 firmado JWT para verificar (modo = 'verificar')."
+    "param.ap2_token.description": "Token AP2 firmado JWT para verificar (modo = 'verificar').",
+    "describe.mode_labels": [
+      "Crear un mandato de gasto (se requiere aprobación del usuario)",
+      "Enumerar mandatos de gasto activos",
+      "Generar un token de pago para un pago",
+      "Verificar un token de pago"
+    ],
+    "describe.merchant": "comerciante: %(name)s",
+    "describe.business": "negocio: %(url)s",
+    "describe.mandate": "mandato: %(id)s",
+    "describe.checkout": "pago: %(id)s",
+    "describe.amount": "límite de monto/pago: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "fa": {
     "tool.description": "AP2 (پروتکل پرداخت عامل) — مدیریت پرداخت مستقل.\n\nmode='mandate_create' — یک دستور پرداخت باز جدید ایجاد کنید. این به نماینده اجازه می دهد تا خریدهای مستقل تا سقف مشخصی انجام دهد. کاربر باید این مورد را از طریق continue_url تأیید کند.\n\nmode='mandate_list' — فهرست تمام دستورات پرداخت فعال.\n\nmode='execute' — یک نشانه پرداخت را با استفاده از دستور موجود برای یک تسویه حساب خاص اجرا کنید. یک نشانه AP2 امضا شده را برمی گرداند که می تواند به عنوان ap2_token به ucp_checkout mode='complete' منتقل شود.\n\nmode='verify' — یک نشانه پرداخت AP2 را تأیید کنید و جزئیات آن را برگردانید.",
@@ -93,7 +177,19 @@
     "param.mandate_id.description": "شناسه دستوری از mandate_create قبلی (برای اجرا).",
     "param.checkout_id.description": "شناسه جلسه تسویه حساب برای اجرای پرداخت (mode='execute').",
     "param.amount.description": "مبلغ پرداخت در واحدهای جزئی (حالت = 'اجرا').",
-    "param.ap2_token.description": "توکن AP2 JWT برای تأیید (mode='verify')."
+    "param.ap2_token.description": "توکن AP2 JWT برای تأیید (mode='verify').",
+    "describe.mode_labels": [
+      "یک دستور هزینه ایجاد کنید (تأیید کاربر لازم است)",
+      "لیست دستورات خرج فعال",
+      "یک نشانه پرداخت برای تسویه حساب ایجاد کنید",
+      "یک رمز پرداخت را تأیید کنید"
+    ],
+    "describe.merchant": "تاجر: %(name)s",
+    "describe.business": "کسب و کار: %(url)s",
+    "describe.mandate": "مأموریت: %(id)s",
+    "describe.checkout": "تسویه حساب: %(id)s",
+    "describe.amount": "محدودیت مبلغ/پرداخت: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "fi": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonominen maksujen hallinta.\n\nmode='mandate_create' — Luo uusi avoin maksuvaltuutus. Tämä valtuuttaa edustajan tekemään itsenäisiä ostoksia tiettyyn rajaan asti. Käyttäjän täytyy hyväksyä tämä osoitteessa jatka_url.\n\nmode='manndate_list' — Luetteloi kaikki aktiiviset maksuvaltuutukset.\n\nmode='execute' — Suorita maksutunnus käyttämällä olemassa olevaa valtuutusta tietylle kassalle. Palauttaa allekirjoitetun AP2-tunnuksen, joka voidaan välittää ucp_checkout mode='complete':lle muodossa ap2_token.\n\nmode='verify' — Vahvista AP2-maksutunnus ja palauta sen tiedot.",
@@ -105,7 +201,19 @@
     "param.mandate_id.description": "Toimeksiantotunnus edellisestä mandate_create (suorita varten).",
     "param.checkout_id.description": "Checkout-istunnon tunnus maksun suorittamiseksi (mode='suorita').",
     "param.amount.description": "Maksusumma pienemmissä yksiköissä (mode='execute').",
-    "param.ap2_token.description": "Allekirjoitettu AP2-tunnus JWT varmennettavaksi (mode='verify')."
+    "param.ap2_token.description": "Allekirjoitettu AP2-tunnus JWT varmennettavaksi (mode='verify').",
+    "describe.mode_labels": [
+      "Luo käyttövaltuutus (vaatii käyttäjän hyväksynnän)",
+      "Luettele aktiiviset käyttövaltuutukset",
+      "Luo maksutunnus kassaa varten",
+      "Vahvista maksutunnus"
+    ],
+    "describe.merchant": "kauppias: %(name)s",
+    "describe.business": "yritys: %(url)s",
+    "describe.mandate": "mandaatti: %(id)s",
+    "describe.checkout": "kassa: %(id)s",
+    "describe.amount": "summarajoitus/maksu: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "fil": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonomous na pamamahala sa pagbabayad.\n\nmode='mandate_create' — Gumawa ng bagong open payment mandate. Pinahihintulutan nito ang ahente na gumawa ng mga autonomous na pagbili hanggang sa isang tinukoy na limitasyon. Dapat itong aprubahan ng user sa pamamagitan ng continue_url.\n\nmode='mandate_list' — Ilista ang lahat ng aktibong mandato sa pagbabayad.\n\nmode='execute' — Magsagawa ng token ng pagbabayad gamit ang umiiral nang mandato para sa isang partikular na pag-checkout. Nagbabalik ng nilagdaang AP2 token na maaaring ipasa sa ucp_checkout mode='complete' bilang ap2_token.\n\nmode='verify' — I-verify ang isang AP2 payment token at ibalik ang mga detalye nito.",
@@ -117,7 +225,19 @@
     "param.mandate_id.description": "Mandate ID mula sa isang nakaraang mandate_create (para sa execute).",
     "param.checkout_id.description": "Checkout session ID upang magsagawa ng pagbabayad para sa (mode='execute').",
     "param.amount.description": "Halaga ng pagbabayad sa mga menor de edad na unit (mode='execute').",
-    "param.ap2_token.description": "Nilagdaan ang AP2 token na JWT para i-verify (mode='verify')."
+    "param.ap2_token.description": "Nilagdaan ang AP2 token na JWT para i-verify (mode='verify').",
+    "describe.mode_labels": [
+      "Gumawa ng mandate sa paggastos (kinakailangan ang pag-apruba ng user)",
+      "Maglista ng mga aktibong mandato sa paggastos",
+      "Bumuo ng token sa pagbabayad para sa isang checkout",
+      "Mag-verify ng token ng pagbabayad"
+    ],
+    "describe.merchant": "mangangalakal: %(name)s",
+    "describe.business": "negosyo: %(url)s",
+    "describe.mandate": "utos: %(id)s",
+    "describe.checkout": "checkout: %(id)s",
+    "describe.amount": "limitasyon sa halaga/bayad: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "fr": {
     "tool.description": "AP2 (Agent Payments Protocol) — gestion autonome des paiements.\n\nmode='mandate_create' — Créez un nouveau mandat de paiement ouvert. Celui-ci autorise l'agent à effectuer des achats autonomes jusqu'à une limite spécifiée. L'utilisateur doit l'approuver via continue_url.\n\nmode='mandate_list' — Répertorie tous les mandats de paiement actifs.\n\nmode='execute' — Exécute un jeton de paiement en utilisant un mandat existant pour une caisse spécifique. Renvoie un jeton AP2 signé qui peut être transmis à ucp_checkout mode='complete' en tant que ap2_token.\n\nmode='verify' — Vérifiez un jeton de paiement AP2 et renvoyez ses détails.",
@@ -129,7 +249,19 @@
     "param.mandate_id.description": "ID de mandat d’un mandat_create précédent (à exécuter).",
     "param.checkout_id.description": "ID de session de paiement pour lequel exécuter le paiement (mode='execute').",
     "param.amount.description": "Montant du paiement en unités mineures (mode='execute').",
-    "param.ap2_token.description": "Jeton AP2 signé JWT à vérifier (mode='verify')."
+    "param.ap2_token.description": "Jeton AP2 signé JWT à vérifier (mode='verify').",
+    "describe.mode_labels": [
+      "Créer un mandat de dépenses (approbation de l'utilisateur requise)",
+      "Liste des mandats de dépenses actifs",
+      "Générer un jeton de paiement pour un paiement",
+      "Vérifier un jeton de paiement"
+    ],
+    "describe.merchant": "commerçant : %(name)s",
+    "describe.business": "entreprise : %(url)s",
+    "describe.mandate": "mandat : %(id)s",
+    "describe.checkout": "paiement : %(id)s",
+    "describe.amount": "montant limite/paiement : %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "he": {
     "tool.description": "AP2 (Agent Payments Protocol) — ניהול תשלומים אוטונומי.\n\nmode='mandate_create' — צור מנדט תשלום פתוח חדש. זה מאפשר לסוכן לבצע רכישות אוטונומיות עד לגבול מוגדר. המשתמש חייב לאשר זאת באמצעות continue_url.\n\nmode='mandate_list' — רשום את כל מנדטי התשלום הפעילים.\n\nmode='execute' — ביצוע אסימון תשלום באמצעות מנדט קיים עבור קופה מסוימת. מחזירה אסימון AP2 חתום שניתן להעביר ל-ucp_checkout mode='complete' בתור ap2_token.\n\nmode='verify' — אמת אסימון תשלום AP2 והחזר את פרטיו.",
@@ -141,7 +273,19 @@
     "param.mandate_id.description": "מזהה מנדט מ-mandate_create קודם (לביצוע).",
     "param.checkout_id.description": "מזהה הפעלה בקופה לביצוע תשלום (mode='execute').",
     "param.amount.description": "סכום התשלום ביחידות מינוריות (mode='execute').",
-    "param.ap2_token.description": "אסימון AP2 חתום JWT לאימות (mode='verify')."
+    "param.ap2_token.description": "אסימון AP2 חתום JWT לאימות (mode='verify').",
+    "describe.mode_labels": [
+      "צור מנדט הוצאה (נדרש אישור משתמש)",
+      "רשום ציווי הוצאה פעילים",
+      "צור אסימון תשלום לקופה",
+      "אמת אסימון תשלום"
+    ],
+    "describe.merchant": "סוחר: %(name)s",
+    "describe.business": "עסק: %(url)s",
+    "describe.mandate": "מנדט: %(id)s",
+    "describe.checkout": "קופה: %(id)s",
+    "describe.amount": "מגבלת סכום/תשלום: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "hi": {
     "tool.description": "AP2 (एजेंट भुगतान प्रोटोकॉल) - स्वायत्त भुगतान प्रबंधन।\n\nmode='mandate_create' - एक नया खुला भुगतान अधिदेश बनाएं। यह एजेंट को एक निर्दिष्ट सीमा तक स्वायत्त खरीदारी करने के लिए अधिकृत करता है। उपयोगकर्ता को इसे जारी रखें_यूआरएल के माध्यम से अनुमोदित करना होगा। एक हस्ताक्षरित AP2 टोकन लौटाता है जिसे ucp_checkout mode='complete' को ap2_token.\n\nmode='verify' के रूप में पास किया जा सकता है - AP2 भुगतान टोकन को सत्यापित करें और उसका विवरण लौटाएं।",
@@ -153,7 +297,19 @@
     "param.mandate_id.description": "पिछले मैनडेट_क्रिएट से मैंडेट आईडी (निष्पादन के लिए)।",
     "param.checkout_id.description": "(मोड='निष्पादित') के लिए भुगतान निष्पादित करने के लिए चेकआउट सत्र आईडी।",
     "param.amount.description": "छोटी इकाइयों में भुगतान राशि (मोड='निष्पादित')।",
-    "param.ap2_token.description": "सत्यापित करने के लिए हस्ताक्षरित AP2 टोकन JWT (मोड='सत्यापित करें')।"
+    "param.ap2_token.description": "सत्यापित करने के लिए हस्ताक्षरित AP2 टोकन JWT (मोड='सत्यापित करें')।",
+    "describe.mode_labels": [
+      "एक व्यय अधिदेश बनाएँ (उपयोगकर्ता अनुमोदन आवश्यक)",
+      "सक्रिय व्यय अधिदेश सूचीबद्ध करें",
+      "चेकआउट के लिए एक भुगतान टोकन उत्पन्न करें",
+      "एक भुगतान टोकन सत्यापित करें"
+    ],
+    "describe.merchant": "व्यापारी: %(name)s",
+    "describe.business": "व्यवसाय: %(url)s",
+    "describe.mandate": "अधिदेश: %(id)s",
+    "describe.checkout": "चेकआउट: %(id)s",
+    "describe.amount": "राशि सीमा/भुगतान: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "hu": {
     "tool.description": "AP2 (Agent Payments Protocol) – autonóm fizetéskezelés.\n\nmode='mandate_create' – Új nyitott fizetési megbízás létrehozása. Ez felhatalmazza az ügynököt önálló vásárlásokra egy meghatározott korlátig. A felhasználónak ezt jóvá kell hagynia a következőn: folyton_url.\n\nmode='mandate_list' — Az összes aktív fizetési megbízás felsorolása.\n\nmode='execute' — Fizetési token végrehajtása egy adott fizetéshez már meglévő megbízással. Aláírt AP2 tokent ad vissza, amely átadható az ucp_checkout mode='complete'-nek, mint ap2_token.\n\nmode='verify' — AP2 fizetési tokent ellenőrizni és adatait visszaküldeni.",
@@ -165,7 +321,19 @@
     "param.mandate_id.description": "Mandátumazonosító egy korábbi manndate_create (végrehajtáshoz).",
     "param.checkout_id.description": "Checkout munkamenet-azonosító a fizetés végrehajtásához (mode='végrehajtás').",
     "param.amount.description": "A fizetés összege kisebb egységekben (mode='végrehajtás').",
-    "param.ap2_token.description": "Aláírt AP2 token JWT az ellenőrzéshez (mode='verify')."
+    "param.ap2_token.description": "Aláírt AP2 token JWT az ellenőrzéshez (mode='verify').",
+    "describe.mode_labels": [
+      "Költési megbízás létrehozása (felhasználói jóváhagyás szükséges)",
+      "Aktív költési megbízások listázása",
+      "Fizetési tokent generálása a pénztárhoz",
+      "Fizetési token ellenőrzése"
+    ],
+    "describe.merchant": "kereskedő: %(name)s",
+    "describe.business": "üzlet: %(url)s",
+    "describe.mandate": "megbízás: %(id)s",
+    "describe.checkout": "fizetés: %(id)s",
+    "describe.amount": "összeghatár/befizetés: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "id": {
     "tool.description": "AP2 (Protokol Pembayaran Agen) — manajemen pembayaran otonom.\n\nmode='mandate_create' — Membuat mandat pembayaran terbuka baru. Ini memberi wewenang kepada agen untuk melakukan pembelian otonom hingga batas yang ditentukan. Pengguna harus menyetujuinya melalui continue_url.\n\nmode='mandate_list' — Cantumkan semua mandat pembayaran aktif.\n\nmode='execute' — Jalankan token pembayaran menggunakan mandat yang ada untuk pembayaran tertentu. Mengembalikan token AP2 bertanda tangan yang dapat diteruskan ke ucp_checkout mode='complete' sebagai ap2_token.\n\nmode='verify' — Memverifikasi token pembayaran AP2 dan mengembalikan detailnya.",
@@ -177,7 +345,19 @@
     "param.mandate_id.description": "ID Mandat dari mandate_create sebelumnya (untuk dieksekusi).",
     "param.checkout_id.description": "ID sesi checkout untuk mengeksekusi pembayaran (mode='eksekusi').",
     "param.amount.description": "Jumlah pembayaran dalam satuan kecil (mode='eksekusi').",
-    "param.ap2_token.description": "Menandatangani token AP2 JWT untuk memverifikasi (mode='verifikasi')."
+    "param.ap2_token.description": "Menandatangani token AP2 JWT untuk memverifikasi (mode='verifikasi').",
+    "describe.mode_labels": [
+      "Buat mandat pengeluaran (perlu persetujuan pengguna)",
+      "Buat daftar mandat pengeluaran aktif",
+      "Buat token pembayaran untuk checkout",
+      "Verifikasi token pembayaran"
+    ],
+    "describe.merchant": "pedagang: %(name)s",
+    "describe.business": "bisnis: %(url)s",
+    "describe.mandate": "amanat: %(id)s",
+    "describe.checkout": "pembayaran: %(id)s",
+    "describe.amount": "batas jumlah/pembayaran: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "it": {
     "tool.description": "AP2 (Agent Payments Protocol) — gestione autonoma dei pagamenti.\n\nmode='mandate_create' — Crea un nuovo mandato di pagamento aperto. Ciò autorizza l'agente ad effettuare acquisti autonomi fino ad un limite specificato. L'utente deve approvarlo tramite continue_url.\n\nmode='mandate_list' — Elenca tutti i mandati di pagamento attivi.\n\nmode='execute' — Esegue un token di pagamento utilizzando un mandato esistente per un checkout specifico. Restituisce un token AP2 firmato che può essere passato a ucp_checkout mode='complete' come ap2_token.\n\nmode='verify' — Verifica un token di pagamento AP2 e restituisce i suoi dettagli.",
@@ -189,7 +369,19 @@
     "param.mandate_id.description": "ID mandato da un precedente mandate_create (per esecuzione).",
     "param.checkout_id.description": "ID della sessione di pagamento per cui eseguire il pagamento (mode='execute').",
     "param.amount.description": "Importo del pagamento in unità minori (mode='execute').",
-    "param.ap2_token.description": "Token AP2 firmato JWT per verificare (mode='verify')."
+    "param.ap2_token.description": "Token AP2 firmato JWT per verificare (mode='verify').",
+    "describe.mode_labels": [
+      "Crea un mandato di spesa (è richiesta l'approvazione dell'utente)",
+      "Elenca mandati di spesa attivi",
+      "Genera un token di pagamento per un checkout",
+      "Verifica un token di pagamento"
+    ],
+    "describe.merchant": "commerciante: %(name)s",
+    "describe.business": "affari: %(url)s",
+    "describe.mandate": "mandato: %(id)s",
+    "describe.checkout": "pagamento: %(id)s",
+    "describe.amount": "limite di importo/pagamento: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "ja": {
     "tool.description": "AP2 (エージェント支払いプロトコル) — 自律的な支払い管理。\n\nmode='mandate_create' — 新しいオープン支払い義務を作成します。これにより、エージェントは指定された制限まで自律的に購入することが許可されます。ユーザーは continue_url 経由でこれを承認する必要があります。\n\nmode='mandate_list' — すべてのアクティブな支払い義務をリストします。\n\nmode='execute' — 特定のチェックアウトに対して既存の義務を使用して支払いトークンを実行します。 ucp_checkout mode='complete' に ap2_token として渡すことができる署名付き AP2 トークンを返します。\n\nmode='verify' — AP2 支払いトークンを検証し、その詳細を返します。",
@@ -201,7 +393,19 @@
     "param.mandate_id.description": "以前の mandate_create からの Mandate ID (実行用)。",
     "param.checkout_id.description": "支払いを実行するためのチェックアウト セッション ID (mode='execute')。",
     "param.amount.description": "マイナー単位での支払い金額 (mode='execute')。",
-    "param.ap2_token.description": "検証するための署名付き AP2 トークン JWT (mode='verify')。"
+    "param.ap2_token.description": "検証するための署名付き AP2 トークン JWT (mode='verify')。",
+    "describe.mode_labels": [
+      "支払い上限の委任を作成（ユーザー承認が必要）",
+      "有効な支払い委任を一覧",
+      "チェックアウト用の支払いトークンを生成",
+      "支払いトークンを検証"
+    ],
+    "describe.merchant": "加盟店: %(name)s",
+    "describe.business": "事業者: %(url)s",
+    "describe.mandate": "委任ID: %(id)s",
+    "describe.checkout": "チェックアウトID: %(id)s",
+    "describe.amount": "金額上限／支払額: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s（%(details)s）。"
   },
   "ko": {
     "tool.description": "AP2(에이전트 결제 프로토콜) — 자율 결제 관리.\n\nmode='mandate_create' — 새로운 공개 결제 의무를 만듭니다. 이를 통해 에이전트는 지정된 한도까지 자율적으로 구매할 수 있는 권한을 부여받습니다. 사용자는 continue_url을 통해 이를 승인해야 합니다.\n\nmode='mandate_list' — 모든 활성 결제 명령을 나열합니다.\n\nmode='execute' — 특정 결제에 대해 기존 명령을 사용하여 결제 토큰을 실행합니다. ap2_token으로 ucp_checkout mode='complete'에 전달할 수 있는 서명된 AP2 토큰을 반환합니다.\n\nmode='verify' — AP2 결제 토큰을 확인하고 세부 정보를 반환합니다.",
@@ -213,7 +417,19 @@
     "param.mandate_id.description": "이전 mandate_create(실행용)의 위임장 ID입니다.",
     "param.checkout_id.description": "(mode='execute') 결제를 실행할 세션 ID를 확인하세요.",
     "param.amount.description": "소단위 결제금액(모드='실행')입니다.",
-    "param.ap2_token.description": "검증을 위해 서명된 AP2 토큰 JWT입니다(모드='verify')."
+    "param.ap2_token.description": "검증을 위해 서명된 AP2 토큰 JWT입니다(모드='verify').",
+    "describe.mode_labels": [
+      "지출 위임장 생성(사용자 승인 필요)",
+      "활성 지출 위임장 나열",
+      "결제를 위한 결제 토큰 생성",
+      "결제 토큰 확인"
+    ],
+    "describe.merchant": "판매자: %(name)s",
+    "describe.business": "업체: %(url)s",
+    "describe.mandate": "위임장: %(id)s",
+    "describe.checkout": "결제: %(id)s",
+    "describe.amount": "금액 한도/지불: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s(%(details)s)."
   },
   "mn": {
     "tool.description": "AP2 (Agent Payments Protocol) — бие даасан төлбөрийн удирдлага.\n\nmode='mandate_create' — Нээлттэй төлбөрийн шинэ мандат үүсгэх. Энэ нь агентад тогтоосон хязгаар хүртэл бие даасан худалдан авалт хийх эрхийг олгодог. Хэрэглэгч үүнийг continue_url-ээр дамжуулан зөвшөөрөх ёстой.\n\nmode='mandate_list' — Идэвхтэй бүх төлбөрийн мандатын жагсаалт.\n\nmode='execute' — Тодорхой төлбөр тооцоонд одоо байгаа мандатыг ашиглан төлбөрийн токеныг гүйцэтгэнэ. ucp_checkout mode='complete' руу ap2_token хэлбэрээр дамжуулж болох гарын үсэгтэй AP2 токеныг буцаана.\n\nmode='verify' — AP2 төлбөрийн жетоныг баталгаажуулж, дэлгэрэнгүй мэдээллийг нь буцаана.",
@@ -225,7 +441,19 @@
     "param.mandate_id.description": "Өмнөх mandate_create-аас авсан мандат ID (гүйцэтгэхийн тулд).",
     "param.checkout_id.description": "Төлбөрийг гүйцэтгэх тооцооны сессийн ID (mode='execute').",
     "param.amount.description": "Төлбөрийн хэмжээ бага нэгжээр (горим='гүйцэтгэх').",
-    "param.ap2_token.description": "Баталгаажуулахын тулд AP2 жетон JWT-д гарын үсэг зурсан (горим='баталгаа')."
+    "param.ap2_token.description": "Баталгаажуулахын тулд AP2 жетон JWT-д гарын үсэг зурсан (горим='баталгаа').",
+    "describe.mode_labels": [
+      "Зарцуулалтын мандат үүсгэх (хэрэглэгчийн зөвшөөрөл шаардлагатай)",
+      "Идэвхтэй зарцуулалтын мандатыг жагсаах",
+      "Төлбөр хийх төлбөрийн токен үүсгэх",
+      "Төлбөрийн тэмдгийг баталгаажуулах"
+    ],
+    "describe.merchant": "худалдаачин: %(name)s",
+    "describe.business": "бизнес: %(url)s",
+    "describe.mandate": "бүрэн эрх: %(id)s",
+    "describe.checkout": "тооцоо: %(id)s",
+    "describe.amount": "үнийн хязгаар/төлбөр: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "mr": {
     "tool.description": "AP2 (एजंट पेमेंट प्रोटोकॉल) — स्वायत्त पेमेंट व्यवस्थापन.\n\nmode='mandate_create' — एक नवीन ओपन पेमेंट आदेश तयार करा. हे एजंटला निर्दिष्ट मर्यादेपर्यंत स्वायत्त खरेदी करण्यास अधिकृत करते. वापरकर्त्याने हे continue_url द्वारे मंजूर केले पाहिजे.\n\nmode='mandate_list' — सर्व सक्रिय पेमेंट आदेशांची यादी करा.\n\nmode='execute' — विशिष्ट चेकआउटसाठी विद्यमान आदेश वापरून पेमेंट टोकन कार्यान्वित करा. स्वाक्षरी केलेले AP2 टोकन परत करते जे ap2_token म्हणून ucp_checkout mode='complete' ला पास केले जाऊ शकते.\n\nmode='verify' — AP2 पेमेंट टोकन सत्यापित करा आणि त्याचे तपशील परत करा.",
@@ -237,7 +465,19 @@
     "param.mandate_id.description": "मागील mandate_create मधील आदेश आयडी (कार्यान्वीत करण्यासाठी).",
     "param.checkout_id.description": "(mode='execute') साठी पेमेंट कार्यान्वित करण्यासाठी चेकआउट सत्र ID.",
     "param.amount.description": "किरकोळ युनिट्समध्ये देय रक्कम (mode='execute').",
-    "param.ap2_token.description": "सत्यापित करण्यासाठी AP2 टोकन JWT वर स्वाक्षरी केली (mode='verify')."
+    "param.ap2_token.description": "सत्यापित करण्यासाठी AP2 टोकन JWT वर स्वाक्षरी केली (mode='verify').",
+    "describe.mode_labels": [
+      "खर्चाचा आदेश तयार करा (वापरकर्त्याची मंजुरी आवश्यक आहे)",
+      "सक्रिय खर्च आदेशांची यादी करा",
+      "चेकआउटसाठी पेमेंट टोकन व्युत्पन्न करा",
+      "पेमेंट टोकन सत्यापित करा"
+    ],
+    "describe.merchant": "व्यापारी: %(name)s",
+    "describe.business": "व्यवसाय: %(url)s",
+    "describe.mandate": "आदेश: %(id)s",
+    "describe.checkout": "चेकआउट: %(id)s",
+    "describe.amount": "रक्कम मर्यादा/पेमेंट: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "ms": {
     "tool.description": "AP2 (Protokol Pembayaran Ejen) — pengurusan pembayaran autonomi.\n\nmode='mandate_create' — Buat mandat pembayaran terbuka baharu. Ini memberi kuasa kepada ejen untuk membuat pembelian autonomi sehingga had yang ditentukan. Pengguna mesti meluluskan ini melalui continue_url.\n\nmode='mandate_list' — Senaraikan semua mandat pembayaran aktif.\n\nmode='execute' — Laksanakan token pembayaran menggunakan mandat sedia ada untuk pembayaran tertentu. Mengembalikan token AP2 yang ditandatangani yang boleh dihantar ke ucp_checkout mode='complete' sebagai ap2_token.\n\nmode='verify' — Sahkan token pembayaran AP2 dan kembalikan butirannya.",
@@ -249,7 +489,19 @@
     "param.mandate_id.description": "ID mandat daripada mandate_create sebelumnya (untuk dilaksanakan).",
     "param.checkout_id.description": "ID sesi Checkout untuk melaksanakan pembayaran untuk (mode='execute').",
     "param.amount.description": "Amaun pembayaran dalam unit kecil (mode='execute').",
-    "param.ap2_token.description": "Token AP2 yang ditandatangani JWT untuk mengesahkan (mode='verify')."
+    "param.ap2_token.description": "Token AP2 yang ditandatangani JWT untuk mengesahkan (mode='verify').",
+    "describe.mode_labels": [
+      "Buat mandat perbelanjaan (kelulusan pengguna diperlukan)",
+      "Senaraikan mandat perbelanjaan aktif",
+      "Jana token pembayaran untuk pembayaran",
+      "Sahkan token pembayaran"
+    ],
+    "describe.merchant": "peniaga: %(name)s",
+    "describe.business": "perniagaan: %(url)s",
+    "describe.mandate": "mandat: %(id)s",
+    "describe.checkout": "daftar keluar: %(id)s",
+    "describe.amount": "had amaun/bayaran: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "nb": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonom betalingsstyring.\n\nmode='mandate_create' — Opprett et nytt åpent betalingsmandat. Dette autoriserer agenten til å foreta autonome kjøp opp til en spesifisert grense. Brukeren må godkjenne dette via continue_url.\n\nmode='mandate_list' — Vis alle aktive betalingsmandater.\n\nmode='execute' — Utfør et betalingstoken ved å bruke et eksisterende fullmakt for en bestemt utsjekking. Returnerer et signert AP2-token som kan sendes til ucp_checkout mode='complete' som ap2_token.\n\nmode='verify' — Bekreft en AP2-betalingstoken og returner detaljene.",
@@ -261,7 +513,19 @@
     "param.mandate_id.description": "Fullmakts-ID fra en tidligere mandate_create (for execute).",
     "param.checkout_id.description": "Checkout økt-ID for å utføre betaling for (mode='execute').",
     "param.amount.description": "Betalingsbeløp i mindre enheter (mode='execute').",
-    "param.ap2_token.description": "Signert AP2-token JWT for å verifisere (modus='verify')."
+    "param.ap2_token.description": "Signert AP2-token JWT for å verifisere (modus='verify').",
+    "describe.mode_labels": [
+      "Opprett et forbruksmandat (brukergodkjenning kreves)",
+      "Liste opp aktive forbruksmandater",
+      "Generer en betalingstoken for en utsjekking",
+      "Bekreft en betalingstoken"
+    ],
+    "describe.merchant": "selger: %(name)s",
+    "describe.business": "virksomhet: %(url)s",
+    "describe.mandate": "fullmakt: %(id)s",
+    "describe.checkout": "utsjekking: %(id)s",
+    "describe.amount": "beløpsgrense/betaling: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "nl": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonoom betalingsbeheer.\n\nmode='mandate_create' — Creëer een nieuw openstaand betalingsmandaat. Hiermee wordt de agent gemachtigd om tot een bepaalde limiet autonome aankopen te doen. De gebruiker moet dit goedkeuren via continue_url.\n\nmode='mandate_list' — Lijst van alle actieve betalingsmandaten.\n\nmode='execute' — Voer een betalingstoken uit met behulp van een bestaand mandaat voor een specifieke kassa. Retourneert een ondertekend AP2-token dat kan worden doorgegeven aan ucp_checkout mode='complete' als ap2_token.\n\nmode='verify' — Verifieer een AP2-betalingstoken en retourneer de details ervan.",
@@ -273,7 +537,19 @@
     "param.mandate_id.description": "Mandaat-ID van een eerder mandaat_create (voor uitvoeren).",
     "param.checkout_id.description": "Afrekensessie-ID waarvoor de betaling moet worden uitgevoerd (mode='execute').",
     "param.amount.description": "Betalingsbedrag in kleine eenheden (mode='execute').",
-    "param.ap2_token.description": "Ondertekend AP2-token JWT om te verifiëren (mode='verify')."
+    "param.ap2_token.description": "Ondertekend AP2-token JWT om te verifiëren (mode='verify').",
+    "describe.mode_labels": [
+      "Maak een bestedingsmandaat aan (goedkeuring van de gebruiker vereist)",
+      "Lijst actieve bestedingsmandaten",
+      "Genereer een betalingstoken voor een kassa",
+      "Verifieer een betalingstoken"
+    ],
+    "describe.merchant": "verkoper: %(name)s",
+    "describe.business": "bedrijf: %(url)s",
+    "describe.mandate": "mandaat: %(id)s",
+    "describe.checkout": "afrekenen: %(id)s",
+    "describe.amount": "bedraglimiet/betaling: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "nn": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonome betalingsadministrasjon.='mandate_create' — Opprett et nytt åpent betalingsmandat. Dette gjev agenten fullmakt til å foreta sjølvstendige kjøp opp til ei bestemt grense. Brukeren må godkjenne dette via continue_url. ‎ ‎ mode='mandate_list' ‎ — Liste over alle aktive betalingsmandater. ‎ ‎ ‎ mode='execute' ‎ — Utfør et betalings-token ved hjelp av et eksisterende mandat for en spesifikk kasse. Returnerer et signert AP2-token som kan sendes tilucp_checkout mode='complete' as ap2_token.",
@@ -285,7 +561,19 @@
     "param.mandate_id.description": "Mandat-ID fra en tidligere Mandat_Create (for Execute).",
     "param.checkout_id.description": "Sjekk ut økt-ID for å utføre betaling for (mode='execute').",
     "param.amount.description": "Betalingsbeløp i mindre enheter (mode='execute').",
-    "param.ap2_token.description": "Signert AP2-token JWT for å verifisere (mode='verifiser')."
+    "param.ap2_token.description": "Signert AP2-token JWT for å verifisere (mode='verifiser').",
+    "describe.mode_labels": [
+      "Create a spending mandate (user approval required)",
+      "List active spending mandates",
+      "Generate a payment token for a checkout",
+      "Verify a payment token"
+    ],
+    "describe.merchant": "merchant: %(name)s",
+    "describe.business": "business: %(url)s",
+    "describe.mandate": "mandate: %(id)s",
+    "describe.checkout": "checkout: %(id)s",
+    "describe.amount": "amount limit/payment: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "pl": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonomiczne zarządzanie płatnościami.\n\nmode='mandate_create' — Utwórz nowe otwarte zlecenie płatności. Upoważnia agenta do samodzielnego dokonywania zakupów do określonego limitu. Użytkownik musi to zatwierdzić poprzezcontinu_url.\n\nmode='mandate_list' — lista wszystkich aktywnych upoważnień do płatności.\n\nmode='execute' — wykonanie tokena płatności przy użyciu istniejącego upoważnienia dla konkretnej transakcji. Zwraca podpisany token AP2, który można przekazać do ucp_checkout mode='complete' jako ap2_token.\n\nmode='verify' — zweryfikuj token płatniczy AP2 i zwróć jego szczegóły.",
@@ -297,7 +585,19 @@
     "param.mandate_id.description": "Identyfikator mandatu z poprzedniego mandatu_create (do wykonania).",
     "param.checkout_id.description": "Identyfikator sesji realizacji transakcji, dla której ma zostać zrealizowana płatność (mode='execute').",
     "param.amount.description": "Kwota płatności w mniejszych jednostkach (mode='execute').",
-    "param.ap2_token.description": "Podpisany token AP2 JWT do weryfikacji (tryb = „weryfikuj”)."
+    "param.ap2_token.description": "Podpisany token AP2 JWT do weryfikacji (tryb = „weryfikuj”).",
+    "describe.mode_labels": [
+      "Utwórz zgodę na wydatki (wymagana zgoda użytkownika) ",
+      "Wyświetl aktywne zgody na wydatki",
+      "Wygeneruj token płatności dla kasy",
+      "Weryfikuj token płatności"
+    ],
+    "describe.merchant": "sprzedawca: %(name)s",
+    "describe.business": "firma: %(url)s",
+    "describe.mandate": "mandat: %(id)s",
+    "describe.checkout": "kasa: %(id)s",
+    "describe.amount": "limit kwoty/płatności: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "pt": {
     "tool.description": "AP2 (Agent Payments Protocol) — gerenciamento autônomo de pagamentos.\n\nmode='mandate_create' — Crie uma nova ordem de pagamento aberta. Isso autoriza o agente a fazer compras autônomas até um limite determinado. O usuário deve aprovar isso via continue_url.\n\nmode='mandate_list' — Lista todos os mandatos de pagamento ativos.\n\nmode='execute' — Execute um token de pagamento usando um mandato existente para um checkout específico. Retorna um token AP2 assinado que pode ser passado para ucp_checkout mode='complete' como ap2_token.\n\nmode='verify' — Verifica um token de pagamento AP2 e retorna seus detalhes.",
@@ -309,7 +609,19 @@
     "param.mandate_id.description": "ID do mandato de um mandato_create anterior (para execução).",
     "param.checkout_id.description": "ID da sessão de checkout para executar o pagamento (mode = 'executar').",
     "param.amount.description": "Valor do pagamento em unidades menores (mode='executar').",
-    "param.ap2_token.description": "JWT do token AP2 assinado para verificação (mode='verify')."
+    "param.ap2_token.description": "JWT do token AP2 assinado para verificação (mode='verify').",
+    "describe.mode_labels": [
+      "Crie um mandato de gastos (é necessária a aprovação do usuário)",
+      "Liste os mandatos de gastos ativos",
+      "Gere um token de pagamento para uma finalização de compra",
+      "Verifique um token de pagamento"
+    ],
+    "describe.merchant": "comerciante: %(name)s",
+    "describe.business": "negócio: %(url)s",
+    "describe.mandate": "mandato: %(id)s",
+    "describe.checkout": "finalização da compra: %(id)s",
+    "describe.amount": "limite de valor/pagamento: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "pt_BR": {
     "tool.description": "AP2 (Agent Payments Protocol) — gerenciamento autônomo de pagamentos.\n\nmode='mandate_create' — Crie uma nova ordem de pagamento aberta. Isso autoriza o agente a fazer compras autônomas até um limite determinado. O usuário deve aprovar isso via continue_url.\n\nmode='mandate_list' — Lista todos os mandatos de pagamento ativos.\n\nmode='execute' — Execute um token de pagamento usando um mandato existente para um checkout específico. Retorna um token AP2 assinado que pode ser passado para ucp_checkout mode='complete' como ap2_token.\n\nmode='verify' — Verifica um token de pagamento AP2 e retorna seus detalhes.",
@@ -321,7 +633,19 @@
     "param.mandate_id.description": "ID do mandato de um mandato_create anterior (para execução).",
     "param.checkout_id.description": "ID da sessão de checkout para executar o pagamento (mode = 'executar').",
     "param.amount.description": "Valor do pagamento em unidades menores (mode='executar').",
-    "param.ap2_token.description": "JWT do token AP2 assinado para verificação (mode='verify')."
+    "param.ap2_token.description": "JWT do token AP2 assinado para verificação (mode='verify').",
+    "describe.mode_labels": [
+      "Crie um mandato de gastos (é necessária a aprovação do usuário)",
+      "Liste os mandatos de gastos ativos",
+      "Gere um token de pagamento para uma finalização de compra",
+      "Verifique um token de pagamento"
+    ],
+    "describe.merchant": "comerciante: %(name)s",
+    "describe.business": "negócio: %(url)s",
+    "describe.mandate": "mandato: %(id)s",
+    "describe.checkout": "finalização da compra: %(id)s",
+    "describe.amount": "limite de valor/pagamento: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "ro": {
     "tool.description": "AP2 (Agent Payments Protocol) — gestionarea autonomă a plăților.\n\nmode='mandate_create' — Creați un nou mandat de plată deschis. Acest lucru autorizează agentul să facă achiziții autonome până la o limită specificată. Utilizatorul trebuie să aprobe acest lucru prin continue_url.\n\nmode='mandate_list' — Afișează toate mandatele de plată active.\n\nmode='execute' — Execută un simbol de plată folosind un mandat existent pentru o anumită casă. Returnează un jeton AP2 semnat care poate fi transmis către ucp_checkout mode='complete' ca ap2_token.\n\nmode='verify' — Verificați un jeton de plată AP2 și returnați detaliile acestuia.",
@@ -333,7 +657,19 @@
     "param.mandate_id.description": "ID de mandat dintr-un mandate_create anterior (pentru executare).",
     "param.checkout_id.description": "ID-ul sesiunii de finalizare a plății pentru care se efectuează plata (mode='execute').",
     "param.amount.description": "Suma de plată în unități minore (mode='execute').",
-    "param.ap2_token.description": "Jeton AP2 semnat JWT pentru verificare (mode='verify')."
+    "param.ap2_token.description": "Jeton AP2 semnat JWT pentru verificare (mode='verify').",
+    "describe.mode_labels": [
+      "Creați un mandat de cheltuieli (este necesară aprobarea utilizatorului)",
+      "Enumerați mandatele de cheltuieli active",
+      "Generați un simbol de plată pentru o finalizare la casă",
+      "Verificați un simbol de plată"
+    ],
+    "describe.merchant": "comerciant: %(name)s",
+    "describe.business": "afacere: %(url)s",
+    "describe.mandate": "mandat: %(id)s",
+    "describe.checkout": "finalizare: %(id)s",
+    "describe.amount": "limită de sumă/plată: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "ru": {
     "tool.description": "AP2 (Протокол агентских платежей) — автономное управление платежами.\n\nmode='mandate_create' — Создайте новый открытый платежный мандат. Это разрешает агенту совершать автономные покупки до определенного предела. Пользователь должен подтвердить это с помощью continue_url.\n\nmode='mandate_list' — список всех активных платежных поручений.\n\nmode='execute' — выполнить платежный токен, используя существующее поручение для конкретной проверки. Возвращает подписанный токен AP2, который можно передать в ucp_checkout mode='complete' как ap2_token.\n\nmode='verify' — проверяет платежный токен AP2 и возвращает его данные.",
@@ -345,7 +681,19 @@
     "param.mandate_id.description": "Идентификатор мандата из предыдущего мандата_create (для выполнения).",
     "param.checkout_id.description": "Идентификатор сеанса оформления заказа, для которого необходимо выполнить платеж (mode='execute').",
     "param.amount.description": "Сумма платежа в мелких единицах (режим='выполнить').",
-    "param.ap2_token.description": "Подписанный токен AP2 JWT для проверки (режим = 'verify')."
+    "param.ap2_token.description": "Подписанный токен AP2 JWT для проверки (режим = 'verify').",
+    "describe.mode_labels": [
+      "Создайте мандат на расходы (требуется одобрение пользователя)",
+      "Составьте список активных мандатов на расходы",
+      "Создайте платежный токен для оформления заказа",
+      "Подтвердите платежный токен"
+    ],
+    "describe.merchant": "торговец: %(name)s",
+    "describe.business": "бизнес: %(url)s",
+    "describe.mandate": "мандат: %(id)s",
+    "describe.checkout": "оформление заказа: %(id)s",
+    "describe.amount": "лимит суммы/платежа: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "sv": {
     "tool.description": "AP2 (Agent Payments Protocol) — autonom betalningshantering.\n\nmode='mandate_create' — Skapa ett nytt öppet betalningsmandat. Detta tillåter agenten att göra autonoma köp upp till en specificerad gräns. Användaren måste godkänna detta via continu_url.\n\nmode='mandate_list' — Lista alla aktiva betalningsmandat.\n\nmode='execute' — Exekvera en betalningstoken med ett befintligt fullmakt för en specifik utcheckning. Returnerar en signerad AP2-token som kan skickas till ucp_checkout mode='complete' som ap2_token.\n\nmode='verify' — Verifiera en AP2-betalningstoken och returnera dess uppgifter.",
@@ -357,7 +705,19 @@
     "param.mandate_id.description": "Medgivande-ID från ett tidigare mandate_create (för exekvering).",
     "param.checkout_id.description": "Utcheckningssessions-ID att utföra betalning för (mode='execute').",
     "param.amount.description": "Betalningsbelopp i mindre enheter (mode='execute').",
-    "param.ap2_token.description": "Signerad AP2-token JWT att verifiera (mode='verify')."
+    "param.ap2_token.description": "Signerad AP2-token JWT att verifiera (mode='verify').",
+    "describe.mode_labels": [
+      "Skapa ett utgiftsmandat (användargodkännande krävs)",
+      "Lista aktiva utgiftsmandat",
+      "Generera en betalningstoken för en kassa",
+      "Verifiera en betalningstoken"
+    ],
+    "describe.merchant": "säljare: %(name)s",
+    "describe.business": "företag: %(url)s",
+    "describe.mandate": "fullmakt: %(id)s",
+    "describe.checkout": "kassan: %(id)s",
+    "describe.amount": "beloppsgräns/betalning: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "sw": {
     "tool.description": "AP2 (Itifaki ya Malipo ya Wakala) — usimamizi wa malipo unaojitegemea.\n\nmode='mandate_create' — Unda mamlaka mapya ya malipo ya wazi. Hii inaidhinisha wakala kufanya ununuzi wa kujitegemea hadi kiwango maalum. Mtumiaji lazima aidhinishe hili kupitia continue_url.\n\nmode='mandate_list' — Orodhesha mamlaka yote ya malipo yanayotumika.\n\nmode='execute' — Tekeleza tokeni ya malipo kwa kutumia mamlaka iliyopo kwa malipo mahususi. Hurejesha tokeni iliyotiwa saini ya AP2 ambayo inaweza kupitishwa kwa ucp_checkout mode='complete' kama ap2_token.\n\nmode='thibitisha' — Thibitisha tokeni ya malipo ya AP2 na urudishe maelezo yake.",
@@ -369,7 +729,19 @@
     "param.mandate_id.description": "Kitambulisho cha mamlaka kutoka kwa mandate_create ya awali (ya kutekeleza).",
     "param.checkout_id.description": "Kitambulisho cha kipindi cha Malipo cha kutekeleza malipo ya (mode='tekeleza').",
     "param.amount.description": "Kiasi cha malipo katika vitengo vidogo (mode='tekeleza').",
-    "param.ap2_token.description": "Imetia saini tokeni ya AP2 ya JWT ili kuthibitisha (modi='thibitisha')."
+    "param.ap2_token.description": "Imetia saini tokeni ya AP2 ya JWT ili kuthibitisha (modi='thibitisha').",
+    "describe.mode_labels": [
+      "Unda mamlaka ya matumizi (idhini ya mtumiaji inahitajika)",
+      "Orodhesha mamlaka ya matumizi yanayoendelea",
+      "Tengeneza tokeni ya malipo kwa ajili ya kulipa",
+      "Thibitisha tokeni ya malipo"
+    ],
+    "describe.merchant": "mfanyabiashara: %(name)s",
+    "describe.business": "biashara: %(url)s",
+    "describe.mandate": "mamlaka: %(id)s",
+    "describe.checkout": "lipa: %(id)s",
+    "describe.amount": "kiasi kikomo/malipo: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "th": {
     "tool.description": "AP2 (โปรโตคอลการชำระเงินตัวแทน) — การจัดการการชำระเงินอัตโนมัติ\n\nmode='mandate_create' — สร้างข้อบังคับการชำระเงินแบบเปิดใหม่ การดำเนินการนี้จะอนุญาตให้ตัวแทนทำการซื้ออัตโนมัติจนถึงขีดจำกัดที่ระบุ ผู้ใช้จะต้องอนุมัติสิ่งนี้ผ่านทาง Continue_url.\n\nmode='mandate_list' — แสดงรายการข้อบังคับการชำระเงินที่ใช้งานอยู่ทั้งหมด\n\nmode='execute' — ดำเนินการโทเค็นการชำระเงินโดยใช้ข้อบังคับที่มีอยู่สำหรับการชำระเงินเฉพาะ ส่งคืนโทเค็น AP2 ที่ลงชื่อแล้วซึ่งสามารถส่งผ่านไปยัง ucp_checkout mode='complete' เป็น ap2_token.\n\nmode='verify' — ตรวจสอบโทเค็นการชำระเงิน AP2 และส่งรายละเอียดกลับ",
@@ -381,7 +753,19 @@
     "param.mandate_id.description": "Mandate ID จาก mandate_create ก่อนหน้า (สำหรับการดำเนินการ)",
     "param.checkout_id.description": "รหัสเซสชันการชำระเงินเพื่อดำเนินการชำระเงินสำหรับ (mode='execute')",
     "param.amount.description": "จำนวนเงินที่ชำระในหน่วยย่อย (mode='execute')",
-    "param.ap2_token.description": "โทเค็น AP2 ที่ลงนามแล้ว JWT เพื่อตรวจสอบ (mode='verify')"
+    "param.ap2_token.description": "โทเค็น AP2 ที่ลงนามแล้ว JWT เพื่อตรวจสอบ (mode='verify')",
+    "describe.mode_labels": [
+      "สร้างข้อบังคับการใช้จ่าย (ต้องได้รับการอนุมัติจากผู้ใช้)",
+      "แสดงรายการข้อบังคับการใช้จ่ายที่ใช้งานอยู่",
+      "สร้างโทเค็นการชำระเงินสำหรับการชำระเงิน",
+      "ตรวจสอบโทเค็นการชำระเงิน"
+    ],
+    "describe.merchant": "ผู้ขาย: %(name)s",
+    "describe.business": "ธุรกิจ: %(url)s",
+    "describe.mandate": "คำสั่ง: %(id)s",
+    "describe.checkout": "ชำระเงิน: %(id)s",
+    "describe.amount": "วงเงิน/การชำระเงิน: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)"
   },
   "tr": {
     "tool.description": "AP2 (Acente Ödeme Protokolü) — özerk ödeme yönetimi.\n\nmode='mandate_create' — Yeni bir açık ödeme talimatı oluşturun. Bu, acenteye belirli bir limite kadar otonom satın alımlar yapma yetkisi verir. Kullanıcının bunu Continue_url aracılığıyla onaylaması gerekir.\n\nmode='mandate_list' — Tüm etkin ödeme talimatlarını listeleyin.\n\nmode='execute' — Belirli bir ödeme için mevcut bir talimatı kullanarak bir ödeme jetonu yürütün. ap2_token.\n\nmode='verify' olarak ucp_checkout mode='complete' öğesine iletilebilecek imzalı bir AP2 jetonunu döndürür. — Bir AP2 ödeme jetonunu doğrulayın ve ayrıntılarını geri gönderin.",
@@ -393,7 +777,19 @@
     "param.mandate_id.description": "Önceki bir mandate_create'den gelen talimat kimliği (yürütmek için).",
     "param.checkout_id.description": "Ödemenin gerçekleştirileceği ödeme oturumu kimliği (mode='execute').",
     "param.amount.description": "Küçük birimler cinsinden ödeme tutarı (mode='execute').",
-    "param.ap2_token.description": "Doğrulamak için AP2 belirteci JWT imzalandı (mode='verify')."
+    "param.ap2_token.description": "Doğrulamak için AP2 belirteci JWT imzalandı (mode='verify').",
+    "describe.mode_labels": [
+      "Harcama talimatı oluşturun (kullanıcı onayı gerekir)",
+      "Aktif harcama talimatlarını listeleyin",
+      "Ödeme için ödeme jetonu oluşturun",
+      "Ödeme jetonunu doğrulayın"
+    ],
+    "describe.merchant": "satıcı: %(name)s",
+    "describe.business": "iş: %(url)s",
+    "describe.mandate": "yetki: %(id)s",
+    "describe.checkout": "ödeme: %(id)s",
+    "describe.amount": "tutar sınırı/ödeme: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "uk": {
     "tool.description": "AP2 (Agent Payments Protocol) — автономне керування платежами.\n\nmode='mandate_create' — Створення нового відкритого платіжного доручення. Це дозволяє агенту здійснювати автономні покупки до визначеного ліміту. Користувач має підтвердити це за допомогою continue_url.\n\nmode='mandate_list' — перерахувати всі активні платіжні доручення. Повертає підписаний токен AP2, який можна передати в ucp_checkout mode='complete' як ap2_token.\n\nmode='verify' — перевірте платіжний токен AP2 і надішліть його деталі.",
@@ -405,7 +801,19 @@
     "param.mandate_id.description": "Ідентифікатор мандата з попереднього mandate_create (для виконання).",
     "param.checkout_id.description": "Ідентифікатор сеансу перевірки, за який потрібно здійснити платіж (mode='execute').",
     "param.amount.description": "Сума платежу в мінорних одиницях (mode='execute').",
-    "param.ap2_token.description": "Підписаний маркер AP2 JWT для перевірки (mode='verify')."
+    "param.ap2_token.description": "Підписаний маркер AP2 JWT для перевірки (mode='verify').",
+    "describe.mode_labels": [
+      "Створіть доручення на витрати (потрібне схвалення користувача)",
+      "Перелік активних доручень на витрати",
+      "Створіть платіжний маркер для оформлення замовлення",
+      "Перевірте платіжний маркер"
+    ],
+    "describe.merchant": "продавець: %(name)s",
+    "describe.business": "бізнес: %(url)s",
+    "describe.mandate": "мандат: %(id)s",
+    "describe.checkout": "виписка: %(id)s",
+    "describe.amount": "обмеження суми/платіж: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "vi": {
     "tool.description": "AP2 (Giao thức thanh toán đại lý) — quản lý thanh toán tự động.\n\nmode='mandate_create' — Tạo ủy quyền thanh toán mở mới. Điều này cho phép đại lý thực hiện mua hàng tự chủ đến một giới hạn nhất định. Người dùng phải phê duyệt điều này thông qua continue_url.\n\nmode='mandate_list' — Liệt kê tất cả các ủy nhiệm thanh toán đang hoạt động.\n\nmode='execute' — Thực thi mã thông báo thanh toán bằng cách sử dụng ủy nhiệm hiện có cho một lần thanh toán cụ thể. Trả về mã thông báo AP2 đã ký có thể được chuyển tới ucp_checkout mode='complete' dưới dạng ap2_token.\n\nmode='verify' — Xác minh mã thông báo thanh toán AP2 và trả lại thông tin chi tiết về nó.",
@@ -417,7 +825,19 @@
     "param.mandate_id.description": "ID ủy quyền từ một ủy quyền_create trước đó (để thực thi).",
     "param.checkout_id.description": "ID phiên thanh toán để thực hiện thanh toán cho (mode='execute').",
     "param.amount.description": "Số tiền thanh toán theo đơn vị nhỏ (mode='execute').",
-    "param.ap2_token.description": "Đã ký mã thông báo AP2 JWT để xác minh (mode='verify')."
+    "param.ap2_token.description": "Đã ký mã thông báo AP2 JWT để xác minh (mode='verify').",
+    "describe.mode_labels": [
+      "Tạo ủy nhiệm chi tiêu (cần có sự phê duyệt của người dùng)",
+      "Liệt kê các nhiệm vụ chi tiêu đang hoạt động",
+      "Tạo mã thông báo thanh toán để thanh toán",
+      "Xác minh mã thông báo thanh toán"
+    ],
+    "describe.merchant": "người bán: %(name)s",
+    "describe.business": "doanh nghiệp: %(url)s",
+    "describe.mandate": "ủy quyền: %(id)s",
+    "describe.checkout": "thanh toán: %(id)s",
+    "describe.amount": "giới hạn số tiền/thanh toán: %(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)."
   },
   "zh_CN": {
     "tool.description": "AP2（代理支付协议）— 自主支付管理。\n\nmode='mandate_create' — 创建新的开放式支付授权。这授权代理商在指定限额内进行自主购买。用户必须通过 continue_url 批准此操作。\n\nmode='mandate_list' - 列出所有有效的付款授权。\n\nmode='execute' - 使用特定结帐的现有授权执行付款令牌。返回已签名的 AP2 令牌，该令牌可作为 ap2_token 传递给 ucp_checkout mode='complete'。\n\nmode='verify' — 验证 AP2 支付令牌并返回其详细信息。",
@@ -429,7 +849,19 @@
     "param.mandate_id.description": "来自先前的授权 ID（用于执行）。",
     "param.checkout_id.description": "执行付款的结帐会话 ID (mode='execute')。",
     "param.amount.description": "以次要单位表示的付款金额（mode='execute'）。",
-    "param.ap2_token.description": "签名 AP2 令牌 JWT 进行验证（mode='verify'）。"
+    "param.ap2_token.description": "签名 AP2 令牌 JWT 进行验证（mode='verify'）。",
+    "describe.mode_labels": [
+      "创建支出授权（需要用户批准）",
+      "列出有效支出授权",
+      "生成用于结账的支付令牌",
+      "验证支付令牌"
+    ],
+    "describe.merchant": "商家：%(name)s",
+    "describe.business": "业务：%(url)s",
+    "describe.mandate": "授权：%(id)s",
+    "describe.checkout": "结帐：%(id)s",
+    "describe.amount": "金额限制/付款：%(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)。"
   },
   "zh_TW": {
     "tool.description": "AP2（代理支付協議）— 自主支付管理。 \n\nmode='mandate_create' — 建立新的開放式付款授權。這授權代理商在指定限額內進行自主購買。使用者必須透過 continue_url 批准此操作。 \n\nmode='mandate_list' - 列出所有有效的付款授權。 \n\nmode='execute' - 使用特定結帳的現有授權執行付款令牌。傳回已簽署的 AP2 令牌，該令牌可作為 ap2_token 傳遞給 ucp_checkout mode='complete'。 \n\nmode='verify' — 驗證 AP2 支付令牌並傳回其詳細資料。",
@@ -441,6 +873,18 @@
     "param.mandate_id.description": "來自先前的授權 ID（用於執行）。",
     "param.checkout_id.description": "執行付款的結帳會話 ID (mode='execute')。",
     "param.amount.description": "以次要單位表示的付款金額（mode='execute'）。",
-    "param.ap2_token.description": "簽署 AP2 令牌 JWT 進行驗證（mode='verify'）。"
+    "param.ap2_token.description": "簽署 AP2 令牌 JWT 進行驗證（mode='verify'）。",
+    "describe.mode_labels": [
+      "建立支出授權（需要使用者批准）",
+      "列出有效支出授權",
+      "產生用於結帳的支付令牌",
+      "驗證支付令牌"
+    ],
+    "describe.merchant": "商家：%(name)s",
+    "describe.business": "業務：%(url)s",
+    "describe.mandate": "授權：%(id)s",
+    "describe.checkout": "結帳：%(id)s",
+    "describe.amount": "金額限制/付款：%(amount)s %(currency)s",
+    "describe.summary": "%(action)s (%(details)s)。"
   }
 }

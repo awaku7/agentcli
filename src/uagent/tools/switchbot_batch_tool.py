@@ -514,3 +514,110 @@ def run_tool(args: dict[str, Any]) -> str:
     if output_format == "text":
         return _format_result_text(result)
     return json.dumps(result, ensure_ascii=False)
+
+
+_SWITCHBOT_ACTIONS = [
+    "on",
+    "off",
+    "open",
+    "close",
+    "set_value",
+    "lock",
+    "unlock",
+    "brightness_up",
+    "brightness_down",
+]
+_SWITCHBOT_ACTION_LABELS_EN = [
+    "Turn on",
+    "Turn off",
+    "Open",
+    "Close",
+    "Set value",
+    "Lock",
+    "Unlock",
+    "Increase brightness",
+    "Decrease brightness",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the devices and actions in a SwitchBot batch."""
+
+    commands = args.get("commands") if isinstance(args, dict) else None
+    if not isinstance(commands, list):
+        commands = []
+    labels = _(
+        "describe.action_labels",
+        default=_SWITCHBOT_ACTION_LABELS_EN,
+    )
+    if not isinstance(labels, list) or len(labels) != len(_SWITCHBOT_ACTIONS):
+        labels = _SWITCHBOT_ACTION_LABELS_EN
+    action_labels = dict(zip(_SWITCHBOT_ACTIONS, labels))
+
+    entries = []
+    for command in commands[:4]:
+        if not isinstance(command, dict):
+            continue
+        device = str(command.get("devname") or command.get("dev") or "")
+        action = str(command.get("action") or "")
+        action_label = action_labels.get(action, action or "SwitchBot command")
+        details = []
+        if command.get("value") is not None:
+            details.append(
+                str(
+                    _(
+                        "describe.value",
+                        default="value %(value)s",
+                        value=command["value"],
+                    )
+                )
+            )
+        if command.get("mode"):
+            details.append(
+                str(
+                    _(
+                        "describe.mode",
+                        default="mode %(mode)s",
+                        mode=command["mode"],
+                    )
+                )
+            )
+        if command.get("fan"):
+            details.append(
+                str(
+                    _(
+                        "describe.fan",
+                        default="fan %(fan)s",
+                        fan=command["fan"],
+                    )
+                )
+            )
+        detail_text = f" ({'; '.join(details)})" if details else ""
+        entries.append(
+            str(
+                _(
+                    "describe.command",
+                    default="%(device)s: %(action)s%(details)s",
+                    device=device
+                    or str(_("describe.unknown_device", default="unknown device")),
+                    action=action_label,
+                    details=detail_text,
+                )
+            )
+        )
+
+    if not entries:
+        entries.append(str(_("describe.no_commands", default="no commands")))
+    if len(commands) > len(entries):
+        entries.append("...")
+    return str(
+        _(
+            "describe.summary",
+            default="Send %(count)s SwitchBot command(s): %(commands)s.",
+            count=len(commands),
+            commands="; ".join(entries),
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

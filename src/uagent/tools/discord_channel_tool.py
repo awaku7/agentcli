@@ -400,3 +400,18 @@ def run_tool(args: dict[str, Any]) -> str:
     finally:
         if cb.set_status:
             cb.set_status(False, STATUS_LABEL)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Show the Discord action and destination without echoing message text."""
+
+    args = args or {}
+    action = str(args.get("action") or "<unknown action>")
+    purpose = str(_("tool.description", default="Interact with a Discord channel."))
+    return (
+        f"{purpose} (action={action}; channel={args.get('channel_id') or '<missing>'}; "
+        f"wait={args.get('wait_s', DEFAULT_WAIT_S)}s)."
+    )
+
+
+TOOL_DESCRIBER = describe

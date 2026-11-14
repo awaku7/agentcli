@@ -792,3 +792,72 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
+
+
+_ECHONET_ACTIONS = ["on", "off", "open", "close", "set_value", "lock", "unlock"]
+_ECHONET_ACTION_LABELS_EN = [
+    "Turn on",
+    "Turn off",
+    "Open",
+    "Close",
+    "Set the value",
+    "Lock",
+    "Unlock",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Describe the ECHONET Lite device control and its target."""
+
+    args = args or {}
+    action = str(args.get("action") or "")
+    labels = _(
+        "describe.action_labels",
+        default=_ECHONET_ACTION_LABELS_EN,
+    )
+    if not isinstance(labels, list) or len(labels) != len(_ECHONET_ACTIONS):
+        labels = _ECHONET_ACTION_LABELS_EN
+    action_label = dict(zip(_ECHONET_ACTIONS, labels)).get(
+        action, action or "Control device"
+    )
+
+    ip = str(args.get("ip") or "<unknown IP>")
+    eoj = str(args.get("eoj") or "").strip()
+    object_code = str(args.get("obj") or "").strip()
+    if eoj:
+        target = str(
+            _(
+                "describe.target_eoj",
+                default="%(ip)s (EOJ %(eoj)s)",
+                ip=ip,
+                eoj=eoj,
+            )
+        )
+    elif object_code:
+        target = f"{ip} ({object_code})"
+    else:
+        target = str(
+            _(
+                "describe.target_default",
+                default="%(ip)s (default node profile)",
+                ip=ip,
+            )
+        )
+    value = args.get("value")
+    value_text = (
+        str(_("describe.value", default="; value %(value)s", value=value))
+        if value is not None
+        else ""
+    )
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s on %(target)s%(value)s.",
+            action=action_label,
+            target=target,
+            value=value_text,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

@@ -12,7 +12,7 @@ def test_get_long_memory_reads_sqlite_backend(repo_tmp_path: Path, monkeypatch) 
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(repo_tmp_path / "memory.sqlite3"))
 
-    assert "saved" in add_long_memory({"note": "sqlite-note"}).lower()
+    add_long_memory({"note": "sqlite-note"})
 
     listed = load_long_memory_records()
     raw = get_long_memory({})

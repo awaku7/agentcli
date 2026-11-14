@@ -947,5 +947,80 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
 
+_BATCH_ACTION_LABELS_EN = [
+    "Initialize a batch task",
+    "Load or resume a batch task",
+    "Show batch progress",
+    "Get the current file",
+    "Mark the current file complete",
+    "Skip the current file",
+    "Mark the current file as failed",
+    "Reset batch tracking state",
+    "Finalize the batch task",
+    "List batch tasks",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize a batch-state action and the relevant file targets."""
+
+    args = args or {}
+    action = str(args.get("action") or "")
+    labels = _(
+        "describe.action_labels",
+        default=_BATCH_ACTION_LABELS_EN,
+    )
+    if not isinstance(labels, list) or len(labels) != len(_PUBLIC_TOOL_ACTIONS):
+        labels = _BATCH_ACTION_LABELS_EN
+    action_label = dict(zip(_PUBLIC_TOOL_ACTIONS, labels)).get(
+        action, action or "Manage batch task"
+    )
+
+    targets = []
+    groups = args.get("targets")
+    if isinstance(groups, list):
+        for group in groups:
+            if not isinstance(group, dict):
+                continue
+            directory = str(group.get("dir") or "").strip()
+            files = group.get("files")
+            if not isinstance(files, list):
+                continue
+            for file_name in files:
+                path = str(file_name or "").strip()
+                if path and directory:
+                    path = os.path.join(directory, path)
+                if path:
+                    targets.append(path)
+    file_name = str(args.get("file") or "").strip()
+    if file_name:
+        targets.append(file_name)
+    remaining = args.get("remaining_files")
+    if isinstance(remaining, list):
+        targets.extend(str(item) for item in remaining[:5] if item)
+    targets = list(dict.fromkeys(targets))
+
+    batch_id = str(args.get("batch_id") or "")
+    target_text = (
+        ", ".join(targets[:4])
+        if targets
+        else str(_("describe.no_targets", default="no file targets specified"))
+    )
+    if len(targets) > 4:
+        target_text += " ..."
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s (batch: %(batch_id)s; files: %(targets)s).",
+            action=action_label,
+            batch_id=batch_id or "<unspecified>",
+            targets=target_text,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe
+
+
 if __name__ == "__main__":
     print(run_tool({"action": "list"}))

@@ -713,3 +713,62 @@ def run_tool(args: dict[str, Any]) -> str:
                 "error_type": type(exc).__name__,
             }
         )
+
+
+_DISC_ACTIONS = ["info", "list", "verify", "extract", "convert"]
+_DISC_ACTION_LABELS_EN = [
+    "Read image metadata",
+    "List image contents",
+    "Verify image integrity",
+    "Extract image contents",
+    "Convert image format",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the disc-image operation and its input/output paths."""
+
+    args = args or {}
+    action = str(args.get("action") or "")
+    labels = _("describe.action_labels", default=_DISC_ACTION_LABELS_EN)
+    if not isinstance(labels, list) or len(labels) != len(_DISC_ACTIONS):
+        labels = _DISC_ACTION_LABELS_EN
+    action_label = dict(zip(_DISC_ACTIONS, labels)).get(
+        action, action or "Operate on disc image"
+    )
+    path = str(args.get("path") or "<unknown input>")
+    output = str(args.get("output") or "").strip()
+    output_text = (
+        str(_("describe.output", default="; output: %(path)s", path=output))
+        if output and action in {"extract", "convert"}
+        else ""
+    )
+    details = []
+    if action in {"list", "extract"} and args.get("path_type"):
+        details.append(
+            str(
+                _(
+                    "describe.path_type",
+                    default="path type: %(path_type)s",
+                    path_type=args["path_type"],
+                )
+            )
+        )
+    if action == "verify" and args.get("deep") is True:
+        details.append(str(_("describe.deep", default="deep verification")))
+    if action in {"extract", "convert"} and args.get("overwrite") is True:
+        details.append(str(_("describe.overwrite", default="overwrite allowed")))
+    suffix = f"; {'; '.join(details)}" if details else ""
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s: %(path)s%(output)s%(details)s.",
+            action=action_label,
+            path=path,
+            output=output_text,
+            details=suffix,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

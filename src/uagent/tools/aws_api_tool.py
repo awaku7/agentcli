@@ -254,3 +254,28 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the AWS API operation, service, region, and parameter names."""
+
+    args = args or {}
+    params = args.get("parameters")
+    param_keys = (
+        ", ".join(str(key) for key in list(params)[:8])
+        if isinstance(params, dict)
+        else "<none>"
+    )
+    if isinstance(params, dict) and len(params) > 8:
+        param_keys += ", ..."
+    purpose = str(_("tool.description", default="Call an AWS API."))
+    return (
+        f"{purpose} (action={args.get('action') or '<unknown>'}; "
+        f"service={args.get('service') or '<missing>'}; "
+        f"operation={args.get('operation') or '<missing>'}; "
+        f"region={args.get('region') or '<default>'}; parameters={param_keys}; "
+        f"confirm_write={bool(args.get('confirm_write', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

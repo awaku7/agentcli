@@ -385,11 +385,12 @@ def _apply_hunk_to_text(
         target_nl = _detect_newline(text)
         after = _convert_newlines(after, target_nl)
 
-    # Do not match when old_start exceeds the file line count (except adding an empty file)
-    if hunk.old_start > len(text_lines) and hunk.old_start > 0:
+    # A reverse patch matches the original new-side line number, not old_start.
+    hint_start = hunk.new_start if revert else hunk.old_start
+    if hint_start > len(text_lines) and hint_start > 0:
         return text, False, ""
 
-    hint_line = max(0, min(hunk.old_start - 1, len(text_lines) - 1))
+    hint_line = max(0, min(hint_start - 1, len(text_lines) - 1))
     pos = _find_hunk_position(
         text_lines, before, hint_line, ignore_whitespace, exact_only
     )
@@ -509,9 +510,12 @@ def run_tool(args: dict[str, Any]) -> str:
         all_ok = True
 
         for pf in patch_files:
-            is_deletion = pf.target_path in {"/dev/null", "dev/null"}
+            patch_is_deletion = pf.target_path in {"/dev/null", "dev/null"}
+            patch_is_creation = pf.source_path in {"/dev/null", "dev/null"}
+            is_deletion = patch_is_deletion if not revert else patch_is_creation
+            is_creation = patch_is_creation if not revert else patch_is_deletion
             target = _strip_path(
-                pf.source_path if is_deletion else pf.target_path, strip
+                pf.source_path if patch_is_deletion else pf.target_path, strip
             )
             file_result: dict[str, Any] = {
                 "target": target,
@@ -522,9 +526,21 @@ def run_tool(args: dict[str, Any]) -> str:
             }
             if is_deletion:
                 file_result["deleted"] = True
+            if is_creation:
+                file_result["created"] = True
 
             try:
-                content = _read_file(target, encoding, preserve_line_endings)
+                abspath = ensure_within_workdir(target)
+                lexical_path = os.path.join(os.getcwd(), target)
+                target_exists = os.path.lexists(lexical_path)
+                if is_creation:
+                    if target_exists:
+                        raise FileExistsError(f"file already exists: {target}")
+                    content = ""
+                else:
+                    if not target_exists:
+                        raise FileNotFoundError(f"file not found: {target}")
+                    content = _read_file(abspath, encoding, preserve_line_endings)
             except Exception as e:
                 file_result["error"] = str(e)
                 file_result["ok"] = False
@@ -555,9 +571,15 @@ def run_tool(args: dict[str, Any]) -> str:
                         for hl in hunk.lines:
                             p = hl[0] if hl else " "
                             if p == "+":
-                                total_added += 1
+                                if revert:
+                                    total_removed += 1
+                                else:
+                                    total_added += 1
                             elif p == "-":
-                                total_removed += 1
+                                if revert:
+                                    total_added += 1
+                                else:
+                                    total_removed += 1
                     hunk_details.append(
                         {
                             "applied": True,
@@ -599,21 +621,22 @@ def run_tool(args: dict[str, Any]) -> str:
 
             if dry_run:
                 file_result["dry_run"] = True
-            else:
-                if applied_hunks > 0 and not deletion_blocked:
-                    try:
+            elif applied_hunks > 0 and not deletion_blocked:
+                try:
+                    if is_deletion:
                         backup = make_backup_before_overwrite(target)
-                        if is_deletion:
-                            _remove_file(target)
-                        else:
-                            _write_file(
-                                target, current, encoding, preserve_line_endings
-                            )
+                        _remove_file(target)
                         file_result["backup"] = backup
-                    except Exception as e:
-                        file_result["error"] = str(e)
-                        file_result["ok"] = False
-                        all_ok = False
+                    elif is_creation:
+                        _write_file(target, current, encoding, preserve_line_endings)
+                    else:
+                        backup = make_backup_before_overwrite(target)
+                        _write_file(target, current, encoding, preserve_line_endings)
+                        file_result["backup"] = backup
+                except Exception as e:
+                    file_result["error"] = str(e)
+                    file_result["ok"] = False
+                    all_ok = False
 
             file_result["hunks"] = hunk_details
             results.append(file_result)
@@ -662,24 +685,46 @@ def describe(args: dict[str, Any]) -> str:
         else _("describe.apply", default="Applying patch")
     )
     patch_text = str((args or {}).get("patch_text") or "")
+    revert = bool((args or {}).get("revert", False))
     try:
         patches = _parse_patch(patch_text)
     except Exception:
         patches = []
     entries: list[str] = []
     for patch in patches:
-        if patch.target_path in {"/dev/null", "dev/null"}:
-            if patch.source_path:
-                entries.append(
-                    f"{patch.source_path} "
-                    f"{_('describe.deleted', default='(deleted)')}"
-                )
-        elif patch.target_path:
-            entries.append(patch.target_path)
+        patch_is_deletion = patch.target_path in {"/dev/null", "dev/null"}
+        patch_is_creation = patch.source_path in {"/dev/null", "dev/null"}
+        is_deletion = patch_is_deletion if not revert else patch_is_creation
+        target = patch.source_path if patch_is_deletion else patch.target_path
+        if is_deletion:
+            entries.append(f"{target} {_('describe.deleted', default='(deleted)')}")
+        elif target:
+            entries.append(target)
     paths = list(dict.fromkeys(entries))
+    hunk_count = sum(len(patch.hunks) for patch in patches)
+    if revert:
+        reverse_action = str(_("describe.reverse", default="Reversing patch"))
+        if bool(dry_run):
+            action = (
+                str(_("describe.preview", default="Previewing patch"))
+                + ": "
+                + reverse_action
+            )
+        else:
+            action = reverse_action
     if paths:
-        return f"{action}: " + ", ".join(paths)
-    return action
+        shown_paths = ", ".join(paths[:3])
+        return str(
+            _(
+                "describe.summary",
+                default="%(action)s: %(paths)s (%(files)s files, %(hunks)s hunks).",
+                action=action,
+                paths=shown_paths,
+                files=len(paths),
+                hunks=hunk_count,
+            )
+        )
+    return str(action)
 
 
 TOOL_DESCRIBER = describe

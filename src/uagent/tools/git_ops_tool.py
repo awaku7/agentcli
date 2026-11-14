@@ -513,3 +513,145 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception as e:
         payload = _as_error_payload(f"[git_ops error] {type(e).__name__}: {e}")
         return json.dumps(payload, ensure_ascii=False)
+
+
+_GIT_COMMANDS = [
+    "status",
+    "diff",
+    "log",
+    "add",
+    "commit",
+    "show",
+    "rev-parse",
+    "rev-list",
+    "branch",
+    "switch",
+    "checkout",
+    "remote",
+    "fetch",
+    "pull",
+    "push",
+    "tag",
+    "merge",
+    "rebase",
+    "stash",
+    "reset",
+    "restore",
+    "apply",
+    "cherry-pick",
+    "clone",
+    "init",
+    "blame",
+    "reflog",
+    "grep",
+    "ls-files",
+    "ls-tree",
+    "cat-file",
+    "rm",
+]
+_GIT_ACTION_LABELS_EN = [
+    "Check Git working-tree status",
+    "Review Git changes",
+    "Review commit history",
+    "Stage changes",
+    "Create a commit",
+    "Inspect a Git object",
+    "Read a revision identifier",
+    "List commits in a revision range",
+    "List or manage branches",
+    "Switch branches",
+    "Check out a branch, commit, or file",
+    "Manage remotes",
+    "Fetch remote updates",
+    "Pull and integrate remote changes",
+    "Push changes to a remote",
+    "Manage tags",
+    "Merge a branch",
+    "Rebase branch history",
+    "Stash or restore changes",
+    "Reset Git history or index state",
+    "Restore files from Git",
+    "Apply a Git patch",
+    "Cherry-pick a commit",
+    "Clone a repository",
+    "Initialize a repository",
+    "Inspect line history",
+    "Inspect the reflog",
+    "Search tracked content",
+    "List tracked files",
+    "List Git tree entries",
+    "Inspect Git object data",
+    "Remove tracked files",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the Git operation and its relevant command arguments."""
+
+    args = args or {}
+    command = str(args.get("command") or "").strip()
+    translated_labels = _(
+        "describe.action_labels",
+        default=_GIT_ACTION_LABELS_EN,
+    )
+    if not isinstance(translated_labels, list) or len(translated_labels) != len(
+        _GIT_COMMANDS
+    ):
+        translated_labels = _GIT_ACTION_LABELS_EN
+    action = dict(zip(_GIT_COMMANDS, translated_labels)).get(
+        command, "Run a Git command"
+    )
+    command_args = args.get("args") or []
+    if not isinstance(command_args, list):
+        command_args = [command_args]
+
+    rendered_args = []
+    omit_next_message = False
+    for value in command_args[:5]:
+        item = str(value).strip()
+        if omit_next_message:
+            rendered_args.append(json.dumps("<commit message omitted>"))
+            omit_next_message = False
+            continue
+        if command in {"commit", "tag"}:
+            if item in {"-m", "--message"}:
+                rendered_args.append(json.dumps(item, ensure_ascii=False))
+                omit_next_message = True
+                continue
+            if item.startswith("--message="):
+                item = "--message=<commit message omitted>"
+            elif item.startswith("-m") and item != "-m":
+                item = "-m<commit message omitted>"
+        # Avoid exposing credentials embedded in an HTTP(S) remote URL.
+        item = re.sub(
+            r"(?i)(https?://)[^/@ ]+@", lambda match: match.group(1) + "***@", item
+        )
+        rendered_args.append(json.dumps(item, ensure_ascii=False))
+    command_line = " ".join(["git", command or "<unknown>", *rendered_args])
+    if len(command_args) > 5:
+        command_line += " ..."
+    if len(command_line) > 180:
+        command_line = command_line[:177] + "..."
+
+    warning = ""
+    if args.get("allow_danger") is True and command in {
+        "push",
+        "reset",
+        "restore",
+        "rm",
+    }:
+        warning = str(
+            _("describe.danger_note", default=" (dangerous-operation override enabled)")
+        )
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s: %(command_line)s%(warning)s.",
+            action=action,
+            command_line=command_line,
+            warning=warning,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

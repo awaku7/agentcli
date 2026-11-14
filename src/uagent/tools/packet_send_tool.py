@@ -173,3 +173,61 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+_SEND_ACTIONS = ["udp_send", "tcp_send"]
+_SEND_ACTION_LABELS_EN = ["Send UDP data", "Send TCP data"]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize packet transmission without echoing the payload."""
+
+    args = args or {}
+    action = str(args.get("action") or "")
+    labels = _("describe.action_labels", default=_SEND_ACTION_LABELS_EN)
+    if not isinstance(labels, list) or len(labels) != len(_SEND_ACTIONS):
+        labels = _SEND_ACTION_LABELS_EN
+    method = dict(zip(_SEND_ACTIONS, labels)).get(action, action or "Send network data")
+
+    dry_run = args.get("dry_run", True)
+    is_dry_run = bool(dry_run) if dry_run is not None else True
+    if is_dry_run:
+        intent = str(
+            _(
+                "param.dry_run.description",
+                default="Preview only; no data will be sent.",
+            )
+        )
+    else:
+        intent = str(
+            _(
+                "tool.description",
+                default="Send bounded TCP/UDP data.",
+            )
+        )
+    payload = args.get("payload", "")
+    if isinstance(payload, str):
+        payload_bytes = len(payload.encode("utf-8"))
+    elif isinstance(payload, (bytes, bytearray)):
+        payload_bytes = len(payload)
+    else:
+        payload_bytes = 0
+
+    return str(
+        _(
+            "describe.summary",
+            default=(
+                "%(intent)s: %(method)s to %(target)s:%(port)s "
+                "(%(count)s send(s), %(payload_bytes)s payload bytes)."
+            ),
+            intent=intent,
+            method=method,
+            target=str(args.get("target") or "<unknown target>"),
+            port=args.get("port", "?"),
+            count=args.get("count", 1),
+            payload_bytes=payload_bytes,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

@@ -186,3 +186,69 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+_PROBE_ACTIONS = ["tcp_connect", "tcp_syn", "icmp", "arp"]
+_PROBE_ACTION_LABELS_EN = [
+    "Open a TCP connection",
+    "Send a TCP SYN probe",
+    "Send an ICMP echo probe",
+    "Send an ARP request",
+]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Explain which target and probe method will be used."""
+
+    args = args or {}
+    action = str(args.get("action") or "")
+    labels = _(
+        "describe.action_labels",
+        default=_PROBE_ACTION_LABELS_EN,
+    )
+    if not isinstance(labels, list) or len(labels) != len(_PROBE_ACTIONS):
+        labels = _PROBE_ACTION_LABELS_EN
+    method = dict(zip(_PROBE_ACTIONS, labels)).get(action, action or "Network probe")
+
+    dry_run = bool(args.get("dry_run", False))
+    if dry_run:
+        action_text = str(
+            _(
+                "param.dry_run.description",
+                default="Dry run: no packet will be sent.",
+            )
+        )
+    else:
+        action_text = str(
+            _(
+                "tool.description",
+                default="Probe a network target.",
+            )
+        )
+    details = []
+    if args.get("port") is not None:
+        details.append(
+            str(
+                _(
+                    "describe.port",
+                    default="port %(port)s",
+                    port=args.get("port"),
+                )
+            )
+        )
+    if args.get("allow_elevation") is True:
+        details.append(str(_("describe.elevation", default="elevation allowed")))
+    suffix = f" ({'; '.join(details)})" if details else ""
+    return str(
+        _(
+            "describe.summary",
+            default="%(action)s: %(method)s to %(target)s%(suffix)s.",
+            action=action_text,
+            method=method,
+            target=str(args.get("target") or "<unknown target>"),
+            suffix=suffix,
+        )
+    )
+
+
+TOOL_DESCRIBER = describe

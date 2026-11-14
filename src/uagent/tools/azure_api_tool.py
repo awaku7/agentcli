@@ -228,3 +228,34 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the Azure HTTP method and resource without echoing request secrets."""
+
+    args = args or {}
+    params = args.get("parameters")
+    param_keys = (
+        ", ".join(str(key) for key in list(params)[:8])
+        if isinstance(params, dict)
+        else "<none>"
+    )
+    if isinstance(params, dict) and len(params) > 8:
+        param_keys += ", ..."
+    body = args.get("body")
+    if isinstance(body, dict):
+        body_hint = "JSON fields: " + ", ".join(str(key) for key in list(body)[:8])
+    elif body is not None:
+        body_hint = f"body provided ({len(str(body))} chars)"
+    else:
+        body_hint = "<none>"
+    purpose = str(_("tool.description", default="Call the Azure Resource Manager API."))
+    return (
+        f"{purpose} (method={args.get('method') or 'GET'}; "
+        f"provider={args.get('provider') or '<missing>'}; "
+        f"resource={args.get('resource') or '<missing>'}; query keys={param_keys}; "
+        f"{body_hint}; confirm_write={bool(args.get('confirm_write', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

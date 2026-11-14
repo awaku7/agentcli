@@ -148,18 +148,14 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 def describe(args: dict[str, Any]) -> str:
-    """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
-    code = str((args or {}).get("code") or "")
-    lines = [line.strip() for line in code.splitlines() if line.strip()]
-    preview = " / ".join(lines[:3])[:200]
-    if len(lines) > 1:
-        return _(
-            "describe.python_multi",
-            default="Running Python (%(lines)s lines): %(code)s",
-        ) % {"lines": len(lines), "code": preview or "?"}
-    return _("describe.python", default="Running Python: %(code)s") % {
-        "code": preview or "?"
-    }
+    """Describe Python execution without echoing the submitted source code."""
+    return str(
+        _(
+            "describe.python",
+            default="Run Python code: %(code)s",
+            code=_("param.code.description", default="Python code"),
+        )
+    )
 
 
 TOOL_DESCRIBER = describe

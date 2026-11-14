@@ -873,3 +873,16 @@ def run_tool(args: dict[str, Any]) -> str:
     return _err_json(
         "invalid_argument", f"Unsupported action: {action}.", output_format
     )
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Show the Bluesky operation and destination without echoing post/query text."""
+
+    args = args or {}
+    action = str(args.get("action") or "<unknown action>")
+    actor = str(args.get("actor") or "current account")
+    purpose = str(_("tool.description", default="Use Bluesky."))
+    return f"{purpose} (action={action}; actor={actor})."
+
+
+TOOL_DESCRIBER = describe

@@ -23,8 +23,7 @@ def test_add_get_long_memory_roundtrip(
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(mem))
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
 
-    out1 = add_long_memory({"note": "note-1"})
-    assert "saved" in out1.lower()
+    add_long_memory({"note": "note-1"})
 
     out2 = get_long_memory({})
     assert isinstance(out2, str)

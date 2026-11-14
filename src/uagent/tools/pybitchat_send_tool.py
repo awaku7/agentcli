@@ -132,3 +132,18 @@ def run_tool(args: dict[str, Any]) -> str:
         result["plain"] = True
 
     return json.dumps(result, ensure_ascii=False)
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the mesh destination without echoing the message payload."""
+
+    args = args or {}
+    recipient = str(args.get("recipient") or "broadcast")
+    purpose = str(_("tool.description", default="Send a message over pybitchat."))
+    return (
+        f"{purpose} (type={args.get('type') or '<unknown>'}; via={args.get('via') or 'ble'}; "
+        f"recipient={recipient}; plain={bool(args.get('plain', False))})."
+    )
+
+
+TOOL_DESCRIBER = describe

@@ -5,7 +5,7 @@ Create, retrieve, and update shopping carts via UCP.
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import make_tool_translator, safe_display_url
 
 _ = make_tool_translator(__file__)
 
@@ -216,3 +216,74 @@ def run_tool(args: dict[str, Any]) -> str:
         ensure_ascii=False,
         indent=2,
     )
+
+
+_CART_MODE_LABELS_EN = [
+    "Create a cart",
+    "Retrieve a cart",
+    "Update cart items",
+]
+_CART_MODES = ["create", "get", "update"]
+
+
+def describe(args: dict[str, Any]) -> str:
+    """Summarize the cart operation and the requested item IDs and quantities."""
+
+    args = args or {}
+    mode = str(args.get("mode") or "create")
+    labels = _("describe.mode_labels", default=_CART_MODE_LABELS_EN)
+    if not isinstance(labels, list) or len(labels) != len(_CART_MODES):
+        labels = _CART_MODE_LABELS_EN
+    action = dict(zip(_CART_MODES, labels)).get(mode, mode)
+    item_texts = []
+    line_items = args.get("line_items")
+    if isinstance(line_items, list):
+        for item in line_items[:4]:
+            if not isinstance(item, dict):
+                continue
+            item_texts.append(
+                str(
+                    _(
+                        "describe.line_item",
+                        default="%(item_id)s x %(quantity)s%(variant)s",
+                        item_id=str(item.get("item_id") or "<unknown item>"),
+                        quantity=item.get("quantity", "?"),
+                        variant=(
+                            str(
+                                _(
+                                    "describe.variant",
+                                    default=" (variant: %(variant_id)s)",
+                                    variant_id=item["variant_id"],
+                                )
+                            )
+                            if item.get("variant_id")
+                            else ""
+                        ),
+                    )
+                )
+            )
+    if isinstance(line_items, list) and len(line_items) > 4:
+        item_texts.append("...")
+    items = "; ".join(item_texts) or str(
+        _("describe.no_items", default="no line items specified")
+    )
+    cart_id = str(args.get("cart_id") or "")
+    currency = str(args.get("currency") or "")
+    return str(
+        _(
+            "describe.summary",
+            default=(
+                "%(action)s at %(business_url)s (cart: %(cart_id)s; "
+                "items: %(items)s; currency: %(currency)s)."
+            ),
+            action=action,
+            business_url=safe_display_url(args.get("business_url"))
+            or "<unknown business>",
+            cart_id=cart_id or "<new or unspecified>",
+            items=items,
+            currency=currency or "<default>",
+        )
+    )
+
+
+TOOL_DESCRIBER = describe
