@@ -4090,6 +4090,12 @@ def attach_opt_in_session_store(
         pass
     atexit.register(detach_opt_in_session_store, core)
     core.session_id = session.session_id
+    try:
+        from .memory_consolidation import run_startup_consolidation
+
+        run_startup_consolidation(core, store, current_session_id=session.session_id)
+    except Exception:
+        pass
     return store, session.session_id
 
 

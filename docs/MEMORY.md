@@ -112,6 +112,28 @@ them through the same checked path with `source="consolidation"`. It
 runs only under the local identity, and the number of notes it saved
 is announced once, with the next session's memory notices.
 
+So that ordinary sessions — too short to ever compress — are covered
+too, the same pass also runs when a session ends. Switching sessions
+(`:load`, `:sessions load`, loading a log file) consolidates the
+outgoing conversation before it is replaced, and when a session store
+attaches at startup, the newest previous session in the same project
+is caught up once from its stored messages (which also covers
+sessions that ended with the process). Only local sessions qualify:
+sessions bound to a Web principal or a room belong to that identity
+and are never read into the local memory, and candidates are
+filtered by the current session's stored workspace project, not by
+the memory-project override that only names where notes are saved.
+A log-file session with no SQLite store is identified by the
+process log session id instead. Session-end passes need at
+least two user turns, and a per-session watermark in the state file
+records how many messages a completed pass already covered, together
+with a fingerprint of the last message. An unchanged session never
+costs a second provider call, a pass that failed or was interrupted
+leaves the session eligible for a later retry, a history that shrank
+through compression cannot hide new turns behind an old count, and a
+session that resumes and grows past the watermark is consolidated
+again.
+
 Forgotten content must not come back through re-learning. Background
 saves (consolidation) whose text matches a tombstone in the same
 scope are refused, profile learning drops extracted preferences
