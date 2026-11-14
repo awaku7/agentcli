@@ -132,9 +132,11 @@ process log session id instead. Session-end passes need at
 least two user turns, and a per-session watermark in the state file
 records how many messages a completed pass already covered, together
 with a fingerprint of the last message. An unchanged session never
-costs a second provider call, a pass that failed or was interrupted
-leaves the session eligible for a later retry (including when the
-extraction worked but the memory backend failed to store the
+costs a second provider call — a compression-triggered pass records
+the same watermark, so ending the session right after compression
+does not extract the same content again — a pass that failed or was
+interrupted leaves the session eligible for a later retry (including
+when the extraction worked but the memory backend failed to store the
 notes, or the extraction response itself was unusable), a history that shrank
 through compression cannot hide new turns behind an old count, and a
 session that resumes and grows past the watermark is consolidated

@@ -3,6 +3,7 @@ from __future__ import annotations
 import threading
 import time
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -411,6 +412,37 @@ def test_startup_scans_past_trivial_and_covered_sessions(
     )
     _settle()
     assert calls == [len(covered_messages), len(_messages(3))]
+
+
+def test_compression_pass_marks_watermark_for_session_end(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    calls = _record_worker(monkeypatch)
+    core = SimpleNamespace(_session_store_active_id="s-comp", SESSION_ID="log-1")
+    messages = _messages(2)
+
+    # The compression trigger supplies no explicit session id, like
+    # the real history.py call site — the pass still belongs to the
+    # active session and must mark it covered.
+    memory_consolidation.run_memory_consolidation_async(messages, core=core)
+    _wait_for(calls, 1)
+    state_path = repo_tmp_path / "memory_consolidation_state.json"
+    for _ in range(100):
+        if state_path.exists() and "s-comp" in state_path.read_text():
+            break
+        time.sleep(0.05)
+    assert "s-comp" in state_path.read_text()
+
+    # Ending the session without adding turns must not extract the
+    # same content a second time.
+    memory_consolidation.run_session_end_consolidation(
+        messages, core=core, session_id="s-comp"
+    )
+    _settle()
+    assert calls == [len(messages)]
 
 
 class _FakeStore:

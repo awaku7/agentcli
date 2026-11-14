@@ -163,12 +163,18 @@ def run_memory_consolidation_async(
     ``session_id`` names the session the messages belong to when the
     caller is a session-end trigger: a per-session watermark in the
     state file then suppresses repeat passes over an unchanged
-    session. The watermark is recorded only after a pass completes —
-    a failed or interrupted pass leaves the session eligible, so a
-    later trigger (typically the startup catch-up) can retry it.
-    While a pass runs, an in-flight entry keyed by session id keeps a
-    burst of triggers (switch, startup, compression) from queueing
-    duplicate provider calls for the same conversation.
+    session. When the caller supplies no id (the compression
+    trigger), it is resolved from the active session store id, or
+    the log session id, and used the same way — a completed
+    compression pass marks its session covered, so ending the
+    session right afterwards does not extract the same content a
+    second time. The watermark is recorded only after a pass
+    completes — a failed or interrupted pass leaves the session
+    eligible, so a later trigger (typically the startup catch-up)
+    can retry it. While a pass runs, an in-flight entry keyed by
+    session id keeps a burst of triggers (switch, startup,
+    compression) from queueing duplicate provider calls for the
+    same conversation.
 
     ``project`` pins the memory project the notes belong to when the
     caller captured it earlier (a session switch rebinds the workdir
@@ -187,7 +193,19 @@ def run_memory_consolidation_async(
             return
     except Exception:
         return
-    flight_key = session_id or str(getattr(core, "_session_store_active_id", "") or "")
+    # Resolve the session identity once and use it for in-flight
+    # tracking, the coverage check and the watermark alike. The
+    # compression trigger supplies no explicit id, but the pass still
+    # belongs to the active session: leaving the watermark unrecorded
+    # would make a later session-end trigger extract the same
+    # content a second time. The chain matches
+    # run_session_end_consolidation so both triggers agree on the id.
+    resolved_session_id = (
+        session_id
+        or str(getattr(core, "_session_store_active_id", "") or "")
+        or str(getattr(core, "SESSION_ID", "") or "")
+    )
+    flight_key = resolved_session_id
     # Resolve the memory scope now, on the calling thread: the worker
     # runs later, and a snapshot queued while a pass runs launches
     # after the user may have moved to another directory. Resolving
@@ -231,11 +249,11 @@ def run_memory_consolidation_async(
                 _pending_snapshots[flight_key] = (
                     snapshot,
                     core,
-                    session_id or flight_key,
+                    resolved_session_id,
                     project,
                 )
             return
-        if session_id and _session_is_covered(session_id, messages):
+        if resolved_session_id and _session_is_covered(resolved_session_id, messages):
             return
         if flight_key:
             _in_flight_sessions.add(flight_key)
@@ -249,7 +267,7 @@ def run_memory_consolidation_async(
     thread = threading.Thread(
         target=_run_worker_tracked,
         args=(messages_copy, core, owner, project, flight_key),
-        kwargs={"session_id": session_id},
+        kwargs={"session_id": resolved_session_id},
         daemon=True,
     )
     try:
