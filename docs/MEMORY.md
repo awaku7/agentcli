@@ -132,7 +132,9 @@ costs a second provider call, a pass that failed or was interrupted
 leaves the session eligible for a later retry, a history that shrank
 through compression cannot hide new turns behind an old count, and a
 session that resumes and grows past the watermark is consolidated
-again.
+again. While a pass is still running, a newer snapshot offered for
+the same session is kept and consolidated right after it finishes,
+so turns added in the meantime are not lost.
 
 Forgotten content must not come back through re-learning. Background
 saves (consolidation) whose text matches a tombstone in the same

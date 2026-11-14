@@ -55,6 +55,15 @@ _MIN_USER_TURNS_FOR_SESSION_END = 2
 _in_flight_lock = threading.Lock()
 _in_flight_sessions: set[str] = set()
 
+# Newest snapshot offered for a session whose pass is already running,
+# by session id: (messages, core, session_id, project). A trigger that
+# arrives mid-pass must not be dropped — the running worker only sees
+# its older snapshot, and once it records the watermark the newer
+# turns may never get another trigger. The follow-up pass runs when
+# the current one finishes; the coverage check inside the launch
+# still suppresses it if nothing actually changed.
+_pending_snapshots: dict[str, tuple[list[dict[str, Any]], Any, str, str | None]] = {}
+
 # Serializes read-modify-write cycles on the state file: pending-notice
 # accounting runs on worker threads while session-end watermarks are
 # marked on foreground threads, and unsynchronized cycles lose updates.
@@ -168,6 +177,23 @@ def run_memory_consolidation_async(
     flight_key = session_id or str(getattr(core, "_session_store_active_id", "") or "")
     with _in_flight_lock:
         if flight_key and flight_key in _in_flight_sessions:
+            # A pass for this session is already running on an older
+            # snapshot. Keep the newest snapshot offered meanwhile and
+            # let the tracked worker launch it when it finishes,
+            # instead of dropping the newer turns on the floor.
+            try:
+                snapshot = json.loads(json.dumps(messages))
+            except Exception:
+                snapshot = None
+            if snapshot is not None:
+                pending = _pending_snapshots.get(flight_key)
+                if pending is None or len(snapshot) >= len(pending[0]):
+                    _pending_snapshots[flight_key] = (
+                        snapshot,
+                        core,
+                        session_id or flight_key,
+                        project,
+                    )
             return
         if session_id and _session_is_covered(session_id, messages):
             return
@@ -238,9 +264,25 @@ def _run_worker_tracked(
         if completed and session_id:
             _mark_session_consolidated(session_id, messages)
     finally:
+        pending: tuple[list[dict[str, Any]], Any, str, str | None] | None = None
         if flight_key:
             with _in_flight_lock:
                 _in_flight_sessions.discard(flight_key)
+                pending = _pending_snapshots.pop(flight_key, None)
+        if pending is not None:
+            # A newer snapshot arrived while this pass ran. Launch it
+            # now; the coverage check at launch drops it if the pass
+            # that just finished already covered the same content.
+            p_messages, p_core, p_session_id, p_project = pending
+            try:
+                run_memory_consolidation_async(
+                    p_messages,
+                    p_core,
+                    session_id=p_session_id,
+                    project=p_project,
+                )
+            except Exception:
+                pass
 
 
 def _user_turn_count(messages: list[dict[str, Any]]) -> int:

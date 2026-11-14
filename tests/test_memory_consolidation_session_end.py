@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -218,6 +219,46 @@ def test_startup_skips_principal_and_room_sessions(
     )
     _wait_for(calls, 1)
     assert calls == [len(_messages(2))]
+
+
+def test_in_flight_session_end_snapshot_runs_after_current_pass(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.runtime import memory_consolidation
+
+    _use_jsonl(monkeypatch, repo_tmp_path)
+    started = threading.Event()
+    release = threading.Event()
+    calls: list[int] = []
+
+    def _blocking_worker(messages, core, owner="", project=""):  # noqa: ANN001, ANN202
+        calls.append(len(messages))
+        if len(calls) == 1:
+            started.set()
+            release.wait(timeout=10)
+        return True
+
+    monkeypatch.setattr(memory_consolidation, "_consolidation_worker", _blocking_worker)
+
+    # A compression-triggered pass starts on the older snapshot.
+    first = _messages(2)
+    memory_consolidation.run_memory_consolidation_async(
+        first, core=None, session_id="s-fly"
+    )
+    assert started.wait(timeout=5)
+
+    # While it runs, the session gains turns and ends (switch). The
+    # session-end snapshot must not be dropped just because a pass is
+    # in flight: the running worker never sees those newer turns.
+    newer = _messages(3)
+    memory_consolidation.run_session_end_consolidation(
+        newer, core=None, session_id="s-fly"
+    )
+    assert calls == [len(first)]
+
+    release.set()
+    _wait_for(calls, 2)
+    assert calls[1] == len(newer)
 
 
 class _FakeStore:
