@@ -22,8 +22,10 @@ from .path_alias_shared import resolve_tool_args
 
 JanomeTokenizer = None
 jieba = None
+KiwiAnalyzer = None
 _janome_initialized = False
 _jieba_initialized = False
+_kiwi_initialized = False
 
 
 def _ensure_janome() -> bool:
@@ -62,6 +64,24 @@ def _ensure_jieba() -> bool:
     except Exception:
         jieba = None
     return jieba is not None
+
+
+def _ensure_kiwi() -> bool:
+    global KiwiAnalyzer, _kiwi_initialized
+    if _kiwi_initialized:
+        return KiwiAnalyzer is not None
+    _kiwi_initialized = True
+    if not _auto_install("kiwipiepy", version_spec=">=0.10.0"):
+        return False
+    try:
+        from kiwipiepy import Kiwi
+
+        # Kiwi loads its model at construction time, so keep one
+        # instance instead of rebuilding it for every catalog search.
+        KiwiAnalyzer = Kiwi()
+    except Exception:
+        KiwiAnalyzer = None
+    return KiwiAnalyzer is not None
 
 
 # PyThaiNLP creates its data directory when its tokenizers/taggers are
@@ -1828,7 +1848,7 @@ def _collect_janome_query_terms(query: str) -> list[str]:
         out: list[str] = []
         for t in jt.tokenize(q):
             pos = str(getattr(t, "part_of_speech", "") or "").split(",", 1)[0]
-            if pos not in {"Noun", "Verb"}:
+            if pos not in {"名詞", "動詞", "Noun", "Verb"}:
                 continue
             term = str(getattr(t, "base_form", "") or "").strip().lower()
             if not term or term == "*":
@@ -1881,8 +1901,33 @@ def _collect_thai_query_terms(query: str) -> list[str]:
         return []
 
 
+def _collect_kiwi_query_terms(query: str) -> list[str]:
+    q = (query or "").strip()
+    if not q or not _ensure_kiwi():
+        return []
+    try:
+        out: list[str] = []
+        for t in KiwiAnalyzer.tokenize(q):
+            form = str(getattr(t, "form", "") or "").strip().lower()
+            tag = str(getattr(t, "tag", "") or "")
+            if not form:
+                continue
+            if tag.startswith("N"):
+                out.append(form)
+            elif tag.startswith(("VV", "VA")):
+                base = str(getattr(t, "base_form", "") or "").strip().lower()
+                out.append(base if base and base != form else form + "다")
+        return out
+    except Exception:
+        return []
+
+
 def _has_japanese_script(text: str) -> bool:
     return bool(re.search(r"[\u3040-\u30ff]", text))
+
+
+def _has_korean_script(text: str) -> bool:
+    return bool(re.search(r"[\uac00-\ud7a3\u1100-\u11ff]", text))
 
 
 def _has_thai_script(text: str) -> bool:
@@ -1906,6 +1951,8 @@ def _tokenize_catalog_query(query: str) -> list[str]:
         tokens.extend(_collect_thai_query_terms(q))
     elif _has_japanese_script(q):
         tokens.extend(_collect_janome_query_terms(q))
+    elif _has_korean_script(q):
+        tokens.extend(_collect_kiwi_query_terms(q))
     elif _has_cjk_script(q):
         if loc.startswith("zh"):
             tokens.extend(_collect_jieba_query_terms(q))
