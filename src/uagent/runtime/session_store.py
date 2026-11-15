@@ -21,6 +21,7 @@ from typing import Any, Callable
 from ..i18n import _
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import SECRET_MASK, _mask_inline_secrets, mask_args
+from . import text_terms
 from .compaction_record import CompactionRecord, CompactionValidationError, SourceRef
 from .handoff_record import HandoffRecord, ProvenancedDeterministicDelta
 from .compaction_reducer import CompactionReductionError, reduce_compaction_record
@@ -438,6 +439,9 @@ class SessionStore:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._db_lock = threading.RLock()
         self._memory_notices: list[str] = []
+        self._terms_lock = threading.Lock()
+        self._terms_thread_active = False
+        self._terms_last_finished = 0.0
         wait_ms = max(int(busy_timeout_ms), 0)
         try:
             # Multiple CLI/Web/A2A processes may share one store. WAL lets
@@ -549,6 +553,11 @@ class SessionStore:
                 );
                 CREATE VIRTUAL TABLE IF NOT EXISTS message_search USING fts5(
                     content, session_id UNINDEXED, message_id UNINDEXED
+                );
+                CREATE TABLE IF NOT EXISTS message_terms (
+                    message_id INTEGER PRIMARY KEY
+                        REFERENCES messages(message_id) ON DELETE CASCADE,
+                    terms TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS session_summaries (
                     session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -1314,6 +1323,7 @@ class SessionStore:
             "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
             (safe_content, session_id, message_id),
         )
+        self._index_message_terms_unlocked(message_id, safe_content)
         self._record_session_item_unlocked(
             session_id, "message", str(message_id), ordering_quality="exact"
         )
@@ -3535,6 +3545,135 @@ class SessionStore:
         ).fetchall()
         return [dict(row) for row in rows]
 
+    def _index_message_terms_unlocked(self, message_id: int, content: str) -> None:
+        """Record extracted search terms for one message.
+
+        Indexing must never break message appends: any failure is
+        swallowed, and a message whose analyzer is not available yet
+        is left without a row so the backfill can retry it later.
+        """
+        if not text_terms.terms_enabled():
+            return
+        try:
+            terms = text_terms.index_terms(content)
+        except Exception:
+            return
+        if terms is None:
+            return
+        try:
+            self._execute(
+                "INSERT OR REPLACE INTO message_terms(message_id, terms) "
+                "VALUES (?, ?)",
+                (message_id, " ".join(terms)),
+            )
+        except Exception:
+            pass
+
+    def backfill_message_terms(self, *, limit: int = 200) -> int:
+        """Index terms for stored messages that have no terms row yet.
+
+        Returns how many messages were processed. Messages whose
+        analyzer is unavailable are skipped and left for a later pass.
+        """
+        if not text_terms.terms_enabled():
+            return 0
+        processed = 0
+        after_id = 0
+        while processed < limit:
+            # The shared connection is serialized by _db_lock (see
+            # _db_locked). Hold it only around the SQL itself so the
+            # comparatively slow tokenization in between cannot stall
+            # foreground appends and searches.
+            with self._db_lock:
+                rows = self._execute(
+                    """
+                    SELECT m.message_id, m.content FROM messages m
+                    LEFT JOIN message_terms t ON t.message_id = m.message_id
+                    WHERE t.message_id IS NULL AND m.message_id > ?
+                    ORDER BY m.message_id LIMIT 200
+                    """,
+                    (after_id,),
+                ).fetchall()
+            if not rows:
+                break
+            for row in rows:
+                after_id = int(row["message_id"])
+                try:
+                    terms = text_terms.index_terms(str(row["content"] or ""))
+                except Exception:
+                    continue
+                if terms is None:
+                    continue
+                with self._db_lock:
+                    self._execute(
+                        "INSERT OR REPLACE INTO message_terms(message_id, terms) "
+                        "VALUES (?, ?)",
+                        (after_id, " ".join(terms)),
+                    )
+                processed += 1
+                if processed >= limit:
+                    break
+        return processed
+
+    def _kick_terms_backfill(self) -> None:
+        """Start the background term backfill at most once in a while."""
+        if not text_terms.terms_enabled():
+            return
+        with self._terms_lock:
+            if self._terms_thread_active:
+                return
+            if time.monotonic() - self._terms_last_finished < 300:
+                return
+            self._terms_thread_active = True
+        thread = threading.Thread(
+            target=self._run_terms_backfill,
+            daemon=True,
+            name="uag-session-terms-backfill",
+        )
+        thread.start()
+
+    def _run_terms_backfill(self) -> None:
+        try:
+            while self.backfill_message_terms() > 0:
+                # Stay polite: a large backlog must not churn at full
+                # speed in the background.
+                time.sleep(0.05)
+        except Exception:
+            pass
+        finally:
+            with self._terms_lock:
+                self._terms_thread_active = False
+                self._terms_last_finished = time.monotonic()
+
+    @staticmethod
+    def _term_match_clause(query: str) -> tuple[str, list[Any]]:
+        """SQL fragment + params matching messages by extracted terms.
+
+        Terms are stored space-joined, so a padded LIKE matches whole
+        terms only. Returns an empty fragment when the query yields no
+        terms (unsupported script, analyzer unavailable, or disabled).
+        """
+        if not text_terms.terms_enabled():
+            return "", []
+        try:
+            terms = text_terms.query_terms(query)
+        except Exception:
+            return "", []
+        if not terms:
+            return "", []
+        conditions: list[str] = []
+        parameters: list[Any] = []
+        for term in terms:
+            escaped = term.replace("!", "!!").replace("%", "!%").replace("_", "!_")
+            conditions.append("(' ' || terms || ' ') LIKE ? ESCAPE '!'")
+            parameters.append(f"% {escaped} %")
+        clause = (
+            " OR m.message_id IN (SELECT message_id FROM message_terms WHERE "
+            + " OR ".join(conditions)
+            + ")"
+        )
+        return clause, parameters
+
     @_db_locked
     def search_sessions(
         self, query: str, *, project: str | None = None
@@ -3547,10 +3686,12 @@ class SessionStore:
         """
         if not query.strip():
             return []
+        self._kick_terms_backfill()
         escaped_query = query.replace("!", "!!").replace("%", "!%").replace("_", "!_")
         query_like = f"%{escaped_query}%"
         fts_query = '"' + query.replace('"', '""') + '"'
-        parameters: list[Any] = [fts_query, query_like, query_like]
+        term_clause, term_parameters = self._term_match_clause(query)
+        parameters: list[Any] = [fts_query, query_like, query_like, *term_parameters]
         project_clause = ""
         if project is not None:
             project_clause = " AND s.project = ?"
@@ -3577,6 +3718,9 @@ class SessionStore:
                       )
                       OR m.content LIKE ? ESCAPE '!'
                       OR m.payload_json LIKE ? ESCAPE '!'
+            """
+            + term_clause
+            + """
                   )
             """
             + project_clause
@@ -3725,13 +3869,21 @@ class SessionStore:
     ) -> list[dict[str, Any]]:
         if not query.strip():
             return []
+        self._kick_terms_backfill()
         escaped_query = query.replace("!", "!!").replace("%", "!%").replace("_", "!_")
         query_like = f"%{escaped_query}%"
         # MATCH accepts a query language. Quote user input so punctuation
         # (for example ``new-1``) cannot become an FTS operator or column
         # reference and turn an ordinary search into an OperationalError.
         fts_query = '"' + query.replace('"', '""') + '"'
-        parameters: list[Any] = [fts_query, query_like, query_like, max(1, limit)]
+        term_clause, term_parameters = self._term_match_clause(query)
+        parameters: list[Any] = [
+            fts_query,
+            query_like,
+            query_like,
+            *term_parameters,
+            max(1, limit),
+        ]
         project_clause = ""
         if project is not None:
             project_clause = " AND s.project = ?"
@@ -3746,8 +3898,13 @@ class SessionStore:
                 m.message_id IN (
                     SELECT message_id FROM message_search WHERE message_search MATCH ?
                 ) OR m.content LIKE ? ESCAPE '!' OR m.payload_json LIKE ? ESCAPE '!'
+            """
+            + term_clause
+            + """
             )
-            """ + project_clause + " ORDER BY m.message_id LIMIT ?",
+            """
+            + project_clause
+            + " ORDER BY m.message_id LIMIT ?",
             tuple(parameters),
         ).fetchall()
         return [dict(row) for row in rows]

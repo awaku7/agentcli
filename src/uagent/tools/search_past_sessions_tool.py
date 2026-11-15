@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from ..runtime import text_terms
 from ..runtime.identity_context import current_turn_is_local
 from . import long_memory
 from .context import get_callbacks
@@ -76,8 +77,10 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.query.description",
                         default=(
                             "Words or a phrase from the past conversation to look for "
-                            "(a name, a topic, or wording the user used). The search "
-                            "matches literal text, so prefer distinctive words."
+                            "(a name, a topic, or wording the user used). For Japanese, "
+                            "Chinese, Thai and Korean the search also matches extracted "
+                            "words, so inflected forms are found; distinctive words "
+                            "work best."
                         ),
                     ),
                 },
@@ -104,14 +107,29 @@ def _result(**payload: Any) -> str:
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 
 
-def _clip(value: Any, query: str = "", limit: int = _EXCERPT_CHARS) -> str:
+def _clip(
+    value: Any,
+    query: str = "",
+    terms: list[str] | None = None,
+    limit: int = _EXCERPT_CHARS,
+) -> str:
     text = " ".join(str(value or "").split())
     if len(text) <= limit:
         return text
     # The store matches the query anywhere in a message, so clipping
     # from the start can hide the very text that matched. Center the
     # window on the first occurrence instead when it can be found.
-    match_at = text.casefold().find(query.casefold()) if query else -1
+    # Term matches (e.g. a Japanese verb's base form) may not appear
+    # literally in the text, so extracted terms are tried after the
+    # query itself and the window falls back to the start.
+    needles = [query, *(terms or [])]
+    match_at = -1
+    folded = text.casefold()
+    for needle in needles:
+        if needle:
+            match_at = folded.find(needle.casefold())
+            if match_at >= 0:
+                break
     start = max(0, match_at - _EXCERPT_LEAD_CHARS) if match_at >= 0 else 0
     clipped = text[start : start + limit]
     if start > 0:
@@ -192,6 +210,10 @@ def run_tool(args: dict[str, Any]) -> str:
         return _result(ok=False, error="forget_screening_unavailable")
 
     truncated = len(hits or []) >= _SEARCH_WINDOW
+    try:
+        query_term_list = text_terms.query_terms(query)
+    except Exception:
+        query_term_list = []
     active_session_id = str(callbacks.session_id or "")
     sessions: dict[str, dict[str, Any]] = {}
     order: list[str] = []
@@ -227,7 +249,7 @@ def run_tool(args: dict[str, Any]) -> str:
         if created_at > entry["latest_at"]:
             entry["latest_at"] = created_at
         excerpts = entry["excerpts"]
-        excerpts.append({"role": role, "text": _clip(content, query)})
+        excerpts.append({"role": role, "text": _clip(content, query, query_term_list)})
         if len(excerpts) > _MAX_EXCERPTS_PER_SESSION:
             del excerpts[0]
 

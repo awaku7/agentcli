@@ -114,6 +114,15 @@ so a forgotten fact paraphrased in an old log can still surface; that
 is the same limit as the boundary itself. Found excerpts are not
 saved back into long-term memory.
 
+For Japanese, Chinese, Thai and Korean, that session search also
+matches extracted words: when a message is stored, the session store
+indexes its nouns and verbs in base form (Janome, jieba, pythainlp
+and Kiwi respectively, used only when already installed; a background
+backfill covers older messages once an analyzer is available),
+and queries are matched against those words as well as the raw text,
+so inflected forms are found. Indexing never blocks message writes,
+and `UAGENT_SESSION_TERMS=0` turns the word index off.
+
 Messages starting with `remember:` or `記憶：` are the fallback for
 models that do not call the tools reliably: the session store saves the
 marked note immediately when the message is written, keyed by a
