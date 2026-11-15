@@ -53,6 +53,43 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
+def test_final_answer_starts_after_displayed_reasoning_line(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr("uagent.reasoning_display.get_display_reasoning", lambda: True)
+    core = SimpleNamespace(_reasoning_stream_open=False)
+
+    def print_reasoning_delta(text: str) -> None:
+        print(text, end="", flush=True)
+        core._reasoning_stream_open = not text.endswith("\n")
+
+    def print_stream_delta(text: str) -> None:
+        if core._reasoning_stream_open:
+            if text != "\n":
+                print()
+            core._reasoning_stream_open = False
+        print(text, end="", flush=True)
+
+    core.print_reasoning_delta = print_reasoning_delta
+    core.print_stream_delta = print_stream_delta
+
+    _emit_final_answer_if_any(
+        assistant_text="answer",
+        reasoning_content="thinking without a trailing newline",
+        use_responses_api=False,
+        stream_responses=False,
+        stream_output_rendered=False,
+        append_result_to_outfile_fn=lambda _text: None,
+        try_open_images_from_text_fn=lambda _text: None,
+        core=core,
+        provider="openai",
+    )
+
+    assert capsys.readouterr().out == (
+        "[Openai Reasoning] thinking without a trailing newline\nanswer\n"
+    )
+
+
 def test_registry_empty_completed_response_falls_back(monkeypatch, tmp_path) -> None:
     class Chat:
         def create(self, **kwargs):

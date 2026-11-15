@@ -237,6 +237,15 @@ def _emit_final_answer_if_any(
                     provider=provider,
                     core=core,
                 )
+                if bool(getattr(core, "_reasoning_stream_open", False)):
+                    # The final answer is printed below with print(), not through
+                    # print_stream_delta(). Close the reasoning line first so
+                    # the answer cannot continue on the same line.
+                    close_line = getattr(core, "print_stream_delta", None)
+                    if callable(close_line):
+                        close_line("\n")
+                    else:
+                        print()
             print(assistant_text)
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)
