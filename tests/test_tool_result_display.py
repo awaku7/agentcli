@@ -574,13 +574,14 @@ def test_git_ops_describer_shows_operation_and_arguments() -> None:
     assert "reset" in dangerous
     assert "--hard" in dangerous
 
-    private_message = "SENSITIVE_COMMIT_NOTE_4731"
-    commit = describe({"command": "commit", "args": ["-m", private_message]})
+    commit_message = "feature: improve local search"
+    commit = describe({"command": "commit", "args": ["-m", commit_message]})
     assert "commit" in commit
-    assert "<commit message omitted>" in commit
-    assert private_message not in commit
-    inline = describe({"command": "commit", "args": [f"--message={private_message}"]})
-    assert private_message not in inline
+    assert commit_message in commit
+    inline = describe({"command": "commit", "args": [f"--message={commit_message}"]})
+    assert commit_message in inline
+    tag = describe({"command": "tag", "args": ["-m", commit_message]})
+    assert commit_message in tag
 
 
 def test_run_tests_describer_shows_framework_target_and_timeout() -> None:

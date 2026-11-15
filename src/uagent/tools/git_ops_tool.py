@@ -606,22 +606,8 @@ def describe(args: dict[str, Any]) -> str:
         command_args = [command_args]
 
     rendered_args = []
-    omit_next_message = False
     for value in command_args[:5]:
         item = str(value).strip()
-        if omit_next_message:
-            rendered_args.append(json.dumps("<commit message omitted>"))
-            omit_next_message = False
-            continue
-        if command in {"commit", "tag"}:
-            if item in {"-m", "--message"}:
-                rendered_args.append(json.dumps(item, ensure_ascii=False))
-                omit_next_message = True
-                continue
-            if item.startswith("--message="):
-                item = "--message=<commit message omitted>"
-            elif item.startswith("-m") and item != "-m":
-                item = "-m<commit message omitted>"
         # Avoid exposing credentials embedded in an HTTP(S) remote URL.
         item = re.sub(
             r"(?i)(https?://)[^/@ ]+@", lambda match: match.group(1) + "***@", item
