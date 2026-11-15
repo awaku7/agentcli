@@ -138,6 +138,23 @@ def test_unreadable_memory_store_fails_closed(
     assert result == {"ok": False, "error": "forget_screening_unavailable"}
 
 
+def test_unreadable_jsonl_boundary_fails_closed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # The JSONL reader behind list_deleted_long_memory_records() also
+    # swallows load errors; the strict reader must bypass it.
+    monkeypatch.setattr(long_memory, "forgotten_note_keys_strict", _REAL_STRICT)
+    monkeypatch.setattr(long_memory, "_use_sqlite", lambda: False)
+
+    def _raise(*, include_deleted: bool) -> Any:
+        raise long_memory.MemoryLoadError("bad jsonl")
+
+    monkeypatch.setattr(long_memory, "_load_jsonl_records", _raise)
+    store = _FakeStore([_hit("past", "合言葉の話をした")])
+    result = _run(store, {"query": "合言葉"})
+    assert result == {"ok": False, "error": "forget_screening_unavailable"}
+
+
 def test_non_local_turn_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(tool, "current_turn_is_local", lambda: False)
     result = _run(_FakeStore([_hit("past", "合言葉の話")]), {"query": "合言葉"})

@@ -915,8 +915,13 @@ def _read_forgotten_note_keys() -> set[str]:
             if note:
                 keys.add(_note_key(note))
         return keys
-    records = list_deleted_long_memory_records()
+    # Read the JSONL rows directly: list_deleted_long_memory_records()
+    # swallows load errors into an empty list, which is exactly the
+    # failure this reader exists to propagate.
+    records = _load_jsonl_records(include_deleted=True)
     for record in records:
+        if _is_active(record):
+            continue
         note = str(record.get("note") or "")
         if note:
             keys.add(_note_key(note))
