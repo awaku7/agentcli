@@ -727,13 +727,6 @@ class NostrTransport:
         # Subscribe to kind-1 and kind-1059 events mentioning our pubkey
         tasks.append(asyncio.create_task(self._subscribe_loop()))
 
-        # Beacon: periodically announce our presence
-        tasks.append(asyncio.create_task(self._beacon_loop()))
-
-        # Discovery: subscribe to #bitchat hashtag to find other users
-        if self._pub_hex:
-            tasks.append(asyncio.create_task(self._discovery_subscribe()))
-
         await asyncio.sleep(0.1)
 
         while not self._stop_event.is_set():
