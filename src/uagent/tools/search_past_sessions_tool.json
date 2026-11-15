@@ -11,7 +11,7 @@
       "過去セッション検索",
       "以前の相談"
     ],
-    "param.query.description": "過去の会話から探す言葉や言い回し（名前、話題、ユーザーが使った表現）。検索は文字どおりの一致で探すので、特徴のある言葉が向いています。",
+    "param.query.description": "過去の会話から探す言葉や言い回し（名前、話題、ユーザーが使った表現）。日本語、中国語、タイ語、韓国語では抽出した単語でも探すので、活用した形でも見つかります。特徴のある言葉が向いています。",
     "param.limit.description": "返す過去セッションの最大数（既定は5、最大10）。",
     "describe.search": "過去セッションを検索しています"
   },
@@ -27,7 +27,7 @@
       "buscar en sesiones",
       "conversación previa"
     ],
-    "param.query.description": "Palabras o una frase de la conversación anterior que buscar (un nombre, un tema o las palabras que usó el usuario). La búsqueda coincide con el texto literal, así que prefiere palabras distintivas.",
+    "param.query.description": "Palabras o una frase de la conversación anterior que buscar (un nombre, un tema o las palabras que usó el usuario). En japonés, chino, tailandés y coreano, la búsqueda también coincide con las palabras extraídas, así que se encuentran las formas flexionadas; las palabras distintivas funcionan mejor.",
     "param.limit.description": "Número máximo de sesiones anteriores a devolver (por defecto 5, máximo 10).",
     "describe.search": "Buscando sesiones anteriores"
   },
@@ -43,7 +43,7 @@
       "recherche dans les sessions",
       "discussion antérieure"
     ],
-    "param.query.description": "Mots ou phrase de la conversation passée à rechercher (un nom, un sujet ou les mots employés par l'utilisateur). La recherche compare le texte littéral, préférez donc des mots distinctifs.",
+    "param.query.description": "Mots ou phrase de la conversation passée à rechercher (un nom, un sujet ou les mots employés par l'utilisateur). En japonais, chinois, thaï et coréen, la recherche correspond aussi aux mots extraits, donc les formes fléchies sont trouvées ; les mots distinctifs fonctionnent le mieux.",
     "param.limit.description": "Nombre maximal de sessions passées à renvoyer (par défaut 5, au maximum 10).",
     "describe.search": "Recherche des sessions passées"
   },
@@ -59,7 +59,7 @@
       "지난 대화 검색",
       "예전 논의"
     ],
-    "param.query.description": "지난 대화에서 찾을 단어나 표현(이름, 주제, 사용자가 쓴 말). 검색은 글자 그대로 대조하므로 특징적인 단어가 좋습니다.",
+    "param.query.description": "지난 대화에서 찾을 단어나 표현(이름, 주제, 사용자가 쓴 말). 일본어, 중국어, 태국어, 한국어에서는 추출한 단어로도 대조하므로 활용형도 찾을 수 있습니다. 특징적인 단어가 가장 좋습니다.",
     "param.limit.description": "반환할 지난 세션의 최대 개수(기본값 5, 최대 10).",
     "describe.search": "지난 세션을 검색 중"
   },
@@ -75,7 +75,7 @@
       "in Sitzungen suchen",
       "frühere Diskussion"
     ],
-    "param.query.description": "Wörter oder ein Ausdruck aus dem vergangenen Gespräch, nach denen gesucht wird (ein Name, ein Thema oder die Wortwahl des Benutzers). Die Suche gleicht den Wortlaut ab, also lieber markante Wörter verwenden.",
+    "param.query.description": "Wörter oder ein Ausdruck aus dem vergangenen Gespräch, nach denen gesucht wird (ein Name, ein Thema oder die Wortwahl des Benutzers). Im Japanischen, Chinesischen, Thailändischen und Koreanischen gleicht die Suche auch extrahierte Wörter ab, sodass gebeugte Formen gefunden werden; markante Wörter funktionieren am besten.",
     "param.limit.description": "Maximale Anzahl zurückzugebender vergangener Sitzungen (Standard 5, höchstens 10).",
     "describe.search": "Vergangene Sitzungen werden gesucht"
   },
@@ -91,7 +91,7 @@
       "cercare nelle sessioni",
       "discussione precedente"
     ],
-    "param.query.description": "Parole o una frase della conversazione passata da cercare (un nome, un argomento o le parole usate dall'utente). La ricerca confronta il testo letterale, quindi preferisci parole distintive.",
+    "param.query.description": "Parole o una frase della conversazione passata da cercare (un nome, un argomento o le parole usate dall'utente). In giapponese, cinese, tailandese e coreano la ricerca abbina anche le parole estratte, quindi trova le forme flesse; le parole distintive funzionano meglio.",
     "param.limit.description": "Numero massimo di sessioni passate da restituire (predefinito 5, massimo 10).",
     "describe.search": "Ricerca delle sessioni passate"
   },
@@ -107,7 +107,7 @@
       "искать в сессиях",
       "прежнее обсуждение"
     ],
-    "param.query.description": "Слова или фраза из прошлого разговора, которые нужно найти (имя, тема или слова пользователя). Поиск сверяется с буквальным текстом, поэтому лучше использовать характерные слова.",
+    "param.query.description": "Слова или фраза из прошлого разговора, которые нужно найти (имя, тема или слова пользователя). В японском, китайском, тайском и корейском поиск также сверяет извлечённые слова, поэтому находятся изменённые формы; характерные слова работают лучше всего.",
     "param.limit.description": "Максимальное число возвращаемых прошлых сессий (по умолчанию 5, не более 10).",
     "describe.search": "Поиск прошлых сессий"
   },
@@ -123,7 +123,7 @@
       "pesquisar nas sessões",
       "discussão anterior"
     ],
-    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o usuário usou). A busca compara o texto literal, então prefira palavras distintivas.",
+    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o usuário usou). Em japonês, chinês, tailandês e coreano, a busca também corresponde às palavras extraídas, então formas flexionadas são encontradas; palavras distintivas funcionam melhor.",
     "param.limit.description": "Número máximo de sessões anteriores a retornar (padrão 5, no máximo 10).",
     "describe.search": "Pesquisando sessões anteriores"
   },
@@ -139,7 +139,7 @@
       "pesquisar nas sessões",
       "discussão anterior"
     ],
-    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o utilizador usou). A pesquisa compara o texto literal, por isso prefira palavras distintivas.",
+    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o utilizador usou). Em japonês, chinês, tailandês e coreano, a pesquisa também corresponde às palavras extraídas, então formas flexionadas são encontradas; palavras distintivas funcionam melhor.",
     "param.limit.description": "Número máximo de sessões anteriores a devolver (predefinição 5, no máximo 10).",
     "describe.search": "A pesquisar sessões anteriores"
   },
@@ -155,7 +155,7 @@
       "cari di sesi",
       "diskusi sebelumnya"
     ],
-    "param.query.description": "Kata atau frasa dari percakapan lampau yang dicari (nama, topik, atau kata yang dipakai pengguna). Pencarian mencocokkan teks secara harfiah, jadi pilih kata yang khas.",
+    "param.query.description": "Kata atau frasa dari percakapan lampau yang dicari (nama, topik, atau kata yang dipakai pengguna). Dalam bahasa Jepang, Mandarin, Thailand, dan Korea, pencarian juga mencocokkan kata yang diekstrak, jadi bentuk berinfleksi dapat ditemukan; kata yang khas paling efektif.",
     "param.limit.description": "Jumlah maksimum sesi lampau yang dikembalikan (bawaan 5, maksimal 10).",
     "describe.search": "Mencari sesi lampau"
   },
@@ -171,7 +171,7 @@
       "tìm trong các phiên",
       "thảo luận trước"
     ],
-    "param.query.description": "Từ hoặc cụm từ trong cuộc trò chuyện trước cần tìm (một cái tên, một chủ đề, hoặc cách nói của người dùng). Tìm kiếm đối chiếu văn bản nguyên văn, nên hãy chọn từ đặc trưng.",
+    "param.query.description": "Từ hoặc cụm từ trong cuộc trò chuyện trước cần tìm (một cái tên, một chủ đề, hoặc cách nói của người dùng). Với tiếng Nhật, Trung, Thái và Hàn, tìm kiếm còn khớp các từ đã trích xuất nên sẽ tìm thấy các dạng biến đổi; từ đặc trưng hiệu quả nhất.",
     "param.limit.description": "Số phiên trước tối đa được trả về (mặc định 5, tối đa 10).",
     "describe.search": "Đang tìm các phiên trước"
   },
@@ -187,7 +187,7 @@
       "szukaj w sesjach",
       "wcześniejsza dyskusja"
     ],
-    "param.query.description": "Słowa lub fraza z minionej rozmowy do znalezienia (nazwa, temat lub sformułowanie użytkownika). Wyszukiwanie porównuje dosłowny tekst, więc wybieraj charakterystyczne słowa.",
+    "param.query.description": "Słowa lub fraza z minionej rozmowy do znalezienia (nazwa, temat lub sformułowanie użytkownika). W języku japońskim, chińskim, tajskim i koreańskim wyszukiwanie dopasowuje także wyodrębnione słowa, więc znajduje formy odmienione; charakterystyczne słowa działają najlepiej.",
     "param.limit.description": "Maksymalna liczba zwracanych minionych sesji (domyślnie 5, najwyżej 10).",
     "describe.search": "Przeszukiwanie minionych sesji"
   },
@@ -203,7 +203,7 @@
       "सत्रों में खोजें",
       "पुरानी चर्चा"
     ],
-    "param.query.description": "पिछली बातचीत के वे शब्द या वाक्यांश जिन्हें खोजना है (कोई नाम, विषय या उपयोगकर्ता के शब्द)। खोज शाब्दिक पाठ से मिलान करती है, इसलिए विशिष्ट शब्द चुनें।",
+    "param.query.description": "पिछली बातचीत के वे शब्द या वाक्यांश जिन्हें खोजना है (कोई नाम, विषय या उपयोगकर्ता के शब्द)। जापानी, चीनी, थाई और कोरियाई में खोज निकाले गए शब्दों से भी मिलान करती है, इसलिए रूपांतरित रूप मिल जाते हैं; विशिष्ट शब्द सबसे अच्छे रहते हैं।",
     "param.limit.description": "वापस किए जाने वाले पिछले सत्रों की अधिकतम संख्या (डिफ़ॉल्ट 5, अधिकतम 10)।",
     "describe.search": "पिछले सत्र खोजे जा रहे हैं"
   },
@@ -219,7 +219,7 @@
       "البحث في الجلسات",
       "نقاش سابق"
     ],
-    "param.query.description": "كلمات أو عبارة من المحادثة السابقة للبحث عنها (اسم أو موضوع أو صياغة المستخدم). يطابق البحث النص الحرفي، لذا فضّل الكلمات المميزة.",
+    "param.query.description": "كلمات أو عبارة من المحادثة السابقة للبحث عنها (اسم أو موضوع أو صياغة المستخدم). في اليابانية والصينية والتايلاندية والكورية يطابق البحث أيضًا الكلمات المستخرجة، لذا تُوجد الصيغ المصرّفة؛ الكلمات المميزة تعمل بشكل أفضل.",
     "param.limit.description": "الحد الأقصى لعدد الجلسات السابقة المعادة (الافتراضي 5، وبحد أقصى 10).",
     "describe.search": "جارٍ البحث في الجلسات السابقة"
   },
@@ -235,7 +235,7 @@
       "sök i sessioner",
       "tidigare diskussion"
     ],
-    "param.query.description": "Ord eller en fras från det tidigare samtalet att leta efter (ett namn, ett ämne eller användarens ordval). Sökningen matchar den bokstavliga texten, så välj utmärkande ord.",
+    "param.query.description": "Ord eller en fras från det tidigare samtalet att leta efter (ett namn, ett ämne eller användarens ordval). På japanska, kinesiska, thailändska och koreanska matchar sökningen även extraherade ord, så böjda former hittas; utmärkande ord fungerar bäst.",
     "param.limit.description": "Högsta antal tidigare sessioner som returneras (standard 5, högst 10).",
     "describe.search": "Söker tidigare sessioner"
   },
@@ -251,7 +251,7 @@
       "tafuta katika vikao",
       "jadiliano la awali"
     ],
-    "param.query.description": "Maneno au kifungu kutoka mazungumzo yaliyopita cha kutafuta (jina, mada, au maneno ya mtumiaji). Utafutaji hulinganisha maandishi halisi, kwa hiyo chagua maneno ya kipekee.",
+    "param.query.description": "Maneno au kifungu kutoka mazungumzo yaliyopita cha kutafuta (jina, mada, au maneno ya mtumiaji). Katika Kijapani, Kichina, Kithai na Kikorea, utafutaji pia hulinganisha maneno yaliyotolewa, hivyo maumbo yaliyobadilika hupatikana; maneno bainifu hufanya kazi vizuri zaidi.",
     "param.limit.description": "Idadi ya juu ya vikao vilivyopita vinavyorejeshwa (chaguo-msingi 5, hadi 10).",
     "describe.search": "Inatafuta vikao vilivyopita"
   },
@@ -267,7 +267,7 @@
       "søk i økter",
       "tidligere diskusjon"
     ],
-    "param.query.description": "Ord eller en frase fra den tidligere samtalen å lete etter (et navn, et tema eller brukerens ordvalg). Søket matcher den bokstavelige teksten, så velg særpregede ord.",
+    "param.query.description": "Ord eller en frase fra den tidligere samtalen å lete etter (et navn, et tema eller brukerens ordvalg). På japansk, kinesisk, thai og koreansk matcher søket også uttrukne ord, så bøyde former blir funnet; særpregede ord fungerer best.",
     "param.limit.description": "Maksimalt antall tidligere økter som returneres (standard 5, opptil 10).",
     "describe.search": "Søker i tidligere økter"
   },
@@ -283,7 +283,7 @@
       "zoeken in sessies",
       "eerdere discussie"
     ],
-    "param.query.description": "Woorden of een zin uit het eerdere gesprek om naar te zoeken (een naam, een onderwerp of de woorden van de gebruiker). Het zoeken vergelijkt de letterlijke tekst, dus kies kenmerkende woorden.",
+    "param.query.description": "Woorden of een zin uit het eerdere gesprek om naar te zoeken (een naam, een onderwerp of de woorden van de gebruiker). In het Japans, Chinees, Thais en Koreaans vergelijkt de zoekopdracht ook geëxtraheerde woorden, zodat verbogen vormen worden gevonden; onderscheidende woorden werken het best.",
     "param.limit.description": "Maximaal aantal eerdere sessies dat wordt teruggegeven (standaard 5, maximaal 10).",
     "describe.search": "Eerdere sessies zoeken"
   },
@@ -299,7 +299,7 @@
       "hae istunnoista",
       "aiempi keskustelu"
     ],
-    "param.query.description": "Sanat tai ilmaus menneestä keskustelusta, joita etsitään (nimi, aihe tai käyttäjän sanavalinta). Haku vertaa kirjaimellista tekstiä, joten valitse erottuvia sanoja.",
+    "param.query.description": "Sanat tai ilmaus menneestä keskustelusta, joita etsitään (nimi, aihe tai käyttäjän sanavalinta). Japanissa, kiinassa, thaissa ja koreassa haku täsmää myös poimittuihin sanoihin, joten taivutetut muodot löytyvät; erottuvat sanat toimivat parhaiten.",
     "param.limit.description": "Palautettavien menneiden istuntojen enimmäismäärä (oletus 5, enintään 10).",
     "describe.search": "Haetaan menneitä istuntoja"
   },
@@ -315,7 +315,7 @@
       "hledat v relacích",
       "dřívější diskuse"
     ],
-    "param.query.description": "Slova nebo fráze z minulé konverzace, které se mají najít (jméno, téma nebo formulace uživatele). Vyhledávání porovnává doslovný text, proto volte výrazná slova.",
+    "param.query.description": "Slova nebo fráze z minulé konverzace, které se mají najít (jméno, téma nebo formulace uživatele). V japonštině, čínštině, thajštině a korejštině vyhledávání porovnává i extrahovaná slova, takže najde i ohýbané tvary; výrazná slova fungují nejlépe.",
     "param.limit.description": "Maximální počet vracených minulých relací (výchozí 5, nejvýše 10).",
     "describe.search": "Prohledávání minulých relací"
   },
@@ -331,7 +331,7 @@
       "шукати в сесіях",
       "колишнє обговорення"
     ],
-    "param.query.description": "Слова або фраза з минулої розмови, які треба знайти (ім'я, тема або слова користувача). Пошук звіряється з буквальним текстом, тож обирайте характерні слова.",
+    "param.query.description": "Слова або фраза з минулої розмови, які треба знайти (ім'я, тема або слова користувача). В японській, китайській, тайській і корейській пошук також зіставляє витягнуті слова, тому знаходяться змінені форми; характерні слова працюють найкраще.",
     "param.limit.description": "Максимальна кількість минулих сесій у відповіді (за замовчуванням 5, не більше 10).",
     "describe.search": "Пошук минулих сесій"
   },
@@ -347,7 +347,7 @@
       "oturumlarda ara",
       "önceki tartışma"
     ],
-    "param.query.description": "Geçmiş konuşmadan aranacak kelimeler veya ifade (bir ad, bir konu ya da kullanıcının sözleri). Arama birebir metni eşleştirir, bu yüzden ayırt edici kelimeler seçin.",
+    "param.query.description": "Geçmiş konuşmadan aranacak kelimeler veya ifade (bir ad, bir konu ya da kullanıcının sözleri). Japonca, Çince, Tayca ve Korecede arama çıkarılan kelimelerle de eşleşir, böylece çekimli biçimler bulunur; ayırt edici kelimeler en iyi sonucu verir.",
     "param.limit.description": "Döndürülecek geçmiş oturum sayısı üst sınırı (varsayılan 5, en fazla 10).",
     "describe.search": "Geçmiş oturumlar aranıyor"
   },
@@ -363,7 +363,7 @@
       "ค้นหาในเซสชัน",
       "การพูดคุยครั้งก่อน"
     ],
-    "param.query.description": "คำหรือวลีจากการสนทนาที่ผ่านมาที่ต้องการหา (ชื่อ หัวข้อ หรือถ้อยคำของผู้ใช้) การค้นหาจะจับคู่ข้อความตามตัวอักษร จึงควรเลือกคำที่โดดเด่น",
+    "param.query.description": "คำหรือวลีจากการสนทนาที่ผ่านมาที่ต้องการหา (ชื่อ หัวข้อ หรือถ้อยคำของผู้ใช้) ในภาษาญี่ปุ่น จีน ไทย และเกาหลี การค้นหาจะจับคู่คำที่สกัดออกมาด้วย จึงเจอรูปผันต่าง ๆ ได้ คำที่โดดเด่นใช้ได้ดีที่สุด",
     "param.limit.description": "จำนวนเซสชันเก่าสูงสุดที่จะคืน (ค่าเริ่มต้น 5 สูงสุด 10)",
     "describe.search": "กำลังค้นหาเซสชันที่ผ่านมา"
   },
@@ -379,7 +379,7 @@
       "在会话中搜索",
       "早先的讨论"
     ],
-    "param.query.description": "要从过去对话中查找的词语或短语（名称、话题或用户用过的说法）。搜索按字面文本匹配，因此请选择有辨识度的词语。",
+    "param.query.description": "要从过去对话中查找的词语或短语（名称、话题或用户用过的说法）。在日语、中文、泰语和韩语中，搜索还会匹配提取出的词语，因此能找到变形形式；有特点的词语效果最好。",
     "param.limit.description": "返回的过往会话数量上限（默认 5，最多 10）。",
     "describe.search": "正在搜索过往会话"
   },
@@ -395,7 +395,7 @@
       "在工作階段中搜尋",
       "早先的討論"
     ],
-    "param.query.description": "要從過去對話中查找的詞語或短語（名稱、話題或使用者用過的說法）。搜尋按字面文字比對，因此請選擇有辨識度的詞語。",
+    "param.query.description": "要從過去對話中查找的詞語或短語（名稱、話題或使用者用過的說法）。在日語、中文、泰語和韓語中，搜尋還會比對擷取出的詞語，因此能找到變化形式；有特色的詞語效果最好。",
     "param.limit.description": "傳回的過往工作階段數量上限（預設 5，最多 10）。",
     "describe.search": "正在搜尋過往工作階段"
   },
@@ -411,7 +411,7 @@
       "সেশনে খুঁজুন",
       "আগের আলোচনা"
     ],
-    "param.query.description": "অতীত কথোপকথন থেকে খুঁজতে হবে এমন শব্দ বা বাক্যাংশ (কোনো নাম, বিষয় বা ব্যবহারকারীর শব্দ)। অনুসন্ধান আক্ষরিক পাঠ্যের সঙ্গে মেলায়, তাই স্বতন্ত্র শব্দ বেছে নিন।",
+    "param.query.description": "অতীত কথোপকথন থেকে খুঁজতে হবে এমন শব্দ বা বাক্যাংশ (কোনো নাম, বিষয় বা ব্যবহারকারীর শব্দ)। জাপানি, চীনা, থাই ও কোরিয়ান ভাষায় অনুসন্ধান বের করা শব্দের সঙ্গেও মিলায়, তাই রূপান্তরিত রূপও পাওয়া যায়; স্বতন্ত্র শব্দ সবচেয়ে ভালো কাজ করে।",
     "param.limit.description": "ফেরত দেওয়া অতীত সেশনের সর্বোচ্চ সংখ্যা (ডিফল্ট 5, সর্বোচ্চ 10)।",
     "describe.search": "অতীত সেশন খোঁজা হচ্ছে"
   },
@@ -427,7 +427,7 @@
       "جست‌وجو در جلسه‌ها",
       "بحث قبلی"
     ],
-    "param.query.description": "واژه‌ها یا عبارتی از گفت‌وگوی گذشته برای جست‌وجو (یک نام، یک موضوع یا واژه‌های کاربر). جست‌وجو متن را عیناً تطبیق می‌دهد، پس واژه‌های متمایز انتخاب کنید.",
+    "param.query.description": "واژه‌ها یا عبارتی از گفت‌وگوی گذشته برای جست‌وجو (یک نام، یک موضوع یا واژه‌های کاربر). در ژاپنی، چینی، تایلندی و کره‌ای، جست‌وجو با واژه‌های استخراج‌شده نیز مطابقت می‌دهد، بنابراین صورت‌های صرف‌شده پیدا می‌شوند؛ واژه‌های متمایز بهترین نتیجه را می‌دهند.",
     "param.limit.description": "حداکثر تعداد جلسه‌های گذشتهٔ بازگردانده‌شده (پیش‌فرض ۵، حداکثر ۱۰).",
     "describe.search": "در حال جست‌وجوی جلسه‌های گذشته"
   },
@@ -443,7 +443,7 @@
       "сешнээс хайх",
       "өмнөх хэлэлцүүлэг"
     ],
-    "param.query.description": "Өнгөрсөн ярианаас хайх үг эсвэл хэллэг (нэр, сэдэв эсвэл хэрэглэгчийн хэлсэн үг). Хайлт нь бичвэрийг яг тааруулдаг тул ялгаатай үг сонгоно уу.",
+    "param.query.description": "Өнгөрсөн ярианаас хайх үг эсвэл хэллэг (нэр, сэдэв эсвэл хэрэглэгчийн хэлсэн үг). Япон, хятад, тай, солонгос хэлэнд хайлт гаргаж авсан үгсээр ч тохируулдаг тул хувирсан хэлбэрүүд олддог; ялгаатай үгс хамгийн сайн тохирно.",
     "param.limit.description": "Буцаах өнгөрсөн сешний дээд тоо (анхдагч 5, дээд тал нь 10).",
     "describe.search": "Өнгөрсөн сешнүүдийг хайж байна"
   },
@@ -459,7 +459,7 @@
       "सत्रांमध्ये शोधा",
       "जुनी चर्चा"
     ],
-    "param.query.description": "मागील संभाषणातून शोधायचे शब्द किंवा वाक्यांश (नाव, विषय किंवा वापरकर्त्याचे शब्द). शोध शब्दशः मजकुराशी जुळणी करतो, म्हणून वेगळे शब्द निवडा.",
+    "param.query.description": "मागील संभाषणातून शोधायचे शब्द किंवा वाक्यांश (नाव, विषय किंवा वापरकर्त्याचे शब्द). जपानी, चीनी, थाई आणि कोरियनमध्ये शोध काढलेल्या शब्दांशीही जुळवतो, त्यामुळे रूपांतरित रूपे सापडतात; वैशिष्ट्यपूर्ण शब्द सर्वोत्तम काम करतात।",
     "param.limit.description": "परत करायच्या मागील सत्रांची कमाल संख्या (डीफॉल्ट 5, कमाल 10).",
     "describe.search": "मागील सत्रे शोधत आहे"
   },
@@ -475,7 +475,7 @@
       "αναζήτηση στις συνεδρίες",
       "παλαιότερη συζήτηση"
     ],
-    "param.query.description": "Λέξεις ή φράση από την προηγούμενη συνομιλία προς αναζήτηση (ένα όνομα, ένα θέμα ή η διατύπωση του χρήστη). Η αναζήτηση αντιστοιχίζει το κυριολεκτικό κείμενο, οπότε προτιμήστε χαρακτηριστικές λέξεις.",
+    "param.query.description": "Λέξεις ή φράση από την προηγούμενη συνομιλία προς αναζήτηση (ένα όνομα, ένα θέμα ή η διατύπωση του χρήστη). Στα ιαπωνικά, κινεζικά, ταϊλανδικά και κορεατικά η αναζήτηση ταιριάζει και εξαγόμενες λέξεις, οπότε βρίσκονται και κλιτές μορφές· οι χαρακτηριστικές λέξεις δουλεύουν καλύτερα.",
     "param.limit.description": "Μέγιστος αριθμός προηγούμενων συνεδριών που επιστρέφονται (προεπιλογή 5, έως 10).",
     "describe.search": "Αναζήτηση προηγούμενων συνεδριών"
   },
@@ -491,7 +491,7 @@
       "חיפוש במפגשים",
       "דיון קודם"
     ],
-    "param.query.description": "מילים או ביטוי מהשיחה הקודמת לחיפוש (שם, נושא או ניסוח המשתמש). החיפוש מתאים את הטקסט המילולי, לכן העדיפו מילים מייחדות.",
+    "param.query.description": "מילים או ביטוי מהשיחה הקודמת לחיפוש (שם, נושא או ניסוח המשתמש). ביפנית, סינית, תאילנדית וקוריאנית החיפוש מתאים גם מילים שחולצו, כך שצורות מוטות נמצאות; מילים מייחדות עובדות הכי טוב.",
     "param.limit.description": "מספר המפגשים הקודמים המרבי שיוחזרו (ברירת מחדל 5, עד 10).",
     "describe.search": "מחפש מפגשים קודמים"
   },
@@ -507,7 +507,7 @@
       "keresés a munkamenetekben",
       "korábbi megbeszélés"
     ],
-    "param.query.description": "Szavak vagy kifejezés a korábbi beszélgetésből, amelyeket keresni kell (név, téma vagy a felhasználó szóhasználata). A keresés a szó szerinti szöveget veti össze, ezért jellegzetes szavakat válasszon.",
+    "param.query.description": "Szavak vagy kifejezés a korábbi beszélgetésből, amelyeket keresni kell (név, téma vagy a felhasználó szóhasználata). Japánul, kínaiul, thaiul és koreaiul a keresés a kinyert szavakkal is egyeztet, így a ragozott alakok is megtalálhatók; a jellegzetes szavak működnek a legjobban.",
     "param.limit.description": "A visszaadott korábbi munkamenetek maximális száma (alapértelmezett 5, legfeljebb 10).",
     "describe.search": "Korábbi munkamenetek keresése"
   },
@@ -523,7 +523,7 @@
       "caută în sesiuni",
       "discuție anterioară"
     ],
-    "param.query.description": "Cuvinte sau o expresie din conversația anterioară de căutat (un nume, un subiect sau formularea utilizatorului). Căutarea compară textul literal, deci preferați cuvinte distinctive.",
+    "param.query.description": "Cuvinte sau o expresie din conversația anterioară de căutat (un nume, un subiect sau formularea utilizatorului). În japoneză, chineză, thailandeză și coreeană, căutarea potrivește și cuvintele extrase, așa că formele flexate sunt găsite; cuvintele distinctive funcționează cel mai bine.",
     "param.limit.description": "Numărul maxim de sesiuni anterioare returnate (implicit 5, cel mult 10).",
     "describe.search": "Se caută sesiunile anterioare"
   },
@@ -539,7 +539,7 @@
       "maghanap sa mga sesyon",
       "naunang talakayan"
     ],
-    "param.query.description": "Mga salita o parirala mula sa nakaraang usapan na hahanapin (pangalan, paksa, o salita ng user). Itinutugma ng paghahanap ang literal na teksto, kaya pumili ng natatanging mga salita.",
+    "param.query.description": "Mga salita o parirala mula sa nakaraang usapan na hahanapin (pangalan, paksa, o salita ng user). Sa Japanese, Chinese, Thai at Korean, itinutugma rin ng paghahanap ang mga hinanging salita, kaya natatagpuan ang mga anyong binago; pinakamabisa ang mga natatanging salita.",
     "param.limit.description": "Pinakamaraming nakaraang sesyon na ibabalik (default 5, hanggang 10).",
     "describe.search": "Naghahanap ng nakaraang sesyon"
   },
@@ -555,7 +555,7 @@
       "cari dalam sesi",
       "perbincangan terdahulu"
     ],
-    "param.query.description": "Perkataan atau frasa daripada perbualan lepas untuk dicari (nama, topik, atau perkataan pengguna). Carian memadankan teks secara literal, jadi pilih perkataan yang tersendiri.",
+    "param.query.description": "Perkataan atau frasa daripada perbualan lepas untuk dicari (nama, topik, atau perkataan pengguna). Dalam bahasa Jepun, Cina, Thai dan Korea, carian turut memadankan perkataan yang diekstrak, jadi bentuk fleksi dapat ditemui; perkataan yang tersendiri paling berkesan.",
     "param.limit.description": "Bilangan maksimum sesi lepas yang dikembalikan (lalai 5, sehingga 10).",
     "describe.search": "Mencari sesi lepas"
   },
@@ -571,7 +571,7 @@
       "søg i sessioner",
       "tidligere diskussion"
     ],
-    "param.query.description": "Ord eller en sætning fra den tidligere samtale at søge efter (et navn, et emne eller brugerens ordvalg). Søgningen matcher den bogstavelige tekst, så vælg særprægede ord.",
+    "param.query.description": "Ord eller en sætning fra den tidligere samtale at søge efter (et navn, et emne eller brugerens ordvalg). På japansk, kinesisk, thai og koreansk matcher søgningen også udtrukne ord, så bøjede former findes; særprægede ord virker bedst.",
     "param.limit.description": "Maksimalt antal tidligere sessioner, der returneres (standard 5, op til 10).",
     "describe.search": "Søger i tidligere sessioner"
   },
@@ -587,7 +587,7 @@
       "søk i sessionar",
       "tidlegare diskusjon"
     ],
-    "param.query.description": "Ord eller ei frase frå den tidlegare samtalen å leite etter (eit namn, eit tema eller brukaren sine ord). Søket matchar den bokstavlege teksten, så vel særprega ord.",
+    "param.query.description": "Ord eller ei frase frå den tidlegare samtalen å leite etter (eit namn, eit tema eller brukaren sine ord). På japansk, kinesisk, thai og koreansk matchar søket også uttrekte ord, så bøygde former blir funne; særprega ord fungerer best.",
     "param.limit.description": "Maksimalt tal tidlegare sessionar som blir returnerte (standard 5, opptil 10).",
     "describe.search": "Søkjer i tidlegare sessionar"
   }

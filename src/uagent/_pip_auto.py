@@ -111,6 +111,7 @@ _ALLOWED_PACKAGES = {
         "holidays",
         "janome",
         "jieba",
+        "kiwipiepy",
         "lightgbm",
         "mdformat-frontmatter",
         "cyclonedx-python-lib",

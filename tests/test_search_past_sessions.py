@@ -240,6 +240,31 @@ def test_excerpt_is_centered_on_the_match() -> None:
     assert len(text) <= 200
 
 
+def test_excerpt_centers_on_an_extracted_term(monkeypatch: pytest.MonkeyPatch) -> None:
+    # The query's base form never appears literally in the message,
+    # but one of its extracted terms (a noun) does, deep in the text.
+    from uagent.runtime import text_terms
+
+    monkeypatch.setattr(text_terms, "query_terms", lambda query: ["合言葉"])
+
+    class _AnyHitStore:
+        def __init__(self, hits: list[dict[str, Any]]) -> None:
+            self.hits = hits
+
+        def search(
+            self, query: str, *, project: Any = None, limit: int = 20
+        ) -> list[dict[str, Any]]:
+            return [dict(hit) for hit in self.hits][:limit]
+
+    store = _AnyHitStore(
+        [_hit("past", "あ" * 300 + "合言葉はバナナに決めた", role="assistant")]
+    )
+    result = _run(store, {"query": "決める"})
+    text = result["sessions"][0]["excerpts"][0]["text"]
+    assert "合言葉はバナナに決めた" in text
+    assert text.startswith("…")
+
+
 def test_limit_caps_sessions_and_excerpts_are_clipped() -> None:
     store = _FakeStore(
         [
