@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.7.49] - 2026-11-15
+
+### Added
+
+- Add Korean query tokenization for tool-catalog searches and correct Janome POS labels.
+- Add extracted-term matching and indexing to past-session search.
+- Support wildcard patterns in file deletion.
+
+### Changed
+
+- Separate reasoning output from final answers.
+- Disable the legacy Bitchat beacon on Nostr connect and disable the pybitchat Nostr transport.
+
+### Fixed
+
+- Show Git commit messages in tool activity.
+- Fix registry tool discovery selection.
+
+
 ## [0.7.48] - 2026-11-14
 
 ### Changed
