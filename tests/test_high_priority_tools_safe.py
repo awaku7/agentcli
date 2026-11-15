@@ -196,7 +196,7 @@ def test_delete_file_only_dispatcher_approval_skips_internal_confirmation(
 
     monkeypatch.setattr("uagent.tools.delete_file_tool._human_confirm", _boom)
 
-    with dispatched_tool("delete_file", approved=True):
+    with dispatched_tool("delete_files", approved=True):
         out = run_tool(
             {
                 "filename": str(target),
