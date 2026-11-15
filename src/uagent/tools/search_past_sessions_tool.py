@@ -18,6 +18,7 @@ _DEFAULT_LIMIT = 5
 _MAX_LIMIT = 10
 _MAX_EXCERPTS_PER_SESSION = 3
 _EXCERPT_CHARS = 200
+_EXCERPT_LEAD_CHARS = 40
 # Message-level fetch window before collapsing hits into sessions. The
 # store returns hits oldest first, so a saturated window drops the
 # newest hits; the result reports that as ``truncated`` instead of
@@ -103,9 +104,21 @@ def _result(**payload: Any) -> str:
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 
 
-def _clip(value: Any, limit: int = _EXCERPT_CHARS) -> str:
+def _clip(value: Any, query: str = "", limit: int = _EXCERPT_CHARS) -> str:
     text = " ".join(str(value or "").split())
-    return text if len(text) <= limit else text[: limit - 1] + "…"
+    if len(text) <= limit:
+        return text
+    # The store matches the query anywhere in a message, so clipping
+    # from the start can hide the very text that matched. Center the
+    # window on the first occurrence instead when it can be found.
+    match_at = text.casefold().find(query.casefold()) if query else -1
+    start = max(0, match_at - _EXCERPT_LEAD_CHARS) if match_at >= 0 else 0
+    clipped = text[start : start + limit]
+    if start > 0:
+        clipped = "…" + clipped[1:]
+    if start + limit < len(text):
+        clipped = clipped[:-1] + "…"
+    return clipped
 
 
 def _contains_forgotten(content: str, forgotten_keys: set[str]) -> bool:
@@ -214,7 +227,7 @@ def run_tool(args: dict[str, Any]) -> str:
         if created_at > entry["latest_at"]:
             entry["latest_at"] = created_at
         excerpts = entry["excerpts"]
-        excerpts.append({"role": role, "text": _clip(content)})
+        excerpts.append({"role": role, "text": _clip(content, query)})
         if len(excerpts) > _MAX_EXCERPTS_PER_SESSION:
             del excerpts[0]
 

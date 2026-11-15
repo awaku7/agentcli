@@ -231,6 +231,15 @@ def test_real_store_round_trip(repo_tmp_path: Any) -> None:
     assert result["sessions"][0]["project"] == "app"
 
 
+def test_excerpt_is_centered_on_the_match() -> None:
+    store = _FakeStore([_hit("past", "あ" * 300 + "合言葉はバナナ", role="assistant")])
+    result = _run(store, {"query": "合言葉"})
+    text = result["sessions"][0]["excerpts"][0]["text"]
+    assert "合言葉はバナナ" in text
+    assert text.startswith("…")
+    assert len(text) <= 200
+
+
 def test_limit_caps_sessions_and_excerpts_are_clipped() -> None:
     store = _FakeStore(
         [
