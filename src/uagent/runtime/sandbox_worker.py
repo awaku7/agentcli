@@ -7,6 +7,7 @@ import csv
 import difflib
 from collections import deque
 import fnmatch
+import glob
 import hashlib
 import io
 import json
@@ -45,7 +46,7 @@ _ALLOWED = {
     "file_hash",
     "wc",
     "rename_path",
-    "delete_file",
+    "delete_files",
     "replace_in_file",
     "diff_files",
     "archive_ops",
@@ -454,21 +455,71 @@ def _rename_path(args: dict[str, Any]) -> str:
     return f"Moved {source.relative_to(ROOT).as_posix()} to {destination.relative_to(ROOT).as_posix()}"
 
 
-def _delete_file(args: dict[str, Any]) -> str:
+def _delete_files(args: dict[str, Any]) -> str:
     if not bool(args.get("confirmed", False)):
         raise PermissionError("confirmed=true is required for deletion")
-    target = _resolve_relative(args.get("filename"))
-    if target == ROOT:
-        raise PermissionError("the workspace root cannot be deleted")
-    if not target.exists():
-        if bool(args.get("skip", False)):
-            return "Path does not exist; nothing deleted"
-        raise FileNotFoundError("path does not exist")
-    if target.is_dir():
-        shutil.rmtree(target)
+    raw_items = args.get("filenames")
+    if raw_items is None:
+        raw_items = args.get("filename")
+    if isinstance(raw_items, str):
+        items = [raw_items]
+    elif isinstance(raw_items, list) and all(
+        isinstance(item, str) for item in raw_items
+    ):
+        items = raw_items
     else:
-        target.unlink()
-    return f"Deleted {target.relative_to(ROOT).as_posix()}"
+        raise ValueError("filename(s) must be a string or a list of strings")
+    if not items:
+        raise ValueError("at least one filename is required")
+
+    matches: set[Path] = set()
+    missing: list[str] = []
+    for item in items:
+        if not item.strip():
+            continue
+        # Validate relative-path syntax before expanding a glob.
+        _resolve_relative(item)
+        if any(mark in item for mark in ("*", "?", "[")):
+            found = glob.glob(str(ROOT / item), recursive=True)
+            candidates = [Path(path) for path in found]
+        else:
+            candidates = [ROOT / item]
+        valid = []
+        for candidate in candidates:
+            try:
+                target = _resolve_relative(candidate.relative_to(ROOT).as_posix())
+            except (ValueError, OSError):
+                continue
+            if target.exists():
+                valid.append(target)
+        if not valid:
+            missing.append(item)
+        matches.update(valid)
+
+    if missing and not bool(args.get("skip", False)):
+        raise FileNotFoundError(f"no paths matched: {missing[0]}")
+    ordered = sorted(matches, key=lambda path: path.as_posix())
+    for target in ordered:
+        if target == ROOT:
+            raise PermissionError("the workspace root cannot be deleted")
+
+    delete_targets: list[Path] = []
+    selected_directories: set[Path] = set()
+    for target in sorted(ordered, key=lambda path: (len(path.parts), path.as_posix())):
+        if any(parent in selected_directories for parent in target.parents):
+            continue
+        delete_targets.append(target)
+        if target.is_dir():
+            selected_directories.add(target)
+
+    for target in delete_targets:
+        if target.is_dir():
+            shutil.rmtree(target)
+        else:
+            target.unlink()
+    return json.dumps(
+        {"deleted": [p.relative_to(ROOT).as_posix() for p in delete_targets]}
+    )
 
 
 def _replace_in_file(args: dict[str, Any]) -> str:
@@ -1796,7 +1847,7 @@ def _dispatch(request: Any) -> Any:
         "file_hash": _file_hash,
         "wc": _wc,
         "rename_path": _rename_path,
-        "delete_file": _delete_file,
+        "delete_files": _delete_files,
         "replace_in_file": _replace_in_file,
         "diff_files": _diff_files,
         "archive_ops": _archive_ops,

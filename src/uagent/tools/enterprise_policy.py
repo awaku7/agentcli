@@ -160,9 +160,30 @@ class EnterprisePolicy:
         args = args or {}
         role = str(args.get("role") or os.environ.get("UAGENT_ROLE") or "").strip()
         role_actions = self.roles.get(role, {})
-        action = _normalize_action(
-            role_actions.get(tool_name, self.tools.get(tool_name, "allow"))
+        alias = {"delete_file": "delete_files", "delete_files": "delete_file"}.get(
+            tool_name
         )
+        role_key = next(
+            (
+                key
+                for key in (tool_name, alias)
+                if key is not None and key in role_actions
+            ),
+            None,
+        )
+        if role_key is not None:
+            raw_action = role_actions[role_key]
+        else:
+            policy_key = next(
+                (
+                    key
+                    for key in (tool_name, alias)
+                    if key is not None and key in self.tools
+                ),
+                None,
+            )
+            raw_action = self.tools.get(policy_key, "allow") if policy_key else "allow"
+        action = _normalize_action(raw_action)
         if action != "allow":
             return PolicyDecision(action, f"tool:{tool_name}")
 
@@ -208,7 +229,13 @@ class EnterprisePolicy:
                     mcp_key = f"{server}:{mcp_tool}"
             if mcp_key in self.auto_pilot_mcp_tools:
                 return self.auto_pilot_mcp_tools[mcp_key] == "absconfirm"
-        return self.auto_pilot_tools.get(str(tool_name), "") == "absconfirm"
+        alias = {"delete_file": "delete_files", "delete_files": "delete_file"}.get(
+            str(tool_name)
+        )
+        action = self.auto_pilot_tools.get(str(tool_name))
+        if action is None and alias is not None:
+            action = self.auto_pilot_tools.get(alias)
+        return action == "absconfirm"
 
     def inject_requires_confirmation(
         self, tool_name: str, args: Mapping[str, Any] | None = None
@@ -220,7 +247,13 @@ class EnterprisePolicy:
             key = f"{server}:{mcp_tool}" if server and mcp_tool else ""
             if key in self.inject_mcp_tools:
                 return self.inject_mcp_tools[key] == "absconfirm"
-        return self.inject_tools.get(str(tool_name), "") == "absconfirm"
+        alias = {"delete_file": "delete_files", "delete_files": "delete_file"}.get(
+            str(tool_name)
+        )
+        action = self.inject_tools.get(str(tool_name))
+        if action is None and alias is not None:
+            action = self.inject_tools.get(alias)
+        return action == "absconfirm"
 
 
 def _split_endpoint(value: str) -> SplitResult | None:

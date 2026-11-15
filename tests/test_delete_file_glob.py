@@ -129,3 +129,53 @@ def test_delete_file_org_glob_requires_internal_confirmation(
     assert res["deleted"] is True
     assert confirmations
     assert not target.exists()
+
+
+def test_delete_files_plural_argument_supports_wildcards(repo_tmp_path: Path) -> None:
+    (repo_tmp_path / "first.log").write_text("1", encoding="utf-8")
+    (repo_tmp_path / "second.log").write_text("2", encoding="utf-8")
+    (repo_tmp_path / "other.txt").write_text("3", encoding="utf-8")
+
+    from uagent.tools.delete_file_tool import TOOL_SPEC
+
+    assert TOOL_SPEC["function"]["name"] == "delete_files"
+    result = _run_delete_file(
+        {"filenames": [str(repo_tmp_path / "*.log")], "skip": False}
+    )
+
+    assert result["dry_run"] is True
+    assert result["count"] == 2
+    assert sorted(Path(path).name for path in result["matches"]) == [
+        "first.log",
+        "second.log",
+    ]
+
+
+def test_delete_files_recursive_glob_deduplicates_nested_targets(
+    monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path
+) -> None:
+    nested = repo_tmp_path / "nested" / "deep"
+    nested.mkdir(parents=True)
+    target = nested / "item.tmp"
+    target.write_text("remove", encoding="utf-8")
+    monkeypatch.setattr(
+        "uagent.tools.delete_file_tool._human_confirm", lambda _msg: True
+    )
+
+    result = _run_delete_file(
+        {
+            "filenames": [str(repo_tmp_path / "nested" / "**")],
+            "dry_run": False,
+        }
+    )
+
+    assert result["deleted"] is True
+    assert not target.exists()
+    assert not nested.exists()
+
+
+def test_delete_files_rejects_workdir_root() -> None:
+    from uagent.tools.delete_file_tool import _resolve_matches
+
+    with pytest.raises(PermissionError, match="workdir root"):
+        _resolve_matches(str(Path.cwd()), allow_dir=True)

@@ -18,11 +18,11 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "file",
     "function": {
-        "name": "delete_file",
+        "name": "delete_files",
         "description": _(
             "tool.description",
             default=(
-                "Delete the specified file or directory (directories are deleted recursively). "
+                "Delete one or more files or directories using paths or glob patterns (*, ?, [] and **). Directories are deleted recursively. "
                 "Because this is dangerous, confirmation may be required."
             ),
         ),
@@ -32,6 +32,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "delete file",
                 "remove file",
                 "erase",
+                "delete multiple files",
+                "delete files by wildcard",
                 "Delete file",
                 "eliminar archivo",
                 "supprimer fichier",
@@ -43,6 +45,8 @@ TOOL_SPEC: dict[str, Any] = {
             "delete file",
             "remove file",
             "erase",
+            "delete multiple files",
+            "delete files by wildcard",
             "Delete file",
             "eliminar archivo",
             "supprimer fichier",
@@ -52,11 +56,22 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "filename": {
-                    "type": "string",
+                "filenames": {
+                    "type": "array",
+                    "items": {"type": "string"},
                     "description": _(
                         "param.filename.description",
-                        default="Path or glob pattern to delete.",
+                        default="Paths or glob patterns to delete (supports *, ?, [] and **).",
+                    ),
+                },
+                "filename": {
+                    "oneOf": [
+                        {"type": "string"},
+                        {"type": "array", "items": {"type": "string"}},
+                    ],
+                    "description": _(
+                        "param.filename.description",
+                        default="Legacy path(s) or glob pattern(s) to delete; supports *, ?, [] and **.",
                     ),
                 },
                 "skip": {
@@ -97,7 +112,7 @@ TOOL_SPEC: dict[str, Any] = {
 def _human_confirm(message: str) -> bool:
     from .tool_confirmation import confirm_operation
 
-    return confirm_operation(message, tool_name="delete_file")
+    return confirm_operation(message, tool_name="delete_files")
 
 
 def _has_glob_meta(s: str) -> bool:
@@ -110,6 +125,10 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
 
     if not _has_glob_meta(raw_item):
         safe_path = ensure_within_workdir(raw_item)
+        if os.path.normcase(safe_path) == os.path.normcase(
+            os.path.realpath(os.getcwd())
+        ):
+            raise PermissionError("The workdir root cannot be deleted.")
         if not os.path.exists(safe_path):
             return []
         if os.path.isdir(safe_path) and not allow_dir:
@@ -124,10 +143,13 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
     matches = sorted(set(glob.glob(pattern, recursive=True)))
 
     filtered: list[str] = []
+    workdir_root = os.path.normcase(os.path.realpath(os.getcwd()))
     for m in matches:
         try:
             safe_m = ensure_within_workdir(os.path.abspath(m))
         except Exception:
+            continue
+        if os.path.normcase(safe_m) == workdir_root:
             continue
         if os.path.isdir(safe_m) and not allow_dir:
             continue
@@ -137,7 +159,9 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    raw_input = args.get("filename")
+    raw_input = args.get("filenames")
+    if raw_input is None:
+        raw_input = args.get("filename")
     if raw_input is None:
         raw_input = args.get("path")
 
@@ -173,17 +197,15 @@ def run_tool(args: dict[str, Any]) -> str:
         items = []
         for i, v in enumerate(raw_input):
             if not isinstance(v, str):
-                raise ValueError(
-                    f"filename/path list item at index {i} must be a string"
-                )
+                raise ValueError(f"filenames list item at index {i} must be a string")
             vv = v.strip()
             if vv:
                 items.append(vv)
     else:
-        raise ValueError("filename/path must be a string or a list of strings")
+        raise ValueError("filenames must be a string or a list of strings")
 
     if not items:
-        raise ValueError("filename/path is required")
+        raise ValueError("at least one filename is required")
 
     # Default behavior (matches tests/spec intent):
     # - If dry_run is explicitly provided, honor it.
@@ -244,11 +266,29 @@ def run_tool(args: dict[str, Any]) -> str:
 
     from .tool_confirmation import dispatcher_approved
 
-    if not dispatcher_approved("delete_file") and not _human_confirm(msg):
+    if not dispatcher_approved("delete_files") and not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     deleted: list[str] = []
-    for p in all_matches:
+    delete_targets: list[str] = []
+    selected_directories: set[str] = set()
+    for p in sorted(all_matches, key=lambda path: (path.count(os.sep), path)):
+        parent = os.path.dirname(p)
+        covered = False
+        while parent:
+            if parent in selected_directories:
+                covered = True
+                break
+            next_parent = os.path.dirname(parent)
+            if next_parent == parent:
+                break
+            parent = next_parent
+        if not covered:
+            delete_targets.append(p)
+            if os.path.isdir(p):
+                selected_directories.add(p)
+
+    for p in delete_targets:
         if os.path.isdir(p):
             shutil.rmtree(p)
         else:
@@ -271,7 +311,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
 def describe(args: dict[str, Any]) -> str:
     """Localized pre-execution action line for UAGENT_SHOW_TOOL_RESULTS=2."""
-    target = str((args or {}).get("filename") or (args or {}).get("path") or "").strip()
+    target = str(
+        (args or {}).get("filenames")
+        or (args or {}).get("filename")
+        or (args or {}).get("path")
+        or ""
+    ).strip()
     dry_run = (args or {}).get("dry_run", True)
     if dry_run is None:
         dry_run = True

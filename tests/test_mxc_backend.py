@@ -294,7 +294,7 @@ def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
         "file_hash",
         "wc",
         "rename_path",
-        "delete_file",
+        "delete_files",
         "replace_in_file",
         "diff_files",
         "archive_ops",
@@ -532,11 +532,25 @@ gamma
     )
     assert (tmp_path / "c.txt").is_file()
     with pytest.raises(PermissionError, match="confirmed=true"):
-        sandbox_worker._dispatch({"name": "delete_file", "args": {"filename": "c.txt"}})
+        sandbox_worker._dispatch(
+            {"name": "delete_files", "args": {"filename": "c.txt"}}
+        )
     sandbox_worker._dispatch(
-        {"name": "delete_file", "args": {"filename": "c.txt", "confirmed": True}}
+        {"name": "delete_files", "args": {"filename": "c.txt", "confirmed": True}}
     )
     assert not (tmp_path / "c.txt").exists()
+
+    for name in ("one.tmp", "two.tmp"):
+        (tmp_path / name).write_text("remove", encoding="utf-8")
+    deleted = json.loads(
+        sandbox_worker._dispatch(
+            {
+                "name": "delete_files",
+                "args": {"filenames": ["*.tmp"], "confirmed": True},
+            }
+        )
+    )
+    assert sorted(deleted["deleted"]) == ["one.tmp", "two.tmp"]
 
 
 def test_mxc_workspace_data_and_archive_tools(monkeypatch, tmp_path):

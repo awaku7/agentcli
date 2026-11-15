@@ -692,12 +692,12 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         return True
 
     try:
-        from uagent.tools.delete_file_tool import run_tool as delete_file_tool
+        from uagent.tools.delete_file_tool import run_tool as delete_files_tool
         from uagent.tools.human_ask_tool import run_tool as human_ask
         from uagent.tools.tool_confirmation import dispatched_tool
         from uagent.tools.tool_policy import _confirmation_reply_kind
 
-        preview_json = delete_file_tool(
+        preview_json = delete_files_tool(
             {
                 "filename": items,
                 "missing_ok": True,
@@ -707,7 +707,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         )
         preview = json.loads(preview_json)
         if not isinstance(preview, dict):
-            print(_("[rm] Unexpected delete_file preview response."))
+            print(_("[rm] Unexpected delete_files preview response."))
             return True
 
         if not preview.get("ok", False):
@@ -749,8 +749,8 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
 
         # The trusted CLI command obtained one explicit approval above.
         # The model's confirmed=True argument alone remains insufficient.
-        with dispatched_tool("delete_file", approved=True):
-            delete_json = delete_file_tool(
+        with dispatched_tool("delete_files", approved=True):
+            delete_json = delete_files_tool(
                 {
                     "filename": items,
                     "missing_ok": True,
@@ -761,7 +761,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
             )
         delete = json.loads(delete_json)
         if not isinstance(delete, dict):
-            print(_("[rm] Unexpected delete_file response."))
+            print(_("[rm] Unexpected delete_files response."))
             return True
 
         if delete.get("ok", False) and delete.get("deleted"):

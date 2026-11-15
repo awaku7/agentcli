@@ -1180,7 +1180,7 @@ zipcode_check, file_type, system_specs, list_windows_titles, change_workdir,
 get_workdir, add/get_long_memory, tool_catalog, generate_prompt
 
 **file**
-create_file, read_file, replace_in_file, delete_file, search_files, file_grep,
+create_file, read_file, replace_in_file, delete_files, search_files, file_grep,
 file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops, disc_image_ops
 
 **exec**

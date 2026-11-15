@@ -15,6 +15,7 @@ def test_tool_policy_defaults_to_conservative_side_effects() -> None:
     assert policy_for("calculator").side_effect is SideEffect.READ_ONLY
     assert policy_for("gmail_send").requires_confirmation
     assert policy_for("delete_file").side_effect is SideEffect.DESTRUCTIVE
+    assert policy_for("delete_files").side_effect is SideEffect.DESTRUCTIVE
     assert policy_for("unknown_future_tool").parallel_safe is False
 
 
@@ -34,11 +35,13 @@ def test_delete_file_preview_never_requires_destructive_confirmation() -> None:
         {"filename": "example.txt", "dry_run": True},
         {"filename": "*.org"},
         {"path": ["example.txt", "backup*.org"]},
+        {"filenames": ["*.org"]},
     )
     for args in previews:
-        policy = policy_for("delete_file", args)
-        assert policy.side_effect is SideEffect.READ_ONLY
-        assert not policy.requires_confirmation
+        for tool_name in ("delete_file", "delete_files"):
+            policy = policy_for(tool_name, args)
+            assert policy.side_effect is SideEffect.READ_ONLY
+            assert not policy.requires_confirmation
 
     deletes = (
         {"filename": "example.txt", "dry_run": False},
@@ -48,9 +51,10 @@ def test_delete_file_preview_never_requires_destructive_confirmation() -> None:
         {"filename": "example.txt", "dry_run": "true"},
     )
     for args in deletes:
-        policy = policy_for("delete_file", args)
-        assert policy.side_effect is SideEffect.DESTRUCTIVE
-        assert policy.requires_confirmation
+        for tool_name in ("delete_file", "delete_files"):
+            policy = policy_for(tool_name, args)
+            assert policy.side_effect is SideEffect.DESTRUCTIVE
+            assert policy.requires_confirmation
 
 
 def test_apply_patch_deletion_requires_confirmation() -> None:

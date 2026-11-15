@@ -118,7 +118,7 @@ SYSTEM_PROMPT_DANGEROUS_DELETE_FILE = _("""## Dangerous operation policy (delete
 - For deletion using the delete_file tool, do NOT ask for confirmation before preview.
 - Always run delete_file with dry_run=true first to get the list of deletion candidates.
 - If there are zero candidates, do not ask; just report that nothing will be deleted.
-""")
+""").replace("delete_file", "delete_files")
 SYSTEM_PROMPT_COMPACT_MISSION = _("""## Mission
 - You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.
 - Ask the user for confirmation before any dangerous operation.

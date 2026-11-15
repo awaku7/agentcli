@@ -9,6 +9,7 @@ def test_unified_policy_combines_permission_and_enterprise_rules(tmp_path):
     policy = UnifiedPolicy.from_file(policy_file, permission=Permission.WRITE)
 
     assert policy.decide("delete_file", {}) is PolicyDecision.DENY
+    assert policy.decide("delete_files", {}) is PolicyDecision.DENY
     assert policy.decide("read_file", {}) is PolicyDecision.ALLOW
 
 

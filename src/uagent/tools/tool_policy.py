@@ -68,6 +68,7 @@ _EXTERNAL_SEND = {
 }
 _DESTRUCTIVE = {
     "delete_file",
+    "delete_files",
     "rename_path",
     "binary_edit",
 }
@@ -216,6 +217,7 @@ def reset_confirmation_grants() -> None:
 def _resource_key(tool_name: str, args: dict[str, Any]) -> str | None:
     for field in (
         "resource",
+        "filenames",
         "dev",
         "device_id",
         "path",
@@ -231,10 +233,12 @@ def _resource_key(tool_name: str, args: dict[str, Any]) -> str | None:
 
 
 def _delete_is_preview(args: dict[str, Any]) -> bool:
-    """Match delete_file's actual dry_run defaults, not its schema default."""
+    """Match delete_files' actual dry_run defaults, not its schema default."""
     if "dry_run" in args:
         return args["dry_run"] is True
-    raw = args.get("filename")
+    raw = args.get("filenames")
+    if raw is None:
+        raw = args.get("filename")
     if raw is None:
         raw = args.get("path")
     items = [raw] if isinstance(raw, str) else raw
@@ -266,7 +270,7 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
 
     # Preview returns matched paths without deleting them. Keep real deletion,
     # including caller-provided confirmed=True, subject to host confirmation.
-    if tool_name == "delete_file" and _delete_is_preview(args):
+    if tool_name in {"delete_file", "delete_files"} and _delete_is_preview(args):
         return ToolPolicy(
             SideEffect.READ_ONLY,
             parallel_safe=True,
@@ -306,7 +310,7 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
     # ``lint_format`` is read-only in check mode, but ruff/black (and the
     # other formatters) can overwrite source files in fix mode.  Classify
     # that mutation at the common dispatcher layer, just like
-    # ``delete_file`` and ``binary_edit``, so every host UI gets the same
+    # ``delete_files`` (legacy ``delete_file``) and ``binary_edit``, so every host UI gets the same
     # confirmation behavior before the tool runner starts.
     if tool_name == "lint_format":
         mode = str(args.get("mode") or "check").strip().lower()

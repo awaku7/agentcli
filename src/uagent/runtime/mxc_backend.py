@@ -55,7 +55,7 @@ TOOL_NAMES = frozenset(
         "file_hash",
         "wc",
         "rename_path",
-        "delete_file",
+        "delete_files",
         "replace_in_file",
         "diff_files",
         "archive_ops",
@@ -229,14 +229,15 @@ TOOL_SPECS += (
         ["src", "dst"],
     ),
     _sandbox_tool_spec(
-        "delete_file",
-        "Delete a workspace file/directory; requires confirmed=true.",
+        "delete_files",
+        "Delete workspace files/directories by path or glob; requires confirmed=true.",
         {
             "filename": {"type": "string"},
+            "filenames": {"type": "array", "items": {"type": "string"}},
             "confirmed": {"type": "boolean"},
             "skip": {"type": "boolean"},
         },
-        ["filename", "confirmed"],
+        ["confirmed"],
     ),
     _sandbox_tool_spec(
         "replace_in_file",

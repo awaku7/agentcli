@@ -19,6 +19,18 @@ def test_tool_policy_actions_and_network_default_deny() -> None:
     ).denied
 
 
+def test_delete_file_policy_alias_applies_to_renamed_tool() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "tools": {"delete_file": "deny"},
+            "auto_pilot": {"tools": {"delete_file": "absconfirm"}},
+        }
+    )
+
+    assert policy.decide("delete_files").denied
+    assert policy.auto_pilot_requires_confirmation("delete_files")
+
+
 def test_network_allowlist_uses_host_boundaries_and_ports() -> None:
     policy = EnterprisePolicy.from_mapping(
         {

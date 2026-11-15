@@ -175,7 +175,7 @@ Contract:
 - Resolve strings through the module's `_` translator so the line follows the
   active UI language. Add the keys under each locale in `<tool>.json`
   (English lives in the Python `default=`; do not add an `en` block).
-- Fill all 37 supported tool locales. `read_file`, `file_grep`, `delete_file`,
+- Fill all 37 supported tool locales. `read_file`, `file_grep`, `delete_files`,
   `create_file`, `apply_patch`, and `cmd_exec_json` ship describers for every
   locale; `scripts/i18n_validate.py <tool>.json` verifies placeholder parity.
 - For modules that expose several tool names, use
