@@ -36,6 +36,8 @@ _NOSTR_RUNNING = False
 _LLM_EVENT_QUEUE: "queue.Queue[dict[str, Any]] | None" = None
 _NOSTR_RELAYS: list[str] | None = None
 _NOSTR_BRIDGE = False  # forward BLE messages to Nostr
+# Nostr transport is intentionally disabled in this build.
+NOSTR_ENABLED = False
 _LISTENER_THREAD: threading.Thread | None = None
 _STOP_EVENT = threading.Event()
 _RUNNING = False
@@ -722,6 +724,11 @@ def _enqueue_send_one(
     plain: bool = False,
 ) -> None:
     """Queue a single message for delivery to the queue or relay (internal enqueue_send processing)."""
+    if not NOSTR_ENABLED:
+        if via == "nostr":
+            return
+        if via == "both":
+            via = "ble"
     if via in ("both", "nostr"):
         global _NOSTR, _NOSTR_RUNNING, _NOSTR_BRIDGE
         if _NOSTR_RUNNING and _NOSTR is not None:
@@ -1907,6 +1914,8 @@ def start(
     nostr_relays: list[str] | None = None,
 ) -> dict[str, Any]:
     global _LISTENER_THREAD, _RUNNING, _NOSTR, _NOSTR_RUNNING, _NOSTR_RELAYS, _NOSTR_BRIDGE
+    if nostr and not NOSTR_ENABLED:
+        return {"ok": False, "error": "Nostr transport is disabled in this build"}
     if _RUNNING:
         # Re-assert pins even when the node is already running.
         _pin_bitchat_tools()
