@@ -97,6 +97,23 @@ screened like notes) and matched alongside the note during retrieval;
 the evidence shown to the model is always the note itself, never an
 alias. Records without aliases behave exactly as before.
 
+When long-term memory does not cover something the user says was
+discussed before, the `search_past_sessions` tool is the on-demand
+fallback: it searches stored session logs (the same FTS/LIKE search
+behind `:sessions search`) and returns short user/assistant excerpts
+grouped by session. It never runs as part of the per-turn projection,
+so raw logs stay out of ordinary recall. Three fences apply: the
+active session and sub-agent sessions are excluded; the tool is
+limited to the local identity, because one session store holds every
+principal's sessions on Web hosts; and every excerpt is screened
+against the forget boundary — a message that restates a tombstoned or
+superseded note's text is withheld (notes that normalize to fewer
+than four characters are exempt; substring matching on them would
+withhold unrelated messages wholesale). The screening is string matching,
+so a forgotten fact paraphrased in an old log can still surface; that
+is the same limit as the boundary itself. Found excerpts are not
+saved back into long-term memory.
+
 Messages starting with `remember:` or `記憶：` are the fallback for
 models that do not call the tools reliably: the session store saves the
 marked note immediately when the message is written, keyed by a
