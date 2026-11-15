@@ -1083,6 +1083,42 @@ def _sync_registry_responses_terminal(core: Any, status: str) -> None:
     state["last_response_status"] = status
 
 
+def _select_registry_tool_specs(
+    tool_specs: Any,
+    *,
+    discovery: Any,
+    use_responses_api: bool,
+    round_count: int,
+) -> tuple[Any, ...]:
+    """Apply the discovery-mode tool surface to registry requests."""
+    specs = tuple(tool_specs or ())
+    if discovery.uses_native_search and use_responses_api:
+        # Native Responses tool search discovers tools server-side. Sending the
+        # local catalog controls alongside regular schemas defeats that path.
+        return tuple(
+            spec
+            for spec in specs
+            if not (
+                isinstance(spec, dict)
+                and isinstance(spec.get("function"), dict)
+                and spec["function"].get("name") in _MGMT_TOOLS
+            )
+        )
+    if round_count <= 1 and discovery.uses_management_bootstrap(
+        use_responses_api=use_responses_api
+    ):
+        management_specs = tuple(
+            spec
+            for spec in specs
+            if isinstance(spec, dict)
+            and isinstance(spec.get("function"), dict)
+            and spec["function"].get("name") in _MGMT_TOOLS
+        )
+        if management_specs:
+            return management_specs
+    return specs
+
+
 def _try_registry_simple_chat_round(
     *,
     provider: str,
@@ -1096,6 +1132,7 @@ def _try_registry_simple_chat_round(
     round_count: int,
     transport_selection: RoundTransportSelection | None = None,
     registry_route: Any | None = None,
+    tool_discovery: Any | None = None,
 ) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
     """Run the default-on registry path for OpenAI-compatible rounds.
 
@@ -1105,15 +1142,16 @@ def _try_registry_simple_chat_round(
     if transport_selection is not None:
         use_responses_api = transport_selection.use_responses_api
         stream_responses = transport_selection.streaming
-    discovery = None
-    if registry_route is None:
+    discovery = tool_discovery
+    if discovery is None:
         discovery = resolve_tool_discovery(
             provider=provider,
             depname=depname,
-            # The capability check is needed for both transports because the
-            # registry may use Chat Completions while bootstrapping tool discovery.
+            # Capability is needed for both transports because the registry may
+            # use Chat Completions while bootstrapping tool discovery.
             use_responses_api=True,
         )
+    if registry_route is None:
         from .runtime.provider_round_dispatcher import registry_round_allowed
 
         if not registry_round_allowed(
@@ -1162,23 +1200,13 @@ def _try_registry_simple_chat_round(
             from . import tools as _tools
 
             tool_specs = tuple(_tools.get_tool_specs() or ())
-        if send_tools_this_round and round_count <= 1:
-            discovery = resolve_tool_discovery(
-                provider=provider,
-                depname=depname,
-                # Bootstrap selection is based on the GPT-5.4 capability;
-                # the registry route may still be Chat Completions.
-                use_responses_api=True,
+        if send_tools_this_round:
+            tool_specs = _select_registry_tool_specs(
+                tool_specs,
+                discovery=discovery,
+                use_responses_api=use_responses_api,
+                round_count=round_count,
             )
-            if discovery.uses_management_bootstrap(use_responses_api=use_responses_api):
-                management_specs = tuple(
-                    spec
-                    for spec in tool_specs
-                    if isinstance(spec, dict)
-                    and (spec.get("function") or {}).get("name") in _MGMT_TOOLS
-                )
-                if management_specs:
-                    tool_specs = management_specs
         if provider == "sarashina" and send_tools_this_round and round_count <= 1:
             from .runtime.chat_tool_policy import (
                 initial_sarashina_chat_completion_tools,
@@ -1789,6 +1817,7 @@ def _run_one_round(
         resolve_registry_round_route,
     )
 
+    registry_discovery = None
     registry_route = None
     if not judgment_mode:
         try:
@@ -1833,6 +1862,7 @@ def _run_one_round(
             "send_tools_this_round": bool(send_tools_this_round),
             "round_count": round_count,
             "registry_route": registry_route,
+            "tool_discovery": registry_discovery,
         },
         legacy_kwargs={
             "provider": provider,

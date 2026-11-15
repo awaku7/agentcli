@@ -133,6 +133,68 @@ class CatalogSteeringGateTests(unittest.TestCase):
         )
         self.assertIn("tool_catalog", legacy)
 
+    def test_native_responses_registry_omits_management_tools_on_every_round(
+        self,
+    ) -> None:
+        from uagent.runtime.tool_discovery import (
+            ToolDiscoveryDecision,
+            ToolDiscoveryMode,
+        )
+        from uagent.uagent_llm import _select_registry_tool_specs
+
+        specs = [
+            {"type": "function", "function": {"name": name}}
+            for name in (
+                "ordinary_tool",
+                "tool_catalog",
+                "tool_load",
+                "unload_tool",
+            )
+        ]
+        native = ToolDiscoveryDecision(ToolDiscoveryMode.NATIVE_SEARCH, "test")
+
+        for round_count in (1, 2):
+            with self.subTest(round_count=round_count):
+                selected = _select_registry_tool_specs(
+                    specs,
+                    discovery=native,
+                    use_responses_api=True,
+                    round_count=round_count,
+                )
+                self.assertEqual(
+                    [spec["function"]["name"] for spec in selected],
+                    ["ordinary_tool"],
+                )
+
+    def test_legacy_bootstrap_keeps_management_tools(self) -> None:
+        from uagent.runtime.tool_discovery import (
+            ToolDiscoveryDecision,
+            ToolDiscoveryMode,
+        )
+        from uagent.uagent_llm import _select_registry_tool_specs
+
+        specs = [
+            {"type": "function", "function": {"name": name}}
+            for name in (
+                "ordinary_tool",
+                "tool_catalog",
+                "tool_load",
+                "unload_tool",
+            )
+        ]
+        legacy = ToolDiscoveryDecision(ToolDiscoveryMode.LEGACY_CATALOG, "test")
+
+        selected = _select_registry_tool_specs(
+            specs,
+            discovery=legacy,
+            use_responses_api=True,
+            round_count=1,
+        )
+        self.assertEqual(
+            [spec["function"]["name"] for spec in selected],
+            ["tool_catalog", "tool_load", "unload_tool"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
