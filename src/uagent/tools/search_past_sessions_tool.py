@@ -172,7 +172,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return _result(ok=False, error="search_failed")
 
     try:
-        forgotten_keys = long_memory.forgotten_note_keys()
+        forgotten_keys = long_memory.forgotten_note_keys_strict()
     except Exception:
         # Never fail open on the forget boundary: if the forgotten set
         # cannot be read, past content must not be resurfaced at all.

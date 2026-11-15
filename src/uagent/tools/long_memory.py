@@ -873,34 +873,49 @@ def forgotten_note_keys() -> set[str]:
     through the local re-learning paths. Tombstones are kept as long
     as the memory store itself is kept, which is also how long the
     session logs they guard against remain re-readable.
+
+    Read failures are swallowed and reported as an empty boundary;
+    callers that must not proceed without the boundary use
+    :func:`forgotten_note_keys_strict` instead.
     """
+    try:
+        return _read_forgotten_note_keys()
+    except Exception:
+        return set()
+
+
+def forgotten_note_keys_strict() -> set[str]:
+    """Same keys as :func:`forgotten_note_keys`, but raises on failure.
+
+    Screening content before showing it (for example past-session
+    excerpts) must fail closed: an unreadable memory store must not
+    look like an empty forget boundary.
+    """
+    return _read_forgotten_note_keys()
+
+
+def _read_forgotten_note_keys() -> set[str]:
     keys: set[str] = set()
     if _use_sqlite():
         # The base record dicts do not carry owner_id, so query for the
         # local rows directly: scoped (Web) rows always set owner_id,
         # local rows never do.
-        try:
-            from ..runtime.memory_store import open_memory_store
+        from ..runtime.memory_store import open_memory_store
 
-            store = open_memory_store(_sqlite_path())
-            try:
-                rows = store.db.execute(
-                    "SELECT note FROM memories WHERE status <> 'active' "
-                    "AND (owner_id IS NULL OR owner_id = '')"
-                ).fetchall()
-            finally:
-                store.close()
-        except Exception:
-            return keys
+        store = open_memory_store(_sqlite_path())
+        try:
+            rows = store.db.execute(
+                "SELECT note FROM memories WHERE status <> 'active' "
+                "AND (owner_id IS NULL OR owner_id = '')"
+            ).fetchall()
+        finally:
+            store.close()
         for row in rows:
             note = str(dict(row).get("note") or "")
             if note:
                 keys.add(_note_key(note))
         return keys
-    try:
-        records = list_deleted_long_memory_records()
-    except Exception:
-        return keys
+    records = list_deleted_long_memory_records()
     for record in records:
         note = str(record.get("note") or "")
         if note:
