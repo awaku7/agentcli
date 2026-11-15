@@ -1,0 +1,594 @@
+{
+  "ja": {
+    "tool.description": "過去の会話セッションから、ユーザーが前に話したと言っている内容を探します。ユーザーが以前の会話に触れていて、今の会話で使える長期記憶では足りないときにだけ使ってください。一致した過去セッションから短い抜粋を返します。これはセッションの再開ではありません。再開には session_resume を使ってください。",
+    "x_search_terms": [
+      "過去セッションの検索",
+      "過去の会話",
+      "前に話したこと",
+      "以前の会話",
+      "前に話した",
+      "セッション検索",
+      "過去セッション検索",
+      "以前の相談"
+    ],
+    "param.query.description": "過去の会話から探す言葉や言い回し（名前、話題、ユーザーが使った表現）。検索は文字どおりの一致で探すので、特徴のある言葉が向いています。",
+    "param.limit.description": "返す過去セッションの最大数（既定は5、最大10）。",
+    "describe.search": "過去セッションを検索しています"
+  },
+  "es": {
+    "tool.description": "Busca en sesiones de conversación anteriores algo que el usuario dice que ya se habló. Úsalo solo cuando el usuario se refiera a una conversación anterior y la memoria a largo plazo disponible en esta conversación no lo cubra. Devuelve extractos cortos de las sesiones anteriores coincidentes. Esto no reanuda una sesión; para reabrir una usa session_resume.",
+    "x_search_terms": [
+      "buscar sesiones anteriores",
+      "conversaciones pasadas",
+      "hablado antes",
+      "conversación anterior",
+      "hablamos antes",
+      "búsqueda de sesiones",
+      "buscar en sesiones",
+      "conversación previa"
+    ],
+    "param.query.description": "Palabras o una frase de la conversación anterior que buscar (un nombre, un tema o las palabras que usó el usuario). La búsqueda coincide con el texto literal, así que prefiere palabras distintivas.",
+    "param.limit.description": "Número máximo de sesiones anteriores a devolver (por defecto 5, máximo 10).",
+    "describe.search": "Buscando sesiones anteriores"
+  },
+  "fr": {
+    "tool.description": "Recherche dans les sessions de conversation passées ce que l'utilisateur dit avoir déjà abordé. À utiliser uniquement lorsque l'utilisateur fait référence à une conversation antérieure et que la mémoire à long terme disponible dans cette conversation ne le couvre pas. Renvoie de courts extraits des sessions passées correspondantes. Cela ne reprend pas une session ; pour en rouvrir une, utilisez session_resume.",
+    "x_search_terms": [
+      "rechercher les sessions passées",
+      "conversations passées",
+      "déjà abordé",
+      "conversation précédente",
+      "déjà parlé",
+      "recherche de session",
+      "recherche dans les sessions",
+      "discussion antérieure"
+    ],
+    "param.query.description": "Mots ou phrase de la conversation passée à rechercher (un nom, un sujet ou les mots employés par l'utilisateur). La recherche compare le texte littéral, préférez donc des mots distinctifs.",
+    "param.limit.description": "Nombre maximal de sessions passées à renvoyer (par défaut 5, au maximum 10).",
+    "describe.search": "Recherche des sessions passées"
+  },
+  "ko": {
+    "tool.description": "사용자가 이전에 이야기했다고 말하는 내용을 지난 대화 세션에서 검색합니다. 사용자가 이전 대화를 언급하는데 이 대화에서 사용할 수 있는 장기 기억으로 부족할 때만 사용하세요. 일치하는 지난 세션에서 짧은 발췌를 반환합니다. 이것은 세션 재개가 아닙니다. 세션을 다시 열려면 session_resume을 사용하세요.",
+    "x_search_terms": [
+      "지난 세션 검색",
+      "과거 대화",
+      "전에 이야기한 것",
+      "이전 대화",
+      "전에 말한 것",
+      "세션 검색",
+      "지난 대화 검색",
+      "예전 논의"
+    ],
+    "param.query.description": "지난 대화에서 찾을 단어나 표현(이름, 주제, 사용자가 쓴 말). 검색은 글자 그대로 대조하므로 특징적인 단어가 좋습니다.",
+    "param.limit.description": "반환할 지난 세션의 최대 개수(기본값 5, 최대 10).",
+    "describe.search": "지난 세션을 검색 중"
+  },
+  "de": {
+    "tool.description": "Durchsucht vergangene Gesprächssitzungen nach etwas, von dem der Benutzer sagt, es sei schon besprochen worden. Nur verwenden, wenn der Benutzer auf ein früheres Gespräch verweist und das in diesem Gespräch verfügbare Langzeitgedächtnis es nicht abdeckt. Gibt kurze Auszüge aus übereinstimmenden früheren Sitzungen zurück. Dies setzt keine Sitzung fort; zum erneuten Öffnen session_resume verwenden.",
+    "x_search_terms": [
+      "vergangene Sitzungen suchen",
+      "frühere Gespräche",
+      "schon besprochen",
+      "vorheriges Gespräch",
+      "früher besprochen",
+      "Sitzungssuche",
+      "in Sitzungen suchen",
+      "frühere Diskussion"
+    ],
+    "param.query.description": "Wörter oder ein Ausdruck aus dem vergangenen Gespräch, nach denen gesucht wird (ein Name, ein Thema oder die Wortwahl des Benutzers). Die Suche gleicht den Wortlaut ab, also lieber markante Wörter verwenden.",
+    "param.limit.description": "Maximale Anzahl zurückzugebender vergangener Sitzungen (Standard 5, höchstens 10).",
+    "describe.search": "Vergangene Sitzungen werden gesucht"
+  },
+  "it": {
+    "tool.description": "Cerca nelle sessioni di conversazione passate qualcosa che l'utente dice di aver già discusso. Usalo solo quando l'utente si riferisce a una conversazione precedente e la memoria a lungo termine disponibile in questa conversazione non lo copre. Restituisce brevi estratti dalle sessioni passate corrispondenti. Questo non riprende una sessione; per riaprirne una usa session_resume.",
+    "x_search_terms": [
+      "cerca sessioni passate",
+      "conversazioni passate",
+      "già discusso",
+      "conversazione precedente",
+      "già parlato",
+      "ricerca sessioni",
+      "cercare nelle sessioni",
+      "discussione precedente"
+    ],
+    "param.query.description": "Parole o una frase della conversazione passata da cercare (un nome, un argomento o le parole usate dall'utente). La ricerca confronta il testo letterale, quindi preferisci parole distintive.",
+    "param.limit.description": "Numero massimo di sessioni passate da restituire (predefinito 5, massimo 10).",
+    "describe.search": "Ricerca delle sessioni passate"
+  },
+  "ru": {
+    "tool.description": "Ищет в прошлых сессиях разговора то, о чём пользователь говорит, что это уже обсуждалось. Использовать только когда пользователь ссылается на более ранний разговор, а доступная в этом разговоре долговременная память этого не покрывает. Возвращает короткие выдержки из совпавших прошлых сессий. Это не возобновление сессии; чтобы открыть сессию заново, используйте session_resume.",
+    "x_search_terms": [
+      "поиск прошлых сессий",
+      "прошлые разговоры",
+      "уже обсуждали",
+      "предыдущий разговор",
+      "говорили раньше",
+      "поиск сессий",
+      "искать в сессиях",
+      "прежнее обсуждение"
+    ],
+    "param.query.description": "Слова или фраза из прошлого разговора, которые нужно найти (имя, тема или слова пользователя). Поиск сверяется с буквальным текстом, поэтому лучше использовать характерные слова.",
+    "param.limit.description": "Максимальное число возвращаемых прошлых сессий (по умолчанию 5, не более 10).",
+    "describe.search": "Поиск прошлых сессий"
+  },
+  "pt_BR": {
+    "tool.description": "Pesquisa em sessões de conversa anteriores algo que o usuário diz já ter sido discutido. Use apenas quando o usuário se referir a uma conversa anterior e a memória de longo prazo disponível nesta conversa não cobrir isso. Retorna trechos curtos das sessões anteriores correspondentes. Isso não retoma uma sessão; para reabrir uma, use session_resume.",
+    "x_search_terms": [
+      "pesquisar sessões anteriores",
+      "conversas passadas",
+      "já discutido",
+      "conversa anterior",
+      "falamos antes",
+      "busca de sessões",
+      "pesquisar nas sessões",
+      "discussão anterior"
+    ],
+    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o usuário usou). A busca compara o texto literal, então prefira palavras distintivas.",
+    "param.limit.description": "Número máximo de sessões anteriores a retornar (padrão 5, no máximo 10).",
+    "describe.search": "Pesquisando sessões anteriores"
+  },
+  "pt": {
+    "tool.description": "Pesquisa em sessões de conversa anteriores algo que o utilizador diz já ter sido discutido. Utilize apenas quando o utilizador se referir a uma conversa anterior e a memória de longo prazo disponível nesta conversa não o cobrir. Devolve excertos curtos das sessões anteriores correspondentes. Isto não retoma uma sessão; para reabrir uma, use session_resume.",
+    "x_search_terms": [
+      "pesquisar sessões anteriores",
+      "conversas passadas",
+      "já discutido",
+      "conversa anterior",
+      "falámos antes",
+      "pesquisa de sessões",
+      "pesquisar nas sessões",
+      "discussão anterior"
+    ],
+    "param.query.description": "Palavras ou uma frase da conversa anterior a procurar (um nome, um tópico ou as palavras que o utilizador usou). A pesquisa compara o texto literal, por isso prefira palavras distintivas.",
+    "param.limit.description": "Número máximo de sessões anteriores a devolver (predefinição 5, no máximo 10).",
+    "describe.search": "A pesquisar sessões anteriores"
+  },
+  "id": {
+    "tool.description": "Mencari di sesi percakapan lampau sesuatu yang menurut pengguna sudah pernah dibahas. Gunakan hanya ketika pengguna merujuk ke percakapan sebelumnya dan memori jangka panjang yang tersedia dalam percakapan ini tidak mencakupnya. Mengembalikan kutipan pendek dari sesi lampau yang cocok. Ini tidak melanjutkan sesi; untuk membuka kembali sesi gunakan session_resume.",
+    "x_search_terms": [
+      "cari sesi lampau",
+      "percakapan lalu",
+      "pernah dibahas",
+      "percakapan sebelumnya",
+      "pernah dibicarakan",
+      "pencarian sesi",
+      "cari di sesi",
+      "diskusi sebelumnya"
+    ],
+    "param.query.description": "Kata atau frasa dari percakapan lampau yang dicari (nama, topik, atau kata yang dipakai pengguna). Pencarian mencocokkan teks secara harfiah, jadi pilih kata yang khas.",
+    "param.limit.description": "Jumlah maksimum sesi lampau yang dikembalikan (bawaan 5, maksimal 10).",
+    "describe.search": "Mencari sesi lampau"
+  },
+  "vi": {
+    "tool.description": "Tìm trong các phiên trò chuyện trước đây điều mà người dùng nói đã thảo luận rồi. Chỉ dùng khi người dùng nhắc tới một cuộc trò chuyện trước đó và bộ nhớ dài hạn có trong cuộc trò chuyện này không bao quát được. Trả về các đoạn trích ngắn từ các phiên trước khớp. Việc này không tiếp tục một phiên; để mở lại một phiên hãy dùng session_resume.",
+    "x_search_terms": [
+      "tìm phiên trước",
+      "cuộc trò chuyện cũ",
+      "đã thảo luận",
+      "cuộc trò chuyện trước",
+      "đã nói trước đây",
+      "tìm kiếm phiên",
+      "tìm trong các phiên",
+      "thảo luận trước"
+    ],
+    "param.query.description": "Từ hoặc cụm từ trong cuộc trò chuyện trước cần tìm (một cái tên, một chủ đề, hoặc cách nói của người dùng). Tìm kiếm đối chiếu văn bản nguyên văn, nên hãy chọn từ đặc trưng.",
+    "param.limit.description": "Số phiên trước tối đa được trả về (mặc định 5, tối đa 10).",
+    "describe.search": "Đang tìm các phiên trước"
+  },
+  "pl": {
+    "tool.description": "Przeszukuje minione sesje rozmów w poszukiwaniu tego, o czym użytkownik mówi, że już było omawiane. Używaj tylko, gdy użytkownik odnosi się do wcześniejszej rozmowy, a pamięć długoterminowa dostępna w tej rozmowie tego nie obejmuje. Zwraca krótkie fragmenty z pasujących minionych sesji. To nie wznawia sesji; aby otworzyć sesję ponownie, użyj session_resume.",
+    "x_search_terms": [
+      "szukaj minionych sesji",
+      "przeszłe rozmowy",
+      "już omawiane",
+      "poprzednia rozmowa",
+      "mówiliśmy wcześniej",
+      "wyszukiwanie sesji",
+      "szukaj w sesjach",
+      "wcześniejsza dyskusja"
+    ],
+    "param.query.description": "Słowa lub fraza z minionej rozmowy do znalezienia (nazwa, temat lub sformułowanie użytkownika). Wyszukiwanie porównuje dosłowny tekst, więc wybieraj charakterystyczne słowa.",
+    "param.limit.description": "Maksymalna liczba zwracanych minionych sesji (domyślnie 5, najwyżej 10).",
+    "describe.search": "Przeszukiwanie minionych sesji"
+  },
+  "hi": {
+    "tool.description": "पिछले वार्तालाप सत्रों में वह खोजता है जिसके बारे में उपयोगकर्ता कहता है कि पहले चर्चा हो चुकी है। केवल तब उपयोग करें जब उपयोगकर्ता किसी पुरानी बातचीत का उल्लेख करे और इस बातचीत में उपलब्ध दीर्घकालिक स्मृति उसे कवर न करती हो। मेल खाने वाले पिछले सत्रों के छोटे अंश देता है। यह किसी सत्र को फिर से शुरू नहीं करता; सत्र फिर से खोलने के लिए session_resume का उपयोग करें।",
+    "x_search_terms": [
+      "पिछले सत्र खोजें",
+      "पुरानी बातचीत",
+      "पहले चर्चा हुई",
+      "पिछली बातचीत",
+      "पहले बात हुई थी",
+      "सत्र खोज",
+      "सत्रों में खोजें",
+      "पुरानी चर्चा"
+    ],
+    "param.query.description": "पिछली बातचीत के वे शब्द या वाक्यांश जिन्हें खोजना है (कोई नाम, विषय या उपयोगकर्ता के शब्द)। खोज शाब्दिक पाठ से मिलान करती है, इसलिए विशिष्ट शब्द चुनें।",
+    "param.limit.description": "वापस किए जाने वाले पिछले सत्रों की अधिकतम संख्या (डिफ़ॉल्ट 5, अधिकतम 10)।",
+    "describe.search": "पिछले सत्र खोजे जा रहे हैं"
+  },
+  "ar": {
+    "tool.description": "يبحث في جلسات المحادثة السابقة عمّا يقول المستخدم إنه نوقش من قبل. استخدمه فقط عندما يشير المستخدم إلى محادثة سابقة ولا تغطيها الذاكرة طويلة الأمد المتاحة في هذه المحادثة. يعيد مقتطفات قصيرة من الجلسات السابقة المطابقة. هذا لا يستأنف جلسة؛ لإعادة فتح جلسة استخدم session_resume.",
+    "x_search_terms": [
+      "بحث الجلسات السابقة",
+      "المحادثات الماضية",
+      "نوقش من قبل",
+      "محادثة سابقة",
+      "تحدثنا من قبل",
+      "بحث الجلسات",
+      "البحث في الجلسات",
+      "نقاش سابق"
+    ],
+    "param.query.description": "كلمات أو عبارة من المحادثة السابقة للبحث عنها (اسم أو موضوع أو صياغة المستخدم). يطابق البحث النص الحرفي، لذا فضّل الكلمات المميزة.",
+    "param.limit.description": "الحد الأقصى لعدد الجلسات السابقة المعادة (الافتراضي 5، وبحد أقصى 10).",
+    "describe.search": "جارٍ البحث في الجلسات السابقة"
+  },
+  "sv": {
+    "tool.description": "Söker i tidigare samtalssessioner efter något som användaren säger redan har diskuterats. Använd bara när användaren hänvisar till ett tidigare samtal och långtidsminnet i det här samtalet inte täcker det. Returnerar korta utdrag från matchande tidigare sessioner. Detta återupptar inte en session; använd session_resume för att öppna en igen.",
+    "x_search_terms": [
+      "sök tidigare sessioner",
+      "tidigare samtal",
+      "redan diskuterat",
+      "föregående samtal",
+      "pratat om förut",
+      "sessionssökning",
+      "sök i sessioner",
+      "tidigare diskussion"
+    ],
+    "param.query.description": "Ord eller en fras från det tidigare samtalet att leta efter (ett namn, ett ämne eller användarens ordval). Sökningen matchar den bokstavliga texten, så välj utmärkande ord.",
+    "param.limit.description": "Högsta antal tidigare sessioner som returneras (standard 5, högst 10).",
+    "describe.search": "Söker tidigare sessioner"
+  },
+  "sw": {
+    "tool.description": "Hutafuta katika vikao vya mazungumzo vilivyopita kitu ambacho mtumiaji anasema kilijadiliwa awali. Tumia tu wakati mtumiaji anarejelea mazungumzo ya awali na kumbukumbu ya muda mrefu iliyopo katika mazungumzo haya haijafunika. Hurejesha dondoo fupi kutoka vikao vilivyopita vinavyolingana. Hii haiendelezi kikao; kufungua kikao tena tumia session_resume.",
+    "x_search_terms": [
+      "tafuta vikao vilivyopita",
+      "mazungumzo ya zamani",
+      "tulijadili awali",
+      "mazungumzo ya awali",
+      "tulizungumza awali",
+      "utafutaji wa kikao",
+      "tafuta katika vikao",
+      "jadiliano la awali"
+    ],
+    "param.query.description": "Maneno au kifungu kutoka mazungumzo yaliyopita cha kutafuta (jina, mada, au maneno ya mtumiaji). Utafutaji hulinganisha maandishi halisi, kwa hiyo chagua maneno ya kipekee.",
+    "param.limit.description": "Idadi ya juu ya vikao vilivyopita vinavyorejeshwa (chaguo-msingi 5, hadi 10).",
+    "describe.search": "Inatafuta vikao vilivyopita"
+  },
+  "nb": {
+    "tool.description": "Søker i tidligere samtaløkter etter noe brukeren sier har blitt diskutert før. Bruk bare når brukeren viser til en tidligere samtale og langtidsminnet i denne samtalen ikke dekker det. Returnerer korte utdrag fra treff i tidligere økter. Dette gjenopptar ikke en økt; bruk session_resume for å åpne en på nytt.",
+    "x_search_terms": [
+      "søk tidligere økter",
+      "tidligere samtaler",
+      "diskutert før",
+      "forrige samtale",
+      "snakket om før",
+      "øktssøk",
+      "søk i økter",
+      "tidligere diskusjon"
+    ],
+    "param.query.description": "Ord eller en frase fra den tidligere samtalen å lete etter (et navn, et tema eller brukerens ordvalg). Søket matcher den bokstavelige teksten, så velg særpregede ord.",
+    "param.limit.description": "Maksimalt antall tidligere økter som returneres (standard 5, opptil 10).",
+    "describe.search": "Søker i tidligere økter"
+  },
+  "nl": {
+    "tool.description": "Doorzoekt eerdere gesprekssessies naar iets waarvan de gebruiker zegt dat het al besproken is. Alleen gebruiken wanneer de gebruiker naar een eerder gesprek verwijst en het langetermijngeheugen in dit gesprek het niet dekt. Geeft korte fragmenten uit overeenkomende eerdere sessies terug. Dit hervat geen sessie; gebruik session_resume om er een opnieuw te openen.",
+    "x_search_terms": [
+      "eerdere sessies zoeken",
+      "eerdere gesprekken",
+      "al besproken",
+      "vorig gesprek",
+      "eerder besproken",
+      "sessiezoekopdracht",
+      "zoeken in sessies",
+      "eerdere discussie"
+    ],
+    "param.query.description": "Woorden of een zin uit het eerdere gesprek om naar te zoeken (een naam, een onderwerp of de woorden van de gebruiker). Het zoeken vergelijkt de letterlijke tekst, dus kies kenmerkende woorden.",
+    "param.limit.description": "Maximaal aantal eerdere sessies dat wordt teruggegeven (standaard 5, maximaal 10).",
+    "describe.search": "Eerdere sessies zoeken"
+  },
+  "fi": {
+    "tool.description": "Hakee menneistä keskusteluistunnoista sitä, minkä käyttäjä sanoo jo käsitellyn. Käytä vain, kun käyttäjä viittaa aiempaan keskusteluun eikä tämän keskustelun pitkäkestoinen muisti kata sitä. Palauttaa lyhyitä otteita vastaavista menneistä istunnoista. Tämä ei jatka istuntoa; avaa istunto uudelleen komennolla session_resume.",
+    "x_search_terms": [
+      "hae menneitä istuntoja",
+      "menneet keskustelut",
+      "jo käsitelty",
+      "edellinen keskustelu",
+      "puhuttu aiemmin",
+      "istuntohaku",
+      "hae istunnoista",
+      "aiempi keskustelu"
+    ],
+    "param.query.description": "Sanat tai ilmaus menneestä keskustelusta, joita etsitään (nimi, aihe tai käyttäjän sanavalinta). Haku vertaa kirjaimellista tekstiä, joten valitse erottuvia sanoja.",
+    "param.limit.description": "Palautettavien menneiden istuntojen enimmäismäärä (oletus 5, enintään 10).",
+    "describe.search": "Haetaan menneitä istuntoja"
+  },
+  "cs": {
+    "tool.description": "Prohledává minulé konverzační relace a hledá to, o čem uživatel říká, že už se probíralo. Používejte pouze, když uživatel odkazuje na dřívější konverzaci a dlouhodobá paměť dostupná v této konverzaci to nepokrývá. Vrací krátké úryvky z odpovídajících minulých relací. Tím se relace neobnovuje; k jejímu opětovnému otevření použijte session_resume.",
+    "x_search_terms": [
+      "hledat minulé relace",
+      "minulé konverzace",
+      "už probíráno",
+      "předchozí konverzace",
+      "mluvili jsme dříve",
+      "vyhledávání relací",
+      "hledat v relacích",
+      "dřívější diskuse"
+    ],
+    "param.query.description": "Slova nebo fráze z minulé konverzace, které se mají najít (jméno, téma nebo formulace uživatele). Vyhledávání porovnává doslovný text, proto volte výrazná slova.",
+    "param.limit.description": "Maximální počet vracených minulých relací (výchozí 5, nejvýše 10).",
+    "describe.search": "Prohledávání minulých relací"
+  },
+  "uk": {
+    "tool.description": "Шукає в минулих сесіях розмов те, про що користувач каже, що це вже обговорювалося. Використовувати лише коли користувач посилається на ранішу розмову, а довготривала пам'ять, доступна в цій розмові, цього не покриває. Повертає короткі уривки з минулих сесій, що збігаються. Це не відновлює сесію; щоб відкрити сесію заново, використовуйте session_resume.",
+    "x_search_terms": [
+      "пошук минулих сесій",
+      "минулі розмови",
+      "вже обговорювали",
+      "попередня розмова",
+      "говорили раніше",
+      "пошук сесій",
+      "шукати в сесіях",
+      "колишнє обговорення"
+    ],
+    "param.query.description": "Слова або фраза з минулої розмови, які треба знайти (ім'я, тема або слова користувача). Пошук звіряється з буквальним текстом, тож обирайте характерні слова.",
+    "param.limit.description": "Максимальна кількість минулих сесій у відповіді (за замовчуванням 5, не більше 10).",
+    "describe.search": "Пошук минулих сесій"
+  },
+  "tr": {
+    "tool.description": "Kullanıcının daha önce konuşulduğunu söylediği şeyi geçmiş konuşma oturumlarında arar. Yalnızca kullanıcı daha önceki bir konuşmaya atıfta bulunduğunda ve bu konuşmadaki uzun süreli bellek bunu kapsamadığında kullanın. Eşleşen geçmiş oturumlardan kısa alıntılar döndürür. Bu bir oturumu sürdürmez; bir oturumu yeniden açmak için session_resume kullanın.",
+    "x_search_terms": [
+      "geçmiş oturumları ara",
+      "geçmiş konuşmalar",
+      "daha önce konuşuldu",
+      "önceki konuşma",
+      "önce bahsedildi",
+      "oturum arama",
+      "oturumlarda ara",
+      "önceki tartışma"
+    ],
+    "param.query.description": "Geçmiş konuşmadan aranacak kelimeler veya ifade (bir ad, bir konu ya da kullanıcının sözleri). Arama birebir metni eşleştirir, bu yüzden ayırt edici kelimeler seçin.",
+    "param.limit.description": "Döndürülecek geçmiş oturum sayısı üst sınırı (varsayılan 5, en fazla 10).",
+    "describe.search": "Geçmiş oturumlar aranıyor"
+  },
+  "th": {
+    "tool.description": "ค้นหาในเซสชันการสนทนาที่ผ่านมา สำหรับสิ่งที่ผู้ใช้บอกว่าเคยคุยกันแล้ว ใช้เฉพาะเมื่อผู้ใช้อ้างถึงการสนทนาครั้งก่อน และความจำระยะยาวที่มีในบทสนทนานี้ไม่ครอบคลุม จะคืนข้อความตัดสั้น ๆ จากเซสชันเก่าที่ตรงกัน การทำเช่นนี้ไม่ใช่การกลับไปเปิดเซสชัน หากต้องการเปิดเซสชันอีกครั้งให้ใช้ session_resume",
+    "x_search_terms": [
+      "ค้นหาเซสชันที่ผ่านมา",
+      "การสนทนาในอดีต",
+      "เคยคุยกันแล้ว",
+      "การสนทนาครั้งก่อน",
+      "เคยพูดถึงก่อนหน้า",
+      "ค้นหาเซสชัน",
+      "ค้นหาในเซสชัน",
+      "การพูดคุยครั้งก่อน"
+    ],
+    "param.query.description": "คำหรือวลีจากการสนทนาที่ผ่านมาที่ต้องการหา (ชื่อ หัวข้อ หรือถ้อยคำของผู้ใช้) การค้นหาจะจับคู่ข้อความตามตัวอักษร จึงควรเลือกคำที่โดดเด่น",
+    "param.limit.description": "จำนวนเซสชันเก่าสูงสุดที่จะคืน (ค่าเริ่มต้น 5 สูงสุด 10)",
+    "describe.search": "กำลังค้นหาเซสชันที่ผ่านมา"
+  },
+  "zh_CN": {
+    "tool.description": "在过去的对话会话中搜索用户表示以前讨论过的内容。仅当用户提及更早的对话、而本次对话中可用的长期记忆未涵盖时使用。返回匹配的过往会话的简短摘录。这不会恢复会话；如需重新打开会话，请使用 session_resume。",
+    "x_search_terms": [
+      "搜索过往会话",
+      "过去的对话",
+      "以前讨论过",
+      "之前的对话",
+      "之前谈过",
+      "会话搜索",
+      "在会话中搜索",
+      "早先的讨论"
+    ],
+    "param.query.description": "要从过去对话中查找的词语或短语（名称、话题或用户用过的说法）。搜索按字面文本匹配，因此请选择有辨识度的词语。",
+    "param.limit.description": "返回的过往会话数量上限（默认 5，最多 10）。",
+    "describe.search": "正在搜索过往会话"
+  },
+  "zh_TW": {
+    "tool.description": "在過去的對話工作階段中搜尋使用者表示以前討論過的內容。僅當使用者提及更早的對話、而本次對話中可用的長期記憶未涵蓋時使用。傳回相符的過往工作階段的簡短摘錄。這不會恢復工作階段；如需重新開啟工作階段，請使用 session_resume。",
+    "x_search_terms": [
+      "搜尋過往工作階段",
+      "過去的對話",
+      "以前討論過",
+      "之前的對話",
+      "之前談過",
+      "工作階段搜尋",
+      "在工作階段中搜尋",
+      "早先的討論"
+    ],
+    "param.query.description": "要從過去對話中查找的詞語或短語（名稱、話題或使用者用過的說法）。搜尋按字面文字比對，因此請選擇有辨識度的詞語。",
+    "param.limit.description": "傳回的過往工作階段數量上限（預設 5，最多 10）。",
+    "describe.search": "正在搜尋過往工作階段"
+  },
+  "bn": {
+    "tool.description": "অতীতের কথোপকথন সেশনগুলিতে এমন কিছু খোঁজে যা ব্যবহারকারী বলছেন আগে আলোচনা হয়েছে। শুধুমাত্র তখনই ব্যবহার করুন যখন ব্যবহারকারী আগের কথোপকথনের উল্লেখ করেন এবং এই কথোপকথনে উপলব্ধ দীর্ঘমেয়াদী স্মৃতি তা কভার করে না। মিলে যাওয়া অতীত সেশন থেকে ছোট অংশ ফেরত দেয়। এটি কোনো সেশন পুনরায় শুরু করে না; সেশন আবার খুলতে session_resume ব্যবহার করুন।",
+    "x_search_terms": [
+      "অতীত সেশন খুঁজুন",
+      "পুরনো কথোপকথন",
+      "আগে আলোচনা হয়েছে",
+      "আগের কথোপকথন",
+      "আগে কথা হয়েছিল",
+      "সেশন অনুসন্ধান",
+      "সেশনে খুঁজুন",
+      "আগের আলোচনা"
+    ],
+    "param.query.description": "অতীত কথোপকথন থেকে খুঁজতে হবে এমন শব্দ বা বাক্যাংশ (কোনো নাম, বিষয় বা ব্যবহারকারীর শব্দ)। অনুসন্ধান আক্ষরিক পাঠ্যের সঙ্গে মেলায়, তাই স্বতন্ত্র শব্দ বেছে নিন।",
+    "param.limit.description": "ফেরত দেওয়া অতীত সেশনের সর্বোচ্চ সংখ্যা (ডিফল্ট 5, সর্বোচ্চ 10)।",
+    "describe.search": "অতীত সেশন খোঁজা হচ্ছে"
+  },
+  "fa": {
+    "tool.description": "در جلسه‌های گفت‌وگوی گذشته چیزی را جست‌وجو می‌کند که کاربر می‌گوید قبلاً درباره‌اش صحبت شده است. فقط وقتی استفاده کنید که کاربر به گفت‌وگوی زودتری اشاره می‌کند و حافظهٔ بلندمدت موجود در این گفت‌وگو آن را پوشش نمی‌دهد. گزیده‌های کوتاهی از جلسه‌های گذشتهٔ منطبق برمی‌گرداند. این کار جلسه‌ای را از سر نمی‌گیرد؛ برای باز کردن دوبارهٔ جلسه از session_resume استفاده کنید.",
+    "x_search_terms": [
+      "جست‌وجوی جلسه‌های گذشته",
+      "گفت‌وگوهای گذشته",
+      "قبلاً صحبت شده",
+      "گفت‌وگوی قبلی",
+      "قبلاً گفته شد",
+      "جست‌وجوی جلسه",
+      "جست‌وجو در جلسه‌ها",
+      "بحث قبلی"
+    ],
+    "param.query.description": "واژه‌ها یا عبارتی از گفت‌وگوی گذشته برای جست‌وجو (یک نام، یک موضوع یا واژه‌های کاربر). جست‌وجو متن را عیناً تطبیق می‌دهد، پس واژه‌های متمایز انتخاب کنید.",
+    "param.limit.description": "حداکثر تعداد جلسه‌های گذشتهٔ بازگردانده‌شده (پیش‌فرض ۵، حداکثر ۱۰).",
+    "describe.search": "در حال جست‌وجوی جلسه‌های گذشته"
+  },
+  "mn": {
+    "tool.description": "Хэрэглэгчийн өмнө нь ярилцсан гэж хэлсэн зүйлийг өнгөрсөн ярианы сешнүүдээс хайна. Хэрэглэгч өмнөх яриаг дурдаж, энэ ярианд байгаа урт хугацааны санах ойд байхгүй үед л хэрэглэнэ үү. Тохирсон өнгөрсөн сешнүүдээс богино ишлэл буцаана. Энэ нь сешнийг үргэлжлүүлэхгүй; сешнийг дахин нээх бол session_resume хэрэглэнэ үү.",
+    "x_search_terms": [
+      "өнгөрсөн сешн хайх",
+      "өнгөрсөн яриа",
+      "өмнө нь ярилцсан",
+      "өмнөх яриа",
+      "өмнө нь хэлсэн",
+      "сешн хайлт",
+      "сешнээс хайх",
+      "өмнөх хэлэлцүүлэг"
+    ],
+    "param.query.description": "Өнгөрсөн ярианаас хайх үг эсвэл хэллэг (нэр, сэдэв эсвэл хэрэглэгчийн хэлсэн үг). Хайлт нь бичвэрийг яг тааруулдаг тул ялгаатай үг сонгоно уу.",
+    "param.limit.description": "Буцаах өнгөрсөн сешний дээд тоо (анхдагч 5, дээд тал нь 10).",
+    "describe.search": "Өнгөрсөн сешнүүдийг хайж байна"
+  },
+  "mr": {
+    "tool.description": "वापरकर्ता म्हणतो की आधी चर्चा झाली होती ती गोष्ट मागील संभाषण सत्रांमध्ये शोधते. वापरकर्ता जुन्या संभाषणाचा उल्लेख करत असेल आणि या संभाषणात उपलब्ध दीर्घकालीन स्मृतीत ती नसेल तेव्हाच वापरा. जुळणाऱ्या मागील सत्रांचे छोटे उतारे परत करते. हे सत्र पुन्हा सुरू करत नाही; सत्र पुन्हा उघडण्यासाठी session_resume वापरा.",
+    "x_search_terms": [
+      "मागील सत्रे शोधा",
+      "जुनी संभाषणे",
+      "आधी चर्चा झाली",
+      "मागील संभाषण",
+      "आधी बोललो होतो",
+      "सत्र शोध",
+      "सत्रांमध्ये शोधा",
+      "जुनी चर्चा"
+    ],
+    "param.query.description": "मागील संभाषणातून शोधायचे शब्द किंवा वाक्यांश (नाव, विषय किंवा वापरकर्त्याचे शब्द). शोध शब्दशः मजकुराशी जुळणी करतो, म्हणून वेगळे शब्द निवडा.",
+    "param.limit.description": "परत करायच्या मागील सत्रांची कमाल संख्या (डीफॉल्ट 5, कमाल 10).",
+    "describe.search": "मागील सत्रे शोधत आहे"
+  },
+  "el": {
+    "tool.description": "Αναζητά σε προηγούμενες συνεδρίες συνομιλίας κάτι που ο χρήστης λέει ότι έχει ήδη συζητηθεί. Χρησιμοποιήστε το μόνο όταν ο χρήστης αναφέρεται σε παλαιότερη συνομιλία και η μακροπρόθεσμη μνήμη που είναι διαθέσιμη σε αυτή τη συνομιλία δεν το καλύπτει. Επιστρέφει σύντομα αποσπάσματα από προηγούμενες συνεδρίες που ταιριάζουν. Αυτό δεν συνεχίζει μια συνεδρία· για να ανοίξετε ξανά μια συνεδρία χρησιμοποιήστε το session_resume.",
+    "x_search_terms": [
+      "αναζήτηση προηγούμενων συνεδριών",
+      "παλιές συνομιλίες",
+      "έχει ήδη συζητηθεί",
+      "προηγούμενη συνομιλία",
+      "μιλήσαμε πριν",
+      "αναζήτηση συνεδρίας",
+      "αναζήτηση στις συνεδρίες",
+      "παλαιότερη συζήτηση"
+    ],
+    "param.query.description": "Λέξεις ή φράση από την προηγούμενη συνομιλία προς αναζήτηση (ένα όνομα, ένα θέμα ή η διατύπωση του χρήστη). Η αναζήτηση αντιστοιχίζει το κυριολεκτικό κείμενο, οπότε προτιμήστε χαρακτηριστικές λέξεις.",
+    "param.limit.description": "Μέγιστος αριθμός προηγούμενων συνεδριών που επιστρέφονται (προεπιλογή 5, έως 10).",
+    "describe.search": "Αναζήτηση προηγούμενων συνεδριών"
+  },
+  "he": {
+    "tool.description": "מחפש במפגשי שיחה קודמים משהו שהמשתמש אומר שכבר נדון. השתמשו רק כאשר המשתמש מתייחס לשיחה מוקדמת יותר והזיכרון לטווח ארוך הזמין בשיחה זו אינו מכסה זאת. מחזיר קטעים קצרים ממפגשים קודמים תואמים. זה לא מחדש מפגש; כדי לפתוח מפגש מחדש השתמשו ב-session_resume.",
+    "x_search_terms": [
+      "חיפוש מפגשים קודמים",
+      "שיחות קודמות",
+      "כבר נדון",
+      "שיחה קודמת",
+      "דיברנו קודם",
+      "חיפוש מפגש",
+      "חיפוש במפגשים",
+      "דיון קודם"
+    ],
+    "param.query.description": "מילים או ביטוי מהשיחה הקודמת לחיפוש (שם, נושא או ניסוח המשתמש). החיפוש מתאים את הטקסט המילולי, לכן העדיפו מילים מייחדות.",
+    "param.limit.description": "מספר המפגשים הקודמים המרבי שיוחזרו (ברירת מחדל 5, עד 10).",
+    "describe.search": "מחפש מפגשים קודמים"
+  },
+  "hu": {
+    "tool.description": "A korábbi beszélgetési munkamenetekben keresi azt, amiről a felhasználó azt mondja, hogy már volt szó róla. Csak akkor használja, ha a felhasználó egy korábbi beszélgetésre hivatkozik, és az ebben a beszélgetésben elérhető hosszú távú memória nem fedi le. Rövid részleteket ad vissza a találó korábbi munkamenetekből. Ez nem folytat munkamenetet; munkamenet újranyitásához használja a session_resume parancsot.",
+    "x_search_terms": [
+      "korábbi munkamenetek keresése",
+      "korábbi beszélgetések",
+      "már volt szó róla",
+      "előző beszélgetés",
+      "korábban beszéltünk",
+      "munkamenet-keresés",
+      "keresés a munkamenetekben",
+      "korábbi megbeszélés"
+    ],
+    "param.query.description": "Szavak vagy kifejezés a korábbi beszélgetésből, amelyeket keresni kell (név, téma vagy a felhasználó szóhasználata). A keresés a szó szerinti szöveget veti össze, ezért jellegzetes szavakat válasszon.",
+    "param.limit.description": "A visszaadott korábbi munkamenetek maximális száma (alapértelmezett 5, legfeljebb 10).",
+    "describe.search": "Korábbi munkamenetek keresése"
+  },
+  "ro": {
+    "tool.description": "Caută în sesiunile de conversație anterioare ceva despre care utilizatorul spune că s-a discutat deja. Folosiți doar când utilizatorul se referă la o conversație anterioară și memoria pe termen lung disponibilă în această conversație nu o acoperă. Returnează fragmente scurte din sesiunile anterioare care se potrivesc. Aceasta nu reia o sesiune; pentru a redeschide una folosiți session_resume.",
+    "x_search_terms": [
+      "caută sesiuni anterioare",
+      "conversații trecute",
+      "deja discutat",
+      "conversație anterioară",
+      "am vorbit înainte",
+      "căutare sesiune",
+      "caută în sesiuni",
+      "discuție anterioară"
+    ],
+    "param.query.description": "Cuvinte sau o expresie din conversația anterioară de căutat (un nume, un subiect sau formularea utilizatorului). Căutarea compară textul literal, deci preferați cuvinte distinctive.",
+    "param.limit.description": "Numărul maxim de sesiuni anterioare returnate (implicit 5, cel mult 10).",
+    "describe.search": "Se caută sesiunile anterioare"
+  },
+  "fil": {
+    "tool.description": "Hahanapin sa mga nakaraang sesyon ng usapan ang sinasabi ng user na napag-usapan na. Gamitin lamang kapag tumutukoy ang user sa mas naunang usapan at hindi ito saklaw ng pangmatagalang alaala sa usapang ito. Nagbabalik ng maiikling sipi mula sa mga nakaraang sesyong tumugma. Hindi nito ipinagpapatuloy ang sesyon; para muling buksan ang sesyon, gamitin ang session_resume.",
+    "x_search_terms": [
+      "maghanap ng nakaraang sesyon",
+      "mga nakaraang usapan",
+      "napag-usapan na",
+      "naunang usapan",
+      "napag-usapan dati",
+      "paghahanap ng sesyon",
+      "maghanap sa mga sesyon",
+      "naunang talakayan"
+    ],
+    "param.query.description": "Mga salita o parirala mula sa nakaraang usapan na hahanapin (pangalan, paksa, o salita ng user). Itinutugma ng paghahanap ang literal na teksto, kaya pumili ng natatanging mga salita.",
+    "param.limit.description": "Pinakamaraming nakaraang sesyon na ibabalik (default 5, hanggang 10).",
+    "describe.search": "Naghahanap ng nakaraang sesyon"
+  },
+  "ms": {
+    "tool.description": "Mencari dalam sesi perbualan lepas sesuatu yang dikatakan pengguna telah dibincangkan sebelum ini. Gunakan hanya apabila pengguna merujuk kepada perbualan terdahulu dan ingatan jangka panjang yang tersedia dalam perbualan ini tidak meliputinya. Mengembalikan petikan pendek daripada sesi lepas yang sepadan. Ini tidak menyambung sesi; untuk membuka semula sesi gunakan session_resume.",
+    "x_search_terms": [
+      "cari sesi lepas",
+      "perbualan lalu",
+      "pernah dibincangkan",
+      "perbualan terdahulu",
+      "pernah dibualkan",
+      "carian sesi",
+      "cari dalam sesi",
+      "perbincangan terdahulu"
+    ],
+    "param.query.description": "Perkataan atau frasa daripada perbualan lepas untuk dicari (nama, topik, atau perkataan pengguna). Carian memadankan teks secara literal, jadi pilih perkataan yang tersendiri.",
+    "param.limit.description": "Bilangan maksimum sesi lepas yang dikembalikan (lalai 5, sehingga 10).",
+    "describe.search": "Mencari sesi lepas"
+  },
+  "da": {
+    "tool.description": "Søger i tidligere samtalesessioner efter noget, brugeren siger allerede er blevet diskuteret. Brug kun, når brugeren henviser til en tidligere samtale, og langtidshukommelsen i denne samtale ikke dækker det. Returnerer korte uddrag fra matchende tidligere sessioner. Dette genoptager ikke en session; brug session_resume til at genåbne en.",
+    "x_search_terms": [
+      "søg tidligere sessioner",
+      "tidligere samtaler",
+      "allerede diskuteret",
+      "tidligere samtale",
+      "talt om før",
+      "sessionssøgning",
+      "søg i sessioner",
+      "tidligere diskussion"
+    ],
+    "param.query.description": "Ord eller en sætning fra den tidligere samtale at søge efter (et navn, et emne eller brugerens ordvalg). Søgningen matcher den bogstavelige tekst, så vælg særprægede ord.",
+    "param.limit.description": "Maksimalt antal tidligere sessioner, der returneres (standard 5, op til 10).",
+    "describe.search": "Søger i tidligere sessioner"
+  },
+  "nn": {
+    "tool.description": "Søkjer i tidlegare samtalesessionar etter noko brukaren seier allereie er diskutert. Bruk berre når brukaren viser til ein tidlegare samtale og langtidsminnet i denne samtalen ikkje dekkjer det. Returnerer korte utdrag frå treff i tidlegare sessionar. Dette held ikkje fram ein session; bruk session_resume for å opne ein på nytt.",
+    "x_search_terms": [
+      "søk tidlegare sessionar",
+      "tidlegare samtalar",
+      "diskutert før",
+      "førre samtale",
+      "snakka om før",
+      "sessionsøk",
+      "søk i sessionar",
+      "tidlegare diskusjon"
+    ],
+    "param.query.description": "Ord eller ei frase frå den tidlegare samtalen å leite etter (eit namn, eit tema eller brukaren sine ord). Søket matchar den bokstavlege teksten, så vel særprega ord.",
+    "param.limit.description": "Maksimalt tal tidlegare sessionar som blir returnerte (standard 5, opptil 10).",
+    "describe.search": "Søkjer i tidlegare sessionar"
+  }
+}
