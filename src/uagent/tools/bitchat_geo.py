@@ -146,9 +146,9 @@ def join_geo_channel_by_hash(
         _GEO_CHANNELS[geohash] = set()
     _GEO_CHANNELS[geohash].add(id(nostr_transport))
 
-    # Tell the transport to add subscription filter
+    # Tell the transport to subscribe to the channel's #g tag
     if hasattr(nostr_transport, "add_geo_filter"):
-        nostr_transport.add_geo_filter(peer_id)
+        nostr_transport.add_geo_filter(geohash)
 
     return {
         "ok": True,
@@ -190,7 +190,7 @@ def leave_geo_channel(
             del _GEO_CHANNELS[geohash]
 
     if hasattr(nostr_transport, "remove_geo_filter"):
-        nostr_transport.remove_geo_filter(peer_id)
+        nostr_transport.remove_geo_filter(geohash)
 
     return {"ok": True, "geohash": geohash, "peer_id": peer_id}
 
