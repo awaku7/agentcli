@@ -54,6 +54,24 @@ def test_nip17_round_trip_creates_recipient_and_sender_copies() -> None:
     assert received["id"] == sender_copy["id"]
 
 
+def test_nip17_gift_wraps_carry_one_hour_expiration() -> None:
+    sender_private = _secret(1)
+    recipient_public = bytes.fromhex(
+        "c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+    )
+    now = 1_700_000_000
+
+    gift_wraps = create_nip17_private_messages(
+        "expiring", sender_private, recipient_public, now=now
+    )
+
+    # Both the recipient copy and the sender's own copy ask relays to drop
+    # the ciphertext one hour after creation (NIP-40).
+    for event in gift_wraps:
+        expiration_tags = [tag for tag in event["tags"] if tag[0] == "expiration"]
+        assert expiration_tags == [["expiration", str(now + 3600)]]
+
+
 def test_nip17_unwrap_accepts_seal_with_expiration_tag() -> None:
     # Quartz (Amethyst) attaches a NIP-40 expiration tag to the seal when
     # a disappearing-message timer is set; the seal tags must not block
