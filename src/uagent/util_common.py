@@ -178,6 +178,11 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "human_ask_is_password")
             else None
         ),
+        human_ask_set_message=(
+            (lambda v: setattr(core, "human_ask_message", str(v)))
+            if hasattr(core, "human_ask_message")
+            else None
+        ),
         is_auto_pilot_active=(
             (lambda: getattr(core, "auto_pilot_active", False))
             if hasattr(core, "auto_pilot_active")

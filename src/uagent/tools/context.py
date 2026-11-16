@@ -55,6 +55,7 @@ class ToolCallbacks:
     human_ask_multiline_active_ref: Optional[Callable[[], bool]] = None
     human_ask_set_multiline_active: Optional[Callable[[bool], None]] = None
     human_ask_set_password: Optional[Callable[[bool], None]] = None
+    human_ask_set_message: Optional[Callable[[str], None]] = None
 
     # Auto-pilot mode detection
     is_auto_pilot_active: Optional[Callable[[], bool]] = None

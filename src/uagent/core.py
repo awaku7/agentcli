@@ -53,6 +53,7 @@ human_ask_lines: list[str] = []
 human_ask_job_id: str | None = None
 human_ask_generation = 0
 human_ask_is_password = False
+human_ask_message = ""
 human_ask_prompt = ""
 human_ask_multiline_active = False
 status_lock = threading.RLock()
@@ -323,6 +324,7 @@ __all__ = [
     "human_ask_is_password",
     "human_ask_lines",
     "human_ask_lock",
+    "human_ask_message",
     "human_ask_multiline_active",
     "human_ask_prompt",
     "human_ask_queue",

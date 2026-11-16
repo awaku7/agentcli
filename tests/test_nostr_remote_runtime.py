@@ -544,3 +544,445 @@ def test_remote_cli_echo_escapes_terminal_controls(capsys) -> None:
     assert "\x1b" not in printed
     assert "hello\n" not in printed
     assert core.prompt_needs_redraw is True
+
+
+def _make_runtime(tmp_path, *, ask_state_provider=None):
+    inbox, pairings, private_key, event = _setup_request(tmp_path)
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=private_key,
+        relays=["wss://relay.example.org"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+        ask_state_provider=ask_state_provider,
+    )
+    return inbox, pairings, private_key, event, runtime
+
+
+def test_progress_notes_queue_tool_and_reasoning_in_order(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime.note_reasoning("thinking about it")
+        runtime.note_tool_activity("tool:shell")
+        runtime.note_tool_activity("tool:shell")  # duplicate label: dropped
+        runtime.note_tool_activity("tool:read_file")
+        runtime.note_reasoning("x" * 700)  # crosses the flush threshold
+
+        queued = []
+        while not runtime._progress_queue.empty():
+            queued.append(runtime._progress_queue.get_nowait()[1])
+        assert queued == [
+            "💭 thinking about it",
+            "🔧 shell",
+            "🔧 read_file",
+            "💭 " + "x" * 700,
+        ]
+
+        assert runtime.finish_event(event, "completed")
+        runtime.note_tool_activity("tool:shell")  # no active request: dropped
+        assert runtime._progress_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_progress_publish_wraps_for_the_requester(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    published = {}
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        published["events"] = events
+        published["relay_lists"] = relay_lists
+        return []
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
+        sender_private = _secret(1)
+        received = unwrap_nip17_private_message(published["events"][0], sender_private)
+        assert received["content"] == "🔧 shell"
+        assert published["relay_lists"][event["sender_pubkey"]] == [
+            "wss://relay.example.org"
+        ]
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_ask_question_forwarded_and_answer_routed_to_ask_queue(
+    tmp_path,
+) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        runtime._forward_pending_ask_once()  # same ask: queued only once
+        assert runtime._question_queue.qsize() == 1
+        assert runtime._question_queue.get_nowait()[1] == "❓ proceed?"
+        # Answer routing arms only once the question is actually delivered.
+        runtime._note_question_result(ask_queue, True)
+
+        # The requester's next DM is the answer, not a new request.
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "yes", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+        assert ask_queue.get_nowait() == "yes"
+        assert runtime.event_queue.empty()
+        record = inbox.get(rumor["pubkey"], rumor["id"])
+        assert record is not None and record.status == "completed"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_ask_password_is_never_forwarded_or_routed(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": True,
+        "message": "password?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.empty()
+
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "hello again", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+        assert ask_queue.empty()
+        queued_event = runtime.event_queue.get_nowait()
+        assert queued_event["text"] == "hello again"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_status_dispatch_does_not_take_over_active_request(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+
+        # A status query dispatched by the side worker mid-turn must not
+        # replace (or, on finish, clear) the turn's active request.
+        sender_key = _secret(1)
+        recipient_key = _secret(2)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "/uag status",
+            sender_key,
+            _public_key_bytes(recipient_key),
+            now=now,
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        status_event = {
+            "kind": "nostr_remote_request",
+            "sender_pubkey": rumor["pubkey"],
+            "rumor_id": rumor["id"],
+            "created_at": rumor["created_at"],
+            "session_id": "active-session",
+            "text": "/uag status",
+        }
+        action = runtime.dispatch_event(
+            status_event, current_session_id="active-session"
+        )
+        assert action.kind == "status"
+        assert runtime.finish_event(status_event, "completed")
+
+        runtime.note_tool_activity("tool:shell")
+        queued = runtime._progress_queue.get_nowait()
+        assert queued[0] is event
+        assert queued[1] == "🔧 shell"
+
+        assert runtime.finish_event(event, "completed")
+        runtime.note_tool_activity("tool:read_file")
+        assert runtime._progress_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_ask_question_retried_until_delivered(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.qsize() == 1
+        runtime._question_queue.get_nowait()
+
+        # Not yet delivered: a DM from the requester is a new request,
+        # not an answer to a question they never saw.
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "fresh request", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+        assert ask_queue.empty()
+        assert runtime.event_queue.get_nowait()["text"] == "fresh request"
+
+        # A failed delivery is retried by the next watcher pass; a
+        # successful one stops the offers.
+        runtime._note_question_result(ask_queue, False)
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.qsize() == 1
+        runtime._question_queue.get_nowait()
+        runtime._note_question_result(ask_queue, True)
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_progress_publish_stops_when_pairing_revoked(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    published = []
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        published.append(events)
+        return [
+            transport.RelayDelivery(
+                relay_url="wss://relay.example.org",
+                event_id=events[0]["id"],
+                accepted=True,
+            )
+        ]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        assert asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
+        assert len(published) == 1
+        pairings.revoke(event["sender_pubkey"])
+        assert not asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
+        assert len(published) == 1
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_question_arms_only_on_recipient_acceptance(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    accept = {"recipient": False}
+    calls: list[int] = []
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        calls.append(len(events))
+        return [
+            transport.RelayDelivery(
+                relay_url="wss://relay.example.org",
+                event_id=events[0]["id"],
+                accepted=accept["recipient"],
+            )
+        ]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        request, text, queued_queue = runtime._question_queue.get_nowait()
+
+        # Rejected by every recipient relay: not delivered, retry stays open.
+        asyncio.run(runtime._publish_question_text(request, text, queued_queue))
+        assert runtime._ask_forwarded_queue is None
+        assert runtime._ask_queued_queue is None
+        assert calls == [1]  # recipient wrap only; no sender copy
+
+        # Accepted: routing arms, then the sender copy is published.
+        accept["recipient"] = True
+        runtime._forward_pending_ask_once()
+        request, text, queued_queue = runtime._question_queue.get_nowait()
+        asyncio.run(runtime._publish_question_text(request, text, queued_queue))
+        assert runtime._ask_forwarded_queue is ask_queue
+        assert calls == [1, 1, 1]
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_status_command_is_not_consumed_as_ask_answer(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._note_question_result(ask_queue, True)
+
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "/uag status", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+
+        # The status query keeps its routing; the ask stays unanswered.
+        assert ask_queue.empty()
+        queued = runtime.event_queue.get_nowait()
+        assert queued["text"] == "/uag status"
+        record = inbox.get(rumor["pubkey"], rumor["id"])
+        assert record is not None and record.status == "pending"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_question_not_published_after_ask_ends(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    published: list = []
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        published.append(events)
+        return [
+            transport.RelayDelivery(
+                relay_url="wss://relay.example.org",
+                event_id=events[0]["id"],
+                accepted=True,
+            )
+        ]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        request, text, queued_queue = runtime._question_queue.get_nowait()
+
+        # The ask ends (local answer / timeout) before the sender runs.
+        state["active"] = False
+        asyncio.run(runtime._publish_question_text(request, text, queued_queue))
+        assert published == []
+        assert runtime._ask_forwarded_queue is None
+        assert runtime._ask_queued_queue is None
+    finally:
+        inbox.close()
+        pairings.close()
