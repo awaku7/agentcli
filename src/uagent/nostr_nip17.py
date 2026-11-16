@@ -354,8 +354,9 @@ def unwrap_nip17_private_message(
         raise ValueError("gift-wrap payload could not be opened") from exc
 
     seal = _validate_event_shape(seal, kind=13, name="seal")
-    if seal["tags"] != []:
-        raise ValueError("NIP-59 seal tags must be empty")
+    # Seal tags are not inspected: they carry no authority here (the seal
+    # signature and the rumor checks below authenticate the message), and
+    # some clients attach a NIP-40 expiration tag to the seal.
     if not _verify_event(seal):
         raise ValueError("invalid seal event signature")
 
