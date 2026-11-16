@@ -635,9 +635,11 @@ def test_ask_question_forwarded_and_answer_routed_to_ask_queue(
     try:
         runtime.dispatch_event(event, current_session_id="active-session")
         runtime._forward_pending_ask_once()
-        runtime._forward_pending_ask_once()  # same ask: forwarded only once
+        runtime._forward_pending_ask_once()  # same ask: queued only once
         assert runtime._question_queue.qsize() == 1
         assert runtime._question_queue.get_nowait()[1] == "❓ proceed?"
+        # Answer routing arms only once the question is actually delivered.
+        runtime._note_question_result(ask_queue, True)
 
         # The requester's next DM is the answer, not a new request.
         sender_key = _secret(1)
@@ -750,6 +752,85 @@ def test_status_dispatch_does_not_take_over_active_request(tmp_path) -> None:
         assert runtime.finish_event(event, "completed")
         runtime.note_tool_activity("tool:read_file")
         assert runtime._progress_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_ask_question_retried_until_delivered(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.qsize() == 1
+        runtime._question_queue.get_nowait()
+
+        # Not yet delivered: a DM from the requester is a new request,
+        # not an answer to a question they never saw.
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "fresh request", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+        assert ask_queue.empty()
+        assert runtime.event_queue.get_nowait()["text"] == "fresh request"
+
+        # A failed delivery is retried by the next watcher pass; a
+        # successful one stops the offers.
+        runtime._note_question_result(ask_queue, False)
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.qsize() == 1
+        runtime._question_queue.get_nowait()
+        runtime._note_question_result(ask_queue, True)
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_progress_publish_stops_when_pairing_revoked(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    published = []
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        published.append(events)
+        return []
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        assert asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
+        assert len(published) == 1
+        pairings.revoke(event["sender_pubkey"])
+        assert not asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
+        assert len(published) == 1
     finally:
         inbox.close()
         pairings.close()

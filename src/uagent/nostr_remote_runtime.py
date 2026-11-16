@@ -215,6 +215,7 @@ class NostrRemoteRuntime:
         current_session_id_provider: Callable[[], str] | None = None,
         incoming_message_display: Callable[[dict[str, Any]], None] | None = None,
         ask_state_provider: Callable[[], dict[str, Any] | None] | None = None,
+        ask_answer_deliverer: Callable[[Any, str], bool] | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -229,6 +230,7 @@ class NostrRemoteRuntime:
             lambda: self.session_id
         )
         self._ask_state_provider = ask_state_provider
+        self._ask_answer_deliverer = ask_answer_deliverer
         self._progress_lock = threading.Lock()
         self._active_request: dict[str, Any] | None = None
         self._progress_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
@@ -239,6 +241,7 @@ class NostrRemoteRuntime:
         self._last_tool_note = ""
         self._reasoning_parts: list[str] = []
         self._ask_forwarded_queue: Any = None
+        self._ask_queued_queue: Any = None
         self._status_queue: queue.Queue[dict[str, Any]] = queue.Queue(maxsize=32)
         self._status_recovery_needed = threading.Event()
         self._status_stop = threading.Event()
@@ -286,6 +289,7 @@ class NostrRemoteRuntime:
             self._progress_routes_sender = ""
             self._last_tool_note = ""
             self._ask_forwarded_queue = None
+            self._ask_queued_queue = None
             self._reasoning_parts = []
 
     def _enqueue_progress_locked(self, text: str) -> None:
@@ -348,8 +352,12 @@ class NostrRemoteRuntime:
             return None
         return snapshot if isinstance(snapshot, dict) else None
 
-    async def _publish_progress_text(self, request: dict[str, Any], text: str) -> None:
-        """Best-effort publish of one progress/question DM; never raises."""
+    async def _publish_progress_text(self, request: dict[str, Any], text: str) -> bool:
+        """Best-effort publish of one progress/question DM; never raises.
+
+        Returns True only when the wraps were handed to the relays, so the
+        human_ask flow can tell a delivered question from a lost one.
+        """
         from .nostr_nip17 import _public_key_x, create_nip17_private_messages
         from .nostr_remote_transport import (
             fetch_nip17_relay_list,
@@ -358,7 +366,15 @@ class NostrRemoteRuntime:
 
         sender = request.get("sender_pubkey")
         if not isinstance(sender, str):
-            return
+            return False
+        # Re-check pairing at send time, like send_reply and the outbox
+        # delivery path: a requester unpaired mid-turn must stop receiving
+        # progress, reasoning, and forwarded questions immediately.
+        try:
+            if self.pairing_store.is_authorized(sender) is not True:
+                return False
+        except Exception:
+            return False
         with self._progress_lock:
             routes = (
                 self._progress_routes
@@ -379,7 +395,7 @@ class NostrRemoteRuntime:
                     relay for relay in remote_relays if relay in allowed
                 ]
                 if not recipient_relays:
-                    return
+                    return False
                 routes = {
                     sender: recipient_relays,
                     _public_key_x(self.private_key).hex(): [self.relays[0]],
@@ -398,7 +414,21 @@ class NostrRemoteRuntime:
                 timeout=3.0,
             )
         except Exception:
-            pass
+            return False
+        return True
+
+    def _note_question_result(self, ask_queue: Any, delivered: bool) -> None:
+        """Record whether a forwarded human_ask question actually went out.
+
+        Answer routing arms only on delivery; on failure the queued mark is
+        cleared so the watcher offers the question again instead of leaving
+        the ask silently unanswered.
+        """
+        with self._progress_lock:
+            if self._ask_queued_queue is ask_queue:
+                self._ask_queued_queue = None
+            if delivered:
+                self._ask_forwarded_queue = ask_queue
 
     async def _progress_sender(self) -> None:
         """Drain queued progress notes and forwarded questions until stop."""
@@ -406,30 +436,37 @@ class NostrRemoteRuntime:
         if stop_event is None:
             return
         while not stop_event.is_set():
+            question: tuple[dict[str, Any], str, Any] | None = None
             item: tuple[dict[str, Any], str] | None = None
             try:
-                item = self._question_queue.get_nowait()
+                question = self._question_queue.get_nowait()
             except queue.Empty:
                 try:
                     item = self._progress_queue.get_nowait()
                 except queue.Empty:
                     item = None
-            if item is None:
+            if question is None and item is None:
                 try:
                     await asyncio.wait_for(stop_event.wait(), timeout=0.1)
                 except asyncio.TimeoutError:
                     pass
                 continue
-            try:
-                await self._publish_progress_text(item[0], item[1])
-            except Exception:
-                pass
+            if question is not None:
+                delivered = await self._publish_progress_text(question[0], question[1])
+                self._note_question_result(question[2], delivered)
+            else:
+                assert item is not None
+                try:
+                    await self._publish_progress_text(item[0], item[1])
+                except Exception:
+                    pass
 
     def _forward_pending_ask_once(self) -> None:
         """Queue one pending human_ask question for the active requester."""
         with self._progress_lock:
             active = self._active_request
             forwarded = self._ask_forwarded_queue
+            queued = self._ask_queued_queue
         if active is None:
             return
         snapshot = self._ask_snapshot()
@@ -439,12 +476,16 @@ class NostrRemoteRuntime:
             return
         message = str(snapshot.get("message") or "").strip()
         ask_queue = snapshot.get("queue")
-        if not message or ask_queue is None or ask_queue is forwarded:
+        if not message or ask_queue is None:
+            return
+        if ask_queue is forwarded or ask_queue is queued:
             return
         with self._progress_lock:
             self._flush_reasoning_locked()
-            self._ask_forwarded_queue = ask_queue
-        self._question_queue.put((active, "❓ " + message[:_PROGRESS_TEXT_LIMIT]))
+            self._ask_queued_queue = ask_queue
+        self._question_queue.put(
+            (active, "❓ " + message[:_PROGRESS_TEXT_LIMIT], ask_queue)
+        )
 
     async def _ask_watcher(self) -> None:
         """Forward a pending human_ask question to the active requester."""
@@ -495,9 +536,25 @@ class NostrRemoteRuntime:
                 return False
             if not self.inbox_store.finish(sender, rumor_id, "completed"):
                 return False
-            forwarded.put(text)
         except Exception:
             return False
+        # Deliver last, atomically against the host's ask state: if the ask
+        # was already answered locally, the deliverer reports False and this
+        # DM is dropped as a late duplicate answer rather than being put
+        # into a queue nobody reads anymore.
+        if self._ask_answer_deliverer is not None:
+            try:
+                self._ask_answer_deliverer(forwarded, text)
+            except Exception:
+                pass
+        else:
+            snapshot = self._ask_snapshot()
+            if (
+                snapshot
+                and snapshot.get("active")
+                and snapshot.get("queue") is forwarded
+            ):
+                forwarded.put(text)
         with self._progress_lock:
             self._ask_forwarded_queue = None
         return True
@@ -1523,6 +1580,23 @@ def create_nostr_remote_runtime(
         except Exception:
             return None
 
+    def _deliver_ask_answer(expected_queue: Any, text: str) -> bool:
+        lock = getattr(core, "human_ask_lock", None)
+        if lock is None:
+            return False
+        try:
+            with lock:
+                if not bool(getattr(core, "human_ask_active", False)):
+                    return False
+                if bool(getattr(core, "human_ask_is_password", False)):
+                    return False
+                if getattr(core, "human_ask_queue", None) is not expected_queue:
+                    return False
+                expected_queue.put(text)
+                return True
+        except Exception:
+            return False
+
     runtime = NostrRemoteRuntime(
         event_queue=event_queue,
         private_key=private_key,
@@ -1535,6 +1609,7 @@ def create_nostr_remote_runtime(
         current_session_id_provider=lambda: str(getattr(core, "session_id", "") or ""),
         incoming_message_display=lambda rumor: _display_nostr_incoming(core, rumor),
         ask_state_provider=_ask_state_snapshot,
+        ask_answer_deliverer=_deliver_ask_answer,
     )
     return runtime
 
