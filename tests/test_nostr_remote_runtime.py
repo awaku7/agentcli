@@ -821,7 +821,13 @@ def test_progress_publish_stops_when_pairing_revoked(tmp_path, monkeypatch) -> N
 
     async def fake_publish(events, relay_lists, private_key, **kwargs):
         published.append(events)
-        return []
+        return [
+            transport.RelayDelivery(
+                relay_url="wss://relay.example.org",
+                event_id=events[0]["id"],
+                accepted=True,
+            )
+        ]
 
     monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
     monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
@@ -831,6 +837,62 @@ def test_progress_publish_stops_when_pairing_revoked(tmp_path, monkeypatch) -> N
         pairings.revoke(event["sender_pubkey"])
         assert not asyncio.run(runtime._publish_progress_text(event, "🔧 shell"))
         assert len(published) == 1
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_question_arms_only_on_recipient_acceptance(tmp_path, monkeypatch) -> None:
+    import asyncio
+
+    import uagent.nostr_remote_transport as transport
+
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    accept = {"recipient": False}
+    calls: list[int] = []
+
+    async def fake_fetch(pubkey, relays, **kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(events, relay_lists, private_key, **kwargs):
+        calls.append(len(events))
+        return [
+            transport.RelayDelivery(
+                relay_url="wss://relay.example.org",
+                event_id=events[0]["id"],
+                accepted=accept["recipient"],
+            )
+        ]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        request, text, queued_queue = runtime._question_queue.get_nowait()
+
+        # Rejected by every recipient relay: not delivered, retry stays open.
+        asyncio.run(runtime._publish_question_text(request, text, queued_queue))
+        assert runtime._ask_forwarded_queue is None
+        assert runtime._ask_queued_queue is None
+        assert calls == [1]  # recipient wrap only; no sender copy
+
+        # Accepted: routing arms, then the sender copy is published.
+        accept["recipient"] = True
+        runtime._forward_pending_ask_once()
+        request, text, queued_queue = runtime._question_queue.get_nowait()
+        asyncio.run(runtime._publish_question_text(request, text, queued_queue))
+        assert runtime._ask_forwarded_queue is ask_queue
+        assert calls == [1, 1, 1]
     finally:
         inbox.close()
         pairings.close()

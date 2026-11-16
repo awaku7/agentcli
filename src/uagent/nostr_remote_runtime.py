@@ -352,61 +352,82 @@ class NostrRemoteRuntime:
             return None
         return snapshot if isinstance(snapshot, dict) else None
 
-    async def _publish_progress_text(self, request: dict[str, Any], text: str) -> bool:
-        """Best-effort publish of one progress/question DM; never raises.
+    def _progress_authorized(self, sender: str) -> bool:
+        """Re-check pairing at send time, like send_reply and outbox delivery.
 
-        Returns True only when the wraps were handed to the relays, so the
-        human_ask flow can tell a delivered question from a lost one.
+        A requester unpaired mid-turn must stop receiving progress,
+        reasoning, and forwarded questions immediately.
         """
-        from .nostr_nip17 import _public_key_x, create_nip17_private_messages
-        from .nostr_remote_transport import (
-            fetch_nip17_relay_list,
-            publish_nip17_gift_wraps,
-        )
-
-        sender = request.get("sender_pubkey")
-        if not isinstance(sender, str):
-            return False
-        # Re-check pairing at send time, like send_reply and the outbox
-        # delivery path: a requester unpaired mid-turn must stop receiving
-        # progress, reasoning, and forwarded questions immediately.
         try:
-            if self.pairing_store.is_authorized(sender) is not True:
-                return False
+            return self.pairing_store.is_authorized(sender) is True
         except Exception:
             return False
+
+    async def _progress_routes_for(self, sender: str) -> dict[str, list[str]] | None:
+        """Recipient routes for progress DMs, cached per sender."""
+        from .nostr_nip17 import _public_key_x
+        from .nostr_remote_transport import fetch_nip17_relay_list
+
         with self._progress_lock:
-            routes = (
-                self._progress_routes
-                if self._progress_routes_sender == sender
-                else None
-            )
+            if self._progress_routes_sender == sender:
+                return self._progress_routes
         try:
-            if routes is None:
-                remote_relays = await fetch_nip17_relay_list(
-                    sender,
-                    self.relays,
-                    allowed_relay_urls=self.relays,
-                    auth_private_key=self.private_key,
-                    timeout=3.0,
-                )
-                allowed = set(self.relays)
-                recipient_relays = [
-                    relay for relay in remote_relays if relay in allowed
-                ]
-                if not recipient_relays:
-                    return False
-                routes = {
-                    sender: recipient_relays,
-                    _public_key_x(self.private_key).hex(): [self.relays[0]],
-                }
-                with self._progress_lock:
-                    self._progress_routes = routes
-                    self._progress_routes_sender = sender
+            remote_relays = await fetch_nip17_relay_list(
+                sender,
+                self.relays,
+                allowed_relay_urls=self.relays,
+                auth_private_key=self.private_key,
+                timeout=3.0,
+            )
+        except Exception:
+            return None
+        allowed = set(self.relays)
+        recipient_relays = [relay for relay in remote_relays if relay in allowed]
+        if not recipient_relays:
+            return None
+        routes = {
+            sender: recipient_relays,
+            _public_key_x(self.private_key).hex(): [self.relays[0]],
+        }
+        with self._progress_lock:
+            self._progress_routes = routes
+            self._progress_routes_sender = sender
+        return routes
+
+    @staticmethod
+    def _recipient_accepted(deliveries: Any, event: Any) -> bool:
+        """True when a relay accepted the given (recipient) gift wrap."""
+        try:
+            event_id = event.get("id")
+            return any(
+                getattr(delivery, "accepted", False)
+                and getattr(delivery, "event_id", None) == event_id
+                for delivery in deliveries or []
+            )
+        except Exception:
+            return False
+
+    async def _publish_progress_text(self, request: dict[str, Any], text: str) -> bool:
+        """Best-effort publish of one progress DM; never raises.
+
+        Returns True only when a recipient relay accepted the wrap:
+        publish_nip17_gift_wraps reports rejections in its results
+        instead of raising, so a non-throwing call is not delivery.
+        """
+        from .nostr_nip17 import create_nip17_private_messages
+        from .nostr_remote_transport import publish_nip17_gift_wraps
+
+        sender = request.get("sender_pubkey")
+        if not isinstance(sender, str) or not self._progress_authorized(sender):
+            return False
+        routes = await self._progress_routes_for(sender)
+        if routes is None:
+            return False
+        try:
             events = create_nip17_private_messages(
                 text, self.private_key, bytes.fromhex(sender)
             )
-            await publish_nip17_gift_wraps(
+            deliveries = await publish_nip17_gift_wraps(
                 events,
                 routes,
                 self.private_key,
@@ -415,7 +436,58 @@ class NostrRemoteRuntime:
             )
         except Exception:
             return False
-        return True
+        return self._recipient_accepted(deliveries, events[0])
+
+    async def _publish_question_text(
+        self,
+        request: dict[str, Any],
+        text: str,
+        ask_queue: Any,
+    ) -> None:
+        """Publish a forwarded human_ask question; never raises.
+
+        The recipient wrap goes first and answer routing arms as soon as
+        a recipient relay accepts it; the sender copy (the publisher's
+        sequential second half) must not widen the window in which a
+        fast answer would be mistaken for a new request.
+        """
+        from .nostr_nip17 import _public_key_x, create_nip17_private_messages
+        from .nostr_remote_transport import publish_nip17_gift_wraps
+
+        sender = request.get("sender_pubkey")
+        delivered = False
+        events: list[dict[str, Any]] = []
+        routes: dict[str, list[str]] | None = None
+        if isinstance(sender, str) and self._progress_authorized(sender):
+            routes = await self._progress_routes_for(sender)
+        if routes is not None and isinstance(sender, str):
+            try:
+                events = create_nip17_private_messages(
+                    text, self.private_key, bytes.fromhex(sender)
+                )
+                deliveries = await publish_nip17_gift_wraps(
+                    [events[0]],
+                    {sender: routes[sender]},
+                    self.private_key,
+                    allowed_relay_urls=self.relays,
+                    timeout=3.0,
+                )
+                delivered = self._recipient_accepted(deliveries, events[0])
+            except Exception:
+                delivered = False
+        self._note_question_result(ask_queue, delivered)
+        if delivered and routes is not None and len(events) > 1:
+            own = _public_key_x(self.private_key).hex()
+            try:
+                await publish_nip17_gift_wraps(
+                    [events[1]],
+                    {own: routes[own]},
+                    self.private_key,
+                    allowed_relay_urls=self.relays,
+                    timeout=3.0,
+                )
+            except Exception:
+                pass
 
     def _note_question_result(self, ask_queue: Any, delivered: bool) -> None:
         """Record whether a forwarded human_ask question actually went out.
@@ -452,8 +524,7 @@ class NostrRemoteRuntime:
                     pass
                 continue
             if question is not None:
-                delivered = await self._publish_progress_text(question[0], question[1])
-                self._note_question_result(question[2], delivered)
+                await self._publish_question_text(question[0], question[1], question[2])
             else:
                 assert item is not None
                 try:
