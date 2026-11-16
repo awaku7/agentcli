@@ -6,6 +6,8 @@ import asyncio
 import json
 import time
 
+import pytest
+
 from uagent.tools import _secp256k1 as secp
 from uagent.tools import nostr_transport as nt
 
@@ -13,6 +15,12 @@ from uagent.tools import nostr_transport as nt
 def _keypair() -> tuple[str, str]:
     priv = secp.generate_private_key()
     return priv.hex(), secp.private_to_public(priv).hex()
+
+
+def _require_nacl() -> None:
+    # pynacl is an optional runtime dependency (auto-installed on use);
+    # the crypto envelope tests skip where it is not installed.
+    pytest.importorskip("nacl")
 
 
 def test_hkdf_sha256_matches_reference() -> None:
@@ -51,6 +59,7 @@ def test_bitchat_conversation_key_symmetric_and_distinct() -> None:
 
 
 def test_bitchat_encrypt_uses_base64url() -> None:
+    _require_nacl()
     key = bytes(range(32))
     encoded = nt._bitchat_encrypt(b"hello bitchat", key)
     assert encoded.startswith("v2:")
@@ -61,6 +70,7 @@ def test_bitchat_encrypt_uses_base64url() -> None:
 
 
 def test_bitchat_dm_round_trip() -> None:
+    _require_nacl()
     a_priv, a_pub = _keypair()
     b_priv, b_pub = _keypair()
     _, c_pub = _keypair()
@@ -87,6 +97,7 @@ def test_bitchat_dm_round_trip() -> None:
 
 
 def test_bitchat_dm_rejects_sender_mismatch() -> None:
+    _require_nacl()
     a_priv, a_pub = _keypair()
     b_priv, b_pub = _keypair()
     x_priv, x_pub = _keypair()
@@ -129,6 +140,7 @@ def test_bitchat_dm_rejects_sender_mismatch() -> None:
 
 
 def test_legacy_dm_still_decrypts_via_fallback() -> None:
+    _require_nacl()
     a_priv, a_pub = _keypair()
     b_priv, b_pub = _keypair()
 
@@ -179,6 +191,7 @@ def test_subscription_requests() -> None:
 
 
 def test_handle_event_official_dm_and_geohash() -> None:
+    _require_nacl()
     a_priv, a_pub = _keypair()
     b_priv, b_pub = _keypair()
 

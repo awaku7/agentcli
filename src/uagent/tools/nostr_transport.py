@@ -514,11 +514,15 @@ def _ecdh_shared_x(priv_bytes: bytes, pub_x: bytes) -> bytes:
     p = curve.p()
     x = int.from_bytes(pub_x, "big")
     if x >= p:
-        raise ValueError("public key x out of range")
+        raise ValueError(
+            _("secp256k1.invalid_pubkey", default="Invalid public key point")
+        )
     y_sq = (pow(x, 3, p) + curve.b()) % p
     y = pow(y_sq, (p + 1) // 4, p)
     if (y * y) % p != y_sq:
-        raise ValueError("public key is not on the curve")
+        raise ValueError(
+            _("secp256k1.invalid_pubkey", default="Invalid public key point")
+        )
     if y % 2 != 0:
         y = p - y
     point = ellipticcurve.Point(curve, x, y)
