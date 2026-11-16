@@ -250,10 +250,15 @@ def stdin_loop(*, hook_runner=None) -> None:
 
                             # Treat the prompt_toolkit-rendered line like the
                             # manual prompt so status output can close it
-                            # before writing [STATE].
+                            # before writing [STATE]. The application handle
+                            # is published so status output can ask the
+                            # prompt to yield instead of erasing its line.
                             try:
                                 core._prompt_line_open = True
                                 core._cli_prompt_toolkit_active = True
+                                core._cli_prompt_app = getattr(
+                                    prompt_session, "app", None
+                                )
                             except Exception:
                                 pass
                             try:
@@ -267,6 +272,7 @@ def stdin_loop(*, hook_runner=None) -> None:
                                 try:
                                     core._prompt_line_open = False
                                     core._cli_prompt_toolkit_active = False
+                                    core._cli_prompt_app = None
                                 except Exception:
                                     pass
                             if line is not None:
