@@ -48,8 +48,24 @@ def test_bitchat_conversation_key_symmetric_and_distinct() -> None:
 
     key_ab = nt._bitchat_conversation_key(a_priv, b_pub)
     key_ba = nt._bitchat_conversation_key(b_priv, a_pub)
-    assert key_ab == key_ba
+    key_ba_odd = nt._bitchat_conversation_key(b_priv, a_pub, even=False)
     assert len(key_ab) == 32
+    # The compressed shared point negates when the two public keys have
+    # opposite Y parity, so the sender's even-lift key matches exactly
+    # one of the receiver's two lift-derived keys (receivers try both).
+    assert key_ba != key_ba_odd
+    assert key_ab in (key_ba, key_ba_odd)
+
+    # Deterministic opposite-parity pair (scalars 1 and 6): the even
+    # lifts disagree and the odd lift is the one that matches.
+    s1 = (1).to_bytes(32, "big").hex()
+    s6 = (6).to_bytes(32, "big").hex()
+    p1 = secp.private_to_public(bytes.fromhex(s1)).hex()
+    p6 = secp.private_to_public(bytes.fromhex(s6)).hex()
+    assert nt._bitchat_conversation_key(s1, p6) != nt._bitchat_conversation_key(s6, p1)
+    assert nt._bitchat_conversation_key(s1, p6) == nt._bitchat_conversation_key(
+        s6, p1, even=False
+    )
 
     # Not the legacy raw-ECDH key and not the NIP-44 conversation key.
     legacy = secp.ecdh_shared_key(bytes.fromhex(a_priv), bytes.fromhex(b_pub))
