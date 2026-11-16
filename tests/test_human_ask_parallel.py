@@ -44,3 +44,45 @@ def test_parallel_human_asks_are_serialized(monkeypatch):
         assert second.result(timeout=5) == "second"
 
     assert max_active == 1
+
+
+def test_human_ask_exposes_and_clears_question_message(monkeypatch):
+    import json
+    import queue as queue_module
+
+    from uagent.tools.context import ToolCallbacks
+
+    state = {"active": False, "message": None, "queue": None, "lines": []}
+    message_seen = threading.Event()
+
+    def set_message(value):
+        state["message"] = value
+        if value:
+            message_seen.set()
+
+    callbacks = ToolCallbacks(
+        human_ask_lock=threading.RLock(),
+        human_ask_active_ref=lambda: state["active"],
+        human_ask_set_active=lambda v: state.__setitem__("active", bool(v)),
+        human_ask_queue_ref=lambda: state["queue"],
+        human_ask_set_queue=lambda q: state.__setitem__("queue", q),
+        human_ask_lines_ref=lambda: state["lines"],
+        human_ask_multiline_active_ref=lambda: False,
+        human_ask_set_multiline_active=lambda v: None,
+        human_ask_set_password=lambda v: None,
+        human_ask_set_message=set_message,
+        is_auto_pilot_active=lambda: False,
+    )
+    monkeypatch.setattr(human_ask_tool, "get_callbacks", lambda: callbacks)
+
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(human_ask_tool.run_tool, {"message": "which branch?"})
+        assert message_seen.wait(timeout=5)
+        assert state["message"] == "which branch?"
+        answer_queue = state["queue"]
+        assert isinstance(answer_queue, queue_module.Queue)
+        answer_queue.put("main")
+        result = json.loads(future.result(timeout=5))
+
+    assert result["user_reply"] == "main"
+    assert state["message"] == ""

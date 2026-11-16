@@ -27,6 +27,12 @@ from .nostr_remote_transport import (
 
 _READBACK_TIMEOUT_SECONDS = 8.0
 _READBACK_ATTEMPTS = 2
+# Live progress notes for the active remote request (tool activity and
+# reasoning) are best-effort side messages, separate from the durable reply
+# outbox: they are capped per request and dropped rather than retried.
+_PROGRESS_MAX_PER_REQUEST = 30
+_PROGRESS_TEXT_LIMIT = 1200
+_REASONING_FLUSH_CHARS = 600
 
 
 async def _read_back_wraps(
@@ -208,6 +214,7 @@ class NostrRemoteRuntime:
         status_provider: Callable[[], str] | None = None,
         current_session_id_provider: Callable[[], str] | None = None,
         incoming_message_display: Callable[[dict[str, Any]], None] | None = None,
+        ask_state_provider: Callable[[], dict[str, Any] | None] | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -221,6 +228,17 @@ class NostrRemoteRuntime:
         self._current_session_id_provider = current_session_id_provider or (
             lambda: self.session_id
         )
+        self._ask_state_provider = ask_state_provider
+        self._progress_lock = threading.Lock()
+        self._active_request: dict[str, Any] | None = None
+        self._progress_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
+        self._question_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
+        self._progress_sent = 0
+        self._progress_routes: dict[str, list[str]] | None = None
+        self._progress_routes_sender = ""
+        self._last_tool_note = ""
+        self._reasoning_parts: list[str] = []
+        self._ask_forwarded_queue: Any = None
         self._status_queue: queue.Queue[dict[str, Any]] = queue.Queue(maxsize=32)
         self._status_recovery_needed = threading.Event()
         self._status_stop = threading.Event()
@@ -253,6 +271,236 @@ class NostrRemoteRuntime:
     @property
     def authorize_sender(self):
         return self.pairing_store.is_authorized
+
+    # -- Live progress and human_ask bridging for the active request --
+
+    def _set_active_request(self, event: dict[str, Any] | None) -> None:
+        with self._progress_lock:
+            # Flush remaining reasoning under the outgoing request before
+            # switching; queued items carry their request, so they still
+            # send after the active request changes.
+            self._flush_reasoning_locked()
+            self._active_request = event
+            self._progress_sent = 0
+            self._progress_routes = None
+            self._progress_routes_sender = ""
+            self._last_tool_note = ""
+            self._ask_forwarded_queue = None
+            self._reasoning_parts = []
+
+    def _enqueue_progress_locked(self, text: str) -> None:
+        if self._active_request is None:
+            return
+        if self._progress_sent >= _PROGRESS_MAX_PER_REQUEST:
+            return
+        self._progress_sent += 1
+        self._progress_queue.put((self._active_request, text[:_PROGRESS_TEXT_LIMIT]))
+
+    def _flush_reasoning_locked(self) -> None:
+        if not self._reasoning_parts:
+            return
+        text = "".join(self._reasoning_parts).strip()
+        self._reasoning_parts = []
+        if text:
+            self._enqueue_progress_locked("💭 " + text)
+
+    def note_tool_activity(self, label: str) -> None:
+        """Forward one tool-activity label to the active remote requester."""
+        name = label[5:].strip() if label.startswith("tool:") else ""
+        if not name:
+            return
+        with self._progress_lock:
+            if self._active_request is None or name == self._last_tool_note:
+                return
+            self._last_tool_note = name
+            self._flush_reasoning_locked()
+            self._enqueue_progress_locked(f"🔧 {name}")
+
+    def note_reasoning(self, text: str) -> None:
+        """Buffer streamed reasoning for the active remote requester."""
+        if not isinstance(text, str) or not text:
+            return
+        # Background sub-agent jobs share the providers; their reasoning is
+        # not part of the foreground remote turn (same rule as set_status).
+        try:
+            from .runtime.sub_agent_jobs import current_sub_agent_job_mode
+
+            if current_sub_agent_job_mode() == "background":
+                return
+        except Exception:
+            pass
+        with self._progress_lock:
+            if self._active_request is None:
+                return
+            self._reasoning_parts.append(text)
+            if (
+                sum(len(part) for part in self._reasoning_parts)
+                >= _REASONING_FLUSH_CHARS
+            ):
+                self._flush_reasoning_locked()
+
+    def _ask_snapshot(self) -> dict[str, Any] | None:
+        if self._ask_state_provider is None:
+            return None
+        try:
+            snapshot = self._ask_state_provider()
+        except Exception:
+            return None
+        return snapshot if isinstance(snapshot, dict) else None
+
+    async def _publish_progress_text(self, request: dict[str, Any], text: str) -> None:
+        """Best-effort publish of one progress/question DM; never raises."""
+        from .nostr_nip17 import _public_key_x, create_nip17_private_messages
+        from .nostr_remote_transport import (
+            fetch_nip17_relay_list,
+            publish_nip17_gift_wraps,
+        )
+
+        sender = request.get("sender_pubkey")
+        if not isinstance(sender, str):
+            return
+        with self._progress_lock:
+            routes = (
+                self._progress_routes
+                if self._progress_routes_sender == sender
+                else None
+            )
+        try:
+            if routes is None:
+                remote_relays = await fetch_nip17_relay_list(
+                    sender,
+                    self.relays,
+                    allowed_relay_urls=self.relays,
+                    auth_private_key=self.private_key,
+                    timeout=3.0,
+                )
+                allowed = set(self.relays)
+                recipient_relays = [
+                    relay for relay in remote_relays if relay in allowed
+                ]
+                if not recipient_relays:
+                    return
+                routes = {
+                    sender: recipient_relays,
+                    _public_key_x(self.private_key).hex(): [self.relays[0]],
+                }
+                with self._progress_lock:
+                    self._progress_routes = routes
+                    self._progress_routes_sender = sender
+            events = create_nip17_private_messages(
+                text, self.private_key, bytes.fromhex(sender)
+            )
+            await publish_nip17_gift_wraps(
+                events,
+                routes,
+                self.private_key,
+                allowed_relay_urls=self.relays,
+                timeout=3.0,
+            )
+        except Exception:
+            pass
+
+    async def _progress_sender(self) -> None:
+        """Drain queued progress notes and forwarded questions until stop."""
+        stop_event = self._stop_event
+        if stop_event is None:
+            return
+        while not stop_event.is_set():
+            item: tuple[dict[str, Any], str] | None = None
+            try:
+                item = self._question_queue.get_nowait()
+            except queue.Empty:
+                try:
+                    item = self._progress_queue.get_nowait()
+                except queue.Empty:
+                    item = None
+            if item is None:
+                try:
+                    await asyncio.wait_for(stop_event.wait(), timeout=0.1)
+                except asyncio.TimeoutError:
+                    pass
+                continue
+            try:
+                await self._publish_progress_text(item[0], item[1])
+            except Exception:
+                pass
+
+    def _forward_pending_ask_once(self) -> None:
+        """Queue one pending human_ask question for the active requester."""
+        with self._progress_lock:
+            active = self._active_request
+            forwarded = self._ask_forwarded_queue
+        if active is None:
+            return
+        snapshot = self._ask_snapshot()
+        if not snapshot or not snapshot.get("active"):
+            return
+        if snapshot.get("is_password"):
+            return
+        message = str(snapshot.get("message") or "").strip()
+        ask_queue = snapshot.get("queue")
+        if not message or ask_queue is None or ask_queue is forwarded:
+            return
+        with self._progress_lock:
+            self._flush_reasoning_locked()
+            self._ask_forwarded_queue = ask_queue
+        self._question_queue.put((active, "❓ " + message[:_PROGRESS_TEXT_LIMIT]))
+
+    async def _ask_watcher(self) -> None:
+        """Forward a pending human_ask question to the active requester."""
+        stop_event = self._stop_event
+        if stop_event is None:
+            return
+        while not stop_event.is_set():
+            try:
+                await asyncio.wait_for(stop_event.wait(), timeout=0.4)
+            except asyncio.TimeoutError:
+                pass
+            if stop_event.is_set():
+                return
+            self._forward_pending_ask_once()
+
+    def _try_deliver_ask_answer(self, rumor: dict[str, Any]) -> bool:
+        """Route a DM from the active requester into a forwarded human_ask.
+
+        Returns True when the rumor was consumed as the ask's answer: its
+        durable inbox row is claimed and finished without a foreground turn.
+        """
+        with self._progress_lock:
+            active = self._active_request
+            forwarded = self._ask_forwarded_queue
+        if active is None or forwarded is None:
+            return False
+        if rumor.get("pubkey") != active.get("sender_pubkey"):
+            return False
+        snapshot = self._ask_snapshot()
+        if not snapshot or not snapshot.get("active"):
+            return False
+        if snapshot.get("is_password"):
+            return False
+        if snapshot.get("queue") is not forwarded:
+            return False
+        text = rumor.get("content")
+        if not isinstance(text, str):
+            return False
+        sender = rumor.get("pubkey")
+        rumor_id = rumor.get("id")
+        if not isinstance(sender, str) or not isinstance(rumor_id, str):
+            return False
+        try:
+            record = self.inbox_store.claim(
+                sender, rumor_id, session_id=self.session_id
+            )
+            if record is None:
+                return False
+            if not self.inbox_store.finish(sender, rumor_id, "completed"):
+                return False
+            forwarded.put(text)
+        except Exception:
+            return False
+        with self._progress_lock:
+            self._ask_forwarded_queue = None
+        return True
 
     def _record_receive_diagnostic(self, relay: str, event: str) -> None:
         """Count receive outcomes without retaining message data or identities."""
@@ -322,6 +570,8 @@ class NostrRemoteRuntime:
         }
 
     def _queue_rumor(self, rumor: dict[str, Any]) -> None:
+        if self._try_deliver_ask_answer(rumor):
+            return
         try:
             event = create_nostr_remote_request_event(
                 rumor, target_session_id=self.session_id
@@ -634,6 +884,10 @@ class NostrRemoteRuntime:
             tasks.append(
                 asyncio.create_task(self._retry_outbox(), name="uag-nostr-outbox")
             )
+        tasks.append(
+            asyncio.create_task(self._progress_sender(), name="uag-nostr-progress")
+        )
+        tasks.append(asyncio.create_task(self._ask_watcher(), name="uag-nostr-ask"))
         # Not part of the FIRST_COMPLETED wait set: this one-shot task is
         # expected to finish while the listeners keep running.
         publish_task = asyncio.create_task(
@@ -995,13 +1249,19 @@ class NostrRemoteRuntime:
     def dispatch_event(
         self, event: dict[str, Any], *, current_session_id: str
     ) -> RemoteCLIAction:
-        return dispatch_nostr_remote_inbox_event(
+        action = dispatch_nostr_remote_inbox_event(
             event,
             inbox_store=self.inbox_store,
             pairing_store=self.pairing_store,
             private_key=self.private_key,
             current_session_id=current_session_id,
         )
+        # Status queries are also dispatched (by the side worker, possibly
+        # while a turn is running); they must never take over the active
+        # request that progress notes and human_ask forwarding belong to.
+        if action.kind != "status":
+            self._set_active_request(event)
+        return action
 
     def finish_event(self, event: dict[str, Any], outcome: str) -> bool:
         """Finalize a claimed inbox item after its foreground action completes."""
@@ -1013,7 +1273,16 @@ class NostrRemoteRuntime:
             raise ValueError("remote inbox event reference is invalid")
         if outcome not in {"completed", "rejected", "failed"}:
             raise ValueError("invalid remote inbox outcome")
-        return self.inbox_store.finish(sender, rumor_id, outcome)
+        finished = self.inbox_store.finish(sender, rumor_id, outcome)
+        with self._progress_lock:
+            active = self._active_request
+        if (
+            active is not None
+            and active.get("sender_pubkey") == sender
+            and active.get("rumor_id") == rumor_id
+        ):
+            self._set_active_request(None)
+        return finished
 
     def send_reply(self, request_event: dict[str, Any], text: str) -> dict[str, Any]:
         """Durably enqueue and send a short reply to an authorized sender."""
@@ -1238,6 +1507,22 @@ def create_nostr_remote_runtime(
         if pairing_store is not None:
             pairing_store.close()
         raise
+
+    def _ask_state_snapshot() -> dict[str, Any] | None:
+        lock = getattr(core, "human_ask_lock", None)
+        if lock is None:
+            return None
+        try:
+            with lock:
+                return {
+                    "active": bool(getattr(core, "human_ask_active", False)),
+                    "is_password": bool(getattr(core, "human_ask_is_password", False)),
+                    "message": str(getattr(core, "human_ask_message", "") or ""),
+                    "queue": getattr(core, "human_ask_queue", None),
+                }
+        except Exception:
+            return None
+
     runtime = NostrRemoteRuntime(
         event_queue=event_queue,
         private_key=private_key,
@@ -1249,6 +1534,7 @@ def create_nostr_remote_runtime(
         status_provider=lambda: format_nostr_remote_status(core),
         current_session_id_provider=lambda: str(getattr(core, "session_id", "") or ""),
         incoming_message_display=lambda rumor: _display_nostr_incoming(core, rumor),
+        ask_state_provider=_ask_state_snapshot,
     )
     return runtime
 

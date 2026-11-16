@@ -324,6 +324,10 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
         cb.human_ask_set_active(True)
         cb.human_ask_set_password(is_password)
         cb.human_ask_set_queue(local_q)
+        if cb.human_ask_set_message is not None:
+            # Expose the question text so other frontends (e.g. the Nostr
+            # remote bridge) can forward it while the answer is pending.
+            cb.human_ask_set_message(message)
 
         lines = cb.human_ask_lines_ref()
         try:
@@ -443,6 +447,8 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
             cb.human_ask_set_password(False)
             cb.human_ask_set_queue(None)
             cb.human_ask_set_multiline_active(False)
+            if cb.human_ask_set_message is not None:
+                cb.human_ask_set_message("")
 
 
 def run_tool(args: dict[str, Any]) -> str:

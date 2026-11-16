@@ -79,6 +79,15 @@ def show_reasoning(
     # Do not display when the display-only flag is off
     if not get_display_reasoning():
         return
+    # Mirror reasoning to the Nostr remote requester while a remote turn is
+    # running, under the same display flag as the local CLI.
+    if core is not None:
+        _remote_runtime = getattr(core, "_nostr_remote_runtime", None)
+        if _remote_runtime is not None:
+            try:
+                _remote_runtime.note_reasoning(text)
+            except Exception:
+                pass
     is_web = bool(getattr(core, "_is_web", False)) if core is not None else False
     if is_web:
         try:
