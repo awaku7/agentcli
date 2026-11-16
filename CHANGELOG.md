@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.87`.
+
 ## [0.7.49] - 2026-11-15
 
 ### Added
