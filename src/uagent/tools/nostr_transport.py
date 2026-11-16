@@ -494,7 +494,7 @@ class NostrTransport:
         self.relays = relays or [
             "wss://x.kojira.io",
             "wss://nos.lol",
-            "wss://relay.snort.social",
+            "wss://relay.primal.net",
         ]
         self._priv_hex: str = priv_hex or ""
         self._pub_hex: str = pub_hex or ""

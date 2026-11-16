@@ -98,7 +98,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "",
                     "description": _(
                         "param.nostr_relays.description",
-                        default="Comma-separated Nostr relay URLs (default: x.kojira.io, nos.lol, snort.social).",
+                        default="Comma-separated Nostr relay URLs (default: x.kojira.io, nos.lol, primal.net).",
                     ),
                 },
                 "nostr_nsec": {
