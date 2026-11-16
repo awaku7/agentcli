@@ -1,7 +1,10 @@
 """nostr_transport: Nostr relay transport for pybitchat.
 
-Provides kind-1 (public text) and kind-1059 (bitchat private envelope) messaging
-over Nostr relays. Uses a separate secp256k1 key pair (Nostr nsec standard).
+Speaks the official BitChat wire format: geohash channels are ephemeral
+kind-20000 events (presence kind 20001) and DMs are kind-1059 gift wraps
+around a kind-13 seal and kind-14 rumor, encrypted with the BitChat key
+schedule (ECDH + HKDF-SHA256, XChaCha20-Poly1305). Also carries kind-1
+public text. Uses a separate secp256k1 key pair (Nostr nsec standard).
 
 Dependencies (auto-installed): websockets, pynacl
 Uses pure-Python secp256k1 via _secp256k1 module (depends on ecdsa).
@@ -12,9 +15,11 @@ from __future__ import annotations
 import asyncio
 import base64
 import hashlib
+import hmac
 import json
 import os
 import queue
+import random
 import threading
 import time as _time
 from typing import Any, Callable
@@ -468,6 +473,263 @@ def _decrypt_kind1059(
         return None
 
 
+# ---- BitChat official wire format -------------------------------------------
+#
+# BitChat clients use a NIP-17-shaped envelope whose cryptography differs
+# from NIP-44/NIP-17: the conversation key is HKDF-SHA256 over the
+# *compressed* ECDH shared point (33 bytes) with an empty salt and info
+# "nip44-v2", and the cipher is plain XChaCha20-Poly1305 with content
+# "v2:" + base64url(nonce24 || ciphertext || tag), padding stripped.
+# Geohash channels are ephemeral kind-20000 events tagged ["g", geohash]
+# and ["n", nickname]; presence is kind 20001 (g tag only, precision <= 5).
+
+_BITCHAT_HKDF_INFO = b"nip44-v2"
+_BITCHAT_WRAP_JITTER_SECONDS = 900
+
+
+def _hkdf_sha256(ikm: bytes, salt: bytes, info: bytes, length: int) -> bytes:
+    """RFC 5869 HKDF-SHA256. An empty salt means HashLen zero bytes."""
+    if not salt:
+        salt = b"\x00" * hashlib.sha256().digest_size
+    prk = hmac.new(salt, ikm, hashlib.sha256).digest()
+    okm = b""
+    block = b""
+    counter = 1
+    while len(okm) < length:
+        block = hmac.new(prk, block + info + bytes([counter]), hashlib.sha256).digest()
+        okm += block
+        counter += 1
+    return okm[:length]
+
+
+def _ecdh_shared_point(priv_bytes: bytes, pub_x: bytes, *, even: bool) -> bytes:
+    """ECDH shared point in compressed form (33 bytes) for an x-only peer key.
+
+    Upstream BitChat feeds the *compressed* shared point into HKDF (the
+    P256K key agreement is requested with ``format: .compressed``), not
+    just the X coordinate. The peer key is lifted with the chosen Y
+    parity; the opposite lift negates the shared point, which flips the
+    parity byte, so senders and receivers must agree on the lift.
+    """
+    from ecdsa import SECP256k1, ellipticcurve
+
+    curve = SECP256k1.curve
+    p = curve.p()
+    x = int.from_bytes(pub_x, "big")
+    if x >= p:
+        raise ValueError(
+            _("secp256k1.invalid_pubkey", default="Invalid public key point")
+        )
+    y_sq = (pow(x, 3, p) + curve.b()) % p
+    y = pow(y_sq, (p + 1) // 4, p)
+    if (y * y) % p != y_sq:
+        raise ValueError(
+            _("secp256k1.invalid_pubkey", default="Invalid public key point")
+        )
+    if (y % 2 == 0) != even:
+        y = p - y
+    point = ellipticcurve.Point(curve, x, y)
+    shared = point * int.from_bytes(priv_bytes, "big")
+    prefix = b"\x02" if shared.y() % 2 == 0 else b"\x03"
+    return prefix + shared.x().to_bytes(32, "big")
+
+
+def _bitchat_conversation_key(
+    priv_hex: str, pub_hex: str, *, even: bool = True
+) -> bytes:
+    """BitChat DM key schedule: HKDF-SHA256 over the compressed ECDH point.
+
+    HKDF parameters: salt empty, info ``nip44-v2``, 32-byte output. This
+    is BitChat-specific and deliberately NOT the NIP-44 schedule.
+    """
+    shared = _ecdh_shared_point(
+        bytes.fromhex(priv_hex), bytes.fromhex(pub_hex), even=even
+    )
+    return _hkdf_sha256(shared, b"", _BITCHAT_HKDF_INFO, 32)
+
+
+def _bitchat_encrypt(plaintext: bytes, key: bytes) -> str:
+    import nacl.bindings as _nb
+
+    nonce = os.urandom(24)
+    encrypted = _nb.crypto_aead_xchacha20poly1305_ietf_encrypt(
+        plaintext, None, nonce, key
+    )
+    # Upstream strips base64 padding on encode; its decoder re-adds it.
+    encoded = base64.urlsafe_b64encode(nonce + encrypted).decode("ascii")
+    return "v2:" + encoded.rstrip("=")
+
+
+def _bitchat_decrypt_any(content: str, priv_hex: str, pub_hex: str) -> bytes | None:
+    """Decrypt a BitChat payload, trying both peer-key Y lifts.
+
+    The compressed shared point depends on which lift of the sender's
+    x-only key the sender used, so upstream receivers try even Y first
+    and then odd Y; mirror that here.
+    """
+    import nacl.bindings as _nb
+
+    if not content.startswith("v2:"):
+        return None
+    try:
+        encoded = content[3:].strip()
+        encoded += "=" * (-len(encoded) % 4)
+        payload = base64.urlsafe_b64decode(encoded.encode("ascii"))
+    except Exception:
+        return None
+    if len(payload) < 24 + 16:
+        return None
+    nonce, ciphertext = payload[:24], payload[24:]
+    for even in (True, False):
+        key = _bitchat_conversation_key(priv_hex, pub_hex, even=even)
+        try:
+            return _nb.crypto_aead_xchacha20poly1305_ietf_decrypt(
+                ciphertext, None, nonce, key
+            )
+        except Exception:
+            continue
+    return None
+
+
+def _compute_event_id(payload: dict) -> str:
+    """NIP-01 event id for an unsigned payload (used for the DM rumor)."""
+    serial = json.dumps(
+        [
+            0,
+            payload.get("pubkey", ""),
+            payload.get("created_at", 0),
+            payload.get("kind", 1),
+            payload.get("tags", []),
+            payload.get("content", ""),
+        ],
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+    return hashlib.sha256(serial.encode("utf-8")).hexdigest()
+
+
+def _make_bitchat_dm_event(
+    content: str,
+    priv_hex: str,
+    pub_hex: str,
+    recipient_pub_hex: str,
+) -> dict:
+    """Create an official BitChat DM: rumor 14 -> seal 13 -> gift wrap 1059.
+
+    The wrap is signed by a one-time ephemeral key and its timestamp is
+    randomized within +/-15 minutes, as official clients do.
+    """
+    _s = _import_secp()
+    now = int(_time.time())
+
+    rumor: dict = {
+        "pubkey": pub_hex,
+        "created_at": now,
+        "kind": 14,
+        "tags": [["p", recipient_pub_hex]],
+        "content": content,
+    }
+    rumor["id"] = _compute_event_id(rumor)
+
+    seal_key = _bitchat_conversation_key(priv_hex, recipient_pub_hex)
+    seal: dict = {
+        "pubkey": pub_hex,
+        "created_at": now,
+        "kind": 13,
+        "tags": [],
+        "content": _bitchat_encrypt(
+            json.dumps(rumor, separators=(",", ":"), ensure_ascii=False).encode(
+                "utf-8"
+            ),
+            seal_key,
+        ),
+    }
+    seal["sig"] = _sign_event(seal, priv_hex)
+
+    eph_priv = _s.generate_private_key()
+    eph_pub_hex = _s.private_to_public(eph_priv).hex()
+    wrap_key = _bitchat_conversation_key(eph_priv.hex(), recipient_pub_hex)
+    wrap: dict = {
+        "pubkey": eph_pub_hex,
+        "created_at": now
+        + random.randint(-_BITCHAT_WRAP_JITTER_SECONDS, _BITCHAT_WRAP_JITTER_SECONDS),
+        "kind": 1059,
+        "tags": [["p", recipient_pub_hex]],
+        "content": _bitchat_encrypt(
+            json.dumps(seal, separators=(",", ":"), ensure_ascii=False).encode("utf-8"),
+            wrap_key,
+        ),
+    }
+    wrap["sig"] = _sign_event(wrap, eph_priv.hex())
+    return wrap
+
+
+def _open_bitchat_dm_event(
+    event: dict,
+    our_priv_hex: str,
+    our_pub_hex: str,
+) -> tuple[str, str] | None:
+    """Open an official BitChat DM wrap. Returns (sender pubkey, text)."""
+    try:
+        tags = event.get("tags") or []
+        addressed = any(
+            len(t) >= 2 and t[0] == "p" and t[1] == our_pub_hex for t in tags
+        )
+        if not addressed:
+            return None
+        seal_plain = _bitchat_decrypt_any(
+            str(event.get("content", "")), our_priv_hex, str(event.get("pubkey", ""))
+        )
+        if seal_plain is None:
+            return None
+        seal = json.loads(seal_plain.decode("utf-8"))
+        if not isinstance(seal, dict) or seal.get("kind") != 13:
+            return None
+        sender = str(seal.get("pubkey", ""))
+        if not sender or sender == our_pub_hex or not _verify_event(seal):
+            return None
+        rumor_plain = _bitchat_decrypt_any(
+            str(seal.get("content", "")), our_priv_hex, sender
+        )
+        if rumor_plain is None:
+            return None
+        rumor = json.loads(rumor_plain.decode("utf-8"))
+        if not isinstance(rumor, dict) or rumor.get("kind") != 14:
+            return None
+        if str(rumor.get("pubkey", "")) != sender:
+            return None
+        return sender, str(rumor.get("content", ""))
+    except Exception:
+        return None
+
+
+def _make_geo_event(
+    kind: int,
+    content: str,
+    geohash: str,
+    nickname: str,
+    priv_hex: str,
+    pub_hex: str,
+) -> dict:
+    """Create a signed geohash event (kind 20000 chat / 20001 presence).
+
+    Presence events carry only the ``g`` tag (the upstream presence spec
+    says the nickname tag must not be attached to heartbeats).
+    """
+    tags = [["g", geohash]]
+    if kind == 20000:
+        tags.append(["n", nickname])
+    event: dict = {
+        "pubkey": pub_hex,
+        "created_at": int(_time.time()),
+        "kind": kind,
+        "tags": tags,
+        "content": content,
+    }
+    event["sig"] = _sign_event(event, priv_hex)
+    return event
+
+
 # ---- NostrTransport class ---------------------------------------------------
 
 # Global instance (thread-safe access via functions)
@@ -492,9 +754,11 @@ class NostrTransport:
         on_kind1059: Callable[[str, str, str], None] | None = None,
     ):
         self.relays = relays or [
-            "wss://x.kojira.io",
+            "wss://relay.damus.io",
             "wss://nos.lol",
             "wss://relay.primal.net",
+            "wss://offchain.pub",
+            "wss://x.kojira.io",
         ]
         self._priv_hex: str = priv_hex or ""
         self._pub_hex: str = pub_hex or ""
@@ -516,9 +780,14 @@ class NostrTransport:
 
         # Track seen event IDs to avoid duplicates
         self._seen_ids: set[str] = set()
-        # Geo channel filters (additional #p tags)
+        # NIP-42 AUTH event ids per relay URL (for re-subscribing after auth)
+        self._auth_ids: dict[str, str] = {}
+        # Joined geohash channels (subscribed via #g tags)
         self._geo_filters: list[str] = []
         self._geo_filters_lock = threading.Lock()
+        # Set when the channel set changes so the subscribe loop refreshes
+        # the geo subscription immediately instead of on its 30s cadence.
+        self._geo_sub_dirty = threading.Event()
 
         # Discovered peers: pubkey_hex -> nickname
         self._discovered_peers: dict[str, str] = {}
@@ -533,22 +802,27 @@ class NostrTransport:
 
     # ---- Geo channel filter management -------------------------------------
 
-    def add_geo_filter(self, peer_id: str) -> None:
-        """Add a #p tag filter for a geo channel peer ID."""
+    def add_geo_filter(self, geohash: str) -> None:
+        """Join a geohash channel: subscribe via its #g tag and announce
+        presence (kind 20001) so other clients list us as a participant."""
         with self._geo_filters_lock:
-            if peer_id not in self._geo_filters:
-                self._geo_filters.append(peer_id)
+            if geohash in self._geo_filters:
+                return
+            self._geo_filters.append(geohash)
+        self._geo_sub_dirty.set()
+        self.send_presence(geohash)
 
-    def remove_geo_filter(self, peer_id: str) -> None:
-        """Remove a #p tag filter for a geo channel."""
+    def remove_geo_filter(self, geohash: str) -> None:
+        """Leave a geohash channel."""
         with self._geo_filters_lock:
             try:
-                self._geo_filters.remove(peer_id)
+                self._geo_filters.remove(geohash)
             except ValueError:
-                pass
+                return
+        self._geo_sub_dirty.set()
 
-    def get_geo_p_tags(self) -> list[str]:
-        """Get all geo-related #p tags for subscription filters."""
+    def get_geo_channels(self) -> list[str]:
+        """Get all joined geohash channels for subscription filters."""
         with self._geo_filters_lock:
             return list(self._geo_filters)
 
@@ -682,22 +956,37 @@ class NostrTransport:
         text: str,
         recipient_pub_hex: str | None = None,
     ) -> None:
-        """Queue a kind-1059 event (encrypted if recipient given)."""
-        tags = []
-        if recipient_pub_hex:
-            tags.append(["p", recipient_pub_hex])
-        # Add display_name for identification
-        if self._nickname:
-            tags.append(["display_name", self._nickname])
-        tags.append(["client", "bitchat"])
+        """Queue a kind-1059 event.
+
+        With a recipient this builds the official BitChat DM envelope
+        (rumor/seal/wrap); without one it stays a plain public event.
+        """
         self._outbound.put_nowait(
             {
                 "type": "kind1059",
                 "text": text,
-                "tags": tags,
+                "tags": [],
                 "recipient": recipient_pub_hex,
             }
         )
+
+    def send_geohash(self, text: str, geohash: str) -> None:
+        """Queue a kind-20000 geohash channel message."""
+        self._outbound.put_nowait(
+            {"type": "kind20000", "text": text, "geohash": geohash}
+        )
+
+    def send_presence(self, geohash: str) -> None:
+        """Queue a kind-20001 geohash presence heartbeat.
+
+        The upstream presence spec allows heartbeats only at precision 5
+        or below (region/province/city): announcing presence in
+        neighborhood-or-finer channels would leak a precise location, so
+        those channels are receive-only.
+        """
+        if len(geohash) > 5:
+            return
+        self._outbound.put_nowait({"type": "kind20001", "geohash": geohash})
 
     def send_read_receipt(self, sender_pub_hex: str, event_id: str) -> None:
         """Send a read receipt for a received DM."""
@@ -741,6 +1030,65 @@ class NostrTransport:
             except Exception:
                 pass
 
+    def _subscription_requests(self) -> list[tuple[str, dict]]:
+        """Current subscriptions: DMs to us, our geohash channels, mentions."""
+        now = int(_time.time())
+        requests: list[tuple[str, dict]] = [
+            (
+                "bitchat-dm",
+                _make_subscription_filter(
+                    kinds=[1059],
+                    limit=100,
+                    since=now - 86400,  # 24h mailbox lookback, like official clients
+                    **{"#p": [self._pub_hex]},
+                ),
+            ),
+            (
+                "bitchat-public",
+                _make_subscription_filter(
+                    kinds=[1],
+                    limit=50,
+                    since=now - 300,
+                    **{"#p": [self._pub_hex]},
+                ),
+            ),
+        ]
+        channels = self.get_geo_channels()
+        if channels:
+            requests.append(
+                (
+                    "bitchat-geo",
+                    _make_subscription_filter(
+                        kinds=[20000, 20001],
+                        **{"#g": channels},
+                    ),
+                )
+            )
+        return requests
+
+    async def _send_subscriptions(self, ws: Any) -> None:
+        for sub_id, sub_filter in self._subscription_requests():
+            try:
+                await ws.send(json.dumps(["REQ", sub_id, sub_filter]))
+            except Exception:
+                pass
+
+    async def _answer_auth(self, ws: Any, url: str, challenge: str) -> None:
+        """Answer a NIP-42 AUTH challenge with a signed kind-22242 event."""
+        event: dict = {
+            "pubkey": self._pub_hex,
+            "created_at": int(_time.time()),
+            "kind": 22242,
+            "tags": [["relay", url], ["challenge", challenge]],
+            "content": "",
+        }
+        event["sig"] = _sign_event(event, self._priv_hex)
+        self._auth_ids[url] = str(event.get("id", ""))
+        try:
+            await ws.send(json.dumps(["AUTH", event]))
+        except Exception:
+            pass
+
     async def _connect_relay(self, url: str) -> None:
         import websockets
         import websockets.exceptions as _wse
@@ -759,17 +1107,7 @@ class NostrTransport:
                     self._relay_connections[url] = ws
                     _notify_display(f"[nostr] Connected to {url}")
 
-                    # Subscribe to events addressed to us + geo channels
-                    p_tags = self.get_geo_p_tags()
-                    p_tags.append(self._pub_hex)
-                    sub_filter = _make_subscription_filter(
-                        kinds=[1, 1059],
-                        limit=50,
-                        since=int(_time.time()) - 300,
-                        **{"#p": p_tags},
-                    )
-                    sub_msg = json.dumps(["REQ", "bitchat-sub", sub_filter])
-                    await ws.send(sub_msg)
+                    await self._send_subscriptions(ws)
 
                     async for raw in ws:
                         if self._stop_event.is_set():
@@ -782,6 +1120,19 @@ class NostrTransport:
                             if msg_type == "EVENT" and len(data) >= 3:
                                 event = data[2]
                                 await self._handle_event(event)
+                            elif msg_type == "AUTH" and len(data) >= 2:
+                                # Some relays (e.g. kojira) only serve
+                                # gift wraps after NIP-42 authentication.
+                                await self._answer_auth(ws, url, str(data[1]))
+                            elif (
+                                msg_type == "OK"
+                                and len(data) >= 3
+                                and data[1] == self._auth_ids.get(url)
+                                and data[2] is True
+                            ):
+                                # Auth accepted: restricted subscriptions
+                                # must be requested again.
+                                await self._send_subscriptions(ws)
                             elif msg_type == "EOSE":
                                 pass  # end of stored events
                         except json.JSONDecodeError:
@@ -807,26 +1158,40 @@ class NostrTransport:
         self._relay_connections.pop(url, None)
 
     async def _subscribe_loop(self) -> None:
-        """Periodically re-subscribe with a since filter for new events."""
-        last_since = int(_time.time())
+        """Follow geohash channel changes and heartbeat our presence.
+
+        The geo subscription is re-sent whenever the joined-channel set
+        changes; presence (kind 20001) is re-published about every two
+        minutes while at least one channel is joined.
+        """
+        last_channels: list[str] = []
+        tick = 0
         while not self._stop_event.is_set():
-            await asyncio.sleep(30)
-            now = int(_time.time())
-            p_tags = self.get_geo_p_tags()
-            p_tags.append(self._pub_hex)
-            sub_filter = _make_subscription_filter(
-                kinds=[1, 1059],
-                since=last_since,
-                limit=50,
-                **{"#p": p_tags},
-            )
-            sub_msg = json.dumps(["REQ", "bitchat-sub-recent", sub_filter])
-            for url, ws in list(self._relay_connections.items()):
-                try:
-                    await ws.send(sub_msg)
-                except Exception:
-                    pass
-            last_since = now
+            # Wake on the 30s cadence, but immediately when the channel
+            # set changes: kind-20000 is ephemeral, so a subscription that
+            # lags a join by up to 30s silently loses messages.
+            for _ in range(30):
+                if self._stop_event.is_set() or self._geo_sub_dirty.is_set():
+                    break
+                await asyncio.sleep(1)
+            self._geo_sub_dirty.clear()
+            tick += 1
+            channels = self.get_geo_channels()
+            if channels != last_channels:
+                geo_filter = _make_subscription_filter(
+                    kinds=[20000, 20001],
+                    **{"#g": channels},
+                )
+                sub_msg = json.dumps(["REQ", "bitchat-geo", geo_filter])
+                for ws in list(self._relay_connections.values()):
+                    try:
+                        await ws.send(sub_msg)
+                    except Exception:
+                        pass
+                last_channels = channels
+            if tick % 4 == 0:
+                for geohash in channels:
+                    self.send_presence(geohash)
 
     async def _handle_event(self, event: dict) -> None:
         """Process an incoming Nostr event."""
@@ -871,6 +1236,47 @@ class NostrTransport:
                     _notify_display(
                         f"[nostr] Discovered bitchat user: {nick} ({pubkey[:16]}...)"
                     )
+        if kind == 20001:
+            # Geohash presence heartbeat: track the participant silently.
+            # Upstream presence carries no nickname tag, so never let a
+            # heartbeat overwrite a nickname learned from a chat message.
+            nick = None
+            for tag in tags:
+                if len(tag) >= 2 and tag[0] == "n":
+                    nick = tag[1]
+                    break
+            if pubkey and (nick or pubkey not in self._discovered_peers):
+                self._discovered_peers[pubkey] = nick or pubkey[:8]
+            return
+        if kind == 20000:
+            # Geohash channel chat (ephemeral)
+            nick = None
+            channel = ""
+            for tag in tags:
+                if len(tag) >= 2 and tag[0] == "n":
+                    nick = tag[1]
+                elif len(tag) >= 2 and tag[0] == "g":
+                    channel = tag[1]
+            if not nick:
+                nick = self._discovered_peers.get(pubkey) or pubkey[:8]
+            if pubkey:
+                self._discovered_peers[pubkey] = nick
+
+            if self.on_message:
+                self.on_message(nick, content, kind)
+
+            _notify_display(f"[nostr/#{channel}] {nick}: {content}")
+
+            # Forward to BLE mesh if bridge active (skip forwarded messages)
+            if not content.startswith("[mesh]") and not content.startswith("[nostr/"):
+                try:
+                    from .pybitchat_shared import enqueue_send as _es, _NOSTR_BRIDGE
+
+                    if _NOSTR_BRIDGE:
+                        _es("text", f"[nostr] {nick}: {content}", via="ble")
+                except Exception:
+                    pass
+            return
         if kind == 1:
             # Public text message
             nick = None
@@ -912,11 +1318,20 @@ class NostrTransport:
                     sender_nick = tag[1]
                     break
             if not sender_nick:
-                sender_nick = pubkey[:8]
+                sender_nick = self._discovered_peers.get(pubkey) or pubkey[:8]
 
             decrypted = None
             if is_for_us:
-                decrypted = _decrypt_kind1059(event, self._priv_hex, self._pub_hex)
+                # Official BitChat envelope first: its wrap is signed by an
+                # ephemeral key, so a successful open also rebinds `pubkey`
+                # to the real sender for display and read receipts. Fall
+                # back to the legacy single-layer format after that.
+                opened = _open_bitchat_dm_event(event, self._priv_hex, self._pub_hex)
+                if opened is not None:
+                    pubkey, decrypted = opened
+                    sender_nick = self._discovered_peers.get(pubkey) or pubkey[:8]
+                else:
+                    decrypted = _decrypt_kind1059(event, self._priv_hex, self._pub_hex)
 
             if decrypted is not None:
                 nick = sender_nick
@@ -979,12 +1394,38 @@ class NostrTransport:
                         tags=item.get("tags"),
                     )
                 elif msg_type == "kind1059":
-                    event = _make_kind1059_event(
-                        content=item["text"],
-                        priv_hex=self._priv_hex,
-                        pub_hex=self._pub_hex,
-                        recipient_pub_hex=item.get("recipient"),
-                        tags=item.get("tags"),
+                    if item.get("recipient"):
+                        event = _make_bitchat_dm_event(
+                            content=item["text"],
+                            priv_hex=self._priv_hex,
+                            pub_hex=self._pub_hex,
+                            recipient_pub_hex=item["recipient"],
+                        )
+                    else:
+                        event = _make_kind1059_event(
+                            content=item["text"],
+                            priv_hex=self._priv_hex,
+                            pub_hex=self._pub_hex,
+                            recipient_pub_hex=None,
+                            tags=item.get("tags"),
+                        )
+                elif msg_type == "kind20000":
+                    event = _make_geo_event(
+                        20000,
+                        item["text"],
+                        item["geohash"],
+                        self._nickname,
+                        self._priv_hex,
+                        self._pub_hex,
+                    )
+                elif msg_type == "kind20001":
+                    event = _make_geo_event(
+                        20001,
+                        "",
+                        item["geohash"],
+                        self._nickname,
+                        self._priv_hex,
+                        self._pub_hex,
                     )
                 else:
                     continue
@@ -1094,6 +1535,15 @@ def nostr_send_kind1059(
         return {"ok": False, "error": "Nostr transport not running"}
     inst.send_kind1059(text, recipient_pub_hex)
     return {"ok": True, "via": "nostr", "kind": 1059}
+
+
+def nostr_send_geohash(text: str, geohash: str) -> dict:
+    """Send a kind-20000 geohash channel message via Nostr."""
+    inst = get_nostr_instance()
+    if not inst or not inst.is_running:
+        return {"ok": False, "error": "Nostr transport not running"}
+    inst.send_geohash(text, geohash)
+    return {"ok": True, "via": "nostr", "kind": 20000}
 
 
 def encode_npub(pubkey_hex: str) -> str:
