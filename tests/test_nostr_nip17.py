@@ -7,15 +7,18 @@ import copy
 import pytest
 
 from uagent.nostr_nip17 import (
+    _event_json,
     _make_gift_wrap,
     _make_rumor,
     _make_seal,
     _public_key_x,
+    _sign_event,
     create_nip17_private_messages,
     create_nip17_relay_list_event,
     extract_nip17_relay_list,
     unwrap_nip17_private_message,
 )
+from uagent.nostr_nip44 import nip44_v2_encrypt
 from uagent.tools.nostr_transport import _verify_event
 
 
@@ -48,6 +51,40 @@ def test_nip17_round_trip_creates_recipient_and_sender_copies() -> None:
     assert received["content"] == text
     assert received["pubkey"] == sender_copy["pubkey"]
     assert received["id"] == sender_copy["id"]
+
+
+def test_nip17_unwrap_accepts_seal_with_expiration_tag() -> None:
+    # Quartz (Amethyst) attaches a NIP-40 expiration tag to the seal when
+    # a disappearing-message timer is set; the seal tags must not block
+    # an otherwise valid message.
+    sender_private = _secret(1)
+    recipient_private = _secret(2)
+    sender_public = _public_key_x(sender_private)
+    recipient_public = _public_key_x(recipient_private)
+    now = 1_700_000_000
+
+    rumor = _make_rumor(
+        sender_public_key=sender_public,
+        recipient_public_key=recipient_public,
+        text="expiring hello",
+        created_at=now,
+    )
+    seal = _sign_event(
+        {
+            "pubkey": sender_public.hex(),
+            "created_at": now,
+            "kind": 13,
+            "tags": [["expiration", str(now + 3600)]],
+            "content": nip44_v2_encrypt(
+                _event_json(rumor), sender_private, recipient_public
+            ),
+        },
+        sender_private,
+    )
+    gift = _make_gift_wrap(seal=seal, receiver_public_key=recipient_public, now=now)
+
+    received = unwrap_nip17_private_message(gift, recipient_private)
+    assert received["content"] == "expiring hello"
 
 
 def test_nip17_rejects_tampered_wrap_wrong_recipient_and_unsigned_wrap() -> None:
