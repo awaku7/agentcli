@@ -133,6 +133,28 @@ def print_status_line() -> None:
     no_color = bool(env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR"))
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
+    # A prompt_toolkit prompt owns its line. Erasing it by hand below
+    # while its application is still running leaves the application free
+    # to redraw the prompt over the spinner and this status line when
+    # the prompt watcher exits it a moment later (the merged
+    # spinner-frame + "agentcli>" line seen with injected rounds). Ask
+    # the application to exit first and wait briefly for the input loop
+    # to release the line; the manual erase below remains as the
+    # fallback if it does not yield.
+    if _core._prompt_line_open and bool(
+        getattr(_core, "_cli_prompt_toolkit_active", False)
+    ):
+        app = getattr(_core, "_cli_prompt_app", None)
+        if app is not None:
+            try:
+                if getattr(app, "is_running", False):
+                    app.exit(result=None)
+            except Exception:
+                pass
+        yield_deadline = time.time() + 0.3
+        while _core._prompt_line_open and time.time() < yield_deadline:
+            time.sleep(0.005)
+
     # Prefer a natural newline boundary so status does not split a sentence.
     # If the stream stays open past the deadline, force-close the line with a
     # newline first — never write [STATE] into the middle of assistant text.
