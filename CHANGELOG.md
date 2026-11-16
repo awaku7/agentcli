@@ -1,10 +1,21 @@
 # Changelog
 
-## [Unreleased]
+## [0.7.50] - 2026-11-16
+
+### Added
+
+- Add Nostr operation manuals, Memory implementation overview, and context-reduction methods overview under `docs/`.
 
 ### Changed
 
 - Raise the minimum `llmcapa` dependency version to `0.5.87`.
+- Replace the default Nostr relay with `relay.primal.net`.
+- Remove duplicate Nostr presentations from the repository root and keep the maintained copies under `docs/`.
+
+### Fixed
+
+- Accept NIP-17 seals carrying tags and canonicalize relay URIs so root-slash variants match configured relays.
+- Yield the active `prompt_toolkit` prompt before printing status lines, preventing the prompt and spinner from overwriting each other.
 
 ## [0.7.49] - 2026-11-15
 
