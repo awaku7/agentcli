@@ -190,6 +190,41 @@ def test_subscription_requests() -> None:
     assert geo_filter["#g"] == ["u4pruydq"]
 
 
+def test_subscribe_loop_reacts_promptly_to_join() -> None:
+    priv, pub = _keypair()
+    transport = nt.NostrTransport(
+        relays=["wss://example.invalid"], priv_hex=priv, pub_hex=pub
+    )
+    sent: list[str] = []
+
+    class FakeWS:
+        async def send(self, msg: str) -> None:
+            sent.append(msg)
+
+    transport._relay_connections["wss://example.invalid"] = FakeWS()
+
+    async def run() -> None:
+        task = asyncio.create_task(transport._subscribe_loop())
+        try:
+            transport.add_geo_filter("u4pruydq")
+            for _ in range(30):
+                await asyncio.sleep(0.1)
+                if sent:
+                    break
+        finally:
+            transport._stop_event.set()
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
+
+    asyncio.run(run())
+    assert sent, "geo subscription was not refreshed promptly after join"
+    assert '"bitchat-geo"' in sent[0]
+    assert "u4pruydq" in sent[0]
+
+
 def test_handle_event_official_dm_and_geohash() -> None:
     _require_nacl()
     a_priv, a_pub = _keypair()

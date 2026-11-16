@@ -750,6 +750,9 @@ class NostrTransport:
         # Joined geohash channels (subscribed via #g tags)
         self._geo_filters: list[str] = []
         self._geo_filters_lock = threading.Lock()
+        # Set when the channel set changes so the subscribe loop refreshes
+        # the geo subscription immediately instead of on its 30s cadence.
+        self._geo_sub_dirty = threading.Event()
 
         # Discovered peers: pubkey_hex -> nickname
         self._discovered_peers: dict[str, str] = {}
@@ -771,6 +774,7 @@ class NostrTransport:
             if geohash in self._geo_filters:
                 return
             self._geo_filters.append(geohash)
+        self._geo_sub_dirty.set()
         self.send_presence(geohash)
 
     def remove_geo_filter(self, geohash: str) -> None:
@@ -779,7 +783,8 @@ class NostrTransport:
             try:
                 self._geo_filters.remove(geohash)
             except ValueError:
-                pass
+                return
+        self._geo_sub_dirty.set()
 
     def get_geo_channels(self) -> list[str]:
         """Get all joined geohash channels for subscription filters."""
@@ -1119,7 +1124,14 @@ class NostrTransport:
         last_channels: list[str] = []
         tick = 0
         while not self._stop_event.is_set():
-            await asyncio.sleep(30)
+            # Wake on the 30s cadence, but immediately when the channel
+            # set changes: kind-20000 is ephemeral, so a subscription that
+            # lags a join by up to 30s silently loses messages.
+            for _ in range(30):
+                if self._stop_event.is_set() or self._geo_sub_dirty.is_set():
+                    break
+                await asyncio.sleep(1)
+            self._geo_sub_dirty.clear()
             tick += 1
             channels = self.get_geo_channels()
             if channels != last_channels:
