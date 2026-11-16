@@ -18,6 +18,9 @@ from urllib.parse import urlsplit, urlunsplit
 from .nostr_nip44 import nip44_v2_decrypt, nip44_v2_encrypt
 
 _TWO_DAYS_SECONDS = 2 * 24 * 60 * 60
+# Outgoing gift wraps carry a NIP-40 expiration one hour after creation so
+# relays are asked not to retain DM ciphertext longer than that.
+_GIFT_WRAP_EXPIRATION_SECONDS = 60 * 60
 _SECP256K1_ORDER = int(
     "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141", 16
 )
@@ -143,7 +146,10 @@ def _make_gift_wrap(
         "pubkey": ephemeral_public_key.hex(),
         "created_at": _randomized_timestamp(now),
         "kind": 1059,
-        "tags": [["p", receiver_public_key.hex()]],
+        "tags": [
+            ["p", receiver_public_key.hex()],
+            ["expiration", str(now + _GIFT_WRAP_EXPIRATION_SECONDS)],
+        ],
         "content": nip44_v2_encrypt(
             _event_json(seal), ephemeral_private_key, receiver_public_key
         ),
