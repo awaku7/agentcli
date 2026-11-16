@@ -476,11 +476,12 @@ def _decrypt_kind1059(
 # ---- BitChat official wire format -------------------------------------------
 #
 # BitChat clients use a NIP-17-shaped envelope whose cryptography differs
-# from NIP-44/NIP-17: the conversation key is HKDF-SHA256 over the raw ECDH
-# shared X coordinate with an empty salt and info "nip44-v2", and the cipher
-# is plain XChaCha20-Poly1305 with content "v2:" + base64url(nonce24 ||
-# ciphertext || tag). Geohash channels are ephemeral kind-20000 events
-# tagged ["g", geohash] and ["n", nickname]; presence is kind 20001.
+# from NIP-44/NIP-17: the conversation key is HKDF-SHA256 over the
+# *compressed* ECDH shared point (33 bytes) with an empty salt and info
+# "nip44-v2", and the cipher is plain XChaCha20-Poly1305 with content
+# "v2:" + base64url(nonce24 || ciphertext || tag), padding stripped.
+# Geohash channels are ephemeral kind-20000 events tagged ["g", geohash]
+# and ["n", nickname]; presence is kind 20001 (g tag only, precision <= 5).
 
 _BITCHAT_HKDF_INFO = b"nip44-v2"
 _BITCHAT_WRAP_JITTER_SECONDS = 900
@@ -501,12 +502,14 @@ def _hkdf_sha256(ikm: bytes, salt: bytes, info: bytes, length: int) -> bytes:
     return okm[:length]
 
 
-def _ecdh_shared_x(priv_bytes: bytes, pub_x: bytes) -> bytes:
-    """Raw ECDH shared X coordinate with an x-only peer key.
+def _ecdh_shared_point(priv_bytes: bytes, pub_x: bytes, *, even: bool) -> bytes:
+    """ECDH shared point in compressed form (33 bytes) for an x-only peer key.
 
-    The x-only key is lifted with even Y (BIP-340 convention). The odd-Y
-    lift is the point's negation, which yields the same shared X, so one
-    lift is enough.
+    Upstream BitChat feeds the *compressed* shared point into HKDF (the
+    P256K key agreement is requested with ``format: .compressed``), not
+    just the X coordinate. The peer key is lifted with the chosen Y
+    parity; the opposite lift negates the shared point, which flips the
+    parity byte, so senders and receivers must agree on the lift.
     """
     from ecdsa import SECP256k1, ellipticcurve
 
@@ -523,17 +526,26 @@ def _ecdh_shared_x(priv_bytes: bytes, pub_x: bytes) -> bytes:
         raise ValueError(
             _("secp256k1.invalid_pubkey", default="Invalid public key point")
         )
-    if y % 2 != 0:
+    if (y % 2 == 0) != even:
         y = p - y
     point = ellipticcurve.Point(curve, x, y)
     shared = point * int.from_bytes(priv_bytes, "big")
-    return shared.x().to_bytes(32, "big")
+    prefix = b"\x02" if shared.y() % 2 == 0 else b"\x03"
+    return prefix + shared.x().to_bytes(32, "big")
 
 
-def _bitchat_conversation_key(priv_hex: str, pub_hex: str) -> bytes:
-    """BitChat DM key schedule: HKDF-SHA256(ECDH X, salt empty, info nip44-v2)."""
-    shared_x = _ecdh_shared_x(bytes.fromhex(priv_hex), bytes.fromhex(pub_hex))
-    return _hkdf_sha256(shared_x, b"", _BITCHAT_HKDF_INFO, 32)
+def _bitchat_conversation_key(
+    priv_hex: str, pub_hex: str, *, even: bool = True
+) -> bytes:
+    """BitChat DM key schedule: HKDF-SHA256 over the compressed ECDH point.
+
+    HKDF parameters: salt empty, info ``nip44-v2``, 32-byte output. This
+    is BitChat-specific and deliberately NOT the NIP-44 schedule.
+    """
+    shared = _ecdh_shared_point(
+        bytes.fromhex(priv_hex), bytes.fromhex(pub_hex), even=even
+    )
+    return _hkdf_sha256(shared, b"", _BITCHAT_HKDF_INFO, 32)
 
 
 def _bitchat_encrypt(plaintext: bytes, key: bytes) -> str:
@@ -543,10 +555,18 @@ def _bitchat_encrypt(plaintext: bytes, key: bytes) -> str:
     encrypted = _nb.crypto_aead_xchacha20poly1305_ietf_encrypt(
         plaintext, None, nonce, key
     )
-    return "v2:" + base64.urlsafe_b64encode(nonce + encrypted).decode("ascii")
+    # Upstream strips base64 padding on encode; its decoder re-adds it.
+    encoded = base64.urlsafe_b64encode(nonce + encrypted).decode("ascii")
+    return "v2:" + encoded.rstrip("=")
 
 
-def _bitchat_decrypt(content: str, key: bytes) -> bytes | None:
+def _bitchat_decrypt_any(content: str, priv_hex: str, pub_hex: str) -> bytes | None:
+    """Decrypt a BitChat payload, trying both peer-key Y lifts.
+
+    The compressed shared point depends on which lift of the sender's
+    x-only key the sender used, so upstream receivers try even Y first
+    and then odd Y; mirror that here.
+    """
     import nacl.bindings as _nb
 
     if not content.startswith("v2:"):
@@ -555,14 +575,20 @@ def _bitchat_decrypt(content: str, key: bytes) -> bytes | None:
         encoded = content[3:].strip()
         encoded += "=" * (-len(encoded) % 4)
         payload = base64.urlsafe_b64decode(encoded.encode("ascii"))
-        if len(payload) < 24 + 16:
-            return None
-        nonce, ciphertext = payload[:24], payload[24:]
-        return _nb.crypto_aead_xchacha20poly1305_ietf_decrypt(
-            ciphertext, None, nonce, key
-        )
     except Exception:
         return None
+    if len(payload) < 24 + 16:
+        return None
+    nonce, ciphertext = payload[:24], payload[24:]
+    for even in (True, False):
+        key = _bitchat_conversation_key(priv_hex, pub_hex, even=even)
+        try:
+            return _nb.crypto_aead_xchacha20poly1305_ietf_decrypt(
+                ciphertext, None, nonce, key
+            )
+        except Exception:
+            continue
+    return None
 
 
 def _compute_event_id(payload: dict) -> str:
@@ -651,8 +677,9 @@ def _open_bitchat_dm_event(
         )
         if not addressed:
             return None
-        wrap_key = _bitchat_conversation_key(our_priv_hex, str(event.get("pubkey", "")))
-        seal_plain = _bitchat_decrypt(str(event.get("content", "")), wrap_key)
+        seal_plain = _bitchat_decrypt_any(
+            str(event.get("content", "")), our_priv_hex, str(event.get("pubkey", ""))
+        )
         if seal_plain is None:
             return None
         seal = json.loads(seal_plain.decode("utf-8"))
@@ -661,8 +688,9 @@ def _open_bitchat_dm_event(
         sender = str(seal.get("pubkey", ""))
         if not sender or sender == our_pub_hex or not _verify_event(seal):
             return None
-        seal_key = _bitchat_conversation_key(our_priv_hex, sender)
-        rumor_plain = _bitchat_decrypt(str(seal.get("content", "")), seal_key)
+        rumor_plain = _bitchat_decrypt_any(
+            str(seal.get("content", "")), our_priv_hex, sender
+        )
         if rumor_plain is None:
             return None
         rumor = json.loads(rumor_plain.decode("utf-8"))
@@ -683,12 +711,19 @@ def _make_geo_event(
     priv_hex: str,
     pub_hex: str,
 ) -> dict:
-    """Create a signed geohash event (kind 20000 chat / 20001 presence)."""
+    """Create a signed geohash event (kind 20000 chat / 20001 presence).
+
+    Presence events carry only the ``g`` tag (the upstream presence spec
+    says the nickname tag must not be attached to heartbeats).
+    """
+    tags = [["g", geohash]]
+    if kind == 20000:
+        tags.append(["n", nickname])
     event: dict = {
         "pubkey": pub_hex,
         "created_at": int(_time.time()),
         "kind": kind,
-        "tags": [["g", geohash], ["n", nickname]],
+        "tags": tags,
         "content": content,
     }
     event["sig"] = _sign_event(event, priv_hex)
@@ -942,7 +977,15 @@ class NostrTransport:
         )
 
     def send_presence(self, geohash: str) -> None:
-        """Queue a kind-20001 geohash presence heartbeat."""
+        """Queue a kind-20001 geohash presence heartbeat.
+
+        The upstream presence spec allows heartbeats only at precision 5
+        or below (region/province/city): announcing presence in
+        neighborhood-or-finer channels would leak a precise location, so
+        those channels are receive-only.
+        """
+        if len(geohash) > 5:
+            return
         self._outbound.put_nowait({"type": "kind20001", "geohash": geohash})
 
     def send_read_receipt(self, sender_pub_hex: str, event_id: str) -> None:
@@ -1195,12 +1238,14 @@ class NostrTransport:
                     )
         if kind == 20001:
             # Geohash presence heartbeat: track the participant silently.
+            # Upstream presence carries no nickname tag, so never let a
+            # heartbeat overwrite a nickname learned from a chat message.
             nick = None
             for tag in tags:
                 if len(tag) >= 2 and tag[0] == "n":
                     nick = tag[1]
                     break
-            if pubkey:
+            if pubkey and (nick or pubkey not in self._discovered_peers):
                 self._discovered_peers[pubkey] = nick or pubkey[:8]
             return
         if kind == 20000:

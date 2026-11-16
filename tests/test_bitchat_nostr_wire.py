@@ -57,16 +57,55 @@ def test_bitchat_conversation_key_symmetric_and_distinct() -> None:
     nip44 = nip44_v2_conversation_key(bytes.fromhex(a_priv), bytes.fromhex(b_pub))
     assert key_ab != nip44
 
+    # Not the pre-fix schedule either (HKDF over the bare X coordinate):
+    # upstream feeds the 33-byte compressed shared point into HKDF.
+    x_only = nt._hkdf_sha256(legacy_x(a_priv, b_pub), b"", b"nip44-v2", 32)
+    assert key_ab != x_only
 
-def test_bitchat_encrypt_uses_base64url() -> None:
+
+def legacy_x(priv_hex: str, pub_hex: str) -> bytes:
+    """Raw ECDH X via the reference library, lifting the peer key even-Y."""
+    from cryptography.hazmat.primitives.asymmetric import ec
+
+    p = (1 << 256) - (1 << 32) - 977  # secp256k1 field prime
+    x = int(pub_hex, 16)
+    y = pow((pow(x, 3, p) + 7) % p, (p + 1) // 4, p)
+    if y % 2 != 0:
+        y = p - y
+    priv = ec.derive_private_key(int(priv_hex, 16), ec.SECP256K1())
+    peer = ec.EllipticCurvePublicNumbers(x, y, ec.SECP256K1()).public_key()
+    return priv.exchange(ec.ECDH(), peer)
+
+
+def test_ecdh_shared_point_matches_reference_ecdh() -> None:
+    a_priv, a_pub = _keypair()
+    b_priv, b_pub = _keypair()
+
+    point = nt._ecdh_shared_point(
+        bytes.fromhex(a_priv), bytes.fromhex(b_pub), even=True
+    )
+    assert len(point) == 33
+    assert point[0] in (2, 3)
+    # The X part must equal the reference library's ECDH output.
+    assert point[1:] == legacy_x(a_priv, b_pub)
+    # The odd lift negates the shared point: same X, flipped parity byte.
+    odd = nt._ecdh_shared_point(bytes.fromhex(a_priv), bytes.fromhex(b_pub), even=False)
+    assert odd[1:] == point[1:]
+    assert odd[0] != point[0]
+
+
+def test_bitchat_encrypt_uses_base64url_without_padding() -> None:
     _require_nacl()
-    key = bytes(range(32))
+    a_priv, a_pub = _keypair()
+    b_priv, b_pub = _keypair()
+    key = nt._bitchat_conversation_key(a_priv, b_pub)
     encoded = nt._bitchat_encrypt(b"hello bitchat", key)
     assert encoded.startswith("v2:")
     body = encoded[3:]
-    assert "+" not in body and "/" not in body
-    assert nt._bitchat_decrypt(encoded, key) == b"hello bitchat"
-    assert nt._bitchat_decrypt(encoded, bytes(range(32, 64))) is None
+    assert "+" not in body and "/" not in body and "=" not in body
+    assert nt._bitchat_decrypt_any(encoded, b_priv, a_pub) == b"hello bitchat"
+    _, c_pub = _keypair()
+    assert nt._bitchat_decrypt_any(encoded, b_priv, c_pub) is None
 
 
 def test_bitchat_dm_round_trip() -> None:
@@ -94,6 +133,56 @@ def test_bitchat_dm_round_trip() -> None:
     body = wrap["content"]
     tampered["content"] = body[:10] + ("A" if body[10] != "A" else "B") + body[11:]
     assert nt._open_bitchat_dm_event(tampered, b_priv, b_pub) is None
+
+
+def _make_dm_with_lift(
+    content: str, a_priv: str, a_pub: str, b_pub: str, *, even: bool
+) -> dict:
+    """Build a DM envelope deriving both layers with the given Y lift."""
+    now = int(time.time())
+    rumor = {
+        "pubkey": a_pub,
+        "created_at": now,
+        "kind": 14,
+        "tags": [["p", b_pub]],
+        "content": content,
+    }
+    rumor["id"] = nt._compute_event_id(rumor)
+    seal = {
+        "pubkey": a_pub,
+        "created_at": now,
+        "kind": 13,
+        "tags": [],
+        "content": nt._bitchat_encrypt(
+            json.dumps(rumor).encode("utf-8"),
+            nt._bitchat_conversation_key(a_priv, b_pub, even=even),
+        ),
+    }
+    seal["sig"] = nt._sign_event(seal, a_priv)
+    eph_priv = secp.generate_private_key()
+    wrap = {
+        "pubkey": secp.private_to_public(eph_priv).hex(),
+        "created_at": now,
+        "kind": 1059,
+        "tags": [["p", b_pub]],
+        "content": nt._bitchat_encrypt(
+            json.dumps(seal).encode("utf-8"),
+            nt._bitchat_conversation_key(eph_priv.hex(), b_pub, even=even),
+        ),
+    }
+    wrap["sig"] = nt._sign_event(wrap, eph_priv.hex())
+    return wrap
+
+
+def test_bitchat_dm_odd_lift_still_opens() -> None:
+    _require_nacl()
+    a_priv, a_pub = _keypair()
+    b_priv, b_pub = _keypair()
+
+    # A sender that derived its keys with the odd-Y lift of our key must
+    # still be readable: upstream receivers try even Y, then odd Y.
+    wrap = _make_dm_with_lift("odd hello", a_priv, a_pub, b_pub, even=False)
+    assert nt._open_bitchat_dm_event(wrap, b_priv, b_pub) == (a_pub, "odd hello")
 
 
 def test_bitchat_dm_rejects_sender_mismatch() -> None:
@@ -158,6 +247,23 @@ def test_geo_event_shape() -> None:
     assert event["tags"] == [["g", "u4pruydq"], ["n", "nick"]]
     assert event["content"] == "hi all"
     assert nt._verify_event(event)
+
+    # Presence events must not carry the nickname tag (upstream spec).
+    presence = nt._make_geo_event(20001, "", "u4pruyd", "nick", priv, pub)
+    assert presence["tags"] == [["g", "u4pruyd"]]
+    assert nt._verify_event(presence)
+
+
+def test_presence_only_at_precision_5_or_below() -> None:
+    priv, pub = _keypair()
+    transport = nt.NostrTransport(
+        relays=["wss://example.invalid"], priv_hex=priv, pub_hex=pub
+    )
+    transport.send_presence("u4pru")  # precision 5 (city): allowed
+    assert transport._outbound.qsize() == 1
+    transport.send_presence("u4pruy")  # precision 6 (neighborhood): suppressed
+    transport.send_presence("u4pruydq")  # precision 8 (building): suppressed
+    assert transport._outbound.qsize() == 1
 
 
 def test_default_relays_are_official_set_plus_kojira() -> None:
