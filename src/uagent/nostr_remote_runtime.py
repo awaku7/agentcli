@@ -454,6 +454,21 @@ class NostrRemoteRuntime:
         from .nostr_nip17 import _public_key_x, create_nip17_private_messages
         from .nostr_remote_transport import publish_nip17_gift_wraps
 
+        # Revalidate before publishing: the ask may have been answered
+        # locally, timed out, or its turn may have ended while this
+        # question waited behind another note in the sender.
+        with self._progress_lock:
+            still_active = self._active_request is request
+        snapshot = self._ask_snapshot()
+        if (
+            not still_active
+            or not snapshot
+            or not snapshot.get("active")
+            or snapshot.get("queue") is not ask_queue
+        ):
+            self._note_question_result(ask_queue, False)
+            return
+
         sender = request.get("sender_pubkey")
         delivered = False
         events: list[dict[str, Any]] = []
