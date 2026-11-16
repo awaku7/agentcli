@@ -13,7 +13,7 @@ import json
 import secrets
 import time
 from typing import Any
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from .nostr_nip44 import nip44_v2_decrypt, nip44_v2_encrypt
 
@@ -232,7 +232,17 @@ def _validate_relay_uri(uri: Any) -> str:
         or parsed.fragment
     ):
         raise ValueError("relay URI must be a credential-free wss URL")
-    return uri
+    # Canonicalize so the same relay compares equal across publishers:
+    # lowercase the scheme and host, and drop a root-only trailing slash.
+    # A kind-10050 listing "wss://relay.example/" must match a locally
+    # configured "wss://relay.example" when routes are intersected with
+    # the local relay allowlist.
+    host = parsed.hostname
+    if ":" in host:
+        host = f"[{host}]"
+    netloc = host if parsed.port is None else f"{host}:{parsed.port}"
+    path = "" if parsed.path == "/" else parsed.path
+    return urlunsplit(("wss", netloc, path, parsed.query, ""))
 
 
 def create_nip17_relay_list_event(

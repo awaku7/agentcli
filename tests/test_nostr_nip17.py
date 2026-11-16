@@ -13,6 +13,7 @@ from uagent.nostr_nip17 import (
     _make_seal,
     _public_key_x,
     _sign_event,
+    _validate_relay_uri,
     create_nip17_private_messages,
     create_nip17_relay_list_event,
     extract_nip17_relay_list,
@@ -120,6 +121,21 @@ def test_nip17_rejects_invalid_rumor_addressing_and_invalid_key() -> None:
         create_nip17_private_messages("message", _secret(1), bytes.fromhex("ff" * 32))
 
 
+@pytest.mark.parametrize(
+    ("given", "expected"),
+    [
+        ("wss://x.kojira.io/", "wss://x.kojira.io"),
+        ("wss://x.kojira.io", "wss://x.kojira.io"),
+        ("WSS://X.Kojira.IO/", "wss://x.kojira.io"),
+        ("wss://relay.example:8443/", "wss://relay.example:8443"),
+        ("wss://relay.example/relay/", "wss://relay.example/relay/"),
+        ("wss://[2001:db8::1]/", "wss://[2001:db8::1]"),
+    ],
+)
+def test_validate_relay_uri_canonicalizes(given: str, expected: str) -> None:
+    assert _validate_relay_uri(given) == expected
+
+
 def test_kind_10050_relay_list_round_trip_and_deduplication() -> None:
     private_key = _secret(1)
     public_key_hex = "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
@@ -133,6 +149,23 @@ def test_kind_10050_relay_list_round_trip_and_deduplication() -> None:
     assert event["content"] == ""
     assert _verify_event(event)
     assert extract_nip17_relay_list(event, public_key_hex) == relays
+
+
+def test_kind_10050_relay_list_canonicalizes_trailing_slash() -> None:
+    # Amethyst publishes its DM relay as "wss://x.kojira.io/" (root
+    # trailing slash). The extracted list must use the canonical form so
+    # it can be intersected with locally configured relays.
+    author_private = _secret(7)
+    author_public = _public_key_x(author_private)
+
+    event = create_nip17_relay_list_event(
+        ["wss://relay.example/"], author_private, now=1_700_000_000
+    )
+
+    assert event["tags"] == [["relay", "wss://relay.example"]]
+    assert extract_nip17_relay_list(event, author_public.hex()) == [
+        "wss://relay.example"
+    ]
 
 
 def test_kind_10050_rejects_wrong_author_and_modified_event() -> None:
