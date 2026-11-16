@@ -595,6 +595,11 @@ class NostrRemoteRuntime:
         text = rumor.get("content")
         if not isinstance(text, str):
             return False
+        # Control texts (/uag status, /uag cmd ...) are never answers:
+        # they keep their normal routing even while an ask is pending.
+        lowered = text.strip().lower()
+        if lowered == "/uag" or lowered.startswith(("/uag ", "/uag\t", "/uag\n")):
+            return False
         sender = rumor.get("pubkey")
         rumor_id = rumor.get("id")
         if not isinstance(sender, str) or not isinstance(rumor_id, str):

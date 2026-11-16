@@ -896,3 +896,45 @@ def test_question_arms_only_on_recipient_acceptance(tmp_path, monkeypatch) -> No
     finally:
         inbox.close()
         pairings.close()
+
+
+def test_status_command_is_not_consumed_as_ask_answer(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._note_question_result(ask_queue, True)
+
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "/uag status", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+
+        # The status query keeps its routing; the ask stays unanswered.
+        assert ask_queue.empty()
+        queued = runtime.event_queue.get_nowait()
+        assert queued["text"] == "/uag status"
+        record = inbox.get(rumor["pubkey"], rumor["id"])
+        assert record is not None and record.status == "pending"
+    finally:
+        inbox.close()
+        pairings.close()
