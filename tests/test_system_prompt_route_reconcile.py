@@ -109,3 +109,96 @@ def test_refresh_failure_is_a_noop():
     result = _reconcile_system_prompt_for_route(call_messages, None, core, **ROUTE)
     assert result is False
     assert call_messages[0]["content"] == BASE
+
+
+class _CapturedDispatch(Exception):
+    """Raised by the fake dispatcher to stop the round at dispatch time."""
+
+
+def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
+    """The reconcile must run before provider dispatch.
+
+    The default-on registry runner returns before the OpenAI-compatible
+    fallback is invoked, so a hook inside the fallback never sees those
+    rounds. Drive _run_one_round with a capturing dispatcher and check
+    the messages it receives already carry the reconciled prompt.
+    """
+    import pytest
+
+    import uagent.runtime.provider_round_dispatcher as dispatcher_module
+    import uagent.uagent_llm as llm
+
+    messages = _messages(BASE)
+    seen: dict[str, object] = {}
+
+    def fake_dispatch(**kwargs):
+        seen["call_messages"] = kwargs["registry_kwargs"]["call_messages"]
+        raise _CapturedDispatch
+
+    core = SimpleNamespace(
+        responses_state={},
+        responses_runtime=SimpleNamespace(clear_continuation=lambda _reason: None),
+        memory_projection_snapshot=None,
+        refresh_system_prompt=lambda **_kwargs: STRIPPED,
+    )
+
+    monkeypatch.setattr(llm._core_module, "interrupt_requested", False)
+    monkeypatch.setattr(llm, "load_translate_config", lambda: None)
+    monkeypatch.setattr(llm, "memory_projection_access_is_current", lambda *_: True)
+    monkeypatch.setattr(
+        llm,
+        "_build_call_messages",
+        lambda **_: [dict(message) for message in messages],
+    )
+    monkeypatch.setattr(llm, "apply_memory_projection", lambda m, *_: m)
+    monkeypatch.setattr(llm, "_resolve_round_runtime_flags", lambda **_: (True, False))
+    monkeypatch.setattr(
+        llm.RoundTransportSelection,
+        "from_flags",
+        staticmethod(
+            lambda **_: SimpleNamespace(
+                use_responses_api=True,
+                stream_responses=False,
+            )
+        ),
+    )
+    monkeypatch.setattr(
+        llm, "build_structured_auto_shrink_projection", lambda **_: None
+    )
+    monkeypatch.setattr(
+        llm,
+        "build_auto_shrink_projection",
+        lambda **_: SimpleNamespace(changed=False),
+    )
+    monkeypatch.setattr(llm, "_record_round_context_plan", lambda **_: None)
+    monkeypatch.setattr(llm, "_apply_semantic_message_transforms", lambda msgs, _: msgs)
+    monkeypatch.setattr(llm, "project_messages_for_provider", lambda msgs, **_: msgs)
+    monkeypatch.setattr(llm, "_begin_responses_runtime", lambda **_: None)
+    monkeypatch.setattr(
+        llm, "plan_provider_cache", lambda **_: SimpleNamespace(to_dict=lambda: {})
+    )
+    monkeypatch.setattr(dispatcher_module, "dispatch_provider_round", fake_dispatch)
+
+    with pytest.raises(_CapturedDispatch):
+        llm._run_one_round(
+            "openai",
+            None,
+            "gpt-6-luna",
+            messages,
+            core=core,
+            make_client_fn=lambda: None,
+            append_result_to_outfile_fn=lambda *_: None,
+            try_open_images_from_text_fn=lambda *_: None,
+            round_count=1,
+            max_tool_rounds=3,
+            empty_no_tool_rounds=0,
+            empty_no_tool_max=2,
+            cache_mgr=None,
+            gemini_cache_name=None,
+            use_llm_thread=False,
+        )
+
+    dispatched = seen["call_messages"]
+    assert dispatched[0]["content"] == STRIPPED
+    assert messages[0]["content"] == STRIPPED
+    assert "removed" in capsys.readouterr().out

@@ -486,16 +486,6 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
-    # The session prompt was chosen at startup; realign it with the
-    # route this round actually runs before anything reads it.
-    _reconcile_system_prompt_for_route(
-        call_messages,
-        messages,
-        core,
-        provider=provider,
-        depname=depname,
-        use_responses_api=use_responses_api,
-    )
     if provider.strip().lower() == "foundry_local":
         # The compatibility fallback does not expose live stream events to the
         # Foundry observer, so at least distinguish an in-flight local request

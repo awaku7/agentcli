@@ -51,6 +51,7 @@ from .llm_helpers import (
     LLMWaitInterrupted,
 )
 from .llm_round_helpers import (
+    _reconcile_system_prompt_for_route,
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
 )
@@ -1843,6 +1844,20 @@ def _run_one_round(
             # The registry route is advisory until all providers are migrated.
             # Let the compatibility runner retain its own safety gate.
             registry_route = None
+
+    # The session prompt was chosen at startup; realign it with the
+    # route this round actually runs before any provider runner reads
+    # it. This must happen here, not inside a single runner: the
+    # default-on registry path returns before the OpenAI-compatible
+    # fallback is ever invoked.
+    _reconcile_system_prompt_for_route(
+        call_messages,
+        messages,
+        core,
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    )
 
     dispatch = dispatch_provider_round(
         registry_runner=_try_registry_simple_chat_round,
