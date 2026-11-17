@@ -223,3 +223,156 @@ def test_nostr_receipts_never_injected(llm_mode, monkeypatch) -> None:
     # Ordinary text that merely mentions receipts still goes through.
     pbs._on_nostr_dm(NOSTR_A, "please read the report")
     assert not events.empty()
+
+
+# ---- :bitchat pair by number / nickname (displayed peers only) ------------
+
+_PEER_ID_A = bytes.fromhex("0102030405060708")
+_PEER_ID_B = bytes.fromhex("1112131415161718")
+_PEER_ID_C = bytes.fromhex("2122232425262728")
+
+
+@pytest.fixture()
+def cmd_env(tmp_path, monkeypatch):
+    """Command handlers wired to a throwaway pairing registry."""
+    from uagent import bitchat_pairing
+    from uagent.tools import pybitchat_shared as pbs
+    from uagent.tools import pybitchat_subscribe_tool as pst
+
+    db = tmp_path / "cmd_pairings.sqlite3"
+    monkeypatch.setattr(
+        bitchat_pairing,
+        "open_bitchat_pairing_store",
+        lambda: SQLiteBitchatPairingStore(db),
+    )
+    monkeypatch.setattr(pbs, "_PEER_NICKNAMES", {})
+    monkeypatch.setattr(pbs, "_PEER_NOISE_KEYS", {})
+    monkeypatch.setattr(pst, "_DISPLAYED_BLE_PEERS", [])
+    return pst, pbs, db
+
+
+def _show_peers(pbs, pst, peers) -> None:
+    """Make :bitchat peers display the given (peer_id, nick, key) rows."""
+    pbs._PEER_NICKNAMES.clear()
+    pbs._PEER_NOISE_KEYS.clear()
+    for peer_id, nick, key_hex in peers:
+        pbs._PEER_NICKNAMES[peer_id] = nick
+        if key_hex is not None:
+            pbs._PEER_NOISE_KEYS[peer_id] = bytes.fromhex(key_hex)
+    pst._cmd_bitchat_peers("")
+
+
+def _authorized(db, noise_key: str) -> bool:
+    with SQLiteBitchatPairingStore(db) as s:
+        return s.is_authorized_noise(noise_key)
+
+
+def _label(db, noise_key: str) -> str:
+    with SQLiteBitchatPairingStore(db) as s:
+        record = s.record_for(noise_key)
+    assert record is not None
+    return record.label
+
+
+def test_peers_numbers_ble_peers(cmd_env, capsys) -> None:
+    pst, pbs, _db = cmd_env
+    _show_peers(
+        pbs,
+        pst,
+        [(_PEER_ID_A, "alice", NOISE_A), (_PEER_ID_B, "bob", NOISE_B)],
+    )
+    out = capsys.readouterr().out
+    assert "1. alice" in out
+    assert "2. bob" in out
+    assert pst._DISPLAYED_BLE_PEERS == [("alice", NOISE_A), ("bob", NOISE_B)]
+
+
+def test_pair_by_number(cmd_env) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(
+        pbs,
+        pst,
+        [(_PEER_ID_A, "alice", NOISE_A), (_PEER_ID_B, "bob", NOISE_B)],
+    )
+    pst._cmd_bitchat_pair("2")
+    assert not _authorized(db, NOISE_A)
+    assert _authorized(db, NOISE_B)
+    # With no explicit label the displayed nickname becomes the label.
+    assert _label(db, NOISE_B) == "bob"
+
+
+def test_pair_by_nickname(cmd_env) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(pbs, pst, [(_PEER_ID_A, "alice", NOISE_A)])
+    pst._cmd_bitchat_pair("alice")
+    assert _authorized(db, NOISE_A)
+    assert _label(db, NOISE_A) == "alice"
+
+
+def test_pair_by_nickname_with_label(cmd_env) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(pbs, pst, [(_PEER_ID_A, "alice", NOISE_A)])
+    pst._cmd_bitchat_pair("alice phone")
+    assert _authorized(db, NOISE_A)
+    assert _label(db, NOISE_A) == "phone"
+
+
+def test_pair_by_nickname_with_spaces(cmd_env) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(pbs, pst, [(_PEER_ID_A, "al ice", NOISE_A)])
+    pst._cmd_bitchat_pair("al ice work")
+    assert _authorized(db, NOISE_A)
+    assert _label(db, NOISE_A) == "work"
+
+
+def test_pair_unknown_selector_pairs_nothing(cmd_env, capsys) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(pbs, pst, [(_PEER_ID_A, "alice", NOISE_A)])
+    pst._cmd_bitchat_pair("mallory")
+    pst._cmd_bitchat_pair("9")
+    out = capsys.readouterr().out
+    assert "mallory" in out
+    assert not _authorized(db, NOISE_A)
+
+
+def test_pair_before_any_peers_display(cmd_env, capsys) -> None:
+    pst, _pbs, db = cmd_env
+    pst._cmd_bitchat_pair("alice")
+    out = capsys.readouterr().out
+    assert ":bitchat peers" in out
+    assert not _authorized(db, NOISE_A)
+
+
+def test_pair_ambiguous_nickname_pairs_nothing(cmd_env, capsys) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(
+        pbs,
+        pst,
+        [(_PEER_ID_A, "bob", NOISE_A), (_PEER_ID_B, "bob", NOISE_B)],
+    )
+    pst._cmd_bitchat_pair("bob")
+    out = capsys.readouterr().out
+    assert "bob" in out
+    assert not _authorized(db, NOISE_A)
+    assert not _authorized(db, NOISE_B)
+    # The number still disambiguates.
+    pst._cmd_bitchat_pair("2")
+    assert _authorized(db, NOISE_B)
+
+
+def test_pair_by_full_key_without_display(cmd_env) -> None:
+    pst, _pbs, db = cmd_env
+    pst._cmd_bitchat_pair(f"{NOISE_A} phone")
+    assert _authorized(db, NOISE_A)
+    assert _label(db, NOISE_A) == "phone"
+
+
+def test_displayed_list_is_refreshed_by_next_peers(cmd_env) -> None:
+    pst, pbs, db = cmd_env
+    _show_peers(pbs, pst, [(_PEER_ID_A, "alice", NOISE_A)])
+    _show_peers(pbs, pst, [(_PEER_ID_C, "carol", NOISE_B)])
+    # "alice" was displayed once but is not in the latest list anymore.
+    pst._cmd_bitchat_pair("alice")
+    assert not _authorized(db, NOISE_A)
+    pst._cmd_bitchat_pair("1")
+    assert _authorized(db, NOISE_B)
