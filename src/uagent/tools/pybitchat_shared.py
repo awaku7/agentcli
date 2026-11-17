@@ -1186,17 +1186,18 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             )
             % {"sender": sender, "text": text}
         )
-        if _CHAT_MODE == "llm":
-            # Only paired peers reach the LLM.
-            if noise_key_hex and _is_paired_noise_peer(noise_key_hex):
-                _inject_to_llm(
-                    _(
-                        "bitchat.noise_dm_msg",
-                        default="[bitchat] [Noise DM] %(sender)s: %(text)s",
-                    )
-                    % {"sender": sender, "text": text},
-                    reply_route={"via": "ble", "peer": peer_hex},
+        # Only paired peers reach the LLM. Like :nostr remote, this
+        # needs no chat mode: the handler only runs while the node is
+        # running, and pairing is the authorization.
+        if noise_key_hex and _is_paired_noise_peer(noise_key_hex):
+            _inject_to_llm(
+                _(
+                    "bitchat.noise_dm_msg",
+                    default="[bitchat] [Noise DM] %(sender)s: %(text)s",
                 )
+                % {"sender": sender, "text": text},
+                reply_route={"via": "ble", "peer": peer_hex},
+            )
 
     # ---- End Noise DM handlers ---------------------------------------------
 
@@ -1873,8 +1874,8 @@ def _listener_loop(nickname: str, network: str) -> None:
 def _on_nostr_message(nick: str, text: str, kind: int) -> None:
     """Callback when a public Nostr message arrives (geohash / kind-1).
 
-    Public traffic is display-only: in llm mode the LLM takes paired
-    peers' DMs only, never channel or public posts.
+    Public traffic is display-only: the LLM takes paired peers' DMs
+    only, never channel or public posts.
     """
     kind_label = "kind-1059" if kind == 1059 else "kind-1"
     _notify_display(
@@ -1897,7 +1898,7 @@ def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
     """
     if _is_favorite_claim(text) or _is_receipt_text(text):
         return
-    if _CHAT_MODE == "llm" and _is_paired_nostr_peer(sender_pubkey):
+    if _RUNNING and _is_paired_nostr_peer(sender_pubkey):
         _inject_to_llm(
             _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
             % {"kind": "kind-1059", "nick": sender_pubkey[:8], "text": text},
@@ -1970,6 +1971,11 @@ def start(
     _LISTENER_THREAD.start()
     _RUNNING = True
     _pin_bitchat_tools()
+    # Paired peers' DMs are injected into the LLM whenever the node
+    # runs, so make sure the event queue is bound even when bitchat
+    # was started by a tool after the main loop was initialized
+    # (CLI startup normally supplies it).
+    _bind_llm_event_queue()
     result: dict[str, Any] = {
         "ok": True,
         "state": "running",
@@ -2202,9 +2208,14 @@ def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None
 
 
 def forward_to_mesh(text: str) -> None:
-    """Forward user text to the BLE Mesh (and Nostr if enabled) if chat mode is active."""
+    """Forward user text to the public BLE Mesh (and Nostr if enabled).
+
+    Public forwarding is chat mode 'on' only. Paired peers' LLM
+    access never turns this on: what the local user types stays
+    local unless they explicitly chat on the mesh with 'on'.
+    """
     global _NOSTR_RUNNING
-    if _CHAT_MODE in ("on", "llm") and _RUNNING and text.strip():
+    if _CHAT_MODE == "on" and _RUNNING and text.strip():
         via = "both" if _NOSTR_RUNNING else "ble"
         enqueue_send("text", text, via=via)
 
@@ -2232,10 +2243,10 @@ def reply_to_bitchat_dm(text: str, route: dict[str, str] | None) -> None:
     ``route`` is the reply route captured when the peer's DM was
     injected (see :func:`_inject_to_llm`). Replies are never broadcast:
     without a route there is nowhere private to send, so nothing goes
-    out. Active only in chat_mode='llm'. Text is auto-split by
+    out. Active whenever the node is running. Text is auto-split by
     enqueue_send if it exceeds the BLE v1 packet limit.
     """
-    if _CHAT_MODE != "llm" or not _RUNNING or not text or not text.strip():
+    if not _RUNNING or not text or not text.strip():
         return
     if not route:
         return
@@ -2255,11 +2266,32 @@ def is_chat_mode() -> str:
     return _CHAT_MODE
 
 
+def _bind_llm_event_queue() -> None:
+    """Bind core's event queue for DM injection when not yet bound.
+
+    CLI startup normally supplies the queue. Binding here covers
+    tool-driven starts, where bitchat is enabled after the main loop
+    has already been initialized.
+    """
+    if _LLM_EVENT_QUEUE is not None:
+        return
+    try:
+        from .. import core as _core
+
+        set_llm_event_queue(_core.event_queue)
+    except Exception:
+        pass
+
+
 def set_chat_mode(mode: bool | str) -> dict[str, Any]:
     """Enable/disable chat mode.
 
     Accepts bool (True->'on', False->'off') or str ('off','on','llm').
-    'on' = forward to mesh only; 'llm' = forward to mesh + inject paired peers' DMs to LLM.
+    The mode governs only public forwarding of the local user's own
+    text: 'on' forwards it to the mesh, 'off' and 'llm' do not.
+    Paired peers' DMs reach the LLM in every mode while the node
+    runs (pairing is the authorization, as with :nostr remote);
+    'llm' remains as the CLI's prompt-safe display mode.
     """
     global _CHAT_MODE
     if not _RUNNING:
@@ -2270,16 +2302,7 @@ def set_chat_mode(mode: bool | str) -> dict[str, Any]:
         _CHAT_MODE = mode
     else:
         return {"ok": False, "error": f"Invalid mode: {mode!r} (use 'off','on','llm')"}
-    if _CHAT_MODE == "llm" and _LLM_EVENT_QUEUE is None:
-        # CLI startup normally supplies the queue. Also bind it here for
-        # tool-driven starts so DM/mesh messages are injected when bitchat is
-        # enabled after the main loop has already been initialized.
-        try:
-            from .. import core as _core
-
-            set_llm_event_queue(_core.event_queue)
-        except Exception:
-            pass
+    _bind_llm_event_queue()
     return {"ok": True, "chat_mode": _CHAT_MODE}
 
 

@@ -114,6 +114,7 @@ def llm_mode(monkeypatch):
     from uagent.tools import pybitchat_shared as pbs
 
     events: queue.Queue = queue.Queue()
+    monkeypatch.setattr(pbs, "_RUNNING", True)
     monkeypatch.setattr(pbs, "_CHAT_MODE", "llm")
     pbs.set_llm_event_queue(events)
     yield pbs, events
@@ -376,3 +377,73 @@ def test_displayed_list_is_refreshed_by_next_peers(cmd_env) -> None:
     assert not _authorized(db, NOISE_A)
     pst._cmd_bitchat_pair("1")
     assert _authorized(db, NOISE_B)
+
+
+# ---- pairing authorizes the LLM in every chat mode ---------------------------
+
+
+@pytest.fixture()
+def any_mode(monkeypatch):
+    """A running node in chat mode 'off' with a dummy LLM event queue."""
+    from uagent.tools import pybitchat_shared as pbs
+
+    events: queue.Queue = queue.Queue()
+    monkeypatch.setattr(pbs, "_RUNNING", True)
+    monkeypatch.setattr(pbs, "_CHAT_MODE", "off")
+    pbs.set_llm_event_queue(events)
+    yield pbs, events
+    pbs.set_llm_event_queue(None)
+
+
+def test_nostr_dm_injected_in_off_mode_when_paired(any_mode, monkeypatch) -> None:
+    pbs, events = any_mode
+    monkeypatch.setattr(pbs, "_is_paired_nostr_peer", lambda key: key == NOSTR_A)
+    pbs._on_nostr_dm(NOSTR_A, "hello")
+    event = events.get_nowait()
+    assert event["reply_route"] == {"via": "nostr", "peer": NOSTR_A}
+
+
+def test_nostr_dm_not_injected_when_node_stopped(any_mode, monkeypatch) -> None:
+    pbs, events = any_mode
+    monkeypatch.setattr(pbs, "_RUNNING", False)
+    monkeypatch.setattr(pbs, "_is_paired_nostr_peer", lambda key: True)
+    pbs._on_nostr_dm(NOSTR_A, "hello")
+    assert events.empty()
+
+
+def test_reply_sent_in_off_mode(any_mode, monkeypatch) -> None:
+    pbs, _events = any_mode
+    sent: list[tuple] = []
+    monkeypatch.setattr(
+        pbs,
+        "enqueue_send",
+        lambda type_, payload, recipient=None, via="ble", plain=False: sent.append(
+            (type_, payload, recipient, via)
+        ),
+    )
+    pbs.reply_to_bitchat_dm("answer", {"via": "ble", "peer": "0123456789abcdef"})
+    assert sent == [("text", "answer", "0123456789abcdef", "ble")]
+
+
+def test_forward_to_mesh_only_in_on_mode(any_mode, monkeypatch) -> None:
+    pbs, _events = any_mode
+    sent: list[tuple] = []
+    monkeypatch.setattr(pbs, "_NOSTR_RUNNING", False)
+    monkeypatch.setattr(
+        pbs,
+        "enqueue_send",
+        lambda type_, payload, recipient=None, via="ble", plain=False: sent.append(
+            (type_, payload, recipient, via)
+        ),
+    )
+    for mode in ("off", "llm", "on"):
+        monkeypatch.setattr(pbs, "_CHAT_MODE", mode)
+        pbs.forward_to_mesh("local prompt")
+    # Only the explicit public-chat mode forwards the local user's text.
+    assert sent == [("text", "local prompt", None, "ble")]
+
+
+def test_pair_command_does_not_change_chat_mode(cmd_env, any_mode) -> None:
+    pst, pbs, _db = cmd_env
+    pst._cmd_bitchat_pair(NOISE_A)
+    assert pbs._CHAT_MODE == "off"

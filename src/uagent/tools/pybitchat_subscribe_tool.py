@@ -407,7 +407,7 @@ def _cmd_bitchat_llm(arg: str, **kwargs) -> "CommandResult":
         print(
             _(
                 "cmd.chat_llm",
-                default="bitchat chat mode: LLM (mesh forwarding + LLM injection active)",
+                default="bitchat chat mode: LLM (LLM injection active)",
             )
         )
     else:
@@ -1099,7 +1099,7 @@ CMD_SPECS = [
         "help_text": _cmd_help(
             ":bitchat llm",
             "help.llm",
-            "Enable chat mode with LLM injection (paired peers' DMs sent to LLM)",
+            "LLM chat mode (paired peers' DMs are sent to the LLM; pairing alone enables it)",
         ),
     },
     {
