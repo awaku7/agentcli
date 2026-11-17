@@ -792,6 +792,8 @@ When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending lo
 
 **Discovery diagnostics (opt-in)**: Set `UAGENT_DEBUG_TOOL_DISCOVERY=1` to append one JSON line per tool-sending round to `tool_discovery.jsonl` in the log directory. Each record carries the discovery decision (`mode`, `reason`), the provider/model, and whether `tool_catalog` was among the sent tools (`catalog_sent`), so a round where the model called `tool_catalog` unexpectedly can be checked after the fact. Off by default; when off, the round path pays only an env check.
 
+**Prompt steering reconcile**: The system prompt is built once at session start, possibly from environment-derived route values, so its tool_catalog steering can disagree with the discovery mode a later round actually runs (for example after a mid-session model switch). At the start of each OpenAI/Azure round, the prompt is rebuilt for that round's route and the stored system entry is swapped when it holds a stale variant; a `[System Prompt] Rebuilt for ...` line is printed when a swap happens. Sub-agents are unaffected: they use their own role prompts and never carry the steering text.
+
 **`previous_response_id` continuity**:
 
 - OpenAI/Azure Responses: keep `previous_response_id` across tool loops when valid (`resp_*`).

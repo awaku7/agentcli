@@ -378,6 +378,91 @@ def _inception_registry_enabled() -> bool:
     )
 
 
+def _prompt_has_catalog_steering(text: str) -> bool:
+    """True when *text* still carries a tool_catalog steering bullet."""
+    return any(
+        line.strip().startswith("-") and "tool_catalog" in line
+        for line in text.splitlines()
+    )
+
+
+def _reconcile_system_prompt_for_route(
+    call_messages: list[dict[str, Any]],
+    messages: list[dict[str, Any]] | None,
+    core: Any,
+    *,
+    provider: str,
+    depname: str,
+    use_responses_api: bool,
+) -> bool:
+    """Align the session system prompt with this round's route.
+
+    The prompt is built once at session start, possibly from
+    environment-derived route values, so its tool_catalog steering can
+    disagree with the discovery mode the round actually runs (for
+    example after a mid-session model switch, or in hosts that build
+    the initial messages without route values). Rebuild the prompt for
+    the round's route and swap the matching system entries in both the
+    outgoing and stored message lists. Only entries holding a canonical
+    prompt variant (the base text or its steering-stripped form) are
+    replaced, so other system messages are never touched. Returns True
+    when a swap happened; any failure leaves the prompt unchanged.
+    """
+    try:
+        refresh = getattr(core, "refresh_system_prompt", None)
+        if not callable(refresh):
+            return False
+        from .core_impl.prompt import (
+            _base_system_prompt_for_mode,
+            _strip_catalog_steering_text,
+        )
+
+        base = _base_system_prompt_for_mode()
+        variants = {base, _strip_catalog_steering_text(base)}
+        new_prompt = refresh(
+            provider=provider,
+            depname=depname,
+            use_responses_api=use_responses_api,
+        )
+        if not isinstance(new_prompt, str) or new_prompt not in variants:
+            return False
+        swapped = False
+        for seq in (call_messages, messages):
+            if not seq:
+                continue
+            for msg in seq:
+                if not isinstance(msg, dict) or msg.get("role") != "system":
+                    continue
+                content = msg.get("content")
+                if content not in variants:
+                    continue
+                if content != new_prompt:
+                    msg["content"] = new_prompt
+                    swapped = True
+                break
+        if not swapped:
+            return False
+        if _prompt_has_catalog_steering(new_prompt):
+            print(
+                _(
+                    "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
+                    "tool_catalog guidance restored for this route."
+                )
+                % {"provider": provider, "model": depname}
+            )
+        else:
+            print(
+                _(
+                    "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
+                    "tool_catalog guidance removed (native tool search)."
+                )
+                % {"provider": provider, "model": depname}
+            )
+        return True
+    except Exception:
+        return False
+
+
 def _call_openai_azure_round(
     *,
     provider: str,
@@ -401,6 +486,16 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
+    # The session prompt was chosen at startup; realign it with the
+    # route this round actually runs before anything reads it.
+    _reconcile_system_prompt_for_route(
+        call_messages,
+        messages,
+        core,
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    )
     if provider.strip().lower() == "foundry_local":
         # The compatibility fallback does not expose live stream events to the
         # Foundry observer, so at least distinguish an in-flight local request
