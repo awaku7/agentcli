@@ -1181,7 +1181,13 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             return
         # A DM from the peer whose turn is blocked in human_ask is the
         # ask's answer, not a new turn (and is not displayed as one).
-        if _try_deliver_bitchat_ask_answer({"via": "ble", "peer": peer_hex}, text):
+        # Pairing is rechecked here: a peer revoked mid-ask must not
+        # still be able to answer it.
+        if (
+            noise_key_hex
+            and _is_paired_noise_peer(noise_key_hex)
+            and _try_deliver_bitchat_ask_answer({"via": "ble", "peer": peer_hex}, text)
+        ):
             return
         _notify_display(
             _(
@@ -1903,8 +1909,11 @@ def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
     if _is_favorite_claim(text) or _is_receipt_text(text):
         return
     # A DM from the peer whose turn is blocked in human_ask is the
-    # ask's answer, not a new turn.
-    if _try_deliver_bitchat_ask_answer({"via": "nostr", "peer": sender_pubkey}, text):
+    # ask's answer, not a new turn. Pairing is rechecked here: a peer
+    # revoked mid-ask must not still be able to answer it.
+    if _is_paired_nostr_peer(sender_pubkey) and _try_deliver_bitchat_ask_answer(
+        {"via": "nostr", "peer": sender_pubkey}, text
+    ):
         return
     if _RUNNING and _is_paired_nostr_peer(sender_pubkey):
         _inject_to_llm(
@@ -2539,7 +2548,9 @@ def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
     Returns True when the DM was consumed as the ask's answer: it is
     neither displayed nor injected as a new turn. Only the active
     turn's peer can answer, and only the exact ask that was forwarded.
-    Control texts (/uag ...) are never consumed as answers.
+    Control texts (/uag ...) are never consumed as answers. Callers
+    recheck the sender's pairing immediately before calling, so a
+    peer revoked while the ask was pending cannot answer it.
     """
     global _ASK_FORWARDED_QUEUE
     if not isinstance(text, str):

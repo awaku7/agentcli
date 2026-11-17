@@ -218,3 +218,20 @@ def test_ask_not_armed_when_turn_changes_during_send(
     assert sent == [("❓ Which file?", ROUTE)]
     assert shared._ASK_FORWARDED_QUEUE is None
     assert shared._ASK_QUEUED_QUEUE is None
+
+
+def test_ask_answer_from_revoked_peer_not_consumed(
+    sent, ask_state, monkeypatch
+) -> None:
+    pub = "ab" * 32
+    route = {"via": "nostr", "peer": pub}
+    monkeypatch.setattr(shared, "_is_paired_nostr_peer", lambda key: True)
+    shared.set_active_bitchat_turn(route)
+    shared._forward_pending_ask_once()
+    assert sent == [("❓ Which file?", route)]
+    # Pairing revoked while the ask is pending: the peer's DM must no
+    # longer be accepted as the answer, and routing stays armed.
+    monkeypatch.setattr(shared, "_is_paired_nostr_peer", lambda key: False)
+    shared._on_nostr_dm(pub, "a.txt")
+    assert ask_state.empty()
+    assert shared._ASK_FORWARDED_QUEUE is ask_state
