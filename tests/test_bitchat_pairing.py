@@ -211,3 +211,15 @@ def test_nostr_side_favorite_claim_never_injected(llm_mode, monkeypatch) -> None
         "[FAVORITED]:npub1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq0qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
     )
     assert events.empty()
+
+
+def test_nostr_receipts_never_injected(llm_mode, monkeypatch) -> None:
+    pbs, events = llm_mode
+    monkeypatch.setattr(pbs, "_is_paired_nostr_peer", lambda key: True)
+    # A paired client acknowledging a reply must not start another round.
+    pbs._on_nostr_dm(NOSTR_A, "/receipt read 0123456789abcdef")
+    pbs._on_nostr_dm(NOSTR_A, "/read 0123456789abcdef")
+    assert events.empty()
+    # Ordinary text that merely mentions receipts still goes through.
+    pbs._on_nostr_dm(NOSTR_A, "please read the report")
+    assert not events.empty()

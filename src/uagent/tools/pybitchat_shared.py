@@ -1889,11 +1889,12 @@ def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
     Nostr key linked to a BLE pairing (``:bitchat link``, or automatically
     by a favorite claim on the Noise channel). The reply route points
     back at the sender's pubkey, so the answer returns as a DM to the
-    same peer. Favorite claims are control messages and are never
-    injected; on this channel they also never link anything, because a
-    Nostr-side claim cannot prove it speaks for a Noise key.
+    same peer. Favorite claims and read receipts are control messages
+    and are never injected; on this channel favorite claims also never
+    link anything, because a Nostr-side claim cannot prove it speaks
+    for a Noise key.
     """
-    if _is_favorite_claim(text):
+    if _is_favorite_claim(text) or _is_receipt_text(text):
         return
     if _CHAT_MODE == "llm" and _is_paired_nostr_peer(sender_pubkey):
         _inject_to_llm(
@@ -2097,10 +2098,19 @@ def _is_paired_nostr_peer(nostr_key_hex: str) -> bool:
 
 
 _FAVORITE_PREFIXES = ("[FAVORITED]", "[UNFAVORITED]")
+# Nostr DM control texts: read receipts are exchanged as plain DM text
+# ("/receipt read <id>", "/read ..."). They are protocol chatter, not
+# conversation — injecting one would make the LLM answer a receipt,
+# whose own receipt would be injected again, looping forever.
+_RECEIPT_PREFIXES = ("/receipt", "/read ")
 
 
 def _is_favorite_claim(text: str) -> bool:
     return text.startswith(_FAVORITE_PREFIXES)
+
+
+def _is_receipt_text(text: str) -> bool:
+    return text.startswith(_RECEIPT_PREFIXES)
 
 
 def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
