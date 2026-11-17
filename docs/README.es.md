@@ -160,6 +160,10 @@ Estas medidas son configurables y **no garantizan** que cualquier herramienta se
 
 UAG incluye recursos para **38 configuraciones regionales** (inglés y otras 37 traducciones), integraciones opcionales de voz bidireccional y herramientas para SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP y OPC UA.
 
+**Idioma nativo, de principio a fin.** La localización no se limita a la
+interfaz. También está traducido lo que ve el modelo: el prompt del sistema,
+las descripciones de herramientas y los términos de búsqueda del catálogo.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

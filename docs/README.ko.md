@@ -160,6 +160,9 @@ UAG는 독립적인 읽기 작업의 병렬 실행, 다중 에이전트 조정, 
 
 UAG는 **38개 로케일**(영어와 37개 번역)의 언어 리소스, 선택적 전이중 음성 연동, SwitchBot·Matter·ECHONET Lite·BACnet·Modbus TCP·OPC UA 도구를 제공합니다.
 
+**모국어로, 처음부터 끝까지.** 현지화는 화면 문구만이 아닙니다. 모델이 보는 시스템 프롬프트, 도구 설명, 카탈로그 검색어까지
+번역되어 있습니다.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

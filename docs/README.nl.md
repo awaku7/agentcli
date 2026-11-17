@@ -160,6 +160,10 @@ Deze beveiligingsmaatregelen zijn instelbaar en **garanderen niet** dat willekeu
 
 UAG bevat middelen voor **38 taalvarianten** (Engels en 37 vertalingen), optionele full-duplex spraakintegraties en tools voor SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP en OPC UA.
 
+**Moedertaal, van begin tot eind.** De lokalisatie beperkt zich niet tot de
+interface. Ook wat het model ziet — de systeemprompt,
+gereedschapsbeschrijvingen en zoektermen in de catalogus — is vertaald.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

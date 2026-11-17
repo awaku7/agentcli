@@ -160,6 +160,10 @@ Aceste măsuri sunt configurabile și **nu garantează** izolarea în sandbox a 
 
 UAG include resurse pentru **38 de variante lingvistice** (engleza și 37 de traduceri), integrare vocală full-duplex opțională și instrumente pentru SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP și OPC UA.
 
+**Limba maternă, de la un capăt la altul.** Localizarea nu se limitează la
+interfață. Este tradus și ceea ce vede modelul: promptul de sistem,
+descrierile instrumentelor și termenii de căutare din catalog.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

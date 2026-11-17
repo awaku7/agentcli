@@ -160,6 +160,10 @@ Suojaukset ovat määritettäviä eivätkä **takaa**, että mikä tahansa työk
 
 UAG sisältää resurssit **38 kielialueelle** (englanti ja 37 käännöstä), valinnaisia kaksisuuntaisia puheintegraatioita sekä työkalut SwitchBotille, Matterille, ECHONET Litelle, BACnetille, Modbus TCP:lle ja OPC UA:lle.
 
+**Äidinkieli, alusta loppuun.** Lokalisointi ei koske vain käyttöliittymää.
+Myös se, mitä malli näkee — järjestelmäkehote, työkalujen kuvaukset ja
+luettelon hakutermit — on käännetty.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

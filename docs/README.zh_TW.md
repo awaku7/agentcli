@@ -160,6 +160,9 @@ UAG 支援獨立唯讀操作並行執行、多代理協調、工作階段復原�
 
 UAG 提供 **38 個地區語言版本**（英文及 37 種翻譯）、可選用的全雙工語音整合，以及 SwitchBot、Matter、ECHONET Lite、BACnet、Modbus TCP、OPC UA 等系統的工具。
 
+**母語，從頭到尾。**
+本地化不只是介面文字。模型所看到的系統提示、工具說明和目錄搜尋詞也都已翻譯。
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

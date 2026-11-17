@@ -160,6 +160,10 @@ Kontrol tersebut dapat dikonfigurasi dan **tidak menjamin** setiap alat dijalank
 
 UAG menyediakan sumber daya untuk **38 lokal** (bahasa Inggris dan 37 terjemahan), integrasi suara dua arah opsional, serta alat untuk SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP, dan OPC UA.
 
+**Bahasa ibu, dari awal sampai akhir.** Lokalisasi tidak hanya mencakup
+antarmuka. Apa yang dilihat model — prompt sistem, deskripsi alat, dan
+istilah pencarian katalog — juga diterjemahkan.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

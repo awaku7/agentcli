@@ -160,6 +160,10 @@ Kawalan ini boleh ditetapkan tetapi **tidak menjamin** semua pelaksanaan alat di
 
 UAG menyediakan sumber untuk **38 lokal** (bahasa Inggeris dan 37 terjemahan), integrasi suara dua hala pilihan, serta alat untuk SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP dan OPC UA.
 
+**Bahasa ibunda, dari mula hingga akhir.** Penyetempatan bukan hanya pada
+antara muka. Apa yang dilihat oleh model — prompt sistem, penerangan alat
+dan istilah carian katalog — turut diterjemahkan.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

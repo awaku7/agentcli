@@ -160,6 +160,10 @@ Disse kontroller kan konfigureres, men **garanterer ikke** isolering af enhver v
 
 UAG har ressourcer til **38 lokaliteter** (engelsk og 37 oversættelser), valgfri fulddupleks tale og værktøjer til SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP og OPC UA.
 
+**Modersmål, hele vejen.** Lokaliseringen gælder ikke kun grænsefladen. Også
+det, modellen ser — systemprompten, værktøjsbeskrivelserne og katalogens
+søgeord — er oversat.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

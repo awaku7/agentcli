@@ -160,6 +160,10 @@ Jde o nastavitelné ochrany, **nikoli záruku**, že libovolný nástroj běží
 
 UAG obsahuje prostředky pro **38 jazykových lokalizací** (angličtina a 37 překladů), volitelný obousměrný hlas a nástroje pro SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP a OPC UA.
 
+**Rodný jazyk, od začátku do konce.** Lokalizace se netýká jen rozhraní.
+Přeloženo je i to, co vidí model: systémový prompt, popisy nástrojů a
+vyhledávací výrazy katalogu.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

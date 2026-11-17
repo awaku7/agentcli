@@ -160,6 +160,10 @@ Bu denetimler yapılandırılabilir; **her aracın bir sandbox içinde yalıtıl
 
 UAG **38 yerel ayar** için kaynaklar (İngilizce ve 37 çeviri), isteğe bağlı tam çift yönlü ses ve SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP ve OPC UA araçları sunar.
 
+**Ana dil, baştan sona.** Yerelleştirme yalnızca arayüzle sınırlı değildir.
+Modelin gördükleri — sistem istemi, araç açıklamaları ve katalog arama
+terimleri — de çevrilmiştir.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

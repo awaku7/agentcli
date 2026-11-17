@@ -160,6 +160,10 @@ Diese Kontrollen sind konfigurierbar und **keine pauschale Garantie**, dass beli
 
 UAG bietet Ressourcen für **38 Sprachvarianten** (Englisch und 37 Übersetzungen), optionale Vollduplex-Sprachintegration sowie Werkzeuge für SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP und OPC UA.
 
+**Muttersprache, von Anfang bis Ende.** Die Lokalisierung umfasst nicht nur
+die Oberfläche. Auch was das Modell sieht — Systemprompt,
+Werkzeugbeschreibungen und Suchbegriffe des Katalogs — ist übersetzt.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

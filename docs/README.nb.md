@@ -160,6 +160,10 @@ Disse tiltakene er konfigurerbare, og **garanterer ikke** at alle verktøy kjør
 
 UAG har ressurser for **38 språkvarianter** (engelsk og 37 oversettelser), valgfri toveis tale og verktøy for SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP og OPC UA.
 
+**Morsmål, hele veien.** Lokaliseringen gjelder ikke bare grensesnittet.
+Også det modellen ser — systemprompten, verktøybeskrivelsene og katalogens
+søkeord — er oversatt.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)
