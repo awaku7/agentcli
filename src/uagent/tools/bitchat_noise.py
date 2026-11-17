@@ -592,3 +592,36 @@ def decode_private_message(data: bytes) -> tuple[str, str] | None:
     if msg_id is not None and content is not None:
         return msg_id, content
     return None
+
+
+def is_noise_payload(data: bytes) -> bool:
+    """True when *data* starts with a known NoisePayload type byte.
+
+    Typed payloads are the private-message / receipt family; anything
+    else is legacy raw-text DM data.
+    """
+    return bool(data) and data[0] in (
+        _NOISE_PAYLOAD_PRIVATE_MESSAGE,
+        _NOISE_PAYLOAD_READ_RECEIPT,
+        _NOISE_PAYLOAD_DELIVERED,
+    )
+
+
+def decode_dm_text(data: bytes) -> str | None:
+    """Return the chat text carried by a decrypted DM payload.
+
+    Private-message payloads yield their TLV content. Typed payloads
+    that are not private messages (delivery / read receipts) and
+    malformed typed payloads yield None: they are control traffic,
+    never chat text. Anything else is legacy raw-text DM data, decoded
+    as UTF-8 (None when it is not valid UTF-8).
+    """
+    decoded = decode_private_message(data)
+    if decoded is not None:
+        return decoded[1]
+    if is_noise_payload(data):
+        return None
+    try:
+        return data.decode("utf-8")
+    except Exception:
+        return None

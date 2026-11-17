@@ -1160,16 +1160,17 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 % {"sender": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
             )
             return
-        # Android/iOS  NoisePayload + PrivateMessagePacket TLV
-        #  (ACK / read receipt)
-        decoded = _noise.decode_private_message(pt)
-        if decoded is not None:
-            text = decoded[1]
-        else:
-            try:
-                text = pt.decode("utf-8")
-            except Exception:
-                return  #
+        # Android/iOS NoisePayload + PrivateMessagePacket TLV carries the
+        # text. Receipts (delivered / read) are typed control payloads:
+        # decode_dm_text returns None for them so they are never shown
+        # as messages or handed to the LLM.
+        text = _noise.decode_dm_text(pt)
+        if text is None:
+            _notify_display(
+                "[bitchat] [debug] Noise payload from %s is not a message"
+                " (ignored)" % peer_hex[:8]
+            )
+            return
         sender = _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])
         # The identity the completed Noise handshake verified; used for
         # both favorite-claim linking and the pairing gate below, never
