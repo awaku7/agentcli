@@ -2100,7 +2100,7 @@ def _is_paired_nostr_peer(nostr_key_hex: str) -> bool:
 _FAVORITE_PREFIXES = ("[FAVORITED]", "[UNFAVORITED]")
 # Nostr DM control texts: read receipts are exchanged as plain DM text
 # ("/receipt read <id>", "/read ..."). They are protocol chatter, not
-# conversation — injecting one would make the LLM answer a receipt,
+# conversation: injecting one would make the LLM answer a receipt,
 # whose own receipt would be injected again, looping forever.
 _RECEIPT_PREFIXES = ("/receipt", "/read ")
 
