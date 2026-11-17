@@ -178,6 +178,20 @@ def _notify_display(msg: str) -> None:
             pass
 
 
+def _dm_preview_text(text: str) -> str:
+    """Bounded one-line preview of a DM body for display.
+
+    Mirrors the Nostr remote (NIP-17) incoming-DM display rule: control
+    characters become spaces, whitespace collapses to a single line,
+    and the result is truncated at 2,000 characters. Display only --
+    the LLM injection path keeps the full original text.
+    """
+    preview = " ".join("".join(ch if ch.isprintable() else " " for ch in text).split())
+    if len(preview) > 2000:
+        preview = preview[:2000] + "\u2026"
+    return preview
+
+
 def ensure_dependencies() -> bool:
     """Auto-install bleak, cryptography, bitchat-protocol via _pip_auto."""
     from .._pip_auto import install_with_status as _auto
@@ -1184,7 +1198,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 "bitchat.noise_dm_msg",
                 default="[bitchat] [Noise DM] %(sender)s: %(text)s",
             )
-            % {"sender": sender, "text": text}
+            % {"sender": sender, "text": _dm_preview_text(text)}
         )
         # Only paired peers reach the LLM. Like :nostr remote, this
         # needs no chat mode: the handler only runs while the node is
@@ -1341,7 +1355,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             if pkt.recipient_id is not None and pkt.recipient_id != b"\xff" * 8:
                 _notify_display(
                     _("bitchat.dm_msg", default="[bitchat] [DM] %(sender)s: %(text)s")
-                    % {"sender": sender, "text": text}
+                    % {"sender": sender, "text": _dm_preview_text(text)}
                 )
                 # Plain mesh DMs carry no verified identity (the sender
                 # id is self-claimed), so they are never injected to the
