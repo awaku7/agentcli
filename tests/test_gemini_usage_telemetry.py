@@ -18,8 +18,10 @@ class _FakeModels:
     def __init__(self) -> None:
         self.response = None
         self.chunks = []
+        self.last_kwargs = {}
 
-    def generate_content(self, **_kwargs):
+    def generate_content(self, **kwargs):
+        self.last_kwargs = kwargs
         return self.response
 
     def generate_content_stream(self, **_kwargs):
@@ -34,6 +36,7 @@ def _fake_google_sdk(monkeypatch) -> None:
         Part=_FakeType,
         Content=_FakeType,
         Tool=_FakeType,
+        FunctionDeclaration=_FakeType,
         GoogleSearch=_FakeType,
         GenerateContentConfig=_FakeType,
         ThinkingConfig=_FakeType,
@@ -89,6 +92,42 @@ def test_gemini_nonstream_usage_records_provider_snapshot(monkeypatch) -> None:
         "reasoning_output_tokens": 7,
     }
     assert "PRIVATE" not in str(core._last_responses_usage)
+
+
+def test_gemini_schema_tools_do_not_configure_sdk_afc(monkeypatch) -> None:
+    _fake_google_sdk(monkeypatch)
+    monkeypatch.setattr(
+        "uagent.providers.llm_gemini.env_get",
+        lambda name: "0" if name == "UAGENT_GEMINI_WEB_SEARCH" else "",
+    )
+    models = _FakeModels()
+    models.response = _response()
+    core = SimpleNamespace(
+        context_tool_specs=[
+            {
+                "type": "function",
+                "function": {
+                    "name": "example_tool",
+                    "description": "A test tool",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            }
+        ],
+        _gemini_tool_catalog_ready=True,
+    )
+
+    gemini_chat_with_tools(
+        SimpleNamespace(models=models),
+        "gemini-test",
+        [{"role": "user", "content": "Use the test tool"}],
+        core=core,
+        send_tools=True,
+        provider="gemini",
+    )
+
+    config = models.last_kwargs["config"]
+    assert config.tools
+    assert not hasattr(config, "automatic_function_calling")
 
 
 def test_vertex_stream_usage_uses_last_cumulative_chunk_only(monkeypatch) -> None:
