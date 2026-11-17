@@ -122,7 +122,9 @@ from .tools.llm_tool_narrowing import (
 )
 from .runtime.tool_discovery import (
     MANAGEMENT_TOOL_NAMES,
+    record_tool_discovery_debug,
     select_tool_specs_for_discovery,
+    tool_discovery_debug_enabled,
 )
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
@@ -607,6 +609,21 @@ def _call_openai_azure_round(
                         "input": input_msgs,
                     }
 
+                if send_tools_this_round:
+                    # Record after request construction: the builders
+                    # may add tools (web_search, computer use) or fall
+                    # back to the loaded set, so req_tools is the
+                    # finalized outgoing list.
+                    record_tool_discovery_debug(
+                        discovery,
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=use_responses_api,
+                        tool_names=tools.format_tool_names_for_log(req_tools),
+                        where="responses",
+                        session_id=str(getattr(core, "SESSION_ID", "") or ""),
+                    )
+
                 # OpenAI Fast mode is intentionally not applied to Azure or
                 # other OpenAI-compatible providers.
                 if provider == "openai" and _openai_fast_mode_enabled():
@@ -998,6 +1015,20 @@ def _call_openai_azure_round(
                                 req_tools, call_messages
                             )
                     tools.log_tools_being_sent(req_tools, where="chatcompletions")
+                    if tool_discovery_debug_enabled():
+                        record_tool_discovery_debug(
+                            resolve_tool_discovery(
+                                provider=provider,
+                                depname=depname,
+                                use_responses_api=False,
+                            ),
+                            provider=provider,
+                            depname=depname,
+                            use_responses_api=False,
+                            tool_names=tools.format_tool_names_for_log(req_tools),
+                            where="chatcompletions",
+                            session_id=str(getattr(core, "SESSION_ID", "") or ""),
+                        )
                 if provider == "sarashina" and req_tools is not None:
                     from .providers.openai_projection_policy import (
                         sanitize_sarashina_tool_specs,
