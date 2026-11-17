@@ -190,6 +190,7 @@ class NoiseHandshakeState:
         self.e: x25519.X25519PrivateKey | None = None  # local ephemeral
         self.re: bytes | None = None  # remote ephemeral pubkey
         self._cipher: Any = None  # current cipher state for encrypt/decrypt
+        self._cipher_nonce = 0  # nonce counter of the current handshake cipher
         self._finished = False
         self.created_at = time.monotonic()
         self.established_at: float | None = None
@@ -206,18 +207,24 @@ class NoiseHandshakeState:
         self.ck = outputs[0]
         temp_k = outputs[1]
         self._cipher = aead.ChaCha20Poly1305(temp_k)
+        # A fresh cipher state starts at nonce 0 (Noise InitializeKey).
+        self._cipher_nonce = 0
+
+    def _handshake_nonce(self) -> bytes:
+        """Current handshake cipher nonce: 4 zero bytes + 64-bit LE counter."""
+        nonce = b"\x00\x00\x00\x00" + self._cipher_nonce.to_bytes(8, "little")
+        self._cipher_nonce += 1
+        return nonce
 
     def _encrypt_and_hash(self, plaintext: bytes) -> bytes:
         """Encrypt with current cipher and MixHash the ciphertext."""
-        nonce = (0).to_bytes(12, "little")
-        ct = self._cipher.encrypt(nonce, plaintext, self.h)
+        ct = self._cipher.encrypt(self._handshake_nonce(), plaintext, self.h)
         self._mix_hash(ct)
         return ct
 
     def _decrypt_and_hash(self, ciphertext: bytes) -> bytes:
         """Decrypt with current cipher and MixHash the ciphertext."""
-        nonce = (0).to_bytes(12, "little")
-        pt = self._cipher.decrypt(nonce, ciphertext, self.h)
+        pt = self._cipher.decrypt(self._handshake_nonce(), ciphertext, self.h)
         self._mix_hash(ciphertext)
         return pt
 
@@ -226,7 +233,11 @@ class NoiseHandshakeState:
         self.e = x25519.X25519PrivateKey.generate()
         e_pub = _raw_public_key(self.e)
         self._mix_hash(e_pub)
-        # In Noise XX, the message payload after tokens is empty
+        # The empty payload is still EncryptAndHash'ed: with no cipher key
+        # yet it stays empty on the wire, but it must be mixed into h.
+        # Skipping this makes every later AEAD fail against spec clients
+        # (southernstorm / dissononce) while UAG-to-UAG still works.
+        self._mix_hash(_ZEROLEN)
         # Return just the e_pubkey (32 bytes)
         return e_pub
 
@@ -309,6 +320,8 @@ class NoiseHandshakeState:
             return False
         self.re = data
         self._mix_hash(self.re)
+        # Mix the (empty) payload as well; see build_message_1.
+        self._mix_hash(_ZEROLEN)
         return True
 
     def process_message_2(self, data: bytes) -> bool:
