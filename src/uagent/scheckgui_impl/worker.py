@@ -167,6 +167,9 @@ class ScheckWorker(QtCore.QObject):
             human_ask_set_password=(
                 lambda v: setattr(core, "human_ask_is_password", bool(v))
             ),
+            human_ask_set_message=(
+                lambda v: setattr(core, "human_ask_message", str(v))
+            ),
             is_auto_pilot_active=(lambda: core.auto_pilot_active),
             event_queue=core.event_queue,
             session_id=getattr(core, "session_id", None),
