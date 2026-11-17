@@ -8,8 +8,11 @@ from cryptography.hazmat.primitives.asymmetric.x25519 import X25519PrivateKey
 from uagent.tools.bitchat_noise import (
     NoiseCipherState,
     NoiseHandshakeState,
+    decode_dm_text,
     decrypt_dm,
+    encode_private_message,
     encrypt_dm,
+    is_noise_payload,
 )
 
 
@@ -195,3 +198,39 @@ class TestNoiseXXReferenceVectors:
             responder.send_cipher.encrypt_with_ad(b"", b"world")
             == self.CT_RESPONDER_WORLD
         )
+
+
+class TestDecodeDmText:
+    """Receipt payloads are control traffic, never chat text."""
+
+    def test_private_message_yields_content(self):
+        payload = encode_private_message("msg-1", "hello")
+        assert payload is not None
+        assert is_noise_payload(payload)
+        assert decode_dm_text(payload) == "hello"
+
+    def test_delivered_receipt_is_not_text(self):
+        payload = bytes([0x03]) + b"3f8a2c1e-1234-4abc-9def-0123456789ab"
+        assert is_noise_payload(payload)
+        assert decode_dm_text(payload) is None
+
+    def test_read_receipt_is_not_text(self):
+        payload = bytes([0x02]) + b"3f8a2c1e-1234-4abc-9def-0123456789ab"
+        assert is_noise_payload(payload)
+        assert decode_dm_text(payload) is None
+
+    def test_malformed_typed_payload_is_not_text(self):
+        # Type byte says private message but the TLV body is truncated.
+        payload = bytes([0x01, 0x00, 0x05, 0x41])
+        assert is_noise_payload(payload)
+        assert decode_dm_text(payload) is None
+
+    def test_legacy_raw_text_still_decodes(self):
+        payload = "こんにちは".encode("utf-8")
+        assert not is_noise_payload(payload)
+        assert decode_dm_text(payload) == "こんにちは"
+
+    def test_non_utf8_raw_payload_is_dropped(self):
+        payload = b"\xff\xfe\xfa\xfb"
+        assert not is_noise_payload(payload)
+        assert decode_dm_text(payload) is None
