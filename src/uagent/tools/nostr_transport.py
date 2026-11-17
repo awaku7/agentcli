@@ -1337,8 +1337,11 @@ class NostrTransport:
                 nick = sender_nick
                 if self.on_kind1059:
                     self.on_kind1059(pubkey, decrypted, content)
+                from .pybitchat_shared import _dm_preview_text
+
+                preview = _dm_preview_text(decrypted)
                 if content.startswith("v2:"):
-                    _notify_display(f"[nostr/dm] {nick}: {decrypted}")
+                    _notify_display(f"[nostr/dm] {nick}: {preview}")
                     # Auto-send read receipt for DMs
                     if not decrypted.startswith("/read ") and not decrypted.startswith(
                         "/receipt"
@@ -1363,7 +1366,7 @@ class NostrTransport:
                             except Exception:
                                 pass
                 else:
-                    _notify_display(f"[nostr] {nick}: {decrypted}")
+                    _notify_display(f"[nostr] {nick}: {preview}")
             elif is_for_us:
                 _notify_display(
                     f"[nostr] Decrypt failed for kind-1059 from {pubkey[:8]}"
