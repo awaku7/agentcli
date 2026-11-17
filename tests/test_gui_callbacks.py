@@ -14,11 +14,35 @@ import sys
 import types
 from types import SimpleNamespace
 
-try:
-    import PySide6  # noqa: F401
-except ImportError:
-    # The test venv has no Qt; stub just enough for the worker module
-    # to import. The test never constructs a real QObject.
+from uagent import core
+
+
+def _load_gui_worker():
+    """Import the GUI worker module, stubbing PySide6 when Qt is absent.
+
+    The stub is installed only for the duration of the import and is
+    removed again by the returned cleanup, so other tests in the same
+    process still see Qt as unavailable.
+    """
+    try:
+        import PySide6  # noqa: F401
+    except ImportError:
+        pass
+    else:
+        from uagent.scheckgui_impl import worker
+
+        return worker, lambda: None
+
+    def _drop(prefixes: tuple[str, ...]) -> dict[str, object]:
+        saved: dict[str, object] = {}
+        for name in list(sys.modules):
+            if any(name == p or name.startswith(p + ".") for p in prefixes):
+                saved[name] = sys.modules.pop(name)
+        return saved
+
+    prefixes = ("PySide6", "uagent.scheckgui_impl.worker")
+    saved = _drop(prefixes)
+
     pyside = types.ModuleType("PySide6")
     qtcore = types.ModuleType("PySide6.QtCore")
 
@@ -37,20 +61,33 @@ except ImportError:
     qtcore.QObject = _QObject
     qtcore.Slot = lambda *a, **k: (lambda f: f)
     pyside.QtCore = qtcore
-    sys.modules.setdefault("PySide6", pyside)
-    sys.modules.setdefault("PySide6.QtCore", qtcore)
+    sys.modules["PySide6"] = pyside
+    sys.modules["PySide6.QtCore"] = qtcore
+    try:
+        from uagent.scheckgui_impl import worker
+    except BaseException:
+        _drop(prefixes)
+        sys.modules.update(saved)
+        raise
 
-from uagent import core
-from uagent.scheckgui_impl.worker import ScheckWorker
+    def cleanup() -> None:
+        _drop(prefixes)
+        sys.modules.update(saved)
+
+    return worker, cleanup
 
 
 def test_gui_callbacks_wire_human_ask_message(monkeypatch) -> None:
+    worker_module, cleanup = _load_gui_worker()
     captured: dict[str, object] = {}
     worker = SimpleNamespace(
         tools=SimpleNamespace(init_callbacks=lambda cb: captured.setdefault("cb", cb)),
         sig_image_event=SimpleNamespace(emit=lambda value: None),
     )
-    ScheckWorker._init_callbacks(worker)
+    try:
+        worker_module.ScheckWorker._init_callbacks(worker)
+    finally:
+        cleanup()
     cb = captured["cb"]
     assert cb.human_ask_set_message is not None
     monkeypatch.setattr(core, "human_ask_message", "", raising=False)
