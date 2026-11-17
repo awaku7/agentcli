@@ -1171,6 +1171,13 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             except Exception:
                 return  #
         sender = _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])
+        # The identity the completed Noise handshake verified; used for
+        # both favorite-claim linking and the pairing gate below, never
+        # the claimed sender id.
+        _rs = getattr(session, "rs", None)
+        noise_key_hex = _rs.hex() if _rs is not None else ""
+        if noise_key_hex and _handle_favorite_claim(noise_key_hex, sender, text):
+            return
         _notify_display(
             _(
                 "bitchat.noise_dm_msg",
@@ -1179,13 +1186,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             % {"sender": sender, "text": text}
         )
         if _CHAT_MODE == "llm":
-            _inject_to_llm(
-                _(
-                    "bitchat.noise_dm_msg",
-                    default="[bitchat] [Noise DM] %(sender)s: %(text)s",
+            # Only paired peers reach the LLM.
+            if noise_key_hex and _is_paired_noise_peer(noise_key_hex):
+                _inject_to_llm(
+                    _(
+                        "bitchat.noise_dm_msg",
+                        default="[bitchat] [Noise DM] %(sender)s: %(text)s",
+                    )
+                    % {"sender": sender, "text": text},
+                    reply_route={"via": "ble", "peer": peer_hex},
                 )
-                % {"sender": sender, "text": text}
-            )
 
     # ---- End Noise DM handlers ---------------------------------------------
 
@@ -1331,14 +1341,9 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     _("bitchat.dm_msg", default="[bitchat] [DM] %(sender)s: %(text)s")
                     % {"sender": sender, "text": text}
                 )
-                if _CHAT_MODE == "llm":
-                    _inject_to_llm(
-                        _(
-                            "bitchat.dm_msg",
-                            default="[bitchat] [DM] %(sender)s: %(text)s",
-                        )
-                        % {"sender": sender, "text": text}
-                    )
+                # Plain mesh DMs carry no verified identity (the sender
+                # id is self-claimed), so they are never injected to the
+                # LLM; only Noise DMs from paired peers are.
             else:
                 if _NOSTR_BRIDGE and _NOSTR_RUNNING and _NOSTR is not None:
                     try:
@@ -1349,11 +1354,8 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     _("bitchat.mesh_msg", default="[bitchat] %(sender)s: %(text)s")
                     % {"sender": sender, "text": text}
                 )
-                if _CHAT_MODE == "llm":
-                    _inject_to_llm(
-                        _("bitchat.mesh_msg", default="[bitchat] %(sender)s: %(text)s")
-                        % {"sender": sender, "text": text}
-                    )
+                # Broadcast channel traffic is display-only in llm mode;
+                # the LLM only takes paired peers' DMs.
         elif pkt.type == int(MessageType.NOISE_HANDSHAKE):
             _notify_display(
                 _(
@@ -1868,16 +1870,37 @@ def _listener_loop(nickname: str, network: str) -> None:
 
 
 def _on_nostr_message(nick: str, text: str, kind: int) -> None:
-    """Callback when a Nostr message arrives."""
+    """Callback when a public Nostr message arrives (geohash / kind-1).
+
+    Public traffic is display-only: in llm mode the LLM takes paired
+    peers' DMs only, never channel or public posts.
+    """
     kind_label = "kind-1059" if kind == 1059 else "kind-1"
     _notify_display(
         _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
         % {"kind": kind_label, "nick": nick, "text": text}
     )
-    if _CHAT_MODE == "llm":
+
+
+def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
+    """Callback when a Nostr BitChat DM (kind 1059) has been opened.
+
+    Only paired senders reach the LLM: an explicit ``:nostr pair`` or a
+    Nostr key linked to a BLE pairing (``:bitchat link``, or automatically
+    by a favorite claim on the Noise channel). The reply route points
+    back at the sender's pubkey, so the answer returns as a DM to the
+    same peer. Favorite claims and read receipts are control messages
+    and are never injected; on this channel favorite claims also never
+    link anything, because a Nostr-side claim cannot prove it speaks
+    for a Noise key.
+    """
+    if _is_favorite_claim(text) or _is_receipt_text(text):
+        return
+    if _CHAT_MODE == "llm" and _is_paired_nostr_peer(sender_pubkey):
         _inject_to_llm(
             _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
-            % {"kind": kind_label, "nick": nick, "text": text}
+            % {"kind": "kind-1059", "nick": sender_pubkey[:8], "text": text},
+            reply_route={"via": "nostr", "peer": sender_pubkey},
         )
 
 
@@ -1963,7 +1986,7 @@ def start(
                 relays=nostr_relays,
                 nickname=nickname,
                 on_message=_on_nostr_message,
-                on_kind1059=_on_nostr_message,
+                on_kind1059=_on_nostr_dm,
             )
             if nresult.get("ok"):
                 _NOSTR_RUNNING = True
@@ -2032,18 +2055,147 @@ def status() -> dict[str, Any]:
 
 # ---- Chat Mode (":bitchat on" / ":bitchat off" / ":bitchat llm") -----------
 
-# Mode: "off" = disabled, "on" = forward to mesh only, "llm" = forward to mesh + inject to LLM
+# Mode: "off" = disabled, "on" = forward to mesh only, "llm" = forward to
+# mesh + inject paired peers' DMs to the LLM
 _CHAT_MODE: str = "off"
 
 
-def _inject_to_llm(text: str) -> None:
-    """Inject a peer message into the LLM event queue (thread-safe)."""
+def _is_paired_noise_peer(noise_key_hex: str) -> bool:
+    """True when a BLE peer's verified Noise key has an active pairing."""
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            return store.is_authorized_noise(noise_key_hex)
+    except Exception:
+        return False
+
+
+def _is_paired_nostr_peer(nostr_key_hex: str) -> bool:
+    """True when a Nostr DM sender may reach the LLM.
+
+    Two grants count: an explicit ``:nostr pair`` (the Nostr remote
+    registry) or a Nostr key linked to an active BLE pairing
+    (``:bitchat link``), so a peer paired in person over BLE can also
+    operate the node over Nostr.
+    """
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            if store.is_authorized_nostr(nostr_key_hex):
+                return True
+    except Exception:
+        pass
+    try:
+        from ..nostr_remote_pairing import SQLitePairingStore
+        from .nostr_transport import _pairing_database_path
+
+        with SQLitePairingStore(_pairing_database_path()) as store:
+            return store.is_authorized(nostr_key_hex)
+    except Exception:
+        return False
+
+
+_FAVORITE_PREFIXES = ("[FAVORITED]", "[UNFAVORITED]")
+# Nostr DM control texts: read receipts are exchanged as plain DM text
+# ("/receipt read <id>", "/read ..."). They are protocol chatter, not
+# conversation: injecting one would make the LLM answer a receipt,
+# whose own receipt would be injected again, looping forever.
+_RECEIPT_PREFIXES = ("/receipt", "/read ")
+
+
+def _is_favorite_claim(text: str) -> bool:
+    return text.startswith(_FAVORITE_PREFIXES)
+
+
+def _is_receipt_text(text: str) -> bool:
+    return text.startswith(_RECEIPT_PREFIXES)
+
+
+def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
+    """Handle a BitChat favorite notification received over a Noise DM.
+
+    Returns True when ``text`` was a favorite control message (so the
+    caller does not display or inject it as chat). The Noise session
+    authenticates the sender as the holder of ``noise_key_hex``, so a
+    ``[FAVORITED]:<npub>`` claim from a paired peer links their Nostr
+    key automatically; an ``[UNFAVORITED]`` claim removes that link.
+    Claims arriving on any other channel never link anything.
+    """
+    if not _is_favorite_claim(text):
+        return False
+    favorited = text.startswith("[FAVORITED]")
+    npub = text.split(":", 1)[1].strip() if ":" in text else ""
+    nostr_key: str | None = None
+    if npub:
+        try:
+            from ..nostr_setup import decode_pairing_pubkey
+
+            nostr_key = decode_pairing_pubkey(npub)
+        except Exception:
+            nostr_key = None
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            outcome = store.apply_favorite_claim(
+                noise_key_hex, nostr_key, favorited=favorited
+            )
+    except Exception:
+        outcome = "noop"
+    if outcome == "linked":
+        _notify_display(
+            _(
+                "bitchat.favorite_linked",
+                default=(
+                    "[bitchat] %(sender)s favorited you; "
+                    "their Nostr key is now linked for DM access"
+                ),
+            )
+            % {"sender": sender}
+        )
+    elif outcome == "unlinked":
+        _notify_display(
+            _(
+                "bitchat.favorite_unlinked",
+                default=(
+                    "[bitchat] %(sender)s unfavorited you; "
+                    "their Nostr link was removed"
+                ),
+            )
+            % {"sender": sender}
+        )
+    elif outcome == "conflict":
+        _notify_display(
+            _(
+                "bitchat.favorite_conflict",
+                default=(
+                    "[bitchat] %(sender)s sent a different Nostr key than "
+                    "the linked one; link unchanged (use :bitchat link to replace)"
+                ),
+            )
+            % {"sender": sender}
+        )
+    return True
+
+
+def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None:
+    """Inject a paired peer's DM into the LLM event queue (thread-safe).
+
+    ``reply_route`` tells the CLI where the LLM's answer goes back to:
+    ``{"via": "ble", "peer": <peer_id_hex>}`` for a BLE Noise DM or
+    ``{"via": "nostr", "peer": <nostr_pubkey_hex>}`` for a Nostr DM.
+    """
     global _LLM_EVENT_QUEUE
     q = _LLM_EVENT_QUEUE
     if q is not None:
         try:
             # src=bitchat : cli.py  LLM  mesh
-            q.put_nowait({"kind": "user", "text": text, "src": "bitchat"})
+            event: dict[str, Any] = {"kind": "user", "text": text, "src": "bitchat"}
+            if reply_route:
+                event["reply_route"] = dict(reply_route)
+            q.put_nowait(event)
         except Exception:
             pass
 
@@ -2073,16 +2225,28 @@ def _sanitize_mesh_text(text: str) -> str:
     return chr(10).join(cleaned).strip()
 
 
-def reply_to_mesh(text: str) -> None:
-    """Send an LLM reply back to the mesh (and Nostr if enabled).
+def reply_to_bitchat_dm(text: str, route: dict[str, str] | None) -> None:
+    """Send an LLM reply back to the paired peer's DM it came from.
 
-    Active only in chat_mode='llm' (LLM injection active). Text is
-    auto-split by enqueue_send if it exceeds the BLE v1 packet limit.
+    ``route`` is the reply route captured when the peer's DM was
+    injected (see :func:`_inject_to_llm`). Replies are never broadcast:
+    without a route there is nowhere private to send, so nothing goes
+    out. Active only in chat_mode='llm'. Text is auto-split by
+    enqueue_send if it exceeds the BLE v1 packet limit.
     """
-    global _NOSTR_RUNNING
-    if _CHAT_MODE == "llm" and _RUNNING and text and text.strip():
-        via = "both" if _NOSTR_RUNNING else "ble"
-        enqueue_send("text", _sanitize_mesh_text(text), via=via)
+    if _CHAT_MODE != "llm" or not _RUNNING or not text or not text.strip():
+        return
+    if not route:
+        return
+    cleaned = _sanitize_mesh_text(text)
+    if not cleaned:
+        return
+    via = route.get("via")
+    peer = route.get("peer") or ""
+    if via == "nostr" and peer:
+        enqueue_send("text", cleaned, recipient=peer, via="nostr")
+    elif via == "ble" and peer:
+        enqueue_send("text", cleaned, recipient=peer, via="ble")
 
 
 def is_chat_mode() -> str:
@@ -2094,7 +2258,7 @@ def set_chat_mode(mode: bool | str) -> dict[str, Any]:
     """Enable/disable chat mode.
 
     Accepts bool (True->'on', False->'off') or str ('off','on','llm').
-    'on' = forward to mesh only; 'llm' = forward to mesh + inject peer msgs to LLM.
+    'on' = forward to mesh only; 'llm' = forward to mesh + inject paired peers' DMs to LLM.
     """
     global _CHAT_MODE
     if not _RUNNING:
