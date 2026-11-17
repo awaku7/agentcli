@@ -308,19 +308,21 @@ class NostrRemoteRuntime:
         if text:
             self._enqueue_progress_locked("💭 " + text)
 
-    def note_tool_activity(self, label: str) -> None:
-        """Forward one tool-activity label to the active remote requester."""
-        name = label[5:].strip() if label.startswith("tool:") else ""
-        # "parallel" is the batch marker for concurrent tool calls, not a
-        # tool; the batch members are reported under their own names.
-        if not name or name == "parallel":
+    def note_tool_action(self, name: str, text: str) -> None:
+        """Forward one tool-start sentence to the active remote requester.
+
+        ``text`` is the tool's localized action sentence (the same text
+        the local [TOOL] trace shows), produced by the shared describer
+        machinery in tools/__init__.
+        """
+        if not name or not text:
             return
         with self._progress_lock:
             if self._active_request is None or name == self._last_tool_note:
                 return
             self._last_tool_note = name
             self._flush_reasoning_locked()
-            self._enqueue_progress_locked(f"🔧 {name}")
+            self._enqueue_progress_locked("🔧 " + text)
 
     def note_reasoning(self, text: str) -> None:
         """Buffer streamed reasoning for the active remote requester."""
