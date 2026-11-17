@@ -1969,6 +1969,10 @@ def start(
     _LISTENER_THREAD.start()
     _RUNNING = True
     _pin_bitchat_tools()
+    # Pairing is the authorization for LLM access: when a pairing
+    # already exists, enter llm mode right away instead of requiring
+    # a separate `:bitchat llm` step after every start.
+    enter_llm_mode_if_paired()
     result: dict[str, Any] = {
         "ok": True,
         "state": "running",
@@ -2095,6 +2099,49 @@ def _is_paired_nostr_peer(nostr_key_hex: str) -> bool:
             return store.is_authorized(nostr_key_hex)
     except Exception:
         return False
+
+
+def _any_paired_peer() -> bool:
+    """True when at least one peer is paired for LLM access.
+
+    Counts both registries :func:`_is_paired_nostr_peer` consults: the
+    BLE pairing store (with any Nostr keys linked to it) and the Nostr
+    remote pairing registry.
+    """
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            if store.list_devices():
+                return True
+    except Exception:
+        pass
+    try:
+        from ..nostr_remote_pairing import SQLitePairingStore
+        from .nostr_transport import _pairing_database_path
+
+        with SQLitePairingStore(_pairing_database_path()) as store:
+            if store.list_devices():
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def enter_llm_mode_if_paired() -> bool:
+    """Enter llm chat mode when any peer is paired; True when flipped.
+
+    Pairing is the authorization for LLM access, so a separate
+    ``:bitchat llm`` step after pairing (or after every start) is a
+    needless second switch. Called from :func:`start` and after a
+    successful ``:bitchat pair``. An explicit ``:bitchat on`` / ``off``
+    afterwards still wins for the rest of the run.
+    """
+    if _CHAT_MODE == "llm" or not _RUNNING:
+        return False
+    if not _any_paired_peer():
+        return False
+    return bool(set_chat_mode("llm").get("ok"))
 
 
 _FAVORITE_PREFIXES = ("[FAVORITED]", "[UNFAVORITED]")
