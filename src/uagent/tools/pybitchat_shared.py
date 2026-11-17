@@ -2288,6 +2288,7 @@ def reply_to_bitchat_dm(text: str, route: dict[str, str] | None) -> None:
 
 _PROGRESS_LOCK = threading.Lock()
 _ACTIVE_TURN_ROUTE: dict[str, str] | None = None
+_TURN_GENERATION = 0
 _PROGRESS_LAST_TOOL = ""
 _REASONING_PARTS: list[str] = []
 _REASONING_FLUSH_CHARS = 600
@@ -2327,10 +2328,11 @@ def set_active_bitchat_turn(route: dict[str, str] | None) -> None:
     turn is flushed to that turn's peer before the switch.
     """
     global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL, _PROGRESS_SENT
-    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
     with _PROGRESS_LOCK:
         _flush_reasoning_locked()
         _ACTIVE_TURN_ROUTE = dict(route) if route else None
+        _TURN_GENERATION += 1
         _PROGRESS_LAST_TOOL = ""
         _PROGRESS_SENT = 0
         _ASK_FORWARDED_QUEUE = None
@@ -2391,7 +2393,7 @@ def finish_bitchat_turn(reply_text: str, route: dict[str, str] | None) -> None:
     buffered reasoning reaches the peer before the final reply.
     """
     global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL
-    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
     with _PROGRESS_LOCK:
         _flush_reasoning_locked()
         _ASK_FORWARDED_QUEUE = None
@@ -2399,15 +2401,17 @@ def finish_bitchat_turn(reply_text: str, route: dict[str, str] | None) -> None:
         if _ACTIVE_TURN_ROUTE is not None and route == _ACTIVE_TURN_ROUTE:
             _ACTIVE_TURN_ROUTE = None
             _PROGRESS_LAST_TOOL = ""
+            _TURN_GENERATION += 1
     reply_to_bitchat_dm(reply_text, route)
 
 
 def cancel_bitchat_turn() -> None:
     """Drop the active turn's progress state without sending anything."""
     global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL, _REASONING_PARTS
-    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
     with _PROGRESS_LOCK:
         _ACTIVE_TURN_ROUTE = None
+        _TURN_GENERATION += 1
         _PROGRESS_LAST_TOOL = ""
         _REASONING_PARTS = []
         _ASK_FORWARDED_QUEUE = None
@@ -2478,6 +2482,7 @@ def _forward_pending_ask_once() -> None:
     global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE
     with _PROGRESS_LOCK:
         route = _ACTIVE_TURN_ROUTE
+        generation = _TURN_GENERATION
         forwarded = _ASK_FORWARDED_QUEUE
         queued = _ASK_QUEUED_QUEUE
     if route is None:
@@ -2494,6 +2499,11 @@ def _forward_pending_ask_once() -> None:
     if ask_queue is forwarded or ask_queue is queued:
         return
     with _PROGRESS_LOCK:
+        # The turn may have switched since the route was captured; the
+        # snapshot would then hold the new turn's question, which must
+        # not go to the previous turn's peer.
+        if generation != _TURN_GENERATION or route != _ACTIVE_TURN_ROUTE:
+            return
         _flush_reasoning_locked()
         _ASK_QUEUED_QUEUE = ask_queue
     try:
@@ -2506,6 +2516,10 @@ def _forward_pending_ask_once() -> None:
     with _PROGRESS_LOCK:
         if _ASK_QUEUED_QUEUE is ask_queue:
             _ASK_QUEUED_QUEUE = None
+        if generation != _TURN_GENERATION or route != _ACTIVE_TURN_ROUTE:
+            # The turn changed while the question was being sent; do
+            # not arm answer routing for a turn that never asked it.
+            return
         _ASK_FORWARDED_QUEUE = ask_queue
 
 

@@ -175,3 +175,46 @@ def test_ask_answer_after_ask_ended_not_consumed(sent, ask_state, monkeypatch) -
     monkeypatch.setattr(core, "human_ask_active", False, raising=False)
     assert not shared._try_deliver_bitchat_ask_answer(ROUTE, "a.txt")
     assert ask_state.empty()
+
+
+def test_ask_not_forwarded_when_turn_changes_before_snapshot(
+    sent, ask_state, monkeypatch
+) -> None:
+    other = {"via": "ble", "peer": "ffeeffeeffeeffee"}
+
+    def switching_snapshot():
+        # The captured turn ends and another peer's turn starts before
+        # the ask state is read, so the snapshot holds the new turn's
+        # question; it must not go to the previous turn's peer.
+        shared.set_active_bitchat_turn(other)
+        return {
+            "active": True,
+            "is_password": False,
+            "message": "Which file?",
+            "queue": ask_state,
+        }
+
+    monkeypatch.setattr(shared, "_ask_state_snapshot", switching_snapshot)
+    shared.set_active_bitchat_turn(ROUTE)
+    shared._forward_pending_ask_once()
+    assert sent == []
+    assert shared._ASK_FORWARDED_QUEUE is None
+
+
+def test_ask_not_armed_when_turn_changes_during_send(
+    sent, ask_state, monkeypatch
+) -> None:
+    other = {"via": "ble", "peer": "ffeeffeeffeeffee"}
+
+    def switching_reply(text, route):
+        sent.append((text, route))
+        shared.set_active_bitchat_turn(other)
+
+    monkeypatch.setattr(shared, "reply_to_bitchat_dm", switching_reply)
+    shared.set_active_bitchat_turn(ROUTE)
+    shared._forward_pending_ask_once()
+    # The question went to the peer whose turn asked it, but answer
+    # routing must not arm once the turn has moved on.
+    assert sent == [("❓ Which file?", ROUTE)]
+    assert shared._ASK_FORWARDED_QUEUE is None
+    assert shared._ASK_QUEUED_QUEUE is None
