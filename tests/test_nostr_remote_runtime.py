@@ -565,9 +565,9 @@ def test_progress_notes_queue_tool_and_reasoning_in_order(tmp_path) -> None:
     try:
         runtime.dispatch_event(event, current_session_id="active-session")
         runtime.note_reasoning("thinking about it")
-        runtime.note_tool_activity("tool:shell")
-        runtime.note_tool_activity("tool:shell")  # duplicate label: dropped
-        runtime.note_tool_activity("tool:read_file")
+        runtime.note_tool_action("shell", "About to use shell: ls")
+        runtime.note_tool_action("shell", "About to use shell: pwd")  # dup name
+        runtime.note_tool_action("read_file", "About to use read_file: a.txt")
         runtime.note_reasoning("x" * 700)  # crosses the flush threshold
 
         queued = []
@@ -575,14 +575,42 @@ def test_progress_notes_queue_tool_and_reasoning_in_order(tmp_path) -> None:
             queued.append(runtime._progress_queue.get_nowait()[1])
         assert queued == [
             "💭 thinking about it",
-            "🔧 shell",
-            "🔧 read_file",
+            "🔧 About to use shell: ls",
+            "🔧 About to use read_file: a.txt",
             "💭 " + "x" * 700,
         ]
 
         assert runtime.finish_event(event, "completed")
-        runtime.note_tool_activity("tool:shell")  # no active request: dropped
+        runtime.note_tool_action("shell", "About to use shell: ls")  # no request
         assert runtime._progress_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_progress_notes_forward_tool_action_sentences(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        # The dispatcher hands over the tool's localized action sentence
+        # (describer text with argument summary), one note per tool start.
+        runtime.note_tool_action(
+            "get_weather_wttr", 'get_weather_wttr を実行します: city="東京"'
+        )
+        runtime.note_tool_action(
+            "get_current_location", "get_current_location を実行します"
+        )
+        runtime.note_tool_action("get_weather_wttr", "get_weather_wttr を実行します")
+
+        queued = []
+        while not runtime._progress_queue.empty():
+            queued.append(runtime._progress_queue.get_nowait()[1])
+        assert queued == [
+            '🔧 get_weather_wttr を実行します: city="東京"',
+            "🔧 get_current_location を実行します",
+            "🔧 get_weather_wttr を実行します",
+        ]
+        assert runtime.finish_event(event, "completed")
     finally:
         inbox.close()
         pairings.close()
@@ -744,13 +772,13 @@ def test_status_dispatch_does_not_take_over_active_request(tmp_path) -> None:
         assert action.kind == "status"
         assert runtime.finish_event(status_event, "completed")
 
-        runtime.note_tool_activity("tool:shell")
+        runtime.note_tool_action("shell", "About to use shell: ls")
         queued = runtime._progress_queue.get_nowait()
         assert queued[0] is event
-        assert queued[1] == "🔧 shell"
+        assert queued[1] == "🔧 About to use shell: ls"
 
         assert runtime.finish_event(event, "completed")
-        runtime.note_tool_activity("tool:read_file")
+        runtime.note_tool_action("read_file", "About to use read_file: a.txt")
         assert runtime._progress_queue.empty()
     finally:
         inbox.close()

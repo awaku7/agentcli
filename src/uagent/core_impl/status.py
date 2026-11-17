@@ -91,16 +91,6 @@ def set_status(busy: bool, label: str = "") -> None:
         _core.status_busy = busy
         _core.status_label = label
 
-    # Mirror tool activity to the Nostr remote requester, if a remote turn
-    # is running: the phone shows what the CLI spinner shows.
-    if busy and label != prev_label and label.startswith("tool:"):
-        _remote_runtime = getattr(_core, "_nostr_remote_runtime", None)
-        if _remote_runtime is not None:
-            try:
-                _remote_runtime.note_tool_activity(label)
-            except Exception:
-                pass
-
     # GUI and Web have their own status surfaces. Do not run the CLI
     # renderer here: it starts the terminal spinner and writes [STATE] lines
     # to stdout/stderr. This is especially important for Web, where the

@@ -222,6 +222,24 @@ def test_build_tool_description_uses_registry_and_degrades_safely() -> None:
             tools_pkg._TOOL_DESCRIBERS.pop(name, None)
 
 
+def test_tool_action_sentence_ignores_display_mode(monkeypatch) -> None:
+    from uagent import tools as tools_pkg
+
+    tools_pkg._TOOL_DESCRIBERS["sentence_probe"] = lambda args: "probe line"
+    try:
+        # The remote progress feed needs the sentence even when the local
+        # trace display is in a classic mode.
+        monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "0")
+        assert (
+            tools_pkg.tool_action_sentence("sentence_probe", {"a": 1}) == "probe line"
+        )
+        # Without a describer, fall back to the generic action sentence.
+        generic = tools_pkg.tool_action_sentence("mystery_tool", {"path": "x.py"})
+        assert "mystery_tool" in generic
+    finally:
+        tools_pkg._TOOL_DESCRIBERS.pop("sentence_probe", None)
+
+
 def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
     from uagent import tools as tools_pkg
     from uagent.runtime.tool_result_display import tool_result_display_mode

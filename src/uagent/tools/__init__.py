@@ -614,6 +614,49 @@ def _generic_tool_action(name: str, args: dict[str, Any]) -> str:
     )
 
 
+def tool_action_sentence(name: str, args: dict[str, Any]) -> str:
+    """Return the localized one-line action sentence for a tool call.
+
+    Shared with the [TOOL] trace's mode-2 rendering: the tool's own
+    describer via :func:`build_tool_description` when it has one,
+    otherwise the generic action sentence with a summary of the
+    arguments. Computed regardless of the local display mode, for
+    consumers such as the Nostr remote progress feed. Returns ``""``
+    when no sentence can be produced.
+    """
+
+    text = build_tool_description(name, args)
+    if text:
+        return text
+    try:
+        from ..runtime.tool_result_display import bound_display_text
+
+        return bound_display_text(_generic_tool_action(name, args))
+    except Exception:
+        return ""
+
+
+def _emit_remote_tool_progress(name: str, args: dict[str, Any]) -> None:
+    """Mirror one tool start to the Nostr remote requester, if attached."""
+    try:
+        from .. import core as _core
+
+        runtime = getattr(_core, "_nostr_remote_runtime", None)
+        if runtime is None:
+            return
+        # Background sub-agent jobs share the dispatcher; their tools are
+        # not part of the foreground remote turn.
+        from ..runtime.sub_agent_jobs import current_sub_agent_job_mode
+
+        if current_sub_agent_job_mode() == "background":
+            return
+        text = tool_action_sentence(name, args)
+        if text:
+            runtime.note_tool_action(name, text)
+    except Exception:
+        pass
+
+
 def _tool_trace_body(name: str, args: dict[str, Any]) -> str:
     """Return the trace body for one pre-execution tool call.
 
@@ -2884,6 +2927,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     # in the common dispatcher also covers serial and parallel execution.
     if _should_emit_tool_trace(name):
         _emit_tool_trace(name, args)
+    _emit_remote_tool_progress(name, args)
 
     try:
         from ..runtime.logging_setup import log_event
