@@ -3394,17 +3394,6 @@
       "uag:source_line": 472
     },
     {
-      "@id": "uag:calls/08cf7454b78a9bcacd64eaa4e003c031322e80d51d23e27817b947ce7dd79f31",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/read_pptx_pdf_tool.py#_extract_pdf_pages@6ebde41609970396"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17"
-      },
-      "uag:source_line": 498
-    },
-    {
       "@id": "uag:calls/08e678c00d8cf97a014fc5c035bd0e1edefe6f827ee6272ffdd877fb9245a7dc",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -8916,17 +8905,6 @@
       "uag:source_line": 296
     },
     {
-      "@id": "uag:calls/19d9168439ee6a452ebfc6e8fd412bb579e817628f5f52f99ea2e646f313257a",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1541
-    },
-    {
       "@id": "uag:calls/19d9b1066e2eea83ff9aa29f9859b1ab1d82db0a518e62d520d88dc26daa7d8e",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -13325,17 +13303,6 @@
         "@id": "uag:file/src/uagent/gui_ansi.py#copy@ac22c03ac348ad2f"
       },
       "uag:source_line": 125
-    },
-    {
-      "@id": "uag:calls/265ec254dcbadff088858f8e5ab1bd3100ce2935875ceb7b469ed72a5fa3574d",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1537
     },
     {
       "@id": "uag:calls/266a9b35a7a711f0c4bebd6308a04518f29469cdce718b020f138e4bbf31b3b5",
@@ -19047,17 +19014,6 @@
       "uag:source_line": 19
     },
     {
-      "@id": "uag:calls/36b0b3a808f309e3fb501a38382f0fdc9420697f2d92e4b93218ada941957145",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_is_git_url_rejects_zip_urls@98f8ab812eacadde"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1557
-    },
-    {
       "@id": "uag:calls/36b929faa8716fb862ef7621105689ee0c5db38a620e109654290f0f3adf39a3",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -22732,17 +22688,6 @@
       "uag:source_line": 97
     },
     {
-      "@id": "uag:calls/4179e84d7eca2e0e9ba94d032ef40ca40ee387d201d20a7f4cf0bccae970e84d",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#extract_bits@1d157a00a7f32f15"
-      },
-      "uag:source_line": 101
-    },
-    {
       "@id": "uag:calls/418a2f2c87190808dac2d45a13d38be536582d1f281c333f0476185cc8bff91a",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -23843,17 +23788,6 @@
       "uag:source_line": 487
     },
     {
-      "@id": "uag:calls/444d06369f4f8cb85b0f26477cf8a6c45a8199e2322d469627c6392e63feccf5",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1538
-    },
-    {
       "@id": "uag:calls/4453096d37123cc756ed94aeaa00149f3b9db0a564928a4883aced54a7ea8a90",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -23885,17 +23819,6 @@
         "@id": "uag:file/tests/test_computer_use_runtimes.py#press@87391980ecbd78b3"
       },
       "uag:source_line": 406
-    },
-    {
-      "@id": "uag:calls/44730f456e0c74b46f373f150a1d7260e85d075c81b0409299cdefc6d660893a",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_bits@3d101e7938376751"
-      },
-      "uag:source_line": 48
     },
     {
       "@id": "uag:calls/4478bf8fa31b382b224f4892519e19e3b153ec588e1d39bedb5e5ea286682feb",
@@ -24710,17 +24633,6 @@
         "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 69
-    },
-    {
-      "@id": "uag:calls/469deb1418aff091f29683c9c84df73603be1967d015bde6562949b6825adeb5",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_remote_zip_detection@c9881bbbc522bbd5"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1566
     },
     {
       "@id": "uag:calls/46a8a6971fd03fb27f5a09e633e9b50c7264cbccb35bcdba662197270676342c",
@@ -29981,17 +29893,6 @@
       "uag:source_line": 329
     },
     {
-      "@id": "uag:calls/570d4630658349905c60f6775f4ccfdffcbfa9211c0886f066a90fbd777e5f14",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_is_git_url_rejects_zip_urls@98f8ab812eacadde"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1558
-    },
-    {
       "@id": "uag:calls/570e6ddb05fa7db6a116124aface93c056bd17f5dc28e9592e977307356fc705",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -31431,17 +31332,6 @@
         "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
       },
       "uag:source_line": 134
-    },
-    {
-      "@id": "uag:calls/5b94e81840608bea43ff3dedca4434cd801f0610141f5482fc7fad7f6829a505",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#main@3f4190b8a8418bb9"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_bits@3d101e7938376751"
-      },
-      "uag:source_line": 76
     },
     {
       "@id": "uag:calls/5b970394ecc0b954d801946a48994ddef21dfa8973e4a57bf09996b9eccc4174",
@@ -33345,17 +33235,6 @@
         "@id": "uag:file/src/uagent/runtime/session_store.py#list_messages@3785c894a72d817b"
       },
       "uag:source_line": 194
-    },
-    {
-      "@id": "uag:calls/611fee82efdd0856f72adf27c8c3fbcde47497945c56beaabbabfc533f87cf20",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_is_git_url_rejects_zip_urls@98f8ab812eacadde"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1553
     },
     {
       "@id": "uag:calls/6121df81fded0158fec49f1c1e0c0e7bf5f5186fe567810ea30d18f6fcd57b93",
@@ -35820,17 +35699,6 @@
         "@id": "uag:file/src/uagent/runtime/provider_round_dispatcher.py#resolve_registry_round_route@d2dd631fdc2e141c"
       },
       "uag:source_line": 241
-    },
-    {
-      "@id": "uag:calls/68005e76cd891d537713d085527c4267096e6732d478db40ce49d2d1ae052ffd",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/pdf2idx_tool.py#_parse@6d3b855949f05fad"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17"
-      },
-      "uag:source_line": 122
     },
     {
       "@id": "uag:calls/6832e314c83cf46f9069cd3d108e46becec1ec70886054576aee5ba486427aa4",
@@ -38979,17 +38847,6 @@
       "uag:source_line": 71
     },
     {
-      "@id": "uag:calls/71aca2ea9437ceeb9cdf2067d00248e3573525e37cc5b54b04e77dfde5487d8e",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py#test_embed_and_extract_utf8_text@807e2e9fd69ae136"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 41
-    },
-    {
       "@id": "uag:calls/71ae9e461c48f5f3c50f9e0c15b4eda08f1e4647025906710da1411994289283",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -40616,17 +40473,6 @@
         "@id": "uag:file/vscode-extension/src/treeProvider.ts#items@41b6c759b5a7fe46"
       },
       "uag:source_line": 699
-    },
-    {
-      "@id": "uag:calls/766798d30ccb0bd6c7a5ea635a4e194b35f4c1dda7e5c32e99b0c81568f62c42",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_remote_zip_detection@c9881bbbc522bbd5"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1567
     },
     {
       "@id": "uag:calls/7669df84a8848e68c444e21afd78ee9651d0574afbaab13ee411df287db5872f",
@@ -43344,17 +43190,6 @@
         "@id": "uag:file/src/uagent/tools/bitchat_noise.py#decrypt_dm@ea9ec562247ce91c"
       },
       "uag:source_line": 1150
-    },
-    {
-      "@id": "uag:calls/7e553109386892d7587d47c14847589c048ab3c30aeb6b8e0d89f2288dc0ec0a",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1540
     },
     {
       "@id": "uag:calls/7e60099e30b6b13167e35eea692728e5c83380ac1b864ca59b489d3f86e73a2d",
@@ -47227,17 +47062,6 @@
         "@id": "uag:file/vscode-extension/src/treeProvider.ts#items@41b6c759b5a7fe46"
       },
       "uag:source_line": 475
-    },
-    {
-      "@id": "uag:calls/89873f3418269fa3bcbced3dbe7b0771db26a91739e489fbaf5b38d758f65117",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/read_pptx_pdf_tool.py#_extract_pdf_pages@6ebde41609970396"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17"
-      },
-      "uag:source_line": 500
     },
     {
       "@id": "uag:calls/899c6767e9e6f6e18d7e76bc38d9bdec60a125cdf7fe31e45e68b4023910ccf8",
@@ -52751,17 +52575,6 @@
       "uag:source_line": 571
     },
     {
-      "@id": "uag:calls/9a6e7017b852e9b73037591aa2b30ec204abceb6f3c017cae29a203530b06f4e",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#main@3f4190b8a8418bb9"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/ws_server.py#parse_args@b5d9348d482acadf"
-      },
-      "uag:source_line": 73
-    },
-    {
       "@id": "uag:calls/9a70223db8accebb0348ebaceb1870c24974a1429638120bb4e99d8411544994",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -53433,17 +53246,6 @@
       "uag:source_line": 70
     },
     {
-      "@id": "uag:calls/9c084c2661d5b48510d2ab2a34e0ecda33e3c20572b0ac60015baa5a1432bbf0",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_text_to_bits@5c8d059cfddae1fd"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 101
-    },
-    {
       "@id": "uag:calls/9c0e6b4661b01fbd1948b8cb7decb8b90749ad2c0797587fae3b374e79c17fd3",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -53992,17 +53794,6 @@
         "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 244
-    },
-    {
-      "@id": "uag:calls/9dca90ec0d08d3fd79eba36b5fa2ad3b8a11dcce786f8ac1f1c0aa0f08135bcb",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1536
     },
     {
       "@id": "uag:calls/9dd22cdd71911c83eded7d2822ee50873dc666afb1ea56e3a790c93301d4aefe",
@@ -55444,17 +55235,6 @@
         "@id": "uag:file/src/uagent/llm_helpers.py#_env_default_on@a6c27f4aa3764472"
       },
       "uag:source_line": 419
-    },
-    {
-      "@id": "uag:calls/a21967b10780cb4cc5069b512ad32b5ea031225a2af84576fa47ae52724dc468",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#main@70e258bfe81fb9e5"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#extract_bits@1d157a00a7f32f15"
-      },
-      "uag:source_line": 130
     },
     {
       "@id": "uag:calls/a235a754ec545671dcbfb2187aae4bcdd3e8dec0e9d0d6e528d9090a9a70bbff",
@@ -61705,17 +61485,6 @@
       "uag:source_line": 139
     },
     {
-      "@id": "uag:calls/b4e6c6d893327908fd5b289d3e6ef221967bf0c29c3a10869b5f58f3cec59837",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#run_tool@38cabf13ba6e13c6"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 252
-    },
-    {
       "@id": "uag:calls/b4e86d1cc937b3811e3a7e8c847b8c5f14005861b0b73dbca73fe4d36f9df624",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -63212,17 +62981,6 @@
       "uag:source_line": 1374
     },
     {
-      "@id": "uag:calls/b9c783cc73cd32fa826f1d23de6a4449685cac5e90eda7add48720a6007840ae",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#main@70e258bfe81fb9e5"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 133
-    },
-    {
       "@id": "uag:calls/b9e1f2420492cdbf8e090d49744144ab34ef8ded28e038c2c7ea63f85059cfe8",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -63507,17 +63265,6 @@
         "@id": "uag:file/src/uagent/runtime/responses_command_mutation.py#ResponsesCommandMutationService@78c5fabdc3e1bbdf"
       },
       "uag:source_line": 32
-    },
-    {
-      "@id": "uag:calls/bae6963bc046c77513abe5dc390e6984d6858d59ea05721d4de8fbdd648315c4",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_is_git_url_rejects_zip_urls@98f8ab812eacadde"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1550
     },
     {
       "@id": "uag:calls/bae75f7cf23f8b05191b8ecf5e024542c922b66cc1a9cce30098fe0b3c29662e",
@@ -67535,17 +67282,6 @@
       "uag:source_line": 164
     },
     {
-      "@id": "uag:calls/c852bd72e8b7f505fbe220204c1498dee0c55e7a3457db5882748d70535d3cf4",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_remote_zip_detection@c9881bbbc522bbd5"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1565
-    },
-    {
       "@id": "uag:calls/c859d031d84551c71b281c4af6419bd65277900cf75d433e5982d2b5b7abb930",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -71363,17 +71099,6 @@
       "uag:source_line": 53
     },
     {
-      "@id": "uag:calls/d51326eb8f0949adbe5e8eb435a9158b9e641bb47454d92be8c6a6676c8f114d",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_git_url_detection@b12c3aa6fa7f9137"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1539
-    },
-    {
       "@id": "uag:calls/d532a3890386e9b6f890c30958d9070fb15da36d86b60bf2ff23509f5d026aba",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -72758,17 +72483,6 @@
         "@id": "uag:file/tests/test_wttrin_tool.py#json@d7fa450315dfe90e"
       },
       "uag:source_line": 38
-    },
-    {
-      "@id": "uag:calls/d9133f7b54750197f934b4b32bd8ad180e20988c8044face5adb6f6ac6ebeb7c",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_is_git_url_rejects_zip_urls@98f8ab812eacadde"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1548
     },
     {
       "@id": "uag:calls/d913c17a6d5e3ee952b1228b6e6ee60b9f8e0d8251c1cc40475c8dd0f1d015c6",
@@ -74476,17 +74190,6 @@
       "uag:source_line": 1772
     },
     {
-      "@id": "uag:calls/de1189b1ed32496dad1968a706753a0e9cf4d73df0d0fcaba296f26ebef2e4f9",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#text_to_bits@b415568bc5a8f2a5"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 19
-    },
-    {
       "@id": "uag:calls/de154b32f067c244526660ad86f47875630f997536a3299af72b7d17b69a978f",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -75937,17 +75640,6 @@
         "@id": "uag:file/tests/test_wttrin_tool.py#json@d7fa450315dfe90e"
       },
       "uag:source_line": 522
-    },
-    {
-      "@id": "uag:calls/e2dff0aa194ef74a8eeb8e4be3370c8d6cd06da3d0df414fb234bdaaa17adcd1",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#test_install_remote_zip_detection@c9881bbbc522bbd5"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1564
     },
     {
       "@id": "uag:calls/e2e6a37ef6cd27801110d4c37c2df59fca52bfabe90ddfe0245f49fe4fce611e",
@@ -77675,17 +77367,6 @@
         "@id": "uag:file/frontend/src/lib/i18n.svelte.js#dict@405460de880076e7"
       },
       "uag:source_line": 924
-    },
-    {
-      "@id": "uag:calls/e866593a5e770fda16953e9ffb19056ab24178a4302133aed890e747d037a479",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/steganography/sample_space_steganography.py#main@70e258bfe81fb9e5"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/runtime/round_identity.py#encode@6b45bf79be7f9b79"
-      },
-      "uag:source_line": 130
     },
     {
       "@id": "uag:calls/e87e486c703251a174255ebebe2b37db5699688756bebc31fac957c881ab97c8",
@@ -180394,110 +180075,6 @@
       "uag:name": "run_tool"
     },
     {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\tools\\space_steganography_tool.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_bits_to_text@7467b39ee42461ac"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_embed_text@ea3cbc134ba12648"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_extract_bits@cd84736cad4922a4"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_extract_text@89a4873375de1314"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_read_text@d19db0d5463edec2"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_text_to_bits@5c8d059cfddae1fd"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#run_tool@38cabf13ba6e13c6"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_bits_to_text@7467b39ee42461ac",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 104,
-      "uag:end_line": 121,
-      "uag:name": "_bits_to_text"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_embed_text@ea3cbc134ba12648",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 132,
-      "uag:end_line": 158,
-      "uag:name": "_embed_text"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_extract_bits@cd84736cad4922a4",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 124,
-      "uag:end_line": 129,
-      "uag:name": "_extract_bits"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_extract_text@89a4873375de1314",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 161,
-      "uag:end_line": 193,
-      "uag:name": "_extract_text"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_read_text@d19db0d5463edec2",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 196,
-      "uag:end_line": 210,
-      "uag:name": "_read_text"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#_text_to_bits@5c8d059cfddae1fd",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 100,
-      "uag:end_line": 101,
-      "uag:name": "_text_to_bits"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/space_steganography_tool.py#run_tool@38cabf13ba6e13c6",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:line": 213,
-      "uag:end_line": 273,
-      "uag:name": "run_tool"
-    },
-    {
       "@id": "uag:file/src/uagent/tools/spawn_process_tool.py",
       "@type": "uag:SourceFile",
       "uag:language": "Python",
@@ -193363,191 +192940,6 @@
       "uag:line": 92,
       "uag:end_line": 110,
       "uag:name": "save_message"
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "steganography\\detect_space_steganography.py",
-      "uag:defines": [
-        {
-          "@id": "uag:file/steganography/detect_space_steganography.py#bits_to_bytes@9fecd01a68fbd278"
-        },
-        {
-          "@id": "uag:file/steganography/detect_space_steganography.py#decode_repeated_bits@0ddd5921864244cf"
-        },
-        {
-          "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-        },
-        {
-          "@id": "uag:file/steganography/detect_space_steganography.py#extract_bits@1d157a00a7f32f15"
-        },
-        {
-          "@id": "uag:file/steganography/detect_space_steganography.py#main@3f4190b8a8418bb9"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py#bits_to_bytes@9fecd01a68fbd278",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/detect_space_steganography.py"
-      },
-      "uag:line": 23,
-      "uag:end_line": 29,
-      "uag:name": "bits_to_bytes"
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py#decode_repeated_bits@0ddd5921864244cf",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/detect_space_steganography.py"
-      },
-      "uag:line": 32,
-      "uag:end_line": 42,
-      "uag:name": "decode_repeated_bits"
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/detect_space_steganography.py"
-      },
-      "uag:line": 45,
-      "uag:end_line": 58,
-      "uag:name": "detect"
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py#extract_bits@1d157a00a7f32f15",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/detect_space_steganography.py"
-      },
-      "uag:line": 12,
-      "uag:end_line": 20,
-      "uag:name": "extract_bits"
-    },
-    {
-      "@id": "uag:file/steganography/detect_space_steganography.py#main@3f4190b8a8418bb9",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/detect_space_steganography.py"
-      },
-      "uag:line": 61,
-      "uag:end_line": 95,
-      "uag:name": "main"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "steganography\\sample_space_steganography.py",
-      "uag:defines": [
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#bits_to_text@09a9bdf91138a4ae"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#embed_bits@adb1dd35a8ae31b5"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#embed_repeating_text@17370a648a01921b"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#embed_text@0b1c09fbe1ece70e"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#extract_bits@3d101e7938376751"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#main@70e258bfe81fb9e5"
-        },
-        {
-          "@id": "uag:file/steganography/sample_space_steganography.py#text_to_bits@b415568bc5a8f2a5"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#bits_to_text@09a9bdf91138a4ae",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 22,
-      "uag:end_line": 30,
-      "uag:name": "bits_to_text"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#embed_bits@adb1dd35a8ae31b5",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 33,
-      "uag:end_line": 54,
-      "uag:name": "embed_bits"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#embed_repeating_text@17370a648a01921b",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 80,
-      "uag:end_line": 96,
-      "uag:name": "embed_repeating_text"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#embed_text@0b1c09fbe1ece70e",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 75,
-      "uag:end_line": 77,
-      "uag:name": "embed_text"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#extract_bits@3d101e7938376751",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 57,
-      "uag:end_line": 72,
-      "uag:name": "extract_bits"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#extract_text@a569b959dcbb4d17",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 99,
-      "uag:end_line": 102,
-      "uag:name": "extract_text"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#main@70e258bfe81fb9e5",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 105,
-      "uag:end_line": 133,
-      "uag:name": "main"
-    },
-    {
-      "@id": "uag:file/steganography/sample_space_steganography.py#text_to_bits@b415568bc5a8f2a5",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/steganography/sample_space_steganography.py"
-      },
-      "uag:line": 17,
-      "uag:end_line": 19,
-      "uag:name": "text_to_bits"
     },
     {
       "@id": "uag:file/tests/__init__.py",
@@ -238219,84 +237611,6 @@
       "uag:name": "test_skills_validate_ok"
     },
     {
-      "@id": "uag:file/tests/test_space_steganography_tool.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "tests\\test_space_steganography_tool.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/tests/test_space_steganography_tool.py#_run_embed@ff5881b4798043ab"
-        },
-        {
-          "@id": "uag:file/tests/test_space_steganography_tool.py#test_detect_reports_repeated_messages@1192e5dedfb152c3"
-        },
-        {
-          "@id": "uag:file/tests/test_space_steganography_tool.py#test_embed_and_extract_utf8_text@807e2e9fd69ae136"
-        },
-        {
-          "@id": "uag:file/tests/test_space_steganography_tool.py#test_embed_rejects_insufficient_spaces@ba557d02d13065e8"
-        },
-        {
-          "@id": "uag:file/tests/test_space_steganography_tool.py#test_invalid_action_is_rejected@245b05d30751ccac"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/tests/test_space_steganography_tool.py#_run_embed@ff5881b4798043ab",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:line": 13,
-      "uag:end_line": 30,
-      "uag:name": "_run_embed"
-    },
-    {
-      "@id": "uag:file/tests/test_space_steganography_tool.py#test_detect_reports_repeated_messages@1192e5dedfb152c3",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:line": 50,
-      "uag:end_line": 66,
-      "uag:name": "test_detect_reports_repeated_messages"
-    },
-    {
-      "@id": "uag:file/tests/test_space_steganography_tool.py#test_embed_and_extract_utf8_text@807e2e9fd69ae136",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:line": 33,
-      "uag:end_line": 47,
-      "uag:name": "test_embed_and_extract_utf8_text"
-    },
-    {
-      "@id": "uag:file/tests/test_space_steganography_tool.py#test_embed_rejects_insufficient_spaces@ba557d02d13065e8",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:line": 69,
-      "uag:end_line": 82,
-      "uag:name": "test_embed_rejects_insufficient_spaces"
-    },
-    {
-      "@id": "uag:file/tests/test_space_steganography_tool.py#test_invalid_action_is_rejected@245b05d30751ccac",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:line": 85,
-      "uag:end_line": 90,
-      "uag:name": "test_invalid_action_is_rejected"
-    },
-    {
       "@id": "uag:file/tests/test_special_provider_registry_integration.py",
       "@type": "uag:SourceFile",
       "uag:language": "Python",
@@ -259162,18 +258476,6 @@
       },
       "uag:module": "context_tools",
       "uag:source_line": 18
-    },
-    {
-      "@id": "uag:import/52d5440a4ed88cc3985068b9d2d5d4181738dd20bca58e5386dcc23886c249ef",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_space_steganography_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:module": "uagent.tools.space_steganography_tool",
-      "uag:source_line": 8
     },
     {
       "@id": "uag:import/52d942fbb99d134514e68f817e4c6f8b0981b54b34be3f66d89876a3307fb296",
@@ -283620,18 +282922,6 @@
       "uag:source_line": 1541
     },
     {
-      "@id": "uag:import/eca13d74c700a50996a094b9cbb291d39517ecfb9fc085e48f4adceb3d8ae97f",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/space_steganography_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-      },
-      "uag:module": "i18n_helper",
-      "uag:source_line": 7
-    },
-    {
       "@id": "uag:import/ecad197fef16dfcd9aa6228942b6925525d9cccbe6f4c77dbac56b403fb4dae9",
       "@type": "uag:ImportRelation",
       "uag:source": {
@@ -289434,17 +288724,6 @@
       "uag:source_line": 28
     },
     {
-      "@id": "uag:inherits/409872285696fe70ac2508a313301cfd9f572a4ceccd3dd0de3964bdff43636b",
-      "@type": "uag:InheritanceRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#TestPluginMCPIntegration@89eaef15f44ddc07"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1220
-    },
-    {
       "@id": "uag:inherits/40abf743ebae6fabc7deea5c8fc52e079ffa7a6f00f8ace603de141d40a51edb",
       "@type": "uag:InheritanceRelation",
       "uag:source": {
@@ -291346,17 +290625,6 @@
         "@id": "uag:file/src/uagent/runtime/lifecycle.py#history@bd850437e0c3790a"
       },
       "uag:source_line": 473
-    },
-    {
-      "@id": "uag:inherits/6de5c170055c097fa0d4c27fdc8d6e4c27c8a352d16576bbd197a82915954f37",
-      "@type": "uag:InheritanceRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#TestPluginHooksIntegration@7ec42e47fbd7476a"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1896
     },
     {
       "@id": "uag:inherits/6df5383c16172cd65327e95f6132d14d8f6d172f8a366c3685d9a446c311334f",
@@ -296153,17 +295421,6 @@
         "@id": "uag:file/src/uagent/auth/credential_store.py#CredentialStore@43bdd99d66717b28"
       },
       "uag:source_line": 26
-    },
-    {
-      "@id": "uag:inherits/ede9f8056336d33115c14769680da8e36cf261412a9f348934f206949b6d46b6",
-      "@type": "uag:InheritanceRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_plugin_system.py#TestPluginAgentsBundling@0bbdd266e018ae5c"
-      },
-      "uag:target": {
-        "@id": "uag:file/steganography/detect_space_steganography.py#detect@e5c8394aed3a4d6d"
-      },
-      "uag:source_line": 1665
     },
     {
       "@id": "uag:inherits/ef98cce7aae11f45b0906fff51713367256d927788a319b9dd9790d3e7d58d62",
