@@ -114,6 +114,7 @@ def llm_mode(monkeypatch):
     from uagent.tools import pybitchat_shared as pbs
 
     events: queue.Queue = queue.Queue()
+    monkeypatch.setattr(pbs, "_RUNNING", True)
     monkeypatch.setattr(pbs, "_CHAT_MODE", "llm")
     pbs.set_llm_event_queue(events)
     yield pbs, events
@@ -378,100 +379,71 @@ def test_displayed_list_is_refreshed_by_next_peers(cmd_env) -> None:
     assert _authorized(db, NOISE_B)
 
 
-# ---- pairing alone enters llm mode ------------------------------------------
+# ---- pairing authorizes the LLM in every chat mode ---------------------------
 
 
 @pytest.fixture()
-def running_node(monkeypatch):
-    """A started node in chat mode 'off' with a dummy LLM event queue."""
+def any_mode(monkeypatch):
+    """A running node in chat mode 'off' with a dummy LLM event queue."""
     from uagent.tools import pybitchat_shared as pbs
 
+    events: queue.Queue = queue.Queue()
     monkeypatch.setattr(pbs, "_RUNNING", True)
     monkeypatch.setattr(pbs, "_CHAT_MODE", "off")
-    pbs.set_llm_event_queue(queue.Queue())
-    yield pbs
+    pbs.set_llm_event_queue(events)
+    yield pbs, events
     pbs.set_llm_event_queue(None)
 
 
-def _redirect_ble_store(tmp_path, monkeypatch):
-    from uagent import bitchat_pairing
-
-    db = tmp_path / "auto_llm.sqlite3"
-    monkeypatch.setattr(
-        bitchat_pairing,
-        "open_bitchat_pairing_store",
-        lambda: SQLiteBitchatPairingStore(db),
-    )
-    return db
+def test_nostr_dm_injected_in_off_mode_when_paired(any_mode, monkeypatch) -> None:
+    pbs, events = any_mode
+    monkeypatch.setattr(pbs, "_is_paired_nostr_peer", lambda key: key == NOSTR_A)
+    pbs._on_nostr_dm(NOSTR_A, "hello")
+    event = events.get_nowait()
+    assert event["reply_route"] == {"via": "nostr", "peer": NOSTR_A}
 
 
-def test_llm_mode_entered_when_ble_pairing_exists(
-    running_node, tmp_path, monkeypatch
-) -> None:
-    pbs = running_node
-    db = _redirect_ble_store(tmp_path, monkeypatch)
-    with SQLiteBitchatPairingStore(db) as s:
-        s.pair(NOISE_A, "phone", approved=True)
-    assert pbs.enter_llm_mode_if_paired()
-    assert pbs._CHAT_MODE == "llm"
-    # Already in llm mode: no second flip.
-    assert not pbs.enter_llm_mode_if_paired()
-
-
-def test_llm_mode_entered_when_nostr_pairing_exists(
-    running_node, tmp_path, monkeypatch
-) -> None:
-    pbs = running_node
-    _redirect_ble_store(tmp_path, monkeypatch)
-    from uagent.nostr_remote_pairing import SQLitePairingStore
-
-    nostr_db = tmp_path / "auto_llm_nostr.sqlite3"
-    monkeypatch.setattr(
-        "uagent.nostr_remote_pairing.SQLitePairingStore",
-        lambda _path: SQLitePairingStore(nostr_db),
-    )
-    # The registry validates that the key is on the secp256k1 curve;
-    # use the generator point's x coordinate.
-    nostr_key = "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
-    with SQLitePairingStore(nostr_db) as s:
-        s.pair(nostr_key, "phone", approved=True)
-    assert pbs.enter_llm_mode_if_paired()
-    assert pbs._CHAT_MODE == "llm"
-
-
-def test_llm_mode_not_entered_without_pairing(
-    running_node, tmp_path, monkeypatch
-) -> None:
-    pbs = running_node
-    _redirect_ble_store(tmp_path, monkeypatch)
-    from uagent.nostr_remote_pairing import SQLitePairingStore
-
-    nostr_db = tmp_path / "auto_llm_nostr.sqlite3"
-    monkeypatch.setattr(
-        "uagent.nostr_remote_pairing.SQLitePairingStore",
-        lambda _path: SQLitePairingStore(nostr_db),
-    )
-    assert not pbs.enter_llm_mode_if_paired()
-    assert pbs._CHAT_MODE == "off"
-
-
-def test_llm_mode_not_entered_when_node_stopped(tmp_path, monkeypatch) -> None:
-    from uagent.tools import pybitchat_shared as pbs
-
-    db = _redirect_ble_store(tmp_path, monkeypatch)
-    with SQLiteBitchatPairingStore(db) as s:
-        s.pair(NOISE_A, "phone", approved=True)
+def test_nostr_dm_not_injected_when_node_stopped(any_mode, monkeypatch) -> None:
+    pbs, events = any_mode
     monkeypatch.setattr(pbs, "_RUNNING", False)
-    monkeypatch.setattr(pbs, "_CHAT_MODE", "off")
-    assert not pbs.enter_llm_mode_if_paired()
-    assert pbs._CHAT_MODE == "off"
+    monkeypatch.setattr(pbs, "_is_paired_nostr_peer", lambda key: True)
+    pbs._on_nostr_dm(NOSTR_A, "hello")
+    assert events.empty()
 
 
-def test_pair_command_enters_llm_mode_when_running(
-    cmd_env, running_node, capsys
-) -> None:
+def test_reply_sent_in_off_mode(any_mode, monkeypatch) -> None:
+    pbs, _events = any_mode
+    sent: list[tuple] = []
+    monkeypatch.setattr(
+        pbs,
+        "enqueue_send",
+        lambda type_, payload, recipient=None, via="ble", plain=False: sent.append(
+            (type_, payload, recipient, via)
+        ),
+    )
+    pbs.reply_to_bitchat_dm("answer", {"via": "ble", "peer": "0123456789abcdef"})
+    assert sent == [("text", "answer", "0123456789abcdef", "ble")]
+
+
+def test_forward_to_mesh_only_in_on_mode(any_mode, monkeypatch) -> None:
+    pbs, _events = any_mode
+    sent: list[tuple] = []
+    monkeypatch.setattr(pbs, "_NOSTR_RUNNING", False)
+    monkeypatch.setattr(
+        pbs,
+        "enqueue_send",
+        lambda type_, payload, recipient=None, via="ble", plain=False: sent.append(
+            (type_, payload, recipient, via)
+        ),
+    )
+    for mode in ("off", "llm", "on"):
+        monkeypatch.setattr(pbs, "_CHAT_MODE", mode)
+        pbs.forward_to_mesh("local prompt")
+    # Only the explicit public-chat mode forwards the local user's text.
+    assert sent == [("text", "local prompt", None, "ble")]
+
+
+def test_pair_command_does_not_change_chat_mode(cmd_env, any_mode) -> None:
     pst, pbs, _db = cmd_env
-    assert pbs._CHAT_MODE == "off"
     pst._cmd_bitchat_pair(NOISE_A)
-    assert pbs._CHAT_MODE == "llm"
-    assert "LLM" in capsys.readouterr().out
+    assert pbs._CHAT_MODE == "off"

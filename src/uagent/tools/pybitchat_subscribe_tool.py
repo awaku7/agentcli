@@ -407,7 +407,7 @@ def _cmd_bitchat_llm(arg: str, **kwargs) -> "CommandResult":
         print(
             _(
                 "cmd.chat_llm",
-                default="bitchat chat mode: LLM (mesh forwarding + LLM injection active)",
+                default="bitchat chat mode: LLM (LLM injection active)",
             )
         )
     else:
@@ -921,18 +921,6 @@ def _cmd_bitchat_pair(arg: str, **kwargs) -> "CommandResult":
                 label=record.label or "unnamed",
             )
         )
-        # Pairing is the authorization for LLM access: when the node
-        # is running, enter llm mode right away instead of requiring
-        # a separate `:bitchat llm` step.
-        from .pybitchat_shared import enter_llm_mode_if_paired
-
-        if enter_llm_mode_if_paired():
-            print(
-                _(
-                    "cmd.chat_llm",
-                    default="bitchat chat mode: LLM (mesh forwarding + LLM injection active)",
-                )
-            )
     except Exception as exc:
         print(
             _("pair.error", default="Could not pair bitchat peer: %(error)s")
@@ -1111,7 +1099,7 @@ CMD_SPECS = [
         "help_text": _cmd_help(
             ":bitchat llm",
             "help.llm",
-            "LLM chat mode (paired peers' DMs are sent to the LLM; starts automatically once a peer is paired)",
+            "LLM chat mode (paired peers' DMs are sent to the LLM; pairing alone enables it)",
         ),
     },
     {
