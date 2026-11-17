@@ -32,7 +32,7 @@ from ..util_tools import (
 )
 from ..tools.pybitchat_shared import (
     is_chat_mode,
-    reply_to_mesh,
+    reply_to_bitchat_dm,
     set_llm_event_queue,
 )
 from ..uagent_llm import run_llm_rounds as util_run_llm_rounds
@@ -570,7 +570,7 @@ class ScheckWorker(QtCore.QObject):
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
                                 if _reply:
-                                    reply_to_mesh(_reply)
+                                    reply_to_bitchat_dm(_reply, ev.get("reply_route"))
                             continue
 
                         for p in ev.get("images", []):
@@ -631,7 +631,7 @@ class ScheckWorker(QtCore.QObject):
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
                                 if _reply:
-                                    reply_to_mesh(_reply)
+                                    reply_to_bitchat_dm(_reply, ev.get("reply_route"))
                 except QueueEmpty:
                     continue
                 except Exception:

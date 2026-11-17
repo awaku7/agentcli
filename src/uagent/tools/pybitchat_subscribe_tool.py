@@ -123,7 +123,7 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.mode.description",
                         default=(
                             "Chat mode (action=chat_mode): 'on' = mesh forwarding only (LLM injection disabled), "
-                            "'llm' = mesh forwarding + inject peer msgs to LLM, "
+                            "'llm' = mesh forwarding + inject paired peers' DMs to LLM, "
                             "'off' = disabled. Overrides 'on' if both specified."
                         ),
                     ),
@@ -741,49 +741,213 @@ def _cmd_bitchat_geo_list(arg: str, **kwargs) -> "CommandResult":
 
 
 def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
-    """Handle :bitchat peers - list discovered Nostr bitchat peers"""
+    """Handle :bitchat peers - list discovered peers (Nostr + BLE mesh)"""
+    from . import pybitchat_shared as _shared
     from .pybitchat_shared import _NOSTR as _nt_mod
 
-    if _nt_mod is None:
-        print(
-            _(
-                "geo.error_nostr_not_running",
-                default="Error: Nostr transport not running.",
-            )
-        )
-        from ..util_tools import CommandResult
-
-        return CommandResult()
-    inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
-    if inst is None or not inst.is_running:
-        print(
-            _(
-                "geo.error_nostr_not_running",
-                default="Error: Nostr transport not running.",
-            )
-        )
-        from ..util_tools import CommandResult
-
-        return CommandResult()
-    peers = inst.discovered_peers
-    if not peers:
-        print(_("peers.list_none", default="No bitchat peers discovered yet."))
-    else:
-        print(
-            _("peers.list_header", default="Discovered bitchat peers (%(count)d):")
-            % {"count": len(peers)}
-        )
-        for pubkey, nick in sorted(peers.items()):
+    printed = False
+    inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None) if _nt_mod is not None else None
+    if inst is not None and inst.is_running:
+        peers = inst.discovered_peers
+        if peers:
+            printed = True
             print(
-                _("peers.list_entry", default="  %(nick)s (%(pubkey)s)")
-                % {"nick": nick, "pubkey": pubkey[:16] + "..."}
+                _("peers.list_header", default="Discovered bitchat peers (%(count)d):")
+                % {"count": len(peers)}
             )
+            for pubkey, nick in sorted(peers.items()):
+                print(
+                    _("peers.list_entry", default="  %(nick)s (%(pubkey)s)")
+                    % {"nick": nick, "pubkey": pubkey}
+                )
+    # BLE mesh peers, with the Noise key :bitchat pair expects.
+    ble_peers = sorted(_shared._PEER_NICKNAMES.items())
+    if ble_peers:
+        printed = True
+        print(
+            _("peers.ble_header", default="BLE mesh peers (%(count)d):")
+            % {"count": len(ble_peers)}
+        )
+        for peer_id, nick in ble_peers:
+            noise_key = _shared._PEER_NOISE_KEYS.get(peer_id)
+            print(
+                _("peers.ble_entry", default="  %(nick)s noise=%(noise_key)s")
+                % {
+                    "nick": nick,
+                    "noise_key": noise_key.hex() if noise_key else "?",
+                }
+            )
+    if not printed:
+        print(_("peers.list_none", default="No bitchat peers discovered yet."))
     from ..util_tools import CommandResult
 
     return CommandResult()
 
 
 # ---- End peers command ----------------------------------------------------
+
+
+# ---- :bitchat pairing commands ---------------------------------------------
+#
+# Pairing is what lets a peer's DMs reach the LLM in chat_mode='llm'.
+# Records live in the BLE pairing registry (bitchat_pairing.py), keyed by
+# the peer's Noise static key, with an optional linked Nostr key so a peer
+# paired in person can also operate the node over Nostr DMs. These are
+# local console commands only; nothing on a receive path can pair.
+
+
+def _cmd_bitchat_pair(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat pair <noise_key_hex> [label]"""
+    from ..bitchat_pairing import open_bitchat_pairing_store
+
+    parts = arg.strip().split(maxsplit=1)
+    if not parts:
+        print(
+            _(
+                "pair.usage",
+                default="Usage: :bitchat pair <noise_key_hex> [label]",
+            )
+        )
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    try:
+        with open_bitchat_pairing_store() as store:
+            record = store.pair(
+                parts[0],
+                parts[1] if len(parts) > 1 else "",
+                approved=True,
+            )
+        print(
+            _(
+                "pair.success",
+                default="Paired bitchat peer: %(noise_key)s (%(label)s)",
+                noise_key=record.noise_key,
+                label=record.label or "unnamed",
+            )
+        )
+    except Exception as exc:
+        print(
+            _("pair.error", default="Could not pair bitchat peer: %(error)s")
+            % {"error": exc}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_bitchat_link(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat link <noise_key_hex> <nostr_key_hex>"""
+    from ..bitchat_pairing import open_bitchat_pairing_store
+
+    parts = arg.strip().split()
+    if len(parts) != 2:
+        print(
+            _(
+                "link.usage",
+                default="Usage: :bitchat link <noise_key_hex> <nostr_key_hex>",
+            )
+        )
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    try:
+        with open_bitchat_pairing_store() as store:
+            record = store.link_nostr(parts[0], parts[1], approved=True)
+        print(
+            _(
+                "link.success",
+                default="Linked Nostr key %(nostr_key)s to bitchat peer %(noise_key)s",
+                nostr_key=record.nostr_key or "",
+                noise_key=record.noise_key,
+            )
+        )
+    except Exception as exc:
+        print(
+            _("link.error", default="Could not link Nostr key: %(error)s")
+            % {"error": exc}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_bitchat_revoke(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat revoke <noise_key_hex>"""
+    from ..bitchat_pairing import open_bitchat_pairing_store
+
+    pubkey = arg.strip()
+    if not pubkey or any(char.isspace() for char in pubkey):
+        print(_("revoke.usage", default="Usage: :bitchat revoke <noise_key_hex>"))
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    try:
+        with open_bitchat_pairing_store() as store:
+            revoked = store.revoke(pubkey)
+        print(
+            _("revoke.done", default="Bitchat peer revoked.")
+            if revoked
+            else _(
+                "revoke.none",
+                default="No active pairing for that Noise key.",
+            )
+        )
+    except Exception as exc:
+        print(
+            _("revoke.error", default="Could not revoke bitchat peer: %(error)s")
+            % {"error": exc}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_bitchat_devices(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat devices [all] - list paired bitchat peers"""
+    from ..bitchat_pairing import open_bitchat_pairing_store
+
+    option = arg.strip().lower()
+    if option not in ("", "all"):
+        print(_("devices.usage", default="Usage: :bitchat devices [all]"))
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    try:
+        with open_bitchat_pairing_store() as store:
+            records = store.list_devices(include_revoked=option == "all")
+    except Exception as exc:
+        print(
+            _("devices.error", default="Could not list bitchat peers: %(error)s")
+            % {"error": exc}
+        )
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    if not records:
+        print(_("devices.none", default="No paired bitchat peers."))
+    for record in records:
+        line = _(
+            "devices.entry",
+            default="  %(label)s noise=%(noise_key)s",
+            label=record.label or "unnamed",
+            noise_key=record.noise_key,
+        )
+        if record.nostr_key:
+            line += " " + _(
+                "devices.entry_nostr",
+                default="nostr=%(nostr_key)s",
+                nostr_key=record.nostr_key,
+            )
+        if record.revoked_at is not None:
+            line += " " + _("devices.revoked", default="(revoked)")
+        print(line)
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+# ---- End pairing commands --------------------------------------------------
 
 
 def _cmd_help(syntax: str, key: str, default: str) -> str:
@@ -840,7 +1004,47 @@ CMD_SPECS = [
         "help_text": _cmd_help(
             ":bitchat llm",
             "help.llm",
-            "Enable chat mode with LLM injection (peer msgs sent to LLM)",
+            "Enable chat mode with LLM injection (paired peers' DMs sent to LLM)",
+        ),
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "pair",
+        "handler": _cmd_bitchat_pair,
+        "help_text": _cmd_help(
+            ":bitchat pair <noise_key_hex> [label]",
+            "help.pair",
+            "Pair a bitchat peer by Noise key (allows their DMs to reach the LLM)",
+        ),
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "link",
+        "handler": _cmd_bitchat_link,
+        "help_text": _cmd_help(
+            ":bitchat link <noise_key_hex> <nostr_key_hex>",
+            "help.link",
+            "Link a paired peer's Nostr key so they can also use Nostr DMs",
+        ),
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "revoke",
+        "handler": _cmd_bitchat_revoke,
+        "help_text": _cmd_help(
+            ":bitchat revoke <noise_key_hex>",
+            "help.revoke",
+            "Revoke a bitchat peer pairing",
+        ),
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "devices",
+        "handler": _cmd_bitchat_devices,
+        "help_text": _cmd_help(
+            ":bitchat devices [all]",
+            "help.devices",
+            "List paired bitchat peers",
         ),
     },
     # Geo channel commands

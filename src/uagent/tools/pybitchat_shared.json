@@ -23,7 +23,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] مستلم غير معروف %(recipient)s -- تم إسقاط الرسالة",
     "bitchat.noise_dm_failed": "[bitchat] فشل تشفير DM إلى %(recipient)s؛ تم إسقاط الرسالة",
-    "bitchat.noise_dm_dropped": "[bitchat] لا توجد جلسة Noise لـ DM إلى %(recipient)s؛ تم إسقاط الرسالة"
+    "bitchat.noise_dm_dropped": "[bitchat] لا توجد جلسة Noise لـ DM إلى %(recipient)s؛ تم إسقاط الرسالة",
+    "bitchat.favorite_linked": "[bitchat] أضافك %(sender)s إلى المفضلة؛ تم ربط مفتاح Nostr الخاص به للوصول عبر الرسائل المباشرة",
+    "bitchat.favorite_unlinked": "[bitchat] أزالك %(sender)s من المفضلة؛ تمت إزالة ربط Nostr الخاص به",
+    "bitchat.favorite_conflict": "[bitchat] أرسل %(sender)s مفتاح Nostr مختلفًا عن المرتبط؛ لم يتغير الربط (استخدم :bitchat link للاستبدال)"
   },
   "bn": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s-এর সাথে Noise handshake সম্পন্ন",
@@ -49,7 +52,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] অজানা প্রাপক %(recipient)s -- বার্তা বাদ দেওয়া হয়েছে",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s-এ DM এনক্রিপ্ট করা যায়নি; বার্তা বাদ দেওয়া হয়েছে",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s-এ DM-এর জন্য Noise session নেই; বার্তা বাদ দেওয়া হয়েছে"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s-এ DM-এর জন্য Noise session নেই; বার্তা বাদ দেওয়া হয়েছে",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s আপনাকে পছন্দের তালিকায় যোগ করেছেন; তার Nostr কী এখন DM অ্যাক্সেসের জন্য লিঙ্ক করা হয়েছে",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s আপনাকে পছন্দ থেকে সরিয়েছেন; তার Nostr লিঙ্ক সরানো হয়েছে",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s লিঙ্ক করা থেকে আলাদা Nostr কী পাঠিয়েছেন; লিঙ্ক অপরিবর্তিত (প্রতিস্থাপনে :bitchat link ব্যবহার করুন)"
   },
   "cs": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake s %(nick)s dokončen",
@@ -75,7 +81,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Neznámý příjemce %(recipient)s -- zpráva zahozena",
     "bitchat.noise_dm_failed": "[bitchat] Nepodařilo se zašifrovat DM pro %(recipient)s; zpráva zahozena",
-    "bitchat.noise_dm_dropped": "[bitchat] Pro DM příjemci %(recipient)s není relace Noise; zpráva zahozena"
+    "bitchat.noise_dm_dropped": "[bitchat] Pro DM příjemci %(recipient)s není relace Noise; zpráva zahozena",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s si vás přidal do oblíbených; jeho klíč Nostr je nyní propojen pro přístup přes DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s vás odebral z oblíbených; jeho propojení Nostr bylo odstraněno",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s poslal jiný klíč Nostr, než je propojený; propojení beze změny (pro výměnu použijte :bitchat link)"
   },
   "da": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake med %(nick)s fuldført",
@@ -101,7 +110,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Ukendt modtager %(recipient)s -- beskeden blev droppet",
     "bitchat.noise_dm_failed": "[bitchat] Kunne ikke kryptere DM til %(recipient)s; beskeden blev droppet",
-    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session til DM til %(recipient)s; beskeden blev droppet"
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session til DM til %(recipient)s; beskeden blev droppet",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s har føjet dig til favoritter; deres Nostr-nøgle er nu linket til DM-adgang",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s har fjernet dig fra favoritter; deres Nostr-link blev fjernet",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s sendte en anden Nostr-nøgle end den linkede; linket er uændret (brug :bitchat link for at erstatte)"
   },
   "de": {
     "bitchat.handshake_complete": "[bitchat] Noise-Handshake mit %(nick)s abgeschlossen",
@@ -127,7 +139,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Unbekannter Empfänger %(recipient)s -- Nachricht verworfen",
     "bitchat.noise_dm_failed": "[bitchat] DM an %(recipient)s konnte nicht verschlüsselt werden; Nachricht verworfen",
-    "bitchat.noise_dm_dropped": "[bitchat] Keine Noise-Sitzung für DM an %(recipient)s; Nachricht verworfen"
+    "bitchat.noise_dm_dropped": "[bitchat] Keine Noise-Sitzung für DM an %(recipient)s; Nachricht verworfen",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s hat Sie als Favorit markiert; sein Nostr-Schlüssel ist jetzt für DM-Zugriff verknüpft",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s hat den Favoriten entfernt; seine Nostr-Verknüpfung wurde gelöscht",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s sendete einen anderen Nostr-Schlüssel als den verknüpften; Verknüpfung unverändert (zum Ersetzen :bitchat link verwenden)"
   },
   "el": {
     "bitchat.handshake_complete": "[bitchat] Ολοκληρώθηκε το Noise handshake με %(nick)s",
@@ -153,7 +168,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Άγνωστος παραλήπτης %(recipient)s -- το μήνυμα απορρίφθηκε",
     "bitchat.noise_dm_failed": "[bitchat] Αποτυχία κρυπτογράφησης DM προς %(recipient)s· το μήνυμα απορρίφθηκε",
-    "bitchat.noise_dm_dropped": "[bitchat] Δεν υπάρχει συνεδρία Noise για DM προς %(recipient)s· το μήνυμα απορρίφθηκε"
+    "bitchat.noise_dm_dropped": "[bitchat] Δεν υπάρχει συνεδρία Noise για DM προς %(recipient)s· το μήνυμα απορρίφθηκε",
+    "bitchat.favorite_linked": "[bitchat] Ο/Η %(sender)s σας πρόσθεσε στα αγαπημένα· το κλειδί Nostr του συνδέθηκε πλέον για πρόσβαση μέσω DM",
+    "bitchat.favorite_unlinked": "[bitchat] Ο/Η %(sender)s σας αφαίρεσε από τα αγαπημένα· η σύνδεση Nostr του αφαιρέθηκε",
+    "bitchat.favorite_conflict": "[bitchat] Ο/Η %(sender)s έστειλε διαφορετικό κλειδί Nostr από το συνδεδεμένο· η σύνδεση δεν άλλαξε (χρησιμοποιήστε :bitchat link για αντικατάσταση)"
   },
   "es": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake completado con %(nick)s",
@@ -179,7 +197,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinatario desconocido %(recipient)s -- mensaje descartado",
     "bitchat.noise_dm_failed": "[bitchat] No se pudo cifrar el DM para %(recipient)s; mensaje descartado",
-    "bitchat.noise_dm_dropped": "[bitchat] No hay sesión Noise para el DM a %(recipient)s; mensaje descartado"
+    "bitchat.noise_dm_dropped": "[bitchat] No hay sesión Noise para el DM a %(recipient)s; mensaje descartado",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s te marcó como favorito; su clave Nostr quedó vinculada para operar por DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s te quitó de favoritos; se eliminó su vínculo Nostr",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s envió una clave Nostr distinta de la vinculada; el vínculo no cambió (usa :bitchat link para reemplazarlo)"
   },
   "fa": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake با %(nick)s کامل شد",
@@ -205,7 +226,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] گیرنده ناشناخته %(recipient)s -- پیام حذف شد",
     "bitchat.noise_dm_failed": "[bitchat] رمزگذاری DM برای %(recipient)s ناموفق بود؛ پیام حذف شد",
-    "bitchat.noise_dm_dropped": "[bitchat] جلسه Noise برای DM به %(recipient)s وجود ندارد؛ پیام حذف شد"
+    "bitchat.noise_dm_dropped": "[bitchat] جلسه Noise برای DM به %(recipient)s وجود ندارد؛ پیام حذف شد",
+    "bitchat.favorite_linked": "[bitchat] ‏%(sender)s شما را به علاقه‌مندی‌ها افزود؛ کلید Nostr او اکنون برای دسترسی با پیام مستقیم پیوند خورد",
+    "bitchat.favorite_unlinked": "[bitchat] ‏%(sender)s شما را از علاقه‌مندی‌ها حذف کرد؛ پیوند Nostr او برداشته شد",
+    "bitchat.favorite_conflict": "[bitchat] ‏%(sender)s کلید Nostr متفاوتی از کلید پیوندخورده فرستاد؛ پیوند تغییری نکرد (برای جایگزینی از :bitchat link استفاده کنید)"
   },
   "fi": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake käyttäjän %(nick)s kanssa valmis",
@@ -231,7 +255,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Tuntematon vastaanottaja %(recipient)s -- viesti hylättiin",
     "bitchat.noise_dm_failed": "[bitchat] DM:n salaaminen vastaanottajalle %(recipient)s epäonnistui; viesti hylättiin",
-    "bitchat.noise_dm_dropped": "[bitchat] Ei Noise-istuntoa DM:lle vastaanottajalle %(recipient)s; viesti hylättiin"
+    "bitchat.noise_dm_dropped": "[bitchat] Ei Noise-istuntoa DM:lle vastaanottajalle %(recipient)s; viesti hylättiin",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s lisäsi sinut suosikkeihin; hänen Nostr-avaimensa on nyt linkitetty DM-käyttöä varten",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s poisti sinut suosikeista; hänen Nostr-linkkinsä poistettiin",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s lähetti eri Nostr-avaimen kuin linkitetty; linkki ennallaan (korvaa komennolla :bitchat link)"
   },
   "fil": {
     "bitchat.handshake_complete": "[bitchat] Kumpleto ang Noise handshake kay %(nick)s",
@@ -257,7 +284,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Hindi kilalang recipient %(recipient)s -- ibinagsak ang mensahe",
     "bitchat.noise_dm_failed": "[bitchat] Nabigong i-encrypt ang DM para kay %(recipient)s; ibinagsak ang mensahe",
-    "bitchat.noise_dm_dropped": "[bitchat] Walang Noise session para sa DM kay %(recipient)s; ibinagsak ang mensahe"
+    "bitchat.noise_dm_dropped": "[bitchat] Walang Noise session para sa DM kay %(recipient)s; ibinagsak ang mensahe",
+    "bitchat.favorite_linked": "[bitchat] Ginawa kang paborito ni %(sender)s; naka-link na ngayon ang Nostr key niya para sa DM access",
+    "bitchat.favorite_unlinked": "[bitchat] Inalis ka ni %(sender)s sa mga paborito; tinanggal ang Nostr link niya",
+    "bitchat.favorite_conflict": "[bitchat] Nagpadala si %(sender)s ng Nostr key na iba sa naka-link; hindi nagbago ang link (gamitin ang :bitchat link para palitan)"
   },
   "fr": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake terminé avec %(nick)s",
@@ -283,7 +313,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinataire inconnu %(recipient)s -- message ignoré",
     "bitchat.noise_dm_failed": "[bitchat] Échec du chiffrement du DM vers %(recipient)s ; message ignoré",
-    "bitchat.noise_dm_dropped": "[bitchat] Aucune session Noise pour le DM vers %(recipient)s ; message ignoré"
+    "bitchat.noise_dm_dropped": "[bitchat] Aucune session Noise pour le DM vers %(recipient)s ; message ignoré",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s vous a ajouté en favori ; sa clé Nostr est maintenant liée pour un accès par DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s vous a retiré des favoris ; son lien Nostr a été supprimé",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s a envoyé une clé Nostr différente de celle liée ; lien inchangé (utilisez :bitchat link pour la remplacer)"
   },
   "he": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake עם %(nick)s הושלם",
@@ -309,7 +342,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] נמען לא ידוע %(recipient)s -- ההודעה הושמטה",
     "bitchat.noise_dm_failed": "[bitchat] הצפנת DM אל %(recipient)s נכשלה; ההודעה הושמטה",
-    "bitchat.noise_dm_dropped": "[bitchat] אין הפעלת Noise עבור DM אל %(recipient)s; ההודעה הושמטה"
+    "bitchat.noise_dm_dropped": "[bitchat] אין הפעלת Noise עבור DM אל %(recipient)s; ההודעה הושמטה",
+    "bitchat.favorite_linked": "[bitchat] ‏%(sender)s הוסיף אותך למועדפים; מפתח ה-Nostr שלו מקושר כעת לגישה בהודעות ישירות",
+    "bitchat.favorite_unlinked": "[bitchat] ‏%(sender)s הסיר אותך מהמועדפים; קישור ה-Nostr שלו הוסר",
+    "bitchat.favorite_conflict": "[bitchat] ‏%(sender)s שלח מפתח Nostr שונה מהמקושר; הקישור לא השתנה (להחלפה השתמשו ב-:bitchat link)"
   },
   "hi": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s के साथ Noise handshake पूरा हुआ",
@@ -335,7 +371,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] अज्ञात प्राप्तकर्ता %(recipient)s -- संदेश छोड़ दिया गया",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s के लिए DM एन्क्रिप्ट नहीं हो सका; संदेश छोड़ दिया गया",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s के DM के लिए Noise session नहीं है; संदेश छोड़ दिया गया"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s के DM के लिए Noise session नहीं है; संदेश छोड़ दिया गया",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s ने आपको पसंदीदा में जोड़ा; उनकी Nostr कुंजी अब DM पहुँच के लिए लिंक है",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s ने आपको पसंदीदा से हटाया; उनकी Nostr लिंक हटा दी गई",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s ने लिंक की गई से अलग Nostr कुंजी भेजी; लिंक अपरिवर्तित (बदलने के लिए :bitchat link उपयोग करें)"
   },
   "hu": {
     "bitchat.handshake_complete": "[bitchat] A Noise handshake befejeződött %(nick)s partnerrel",
@@ -361,7 +400,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Ismeretlen címzett: %(recipient)s -- üzenet eldobva",
     "bitchat.noise_dm_failed": "[bitchat] Nem sikerült titkosítani a DM-et %(recipient)s számára; üzenet eldobva",
-    "bitchat.noise_dm_dropped": "[bitchat] Nincs Noise-munkamenet a %(recipient)s címzett DM-jéhez; üzenet eldobva"
+    "bitchat.noise_dm_dropped": "[bitchat] Nincs Noise-munkamenet a %(recipient)s címzett DM-jéhez; üzenet eldobva",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s kedvencnek jelölt; a Nostr-kulcsa most össze van kapcsolva DM-hozzáféréshez",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s levette a kedvencet; a Nostr-összekapcsolása törlődött",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s az összekapcsolttól eltérő Nostr-kulcsot küldött; az összekapcsolás változatlan (cseréhez használd a :bitchat link parancsot)"
   },
   "id": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake dengan %(nick)s selesai",
@@ -387,7 +429,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Penerima tidak dikenal %(recipient)s -- pesan dibuang",
     "bitchat.noise_dm_failed": "[bitchat] Gagal mengenkripsi DM ke %(recipient)s; pesan dibuang",
-    "bitchat.noise_dm_dropped": "[bitchat] Tidak ada sesi Noise untuk DM ke %(recipient)s; pesan dibuang"
+    "bitchat.noise_dm_dropped": "[bitchat] Tidak ada sesi Noise untuk DM ke %(recipient)s; pesan dibuang",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s memfavoritkan Anda; kunci Nostr mereka kini tertaut untuk akses DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s membatalkan favorit; tautan Nostr mereka dihapus",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s mengirim kunci Nostr yang berbeda dari yang tertaut; tautan tidak berubah (gunakan :bitchat link untuk mengganti)"
   },
   "it": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake completato con %(nick)s",
@@ -413,7 +458,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinatario sconosciuto %(recipient)s -- messaggio scartato",
     "bitchat.noise_dm_failed": "[bitchat] Impossibile cifrare il DM per %(recipient)s; messaggio scartato",
-    "bitchat.noise_dm_dropped": "[bitchat] Nessuna sessione Noise per il DM a %(recipient)s; messaggio scartato"
+    "bitchat.noise_dm_dropped": "[bitchat] Nessuna sessione Noise per il DM a %(recipient)s; messaggio scartato",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s ti ha aggiunto ai preferiti; la sua chiave Nostr ora è collegata per l'accesso via DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s ti ha rimosso dai preferiti; il suo collegamento Nostr è stato rimosso",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s ha inviato una chiave Nostr diversa da quella collegata; collegamento invariato (usa :bitchat link per sostituirla)"
   },
   "ja": {
     "bitchat.handshake_complete": "[bitchat] Noise ハンドシェイク完了: %(nick)s",
@@ -439,7 +487,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] 不明な送信先 %(recipient)s -- メッセージを破棄しました",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s への DM 暗号化に失敗しました。メッセージを破棄しました",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s への DM 用 Noise セッションがありません。メッセージを破棄しました"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s への DM 用 Noise セッションがありません。メッセージを破棄しました",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s があなたをお気に入りに登録しました。Nostr 鍵をリンクし、DM で操作できるようにしました",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s がお気に入りを解除しました。Nostr 鍵のリンクを外しました",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s から、リンク済みと違う Nostr 鍵が送られてきました。リンクは変えていません（差し替えるなら :bitchat link を使ってください）"
   },
   "ko": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s와의 Noise handshake 완료",
@@ -465,7 +516,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] 알 수 없는 수신자 %(recipient)s -- 메시지를 버렸습니다",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s에 대한 DM 암호화 실패; 메시지를 버렸습니다",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s에 대한 DM용 Noise 세션이 없습니다; 메시지를 버렸습니다"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s에 대한 DM용 Noise 세션이 없습니다; 메시지를 버렸습니다",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s 님이 당신을 즐겨찾기에 추가했습니다. Nostr 키를 연결해 DM으로 조작할 수 있게 했습니다",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s 님이 즐겨찾기를 해제했습니다. Nostr 링크를 제거했습니다",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s 님이 연결된 것과 다른 Nostr 키를 보냈습니다. 링크는 변경하지 않았습니다 (교체하려면 :bitchat link 사용)"
   },
   "mn": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s-тэй Noise handshake дууслаа",
@@ -491,7 +545,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Үл мэдэгдэх хүлээн авагч %(recipient)s -- мессежийг хаялаа",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s руу DM шифрлэж чадсангүй; мессежийг хаялаа",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s руу DM хийх Noise session алга; мессежийг хаялаа"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s руу DM хийх Noise session алга; мессежийг хаялаа",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s таныг дуртайдаа нэмлээ; түүний Nostr түлхүүр DM хандалтад холбогдлоо",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s таныг дуртайгаасаа хаслаа; түүний Nostr холбоос ариллаа",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s холбогдсоноос өөр Nostr түлхүүр илгээлээ; холбоос өөрчлөгдөөгүй (солихдоо :bitchat link ашиглана уу)"
   },
   "mr": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s सोबत Noise handshake पूर्ण",
@@ -517,7 +574,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] अज्ञात प्राप्तकर्ता %(recipient)s -- संदेश वगळला",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s साठी DM एन्क्रिप्ट करण्यात अयशस्वी; संदेश वगळला",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s साठी DM ची Noise session नाही; संदेश वगळला"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s साठी DM ची Noise session नाही; संदेश वगळला",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s ने तुम्हाला आवडते म्हणून चिन्हांकित केले; त्यांची Nostr की आता DM प्रवेशासाठी लिंक आहे",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s ने आवडते काढले; त्यांची Nostr लिंक काढून टाकली",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s ने लिंक केलेल्यापेक्षा वेगळी Nostr की पाठवली; लिंक तशीच आहे (बदलण्यासाठी :bitchat link वापरा)"
   },
   "ms": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake dengan %(nick)s selesai",
@@ -543,7 +603,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Penerima tidak diketahui %(recipient)s -- mesej digugurkan",
     "bitchat.noise_dm_failed": "[bitchat] Gagal menyulitkan DM kepada %(recipient)s; mesej digugurkan",
-    "bitchat.noise_dm_dropped": "[bitchat] Tiada sesi Noise untuk DM kepada %(recipient)s; mesej digugurkan"
+    "bitchat.noise_dm_dropped": "[bitchat] Tiada sesi Noise untuk DM kepada %(recipient)s; mesej digugurkan",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s memfavoritkan anda; kunci Nostr mereka kini dipautkan untuk akses DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s membatalkan favorit; pautan Nostr mereka dialih keluar",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s menghantar kunci Nostr yang berbeza daripada yang dipautkan; pautan tidak berubah (guna :bitchat link untuk mengganti)"
   },
   "nb": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake med %(nick)s fullført",
@@ -569,7 +632,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Ukjent mottaker %(recipient)s -- meldingen ble forkastet",
     "bitchat.noise_dm_failed": "[bitchat] Kunne ikke kryptere DM til %(recipient)s; meldingen ble forkastet",
-    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldingen ble forkastet"
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldingen ble forkastet",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s har favorittmarkert deg; Nostr-nøkkelen deres er nå koblet for DM-tilgang",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s har fjernet favoritten; Nostr-koblingen deres ble fjernet",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s sendte en annen Nostr-nøkkel enn den koblede; koblingen er uendret (bruk :bitchat link for å erstatte)"
   },
   "nl": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake met %(nick)s voltooid",
@@ -595,7 +661,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Onbekende ontvanger %(recipient)s -- bericht verworpen",
     "bitchat.noise_dm_failed": "[bitchat] DM naar %(recipient)s kon niet worden versleuteld; bericht verworpen",
-    "bitchat.noise_dm_dropped": "[bitchat] Geen Noise-sessie voor DM naar %(recipient)s; bericht verworpen"
+    "bitchat.noise_dm_dropped": "[bitchat] Geen Noise-sessie voor DM naar %(recipient)s; bericht verworpen",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s heeft je als favoriet gemarkeerd; zijn Nostr-sleutel is nu gekoppeld voor DM-toegang",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s heeft de favoriet verwijderd; zijn Nostr-koppeling is verwijderd",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s stuurde een andere Nostr-sleutel dan de gekoppelde; koppeling ongewijzigd (gebruik :bitchat link om te vervangen)"
   },
   "nn": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake med %(nick)s fullført",
@@ -621,7 +690,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Ukjend mottakar %(recipient)s -- meldinga vart forkasta",
     "bitchat.noise_dm_failed": "[bitchat] Klarte ikkje å kryptere DM til %(recipient)s; meldinga vart forkasta",
-    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldinga vart forkasta"
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldinga vart forkasta",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s har favorittmarkert deg; Nostr-nøkkelen deira er no kopla for DM-tilgang",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s har fjerna favoritten; Nostr-koplinga deira vart fjerna",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s sende ein annan Nostr-nøkkel enn den kopla; koplinga er uendra (bruk :bitchat link for å erstatte)"
   },
   "pl": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake z %(nick)s zakończony",
@@ -647,7 +719,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Nieznany odbiorca %(recipient)s -- wiadomość odrzucona",
     "bitchat.noise_dm_failed": "[bitchat] Nie udało się zaszyfrować DM do %(recipient)s; wiadomość odrzucona",
-    "bitchat.noise_dm_dropped": "[bitchat] Brak sesji Noise dla DM do %(recipient)s; wiadomość odrzucona"
+    "bitchat.noise_dm_dropped": "[bitchat] Brak sesji Noise dla DM do %(recipient)s; wiadomość odrzucona",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s dodał cię do ulubionych; jego klucz Nostr jest teraz powiązany do dostępu przez DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s usunął cię z ulubionych; jego powiązanie Nostr zostało usunięte",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s wysłał klucz Nostr inny niż powiązany; powiązanie bez zmian (aby zamienić, użyj :bitchat link)"
   },
   "pt": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake concluído com %(nick)s",
@@ -673,7 +748,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinatário desconhecido %(recipient)s -- mensagem descartada",
     "bitchat.noise_dm_failed": "[bitchat] Falha ao cifrar DM para %(recipient)s; mensagem descartada",
-    "bitchat.noise_dm_dropped": "[bitchat] Não existe sessão Noise para DM para %(recipient)s; mensagem descartada"
+    "bitchat.noise_dm_dropped": "[bitchat] Não existe sessão Noise para DM para %(recipient)s; mensagem descartada",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s favoritou você; a chave Nostr dele agora está vinculada para acesso por DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s desfavoritou você; o vínculo Nostr dele foi removido",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s enviou uma chave Nostr diferente da vinculada; vínculo inalterado (use :bitchat link para substituir)"
   },
   "pt_BR": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake concluído com %(nick)s",
@@ -699,7 +777,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinatário desconhecido %(recipient)s -- mensagem descartada",
     "bitchat.noise_dm_failed": "[bitchat] Falha ao criptografar DM para %(recipient)s; mensagem descartada",
-    "bitchat.noise_dm_dropped": "[bitchat] Não há sessão Noise para DM para %(recipient)s; mensagem descartada"
+    "bitchat.noise_dm_dropped": "[bitchat] Não há sessão Noise para DM para %(recipient)s; mensagem descartada",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s favoritou você; a chave Nostr dele agora está vinculada para acesso por DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s desfavoritou você; o vínculo Nostr dele foi removido",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s enviou uma chave Nostr diferente da vinculada; vínculo inalterado (use :bitchat link para substituir)"
   },
   "ro": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake cu %(nick)s finalizat",
@@ -725,7 +806,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Destinatar necunoscut %(recipient)s -- mesaj eliminat",
     "bitchat.noise_dm_failed": "[bitchat] Nu s-a putut cripta DM către %(recipient)s; mesaj eliminat",
-    "bitchat.noise_dm_dropped": "[bitchat] Nu există sesiune Noise pentru DM către %(recipient)s; mesaj eliminat"
+    "bitchat.noise_dm_dropped": "[bitchat] Nu există sesiune Noise pentru DM către %(recipient)s; mesaj eliminat",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s te-a adăugat la favorite; cheia sa Nostr este acum legată pentru acces prin DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s te-a scos de la favorite; legătura sa Nostr a fost eliminată",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s a trimis o cheie Nostr diferită de cea legată; legătura nu s-a schimbat (folosește :bitchat link pentru înlocuire)"
   },
   "ru": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake с %(nick)s завершён",
@@ -751,7 +835,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Неизвестный получатель %(recipient)s -- сообщение отброшено",
     "bitchat.noise_dm_failed": "[bitchat] Не удалось зашифровать DM для %(recipient)s; сообщение отброшено",
-    "bitchat.noise_dm_dropped": "[bitchat] Нет сессии Noise для DM к %(recipient)s; сообщение отброшено"
+    "bitchat.noise_dm_dropped": "[bitchat] Нет сессии Noise для DM к %(recipient)s; сообщение отброшено",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s добавил вас в избранное; его ключ Nostr теперь привязан для доступа через DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s убрал вас из избранного; его привязка Nostr удалена",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s прислал ключ Nostr, отличный от привязанного; привязка не изменена (для замены используйте :bitchat link)"
   },
   "sv": {
     "bitchat.handshake_complete": "[bitchat] Noise-handshake med %(nick)s slutförd",
@@ -777,7 +864,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Okänd mottagare %(recipient)s -- meddelandet släpptes",
     "bitchat.noise_dm_failed": "[bitchat] Kunde inte kryptera DM till %(recipient)s; meddelandet släpptes",
-    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session för DM till %(recipient)s; meddelandet släpptes"
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session för DM till %(recipient)s; meddelandet släpptes",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s har favoritmarkerat dig; deras Nostr-nyckel är nu länkad för DM-åtkomst",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s har tagit bort favoriten; deras Nostr-länk togs bort",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s skickade en annan Nostr-nyckel än den länkade; länken är oförändrad (använd :bitchat link för att byta)"
   },
   "sw": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake na %(nick)s imekamilika",
@@ -803,7 +893,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Mpokeaji asiyejulikana %(recipient)s -- ujumbe umetupwa",
     "bitchat.noise_dm_failed": "[bitchat] Imeshindwa kusimba DM kwa %(recipient)s; ujumbe umetupwa",
-    "bitchat.noise_dm_dropped": "[bitchat] Hakuna kipindi cha Noise kwa DM kwa %(recipient)s; ujumbe umetupwa"
+    "bitchat.noise_dm_dropped": "[bitchat] Hakuna kipindi cha Noise kwa DM kwa %(recipient)s; ujumbe umetupwa",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s amekuweka kipenzi; ufunguo wake wa Nostr sasa umeunganishwa kwa ufikiaji wa DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s amekuondoa kwenye vipenzi; kiungo chake cha Nostr kimeondolewa",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s ametuma ufunguo wa Nostr tofauti na ulioUnganishwa; kiungo hakijabadilika (tumia :bitchat link kubadilisha)"
   },
   "th": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake กับ %(nick)s เสร็จสมบูรณ์",
@@ -829,7 +922,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] ผู้รับไม่รู้จัก %(recipient)s -- ทิ้งข้อความแล้ว",
     "bitchat.noise_dm_failed": "[bitchat] เข้ารหัส DM ไปยัง %(recipient)s ไม่สำเร็จ; ทิ้งข้อความแล้ว",
-    "bitchat.noise_dm_dropped": "[bitchat] ไม่มี Noise session สำหรับ DM ไปยัง %(recipient)s; ทิ้งข้อความแล้ว"
+    "bitchat.noise_dm_dropped": "[bitchat] ไม่มี Noise session สำหรับ DM ไปยัง %(recipient)s; ทิ้งข้อความแล้ว",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s เพิ่มคุณเป็นรายการโปรด; คีย์ Nostr ของพวกเขาเชื่อมโยงสำหรับการเข้าถึงผ่าน DM แล้ว",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s นำคุณออกจากรายการโปรด; การเชื่อมโยง Nostr ของพวกเขาถูกลบแล้ว",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s ส่งคีย์ Nostr ที่ต่างจากที่เชื่อมโยงไว้; การเชื่อมโยงไม่เปลี่ยนแปลง (ใช้ :bitchat link เพื่อแทนที่)"
   },
   "tr": {
     "bitchat.handshake_complete": "[bitchat] %(nick)s ile Noise handshake tamamlandı",
@@ -855,7 +951,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Bilinmeyen alıcı %(recipient)s -- mesaj atıldı",
     "bitchat.noise_dm_failed": "[bitchat] %(recipient)s için DM şifrelenemedi; mesaj atıldı",
-    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s için DM Noise oturumu yok; mesaj atıldı"
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s için DM Noise oturumu yok; mesaj atıldı",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s sizi favorilere ekledi; Nostr anahtarı artık DM erişimi için bağlandı",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s sizi favorilerden çıkardı; Nostr bağı kaldırıldı",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s, bağlı olandan farklı bir Nostr anahtarı gönderdi; bağ değişmedi (değiştirmek için :bitchat link kullanın)"
   },
   "uk": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake з %(nick)s завершено",
@@ -881,7 +980,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Невідомий одержувач %(recipient)s -- повідомлення відкинуто",
     "bitchat.noise_dm_failed": "[bitchat] Не вдалося зашифрувати DM для %(recipient)s; повідомлення відкинуто",
-    "bitchat.noise_dm_dropped": "[bitchat] Немає сеансу Noise для DM до %(recipient)s; повідомлення відкинуто"
+    "bitchat.noise_dm_dropped": "[bitchat] Немає сеансу Noise для DM до %(recipient)s; повідомлення відкинуто",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s додав вас до обраного; його ключ Nostr тепер прив'язано для доступу через DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s прибрав вас з обраного; його прив'язку Nostr видалено",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s надіслав ключ Nostr, відмінний від прив'язаного; прив'язка не змінена (для заміни використовуйте :bitchat link)"
   },
   "vi": {
     "bitchat.handshake_complete": "[bitchat] Hoàn tất Noise handshake với %(nick)s",
@@ -907,7 +1009,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] Người nhận không xác định %(recipient)s -- đã bỏ tin nhắn",
     "bitchat.noise_dm_failed": "[bitchat] Không mã hóa được DM tới %(recipient)s; đã bỏ tin nhắn",
-    "bitchat.noise_dm_dropped": "[bitchat] Không có phiên Noise cho DM tới %(recipient)s; đã bỏ tin nhắn"
+    "bitchat.noise_dm_dropped": "[bitchat] Không có phiên Noise cho DM tới %(recipient)s; đã bỏ tin nhắn",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s đã thêm bạn vào mục yêu thích; khóa Nostr của họ giờ đã được liên kết để truy cập qua DM",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s đã bỏ yêu thích bạn; liên kết Nostr của họ đã bị xóa",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s đã gửi khóa Nostr khác với khóa đã liên kết; liên kết không đổi (dùng :bitchat link để thay thế)"
   },
   "zh_CN": {
     "bitchat.handshake_complete": "[bitchat] 与 %(nick)s 的 Noise handshake 已完成",
@@ -933,7 +1038,10 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] 未知接收者 %(recipient)s -- 消息已丢弃",
     "bitchat.noise_dm_failed": "[bitchat] 无法加密发送给 %(recipient)s 的 DM；消息已丢弃",
-    "bitchat.noise_dm_dropped": "[bitchat] 没有用于向 %(recipient)s 发送 DM 的 Noise 会话；消息已丢弃"
+    "bitchat.noise_dm_dropped": "[bitchat] 没有用于向 %(recipient)s 发送 DM 的 Noise 会话；消息已丢弃",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s 已收藏你；已链接其 Nostr 密钥，可通过私信操作",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s 已取消收藏你；已移除其 Nostr 链接",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s 发送了与已链接不同的 Nostr 密钥；链接未更改（如需替换请使用 :bitchat link）"
   },
   "zh_TW": {
     "bitchat.handshake_complete": "[bitchat] 與 %(nick)s 的 Noise handshake 已完成",
@@ -959,6 +1067,9 @@
     "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
     "bitchat.unknown_recipient": "[bitchat] 未知接收者 %(recipient)s -- 訊息已捨棄",
     "bitchat.noise_dm_failed": "[bitchat] 無法加密傳送給 %(recipient)s 的 DM；訊息已捨棄",
-    "bitchat.noise_dm_dropped": "[bitchat] 沒有用於向 %(recipient)s 傳送 DM 的 Noise 工作階段；訊息已捨棄"
+    "bitchat.noise_dm_dropped": "[bitchat] 沒有用於向 %(recipient)s 傳送 DM 的 Noise 工作階段；訊息已捨棄",
+    "bitchat.favorite_linked": "[bitchat] %(sender)s 已收藏你；已連結其 Nostr 金鑰，可透過私訊操作",
+    "bitchat.favorite_unlinked": "[bitchat] %(sender)s 已取消收藏你；已移除其 Nostr 連結",
+    "bitchat.favorite_conflict": "[bitchat] %(sender)s 傳送了與已連結不同的 Nostr 金鑰；連結未更改（如需替換請使用 :bitchat link）"
   }
 }
