@@ -582,17 +582,6 @@ def _call_openai_azure_round(
                             for spec in responses_tool_specs or []
                             if not is_computer_use_tool_spec(spec)
                         ]
-                    record_tool_discovery_debug(
-                        discovery,
-                        provider=provider,
-                        depname=depname,
-                        use_responses_api=use_responses_api,
-                        tool_names=tools.format_tool_names_for_log(
-                            responses_tool_specs
-                        ),
-                        where="responses",
-                        session_id=str(getattr(core, "SESSION_ID", "") or ""),
-                    )
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,
@@ -619,6 +608,21 @@ def _call_openai_azure_round(
                         "model": depname,
                         "input": input_msgs,
                     }
+
+                if send_tools_this_round:
+                    # Record after request construction: the builders
+                    # may add tools (web_search, computer use) or fall
+                    # back to the loaded set, so req_tools is the
+                    # finalized outgoing list.
+                    record_tool_discovery_debug(
+                        discovery,
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=use_responses_api,
+                        tool_names=tools.format_tool_names_for_log(req_tools),
+                        where="responses",
+                        session_id=str(getattr(core, "SESSION_ID", "") or ""),
+                    )
 
                 # OpenAI Fast mode is intentionally not applied to Azure or
                 # other OpenAI-compatible providers.
