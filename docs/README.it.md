@@ -160,6 +160,10 @@ Questi controlli sono configurabili e **non garantiscono** che qualsiasi strumen
 
 UAG include risorse per **38 impostazioni locali** (inglese più 37 traduzioni), integrazioni vocali full-duplex opzionali e strumenti per SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP e OPC UA.
 
+**Lingua madre, dall'inizio alla fine.** La localizzazione non riguarda solo
+l'interfaccia. È tradotto anche ciò che vede il modello: il prompt di
+sistema, le descrizioni degli strumenti e i termini di ricerca del catalogo.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

@@ -201,6 +201,9 @@ UAGには**38言語分のロケール**（英語と37言語の翻訳）があり
 オプションで全二重音声連携を利用でき、SwitchBot、Matter、
 ECHONET Lite、BACnet、Modbus TCP、OPC UAなどのIoTシステム向けツールも備えています。
 
+**母語で、端から端まで。** ローカリゼーションは画面表示だけではありません。
+モデルに見せるシステムプロンプト、ツールの説明、カタログの検索語まで訳されています。
+
 - [READMEの各国語版](README.translations.md)
 - [IoTユースケース](IOT_USECASE.md)
 - [コミュニケーションツール](COMMUNICATION.md)

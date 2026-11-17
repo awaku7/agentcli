@@ -160,6 +160,10 @@ Vidhibiti hivi vinaweza kusanidiwa lakini **havihakikishi** kila zana inaendeshw
 
 UAG ina rasilimali za **mipangilio 38 ya lugha** (Kiingereza na tafsiri 37), muunganisho wa sauti wa pande mbili wa hiari na zana za SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP na OPC UA.
 
+**Lugha ya mama, mwanzo hadi mwisho.** Ujanibishaji hauhusu kiolesura pekee.
+Kile ambacho modeli huona — prompt ya mfumo, maelezo ya zana, na maneno ya
+utafutaji wa katalogi — pia kimetafsiriwa.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

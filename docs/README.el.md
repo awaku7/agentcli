@@ -160,6 +160,10 @@ flowchart LR
 
 Το UAG διαθέτει πόρους για **38 τοπικές ρυθμίσεις** (αγγλικά και 37 μεταφράσεις), προαιρετική φωνή πλήρους διπλής κατεύθυνσης και εργαλεία SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP και OPC UA.
 
+**Μητρική γλώσσα, από την αρχή ως το τέλος.** Η τοπικοποίηση δεν αφορά μόνο
+τη διεπαφή. Είναι μεταφρασμένο και αυτό που βλέπει το μοντέλο: το prompt
+συστήματος, οι περιγραφές εργαλείων και οι όροι αναζήτησης του καταλόγου.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

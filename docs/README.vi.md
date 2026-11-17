@@ -160,6 +160,10 @@ Những biện pháp này có thể cấu hình nhưng **không bảo đảm** m
 
 UAG có tài nguyên cho **38 khu vực ngôn ngữ** (tiếng Anh và 37 bản dịch), tích hợp giọng nói hai chiều tùy chọn và công cụ cho SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP và OPC UA.
 
+**Ngôn ngữ mẹ đẻ, từ đầu đến cuối.** Bản địa hóa không chỉ dừng ở giao diện.
+Cả những gì mô hình nhìn thấy — prompt hệ thống, mô tả công cụ và từ khóa
+tìm kiếm trong danh mục — cũng được dịch.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

@@ -160,6 +160,10 @@ UAG स्वतंत्र पढ़ने के कार्यों का
 
 UAG में **38 भाषा-क्षेत्रों** (अंग्रेज़ी और 37 अनुवाद), वैकल्पिक दोनों ओर एक साथ आवाज़ संचार और SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP तथा OPC UA के टूल के लिए संसाधन हैं।
 
+**मातृभाषा, शुरू से अंत तक।** स्थानीयकरण केवल इंटरफ़ेस तक सीमित नहीं है।
+मॉडल जो देखता है — सिस्टम प्रॉम्प्ट, टूल विवरण और कैटलॉग खोज शब्द — वह भी
+अनुवादित है।
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

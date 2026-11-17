@@ -160,6 +160,10 @@ Esses controles são configuráveis e **não garantem** que qualquer execução 
 
 O UAG oferece recursos para **38 localidades** (inglês e 37 traduções), integrações opcionais de voz bidirecional e ferramentas para SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP e OPC UA.
 
+**Língua materna, do começo ao fim.** A localização não se limita à
+interface. Também está traduzido o que o modelo vê: o prompt do sistema, as
+descrições das ferramentas e os termos de busca do catálogo.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

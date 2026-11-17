@@ -206,6 +206,10 @@ UAG includes resources for **38 locales** (English plus 37 translations),
 optional full-duplex voice integrations, and tools for systems such as SwitchBot,
 Matter, ECHONET Lite, BACnet, Modbus TCP, and OPC UA.
 
+**Native language, end to end.** The localization also covers what the model
+sees — the system prompt, tool descriptions, and catalog search terms — not
+just the interface.
+
 - [Translations](docs/README.translations.md)
 - [IoT use cases](docs/IOT_USECASE.md)
 - [Communication tools](docs/COMMUNICATION.md)

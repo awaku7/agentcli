@@ -160,6 +160,10 @@ UAG স্বাধীন পাঠের সমান্তরাল নির�
 
 UAG-এ **৩৮টি ভাষা-লোকেলের** (ইংরেজি ও ৩৭টি অনুবাদ) রিসোর্স, ঐচ্ছিক দ্বিমুখী রিয়েল-টাইম অডিও এবং SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP ও OPC UA-এর টুল রয়েছে।
 
+**মাতৃভাষা, শুরু থেকে শেষ পর্যন্ত।** স্থানীয়করণ শুধু ইন্টারফেসে সীমাবদ্ধ
+নয়। মডেল যা দেখে — সিস্টেম প্রম্পট, টুলের বিবরণ এবং ক্যাটালগের অনুসন্ধান
+শব্দ — তাও অনূদিত।
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

@@ -160,6 +160,10 @@ Estes mecanismos são configuráveis e **não garantem** que toda a execução d
 
 O UAG inclui recursos para **38 idiomas e variantes regionais** (inglês e 37 traduções), integração opcional de voz bidirecional e ferramentas para SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP e OPC UA.
 
+**Língua materna, do início ao fim.** A localização não se limita à
+interface. Também está traduzido o que o modelo vê: o prompt do sistema, as
+descrições das ferramentas e os termos de pesquisa do catálogo.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

@@ -160,6 +160,10 @@ Nako-configure ang mga kontrol na ito ngunit **hindi garantisadong** naka-sandbo
 
 May resources ang UAG para sa **38 locales** (English at 37 pagsasalin), opsyonal na full-duplex voice integration, at mga tool para sa SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP at OPC UA.
 
+**Sariling wika, mula simula hanggang dulo.** Hindi lang ang interface ang
+isinalin. Pati ang nakikita ng modelo — ang system prompt, mga paglalarawan
+ng tool, at mga salitang hinahanap sa catalog — ay isinalin din.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

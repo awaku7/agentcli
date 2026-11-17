@@ -160,6 +160,9 @@ UAG תומכת בקריאות עצמאיות מקבילות, תיאום בין �
 
 UAG מספקת משאבים ל-**38 הגדרות שפה** (אנגלית ו-37 תרגומים), יכולות קול דו-כיווני אופציונליות וכלים ל-SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP ו-OPC UA.
 
+**שפת אם, מההתחלה ועד הסוף.** הלוקליזציה אינה מוגבלת לממשק בלבד. מתורגם גם
+מה שהמודל רואה: פרומפט המערכת, תיאורי הכלים ומונחי החיפוש בקטלוג.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

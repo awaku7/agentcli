@@ -160,6 +160,10 @@ flowchart LR
 
 يوفّر UAG موارد لـ **38 إعدادًا لغويًا** (الإنجليزية و37 ترجمة)، وتكاملًا صوتيًا ثنائي الاتجاه اختياريًا وأدوات لـ SwitchBot وMatter وECHONET Lite وBACnet وModbus TCP وOPC UA.
 
+**اللغة الأم، من البداية إلى النهاية.** لا تقتصر الترجمة على الواجهة فقط.
+فما يراه النموذج مترجم أيضًا: موجّه النظام، وأوصاف الأدوات، ومصطلحات البحث
+في الكتالوج.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

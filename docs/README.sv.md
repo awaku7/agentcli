@@ -160,6 +160,10 @@ Kontrollerna går att konfigurera men **garanterar inte** att godtycklig verktyg
 
 UAG innehåller resurser för **38 språkvarianter** (engelska och 37 översättningar), valfria full-duplex-röstintegrationer och verktyg för SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP och OPC UA.
 
+**Modersmål, hela vägen.** Lokaliseringen gäller inte bara gränssnittet.
+Även det modellen ser — systemprompten, verktygsbeskrivningarna och
+katalogens söktermer — är översatt.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

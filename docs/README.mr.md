@@ -160,6 +160,10 @@ UAG स्वतंत्र वाचनाचे समांतर काम,
 
 UAG मध्ये **३८ भाषा-लोकेल्स** (इंग्रजी आणि ३७ भाषांतरे), पर्यायी द्विदिश ध्वनी एकत्रीकरण आणि SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP व OPC UA साठी साधने आहेत.
 
+**मातृभाषा, सुरुवातीपासून शेवटपर्यंत.** स्थानिकीकरण फक्त इंटरफेसपुरते
+मर्यादित नाही. मॉडेल जे पाहते — सिस्टम प्रॉम्प्ट, साधनांची वर्णने आणि कॅटलॉग
+शोध संज्ञा — तेही भाषांतरित आहे.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

@@ -160,6 +160,10 @@ A védelmek beállíthatók, de **nem garantálják** minden eszköz sandboxban 
 
 Az UAG **38 nyelvi környezethez** biztosít erőforrásokat (angol és 37 fordítás), választható teljes duplex hangfunkciókat és SwitchBot, Matter, ECHONET Lite, BACnet, Modbus TCP, OPC UA eszközöket.
 
+**Anyanyelv, az elejétől a végéig.** A lokalizáció nem csak a felületre
+vonatkozik. Le van fordítva az is, amit a modell lát: a rendszerprompt, az
+eszközleírások és a katalógus keresőkifejezései.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)

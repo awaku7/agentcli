@@ -160,6 +160,10 @@ UAG از عملیات خواندن مستقل موازی، هماهنگی چند
 
 UAG برای **۳۸ تنظیم زبانی** (انگلیسی و ۳۷ ترجمه)، یکپارچه‌سازی صوتی دوطرفهٔ اختیاری و ابزارهایی برای SwitchBot، Matter، ECHONET Lite، BACnet، Modbus TCP و OPC UA منابع دارد.
 
+**زبان مادری، از آغاز تا پایان.** بومی‌سازی فقط به رابط کاربری محدود نیست.
+آنچه مدل می‌بیند نیز ترجمه شده است: پرامپت سیستم، توضیحات ابزارها و
+عبارت‌های جستجوی کاتالوگ.
+
 - [Translations](README.translations.md)
 - [IoT use cases](IOT_USECASE.md)
 - [Communication tools](COMMUNICATION.md)
