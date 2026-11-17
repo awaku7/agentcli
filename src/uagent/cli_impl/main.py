@@ -20,7 +20,12 @@ from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 from ..runtime.logging_setup import configure_event_logging, log_event
 from ..runtime.round_outcome import project_round_outcome
 from ..scheduler import start_background_scheduler, stop_background_scheduler
-from ..tools.pybitchat_shared import reply_to_bitchat_dm, set_llm_event_queue
+from ..tools.pybitchat_shared import (
+    cancel_bitchat_turn,
+    finish_bitchat_turn,
+    set_active_bitchat_turn,
+    set_llm_event_queue,
+)
 from ..util_tools import (
     build_multimodal_user_message,
     extract_image_paths,
@@ -638,6 +643,12 @@ def main() -> int:
                 kind = remote_action.kind
                 ev = {"kind": kind, "text": remote_action.text}
 
+            # Progress notes (tool / reasoning) for a bitchat peer are
+            # scoped to the event whose turn is about to run.
+            set_active_bitchat_turn(
+                ev.get("reply_route") if ev.get("src") == "bitchat" else None
+            )
+
             if kind == "status" and remote_request_event is not None:
                 _finish_nostr_remote_request(core, remote_request_event, "completed")
                 _send_nostr_remote_reply(
@@ -1073,6 +1084,8 @@ def main() -> int:
                         print(_("Returning to prompt..."))
                         if remote_request_event is not None:
                             _interrupt_nostr_remote_request(core, remote_request_event)
+                        if ev.get("src") == "bitchat":
+                            cancel_bitchat_turn()
                         continue
                     except Exception as exc:
                         lifecycle.fail()
@@ -1085,8 +1098,7 @@ def main() -> int:
                 # bitchat 経由の DM: LLM 応答を送信者の DM に自動返信
                 if ev.get("src") == "bitchat":
                     reply = tools_util.extract_last_assistant_text(messages)
-                    if reply:
-                        reply_to_bitchat_dm(reply, ev.get("reply_route"))
+                    finish_bitchat_turn(reply or "", ev.get("reply_route"))
                     # 注入ラウンド中に手動プロンプトの行が閉じられているため、
                     # アイドルに戻ったら stdin_loop に再描画を要求する。
                     try:

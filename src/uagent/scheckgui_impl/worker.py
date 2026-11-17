@@ -31,8 +31,9 @@ from ..util_tools import (
     provider_allows_chat_vision,
 )
 from ..tools.pybitchat_shared import (
+    finish_bitchat_turn,
     is_chat_mode,
-    reply_to_bitchat_dm,
+    set_active_bitchat_turn,
     set_llm_event_queue,
 )
 from ..uagent_llm import run_llm_rounds as util_run_llm_rounds
@@ -165,6 +166,9 @@ class ScheckWorker(QtCore.QObject):
             ),
             human_ask_set_password=(
                 lambda v: setattr(core, "human_ask_is_password", bool(v))
+            ),
+            human_ask_set_message=(
+                lambda v: setattr(core, "human_ask_message", str(v))
             ),
             is_auto_pilot_active=(lambda: core.auto_pilot_active),
             event_queue=core.event_queue,
@@ -373,6 +377,11 @@ class ScheckWorker(QtCore.QObject):
                 try:
                     ev = core.event_queue.get(timeout=0.5)
                     kind = ev.get("kind")
+                    # Progress notes (tool / reasoning) for a bitchat
+                    # peer are scoped to the event about to run.
+                    set_active_bitchat_turn(
+                        ev.get("reply_route") if ev.get("src") == "bitchat" else None
+                    )
 
                     if kind == "command":
                         command_text = ev.get("text", "")
@@ -569,8 +578,7 @@ class ScheckWorker(QtCore.QObject):
                                 )
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
-                                if _reply:
-                                    reply_to_bitchat_dm(_reply, ev.get("reply_route"))
+                                finish_bitchat_turn(_reply or "", ev.get("reply_route"))
                             continue
 
                         for p in ev.get("images", []):
@@ -630,8 +638,7 @@ class ScheckWorker(QtCore.QObject):
                                 )
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
-                                if _reply:
-                                    reply_to_bitchat_dm(_reply, ev.get("reply_route"))
+                                finish_bitchat_turn(_reply or "", ev.get("reply_route"))
                 except QueueEmpty:
                     continue
                 except Exception:

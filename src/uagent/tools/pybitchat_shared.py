@@ -1193,6 +1193,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         noise_key_hex = _rs.hex() if _rs is not None else ""
         if noise_key_hex and _handle_favorite_claim(noise_key_hex, sender, text):
             return
+        # A DM from the peer whose turn is blocked in human_ask is the
+        # ask's answer, not a new turn (and is not displayed as one).
+        # Pairing is rechecked here: a peer revoked mid-ask must not
+        # still be able to answer it.
+        if (
+            noise_key_hex
+            and _is_paired_noise_peer(noise_key_hex)
+            and _try_deliver_bitchat_ask_answer({"via": "ble", "peer": peer_hex}, text)
+        ):
+            return
         _notify_display(
             _(
                 "bitchat.noise_dm_msg",
@@ -1912,6 +1922,13 @@ def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
     """
     if _is_favorite_claim(text) or _is_receipt_text(text):
         return
+    # A DM from the peer whose turn is blocked in human_ask is the
+    # ask's answer, not a new turn. Pairing is rechecked here: a peer
+    # revoked mid-ask must not still be able to answer it.
+    if _is_paired_nostr_peer(sender_pubkey) and _try_deliver_bitchat_ask_answer(
+        {"via": "nostr", "peer": sender_pubkey}, text
+    ):
+        return
     if _RUNNING and _is_paired_nostr_peer(sender_pubkey):
         _inject_to_llm(
             _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
@@ -1949,6 +1966,7 @@ def start(
     nostr_relays: list[str] | None = None,
 ) -> dict[str, Any]:
     global _LISTENER_THREAD, _RUNNING, _NOSTR, _NOSTR_RUNNING, _NOSTR_RELAYS, _NOSTR_BRIDGE
+    global _ASK_WATCHER_THREAD
     if _RUNNING:
         # Re-assert pins even when the node is already running.
         _pin_bitchat_tools()
@@ -1984,6 +2002,12 @@ def start(
     )
     _LISTENER_THREAD.start()
     _RUNNING = True
+    _ASK_WATCHER_THREAD = threading.Thread(
+        target=_ask_watcher_loop,
+        daemon=True,
+        name="bitchat-ask-watcher",
+    )
+    _ASK_WATCHER_THREAD.start()
     _pin_bitchat_tools()
     # Paired peers' DMs are injected into the LLM whenever the node
     # runs, so make sure the event queue is bound even when bitchat
@@ -2273,6 +2297,299 @@ def reply_to_bitchat_dm(text: str, route: dict[str, str] | None) -> None:
         enqueue_send("text", cleaned, recipient=peer, via="nostr")
     elif via == "ble" and peer:
         enqueue_send("text", cleaned, recipient=peer, via="ble")
+
+
+# ---------------------------------------------------------------------------
+# Turn progress notes for the paired peer. These mirror the Nostr remote
+# (NIP-17) progress DMs: while a paired peer's turn runs, the peer gets
+# tool-activity notes and buffered reasoning notes as DMs, ahead of the
+# final reply. The event loops mark the active turn per queued event, so
+# notes can only go to the peer whose turn is currently running.
+# Best-effort: notes go through reply_to_bitchat_dm, never a durable
+# queue, and never block the turn.
+# ---------------------------------------------------------------------------
+
+_PROGRESS_LOCK = threading.Lock()
+_ACTIVE_TURN_ROUTE: dict[str, str] | None = None
+_TURN_GENERATION = 0
+_PROGRESS_LAST_TOOL = ""
+_REASONING_PARTS: list[str] = []
+_REASONING_FLUSH_CHARS = 600
+_PROGRESS_SENT = 0
+_PROGRESS_MAX_PER_TURN = 30
+_PROGRESS_TEXT_LIMIT = 1200
+_ASK_FORWARDED_QUEUE: Any = None
+_ASK_QUEUED_QUEUE: Any = None
+_ASK_WATCHER_THREAD: threading.Thread | None = None
+
+
+def _send_progress_locked(text: str) -> None:
+    global _PROGRESS_SENT
+    if _ACTIVE_TURN_ROUTE is None:
+        return
+    if _PROGRESS_SENT >= _PROGRESS_MAX_PER_TURN:
+        return
+    _PROGRESS_SENT += 1
+    reply_to_bitchat_dm(text[:_PROGRESS_TEXT_LIMIT], _ACTIVE_TURN_ROUTE)
+
+
+def _flush_reasoning_locked() -> None:
+    global _REASONING_PARTS
+    if not _REASONING_PARTS:
+        return
+    text = "".join(_REASONING_PARTS).strip()
+    _REASONING_PARTS = []
+    if text:
+        _send_progress_locked("\U0001f4ad " + text)
+
+
+def set_active_bitchat_turn(route: dict[str, str] | None) -> None:
+    """Mark the bitchat turn the event loops are about to run.
+
+    Called once per queued event with that event's reply route (None
+    for non-bitchat events). Reasoning still buffered from the previous
+    turn is flushed to that turn's peer before the switch.
+    """
+    global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL, _PROGRESS_SENT
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
+    with _PROGRESS_LOCK:
+        _flush_reasoning_locked()
+        _ACTIVE_TURN_ROUTE = dict(route) if route else None
+        _TURN_GENERATION += 1
+        _PROGRESS_LAST_TOOL = ""
+        _PROGRESS_SENT = 0
+        _ASK_FORWARDED_QUEUE = None
+        _ASK_QUEUED_QUEUE = None
+
+
+def bitchat_turn_active() -> bool:
+    """Return True while a paired peer's turn is the foreground turn."""
+    return _ACTIVE_TURN_ROUTE is not None
+
+
+def note_bitchat_tool_action(name: str, text: str) -> None:
+    """Forward one tool-start sentence to the active turn's peer.
+
+    Same rule as the Nostr remote: consecutive notes for the same tool
+    are sent once, and buffered reasoning is flushed first.
+    """
+    global _PROGRESS_LAST_TOOL
+    if not name or not text:
+        return
+    with _PROGRESS_LOCK:
+        if _ACTIVE_TURN_ROUTE is None or name == _PROGRESS_LAST_TOOL:
+            return
+        _PROGRESS_LAST_TOOL = name
+        _flush_reasoning_locked()
+        _send_progress_locked("\U0001f527 " + text)
+
+
+def note_bitchat_reasoning(text: str) -> None:
+    """Buffer streamed reasoning for the active turn's peer.
+
+    Flushed as one note every 600 buffered characters, before the next
+    tool note, and before the turn's reply. Background sub-agent jobs
+    share the providers; their reasoning is not part of the foreground
+    bitchat turn (same rule as the Nostr remote).
+    """
+    if not isinstance(text, str) or not text:
+        return
+    try:
+        from ..runtime.sub_agent_jobs import current_sub_agent_job_mode
+
+        if current_sub_agent_job_mode() == "background":
+            return
+    except Exception:
+        pass
+    with _PROGRESS_LOCK:
+        if _ACTIVE_TURN_ROUTE is None:
+            return
+        _REASONING_PARTS.append(text)
+        if sum(len(part) for part in _REASONING_PARTS) >= _REASONING_FLUSH_CHARS:
+            _flush_reasoning_locked()
+
+
+def finish_bitchat_turn(reply_text: str, route: dict[str, str] | None) -> None:
+    """Flush pending progress, then send the turn's reply to the peer.
+
+    The event loops call this in place of a bare reply_to_bitchat_dm so
+    buffered reasoning reaches the peer before the final reply.
+    """
+    global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
+    with _PROGRESS_LOCK:
+        _flush_reasoning_locked()
+        _ASK_FORWARDED_QUEUE = None
+        _ASK_QUEUED_QUEUE = None
+        if _ACTIVE_TURN_ROUTE is not None and route == _ACTIVE_TURN_ROUTE:
+            _ACTIVE_TURN_ROUTE = None
+            _PROGRESS_LAST_TOOL = ""
+            _TURN_GENERATION += 1
+    reply_to_bitchat_dm(reply_text, route)
+
+
+def cancel_bitchat_turn() -> None:
+    """Drop the active turn's progress state without sending anything."""
+    global _ACTIVE_TURN_ROUTE, _PROGRESS_LAST_TOOL, _REASONING_PARTS
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE, _TURN_GENERATION
+    with _PROGRESS_LOCK:
+        _ACTIVE_TURN_ROUTE = None
+        _TURN_GENERATION += 1
+        _PROGRESS_LAST_TOOL = ""
+        _REASONING_PARTS = []
+        _ASK_FORWARDED_QUEUE = None
+        _ASK_QUEUED_QUEUE = None
+
+
+# ---------------------------------------------------------------------------
+# human_ask bridging for the active turn's peer (mirrors the Nostr
+# remote): while a paired peer's turn is blocked in human_ask, a watcher
+# thread forwards the question to the peer as a DM, and the peer's
+# reply DM is routed into the ask queue as the answer instead of
+# becoming a new turn. Password asks are never forwarded. Delivery on
+# this transport is fire-and-forget, so answer routing arms as soon as
+# the question has been enqueued for the peer; the atomic
+# queue-identity check at delivery time still protects against a
+# locally answered or superseded ask.
+# ---------------------------------------------------------------------------
+
+
+def _ask_state_snapshot() -> dict[str, Any] | None:
+    """Snapshot the host's pending human_ask state, or None."""
+    try:
+        from .. import core as _core
+
+        lock = getattr(_core, "human_ask_lock", None)
+        if lock is None:
+            return None
+        with lock:
+            return {
+                "active": bool(getattr(_core, "human_ask_active", False)),
+                "is_password": bool(getattr(_core, "human_ask_is_password", False)),
+                "message": str(getattr(_core, "human_ask_message", "") or ""),
+                "queue": getattr(_core, "human_ask_queue", None),
+            }
+    except Exception:
+        return None
+
+
+def _deliver_ask_answer(expected_queue: Any, text: str) -> bool:
+    """Put a peer's reply into the pending human_ask queue.
+
+    Revalidates under the host's ask lock that the same ask is still
+    pending and is not a password ask. A locally answered or
+    superseded ask reports False; the caller still consumes the DM,
+    dropping it as a late duplicate answer.
+    """
+    try:
+        from .. import core as _core
+
+        lock = getattr(_core, "human_ask_lock", None)
+        if lock is None:
+            return False
+        with lock:
+            if not bool(getattr(_core, "human_ask_active", False)):
+                return False
+            if bool(getattr(_core, "human_ask_is_password", False)):
+                return False
+            if getattr(_core, "human_ask_queue", None) is not expected_queue:
+                return False
+            expected_queue.put(text)
+            return True
+    except Exception:
+        return False
+
+
+def _forward_pending_ask_once() -> None:
+    """Forward one pending human_ask question to the active peer."""
+    global _ASK_FORWARDED_QUEUE, _ASK_QUEUED_QUEUE
+    with _PROGRESS_LOCK:
+        route = _ACTIVE_TURN_ROUTE
+        generation = _TURN_GENERATION
+        forwarded = _ASK_FORWARDED_QUEUE
+        queued = _ASK_QUEUED_QUEUE
+    if route is None:
+        return
+    snapshot = _ask_state_snapshot()
+    if not snapshot or not snapshot.get("active"):
+        return
+    if snapshot.get("is_password"):
+        return
+    message = str(snapshot.get("message") or "").strip()
+    ask_queue = snapshot.get("queue")
+    if not message or ask_queue is None:
+        return
+    if ask_queue is forwarded or ask_queue is queued:
+        return
+    with _PROGRESS_LOCK:
+        # The turn may have switched since the route was captured; the
+        # snapshot would then hold the new turn's question, which must
+        # not go to the previous turn's peer.
+        if generation != _TURN_GENERATION or route != _ACTIVE_TURN_ROUTE:
+            return
+        _flush_reasoning_locked()
+        _ASK_QUEUED_QUEUE = ask_queue
+    try:
+        reply_to_bitchat_dm("\u2753 " + message[:_PROGRESS_TEXT_LIMIT], route)
+    except Exception:
+        with _PROGRESS_LOCK:
+            if _ASK_QUEUED_QUEUE is ask_queue:
+                _ASK_QUEUED_QUEUE = None
+        return
+    with _PROGRESS_LOCK:
+        if _ASK_QUEUED_QUEUE is ask_queue:
+            _ASK_QUEUED_QUEUE = None
+        if generation != _TURN_GENERATION or route != _ACTIVE_TURN_ROUTE:
+            # The turn changed while the question was being sent; do
+            # not arm answer routing for a turn that never asked it.
+            return
+        _ASK_FORWARDED_QUEUE = ask_queue
+
+
+def _ask_watcher_loop() -> None:
+    """Poll for a pending human_ask and forward it to the active peer."""
+    while not _STOP_EVENT.is_set():
+        try:
+            _forward_pending_ask_once()
+        except Exception:
+            pass
+        _STOP_EVENT.wait(0.4)
+
+
+def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
+    """Route a peer's DM into a forwarded human_ask, if one is armed.
+
+    Returns True when the DM was consumed as the ask's answer: it is
+    neither displayed nor injected as a new turn. Only the active
+    turn's peer can answer, and only the exact ask that was forwarded.
+    Control texts (/uag ...) are never consumed as answers. Callers
+    recheck the sender's pairing immediately before calling, so a
+    peer revoked while the ask was pending cannot answer it.
+    """
+    global _ASK_FORWARDED_QUEUE
+    if not isinstance(text, str):
+        return False
+    with _PROGRESS_LOCK:
+        active_route = _ACTIVE_TURN_ROUTE
+        forwarded = _ASK_FORWARDED_QUEUE
+    if active_route is None or forwarded is None:
+        return False
+    if route != active_route:
+        return False
+    snapshot = _ask_state_snapshot()
+    if not snapshot or not snapshot.get("active"):
+        return False
+    if snapshot.get("is_password"):
+        return False
+    if snapshot.get("queue") is not forwarded:
+        return False
+    lowered = text.strip().lower()
+    if lowered == "/uag" or lowered.startswith(("/uag ", "/uag\t", "/uag\n")):
+        return False
+    _deliver_ask_answer(forwarded, text)
+    with _PROGRESS_LOCK:
+        _ASK_FORWARDED_QUEUE = None
+    return True
 
 
 def is_chat_mode() -> str:
