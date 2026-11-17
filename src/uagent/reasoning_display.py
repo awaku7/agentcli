@@ -88,6 +88,14 @@ def show_reasoning(
                 _remote_runtime.note_reasoning(text)
             except Exception:
                 pass
+        # Same mirror for a bitchat peer whose turn is running; the
+        # helper buffers and no-ops when no bitchat turn is active.
+        try:
+            from .tools.pybitchat_shared import note_bitchat_reasoning
+
+            note_bitchat_reasoning(text)
+        except Exception:
+            pass
     is_web = bool(getattr(core, "_is_web", False)) if core is not None else False
     if is_web:
         try:

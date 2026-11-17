@@ -637,12 +637,23 @@ def tool_action_sentence(name: str, args: dict[str, Any]) -> str:
 
 
 def _emit_remote_tool_progress(name: str, args: dict[str, Any]) -> None:
-    """Mirror one tool start to the Nostr remote requester, if attached."""
+    """Mirror one tool start to the active remote/bitchat requester."""
     try:
         from .. import core as _core
 
         runtime = getattr(_core, "_nostr_remote_runtime", None)
-        if runtime is None:
+        note_bitchat = None
+        try:
+            from .pybitchat_shared import (
+                bitchat_turn_active,
+                note_bitchat_tool_action,
+            )
+
+            if bitchat_turn_active():
+                note_bitchat = note_bitchat_tool_action
+        except Exception:
+            pass
+        if runtime is None and note_bitchat is None:
             return
         # Background sub-agent jobs share the dispatcher; their tools are
         # not part of the foreground remote turn.
@@ -652,7 +663,10 @@ def _emit_remote_tool_progress(name: str, args: dict[str, Any]) -> None:
             return
         text = tool_action_sentence(name, args)
         if text:
-            runtime.note_tool_action(name, text)
+            if runtime is not None:
+                runtime.note_tool_action(name, text)
+            if note_bitchat is not None:
+                note_bitchat(name, text)
     except Exception:
         pass
 
