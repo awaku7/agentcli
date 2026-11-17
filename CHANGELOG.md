@@ -1007,7 +1007,6 @@
 - docs: document auto-pilot termination semantics and translate the tool flow documentation to English
 - docs: correct Auto-Pilot key descriptions in localized READMEs and standardize translation links
 - docs: use absolute GitHub links for repository documentation while preserving the PyPI link
-- test: add a space-steganography sample and detector for Unicode space experiments
 
 ## [0.6.0] - 2026-08-15
 
