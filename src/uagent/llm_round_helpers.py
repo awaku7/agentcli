@@ -122,7 +122,9 @@ from .tools.llm_tool_narrowing import (
 )
 from .runtime.tool_discovery import (
     MANAGEMENT_TOOL_NAMES,
+    record_tool_discovery_debug,
     select_tool_specs_for_discovery,
+    tool_discovery_debug_enabled,
 )
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
@@ -580,6 +582,17 @@ def _call_openai_azure_round(
                             for spec in responses_tool_specs or []
                             if not is_computer_use_tool_spec(spec)
                         ]
+                    record_tool_discovery_debug(
+                        discovery,
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=use_responses_api,
+                        tool_names=tools.format_tool_names_for_log(
+                            responses_tool_specs
+                        ),
+                        where="responses",
+                        session_id=str(getattr(core, "SESSION_ID", "") or ""),
+                    )
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,
@@ -998,6 +1011,20 @@ def _call_openai_azure_round(
                                 req_tools, call_messages
                             )
                     tools.log_tools_being_sent(req_tools, where="chatcompletions")
+                    if tool_discovery_debug_enabled():
+                        record_tool_discovery_debug(
+                            resolve_tool_discovery(
+                                provider=provider,
+                                depname=depname,
+                                use_responses_api=False,
+                            ),
+                            provider=provider,
+                            depname=depname,
+                            use_responses_api=False,
+                            tool_names=tools.format_tool_names_for_log(req_tools),
+                            where="chatcompletions",
+                            session_id=str(getattr(core, "SESSION_ID", "") or ""),
+                        )
                 if provider == "sarashina" and req_tools is not None:
                     from .providers.openai_projection_policy import (
                         sanitize_sarashina_tool_specs,

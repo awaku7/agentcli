@@ -165,6 +165,8 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 
 **その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは `tool_catalog` → `tool_load` で個別に発見・動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
+**発見の診断（オプトイン）**: `UAGENT_DEBUG_TOOL_DISCOVERY=1` を設定すると、ツールを送信するラウンドごとに JSON 1 行がログディレクトリの `tool_discovery.jsonl` に追記されます。各行には発見の判定（`mode`、`reason`）、プロバイダ/モデル、`tool_catalog` が送信ツールに含まれていたか（`catalog_sent`）が入るので、想定外に `tool_catalog` が呼ばれたラウンドを後から確認できます。デフォルトはオフで、オフ時は環境変数の確認だけです。
+
 **`previous_response_id` 継続**:
 
 - OpenAI/Azure Responses: 有効な `resp_*` のときツールループ間で `previous_response_id` を保持。

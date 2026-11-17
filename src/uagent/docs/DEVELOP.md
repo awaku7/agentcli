@@ -790,6 +790,8 @@ When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending lo
 
 **Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are discovered and individually loaded through `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
 
+**Discovery diagnostics (opt-in)**: Set `UAGENT_DEBUG_TOOL_DISCOVERY=1` to append one JSON line per tool-sending round to `tool_discovery.jsonl` in the log directory. Each record carries the discovery decision (`mode`, `reason`), the provider/model, and whether `tool_catalog` was among the sent tools (`catalog_sent`), so a round where the model called `tool_catalog` unexpectedly can be checked after the fact. Off by default; when off, the round path pays only an env check.
+
 **`previous_response_id` continuity**:
 
 - OpenAI/Azure Responses: keep `previous_response_id` across tool loops when valid (`resp_*`).

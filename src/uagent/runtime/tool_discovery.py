@@ -301,3 +301,70 @@ class ToolDeliveryStrategy:
             tool_specs=tuple(item.schema for item in candidates),
             selected_names=tuple(item.name for item in candidates),
         )
+
+
+def tool_discovery_debug_enabled() -> bool:
+    """True when the opt-in tool-discovery diagnostic is enabled.
+
+    Set UAGENT_DEBUG_TOOL_DISCOVERY=1 to record each round's
+    discovery decision (see record_tool_discovery_debug). Off by
+    default; the round path pays only this env check.
+    """
+    try:
+        from ..env_utils import env_get
+
+        raw = env_get("UAGENT_DEBUG_TOOL_DISCOVERY")
+    except Exception:
+        return False
+    return (raw or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _tool_discovery_debug_path() -> Any:
+    from ..utils.paths import get_log_dir
+
+    return get_log_dir() / "tool_discovery.jsonl"
+
+
+def record_tool_discovery_debug(
+    decision: ToolDiscoveryDecision,
+    *,
+    provider: str = "",
+    depname: str = "",
+    use_responses_api: bool = False,
+    tool_names: Iterable[str] = (),
+    where: str = "",
+    session_id: str = "",
+) -> None:
+    """Append one JSON line describing a round's discovery decision.
+
+    Opt-in only (UAGENT_DEBUG_TOOL_DISCOVERY=1); a no-op otherwise.
+    The record carries the decision mode and reason plus whether
+    tool_catalog was among the sent tools, so a round where the
+    model called tool_catalog unexpectedly can be checked after
+    the fact: native rounds never send it, other modes may.
+    """
+    if not tool_discovery_debug_enabled():
+        return
+    try:
+        import json
+        import time
+
+        names = list(tool_names)
+        record = {
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+            "session_id": session_id,
+            "where": where,
+            "provider": provider,
+            "model": depname,
+            "use_responses_api": bool(use_responses_api),
+            "mode": decision.mode.value,
+            "reason": decision.reason,
+            "tool_count": len(names),
+            "catalog_sent": "tool_catalog" in names,
+        }
+        path = _tool_discovery_debug_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
