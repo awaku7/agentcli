@@ -588,6 +588,26 @@ def test_progress_notes_queue_tool_and_reasoning_in_order(tmp_path) -> None:
         pairings.close()
 
 
+def test_progress_notes_skip_parallel_batch_marker(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        # The parallel batch marker is not a tool and must not reach the
+        # requester; the batch members arrive under their own names.
+        runtime.note_tool_activity("tool:parallel")
+        runtime.note_tool_activity("tool:get_weather_wttr")
+        runtime.note_tool_activity("tool:parallel")
+
+        queued = []
+        while not runtime._progress_queue.empty():
+            queued.append(runtime._progress_queue.get_nowait()[1])
+        assert queued == ["🔧 get_weather_wttr"]
+        assert runtime.finish_event(event, "completed")
+    finally:
+        inbox.close()
+        pairings.close()
+
+
 def test_progress_publish_wraps_for_the_requester(tmp_path, monkeypatch) -> None:
     import asyncio
 

@@ -763,6 +763,11 @@ def _execute_tool_calls(
         run_indices = list(range(len(_parallel_batch)))
 
         if to_run:
+            # Announce the batch members under their own names first, so
+            # status consumers (e.g. the Nostr remote progress feed) see
+            # the real tools; "tool:parallel" alone would hide them.
+            for _batch_name, _batch_args in to_run:
+                core.set_status(True, f"tool:{_batch_name}")
             core.set_status(True, "tool:parallel")
             parallel_results = tools.run_tools_parallel(to_run)
             for (name, pargs, result), orig_idx in zip(parallel_results, run_indices):

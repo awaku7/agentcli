@@ -311,7 +311,9 @@ class NostrRemoteRuntime:
     def note_tool_activity(self, label: str) -> None:
         """Forward one tool-activity label to the active remote requester."""
         name = label[5:].strip() if label.startswith("tool:") else ""
-        if not name:
+        # "parallel" is the batch marker for concurrent tool calls, not a
+        # tool; the batch members are reported under their own names.
+        if not name or name == "parallel":
             return
         with self._progress_lock:
             if self._active_request is None or name == self._last_tool_note:
