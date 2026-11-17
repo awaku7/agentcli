@@ -739,9 +739,36 @@ def _cmd_bitchat_geo_list(arg: str, **kwargs) -> "CommandResult":
 
 # ---- :bitchat peers command ------------------------------------------------
 
+# The BLE peers shown by the most recent :bitchat peers, in display order:
+# (nickname, noise_key_hex) for the entries that carried a number.
+# :bitchat pair resolves numbers and nicknames against this list only, so
+# a selector can never name a peer the user has not actually seen listed.
+_DISPLAYED_BLE_PEERS: list[tuple[str, str]] = []
+
+_HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
+
+
+def _looks_like_noise_key(text: str) -> bool:
+    return len(text) == 64 and all(char in _HEX_DIGITS for char in text)
+
+
+def _displayed_peer_matches(selector: str) -> list[str]:
+    """Noise keys of displayed BLE peers matching a :bitchat pair selector.
+
+    A selector is a 1-based number into the displayed list or a nickname.
+    Returns every match; the caller decides what zero or several mean.
+    """
+    if selector.isascii() and selector.isdigit():
+        index = int(selector)
+        if 1 <= index <= len(_DISPLAYED_BLE_PEERS):
+            return [_DISPLAYED_BLE_PEERS[index - 1][1]]
+        return []
+    return [key for nick, key in _DISPLAYED_BLE_PEERS if nick == selector]
+
 
 def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat peers - list discovered peers (Nostr + BLE mesh)"""
+    global _DISPLAYED_BLE_PEERS
     from . import pybitchat_shared as _shared
     from .pybitchat_shared import _NOSTR as _nt_mod
 
@@ -760,7 +787,10 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
                     _("peers.list_entry", default="  %(nick)s (%(pubkey)s)")
                     % {"nick": nick, "pubkey": pubkey}
                 )
-    # BLE mesh peers, with the Noise key :bitchat pair expects.
+    # BLE mesh peers, with the Noise key :bitchat pair expects. Peers
+    # with a known Noise key are numbered; :bitchat pair resolves those
+    # numbers (and nicknames) against exactly this displayed list.
+    displayed: list[tuple[str, str]] = []
     ble_peers = sorted(_shared._PEER_NICKNAMES.items())
     if ble_peers:
         printed = True
@@ -770,13 +800,25 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
         )
         for peer_id, nick in ble_peers:
             noise_key = _shared._PEER_NOISE_KEYS.get(peer_id)
-            print(
-                _("peers.ble_entry", default="  %(nick)s noise=%(noise_key)s")
-                % {
-                    "nick": nick,
-                    "noise_key": noise_key.hex() if noise_key else "?",
-                }
-            )
+            if noise_key:
+                displayed.append((nick, noise_key.hex()))
+                print(
+                    _(
+                        "peers.ble_entry_numbered",
+                        default="  %(index)d. %(nick)s noise=%(noise_key)s",
+                    )
+                    % {
+                        "index": len(displayed),
+                        "nick": nick,
+                        "noise_key": noise_key.hex(),
+                    }
+                )
+            else:
+                print(
+                    _("peers.ble_entry", default="  %(nick)s noise=%(noise_key)s")
+                    % {"nick": nick, "noise_key": "?"}
+                )
+    _DISPLAYED_BLE_PEERS = displayed
     if not printed:
         print(_("peers.list_none", default="No bitchat peers discovered yet."))
     from ..util_tools import CommandResult
@@ -797,25 +839,78 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
 
 
 def _cmd_bitchat_pair(arg: str, **kwargs) -> "CommandResult":
-    """Handle :bitchat pair <noise_key_hex> [label]"""
+    """Handle :bitchat pair <noise_key_hex | number | nickname> [label]"""
     from ..bitchat_pairing import open_bitchat_pairing_store
+    from ..util_tools import CommandResult
 
-    parts = arg.strip().split(maxsplit=1)
-    if not parts:
+    raw = arg.strip()
+    if not raw:
         print(
             _(
                 "pair.usage",
-                default="Usage: :bitchat pair <noise_key_hex> [label]",
+                default="Usage: :bitchat pair <noise_key_hex | number | nickname> [label]",
             )
         )
-        from ..util_tools import CommandResult
-
         return CommandResult()
+    parts = raw.split(None, 1)
+    first = parts[0]
+    rest = parts[1].strip() if len(parts) > 1 else ""
+    if _looks_like_noise_key(first):
+        noise_key, label = first, rest
+    else:
+        # A number or nickname, resolved against the peers the most
+        # recent :bitchat peers actually displayed, and nothing else.
+        if not _DISPLAYED_BLE_PEERS:
+            print(
+                _(
+                    "pair.not_displayed",
+                    default="No BLE peers have been displayed yet. Run :bitchat peers first.",
+                )
+            )
+            return CommandResult()
+        selector = first
+        label = rest
+        if not (first.isascii() and first.isdigit()):
+            # A nickname may contain spaces: the longest displayed
+            # nickname the input starts with is the selector, and
+            # whatever follows it is the label.
+            nick = ""
+            for name, _key in _DISPLAYED_BLE_PEERS:
+                if raw == name or raw.startswith(name + " "):
+                    if len(name) > len(nick):
+                        nick = name
+            if nick:
+                selector = nick
+                label = raw[len(nick) :].strip()
+            else:
+                selector = raw
+        matches = _displayed_peer_matches(selector)
+        if not matches:
+            print(
+                _(
+                    "pair.unknown_peer",
+                    default="No displayed BLE peer matches '%(selector)s'. Run :bitchat peers to check the list.",
+                )
+                % {"selector": selector}
+            )
+            return CommandResult()
+        if len(matches) > 1:
+            print(
+                _(
+                    "pair.ambiguous",
+                    default="More than one displayed peer is named '%(selector)s'. Use the number instead.",
+                )
+                % {"selector": selector}
+            )
+            return CommandResult()
+        noise_key = matches[0]
+        if not label:
+            label = next(name for name, key in _DISPLAYED_BLE_PEERS if key == noise_key)
     try:
         with open_bitchat_pairing_store() as store:
             record = store.pair(
-                parts[0],
-                parts[1] if len(parts) > 1 else "",
+                noise_key,
+                label,
                 approved=True,
             )
         print(
@@ -1012,9 +1107,9 @@ CMD_SPECS = [
         "subcommand": "pair",
         "handler": _cmd_bitchat_pair,
         "help_text": _cmd_help(
-            ":bitchat pair <noise_key_hex> [label]",
+            ":bitchat pair <noise_key_hex | number | nickname> [label]",
             "help.pair",
-            "Pair a bitchat peer by Noise key (allows their DMs to reach the LLM)",
+            "Pair a bitchat peer by Noise key, number, or nickname (allows their DMs to reach the LLM)",
         ),
     },
     {
