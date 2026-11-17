@@ -1738,6 +1738,19 @@ def _run_one_round(
         )
         if round_plan is not None:
             call_messages = [dict(message) for message in round_plan.messages]
+    # Realign the prompt with this round's route before any transform
+    # rewrites the system text: with translation on, the semantic
+    # transform translates the system entry, so a reconcile after it
+    # would no longer recognize the entry and would miss the outgoing
+    # copy while still swapping the stored one.
+    _reconcile_system_prompt_for_route(
+        call_messages,
+        messages,
+        core,
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    )
     call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
@@ -1844,20 +1857,6 @@ def _run_one_round(
             # The registry route is advisory until all providers are migrated.
             # Let the compatibility runner retain its own safety gate.
             registry_route = None
-
-    # The session prompt was chosen at startup; realign it with the
-    # route this round actually runs before any provider runner reads
-    # it. This must happen here, not inside a single runner: the
-    # default-on registry path returns before the OpenAI-compatible
-    # fallback is ever invoked.
-    _reconcile_system_prompt_for_route(
-        call_messages,
-        messages,
-        core,
-        provider=provider,
-        depname=depname,
-        use_responses_api=use_responses_api,
-    )
 
     dispatch = dispatch_provider_round(
         registry_runner=_try_registry_simple_chat_round,

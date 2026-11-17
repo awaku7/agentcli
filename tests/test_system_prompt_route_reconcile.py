@@ -115,20 +115,17 @@ class _CapturedDispatch(Exception):
     """Raised by the fake dispatcher to stop the round at dispatch time."""
 
 
-def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
-    """The reconcile must run before provider dispatch.
+def _drive_round_to_dispatch(monkeypatch, messages, *, transform=None):
+    """Drive _run_one_round to dispatch with a capturing dispatcher.
 
-    The default-on registry runner returns before the OpenAI-compatible
-    fallback is invoked, so a hook inside the fallback never sees those
-    rounds. Drive _run_one_round with a capturing dispatcher and check
-    the messages it receives already carry the reconciled prompt.
+    Returns the call_messages the dispatcher received. The round is
+    stopped at dispatch by raising _CapturedDispatch.
     """
     import pytest
 
     import uagent.runtime.provider_round_dispatcher as dispatcher_module
     import uagent.uagent_llm as llm
 
-    messages = _messages(BASE)
     seen: dict[str, object] = {}
 
     def fake_dispatch(**kwargs):
@@ -171,7 +168,11 @@ def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
         lambda **_: SimpleNamespace(changed=False),
     )
     monkeypatch.setattr(llm, "_record_round_context_plan", lambda **_: None)
-    monkeypatch.setattr(llm, "_apply_semantic_message_transforms", lambda msgs, _: msgs)
+    monkeypatch.setattr(
+        llm,
+        "_apply_semantic_message_transforms",
+        transform if transform is not None else (lambda msgs, _: msgs),
+    )
     monkeypatch.setattr(llm, "project_messages_for_provider", lambda msgs, **_: msgs)
     monkeypatch.setattr(llm, "_begin_responses_runtime", lambda **_: None)
     monkeypatch.setattr(
@@ -198,7 +199,50 @@ def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
             use_llm_thread=False,
         )
 
-    dispatched = seen["call_messages"]
+    return seen["call_messages"]
+
+
+def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
+    """The reconcile must run before provider dispatch.
+
+    The default-on registry runner returns before the OpenAI-compatible
+    fallback is invoked, so a hook inside the fallback never sees those
+    rounds. Drive _run_one_round with a capturing dispatcher and check
+    the messages it receives already carry the reconciled prompt.
+    """
+    messages = _messages(BASE)
+    dispatched = _drive_round_to_dispatch(monkeypatch, messages)
     assert dispatched[0]["content"] == STRIPPED
+    assert messages[0]["content"] == STRIPPED
+    assert "removed" in capsys.readouterr().out
+
+
+def test_reconcile_runs_before_semantic_translation(monkeypatch, capsys):
+    """A translating semantic transform must not hide the stale prompt.
+
+    With translation on, the semantic transform rewrites the system
+    entry's text, so a reconcile after it would no longer recognize
+    the entry: the outgoing copy would keep the stale guidance while
+    the stored copy is swapped and the notice printed anyway. The
+    reconcile therefore runs before the transform, and the dispatched
+    entry carries the reconciled text (plus the translation marker).
+    """
+
+    def translating_transform(msgs, _cfg):
+        return [
+            (
+                {**message, "content": message["content"] + " [T]"}
+                if message.get("role") == "system"
+                else message
+            )
+            for message in msgs
+        ]
+
+    messages = _messages(BASE)
+    dispatched = _drive_round_to_dispatch(
+        monkeypatch, messages, transform=translating_transform
+    )
+    assert dispatched[0]["content"] == STRIPPED + " [T]"
+    assert "tool_catalog" not in dispatched[0]["content"]
     assert messages[0]["content"] == STRIPPED
     assert "removed" in capsys.readouterr().out
