@@ -267,6 +267,11 @@ def build_responses_request(
         # reasoning is represented by typed output items instead.
         m_clean.pop("reasoning_content", None)
 
+        # Gemini/Vertex history stores a serialized native Content object for
+        # replay by those providers. It is local metadata, not a Responses API
+        # input field (OpenAI rejects unknown parameters).
+        m_clean.pop("_gemini_content", None)
+
         attachment_items: list[dict[str, Any]] = []
         if role == "user":
             raw_attachments = m_clean.get("attachments")
@@ -328,7 +333,10 @@ def build_responses_request(
                 m_clean["content"] = normalize_content_items(
                     m_clean.get("content"), role="assistant"
                 )
-                input_msgs.append(m_clean)
+                # Full-history Responses input messages are intentionally
+                # rebuilt from API-supported fields only; session metadata
+                # (for example actor_id or provider-specific keys) must stay local.
+                input_msgs.append({"role": "assistant", "content": m_clean["content"]})
                 input_msgs.extend(_deepseek_items)
                 continue
 
@@ -422,7 +430,12 @@ def build_responses_request(
             merged = prefix + as_str(original_content).lstrip("\r\n")
             m_clean["role"] = "user"
             m_clean["content"] = normalize_content_items(merged, role="user")
-            input_msgs.append(m_clean)
+            input_msgs.append(
+                {
+                    "role": "user",
+                    "content": normalize_content_items(merged, role="user"),
+                }
+            )
             continue
 
         if role not in ("user", "assistant"):
@@ -445,7 +458,9 @@ def build_responses_request(
             except Exception:
                 pass
 
-        input_msgs.append(m_clean)
+        # Only role/content belong on a standard Responses input message.
+        # Never forward local session fields or provider-specific metadata.
+        input_msgs.append({"role": role, "content": normalized_content})
 
     if previous_response_id is not None and _latest_user is not None:
         _latest_user["content"] = normalize_content_items(
@@ -453,7 +468,9 @@ def build_responses_request(
         )
         for _k in ("attachments", "saved_path", "saved_files"):
             _latest_user.pop(_k, None)
-        input_msgs.append(_latest_user)
+        # The continuation request also accepts only the canonical user item;
+        # discard any metadata copied from restored session history.
+        input_msgs.append({"role": "user", "content": _latest_user["content"]})
 
     instructions_str: Optional[str] = None
     if instructions_list:

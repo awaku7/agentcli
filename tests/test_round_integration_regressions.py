@@ -667,6 +667,8 @@ def test_message_transform_precedes_projection_without_mutating_history() -> Non
             "response_id": "resp_internal",
             "reasoning_content": "internal reasoning",
             "_responses_output_items": [{"type": "reasoning"}],
+            "_gemini_content": {"role": "model", "parts": []},
+            "actor_id": "local-user-1",
         }
     ]
     transformed = MessageTransformPipeline().apply(history).messages
@@ -683,6 +685,10 @@ def test_message_transform_precedes_projection_without_mutating_history() -> Non
     assert "response_id" not in projected[0]
     assert "reasoning_content" not in projected[0]
     assert "_responses_output_items" not in projected[0]
+    assert "_gemini_content" not in projected[0]
+    assert "actor_id" not in projected[0]
+    assert history[0]["_gemini_content"]["role"] == "model"
+    assert history[0]["actor_id"] == "local-user-1"
 
 
 def test_unknown_capability_uses_conservative_native_fallback() -> None:

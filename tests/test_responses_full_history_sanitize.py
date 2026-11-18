@@ -80,6 +80,59 @@ def test_full_history_drops_chat_reasoning_extension() -> None:
     assert messages[1]["reasoning_content"] == "内部推論"
 
 
+def test_full_history_drops_gemini_provider_metadata() -> None:
+    messages = [
+        {
+            "role": "user",
+            "content": "前の質問",
+            "actor_id": "local-user-1",
+            "local_extension": "do not send",
+        },
+        {
+            "role": "assistant",
+            "content": "回答",
+            "_gemini_content": {"role": "model", "parts": [{"text": "回答"}]},
+            "provider_extension": {"opaque": True},
+            "timestamp": "2026-01-01T00:00:00Z",
+        },
+        {"role": "user", "content": "続けて"},
+    ]
+
+    _instructions, input_msgs, _tools = build_responses_request(
+        messages,
+        send_tools_this_round=False,
+        provider="openai",
+        previous_response_id=None,
+    )
+
+    assert all(set(m) == {"role", "content"} for m in input_msgs)
+    assert messages[0]["actor_id"] == "local-user-1"
+    assert messages[1]["_gemini_content"]["role"] == "model"
+
+
+def test_previous_response_id_drops_restored_user_metadata() -> None:
+    messages = [
+        {
+            "role": "user",
+            "content": "続きの質問",
+            "actor_id": "local-user-1",
+            "_gemini_content": {"role": "user"},
+        }
+    ]
+
+    _instructions, input_msgs, _tools = build_responses_request(
+        messages,
+        send_tools_this_round=False,
+        provider="openai",
+        previous_response_id="resp_previous",
+    )
+
+    assert input_msgs == [
+        {"role": "user", "content": [{"type": "input_text", "text": "続きの質問"}]}
+    ]
+    assert messages[0]["actor_id"] == "local-user-1"
+
+
 def test_vllm_stateless_full_history_keeps_tool_result() -> None:
     messages = [
         {"role": "user", "content": "今日の天気"},

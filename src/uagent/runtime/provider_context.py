@@ -15,6 +15,8 @@ _INTERNAL_KEYS = {
     "reasoning_content",
     "reasoning",
     "_responses_output_items",
+    "_gemini_content",
+    "actor_id",
 }
 
 
