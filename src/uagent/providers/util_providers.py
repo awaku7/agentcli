@@ -1177,7 +1177,12 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = _provider_api_key(core, "VERTEXAI")
         project = env_get("UAGENT_VERTEXAI_PROJECT")
-        location = env_get("UAGENT_VERTEXAI_LOCATION")
+        # Default to the global endpoint only when a project is set: with an
+        # API key alone (express mode) a location would make the SDK build
+        # project-scoped paths with an empty project.
+        location = env_get("UAGENT_VERTEXAI_LOCATION") or (
+            "global" if project else None
+        )
 
         http_options: dict[str, Any] = {}
         try:
