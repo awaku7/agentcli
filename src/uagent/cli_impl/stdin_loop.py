@@ -170,7 +170,17 @@ def stdin_loop(*, hook_runner=None) -> None:
                                     != reply_job_id
                                 )
                             )
-                        if reply_cancelled:
+                            # The ask was answered from another channel
+                            # (Nostr remote / bitchat bridge) while this
+                            # prompt was blocked, and the prompt watcher
+                            # withdrew it. Nothing typed here belongs to
+                            # an ask anymore: re-loop and render the
+                            # current prompt instead of reading a reply
+                            # nobody is waiting for.
+                            ask_answered_elsewhere = bool(
+                                not reply_job_id and not core.human_ask_active
+                            )
+                        if reply_cancelled or ask_answered_elsewhere:
                             continue
                         if reply_job_id:
                             line = "cancel"
