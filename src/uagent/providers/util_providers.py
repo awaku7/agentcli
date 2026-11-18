@@ -1177,7 +1177,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = _provider_api_key(core, "VERTEXAI")
         project = env_get("UAGENT_VERTEXAI_PROJECT")
-        location = env_get("UAGENT_VERTEXAI_LOCATION")
+        location = env_get("UAGENT_VERTEXAI_LOCATION") or "global"
 
         http_options: dict[str, Any] = {}
         try:
