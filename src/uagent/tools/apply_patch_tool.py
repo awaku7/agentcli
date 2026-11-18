@@ -714,7 +714,12 @@ def describe(args: dict[str, Any]) -> str:
         reverse_action = str(_("describe.reverse", default="Reversing patch"))
         if bool(dry_run):
             action = (
-                str(_("describe.preview", default="Previewing patch changes for the target files"))
+                str(
+                    _(
+                        "describe.preview",
+                        default="Previewing patch changes for the target files",
+                    )
+                )
                 + ": "
                 + reverse_action
             )

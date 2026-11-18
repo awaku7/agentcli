@@ -529,10 +529,8 @@ print('not shown')"""
 def test_python_exec_describer_previews_first_code_line_and_masks_literals() -> None:
     from uagent.tools import python_exec_tool
 
-    text = python_exec_tool.describe(
-        {"code": """import pandas as pd
-print('private value')"""}
-    )
+    text = python_exec_tool.describe({"code": """import pandas as pd
+print('private value')"""})
     assert "import pandas as pd" in text
     assert "print" not in text
     assert "private value" not in text
