@@ -8,7 +8,7 @@ import subprocess
 import sys
 import types
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 from ..scheduler.os_payload import (
@@ -171,6 +171,13 @@ def _create_windows_schedule(
 ) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
+    # /Z (delete the task after its final run) makes the Task Scheduler
+    # require an EndBoundary on the trigger, and schtasks only emits one
+    # when an end time is given; without /ET the registration is rejected
+    # with "The task XML is missing a required element: EndBoundary".
+    # One minute past the start is enough: the boundary only gates the
+    # expiry-based deletion, not the one-shot run itself.
+    end_str = (at_dt + timedelta(minutes=1)).strftime("%H:%M")
     # schtasks accepts one command string for /tr. list2cmdline applies Windows
     # argv quoting; argv contains only the interpreter, fixed module/flag names,
     # and a validated opaque payload ID (never the prompt or workdir).
@@ -186,6 +193,8 @@ def _create_windows_schedule(
             "once",
             "/st",
             time_str,
+            "/et",
+            end_str,
             "/sd",
             date_str,
             "/f",
