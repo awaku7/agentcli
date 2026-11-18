@@ -376,12 +376,18 @@ def _normalize_gemini_content_turns(
             return "user"
         if text == "model" or text.endswith(".model"):
             return "model"
+        if text == "tool" or text.endswith(".tool"):
+            return "tool"
         return ""
 
     for content in contents:
         parts = getattr(content, "parts", None)
         role = role_name(content)
-        if not isinstance(parts, list) or not parts or role not in {"user", "model"}:
+        if (
+            not isinstance(parts, list)
+            or not parts
+            or role not in {"user", "model", "tool"}
+        ):
             repaired = True
             continue
         parts = [part for part in parts if part is not None]
@@ -407,7 +413,7 @@ def _normalize_gemini_content_turns(
         normalized.pop(0)
         repaired = True
 
-    if not normalized or role_name(normalized[-1]) != "user":
+    if not normalized or role_name(normalized[-1]) not in {"user", "tool"}:
         normalized.append(
             gemini_types.Content(
                 role="user", parts=[gemini_types.Part(text="Continue.")]

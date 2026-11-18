@@ -184,3 +184,32 @@ def test_gemini_content_preflight_repairs_adjacent_and_terminal_model_turns():
     assert repaired is True
     assert [content.role for content in normalized] == ["user", "model", "user"]
     assert len(normalized[1].parts) == 2
+
+
+def test_gemini_content_preflight_preserves_terminal_tool_turn():
+    from uagent.providers.llm_gemini import _normalize_gemini_content_turns
+
+    class FakePart:
+        def __init__(self, **kwargs):
+            self.kwargs = kwargs
+
+    class FakeContent:
+        def __init__(self, role, parts):
+            self.role = role
+            self.parts = list(parts)
+
+    class FakeTypes:
+        Content = FakeContent
+        Part = FakePart
+
+    normalized, repaired = _normalize_gemini_content_turns(
+        [
+            FakeContent("user", [FakePart(text="request")]),
+            FakeContent("model", [FakePart(function_call={"name": "tool"})]),
+            FakeContent("tool", [FakePart(function_response={"name": "tool"})]),
+        ],
+        FakeTypes,
+    )
+
+    assert repaired is False
+    assert [content.role for content in normalized] == ["user", "model", "tool"]
