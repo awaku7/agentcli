@@ -798,6 +798,71 @@ def test_auto_shrink_projection_does_not_mutate_persistent_messages(
     assert projection.projected_message_count == len(projection.messages)
 
 
+def test_auto_shrink_projection_reuses_summary_across_appended_rounds(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    msgs = _make_dialog(5)
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "8")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+
+    calls = {"n": 0}
+
+    def _fake_compress(**kwargs):
+        calls["n"] += 1
+        return [
+            {"role": "system", "content": "SYSTEM_PROMPT"},
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:\nS",
+            },
+            {"role": "user", "content": "tail"},
+        ]
+
+    core = SimpleNamespace(compress_history_with_llm=_fake_compress)
+    cache_mgr = SimpleNamespace(clear_cache=lambda c: None)
+
+    first = lmh.build_auto_shrink_projection(
+        provider="vertexai",
+        client=object(),
+        depname="gemini-2.5-pro",
+        messages=msgs,
+        core=core,
+        cache_mgr=cache_mgr,
+        gemini_cache_name="cached-1",
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=False,
+    )
+    assert calls["n"] == 1
+    assert first.changed is True
+    assert first.cache_name is None
+
+    # Simulate next tool round appending messages to the unchanged raw history.
+    msgs.append({"role": "assistant", "content": "tool call"})
+    msgs.append({"role": "tool", "content": "tool result"})
+
+    second = lmh.build_auto_shrink_projection(
+        provider="vertexai",
+        client=object(),
+        depname="gemini-2.5-pro",
+        messages=msgs,
+        core=core,
+        cache_mgr=cache_mgr,
+        gemini_cache_name="cached-2",
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=False,
+    )
+    assert calls["n"] == 1
+    assert second.changed is True
+    assert second.cache_name is None
+    assert core._gemini_cache_needs_refresh is True
+    assert [m["content"] for m in second.messages[-2:]] == [
+        "tool call",
+        "tool result",
+    ]
+    assert lmh._messages_have_history_summary(list(second.messages))
+
+
 def test_compress_preserves_complete_latest_tool_block():
     messages = [
         {"role": "system", "content": "SYSTEM_PROMPT"},

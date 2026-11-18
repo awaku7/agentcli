@@ -767,6 +767,62 @@ def _build_auto_shrink_projection(
     use_responses_api: bool = False,
 ) -> tuple[Any, list[dict[str, Any]]]:
     """Build a shrink projection without changing persistent conversation state."""
+    # Reuse a prior non-persistent projection for the exact same source prefix
+    # so consecutive tool rounds do not re-summarize the same older history.
+    cache_state = getattr(core, "_auto_shrink_projection_cache", None)
+    if isinstance(cache_state, dict):
+        cached_source_count = cache_state.get("source_count")
+        cached_source_tail = cache_state.get("source_tail")
+        cached_projected = cache_state.get("projected_prefix")
+        cached_provider = cache_state.get("provider")
+        cached_depname = cache_state.get("depname")
+        if (
+            isinstance(cached_source_count, int)
+            and 0 < cached_source_count <= len(messages)
+            and isinstance(cached_projected, list)
+            and cached_provider == provider
+            and cached_depname == depname
+            and messages[cached_source_count - 1] == cached_source_tail
+        ):
+            reused_base = copy.deepcopy(cached_projected) + copy.deepcopy(
+                messages[cached_source_count:]
+            )
+            reused = copy.deepcopy(reused_base)
+            projected_cache = _maybe_auto_shrink_messages(
+                provider=provider,
+                client=client,
+                depname=depname,
+                messages=reused,
+                core=core,
+                cache_mgr=cache_mgr,
+                gemini_cache_name=gemini_cache_name,
+                call_maybe_thread_fn=call_maybe_thread_fn,
+                use_responses_api=use_responses_api,
+                persist=False,
+            )
+            if reused != reused_base:
+                try:
+                    core._auto_shrink_projection_cache = {
+                        "provider": provider,
+                        "depname": depname,
+                        "source_count": len(messages),
+                        "source_tail": copy.deepcopy(messages[-1]),
+                        "projected_prefix": copy.deepcopy(reused),
+                    }
+                except Exception:
+                    pass
+            elif provider in ("gemini", "vertexai") and _messages_have_history_summary(
+                reused
+            ):
+                # Reused summary is not present in the raw-messages cache,
+                # so bypass the cache for this request and keep refresh flagged.
+                projected_cache = None
+                try:
+                    core._gemini_cache_needs_refresh = True
+                except Exception:
+                    pass
+            return projected_cache, reused
+
     projected = copy.deepcopy(messages)
     projected_cache = _maybe_auto_shrink_messages(
         provider=provider,
@@ -780,6 +836,17 @@ def _build_auto_shrink_projection(
         use_responses_api=use_responses_api,
         persist=False,
     )
+    if projected != messages and messages:
+        try:
+            core._auto_shrink_projection_cache = {
+                "provider": provider,
+                "depname": depname,
+                "source_count": len(messages),
+                "source_tail": copy.deepcopy(messages[-1]),
+                "projected_prefix": copy.deepcopy(projected),
+            }
+        except Exception:
+            pass
     return projected_cache, projected
 
 
