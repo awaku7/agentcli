@@ -33,6 +33,9 @@ _READBACK_ATTEMPTS = 2
 _PROGRESS_MAX_PER_REQUEST = 30
 _PROGRESS_TEXT_LIMIT = 1200
 _REASONING_FLUSH_CHARS = 600
+# Upper bound for send_reply to wait while the progress sender publishes
+# the request's queued notes, so the reply cannot overtake them.
+_PROGRESS_DRAIN_TIMEOUT_SECONDS = 10.0
 
 
 async def _read_back_wraps(
@@ -234,6 +237,7 @@ class NostrRemoteRuntime:
         self._progress_lock = threading.Lock()
         self._active_request: dict[str, Any] | None = None
         self._progress_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
+        self._progress_pending: dict[tuple[str, str], int] = {}
         self._question_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
         self._progress_sent = 0
         self._progress_routes: dict[str, list[str]] | None = None
@@ -292,6 +296,13 @@ class NostrRemoteRuntime:
             self._ask_queued_queue = None
             self._reasoning_parts = []
 
+    @staticmethod
+    def _progress_key(request: dict[str, Any]) -> tuple[str, str]:
+        return (
+            str(request.get("sender_pubkey") or ""),
+            str(request.get("rumor_id") or ""),
+        )
+
     def _enqueue_progress_locked(self, text: str) -> None:
         if self._active_request is None:
             return
@@ -299,6 +310,49 @@ class NostrRemoteRuntime:
             return
         self._progress_sent += 1
         self._progress_queue.put((self._active_request, text[:_PROGRESS_TEXT_LIMIT]))
+        key = self._progress_key(self._active_request)
+        self._progress_pending[key] = self._progress_pending.get(key, 0) + 1
+
+    def _note_progress_published(self, request: dict[str, Any]) -> None:
+        key = self._progress_key(request)
+        with self._progress_lock:
+            remaining = self._progress_pending.get(key, 0) - 1
+            if remaining > 0:
+                self._progress_pending[key] = remaining
+            else:
+                self._progress_pending.pop(key, None)
+
+    def _wait_for_progress_drain(
+        self,
+        request: dict[str, Any],
+        *,
+        timeout: float = _PROGRESS_DRAIN_TIMEOUT_SECONDS,
+    ) -> None:
+        """Wait briefly until the request's queued progress notes are sent.
+
+        Progress notes travel on a side queue drained one by one by a
+        background task, while the reply is delivered separately; without
+        this wait the reply can overtake the final reasoning note and
+        reach the requester first. Best-effort: the wait is bounded by
+        ``timeout`` and skipped when the progress sender is not running,
+        so the reply is never blocked indefinitely.
+        """
+        key = self._progress_key(request)
+        with self._progress_lock:
+            active = self._active_request
+            if active is not None and self._progress_key(active) == key:
+                self._flush_reasoning_locked()
+        stop_event = self._stop_event
+        if stop_event is None:
+            return
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            if stop_event.is_set():
+                return
+            with self._progress_lock:
+                if self._progress_pending.get(key, 0) <= 0:
+                    return
+            time.sleep(0.05)
 
     def _flush_reasoning_locked(self) -> None:
         if not self._reasoning_parts:
@@ -550,6 +604,8 @@ class NostrRemoteRuntime:
                     await self._publish_progress_text(item[0], item[1])
                 except Exception:
                     pass
+                finally:
+                    self._note_progress_published(item[0])
 
     def _forward_pending_ask_once(self) -> None:
         """Queue one pending human_ask question for the active requester."""
@@ -1463,6 +1519,11 @@ class NostrRemoteRuntime:
         if len(encoded) > 16_384:
             encoded = encoded[: 16_384 - len(suffix.encode("utf-8"))]
             text = encoded.decode("utf-8", errors="ignore") + suffix
+
+        # Queued progress notes for this request (tool activity and the
+        # final reasoning flush) must reach the requester before the
+        # reply; give the progress sender a bounded chance to drain them.
+        self._wait_for_progress_drain(request_event)
 
         store = self.outbox_store
         if store is None:

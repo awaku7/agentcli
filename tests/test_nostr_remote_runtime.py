@@ -616,6 +616,104 @@ def test_progress_notes_forward_tool_action_sentences(tmp_path) -> None:
         pairings.close()
 
 
+def test_progress_drain_wait_is_bounded_and_clears_on_publish(tmp_path) -> None:
+    import asyncio
+
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime.note_tool_action("shell", "About to use shell: ls")
+        key = runtime._progress_key(event)
+        assert runtime._progress_pending.get(key) == 1
+
+        # Progress sender not running: the wait is skipped, never a stall.
+        started = time.monotonic()
+        runtime._wait_for_progress_drain(event, timeout=5.0)
+        assert time.monotonic() - started < 1.0
+
+        # Sender running but not draining: the wait is bounded by timeout.
+        runtime._stop_event = asyncio.Event()
+        started = time.monotonic()
+        runtime._wait_for_progress_drain(event, timeout=0.3)
+        assert time.monotonic() - started >= 0.25
+        assert runtime._progress_pending.get(key) == 1
+
+        # Once the note is published, the wait returns at once.
+        item = runtime._progress_queue.get_nowait()
+        runtime._note_progress_published(item[0])
+        started = time.monotonic()
+        runtime._wait_for_progress_drain(event, timeout=5.0)
+        assert time.monotonic() - started < 1.0
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_reply_waits_for_queued_progress_notes(tmp_path, monkeypatch) -> None:
+    import asyncio
+    import threading
+
+    import uagent.nostr_remote_transport as transport
+    from uagent.nostr_remote_outbox import SQLiteNostrOutboxStore
+
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    runtime.outbox_store = SQLiteNostrOutboxStore(
+        tmp_path / "progress-order-outbox.sqlite3"
+    )
+    order: list[str] = []
+
+    async def fake_fetch(pubkey, lookup_relays, *, allowed_relay_urls, **_kwargs):
+        return ["wss://relay.example.org"]
+
+    async def fake_publish(
+        events,
+        relay_lists_by_pubkey,
+        auth_private_key,
+        *,
+        allowed_relay_urls,
+        **_kwargs,
+    ):
+        order.append("reply")
+        return [SimpleNamespace(event_id=e["id"], accepted=True) for e in events]
+
+    monkeypatch.setattr(transport, "fetch_nip17_relay_list", fake_fetch)
+    monkeypatch.setattr(transport, "publish_nip17_gift_wraps", fake_publish)
+
+    async def slow_progress_publish(request, text):
+        await asyncio.sleep(0.3)
+        order.append("note")
+        return True
+
+    runtime._publish_progress_text = slow_progress_publish
+    runtime._stop_event = asyncio.Event()
+
+    def run_sender() -> None:
+        async def main() -> None:
+            try:
+                await asyncio.wait_for(runtime._progress_sender(), timeout=3.0)
+            except asyncio.TimeoutError:
+                pass
+
+        asyncio.run(main())
+
+    sender = threading.Thread(target=run_sender, daemon=True)
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        sender.start()
+        runtime.note_reasoning("final thoughts")
+        # CLI order at turn end: finish (which flushes the buffered
+        # reasoning into the progress queue), then send the reply. The
+        # reply must not overtake the still-queued reasoning note.
+        assert runtime.finish_event(event, "completed")
+        result = runtime.send_reply(event, "the answer")
+        assert result["ok"] is True
+        assert order == ["note", "reply"]
+    finally:
+        sender.join(timeout=4.0)
+        inbox.close()
+        pairings.close()
+
+
 def test_progress_publish_wraps_for_the_requester(tmp_path, monkeypatch) -> None:
     import asyncio
 
