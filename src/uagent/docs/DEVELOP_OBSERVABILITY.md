@@ -147,6 +147,15 @@ Initial low-cardinality metrics include:
 
 Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span IDs, item/memory IDs, references, arbitrary user strings, file paths, URLs, and query/content text are never metric dimensions.
 
+Alongside the UAG-owned metrics, the OTel adapter derives the standard OpenTelemetry GenAI metrics from each finished span's sanitized attributes, so runtime code never names them:
+
+- `gen_ai.client.inference.duration` and the per-operation token histograms `gen_ai.client.inference.operation.input_tokens` / `output_tokens` for `chat` spans;
+- the monotonic usage counters `gen_ai.client.inference.usage.input_tokens`, `output_tokens`, `cache_read.input_tokens`, `cache_write.input_tokens`, and `reasoning.output_tokens`, with `gen_ai.token.modality` set to `unknown` (UAG does not split usage by modality; the reasoning counter carries no modality, per the conventions);
+- `gen_ai.execute_tool.duration` for `execute_tool` spans;
+- `gen_ai.invoke_agent.duration`, `gen_ai.invoke_agent.inference_calls`, and `gen_ai.invoke_agent.tool_calls` for `invoke_agent` spans, counting only the invocation's direct child spans.
+
+Dimensions are limited to the span's own standard attributes (`gen_ai.operation.name`, `gen_ai.provider.name`, `gen_ai.request.model`, `gen_ai.tool.name`, `gen_ai.agent.name`) plus a bounded `error.type` for failed spans. When Admin pairing is active and no explicit metrics endpoint is configured, metrics are exported to the paired Admin's `/otlp/v1/metrics` endpoint with the pairing credential, mirroring the trace pairing rules.
+
 ## Phase-3 trusted propagation and local Sub-Agent spans
 
 Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP propagation, and explicitly trusted Web reverse-proxy ingress are Phase-3 runtime boundaries.
@@ -367,7 +376,7 @@ See `DEVELOP_OBSERVABILITY_PHASE4D.md`,
 Generic global provider/HTTP auto-instrumentation remains unsupported unless a future reviewed
 contract explicitly adds it.
 
-Paired Admin OTLP trace exporters probe again with a new batch after a 30-second cooldown on failure. Failed/cooldown batches are dropped; no credential rotation or backlog replay occurs. Explicit other collectors and metrics retain the fail-stop policy.
+Paired Admin OTLP trace and metric exporters probe again with a new batch after a 30-second cooldown on failure. Failed/cooldown batches are dropped; no credential rotation or backlog replay occurs. Explicit other collectors retain the fail-stop policy.
 
 
 ### Standard OTel user attributes
