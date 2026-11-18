@@ -287,6 +287,13 @@ def get_otlp_pairing() -> tuple[str, str] | None:
     return data["admin_base_url"] + "/otlp/v1/traces", data["otlp_bearer"]
 
 
+def get_otlp_metrics_pairing() -> tuple[str, str] | None:
+    data = load_pairing()
+    if data is None:
+        return None
+    return data["admin_base_url"] + "/otlp/v1/metrics", data["otlp_bearer"]
+
+
 def export_pairing(
     *,
     uag_url: str,

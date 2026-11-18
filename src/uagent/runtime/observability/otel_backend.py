@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import atexit
+import contextvars
 import json
 import os
 import threading
@@ -28,6 +29,57 @@ _METRIC_BOOLEAN_KEYS = {
     "uag.memory.identity_bound",
     "uag.memory.profile_present",
     "uag.memory.guidance_present",
+}
+
+# GenAI semantic-convention metrics are derived inside this adapter from the
+# mapped span attributes at span end; runtime code never names them. Bucket
+# boundaries follow the conventions' advisory values.
+_GENAI_DURATION_BUCKETS = (
+    0.01,
+    0.02,
+    0.04,
+    0.08,
+    0.16,
+    0.32,
+    0.64,
+    1.28,
+    2.56,
+    5.12,
+    10.24,
+    20.48,
+    40.96,
+    81.92,
+)
+_GENAI_TOKEN_BUCKETS = (
+    1,
+    4,
+    16,
+    64,
+    256,
+    1024,
+    4096,
+    16384,
+    65536,
+    262144,
+    1048576,
+    4194304,
+    16777216,
+    67108864,
+)
+# Usage attribute suffix -> standard usage counter name. The reasoning
+# counter is the only one the conventions break down without a modality.
+_GENAI_USAGE_COUNTERS = {
+    "input_tokens": "gen_ai.client.inference.usage.input_tokens",
+    "output_tokens": "gen_ai.client.inference.usage.output_tokens",
+    "cache_read.input_tokens": (
+        "gen_ai.client.inference.usage.cache_read.input_tokens"
+    ),
+    "cache_write.input_tokens": (
+        "gen_ai.client.inference.usage.cache_write.input_tokens"
+    ),
+    "reasoning.output_tokens": (
+        "gen_ai.client.inference.usage.reasoning.output_tokens"
+    ),
 }
 
 
@@ -128,6 +180,24 @@ class _FailStopExporter:
                     pass
 
 
+def _genai_dimensions(
+    attributes: Mapping[str, Any],
+    keys: Any,
+    *,
+    error_type: str | None = None,
+) -> dict[str, Any]:
+    """Project bounded string dimensions for one GenAI metric."""
+
+    dims: dict[str, Any] = {}
+    for key in keys:
+        value = attributes.get(key)
+        if isinstance(value, str) and value.strip():
+            dims[key] = value.strip()
+    if error_type:
+        dims["error.type"] = error_type
+    return dims
+
+
 def _configured_otlp_endpoint(signal: str) -> str:
     """Return a configured signal-specific or common OTLP endpoint, if any."""
 
@@ -162,7 +232,12 @@ class OpenTelemetrySpan:
     """Small adapter around an OpenTelemetry SDK span."""
 
     def __init__(
-        self, span: Any, *, capture_content: bool, operation: str = ""
+        self,
+        span: Any,
+        *,
+        capture_content: bool,
+        operation: str = "",
+        initial_attributes: Mapping[str, Any] | None = None,
     ) -> None:
         self._span = span
         self._capture_content = capture_content
@@ -170,6 +245,28 @@ class OpenTelemetrySpan:
         self._captured_messages: dict[str, list[dict[str, Any]]] = {}
         self._content_ordinals: set[int] = set()
         self._cancelled = False
+        # Sanitized standard attributes actually written to the span, kept so
+        # the backend can derive GenAI metrics from them when the span ends.
+        self._metric_attributes: dict[str, Any] = dict(initial_attributes or {})
+        self._error_type: str | None = None
+        self._failed = False
+
+    @property
+    def metric_attributes(self) -> dict[str, Any]:
+        """Sanitized attributes recorded on this span (for metric derivation)."""
+
+        return self._metric_attributes
+
+    @property
+    def metric_error_type(self) -> str | None:
+        """Bounded error class for metric dimensions, when the span failed."""
+
+        if not self._failed:
+            return None
+        explicit = self._metric_attributes.get("error.type")
+        if isinstance(explicit, str) and explicit.strip():
+            return explicit.strip()
+        return self._error_type
 
     @property
     def cancelled(self) -> bool:
@@ -184,6 +281,7 @@ class OpenTelemetrySpan:
             )
             for name, item in safe.items():
                 self._span.set_attribute(name, item)
+                self._metric_attributes[name] = item
         except Exception:
             pass
 
@@ -297,6 +395,9 @@ class OpenTelemetrySpan:
             return False
 
     def record_exception(self, exc: BaseException) -> None:
+        self._failed = True
+        if self._error_type is None:
+            self._error_type = type(exc).__name__
         try:
             exception_type = f"{type(exc).__module__}.{type(exc).__name__}"
             self._span.add_event("exception", {"exception.type": exception_type})
@@ -315,6 +416,15 @@ class OpenTelemetrySpan:
             else:
                 code = StatusCode.UNSET
             self._span.set_status(Status(code, description=description))
+            if code == StatusCode.ERROR:
+                self._failed = True
+                if self._error_type is None:
+                    candidate = str(description or "").strip()
+                    # Only identifier-like descriptions are bounded enough to
+                    # serve as a metric dimension (the backend's own unwind
+                    # passes the exception class name).
+                    if candidate and " " not in candidate and len(candidate) <= 128:
+                        self._error_type = candidate
             self._cancelled = code == StatusCode.UNSET and str(
                 description or ""
             ).strip().lower() in {"cancelled", "canceled"}
@@ -341,6 +451,13 @@ class OpenTelemetryBackend:
         self._meter_provider = meter_provider
         self._counter_instruments: dict[str, Any] = {}
         self._histogram_instruments: dict[str, Any] = {}
+        self._genai_counter_instruments: dict[str, Any] = {}
+        self._genai_histogram_instruments: dict[str, Any] = {}
+        # Stack of open invoke_agent spans (innermost last) so child chat and
+        # execute_tool spans can be counted into their enclosing invocation.
+        self._invocation_stack: contextvars.ContextVar[tuple[dict[str, int], ...]] = (
+            contextvars.ContextVar(f"uag_invocation_stack_{id(self)}", default=())
+        )
         self._shutdown = False
 
     @property
@@ -379,7 +496,21 @@ class OpenTelemetryBackend:
             raw_span,
             capture_content=self._settings.capture_content,
             operation=operation,
+            initial_attributes=safe_attributes,
         )
+        invocation: dict[str, int] | None = None
+        stack_token = None
+        if operation in {"chat", "execute_tool"}:
+            stack = self._invocation_stack.get()
+            if stack:
+                key = "inference_calls" if operation == "chat" else "tool_calls"
+                stack[-1][key] = stack[-1].get(key, 0) + 1
+        elif operation == "invoke_agent":
+            invocation = {"inference_calls": 0, "tool_calls": 0}
+            stack_token = self._invocation_stack.set(
+                (*self._invocation_stack.get(), invocation)
+            )
+        started = time.monotonic()
         try:
             yield span
         except BaseException as exc:
@@ -390,12 +521,28 @@ class OpenTelemetryBackend:
                 manager.__exit__(type(exc), exc, exc.__traceback__)
             except Exception:
                 pass
+            self._record_genai_metrics(
+                operation,
+                span,
+                time.monotonic() - started,
+                invocation,
+            )
+            if stack_token is not None:
+                self._invocation_stack.reset(stack_token)
             raise
         else:
             try:
                 manager.__exit__(None, None, None)
             except Exception:
                 pass
+            self._record_genai_metrics(
+                operation,
+                span,
+                time.monotonic() - started,
+                invocation,
+            )
+            if stack_token is not None:
+                self._invocation_stack.reset(stack_token)
 
     def record_event(
         self, name: str, attributes: Mapping[str, Any] | None = None
@@ -447,6 +594,133 @@ class OpenTelemetryBackend:
                 instrument = self._meter.create_histogram(str(name))
                 self._histogram_instruments[str(name)] = instrument
             instrument.record(value, _sanitize_metric_attributes(attributes))
+        except Exception:
+            pass
+
+    def _genai_counter(self, name: str) -> Any:
+        instrument = self._genai_counter_instruments.get(name)
+        if instrument is None:
+            instrument = self._meter.create_counter(name, unit="{token}")
+            self._genai_counter_instruments[name] = instrument
+        return instrument
+
+    def _genai_histogram(self, name: str, *, unit: str, buckets: Any = None) -> Any:
+        instrument = self._genai_histogram_instruments.get(name)
+        if instrument is None:
+            if buckets is None:
+                instrument = self._meter.create_histogram(name, unit=unit)
+            else:
+                try:
+                    instrument = self._meter.create_histogram(
+                        name,
+                        unit=unit,
+                        explicit_bucket_boundaries_advisory=list(buckets),
+                    )
+                except TypeError:
+                    instrument = self._meter.create_histogram(name, unit=unit)
+            self._genai_histogram_instruments[name] = instrument
+        return instrument
+
+    def _record_genai_metrics(
+        self,
+        operation: str,
+        span: OpenTelemetrySpan,
+        duration_seconds: float,
+        invocation: dict[str, int] | None,
+    ) -> None:
+        """Derive the standard GenAI metrics for one finished span.
+
+        Everything comes from the span's own sanitized attributes, so the
+        metric dimensions carry the same reviewed metadata as the span and
+        nothing else. Best-effort: metrics must never break execution.
+        """
+
+        if self._meter is None:
+            return
+        try:
+            attributes = span.metric_attributes
+            error_type = span.metric_error_type
+            if operation == "chat":
+                base = _genai_dimensions(
+                    attributes,
+                    (
+                        "gen_ai.operation.name",
+                        "gen_ai.provider.name",
+                        "gen_ai.request.model",
+                    ),
+                    error_type=error_type,
+                )
+                base.setdefault("gen_ai.operation.name", "chat")
+                self._genai_histogram(
+                    "gen_ai.client.inference.duration",
+                    unit="s",
+                    buckets=_GENAI_DURATION_BUCKETS,
+                ).record(duration_seconds, base)
+                counter_base = {
+                    key: value for key, value in base.items() if key != "error.type"
+                }
+                for suffix, counter_name in _GENAI_USAGE_COUNTERS.items():
+                    value = attributes.get("gen_ai.usage." + suffix)
+                    if type(value) is not int or value < 0:
+                        continue
+                    dims = dict(counter_base)
+                    if suffix != "reasoning.output_tokens":
+                        # UAG does not split usage by modality; the
+                        # conventions require "unknown" in that case.
+                        dims["gen_ai.token.modality"] = "unknown"
+                    self._genai_counter(counter_name).add(value, dims)
+                for suffix, histogram_name in (
+                    (
+                        "input_tokens",
+                        "gen_ai.client.inference.operation.input_tokens",
+                    ),
+                    (
+                        "output_tokens",
+                        "gen_ai.client.inference.operation.output_tokens",
+                    ),
+                ):
+                    value = attributes.get("gen_ai.usage." + suffix)
+                    if type(value) is int and value >= 0:
+                        self._genai_histogram(
+                            histogram_name,
+                            unit="{token}",
+                            buckets=_GENAI_TOKEN_BUCKETS,
+                        ).record(value, base)
+            elif operation == "execute_tool":
+                dims = _genai_dimensions(
+                    attributes,
+                    ("gen_ai.tool.name", "gen_ai.agent.name"),
+                    error_type=error_type,
+                )
+                self._genai_histogram(
+                    "gen_ai.execute_tool.duration",
+                    unit="s",
+                    buckets=_GENAI_DURATION_BUCKETS,
+                ).record(duration_seconds, dims)
+            elif operation == "invoke_agent":
+                dims = _genai_dimensions(
+                    attributes,
+                    ("gen_ai.operation.name", "gen_ai.agent.name"),
+                    error_type=error_type,
+                )
+                dims.setdefault("gen_ai.operation.name", "invoke_agent")
+                self._genai_histogram(
+                    "gen_ai.invoke_agent.duration",
+                    unit="s",
+                    buckets=_GENAI_DURATION_BUCKETS,
+                ).record(duration_seconds, dims)
+                call_dims = {
+                    key: value for key, value in dims.items() if key != "error.type"
+                }
+                counts = invocation or {}
+                self._genai_histogram(
+                    "gen_ai.invoke_agent.inference_calls",
+                    unit="{inference_call}",
+                ).record(int(counts.get("inference_calls", 0)), call_dims)
+                self._genai_histogram(
+                    "gen_ai.invoke_agent.tool_calls",
+                    unit="{tool_call}",
+                ).record(int(counts.get("tool_calls", 0)), call_dims)
         except Exception:
             pass
 
@@ -627,32 +901,14 @@ def _build_trace_exporter() -> Any | None:
 
 
 def _build_metric_exporter() -> Any | None:
-    # The Admin pairing contract is traces-only. Do not attempt to push
-    # metrics to an unsupported Admin endpoint unless explicitly configured.
-    from ...admin_pairing import get_otlp_pairing
+    from ...admin_pairing import get_otlp_metrics_pairing
 
-    if (
-        "OTEL_METRICS_EXPORTER" not in os.environ
-        and get_otlp_pairing()
-        and not any(
-            os.getenv(key)
-            for key in (
-                "OTEL_EXPORTER_OTLP_METRICS_ENDPOINT",
-                "OTEL_EXPORTER_OTLP_ENDPOINT",
-            )
-        )
-    ):
-        return None
     configured = (os.getenv("OTEL_METRICS_EXPORTER") or "otlp").strip().lower()
     exporters = {item.strip() for item in configured.split(",") if item.strip()}
     if exporters == {"none"}:
         return None
     if "otlp" not in exporters:
         raise ValueError("UAG metrics supports OTEL_METRICS_EXPORTER=otlp or none")
-
-    # As with traces, never use the SDK's implicit localhost collector.
-    if not _configured_otlp_endpoint("metrics"):
-        return None
 
     protocol = (
         (
@@ -663,6 +919,28 @@ def _build_metric_exporter() -> Any | None:
         .strip()
         .lower()
     )
+
+    # The paired Admin accepts metrics at its own /otlp/v1/metrics endpoint.
+    # As with traces, pairing applies only to http/protobuf, never overrides
+    # an explicit metrics endpoint, and its credential is used only when no
+    # generic OTLP endpoint/header configuration is present.
+    paired = get_otlp_metrics_pairing() if protocol == "http/protobuf" else None
+    pairing_is_usable = (
+        paired is not None
+        and not _configured_otlp_endpoint("metrics")
+        and not any(
+            os.getenv(key)
+            for key in (
+                "OTEL_EXPORTER_OTLP_HEADERS",
+                "OTEL_EXPORTER_OTLP_METRICS_HEADERS",
+            )
+        )
+    )
+
+    # As with traces, never use the SDK's implicit localhost collector.
+    if not _configured_otlp_endpoint("metrics") and not pairing_is_usable:
+        return None
+
     if protocol == "grpc":
         from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
             OTLPMetricExporter,
@@ -674,6 +952,16 @@ def _build_metric_exporter() -> Any | None:
             OTLPMetricExporter,
         )
 
+        if pairing_is_usable:
+            paired_endpoint, token = paired
+            exporter = OTLPMetricExporter(
+                endpoint=paired_endpoint,
+                headers={"Authorization": "Bearer " + token},
+            )
+            # Import can activate Admin after UAG starts. Permit later
+            # batches to probe again without retrying every failed batch.
+            exporter._uag_admin_pairing = True
+            return exporter
         return OTLPMetricExporter()
     raise ValueError(f"unsupported OTLP metrics protocol: {protocol}")
 
@@ -728,6 +1016,11 @@ def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend
                 metric_exporter,
                 success_result=MetricExportResult.SUCCESS,
                 failure_result=MetricExportResult.FAILURE,
+                retry_interval=(
+                    30.0
+                    if getattr(metric_exporter, "_uag_admin_pairing", False)
+                    else None
+                ),
             )
 
             metric_reader = PeriodicExportingMetricReader(metric_exporter)
