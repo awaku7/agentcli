@@ -234,10 +234,33 @@ def _clear_otel_env(monkeypatch) -> None:
         monkeypatch.delenv(key, raising=False)
 
 
-def test_metrics_exporter_uses_pairing_endpoint(monkeypatch) -> None:
-    pytest.importorskip("opentelemetry.exporter.otlp.proto.http.metric_exporter")
-    from opentelemetry.exporter.otlp.proto.http import metric_exporter
+def _stub_metric_exporter_module(monkeypatch, fake_exporter) -> None:
+    """Make the lazy exporter import resolve to a recording stand-in.
 
+    The real exporter package is installed lazily and its version can skew
+    against a preinstalled opentelemetry-api, so these tests never import
+    it; they only verify which arguments the backend constructs it with.
+    """
+
+    import sys
+    import types
+
+    names = [
+        "opentelemetry.exporter",
+        "opentelemetry.exporter.otlp",
+        "opentelemetry.exporter.otlp.proto",
+        "opentelemetry.exporter.otlp.proto.http",
+        "opentelemetry.exporter.otlp.proto.http.metric_exporter",
+    ]
+    for name in names[:-1]:
+        if name not in sys.modules:
+            monkeypatch.setitem(sys.modules, name, types.ModuleType(name))
+    module = types.ModuleType(names[-1])
+    module.OTLPMetricExporter = fake_exporter
+    monkeypatch.setitem(sys.modules, names[-1], module)
+
+
+def test_metrics_exporter_uses_pairing_endpoint(monkeypatch) -> None:
     from uagent import admin_pairing
     from uagent.runtime.observability import otel_backend
 
@@ -256,7 +279,7 @@ def test_metrics_exporter_uses_pairing_endpoint(monkeypatch) -> None:
         constructor_calls.append(kwargs)
         return FakeExporter()
 
-    monkeypatch.setattr(metric_exporter, "OTLPMetricExporter", fake_exporter)
+    _stub_metric_exporter_module(monkeypatch, fake_exporter)
     exporter = otel_backend._build_metric_exporter()
     assert constructor_calls == [
         {
@@ -269,9 +292,6 @@ def test_metrics_exporter_uses_pairing_endpoint(monkeypatch) -> None:
 
 
 def test_metrics_exporter_explicit_endpoint_wins_over_pairing(monkeypatch) -> None:
-    pytest.importorskip("opentelemetry.exporter.otlp.proto.http.metric_exporter")
-    from opentelemetry.exporter.otlp.proto.http import metric_exporter
-
     from uagent import admin_pairing
     from uagent.runtime.observability import otel_backend
 
@@ -291,13 +311,12 @@ def test_metrics_exporter_explicit_endpoint_wins_over_pairing(monkeypatch) -> No
         constructor_calls.append(kwargs)
         return object()
 
-    monkeypatch.setattr(metric_exporter, "OTLPMetricExporter", fake_exporter)
+    _stub_metric_exporter_module(monkeypatch, fake_exporter)
     otel_backend._build_metric_exporter()
     assert constructor_calls == [{}]
 
 
 def test_metrics_exporter_none_when_unpaired_without_endpoint(monkeypatch) -> None:
-    pytest.importorskip("opentelemetry.exporter.otlp.proto.http.metric_exporter")
     from uagent import admin_pairing
     from uagent.runtime.observability import otel_backend
 
