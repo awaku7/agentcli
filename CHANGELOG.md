@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.52] - 2026-11-18
+
+### Added
+
+- Complete `apply_patch` tool catalog translations across all supported locales.
+
+### Changed
+
+- Clarify tool action summaries and Python execution previews.
+
+### Fixed
+
+- Ensure Nostr remote replies are sent after queued progress notes.
+
 ## [0.7.51] - 2026-11-18
 
 ### Added
