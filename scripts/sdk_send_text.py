@@ -1,4 +1,3 @@
-
 """Compare nostr-sdk delivery using the recipient's NIP-17 relay list."""
 
 import asyncio
@@ -7,10 +6,7 @@ import nostr_sdk as nostr
 
 from uagent.nostr_remote_transport import fetch_nip17_relay_list
 
-
-RECIPIENT_NPUB = (
-    "npub1d0c9ehwjkn039salt09lqtdmrjxsls4cqgu0gcr3zklcztvqvm3stvjsf2"
-)
+RECIPIENT_NPUB = "npub1d0c9ehwjkn039salt09lqtdmrjxsls4cqgu0gcr3zklcztvqvm3stvjsf2"
 
 UAG_RELAYS = [
     "wss://x.kojira.io",
@@ -46,10 +42,7 @@ async def main():
         print(" ", relay)
 
     # UAGと同じRelay許可リストを使用
-    target_relays = [
-        relay for relay in inbox_relays
-        if relay in UAG_RELAYS
-    ]
+    target_relays = [relay for relay in inbox_relays if relay in UAG_RELAYS]
 
     print("\n[2] UAG設定との共通Relay:")
     for relay in target_relays:
