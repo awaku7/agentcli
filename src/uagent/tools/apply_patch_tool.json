@@ -32,7 +32,8 @@
     "describe.dry_run": "削除対象を列挙します: %(path)s",
     "describe.delete": "%(path)s を削除します",
     "describe.write": "%(path)s を書き込みます",
-    "describe.exec": "実行します: %(command)s"
+    "describe.exec": "実行します: %(command)s",
+    "describe.unknown_target": "%(action)s（対象ファイルはパッチから特定できませんでした）。"
   },
   "ar": {
     "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF.",
@@ -61,12 +62,14 @@
     "describe.deleted": "(محذوف)",
     "describe.reverse": "عكس التصحيح",
     "describe.summary": "%(action)s: %(paths)s (%(files)s ملفات، %(hunks)s قطع).",
+    "describe.invalid_patch": "تعذّرت قراءة الرقعة ولن يتم تطبيقها.",
     "describe.read": "قراءة %(path)s",
     "describe.grep": "البحث عن %(pattern)s في %(path)s",
     "describe.dry_run": "إدراج أهداف الحذف: %(path)s",
     "describe.delete": "حذف %(path)s",
     "describe.write": "كتابة %(path)s",
-    "describe.exec": "تنفيذ: %(command)s"
+    "describe.exec": "تنفيذ: %(command)s",
+    "describe.unknown_target": "%(action)s (تعذّر تحديد الملف المستهدف من الرقعة)."
   },
   "bn": {
     "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে।",
@@ -95,12 +98,14 @@
     "describe.deleted": "(মুছে ফেলা হয়েছে)",
     "describe.reverse": "বিপরীত প্যাচ",
     "describe.summary": "%(action)s: %(paths)s (%(files)s ফাইল, %(hunks)s হাঙ্ক)।",
+    "describe.invalid_patch": "প্যাচটি পার্স করা যায়নি এবং এটি প্রয়োগ করা হবে না।",
     "describe.read": "%(path)s পড়া হচ্ছে",
     "describe.grep": "%(path)s-এ %(pattern)s খোঁজা হচ্ছে",
     "describe.dry_run": "মুছে ফেলার লক্ষ্য তালিকাভুক্ত করা হচ্ছে: %(path)s",
     "describe.delete": "%(path)s মুছে ফেলা হচ্ছে",
     "describe.write": "%(path)s লেখা হচ্ছে",
-    "describe.exec": "চালানো হচ্ছে: %(command)s"
+    "describe.exec": "চালানো হচ্ছে: %(command)s",
+    "describe.unknown_target": "%(action)s (প্যাচ থেকে লক্ষ্য ফাইলটি শনাক্ত করা যায়নি)।"
   },
   "cs": {
     "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF.",
@@ -129,12 +134,14 @@
     "describe.deleted": "(smazáno)",
     "describe.reverse": "Obracecí záplata",
     "describe.summary": "%(action)s: %(paths)s (soubory %(files)s, %(hunks)s kusy).",
+    "describe.invalid_patch": "Patch se nepodařilo analyzovat a nebude použit.",
     "describe.read": "Čtení %(path)s",
     "describe.grep": "Hledání %(pattern)s v %(path)s",
     "describe.dry_run": "Výpis cílů smazání: %(path)s",
     "describe.delete": "Mazání %(path)s",
     "describe.write": "Zápis %(path)s",
-    "describe.exec": "Provádění: %(command)s"
+    "describe.exec": "Provádění: %(command)s",
+    "describe.unknown_target": "%(action)s (cílový soubor se z patche nepodařilo určit)."
   },
   "de": {
     "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung.",
@@ -163,12 +170,14 @@
     "describe.deleted": "(gelöscht)",
     "describe.reverse": "Umkehrpatch",
     "describe.summary": "%(action)s: %(paths)s (%(files)s Dateien, %(hunks)s Stücke).",
+    "describe.invalid_patch": "Der Patch konnte nicht gelesen werden und wird nicht angewendet.",
     "describe.read": "Lesen von %(path)s",
     "describe.grep": "Suche nach %(pattern)s in %(path)s",
     "describe.dry_run": "Löschkandidaten auflisten: %(path)s",
     "describe.delete": "%(path)s löschen",
     "describe.write": "Schreiben von %(path)s",
-    "describe.exec": "Ausführen: %(command)s"
+    "describe.exec": "Ausführen: %(command)s",
+    "describe.unknown_target": "%(action)s (die Zieldatei konnte aus dem Patch nicht ermittelt werden)."
   },
   "el": {
     "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF.",
@@ -197,12 +206,14 @@
     "describe.deleted": "(διαγράφηκε)",
     "describe.reverse": "Αντίστροφο έμπλαστρο",
     "describe.summary": "%(action)s: %(paths)s (%(files)s αρχεία, %(hunks)s κομμάτια).",
+    "describe.invalid_patch": "Δεν ήταν δυνατή η ανάλυση του patch και δεν θα εφαρμοστεί.",
     "describe.read": "Ανάγνωση %(path)s",
     "describe.grep": "Αναζήτηση %(pattern)s στο %(path)s",
     "describe.dry_run": "Καταγραφή στόχων διαγραφής: %(path)s",
     "describe.delete": "Διαγραφή %(path)s",
     "describe.write": "Εγγραφή %(path)s",
-    "describe.exec": "Εκτέλεση: %(command)s"
+    "describe.exec": "Εκτέλεση: %(command)s",
+    "describe.unknown_target": "%(action)s (το αρχείο προορισμού δεν ήταν δυνατό να προσδιοριστεί από το patch)."
   },
   "es": {
     "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF.",
@@ -231,12 +242,14 @@
     "describe.deleted": "(eliminado)",
     "describe.reverse": "parche de marcha atrás",
     "describe.summary": "%(action)s: %(paths)s (archivos %(files)s, trozos %(hunks)s).",
+    "describe.invalid_patch": "No se pudo analizar el parche y no se aplicará.",
     "describe.read": "Leyendo %(path)s",
     "describe.grep": "Buscando %(pattern)s en %(path)s",
     "describe.dry_run": "Enumerando objetivos de eliminación: %(path)s",
     "describe.delete": "Eliminando %(path)s",
     "describe.write": "Escribiendo %(path)s",
-    "describe.exec": "Ejecutando: %(command)s"
+    "describe.exec": "Ejecutando: %(command)s",
+    "describe.unknown_target": "%(action)s (no se pudo identificar el archivo de destino a partir del parche)."
   },
   "fa": {
     "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند.",
@@ -265,12 +278,14 @@
     "describe.deleted": "(حذف‌شده)",
     "describe.reverse": "پچ معکوس",
     "describe.summary": "%(action)s: %(paths)s (%(files)s فایل، %(hunks)s قطعه).",
+    "describe.invalid_patch": "وصله قابل خواندن نبود و اعمال نخواهد شد.",
     "describe.read": "خواندن %(path)s",
     "describe.grep": "جستجوی %(pattern)s در %(path)s",
     "describe.dry_run": "فهرست اهداف حذف: %(path)s",
     "describe.delete": "حذف %(path)s",
     "describe.write": "نوشتن %(path)s",
-    "describe.exec": "اجرا: %(command)s"
+    "describe.exec": "اجرا: %(command)s",
+    "describe.unknown_target": "%(action)s (فایل مقصد از وصله قابل تشخیص نبود)."
   },
   "fi": {
     "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä.",
@@ -299,12 +314,14 @@
     "describe.deleted": "(poistettu)",
     "describe.reverse": "Kääntyvä laastari",
     "describe.summary": "%(action)s: %(paths)s (%(files)s tiedostoa, %(hunks)s kappaletta).",
+    "describe.invalid_patch": "Patchia ei voitu jäsentää, eikä sitä käytetä.",
     "describe.read": "Luetaan %(path)s",
     "describe.grep": "Haetaan %(pattern)s kohteesta %(path)s",
     "describe.dry_run": "Listataan poistokohteet: %(path)s",
     "describe.delete": "Poistetaan %(path)s",
     "describe.write": "Kirjoitetaan %(path)s",
-    "describe.exec": "Suoritetaan: %(command)s"
+    "describe.exec": "Suoritetaan: %(command)s",
+    "describe.unknown_target": "%(action)s (kohdetiedostoa ei voitu tunnistaa patchista)."
   },
   "fr": {
     "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF.",
@@ -333,12 +350,14 @@
     "describe.deleted": "(supprimé)",
     "describe.reverse": "Patch d'inversion",
     "describe.summary": "%(action)s : %(paths)s (fichiers %(files)s, morceaux %(hunks)s).",
+    "describe.invalid_patch": "Le patch n'a pas pu être analysé et ne sera pas appliqué.",
     "describe.read": "Lecture de %(path)s",
     "describe.grep": "Recherche de %(pattern)s dans %(path)s",
     "describe.dry_run": "Liste des cibles de suppression : %(path)s",
     "describe.delete": "Suppression de %(path)s",
     "describe.write": "Écriture de %(path)s",
-    "describe.exec": "Exécution : %(command)s"
+    "describe.exec": "Exécution : %(command)s",
+    "describe.unknown_target": "%(action)s (le fichier cible n'a pas pu être identifié à partir du patch)."
   },
   "he": {
     "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF.",
@@ -367,12 +386,14 @@
     "describe.deleted": "(נמחק)",
     "describe.reverse": "תיקון היפוך",
     "describe.summary": "%(action)s: %(paths)s (%(files)s קבצים, %(hunks)s חתיכים).",
+    "describe.invalid_patch": "לא ניתן היה לנתח את ה-patch והוא לא יוחל.",
     "describe.read": "קורא את %(path)s",
     "describe.grep": "מחפש %(pattern)s בתוך %(path)s",
     "describe.dry_run": "מציג יעדי מחיקה: %(path)s",
     "describe.delete": "מוחק את %(path)s",
     "describe.write": "כותב את %(path)s",
-    "describe.exec": "מריץ: %(command)s"
+    "describe.exec": "מריץ: %(command)s",
+    "describe.unknown_target": "%(action)s (לא ניתן היה לזהות את קובץ היעד מתוך ה-patch)."
   },
   "hi": {
     "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है।",
@@ -401,12 +422,14 @@
     "describe.deleted": "(हटाया गया)",
     "describe.reverse": "उलटा पैच",
     "describe.summary": "%(action)s: %(paths)s (%(files)s फ़ाइलें, %(hunks)s हंक)।",
+    "describe.invalid_patch": "पैच को पार्स नहीं किया जा सका और यह लागू नहीं होगा।",
     "describe.read": "%(path)s पढ़ा जा रहा है",
     "describe.grep": "%(path)s में %(pattern)s खोजा जा रहा है",
     "describe.dry_run": "हटाने के लक्ष्य सूचीबद्ध किए जा रहे हैं: %(path)s",
     "describe.delete": "%(path)s हटाया जा रहा है",
     "describe.write": "%(path)s लिखा जा रहा है",
-    "describe.exec": "चलाया जा रहा है: %(command)s"
+    "describe.exec": "चलाया जा रहा है: %(command)s",
+    "describe.unknown_target": "%(action)s (पैच से लक्ष्य फ़ाइल की पहचान नहीं हो सकी)।"
   },
   "hu": {
     "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést.",
@@ -435,12 +458,14 @@
     "describe.deleted": "(törölve)",
     "describe.reverse": "Tolató folt",
     "describe.summary": "%(action)s: %(paths)s (%(files)s fájl, %(hunks)s darab).",
+    "describe.invalid_patch": "A patch nem volt értelmezhető, és nem lesz alkalmazva.",
     "describe.read": "%(path)s olvasása",
     "describe.grep": "%(pattern)s keresése itt: %(path)s",
     "describe.dry_run": "Törlési célok listázása: %(path)s",
     "describe.delete": "%(path)s törlése",
     "describe.write": "%(path)s írása",
-    "describe.exec": "Végrehajtás: %(command)s"
+    "describe.exec": "Végrehajtás: %(command)s",
+    "describe.unknown_target": "%(action)s (a célfájl nem volt azonosítható a patch alapján)."
   },
   "id": {
     "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF.",
@@ -469,12 +494,14 @@
     "describe.deleted": "(dihapus)",
     "describe.reverse": "Membalikkan tambalan",
     "describe.summary": "%(action)s: %(paths)s (%(files)s file, %(hunks)s bongkahan).",
+    "describe.invalid_patch": "Patch tidak dapat diuraikan dan tidak akan diterapkan.",
     "describe.read": "Membaca %(path)s",
     "describe.grep": "Mencari %(pattern)s di %(path)s",
     "describe.dry_run": "Mendaftar target penghapusan: %(path)s",
     "describe.delete": "Menghapus %(path)s",
     "describe.write": "Menulis %(path)s",
-    "describe.exec": "Menjalankan: %(command)s"
+    "describe.exec": "Menjalankan: %(command)s",
+    "describe.unknown_target": "%(action)s (file target tidak dapat diidentifikasi dari patch)."
   },
   "it": {
     "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF.",
@@ -503,12 +530,14 @@
     "describe.deleted": "(eliminato)",
     "describe.reverse": "Patch di inversione",
     "describe.summary": "%(action)s: %(paths)s (%(files)s file, %(hunks)s pezzi).",
+    "describe.invalid_patch": "La patch non ha potuto essere analizzata e non verrà applicata.",
     "describe.read": "Lettura di %(path)s",
     "describe.grep": "Ricerca di %(pattern)s in %(path)s",
     "describe.dry_run": "Elenco dei bersagli di eliminazione: %(path)s",
     "describe.delete": "Eliminazione di %(path)s",
     "describe.write": "Scrittura di %(path)s",
-    "describe.exec": "Esecuzione: %(command)s"
+    "describe.exec": "Esecuzione: %(command)s",
+    "describe.unknown_target": "%(action)s (il file di destinazione non ha potuto essere identificato dalla patch)."
   },
   "ko": {
     "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다.",
@@ -537,12 +566,14 @@
     "describe.deleted": "(삭제됨)",
     "describe.reverse": "반전 패치",
     "describe.summary": "%(action)s: %(paths)s(파일 %(files)s개, 덩어리 %(hunks)s개).",
+    "describe.invalid_patch": "패치를 해석할 수 없어 적용되지 않습니다.",
     "describe.read": "%(path)s 읽는 중",
     "describe.grep": "%(path)s에서 %(pattern)s 검색 중",
     "describe.dry_run": "삭제 대상 나열 중: %(path)s",
     "describe.delete": "%(path)s 삭제 중",
     "describe.write": "%(path)s 쓰는 중",
-    "describe.exec": "실행 중: %(command)s"
+    "describe.exec": "실행 중: %(command)s",
+    "describe.unknown_target": "%(action)s (패치에서 대상 파일을 확인할 수 없습니다)."
   },
   "mn": {
     "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг.",
@@ -571,12 +602,14 @@
     "describe.deleted": "(устгасан)",
     "describe.reverse": "Урвуу нөхөөс",
     "describe.summary": "%(action)s: %(paths)s (%(files)s файл, %(hunks)s файл).",
+    "describe.invalid_patch": "Патчийг унших боломжгүй тул хэрэглэхгүй.",
     "describe.read": "%(path)s-г уншиж байна",
     "describe.grep": "%(path)s-с %(pattern)s хайж байна",
     "describe.dry_run": "Устгах зорилтуудыг жагсааж байна: %(path)s",
     "describe.delete": "%(path)s-г устгаж байна",
     "describe.write": "%(path)s-д бичиж байна",
-    "describe.exec": "Ажиллуулж байна: %(command)s"
+    "describe.exec": "Ажиллуулж байна: %(command)s",
+    "describe.unknown_target": "%(action)s (зорилтот файлыг патчаас тодорхойлох боломжгүй)."
   },
   "mr": {
     "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते.",
@@ -605,12 +638,14 @@
     "describe.deleted": "(हटवले)",
     "describe.reverse": "उलटे पॅच",
     "describe.summary": "%(action)s: %(paths)s (%(files)s फाइल्स, %(hunks)s हंक्स).",
+    "describe.invalid_patch": "पॅच पार्स करता आला नाही आणि तो लागू केला जाणार नाही.",
     "describe.read": "%(path)s वाचले जात आहे",
     "describe.grep": "%(path)s मध्ये %(pattern)s शोधले जात आहे",
     "describe.dry_run": "हटवण्याची लक्ष्ये सूचीबद्ध होत आहेत: %(path)s",
     "describe.delete": "%(path)s हटवले जात आहे",
     "describe.write": "%(path)s लिहिले जात आहे",
-    "describe.exec": "चालवले जात आहे: %(command)s"
+    "describe.exec": "चालवले जात आहे: %(command)s",
+    "describe.unknown_target": "%(action)s (पॅचवरून लक्ष्य फाइल ओळखता आली नाही)."
   },
   "nb": {
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
@@ -639,12 +674,14 @@
     "describe.deleted": "(slettet)",
     "describe.reverse": "Reverserende lapp",
     "describe.summary": "%(action)s: %(paths)s (%(files)s filer, %(hunks)s hunks).",
+    "describe.invalid_patch": "Patchen kunne ikke tolkes og vil ikke bli brukt.",
     "describe.read": "Leser %(path)s",
     "describe.grep": "Søker etter %(pattern)s i %(path)s",
     "describe.dry_run": "Viser slettemål: %(path)s",
     "describe.delete": "Sletter %(path)s",
     "describe.write": "Skriver %(path)s",
-    "describe.exec": "Kjører: %(command)s"
+    "describe.exec": "Kjører: %(command)s",
+    "describe.unknown_target": "%(action)s (målfilen kunne ikke identifiseres fra patchen)."
   },
   "nl": {
     "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud.",
@@ -673,12 +710,14 @@
     "describe.deleted": "(verwijderd)",
     "describe.reverse": "Omkeerpatch",
     "describe.summary": "%(action)s: %(paths)s (%(files)s bestanden, %(hunks)s hunks).",
+    "describe.invalid_patch": "De patch kon niet worden gelezen en wordt niet toegepast.",
     "describe.read": "Lezen van %(path)s",
     "describe.grep": "Zoeken naar %(pattern)s in %(path)s",
     "describe.dry_run": "Verwijderdoelen opsommen: %(path)s",
     "describe.delete": "Verwijderen van %(path)s",
     "describe.write": "Schrijven van %(path)s",
-    "describe.exec": "Uitvoeren: %(command)s"
+    "describe.exec": "Uitvoeren: %(command)s",
+    "describe.unknown_target": "%(action)s (het doelbestand kon niet uit de patch worden bepaald)."
   },
   "pl": {
     "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF.",
@@ -707,12 +746,14 @@
     "describe.deleted": "(usunięty)",
     "describe.reverse": "Łatka odwracająca",
     "describe.summary": "%(action)s: %(paths)s (pliki %(files)s, %(hunks)s porcje).",
+    "describe.invalid_patch": "Nie udało się przeanalizować patcha i nie zostanie on zastosowany.",
     "describe.read": "Odczyt %(path)s",
     "describe.grep": "Wyszukiwanie %(pattern)s w %(path)s",
     "describe.dry_run": "Wyliczanie celów usunięcia: %(path)s",
     "describe.delete": "Usuwanie %(path)s",
     "describe.write": "Zapis %(path)s",
-    "describe.exec": "Wykonywanie: %(command)s"
+    "describe.exec": "Wykonywanie: %(command)s",
+    "describe.unknown_target": "%(action)s (nie udało się określić pliku docelowego na podstawie patcha)."
   },
   "pt": {
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
@@ -741,12 +782,14 @@
     "describe.deleted": "(eliminado)",
     "describe.reverse": "Patch reverso",
     "describe.summary": "%(action)s: %(paths)s (%(files)s arquivos, %(hunks)s pedaços).",
+    "describe.invalid_patch": "Não foi possível analisar o patch e este não será aplicado.",
     "describe.read": "A ler %(path)s",
     "describe.grep": "A procurar %(pattern)s em %(path)s",
     "describe.dry_run": "A listar alvos de eliminação: %(path)s",
     "describe.delete": "A eliminar %(path)s",
     "describe.write": "A escrever %(path)s",
-    "describe.exec": "A executar: %(command)s"
+    "describe.exec": "A executar: %(command)s",
+    "describe.unknown_target": "%(action)s (não foi possível identificar o ficheiro de destino a partir do patch)."
   },
   "pt_BR": {
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
@@ -775,12 +818,14 @@
     "describe.deleted": "(excluído)",
     "describe.reverse": "Patch reverso",
     "describe.summary": "%(action)s: %(paths)s (%(files)s arquivos, %(hunks)s pedaços).",
+    "describe.invalid_patch": "Não foi possível analisar o patch e ele não será aplicado.",
     "describe.read": "Lendo %(path)s",
     "describe.grep": "Buscando %(pattern)s em %(path)s",
     "describe.dry_run": "Listando alvos de exclusão: %(path)s",
     "describe.delete": "Excluindo %(path)s",
     "describe.write": "Gravando %(path)s",
-    "describe.exec": "Executando: %(command)s"
+    "describe.exec": "Executando: %(command)s",
+    "describe.unknown_target": "%(action)s (não foi possível identificar o arquivo de destino a partir do patch)."
   },
   "ro": {
     "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
@@ -809,12 +854,14 @@
     "describe.deleted": "(șters)",
     "describe.reverse": "Plasture inversă",
     "describe.summary": "%(action)s: %(paths)s (%(files)s fișiere, %(hunks)s bucăți).",
+    "describe.invalid_patch": "Patch-ul nu a putut fi analizat și nu va fi aplicat.",
     "describe.read": "Citire %(path)s",
     "describe.grep": "Căutare %(pattern)s în %(path)s",
     "describe.dry_run": "Listare ținte de ștergere: %(path)s",
     "describe.delete": "Ștergere %(path)s",
     "describe.write": "Scriere %(path)s",
-    "describe.exec": "Executare: %(command)s"
+    "describe.exec": "Executare: %(command)s",
+    "describe.unknown_target": "%(action)s (fișierul țintă nu a putut fi identificat din patch)."
   },
   "ru": {
     "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF.",
@@ -843,12 +890,14 @@
     "describe.deleted": "(удалён)",
     "describe.reverse": "Реверсивный патч",
     "describe.summary": "%(action)s: %(paths)s (%(files)s файлов, %(hunks)s фрагментов).",
+    "describe.invalid_patch": "Не удалось разобрать патч, и он не будет применён.",
     "describe.read": "Чтение %(path)s",
     "describe.grep": "Поиск %(pattern)s в %(path)s",
     "describe.dry_run": "Перечисление целей удаления: %(path)s",
     "describe.delete": "Удаление %(path)s",
     "describe.write": "Запись %(path)s",
-    "describe.exec": "Запуск: %(command)s"
+    "describe.exec": "Запуск: %(command)s",
+    "describe.unknown_target": "%(action)s (не удалось определить целевой файл из патча)."
   },
   "sv": {
     "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande.",
@@ -877,12 +926,14 @@
     "describe.deleted": "(borttagen)",
     "describe.reverse": "Reverserande lapp",
     "describe.summary": "%(action)s: %(paths)s (%(files)s filer, %(hunks)s hunks).",
+    "describe.invalid_patch": "Patchen kunde inte tolkas och kommer inte att tillämpas.",
     "describe.read": "Läser %(path)s",
     "describe.grep": "Söker efter %(pattern)s i %(path)s",
     "describe.dry_run": "Listar borttagningsobjekt: %(path)s",
     "describe.delete": "Tar bort %(path)s",
     "describe.write": "Skriver %(path)s",
-    "describe.exec": "Kör: %(command)s"
+    "describe.exec": "Kör: %(command)s",
+    "describe.unknown_target": "%(action)s (målfilen kunde inte identifieras från patchen)."
   },
   "sw": {
     "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF.",
@@ -911,12 +962,14 @@
     "describe.deleted": "(imefutwa)",
     "describe.reverse": "Kurejesha kiraka",
     "describe.summary": "%(action)s: %(paths)s (%(files)s faili, %(hunks)s hunk).",
+    "describe.invalid_patch": "Kiraka hakikuweza kuchanganuliwa na hakitatumika.",
     "describe.read": "Inasoma %(path)s",
     "describe.grep": "Inatafuta %(pattern)s katika %(path)s",
     "describe.dry_run": "Inaorodhesha walengwa wa kufuta: %(path)s",
     "describe.delete": "Inafuta %(path)s",
     "describe.write": "Inaandika %(path)s",
-    "describe.exec": "Inaendesha: %(command)s"
+    "describe.exec": "Inaendesha: %(command)s",
+    "describe.unknown_target": "%(action)s (faili lengwa haikuweza kutambuliwa kutoka kwa kiraka)."
   },
   "th": {
     "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
@@ -945,12 +998,14 @@
     "describe.deleted": "(ลบแล้ว)",
     "describe.reverse": "แพทช์ย้อนกลับ",
     "describe.summary": "%(action)s: %(paths)s (%(files)s ไฟล์, %(hunks)s ไฟล์)",
+    "describe.invalid_patch": "ไม่สามารถแยกวิเคราะห์แพตช์ได้และจะไม่ถูกนำไปใช้",
     "describe.read": "กำลังอ่าน %(path)s",
     "describe.grep": "กำลังค้นหา %(pattern)s ใน %(path)s",
     "describe.dry_run": "กำลังแสดงรายการที่จะลบ: %(path)s",
     "describe.delete": "กำลังลบ %(path)s",
     "describe.write": "กำลังเขียน %(path)s",
-    "describe.exec": "กำลังเรียกใช้: %(command)s"
+    "describe.exec": "กำลังเรียกใช้: %(command)s",
+    "describe.unknown_target": "%(action)s (ไม่สามารถระบุไฟล์เป้าหมายจากแพตช์ได้)"
   },
   "tr": {
     "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler.",
@@ -979,12 +1034,14 @@
     "describe.deleted": "(silindi)",
     "describe.reverse": "Ters yama",
     "describe.summary": "%(action)s: %(paths)s (%(files)s dosya, %(hunks)s yakışıklı).",
+    "describe.invalid_patch": "Yama ayrıştırılamadı ve uygulanmayacak.",
     "describe.read": "%(path)s okunuyor",
     "describe.grep": "%(path)s içinde %(pattern)s aranıyor",
     "describe.dry_run": "Silme hedefleri listeleniyor: %(path)s",
     "describe.delete": "%(path)s siliniyor",
     "describe.write": "%(path)s yazılıyor",
-    "describe.exec": "Çalıştırılıyor: %(command)s"
+    "describe.exec": "Çalıştırılıyor: %(command)s",
+    "describe.unknown_target": "%(action)s (hedef dosya yamadan belirlenemedi)."
   },
   "uk": {
     "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF.",
@@ -1013,12 +1070,14 @@
     "describe.deleted": "(видалено)",
     "describe.reverse": "Реверсивний патч",
     "describe.summary": "%(action)s: %(paths)s (%(files)s файлів, %(hunks)s фрагментів).",
+    "describe.invalid_patch": "Не вдалося розібрати патч, і його не буде застосовано.",
     "describe.read": "Читання %(path)s",
     "describe.grep": "Пошук %(pattern)s у %(path)s",
     "describe.dry_run": "Перелік цілей видалення: %(path)s",
     "describe.delete": "Видалення %(path)s",
     "describe.write": "Запис %(path)s",
-    "describe.exec": "Запуск: %(command)s"
+    "describe.exec": "Запуск: %(command)s",
+    "describe.unknown_target": "%(action)s (не вдалося визначити цільовий файл із патча)."
   },
   "vi": {
     "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF.",
@@ -1047,12 +1106,14 @@
     "describe.deleted": "(đã xóa)",
     "describe.reverse": "Bản vá đảo ngược",
     "describe.summary": "%(action)s: %(paths)s (%(files)s tệp, %(hunks)s khối).",
+    "describe.invalid_patch": "Không thể phân tích patch và sẽ không áp dụng.",
     "describe.read": "Đang đọc %(path)s",
     "describe.grep": "Đang tìm %(pattern)s trong %(path)s",
     "describe.dry_run": "Đang liệt kê mục tiêu xóa: %(path)s",
     "describe.delete": "Đang xóa %(path)s",
     "describe.write": "Đang ghi %(path)s",
-    "describe.exec": "Đang chạy: %(command)s"
+    "describe.exec": "Đang chạy: %(command)s",
+    "describe.unknown_target": "%(action)s (không thể xác định tệp đích từ patch)."
   },
   "zh_CN": {
     "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。",
@@ -1081,12 +1142,14 @@
     "describe.deleted": "(已删除)",
     "describe.reverse": "倒车贴片",
     "describe.summary": "%(action)s：%(paths)s（%(files)s 个文件，%(hunks)s 个帅哥）。",
+    "describe.invalid_patch": "无法解析补丁，将不会应用。",
     "describe.read": "正在读取 %(path)s",
     "describe.grep": "正在 %(path)s 中搜索 %(pattern)s",
     "describe.dry_run": "正在列出待删除项：%(path)s",
     "describe.delete": "正在删除 %(path)s",
     "describe.write": "正在写入 %(path)s",
-    "describe.exec": "正在执行：%(command)s"
+    "describe.exec": "正在执行：%(command)s",
+    "describe.unknown_target": "%(action)s（无法从补丁中确定目标文件）。"
   },
   "zh_TW": {
     "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。",
@@ -1115,12 +1178,14 @@
     "describe.deleted": "(已刪除)",
     "describe.reverse": "倒車貼片",
     "describe.summary": "%(action)s：%(paths)s（%(files)s 個文件，%(hunks)s 個帥哥）。",
+    "describe.invalid_patch": "無法解析修補，將不會套用。",
     "describe.read": "正在讀取 %(path)s",
     "describe.grep": "正在 %(path)s 中搜尋 %(pattern)s",
     "describe.dry_run": "正在列出待刪除項目：%(path)s",
     "describe.delete": "正在刪除 %(path)s",
     "describe.write": "正在寫入 %(path)s",
-    "describe.exec": "正在執行：%(command)s"
+    "describe.exec": "正在執行：%(command)s",
+    "describe.unknown_target": "%(action)s（無法從修補中確定目標檔案）。"
   },
   "fil": {
     "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation.",
@@ -1149,12 +1214,14 @@
     "describe.deleted": "(tinanggal)",
     "describe.reverse": "Binabaliktad ang patch",
     "describe.summary": "%(action)s: %(paths)s (%(files)s file, %(hunks)s hunks).",
+    "describe.invalid_patch": "Hindi ma-parse ang patch at hindi ito ilalapat.",
     "describe.read": "Binabasa ang %(path)s",
     "describe.grep": "Hinahanap ang %(pattern)s sa %(path)s",
     "describe.dry_run": "Inililista ang mga target na buburahin: %(path)s",
     "describe.delete": "Binubura ang %(path)s",
     "describe.write": "Isinusulat ang %(path)s",
-    "describe.exec": "Pinapatakbo: %(command)s"
+    "describe.exec": "Pinapatakbo: %(command)s",
+    "describe.unknown_target": "%(action)s (hindi matukoy ang target na file mula sa patch)."
   },
   "ms": {
     "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF.",
@@ -1183,12 +1250,14 @@
     "describe.deleted": "(dipadam)",
     "describe.reverse": "Membalikkan patch",
     "describe.summary": "%(action)s: %(paths)s (%(files)s fail, %(hunks)s hunks).",
+    "describe.invalid_patch": "Tampalan tidak dapat dihuraikan dan tidak akan digunakan.",
     "describe.read": "Membaca %(path)s",
     "describe.grep": "Mencari %(pattern)s dalam %(path)s",
     "describe.dry_run": "Menyenaraikan sasaran pemadaman: %(path)s",
     "describe.delete": "Memadam %(path)s",
     "describe.write": "Menulis %(path)s",
-    "describe.exec": "Menjalankan: %(command)s"
+    "describe.exec": "Menjalankan: %(command)s",
+    "describe.unknown_target": "%(action)s (fail sasaran tidak dapat dikenal pasti daripada tampalan)."
   },
   "da": {
     "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring.",
@@ -1217,12 +1286,14 @@
     "describe.deleted": "(slettet)",
     "describe.reverse": "Vendeplaster",
     "describe.summary": "%(action)s: %(paths)s (%(files)s filer, %(hunks)s hunks).",
+    "describe.invalid_patch": "Patchen kunne ikke fortolkes og vil ikke blive anvendt.",
     "describe.read": "Læser %(path)s",
     "describe.grep": "Søger efter %(pattern)s i %(path)s",
     "describe.dry_run": "Viser sletteemner: %(path)s",
     "describe.delete": "Sletter %(path)s",
     "describe.write": "Skriver %(path)s",
-    "describe.exec": "Kører: %(command)s"
+    "describe.exec": "Kører: %(command)s",
+    "describe.unknown_target": "%(action)s (målfilen kunne ikke identificeres ud fra patchen)."
   },
   "nn": {
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
@@ -1251,11 +1322,13 @@
     "describe.deleted": "(sletta)",
     "describe.reverse": "patch",
     "describe.summary": "%(action)s: %(paths)s (%(files)s files, %(hunks)s hunks).",
+    "describe.invalid_patch": "Patchen kunne ikkje tolkast og vil ikkje bli brukt.",
     "describe.read": "Les %(path)s",
     "describe.grep": "Søkjer etter %(pattern)s i %(path)s",
     "describe.dry_run": "Viser slettemål: %(path)s",
     "describe.delete": "Slettar %(path)s",
     "describe.write": "Skriv %(path)s",
-    "describe.exec": "Køyrer: %(command)s"
+    "describe.exec": "Køyrer: %(command)s",
+    "describe.unknown_target": "%(action)s (målfilen kunne ikkje identifiserast frå patchen)."
   }
 }
