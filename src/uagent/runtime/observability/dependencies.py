@@ -8,7 +8,7 @@ from typing import Callable
 
 from .settings import ObservabilitySettings
 
-OTEL_VERSION = "1.44.0"
+OTEL_VERSION = "1.45.2"
 
 
 @dataclass(frozen=True)
