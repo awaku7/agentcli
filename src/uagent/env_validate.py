@@ -162,15 +162,38 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             )
     elif provider == "vertexai":
         missing += _require(
-            [
-                "UAGENT_VERTEXAI_API_KEY",
-                "UAGENT_VERTEXAI_DEPNAME",
-            ],
+            ["UAGENT_VERTEXAI_DEPNAME"],
             reason=_(
-                "Vertex AI API key / model name.",
-                default="Vertex AI API key / model name.",
+                "Vertex AI model name.",
+                default="Vertex AI model name.",
             ),
         )
+        has_api_key = bool(_get("UAGENT_VERTEXAI_API_KEY"))
+        has_iam_auth = bool(
+            _get("UAGENT_VERTEXAI_PROJECT")
+            or _get("GOOGLE_CLOUD_PROJECT")
+            or _get("UAGENT_GOOGLE_CREDENTIALS")
+            or _get("GOOGLE_APPLICATION_CREDENTIALS")
+        )
+        if not has_api_key and not has_iam_auth:
+            has_adc = False
+            try:
+                import google.auth as _google_auth  # type: ignore[import-not-found]
+
+                creds, _proj = _google_auth.default()
+                has_adc = creds is not None
+            except Exception:
+                has_adc = False
+            if not has_adc:
+                missing.append(
+                    MissingEnv(
+                        name="UAGENT_VERTEXAI_API_KEY",
+                        reason=_(
+                            "Vertex AI API key or IAM/ADC configuration (UAGENT_VERTEXAI_PROJECT / UAGENT_GOOGLE_CREDENTIALS / GOOGLE_APPLICATION_CREDENTIALS / gcloud ADC).",
+                            default="Vertex AI API key or IAM/ADC configuration (UAGENT_VERTEXAI_PROJECT / UAGENT_GOOGLE_CREDENTIALS / GOOGLE_APPLICATION_CREDENTIALS / gcloud ADC).",
+                        ),
+                    )
+                )
         try:
             from google import genai as _genai  # noqa: F401
         except Exception:
@@ -364,12 +387,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         elif embedding_provider == "vertexai":
             missing += _require(
                 [
-                    "UAGENT_VERTEXAI_EMBEDDING_API_KEY",
                     "UAGENT_VERTEXAI_EMBEDDING_DEPNAME",
                 ],
                 reason=_(
-                    "Vertex AI embedding API key / model name.",
-                    default="Vertex AI embedding API key / model name.",
+                    "Vertex AI embedding model name.",
+                    default="Vertex AI embedding model name.",
                 ),
             )
 

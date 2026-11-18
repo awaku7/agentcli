@@ -194,7 +194,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_GEMINI_DEPNAME", False, _("Gemini model name (optional)")),
     ],
     "vertexai": [
-        ("UAGENT_VERTEXAI_API_KEY", True, _("Vertex AI API key")),
+        (
+            "UAGENT_VERTEXAI_API_KEY",
+            False,
+            _("Vertex AI API key (optional when using IAM/ADC)"),
+        ),
         ("UAGENT_VERTEXAI_PROJECT", False, _("Vertex AI project ID (optional)")),
         ("UAGENT_VERTEXAI_LOCATION", False, _("Vertex AI location/region (optional)")),
         (
@@ -1269,7 +1273,11 @@ def _ask_provider_embedding_values(
         ]
     elif provider == "vertexai":
         specs = [
-            ("api_key", True, _("Vertex AI embedding API key")),
+            (
+                "api_key",
+                False,
+                _("Vertex AI embedding API key (optional when using IAM/ADC)"),
+            ),
             (
                 "depname",
                 True,

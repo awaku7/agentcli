@@ -1176,13 +1176,43 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
         api_key = _provider_api_key(core, "VERTEXAI")
-        project = env_get("UAGENT_VERTEXAI_PROJECT")
+        project = (
+            env_get("UAGENT_VERTEXAI_PROJECT")
+            or env_get("GOOGLE_CLOUD_PROJECT")
+            or None
+        )
         # Default to the global endpoint only when a project is set: with an
         # API key alone (express mode) a location would make the SDK build
         # project-scoped paths with an empty project.
-        location = env_get("UAGENT_VERTEXAI_LOCATION") or (
-            "global" if project else None
+        location = (
+            env_get("UAGENT_VERTEXAI_LOCATION")
+            or env_get("UAGENT_GOOGLE_LOCATION")
+            or env_get("GOOGLE_CLOUD_LOCATION")
+            or ("global" if project else None)
         )
+        credentials_path = env_get("UAGENT_GOOGLE_CREDENTIALS") or None
+        credentials = None
+        if credentials_path and not api_key:
+            try:
+                import google.auth  # type: ignore[import-not-found]
+
+                credentials, detected_project = google.auth.load_credentials_from_file(
+                    credentials_path,
+                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
+                )
+                if not project and detected_project:
+                    project = detected_project
+                    if not location:
+                        location = "global"
+            except Exception as e:
+                raise RuntimeError(
+                    "[FATAL] "
+                    + _(
+                        "Failed to load Vertex AI credentials file %(path)s: %(err)s",
+                        default="Failed to load Vertex AI credentials file %(path)s: %(err)s",
+                    )
+                    % {"path": credentials_path, "err": str(e)}
+                ) from e
 
         http_options: dict[str, Any] = {}
         try:
@@ -1192,7 +1222,11 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         except Exception:
             pass
 
-        kwargs: dict[str, Any] = {"vertexai": True, "api_key": api_key}
+        kwargs: dict[str, Any] = {"vertexai": True}
+        if api_key:
+            kwargs["api_key"] = api_key
+        if credentials is not None:
+            kwargs["credentials"] = credentials
         if project:
             kwargs["project"] = project
         if location:
@@ -1207,7 +1241,16 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             try:
                 client = genai.Client(**kwargs)
             except Exception:
-                client = genai.Client(vertexai=True, api_key=api_key)
+                fallback_kwargs: dict[str, Any] = {"vertexai": True}
+                if api_key:
+                    fallback_kwargs["api_key"] = api_key
+                elif credentials is not None:
+                    fallback_kwargs["credentials"] = credentials
+                if project:
+                    fallback_kwargs["project"] = project
+                if location:
+                    fallback_kwargs["location"] = location
+                client = genai.Client(**fallback_kwargs)
 
         try:
             from google.genai import models as gm
