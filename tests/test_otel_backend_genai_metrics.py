@@ -208,6 +208,22 @@ def test_failed_chat_span_records_error_type() -> None:
     assert meter.counters == {}
 
 
+def test_sentence_failed_chat_span_uses_fallback_error_type() -> None:
+    meter = FakeMeter()
+    backend = _backend(meter)
+    with backend.start_span(
+        "chat",
+        attributes={"uag.llm.provider": "openai", "uag.llm.model": "gpt-x"},
+    ) as span:
+        # Production paths such as the legacy provider dispatch fail spans
+        # with a free-form sentence instead of an exception class.
+        span.set_status("error", "provider round failed")
+
+    duration = meter.histograms["gen_ai.client.inference.duration"].records
+    assert len(duration) == 1
+    assert duration[0][1]["error.type"] == "error"
+
+
 def test_spans_without_meter_record_nothing() -> None:
     backend = _backend(None)
     with backend.start_span("invoke_agent", attributes={"uag.agent.name": "uag"}):
