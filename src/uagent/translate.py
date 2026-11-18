@@ -292,10 +292,18 @@ def _translate_gemini(
                 gen_config = gemini_types.GenerateContentConfig(
                     temperature=0,
                     max_output_tokens=max_out,
+                    automatic_function_calling=gemini_types.AutomaticFunctionCallingConfig(
+                        disable=True
+                    ),
                 )
             except Exception:
                 try:
-                    gen_config = gemini_types.GenerateContentConfig(temperature=0)
+                    gen_config = gemini_types.GenerateContentConfig(
+                        temperature=0,
+                        automatic_function_calling=gemini_types.AutomaticFunctionCallingConfig(
+                            disable=True
+                        ),
+                    )
                 except Exception:
                     gen_config = None
 

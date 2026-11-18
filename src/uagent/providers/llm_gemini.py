@@ -1237,18 +1237,18 @@ def gemini_chat_with_tools(
             )
             if tool_config is not None:
                 cfg_kwargs["tool_config"] = tool_config
-            # UAG sends Gemini function declarations (schemas), then executes
-            # returned calls itself. It does not use SDK automatic function calling.
-            # Explicitly disable AFC to prevent google-genai from issuing a warning:
-            # "Direct use of automatic function calling (AFC) in Models.generate_content is not recommended."
-            try:
-                afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
-                if afc_cls is not None:
-                    cfg_kwargs["automatic_function_calling"] = afc_cls(disable=True)
-            except Exception:
-                pass
         if system_instruction:
             cfg_kwargs["system_instruction"] = system_instruction
+
+        # UAG executes returned function calls itself and never relies on SDK
+        # automatic function calling (AFC). Explicitly disable AFC to prevent
+        # google-genai from issuing an advisory warning on generate_content[_stream].
+        try:
+            afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+            if afc_cls is not None:
+                cfg_kwargs["automatic_function_calling"] = afc_cls(disable=True)
+        except Exception:
+            pass
 
     # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
     # Preference: UAGENT_GEMINI_TEMPERATURE > UAGENT_TEMPERATURE > 0.2

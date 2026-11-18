@@ -1158,6 +1158,15 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         except TypeError:
             client = genai.Client(api_key=api_key)
 
+        try:
+            from google.genai import models as gm
+
+            gm.Models._logged_afc_warning = True
+            if hasattr(gm, "AsyncModels"):
+                gm.AsyncModels._logged_afc_warning = True
+        except Exception:
+            pass
+
         return provider, client, model_name
 
     if provider == "vertexai":
@@ -1194,6 +1203,15 @@ def make_client(core: Any) -> tuple[str, Any, str]:
                 client = genai.Client(**kwargs)
             except Exception:
                 client = genai.Client(vertexai=True, api_key=api_key)
+
+        try:
+            from google.genai import models as gm
+
+            gm.Models._logged_afc_warning = True
+            if hasattr(gm, "AsyncModels"):
+                gm.AsyncModels._logged_afc_warning = True
+        except Exception:
+            pass
 
         return provider, client, model_name
 

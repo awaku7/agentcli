@@ -512,10 +512,14 @@ def _run_gemini_img2img(
         try:
             config_cls = getattr(gemini_types, "GenerateContentConfig", None)
             if config_cls is not None:
+                img_cfg_kw: dict[str, Any] = {"response_modalities": ["TEXT", "IMAGE"]}
+                afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+                if afc_cls is not None:
+                    img_cfg_kw["automatic_function_calling"] = afc_cls(disable=True)
                 resp = client.models.generate_content(
                     model=image_model,
                     contents=contents,
-                    config=config_cls(response_modalities=["TEXT", "IMAGE"]),
+                    config=config_cls(**img_cfg_kw),
                 )
             else:
                 resp = client.models.generate_content(
