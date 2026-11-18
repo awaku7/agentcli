@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.51] - 2026-11-18
+
+### Added
+
+- Support Vertex AI authentication through IAM and Application Default Credentials.
+
+### Changed
+
+- Reuse automatic history-shrink projections across appended conversation rounds.
+- Default Vertex AI location to `global` when a project is configured.
+
+### Fixed
+
+- Preserve complete tool turns when normalizing Gemini conversation history.
+- Keep provider-local and session metadata out of provider-bound history requests.
+
 ## [0.7.50] - 2026-11-16
 
 ### Added
