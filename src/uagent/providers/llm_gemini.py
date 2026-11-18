@@ -1238,10 +1238,15 @@ def gemini_chat_with_tools(
             if tool_config is not None:
                 cfg_kwargs["tool_config"] = tool_config
             # UAG sends Gemini function declarations (schemas), then executes
-            # returned calls itself. It does not use SDK automatic function
-            # calling, so do not pass AutomaticFunctionCallingConfig here:
-            # google-genai warns that AFC on Models.generate_content[_stream]
-            # is deprecated in favor of Chat.send_message[_stream].
+            # returned calls itself. It does not use SDK automatic function calling.
+            # Explicitly disable AFC to prevent google-genai from issuing a warning:
+            # "Direct use of automatic function calling (AFC) in Models.generate_content is not recommended."
+            try:
+                afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+                if afc_cls is not None:
+                    cfg_kwargs["automatic_function_calling"] = afc_cls(disable=True)
+            except Exception:
+                pass
         if system_instruction:
             cfg_kwargs["system_instruction"] = system_instruction
 
