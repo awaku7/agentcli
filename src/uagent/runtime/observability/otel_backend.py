@@ -266,7 +266,13 @@ class OpenTelemetrySpan:
         explicit = self._metric_attributes.get("error.type")
         if isinstance(explicit, str) and explicit.strip():
             return explicit.strip()
-        return self._error_type
+        if self._error_type is not None:
+            return self._error_type
+        # Some production paths fail a span with a free-form sentence
+        # (for example "provider round failed"), which is not a bounded
+        # error class. Failed spans still need an error.type so their
+        # duration metrics stay distinguishable from successes.
+        return "error"
 
     @property
     def cancelled(self) -> bool:
