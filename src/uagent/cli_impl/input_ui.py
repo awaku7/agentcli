@@ -205,50 +205,61 @@ def _prompt_toolkit_input(
     # stdin_loop cannot notice the state change until prompt() returns, while
     # the tool is waiting for the same stdin. Watch the shared state and
     # terminate the normal prompt as soon as a tool round takes ownership.
-    # Background Job reply prompts own stdin only while their request is live.
+    # Reply prompts own stdin only while their ask is live: Background Job
+    # requests end with their job, and a plain human_ask can also be
+    # answered from another channel (Nostr remote / bitchat bridges).
     stop_watching = threading.Event()
     watcher: threading.Thread | None = None
     reply_job_id = getattr(core, "human_ask_job_id", None) if reply else None
-    if not reply or reply_job_id:
-        prompt_app = getattr(session, "app", None)
+    prompt_app = getattr(session, "app", None)
+    watcher_interrupted = False
 
-        def _interrupt_when_busy() -> None:
-            while not stop_watching.wait(0.05):
-                try:
-                    if _CLI_SHUTDOWN.is_set():
-                        app = prompt_app
-                        _exit_prompt_application(app)
-                        return
-                    with core.human_ask_lock:
-                        if reply_job_id:
-                            interrupted = bool(
-                                not core.human_ask_active
-                                or getattr(core, "human_ask_job_id", None)
-                                != reply_job_id
-                            )
-                        else:
-                            interrupted = bool(core.human_ask_active)
-                    if not reply_job_id:
-                        interrupted = interrupted or bool(
-                            getattr(core, "status_busy", False)
-                        )
-                    if not interrupted:
-                        continue
+    def _interrupt_when_stale() -> None:
+        nonlocal watcher_interrupted
+        while not stop_watching.wait(0.05):
+            try:
+                if _CLI_SHUTDOWN.is_set():
                     app = prompt_app
-                    if app is not None:
-                        # None tells stdin_loop to discard the stale normal
-                        # prompt and render the current tool/reply prompt.
-                        _exit_prompt_application(app)
+                    _exit_prompt_application(app)
                     return
-                except Exception:
-                    return
+                with core.human_ask_lock:
+                    if reply_job_id:
+                        interrupted = bool(
+                            not core.human_ask_active
+                            or getattr(core, "human_ask_job_id", None) != reply_job_id
+                        )
+                    elif reply:
+                        # A plain human_ask reply prompt owns stdin only
+                        # while its ask is pending. The ask can also be
+                        # answered from another channel (the Nostr remote
+                        # and bitchat bridges put the reply into the same
+                        # queue); once that happens this prompt is stale
+                        # and must be withdrawn.
+                        interrupted = not core.human_ask_active
+                    else:
+                        interrupted = bool(core.human_ask_active)
+                if not reply:
+                    interrupted = interrupted or bool(
+                        getattr(core, "status_busy", False)
+                    )
+                if not interrupted:
+                    continue
+                app = prompt_app
+                if app is not None:
+                    # None tells stdin_loop to discard the stale prompt
+                    # and render whatever prompt is current now.
+                    watcher_interrupted = True
+                    _exit_prompt_application(app)
+                return
+            except Exception:
+                return
 
-        watcher = threading.Thread(
-            target=_interrupt_when_busy,
-            name="prompt-toolkit-state-watcher",
-            daemon=True,
-        )
-        watcher.start()
+    watcher = threading.Thread(
+        target=_interrupt_when_stale,
+        name="prompt-toolkit-state-watcher",
+        daemon=True,
+    )
+    watcher.start()
 
     try:
         if patch_stdout is not None:
@@ -258,7 +269,7 @@ def _prompt_toolkit_input(
                 )
         else:
             result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
-        if result is None and (not reply or reply_job_id):
+        if result is None and (not reply or reply_job_id or watcher_interrupted):
             # Recreate applications exited because input ownership changed.
             _reset_prompt_sessions()
         elif result is not None and not is_password:
