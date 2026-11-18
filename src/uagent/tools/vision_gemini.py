@@ -119,9 +119,18 @@ def analyze_image_gemini(
                 gen_config = types.GenerateContentConfig(
                     temperature=0.0,
                     max_output_tokens=max_out,
+                    automatic_function_calling=types.AutomaticFunctionCallingConfig(
+                        disable=True
+                    ),
                 )
             except Exception:
-                gen_config = None
+                try:
+                    gen_config = types.GenerateContentConfig(
+                        temperature=0.0,
+                        max_output_tokens=max_out,
+                    )
+                except Exception:
+                    gen_config = None
         except Exception:
             gen_config = None
 

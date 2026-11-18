@@ -1340,6 +1340,12 @@ class SubAgentRunner:
                 temperature=0.2,
                 max_output_tokens=max_tokens,
             )
+            try:
+                afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+                if afc_cls is not None:
+                    config_kw["automatic_function_calling"] = afc_cls(disable=True)
+            except Exception:
+                pass
             if timeout > 0:
                 config_kw["timeout"] = timeout
             response = client.models.generate_content(

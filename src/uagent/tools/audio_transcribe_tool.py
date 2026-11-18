@@ -662,12 +662,21 @@ def run_tool(args: dict[str, Any]) -> str:
             if language:
                 final_prompt += f" The language is {language}."
 
+            audio_cfg_kw: dict[str, Any] = {}
+            try:
+                afc_cls = getattr(types, "AutomaticFunctionCallingConfig", None)
+                if afc_cls is not None:
+                    audio_cfg_kw["automatic_function_calling"] = afc_cls(disable=True)
+            except Exception:
+                pass
+
             resp = client.models.generate_content(
                 model=model,
                 contents=[
                     types.Part.from_bytes(data=audio_bytes, mime_type=mime_type),
                     final_prompt,
                 ],
+                config=types.GenerateContentConfig(**audio_cfg_kw) if audio_cfg_kw else None,
             )
             text = resp.text or ""
             resp_language = language

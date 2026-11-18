@@ -273,14 +273,22 @@ def _llm_simple_text(
     if provider in ("gemini", "vertexai"):
         from google.genai import types as gemini_types
 
+        cfg_kw: dict[str, Any] = {
+            "system_instruction": system_prompt,
+            "temperature": temperature,
+            "max_output_tokens": max_tokens,
+        }
+        try:
+            afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+            if afc_cls is not None:
+                cfg_kw["automatic_function_calling"] = afc_cls(disable=True)
+        except Exception:
+            pass
+
         response = client.models.generate_content(
             model=model_name,
             contents=user_prompt,
-            config=gemini_types.GenerateContentConfig(
-                system_instruction=system_prompt,
-                temperature=temperature,
-                max_output_tokens=max_tokens,
-            ),
+            config=gemini_types.GenerateContentConfig(**cfg_kw),
         )
         return (response.text or "") if response is not None else ""
 

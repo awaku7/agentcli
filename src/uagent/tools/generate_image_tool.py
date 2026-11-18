@@ -956,13 +956,20 @@ def _run_gemini_images(
                     b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
         else:
             # Traditional Gemini multimodal generation
+            gen_cfg_kw: dict[str, Any] = {
+                "response_modalities": ["TEXT", "IMAGE"],
+                "image_config": gemini_types.ImageConfig(**image_config_kwargs),
+            }
+            try:
+                afc_cls = getattr(gemini_types, "AutomaticFunctionCallingConfig", None)
+                if afc_cls is not None:
+                    gen_cfg_kw["automatic_function_calling"] = afc_cls(disable=True)
+            except Exception:
+                pass
             resp = client.models.generate_content(
                 model=image_model,
                 contents=prompt,
-                config=gemini_types.GenerateContentConfig(
-                    response_modalities=["TEXT", "IMAGE"],
-                    image_config=gemini_types.ImageConfig(**image_config_kwargs),
-                ),
+                config=gemini_types.GenerateContentConfig(**gen_cfg_kw),
             )
             b64_list = []
             candidates = getattr(resp, "candidates", None) or []
