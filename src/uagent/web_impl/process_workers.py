@@ -2,7 +2,11 @@
 
 IPC is private to server-created children. Browser input is never unpickled.
 The parent owns authentication, sockets and admission; each child owns cwd,
-core, tools, callbacks and provider continuation for one turn.
+core, tools, callbacks and provider continuation for one turn. Non-sandbox
+turns may run on a pooled worker that stays bound to one room across turns,
+so the interpreter, imports and catalog are paid once per room instead of
+once per turn; the worker is recycled on room retirement, settings change,
+failure, or a turn limit, and never serves a second room.
 """
 
 from __future__ import annotations
@@ -113,6 +117,99 @@ def room_worker_count(cli_value: int | None = None) -> int:
     return value
 
 
+# A pooled worker is recycled after this many turns for one room, so a
+# long-lived room cannot accumulate unbounded child-process state.
+_MAX_POOLED_TURNS = 200
+
+
+def warm_worker_count(workers: int, cli_value: int | None = None) -> int:
+    """How many pre-warmed pooled workers to keep ready (0 disables pooling)."""
+    from ..env_utils import env_get
+
+    raw = cli_value if cli_value is not None else env_get("UAGENT_WEB_WARM_WORKERS")
+    if raw is None or str(raw).strip() == "":
+        return min(1, workers)
+    try:
+        value = int(raw)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("warm workers must be a non-negative integer") from exc
+    if value < 0:
+        raise ValueError("warm workers must be a non-negative integer")
+    return min(value, workers)
+
+
+class _WorkerHandle:
+    """One pooled child process and its parent-side pipe."""
+
+    __slots__ = ("process", "conn", "lock", "fingerprint", "turns", "room", "ready")
+
+    def __init__(self, process, conn):
+        self.process = process
+        self.conn = conn
+        self.lock = threading.Lock()
+        self.fingerprint = None
+        self.turns = 0
+        self.room = None
+        self.ready = False
+
+
+def _pooled_child_turn(connection, payload, pending) -> None:
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def _prewarm_child_imports() -> None:
+    """Load the modules a turn needs so a warm worker only pays for the turn."""
+    from .. import core  # noqa: F401
+    from . import agent_worker, init, rooms  # noqa: F401
+
+
+def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
+    """Serve turns for one room at a time until stopped or recycled.
+
+    The heavy imports run before the ready signal, so a turn claimed from
+    the warm pool starts at the turn itself instead of at interpreter
+    startup. Turn payloads are the same dicts the one-shot path receives
+    through spawn arguments; control messages never arrive here because
+    the parent only sends them while a turn is running, and the child's
+    per-turn control reader hands stray payloads back through ``pending``.
+    """
+    import queue as queue_module
+
+    pending: queue_module.SimpleQueue = queue_module.SimpleQueue()
+    try:
+        _prewarm_child_imports()
+    except Exception:
+        # A failed prewarm must not wedge the pool; turns will surface the
+        # same failure through the normal error path.
+        pass
+    try:
+        connection.send({"ready": True})
+    except (EOFError, OSError):
+        return
+    while True:
+        try:
+            payload = pending.get_nowait()
+        except queue_module.Empty:
+            try:
+                payload = connection.recv()
+            except (EOFError, OSError):
+                return
+        if not isinstance(payload, dict):
+            continue
+        if payload.get("type") == "stop":
+            return
+        if "room" not in payload or "input" not in payload:
+            # Stray control message between turns; nothing to do with it.
+            continue
+        try:
+            target(connection, payload, pending)
+        except Exception:
+            # _child_turn reports turn failures itself; an exception here
+            # means the child is in an unknown state, so exit and let the
+            # parent recycle this worker.
+            return
+
+
 def _initialize_worker_observability(settings) -> bool:
     """Initialize the same resolved OTel policy in an isolated Room worker."""
     if settings is None:
@@ -159,8 +256,17 @@ def _apply_worker_observability_status(snapshot) -> None:
         pass
 
 
-def _child_turn(connection, payload) -> None:
-    """Spawn entry point; no parent locks, SQLite handles or clients are inherited."""
+def _child_turn(
+    connection, payload, *, pooled: bool = False, pending_payloads=None
+) -> None:
+    """Spawn entry point; no parent locks, SQLite handles or clients are inherited.
+
+    With ``pooled`` the child survives the turn: the connection stays open,
+    a ``turn_complete`` marker ends the turn for the parent, and the session
+    store is kept open when the next turn for the same room and session can
+    reuse it. ``pending_payloads`` collects turn payloads the control
+    reader receives at a turn boundary so the pooled loop can run them.
+    """
     from .. import core
     from ..decision.settings import configure_decision_settings
     from ..runtime.session_store import attach_opt_in_session_store
@@ -250,17 +356,42 @@ def _child_turn(connection, payload) -> None:
     for name, value in payload["core"].items():
         setattr(core, name, value)
     store_path = payload.get("store_path")
+    reused_store = False
     if store_path:
         os.environ["UAGENT_SESSION_STORE"] = "1"
         os.environ["UAGENT_SESSION_STORE_PATH"] = store_path
-        attach_opt_in_session_store(
-            core,
-            project_path=room.base_dir,
-            entry_point="web",
-            existing_session_id=room.session_id,
-        )
+        existing_store = getattr(core, "session_store", None)
+        if (
+            pooled
+            and existing_store is not None
+            and room.session_id
+            and getattr(core, "session_id", None) == room.session_id
+            and str(getattr(existing_store, "path", "")) == str(store_path)
+        ):
+            # Same room, same session, same store file: keep the open
+            # store (and its schema checks) instead of re-attaching.
+            reused_store = True
+        else:
+            if pooled and existing_store is not None:
+                try:
+                    existing_store.close()
+                except Exception:
+                    pass
+                core.session_store = None
+            attach_opt_in_session_store(
+                core,
+                project_path=room.base_dir,
+                entry_point="web",
+                existing_session_id=room.session_id,
+            )
     else:
         os.environ["UAGENT_SESSION_STORE"] = "0"
+        if pooled and getattr(core, "session_store", None) is not None:
+            try:
+                core.session_store.close()
+            except Exception:
+                pass
+            core.session_store = None
     from ..runtime.execution_broker import SecurityProfile, execution_profile
     from ..runtime.runtime_plugins import load_plugins_status_at_startup
 
@@ -324,6 +455,15 @@ def _child_turn(connection, payload) -> None:
                     continue
                 request = connection.recv()
                 if not isinstance(request, dict):
+                    continue
+                if (
+                    pending_payloads is not None
+                    and "room" in request
+                    and "input" in request
+                ):
+                    # A turn payload that landed at the turn boundary
+                    # belongs to the pooled loop, not the control reader.
+                    pending_payloads.put(request)
                     continue
                 request_type = request.get("type")
                 if request_type == "interrupt":
@@ -424,12 +564,28 @@ def _child_turn(connection, payload) -> None:
                 pass
         loop.call_soon_threadsafe(loop.stop)
         loop_thread.join(5)
-        connection.close()
-        if rpc_connection is not None:
-            rpc_connection.close()
-        store = getattr(core, "session_store", None)
-        if store is not None:
-            store.close()
+        if pooled:
+            # The Sandbox RPC pipe is per turn even for a pooled worker;
+            # only the control connection and a reusable session store
+            # outlive the turn.
+            if rpc_connection is not None:
+                rpc_connection.close()
+            if not reused_store:
+                store = getattr(core, "session_store", None)
+                if store is not None:
+                    store.close()
+                    core.session_store = None
+            try:
+                send({"turn_complete": True})
+            except (EOFError, OSError):
+                pass
+        else:
+            connection.close()
+            if rpc_connection is not None:
+                rpc_connection.close()
+            store = getattr(core, "session_store", None)
+            if store is not None:
+                store.close()
 
 
 def _spawn_worker_entry(target, connection, payload, rpc_connection) -> None:
@@ -439,7 +595,14 @@ def _spawn_worker_entry(target, connection, payload, rpc_connection) -> None:
 
 
 class RoomWorkerPool:
-    def __init__(self, workers: int, *, target=_child_turn):
+    def __init__(
+        self,
+        workers: int,
+        *,
+        target=_child_turn,
+        pooled_target=_pooled_child_turn,
+        warm_workers: int | None = None,
+    ):
         if workers < 1:
             raise ValueError("room workers must be at least 1")
         self.workers = workers
@@ -451,6 +614,148 @@ class RoomWorkerPool:
         self._busy_event = threading.Event()
         self._target = target
         self._context = multiprocessing.get_context("spawn")
+        # Pooling reuses a child process across one room's turns. It only
+        # engages for the real child entry: test doubles keep the one-shot
+        # behaviour, and UAGENT_WEB_WARM_WORKERS=0 is the escape hatch.
+        self._pooled_target = pooled_target
+        self._warm_target = (
+            warm_worker_count(workers)
+            if warm_workers is None
+            else min(max(int(warm_workers), 0), workers)
+        )
+        self._pooling_enabled = (
+            target is _child_turn
+            and pooled_target is not None
+            and self._warm_target >= 1
+        )
+        self._warm: list[_WorkerHandle] = []
+        self._bound: dict[str, _WorkerHandle] = {}
+        self._warm_lock = threading.Lock()
+        self._refill_in_flight = False
+        if self._pooling_enabled:
+            self._refill_async()
+
+    @staticmethod
+    def _fingerprint(payload) -> tuple:
+        return (
+            payload.get("execution_profile"),
+            bool(payload.get("sandbox_enabled")),
+            payload.get("decision_provider"),
+        )
+
+    def _spawn_pooled_handle(self) -> _WorkerHandle:
+        parent, child = self._context.Pipe()
+        process = self._context.Process(
+            target=_pooled_worker_entry,
+            args=(child, self._pooled_target),
+            daemon=False,
+        )
+        process.start()
+        child.close()
+        return _WorkerHandle(process, parent)
+
+    def _refill_async(self) -> None:
+        with self._warm_lock:
+            if (
+                self._closed.is_set()
+                or self._refill_in_flight
+                or len(self._warm) >= self._warm_target
+            ):
+                return
+            self._refill_in_flight = True
+
+        def refill():
+            try:
+                handle = self._spawn_pooled_handle()
+                deadline = time.monotonic() + 60
+                while time.monotonic() < deadline:
+                    if self._closed.is_set() or not handle.process.is_alive():
+                        self._terminate_handle(handle)
+                        return
+                    if handle.conn.poll(0.1):
+                        try:
+                            message = handle.conn.recv()
+                        except (EOFError, OSError):
+                            self._terminate_handle(handle)
+                            return
+                        if isinstance(message, dict) and message.get("ready"):
+                            handle.ready = True
+                            with self._warm_lock:
+                                if self._closed.is_set():
+                                    self._terminate_handle(handle)
+                                else:
+                                    self._warm.append(handle)
+                            return
+                        self._terminate_handle(handle)
+                        return
+                self._terminate_handle(handle)
+            except Exception:
+                pass
+            finally:
+                with self._warm_lock:
+                    self._refill_in_flight = False
+
+        threading.Thread(target=refill, name="web-worker-refill", daemon=True).start()
+
+    def _claim_warm(self) -> _WorkerHandle | None:
+        claimed = None
+        with self._warm_lock:
+            while self._warm:
+                handle = self._warm.pop(0)
+                if handle.ready and handle.process.is_alive():
+                    claimed = handle
+                    break
+                self._terminate_handle(handle)
+        self._refill_async()
+        return claimed
+
+    def _obtain_worker(self, room, payload) -> _WorkerHandle:
+        fingerprint = self._fingerprint(payload)
+        with self._lock:
+            handle = self._bound.get(room.room_id)
+        if handle is not None:
+            if (
+                handle.room is room
+                and handle.fingerprint == fingerprint
+                and handle.process.is_alive()
+            ):
+                return handle
+            self._unbind(room.room_id, handle)
+        handle = self._claim_warm()
+        if handle is None:
+            handle = self._spawn_pooled_handle()
+            handle.ready = True
+        handle.fingerprint = fingerprint
+        handle.room = room
+        handle.turns = 0
+        with self._lock:
+            self._bound[room.room_id] = handle
+        return handle
+
+    def _terminate_handle(self, handle: _WorkerHandle) -> None:
+        try:
+            if handle.process.is_alive():
+                handle.process.terminate()
+                handle.process.join(5)
+        except Exception:
+            pass
+        try:
+            handle.conn.close()
+        except Exception:
+            pass
+
+    def _unbind(self, room_id: str, handle: _WorkerHandle | None = None) -> None:
+        with self._lock:
+            bound = self._bound.get(room_id)
+            if handle is not None and bound is not handle:
+                return
+            self._bound.pop(room_id, None)
+        if bound is not None:
+            self._terminate_handle(bound)
+
+    def release_room(self, room) -> None:
+        """Recycle the pooled worker bound to a retired room, if any."""
+        self._unbind(room.room_id)
 
     @property
     def busy(self) -> bool:
@@ -577,6 +882,8 @@ class RoomWorkerPool:
         acquired = False
         process = None
         parent = child = rpc_parent = rpc_child = None
+        pooled_handle = None
+        turn_complete_received = False
         sandbox_scope = None
         sandbox_capabilities = None
         sandbox_execution_stack = ExitStack()
@@ -677,27 +984,52 @@ class RoomWorkerPool:
                 "sandbox_capabilities": sandbox_capabilities,
             }
             payload["core"].update(getattr(room, "_worker_auto_pilot", {}))
-            parent, child = self._context.Pipe()
-            rpc_parent, rpc_child = self._context.Pipe()
-            process = self._context.Process(
-                target=_spawn_worker_entry,
-                args=(self._target, child, payload, rpc_child),
-                daemon=False,
-            )
-            with self._lock:
-                if self._closed.is_set():
-                    return
-                with room._lifecycle_lock:
-                    room._process_stale_history = room.history
-                    room._process_turn_active = True
-                process.start()
-                self._running[room.room_id] = (room, parent, process, pipe_lock)
-            child.close()
-            rpc_child.close()
+            # Pooled workers serve one room across turns on the non-sandbox
+            # path. Sandbox turns keep the one-shot spawn: their scope and
+            # RPC pipe are issued per turn for a fresh child.
+            if self._pooling_enabled and not payload["sandbox_enabled"]:
+                pooled_handle = self._obtain_worker(room, payload)
+                process = pooled_handle.process
+                parent = pooled_handle.conn
+                pipe_lock = pooled_handle.lock
+                with self._lock:
+                    if self._closed.is_set():
+                        self._unbind(room.room_id, pooled_handle)
+                        return
+                    with room._lifecycle_lock:
+                        room._process_stale_history = room.history
+                        room._process_turn_active = True
+                    self._running[room.room_id] = (room, parent, process, pipe_lock)
+                try:
+                    with pipe_lock:
+                        parent.send(payload)
+                except (EOFError, OSError):
+                    self._unbind(room.room_id, pooled_handle)
+                    pooled_handle = None
+                    raise
+            else:
+                parent, child = self._context.Pipe()
+                rpc_parent, rpc_child = self._context.Pipe()
+                process = self._context.Process(
+                    target=_spawn_worker_entry,
+                    args=(self._target, child, payload, rpc_child),
+                    daemon=False,
+                )
+                with self._lock:
+                    if self._closed.is_set():
+                        return
+                    with room._lifecycle_lock:
+                        room._process_stale_history = room.history
+                        room._process_turn_active = True
+                    process.start()
+                    self._running[room.room_id] = (room, parent, process, pipe_lock)
+                child.close()
+                rpc_child.close()
             # Do not expose Stop as available until interrupt() can reach the child.
             room.set_status(True, "BUSY")
             connected = payload["connected"]
-            rpc_closed = False
+            rpc_closed = rpc_parent is None
+            turn_complete_received = False
             process_exit_deadline = None
             while True:
                 try:
@@ -795,6 +1127,12 @@ class RoomWorkerPool:
                         self._relay(room, value["event"])
                     elif "otel_status" in value:
                         _apply_worker_observability_status(value["otel_status"])
+                    elif "turn_complete" in value:
+                        turn_complete_received = True
+                    elif "ready" in value:
+                        # A synchronously spawned pooled worker announces
+                        # readiness on the same pipe before its first turn.
+                        pass
                     else:
                         if process.is_alive():
                             process.terminate()
@@ -812,7 +1150,10 @@ class RoomWorkerPool:
                 if current_connected != connected:
                     self._send(room, {"type": "connected", "value": current_connected})
                     connected = current_connected
-            process.join(5)
+                if pooled_handle is not None and turn_complete_received:
+                    break
+            if pooled_handle is None:
+                process.join(5)
             if not state_received:
                 room.recover_partial_streams(
                     "[ERROR] Room worker exited before returning its state "
@@ -832,12 +1173,33 @@ class RoomWorkerPool:
                 self._reserved_rooms.discard(room.room_id)
                 if not self._reserved_rooms:
                     self._busy_event.clear()
-            if process is not None and process.pid is not None and process.is_alive():
-                process.terminate()
-                process.join(5)
-            for pipe in (parent, child, rpc_parent, rpc_child):
-                if pipe is not None:
-                    pipe.close()
+            if pooled_handle is not None:
+                # A pooled worker that returned its state and the completion
+                # marker stays bound to this room for the next turn; any
+                # other outcome recycles it.
+                keep_pooled = (
+                    state_received
+                    and turn_complete_received
+                    and process is not None
+                    and process.is_alive()
+                )
+                if keep_pooled:
+                    pooled_handle.turns += 1
+                    if pooled_handle.turns >= _MAX_POOLED_TURNS:
+                        self._unbind(room.room_id, pooled_handle)
+                else:
+                    self._unbind(room.room_id, pooled_handle)
+            else:
+                if (
+                    process is not None
+                    and process.pid is not None
+                    and process.is_alive()
+                ):
+                    process.terminate()
+                    process.join(5)
+                for pipe in (parent, child, rpc_parent, rpc_child):
+                    if pipe is not None:
+                        pipe.close()
             with room._lifecycle_lock:
                 room._partial_streams = {}
                 room._ended_streams.clear()
@@ -921,3 +1283,11 @@ class RoomWorkerPool:
             if process.is_alive():
                 process.terminate()
                 process.join(5)
+        with self._warm_lock:
+            warm = list(self._warm)
+            self._warm.clear()
+        with self._lock:
+            bound = list(self._bound.values())
+            self._bound.clear()
+        for handle in warm + bound:
+            self._terminate_handle(handle)

@@ -18,10 +18,13 @@ room's Stop button remains disabled.
 
 ## Isolation
 
-For counts greater than 1, the server starts an isolated Python process for each
-foreground turn. The child runs the existing Web worker and normal foreground
+For counts greater than 1, the server runs each foreground turn in an isolated
+Python process. The child runs the existing Web worker and normal foreground
 tools when Sandbox is off. Process cwd, core state, tool callbacks, providers and
-interrupt flags are separate. The parent owns authenticated connections and
+interrupt flags are separate. On the non-Sandbox path the child is a pooled
+worker bound to one room across its turns (see below), so interpreter startup,
+imports and catalog loading are paid once per room instead of once per turn;
+Sandbox turns keep one fresh child per turn. The parent owns authenticated connections and
 relays streaming, messages, status, images and confirmations over a private
 local pipe. For Sandbox-enabled Web (including Remote Web by default), a separate
 size-bounded JSON pipe carries only allowlisted Sandbox tool requests. The
@@ -57,12 +60,23 @@ one child process each.
 
 ## Current limits and verification
 
-Children last for one foreground turn. Process-local tool resources (for example
+Sandbox children last for one foreground turn. Process-local tool resources (for example
 a browser or MCP connection) are recreated on the next turn; serialized history
 and supported continuation state are retained. Background Sub-Agent Jobs are
 unavailable inside these children because their runtime cannot outlive the
 foreground process. Explicit one-worker mode (`--room-workers 1`) retains existing background Job
 behavior. This mode does not change the CLI, GUI or A2A hosts.
+
+Non-Sandbox turns instead run on a pooled worker: the pool keeps
+`UAGENT_WEB_WARM_WORKERS` pre-warmed children (default 1; 0 disables pooling
+and restores one child per turn). A claimed worker stays bound to its room —
+never to a second room — until the room is retired, the turn's settings
+fingerprint (execution profile, Sandbox flag, decision provider) changes, the
+worker fails, or it has served 200 turns; it is then terminated and replaced.
+Within a room, process-local tool resources and the open session store may
+therefore persist across that room's turns, matching the CLI's one-process
+session behaviour; the store is re-attached whenever the room, session or
+store path changes.
 
 Offline tests run the real spawn/IPC/worker path with a fake provider and actual
 `python_exec` file operations. They verify concurrent rooms, capacity overflow,

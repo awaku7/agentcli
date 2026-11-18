@@ -255,7 +255,11 @@ def init_web():
         pass
     initialize_web_job_runtime()
 
-    web_manager.original_set_status = core.set_status
+    # A pooled room worker calls init_web once per turn in the same
+    # process. Recapturing the already-wrapped set_status would leave
+    # web_set_status delegating to itself, so capture only the original.
+    if core.set_status is not web_set_status:
+        web_manager.original_set_status = core.set_status
 
     def _web_image_event(event: dict[str, Any]) -> None:
         room = getattr(_thread_ctx, "room", None)
@@ -498,7 +502,11 @@ def init_web():
                 except Exception:
                     pass
 
-    tools.run_tool = web_run_tool_wrapper
+    # Same idempotency guard as set_status above: wrap run_tool once per
+    # process, not once per init_web call.
+    if not getattr(tools.run_tool, "_uag_web_wrapped", False):
+        web_run_tool_wrapper._uag_web_wrapped = True
+        tools.run_tool = web_run_tool_wrapper
 
 
 def main():

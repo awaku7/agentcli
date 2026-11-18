@@ -752,6 +752,11 @@ class WebManager:
             if not reserved:
                 room.worker_lock.release()
 
+    def _release_room_worker(self, room: WebRoom) -> None:
+        pool = self.room_worker_pool
+        if pool is not None:
+            pool.release_room(room)
+
     def discard_if_idle(self, room_id: str, expected_room: WebRoom) -> bool:
         """Remove a just-created room if its connection was denied."""
         with self.rooms_lock:
@@ -761,6 +766,7 @@ class WebManager:
                 return False
             self.rooms.pop(room_id, None)
             _scope, cleanup = self._detach_room_sandbox_scope(expected_room)
+        self._release_room_worker(expected_room)
         try:
             if cleanup is not None:
                 cleanup()
@@ -780,6 +786,7 @@ class WebManager:
                 return False
             self.rooms.pop(room_id, None)
             _scope, cleanup = self._detach_room_sandbox_scope(room)
+        self._release_room_worker(room)
         try:
             if cleanup is not None:
                 cleanup()
@@ -850,6 +857,7 @@ class WebManager:
                 _scope, cleanup = self._detach_room_sandbox_scope(room)
                 evicted_rooms.append((room, cleanup))
         for room, cleanup in evicted_rooms:
+            self._release_room_worker(room)
             try:
                 if cleanup is not None:
                     cleanup()
