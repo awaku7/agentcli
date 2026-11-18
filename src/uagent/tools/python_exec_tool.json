@@ -1,8 +1,8 @@
 {
   "ja": {
-    "describe.python": "Python を実行します: %(code)s",
+    "describe.python": "Pythonを実行（冒頭プレビュー）: %(code)s",
     "describe.python_multi": "Python を実行します（全%(lines)s行）: %(code)s",
-    "param.code.description": "Pythonコード。",
+    "param.code.description": "実行するPythonコード。計算やデータ処理などの短いスクリプトを入力します。",
     "x_search_terms": [
       "Pythonの実行",
       "pythonを実行",

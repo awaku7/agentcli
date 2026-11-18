@@ -680,9 +680,9 @@ def describe(args: dict[str, Any]) -> str:
     if dry_run is None:
         dry_run = True
     action = (
-        _("describe.preview", default="Previewing patch")
+        _("describe.preview", default="Previewing patch changes for the target files")
         if bool(dry_run)
-        else _("describe.apply", default="Applying patch")
+        else _("describe.apply", default="Applying the patch to the target file")
     )
     patch_text = str((args or {}).get("patch_text") or "")
     revert = bool((args or {}).get("revert", False))
@@ -690,6 +690,14 @@ def describe(args: dict[str, Any]) -> str:
         patches = _parse_patch(patch_text)
     except Exception:
         patches = []
+    if not patches:
+        return str(
+            _(
+                "describe.invalid_patch",
+                default="The patch could not be parsed and will not be applied.",
+            )
+        )
+
     entries: list[str] = []
     for patch in patches:
         patch_is_deletion = patch.target_path in {"/dev/null", "dev/null"}
@@ -706,7 +714,7 @@ def describe(args: dict[str, Any]) -> str:
         reverse_action = str(_("describe.reverse", default="Reversing patch"))
         if bool(dry_run):
             action = (
-                str(_("describe.preview", default="Previewing patch"))
+                str(_("describe.preview", default="Previewing patch changes for the target files"))
                 + ": "
                 + reverse_action
             )
@@ -724,7 +732,13 @@ def describe(args: dict[str, Any]) -> str:
                 hunks=hunk_count,
             )
         )
-    return str(action)
+    return str(
+        _(
+            "describe.unknown_target",
+            default="%(action)s (the target file could not be identified from the patch).",
+            action=action,
+        )
+    )
 
 
 TOOL_DESCRIBER = describe

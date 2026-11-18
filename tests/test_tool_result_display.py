@@ -418,6 +418,14 @@ def test_apply_patch_describer_includes_target_paths(
     assert "Preview" in preview or "プレビュー" in preview
     assert "Applying" in apply or "適用" in apply
 
+    unknown_target = apply_patch_tool.describe(
+        {"patch_text": "not a valid diff", "dry_run": False}
+    )
+    assert (
+        "パッチを解析できません。このパッチは適用されません。" in unknown_target
+        or "could not be parsed and will not be applied" in unknown_target
+    )
+
     reverse_preview = apply_patch_tool.describe(
         {"patch_text": patch_text, "dry_run": True, "revert": True}
     )
@@ -507,14 +515,27 @@ def test_change_workdir_describer_includes_new_dir() -> None:
     assert change_workdir_tool.describe({}).count("?") == 1
 
 
-def test_python_exec_describer_does_not_echo_source_code() -> None:
+def test_python_exec_describer_shows_safe_code_preview() -> None:
     from uagent.tools import python_exec_tool
 
-    source = "password = 'SENSITIVE_SENTINEL_9381'"
+    source = """password = 'SENSITIVE_SENTINEL_9381'
+print('not shown')"""
     text = python_exec_tool.describe({"code": source})
-    assert "Python" in text or "コード" in text
+    assert "password = <redacted>" in text
     assert source not in text
     assert "SENSITIVE_SENTINEL_9381" not in text
+
+
+def test_python_exec_describer_previews_first_code_line_and_masks_literals() -> None:
+    from uagent.tools import python_exec_tool
+
+    text = python_exec_tool.describe(
+        {"code": """import pandas as pd
+print('private value')"""}
+    )
+    assert "import pandas as pd" in text
+    assert "print" not in text
+    assert "private value" not in text
 
 
 def test_analyze_image_describer_does_not_echo_path_or_prompt() -> None:

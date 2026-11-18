@@ -450,7 +450,7 @@
     ]
   },
   "ja": {
-    "tool.description": "REST API または HTTP API に HTTP リクエストを送信し、ステータス、ヘッダー、レスポンス本文を返します。JSON、フォーム、テキスト形式のリクエスト本文に対応します。GET/HEAD/OPTIONS は読み取り専用として並列実行でき、書き込みメソッドは既定で直列実行されます。",
+    "tool.description": "指定URLにHTTPリクエストを送り、応答のステータス・ヘッダー・本文を返します。JSON・フォーム・テキスト形式の本文を送信できます。",
     "x_search_terms": [
       "HTTPリクエスト",
       "REST API",

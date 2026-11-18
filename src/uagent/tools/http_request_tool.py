@@ -25,9 +25,8 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Send an HTTP request to a REST or HTTP API and return the status, headers, "
-                "and response body. Supports JSON, form, and text request bodies. "
-                "GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default."
+                "Send an HTTP request to a URL and return the response status, headers, and body. "
+                "Supports JSON, form, and text request bodies."
             ),
         ),
         "x_search_terms": _(
