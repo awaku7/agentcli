@@ -91,6 +91,38 @@ def test_windows_task_command_contains_only_opaque_payload_reference(
     assert payload["message"] == secret
 
 
+def test_windows_task_sets_end_time_so_z_delete_gets_an_end_boundary(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / "state"))
+    captured = {}
+
+    def fake_schtasks(args):
+        captured["args"] = args
+
+        class Result:
+            returncode = 0
+            stdout = "created"
+            stderr = ""
+
+        return Result()
+
+    monkeypatch.setattr(os_scheduler, "detect_os", lambda: "windows")
+    monkeypatch.setattr(os_scheduler, "_run_schtasks", fake_schtasks)
+    at_dt = datetime(2026, 11, 19, 15, 30, tzinfo=timezone.utc)
+    result = os_scheduler.create_os_schedule(at_dt=at_dt, message="notice")
+    assert result["ok"]
+    args = captured["args"]
+    assert "/Z" in args
+    # /Z requires a trigger EndBoundary; schtasks emits one only when an
+    # end time is given, so /ET must be present and after /ST.
+    local_dt = at_dt.astimezone()
+    assert args[args.index("/st") + 1] == local_dt.strftime("%H:%M")
+    assert args[args.index("/et") + 1] == (local_dt + timedelta(minutes=1)).strftime(
+        "%H:%M"
+    )
+
+
 def test_scheduled_payload_cli_consumes_file_and_sets_noninteractive(
     monkeypatch, tmp_path
 ):
