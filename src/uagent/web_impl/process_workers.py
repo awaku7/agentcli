@@ -165,6 +165,15 @@ def _prewarm_child_imports() -> None:
 
 
 def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
+    try:
+        _pooled_worker_loop(connection, target)
+    finally:
+        # The per-turn finish only flushes in pooled mode; the process
+        # backend is shut down once, when this worker exits.
+        _shutdown_worker_observability()
+
+
+def _pooled_worker_loop(connection, target) -> None:
     """Serve turns for one room at a time until stopped or recycled.
 
     The heavy imports run before the ready signal, so a turn claimed from
@@ -224,8 +233,16 @@ def _initialize_worker_observability(settings) -> bool:
         return False
 
 
-def _finish_worker_observability(send, *, initialized: bool) -> None:
-    """Flush child spans and report the process-local export outcome to parent."""
+def _finish_worker_observability(
+    send, *, initialized: bool, pooled: bool = False
+) -> None:
+    """Flush child spans and report the process-local export outcome to parent.
+
+    A pooled worker keeps its process-level backend across turns, so it
+    only flushes here; the worker loop shuts the backend down when the
+    worker exits. A one-shot worker shuts the backend down because its
+    process is about to end.
+    """
     if not initialized:
         return
     try:
@@ -233,10 +250,27 @@ def _finish_worker_observability(send, *, initialized: bool) -> None:
         from ..runtime.observability.delivery_status import delivery_status_snapshot
 
         backend = get_observability_backend()
-        shutdown = getattr(backend, "shutdown", None)
+        if pooled:
+            force_flush = getattr(backend, "force_flush", None)
+            if callable(force_flush):
+                force_flush()
+        else:
+            shutdown = getattr(backend, "shutdown", None)
+            if callable(shutdown):
+                shutdown()
+        send({"otel_status": delivery_status_snapshot()})
+    except Exception:
+        pass
+
+
+def _shutdown_worker_observability() -> None:
+    """Shut the process-level backend down once, at pooled worker exit."""
+    try:
+        from ..runtime.observability.bootstrap import get_observability_backend
+
+        shutdown = getattr(get_observability_backend(), "shutdown", None)
         if callable(shutdown):
             shutdown()
-        send({"otel_status": delivery_status_snapshot()})
     except Exception:
         pass
 
@@ -483,7 +517,8 @@ def _child_turn(
                     core.interrupt_requested = True
                 break
 
-    threading.Thread(target=controls, daemon=True).start()
+    controls_thread = threading.Thread(target=controls, daemon=True)
+    controls_thread.start()
     if room.private_session or not room.session_id:
         for name in (
             "responses_state",
@@ -548,8 +583,17 @@ def _child_turn(
         asyncio.run_coroutine_threadsafe(asyncio.sleep(0), loop).result(timeout=5)
         send({"state": room_state(room)})
     finally:
-        _finish_worker_observability(send, initialized=observability_initialized)
         finished.set()
+        if pooled:
+            # The control reader must be done before the pooled loop
+            # resumes reading this connection: a payload it captured at
+            # the turn boundary is already queued in pending_payloads,
+            # and a second concurrent reader could swallow the next
+            # payload into that queue while the loop blocks on recv().
+            controls_thread.join(5)
+        _finish_worker_observability(
+            send, initialized=observability_initialized, pooled=pooled
+        )
         if sandbox_rpc_client is not None:
             sandbox_rpc_client.close_all()
             try:
@@ -1018,10 +1062,11 @@ class RoomWorkerPool:
                 process = pooled_handle.process
                 parent = pooled_handle.conn
                 pipe_lock = pooled_handle.lock
+                if self._closed.is_set():
+                    # _unbind takes the pool lock; never call it under it.
+                    self._unbind(room.room_id, pooled_handle)
+                    return
                 with self._lock:
-                    if self._closed.is_set():
-                        self._unbind(room.room_id, pooled_handle)
-                        return
                     with room._lifecycle_lock:
                         room._process_stale_history = room.history
                         room._process_turn_active = True

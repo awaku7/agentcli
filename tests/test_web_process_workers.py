@@ -10,7 +10,10 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.runtime.session_store import SessionStore, attach_opt_in_session_store
-from uagent.web_impl.process_workers import RoomWorkerPool
+from uagent.web_impl.process_workers import (
+    RoomWorkerPool,
+    _finish_worker_observability,
+)
 from uagent.web_impl.rooms import WebRoom
 
 
@@ -1368,3 +1371,49 @@ def test_pool_construction_does_not_block_process_exit():
         env=env,
     )
     assert "bye" in result.stdout
+
+
+def test_finish_worker_observability_pooled_flushes_without_shutdown(monkeypatch):
+    from uagent.runtime.observability import bootstrap, delivery_status
+
+    class _Backend:
+        def __init__(self):
+            self.flushed = False
+            self.shutdown_called = False
+
+        def force_flush(self, timeout_millis=30_000):
+            self.flushed = True
+            return True
+
+        def shutdown(self):
+            self.shutdown_called = True
+
+    backend = _Backend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+    monkeypatch.setattr(
+        delivery_status,
+        "delivery_status_snapshot",
+        lambda: {"state": "ok", "enabled": True},
+    )
+    sent = []
+    _finish_worker_observability(sent.append, initialized=True, pooled=True)
+    assert backend.flushed
+    assert not backend.shutdown_called
+    assert sent == [{"otel_status": {"state": "ok", "enabled": True}}]
+
+    backend2 = _Backend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend2)
+    _finish_worker_observability(sent.append, initialized=True)
+    assert backend2.shutdown_called
+    assert not backend2.flushed
+
+
+def test_run_on_closed_pool_does_not_deadlock(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    room = _pooled_test_room(tmp_path)
+    _wait(lambda: len(pool._warm) == 1, timeout=60)
+    pool.shutdown()
+    thread = threading.Thread(target=pool.run, args=(room, "late"), daemon=True)
+    thread.start()
+    thread.join(15)
+    assert not thread.is_alive()
