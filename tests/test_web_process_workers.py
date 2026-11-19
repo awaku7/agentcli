@@ -1627,3 +1627,80 @@ def test_warm_pool_refills_to_configured_target(monkeypatch, tmp_path):
         _wait(lambda: len(pool._warm) == 2, timeout=90)
     finally:
         pool.shutdown()
+
+
+def test_prewarm_loads_tool_specs_and_provider_client(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    calls = []
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs", lambda: calls.append("specs") or []
+    )
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: calls.append("client") or ("openai", object(), "m"),
+    )
+    _prewarm_child_imports()
+    assert calls == ["specs", "client"]
+
+
+def test_prewarm_tolerates_failures(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    def boom():
+        raise RuntimeError("no specs")
+
+    monkeypatch.setattr("uagent.tools.get_tool_specs", boom)
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: (_ for _ in ()).throw(RuntimeError("no client")),
+    )
+    # Must not raise: the first real turn surfaces the same failures.
+    _prewarm_child_imports()
+
+
+def test_prewarm_skips_tool_load_for_sandbox_server(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    calls = []
+    monkeypatch.delenv("UAGENT_EXTERNAL_TOOLS_DIRS", raising=False)
+    monkeypatch.delenv("UAGENT_EXTERNAL_TOOLS_DIR", raising=False)
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs", lambda: calls.append("specs") or []
+    )
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: calls.append("client") or ("openai", object(), "m"),
+    )
+    _prewarm_child_imports(sandbox_enabled=True)
+    # Host plugins must never load in a spare Sandbox worker; the
+    # provider client is still warmed (Sandbox children build one too).
+    assert calls == ["client"]
+
+
+def test_prewarm_defers_relative_external_tools_dirs(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    calls = []
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs", lambda: calls.append("specs") or []
+    )
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: calls.append("client") or ("openai", object(), "m"),
+    )
+    monkeypatch.setenv("UAGENT_EXTERNAL_TOOLS_DIRS", "relative/tools")
+    _prewarm_child_imports()
+    assert calls == ["client"]
+    calls.clear()
+    monkeypatch.setenv("UAGENT_EXTERNAL_TOOLS_DIRS", "/abs/tools")
+    _prewarm_child_imports()
+    assert calls == ["specs", "client"]

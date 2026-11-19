@@ -69,7 +69,12 @@ behavior. This mode does not change the CLI, GUI or A2A hosts.
 
 Non-Sandbox turns instead run on a pooled worker: the pool keeps
 `UAGENT_WEB_WARM_WORKERS` pre-warmed children (default 1; 0 disables pooling
-and restores one child per turn). A claimed worker stays bound to its room —
+and restores one child per turn). Pre-warming loads the tool plugins and
+builds (then discards) a provider client, so a room's first turn does not
+pay those one-time costs. The tool load is skipped where it would differ
+from the first turn's: on a Sandbox server (Host plugins never load in a
+spare worker) and when external-tool directories are relative (discovery
+then waits for the room's project directory at turn start). A claimed worker stays bound to its room —
 never to a second room — until the room is retired, the turn's settings
 fingerprint (execution profile, Sandbox flag, decision provider) changes, the
 worker fails, or it has served 200 turns; it is then terminated and replaced.
