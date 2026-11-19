@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import threading
 import urllib.request
@@ -352,6 +353,38 @@ def test_apply_patch_zero_count_insertion(workspace):
     )
 
 
+_PATCH_DROP_NEWLINE = """--- a/f.txt
++++ b/f.txt
+@@ -1 +1 @@
+-old
++new
+\\ No newline at end of file
+"""
+
+_PATCH_ADD_NEWLINE = """--- a/f.txt
++++ b/f.txt
+@@ -1 +1 @@
+-old
+\\ No newline at end of file
++new
+"""
+
+
+def test_apply_patch_newline_markers(workspace):
+    (workspace / "f.txt").write_bytes(b"old\n")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_DROP_NEWLINE, "dry_run": False})
+    )
+    assert out["ok"] is True
+    assert (workspace / "f.txt").read_bytes() == b"new"
+    (workspace / "f.txt").write_bytes(b"old")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_ADD_NEWLINE, "dry_run": False})
+    )
+    assert out["ok"] is True
+    assert (workspace / "f.txt").read_bytes() == b"new\n"
+
+
 # ---------------------------------------------------------------------------
 # Media tools
 # ---------------------------------------------------------------------------
@@ -378,6 +411,30 @@ def test_svg_to_image_missing_library_is_clear_error(workspace, monkeypatch):
 def test_svg_to_image_validation(workspace):
     out = json.loads(_call("svg_to_image", {"svg": "nope.svg", "output_path": "a.png"}))
     assert out["ok"] is False
+
+
+def test_svg_to_image_returns_attachment(workspace):
+    pytest.importorskip("cairosvg")
+    (workspace / "in.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10">'
+        '<rect width="10" height="10" fill="red"/></svg>',
+        encoding="utf-8",
+    )
+    out = json.loads(_call("svg_to_image", {"svg": "in.svg", "output_path": "out.png"}))
+    assert out["ok"] is True
+    data = (workspace / "out.png").read_bytes()
+    assert data[:4] == b"\x89PNG"
+    attachment = out["attachments"][0]
+    assert attachment["mime"] == "image/png"
+    assert attachment["name"] == "out.png"
+    assert base64.b64decode(attachment["data_base64"]) == data
+    out = json.loads(
+        _call(
+            "svg_to_image",
+            {"svg": "in.svg", "output_path": "out2.png", "include_base64": False},
+        )
+    )
+    assert out["ok"] is True and "attachments" not in out
 
 
 def test_mermaid_missing_library_is_clear_error(workspace, monkeypatch):

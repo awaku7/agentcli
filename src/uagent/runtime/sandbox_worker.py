@@ -2779,20 +2779,29 @@ def _apply_patch(args: dict[str, Any]) -> str:
         for hunk in section["hunks"]:
             src_lines: list[str] = []
             dst_lines: list[str] = []
+            src_marked: set[int] = set()
+            dst_marked: set[int] = set()
+            prev_src = prev_dst = False
             for entry in hunk["lines"]:
                 tag, content = entry[:1], entry[1:]
                 if tag == "\\":
+                    # "\ No newline at end of file" marks the line above.
+                    if prev_src and src_lines:
+                        src_marked.add(len(src_lines) - 1)
+                    if prev_dst and dst_lines:
+                        dst_marked.add(len(dst_lines) - 1)
                     continue
                 if revert:
-                    if tag in {" ", "+"}:
-                        src_lines.append(content)
-                    if tag in {" ", "-"}:
-                        dst_lines.append(content)
+                    feeds_src = tag in {" ", "+"}
+                    feeds_dst = tag in {" ", "-"}
                 else:
-                    if tag in {" ", "-"}:
-                        src_lines.append(content)
-                    if tag in {" ", "+"}:
-                        dst_lines.append(content)
+                    feeds_src = tag in {" ", "-"}
+                    feeds_dst = tag in {" ", "+"}
+                if feeds_src:
+                    src_lines.append(content)
+                if feeds_dst:
+                    dst_lines.append(content)
+                prev_src, prev_dst = feeds_src, feeds_dst
             if revert:
                 anchor = hunk["new_start"]
                 src_count = hunk["new_count"]
@@ -2821,7 +2830,16 @@ def _apply_patch(args: dict[str, Any]) -> str:
             if found < 0:
                 failed = "hunk context not found"
                 break
+            touches_eof = found + len(src_lines) == len(lines)
             lines[found : found + len(src_lines)] = dst_lines
+            if touches_eof:
+                # The destination side of this hunk decides whether the
+                # file ends with a newline; interior hunks leave the
+                # original state alone.
+                if dst_lines:
+                    ends_with_newline = (len(dst_lines) - 1) not in dst_marked
+                else:
+                    ends_with_newline = bool(lines)
             offset += len(dst_lines) - len(src_lines)
         if failed:
             results.append({"path": target_rel, "ok": False, "error": failed})
@@ -2860,6 +2878,24 @@ def _apply_patch(args: dict[str, Any]) -> str:
         {"ok": ok, "dry_run": dry_run, "files": results},
         ensure_ascii=False,
     )
+
+
+def _media_attachment(
+    out_rel: str, data: bytes, mime: str, *, include: bool
+) -> list[dict[str, Any]]:
+    # Mirror the host render tools: the Web UI consumes top-level
+    # "attachments" entries with data_base64 when include_base64 is set.
+    if not include:
+        return []
+    return [
+        {
+            "type": "image" if mime.startswith("image/") else "file",
+            "mime": mime,
+            "name": Path(out_rel).name,
+            "path": out_rel,
+            "data_base64": base64.b64encode(data).decode("ascii"),
+        }
+    ]
 
 
 def _svg_to_image(args: dict[str, Any]) -> str:
@@ -2944,15 +2980,27 @@ def _svg_to_image(args: dict[str, Any]) -> str:
         if suffix in {".jpg", ".jpeg"}:
             image = image.convert("RGB")
         image.save(output_path)
-    return json.dumps(
-        {
-            "ok": True,
-            "output_path": out_rel,
-            "format": suffix.lstrip("."),
-            "bytes": output_path.stat().st_size,
-        },
-        ensure_ascii=False,
+    mime = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+    }[suffix]
+    payload: dict[str, Any] = {
+        "ok": True,
+        "output_path": out_rel,
+        "format": suffix.lstrip("."),
+        "bytes": output_path.stat().st_size,
+    }
+    attachments = _media_attachment(
+        out_rel,
+        output_path.read_bytes(),
+        mime,
+        include=bool(args.get("include_base64", True)),
     )
+    if attachments:
+        payload["attachments"] = attachments
+    return json.dumps(payload, ensure_ascii=False)
 
 
 def _mermaid_render_core(source: str, theme: str) -> tuple[Any, str]:
@@ -3042,15 +3090,26 @@ def _mermaid_render(args: dict[str, Any]) -> str:
             {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
             ensure_ascii=False,
         )
-    return json.dumps(
-        {
-            "ok": True,
-            "output_path": out_rel,
-            "format": suffix.lstrip("."),
-            "bytes": output_path.stat().st_size,
-        },
-        ensure_ascii=False,
+    mime = {
+        ".png": "image/png",
+        ".svg": "image/svg+xml",
+        ".pdf": "application/pdf",
+    }[suffix]
+    payload: dict[str, Any] = {
+        "ok": True,
+        "output_path": out_rel,
+        "format": suffix.lstrip("."),
+        "bytes": output_path.stat().st_size,
+    }
+    attachments = _media_attachment(
+        out_rel,
+        output_path.read_bytes(),
+        mime,
+        include=bool(args.get("include_base64", True)),
     )
+    if attachments:
+        payload["attachments"] = attachments
+    return json.dumps(payload, ensure_ascii=False)
 
 
 def _mmd_to_svg(args: dict[str, Any]) -> str:
@@ -3099,15 +3158,21 @@ def _mmd_to_svg(args: dict[str, Any]) -> str:
         )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(svg, encoding="utf-8")
-    return json.dumps(
-        {
-            "ok": True,
-            "output_path": out_rel,
-            "format": "svg",
-            "bytes": output_path.stat().st_size,
-        },
-        ensure_ascii=False,
+    payload: dict[str, Any] = {
+        "ok": True,
+        "output_path": out_rel,
+        "format": "svg",
+        "bytes": output_path.stat().st_size,
+    }
+    attachments = _media_attachment(
+        out_rel,
+        output_path.read_bytes(),
+        "image/svg+xml",
+        include=bool(args.get("include_base64", True)),
     )
+    if attachments:
+        payload["attachments"] = attachments
+    return json.dumps(payload, ensure_ascii=False)
 
 
 def _preprocess_image(args: dict[str, Any]) -> str:
