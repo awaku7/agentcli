@@ -86,6 +86,43 @@ def test_date_calc_month_end_and_holiday():
     assert "Holiday" in out  # JP New Year's Day
 
 
+def test_date_calc_holiday_check_unavailable(monkeypatch):
+    real_ensure = worker._ensure_package
+
+    def fake_ensure(name, pip_name=None):
+        if name == "holidays":
+            return None
+        return real_ensure(name, pip_name)
+
+    monkeypatch.setattr(worker, "_ensure_package", fake_ensure)
+    out = _call("date_calc", {"base_date": "2026-01-01"})
+    assert "Holiday check unavailable" in out
+    assert "Holiday Info: Weekday" not in out
+    out = _call("date_calc", {"base_date": "2026-01-03"})  # a Saturday
+    assert "Saturday (holiday check unavailable)" in out
+
+
+def test_apply_patch_multi_hunk_displacement(workspace):
+    (worker.ROOT / "multi.txt").write_text(
+        "pad1\npad2\nunique\nkeep\nold\nkeep\nold\n", encoding="utf-8"
+    )
+    patch = (
+        "--- a/multi.txt\n"
+        "+++ b/multi.txt\n"
+        "@@ -1 +1 @@\n"
+        "-unique\n"
+        "+UNIQUE\n"
+        "@@ -5 +5 @@\n"
+        "-old\n"
+        "+NEW\n"
+    )
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+    assert out["ok"] is True
+    assert (worker.ROOT / "multi.txt").read_text(encoding="utf-8") == (
+        "pad1\npad2\nUNIQUE\nkeep\nold\nkeep\nNEW\n"
+    )
+
+
 def test_quantities_without_pint_is_a_clear_error(monkeypatch):
     try:
         import pint  # noqa: F401

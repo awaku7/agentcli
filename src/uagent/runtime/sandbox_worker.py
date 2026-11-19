@@ -2315,9 +2315,18 @@ def _date_calc(args: dict[str, Any]) -> str:
 
 
 def _holiday_info(dt: datetime.datetime, country_code: str) -> str | None:
+    weekend_name = None
+    if dt.weekday() == 5:
+        weekend_name = "Saturday"
+    elif dt.weekday() == 6:
+        weekend_name = "Sunday"
     holidays = _ensure_package("holidays")
     if holidays is None:
-        return None
+        # Never present an unavailable check as a confirmed weekday;
+        # the weekend fact is still known without the dependency.
+        if weekend_name:
+            return f"{weekend_name} (holiday check unavailable)"
+        return "Holiday check unavailable"
     try:
         if country_code.upper() == "JP":
             hols = holidays.Japan(language="ja")
@@ -2326,11 +2335,6 @@ def _holiday_info(dt: datetime.datetime, country_code: str) -> str | None:
     except Exception:
         return f"Error: Country code '{country_code}' not supported."
     holiday_name = hols.get(dt)
-    weekend_name = None
-    if dt.weekday() == 5:
-        weekend_name = "Saturday"
-    elif dt.weekday() == 6:
-        weekend_name = "Sunday"
     if holiday_name and weekend_name:
         return f"Holiday ({holiday_name}) and {weekend_name}"
     if holiday_name:
@@ -2907,7 +2911,10 @@ def _apply_patch(args: dict[str, Any]) -> str:
                     ends_with_newline = (len(dst_lines) - 1) not in dst_marked
                 else:
                     ends_with_newline = bool(lines)
-            offset += len(dst_lines) - len(src_lines)
+            # Carry both the matched displacement and the line-count
+            # change into the anchors of later hunks, which are stated
+            # in original-file coordinates.
+            offset += (found - base) + (len(dst_lines) - len(src_lines))
         if failed:
             results.append({"path": target_rel, "ok": False, "error": failed})
             continue
