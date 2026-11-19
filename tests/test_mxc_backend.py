@@ -2069,3 +2069,85 @@ def test_startup_scope_persisted_session_is_process_instance_specific(
     assert first.scope_id.startswith("saved-session-54321-")
     assert second.scope_id.startswith("saved-session-54322-")
     assert first.scope_id != second.scope_id
+
+
+def _fake_git_root(tmp_path):
+    root = tmp_path / "Program Files" / "Git"
+    (root / "cmd").mkdir(parents=True)
+    (root / "cmd" / "git.exe").touch()
+    (root / "bin").mkdir()
+    (root / "bin" / "git.exe").touch()
+    return root
+
+
+def _stub_git_host(monkeypatch, tmp_path, *, snapshot=None, startup_path=""):
+    from uagent.runtime import runtime_init
+
+    monkeypatch.setattr(mxc_backend.sys, "platform", "win32")
+    monkeypatch.setattr(
+        runtime_init, "get_startup_uagent_env_snapshot", lambda: snapshot or {}
+    )
+    monkeypatch.setattr(runtime_init, "get_startup_path_snapshot", lambda: startup_path)
+    monkeypatch.setattr(
+        mxc_backend, "_local_app_data", lambda: tmp_path / "local-app-data"
+    )
+    monkeypatch.delenv("ProgramFiles", raising=False)
+    monkeypatch.delenv("ProgramFiles(x86)", raising=False)
+
+
+def test_host_git_install_is_windows_only(monkeypatch, tmp_path):
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
+    assert mxc_backend._host_git_install() is None
+
+
+def test_host_git_install_from_startup_path(monkeypatch, tmp_path):
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(monkeypatch, tmp_path, startup_path=str(root / "cmd"))
+    monkeypatch.setattr(
+        mxc_backend.shutil,
+        "which",
+        lambda executable, path=None: (
+            str(root / "cmd" / "git.exe") if path == str(root / "cmd") else None
+        ),
+    )
+    assert mxc_backend._host_git_install() == (str(root), str(root / "cmd"))
+
+
+def test_host_git_install_from_program_files(monkeypatch, tmp_path):
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.shutil, "which", lambda executable, path=None: None)
+    monkeypatch.setenv("ProgramFiles", str(tmp_path / "Program Files"))
+    assert mxc_backend._host_git_install() == (str(root), str(root / "cmd"))
+
+
+def test_host_git_install_override_wins_and_must_be_valid(monkeypatch, tmp_path):
+    import pytest
+
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(
+        monkeypatch,
+        tmp_path,
+        snapshot={"UAGENT_MXC_GIT": str(root / "cmd" / "git.exe")},
+    )
+    assert mxc_backend._host_git_install() == (
+        str(root.resolve()),
+        str((root / "cmd").resolve()),
+    )
+
+    _stub_git_host(monkeypatch, tmp_path, snapshot={"UAGENT_MXC_GIT": "relative/git"})
+    with pytest.raises(RuntimeError, match="must be an absolute path"):
+        mxc_backend._host_git_install()
+
+    _stub_git_host(
+        monkeypatch, tmp_path, snapshot={"UAGENT_MXC_GIT": str(tmp_path / "nope")}
+    )
+    with pytest.raises(RuntimeError, match="does not point to a Git installation"):
+        mxc_backend._host_git_install()
+
+
+def test_host_git_install_missing_returns_none(monkeypatch, tmp_path):
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.shutil, "which", lambda executable, path=None: None)
+    assert mxc_backend._host_git_install() is None

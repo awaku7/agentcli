@@ -542,6 +542,91 @@ def _startup_path_node() -> Path | None:
         return Path(found)
 
 
+def _git_install_from_root(root: Path) -> tuple[Path, Path] | None:
+    """Validate a Git for Windows install root.
+
+    Returns (root, directory that holds git.exe for PATH) or None.
+    The ``cmd`` directory is the documented PATH entry; ``bin`` and
+    ``mingw64\\bin`` cover portable layouts.
+    """
+    for sub in ("cmd", "bin", os.path.join("mingw64", "bin")):
+        bin_dir = root / sub
+        if (bin_dir / "git.exe").is_file():
+            return root, bin_dir
+    return None
+
+
+def _git_install_from_executable(executable: Path) -> tuple[Path, Path] | None:
+    """Derive the install root from a git.exe found on PATH."""
+    bin_dir = executable.parent
+    name = bin_dir.name.lower()
+    if name == "cmd":
+        return _git_install_from_root(bin_dir.parent)
+    if name == "bin":
+        if bin_dir.parent.name.lower() == "mingw64":
+            return _git_install_from_root(bin_dir.parent.parent)
+        return _git_install_from_root(bin_dir.parent)
+    return None
+
+
+def _host_git_install() -> tuple[str, str] | None:
+    """Locate the host's Git installation for a Windows MXC session.
+
+    The sandbox PATH and read-only mounts cover only System32 and the
+    Python directories, so a normal Git for Windows install is
+    invisible inside the container; the session config carries the
+    install to the adapter, which mounts it read-only and adds its
+    ``cmd`` directory to the sandbox PATH. Detection follows the Node
+    rules: an explicit UAGENT_MXC_GIT override and the PATH are read
+    from the pre-dotenv startup snapshots, never from a project's
+    .env, because the result becomes executable code in the sandbox.
+    Other platforms see the system Git already (/usr/bin), so this
+    returns None there. Returns (install root, PATH directory).
+    """
+    if not sys.platform.startswith("win"):
+        return None
+    configured = _trusted_startup_uagent_value("UAGENT_MXC_GIT")
+    if configured:
+        configured_path = Path(configured).expanduser()
+        if not configured_path.is_absolute():
+            raise RuntimeError("UAGENT_MXC_GIT must be an absolute path")
+        configured_path = configured_path.resolve()
+        found = (
+            _git_install_from_executable(configured_path)
+            if configured_path.is_file()
+            else _git_install_from_root(configured_path)
+        )
+        if found is None:
+            raise RuntimeError("UAGENT_MXC_GIT does not point to a Git installation")
+        return str(found[0]), str(found[1])
+    try:
+        from .runtime_init import get_startup_path_snapshot
+
+        startup_path = get_startup_path_snapshot()
+    except Exception:
+        startup_path = ""
+    if startup_path:
+        found_exe = shutil.which("git.exe", path=startup_path)
+        if found_exe:
+            found = _git_install_from_executable(Path(found_exe))
+            if found is not None:
+                return str(found[0]), str(found[1])
+    roots: list[Path] = []
+    for env_name in ("ProgramFiles", "ProgramFiles(x86)"):
+        base = os.environ.get(env_name)
+        if base:
+            roots.append(Path(base) / "Git")
+    try:
+        roots.append(_local_app_data() / "Programs" / "Git")
+    except Exception:
+        pass
+    for root in roots:
+        found = _git_install_from_root(root)
+        if found is not None:
+            return str(found[0]), str(found[1])
+    return None
+
+
 def _node_candidates() -> list[Path]:
     candidates: list[Path] = []
     # This executable runs outside the container. Never let a selected
@@ -1462,6 +1547,7 @@ class _MxcSession:
         threading.Thread(
             target=self._read_stderr, name="mxc-stderr", daemon=True
         ).start()
+        git_install = _host_git_install()
         config = {
             "workspace": str(self.workspace),
             "pythonExe": str(python_exe),
@@ -1473,6 +1559,8 @@ class _MxcSession:
             "gitRemoteHost": git_remote_host,
             "deniedPaths": [],
         }
+        if git_install is not None:
+            config["gitRoot"], config["gitBinDir"] = git_install
         try:
             self._write_line(config)
             ready = self._read_response(timeout=20)

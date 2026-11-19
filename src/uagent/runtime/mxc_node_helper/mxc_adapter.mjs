@@ -871,6 +871,18 @@ async function serveWorker() {
   const helperRoot = path.resolve(config.helperRoot);
   const readwritePaths = [workspace];
   const readonlyPaths = [pythonRoot, pythonEnvRoot, helperRoot];
+  // Optional host Git install (Windows): detected and validated on the
+  // host by the Python side from pre-dotenv startup state only. Mounted
+  // read-only; its git.exe directory joins the sandbox PATH below.
+  let gitBinDir = null;
+  if (config.gitRoot !== undefined || config.gitBinDir !== undefined) {
+    if (typeof config.gitRoot !== "string" || !path.isAbsolute(config.gitRoot) ||
+        typeof config.gitBinDir !== "string" || !path.isAbsolute(config.gitBinDir)) {
+      throw new Error("invalid host worker configuration: gitRoot/gitBinDir");
+    }
+    readonlyPaths.push(path.resolve(config.gitRoot));
+    gitBinDir = path.resolve(config.gitBinDir);
+  }
   if (process.platform === "win32") {
     readonlyPaths.push(path.join(process.env.SystemRoot || "C:/Windows", "System32"));
   } else if (process.platform === "linux" && process.arch === "x64") {
@@ -891,7 +903,7 @@ async function serveWorker() {
   const environment = process.platform === "win32" ? {
     SystemRoot: windowsRoot,
     WINDIR: process.env.WINDIR || windowsRoot,
-    PATH: `${path.join(windowsRoot, "System32")};${pythonRoot};${pythonEnvRoot}`,
+    PATH: `${path.join(windowsRoot, "System32")};${pythonRoot};${pythonEnvRoot}` + (gitBinDir ? `;${gitBinDir}` : ""),
     LOCALAPPDATA: path.join(workspace, ".localappdata"),
     APPDATA: path.join(workspace, ".appdata"),
     TEMP: path.join(workspace, ".temp"),
@@ -905,7 +917,7 @@ async function serveWorker() {
     UAGENT_SESSION_STORE: "0",
   } : {
     HOME: path.join(workspace, ".home"),
-    PATH: `${path.join(pythonEnvRoot, "bin")}:${path.join(pythonRoot, "bin")}` + ":/usr/bin:/bin",
+    PATH: `${path.join(pythonEnvRoot, "bin")}:${path.join(pythonRoot, "bin")}` + ":/usr/bin:/bin" + (gitBinDir ? `:${gitBinDir}` : ""),
     LANG: "C.UTF-8",
     TMPDIR: path.join(workspace, ".temp"),
     TEMP: path.join(workspace, ".temp"),
