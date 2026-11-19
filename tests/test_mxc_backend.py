@@ -1034,7 +1034,7 @@ def test_non_python_tool_writes_are_checked_against_workspace_quota():
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
-    start = source.index("const reply = nextReply(HARD_EXECUTION_TIMEOUT_MS + 5_000);")
+    start = source.index("const reply = nextReply(replyTimeoutMs);")
     end = source.index("if (result?.terminate === true)", start)
     handler = source[start:end]
 
@@ -2100,3 +2100,21 @@ def test_startup_scope_persisted_session_is_process_instance_specific(
     assert first.scope_id.startswith("saved-session-54321-")
     assert second.scope_id.startswith("saved-session-54322-")
     assert first.scope_id != second.scope_id
+
+
+def test_response_timeout_seconds_budgets():
+    assert mxc_backend._response_timeout_seconds("read_file") == 45
+    assert mxc_backend._response_timeout_seconds("python_exec") == 60
+    assert mxc_backend._response_timeout_seconds("command_exec") == 60
+    # Network / first-use-install tools get the long budget so a
+    # 180-second dependency install or a long HTTP request can finish.
+    for name in (
+        "http_request",
+        "quantities",
+        "date_calc",
+        "svg_to_image",
+        "mermaid_render",
+        "mmd_to_svg",
+        "qr_code",
+    ):
+        assert mxc_backend._response_timeout_seconds(name) == 300

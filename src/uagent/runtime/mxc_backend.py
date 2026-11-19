@@ -43,6 +43,34 @@ JOB_USER_TIME_LIMIT_100NS = 4 * 60 * 60 * 10_000_000
 _PROCESS_SCOPE_NONCE = uuid.uuid4().hex
 _UNREAPED_LINUX_SESSIONS: list[Any] = []
 
+# Worker tools that may wait on the network or on a first-use dependency
+# install get a longer response budget than the fast local tools. The
+# Node adapter mirrors this set when waiting for the worker's reply.
+LONG_RESPONSE_TOOLS = frozenset(
+    {
+        "http_request",
+        "get_weather_wttr",
+        "reverse_geocode",
+        "zipcode_check",
+        "quantities",
+        "date_calc",
+        "svg_to_image",
+        "mermaid_render",
+        "mmd_to_svg",
+        "qr_code",
+    }
+)
+LONG_RESPONSE_TIMEOUT_SECONDS = 300
+
+
+def _response_timeout_seconds(name: str) -> int:
+    if name in {"python_exec", "command_exec"}:
+        return 60
+    if name in LONG_RESPONSE_TOOLS:
+        return LONG_RESPONSE_TIMEOUT_SECONDS
+    return 45
+
+
 TOOL_NAMES = frozenset(
     {
         "create_file",
@@ -654,7 +682,7 @@ TOOL_SPECS += (
                 "type": "integer",
                 "default": 30,
                 "minimum": 1,
-                "maximum": 40,
+                "maximum": 240,
                 "description": "Request timeout in seconds (capped by the "
                 "sandbox dispatch budget).",
             },
@@ -2105,7 +2133,7 @@ class _MxcSession:
                     git_remote_host = selected_git_https_host_for_scope(self._scope)
                 payload["gitRemoteHost"] = git_remote_host
             self._write_line({"operation": "run", "payload": payload})
-            timeout_seconds = 60 if name in {"python_exec", "command_exec"} else 45
+            timeout_seconds = _response_timeout_seconds(name)
             deadline = time.monotonic() + timeout_seconds
             response = self._read_response(timeout=timeout_seconds)
             if name == "command_exec" and response.get("bridge") == "git_http":

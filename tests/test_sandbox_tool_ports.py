@@ -249,6 +249,21 @@ def test_http_request_large_body_is_bounded(echo_server):
     assert len(raw.encode("utf-8")) <= worker.MAX_RESULT_BYTES
 
 
+def test_http_request_array_query_params(echo_server):
+    out = json.loads(
+        _call(
+            "http_request",
+            {
+                "url": f"{echo_server}/items",
+                "query": {"tag": ["a", "b"], "q": "x"},
+                "parse_json": True,
+            },
+        )
+    )
+    assert out["ok"] is True
+    assert out["response_json"]["path"] == "/items?tag=a&tag=b&q=x"
+
+
 # ---------------------------------------------------------------------------
 # apply_patch
 # ---------------------------------------------------------------------------

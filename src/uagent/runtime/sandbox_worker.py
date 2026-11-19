@@ -2554,7 +2554,13 @@ def _http_request(args: dict[str, Any]) -> str:
     query = args.get("query")
     if isinstance(query, dict) and query:
         parts = urllib.parse.urlsplit(url)
-        extra = urllib.parse.urlencode({str(k): str(v) for k, v in query.items()})
+        pairs: list[tuple[str, str]] = []
+        for key, value in query.items():
+            if isinstance(value, (list, tuple)):
+                pairs.extend((str(key), str(item)) for item in value)
+            else:
+                pairs.append((str(key), str(value)))
+        extra = urllib.parse.urlencode(pairs)
         merged = f"{parts.query}&{extra}" if parts.query else extra
         url = urllib.parse.urlunsplit(
             (parts.scheme, parts.netloc, parts.path, merged, parts.fragment)
@@ -2604,10 +2610,10 @@ def _http_request(args: dict[str, Any]) -> str:
     if url.startswith("https://") and not verify_ssl:
         context = ssl._create_unverified_context()
     try:
-        # The persistent-worker dispatch budget is 45 seconds, so a
-        # longer HTTP timeout could never be honored (the session would
-        # be torn down first); cap at 40 to stay inside it.
-        timeout = max(1, min(int(args.get("timeout") or 30), 40))
+        # Network tools run under the sandbox's long response budget
+        # (300 seconds); keep the request timeout inside it with room
+        # for response processing.
+        timeout = max(1, min(int(args.get("timeout") or 30), 240))
     except (TypeError, ValueError):
         timeout = 30
     try:
