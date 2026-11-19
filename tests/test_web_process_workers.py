@@ -1495,3 +1495,51 @@ def test_pooled_dual_backend_store_survives_second_turn(monkeypatch, tmp_path):
     finally:
         conn.close()
     assert [row[0] for row in rows] == ["first", "second"]
+
+
+def _log_chain_room_count(fn) -> int:
+    """Distinct rooms retained by a chain of _child_turn log wrappers."""
+    rooms = []
+    seen = set()
+    while callable(fn) and id(fn) not in seen:
+        seen.add(id(fn))
+        nxt = None
+        for name, cell in zip(fn.__code__.co_freevars, fn.__closure__ or []):
+            if name == "room":
+                rooms.append(cell.cell_contents)
+            elif name == "original_log":
+                nxt = cell.cell_contents
+        fn = nxt
+    return len({id(room) for room in rooms})
+
+
+def _pooled_chain_child(connection, payload, pending):
+    """Real pooled child reporting how many rooms its log chain retains."""
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        from uagent import core
+
+        core.set_status(True, "LLM")
+        count = _log_chain_room_count(core.log_message)
+        room.add_message({"role": "assistant", "content": f"ROOMS:{count}"})
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def test_pooled_turns_do_not_retain_previous_rooms_in_log_chain(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_chain_child)
+    room = _pooled_test_room(tmp_path)
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for text in ("one", "two", "three"):
+            pool.run(room, text)
+        contents = [m["content"] for m in room.messages if m.get("role") == "assistant"]
+        assert contents == ["ROOMS:1", "ROOMS:1", "ROOMS:1"]
+    finally:
+        pool.shutdown()

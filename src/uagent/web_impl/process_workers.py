@@ -640,7 +640,14 @@ def _child_turn(
                 pass
         loop.call_soon_threadsafe(loop.stop)
         loop_thread.join(5)
+        loop.close()
         if pooled:
+            # Drop this turn's log wrapper so the next turn does not
+            # chain onto it: each wrapper retains its turn's room (and
+            # its history and event loop) for the worker's whole life.
+            # original_log is the session-store wrapper installed by
+            # attach, which must survive across turns.
+            core.log_message = original_log
             # The Sandbox RPC pipe is per turn even for a pooled worker;
             # only the control connection and the session store outlive
             # the turn. The store is not closed here: its log wrapper is
