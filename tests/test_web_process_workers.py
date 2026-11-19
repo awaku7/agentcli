@@ -1338,3 +1338,33 @@ def test_pooled_real_child_survives_second_turn(monkeypatch, tmp_path):
         assert not any("[FATAL]" in content for content in contents)
     finally:
         pool.shutdown()
+
+
+def test_pool_construction_does_not_block_process_exit():
+    """A pool left unshutdown must not hang interpreter exit.
+
+    Pooled children wait on their pipe indefinitely and are not daemonic,
+    so without the pool's atexit cleanup the process would join them
+    forever (this hung the full CI suite).
+    """
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    src = str(Path(__file__).resolve().parents[1] / "src")
+    code = (
+        "from uagent.web_impl.process_workers import RoomWorkerPool\n"
+        "pool = RoomWorkerPool(2)\n"
+        "import time; time.sleep(5)\n"
+        "print('bye', flush=True)\n"
+    )
+    env = dict(os.environ)
+    env["PYTHONPATH"] = src
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        capture_output=True,
+        text=True,
+        timeout=90,
+        env=env,
+    )
+    assert "bye" in result.stdout

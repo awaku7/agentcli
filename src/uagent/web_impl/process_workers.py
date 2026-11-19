@@ -11,6 +11,7 @@ failure, or a turn limit, and never serves a second room.
 
 from __future__ import annotations
 
+import atexit
 import asyncio
 import copy
 from dataclasses import replace as dataclass_replace
@@ -632,8 +633,27 @@ class RoomWorkerPool:
         self._bound: dict[str, _WorkerHandle] = {}
         self._warm_lock = threading.Lock()
         self._refill_in_flight = False
+        self._atexit_registered = False
         if self._pooling_enabled:
+            # Pooled children wait on their pipe indefinitely and are not
+            # daemonic, so interpreter exit would join them forever. The
+            # atexit hook terminates them first; it is registered again
+            # after the first pooled spawn (see _spawn_pooled_handle)
+            # because multiprocessing registers its own exit function when
+            # the first child is created, and atexit runs LIFO.
+            atexit.register(self._terminate_pooled_workers)
             self._refill_async()
+
+    def _terminate_pooled_workers(self) -> None:
+        self._closed.set()
+        with self._warm_lock:
+            warm = list(self._warm)
+            self._warm.clear()
+        with self._lock:
+            bound = list(self._bound.values())
+            self._bound.clear()
+        for handle in warm + bound:
+            self._terminate_handle(handle)
 
     @staticmethod
     def _fingerprint(payload) -> tuple:
@@ -652,6 +672,12 @@ class RoomWorkerPool:
         )
         process.start()
         child.close()
+        if not self._atexit_registered:
+            # Register only now: creating the first child made
+            # multiprocessing register its own atexit function, and this
+            # later registration is what makes the cleanup run before it.
+            self._atexit_registered = True
+            atexit.register(self._terminate_pooled_workers)
         return _WorkerHandle(process, parent)
 
     def _refill_async(self) -> None:
@@ -1283,11 +1309,4 @@ class RoomWorkerPool:
             if process.is_alive():
                 process.terminate()
                 process.join(5)
-        with self._warm_lock:
-            warm = list(self._warm)
-            self._warm.clear()
-        with self._lock:
-            bound = list(self._bound.values())
-            self._bound.clear()
-        for handle in warm + bound:
-            self._terminate_handle(handle)
+        self._terminate_pooled_workers()
