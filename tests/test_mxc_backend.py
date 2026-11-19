@@ -3,7 +3,9 @@ from __future__ import annotations
 import io
 import json
 import os
+import platform
 import stat
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -2204,6 +2206,14 @@ def test_response_timeout_seconds_budgets():
 
 def test_invalid_git_override_fails_before_lease(monkeypatch, tmp_path, local_scope):
     lease_calls = []
+    if sys.platform == "darwin" and platform.machine().lower() not in {
+        "arm64",
+        "aarch64",
+    }:
+        # Intel Macs are outside the MXC platform gate, so the session
+        # constructor raises before the Git check there; present as a
+        # Linux host so the ordering under test is what runs.
+        monkeypatch.setattr(sys, "platform", "linux")
 
     def raising_git_install():
         raise RuntimeError("UAGENT_MXC_GIT does not point to a Git install")
