@@ -43,6 +43,34 @@ JOB_USER_TIME_LIMIT_100NS = 4 * 60 * 60 * 10_000_000
 _PROCESS_SCOPE_NONCE = uuid.uuid4().hex
 _UNREAPED_LINUX_SESSIONS: list[Any] = []
 
+# Worker tools that may wait on the network or on a first-use dependency
+# install get a longer response budget than the fast local tools. The
+# Node adapter mirrors this set when waiting for the worker's reply.
+LONG_RESPONSE_TOOLS = frozenset(
+    {
+        "http_request",
+        "get_weather_wttr",
+        "reverse_geocode",
+        "zipcode_check",
+        "quantities",
+        "date_calc",
+        "svg_to_image",
+        "mermaid_render",
+        "mmd_to_svg",
+        "qr_code",
+    }
+)
+LONG_RESPONSE_TIMEOUT_SECONDS = 300
+
+
+def _response_timeout_seconds(name: str) -> int:
+    if name in {"python_exec", "command_exec"}:
+        return 60
+    if name in LONG_RESPONSE_TOOLS:
+        return LONG_RESPONSE_TIMEOUT_SECONDS
+    return 45
+
+
 TOOL_NAMES = frozenset(
     {
         "create_file",
@@ -72,6 +100,22 @@ TOOL_NAMES = frozenset(
         "security_scan",
         "git_ops",
         "command_exec",
+        "get_weather_wttr",
+        "get_current_time",
+        "geodesic_distance",
+        "date_calc",
+        "quantities",
+        "zipcode_check",
+        "reverse_geocode",
+        "http_request",
+        "apply_patch",
+        "svg_to_image",
+        "mmd_to_svg",
+        "mermaid_render",
+        "preprocess_image",
+        "path_alias",
+        "url_alias",
+        "generate_prompt",
     }
 )
 
@@ -469,6 +513,490 @@ TOOL_SPECS += (
             "confirmed": {"type": "boolean"},
         },
         ["command"],
+    ),
+    _sandbox_tool_spec(
+        "get_weather_wttr",
+        "Get current weather and a short forecast for a city or coordinates from public weather services (wttr.in, falling back to Open-Meteo). Read-only network access to those endpoints only; no credentials.",
+        {
+            "city": {"type": "string", "maxLength": 200},
+            "lat": {"type": "number", "minimum": -90, "maximum": 90},
+            "lon": {"type": "number", "minimum": -180, "maximum": 180},
+        },
+    ),
+    _sandbox_tool_spec(
+        "get_current_time",
+        "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
+        {},
+    ),
+    _sandbox_tool_spec(
+        "geodesic_distance",
+        "Calculate the straight-line distance between two latitude/longitude points using the Haversine formula. Optionally resolves both points to addresses with OpenStreetMap Nominatim.",
+        {
+            "lat_a": {"type": "number", "description": "Latitude of point A."},
+            "lon_a": {"type": "number", "description": "Longitude of point A."},
+            "lat_b": {"type": "number", "description": "Latitude of point B."},
+            "lon_b": {"type": "number", "description": "Longitude of point B."},
+            "resolve_addresses": {
+                "type": "boolean",
+                "description": "Also resolve both coordinates to addresses.",
+                "default": False,
+            },
+            "language": {
+                "type": "string",
+                "description": "Address language for optional reverse geocoding.",
+            },
+        },
+        ["lat_a", "lon_a", "lat_b", "lon_b"],
+    ),
+    _sandbox_tool_spec(
+        "date_calc",
+        "Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using...",
+        {
+            "base_date": {
+                "type": "string",
+                "description": "The base date (ISO 8601 format 'YYYY-MM-DD'. "
+                "Defaults to today if omitted).",
+            },
+            "years": {
+                "type": "integer",
+                "description": "Years to add (negative for subtraction).",
+            },
+            "months": {
+                "type": "integer",
+                "description": "Months to add (negative for subtraction).",
+            },
+            "weeks": {
+                "type": "integer",
+                "description": "Weeks to add (negative for subtraction).",
+            },
+            "days": {
+                "type": "integer",
+                "description": "Days to add (negative for subtraction).",
+            },
+            "country": {
+                "type": "string",
+                "description": "Country code.",
+                "default": "JP",
+            },
+            "check_holiday": {
+                "type": "boolean",
+                "description": "Whether to check if the result is a holiday or "
+                "weekend (default: true).",
+                "default": True,
+            },
+        },
+    ),
+    _sandbox_tool_spec(
+        "quantities",
+        "Convert units and evaluate unit-aware physical quantities using Pint. Supports expressions such as '25 degC to degF' or '2.5 kW * 8 hour to kWh'.",
+        {
+            "expression": {
+                "type": "string",
+                "description": "A Pint quantity expression, optionally followed by "
+                "'to UNIT'; examples: '25 degC to degF', '1 meter + "
+                "20 centimeter to meter'.",
+            },
+            "to_unit": {
+                "type": "string",
+                "description": "Optional target unit. Use this instead of the 'to "
+                "UNIT' suffix when preferred.",
+            },
+            "precision": {
+                "type": "integer",
+                "description": "Number of decimal places in the formatted result "
+                "(default: 6).",
+                "default": 6,
+                "minimum": 0,
+                "maximum": 15,
+            },
+        },
+        ["expression"],
+    ),
+    _sandbox_tool_spec(
+        "zipcode_check",
+        "Look up Japanese addresses by zipcode, or list cities in a prefecture. Uses the jpzip public dataset (no API key required).",
+        {
+            "zipcode": {
+                "type": "string",
+                "description": "7-digit Japanese zipcode to look up (e.g. '1000001'). "
+                "Hyphens are ignored.",
+            },
+            "prefecture": {
+                "type": "string",
+                "description": "Japanese prefecture name for listing cities (e.g. "
+                "'Tokyo', 'Kanagawa'). Kanji, kana, or romaji "
+                "accepted.",
+            },
+        },
+    ),
+    _sandbox_tool_spec(
+        "reverse_geocode",
+        "Look up an address from latitude/longitude (reverse geocoding). Uses the OpenStreetMap Nominatim API. Worldwide coverage.",
+        {
+            "lat": {"type": "number", "description": "Latitude (e.g. 35.6895)."},
+            "lon": {"type": "number", "description": "Longitude (e.g. 139.6917)."},
+            "language": {
+                "type": "string",
+                "description": "Language for the result (ISO 639-1 code, e.g. ja, "
+                "en, zh, ko). Auto-detected if omitted.",
+            },
+        },
+        ["lat", "lon"],
+    ),
+    _sandbox_tool_spec(
+        "http_request",
+        "Send an HTTP request to a URL and return the response status, headers, and body. Supports JSON, form, and text request bodies.",
+        {
+            "method": {
+                "type": "string",
+                "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
+                "default": "GET",
+                "description": "HTTP method.",
+            },
+            "url": {"type": "string", "description": "HTTP or HTTPS URL."},
+            "query": {"type": "object", "description": "Query-string parameters."},
+            "headers": {"type": "object", "description": "Additional HTTP headers."},
+            "body": {
+                "description": "Request body. Objects and arrays are JSON-encoded; "
+                "strings are sent as text."
+            },
+            "body_text": {
+                "type": "string",
+                "description": "Raw request body. Takes precedence over body.",
+            },
+            "content_type": {
+                "type": "string",
+                "default": "application/json",
+                "description": "Content-Type for a supplied body.",
+            },
+            "bearer_token": {"type": "string", "description": "Optional Bearer token."},
+            "username": {
+                "type": "string",
+                "description": "Optional HTTP Basic-auth username.",
+            },
+            "password": {
+                "type": "string",
+                "description": "Optional HTTP Basic-auth password.",
+            },
+            "timeout": {
+                "type": "integer",
+                "default": 30,
+                "minimum": 1,
+                "maximum": 240,
+                "description": "Request timeout in seconds (capped by the "
+                "sandbox dispatch budget).",
+            },
+            "max_bytes": {
+                "type": "integer",
+                "default": 2000000,
+                "minimum": 1,
+                "maximum": 10000000,
+                "description": "Maximum response size in bytes.",
+            },
+            "ssl": {
+                "type": "boolean",
+                "default": True,
+                "description": "Verify TLS certificates.",
+            },
+            "parse_json": {
+                "type": "boolean",
+                "default": False,
+                "description": "Parse a JSON response into response_json when "
+                "possible.",
+            },
+        },
+        ["url"],
+    ),
+    _sandbox_tool_spec(
+        "apply_patch",
+        "Apply a unified diff (patch) to files using pure Python. Supports dry-run preview, whitespace tolerance, and CRLF preservation.",
+        {
+            "patch_text": {
+                "type": "string",
+                "description": "Unified diff text to apply (git-format compatible, "
+                "e.g. ---/+++ headers).",
+            },
+            "dry_run": {
+                "type": "boolean",
+                "description": "If true, only preview what would be changed without "
+                "applying.",
+                "default": True,
+            },
+            "ignore_whitespace": {
+                "type": "boolean",
+                "description": "Ignore whitespace differences when matching "
+                "context lines.",
+                "default": False,
+            },
+            "encoding": {
+                "type": "string",
+                "description": "File encoding (default: utf-8).",
+                "default": "utf-8",
+            },
+            "preserve_line_endings": {
+                "type": "boolean",
+                "description": "Preserve original line endings " "(CRLF/CR) in output.",
+                "default": False,
+            },
+            "revert": {
+                "type": "boolean",
+                "description": "Apply the patch in reverse (swap added/removed lines).",
+                "default": False,
+            },
+            "strip": {
+                "type": "integer",
+                "description": "Strip N leading path components from file paths in "
+                "patch headers (like git apply -pN).",
+                "default": 0,
+            },
+        },
+        ["patch_text"],
+    ),
+    _sandbox_tool_spec(
+        "svg_to_image",
+        "Convert an SVG file to a raster image and save it as PNG, JPEG, or WebP. The conversion is performed locally.",
+        {
+            "svg": {"type": "string", "description": "Path to the source SVG file."},
+            "output_path": {
+                "type": "string",
+                "description": "Output image path ending in .png, .jpg, .jpeg, or "
+                ".webp.",
+            },
+            "width": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Optional output width in pixels. Keep the SVG intrinsic "
+                "width when omitted.",
+            },
+            "height": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Optional output height in pixels. Keep the SVG "
+                "intrinsic height when omitted.",
+            },
+            "scale": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "default": 1.0,
+                "description": "Scale factor applied to the rendered image. Default: "
+                "1.0.",
+            },
+            "background": {
+                "type": "string",
+                "description": "Optional background color, such as white or "
+                "#ffffff. Keep transparent when omitted.",
+            },
+            "overwrite": {
+                "type": "boolean",
+                "default": False,
+                "description": "Overwrite the output file if it already exists. "
+                "Default: false.",
+            },
+            "include_base64": {
+                "type": "boolean",
+                "default": True,
+                "description": "Include base64 image data for remote clients. "
+                "Default: true.",
+            },
+        },
+        ["svg", "output_path"],
+    ),
+    _sandbox_tool_spec(
+        "mmd_to_svg",
+        "Convert a Mermaid Markdown (.mmd) file to an SVG diagram locally. Japanese and other supported scripts are handled when suitable fonts are available.",
+        {
+            "mmd": {
+                "type": "string",
+                "description": "Path to the input Mermaid Markdown (.mmd) file.",
+            },
+            "output_path": {
+                "type": "string",
+                "description": "Output SVG path. It must end in .svg.",
+            },
+            "theme": {
+                "type": "string",
+                "enum": ["default", "forest", "dark", "neutral"],
+                "default": "default",
+                "description": "Mermaid theme.",
+            },
+            "include_base64": {
+                "type": "boolean",
+                "default": True,
+                "description": "Include base64 SVG data for remote clients. "
+                "Default: true.",
+            },
+        },
+        ["mmd", "output_path"],
+    ),
+    _sandbox_tool_spec(
+        "mermaid_render",
+        "Render Mermaid diagrams to PNG, SVG, or PDF completely offline using a Python-native renderer.",
+        {
+            "source": {"type": "string", "description": "Mermaid source text."},
+            "input_path": {
+                "type": "string",
+                "description": "Optional Mermaid file path.",
+            },
+            "output_path": {
+                "type": "string",
+                "description": "Output .png, .svg, or .pdf path.",
+            },
+            "scale": {
+                "type": "number",
+                "minimum": 0.25,
+                "default": 1.0,
+                "description": "PNG scale factor.",
+            },
+            "background": {
+                "type": "string",
+                "default": "white",
+                "description": "Background color.",
+            },
+            "theme": {
+                "type": "string",
+                "enum": ["default", "forest", "dark", "neutral"],
+                "default": "default",
+                "description": "Mermaid theme.",
+            },
+            "include_base64": {
+                "type": "boolean",
+                "description": "Include base64 data for remote clients.",
+                "default": True,
+            },
+        },
+        ["output_path"],
+    ),
+    _sandbox_tool_spec(
+        "preprocess_image",
+        "Apply image preprocessing such as grayscale, denoise, binarization, and edge enhancement, then save the result as a PNG.",
+        {
+            "img": {
+                "type": "string",
+                "description": "Path to the source image to preprocess.",
+            },
+            "mode": {
+                "type": "string",
+                "description": "Preprocess mode.",
+                "default": "ocr",
+            },
+            "grayscale": {
+                "type": "boolean",
+                "description": "Convert the image to grayscale.",
+                "default": True,
+            },
+            "denoise": {
+                "type": "boolean",
+                "description": "Apply denoising / smoothing.",
+                "default": True,
+            },
+            "binarize": {
+                "type": "boolean",
+                "description": "Apply binarization / thresholding.",
+                "default": False,
+            },
+            "edge_enhance": {
+                "type": "boolean",
+                "description": "Enhance edges / outlines.",
+                "default": False,
+            },
+            "deskew": {
+                "type": "boolean",
+                "description": "Attempt to correct small image skew (lightweight "
+                "heuristic).",
+                "default": False,
+            },
+            "resize": {
+                "type": "string",
+                "description": "Optional resize target, e.g. 2x or 1600x1200. Leave "
+                "empty to keep original size.",
+            },
+            "contrast": {
+                "type": "number",
+                "description": "Optional contrast factor. 1.0 keeps original; >1.0 "
+                "increases contrast.",
+                "default": 1.0,
+            },
+            "output_dir": {
+                "type": "string",
+                "description": "Directory to save processed images. Defaults to "
+                "outputs/image_preprocess if omitted.",
+            },
+            "prefix": {
+                "type": "string",
+                "description": "Prefix for the saved filename (optional).",
+                "default": "preprocess_image",
+            },
+        },
+        ["img"],
+    ),
+    _sandbox_tool_spec(
+        "path_alias",
+        "Register, list, or delete short path aliases @A{0} through @A{9}.",
+        {
+            "action": {
+                "type": "string",
+                "enum": ["set", "list", "delete"],
+                "description": "Operation to perform.",
+            },
+            "slot": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9,
+                "description": "Alias number; 0 produces @A{0}, 9 produces @A{9}.",
+            },
+            "path": {
+                "type": "string",
+                "description": "Directory to assign to the alias.",
+            },
+            "overwrite": {
+                "type": "boolean",
+                "description": "For set, allow replacing an existing alias.",
+            },
+        },
+        ["action"],
+    ),
+    _sandbox_tool_spec(
+        "url_alias",
+        "Register, list, or delete URL aliases @B{0} through @B{9}.",
+        {
+            "action": {
+                "type": "string",
+                "enum": ["set", "list", "delete"],
+                "description": "Operation to perform.",
+            },
+            "slot": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9,
+                "description": "Alias number; 0 produces @B{0}, 9 produces @B{9}.",
+            },
+            "url": {
+                "type": "string",
+                "description": "Base URL to assign to the alias.",
+            },
+            "overwrite": {
+                "type": "boolean",
+                "description": "Allow replacing an existing alias.",
+            },
+        },
+        ["action"],
+    ),
+    _sandbox_tool_spec(
+        "generate_prompt",
+        "Generate a prompt string from a file using a Python format template.",
+        {
+            "path": {
+                "type": "string",
+                "description": "Path of the input file (must be under workdir).",
+            },
+            "template": {
+                "type": "string",
+                "description": "Python format template. Example: '{lines} lines\n"
+                "\n"
+                "{content}'.",
+            },
+        },
+        ["template"],
     ),
 )
 
@@ -1673,6 +2201,21 @@ class _MxcSession:
                 else None
             )
             payload = {"name": name, "args": args}
+            if name in {"python_exec", "command_exec"}:
+                # One-shot executions never pass through the persistent
+                # worker's dispatch, so expand workspace alias tokens
+                # here, against this session's workspace stores.
+                try:
+                    from . import sandbox_worker as _worker_module
+
+                    args = _worker_module.expand_aliases_in_args(
+                        args, _workspace_for_scope(self._scope)
+                    )
+                    payload["args"] = args
+                except ValueError as exc:
+                    return json.dumps(
+                        {"ok": False, "error": str(exc)}, ensure_ascii=False
+                    )
             if name == "command_exec":
                 # Only direct Git commands need credential resolution. A token
                 # revoked by another session must not block unrelated commands.
@@ -1693,7 +2236,7 @@ class _MxcSession:
                     git_remote_host = selected_git_https_host_for_scope(self._scope)
                 payload["gitRemoteHost"] = git_remote_host
             self._write_line({"operation": "run", "payload": payload})
-            timeout_seconds = 60 if name in {"python_exec", "command_exec"} else 45
+            timeout_seconds = _response_timeout_seconds(name)
             deadline = time.monotonic() + timeout_seconds
             response = self._read_response(timeout=timeout_seconds)
             if name == "command_exec" and response.get("bridge") == "git_http":

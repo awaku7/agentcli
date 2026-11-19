@@ -1061,7 +1061,22 @@ async function serveWorker() {
         }
         continue;
       }
-      const reply = nextReply(HARD_EXECUTION_TIMEOUT_MS + 5_000);
+      const LONG_REPLY_TOOLS = new Set([
+        "http_request",
+        "get_weather_wttr",
+        "reverse_geocode",
+        "zipcode_check",
+        "quantities",
+        "date_calc",
+        "svg_to_image",
+        "mermaid_render",
+        "mmd_to_svg",
+        "qr_code",
+      ]);
+      const replyTimeoutMs = LONG_REPLY_TOOLS.has(request.payload?.name)
+        ? 300_000 + 5_000
+        : HARD_EXECUTION_TIMEOUT_MS + 5_000;
+      const reply = nextReply(replyTimeoutMs);
       stdin.write(`${JSON.stringify(request.payload)}\n`);
       const result = await reply;
       let usage;
