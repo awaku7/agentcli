@@ -1642,7 +1642,7 @@ def test_prewarm_loads_tool_specs_and_provider_client(monkeypatch):
         "make_client",
         lambda core: calls.append("client") or ("openai", object(), "m"),
     )
-    _prewarm_child_imports()
+    _prewarm_child_imports(execution_profile="local_trusted")
     assert calls == ["specs", "client"]
 
 
@@ -1660,7 +1660,7 @@ def test_prewarm_tolerates_failures(monkeypatch):
         lambda core: (_ for _ in ()).throw(RuntimeError("no client")),
     )
     # Must not raise: the first real turn surfaces the same failures.
-    _prewarm_child_imports()
+    _prewarm_child_imports(execution_profile="local_trusted")
 
 
 def test_prewarm_skips_tool_load_for_sandbox_server(monkeypatch):
@@ -1698,9 +1698,56 @@ def test_prewarm_defers_relative_external_tools_dirs(monkeypatch):
         lambda core: calls.append("client") or ("openai", object(), "m"),
     )
     monkeypatch.setenv("UAGENT_EXTERNAL_TOOLS_DIRS", "relative/tools")
-    _prewarm_child_imports()
+    _prewarm_child_imports(execution_profile="local_trusted")
     assert calls == ["client"]
     calls.clear()
     monkeypatch.setenv("UAGENT_EXTERNAL_TOOLS_DIRS", "/abs/tools")
-    _prewarm_child_imports()
+    _prewarm_child_imports(execution_profile="local_trusted")
     assert calls == ["specs", "client"]
+
+
+def test_prewarm_skips_tool_load_for_remote_profile(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    calls = []
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs", lambda: calls.append("specs") or []
+    )
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: calls.append("client") or ("openai", object(), "m"),
+    )
+    _prewarm_child_imports(execution_profile="remote")
+    # Remote deployments must not import Host plugins merely because a
+    # spare worker started; the provider client is still warmed.
+    assert calls == ["client"]
+
+
+def test_release_room_ignores_stale_room_incarnation(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    try:
+        room = _pooled_test_room(tmp_path, "release-room")
+        pool.run(room, "first", None)
+        replacement = _pooled_test_room(tmp_path, "release-room")
+        pool.run(replacement, "second", None)
+        bound = pool._bound["release-room"]
+        assert bound.room is replacement
+        replacement_pid = _echo_observations(replacement)[0]["pid"]
+
+        # Retiring the previous incarnation must not touch the worker
+        # now bound to the replacement room.
+        pool.release_room(room)
+        assert pool._bound["release-room"] is bound
+        assert bound.process.is_alive()
+
+        pool.run(replacement, "third", None)
+        assert _echo_observations(replacement)[-1]["pid"] == replacement_pid
+
+        # Releasing the current incarnation still recycles its worker.
+        pool.release_room(replacement)
+        assert "release-room" not in pool._bound
+        assert not bound.process.is_alive()
+    finally:
+        pool.shutdown()
