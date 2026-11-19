@@ -290,13 +290,26 @@ def test_svg_to_image_jpeg_flattens_transparency_on_white(tmp_path):
     out = json.loads(
         _call(
             "svg_to_image",
-            {"input_path": "half.svg", "output_path": "half.jpg"},
+            {"svg": "half.svg", "output_path": "half.jpg"},
         )
     )
     assert out["ok"] is True
     image = Image.open(worker.ROOT / "half.jpg").convert("RGB")
     assert image.getpixel((1, 5))[0] < 55
     assert image.getpixel((8, 5))[0] > 200
+
+
+def test_attach_within_budget_drops_oversized_attachment():
+    payload: dict = {"ok": True, "output_path": "big.png", "bytes": 10}
+    small = [{"type": "image", "data_base64": "AAAA"}]
+    worker._attach_within_budget(payload, small)
+    assert payload["attachments"] == small
+    payload = {"ok": True, "output_path": "big.png", "bytes": 10}
+    huge = [{"type": "image", "data_base64": "A" * (worker.MAX_RESULT_BYTES + 10)}]
+    worker._attach_within_budget(payload, huge)
+    assert "attachments" not in payload
+    assert "attachment_omitted" in payload
+    assert len(json.dumps(payload).encode("utf-8")) <= worker.MAX_RESULT_BYTES
 
 
 # ---------------------------------------------------------------------------

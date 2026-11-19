@@ -2934,6 +2934,27 @@ def _media_attachment(
     ]
 
 
+def _attach_within_budget(
+    payload: dict[str, Any], attachments: list[dict[str, Any]]
+) -> None:
+    # A large render's base64 attachment can push the serialized
+    # result past MAX_RESULT_BYTES, in which case the dispatcher
+    # would discard the whole result. Keep the metadata (the file
+    # itself stays in the workspace) and note the omission instead.
+    if not attachments:
+        return
+    candidate = dict(payload)
+    candidate["attachments"] = attachments
+    serialized = json.dumps(candidate, ensure_ascii=False).encode("utf-8")
+    if len(serialized) <= MAX_RESULT_BYTES - 1024:
+        payload["attachments"] = attachments
+    else:
+        payload["attachment_omitted"] = (
+            "attachment exceeds the sandbox response limit; "
+            "the file is available at output_path"
+        )
+
+
 def _flatten_for_jpeg(image: Any) -> Any:
     """Composite an alpha-bearing image onto white for JPEG output,
     matching the host tools (a direct RGB conversion turns
@@ -3050,8 +3071,7 @@ def _svg_to_image(args: dict[str, Any]) -> str:
         mime,
         include=bool(args.get("include_base64", True)),
     )
-    if attachments:
-        payload["attachments"] = attachments
+    _attach_within_budget(payload, attachments)
     return json.dumps(payload, ensure_ascii=False)
 
 
@@ -3159,8 +3179,7 @@ def _mermaid_render(args: dict[str, Any]) -> str:
         mime,
         include=bool(args.get("include_base64", True)),
     )
-    if attachments:
-        payload["attachments"] = attachments
+    _attach_within_budget(payload, attachments)
     return json.dumps(payload, ensure_ascii=False)
 
 
@@ -3222,8 +3241,7 @@ def _mmd_to_svg(args: dict[str, Any]) -> str:
         "image/svg+xml",
         include=bool(args.get("include_base64", True)),
     )
-    if attachments:
-        payload["attachments"] = attachments
+    _attach_within_budget(payload, attachments)
     return json.dumps(payload, ensure_ascii=False)
 
 
