@@ -1543,3 +1543,31 @@ def test_pooled_turns_do_not_retain_previous_rooms_in_log_chain(monkeypatch, tmp
         assert contents == ["ROOMS:1", "ROOMS:1", "ROOMS:1"]
     finally:
         pool.shutdown()
+
+
+def test_pooled_eviction_skips_reserved_rooms(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    rooms = [_pooled_test_room(tmp_path, room_id=f"room-{i}") for i in range(4)]
+    handles = {}
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for room in rooms[:3]:
+            pool.run(room, "hi")
+            with pool._lock:
+                handles[room.room_id] = pool._bound[room.room_id]
+        # Simulate a concurrent run() that has reserved room-0 and is
+        # about to reuse its worker: eviction must not take that worker.
+        with pool._lock:
+            pool._reserved_rooms.add("room-0")
+        try:
+            pool.run(rooms[3], "hi")
+        finally:
+            with pool._lock:
+                pool._reserved_rooms.discard("room-0")
+        with pool._lock:
+            assert "room-0" in pool._bound
+            assert "room-1" not in pool._bound
+        assert handles["room-0"].process.is_alive()
+        assert not handles["room-1"].process.is_alive()
+    finally:
+        pool.shutdown()

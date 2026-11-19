@@ -851,7 +851,10 @@ class RoomWorkerPool:
         Public rooms are never retired, so without a bound their workers
         would accumulate for the life of the server. An evicted room
         keeps its history; its next turn simply claims a worker again.
-        Workers running a turn are never evicted.
+        Workers running a turn are never evicted, and neither are rooms
+        reserved by a run that is about to obtain their worker; the
+        victim is detached under the same lock hold as its selection,
+        so a concurrent acquisition can no longer hand it out.
         """
         while True:
             with self._lock:
@@ -860,14 +863,15 @@ class RoomWorkerPool:
                 candidates = [
                     (handle.last_used, room_id)
                     for room_id, handle in self._bound.items()
-                    if room_id != keep and room_id not in self._running
+                    if room_id != keep
+                    and room_id not in self._running
+                    and room_id not in self._reserved_rooms
                 ]
                 if not candidates:
                     return
                 candidates.sort()
-                victim_id = candidates[0][1]
-                victim = self._bound[victim_id]
-            self._unbind(victim_id, victim)
+                victim = self._bound.pop(candidates[0][1])
+            self._terminate_handle(victim)
 
     def _terminate_handle(self, handle: _WorkerHandle) -> None:
         try:
