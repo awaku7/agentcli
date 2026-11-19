@@ -249,6 +249,16 @@ def test_http_request_large_body_is_bounded(echo_server):
     assert len(raw.encode("utf-8")) <= worker.MAX_RESULT_BYTES
 
 
+def test_apply_patch_removed_line_that_looks_like_header():
+    (worker.ROOT / "note.txt").write_text("-- before\n", encoding="utf-8")
+    patch = (
+        "--- a/note.txt\n" "+++ b/note.txt\n" "@@ -1 +1 @@\n" "--- before\n" "+after\n"
+    )
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+    assert out["ok"] is True
+    assert (worker.ROOT / "note.txt").read_text(encoding="utf-8") == "after\n"
+
+
 def test_http_request_array_query_params(echo_server):
     out = json.loads(
         _call(

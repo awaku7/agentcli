@@ -2693,7 +2693,33 @@ def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
     sections: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
     hunk: dict[str, Any] | None = None
+    src_left = 0
+    dst_left = 0
     for line in patch_text.splitlines():
+        # Inside a hunk body, consume lines by the advertised counts
+        # first: a removed line whose content starts with "-- " reads
+        # as "--- " and must not be mistaken for a new file header
+        # (same for "+++ " and added content).
+        if (
+            hunk is not None
+            and (src_left > 0 or dst_left > 0)
+            and line[:1]
+            in {
+                " ",
+                "-",
+                "+",
+                "\\",
+            }
+        ):
+            hunk["lines"].append(line)
+            if line[:1] == " ":
+                src_left -= 1
+                dst_left -= 1
+            elif line[:1] == "-":
+                src_left -= 1
+            elif line[:1] == "+":
+                dst_left -= 1
+            continue
         if line.startswith("--- "):
             current = {
                 "old": line[4:].split("\t")[0].strip(),
@@ -2702,6 +2728,8 @@ def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
             }
             sections.append(current)
             hunk = None
+            src_left = 0
+            dst_left = 0
             continue
         if line.startswith("+++ ") and current is not None:
             current["new"] = line[4:].split("\t")[0].strip()
@@ -2715,6 +2743,8 @@ def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
                 "new_count": int(match.group(4)) if match.group(4) else 1,
                 "lines": [],
             }
+            src_left = hunk["old_count"]
+            dst_left = hunk["new_count"]
             current["hunks"].append(hunk)
             continue
         if hunk is not None and line[:1] in {" ", "-", "+", "\\"}:
