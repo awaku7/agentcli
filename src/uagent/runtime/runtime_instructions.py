@@ -46,13 +46,18 @@ class InstructionCandidate:
     # list of file paths that were inlined via @-include
 
 
-def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
+def _find_instruction_files(
+    workdir: str, *, stop_at: str | None = None
+) -> list[InstructionCandidate]:
     """Walk from workdir up to root, collect CLAUDE.md / AGENTS.md files.
 
     Priority per directory:
       - If CLAUDE.md exists and contains @AGENTS.md, load CLAUDE.md with include resolved.
       - If both exist but no @AGENTS.md in CLAUDE.md, add both as separate candidates.
       - If only one exists, add it.
+
+    With ``stop_at``, the walk stops after that directory (inclusive)
+    instead of continuing to the filesystem root.
     """
     candidates: list[InstructionCandidate] = []
     seen_dirs: set[str] = set()
@@ -125,7 +130,11 @@ def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
                 )
             )
 
-        # Move to parent directory
+        # Move to parent directory, unless the walk is bounded here.
+        if stop_at is not None and norm == os.path.normcase(
+            os.path.normpath(os.path.abspath(stop_at))
+        ):
+            break
         parent = os.path.dirname(current)
         if parent == current:
             break
@@ -332,6 +341,28 @@ def _is_non_interactive_mode() -> bool:
     )
 
 
+def _sandbox_workspace_root() -> str | None:
+    """Return the active Sandbox workspace directory, or None.
+
+    In Sandbox mode the agent works in the per-scope MXC workspace,
+    not in the host project directory, so instruction files are
+    discovered in the workspace instead of on the host.
+    """
+    try:
+        from .execution_broker import current_sandbox_enabled, current_scope
+
+        if not current_sandbox_enabled():
+            return None
+        scope = current_scope()
+        if scope is None:
+            return None
+        from .mxc_backend import _workspace_for_scope
+
+        return str(_workspace_for_scope(scope))
+    except Exception:
+        return None
+
+
 def load_project_instruction_files(
     *,
     workdir: str | None = None,
@@ -356,7 +387,13 @@ def load_project_instruction_files(
     if workdir is None:
         workdir = os.getcwd()
 
-    candidates = _find_instruction_files(workdir)
+    # In Sandbox mode, discover instructions in the sandbox workspace
+    # rather than the host project directory, and never above it.
+    stop_at = _sandbox_workspace_root()
+    if stop_at is not None:
+        workdir = stop_at
+
+    candidates = _find_instruction_files(workdir, stop_at=stop_at)
     if not candidates:
         return []
 
@@ -423,7 +460,13 @@ def reload_instruction_files(
     if workdir is None:
         workdir = os.getcwd()
 
-    candidates = _find_instruction_files(workdir)
+    # Same Sandbox rule as the initial load: the workspace is the
+    # working directory, and discovery never leaves it.
+    stop_at = _sandbox_workspace_root()
+    if stop_at is not None:
+        workdir = stop_at
+
+    candidates = _find_instruction_files(workdir, stop_at=stop_at)
     if not candidates:
         return []
 
