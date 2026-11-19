@@ -2377,7 +2377,8 @@ def _quantities(args: dict[str, Any]) -> str:
             "tool for plain arithmetic."
         )
     try:
-        precision = int(args.get("precision") or 6)
+        raw_precision = args.get("precision")
+        precision = 6 if raw_precision is None else int(raw_precision)
     except (TypeError, ValueError):
         precision = 6
     precision = max(0, min(precision, 15))

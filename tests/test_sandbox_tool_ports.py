@@ -105,6 +105,15 @@ def test_quantities_rejects_unsafe_expression():
     assert out["ok"] is False
 
 
+def test_quantities_precision_zero_is_preserved():
+    pytest.importorskip("pint")
+    out = json.loads(
+        _call("quantities", {"expression": "1.23456 meter", "precision": 0})
+    )
+    assert out["ok"] is True
+    assert out["result"] == "1 m"
+
+
 # ---------------------------------------------------------------------------
 # Network tools (mocked / local server)
 # ---------------------------------------------------------------------------
@@ -249,7 +258,7 @@ def test_http_request_large_body_is_bounded(echo_server):
     assert len(raw.encode("utf-8")) <= worker.MAX_RESULT_BYTES
 
 
-def test_apply_patch_removed_line_that_looks_like_header():
+def test_apply_patch_removed_line_that_looks_like_header(workspace):
     (worker.ROOT / "note.txt").write_text("-- before\n", encoding="utf-8")
     patch = (
         "--- a/note.txt\n" "+++ b/note.txt\n" "@@ -1 +1 @@\n" "--- before\n" "+after\n"
@@ -274,7 +283,7 @@ def test_http_request_array_query_params(echo_server):
     assert out["response_json"]["path"] == "/items?tag=a&tag=b&q=x"
 
 
-def test_expand_aliases_in_args_against_explicit_workspace():
+def test_expand_aliases_in_args_against_explicit_workspace(workspace):
     (worker.ROOT / "docs").mkdir(exist_ok=True)
     _call("path_alias", {"action": "set", "slot": 2, "path": "docs"})
     expanded = worker.expand_aliases_in_args(
@@ -288,7 +297,7 @@ def test_expand_aliases_in_args_against_explicit_workspace():
         worker.expand_aliases_in_args({"cwd": "@A{9}"}, worker.ROOT)
 
 
-def test_svg_to_image_jpeg_flattens_transparency_on_white(tmp_path):
+def test_svg_to_image_jpeg_flattens_transparency_on_white(workspace):
     pytest.importorskip("cairosvg")
     from PIL import Image
 
