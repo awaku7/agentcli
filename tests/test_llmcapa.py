@@ -26,7 +26,7 @@ class TestLlmcapaProviders:
             ("openai", 10),
             ("anthropic", 10),
             ("google", 10),
-            ("meta", 10),
+            ("meta", 9),
             ("mistral", 10),
             ("deepseek", 5),
             ("cohere", 2),
@@ -61,13 +61,19 @@ class TestLlmcapaModelSpecs:
         ("gemini-2.5-pro", "google", 1000000, 65536, True, True),
         ("DeepSeek-V3", "deepseek", 131072, 8192, False, True),
         ("DeepSeek-R1", "deepseek", 65536, 8192, False, True),
-        ("Llama-3.2-90B-Vision-Instruct", "meta", 128000, 4096, True, None),
-        ("Llama-4-Scout-17B-16E", "meta", 1000000, 4096, True, None),
-        ("Mistral-Large-3", "mistral", 128000, 4096, True, True),
-        ("Ministral-3B", "mistral", 131072, 4096, False, True),
+        # Since llmcapa 0.5.90 the Azure Foundry catalog attributes its
+        # records to azure-foundry (the brand is kept in upstream_provider),
+        # so the Llama / Mistral models below are looked up there.
+        ("Llama-3.2-90B-Vision-Instruct", "azure-foundry", 128000, 4096, True, None),
+        ("Llama-4-Scout-17B-16E", "azure-foundry", 1000000, 4096, True, None),
+        ("Mistral-Large-3", "azure-foundry", 128000, 4096, True, True),
+        ("Ministral-3B", "azure-foundry", 131072, 4096, False, True),
         ("nova-2-lite-v1", "amazon", 1000000, 65535, True, True),
         ("nova-pro-v1", "amazon", 300000, 5120, True, True),
-        ("cohere-command-a", "cohere", 131072, 4096, False, False),
+        # cohere-command-a now resolves to Cohere's own command-a record
+        # (function_calling=True); the Azure Foundry record that used to
+        # shadow it no longer carries the cohere attribution.
+        ("cohere-command-a", "cohere", 131072, 4096, False, True),
     ]
 
     @pytest.mark.parametrize(

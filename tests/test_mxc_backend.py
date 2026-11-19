@@ -359,6 +359,37 @@ def test_sandbox_calls_adapter_before_host_runner(monkeypatch, local_scope):
     assert result == '{"exists":true,"is_file":true,"is_dir":false}'
 
 
+def test_sandbox_routed_calls_skip_host_alias_resolution(monkeypatch, local_scope):
+    received = {}
+
+    class FakeManager:
+        capabilities = all_local_capabilities()
+
+        def run_tool(self, scope, name, args):
+            received.update(args)
+            return "sandbox-result"
+
+    fake = FakeManager()
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: fake)
+    monkeypatch.setattr(
+        tools,
+        "_ensure_loaded",
+        lambda: (_ for _ in ()).throw(AssertionError("Host plugins must not load")),
+    )
+    monkeypatch.setattr(tools, "_emit_tool_trace", lambda *args: None)
+    monkeypatch.setattr(tools, "_CONFIRMATION_CALLBACK", lambda *args: True)
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=local_scope
+    ):
+        # @A{9} is not a host alias: the host resolver would reject the
+        # call, but sandbox-routed calls expand aliases inside the worker
+        # against the workspace store, so the token must reach the
+        # manager untouched.
+        result = tools.run_tool("read_file", {"path": "@A{9}/inside.txt"})
+    assert result == "sandbox-result"
+    assert received == {"path": "@A{9}/inside.txt"}
+
+
 def test_sandbox_parallel_safety_does_not_load_host_plugins(monkeypatch, local_scope):
     monkeypatch.setattr(
         tools,
@@ -1003,7 +1034,7 @@ def test_non_python_tool_writes_are_checked_against_workspace_quota():
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
-    start = source.index("const reply = nextReply(HARD_EXECUTION_TIMEOUT_MS + 5_000);")
+    start = source.index("const reply = nextReply(replyTimeoutMs);")
     end = source.index("if (result?.terminate === true)", start)
     handler = source[start:end]
 
@@ -1084,7 +1115,7 @@ def test_worker_rejects_absolute_paths_and_unregistered_tools(monkeypatch, tmp_p
         )
     with pytest.raises(ValueError, match="allowlist"):
         sandbox_worker._dispatch(
-            {"name": "http_request", "args": {"url": "https://example.com"}}
+            {"name": "send_email", "args": {"to": "user@example.com"}}
         )
 
 
@@ -2069,3 +2100,21 @@ def test_startup_scope_persisted_session_is_process_instance_specific(
     assert first.scope_id.startswith("saved-session-54321-")
     assert second.scope_id.startswith("saved-session-54322-")
     assert first.scope_id != second.scope_id
+
+
+def test_response_timeout_seconds_budgets():
+    assert mxc_backend._response_timeout_seconds("read_file") == 45
+    assert mxc_backend._response_timeout_seconds("python_exec") == 60
+    assert mxc_backend._response_timeout_seconds("command_exec") == 60
+    # Network / first-use-install tools get the long budget so a
+    # 180-second dependency install or a long HTTP request can finish.
+    for name in (
+        "http_request",
+        "quantities",
+        "date_calc",
+        "svg_to_image",
+        "mermaid_render",
+        "mmd_to_svg",
+        "qr_code",
+    ):
+        assert mxc_backend._response_timeout_seconds(name) == 300
