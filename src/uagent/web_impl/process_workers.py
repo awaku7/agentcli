@@ -168,7 +168,29 @@ def _pooled_child_turn(connection, payload, pending) -> None:
     _child_turn(connection, payload, pooled=True, pending_payloads=pending)
 
 
-def _prewarm_child_imports() -> None:
+def _external_tools_dirs_deferred() -> bool:
+    """True when external-tool discovery depends on the working directory.
+
+    Plugin discovery resolves UAGENT_EXTERNAL_TOOLS_DIRS entries
+    against the process working directory, and a pooled worker only
+    changes into the room's project directory when its first turn
+    starts. A relative entry would therefore load the server
+    directory's plugins (and cache that catalog for the worker's
+    life), so discovery must wait for the first turn.
+    """
+    raw = (
+        os.environ.get("UAGENT_EXTERNAL_TOOLS_DIRS")
+        or os.environ.get("UAGENT_EXTERNAL_TOOLS_DIR")
+        or ""
+    )
+    for entry in raw.split(os.pathsep):
+        entry = entry.strip()
+        if entry and not os.path.isabs(entry):
+            return True
+    return False
+
+
+def _prewarm_child_imports(*, sandbox_enabled: bool = False) -> None:
     """Load what a turn needs so a warm worker only pays for the turn.
 
     Importing the core modules is not enough: the first turn also loads
@@ -179,16 +201,23 @@ def _prewarm_child_imports() -> None:
     pay them here, before the ready signal. Each step is best-effort —
     a failure here surfaces again, unchanged, on the first real turn.
     The warmed client is discarded; turns build their own.
+
+    The tool load is skipped when it would not match the first turn's:
+    with server-level Sandbox the pooled child is only a spare (Sandbox
+    turns use one-shot workers) and Host plugins must never load, and
+    with a relative external-tools directory the discovery belongs to
+    the room's project directory, which is only applied at turn start.
     """
     from .. import core  # noqa: F401
     from . import agent_worker, init, rooms  # noqa: F401
 
-    try:
-        from ..tools import get_tool_specs
+    if not sandbox_enabled and not _external_tools_dirs_deferred():
+        try:
+            from ..tools import get_tool_specs
 
-        get_tool_specs()
-    except Exception:
-        pass
+            get_tool_specs()
+        except Exception:
+            pass
     try:
         from ..providers import util_providers
 
@@ -197,9 +226,11 @@ def _prewarm_child_imports() -> None:
         pass
 
 
-def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
+def _pooled_worker_entry(
+    connection, target=_pooled_child_turn, sandbox_enabled: bool = False
+) -> None:
     try:
-        _pooled_worker_loop(connection, target)
+        _pooled_worker_loop(connection, target, sandbox_enabled=sandbox_enabled)
     finally:
         # The per-turn finish only flushes in pooled mode; the process
         # backend is shut down once, when this worker exits.
@@ -238,7 +269,7 @@ def _apply_pooled_env_sync(payload) -> None:
             _POOLED_SYNCED_ENV_KEYS.add(key)
 
 
-def _pooled_worker_loop(connection, target) -> None:
+def _pooled_worker_loop(connection, target, *, sandbox_enabled: bool = False) -> None:
     """Serve turns for one room at a time until stopped or recycled.
 
     The heavy imports run before the ready signal, so a turn claimed from
@@ -254,7 +285,7 @@ def _pooled_worker_loop(connection, target) -> None:
     _POOLED_SPAWN_ENV_KEYS = {key for key in os.environ if key.startswith("UAGENT_")}
     pending: queue_module.SimpleQueue = queue_module.SimpleQueue()
     try:
-        _prewarm_child_imports()
+        _prewarm_child_imports(sandbox_enabled=sandbox_enabled)
     except Exception:
         # A failed prewarm must not wedge the pool; turns will surface the
         # same failure through the normal error path.
@@ -801,10 +832,16 @@ class RoomWorkerPool:
         )
 
     def _spawn_pooled_handle(self) -> _WorkerHandle:
+        from .rooms import web_manager
+
         parent, child = self._context.Pipe()
         process = self._context.Process(
             target=_pooled_worker_entry,
-            args=(child, self._pooled_target),
+            args=(
+                child,
+                self._pooled_target,
+                bool(getattr(web_manager, "sandbox_enabled", False)),
+            ),
             daemon=False,
         )
         process.start()
