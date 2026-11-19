@@ -3357,7 +3357,17 @@ def _preprocess_image(args: dict[str, Any]) -> str:
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     prefix = str(args.get("prefix") or "preprocess_image").strip() or "preprocess_image"
-    output_path = output_dir / f"{prefix}_{img_path.stem}.png"
+    # The prefix is caller-controlled: validate the complete destination
+    # before saving so a prefix with separators or an absolute path can
+    # never write outside the workspace.
+    joined = (output_dir.relative_to(ROOT) / f"{prefix}_{img_path.stem}.png").as_posix()
+    try:
+        output_path = _resolve_relative(joined)
+    except ValueError as exc:
+        return json.dumps(
+            {"ok": False, "error": f"invalid output path: {exc}"},
+            ensure_ascii=False,
+        )
     image.save(output_path, format="PNG")
     return json.dumps(
         {

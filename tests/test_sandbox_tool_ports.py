@@ -554,6 +554,18 @@ def test_preprocess_image_modes(workspace):
     # Unknown modes are rejected.
     out = json.loads(_call("preprocess_image", {"img": "in.png", "mode": "bogus"}))
     assert out["ok"] is False
+    # A hostile prefix must not write outside the workspace.
+    out = json.loads(_call("preprocess_image", {"img": "in.png", "prefix": "../evil"}))
+    assert out["ok"] is False
+    assert not (workspace.parent / "evil_in.png").exists()
+    out = json.loads(
+        _call(
+            "preprocess_image",
+            {"img": "in.png", "prefix": str(workspace.parent / "abs_evil")},
+        )
+    )
+    assert out["ok"] is False
+    assert not (workspace.parent / "abs_evil_in.png").exists()
 
 
 def test_date_calc_installs_python_dateutil(workspace, monkeypatch):
