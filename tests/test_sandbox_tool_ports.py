@@ -526,8 +526,8 @@ def test_date_calc_installs_python_dateutil(workspace, monkeypatch):
             return None
 
     monkeypatch.setattr(worker, "_ensure_package", recorder)
-    out = _call("date_calc", {"operation": "add", "date": "2026-01-31", "months": 1})
-    assert "2026-02-28" in out
+    out = _call("date_calc", {"base_date": "2026-01-31", "months": 1})
+    assert "Result Date: 2026-02-28" in out
     assert ("dateutil", "python-dateutil") in calls
 
 
