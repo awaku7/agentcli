@@ -2113,6 +2113,21 @@ class _MxcSession:
                 else None
             )
             payload = {"name": name, "args": args}
+            if name in {"python_exec", "command_exec"}:
+                # One-shot executions never pass through the persistent
+                # worker's dispatch, so expand workspace alias tokens
+                # here, against this session's workspace stores.
+                try:
+                    from . import sandbox_worker as _worker_module
+
+                    args = _worker_module.expand_aliases_in_args(
+                        args, _workspace_for_scope(self._scope)
+                    )
+                    payload["args"] = args
+                except ValueError as exc:
+                    return json.dumps(
+                        {"ok": False, "error": str(exc)}, ensure_ascii=False
+                    )
             if name == "command_exec":
                 # Only direct Git commands need credential resolution. A token
                 # revoked by another session must not block unrelated commands.

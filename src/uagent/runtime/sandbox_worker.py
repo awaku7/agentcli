@@ -1320,7 +1320,7 @@ def _image_ops(args: dict[str, Any]) -> str:
         if extension not in formats:
             raise ValueError("image output extension must be PNG, JPEG, or WebP")
         if formats[extension] == "JPEG" and result.mode not in {"RGB", "L"}:
-            result = result.convert("RGB")
+            result = _flatten_for_jpeg(result)
         output.parent.mkdir(parents=True, exist_ok=True)
         result.save(output, format=formats[extension])
     if output.stat().st_size > 32 * 1024 * 1024:
@@ -2934,6 +2934,22 @@ def _media_attachment(
     ]
 
 
+def _flatten_for_jpeg(image: Any) -> Any:
+    """Composite an alpha-bearing image onto white for JPEG output,
+    matching the host tools (a direct RGB conversion turns
+    transparent pixels black)."""
+    from PIL import Image
+
+    if image.mode in {"RGBA", "LA"} or (
+        image.mode == "P" and "transparency" in image.info
+    ):
+        rgba = image.convert("RGBA")
+        background = Image.new("RGB", rgba.size, (255, 255, 255))
+        background.paste(rgba, mask=rgba.split()[3])
+        return background
+    return image.convert("RGB")
+
+
 def _svg_to_image(args: dict[str, Any]) -> str:
     svg_rel = str(args.get("svg") or "").strip()
     out_rel = str(args.get("output_path") or "").strip()
@@ -3014,7 +3030,7 @@ def _svg_to_image(args: dict[str, Any]) -> str:
             )
         image = Image.open(io.BytesIO(png_bytes))
         if suffix in {".jpg", ".jpeg"}:
-            image = image.convert("RGB")
+            image = _flatten_for_jpeg(image)
         image.save(output_path)
     mime = {
         ".png": "image/png",
@@ -3387,15 +3403,17 @@ def _preprocess_image(args: dict[str, Any]) -> str:
     )
 
 
-def _alias_store_path(filename: str, *, create: bool = False) -> Path:
-    store_dir = ROOT / ".uag"
+def _alias_store_path(
+    filename: str, *, create: bool = False, root: Path | None = None
+) -> Path:
+    store_dir = (root if root is not None else ROOT) / ".uag"
     if create:
         store_dir.mkdir(parents=True, exist_ok=True)
     return store_dir / filename
 
 
-def _load_aliases(filename: str) -> dict[int, str]:
-    path = _alias_store_path(filename)
+def _load_aliases(filename: str, root: Path | None = None) -> dict[int, str]:
+    path = _alias_store_path(filename, root=root)
     if not path.is_file():
         return {}
     try:
@@ -3610,12 +3628,12 @@ _SANDBOX_ALIAS_RE = re.compile(r"^@A\{([0-9])\}(?:[\\/](.*))?$")
 _SANDBOX_URL_ALIAS_RE = re.compile(r"^@B\{([0-9])\}(.*)$")
 
 
-def _resolve_sandbox_path_alias(value: str) -> str:
+def _resolve_sandbox_path_alias(value: str, root: Path | None = None) -> str:
     match = _SANDBOX_ALIAS_RE.match(value)
     if not match:
         return value
     slot = int(match.group(1))
-    aliases = _load_aliases("path_aliases.json")
+    aliases = _load_aliases("path_aliases.json", root)
     root_rel = aliases.get(slot)
     if root_rel is None and slot == 0:
         root_rel = ""
@@ -3636,12 +3654,12 @@ def _resolve_sandbox_path_alias(value: str) -> str:
     return joined if joined else "."
 
 
-def _resolve_sandbox_url_alias(value: str) -> str:
+def _resolve_sandbox_url_alias(value: str, root: Path | None = None) -> str:
     match = _SANDBOX_URL_ALIAS_RE.match(value)
     if not match:
         return value
     slot = int(match.group(1))
-    aliases = _load_aliases("url_aliases.json")
+    aliases = _load_aliases("url_aliases.json", root)
     base = aliases.get(slot)
     if base is None:
         raise ValueError(f"unknown URL alias: @B{{{slot}}}")
@@ -3651,30 +3669,49 @@ def _resolve_sandbox_url_alias(value: str) -> str:
     return base.rstrip("/") + suffix
 
 
-def _expand_sandbox_aliases(value: Any, field_name: str | None = None) -> Any:
+def _expand_sandbox_aliases(
+    value: Any, field_name: str | None = None, root: Path | None = None
+) -> Any:
     if isinstance(value, str):
         if field_name in _PATH_FIELD_NAMES:
-            return _resolve_sandbox_path_alias(value)
+            return _resolve_sandbox_path_alias(value, root)
         if field_name in _URL_FIELD_NAMES:
-            return _resolve_sandbox_url_alias(value)
+            return _resolve_sandbox_url_alias(value, root)
         return value
     if isinstance(value, list):
         if field_name in _PATH_FIELD_NAMES:
             return [
-                _resolve_sandbox_path_alias(item) if isinstance(item, str) else item
+                (
+                    _resolve_sandbox_path_alias(item, root)
+                    if isinstance(item, str)
+                    else item
+                )
                 for item in value
             ]
         if field_name in _URL_FIELD_NAMES:
             return [
-                _resolve_sandbox_url_alias(item) if isinstance(item, str) else item
+                (
+                    _resolve_sandbox_url_alias(item, root)
+                    if isinstance(item, str)
+                    else item
+                )
                 for item in value
             ]
-        return [_expand_sandbox_aliases(item) for item in value]
+        return [_expand_sandbox_aliases(item, root=root) for item in value]
     if isinstance(value, dict):
         return {
-            key: _expand_sandbox_aliases(item, str(key)) for key, item in value.items()
+            key: _expand_sandbox_aliases(item, str(key), root)
+            for key, item in value.items()
         }
     return value
+
+
+def expand_aliases_in_args(args: dict[str, Any], workspace_root: Any) -> dict[str, Any]:
+    """Expand @A{}/@B{} alias tokens in tool args against the alias
+    stores of an explicit workspace. Used by the host backend for the
+    one-shot exec tools, which never pass through this worker's
+    dispatch loop."""
+    return _expand_sandbox_aliases(args, root=Path(workspace_root))
 
 
 def _dispatch(request: Any) -> Any:

@@ -264,6 +264,41 @@ def test_http_request_array_query_params(echo_server):
     assert out["response_json"]["path"] == "/items?tag=a&tag=b&q=x"
 
 
+def test_expand_aliases_in_args_against_explicit_workspace():
+    (worker.ROOT / "docs").mkdir(exist_ok=True)
+    _call("path_alias", {"action": "register", "slot": 2, "path": "docs"})
+    expanded = worker.expand_aliases_in_args(
+        {"argv": ["git", "status"], "cwd": "@A{2}"}, worker.ROOT
+    )
+    assert expanded["cwd"] == "docs"
+    assert expanded["argv"] == ["git", "status"]
+    expanded = worker.expand_aliases_in_args({"cwd": "@A{0}/sub"}, worker.ROOT)
+    assert expanded["cwd"] == "sub"
+    with pytest.raises(ValueError):
+        worker.expand_aliases_in_args({"cwd": "@A{9}"}, worker.ROOT)
+
+
+def test_svg_to_image_jpeg_flattens_transparency_on_white(tmp_path):
+    pytest.importorskip("cairosvg")
+    from PIL import Image
+
+    (worker.ROOT / "half.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10">'
+        '<rect x="0" y="0" width="5" height="10" fill="black"/></svg>',
+        encoding="utf-8",
+    )
+    out = json.loads(
+        _call(
+            "svg_to_image",
+            {"input_path": "half.svg", "output_path": "half.jpg"},
+        )
+    )
+    assert out["ok"] is True
+    image = Image.open(worker.ROOT / "half.jpg").convert("RGB")
+    assert image.getpixel((1, 5))[0] < 55
+    assert image.getpixel((8, 5))[0] > 200
+
+
 # ---------------------------------------------------------------------------
 # apply_patch
 # ---------------------------------------------------------------------------
