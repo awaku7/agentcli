@@ -10,7 +10,10 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.runtime.session_store import SessionStore, attach_opt_in_session_store
-from uagent.web_impl.process_workers import RoomWorkerPool
+from uagent.web_impl.process_workers import (
+    RoomWorkerPool,
+    _finish_worker_observability,
+)
 from uagent.web_impl.rooms import WebRoom
 
 
@@ -1180,3 +1183,447 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
     else:
         assert captured["sandbox_scope_kind"] is None
         assert captured["sandbox_capabilities"] is False
+
+
+def _pooled_echo_child(connection, payload, pending):
+    """Pooled-target double: replies with its pid, then stays alive."""
+    from uagent.web_impl.process_workers import room_state
+    from uagent.web_impl.rooms import WebRoom
+
+    room = WebRoom(payload["room"]["room_id"])
+    for name, value in payload["room"].items():
+        setattr(room, name, value)
+    message = {
+        "role": "assistant",
+        "content": json.dumps({"pid": os.getpid(), "input": payload["input"]}),
+    }
+    connection.send({"event": {"type": "message", "message": message}})
+    connection.send({"state": room_state(room)})
+    connection.send({"turn_complete": True})
+
+
+def _pooled_test_pool(monkeypatch, tmp_path, **kwargs):
+    from uagent import core
+    from uagent.tools import _genre_control_util
+    from uagent.web_impl.process_workers import _child_turn
+    from uagent.web_impl.rooms import web_manager
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(core, "auto_pilot_active", False)
+    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    kwargs.setdefault("pooled_target", _pooled_echo_child)
+    kwargs.setdefault("warm_workers", 1)
+    return RoomWorkerPool(2, target=_child_turn, **kwargs)
+
+
+def _pooled_test_room(tmp_path, room_id="pooled-room"):
+    room = WebRoom(room_id)
+    room.private_session = True
+    room.base_dir = str(tmp_path)
+    room.history_initialized = True
+    room.history = [{"role": "system", "content": "offline"}]
+    room.active_connections = [True]
+    return room
+
+
+def _echo_observations(room):
+    return [
+        json.loads(m["content"])
+        for m in room.messages
+        if m.get("role") == "assistant" and m["content"].startswith('{"pid"')
+    ]
+
+
+def test_pooled_worker_is_reused_across_turns_for_one_room(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    room = _pooled_test_room(tmp_path)
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        pool.run(room, "first")
+        pool.run(room, "second")
+        observed = _echo_observations(room)
+        assert [item["input"] for item in observed] == ["first", "second"]
+        assert observed[0]["pid"] == observed[1]["pid"]
+        assert observed[0]["pid"] != os.getpid()
+        with pool._lock:
+            handle = pool._bound[room.room_id]
+        assert handle.process.is_alive()
+        assert handle.turns == 2
+        pool.release_room(room)
+        assert not handle.process.is_alive()
+        with pool._lock:
+            assert room.room_id not in pool._bound
+    finally:
+        pool.shutdown()
+
+
+def test_pooled_worker_recycled_when_room_object_is_replaced(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    room = _pooled_test_room(tmp_path)
+    try:
+        pool.run(room, "first")
+        with pool._lock:
+            first_handle = pool._bound[room.room_id]
+        replacement = _pooled_test_room(tmp_path)
+        pool.run(replacement, "second")
+        observed = _echo_observations(replacement)
+        assert observed[0]["pid"] != _echo_observations(room)[0]["pid"]
+        assert not first_handle.process.is_alive()
+    finally:
+        pool.shutdown()
+
+
+def test_pooled_worker_recycled_when_decision_provider_changes(monkeypatch, tmp_path):
+    from uagent.decision import settings
+
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    room = _pooled_test_room(tmp_path)
+    try:
+        monkeypatch.setattr(
+            settings,
+            "get_decision_settings",
+            lambda: SimpleNamespace(provider="provider-a"),
+        )
+        pool.run(room, "first")
+        monkeypatch.setattr(
+            settings,
+            "get_decision_settings",
+            lambda: SimpleNamespace(provider="provider-b"),
+        )
+        pool.run(room, "second")
+        observed = _echo_observations(room)
+        assert observed[0]["pid"] != observed[1]["pid"]
+    finally:
+        pool.shutdown()
+
+
+def test_warm_workers_zero_disables_pooling(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, warm_workers=0)
+    try:
+        assert pool._pooling_enabled is False
+    finally:
+        pool.shutdown()
+
+
+def _pooled_state_child(connection, payload, pending):
+    """Real pooled child with a stubbed worker; exercises init_web twice."""
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        from uagent import core
+
+        # The wrapped set_status must still delegate after a second
+        # init_web call in the same child process.
+        core.set_status(True, "LLM")
+        room.add_message({"role": "assistant", "content": "POOLED:" + user_input})
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def test_pooled_real_child_survives_second_turn(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_state_child)
+    room = _pooled_test_room(tmp_path)
+    try:
+        pool.run(room, "first")
+        pool.run(room, "second")
+        contents = [m["content"] for m in room.messages if m.get("role") == "assistant"]
+        assert "POOLED:first" in contents
+        assert "POOLED:second" in contents
+        assert not any("[FATAL]" in content for content in contents)
+    finally:
+        pool.shutdown()
+
+
+def test_pool_construction_does_not_block_process_exit():
+    """A pool left unshutdown must not hang interpreter exit.
+
+    Pooled children wait on their pipe indefinitely and are not daemonic,
+    so without the pool's atexit cleanup the process would join them
+    forever (this hung the full CI suite).
+    """
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    src = str(Path(__file__).resolve().parents[1] / "src")
+    code = (
+        "from uagent.web_impl.process_workers import RoomWorkerPool\n"
+        "pool = RoomWorkerPool(2)\n"
+        "import time; time.sleep(5)\n"
+        "print('bye', flush=True)\n"
+    )
+    env = dict(os.environ)
+    env["PYTHONPATH"] = src
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        capture_output=True,
+        text=True,
+        timeout=90,
+        env=env,
+    )
+    assert "bye" in result.stdout
+
+
+def test_finish_worker_observability_pooled_flushes_without_shutdown(monkeypatch):
+    from uagent.runtime.observability import bootstrap, delivery_status
+
+    class _Backend:
+        def __init__(self):
+            self.flushed = False
+            self.shutdown_called = False
+
+        def force_flush(self, timeout_millis=30_000):
+            self.flushed = True
+            return True
+
+        def shutdown(self):
+            self.shutdown_called = True
+
+    backend = _Backend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+    monkeypatch.setattr(
+        delivery_status,
+        "delivery_status_snapshot",
+        lambda: {"state": "ok", "enabled": True},
+    )
+    sent = []
+    _finish_worker_observability(sent.append, initialized=True, pooled=True)
+    assert backend.flushed
+    assert not backend.shutdown_called
+    assert sent == [{"otel_status": {"state": "ok", "enabled": True}}]
+
+    backend2 = _Backend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend2)
+    _finish_worker_observability(sent.append, initialized=True)
+    assert backend2.shutdown_called
+    assert not backend2.flushed
+
+
+def test_run_on_closed_pool_does_not_deadlock(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    room = _pooled_test_room(tmp_path)
+    _wait(lambda: len(pool._warm) == 1, timeout=60)
+    pool.shutdown()
+    thread = threading.Thread(target=pool.run, args=(room, "late"), daemon=True)
+    thread.start()
+    thread.join(15)
+    assert not thread.is_alive()
+
+
+def test_pooled_bound_workers_evict_least_recently_used(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    rooms = [_pooled_test_room(tmp_path, room_id=f"room-{i}") for i in range(4)]
+    handles = {}
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for room in rooms:
+            pool.run(room, "hi")
+            with pool._lock:
+                handles[room.room_id] = pool._bound[room.room_id]
+            assert _echo_observations(room)
+        # The cap is warm (1) + workers (2) = 3 retained room workers;
+        # binding the fourth room evicts the least recently used one.
+        with pool._lock:
+            assert set(pool._bound) == {"room-1", "room-2", "room-3"}
+        assert not handles["room-0"].process.is_alive()
+        assert handles["room-3"].process.is_alive()
+    finally:
+        pool.shutdown()
+
+
+def _pooled_logging_child(connection, payload, pending):
+    """Real pooled child whose stub worker logs through core.log_message."""
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        from uagent import core
+
+        core.set_status(True, "LLM")
+        core.log_message({"role": "user", "content": user_input})
+        room.add_message({"role": "assistant", "content": "POOLED:" + user_input})
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def test_pooled_dual_backend_store_survives_second_turn(monkeypatch, tmp_path):
+    import sqlite3
+
+    from uagent import core
+    from uagent.runtime.session_store import SessionStore
+
+    store_path = tmp_path / "sessions.sqlite3"
+    parent_store = SessionStore(store_path)
+    session = parent_store.create_session(
+        project="test", project_path=str(tmp_path), entry_point="web"
+    )
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "dual")
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_logging_child)
+    monkeypatch.setattr(core, "session_store", parent_store, raising=False)
+    room = _pooled_test_room(tmp_path)
+    room.session_id = session.session_id
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        pool.run(room, "first")
+        pool.run(room, "second")
+        contents = [m["content"] for m in room.messages if m.get("role") == "assistant"]
+        assert "POOLED:first" in contents
+        assert "POOLED:second" in contents
+    finally:
+        pool.shutdown()
+        parent_store.close()
+    conn = sqlite3.connect(store_path)
+    try:
+        rows = conn.execute(
+            "SELECT content FROM messages WHERE session_id = ? AND role = 'user'"
+            " ORDER BY message_id",
+            (session.session_id,),
+        ).fetchall()
+    finally:
+        conn.close()
+    assert [row[0] for row in rows] == ["first", "second"]
+
+
+def _log_chain_room_count(fn) -> int:
+    """Distinct rooms retained by a chain of _child_turn log wrappers."""
+    rooms = []
+    seen = set()
+    while callable(fn) and id(fn) not in seen:
+        seen.add(id(fn))
+        nxt = None
+        for name, cell in zip(fn.__code__.co_freevars, fn.__closure__ or []):
+            if name == "room":
+                rooms.append(cell.cell_contents)
+            elif name == "original_log":
+                nxt = cell.cell_contents
+        fn = nxt
+    return len({id(room) for room in rooms})
+
+
+def _pooled_chain_child(connection, payload, pending):
+    """Real pooled child reporting how many rooms its log chain retains."""
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        from uagent import core
+
+        core.set_status(True, "LLM")
+        count = _log_chain_room_count(core.log_message)
+        room.add_message({"role": "assistant", "content": f"ROOMS:{count}"})
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def test_pooled_turns_do_not_retain_previous_rooms_in_log_chain(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_chain_child)
+    room = _pooled_test_room(tmp_path)
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for text in ("one", "two", "three"):
+            pool.run(room, text)
+        contents = [m["content"] for m in room.messages if m.get("role") == "assistant"]
+        assert contents == ["ROOMS:1", "ROOMS:1", "ROOMS:1"]
+    finally:
+        pool.shutdown()
+
+
+def test_pooled_eviction_skips_reserved_rooms(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    rooms = [_pooled_test_room(tmp_path, room_id=f"room-{i}") for i in range(4)]
+    handles = {}
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for room in rooms[:3]:
+            pool.run(room, "hi")
+            with pool._lock:
+                handles[room.room_id] = pool._bound[room.room_id]
+        # Simulate a concurrent run() that has reserved room-0 and is
+        # about to reuse its worker: eviction must not take that worker.
+        with pool._lock:
+            pool._reserved_rooms.add("room-0")
+        try:
+            pool.run(rooms[3], "hi")
+        finally:
+            with pool._lock:
+                pool._reserved_rooms.discard("room-0")
+        with pool._lock:
+            assert "room-0" in pool._bound
+            assert "room-1" not in pool._bound
+        assert handles["room-0"].process.is_alive()
+        assert not handles["room-1"].process.is_alive()
+    finally:
+        pool.shutdown()
+
+
+def _pooled_env_child(connection, payload, pending):
+    """Pooled-target double reporting one synced env var per turn."""
+    from uagent.web_impl.process_workers import room_state
+    from uagent.web_impl.rooms import WebRoom
+
+    room = WebRoom(payload["room"]["room_id"])
+    for name, value in payload["room"].items():
+        setattr(room, name, value)
+    message = {
+        "role": "assistant",
+        "content": json.dumps(
+            {
+                "pid": os.getpid(),
+                "marker": os.environ.get("UAGENT_SYNC_MARKER", ""),
+            }
+        ),
+    }
+    connection.send({"event": {"type": "message", "message": message}})
+    connection.send({"state": room_state(room)})
+    connection.send({"turn_complete": True})
+
+
+def _env_observations(room):
+    return [
+        json.loads(m["content"])
+        for m in room.messages
+        if m.get("role") == "assistant" and '"marker"' in m["content"]
+    ]
+
+
+def test_pooled_worker_env_follows_parent(monkeypatch, tmp_path):
+    monkeypatch.delenv("UAGENT_SYNC_MARKER", raising=False)
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_env_child)
+    room = _pooled_test_room(tmp_path)
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        pool.run(room, "one")
+        monkeypatch.setenv("UAGENT_SYNC_MARKER", "on")
+        pool.run(room, "two")
+        monkeypatch.delenv("UAGENT_SYNC_MARKER", raising=False)
+        pool.run(room, "three")
+        observed = _env_observations(room)
+        assert [entry["marker"] for entry in observed] == ["", "on", ""]
+        assert len({entry["pid"] for entry in observed}) == 1
+    finally:
+        pool.shutdown()
+
+
+def test_warm_pool_refills_to_configured_target(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, warm_workers=2)
+    try:
+        _wait(lambda: len(pool._warm) == 2, timeout=90)
+    finally:
+        pool.shutdown()
