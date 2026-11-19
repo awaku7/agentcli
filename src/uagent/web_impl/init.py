@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import json
 import os
 import sys
@@ -123,8 +124,36 @@ def _current_web_ask_principal(room) -> str:
         return ""
 
 
+@contextlib.contextmanager
+def _real_console_streams():
+    """Use the real console streams while startup talks to the user.
+
+    Importing this package replaces sys.stdout/sys.stderr with the Web
+    UI capture streams (web_impl.io). Their console mirror is off by
+    default and they only forward complete lines, so an interactive
+    prompt — which has no trailing newline — never reaches the console
+    while input() blocks waiting for its answer, and startup errors
+    vanish the same way. Sandbox initialization asks questions and
+    fails fatally, so it must run on the real console.
+    """
+    saved_stdout, saved_stderr = sys.stdout, sys.stderr
+    try:
+        if sys.__stdout__ is not None:
+            sys.stdout = sys.__stdout__
+        if sys.__stderr__ is not None:
+            sys.stderr = sys.__stderr__
+        yield
+    finally:
+        sys.stdout, sys.stderr = saved_stdout, saved_stderr
+
+
 def _initialize_web_sandbox(parser, *, sandbox_mode: str):
     """Initialize MXC before starting Web; no Host fallback is permitted."""
+    with _real_console_streams():
+        return _initialize_web_sandbox_on_console(parser, sandbox_mode=sandbox_mode)
+
+
+def _initialize_web_sandbox_on_console(parser, *, sandbox_mode: str):
     from ..i18n import _
     from ..runtime.mxc_backend import (
         MxcSessionManager,
