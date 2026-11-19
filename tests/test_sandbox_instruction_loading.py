@@ -69,3 +69,45 @@ def test_find_instruction_files_honors_stop_at(tmp_path, monkeypatch):
     paths = [c.path for c in found]
     assert any(p.endswith("AGENTS.md") and "sandboxes" in p for p in paths)
     assert all("ABOVE" not in runtime_instructions._read_file(p) for p in paths)
+
+
+def test_sandbox_includes_cannot_escape_the_workspace(tmp_path, monkeypatch):
+    host, workspace = _setup(tmp_path, monkeypatch)
+    secret = host / "secret.txt"
+    secret.write_text("HOST SECRET", encoding="utf-8")
+    (workspace / "CLAUDE.md").write_text(
+        "workspace rules\n" f"@{secret}\n" "@../hostproj/secret.txt\n" "@AGENTS.md\n",
+        encoding="utf-8",
+    )
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=_scope()
+    ):
+        contents = runtime_instructions.load_project_instruction_files(
+            workdir=str(host)
+        )
+    joined = "\n".join(contents)
+    assert "HOST SECRET" not in joined
+    # The workspace's own files and in-workspace includes still load.
+    assert "workspace rules" in joined
+    assert "SANDBOX instructions" in joined
+
+
+def test_sandbox_instruction_symlink_escape_is_skipped(tmp_path, monkeypatch):
+    import os
+
+    import pytest
+
+    host, workspace = _setup(tmp_path, monkeypatch)
+    agents = workspace / "AGENTS.md"
+    agents.unlink()
+    try:
+        os.symlink(host / "AGENTS.md", agents)
+    except (OSError, NotImplementedError):
+        pytest.skip("symlinks unavailable")
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=_scope()
+    ):
+        contents = runtime_instructions.load_project_instruction_files(
+            workdir=str(host)
+        )
+    assert "HOST instructions" not in "\n".join(contents)
