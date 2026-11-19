@@ -654,8 +654,9 @@ TOOL_SPECS += (
                 "type": "integer",
                 "default": 30,
                 "minimum": 1,
-                "maximum": 300,
-                "description": "Request timeout in seconds.",
+                "maximum": 40,
+                "description": "Request timeout in seconds (capped by the "
+                "sandbox dispatch budget).",
             },
             "max_bytes": {
                 "type": "integer",

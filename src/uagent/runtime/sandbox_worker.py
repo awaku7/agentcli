@@ -2253,7 +2253,7 @@ def _geodesic_distance(args: dict[str, Any]) -> str:
 
 
 def _date_calc(args: dict[str, Any]) -> str:
-    if _ensure_package("dateutil") is None:
+    if _ensure_package("dateutil", "python-dateutil") is None:
         return json.dumps(
             {
                 "ok": False,
@@ -2604,7 +2604,10 @@ def _http_request(args: dict[str, Any]) -> str:
     if url.startswith("https://") and not verify_ssl:
         context = ssl._create_unverified_context()
     try:
-        timeout = max(1, min(int(args.get("timeout") or 30), 300))
+        # The persistent-worker dispatch budget is 45 seconds, so a
+        # longer HTTP timeout could never be honored (the session would
+        # be torn down first); cap at 40 to stay inside it.
+        timeout = max(1, min(int(args.get("timeout") or 30), 40))
     except (TypeError, ValueError):
         timeout = 30
     try:
@@ -3067,7 +3070,7 @@ def _mermaid_render(args: dict[str, Any]) -> str:
         if suffix == ".svg":
             output_path.write_text(svg, encoding="utf-8")
         elif suffix == ".png":
-            resvg_py = _ensure_package("resvg_py")
+            resvg_py = _ensure_package("resvg_py", "resvg-py")
             if resvg_py is None:
                 return json.dumps(
                     {
@@ -3192,7 +3195,7 @@ def _preprocess_image(args: dict[str, Any]) -> str:
             ensure_ascii=False,
         )
     try:
-        from PIL import Image, ImageEnhance, ImageFilter
+        from PIL import Image, ImageEnhance, ImageFilter, ImageOps
     except ImportError:
         return json.dumps(
             {"ok": False, "error": "Pillow is not available in the sandbox."},
@@ -3206,107 +3209,139 @@ def _preprocess_image(args: dict[str, Any]) -> str:
             return value
         return str(value).lower() in {"1", "true", "yes", "on"}
 
-    applied: list[str] = []
-    notes: list[str] = []
-    image = Image.open(img_path)
-    image.load()
-    if _bool(args.get("grayscale"), True):
-        image = image.convert("L")
-        applied.append("grayscale")
-    resize = str(args.get("resize") or "").strip().lower()
-    if resize:
-        if resize.endswith("x") and resize[:-1].replace(".", "", 1).isdigit():
-            factor = float(resize[:-1])
-            image = image.resize(
-                (max(1, int(image.width * factor)), max(1, int(image.height * factor)))
-            )
-            applied.append(f"resize {resize}")
-        elif "x" in resize:
-            try:
-                w_text, h_text = resize.split("x", 1)
-                image = image.resize((int(w_text), int(h_text)))
-                applied.append(f"resize {resize}")
-            except ValueError:
-                notes.append(f"resize value not understood: {resize}")
+    mode = str(args.get("mode") or "ocr").strip().lower()
+    grayscale = _bool(args.get("grayscale"), True)
+    denoise = _bool(args.get("denoise"), True)
+    binarize = _bool(args.get("binarize"), False)
+    edge_enhance = _bool(args.get("edge_enhance"), False)
+    deskew = _bool(args.get("deskew"), False)
     try:
         contrast = float(args.get("contrast") or 1.0)
     except (TypeError, ValueError):
         contrast = 1.0
-    if contrast != 1.0:
-        image = ImageEnhance.Contrast(image).enhance(contrast)
-        applied.append(f"contrast {contrast}")
-    if _bool(args.get("denoise"), True):
-        try:
-            import cv2
-            import numpy as np
 
-            array = np.array(image)
-            if array.ndim == 2:
-                array = cv2.fastNlMeansDenoising(array, None, 10, 7, 21)
-            else:
-                array = cv2.fastNlMeansDenoisingColored(array, None, 10, 10, 7, 21)
-            image = Image.fromarray(array)
-            applied.append("denoise (opencv)")
-        except ImportError:
+    def _binarize(img: Any) -> Any:
+        gray = ImageOps.grayscale(img)
+        return gray.point(lambda p: 255 if p > 160 else 0)
+
+    # The mode pipeline runs first (mirroring the host tool's
+    # _apply_mode); the optional flags then compose on top of it.
+    image = Image.open(img_path)
+    image.load()
+    ops: list[str] = []
+    if mode == "ocr":
+        image = ImageOps.grayscale(image)
+        ops.append("grayscale")
+        image = image.filter(ImageFilter.MedianFilter(size=3))
+        ops.append("denoise")
+        image = image.filter(ImageFilter.SHARPEN)
+        ops.append("sharpen")
+        image = image.point(lambda p: 255 if p > 180 else 0)
+        ops.append("adaptive_threshold")
+    elif mode == "document":
+        image = ImageOps.grayscale(image)
+        ops.append("grayscale")
+        image = image.filter(ImageFilter.MedianFilter(size=3))
+        ops.append("denoise")
+        image = ImageOps.autocontrast(image)
+        ops.append("contrast")
+    elif mode == "diagram":
+        image = ImageOps.grayscale(image)
+        ops.append("grayscale")
+        image = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
+        ops.append("edge_enhance")
+        image = image.point(lambda p: 255 if p > 170 else 0)
+        ops.append("threshold")
+    elif mode == "photo":
+        image = image.filter(ImageFilter.MedianFilter(size=3))
+        ops.append("denoise")
+        image = ImageOps.autocontrast(image)
+        ops.append("contrast")
+    elif mode == "custom":
+        ops.append("custom")
+    else:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"invalid mode: {mode!r}. "
+                "Use ocr/document/diagram/photo/custom.",
+            },
+            ensure_ascii=False,
+        )
+
+    if mode == "custom":
+        if grayscale:
+            image = ImageOps.grayscale(image)
+            ops.append("grayscale")
+        if denoise:
             image = image.filter(ImageFilter.MedianFilter(size=3))
-            applied.append("denoise (median)")
-    if _bool(args.get("binarize"), False):
-        gray = image.convert("L")
-        try:
-            import cv2
-            import numpy as np
+            ops.append("denoise")
+        if edge_enhance:
+            image = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
+            ops.append("edge_enhance")
+        if binarize:
+            image = _binarize(image)
+            ops.append("binarize")
+        if abs(contrast - 1.0) > 1e-9:
+            image = ImageEnhance.Contrast(image).enhance(contrast)
+            ops.append(f"contrast={contrast}")
+        if deskew:
+            ops.append("deskew")
+    else:
+        if binarize:
+            image = _binarize(image)
+            ops.append("binarize")
+        if edge_enhance:
+            image = image.filter(ImageFilter.EDGE_ENHANCE_MORE)
+            ops.append("edge_enhance")
+        if deskew:
+            ops.append("deskew")
+        if abs(contrast - 1.0) > 1e-9:
+            image = ImageEnhance.Contrast(image).enhance(contrast)
+            ops.append(f"contrast={contrast}")
 
-            _thresh, array = cv2.threshold(
-                np.array(gray), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+    resize = str(args.get("resize") or "").strip().lower()
+    if resize:
+        target: tuple[int, int] | None = None
+        if resize.endswith("x") and resize[:-1].isdigit():
+            factor = float(resize[:-1])
+            target = (
+                max(1, int(image.width * factor)),
+                max(1, int(image.height * factor)),
             )
-            image = Image.fromarray(array)
-        except ImportError:
-            image = gray.point(lambda p: 255 if p > 128 else 0)
-        applied.append("binarize")
-    if _bool(args.get("edge_enhance"), False):
-        image = image.filter(ImageFilter.EDGE_ENHANCE)
-        applied.append("edge_enhance")
-    if _bool(args.get("deskew"), False):
-        try:
-            import cv2
-            import numpy as np
+        elif "x" in resize:
+            w_text, h_text = resize.split("x", 1)
+            if w_text.strip().isdigit() and h_text.strip().isdigit():
+                target = (max(1, int(w_text)), max(1, int(h_text)))
+        if target is None:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"invalid resize value: {resize!r}. "
+                    "Use '2x' or '1600x1200'.",
+                },
+                ensure_ascii=False,
+            )
+        image = image.resize(target, Image.LANCZOS)
+        ops.append(f"resize={target[0]}x{target[1]}")
 
-            array = np.array(image.convert("L"))
-            coords = np.column_stack(np.where(array < 128))
-            angle = (
-                cv2.minAreaRect(coords[:, ::-1].astype(np.float32))[2]
-                if len(coords)
-                else 0.0
-            )
-            if angle and abs(angle) > 0.2:
-                image = image.rotate(
-                    angle if angle > -45 else 90 + angle,
-                    resample=Image.BICUBIC,
-                    expand=True,
-                    fillcolor=255,
-                )
-                applied.append("deskew")
-            else:
-                notes.append("deskew: no significant skew detected")
-        except ImportError:
-            notes.append("deskew skipped: opencv is not available")
     output_dir = _resolve_relative(
         str(args.get("output_dir") or "outputs/image_preprocess")
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     prefix = str(args.get("prefix") or "preprocess_image").strip() or "preprocess_image"
     output_path = output_dir / f"{prefix}_{img_path.stem}.png"
-    image.save(output_path)
-    result: dict[str, Any] = {
-        "ok": True,
-        "input": img_rel,
-        "output": str(output_path.relative_to(ROOT)),
-        "applied": applied,
-        "size": [image.width, image.height],
-    }
-    if notes:
-        result["notes"] = notes
-    return json.dumps(result, ensure_ascii=False)
+    image.save(output_path, format="PNG")
+    return json.dumps(
+        {
+            "ok": True,
+            "output": output_path.relative_to(ROOT).as_posix(),
+            "applied": ops,
+            "width": image.width,
+            "height": image.height,
+        },
+        ensure_ascii=False,
+    )
 
 
 def _alias_store_path(filename: str, *, create: bool = False) -> Path:
@@ -3322,7 +3357,7 @@ def _load_aliases(filename: str) -> dict[int, str]:
         return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
+    except (OSError, ValueError):
         return {}
     result: dict[int, str] = {}
     if isinstance(data, dict):
@@ -3339,7 +3374,7 @@ def _load_aliases(filename: str) -> dict[int, str]:
 def _save_aliases(filename: str, aliases: dict[int, str]) -> None:
     path = _alias_store_path(filename, create=True)
     payload = {str(slot): aliases[slot] for slot in sorted(aliases)}
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
 
 def _alias_slot(args: dict[str, Any]) -> int | None:

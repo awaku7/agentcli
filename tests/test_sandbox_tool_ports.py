@@ -491,6 +491,46 @@ def test_preprocess_image_roundtrip(workspace):
     assert "binarize" in out["applied"]
 
 
+def test_preprocess_image_modes(workspace):
+    pytest.importorskip("PIL")
+    from PIL import Image
+
+    Image.new("RGB", (40, 20), (200, 30, 30)).save(workspace / "in.png")
+    # Default (ocr) mode thresholds: output is bilevel grayscale.
+    out = json.loads(_call("preprocess_image", {"img": "in.png"}))
+    assert out["ok"] is True
+    assert "adaptive_threshold" in out["applied"]
+    with Image.open(workspace / out["output"]) as image:
+        assert image.mode == "L"
+        assert set(image.getdata()) <= {0, 255}
+    # Photo mode preserves color.
+    out = json.loads(_call("preprocess_image", {"img": "in.png", "mode": "photo"}))
+    assert out["ok"] is True
+    with Image.open(workspace / out["output"]) as image:
+        assert image.mode == "RGB"
+    # Unknown modes are rejected.
+    out = json.loads(_call("preprocess_image", {"img": "in.png", "mode": "bogus"}))
+    assert out["ok"] is False
+
+
+def test_date_calc_installs_python_dateutil(workspace, monkeypatch):
+    import importlib
+
+    calls = []
+
+    def recorder(module_name, pip_name=None):
+        calls.append((module_name, pip_name))
+        try:
+            return importlib.import_module(module_name)
+        except ImportError:
+            return None
+
+    monkeypatch.setattr(worker, "_ensure_package", recorder)
+    out = _call("date_calc", {"operation": "add", "date": "2026-01-31", "months": 1})
+    assert "2026-02-28" in out
+    assert ("dateutil", "python-dateutil") in calls
+
+
 # ---------------------------------------------------------------------------
 # Alias tools and generate_prompt
 # ---------------------------------------------------------------------------
