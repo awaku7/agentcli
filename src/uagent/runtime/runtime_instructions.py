@@ -46,13 +46,35 @@ class InstructionCandidate:
     # list of file paths that were inlined via @-include
 
 
-def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
+def _is_within(path: str, root: str) -> bool:
+    """True when path's real location is root or inside it.
+
+    Symlinks and junctions are resolved, so a link inside the root
+    that points outside does not count as within.
+    """
+    try:
+        resolved = os.path.realpath(path)
+        base = os.path.realpath(root)
+        return os.path.commonpath([resolved, base]) == base
+    except (OSError, ValueError):
+        return False
+
+
+def _find_instruction_files(
+    workdir: str, *, stop_at: str | None = None, confine_to: str | None = None
+) -> list[InstructionCandidate]:
     """Walk from workdir up to root, collect CLAUDE.md / AGENTS.md files.
 
     Priority per directory:
       - If CLAUDE.md exists and contains @AGENTS.md, load CLAUDE.md with include resolved.
       - If both exist but no @AGENTS.md in CLAUDE.md, add both as separate candidates.
       - If only one exists, add it.
+
+    With ``stop_at``, the walk stops after that directory (inclusive)
+    instead of continuing to the filesystem root. With ``confine_to``,
+    instruction files and their @-includes are only read when their
+    real path stays inside that directory (Sandbox mode: a workspace
+    file must not pull host files into the model context).
     """
     candidates: list[InstructionCandidate] = []
     seen_dirs: set[str] = set()
@@ -69,10 +91,17 @@ def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
 
         has_claude = os.path.isfile(claude_path)
         has_agents = os.path.isfile(agents_path)
+        if confine_to is not None:
+            if has_claude and not _is_within(claude_path, confine_to):
+                has_claude = False
+            if has_agents and not _is_within(agents_path, confine_to):
+                has_agents = False
 
         if has_claude:
             raw = _read_file(claude_path)
-            resolved, included = _resolve_includes(raw, os.path.dirname(claude_path))
+            resolved, included = _resolve_includes(
+                raw, os.path.dirname(claude_path), confine_to=confine_to
+            )
             has_agents_ref = any(
                 os.path.basename(p).lower() == "agents.md" for p in included
             )
@@ -89,7 +118,9 @@ def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
                 )
             elif has_claude and has_agents:
                 # Both exist but no @AGENTS.md reference: add both separately.
-                claude_content, _ = _resolve_includes(raw, os.path.dirname(claude_path))
+                claude_content, _ = _resolve_includes(
+                    raw, os.path.dirname(claude_path), confine_to=confine_to
+                )
                 agents_content = _read_file(agents_path)
                 candidates.append(
                     InstructionCandidate(
@@ -125,7 +156,11 @@ def _find_instruction_files(workdir: str) -> list[InstructionCandidate]:
                 )
             )
 
-        # Move to parent directory
+        # Move to parent directory, unless the walk is bounded here.
+        if stop_at is not None and norm == os.path.normcase(
+            os.path.normpath(os.path.abspath(stop_at))
+        ):
+            break
         parent = os.path.dirname(current)
         if parent == current:
             break
@@ -142,7 +177,9 @@ def _read_file(path: str) -> str:
         return ""
 
 
-def _resolve_includes(content: str, base_dir: str) -> tuple[str, list[str]]:
+def _resolve_includes(
+    content: str, base_dir: str, *, confine_to: str | None = None
+) -> tuple[str, list[str]]:
     """Process @-include directives in instruction file content.
 
     Supported patterns:
@@ -150,6 +187,10 @@ def _resolve_includes(content: str, base_dir: str) -> tuple[str, list[str]]:
       @agents.md           -> case-insensitive variant
 
     Returns (resolved_content, list_of_included_file_paths).
+
+    With ``confine_to``, an include whose real path leaves that
+    directory is not inlined (the directive line is kept as-is,
+    exactly like a missing include).
     """
     lines = content.splitlines(keepends=True)
     result: list[str] = []
@@ -167,6 +208,9 @@ def _resolve_includes(content: str, base_dir: str) -> tuple[str, list[str]]:
 
             # Resolve relative to the base directory
             target_path = os.path.normpath(os.path.join(base_dir, include_target))
+            if confine_to is not None and not _is_within(target_path, confine_to):
+                result.append(line)
+                continue
             if os.path.isfile(target_path):
                 included_content = _read_file(target_path)
                 if included_content:
@@ -332,6 +376,28 @@ def _is_non_interactive_mode() -> bool:
     )
 
 
+def _sandbox_workspace_root() -> str | None:
+    """Return the active Sandbox workspace directory, or None.
+
+    In Sandbox mode the agent works in the per-scope MXC workspace,
+    not in the host project directory, so instruction files are
+    discovered in the workspace instead of on the host.
+    """
+    try:
+        from .execution_broker import current_sandbox_enabled, current_scope
+
+        if not current_sandbox_enabled():
+            return None
+        scope = current_scope()
+        if scope is None:
+            return None
+        from .mxc_backend import _workspace_for_scope
+
+        return str(_workspace_for_scope(scope))
+    except Exception:
+        return None
+
+
 def load_project_instruction_files(
     *,
     workdir: str | None = None,
@@ -356,7 +422,13 @@ def load_project_instruction_files(
     if workdir is None:
         workdir = os.getcwd()
 
-    candidates = _find_instruction_files(workdir)
+    # In Sandbox mode, discover instructions in the sandbox workspace
+    # rather than the host project directory, and never above it.
+    stop_at = _sandbox_workspace_root()
+    if stop_at is not None:
+        workdir = stop_at
+
+    candidates = _find_instruction_files(workdir, stop_at=stop_at, confine_to=stop_at)
     if not candidates:
         return []
 
@@ -423,7 +495,13 @@ def reload_instruction_files(
     if workdir is None:
         workdir = os.getcwd()
 
-    candidates = _find_instruction_files(workdir)
+    # Same Sandbox rule as the initial load: the workspace is the
+    # working directory, and discovery never leaves it.
+    stop_at = _sandbox_workspace_root()
+    if stop_at is not None:
+        workdir = stop_at
+
+    candidates = _find_instruction_files(workdir, stop_at=stop_at, confine_to=stop_at)
     if not candidates:
         return []
 
