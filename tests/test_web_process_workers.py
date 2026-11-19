@@ -1627,3 +1627,37 @@ def test_warm_pool_refills_to_configured_target(monkeypatch, tmp_path):
         _wait(lambda: len(pool._warm) == 2, timeout=90)
     finally:
         pool.shutdown()
+
+
+def test_prewarm_loads_tool_specs_and_provider_client(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    calls = []
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs", lambda: calls.append("specs") or []
+    )
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: calls.append("client") or ("openai", object(), "m"),
+    )
+    _prewarm_child_imports()
+    assert calls == ["specs", "client"]
+
+
+def test_prewarm_tolerates_failures(monkeypatch):
+    from uagent.providers import util_providers
+    from uagent.web_impl.process_workers import _prewarm_child_imports
+
+    def boom():
+        raise RuntimeError("no specs")
+
+    monkeypatch.setattr("uagent.tools.get_tool_specs", boom)
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: (_ for _ in ()).throw(RuntimeError("no client")),
+    )
+    # Must not raise: the first real turn surfaces the same failures.
+    _prewarm_child_imports()

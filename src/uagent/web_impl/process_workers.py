@@ -169,9 +169,32 @@ def _pooled_child_turn(connection, payload, pending) -> None:
 
 
 def _prewarm_child_imports() -> None:
-    """Load the modules a turn needs so a warm worker only pays for the turn."""
+    """Load what a turn needs so a warm worker only pays for the turn.
+
+    Importing the core modules is not enough: the first turn also loads
+    the tool plugins (every tool module and its catalog) and builds a
+    provider client (the provider SDK import, its optional-dependency
+    check, and the model catalog lookup). Both are one-time,
+    process-global costs with the same result for every later turn, so
+    pay them here, before the ready signal. Each step is best-effort —
+    a failure here surfaces again, unchanged, on the first real turn.
+    The warmed client is discarded; turns build their own.
+    """
     from .. import core  # noqa: F401
     from . import agent_worker, init, rooms  # noqa: F401
+
+    try:
+        from ..tools import get_tool_specs
+
+        get_tool_specs()
+    except Exception:
+        pass
+    try:
+        from ..providers import util_providers
+
+        util_providers.make_client(core)
+    except Exception:
+        pass
 
 
 def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
