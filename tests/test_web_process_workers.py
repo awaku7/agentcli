@@ -1571,3 +1571,59 @@ def test_pooled_eviction_skips_reserved_rooms(monkeypatch, tmp_path):
         assert not handles["room-1"].process.is_alive()
     finally:
         pool.shutdown()
+
+
+def _pooled_env_child(connection, payload, pending):
+    """Pooled-target double reporting one synced env var per turn."""
+    from uagent.web_impl.process_workers import room_state
+    from uagent.web_impl.rooms import WebRoom
+
+    room = WebRoom(payload["room"]["room_id"])
+    for name, value in payload["room"].items():
+        setattr(room, name, value)
+    message = {
+        "role": "assistant",
+        "content": json.dumps(
+            {
+                "pid": os.getpid(),
+                "marker": os.environ.get("UAGENT_SYNC_MARKER", ""),
+            }
+        ),
+    }
+    connection.send({"event": {"type": "message", "message": message}})
+    connection.send({"state": room_state(room)})
+    connection.send({"turn_complete": True})
+
+
+def _env_observations(room):
+    return [
+        json.loads(m["content"])
+        for m in room.messages
+        if m.get("role") == "assistant" and '"marker"' in m["content"]
+    ]
+
+
+def test_pooled_worker_env_follows_parent(monkeypatch, tmp_path):
+    monkeypatch.delenv("UAGENT_SYNC_MARKER", raising=False)
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_env_child)
+    room = _pooled_test_room(tmp_path)
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        pool.run(room, "one")
+        monkeypatch.setenv("UAGENT_SYNC_MARKER", "on")
+        pool.run(room, "two")
+        monkeypatch.delenv("UAGENT_SYNC_MARKER", raising=False)
+        pool.run(room, "three")
+        observed = _env_observations(room)
+        assert [entry["marker"] for entry in observed] == ["", "on", ""]
+        assert len({entry["pid"] for entry in observed}) == 1
+    finally:
+        pool.shutdown()
+
+
+def test_warm_pool_refills_to_configured_target(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path, warm_workers=2)
+    try:
+        _wait(lambda: len(pool._warm) == 2, timeout=90)
+    finally:
+        pool.shutdown()

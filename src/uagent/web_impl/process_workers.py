@@ -184,6 +184,37 @@ def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
         _close_worker_session_store()
 
 
+_POOLED_SPAWN_ENV_KEYS: set[str] | None = None
+_POOLED_SYNCED_ENV_KEYS: set[str] = set()
+
+
+def _apply_pooled_env_sync(payload) -> None:
+    """Apply the parent's current UAGENT_* settings inside a pooled worker.
+
+    The parent ships its UAGENT_* environment with every pooled turn
+    (mode commands and :env set change only the parent's environment,
+    while a pooled worker would otherwise keep its spawn-time values
+    forever). Keys the worker itself set after spawn are left alone;
+    only keys from its spawn-time environment or from an earlier sync
+    can be removed, namely when the parent has since unset them.
+    """
+    sync = payload.get("uagent_env")
+    if not isinstance(sync, dict):
+        return
+    removable = (_POOLED_SPAWN_ENV_KEYS or set()) | _POOLED_SYNCED_ENV_KEYS
+    for key in removable:
+        if key not in sync:
+            os.environ.pop(key, None)
+    for key, value in sync.items():
+        if (
+            isinstance(key, str)
+            and key.startswith("UAGENT_")
+            and isinstance(value, str)
+        ):
+            os.environ[key] = value
+            _POOLED_SYNCED_ENV_KEYS.add(key)
+
+
 def _pooled_worker_loop(connection, target) -> None:
     """Serve turns for one room at a time until stopped or recycled.
 
@@ -196,6 +227,8 @@ def _pooled_worker_loop(connection, target) -> None:
     """
     import queue as queue_module
 
+    global _POOLED_SPAWN_ENV_KEYS
+    _POOLED_SPAWN_ENV_KEYS = {key for key in os.environ if key.startswith("UAGENT_")}
     pending: queue_module.SimpleQueue = queue_module.SimpleQueue()
     try:
         _prewarm_child_imports()
@@ -222,6 +255,7 @@ def _pooled_worker_loop(connection, target) -> None:
         if "room" not in payload or "input" not in payload:
             # Stray control message between turns; nothing to do with it.
             continue
+        _apply_pooled_env_sync(payload)
         try:
             target(connection, payload, pending)
         except Exception:
@@ -771,6 +805,7 @@ class RoomWorkerPool:
             self._refill_in_flight = True
 
         def refill():
+            appended = False
             try:
                 handle = self._spawn_pooled_handle()
                 deadline = time.monotonic() + 60
@@ -791,6 +826,7 @@ class RoomWorkerPool:
                                     self._terminate_handle(handle)
                                 else:
                                     self._warm.append(handle)
+                                    appended = True
                             return
                         self._terminate_handle(handle)
                         return
@@ -800,6 +836,12 @@ class RoomWorkerPool:
             finally:
                 with self._warm_lock:
                     self._refill_in_flight = False
+                if appended:
+                    # One refill adds one worker; chain until the warm
+                    # target is reached (the guard in _refill_async
+                    # stops the chain there, and a failed spawn does not
+                    # chain, so this cannot spin).
+                    self._refill_async()
 
         threading.Thread(target=refill, name="web-worker-refill", daemon=True).start()
 
@@ -1144,6 +1186,16 @@ class RoomWorkerPool:
                     self._running[room.room_id] = (room, parent, process, pipe_lock)
                 try:
                     with pipe_lock:
+                        # Pooled workers keep the environment they were
+                        # spawned with; mode commands (:r, :v) and :env set
+                        # change only the parent's environment. Ship the
+                        # current UAGENT_* settings with every pooled turn
+                        # so the child applies them at the turn boundary.
+                        payload["uagent_env"] = {
+                            key: value
+                            for key, value in os.environ.items()
+                            if key.startswith("UAGENT_")
+                        }
                         parent.send(payload)
                 except (EOFError, OSError):
                     self._unbind(room.room_id, pooled_handle)
