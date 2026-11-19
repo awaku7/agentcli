@@ -266,7 +266,7 @@ def test_http_request_array_query_params(echo_server):
 
 def test_expand_aliases_in_args_against_explicit_workspace():
     (worker.ROOT / "docs").mkdir(exist_ok=True)
-    _call("path_alias", {"action": "register", "slot": 2, "path": "docs"})
+    _call("path_alias", {"action": "set", "slot": 2, "path": "docs"})
     expanded = worker.expand_aliases_in_args(
         {"argv": ["git", "status"], "cwd": "@A{2}"}, worker.ROOT
     )
