@@ -2200,3 +2200,26 @@ def test_response_timeout_seconds_budgets():
         "qr_code",
     ):
         assert mxc_backend._response_timeout_seconds(name) == 300
+
+
+def test_invalid_git_override_fails_before_lease(monkeypatch, tmp_path, local_scope):
+    lease_calls = []
+
+    def raising_git_install():
+        raise RuntimeError("UAGENT_MXC_GIT does not point to a Git install")
+
+    monkeypatch.setattr(mxc_backend, "_host_git_install", raising_git_install)
+    monkeypatch.setattr(
+        mxc_backend,
+        "_acquire_workspace_lease",
+        lambda *args: lease_calls.append(args) or object(),
+    )
+    with pytest.raises(RuntimeError, match="UAGENT_MXC_GIT"):
+        mxc_backend._MxcSession(
+            scope=local_scope,
+            node=tmp_path / "node",
+            runtime=tmp_path / "runtime",
+        )
+    # The invalid override must surface before any session resource
+    # (workspace lease, helper process) is acquired, so nothing leaks.
+    assert lease_calls == []

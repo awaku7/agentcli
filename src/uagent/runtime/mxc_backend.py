@@ -1943,6 +1943,11 @@ class _MxcSession:
         # Git credentials may be revoked between worker creation and use.
         # The host revalidates a nonsecret hostname on each direct Git call.
         git_remote_host = None
+        # Resolve the host Git install before acquiring any session
+        # resource: an invalid UAGENT_MXC_GIT override raises, and that
+        # must not leak the helper process, reader threads, or the
+        # workspace lease created below.
+        git_install = _host_git_install()
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
             self.workspace.parent, self.workspace.name
@@ -2075,7 +2080,6 @@ class _MxcSession:
         threading.Thread(
             target=self._read_stderr, name="mxc-stderr", daemon=True
         ).start()
-        git_install = _host_git_install()
         config = {
             "workspace": str(self.workspace),
             "pythonExe": str(python_exe),
