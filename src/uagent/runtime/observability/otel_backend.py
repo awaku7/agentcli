@@ -793,6 +793,30 @@ class OpenTelemetryBackend:
         except Exception:
             return TraceIds()
 
+    def force_flush(self, timeout_millis: int = 30_000) -> bool:
+        """Flush queued spans and metrics without shutting down.
+
+        Pooled web workers keep this backend across turns and flush at
+        each turn boundary, so a later hard termination of the worker
+        cannot strand a completed turn's telemetry in the providers'
+        batch processors.
+        """
+        if self._shutdown:
+            return False
+        flushed = True
+        try:
+            if self._meter_provider is not None:
+                flushed = (
+                    bool(self._meter_provider.force_flush(timeout_millis)) and flushed
+                )
+        except Exception:
+            flushed = False
+        try:
+            flushed = bool(self._provider.force_flush(timeout_millis)) and flushed
+        except Exception:
+            flushed = False
+        return flushed
+
     def shutdown(self) -> None:
         if self._shutdown:
             return

@@ -215,3 +215,38 @@ def test_otel_adapter_exports_standard_dynamic_metadata_only() -> None:
     cancelled_span.add_event("llm.round.completed", {"uag.status": "cancelled"})
     assert cancelled.attributes == {"uag.status": "cancelled"}
     assert cancelled.events == [("llm.round.completed", {"uag.status": "cancelled"})]
+
+
+def test_otel_backend_force_flush_drains_both_providers() -> None:
+    from uagent.runtime.observability.otel_backend import OpenTelemetryBackend
+
+    class _Provider:
+        def __init__(self) -> None:
+            self.flush_calls: list[int] = []
+            self.shutdown_calls = 0
+
+        def force_flush(self, timeout_millis: int = 30_000) -> bool:
+            self.flush_calls.append(timeout_millis)
+            return True
+
+        def shutdown(self) -> None:
+            self.shutdown_calls += 1
+
+    tracer_provider = _Provider()
+    meter_provider = _Provider()
+    backend = OpenTelemetryBackend(
+        tracer=object(),
+        provider=tracer_provider,
+        settings=ObservabilitySettings(enabled=True),
+        meter_provider=meter_provider,
+    )
+    assert backend.force_flush(1234) is True
+    assert tracer_provider.flush_calls == [1234]
+    assert meter_provider.flush_calls == [1234]
+    # Flushing must not shut the providers down; pooled workers reuse
+    # the backend on the next turn.
+    assert tracer_provider.shutdown_calls == 0
+    assert meter_provider.shutdown_calls == 0
+    backend.shutdown()
+    assert backend.force_flush() is False
+    assert tracer_provider.flush_calls == [1234]
