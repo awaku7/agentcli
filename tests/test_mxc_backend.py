@@ -3,7 +3,9 @@ from __future__ import annotations
 import io
 import json
 import os
+import platform
 import stat
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -2102,6 +2104,88 @@ def test_startup_scope_persisted_session_is_process_instance_specific(
     assert first.scope_id != second.scope_id
 
 
+def _fake_git_root(tmp_path):
+    root = tmp_path / "Program Files" / "Git"
+    (root / "cmd").mkdir(parents=True)
+    (root / "cmd" / "git.exe").touch()
+    (root / "bin").mkdir()
+    (root / "bin" / "git.exe").touch()
+    return root
+
+
+def _stub_git_host(monkeypatch, tmp_path, *, snapshot=None, startup_path=""):
+    from uagent.runtime import runtime_init
+
+    monkeypatch.setattr(mxc_backend.sys, "platform", "win32")
+    monkeypatch.setattr(
+        runtime_init, "get_startup_uagent_env_snapshot", lambda: snapshot or {}
+    )
+    monkeypatch.setattr(runtime_init, "get_startup_path_snapshot", lambda: startup_path)
+    monkeypatch.setattr(
+        mxc_backend, "_local_app_data", lambda: tmp_path / "local-app-data"
+    )
+    monkeypatch.delenv("ProgramFiles", raising=False)
+    monkeypatch.delenv("ProgramFiles(x86)", raising=False)
+
+
+def test_host_git_install_is_windows_only(monkeypatch, tmp_path):
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.sys, "platform", "linux")
+    assert mxc_backend._host_git_install() is None
+
+
+def test_host_git_install_from_startup_path(monkeypatch, tmp_path):
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(monkeypatch, tmp_path, startup_path=str(root / "cmd"))
+    monkeypatch.setattr(
+        mxc_backend.shutil,
+        "which",
+        lambda executable, path=None: (
+            str(root / "cmd" / "git.exe") if path == str(root / "cmd") else None
+        ),
+    )
+    assert mxc_backend._host_git_install() == (str(root), str(root / "cmd"))
+
+
+def test_host_git_install_from_program_files(monkeypatch, tmp_path):
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.shutil, "which", lambda executable, path=None: None)
+    monkeypatch.setenv("ProgramFiles", str(tmp_path / "Program Files"))
+    assert mxc_backend._host_git_install() == (str(root), str(root / "cmd"))
+
+
+def test_host_git_install_override_wins_and_must_be_valid(monkeypatch, tmp_path):
+    import pytest
+
+    root = _fake_git_root(tmp_path)
+    _stub_git_host(
+        monkeypatch,
+        tmp_path,
+        snapshot={"UAGENT_MXC_GIT": str(root / "cmd" / "git.exe")},
+    )
+    assert mxc_backend._host_git_install() == (
+        str(root.resolve()),
+        str((root / "cmd").resolve()),
+    )
+
+    _stub_git_host(monkeypatch, tmp_path, snapshot={"UAGENT_MXC_GIT": "relative/git"})
+    with pytest.raises(RuntimeError, match="must be an absolute path"):
+        mxc_backend._host_git_install()
+
+    _stub_git_host(
+        monkeypatch, tmp_path, snapshot={"UAGENT_MXC_GIT": str(tmp_path / "nope")}
+    )
+    with pytest.raises(RuntimeError, match="does not point to a Git installation"):
+        mxc_backend._host_git_install()
+
+
+def test_host_git_install_missing_returns_none(monkeypatch, tmp_path):
+    _stub_git_host(monkeypatch, tmp_path)
+    monkeypatch.setattr(mxc_backend.shutil, "which", lambda executable, path=None: None)
+    assert mxc_backend._host_git_install() is None
+
+
 def test_response_timeout_seconds_budgets():
     assert mxc_backend._response_timeout_seconds("read_file") == 45
     assert mxc_backend._response_timeout_seconds("python_exec") == 60
@@ -2118,3 +2202,34 @@ def test_response_timeout_seconds_budgets():
         "qr_code",
     ):
         assert mxc_backend._response_timeout_seconds(name) == 300
+
+
+def test_invalid_git_override_fails_before_lease(monkeypatch, tmp_path, local_scope):
+    lease_calls = []
+    if sys.platform == "darwin" and platform.machine().lower() not in {
+        "arm64",
+        "aarch64",
+    }:
+        # Intel Macs are outside the MXC platform gate, so the session
+        # constructor raises before the Git check there; present as a
+        # Linux host so the ordering under test is what runs.
+        monkeypatch.setattr(sys, "platform", "linux")
+
+    def raising_git_install():
+        raise RuntimeError("UAGENT_MXC_GIT does not point to a Git install")
+
+    monkeypatch.setattr(mxc_backend, "_host_git_install", raising_git_install)
+    monkeypatch.setattr(
+        mxc_backend,
+        "_acquire_workspace_lease",
+        lambda *args: lease_calls.append(args) or object(),
+    )
+    with pytest.raises(RuntimeError, match="UAGENT_MXC_GIT"):
+        mxc_backend._MxcSession(
+            scope=local_scope,
+            node=tmp_path / "node",
+            runtime=tmp_path / "runtime",
+        )
+    # The invalid override must surface before any session resource
+    # (workspace lease, helper process) is acquired, so nothing leaks.
+    assert lease_calls == []
