@@ -1417,3 +1417,81 @@ def test_run_on_closed_pool_does_not_deadlock(monkeypatch, tmp_path):
     thread.start()
     thread.join(15)
     assert not thread.is_alive()
+
+
+def test_pooled_bound_workers_evict_least_recently_used(monkeypatch, tmp_path):
+    pool = _pooled_test_pool(monkeypatch, tmp_path)
+    rooms = [_pooled_test_room(tmp_path, room_id=f"room-{i}") for i in range(4)]
+    handles = {}
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        for room in rooms:
+            pool.run(room, "hi")
+            with pool._lock:
+                handles[room.room_id] = pool._bound[room.room_id]
+            assert _echo_observations(room)
+        # The cap is warm (1) + workers (2) = 3 retained room workers;
+        # binding the fourth room evicts the least recently used one.
+        with pool._lock:
+            assert set(pool._bound) == {"room-1", "room-2", "room-3"}
+        assert not handles["room-0"].process.is_alive()
+        assert handles["room-3"].process.is_alive()
+    finally:
+        pool.shutdown()
+
+
+def _pooled_logging_child(connection, payload, pending):
+    """Real pooled child whose stub worker logs through core.log_message."""
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        from uagent import core
+
+        core.set_status(True, "LLM")
+        core.log_message({"role": "user", "content": user_input})
+        room.add_message({"role": "assistant", "content": "POOLED:" + user_input})
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload, pooled=True, pending_payloads=pending)
+
+
+def test_pooled_dual_backend_store_survives_second_turn(monkeypatch, tmp_path):
+    import sqlite3
+
+    from uagent import core
+    from uagent.runtime.session_store import SessionStore
+
+    store_path = tmp_path / "sessions.sqlite3"
+    parent_store = SessionStore(store_path)
+    session = parent_store.create_session(
+        project="test", project_path=str(tmp_path), entry_point="web"
+    )
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "dual")
+    pool = _pooled_test_pool(monkeypatch, tmp_path, pooled_target=_pooled_logging_child)
+    monkeypatch.setattr(core, "session_store", parent_store, raising=False)
+    room = _pooled_test_room(tmp_path)
+    room.session_id = session.session_id
+    try:
+        _wait(lambda: len(pool._warm) == 1, timeout=60)
+        pool.run(room, "first")
+        pool.run(room, "second")
+        contents = [m["content"] for m in room.messages if m.get("role") == "assistant"]
+        assert "POOLED:first" in contents
+        assert "POOLED:second" in contents
+    finally:
+        pool.shutdown()
+        parent_store.close()
+    conn = sqlite3.connect(store_path)
+    try:
+        rows = conn.execute(
+            "SELECT content FROM messages WHERE session_id = ? AND role = 'user'"
+            " ORDER BY message_id",
+            (session.session_id,),
+        ).fetchall()
+    finally:
+        conn.close()
+    assert [row[0] for row in rows] == ["first", "second"]

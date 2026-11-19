@@ -142,7 +142,16 @@ def warm_worker_count(workers: int, cli_value: int | None = None) -> int:
 class _WorkerHandle:
     """One pooled child process and its parent-side pipe."""
 
-    __slots__ = ("process", "conn", "lock", "fingerprint", "turns", "room", "ready")
+    __slots__ = (
+        "process",
+        "conn",
+        "lock",
+        "fingerprint",
+        "turns",
+        "room",
+        "ready",
+        "last_used",
+    )
 
     def __init__(self, process, conn):
         self.process = process
@@ -152,6 +161,7 @@ class _WorkerHandle:
         self.turns = 0
         self.room = None
         self.ready = False
+        self.last_used = time.monotonic()
 
 
 def _pooled_child_turn(connection, payload, pending) -> None:
@@ -171,6 +181,7 @@ def _pooled_worker_entry(connection, target=_pooled_child_turn) -> None:
         # The per-turn finish only flushes in pooled mode; the process
         # backend is shut down once, when this worker exits.
         _shutdown_worker_observability()
+        _close_worker_session_store()
 
 
 def _pooled_worker_loop(connection, target) -> None:
@@ -271,6 +282,32 @@ def _shutdown_worker_observability() -> None:
         shutdown = getattr(get_observability_backend(), "shutdown", None)
         if callable(shutdown):
             shutdown()
+    except Exception:
+        pass
+
+
+def _detach_worker_session_store(core) -> None:
+    """Detach a worker's session store, restoring the log callback.
+
+    Closing the store alone leaves the wrapper attach installed as
+    ``core.log_message``; the next attach would wrap that stale callback
+    and route logging into the closed store, silently losing messages.
+    """
+    try:
+        from ..runtime.session_store import detach_opt_in_session_store
+
+        detach_opt_in_session_store(core)
+    except Exception:
+        pass
+
+
+def _close_worker_session_store() -> None:
+    """Detach the pooled worker's session store, if one is attached."""
+    try:
+        from .. import core
+
+        if getattr(core, "session_store", None) is not None:
+            _detach_worker_session_store(core)
     except Exception:
         pass
 
@@ -391,28 +428,23 @@ def _child_turn(
     for name, value in payload["core"].items():
         setattr(core, name, value)
     store_path = payload.get("store_path")
-    reused_store = False
     if store_path:
         os.environ["UAGENT_SESSION_STORE"] = "1"
         os.environ["UAGENT_SESSION_STORE_PATH"] = store_path
         existing_store = getattr(core, "session_store", None)
-        if (
+        reuse_store = (
             pooled
             and existing_store is not None
             and room.session_id
             and getattr(core, "session_id", None) == room.session_id
             and str(getattr(existing_store, "path", "")) == str(store_path)
-        ):
-            # Same room, same session, same store file: keep the open
-            # store (and its schema checks) instead of re-attaching.
-            reused_store = True
-        else:
+        )
+        if not reuse_store:
             if pooled and existing_store is not None:
-                try:
-                    existing_store.close()
-                except Exception:
-                    pass
-                core.session_store = None
+                # Detach rather than just closing: attach installed a log
+                # wrapper on core, and leaving it in place would route
+                # the next attach's logging into the closed store.
+                _detach_worker_session_store(core)
             attach_opt_in_session_store(
                 core,
                 project_path=room.base_dir,
@@ -422,11 +454,10 @@ def _child_turn(
     else:
         os.environ["UAGENT_SESSION_STORE"] = "0"
         if pooled and getattr(core, "session_store", None) is not None:
-            try:
-                core.session_store.close()
-            except Exception:
-                pass
-            core.session_store = None
+            session_id = getattr(core, "session_id", None)
+            _detach_worker_session_store(core)
+            if session_id is not None:
+                core.session_id = session_id
     from ..runtime.execution_broker import SecurityProfile, execution_profile
     from ..runtime.runtime_plugins import load_plugins_status_at_startup
 
@@ -611,15 +642,13 @@ def _child_turn(
         loop_thread.join(5)
         if pooled:
             # The Sandbox RPC pipe is per turn even for a pooled worker;
-            # only the control connection and a reusable session store
-            # outlive the turn.
+            # only the control connection and the session store outlive
+            # the turn. The store is not closed here: its log wrapper is
+            # installed on core, and closing it would silently break the
+            # next turn's persistence. It is detached when a different
+            # store attaches and when the worker exits.
             if rpc_connection is not None:
                 rpc_connection.close()
-            if not reused_store:
-                store = getattr(core, "session_store", None)
-                if store is not None:
-                    store.close()
-                    core.session_store = None
             try:
                 send({"turn_complete": True})
             except (EOFError, OSError):
@@ -789,6 +818,7 @@ class RoomWorkerPool:
                 and handle.fingerprint == fingerprint
                 and handle.process.is_alive()
             ):
+                handle.last_used = time.monotonic()
                 return handle
             self._unbind(room.room_id, handle)
         handle = self._claim_warm()
@@ -798,9 +828,39 @@ class RoomWorkerPool:
         handle.fingerprint = fingerprint
         handle.room = room
         handle.turns = 0
+        handle.last_used = time.monotonic()
         with self._lock:
             self._bound[room.room_id] = handle
+        self._evict_bound_workers(keep=room.room_id)
         return handle
+
+    def _bound_worker_cap(self) -> int:
+        """How many rooms may retain a pooled worker at once."""
+        return max(1, self._warm_target) + max(1, self.workers)
+
+    def _evict_bound_workers(self, *, keep: str) -> None:
+        """Evict least-recently-used idle bound workers above the cap.
+
+        Public rooms are never retired, so without a bound their workers
+        would accumulate for the life of the server. An evicted room
+        keeps its history; its next turn simply claims a worker again.
+        Workers running a turn are never evicted.
+        """
+        while True:
+            with self._lock:
+                if len(self._bound) <= self._bound_worker_cap():
+                    return
+                candidates = [
+                    (handle.last_used, room_id)
+                    for room_id, handle in self._bound.items()
+                    if room_id != keep and room_id not in self._running
+                ]
+                if not candidates:
+                    return
+                candidates.sort()
+                victim_id = candidates[0][1]
+                victim = self._bound[victim_id]
+            self._unbind(victim_id, victim)
 
     def _terminate_handle(self, handle: _WorkerHandle) -> None:
         try:
@@ -1256,6 +1316,7 @@ class RoomWorkerPool:
                 )
                 if keep_pooled:
                     pooled_handle.turns += 1
+                    pooled_handle.last_used = time.monotonic()
                     if pooled_handle.turns >= _MAX_POOLED_TURNS:
                         self._unbind(room.room_id, pooled_handle)
                 else:

@@ -76,7 +76,10 @@ worker fails, or it has served 200 turns; it is then terminated and replaced.
 Within a room, process-local tool resources and the open session store may
 therefore persist across that room's turns, matching the CLI's one-process
 session behaviour; the store is re-attached whenever the room, session or
-store path changes.
+store path changes. At most `UAGENT_WEB_WARM_WORKERS` + room-workers rooms
+retain a worker at once; binding one more room evicts the least recently
+used idle worker (a room that loses its worker keeps its history and simply
+claims a worker again on its next turn).
 
 Offline tests run the real spawn/IPC/worker path with a fake provider and actual
 `python_exec` file operations. They verify concurrent rooms, capacity overflow,
