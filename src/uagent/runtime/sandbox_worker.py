@@ -3,8 +3,14 @@
 from __future__ import annotations
 
 import ast
+import base64
 import csv
+import datetime
 import difflib
+import ssl
+import urllib.error
+import urllib.parse
+import urllib.request
 from collections import deque
 import fnmatch
 import glob
@@ -63,6 +69,22 @@ _ALLOWED = {
     "security_scan",
     "git_ops",
     "command_exec",
+    "get_weather_wttr",
+    "get_current_time",
+    "geodesic_distance",
+    "date_calc",
+    "quantities",
+    "zipcode_check",
+    "reverse_geocode",
+    "http_request",
+    "apply_patch",
+    "svg_to_image",
+    "mermaid_render",
+    "mmd_to_svg",
+    "preprocess_image",
+    "path_alias",
+    "url_alias",
+    "generate_prompt",
 }
 ROOT = Path.cwd().resolve()
 MAX_SCAN_FILES = 5000
@@ -1322,6 +1344,11 @@ def _qr_code(args: dict[str, Any]) -> str:
         raise ValueError("QR output path must end in .png")
     if output.exists() and not args.get("overwrite", False):
         raise FileExistsError("output exists; set overwrite=true to replace it")
+    if _ensure_package("qrcode") is None:
+        raise RuntimeError(
+            "QR generation requires qrcode and Pillow in the sandbox; "
+            "automatic installation failed"
+        )
     try:
         import qrcode
         from qrcode.constants import (
@@ -1827,6 +1854,1536 @@ def _git_ops(args: dict[str, Any]) -> str:
     )
 
 
+_WEATHER_MAX_BYTES = 1024 * 1024
+_WEATHER_TIMEOUT_SECONDS = 10
+
+_WMO_WEATHER_DESCRIPTIONS = {
+    0: "Clear sky",
+    1: "Mainly clear",
+    2: "Partly cloudy",
+    3: "Overcast",
+    45: "Fog",
+    48: "Depositing rime fog",
+    51: "Light drizzle",
+    53: "Moderate drizzle",
+    55: "Dense drizzle",
+    56: "Light freezing drizzle",
+    57: "Dense freezing drizzle",
+    61: "Slight rain",
+    63: "Moderate rain",
+    65: "Heavy rain",
+    66: "Light freezing rain",
+    67: "Heavy freezing rain",
+    71: "Slight snow fall",
+    73: "Moderate snow fall",
+    75: "Heavy snow fall",
+    77: "Snow grains",
+    80: "Slight rain showers",
+    81: "Moderate rain showers",
+    82: "Violent rain showers",
+    85: "Slight snow showers",
+    86: "Heavy snow showers",
+    95: "Thunderstorm",
+    96: "Thunderstorm with slight hail",
+    99: "Thunderstorm with heavy hail",
+}
+
+
+def _fetch_weather_json(url: str) -> Any:
+    """Fetch one JSON document from a public weather API, size-bounded."""
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "uagent-sandbox-weather"}
+    )
+    with urllib.request.urlopen(request, timeout=_WEATHER_TIMEOUT_SECONDS) as response:
+        raw = response.read(_WEATHER_MAX_BYTES + 1)
+    if len(raw) > _WEATHER_MAX_BYTES:
+        raise ValueError("weather response is too large")
+    return json.loads(raw.decode("utf-8"))
+
+
+def _weather_description(entry: dict[str, Any]) -> str:
+    for key in ("lang_ja", "weatherDesc"):
+        values = entry.get(key)
+        if isinstance(values, list) and values and isinstance(values[0], dict):
+            text = str(values[0].get("value") or "").strip()
+            if text:
+                return text
+    return "Unknown"
+
+
+def _weather_from_wttr(*, city: str, lat: Any, lon: Any) -> str:
+    location = f"{lat},{lon}" if lat is not None and lon is not None else city
+    url = "https://wttr.in/" + urllib.parse.quote(location, safe=",") + "?format=j1"
+    data = _fetch_weather_json(url)
+    if not isinstance(data, dict):
+        raise ValueError("unexpected wttr.in response")
+    current = (data.get("current_condition") or [{}])[0]
+    display_city = city or f"{lat},{lon}"
+    areas = data.get("nearest_area") or []
+    if areas:
+        names = areas[0].get("areaName") or []
+        if names and isinstance(names[0], dict) and names[0].get("value"):
+            display_city = str(names[0]["value"])
+    lines = [
+        f"### Weather for {display_city}",
+        f"- **Temp**: {current.get('temp_C', '?')}°C"
+        f" (feels like {current.get('FeelsLikeC', '?')}°C)",
+        f"- **Condition**: {_weather_description(current)}",
+        f"- **Humidity**: {current.get('humidity', '?')}%",
+    ]
+    days = data.get("weather") or []
+    if days:
+        lines.append("\n--- Forecast ---")
+        for day in days[:7]:
+            desc = ""
+            hourly = day.get("hourly") or []
+            if len(hourly) > 2:
+                desc = _weather_description(hourly[2])
+            lines.append(
+                f"- **{day.get('date', '')}**: {day.get('mintempC', '?')}°C"
+                f" / {day.get('maxtempC', '?')}°C ({desc})"
+            )
+    return "\n".join(lines)
+
+
+def _weather_from_open_meteo(*, city: str, lat: Any, lon: Any) -> str:
+    display_city = city
+    if lat is None or lon is None:
+        geo = _fetch_weather_json(
+            "https://geocoding-api.open-meteo.com/v1/search?name="
+            + urllib.parse.quote(city)
+            + "&count=1&language=en&format=json"
+        )
+        results = (geo or {}).get("results") or []
+        if not results:
+            raise ValueError("city not found")
+        lat = float(results[0]["latitude"])
+        lon = float(results[0]["longitude"])
+        display_city = str(results[0].get("name") or city)
+    elif not display_city:
+        display_city = f"{lat},{lon}"
+    data = _fetch_weather_json(
+        "https://api.open-meteo.com/v1/forecast"
+        f"?latitude={float(lat)}&longitude={float(lon)}"
+        "&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code"
+        "&daily=temperature_2m_max,temperature_2m_min,weather_code"
+        "&timezone=auto"
+    )
+    current = (data or {}).get("current") or {}
+
+    def describe(code: Any) -> str:
+        if isinstance(code, bool) or not isinstance(code, (int, float)):
+            return "Unknown"
+        return _WMO_WEATHER_DESCRIPTIONS.get(int(code), "Unknown")
+
+    lines = [
+        "[via Open-Meteo fallback]",
+        f"### Weather for {display_city}",
+        f"- **Temp**: {current.get('temperature_2m', '?')}°C"
+        f" (feels like {current.get('apparent_temperature', '?')}°C)",
+        f"- **Condition**: {describe(current.get('weather_code'))}",
+        f"- **Humidity**: {current.get('relative_humidity_2m', '?')}%",
+    ]
+    daily = (data or {}).get("daily") or {}
+    dates = daily.get("time") or []
+    if dates:
+        lines.append("\n--- Forecast ---")
+        maxs = daily.get("temperature_2m_max") or []
+        mins = daily.get("temperature_2m_min") or []
+        codes = daily.get("weather_code") or []
+        for idx, date in enumerate(dates[:7]):
+            desc = describe(codes[idx]) if idx < len(codes) else "Unknown"
+            low = mins[idx] if idx < len(mins) else "?"
+            high = maxs[idx] if idx < len(maxs) else "?"
+            lines.append(f"- **{date}**: {low}°C / {high}°C ({desc})")
+    return "\n".join(lines)
+
+
+def _get_weather_wttr(args: dict[str, Any]) -> str:
+    """Current weather + short forecast from public APIs (no credentials).
+
+    Mirrors the host get_weather_wttr tool: wttr.in first, Open-Meteo
+    as fallback. Runs entirely inside the sandbox; the only network
+    access is to those two public weather endpoints.
+    """
+    lat = args.get("lat")
+    lon = args.get("lon")
+    city = args.get("city")
+    if city is not None and (
+        not isinstance(city, str) or len(city) > 200 or any(ord(c) < 32 for c in city)
+    ):
+        raise ValueError("city must be a string of at most 200 characters")
+    city = (city or "").strip()
+    for value, low, high, label in ((lat, -90, 90, "lat"), (lon, -180, 180, "lon")):
+        if value is not None and (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not (low <= float(value) <= high)
+        ):
+            raise ValueError(f"{label} must be a number between {low} and {high}")
+    if (lat is None) != (lon is None) and not city:
+        raise ValueError("Provide a city name, or lat+lon coordinates.")
+    if lat is None and lon is None and not city:
+        raise ValueError("Provide a city name, or lat+lon coordinates.")
+    try:
+        return _weather_from_wttr(city=city, lat=lat, lon=lon)
+    except Exception:
+        pass
+    try:
+        return _weather_from_open_meteo(city=city, lat=lat, lon=lon)
+    except Exception as exc:
+        raise ValueError(
+            f"weather lookup failed on both providers ({type(exc).__name__})"
+        ) from exc
+
+
+# ---------------------------------------------------------------------------
+# Ported host tools. These mirror the host tools' argument and output
+# contracts but run entirely inside the sandbox. They use only the standard
+# library plus optional packages when those are already importable in the
+# sandbox environment; nothing is ever installed from inside.
+# ---------------------------------------------------------------------------
+
+
+_SANDBOX_SITE_PACKAGES: Path | None = None
+
+
+def _sandbox_site_packages() -> Path:
+    global _SANDBOX_SITE_PACKAGES
+    if _SANDBOX_SITE_PACKAGES is None:
+        target = ROOT / ".uag" / "site-packages"
+        _SANDBOX_SITE_PACKAGES = target
+        if str(target) not in sys.path:
+            sys.path.insert(0, str(target))
+    return _SANDBOX_SITE_PACKAGES
+
+
+def _ensure_package(module_name: str, pip_name: str | None = None) -> Any | None:
+    """Import a module, installing it into the workspace on first use.
+
+    The sandbox cannot write to the Python environment (it is mounted
+    read-only), so optional packages are installed with pip --target into
+    <workspace>/.uag/site-packages, which persists with the workspace.
+    Returns the imported module, or None when it stays unavailable.
+    """
+    import importlib
+
+    try:
+        return importlib.import_module(module_name)
+    except ImportError:
+        pass
+    target = _sandbox_site_packages()
+    try:
+        return importlib.import_module(module_name)
+    except ImportError:
+        pass
+    try:
+        target.mkdir(parents=True, exist_ok=True)
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "--no-input",
+                "--disable-pip-version-check",
+                "--target",
+                str(target),
+                pip_name or module_name,
+            ],
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+        if completed.returncode != 0:
+            return None
+    except Exception:
+        return None
+    importlib.invalidate_caches()
+    try:
+        return importlib.import_module(module_name)
+    except ImportError:
+        return None
+
+
+def _fetch_capped(
+    request: urllib.request.Request,
+    *,
+    timeout: float,
+    cap: int,
+    opener: Any = None,
+) -> tuple[bytes, Any]:
+    open_fn = opener.open if opener is not None else urllib.request.urlopen
+    with open_fn(request, timeout=timeout) as response:
+        return response.read(cap + 1)[:cap], response
+
+
+def _get_current_time(args: dict[str, Any]) -> str:
+    del args
+    now = datetime.datetime.now().astimezone()
+    utc_now = datetime.datetime.now(datetime.timezone.utc)
+    res = [
+        f"ISO8601 (Local): {now.isoformat()}",
+        f"ISO8601 (UTC):   {utc_now.isoformat()}",
+        f"Weekday:         {now.strftime('%A')}",
+        f"Timezone Name:   {now.tzname()}",
+        f"UTC Offset:      {now.strftime('%z')}",
+        f"Year:            {now.year}",
+        f"Month:           {now.month}",
+        f"Day:             {now.day}",
+        f"Hour:            {now.hour}",
+        f"Minute:          {now.minute}",
+        f"Second:          {now.second}",
+        "NTP Sync:        N/A",
+    ]
+    return "[get_current_time]\n" + "\n".join(res)
+
+
+def _nominatim_reverse(lat: float, lon: float, language: str) -> dict[str, Any]:
+    params = {"lat": str(lat), "lon": str(lon), "format": "json"}
+    params["accept-language"] = language or "en"
+    query = "&".join(f"{k}={v}" for k, v in params.items())
+    url = f"https://nominatim.openstreetmap.org/reverse?{query}"
+    request = urllib.request.Request(url, headers={"User-Agent": "uagent-sandbox/1.0"})
+    raw, _response = _fetch_capped(request, timeout=10, cap=1_000_000)
+    return json.loads(raw.decode("utf-8"))
+
+
+def _reverse_geocode(args: dict[str, Any]) -> str:
+    lat = args.get("lat")
+    lon = args.get("lon")
+    if lat is None or lon is None:
+        return json.dumps(
+            {"ok": False, "error": "Both lat and lon are required."},
+            ensure_ascii=False,
+        )
+    try:
+        flat = float(lat)
+        flon = float(lon)
+    except (TypeError, ValueError):
+        return json.dumps(
+            {"ok": False, "error": "lat and lon must be numbers."},
+            ensure_ascii=False,
+        )
+    language = str(args.get("language") or "")
+    try:
+        data = _nominatim_reverse(flat, flon, language)
+    except urllib.error.HTTPError as exc:
+        return json.dumps(
+            {"ok": False, "error": f"HTTP Error {exc.code}: {exc.reason}"},
+            ensure_ascii=False,
+        )
+    except urllib.error.URLError as exc:
+        return json.dumps(
+            {"ok": False, "error": f"URL Error: {exc.reason}"},
+            ensure_ascii=False,
+        )
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+    if "error" in data:
+        return json.dumps({"ok": False, "error": data["error"]}, ensure_ascii=False)
+    result = {
+        "ok": True,
+        "display_name": data.get("display_name", ""),
+        "lat": data.get("lat", str(flat)),
+        "lon": data.get("lon", str(flon)),
+        "address": data.get("address", {}),
+        "osm_type": data.get("osm_type", ""),
+        "osm_id": data.get("osm_id"),
+    }
+    return json.dumps(result, ensure_ascii=False)
+
+
+def _geodesic_distance(args: dict[str, Any]) -> str:
+    def _coordinate(value: Any, label: str, low: float, high: float) -> float:
+        number = float(value)
+        if not low <= number <= high:
+            raise ValueError(f"{label} must be between {low} and {high}")
+        return number
+
+    try:
+        lat_a = _coordinate(args.get("lat_a"), "lat_a", -90, 90)
+        lon_a = _coordinate(args.get("lon_a"), "lon_a", -180, 180)
+        lat_b = _coordinate(args.get("lat_b"), "lat_b", -90, 90)
+        lon_b = _coordinate(args.get("lon_b"), "lon_b", -180, 180)
+    except (TypeError, ValueError) as exc:
+        return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
+    phi1, phi2 = math.radians(lat_a), math.radians(lat_b)
+    dphi = math.radians(lat_b - lat_a)
+    dlambda = math.radians(lon_b - lon_a)
+    hav = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
+    )
+    distance_km = 6371.0088 * 2 * math.atan2(math.sqrt(hav), math.sqrt(1 - hav))
+    bearing = (
+        math.degrees(
+            math.atan2(
+                math.sin(dlambda) * math.cos(phi2),
+                math.cos(phi1) * math.sin(phi2)
+                - math.sin(phi1) * math.cos(phi2) * math.cos(dlambda),
+            )
+        )
+        + 360
+    ) % 360
+    output: dict[str, Any] = {
+        "ok": True,
+        "point_a": {"lat": lat_a, "lon": lon_a},
+        "point_b": {"lat": lat_b, "lon": lon_b},
+        "distance_km": round(distance_km, 6),
+        "distance_m": round(distance_km * 1000, 3),
+        "initial_bearing_degrees": round(bearing, 3),
+        "method": "Haversine",
+    }
+    if args.get("resolve_addresses"):
+        language = str(args.get("language") or "")
+        for key, la, lo in (
+            ("address_a", lat_a, lon_a),
+            ("address_b", lat_b, lon_b),
+        ):
+            try:
+                data = _nominatim_reverse(la, lo, language)
+                output[key] = data.get("display_name", "")
+            except Exception:
+                output[key] = ""
+    return json.dumps(output, ensure_ascii=False)
+
+
+def _date_calc(args: dict[str, Any]) -> str:
+    if _ensure_package("dateutil") is None:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "[date_calc] python-dateutil is not available "
+                "in the sandbox environment and could not be installed "
+                "automatically.",
+            },
+            ensure_ascii=False,
+        )
+    from dateutil.relativedelta import relativedelta
+
+    base_date_str = args.get("base_date")
+    country = str(args.get("country", "JP") or "JP")
+    check_h = args.get("check_holiday", True)
+    try:
+        if base_date_str:
+            if len(str(base_date_str)) == 10:
+                base_date = datetime.datetime.strptime(str(base_date_str), "%Y-%m-%d")
+            else:
+                base_date = datetime.datetime.fromisoformat(str(base_date_str))
+        else:
+            base_date = datetime.datetime.now()
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"[date_calc]\nError parsing base_date: {exc}"},
+            ensure_ascii=False,
+        )
+    try:
+        delta = relativedelta(
+            years=int(args.get("years", 0) or 0),
+            months=int(args.get("months", 0) or 0),
+            weeks=int(args.get("weeks", 0) or 0),
+            days=int(args.get("days", 0) or 0),
+        )
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"[date_calc] invalid delta: {exc}"},
+            ensure_ascii=False,
+        )
+    result_date = base_date + delta
+    holiday_info = None
+    if check_h:
+        holiday_info = _holiday_info(result_date, country)
+    info_suffix = f" ({holiday_info})" if holiday_info else ""
+    res = [
+        f"Base Date:   {base_date.strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Operation:   years={args.get('years', 0)}, months={args.get('months', 0)}, "
+        f"weeks={args.get('weeks', 0)}, days={args.get('days', 0)}",
+        f"Country:     {country.upper()}",
+        f"Result Date: {result_date.strftime('%Y-%m-%d %H:%M:%S')}{info_suffix}",
+        f"ISO8601:     {result_date.isoformat()}",
+        f"Weekday:     {result_date.strftime('%A')}",
+    ]
+    if holiday_info:
+        res.append(f"Holiday Info: {holiday_info}")
+    else:
+        res.append("Holiday Info: Weekday")
+    return "[date_calc]\n" + "\n".join(res)
+
+
+def _holiday_info(dt: datetime.datetime, country_code: str) -> str | None:
+    holidays = _ensure_package("holidays")
+    if holidays is None:
+        return None
+    try:
+        if country_code.upper() == "JP":
+            hols = holidays.Japan(language="ja")
+        else:
+            hols = holidays.country_holidays(country_code.upper())
+    except Exception:
+        return f"Error: Country code '{country_code}' not supported."
+    holiday_name = hols.get(dt)
+    weekend_name = None
+    if dt.weekday() == 5:
+        weekend_name = "Saturday"
+    elif dt.weekday() == 6:
+        weekend_name = "Sunday"
+    if holiday_name and weekend_name:
+        return f"Holiday ({holiday_name}) and {weekend_name}"
+    if holiday_name:
+        return f"Holiday ({holiday_name})"
+    if weekend_name:
+        return weekend_name
+    return None
+
+
+_QUANTITY_UNSAFE = re.compile(
+    r"(?:__|\b(?:import|exec|eval|lambda|globals|locals|open)\b|[\[\]{};`])",
+    re.IGNORECASE,
+)
+_QUANTITY_TO_SUFFIX = re.compile(r"\s+(?:to|in)\s+(.+?)\s*$", re.IGNORECASE)
+
+
+def _quantities(args: dict[str, Any]) -> str:
+    def _error(message: str, **extra: Any) -> str:
+        result: dict[str, Any] = {"ok": False, "error": message}
+        result.update(extra)
+        return json.dumps(result, ensure_ascii=False)
+
+    expression = str(args.get("expression") or "").strip()
+    if not expression:
+        return _error("No quantity expression was provided.")
+    if _QUANTITY_UNSAFE.search(expression):
+        return _error("The quantity expression contains unsupported syntax.")
+    target = str(args.get("to_unit") or "").strip()
+    source = expression
+    if target:
+        source = expression.strip()
+    else:
+        match = _QUANTITY_TO_SUFFIX.search(expression)
+        if match:
+            source = expression[: match.start()].strip()
+            target = match.group(1).strip()
+    if _QUANTITY_UNSAFE.search(target):
+        return _error("The target unit contains unsupported syntax.")
+    pint = _ensure_package("pint")
+    if pint is None:
+        return _error(
+            "Pint is not available in the sandbox environment and "
+            "could not be installed automatically. Use the calculate "
+            "tool for plain arithmetic."
+        )
+    try:
+        precision = int(args.get("precision") or 6)
+    except (TypeError, ValueError):
+        precision = 6
+    precision = max(0, min(precision, 15))
+    try:
+        registry = pint.UnitRegistry(autoconvert_offset_to_baseunit=True)
+        quantity = registry.parse_expression(source)
+        if target:
+            quantity = quantity.to(target)
+        magnitude = quantity.magnitude
+        if isinstance(magnitude, complex):
+            magnitude_text = str(magnitude)
+        else:
+            magnitude_text = f"{float(magnitude):.{precision}f}".rstrip("0").rstrip(".")
+            if magnitude_text in {"-0", ""}:
+                magnitude_text = "0"
+        output = {
+            "ok": True,
+            "expression": expression,
+            "result": f"{magnitude_text} {quantity.units:~P}",
+            "magnitude": quantity.magnitude,
+            "unit": str(quantity.units),
+        }
+        return json.dumps(output, ensure_ascii=False, default=str)
+    except Exception as exc:
+        return _error(
+            f"Unable to evaluate the quantity expression: {exc}",
+            expression=expression,
+        )
+
+
+_ZIPCODE_BASE_URL = "https://jpzip.nadai.dev"
+
+
+def _zipcode_fetch_json(path: str) -> dict[str, Any] | None:
+    url = f"{_ZIPCODE_BASE_URL}{path}"
+    request = urllib.request.Request(url)
+    request.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+    try:
+        raw, _response = _fetch_capped(request, timeout=10, cap=4_000_000)
+        return json.loads(raw.decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise
+    except Exception:
+        return None
+
+
+def _zipcode_check(args: dict[str, Any]) -> str:
+    zipcode = str(args.get("zipcode") or "").strip()
+    prefecture = str(args.get("prefecture") or "").strip()
+    if zipcode and prefecture:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "Provide either zipcode or prefecture, not both.",
+            },
+            ensure_ascii=False,
+        )
+    if zipcode:
+        z = zipcode.replace("-", "").replace(" ", "").strip()
+        if not z.isdigit() or len(z) != 7:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"Invalid zipcode format: '{zipcode}'. "
+                    "Must be 7 digits.",
+                },
+                ensure_ascii=False,
+            )
+        data = _zipcode_fetch_json(f"/p/{z[:3]}.json")
+        if data is None:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"No data found for zipcode prefix {z[:3]}.",
+                },
+                ensure_ascii=False,
+            )
+        entry = data.get(z)
+        if entry is None:
+            return json.dumps(
+                {"ok": False, "error": f"Zipcode {z} not found."},
+                ensure_ascii=False,
+            )
+        entry = dict(entry)
+        entry.pop("prefecture_code", None)
+        return json.dumps(
+            {"ok": True, "zipcode": z, "address": entry},
+            ensure_ascii=False,
+            indent=2,
+        )
+    if prefecture:
+        meta = _zipcode_fetch_json("/meta.json")
+        if meta is None:
+            return json.dumps(
+                {"ok": False, "error": "Failed to fetch metadata."},
+                ensure_ascii=False,
+            )
+        matched: dict[str, Any] = {}
+        found_code = None
+        for group in "0123456789":
+            group_data = _zipcode_fetch_json(f"/g/{group}.json")
+            if group_data is None:
+                continue
+            for code, entry in group_data.items():
+                p_name = entry.get("prefecture", "")
+                p_kana = entry.get("prefecture_kana", "")
+                p_roma = entry.get("prefecture_roma", "")
+                p_code = entry.get("prefecture_code", "")
+                match = (
+                    prefecture in (p_name, p_kana)
+                    or (p_roma and prefecture.lower() == p_roma.lower())
+                    or prefecture in p_name
+                    or prefecture in p_kana
+                )
+                if not match:
+                    continue
+                if found_code is None:
+                    found_code = p_code
+                if p_code != found_code:
+                    continue
+                city_key = f"{entry.get('city', '')}|{entry.get('city_code', '')}"
+                if city_key not in matched:
+                    matched[city_key] = {
+                        "city": entry.get("city", ""),
+                        "city_kana": entry.get("city_kana", ""),
+                        "city_roma": entry.get("city_roma", ""),
+                        "city_code": entry.get("city_code", ""),
+                    }
+        if not matched:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"No cities found for prefecture '{prefecture}'.",
+                },
+                ensure_ascii=False,
+            )
+        return json.dumps(
+            {
+                "ok": True,
+                "prefecture": prefecture,
+                "count": len(matched),
+                "cities": sorted(
+                    matched.values(), key=lambda c: c.get("city_code", "")
+                ),
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    return json.dumps(
+        {
+            "ok": False,
+            "error": "Provide either 'zipcode' (7 digits) or 'prefecture' "
+            "(e.g. Tokyo).",
+            "usage": {
+                "example_zipcode": {"zipcode": "1000001"},
+                "example_prefecture": {"prefecture": "Tokyo"},
+            },
+        },
+        ensure_ascii=False,
+    )
+
+
+def _http_request(args: dict[str, Any]) -> str:
+    method = str(args.get("method") or "GET").upper()
+    allowed = {"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}
+    if method not in allowed:
+        return json.dumps(
+            {"ok": False, "error": f"unsupported HTTP method: {method}"},
+            ensure_ascii=False,
+        )
+    url = str(args.get("url") or "")
+    query = args.get("query")
+    if isinstance(query, dict) and query:
+        parts = urllib.parse.urlsplit(url)
+        extra = urllib.parse.urlencode({str(k): str(v) for k, v in query.items()})
+        merged = f"{parts.query}&{extra}" if parts.query else extra
+        url = urllib.parse.urlunsplit(
+            (parts.scheme, parts.netloc, parts.path, merged, parts.fragment)
+        )
+    if not url.startswith(("http://", "https://")):
+        return json.dumps(
+            {"ok": False, "error": "url must start with http:// or https://"},
+            ensure_ascii=False,
+        )
+    headers_arg = args.get("headers") or {}
+    if not isinstance(headers_arg, dict):
+        return json.dumps(
+            {"ok": False, "error": "headers must be an object"},
+            ensure_ascii=False,
+        )
+    headers = {str(k): str(v) for k, v in headers_arg.items()}
+    headers.setdefault("User-Agent", "uagent-http-request/1.0")
+    bearer = str(args.get("bearer_token") or "")
+    if bearer:
+        headers["Authorization"] = f"Bearer {bearer}"
+    username = args.get("username")
+    password = args.get("password")
+    if username is not None or password is not None:
+        raw_auth = f"{username or ''}:{password or ''}".encode("utf-8")
+        headers["Authorization"] = "Basic " + base64.b64encode(raw_auth).decode("ascii")
+    body_value = args.get("body")
+    body_text = args.get("body_text")
+    data: bytes | None = None
+    if body_text is not None:
+        data = str(body_text).encode("utf-8")
+    elif body_value is not None:
+        if isinstance(body_value, (dict, list)):
+            data = json.dumps(body_value, ensure_ascii=False).encode("utf-8")
+        elif isinstance(body_value, bool):
+            data = ("true" if body_value else "false").encode("utf-8")
+        else:
+            data = str(body_value).encode("utf-8")
+    if data is not None:
+        headers.setdefault(
+            "Content-Type", str(args.get("content_type") or "application/json")
+        )
+    request = urllib.request.Request(url, data=data, headers=headers, method=method)
+    verify_ssl = args.get("ssl", True)
+    if not isinstance(verify_ssl, bool):
+        verify_ssl = str(verify_ssl).lower() in {"1", "true", "yes", "on"}
+    context = None
+    if url.startswith("https://") and not verify_ssl:
+        context = ssl._create_unverified_context()
+    try:
+        timeout = max(1, min(int(args.get("timeout") or 30), 300))
+    except (TypeError, ValueError):
+        timeout = 30
+    try:
+        max_bytes = max(1, min(int(args.get("max_bytes") or 2_000_000), 10_000_000))
+    except (TypeError, ValueError):
+        max_bytes = 2_000_000
+    handlers: list[Any] = []
+    if context is not None:
+        handlers.append(urllib.request.HTTPSHandler(context=context))
+    opener = urllib.request.build_opener(*handlers)
+    try:
+        with opener.open(request, timeout=timeout) as response:
+            raw = response.read(max_bytes + 1)
+            truncated = len(raw) > max_bytes
+            raw = raw[:max_bytes]
+            response_headers = {str(k): str(v) for k, v in response.headers.items()}
+            charset = response.headers.get_content_charset()
+            try:
+                text = raw.decode(charset or "utf-8", errors="replace")
+            except Exception:
+                text = raw.decode("latin-1", errors="replace")
+            result: dict[str, Any] = {
+                "ok": True,
+                "status_code": int(getattr(response, "status", 200)),
+                "url": str(getattr(response, "url", url)),
+                "headers": response_headers,
+                "body": text,
+                "truncated": truncated,
+            }
+            if args.get("parse_json"):
+                try:
+                    result["response_json"] = json.loads(text)
+                except Exception:
+                    pass
+            return json.dumps(result, ensure_ascii=False)
+    except urllib.error.HTTPError as exc:
+        try:
+            raw = exc.read(max_bytes)
+            text = raw.decode("utf-8", errors="replace")
+        except Exception:
+            text = ""
+        return json.dumps(
+            {
+                "ok": False,
+                "status_code": int(exc.code),
+                "error": f"HTTP Error {exc.code}: {exc.reason}",
+                "body": text,
+            },
+            ensure_ascii=False,
+        )
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+
+
+def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
+    sections: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    hunk: dict[str, Any] | None = None
+    for line in patch_text.splitlines():
+        if line.startswith("--- "):
+            current = {
+                "old": line[4:].split("\t")[0].strip(),
+                "new": None,
+                "hunks": [],
+            }
+            sections.append(current)
+            hunk = None
+            continue
+        if line.startswith("+++ ") and current is not None:
+            current["new"] = line[4:].split("\t")[0].strip()
+            continue
+        match = re.match(r"@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@", line)
+        if match and current is not None:
+            hunk = {
+                "old_start": int(match.group(1)),
+                "new_start": int(match.group(3)),
+                "lines": [],
+            }
+            current["hunks"].append(hunk)
+            continue
+        if hunk is not None and line[:1] in {" ", "-", "+", "\\"}:
+            hunk["lines"].append(line)
+    return [s for s in sections if s["new"] is not None]
+
+
+def _strip_patch_path(token: str, strip: int) -> str | None:
+    if token == "/dev/null":
+        return None
+    parts = token.split("/")
+    if strip > 0:
+        parts = parts[strip:]
+    return "/".join(parts)
+
+
+def _apply_patch(args: dict[str, Any]) -> str:
+    patch_text = str(args.get("patch_text") or "")
+    if not patch_text.strip():
+        return json.dumps(
+            {"ok": False, "error": "patch_text is required"}, ensure_ascii=False
+        )
+    dry_run = bool(args.get("dry_run"))
+    revert = bool(args.get("revert"))
+    ignore_ws = bool(args.get("ignore_whitespace"))
+    try:
+        strip = max(0, min(int(args.get("strip", 1)), 5))
+    except (TypeError, ValueError):
+        strip = 1
+    encoding = str(args.get("encoding") or "utf-8")
+
+    def _norm(text: str) -> str:
+        return " ".join(text.split()) if ignore_ws else text
+
+    results: list[dict[str, Any]] = []
+    for section in _parse_patch_sections(patch_text):
+        old_rel = _strip_patch_path(str(section["old"]), strip)
+        new_rel = _strip_patch_path(str(section["new"]), strip)
+        if revert:
+            old_rel, new_rel = new_rel, old_rel
+        target_rel = new_rel if new_rel is not None else old_rel
+        if target_rel is None:
+            results.append({"ok": False, "error": "patch section has no path"})
+            continue
+        try:
+            target = _resolve_relative(target_rel)
+        except Exception as exc:
+            results.append({"path": target_rel, "ok": False, "error": str(exc)})
+            continue
+        creating = old_rel is None
+        deleting = new_rel is None
+        if creating:
+            if target.exists():
+                results.append(
+                    {
+                        "path": target_rel,
+                        "ok": False,
+                        "error": "file already exists",
+                    }
+                )
+                continue
+            original: list[str] = []
+            ends_with_newline = True
+            crlf = False
+        else:
+            if not target.is_file():
+                results.append(
+                    {"path": target_rel, "ok": False, "error": "file not found"}
+                )
+                continue
+            raw_text = target.read_bytes().decode(encoding, errors="strict")
+            crlf = "\r\n" in raw_text
+            ends_with_newline = raw_text.endswith(("\n", "\r")) or raw_text == ""
+            original = raw_text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+            if ends_with_newline and original and original[-1] == "":
+                original = original[:-1]
+            elif raw_text == "":
+                original = []
+        lines = list(original)
+        offset = 0
+        failed = ""
+        for hunk in section["hunks"]:
+            src_lines: list[str] = []
+            dst_lines: list[str] = []
+            for entry in hunk["lines"]:
+                tag, content = entry[:1], entry[1:]
+                if tag == "\\":
+                    continue
+                if revert:
+                    if tag in {" ", "+"}:
+                        src_lines.append(content)
+                    if tag in {" ", "-"}:
+                        dst_lines.append(content)
+                else:
+                    if tag in {" ", "-"}:
+                        src_lines.append(content)
+                    if tag in {" ", "+"}:
+                        dst_lines.append(content)
+            start = (hunk["new_start"] if revert else hunk["old_start"]) - 1 + offset
+            found = -1
+            candidates = [start] + list(range(0, len(lines) + 1))
+            seen: set[int] = set()
+            for pos in candidates:
+                if pos in seen or pos < 0 or pos > len(lines):
+                    continue
+                seen.add(pos)
+                window = lines[pos : pos + len(src_lines)]
+                if len(window) != len(src_lines):
+                    continue
+                if all(_norm(a) == _norm(b) for a, b in zip(window, src_lines)):
+                    found = pos
+                    break
+            if found < 0:
+                failed = "hunk context not found"
+                break
+            lines[found : found + len(src_lines)] = dst_lines
+            offset += len(dst_lines) - len(src_lines)
+        if failed:
+            results.append({"path": target_rel, "ok": False, "error": failed})
+            continue
+        action = "created" if creating else "deleted" if deleting else "modified"
+        if not dry_run:
+            if deleting:
+                if lines:
+                    results.append(
+                        {
+                            "path": target_rel,
+                            "ok": False,
+                            "error": "delete patch leaves content behind",
+                        }
+                    )
+                    continue
+                target.unlink()
+            else:
+                target.parent.mkdir(parents=True, exist_ok=True)
+                text_out = "\n".join(lines)
+                if ends_with_newline and lines:
+                    text_out += "\n"
+                if crlf and args.get("preserve_line_endings", True):
+                    text_out = text_out.replace("\n", "\r\n")
+                target.write_bytes(text_out.encode(encoding))
+        results.append(
+            {
+                "path": target_rel,
+                "ok": True,
+                "action": action,
+                "hunks": len(section["hunks"]),
+            }
+        )
+    ok = all(item.get("ok") for item in results) and bool(results)
+    return json.dumps(
+        {"ok": ok, "dry_run": dry_run, "files": results},
+        ensure_ascii=False,
+    )
+
+
+def _svg_to_image(args: dict[str, Any]) -> str:
+    svg_rel = str(args.get("svg") or "").strip()
+    out_rel = str(args.get("output_path") or "").strip()
+    if not svg_rel:
+        return json.dumps({"ok": False, "error": "svg is required"}, ensure_ascii=False)
+    if not out_rel:
+        return json.dumps(
+            {"ok": False, "error": "output_path is required"},
+            ensure_ascii=False,
+        )
+    svg_path = _resolve_relative(svg_rel)
+    if not svg_path.is_file():
+        return json.dumps(
+            {"ok": False, "error": f"SVG file was not found: {svg_rel}"},
+            ensure_ascii=False,
+        )
+    if svg_path.suffix.lower() != ".svg":
+        return json.dumps(
+            {"ok": False, "error": "input file must end in .svg"},
+            ensure_ascii=False,
+        )
+    output_path = _resolve_relative(out_rel)
+    if output_path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "output_path must end in .png, .jpg, .jpeg, or .webp",
+            },
+            ensure_ascii=False,
+        )
+    if output_path.exists() and not bool(args.get("overwrite")):
+        return json.dumps(
+            {"ok": False, "error": f"output already exists: {out_rel}"},
+            ensure_ascii=False,
+        )
+    cairosvg = _ensure_package("cairosvg")
+    if cairosvg is None:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "CairoSVG is not available in the sandbox "
+                "environment and could not be installed automatically.",
+            },
+            ensure_ascii=False,
+        )
+    render_kwargs: dict[str, Any] = {
+        "bytestring": svg_path.read_bytes(),
+    }
+    if args.get("width"):
+        render_kwargs["output_width"] = int(args["width"])
+    if args.get("height"):
+        render_kwargs["output_height"] = int(args["height"])
+    if args.get("scale"):
+        render_kwargs["scale"] = float(args["scale"])
+    if args.get("background"):
+        render_kwargs["background_color"] = str(args["background"])
+    try:
+        png_bytes = cairosvg.svg2png(**render_kwargs)
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+    suffix = output_path.suffix.lower()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    if suffix == ".png":
+        output_path.write_bytes(png_bytes)
+    else:
+        try:
+            from PIL import Image
+        except ImportError:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": "Pillow is required to write non-PNG output.",
+                },
+                ensure_ascii=False,
+            )
+        image = Image.open(io.BytesIO(png_bytes))
+        if suffix in {".jpg", ".jpeg"}:
+            image = image.convert("RGB")
+        image.save(output_path)
+    return json.dumps(
+        {
+            "ok": True,
+            "output_path": out_rel,
+            "format": suffix.lstrip("."),
+            "bytes": output_path.stat().st_size,
+        },
+        ensure_ascii=False,
+    )
+
+
+def _mermaid_render_core(source: str, theme: str) -> tuple[Any, str]:
+    mermaidx = _ensure_package("mermaidx")
+    if mermaidx is None:
+        raise ImportError("mermaidx is not available")
+    diagram = mermaidx.render(source, theme=theme or "default")
+    return diagram, diagram.svg()
+
+
+def _mermaid_render(args: dict[str, Any]) -> str:
+    source = str(args.get("source") or "")
+    input_rel = str(args.get("input_path") or "")
+    if bool(source) == bool(input_rel):
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "specify exactly one of source or input_path",
+            },
+            ensure_ascii=False,
+        )
+    out_rel = str(args.get("output_path") or "")
+    if not out_rel:
+        return json.dumps(
+            {"ok": False, "error": "output_path is required"},
+            ensure_ascii=False,
+        )
+    output_path = _resolve_relative(out_rel)
+    if output_path.suffix.lower() not in {".png", ".svg", ".pdf"}:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "output_path must end in .png, .svg, or .pdf",
+            },
+            ensure_ascii=False,
+        )
+    if input_rel:
+        input_path = _resolve_relative(input_rel)
+        if not input_path.is_file():
+            return json.dumps(
+                {"ok": False, "error": f"input file not found: {input_rel}"},
+                ensure_ascii=False,
+            )
+        source = input_path.read_text(encoding="utf-8")
+    try:
+        diagram, svg = _mermaid_render_core(source, str(args.get("theme") or ""))
+    except ImportError:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "mermaidx is not available in the sandbox "
+                "environment and could not be installed automatically.",
+            },
+            ensure_ascii=False,
+        )
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    suffix = output_path.suffix.lower()
+    try:
+        if suffix == ".svg":
+            output_path.write_text(svg, encoding="utf-8")
+        elif suffix == ".png":
+            resvg_py = _ensure_package("resvg_py")
+            if resvg_py is None:
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": "resvg_py is not available in the sandbox "
+                        "environment for PNG output and could not be "
+                        "installed automatically; use .svg instead.",
+                    },
+                    ensure_ascii=False,
+                )
+            rendered = resvg_py.svg_to_bytes(
+                svg_string=svg,
+                background=str(args.get("background") or "white"),
+            )
+            output_path.write_bytes(bytes(rendered))
+        else:
+            diagram.save(str(output_path), format="pdf")
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+    return json.dumps(
+        {
+            "ok": True,
+            "output_path": out_rel,
+            "format": suffix.lstrip("."),
+            "bytes": output_path.stat().st_size,
+        },
+        ensure_ascii=False,
+    )
+
+
+def _mmd_to_svg(args: dict[str, Any]) -> str:
+    mmd_rel = str(args.get("mmd") or "").strip()
+    out_rel = str(args.get("output_path") or "").strip()
+    if not mmd_rel:
+        return json.dumps({"ok": False, "error": "mmd is required"}, ensure_ascii=False)
+    if not out_rel:
+        return json.dumps(
+            {"ok": False, "error": "output_path is required"},
+            ensure_ascii=False,
+        )
+    mmd_path = _resolve_relative(mmd_rel)
+    if not mmd_path.is_file():
+        return json.dumps(
+            {"ok": False, "error": f"Mermaid file was not found: {mmd_rel}"},
+            ensure_ascii=False,
+        )
+    if mmd_path.suffix.lower() not in {".mmd", ".mermaid"}:
+        return json.dumps(
+            {"ok": False, "error": "input file must end in .mmd or .mermaid"},
+            ensure_ascii=False,
+        )
+    output_path = _resolve_relative(out_rel)
+    if output_path.suffix.lower() != ".svg":
+        return json.dumps(
+            {"ok": False, "error": "output_path must end in .svg"},
+            ensure_ascii=False,
+        )
+    source = mmd_path.read_text(encoding="utf-8")
+    try:
+        _diagram, svg = _mermaid_render_core(source, str(args.get("theme") or ""))
+    except ImportError:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "mermaidx is not available in the sandbox "
+                "environment and could not be installed automatically.",
+            },
+            ensure_ascii=False,
+        )
+    except Exception as exc:
+        return json.dumps(
+            {"ok": False, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(svg, encoding="utf-8")
+    return json.dumps(
+        {
+            "ok": True,
+            "output_path": out_rel,
+            "format": "svg",
+            "bytes": output_path.stat().st_size,
+        },
+        ensure_ascii=False,
+    )
+
+
+def _preprocess_image(args: dict[str, Any]) -> str:
+    img_rel = str(args.get("img") or "").strip()
+    if not img_rel:
+        return json.dumps(
+            {"ok": False, "error": "[preprocess_image] image_path is required"},
+            ensure_ascii=False,
+        )
+    img_path = _resolve_relative(img_rel)
+    if not img_path.is_file():
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"[preprocess_image] image file not found: {img_rel}",
+            },
+            ensure_ascii=False,
+        )
+    try:
+        from PIL import Image, ImageEnhance, ImageFilter
+    except ImportError:
+        return json.dumps(
+            {"ok": False, "error": "Pillow is not available in the sandbox."},
+            ensure_ascii=False,
+        )
+
+    def _bool(value: Any, default: bool) -> bool:
+        if value is None:
+            return default
+        if isinstance(value, bool):
+            return value
+        return str(value).lower() in {"1", "true", "yes", "on"}
+
+    applied: list[str] = []
+    notes: list[str] = []
+    image = Image.open(img_path)
+    image.load()
+    if _bool(args.get("grayscale"), True):
+        image = image.convert("L")
+        applied.append("grayscale")
+    resize = str(args.get("resize") or "").strip().lower()
+    if resize:
+        if resize.endswith("x") and resize[:-1].replace(".", "", 1).isdigit():
+            factor = float(resize[:-1])
+            image = image.resize(
+                (max(1, int(image.width * factor)), max(1, int(image.height * factor)))
+            )
+            applied.append(f"resize {resize}")
+        elif "x" in resize:
+            try:
+                w_text, h_text = resize.split("x", 1)
+                image = image.resize((int(w_text), int(h_text)))
+                applied.append(f"resize {resize}")
+            except ValueError:
+                notes.append(f"resize value not understood: {resize}")
+    try:
+        contrast = float(args.get("contrast") or 1.0)
+    except (TypeError, ValueError):
+        contrast = 1.0
+    if contrast != 1.0:
+        image = ImageEnhance.Contrast(image).enhance(contrast)
+        applied.append(f"contrast {contrast}")
+    if _bool(args.get("denoise"), True):
+        try:
+            import cv2
+            import numpy as np
+
+            array = np.array(image)
+            if array.ndim == 2:
+                array = cv2.fastNlMeansDenoising(array, None, 10, 7, 21)
+            else:
+                array = cv2.fastNlMeansDenoisingColored(array, None, 10, 10, 7, 21)
+            image = Image.fromarray(array)
+            applied.append("denoise (opencv)")
+        except ImportError:
+            image = image.filter(ImageFilter.MedianFilter(size=3))
+            applied.append("denoise (median)")
+    if _bool(args.get("binarize"), False):
+        gray = image.convert("L")
+        try:
+            import cv2
+            import numpy as np
+
+            _thresh, array = cv2.threshold(
+                np.array(gray), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+            )
+            image = Image.fromarray(array)
+        except ImportError:
+            image = gray.point(lambda p: 255 if p > 128 else 0)
+        applied.append("binarize")
+    if _bool(args.get("edge_enhance"), False):
+        image = image.filter(ImageFilter.EDGE_ENHANCE)
+        applied.append("edge_enhance")
+    if _bool(args.get("deskew"), False):
+        try:
+            import cv2
+            import numpy as np
+
+            array = np.array(image.convert("L"))
+            coords = np.column_stack(np.where(array < 128))
+            angle = (
+                cv2.minAreaRect(coords[:, ::-1].astype(np.float32))[2]
+                if len(coords)
+                else 0.0
+            )
+            if angle and abs(angle) > 0.2:
+                image = image.rotate(
+                    angle if angle > -45 else 90 + angle,
+                    resample=Image.BICUBIC,
+                    expand=True,
+                    fillcolor=255,
+                )
+                applied.append("deskew")
+            else:
+                notes.append("deskew: no significant skew detected")
+        except ImportError:
+            notes.append("deskew skipped: opencv is not available")
+    output_dir = _resolve_relative(
+        str(args.get("output_dir") or "outputs/image_preprocess")
+    )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    prefix = str(args.get("prefix") or "preprocess_image").strip() or "preprocess_image"
+    output_path = output_dir / f"{prefix}_{img_path.stem}.png"
+    image.save(output_path)
+    result: dict[str, Any] = {
+        "ok": True,
+        "input": img_rel,
+        "output": str(output_path.relative_to(ROOT)),
+        "applied": applied,
+        "size": [image.width, image.height],
+    }
+    if notes:
+        result["notes"] = notes
+    return json.dumps(result, ensure_ascii=False)
+
+
+def _alias_store_path(filename: str) -> Path:
+    store_dir = ROOT / ".uag"
+    store_dir.mkdir(parents=True, exist_ok=True)
+    return store_dir / filename
+
+
+def _load_aliases(filename: str) -> dict[int, str]:
+    path = _alias_store_path(filename)
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    result: dict[int, str] = {}
+    if isinstance(data, dict):
+        for key, value in data.items():
+            try:
+                slot = int(key)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= slot <= 9 and isinstance(value, str):
+                result[slot] = value
+    return result
+
+
+def _save_aliases(filename: str, aliases: dict[int, str]) -> None:
+    path = _alias_store_path(filename)
+    payload = {str(slot): aliases[slot] for slot in sorted(aliases)}
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _alias_slot(args: dict[str, Any]) -> int | None:
+    try:
+        slot = int(args.get("slot"))
+    except (TypeError, ValueError):
+        return None
+    return slot if 0 <= slot <= 9 else None
+
+
+def _path_alias(args: dict[str, Any]) -> str:
+    def _result(**fields: Any) -> str:
+        return json.dumps(fields, ensure_ascii=False)
+
+    action = str(args.get("action") or "").strip().lower()
+    aliases = _load_aliases("path_aliases.json")
+
+    def label(slot: int) -> str:
+        return f"@A{{{slot}}}"
+
+    if action == "list":
+        visible = {slot: aliases[slot] for slot in sorted(aliases)}
+        if 0 not in visible:
+            visible[0] = str(ROOT)
+        return _result(
+            ok=True,
+            aliases={label(slot): visible[slot] for slot in sorted(visible)},
+        )
+    if action == "delete":
+        slot = _alias_slot(args)
+        if slot is None:
+            return _result(ok=False, error="slot must be an integer from 0 to 9")
+        if slot not in aliases:
+            return _result(ok=False, error=f"alias not registered: {label(slot)}")
+        del aliases[slot]
+        _save_aliases("path_aliases.json", aliases)
+        return _result(ok=True, deleted=label(slot))
+    if action == "set":
+        slot = _alias_slot(args)
+        if slot is None:
+            return _result(ok=False, error="slot must be an integer from 0 to 9")
+        raw_path = str(args.get("path") or "").strip()
+        if not raw_path:
+            return _result(ok=False, error="path is required")
+        if slot in aliases and not bool(args.get("overwrite", False)):
+            return _result(ok=False, error=f"alias already registered: {label(slot)}")
+        try:
+            path = _resolve_relative(raw_path)
+        except Exception:
+            return _result(
+                ok=False,
+                error="path must be inside the sandbox workspace",
+            )
+        if not path.is_dir():
+            return _result(ok=False, error="path must be an existing directory")
+        aliases[slot] = str(path)
+        _save_aliases("path_aliases.json", aliases)
+        return _result(ok=True, alias=label(slot))
+    return _result(ok=False, error="action must be set, list, or delete")
+
+
+def _url_alias(args: dict[str, Any]) -> str:
+    def _result(**fields: Any) -> str:
+        return json.dumps(fields, ensure_ascii=False)
+
+    action = str(args.get("action") or "").strip().lower()
+    aliases = _load_aliases("url_aliases.json")
+
+    def label(slot: int) -> str:
+        return f"@B{{{slot}}}"
+
+    if action == "list":
+        return _result(
+            ok=True,
+            aliases={label(slot): aliases[slot] for slot in sorted(aliases)},
+        )
+    if action == "delete":
+        slot = _alias_slot(args)
+        if slot is None:
+            return _result(ok=False, error="slot must be an integer from 0 to 9")
+        if slot not in aliases:
+            return _result(ok=False, error=f"alias not registered: {label(slot)}")
+        del aliases[slot]
+        _save_aliases("url_aliases.json", aliases)
+        return _result(ok=True, deleted=label(slot))
+    if action == "set":
+        slot = _alias_slot(args)
+        if slot is None:
+            return _result(ok=False, error="slot must be an integer from 0 to 9")
+        raw_url = str(args.get("url") or "").strip()
+        if not raw_url:
+            return _result(ok=False, error="url is required")
+        if not raw_url.startswith(("http://", "https://")):
+            return _result(ok=False, error="url must start with http:// or https://")
+        if slot in aliases and not bool(args.get("overwrite", False)):
+            return _result(ok=False, error=f"alias already registered: {label(slot)}")
+        aliases[slot] = raw_url
+        _save_aliases("url_aliases.json", aliases)
+        return _result(ok=True, alias=label(slot))
+    return _result(ok=False, error="action must be set, list, or delete")
+
+
+def _generate_prompt(args: dict[str, Any]) -> str:
+    raw_path = str(args.get("path") or args.get("filename") or "").strip()
+    if not raw_path:
+        return "[generate_prompt error] path/filename is not specified"
+    template = str(args.get("template") or "")
+    if not template:
+        return "[generate_prompt error] template is not specified"
+    try:
+        path = _resolve_relative(raw_path)
+    except Exception as exc:
+        return f"[generate_prompt error] {type(exc).__name__}: {exc}"
+    if not path.is_file():
+        return f"[generate_prompt error] not a file: {raw_path}"
+    content = path.read_text(encoding="utf-8", errors="replace")
+    lines = content.count("\n") + (1 if content and not content.endswith("\n") else 0)
+    vars_map: dict[str, Any] = {
+        "content": content,
+        "lines": lines,
+        "bytes": path.stat().st_size,
+        "basename": path.name,
+        "path": str(path),
+    }
+    try:
+        return template.format(**vars_map)
+    except Exception as exc:
+        return f"[generate_prompt error] {type(exc).__name__}: {exc}"
+
+
 def _dispatch(request: Any) -> Any:
     if not isinstance(request, dict) or request.get("name") not in _ALLOWED:
         raise ValueError("tool is not in the local sandbox allowlist")
@@ -1863,6 +3420,22 @@ def _dispatch(request: Any) -> Any:
         "binary_edit": _binary_edit,
         "security_scan": _security_scan,
         "git_ops": _git_ops,
+        "get_weather_wttr": _get_weather_wttr,
+        "get_current_time": _get_current_time,
+        "geodesic_distance": _geodesic_distance,
+        "date_calc": _date_calc,
+        "quantities": _quantities,
+        "zipcode_check": _zipcode_check,
+        "reverse_geocode": _reverse_geocode,
+        "http_request": _http_request,
+        "apply_patch": _apply_patch,
+        "svg_to_image": _svg_to_image,
+        "mermaid_render": _mermaid_render,
+        "mmd_to_svg": _mmd_to_svg,
+        "preprocess_image": _preprocess_image,
+        "path_alias": _path_alias,
+        "url_alias": _url_alias,
+        "generate_prompt": _generate_prompt,
     }
     if name in handlers:
         return handlers[name](args)

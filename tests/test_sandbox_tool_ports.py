@@ -1,0 +1,480 @@
+"""Tests for the host tools ported into the MXC sandbox worker."""
+
+from __future__ import annotations
+
+import json
+import threading
+import urllib.request
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+import pytest
+
+from uagent.runtime import sandbox_worker as worker
+
+
+@pytest.fixture()
+def workspace(tmp_path, monkeypatch):
+    monkeypatch.setattr(worker, "ROOT", tmp_path)
+    return tmp_path
+
+
+class _FakeResponse:
+    def __init__(self, payload: bytes):
+        self._payload = payload
+
+    def read(self, size: int = -1) -> bytes:
+        if size is None or size < 0:
+            return self._payload
+        return self._payload[:size]
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
+def _call(name: str, args: dict) -> str:
+    return worker._dispatch({"name": name, "args": args})
+
+
+# ---------------------------------------------------------------------------
+# Pure compute tools
+# ---------------------------------------------------------------------------
+
+
+def test_get_current_time_shape():
+    out = _call("get_current_time", {})
+    assert out.startswith("[get_current_time]\nISO8601 (Local): ")
+    assert "Weekday:" in out
+    assert "NTP Sync:        N/A" in out
+
+
+def test_geodesic_distance_tokyo_osaka():
+    out = json.loads(
+        _call(
+            "geodesic_distance",
+            {
+                "lat_a": 35.6762,
+                "lon_a": 139.6503,
+                "lat_b": 34.6937,
+                "lon_b": 135.5023,
+            },
+        )
+    )
+    assert out["ok"] is True
+    assert 380 < out["distance_km"] < 420
+    assert out["method"] == "Haversine"
+
+
+def test_geodesic_distance_rejects_bad_coordinates():
+    out = json.loads(
+        _call(
+            "geodesic_distance",
+            {"lat_a": 100, "lon_a": 0, "lat_b": 0, "lon_b": 0},
+        )
+    )
+    assert out["ok"] is False
+
+
+def test_date_calc_month_end_and_holiday():
+    out = _call("date_calc", {"base_date": "2026-01-31", "months": 1})
+    assert "Result Date: 2026-02-28" in out
+    out = _call("date_calc", {"base_date": "2025-12-31", "days": 1})
+    assert "2026-01-01" in out
+    assert "Holiday" in out  # JP New Year's Day
+
+
+def test_quantities_without_pint_is_a_clear_error(monkeypatch):
+    try:
+        import pint  # noqa: F401
+    except ImportError:
+        monkeypatch.setattr(worker, "_ensure_package", lambda name: None)
+        out = json.loads(_call("quantities", {"expression": "1 km to m"}))
+        assert out["ok"] is False
+        assert "Pint is not available" in out["error"]
+    else:
+        out = json.loads(_call("quantities", {"expression": "1 km to m"}))
+        assert out["ok"] is True
+        assert out["result"].startswith("1000")
+
+
+def test_quantities_rejects_unsafe_expression():
+    out = json.loads(_call("quantities", {"expression": "__import__('os')"}))
+    assert out["ok"] is False
+
+
+# ---------------------------------------------------------------------------
+# Network tools (mocked / local server)
+# ---------------------------------------------------------------------------
+
+
+def test_reverse_geocode_mocked(monkeypatch):
+    payload = json.dumps(
+        {
+            "display_name": "千代田区, 東京都, 日本",
+            "lat": "35.68",
+            "lon": "139.69",
+            "address": {"city": "千代田区"},
+            "osm_type": "relation",
+            "osm_id": 1,
+        }
+    ).encode("utf-8")
+    monkeypatch.setattr(
+        urllib.request, "urlopen", lambda req, timeout=0: _FakeResponse(payload)
+    )
+    out = json.loads(_call("reverse_geocode", {"lat": 35.68, "lon": 139.69}))
+    assert out["ok"] is True
+    assert out["display_name"].startswith("千代田区")
+    assert out["address"]["city"] == "千代田区"
+
+
+def test_zipcode_lookup_mocked(monkeypatch):
+    def fake_fetch(path: str):
+        if path == "/p/100.json":
+            return {
+                "1000001": {
+                    "prefecture": "東京都",
+                    "city": "千代田区",
+                    "town": "千代田",
+                    "prefecture_code": "13",
+                }
+            }
+        return None
+
+    monkeypatch.setattr(worker, "_zipcode_fetch_json", fake_fetch)
+    out = json.loads(_call("zipcode_check", {"zipcode": "100-0001"}))
+    assert out["ok"] is True
+    assert out["address"]["city"] == "千代田区"
+    assert "prefecture_code" not in out["address"]
+
+
+def test_zipcode_rejects_bad_format():
+    out = json.loads(_call("zipcode_check", {"zipcode": "123"}))
+    assert out["ok"] is False
+
+
+class _EchoHandler(BaseHTTPRequestHandler):
+    def _handle(self):
+        length = int(self.headers.get("Content-Length") or 0)
+        body = self.rfile.read(length) if length else b""
+        payload = json.dumps(
+            {
+                "method": self.command,
+                "path": self.path,
+                "body": body.decode("utf-8", errors="replace"),
+            }
+        ).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(payload)))
+        self.end_headers()
+        self.wfile.write(payload)
+
+    do_GET = _handle
+    do_POST = _handle
+
+    def log_message(self, *args):
+        pass
+
+
+@pytest.fixture()
+def echo_server(monkeypatch):
+    for var in (
+        "http_proxy",
+        "https_proxy",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "ALL_PROXY",
+        "all_proxy",
+    ):
+        monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv("NO_PROXY", "127.0.0.1,localhost")
+    server = ThreadingHTTPServer(("127.0.0.1", 0), _EchoHandler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    yield f"http://127.0.0.1:{server.server_address[1]}"
+    server.shutdown()
+
+
+def test_http_request_get_and_post(echo_server):
+    out = json.loads(
+        _call(
+            "http_request",
+            {"url": f"{echo_server}/a", "query": {"x": "1"}, "parse_json": True},
+        )
+    )
+    assert out["ok"] is True
+    assert out["status_code"] == 200
+    assert out["response_json"]["path"] == "/a?x=1"
+    out = json.loads(
+        _call(
+            "http_request",
+            {
+                "url": f"{echo_server}/b",
+                "method": "POST",
+                "body": {"k": "v"},
+                "parse_json": True,
+            },
+        )
+    )
+    assert out["response_json"]["method"] == "POST"
+    assert json.loads(out["response_json"]["body"]) == {"k": "v"}
+
+
+def test_http_request_rejects_bad_url_and_method():
+    out = json.loads(_call("http_request", {"url": "file:///etc/passwd"}))
+    assert out["ok"] is False
+    out = json.loads(
+        _call("http_request", {"url": "https://example.com", "method": "TRACE"})
+    )
+    assert out["ok"] is False
+
+
+# ---------------------------------------------------------------------------
+# apply_patch
+# ---------------------------------------------------------------------------
+
+_PATCH_MODIFY = """--- a/note.txt
++++ b/note.txt
+@@ -1,3 +1,3 @@
+ alpha
+-beta
++bravo
+ gamma
+"""
+
+_PATCH_CREATE = """--- /dev/null
++++ b/new.txt
+@@ -0,0 +1,2 @@
++one
++two
+"""
+
+_PATCH_DELETE = """--- a/new.txt
++++ /dev/null
+@@ -1,2 +0,0 @@
+-one
+-two
+"""
+
+
+def test_apply_patch_modify_create_delete(workspace):
+    (workspace / "note.txt").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
+    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_MODIFY}))
+    assert out["ok"] is True
+    assert (workspace / "note.txt").read_text(encoding="utf-8") == (
+        "alpha\nbravo\ngamma\n"
+    )
+    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_CREATE}))
+    assert out["ok"] is True
+    assert (workspace / "new.txt").read_text(encoding="utf-8") == "one\ntwo\n"
+    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_DELETE}))
+    assert out["ok"] is True
+    assert not (workspace / "new.txt").exists()
+
+
+def test_apply_patch_dry_run_and_context_mismatch(workspace):
+    (workspace / "note.txt").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_MODIFY, "dry_run": True})
+    )
+    assert out["ok"] is True and out["dry_run"] is True
+    assert "beta" in (workspace / "note.txt").read_text(encoding="utf-8")
+    bad = _PATCH_MODIFY.replace("beta", "missing")
+    out = json.loads(_call("apply_patch", {"patch_text": bad}))
+    assert out["ok"] is False
+
+
+def test_apply_patch_revert(workspace):
+    (workspace / "note.txt").write_text("alpha\nbravo\ngamma\n", encoding="utf-8")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_MODIFY, "revert": True})
+    )
+    assert out["ok"] is True
+    assert (workspace / "note.txt").read_text(encoding="utf-8") == (
+        "alpha\nbeta\ngamma\n"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Media tools
+# ---------------------------------------------------------------------------
+
+
+def test_svg_to_image_missing_library_is_clear_error(workspace, monkeypatch):
+    (workspace / "a.svg").write_text("<svg></svg>", encoding="utf-8")
+    try:
+        import cairosvg  # noqa: F401
+    except ImportError:
+        monkeypatch.setattr(worker, "_ensure_package", lambda name: None)
+        out = json.loads(
+            _call("svg_to_image", {"svg": "a.svg", "output_path": "a.png"})
+        )
+        assert out["ok"] is False
+        assert "CairoSVG is not available" in out["error"]
+    else:
+        out = json.loads(
+            _call("svg_to_image", {"svg": "a.svg", "output_path": "a.png"})
+        )
+        assert out["ok"] is True
+
+
+def test_svg_to_image_validation(workspace):
+    out = json.loads(_call("svg_to_image", {"svg": "nope.svg", "output_path": "a.png"}))
+    assert out["ok"] is False
+
+
+def test_mermaid_missing_library_is_clear_error(workspace, monkeypatch):
+    try:
+        import mermaidx  # noqa: F401
+    except ImportError:
+        monkeypatch.setattr(worker, "_ensure_package", lambda name: None)
+        out = json.loads(
+            _call(
+                "mermaid_render",
+                {"source": "flowchart TD; A-->B", "output_path": "d.svg"},
+            )
+        )
+        assert out["ok"] is False
+        assert "mermaidx is not available" in out["error"]
+    else:
+        out = json.loads(
+            _call(
+                "mermaid_render",
+                {"source": "flowchart TD; A-->B", "output_path": "d.svg"},
+            )
+        )
+        assert out["ok"] is True
+
+
+def test_mermaid_render_arg_validation():
+    out = json.loads(
+        _call(
+            "mermaid_render",
+            {"source": "x", "input_path": "y", "output_path": "d.svg"},
+        )
+    )
+    assert out["ok"] is False
+
+
+def test_mmd_to_svg_validation(workspace):
+    (workspace / "d.txt").write_text("x", encoding="utf-8")
+    out = json.loads(_call("mmd_to_svg", {"mmd": "d.txt", "output_path": "d.svg"}))
+    assert out["ok"] is False
+
+
+def test_preprocess_image_roundtrip(workspace):
+    pytest.importorskip("PIL")
+    from PIL import Image
+
+    Image.new("RGB", (40, 20), (200, 30, 30)).save(workspace / "in.png")
+    out = json.loads(_call("preprocess_image", {"img": "in.png", "binarize": True}))
+    assert out["ok"] is True
+    produced = workspace / out["output"]
+    assert produced.is_file()
+    with Image.open(produced) as image:
+        assert image.mode == "L"
+    assert "grayscale" in out["applied"]
+    assert "binarize" in out["applied"]
+
+
+# ---------------------------------------------------------------------------
+# Alias tools and generate_prompt
+# ---------------------------------------------------------------------------
+
+
+def test_path_alias_roundtrip(workspace):
+    (workspace / "sub").mkdir()
+    out = json.loads(_call("path_alias", {"action": "list"}))
+    assert out["aliases"]["@A{0}"] == str(workspace)
+    out = json.loads(_call("path_alias", {"action": "set", "slot": 1, "path": "sub"}))
+    assert out == {"ok": True, "alias": "@A{1}"}
+    out = json.loads(_call("path_alias", {"action": "set", "slot": 1, "path": "sub"}))
+    assert out["ok"] is False  # overwrite guard
+    out = json.loads(_call("path_alias", {"action": "delete", "slot": 1}))
+    assert out == {"ok": True, "deleted": "@A{1}"}
+    out = json.loads(
+        _call("path_alias", {"action": "set", "slot": 2, "path": "../outside"})
+    )
+    assert out["ok"] is False  # outside the workspace
+
+
+def test_url_alias_roundtrip(workspace):
+    out = json.loads(
+        _call(
+            "url_alias",
+            {"action": "set", "slot": 0, "url": "https://example.com/api"},
+        )
+    )
+    assert out == {"ok": True, "alias": "@B{0}"}
+    out = json.loads(_call("url_alias", {"action": "list"}))
+    assert out["aliases"]["@B{0}"] == "https://example.com/api"
+    out = json.loads(_call("url_alias", {"action": "set", "slot": 1, "url": "ftp://x"}))
+    assert out["ok"] is False
+
+
+def test_generate_prompt_expands_template(workspace):
+    (workspace / "doc.txt").write_text("hello\nworld\n", encoding="utf-8")
+    out = _call(
+        "generate_prompt",
+        {
+            "path": "doc.txt",
+            "template": "{basename}: {lines} lines\n{content}",
+        },
+    )
+    assert out == "doc.txt: 2 lines\nhello\nworld\n"
+
+
+def test_generate_prompt_errors(workspace):
+    out = _call("generate_prompt", {"path": "missing.txt", "template": "x"})
+    assert out.startswith("[generate_prompt error]")
+
+
+# ---------------------------------------------------------------------------
+# Automatic package installation
+# ---------------------------------------------------------------------------
+
+
+def test_ensure_package_returns_stdlib_without_pip(monkeypatch):
+    def _boom(*args, **kwargs):
+        raise AssertionError("pip must not run for an importable module")
+
+    monkeypatch.setattr(worker.subprocess, "run", _boom)
+    assert worker._ensure_package("json") is not None
+
+
+def test_ensure_package_installs_into_workspace(workspace, monkeypatch):
+    import subprocess as real_subprocess
+    import sys
+
+    module_name = "uag_stub_pkg_xyz"
+
+    def fake_run(command, **kwargs):
+        target = command[command.index("--target") + 1]
+        stub = worker.Path(target) / f"{module_name}.py"
+        stub.parent.mkdir(parents=True, exist_ok=True)
+        stub.write_text("MARKER = 42\n", encoding="utf-8")
+        return real_subprocess.CompletedProcess(command, 0, "", "")
+
+    monkeypatch.setattr(worker, "_SANDBOX_SITE_PACKAGES", None)
+    monkeypatch.setattr(worker.subprocess, "run", fake_run)
+    monkeypatch.delitem(sys.modules, module_name, raising=False)
+    try:
+        module = worker._ensure_package(module_name)
+        assert module is not None
+        assert module.MARKER == 42
+        assert (workspace / ".uag" / "site-packages").is_dir()
+    finally:
+        sys.modules.pop(module_name, None)
+
+
+def test_ensure_package_returns_none_when_install_fails(monkeypatch):
+    import subprocess as real_subprocess
+
+    def fake_run(command, **kwargs):
+        return real_subprocess.CompletedProcess(command, 1, "", "nope")
+
+    monkeypatch.setattr(worker, "_SANDBOX_SITE_PACKAGES", None)
+    monkeypatch.setattr(worker.subprocess, "run", fake_run)
+    assert worker._ensure_package("uag_missing_pkg_xyz") is None

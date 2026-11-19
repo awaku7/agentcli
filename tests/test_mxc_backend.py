@@ -1084,7 +1084,7 @@ def test_worker_rejects_absolute_paths_and_unregistered_tools(monkeypatch, tmp_p
         )
     with pytest.raises(ValueError, match="allowlist"):
         sandbox_worker._dispatch(
-            {"name": "http_request", "args": {"url": "https://example.com"}}
+            {"name": "send_email", "args": {"to": "user@example.com"}}
         )
 
 
