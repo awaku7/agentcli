@@ -359,6 +359,37 @@ def test_sandbox_calls_adapter_before_host_runner(monkeypatch, local_scope):
     assert result == '{"exists":true,"is_file":true,"is_dir":false}'
 
 
+def test_sandbox_routed_calls_skip_host_alias_resolution(monkeypatch, local_scope):
+    received = {}
+
+    class FakeManager:
+        capabilities = all_local_capabilities()
+
+        def run_tool(self, scope, name, args):
+            received.update(args)
+            return "sandbox-result"
+
+    fake = FakeManager()
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: fake)
+    monkeypatch.setattr(
+        tools,
+        "_ensure_loaded",
+        lambda: (_ for _ in ()).throw(AssertionError("Host plugins must not load")),
+    )
+    monkeypatch.setattr(tools, "_emit_tool_trace", lambda *args: None)
+    monkeypatch.setattr(tools, "_CONFIRMATION_CALLBACK", lambda *args: True)
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=local_scope
+    ):
+        # @A{9} is not a host alias: the host resolver would reject the
+        # call, but sandbox-routed calls expand aliases inside the worker
+        # against the workspace store, so the token must reach the
+        # manager untouched.
+        result = tools.run_tool("read_file", {"path": "@A{9}/inside.txt"})
+    assert result == "sandbox-result"
+    assert received == {"path": "@A{9}/inside.txt"}
+
+
 def test_sandbox_parallel_safety_does_not_load_host_plugins(monkeypatch, local_scope):
     monkeypatch.setattr(
         tools,

@@ -2683,7 +2683,9 @@ def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
         if match and current is not None:
             hunk = {
                 "old_start": int(match.group(1)),
+                "old_count": int(match.group(2)) if match.group(2) else 1,
                 "new_start": int(match.group(3)),
+                "new_count": int(match.group(4)) if match.group(4) else 1,
                 "lines": [],
             }
             current["hunks"].append(hunk)
@@ -2697,6 +2699,11 @@ def _strip_patch_path(token: str, strip: int) -> str | None:
     if token == "/dev/null":
         return None
     parts = token.split("/")
+    # Git-style diffs prefix the old/new paths with a/ and b/; that prefix
+    # is normalized away first (as the host parser does), then the
+    # documented strip count applies to what remains.
+    if parts and parts[0] in {"a", "b"}:
+        parts = parts[1:]
     if strip > 0:
         parts = parts[strip:]
     return "/".join(parts)
@@ -2708,13 +2715,15 @@ def _apply_patch(args: dict[str, Any]) -> str:
         return json.dumps(
             {"ok": False, "error": "patch_text is required"}, ensure_ascii=False
         )
-    dry_run = bool(args.get("dry_run"))
+    # The host tool (and the confirmation policy) treats an omitted
+    # dry_run as a safe preview; match that default.
+    dry_run = bool(args.get("dry_run", True))
     revert = bool(args.get("revert"))
     ignore_ws = bool(args.get("ignore_whitespace"))
     try:
-        strip = max(0, min(int(args.get("strip", 1)), 5))
+        strip = max(0, min(int(args.get("strip", 0)), 5))
     except (TypeError, ValueError):
-        strip = 1
+        strip = 0
     encoding = str(args.get("encoding") or "utf-8")
 
     def _norm(text: str) -> str:
@@ -2784,9 +2793,20 @@ def _apply_patch(args: dict[str, Any]) -> str:
                         src_lines.append(content)
                     if tag in {" ", "+"}:
                         dst_lines.append(content)
-            start = (hunk["new_start"] if revert else hunk["old_start"]) - 1 + offset
+            if revert:
+                anchor = hunk["new_start"]
+                src_count = hunk["new_count"]
+            else:
+                anchor = hunk["old_start"]
+                src_count = hunk["old_count"]
+            # A zero-length source range names the line AFTER which the
+            # new lines are inserted, not the line they replace.
+            base = (anchor if src_count == 0 else anchor - 1) + offset
             found = -1
-            candidates = [start] + list(range(0, len(lines) + 1))
+            if src_lines:
+                candidates = [base] + list(range(0, len(lines) + 1))
+            else:
+                candidates = [base]
             seen: set[int] = set()
             for pos in candidates:
                 if pos in seen or pos < 0 or pos > len(lines):
@@ -3224,9 +3244,10 @@ def _preprocess_image(args: dict[str, Any]) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
-def _alias_store_path(filename: str) -> Path:
+def _alias_store_path(filename: str, *, create: bool = False) -> Path:
     store_dir = ROOT / ".uag"
-    store_dir.mkdir(parents=True, exist_ok=True)
+    if create:
+        store_dir.mkdir(parents=True, exist_ok=True)
     return store_dir / filename
 
 
@@ -3251,7 +3272,7 @@ def _load_aliases(filename: str) -> dict[int, str]:
 
 
 def _save_aliases(filename: str, aliases: dict[int, str]) -> None:
-    path = _alias_store_path(filename)
+    path = _alias_store_path(filename, create=True)
     payload = {str(slot): aliases[slot] for slot in sorted(aliases)}
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -3275,7 +3296,7 @@ def _path_alias(args: dict[str, Any]) -> str:
         return f"@A{{{slot}}}"
 
     if action == "list":
-        visible = {slot: aliases[slot] for slot in sorted(aliases)}
+        visible = {slot: str(ROOT / aliases[slot]) for slot in sorted(aliases)}
         if 0 not in visible:
             visible[0] = str(ROOT)
         return _result(
@@ -3309,7 +3330,8 @@ def _path_alias(args: dict[str, Any]) -> str:
             )
         if not path.is_dir():
             return _result(ok=False, error="path must be an existing directory")
-        aliases[slot] = str(path)
+        relative = path.relative_to(ROOT)
+        aliases[slot] = "" if str(relative) == "." else relative.as_posix()
         _save_aliases("path_aliases.json", aliases)
         return _result(ok=True, alias=label(slot))
     return _result(ok=False, error="action must be set, list, or delete")
@@ -3384,6 +3406,134 @@ def _generate_prompt(args: dict[str, Any]) -> str:
         return f"[generate_prompt error] {type(exc).__name__}: {exc}"
 
 
+# Alias expansion happens inside the sandbox dispatch boundary: the host
+# resolves @A{...} / @B{...} tokens against its own ~/.uag store before
+# routing, which cannot see aliases registered here, so sandbox-routed
+# calls skip the host resolver and expand here against the workspace
+# store instead. The field sets mirror the host's path_alias_shared.
+_PATH_FIELD_NAMES = {
+    "path",
+    "file",
+    "filename",
+    "file_path",
+    "filepath",
+    "current_file",
+    "output_path",
+    "input_path",
+    "db_path",
+    "json_path",
+    "log_path",
+    "pcap_path",
+    "img",
+    "image",
+    "mask_path",
+    "zip_path",
+    "dest_dir",
+    "destination",
+    "output_dir",
+    "outdir",
+    "root",
+    "root_path",
+    "root_dir",
+    "cwd",
+    "new_dir",
+    "source",
+    "sources",
+    "relative_path",
+    "file_pattern",
+    "download_dir",
+    "trace_path",
+    "record_video_dir",
+    "storage_state",
+    "skill_dir",
+    "sheets_dir",
+    "print_areas_dir",
+    "auto_page_breaks_dir",
+    "exclude_dirs",
+    "path1",
+    "path2",
+    "render_path",
+}
+_URL_FIELD_NAMES = {
+    "url",
+    "url_pattern",
+    "url_contains",
+    "base_url",
+    "business_url",
+    "location",
+    "redirect_uri",
+}
+_SANDBOX_ALIAS_RE = re.compile(r"^@A\{([0-9])\}(?:[\\/](.*))?$")
+_SANDBOX_URL_ALIAS_RE = re.compile(r"^@B\{([0-9])\}(.*)$")
+
+
+def _resolve_sandbox_path_alias(value: str) -> str:
+    match = _SANDBOX_ALIAS_RE.match(value)
+    if not match:
+        return value
+    slot = int(match.group(1))
+    aliases = _load_aliases("path_aliases.json")
+    root_rel = aliases.get(slot)
+    if root_rel is None and slot == 0:
+        root_rel = ""
+    if root_rel is None:
+        raise ValueError(f"unknown path alias: @A{{{slot}}}")
+    relative = match.group(2) or ""
+    parts: list[str] = []
+    for part in relative.replace("\\", "/").split("/"):
+        if part in {"", "."}:
+            continue
+        if part == "..":
+            if not parts:
+                raise ValueError("path escapes alias root")
+            parts.pop()
+        else:
+            parts.append(part)
+    joined = "/".join(p for p in [root_rel, *parts] if p)
+    return joined if joined else "."
+
+
+def _resolve_sandbox_url_alias(value: str) -> str:
+    match = _SANDBOX_URL_ALIAS_RE.match(value)
+    if not match:
+        return value
+    slot = int(match.group(1))
+    aliases = _load_aliases("url_aliases.json")
+    base = aliases.get(slot)
+    if base is None:
+        raise ValueError(f"unknown URL alias: @B{{{slot}}}")
+    suffix = match.group(2)
+    if suffix and not suffix.startswith(("/", "?", "#")):
+        raise ValueError("URL alias suffix must start with '/', '?' or '#'")
+    return base.rstrip("/") + suffix
+
+
+def _expand_sandbox_aliases(value: Any, field_name: str | None = None) -> Any:
+    if isinstance(value, str):
+        if field_name in _PATH_FIELD_NAMES:
+            return _resolve_sandbox_path_alias(value)
+        if field_name in _URL_FIELD_NAMES:
+            return _resolve_sandbox_url_alias(value)
+        return value
+    if isinstance(value, list):
+        if field_name in _PATH_FIELD_NAMES:
+            return [
+                _resolve_sandbox_path_alias(item) if isinstance(item, str) else item
+                for item in value
+            ]
+        if field_name in _URL_FIELD_NAMES:
+            return [
+                _resolve_sandbox_url_alias(item) if isinstance(item, str) else item
+                for item in value
+            ]
+        return [_expand_sandbox_aliases(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: _expand_sandbox_aliases(item, str(key)) for key, item in value.items()
+        }
+    return value
+
+
 def _dispatch(request: Any) -> Any:
     if not isinstance(request, dict) or request.get("name") not in _ALLOWED:
         raise ValueError("tool is not in the local sandbox allowlist")
@@ -3395,6 +3545,7 @@ def _dispatch(request: Any) -> Any:
         raise RuntimeError(
             f"{name} must use a one-shot MXC container, not the persistent worker"
         )
+    args = _expand_sandbox_aliases(args)
     if name == "create_file":
         return _create_file(args)
     handlers = {

@@ -2735,10 +2735,23 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     )
 
     # Resolve @A{0}..@A{9} path aliases at the common dispatch boundary.
-    try:
-        args = resolve_tool_args(args)
-    except ValueError as exc:
-        return f"[tool argument error] name={name!r} err={exc}"
+    # Sandbox-routed calls are the exception: the worker expands aliases
+    # from its workspace-local store instead, because the host store is
+    # outside the isolation boundary and cannot see aliases registered
+    # inside the sandbox (nor should sandbox calls resolve host aliases).
+    _sandbox_routed = False
+    if (
+        current_profile() in {SecurityProfile.LOCAL_TRUSTED, SecurityProfile.REMOTE}
+        and current_sandbox_enabled()
+    ):
+        from ..runtime.mxc_backend import TOOL_NAMES as _sandbox_tool_names
+
+        _sandbox_routed = name in _sandbox_tool_names
+    if not _sandbox_routed:
+        try:
+            args = resolve_tool_args(args)
+        except ValueError as exc:
+            return f"[tool argument error] name={name!r} err={exc}"
     # Never trust an approval marker supplied by the model or caller. It is
     # added below only after the common confirmation callback approves.
     if name == "rename_path":

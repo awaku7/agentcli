@@ -261,15 +261,21 @@ _PATCH_DELETE = """--- a/new.txt
 
 def test_apply_patch_modify_create_delete(workspace):
     (workspace / "note.txt").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
-    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_MODIFY}))
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_MODIFY, "dry_run": False})
+    )
     assert out["ok"] is True
     assert (workspace / "note.txt").read_text(encoding="utf-8") == (
         "alpha\nbravo\ngamma\n"
     )
-    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_CREATE}))
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_CREATE, "dry_run": False})
+    )
     assert out["ok"] is True
     assert (workspace / "new.txt").read_text(encoding="utf-8") == "one\ntwo\n"
-    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_DELETE}))
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_DELETE, "dry_run": False})
+    )
     assert out["ok"] is True
     assert not (workspace / "new.txt").exists()
 
@@ -289,11 +295,60 @@ def test_apply_patch_dry_run_and_context_mismatch(workspace):
 def test_apply_patch_revert(workspace):
     (workspace / "note.txt").write_text("alpha\nbravo\ngamma\n", encoding="utf-8")
     out = json.loads(
-        _call("apply_patch", {"patch_text": _PATCH_MODIFY, "revert": True})
+        _call(
+            "apply_patch",
+            {"patch_text": _PATCH_MODIFY, "revert": True, "dry_run": False},
+        )
     )
     assert out["ok"] is True
     assert (workspace / "note.txt").read_text(encoding="utf-8") == (
         "alpha\nbeta\ngamma\n"
+    )
+
+
+def test_apply_patch_defaults_to_preview(workspace):
+    (workspace / "note.txt").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
+    out = json.loads(_call("apply_patch", {"patch_text": _PATCH_MODIFY}))
+    assert out["ok"] is True and out["dry_run"] is True
+    assert "beta" in (workspace / "note.txt").read_text(encoding="utf-8")
+
+
+_PATCH_PLAIN_HEADERS = """--- note.txt
++++ note.txt
+@@ -1,3 +1,3 @@
+ alpha
+-beta
++bravo
+ gamma
+"""
+
+_PATCH_INSERT_ONLY = """--- a/note.txt
++++ b/note.txt
+@@ -2,0 +3 @@
++inserted
+"""
+
+
+def test_apply_patch_plain_headers_and_strip(workspace):
+    (workspace / "note.txt").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
+    out = json.loads(
+        _call(
+            "apply_patch",
+            {"patch_text": _PATCH_PLAIN_HEADERS, "dry_run": False},
+        )
+    )
+    assert out["ok"] is True
+    assert "bravo" in (workspace / "note.txt").read_text(encoding="utf-8")
+
+
+def test_apply_patch_zero_count_insertion(workspace):
+    (workspace / "note.txt").write_text("l1\nl2\nl3\n", encoding="utf-8")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_INSERT_ONLY, "dry_run": False})
+    )
+    assert out["ok"] is True
+    assert (workspace / "note.txt").read_text(encoding="utf-8") == (
+        "l1\nl2\ninserted\nl3\n"
     )
 
 
@@ -390,6 +445,8 @@ def test_path_alias_roundtrip(workspace):
     assert out["aliases"]["@A{0}"] == str(workspace)
     out = json.loads(_call("path_alias", {"action": "set", "slot": 1, "path": "sub"}))
     assert out == {"ok": True, "alias": "@A{1}"}
+    out = json.loads(_call("path_alias", {"action": "list"}))
+    assert out["aliases"]["@A{1}"] == str(workspace / "sub")
     out = json.loads(_call("path_alias", {"action": "set", "slot": 1, "path": "sub"}))
     assert out["ok"] is False  # overwrite guard
     out = json.loads(_call("path_alias", {"action": "delete", "slot": 1}))
@@ -398,6 +455,24 @@ def test_path_alias_roundtrip(workspace):
         _call("path_alias", {"action": "set", "slot": 2, "path": "../outside"})
     )
     assert out["ok"] is False  # outside the workspace
+
+
+def test_alias_expansion_inside_sandbox(workspace, echo_server):
+    (workspace / "sub").mkdir()
+    (workspace / "sub" / "hello.txt").write_text("aliased\n", encoding="utf-8")
+    _call("path_alias", {"action": "set", "slot": 1, "path": "sub"})
+    out = _call("read_file", {"path": "@A{1}/hello.txt"})
+    assert "aliased" in out
+    out = _call("read_file", {"path": "@A{0}/sub/hello.txt"})
+    assert "aliased" in out
+    _call("url_alias", {"action": "set", "slot": 0, "url": echo_server})
+    out = json.loads(
+        _call("http_request", {"url": "@B{0}/via-alias", "parse_json": True})
+    )
+    assert out["ok"] is True
+    assert out["response_json"]["path"] == "/via-alias"
+    with pytest.raises(ValueError, match="unknown path alias"):
+        _call("read_file", {"path": "@A{9}/nope.txt"})
 
 
 def test_url_alias_roundtrip(workspace):
