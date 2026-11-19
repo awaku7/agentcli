@@ -159,6 +159,14 @@ class _EchoHandler(BaseHTTPRequestHandler):
     def _handle(self):
         length = int(self.headers.get("Content-Length") or 0)
         body = self.rfile.read(length) if length else b""
+        if self.path == "/big":
+            payload = b"a" * 1_000_000
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Length", str(len(payload)))
+            self.end_headers()
+            self.wfile.write(payload)
+            return
         payload = json.dumps(
             {
                 "method": self.command,
@@ -230,6 +238,15 @@ def test_http_request_rejects_bad_url_and_method():
         _call("http_request", {"url": "https://example.com", "method": "TRACE"})
     )
     assert out["ok"] is False
+
+
+def test_http_request_large_body_is_bounded(echo_server):
+    raw = _call("http_request", {"url": f"{echo_server}/big"})
+    out = json.loads(raw)
+    assert out["ok"] is True
+    assert out["status_code"] == 200
+    assert out["truncated"] is True
+    assert len(raw.encode("utf-8")) <= worker.MAX_RESULT_BYTES
 
 
 # ---------------------------------------------------------------------------
@@ -385,13 +402,39 @@ def test_apply_patch_newline_markers(workspace):
     assert (workspace / "f.txt").read_bytes() == b"new\n"
 
 
+_PATCH_SHIFTED = """--- a/f.txt
++++ b/f.txt
+@@ -5,2 +5,2 @@
+ ctx
+-old
++new
+"""
+
+
+def test_apply_patch_shifted_hunk_prefers_nearest(workspace):
+    # The stated anchor (line 5) no longer lines up: the context pair
+    # occurs at lines 1-2 and 4-5. The nearest occurrence to the anchor
+    # must win, not the first one in the file.
+    (workspace / "f.txt").write_text("ctx\nold\nx\nctx\nold\n", encoding="utf-8")
+    out = json.loads(
+        _call("apply_patch", {"patch_text": _PATCH_SHIFTED, "dry_run": False})
+    )
+    assert out["ok"] is True
+    assert (workspace / "f.txt").read_text(encoding="utf-8") == (
+        "ctx\nold\nx\nctx\nnew\n"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Media tools
 # ---------------------------------------------------------------------------
 
 
 def test_svg_to_image_missing_library_is_clear_error(workspace, monkeypatch):
-    (workspace / "a.svg").write_text("<svg></svg>", encoding="utf-8")
+    (workspace / "a.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"></svg>',
+        encoding="utf-8",
+    )
     try:
         import cairosvg  # noqa: F401
     except ImportError:

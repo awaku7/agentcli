@@ -2642,7 +2642,25 @@ def _http_request(args: dict[str, Any]) -> str:
                     result["response_json"] = json.loads(text)
                 except Exception:
                     pass
-            return json.dumps(result, ensure_ascii=False)
+            # The worker result budget (MAX_RESULT_BYTES, enforced by
+            # _emit) is smaller than the advertised body cap, and a
+            # parsed copy in response_json doubles the payload. Shrink
+            # to fit so the caller keeps status and headers instead of
+            # losing the whole result: drop response_json first, then
+            # truncate the body.
+            budget = MAX_RESULT_BYTES - 100_000
+            encoded = json.dumps(result, ensure_ascii=False)
+            if len(encoded.encode("utf-8", errors="replace")) > budget:
+                result.pop("response_json", None)
+                encoded = json.dumps(result, ensure_ascii=False)
+            while (
+                len(encoded.encode("utf-8", errors="replace")) > budget
+                and result["body"]
+            ):
+                result["body"] = result["body"][: len(result["body"]) // 2]
+                result["truncated"] = True
+                encoded = json.dumps(result, ensure_ascii=False)
+            return encoded
     except urllib.error.HTTPError as exc:
         try:
             raw = exc.read(max_bytes)
@@ -2816,7 +2834,16 @@ def _apply_patch(args: dict[str, Any]) -> str:
             base = (anchor if src_count == 0 else anchor - 1) + offset
             found = -1
             if src_lines:
-                candidates = [base] + list(range(0, len(lines) + 1))
+                # Search outward from the expected position so a shifted
+                # hunk lands on the nearest matching occurrence, not the
+                # first one in the file.
+                candidates = []
+                for distance in range(0, len(lines) + 1):
+                    if distance == 0:
+                        candidates.append(base)
+                    else:
+                        candidates.append(base - distance)
+                        candidates.append(base + distance)
             else:
                 candidates = [base]
             seen: set[int] = set()
