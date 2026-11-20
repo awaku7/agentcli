@@ -6,6 +6,14 @@ import sys
 
 
 def main() -> int:
+    if sys.argv[1:2] == ["setup"]:
+        if sys.argv[2:3] == ["--cli"]:
+            from .setup_cli import main as setup_cli_main
+
+            return setup_cli_main()
+        from .setup_gui import main as setup_gui_main
+
+        return setup_gui_main()
     if sys.argv[1:2] == ["session"]:
         from .session_cli import main as session_main
 

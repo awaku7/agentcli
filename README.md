@@ -56,6 +56,11 @@ On first launch, the setup wizard helps you choose a provider and configure its
 credentials. You can also configure providers through environment variables or
 the credential store.
 
+Run `uag setup` to open the graphical, minimal provider setup. It asks for the
+selected provider's required values and saves them to encrypted `.env.sec` by
+default; PySide6 is installed on demand if the graphical setup is used for the
+first time. Use `uag setup --cli` (or `uag_setup`) for the terminal wizard.
+
 For a larger set of provider and tool dependencies up front:
 
 ~~~bash

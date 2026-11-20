@@ -11,7 +11,7 @@ MODES = {
     "gui": "uagent.gui",
     "web": "uagent.web",
     "ws": "uagent.ws_server",
-    "setup": "uagent.setup_cli",
+    "setup": "uagent.setup_gui",
 }
 
 
@@ -57,6 +57,9 @@ def main():
             )
 
     module_path = MODES[mode]
+    if mode == "setup" and args[:1] == ["--cli"]:
+        module_path = "uagent.setup_cli"
+        args = args[1:]
     try:
         mod = __import__(module_path, fromlist=["main"])
     except ImportError as e:
