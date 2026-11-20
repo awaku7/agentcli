@@ -2694,7 +2694,85 @@ def _http_request(args: dict[str, Any]) -> str:
         )
 
 
+def _parse_update_file_patch_sections(patch_text: str) -> list[dict[str, Any]] | None:
+    """Parse Begin Patch/Update File syntax into sandbox patch sections."""
+    lines = patch_text.splitlines()
+    meaningful = [line.rstrip() for line in lines if line.strip()]
+    if not meaningful or meaningful[0] != "*** Begin Patch":
+        return None
+    if "*** End Patch" not in meaningful[1:]:
+        return []
+
+    sections: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    hunk: dict[str, Any] | None = None
+    old_cursor = 0
+    new_cursor = 0
+
+    def flush_hunk() -> None:
+        nonlocal hunk, old_cursor, new_cursor
+        if hunk is None:
+            return
+        old_count = sum(1 for line in hunk["lines"] if line[:1] in {" ", "-"})
+        new_count = sum(1 for line in hunk["lines"] if line[:1] in {" ", "+"})
+        if hunk["lines"] and current is not None:
+            hunk["old_start"] = max(1, old_cursor + 1)
+            hunk["old_count"] = old_count
+            hunk["new_start"] = max(1, new_cursor + 1)
+            hunk["new_count"] = new_count
+            current["hunks"].append(hunk)
+            old_cursor += old_count
+            new_cursor += new_count
+        hunk = None
+
+    for line in lines:
+        text = line.rstrip()
+        if text == "*** Begin Patch":
+            continue
+        if text == "*** End Patch":
+            flush_hunk()
+            break
+        if text.startswith("*** Update File:"):
+            flush_hunk()
+            path = text[len("*** Update File:") :].strip()
+            if not path:
+                return []
+            current = {"old": path, "new": path, "hunks": []}
+            sections.append(current)
+            old_cursor = 0
+            new_cursor = 0
+            continue
+        if text == "*** End of File":
+            continue
+        if text.startswith("@@"):
+            if current is None:
+                return []
+            flush_hunk()
+            section_context = text[2:].strip()
+            if section_context.endswith("@@"):
+                section_context = section_context[:-2].strip()
+            hunk = {
+                "lines": [],
+                "section_context": section_context,
+                "update_file_format": True,
+            }
+            continue
+        if hunk is not None:
+            if not line.strip() and line[:1] not in {" ", "+", "-"}:
+                continue
+            if line[:1] not in {" ", "+", "-", chr(92)}:
+                return []
+            hunk["lines"].append(line)
+        elif text:
+            return []
+    return [section for section in sections if section["hunks"]]
+
+
 def _parse_patch_sections(patch_text: str) -> list[dict[str, Any]]:
+    update_sections = _parse_update_file_patch_sections(patch_text)
+    if update_sections is not None:
+        return update_sections
+
     sections: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
     hunk: dict[str, Any] | None = None
@@ -2870,9 +2948,25 @@ def _apply_patch(args: dict[str, Any]) -> str:
             else:
                 anchor = hunk["old_start"]
                 src_count = hunk["old_count"]
-            # A zero-length source range names the line AFTER which the
-            # new lines are inserted, not the line they replace.
-            base = (anchor if src_count == 0 else anchor - 1) + offset
+            section_context = str(hunk.get("section_context") or "").strip()
+            if section_context:
+                anchor_positions = [
+                    index for index, line in enumerate(lines) if section_context in line
+                ]
+                if len(anchor_positions) != 1:
+                    failed = "section context not found or ambiguous"
+                    break
+                base = anchor_positions[0]
+                if not src_lines or section_context not in src_lines[0]:
+                    base = min(base + 1, len(lines))
+            elif hunk.get("update_file_format"):
+                # Update File hunks use inferred source-line coordinates;
+                # zero-length ranges insert at that zero-based boundary.
+                base = anchor - 1 + offset
+            else:
+                # Unified diffs define a zero-length source range as the line
+                # after which the new content is inserted.
+                base = (anchor if src_count == 0 else anchor - 1) + offset
             found = -1
             if src_lines:
                 # Search outward from the expected position so a shifted

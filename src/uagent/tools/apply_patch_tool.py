@@ -1,6 +1,6 @@
 """apply_patch_tool
 
-Apply unified diff (patch) to files using pure Python (difflib).
+Apply unified diff or Begin Patch/Update File patches to files using pure Python (difflib).
 No git or external patch command required.
 """
 
@@ -38,7 +38,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Apply a unified diff (patch) to files using pure Python. "
+                "Apply unified diff or Begin Patch/Update File patches using pure Python. "
                 "Supports dry-run preview, whitespace tolerance, and CRLF preservation."
             ),
         ),
@@ -64,7 +64,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.patch_text.description",
-                        default="Unified diff text to apply (git-format compatible, e.g. ---/+++ headers).",
+                        default="Patch text in unified diff or Begin Patch/Update File format.",
                     ),
                 },
                 "dry_run": {
@@ -136,6 +136,8 @@ class _Hunk:
     new_start: int
     new_count: int
     lines: list[str]
+    section_context: str = ""
+    update_file_format: bool = False
 
 
 @dataclass
@@ -155,8 +157,102 @@ def _flush_patch(
         hunks.clear()
 
 
+def _parse_update_file_patch(patch_text: str) -> list[_PatchFile] | None:
+    """Parse the ``*** Begin Patch`` / ``*** Update File`` patch format.
+
+    Hunk positions are inferred from cumulative source/destination line counts;
+    the existing context matcher then locates each hunk in the target file.
+    Return None when the input is not this patch format.
+    """
+    lines = patch_text.splitlines(keepends=True)
+    meaningful = [line.rstrip() for line in lines if line.strip()]
+    if not meaningful or meaningful[0] != "*** Begin Patch":
+        return None
+    if "*** End Patch" not in meaningful[1:]:
+        raise ValueError("Update File patch is missing *** End Patch.")
+
+    patches: list[_PatchFile] = []
+    current_path = ""
+    current_hunks: list[_Hunk] = []
+    hunk_lines: list[str] | None = None
+    hunk_context = ""
+    old_cursor = 0
+    new_cursor = 0
+
+    def flush_hunk() -> None:
+        nonlocal old_cursor, new_cursor, hunk_lines, hunk_context
+        if hunk_lines is None:
+            return
+        old_count = sum(1 for line in hunk_lines if line[:1] in {" ", "-"})
+        new_count = sum(1 for line in hunk_lines if line[:1] in {" ", "+"})
+        if hunk_lines:
+            current_hunks.append(
+                _Hunk(
+                    old_start=max(1, old_cursor + 1),
+                    old_count=old_count,
+                    new_start=max(1, new_cursor + 1),
+                    new_count=new_count,
+                    lines=hunk_lines,
+                    section_context=hunk_context,
+                    update_file_format=True,
+                )
+            )
+            old_cursor += old_count
+            new_cursor += new_count
+        hunk_lines = None
+        hunk_context = ""
+
+    def flush_file() -> None:
+        nonlocal current_hunks
+        flush_hunk()
+        if current_path and current_hunks:
+            patches.append(_PatchFile(target_path=current_path, hunks=current_hunks))
+        current_hunks = []
+
+    for line in lines:
+        text = line.rstrip()
+        if text == "*** Begin Patch":
+            continue
+        if text == "*** End Patch":
+            flush_file()
+            break
+        if text.startswith("*** Update File:"):
+            flush_file()
+            current_path = text[len("*** Update File:") :].strip()
+            if not current_path:
+                raise ValueError("Update File patch has an empty path.")
+            old_cursor = 0
+            new_cursor = 0
+            continue
+        if text == "*** End of File":
+            continue
+        if text.startswith("@@"):
+            if not current_path:
+                raise ValueError("Update File hunk appears before a file header.")
+            flush_hunk()
+            hunk_lines = []
+            hunk_context = text[2:].strip()
+            if hunk_context.endswith("@@"):
+                hunk_context = hunk_context[:-2].strip()
+            continue
+        if hunk_lines is not None:
+            if not line.strip() and line[:1] not in {" ", "+", "-"}:
+                continue
+            if line[:1] not in {" ", "+", "-", chr(92)}:
+                raise ValueError(f"Invalid Update File hunk line: {text!r}")
+            hunk_lines.append(line)
+        elif text.strip():
+            raise ValueError(f"Unexpected Update File patch line: {text!r}")
+
+    return patches
+
+
 def _parse_patch(patch_text: str) -> list[_PatchFile]:
-    """Parse unified diff text into structured patch entries."""
+    """Parse unified diff or Begin Patch/Update File text into patch entries."""
+    update_patches = _parse_update_file_patch(patch_text)
+    if update_patches is not None:
+        return update_patches
+
     if "\r" in patch_text:
         patch_text = patch_text.replace("\r\n", "\n").replace("\r", "\n")
 
@@ -366,6 +462,35 @@ def _find_hunk_position(
     return best_pos
 
 
+def _find_section_context_position(
+    text_lines: list[str],
+    section_context: str,
+    before_lines: list[str],
+    ignore_whitespace: bool,
+) -> int | None:
+    """Resolve an Update File ``@@ context`` hint to a safe line position."""
+    context = _normalize_compare(section_context.strip(), ignore_whitespace)
+    if not context:
+        return None
+    matches = [
+        index
+        for index, line in enumerate(text_lines)
+        if context in _normalize_compare(line, ignore_whitespace)
+    ]
+    # A non-unique section hint is ambiguous; fail rather than patch a random
+    # occurrence of a common method or class name.
+    if len(matches) != 1:
+        return None
+    anchor = matches[0]
+    if before_lines and context in _normalize_compare(
+        before_lines[0], ignore_whitespace
+    ):
+        return anchor
+    # A section marker locates the hunk; body lines follow it. For an
+    # additions-only hunk, this is the insertion point immediately after it.
+    return min(anchor + 1, len(text_lines))
+
+
 def _apply_hunk_to_text(
     text: str,
     hunk: _Hunk,
@@ -387,10 +512,21 @@ def _apply_hunk_to_text(
 
     # A reverse patch matches the original new-side line number, not old_start.
     hint_start = hunk.new_start if revert else hunk.old_start
-    if hint_start > len(text_lines) and hint_start > 0:
-        return text, False, ""
+    hint_line = None
+    if hunk.update_file_format and hunk.section_context:
+        hint_line = _find_section_context_position(
+            text_lines, hunk.section_context, before, ignore_whitespace
+        )
+        if hint_line is None:
+            return text, False, ""
 
-    hint_line = max(0, min(hint_start - 1, len(text_lines) - 1))
+    if hint_line is None:
+        # An empty source range is an insertion point and may be at EOF, so
+        # only reject an out-of-range start when the hunk needs source lines.
+        if before and hint_start > len(text_lines) and hint_start > 0:
+            return text, False, ""
+        hint_line = max(0, min(hint_start - 1, len(text_lines)))
+
     pos = _find_hunk_position(
         text_lines, before, hint_line, ignore_whitespace, exact_only
     )

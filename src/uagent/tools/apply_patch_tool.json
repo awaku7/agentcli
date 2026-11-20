@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "このツールはunified diff形式のパッチを指定ファイルに適用します。dry-runで変更内容を事前確認できます。",
+    "tool.description": "unified diff形式または`*** Begin Patch` / `*** Update File`形式のパッチを指定ファイルに適用します。dry-runで変更内容を事前確認できます。",
     "x_search_terms": [
       "パッチを適用する",
       "パッチファイル",
@@ -8,7 +8,7 @@
       "統合された差分適用",
       "パッチ適用"
     ],
-    "param.patch_text.description": "適用する unified diff テキスト (git 形式互換、---/+++ ヘッダ必須)",
+    "param.patch_text.description": "適用するパッチテキスト（unified diff形式または`*** Begin Patch` / `*** Update File`形式）",
     "param.dry_run.description": "true の場合、適用せずに変更内容のみプレビューします。",
     "param.ignore_whitespace.description": "コンテキスト行の一致を確認する際、空白正規化を無視します。",
     "param.encoding.description": "ファイルのエンコーディング (デフォルト: utf-8)",
@@ -36,7 +36,7 @@
     "describe.unknown_target": "%(action)s（対象ファイルはパッチから特定できませんでした）。"
   },
   "ar": {
-    "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF.",
+    "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF. كما يقبل أيضًا تنسيق التصحيح `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "تطبيق التصحيح",
       "ملف التصحيح",
@@ -44,7 +44,7 @@
       "تطبيق الفرق الموحد",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "نص فرق موحد ليتم تطبيقه (متوافق مع تنسيق git، على سبيل المثال رؤوس ---/+++).",
+    "param.patch_text.description": "نص فرق موحد ليتم تطبيقه (متوافق مع تنسيق git، على سبيل المثال رؤوس ---/+++). كما يقبل أيضًا تنسيق التصحيح `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "إذا كان صحيحًا، قم فقط بمعاينة ما سيتم تغييره دون التطبيق.",
     "param.ignore_whitespace.description": "تجاهل اختلافات المسافات البيضاء عند مطابقة سطور السياق.",
     "param.encoding.description": "ترميز الملف (افتراضي: utf-8).",
@@ -72,7 +72,7 @@
     "describe.unknown_target": "%(action)s (تعذّر تحديد الملف المستهدف من الرقعة)."
   },
   "bn": {
-    "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে।",
+    "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে। এটি `*** Begin Patch` / `*** Update File` প্যাচ ফরম্যাটও গ্রহণ করে।",
     "x_search_terms": [
       "প্যাচ প্রয়োগ করুন",
       "প্যাচ ফাইল প্রয়োগ করুন",
@@ -80,7 +80,7 @@
       "ইনিফাইড ডিফ প্রয়োগ করুন",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "প্রয়োগ করার জন্য ইউনিফাইড ডিফ টেক্সট (গিট-ফরম্যাট সামঞ্জস্যপূর্ণ, যেমন ---/+++ হেডার)।",
+    "param.patch_text.description": "প্রয়োগ করার জন্য ইউনিফাইড ডিফ টেক্সট (গিট-ফরম্যাট সামঞ্জস্যপূর্ণ, যেমন ---/+++ হেডার)। এটি `*** Begin Patch` / `*** Update File` প্যাচ ফরম্যাটও গ্রহণ করে।",
     "param.dry_run.description": "সত্য হলে, আবেদন না করে শুধু কি পরিবর্তন হবে তার প্রিভিউ দেখুন।",
     "param.ignore_whitespace.description": "প্রসঙ্গ লাইন মেলানোর সময় হোইটস্পেস পার্থক্য উপেক্ষা করুন।",
     "param.encoding.description": "ফাইল এনকোডিং (ডিফল্ট: utf-8)।",
@@ -108,7 +108,7 @@
     "describe.unknown_target": "%(action)s (প্যাচ থেকে লক্ষ্য ফাইলটি শনাক্ত করা যায়নি)।"
   },
   "cs": {
-    "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF.",
+    "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF. Podporuje také patche ve formátu `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "použít opravu",
       "soubor opravy",
@@ -116,7 +116,7 @@
       "jednotný rozdíl použít",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Sjednocený text rozdílu, který se má použít (kompatibilní s formátem git, např. záhlaví ---/+++).",
+    "param.patch_text.description": "Sjednocený text rozdílu, který se má použít (kompatibilní s formátem git, např. záhlaví ---/+++). Podporuje také patche ve formátu `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Pokud je pravda, pouze náhled toho, co by se změnilo, aniž by bylo použito.",
     "param.ignore_whitespace.description": "Ignorujte rozdíly mezi mezerami při porovnávání kontextových čar.",
     "param.encoding.description": "Kódování souboru (výchozí: utf-8).",
@@ -144,7 +144,7 @@
     "describe.unknown_target": "%(action)s (cílový soubor se z patche nepodařilo určit)."
   },
   "de": {
-    "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung.",
+    "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung. Akzeptiert auch Patches im Format `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "Patch anwenden",
       "Patchdatei",
@@ -152,7 +152,7 @@
       "Unified Diff anwenden",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Anzuwendender einheitlicher Diff-Text (kompatibel mit dem Git-Format, z. B. ---/+++-Header).",
+    "param.patch_text.description": "Anzuwendender einheitlicher Diff-Text (kompatibel mit dem Git-Format, z. B. ---/+++-Header). Akzeptiert auch Patches im Format `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Wenn dies der Fall ist, wird nur eine Vorschau der Änderungen angezeigt, die ohne Anwendung geändert würden.",
     "param.ignore_whitespace.description": "Ignorieren Sie Leerzeichenunterschiede beim Abgleichen von Kontextzeilen.",
     "param.encoding.description": "Dateikodierung (Standard: utf-8).",
@@ -180,7 +180,7 @@
     "describe.unknown_target": "%(action)s (die Zieldatei konnte aus dem Patch nicht ermittelt werden)."
   },
   "el": {
-    "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF.",
+    "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF. Δέχεται επίσης patches στη μορφή `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "εφαρμογή ενημερωμένης έκδοσης κώδικα",
       "αρχείο ενημέρωσης κώδικα",
@@ -188,7 +188,7 @@
       "Εφαρμογή ενοποιημένης διαφοράς",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Ενοποιημένο κείμενο διαφοράς προς εφαρμογή (συμβατό με μορφή git, π.χ. ---/+++ κεφαλίδες).",
+    "param.patch_text.description": "Ενοποιημένο κείμενο διαφοράς προς εφαρμογή (συμβατό με μορφή git, π.χ. ---/+++ κεφαλίδες). Δέχεται επίσης patches στη μορφή `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Εάν ισχύει, κάντε προεπισκόπηση μόνο ό,τι θα άλλαζε χωρίς εφαρμογή.",
     "param.ignore_whitespace.description": "Αγνοήστε τις διαφορές κενών διαστημάτων κατά την αντιστοίχιση γραμμών περιβάλλοντος.",
     "param.encoding.description": "Κωδικοποίηση αρχείου (προεπιλογή: utf-8).",
@@ -216,7 +216,7 @@
     "describe.unknown_target": "%(action)s (το αρχείο προορισμού δεν ήταν δυνατό να προσδιοριστεί από το patch)."
   },
   "es": {
-    "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF.",
+    "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF. También acepta parches en formato `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "aplicar parche",
       "archivo de parche",
@@ -224,7 +224,7 @@
       "diferencia unificada aplicar",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Texto de diferenciación unificado para aplicar (compatible con formato git, por ejemplo, encabezados ---/+++).",
+    "param.patch_text.description": "Texto de diferenciación unificado para aplicar (compatible con formato git, por ejemplo, encabezados ---/+++). También acepta parches en formato `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Si es verdadero, solo obtenga una vista previa de lo que se cambiaría sin aplicarlo.",
     "param.ignore_whitespace.description": "Ignore las diferencias de espacios en blanco al hacer coincidir líneas de contexto.",
     "param.encoding.description": "Codificación de archivos (predeterminada: utf-8).",
@@ -252,7 +252,7 @@
     "describe.unknown_target": "%(action)s (no se pudo identificar el archivo de destino a partir del parche)."
   },
   "fa": {
-    "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند.",
+    "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند. همچنین قالب وصلهٔ `*** Begin Patch` / `*** Update File` را می‌پذیرد.",
     "x_search_terms": [
       "اعمال پچ",
       "فایل وصله",
@@ -260,7 +260,7 @@
       "تفاوت یکپارچه اعمال",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "متن متفاوت یکپارچه برای اعمال (سازگار با فرمت git، به عنوان مثال هدر ---/+++).",
+    "param.patch_text.description": "متن متفاوت یکپارچه برای اعمال (سازگار با فرمت git، به عنوان مثال هدر ---/+++). همچنین قالب وصلهٔ `*** Begin Patch` / `*** Update File` را می‌پذیرد.",
     "param.dry_run.description": "اگر درست است، تنها مواردی را که بدون اعمال تغییر می‌کنند، پیش‌نمایش کنید.",
     "param.ignore_whitespace.description": "هنگام تطبیق خطوط زمینه، تفاوت‌های فضای خالی را نادیده بگیرید.",
     "param.encoding.description": "رمزگذاری فایل (پیش‌فرض: utf-8).",
@@ -288,7 +288,7 @@
     "describe.unknown_target": "%(action)s (فایل مقصد از وصله قابل تشخیص نبود)."
   },
   "fi": {
-    "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä.",
+    "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä. Hyväksyy myös `*** Begin Patch` / `*** Update File` -muotoiset paikkaukset.",
     "x_search_terms": [
       "käytä korjaustiedostoa",
       " korjaustiedostoa",
@@ -296,7 +296,7 @@
       "sovelletaan yhtenäistä erotusta",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Yhtenäinen eroteksti käytettäväksi (git-muodon yhteensopiva, esim. ---/+++-otsikot).",
+    "param.patch_text.description": "Yhtenäinen eroteksti käytettäväksi (git-muodon yhteensopiva, esim. ---/+++-otsikot). Hyväksyy myös `*** Begin Patch` / `*** Update File` -muotoiset paikkaukset.",
     "param.dry_run.description": "Jos totta, esikatsele vain sitä, mitä muutetaan ilman hakemista.",
     "param.ignore_whitespace.description": "Ohita välilyöntien erot, kun sovitat kontekstirivejä.",
     "param.encoding.description": "Tiedoston koodaus (oletus: utf-8).",
@@ -324,7 +324,7 @@
     "describe.unknown_target": "%(action)s (kohdetiedostoa ei voitu tunnistaa patchista)."
   },
   "fr": {
-    "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF.",
+    "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF. Accepte également les patchs au format `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "appliquer le patch",
       "fichier de correctif",
@@ -332,7 +332,7 @@
       "diff unifié appliquer",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Texte de comparaison unifié à appliquer (compatible avec le format git, par exemple en-têtes ---/+++).",
+    "param.patch_text.description": "Texte de comparaison unifié à appliquer (compatible avec le format git, par exemple en-têtes ---/+++). Accepte également les patchs au format `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Si c'est vrai, prévisualisez uniquement ce qui serait modifié sans appliquer.",
     "param.ignore_whitespace.description": "Ignorez les différences d'espaces lors de la correspondance des lignes de contexte.",
     "param.encoding.description": "Encodage du fichier (par défaut : utf-8).",
@@ -360,7 +360,7 @@
     "describe.unknown_target": "%(action)s (le fichier cible n'a pas pu être identifié à partir du patch)."
   },
   "he": {
-    "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF.",
+    "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF. מקבל גם תיקונים בפורמט `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "החל תיקון",
       "קובץ תיקון",
@@ -368,7 +368,7 @@
       "הבדל מאוחד החל",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "טקסט הבדל מאוחד להחלה (תואם לפורמט git, למשל כותרות ---/+++).",
+    "param.patch_text.description": "טקסט הבדל מאוחד להחלה (תואם לפורמט git, למשל כותרות ---/+++). מקבל גם תיקונים בפורמט `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "אם זה נכון, צפה בתצוגה מקדימה רק למה שישתנה ללא החלה.",
     "param.ignore_whitespace.description": "התעלם מהבדלי רווחים לבנים בעת התאמת קווי הקשר.",
     "param.encoding.description": "קידוד קובץ (ברירת מחדל: utf-8).",
@@ -396,7 +396,7 @@
     "describe.unknown_target": "%(action)s (לא ניתן היה לזהות את קובץ היעד מתוך ה-patch)."
   },
   "hi": {
-    "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है।",
+    "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है। यह `*** Begin Patch` / `*** Update File` प्रारूप वाले पैच भी स्वीकार करता है।",
     "x_search_terms": [
       "पैच लागू करें",
       "पैच फ़ाइल",
@@ -404,7 +404,7 @@
       "एकीकृत अंतर लागू करें",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "लागू करने के लिए एकीकृत अंतर पाठ (गिट-प्रारूप संगत, उदा. ---/+++ हेडर)।",
+    "param.patch_text.description": "लागू करने के लिए एकीकृत अंतर पाठ (गिट-प्रारूप संगत, उदा. ---/+++ हेडर)। यह `*** Begin Patch` / `*** Update File` प्रारूप वाले पैच भी स्वीकार करता है।",
     "param.dry_run.description": "यदि सत्य है, तो बिना आवेदन किए केवल उसी का पूर्वावलोकन करें जो बदला जाएगा।",
     "param.ignore_whitespace.description": "संदर्भ पंक्तियों का मिलान करते समय रिक्त स्थान के अंतरों को नजरअंदाज़ करें।",
     "param.encoding.description": "फ़ाइल एन्कोडिंग (डिफ़ॉल्ट: utf-8)।",
@@ -432,7 +432,7 @@
     "describe.unknown_target": "%(action)s (पैच से लक्ष्य फ़ाइल की पहचान नहीं हो सकी)।"
   },
   "hu": {
-    "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést.",
+    "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést. A `*** Begin Patch` / `*** Update File` formátumú javításokat is elfogadja.",
     "x_search_terms": [
       "javítás alkalmazása",
       "javítófájl",
@@ -440,7 +440,7 @@
       "egyesített különbség alkalmazása",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Alkalmazandó egységes eltérő szöveg (git-formátum kompatibilis, például ---/+++ fejlécek).",
+    "param.patch_text.description": "Alkalmazandó egységes eltérő szöveg (git-formátum kompatibilis, például ---/+++ fejlécek). A `*** Begin Patch` / `*** Update File` formátumú javításokat is elfogadja.",
     "param.dry_run.description": "Ha igaz, csak előnézetben tekintse meg, hogy mi módosulna alkalmazás nélkül.",
     "param.ignore_whitespace.description": "A kontextussorok egyeztetésekor hagyja figyelmen kívül a szóközök különbségeit.",
     "param.encoding.description": "Fájlkódolás (alapértelmezett: utf-8).",
@@ -468,7 +468,7 @@
     "describe.unknown_target": "%(action)s (a célfájl nem volt azonosítható a patch alapján)."
   },
   "id": {
-    "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF.",
+    "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF. Juga menerima patch dalam format `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "terapkan patch",
       "file patch",
@@ -476,7 +476,7 @@
       "perbedaan terpadu berlaku",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Teks diff terpadu untuk diterapkan (kompatibel dengan format git, misalnya ---/+++ header).",
+    "param.patch_text.description": "Teks diff terpadu untuk diterapkan (kompatibel dengan format git, misalnya ---/+++ header). Juga menerima patch dalam format `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Jika benar, hanya pratinjau apa yang akan diubah tanpa menerapkan.",
     "param.ignore_whitespace.description": "Abaikan perbedaan spasi saat mencocokkan baris konteks.",
     "param.encoding.description": "Pengodean file (default: utf-8).",
@@ -504,7 +504,7 @@
     "describe.unknown_target": "%(action)s (file target tidak dapat diidentifikasi dari patch)."
   },
   "it": {
-    "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF.",
+    "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF. Accetta anche patch nel formato `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "applica patch",
       "file patch",
@@ -512,7 +512,7 @@
       "diff unificato applica",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Testo differenziale unificato da applicare (compatibile con il formato git, ad esempio intestazioni ---/+++).",
+    "param.patch_text.description": "Testo differenziale unificato da applicare (compatibile con il formato git, ad esempio intestazioni ---/+++). Accetta anche patch nel formato `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Se vero, visualizza solo l'anteprima di ciò che verrebbe modificato senza applicare.",
     "param.ignore_whitespace.description": "Ignora le differenze degli spazi bianchi durante la corrispondenza delle righe di contesto.",
     "param.encoding.description": "Codifica file (predefinita: utf-8).",
@@ -540,7 +540,7 @@
     "describe.unknown_target": "%(action)s (il file di destinazione non ha potuto essere identificato dalla patch)."
   },
   "ko": {
-    "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다.",
+    "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다. `*** Begin Patch` / `*** Update File` 형식의 패치도 지원합니다.",
     "x_search_terms": [
       "패치 적용",
       "패치 파일",
@@ -548,7 +548,7 @@
       "통합 차등 적용",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "적용할 통합 diff 텍스트(git 형식 호환, 예: ---/+++ 헤더)",
+    "param.patch_text.description": "적용할 통합 diff 텍스트(git 형식 호환, 예: ---/+++ 헤더) `*** Begin Patch` / `*** Update File` 형식의 패치도 지원합니다.",
     "param.dry_run.description": "true인 경우 적용하지 않고 변경될 내용만 미리 봅니다.",
     "param.ignore_whitespace.description": "컨텍스트 줄을 일치시킬 때 공백 차이를 무시합니다.",
     "param.encoding.description": "파일 인코딩(기본: utf-8).",
@@ -576,7 +576,7 @@
     "describe.unknown_target": "%(action)s (패치에서 대상 파일을 확인할 수 없습니다)."
   },
   "mn": {
-    "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг.",
+    "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг. `*** Begin Patch` / `*** Update File` форматын нөхөөсийг мөн дэмждэг.",
     "x_search_terms": [
       "нөхөөсийг хэрэглэх",
       "засвар файлыг хэрэглэх",
@@ -584,7 +584,7 @@
       "нэгдсэн ялгаа хэрэглэх",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Ашиглах нэгдсэн ялгаатай текст (git форматтай тохирцуутай, жишээбэл ---/+++ толгой).",
+    "param.patch_text.description": "Ашиглах нэгдсэн ялгаатай текст (git форматтай тохирцуутай, жишээбэл ---/+++ толгой). `*** Begin Patch` / `*** Update File` форматын нөхөөсийг мөн дэмждэг.",
     "param.dry_run.description": "Хэрэглэхгүйгээр зөвхөн юү өөрчлөгдөхийг урьдчилж үзээрэй.",
     "param.ignore_whitespace.description": "Контекст мөрийг тааруулахдаа хоосон зайны зөрүүг үл тоомсорло.",
     "param.encoding.description": "Файлын кодчилол (өгөгдмөл: utf-8).",
@@ -612,7 +612,7 @@
     "describe.unknown_target": "%(action)s (зорилтот файлыг патчаас тодорхойлох боломжгүй)."
   },
   "mr": {
-    "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते.",
+    "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते. हे `*** Begin Patch` / `*** Update File` स्वरूपातील पॅचही स्वीकारते.",
     "x_search_terms": [
       "पॅच लागू करा",
       "पॅच फाइल लागू करा",
@@ -620,7 +620,7 @@
       "युनिफाइड डिफ लागू करा",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "लागू करण्यासाठी युनिफाइड डिफ मजकूर (गिट-फॉर्मेट सुसंगत, उदा. ---/+++ शीर्षलेख).",
+    "param.patch_text.description": "लागू करण्यासाठी युनिफाइड डिफ मजकूर (गिट-फॉर्मेट सुसंगत, उदा. ---/+++ शीर्षलेख). हे `*** Begin Patch` / `*** Update File` स्वरूपातील पॅचही स्वीकारते.",
     "param.dry_run.description": "सत्य असल्यास, अर्ज न करता केवळ काय बदलेल जाईल याचे पूर्वावलोकन करा.",
     "param.ignore_whitespace.description": "संदर्भ रेषा जुळवताना व्हाइटस्पेस फरक दुर्लक्षित करा.",
     "param.encoding.description": "फाइल एन्कोडिंग (डीफ़ॉल्ट: utf-8).",
@@ -648,7 +648,7 @@
     "describe.unknown_target": "%(action)s (पॅचवरून लक्ष्य फाइल ओळखता आली नाही)."
   },
   "nb": {
-    "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
+    "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring. Godtar også patcher i formatet `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "bruk patch",
       "patch-fil",
@@ -656,7 +656,7 @@
       "enhetlig diff gjelder",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Samlet diff-tekst som skal brukes (git-format-kompatibel, f.eks. ---/+++ overskrifter).",
+    "param.patch_text.description": "Samlet diff-tekst som skal brukes (git-format-kompatibel, f.eks. ---/+++ overskrifter). Godtar også patcher i formatet `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Hvis det er sant, kan du bare forhåndsvise det som vil bli endret uten å bruke.",
     "param.ignore_whitespace.description": "Ignorer mellomromsforskjeller når du matcher kontekstlinjer.",
     "param.encoding.description": "Filkoding (standard: utf-8).",
@@ -684,7 +684,7 @@
     "describe.unknown_target": "%(action)s (målfilen kunne ikke identifiseres fra patchen)."
   },
   "nl": {
-    "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud.",
+    "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud. Accepteert ook patches in de indeling `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "patch toepassen",
       "patchbestand",
@@ -692,7 +692,7 @@
       "unified diff toepassen",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Uniforme diff-tekst die moet worden toegepast (compatibel met git-formaat, bijvoorbeeld ---/+++ headers).",
+    "param.patch_text.description": "Uniforme diff-tekst die moet worden toegepast (compatibel met git-formaat, bijvoorbeeld ---/+++ headers). Accepteert ook patches in de indeling `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Als dit waar is, kunt u alleen een voorbeeld bekijken van wat er zou worden gewijzigd zonder dit toe te passen.",
     "param.ignore_whitespace.description": "Negeer witruimteverschillen bij het matchen van contextregels.",
     "param.encoding.description": "Bestandscodering (standaard: utf-8).",
@@ -720,7 +720,7 @@
     "describe.unknown_target": "%(action)s (het doelbestand kon niet uit de patch worden bepaald)."
   },
   "pl": {
-    "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF.",
+    "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF. Akceptuje również łatki w formacie `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "zastosuj łatkę",
       "plik łatki",
@@ -728,7 +728,7 @@
       "ujednoliconą różnicę zastosuj",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Ujednolicony tekst różnicowy do zastosowania (kompatybilny z formatem git, np. nagłówki ---/+++).",
+    "param.patch_text.description": "Ujednolicony tekst różnicowy do zastosowania (kompatybilny z formatem git, np. nagłówki ---/+++). Akceptuje również łatki w formacie `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Jeśli to prawda, wyświetl tylko podgląd tego, co zostałoby zmienione bez zastosowania.",
     "param.ignore_whitespace.description": "Ignoruj różnice w białych znakach podczas dopasowywania linii kontekstu.",
     "param.encoding.description": "Kodowanie pliku (domyślnie: utf-8).",
@@ -756,7 +756,7 @@
     "describe.unknown_target": "%(action)s (nie udało się określić pliku docelowego na podstawie patcha)."
   },
   "pt": {
-    "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
+    "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF. Também aceita patches no formato `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "aplicar patch",
       "arquivo de patch",
@@ -764,7 +764,7 @@
       "diferença unificada aplicada",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
+    "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++). Também aceita patches no formato `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Se for verdade, visualize apenas o que seria alterado sem aplicar.",
     "param.ignore_whitespace.description": "Ignore as diferenças de espaço em branco ao combinar linhas de contexto.",
     "param.encoding.description": "Codificação de arquivo (padrão: utf-8).",
@@ -792,7 +792,7 @@
     "describe.unknown_target": "%(action)s (não foi possível identificar o ficheiro de destino a partir do patch)."
   },
   "pt_BR": {
-    "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
+    "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF. Também aceita patches no formato `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "aplicar patch",
       "arquivo de patch",
@@ -800,7 +800,7 @@
       "diferença unificada aplicada",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
+    "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++). Também aceita patches no formato `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Se for verdade, visualize apenas o que seria alterado sem aplicar.",
     "param.ignore_whitespace.description": "Ignore as diferenças de espaço em branco ao combinar linhas de contexto.",
     "param.encoding.description": "Codificação de arquivo (padrão: utf-8).",
@@ -828,7 +828,7 @@
     "describe.unknown_target": "%(action)s (não foi possível identificar o arquivo de destino a partir do patch)."
   },
   "ro": {
-    "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
+    "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF. Acceptă și patch-uri în formatul `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "aplicați patch",
       "fișier de corecție",
@@ -836,7 +836,7 @@
       "se aplică diferența unificată",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Text diferit unificat de aplicat (compatibil cu formatul git, de exemplu antete ---/+++).",
+    "param.patch_text.description": "Text diferit unificat de aplicat (compatibil cu formatul git, de exemplu antete ---/+++). Acceptă și patch-uri în formatul `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Dacă este adevărat, previzualizați doar ceea ce ar fi schimbat fără a aplica.",
     "param.ignore_whitespace.description": "Ignorați diferențele de spații albe atunci când potriviți liniile de context.",
     "param.encoding.description": "Codificarea fișierului (implicit: utf-8).",
@@ -864,7 +864,7 @@
     "describe.unknown_target": "%(action)s (fișierul țintă nu a putut fi identificat din patch)."
   },
   "ru": {
-    "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF.",
+    "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF. Также принимает патчи в формате `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "применить патч",
       "файл патча",
@@ -872,7 +872,7 @@
       "унифицированный diff применить",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Применяемый унифицированный текст различий (совместимый с форматом git, например заголовки ---/+++).",
+    "param.patch_text.description": "Применяемый унифицированный текст различий (совместимый с форматом git, например заголовки ---/+++). Также принимает патчи в формате `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Если это правда, только предварительный просмотр того, что будет изменено, без применения.",
     "param.ignore_whitespace.description": "Игнорируйте различия в пробелах при сопоставлении строк контекста.",
     "param.encoding.description": "Кодировка файла (по умолчанию: utf-8).",
@@ -900,7 +900,7 @@
     "describe.unknown_target": "%(action)s (не удалось определить целевой файл из патча)."
   },
   "sv": {
-    "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande.",
+    "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande. Accepterar även patchar i formatet `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "tillämpa patch",
       "patchfil",
@@ -908,7 +908,7 @@
       "unified diff tillämpa",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Unified diff-text att tillämpa (git-format kompatibel, t.ex. ---/+++ rubriker).",
+    "param.patch_text.description": "Unified diff-text att tillämpa (git-format kompatibel, t.ex. ---/+++ rubriker). Accepterar även patchar i formatet `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Om sant, förhandsgranska bara vad som skulle ändras utan att tillämpa.",
     "param.ignore_whitespace.description": "Ignorera skillnader i blanksteg när du matchar kontextrader.",
     "param.encoding.description": "Filkodning (standard: utf-8).",
@@ -936,7 +936,7 @@
     "describe.unknown_target": "%(action)s (målfilen kunde inte identifieras från patchen)."
   },
   "sw": {
-    "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF.",
+    "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF. Pia inakubali viraka katika umbizo la `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "weka kiraka",
       " faili ya kiraka",
@@ -944,7 +944,7 @@
       "utofauti wa umoja utatumika",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Maandishi yaliyounganishwa ya diff ya kutumika (umbizo la git linaoana, k.m. ---/+++ vichwa).",
+    "param.patch_text.description": "Maandishi yaliyounganishwa ya diff ya kutumika (umbizo la git linaoana, k.m. ---/+++ vichwa). Pia inakubali viraka katika umbizo la `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Ikiwa ndivyo, hakiki tu kile ambacho kingebadilishwa bila kutuma ombi.",
     "param.ignore_whitespace.description": "Puuza tofauti za nafasi nyeupe wakati wa kulinganisha mistari ya muktadha.",
     "param.encoding.description": "Usimbaji wa faili (chaguo-msingi: utf-8).",
@@ -972,7 +972,7 @@
     "describe.unknown_target": "%(action)s (faili lengwa haikuweza kutambuliwa kutoka kwa kiraka)."
   },
   "th": {
-    "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
+    "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF รองรับแพตช์รูปแบบ `*** Begin Patch` / `*** Update File` ด้วย",
     "x_search_terms": [
       "ใช้ patch",
       "ไฟล์แพทช์",
@@ -980,7 +980,7 @@
       "unified diff ใช้",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "ข้อความต่างแบบรวมที่จะนำไปใช้ (เข้ากันได้กับรูปแบบ git เช่น ส่วนหัว ---/+++)",
+    "param.patch_text.description": "ข้อความต่างแบบรวมที่จะนำไปใช้ (เข้ากันได้กับรูปแบบ git เช่น ส่วนหัว ---/+++) รองรับแพตช์รูปแบบ `*** Begin Patch` / `*** Update File` ด้วย",
     "param.dry_run.description": "หากเป็นจริง ให้แสดงเฉพาะสิ่งที่จะมีการเปลี่ยนแปลงโดยไม่ต้องนำไปใช้",
     "param.ignore_whitespace.description": "ละเว้นความแตกต่างของช่องว่างเมื่อจับคู่บรรทัดบริบท",
     "param.encoding.description": "การเข้ารหัสไฟล์ (ค่าเริ่มต้น: utf-8)",
@@ -1008,7 +1008,7 @@
     "describe.unknown_target": "%(action)s (ไม่สามารถระบุไฟล์เป้าหมายจากแพตช์ได้)"
   },
   "tr": {
-    "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler.",
+    "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler. `*** Begin Patch` / `*** Update File` biçimindeki yamaları da kabul eder.",
     "x_search_terms": [
       "yama uygula",
       "yama dosyası",
@@ -1016,7 +1016,7 @@
       "birleştirilmiş fark uygula",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Uygulanacak birleştirilmiş fark metni (git formatıyla uyumlu, örneğin ---/+++ başlıkları).",
+    "param.patch_text.description": "Uygulanacak birleştirilmiş fark metni (git formatıyla uyumlu, örneğin ---/+++ başlıkları). `*** Begin Patch` / `*** Update File` biçimindeki yamaları da kabul eder.",
     "param.dry_run.description": "Doğruysa, uygulamadan yalnızca nelerin değiştirileceğini önizleyin.",
     "param.ignore_whitespace.description": "Bağlam satırlarını eşleştirirken boşluk farklılıklarını göz ardı edin.",
     "param.encoding.description": "Dosya kodlaması (varsayılan: utf-8).",
@@ -1044,7 +1044,7 @@
     "describe.unknown_target": "%(action)s (hedef dosya yamadan belirlenemedi)."
   },
   "uk": {
-    "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF.",
+    "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF. Також приймає патчі у форматі `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "застосувати патч",
       "файл виправлення",
@@ -1052,7 +1052,7 @@
       "уніфіковану різницю застосувати",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Уніфікований текст відмінностей для застосування (сумісність з форматом git, наприклад заголовки ---/+++).",
+    "param.patch_text.description": "Уніфікований текст відмінностей для застосування (сумісність з форматом git, наприклад заголовки ---/+++). Також приймає патчі у форматі `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Якщо значення true, лише попередньо перегляньте те, що буде змінено без застосування.",
     "param.ignore_whitespace.description": "Ігноруйте відмінності пробілів під час зіставлення рядків контексту.",
     "param.encoding.description": "Кодування файлу (за замовчуванням: utf-8).",
@@ -1080,7 +1080,7 @@
     "describe.unknown_target": "%(action)s (не вдалося визначити цільовий файл із патча)."
   },
   "vi": {
-    "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF.",
+    "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF. Cũng chấp nhận bản vá theo định dạng `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "áp dụng bản vá",
       "tập tin bản vá",
@@ -1088,7 +1088,7 @@
       "áp dụng khác biệt thống nhất",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Văn bản khác biệt thống nhất áp dụng (tương thích định dạng git, ví dụ: tiêu đề ---/+++).",
+    "param.patch_text.description": "Văn bản khác biệt thống nhất áp dụng (tương thích định dạng git, ví dụ: tiêu đề ---/+++). Cũng chấp nhận bản vá theo định dạng `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Nếu đúng, chỉ xem trước những gì sẽ thay đổi mà không áp dụng.",
     "param.ignore_whitespace.description": "Bỏ qua sự khác biệt về khoảng trắng khi khớp các dòng ngữ cảnh.",
     "param.encoding.description": "Mã hóa tệp (mặc định: utf-8).",
@@ -1116,7 +1116,7 @@
     "describe.unknown_target": "%(action)s (không thể xác định tệp đích từ patch)."
   },
   "zh_CN": {
-    "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。",
+    "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。 也接受 `*** Begin Patch` / `*** Update File` 格式的补丁。",
     "x_search_terms": [
       "应用补丁",
       "补丁文件",
@@ -1124,7 +1124,7 @@
       "应用统一差异",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "要应用的统一差异文本（兼容 git 格式，例如 ---/+++ 标头）。",
+    "param.patch_text.description": "要应用的统一差异文本（兼容 git 格式，例如 ---/+++ 标头）。 也接受 `*** Begin Patch` / `*** Update File` 格式的补丁。",
     "param.dry_run.description": "如果为 true，则仅预览将更改的内容而不应用。",
     "param.ignore_whitespace.description": "匹配上下文行时忽略空格差异。",
     "param.encoding.description": "文件编码（默认：utf-8）。",
@@ -1152,7 +1152,7 @@
     "describe.unknown_target": "%(action)s（无法从补丁中确定目标文件）。"
   },
   "zh_TW": {
-    "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。",
+    "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。 也接受 `*** Begin Patch` / `*** Update File` 格式的修補程式。",
     "x_search_terms": [
       "應用補丁",
       "補丁檔案",
@@ -1160,7 +1160,7 @@
       "應用統一差異",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "要套用的統一差異文字（兼容於 git 格式，例如 ---/+++ 標頭）。",
+    "param.patch_text.description": "要套用的統一差異文字（兼容於 git 格式，例如 ---/+++ 標頭）。 也接受 `*** Begin Patch` / `*** Update File` 格式的修補程式。",
     "param.dry_run.description": "如果為 true，則僅預覽將變更的內容而不套用。",
     "param.ignore_whitespace.description": "匹配上下文行時忽略空格差異。",
     "param.encoding.description": "文件編碼（預設：utf-8）。",
@@ -1188,7 +1188,7 @@
     "describe.unknown_target": "%(action)s（無法從修補中確定目標檔案）。"
   },
   "fil": {
-    "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation.",
+    "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation. Tumatanggap din ng mga patch sa format na `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "ilapat ang patch",
       "patch file",
@@ -1196,7 +1196,7 @@
       "pinag-isang diff apply",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Pinag-isang diff text na ilalapat (git-format compatible, hal. ---/+++ na mga header).",
+    "param.patch_text.description": "Pinag-isang diff text na ilalapat (git-format compatible, hal. ---/+++ na mga header). Tumatanggap din ng mga patch sa format na `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Kung totoo, i-preview lang kung ano ang babaguhin nang hindi nag-a-apply.",
     "param.ignore_whitespace.description": "Huwag pansinin ang mga pagkakaiba sa whitespace kapag tumutugma sa mga linya ng konteksto.",
     "param.encoding.description": "Pag-encode ng file (default: utf-8).",
@@ -1224,7 +1224,7 @@
     "describe.unknown_target": "%(action)s (hindi matukoy ang target na file mula sa patch)."
   },
   "ms": {
-    "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF.",
+    "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF. Turut menerima tampalan dalam format `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "gunakan patch",
       "fail tampalan",
@@ -1232,7 +1232,7 @@
       "pakaian perbezaan bersatu",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Teks perbezaan bersatu untuk digunakan (serasi dengan format git, cth. ---/+++ pengepala).",
+    "param.patch_text.description": "Teks perbezaan bersatu untuk digunakan (serasi dengan format git, cth. ---/+++ pengepala). Turut menerima tampalan dalam format `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Jika benar, hanya pratonton perkara yang akan diubah tanpa memohon.",
     "param.ignore_whitespace.description": "Abaikan perbezaan ruang putih apabila memadankan baris konteks.",
     "param.encoding.description": "Pengekodan fail (lalai: utf-8).",
@@ -1260,7 +1260,7 @@
     "describe.unknown_target": "%(action)s (fail sasaran tidak dapat dikenal pasti daripada tampalan)."
   },
   "da": {
-    "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring.",
+    "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring. Accepterer også patches i formatet `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "anvende patch",
       "patch-fil",
@@ -1268,7 +1268,7 @@
       "unified diff anvende",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Samlet diff-tekst, der skal anvendes (git-format kompatibel, f.eks. ---/+++ overskrifter).",
+    "param.patch_text.description": "Samlet diff-tekst, der skal anvendes (git-format kompatibel, f.eks. ---/+++ overskrifter). Accepterer også patches i formatet `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Hvis det er sandt, kan du kun se et eksempel på, hvad der ville blive ændret uden at anvende.",
     "param.ignore_whitespace.description": "Ignorer mellemrumsforskelle, når du matcher kontekstlinjer.",
     "param.encoding.description": "Filkodning (standard: utf-8).",
@@ -1296,7 +1296,7 @@
     "describe.unknown_target": "%(action)s (målfilen kunne ikke identificeres ud fra patchen)."
   },
   "nn": {
-    "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
+    "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring. Godtek òg patchar i formatet `*** Begin Patch` / `*** Update File`.",
     "x_search_terms": [
       "bruk patch",
       "lappfil",
@@ -1304,7 +1304,7 @@
       "enhetlig diff gjelder",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
-    "param.patch_text.description": "Samlet diff-tekst som skal vert brukt (git-format-kompatibel, f.eks. ---/+++ overskrifter).",
+    "param.patch_text.description": "Samlet diff-tekst som skal vert brukt (git-format-kompatibel, f.eks. ---/+++ overskrifter). Godtek òg patchar i formatet `*** Begin Patch` / `*** Update File`.",
     "param.dry_run.description": "Hvis det er sant, kan du berre forhåndsvise det som vil bli endret utan å bruke.",
     "param.ignore_whitespace.description": "Ignorer mellomromsforskjeller når du matcher kontekstlinjer.",
     "param.encoding.description": "Filkoding (standard: utf-8).",

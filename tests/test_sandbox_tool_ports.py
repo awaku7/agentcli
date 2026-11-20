@@ -824,3 +824,87 @@ def test_ensure_package_returns_none_when_install_fails(monkeypatch):
     monkeypatch.setattr(worker, "_SANDBOX_SITE_PACKAGES", None)
     monkeypatch.setattr(worker.subprocess, "run", fake_run)
     assert worker._ensure_package("uag_missing_pkg_xyz") is None
+
+
+def test_apply_patch_update_file_syntax(workspace):
+    (workspace / "note.txt").write_text(
+        "head\nold1\nmiddle\nold2\ntail\n", encoding="utf-8"
+    )
+    patch = """*** Begin Patch
+*** Update File: note.txt
+@@
+ head
+-old1
++new1
+@@
+ middle
+-old2
++new2
+ tail
+*** End Patch
+"""
+
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+
+    assert out["ok"] is True
+    assert (workspace / "note.txt").read_text(encoding="utf-8") == (
+        "head\nnew1\nmiddle\nnew2\ntail\n"
+    )
+
+
+@pytest.mark.parametrize("marker", ["*** End Patch", "*** End of File"])
+def test_sandbox_update_file_preserves_marker_text_as_context(workspace, marker):
+    target = workspace / "marker.txt"
+    target.write_text(f"head\n{marker}\nold\n", encoding="utf-8")
+    patch = f"""*** Begin Patch
+*** Update File: marker.txt
+@@
+ head
+ {marker}
+-old
++new
+*** End Patch
+"""
+
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+
+    assert out["ok"] is True
+    assert target.read_text(encoding="utf-8") == f"head\n{marker}\nnew\n"
+
+
+def test_sandbox_update_file_addition_without_context_inserts_at_start(workspace):
+    target = workspace / "insert.txt"
+    target.write_text("one\ntwo\n", encoding="utf-8")
+    patch = """*** Begin Patch
+*** Update File: insert.txt
+@@
++top
+*** End Patch
+"""
+
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+
+    assert out["ok"] is True
+    assert target.read_text(encoding="utf-8") == "top\none\ntwo\n"
+
+
+def test_sandbox_update_file_addition_uses_section_context(workspace):
+    target = workspace / "section.py"
+    target.write_text(
+        "header\n\ndef helper():\n    pass\n\ndef target():\n    pass\n",
+        encoding="utf-8",
+    )
+    patch = """*** Begin Patch
+*** Update File: section.py
+@@ def target():
++    inserted = True
+*** End Patch
+"""
+
+    out = json.loads(_call("apply_patch", {"patch_text": patch, "dry_run": False}))
+
+    assert out["ok"] is True
+    assert target.read_text(encoding="utf-8") == (
+        "header\n\ndef helper():\n    pass\n\ndef target():\n"
+        "    inserted = True\n    pass\n"
+    )

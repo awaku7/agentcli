@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.93`.
+- Accept `*** Begin Patch` / `*** Update File` patches in addition to unified diffs.
+- Honor `@@` section hints for Update File additions and preserve patch-like source lines.
+
 ## [0.7.52] - 2026-11-18
 
 ### Added

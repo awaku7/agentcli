@@ -237,3 +237,104 @@ def test_apply_patch_reverse_creation_deletes_file_and_counts_removals(
     assert result["files"][0]["deleted"] is True
     assert result["total_added"] == 0
     assert result["total_removed"] == 2
+
+
+UPDATE_FILE_PATCH = """*** Begin Patch
+*** Update File: note.txt
+@@
+ head
+-old1
++new1
+@@
+ middle
+-old2
++new2
+ tail
+*** End Patch
+"""
+
+
+def test_apply_patch_update_file_format(workdir: Path) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "note.txt"
+    target.write_text("head\nold1\nmiddle\nold2\ntail\n", encoding="utf-8")
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": UPDATE_FILE_PATCH, "dry_run": False})
+    )
+
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == "head\nnew1\nmiddle\nnew2\ntail\n"
+
+
+@pytest.mark.parametrize("marker", ["*** End Patch", "*** End of File"])
+def test_update_file_marker_text_is_preserved_as_context(
+    workdir: Path, marker: str
+) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "marker.txt"
+    target.write_text(f"head\n{marker}\nold\n", encoding="utf-8")
+    patch = f"""*** Begin Patch
+*** Update File: marker.txt
+@@
+ head
+ {marker}
+-old
++new
+*** End Patch
+"""
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": patch, "dry_run": False})
+    )
+
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == f"head\n{marker}\nnew\n"
+
+
+def test_update_file_addition_without_context_inserts_at_start(workdir: Path) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "insert.txt"
+    target.write_text("one\ntwo\n", encoding="utf-8")
+    patch = """*** Begin Patch
+*** Update File: insert.txt
+@@
++top
+*** End Patch
+"""
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": patch, "dry_run": False})
+    )
+
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == "top\none\ntwo\n"
+
+
+def test_update_file_addition_uses_section_context(workdir: Path) -> None:
+    from uagent.tools import apply_patch_tool
+
+    target = workdir / "section.py"
+    target.write_text(
+        "header\n\ndef helper():\n    pass\n\ndef target():\n    pass\n",
+        encoding="utf-8",
+    )
+    patch = """*** Begin Patch
+*** Update File: section.py
+@@ def target():
++    inserted = True
+*** End Patch
+"""
+
+    result = json.loads(
+        apply_patch_tool.run_tool({"patch_text": patch, "dry_run": False})
+    )
+
+    assert result["ok"] is True
+    assert target.read_text(encoding="utf-8") == (
+        "header\n\ndef helper():\n    pass\n\ndef target():\n"
+        "    inserted = True\n    pass\n"
+    )
