@@ -5,6 +5,8 @@ from contextlib import nullcontext
 from threading import Barrier
 from queue import Queue
 
+import pytest
+
 from uagent import core
 from uagent.cli_impl import stdin_loop
 from uagent.cli_impl.state import (
@@ -167,6 +169,67 @@ def test_prompt_is_not_redrawn_while_status_is_busy(monkeypatch) -> None:
         stdin_loop._CLI_SHUTDOWN.clear()
 
     assert prompt_busy_states == [False]
+
+
+@pytest.mark.parametrize("command", (":load 0", ":cont"))
+def test_load_and_continue_stop_spinner_before_command_output(
+    monkeypatch, command: str
+) -> None:
+    class _TTY:
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    class _Session:
+        app = object()
+
+        @staticmethod
+        def prompt(_prompt, **_kwargs):
+            stdin_loop._CLI_SHUTDOWN.set()
+            return command
+
+    events: Queue = Queue()
+    calls: list[tuple[str, object]] = []
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "get_prompt", lambda: "User> ")
+    monkeypatch.setattr(core, "human_ask_active", False)
+    monkeypatch.setattr(
+        core,
+        "set_status",
+        lambda busy, label="": calls.append(("status", (busy, label))),
+    )
+    monkeypatch.setattr(stdin_loop.sys, "stdin", _TTY())
+    monkeypatch.setattr(stdin_loop, "_get_prompt_session", lambda: _Session())
+    monkeypatch.setattr(stdin_loop, "_exit_prompt_application", lambda _app: None)
+    monkeypatch.setattr(stdin_loop, "_make_prompt_key_bindings", lambda: None)
+    monkeypatch.setattr(stdin_loop, "is_chat_mode", lambda: "off")
+    monkeypatch.setattr(stdin_loop, "_append_prompt_history_entry", lambda _text: None)
+    monkeypatch.setattr(stdin_loop, "forward_to_mesh", lambda _text: None)
+    monkeypatch.setattr(stdin_loop, "_spinner_paused", lambda: nullcontext())
+    monkeypatch.setattr(
+        stdin_loop,
+        "_stop_spinner_quietly",
+        lambda: calls.append(("stop_spinner", None)),
+    )
+
+    import prompt_toolkit.patch_stdout
+
+    monkeypatch.setattr(
+        prompt_toolkit.patch_stdout, "patch_stdout", lambda: nullcontext()
+    )
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+        event = events.get_nowait()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert event == {"kind": "command", "text": command}
+    assert calls == [
+        ("status", (True, "command_pending")),
+        ("stop_spinner", None),
+    ]
 
 
 def test_concurrent_typeahead_reservations_are_serialized() -> None:

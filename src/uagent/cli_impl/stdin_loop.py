@@ -26,7 +26,10 @@ from .input_ui import (
 )
 from .prompt_session import _get_prompt_session
 from .state import _CLI_SHUTDOWN, reserve_typeahead_slot, release_typeahead_slot
-from ..runtime.spinner import paused as _spinner_paused
+from ..runtime.spinner import (
+    paused as _spinner_paused,
+    stop_quietly as _stop_spinner_quietly,
+)
 
 
 def _typeahead_rejection_notice(
@@ -756,6 +759,13 @@ def stdin_loop(*, hook_runner=None) -> None:
                 if not line.startswith(":load"):
                     _append_prompt_history_entry(line)
                 core.set_status(True, "command_pending")
+                command_name = line.split(maxsplit=1)[0]
+                if command_name in {":load", ":cont"}:
+                    # Session restore prints several status/detail lines. Stop
+                    # the stderr spinner before dispatch so its CR redraws do
+                    # not interleave with those stdout messages or leave a
+                    # stale frame behind after the command completes.
+                    _stop_spinner_quietly()
                 core.event_queue.put({"kind": "command", "text": line})
                 continue
 
