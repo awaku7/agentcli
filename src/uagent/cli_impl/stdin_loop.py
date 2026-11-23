@@ -10,16 +10,21 @@ import time
 
 from ..i18n import _
 from .. import core
+from .. import util_tools as tools_util
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .history import _append_prompt_history_entry
 from .input_ui import (
     _can_use_textarea,
+    _clear_abandoned_prompt,
+    _exit_prompt_application,
     _flush_stdin_input_buffer,
     _getpass_fallback,
+    _make_prompt_key_bindings,
     _multiline_editor,
     _normalize_multiline_text,
     _prompt_toolkit_input,
 )
+from .prompt_session import _get_prompt_session, _reset_prompt_sessions
 from .state import _CLI_SHUTDOWN
 from ..runtime.spinner import (
     paused as _spinner_paused,
@@ -201,161 +206,260 @@ def stdin_loop(*, hook_runner=None) -> None:
                 else:
                     line = None
 
-                    # Manual prompt drawing. The prompt opens only
-                    # while idle, so it never shares the terminal with
-                    # streamed output.
-                    lock = getattr(core, "print_lock", None)
-                    if lock is None:
-                        lock = threading.RLock()
-                    # Advertise the prompt before taking print_lock.  If
-                    # this is set only inside the lock, the status thread
-                    # can decide to print IDLE just before the prompt is
-                    # written, producing `agentcli> [STATE] IDLE`.
-                    try:
-                        core._prompt_line_open = True
-                    except Exception:
-                        pass
-                    with lock:
+                    # Use prompt_toolkit when available (it draws the
+                    # prompt itself). The session read restores history,
+                    # completion and bracketed paste for the idle prompt.
+                    # patch_stdout is deliberately not used: the prompt
+                    # opens only while idle (see the wait above) and must
+                    # not stay alive across streamed output.
+                    prompt_session = _get_prompt_session()
+                    # bitchat chat_mode="llm" 中は prompt_toolkit を無効化する。
+                    # プロンプト表示中に注入メッセージの LLM ラウンドが始まると、
+                    # patch_stdout がストリーム毎にプロンプトを再描画して
+                    # Reasoning/アシスタント表示が乱れる。手動パスなら行の
+                    # 追跡・再描画を制御できる。
+                    _chat_mode_active = is_chat_mode() == "llm"
+                    if (
+                        prompt_session is not None
+                        and getattr(sys.stdin, "isatty", lambda: False)()
+                        and not _chat_mode_active
+                    ):
+                        # Ordinary BUSY/status changes do not interrupt an
+                        # idle prompt. A human_ask is different because it
+                        # explicitly takes ownership of stdin.
+                        stop_prompt_watch = threading.Event()
+
+                        def _watch_normal_prompt() -> None:
+                            while not stop_prompt_watch.wait(0.05):
+                                if _CLI_SHUTDOWN.is_set():
+                                    app = getattr(prompt_session, "app", None)
+                                    _exit_prompt_application(app)
+                                    return
+                                with core.human_ask_lock:
+                                    interrupted = bool(core.human_ask_active)
+                                if not interrupted:
+                                    continue
+                                app = getattr(prompt_session, "app", None)
+                                _exit_prompt_application(app)
+                                return
+
+                        prompt_watcher = threading.Thread(
+                            target=_watch_normal_prompt,
+                            name="prompt-toolkit-normal-state-watcher",
+                            daemon=True,
+                        )
+                        prompt_watcher.start()
+
+                        # Treat the prompt_toolkit-rendered line like the
+                        # manual prompt so status output can close it
+                        # before writing [STATE]. The application handle is
+                        # published so status output can ask the prompt to
+                        # yield instead of erasing its line.
                         try:
-                            if out:
-                                out.write(prompt)
-                                out.flush()
-                            else:
-                                print(prompt, end="", flush=True)
+                            core._prompt_line_open = True
+                            core._cli_prompt_toolkit_active = True
+                            core._cli_prompt_app = getattr(prompt_session, "app", None)
                         except Exception:
+                            pass
+                        try:
+                            line = prompt_session.prompt(
+                                prompt, key_bindings=_make_prompt_key_bindings()
+                            )
+                        except EOFError:
+                            raise
+                        except Exception:
+                            # Do not reuse a PromptSession whose
+                            # Application/input context failed.
+                            _reset_prompt_sessions()
+                            line = None
+                        finally:
+                            stop_prompt_watch.set()
+                            prompt_watcher.join(timeout=0.2)
                             try:
-                                print(prompt, end="", flush=True)
+                                core._prompt_line_open = False
+                                core._cli_prompt_toolkit_active = False
+                                core._cli_prompt_app = None
                             except Exception:
                                 pass
-
-                    # A normal prompt can become stale if an LLM/tool round
-                    # or human_ask starts after it was drawn but before the
-                    # input wait begins. Do not keep waiting on that prompt;
-                    # let the next loop render the active prompt instead.
-                    with core.human_ask_lock:
-                        prompt_interrupted = core.human_ask_active
-                    if prompt_interrupted or getattr(core, "status_busy", False):
-                        # The prompt was drawn, but this input slot is no
-                        # longer usable because another tool owns stdin.
-                        # Clear the stale prompt before continuing; otherwise
-                        # it remains visible immediately before the next
-                        # [STATE] IDLE line even though no input is accepted.
+                        if line is not None:
+                            line = tools_util.strip_surrogates(line)
+                        if line is None:
+                            # ``None`` is also the sentinel used when the
+                            # watcher aborts a normal prompt because a tool
+                            # or human_ask has taken stdin.  Do not fall
+                            # back to blocking readline() while input is
+                            # unavailable.
+                            with core.human_ask_lock:
+                                prompt_interrupted = core.human_ask_active
+                            if prompt_interrupted or getattr(
+                                core, "status_busy", False
+                            ):
+                                _clear_abandoned_prompt(prompt)
+                                core.input_prompt_active = False
+                    else:
+                        # Manual prompt drawing. The prompt opens only
+                        # while idle, so it never shares the terminal with
+                        # streamed output.
+                        lock = getattr(core, "print_lock", None)
+                        if lock is None:
+                            lock = threading.RLock()
+                        # Advertise the prompt before taking print_lock.  If
+                        # this is set only inside the lock, the status thread
+                        # can decide to print IDLE just before the prompt is
+                        # written, producing `agentcli> [STATE] IDLE`.
                         try:
-                            with lock:
-                                clear = (
-                                    chr(13)
-                                    + (" " * len(prompt.rstrip("\r\n")))
-                                    + chr(13)
-                                )
+                            core._prompt_line_open = True
+                        except Exception:
+                            pass
+                        with lock:
+                            try:
                                 if out:
-                                    out.write(clear)
+                                    out.write(prompt)
                                     out.flush()
                                 else:
-                                    print(clear, end="", flush=True)
-                        except Exception:
-                            pass
-                        try:
-                            core._prompt_line_open = False
-                            core.prompt_needs_redraw = False
-                            core.input_prompt_active = False
-                        except Exception:
-                            pass
-                        continue
+                                    print(prompt, end="", flush=True)
+                            except Exception:
+                                try:
+                                    print(prompt, end="", flush=True)
+                                except Exception:
+                                    pass
 
-                    if os.name == "nt":
-                        try:
-                            import msvcrt  # type: ignore
+                        # A normal prompt can become stale if an LLM/tool round
+                        # or human_ask starts after it was drawn but before the
+                        # input wait begins. Do not keep waiting on that prompt;
+                        # let the next loop render the active prompt instead.
+                        with core.human_ask_lock:
+                            prompt_interrupted = core.human_ask_active
+                        if prompt_interrupted or getattr(core, "status_busy", False):
+                            # The prompt was drawn, but this input slot is no
+                            # longer usable because another tool owns stdin.
+                            # Clear the stale prompt before continuing; otherwise
+                            # it remains visible immediately before the next
+                            # [STATE] IDLE line even though no input is accepted.
+                            try:
+                                with lock:
+                                    clear = (
+                                        chr(13)
+                                        + (" " * len(prompt.rstrip("\r\n")))
+                                        + chr(13)
+                                    )
+                                    if out:
+                                        out.write(clear)
+                                        out.flush()
+                                    else:
+                                        print(clear, end="", flush=True)
+                            except Exception:
+                                pass
+                            try:
+                                core._prompt_line_open = False
+                                core.prompt_needs_redraw = False
+                                core.input_prompt_active = False
+                            except Exception:
+                                pass
+                            continue
 
-                            while True:
-                                if _CLI_SHUTDOWN.is_set():
-                                    return
-                                with core.human_ask_lock:
-                                    if core.human_ask_active:
+                        if os.name == "nt":
+                            try:
+                                import msvcrt  # type: ignore
+
+                                while True:
+                                    if _CLI_SHUTDOWN.is_set():
+                                        return
+                                    with core.human_ask_lock:
+                                        if core.human_ask_active:
+                                            break
+                                    # 注入メッセージのラウンド等でプロンプト行が
+                                    # 閉じられた場合、アイドルになったら再描画する。
+                                    if getattr(
+                                        core, "prompt_needs_redraw", False
+                                    ) and not getattr(core, "status_busy", False):
+                                        with core.print_lock:
+                                            if getattr(
+                                                core, "prompt_needs_redraw", False
+                                            ) and not getattr(
+                                                core, "status_busy", False
+                                            ):
+                                                try:
+                                                    core._prompt_line_open = True
+                                                except Exception:
+                                                    pass
+                                                core.prompt_needs_redraw = False
+                                                try:
+                                                    if out:
+                                                        out.write(prompt)
+                                                        out.flush()
+                                                    else:
+                                                        print(
+                                                            prompt, end="", flush=True
+                                                        )
+                                                except Exception:
+                                                    pass
+                                    if msvcrt.kbhit():
+                                        line = sys.stdin.readline()
+                                        if line == "":
+                                            raise EOFError
+                                        try:
+                                            core._prompt_line_open = False
+                                        except Exception:
+                                            pass
                                         break
-                                # 注入メッセージのラウンド等でプロンプト行が
-                                # 閉じられた場合、アイドルになったら再描画する。
-                                if getattr(
-                                    core, "prompt_needs_redraw", False
-                                ) and not getattr(core, "status_busy", False):
-                                    with core.print_lock:
-                                        if getattr(
-                                            core, "prompt_needs_redraw", False
-                                        ) and not getattr(core, "status_busy", False):
-                                            try:
-                                                core._prompt_line_open = True
-                                            except Exception:
-                                                pass
-                                            core.prompt_needs_redraw = False
-                                            try:
-                                                if out:
-                                                    out.write(prompt)
-                                                    out.flush()
-                                                else:
-                                                    print(prompt, end="", flush=True)
-                                            except Exception:
-                                                pass
-                                if msvcrt.kbhit():
-                                    line = sys.stdin.readline()
-                                    if line == "":
-                                        raise EOFError
-                                    try:
-                                        core._prompt_line_open = False
-                                    except Exception:
-                                        pass
-                                    break
-                                time.sleep(0.1)
-                        except EOFError:
-                            raise
-                        except Exception:
-                            line = sys.stdin.readline()
-                            if line == "":
-                                raise EOFError
-                    else:
-                        try:
-                            import select
+                                    time.sleep(0.1)
+                            except EOFError:
+                                raise
+                            except Exception:
+                                line = sys.stdin.readline()
+                                if line == "":
+                                    raise EOFError
+                        else:
+                            try:
+                                import select
 
-                            while True:
-                                if _CLI_SHUTDOWN.is_set():
-                                    return
-                                with core.human_ask_lock:
-                                    if core.human_ask_active:
+                                while True:
+                                    if _CLI_SHUTDOWN.is_set():
+                                        return
+                                    with core.human_ask_lock:
+                                        if core.human_ask_active:
+                                            break
+                                    if getattr(
+                                        core, "prompt_needs_redraw", False
+                                    ) and not getattr(core, "status_busy", False):
+                                        with core.print_lock:
+                                            if getattr(
+                                                core, "prompt_needs_redraw", False
+                                            ) and not getattr(
+                                                core, "status_busy", False
+                                            ):
+                                                core.prompt_needs_redraw = False
+                                                try:
+                                                    if out:
+                                                        out.write(prompt)
+                                                        out.flush()
+                                                    else:
+                                                        print(
+                                                            prompt, end="", flush=True
+                                                        )
+                                                except Exception:
+                                                    pass
+                                                try:
+                                                    core._prompt_line_open = True
+                                                except Exception:
+                                                    pass
+                                    r, _w, _x = select.select([sys.stdin], [], [], 0.05)
+                                    if r:
+                                        line = sys.stdin.readline()
+                                        if line == "":
+                                            raise EOFError
+                                        try:
+                                            core._prompt_line_open = False
+                                        except Exception:
+                                            pass
                                         break
-                                if getattr(
-                                    core, "prompt_needs_redraw", False
-                                ) and not getattr(core, "status_busy", False):
-                                    with core.print_lock:
-                                        if getattr(
-                                            core, "prompt_needs_redraw", False
-                                        ) and not getattr(core, "status_busy", False):
-                                            core.prompt_needs_redraw = False
-                                            try:
-                                                if out:
-                                                    out.write(prompt)
-                                                    out.flush()
-                                                else:
-                                                    print(prompt, end="", flush=True)
-                                            except Exception:
-                                                pass
-                                            try:
-                                                core._prompt_line_open = True
-                                            except Exception:
-                                                pass
-                                r, _w, _x = select.select([sys.stdin], [], [], 0.05)
-                                if r:
-                                    line = sys.stdin.readline()
-                                    if line == "":
-                                        raise EOFError
-                                    try:
-                                        core._prompt_line_open = False
-                                    except Exception:
-                                        pass
-                                    break
-                        except EOFError:
-                            raise
-                        except Exception:
-                            line = sys.stdin.readline()
-                            if line == "":
-                                raise EOFError
+                            except EOFError:
+                                raise
+                            except Exception:
+                                line = sys.stdin.readline()
+                                if line == "":
+                                    raise EOFError
 
                 if line is None:
                     _skip = True
