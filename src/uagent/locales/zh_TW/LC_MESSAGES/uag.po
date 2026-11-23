@@ -5098,3 +5098,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "沙箱：%(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] 目前沒有其他參與的 UAG 對等方在線。"
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] 可用的 UAG 對等點："
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] 傳入訊息被拒絕或過期。"
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] 本機訊息傳送無法啟動：%(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] 另一個 UAG 對等點在線：%(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] 本地訊息關閉失敗：%(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] 網路訊息傳遞事件失敗：%(error_type)s。"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] 另一個 UAG 對等點在線：%(entrypoint)s (PID %(pid)s)。"
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] 無法啟動接受的訊息輪次：%(error_type)s。"

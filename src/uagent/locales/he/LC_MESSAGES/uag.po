@@ -5212,3 +5212,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "סביבת בידוד: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] אין עמיתים אחרים ל-UAG שמשתתפים באינטרנט כרגע."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] עמיתים זמינים ל-UAG:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] הודעה נכנסת נדחתה או פג תוקף."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] לא ניתן היה להתחיל את העברת ההודעות המקומיות: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] עמית אחר ל-UAG מחובר: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] כיבוי הודעות מקומיות נכשל: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] אירוע העברת הודעות אינטרנט נכשל: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] עמית אחר ל-UAG מחובר: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] לא ניתן היה להתחיל את תור ההודעות המקובל: %(error_type)s."

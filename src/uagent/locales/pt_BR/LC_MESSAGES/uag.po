@@ -5355,3 +5355,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Ambiente isolado: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Nenhum outro colega UAG participante está online no momento."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Pares UAG disponíveis:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] A mensagem recebida foi rejeitada ou expirou."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Não foi possível iniciar mensagens locais: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Outro par UAG está online: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Falha no encerramento de mensagens locais: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Falha no evento de mensagens da Web: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Outro par UAG está online: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Não foi possível iniciar a mensagem aceita: %(error_type)s."

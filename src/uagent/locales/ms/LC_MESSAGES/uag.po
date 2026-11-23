@@ -5038,3 +5038,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Sandbox: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Tiada rakan sebaya UAG yang mengambil bahagian dalam talian pada masa ini."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Rakan setara UAG tersedia:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Mesej masuk telah ditolak atau tamat tempoh."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Pemesejan tempatan tidak dapat dimulakan: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Seorang lagi rakan sebaya UAG sedang dalam talian: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Penutupan pemesejan setempat gagal: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Acara pemesejan web gagal: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Seorang lagi rakan sebaya UAG sedang dalam talian: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Tidak dapat memulakan giliran mesej yang diterima: %(error_type)s."

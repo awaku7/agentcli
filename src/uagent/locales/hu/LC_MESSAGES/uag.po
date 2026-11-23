@@ -5378,3 +5378,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Homokozó: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Jelenleg nincs más résztvevő UAG-társ online."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Elérhető UAG-társak:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] A bejövő üzenetet elutasították vagy lejárt."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] A helyi üzenetküldést nem sikerült elindítani: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Egy másik UAG-társ online: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] A helyi üzenetküldés leállítása nem sikerült: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Sikertelen webes üzenetküldési esemény: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Egy másik UAG-társ online: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Nem sikerült elindítani az elfogadott üzenetfordulatot: %(error_type)s."

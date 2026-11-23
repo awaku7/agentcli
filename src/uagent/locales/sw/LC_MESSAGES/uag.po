@@ -5217,3 +5217,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Mazingira yaliyotengwa: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Hakuna wenzao wengine wa UAG wanaoshiriki walio mtandaoni kwa sasa."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Wenzake wa UAG wanaopatikana:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Ujumbe unaoingia ulikataliwa au kuisha muda wake."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Ujumbe wa ndani haukuweza kuanza: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Mwenzi mwingine wa UAG yuko mtandaoni: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Kuzima kwa ujumbe wa ndani kumeshindwa: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Tukio la ujumbe wa wavuti halikufaulu: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Mwenzi mwingine wa UAG yuko mtandaoni: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Haikuweza kuanzisha zamu ya ujumbe unaokubalika: %(error_type)s."

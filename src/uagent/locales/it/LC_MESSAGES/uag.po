@@ -5398,3 +5398,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Sandbox: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Nessun altro peer UAG partecipante è attualmente online."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] peer UAG disponibili:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Il messaggio in arrivo è stato rifiutato o è scaduto."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Impossibile avviare la messaggistica locale: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Un altro peer UAG è online: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Arresto della messaggistica locale non riuscito: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Evento di messaggistica web non riuscito: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Un altro peer UAG è online: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Impossibile avviare la rotazione del messaggio accettato: %(error_type)s."

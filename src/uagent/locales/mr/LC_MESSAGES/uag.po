@@ -5275,3 +5275,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "सँडबॉक्स: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] इतर कोणतेही सहभागी UAG समवयस्क सध्या ऑनलाइन नाहीत."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] उपलब्ध UAG समवयस्क:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] येणारा संदेश नाकारण्यात आला किंवा कालबाह्य झाला."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] स्थानिक मेसेजिंग सुरू होऊ शकले नाही: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] आणखी एक UAG समवयस्क ऑनलाइन आहे: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] स्थानिक मेसेजिंग शटडाउन अयशस्वी: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] वेब मेसेजिंग इव्हेंट अयशस्वी: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] आणखी एक UAG समवयस्क ऑनलाइन आहे: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] स्वीकृत संदेश चालू करू शकलो नाही: %(error_type)s."

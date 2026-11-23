@@ -5031,3 +5031,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Sandkasse: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Ingen andre deltakande UAG-peers er pålogga no."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Tilgjengelege UAG-peers:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Innkomande melding vart avvist eller har gått ut på dato."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Lokal meldingsutveksling kunne ikkje startast: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Ein annan UAG-peer er pålogga: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Nedstenging av lokal meldingsutveksling mislukkast: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Web-meldingshendinga mislukkast: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Ein annan UAG-peer er pålogga: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Kunne ikkje starte den godtekne meldingsrunden: %(error_type)s."

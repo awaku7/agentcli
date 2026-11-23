@@ -5154,3 +5154,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Hộp cát: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Hiện không có đồng nghiệp UAG tham gia nào khác đang trực tuyến."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Các đồng nghiệp UAG có sẵn:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Tin nhắn đến đã bị từ chối hoặc hết hạn."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Nhắn tin cục bộ không thể bắt đầu: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Một ứng dụng ngang hàng UAG khác đang trực tuyến: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Tắt tính năng nhắn tin cục bộ không thành công: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Sự kiện nhắn tin trên web không thành công: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Một thiết bị ngang hàng UAG khác đang trực tuyến: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Không thể bắt đầu lượt tin nhắn được chấp nhận: %(error_type)s."

@@ -5118,3 +5118,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "샌드박스: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] 현재 온라인 상태인 다른 참여 UAG 피어는 없습니다."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] 사용 가능한 UAG 피어:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] 수신 메시지가 거부되었거나 만료되었습니다."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] 로컬 메시지를 시작할 수 없습니다: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] 다른 UAG 피어가 온라인 상태입니다: %(endpoint)s(pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] 로컬 메시지 종료 실패: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] 웹 메시징 이벤트 실패: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] 다른 UAG 피어가 온라인 상태입니다: %(entrypoint)s(PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] 수락된 메시지 차례를 시작할 수 없습니다: %(error_type)s."

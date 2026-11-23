@@ -5421,3 +5421,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Περιβάλλον απομόνωσης: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Κανένας άλλος συμμετέχων ομότιμος UAG δεν είναι συνδεδεμένος αυτήν τη στιγμή."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Διαθέσιμοι ομότιμοι UAG:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Το εισερχόμενο μήνυμα απορρίφθηκε ή έληξε."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Δεν ήταν δυνατή η έναρξη των τοπικών μηνυμάτων: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Ένας άλλος ομότιμος UAG είναι συνδεδεμένος: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Ο τερματισμός τοπικών μηνυμάτων απέτυχε: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Το συμβάν ανταλλαγής μηνυμάτων Ιστού απέτυχε: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Ένας άλλος ομότιμος UAG είναι συνδεδεμένος: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Δεν ήταν δυνατή η έναρξη του αποδεκτού μηνύματος: %(error_type)s."

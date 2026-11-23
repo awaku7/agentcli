@@ -5271,3 +5271,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "แซนด์บ็อกซ์: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] ขณะนี้ไม่มีเพื่อน UAG ที่เข้าร่วมรายอื่นที่ออนไลน์อยู่"
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] เพียร์ UAG ที่มีจำหน่าย:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] ข้อความขาเข้าถูกปฏิเสธหรือหมดอายุ"
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] ไม่สามารถเริ่มส่งข้อความในเครื่องได้: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] เพียร์ UAG อื่นออนไลน์อยู่: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] การปิดระบบการรับส่งข้อความในเครื่องล้มเหลว: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] กิจกรรมการรับส่งข้อความทางเว็บล้มเหลว: %(error_type)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] เพียร์ UAG อื่นออนไลน์อยู่: %(entrypoint)s (PID %(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] ไม่สามารถเริ่มการส่งข้อความที่ยอมรับได้: %(error_type)s"

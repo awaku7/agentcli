@@ -5361,3 +5361,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Сэндбокс: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] UAG-н өөр оролцогч одоогоор онлайнгүй байна."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Боломжтой UAG үе тэнгийнхэн:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Ирж буй мессежээс татгалзсан эсвэл хугацаа нь дууссан."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Орон нутгийн мессежийг эхлүүлж чадсангүй: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Өөр нэг UAG гишүүн онлайн байна: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Орон нутгийн мессежийг унтрааж чадсангүй: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Вэб мессежийн үйл явдал амжилтгүй боллоо: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Өөр нэг UAG гишүүн онлайн байна: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Хүлээн зөвшөөрөгдсөн зурвасын эргэлтийг эхлүүлж чадсангүй: %(error_type)s."

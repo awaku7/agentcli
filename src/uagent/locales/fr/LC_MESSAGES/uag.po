@@ -5406,3 +5406,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Bac à sable : %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Aucun autre homologue UAG participant n'est actuellement en ligne."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Homologues UAG disponibles :"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Le message entrant a été rejeté ou a expiré."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] La messagerie locale n'a pas pu démarrer : %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Un autre homologue UAG est en ligne : %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Échec de l'arrêt de la messagerie locale : %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Échec de l'événement de messagerie Web : %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Un autre homologue UAG est en ligne : %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Impossible de démarrer le tour de message accepté : %(error_type)s."

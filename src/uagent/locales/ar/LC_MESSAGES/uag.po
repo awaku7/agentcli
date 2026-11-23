@@ -5259,3 +5259,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "بيئة العزل: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] لا يوجد نظراء UAG مشاركين آخرين متصلين بالإنترنت حاليًا."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] نظيرات UAG المتوفرة:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] تم رفض الرسالة الواردة أو انتهت صلاحيتها."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] تعذر بدء المراسلة المحلية: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] نظير آخر من UAG متصل بالإنترنت: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] فشل إيقاف المراسلة المحلية: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] فشل حدث مراسلة الويب: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] نظير UAG آخر متصل بالإنترنت: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] تعذر بدء تشغيل الرسالة المقبولة: %(error_type)s."

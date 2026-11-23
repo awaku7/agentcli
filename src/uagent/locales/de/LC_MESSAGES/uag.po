@@ -5402,3 +5402,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Sandbox: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Derzeit sind keine anderen teilnehmenden UAG-Peers online."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Verfügbare UAG-Peers:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Eingehende Nachricht wurde abgelehnt oder ist abgelaufen."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Lokale Nachrichten konnten nicht gestartet werden: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Ein weiterer UAG-Peer ist online: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Das Herunterfahren des lokalen Messagings ist fehlgeschlagen: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Web-Messaging-Ereignis fehlgeschlagen: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Ein weiterer UAG-Peer ist online: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Der akzeptierte Nachrichtendurchlauf konnte nicht gestartet werden: %(error_type)s."

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from types import SimpleNamespace
+from pathlib import Path
 
 from uagent.cli_impl import main as cli_main
 from uagent.i18n import _, reset_contextvar_locale, set_contextvar_locale
@@ -51,6 +52,35 @@ def test_other_cli_local_peer_notices_have_japanese_translations() -> None:
         "[LOCAL] 別のUAGピアがオンラインです: %(entrypoint)s (PID %(pid)s)。",
         "[LOCAL] 受信したメッセージのターンを開始できませんでした: %(error_type)s。",
     ]
+
+
+def test_local_peer_notices_are_translated_in_all_shipped_locales() -> None:
+    locales_dir = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
+    msgids = [
+        "[LOCAL] No other participating UAG peers are currently online.",
+        "[LOCAL] Available UAG peers:",
+        "[LOCAL] Incoming message was rejected or expired.",
+        "[LOCAL] Local messaging could not start: %(error)s",
+        "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)",
+        "[LOCAL] Local messaging shutdown failed: %(error)s",
+        "[LOCAL] Web messaging event failed: %(error_type)s.",
+        "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s).",
+        "[LOCAL] Could not start the accepted message turn: %(error_type)s.",
+    ]
+
+    for locale_dir in locales_dir.iterdir():
+        if not locale_dir.is_dir() or locale_dir.name == "en":
+            continue
+        token = set_contextvar_locale(locale_dir.name)
+        try:
+            translated = [_(msgid) for msgid in msgids]
+        finally:
+            reset_contextvar_locale(token)
+
+        assert all(text != msgid for text, msgid in zip(translated, msgids)), (
+            locale_dir.name,
+            translated,
+        )
 
 
 def test_rejected_incoming_local_message_notice_is_translated(

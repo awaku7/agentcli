@@ -5107,3 +5107,36 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "Sandbox: %(state)s"
+
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] Walang ibang kalahok na mga kapantay ng UAG ang kasalukuyang online."
+
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] Available na mga kasama sa UAG:"
+
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] Ang papasok na mensahe ay tinanggihan o nag-expire."
+
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] Hindi makapagsimula ang lokal na pagmemensahe: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] Isa pang UAG peer ang online: %(endpoint)s (pid=%(pid)s)"
+
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] Nabigo ang pagsasara ng lokal na pagmemensahe: %(error)s"
+
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Nabigo ang kaganapan sa pagmemensahe sa web: %(error_type)s."
+
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] Isa pang UAG peer ang online: %(entrypoint)s (PID %(pid)s)."
+
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] Hindi masimulan ang tinanggap na pagliko ng mensahe: %(error_type)s."
