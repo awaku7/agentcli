@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-import io
 import os
-import re
 import subprocess
 import sys
 import tempfile
-import tokenize
 from typing import Any
 
 from ..runtime.tool_execution_result import ToolExecutionText
@@ -17,18 +14,12 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:python_exec"
-_CODE_PREVIEW_MAX_CHARS = 120
-_SENSITIVE_ASSIGNMENT_RE = re.compile(
-    r"(?i)\b(?P<name>(?:[A-Za-z_]\w*)?"
-    r"(?:secret|password|passwd|pwd|token|api[_-]?key|access[_-]?key|"
-    r"private[_-]?key|credential|authorization|auth|cookie)\w*)\s*="
-)
 
 
 TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
     "type": "function",
-    "tool_genre": "exec",
+    "tool_level": 1,
     "function": {
         "name": "python_exec",
         "description": _(
@@ -157,50 +148,12 @@ def run_tool(args: dict[str, Any]) -> str:
     return _run_python_code(args, cb)
 
 
-def _safe_code_preview(code: Any) -> str:
-    """Return a short first-line preview with comments and literal values masked."""
-    source = code if isinstance(code, str) else str(code or "")
-    line = next(
-        (
-            candidate.strip()
-            for candidate in source.splitlines()
-            if candidate.strip() and not candidate.lstrip().startswith("#")
-        ),
-        "",
-    )
-    if not line:
-        return "<empty script>"
-
-    sensitive_assignment = _SENSITIVE_ASSIGNMENT_RE.search(line)
-    if sensitive_assignment:
-        preview = f"{sensitive_assignment.group('name')} = <redacted>"
-    else:
-        safe_tokens = []
-        try:
-            for item in tokenize.generate_tokens(io.StringIO(line).readline):
-                if item.type == tokenize.COMMENT:
-                    break
-                if item.type == tokenize.STRING:
-                    item = item._replace(string="'<string>'")
-                elif item.type == tokenize.NUMBER:
-                    item = item._replace(string="0")
-                safe_tokens.append(item)
-            preview = tokenize.untokenize(safe_tokens).strip()
-        except (IndentationError, tokenize.TokenError):
-            return "<preview unavailable>"
-
-    if len(preview) > _CODE_PREVIEW_MAX_CHARS:
-        preview = preview[: _CODE_PREVIEW_MAX_CHARS - 3] + "..."
-    return preview or "<preview unavailable>"
-
-
-def describe(args: dict[str, Any]) -> str:
-    """Show a masked preview of the submitted Python source."""
+def describe(_args: dict[str, Any]) -> str:
+    """Describe the action without echoing any submitted source code."""
     return str(
         _(
             "describe.python",
-            default="Run Python code (preview): %(code)s",
-            code=_safe_code_preview(args.get("code", "")),
+            default="Run Python",
         )
     )
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -515,25 +517,35 @@ def test_change_workdir_describer_includes_new_dir() -> None:
     assert change_workdir_tool.describe({}).count("?") == 1
 
 
-def test_python_exec_describer_shows_safe_code_preview() -> None:
+def test_python_exec_describer_does_not_echo_source_code() -> None:
     from uagent.tools import python_exec_tool
 
     source = """password = 'SENSITIVE_SENTINEL_9381'
 print('not shown')"""
     text = python_exec_tool.describe({"code": source})
-    assert "password = <redacted>" in text
     assert source not in text
     assert "SENSITIVE_SENTINEL_9381" not in text
-
-
-def test_python_exec_describer_previews_first_code_line_and_masks_literals() -> None:
-    from uagent.tools import python_exec_tool
-
-    text = python_exec_tool.describe({"code": """import pandas as pd
-print('private value')"""})
-    assert "import pandas as pd" in text
+    assert "password" not in text
     assert "print" not in text
-    assert "private value" not in text
+
+
+def test_python_exec_describer_translations_do_not_include_code_preview() -> None:
+    spec_path = (
+        Path(__file__).resolve().parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "python_exec_tool.json"
+    )
+    translations = json.loads(spec_path.read_text(encoding="utf-8"))
+
+    assert translations
+    for locale, messages in translations.items():
+        description = messages.get("describe.python", "")
+        assert description, f"missing describe.python translation for {locale}"
+        assert "describe.python_multi" not in messages, locale
+        assert "%(code)s" not in description, locale
+        assert "冒頭プレビュー" not in description, locale
 
 
 def test_analyze_image_describer_does_not_echo_path_or_prompt() -> None:
