@@ -34,6 +34,44 @@ def test_tool_definition_selection_keeps_whole_schemas_and_logs_exclusions():
     assert any(decision.action == "EXCLUDE" for decision in selection.decisions)
 
 
+def test_tool_definition_selection_reuses_serialized_specs_and_query_tokens(
+    monkeypatch,
+):
+    from uagent.runtime import context_tools
+
+    specs = [
+        {
+            "type": "function",
+            "function": {"name": "read_file", "description": "read a file"},
+        },
+        {
+            "type": "function",
+            "function": {"name": "search_files", "description": "search files"},
+        },
+    ]
+    serialized_specs: list[dict] = []
+    tokenized_texts: list[str] = []
+    original_tool_text = context_tools._tool_text
+    original_tokens = context_tools._tokens
+
+    def count_tool_text(spec):
+        serialized_specs.append(spec)
+        return original_tool_text(spec)
+
+    def count_tokens(text):
+        tokenized_texts.append(text)
+        return original_tokens(text)
+
+    monkeypatch.setattr(context_tools, "_tool_text", count_tool_text)
+    monkeypatch.setattr(context_tools, "_tokens", count_tokens)
+
+    ContextManager().optimize_tool_definitions(specs, task="read a file")
+
+    assert serialized_specs == specs
+    # One tokenization for the task and one for each serialized schema.
+    assert tokenized_texts == ["read a file", *[original_tool_text(s) for s in specs]]
+
+
 def test_token_budget_compacts_active_context():
     context = ActiveContextBuilder(
         budget=ContextBudget(total_chars=100_000, total_tokens=5)

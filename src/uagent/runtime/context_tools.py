@@ -12,6 +12,9 @@ from .context_budget import ContextBudget
 from .context_decision import ContextDecisionEngine, DecisionPolicy
 
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_]+|[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff]")
+_ALWAYS_RELEVANT_TOOL_NAMES = frozenset(
+    {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
+)
 
 
 @dataclass(frozen=True)
@@ -40,15 +43,25 @@ def _tool_text(spec: dict[str, Any]) -> str:
         return str(spec)
 
 
-def _relevance(task: str, spec: dict[str, Any]) -> float:
+def _tokens(text: str) -> set[str]:
+    return {token.casefold() for token in _TOKEN_RE.findall(text or "")}
+
+
+def _relevance(
+    task: str,
+    spec: dict[str, Any],
+    *,
+    task_tokens: set[str] | None = None,
+    tool_tokens: set[str] | None = None,
+) -> float:
     function = spec.get("function")
     name = str(function.get("name") or "") if isinstance(function, dict) else ""
-    if name in {"tool_catalog", "tool_load", "unload_tool", "human_ask"}:
+    if name in _ALWAYS_RELEVANT_TOOL_NAMES:
         return 1.0
-    query = {token.casefold() for token in _TOKEN_RE.findall(task or "")}
+    query = task_tokens if task_tokens is not None else _tokens(task)
     if not query:
         return 0.5
-    haystack = {token.casefold() for token in _TOKEN_RE.findall(_tool_text(spec))}
+    haystack = tool_tokens if tool_tokens is not None else _tokens(_tool_text(spec))
     overlap = len(query & haystack) / len(query)
     # Keep a no-match fallback above the exclusion threshold so a task with
     # unusual vocabulary still receives a useful, budgeted tool surface.
@@ -75,19 +88,35 @@ def select_tool_definitions(
         raise ValueError("max_tools must be non-negative")
     active_budget = budget or ContextBudget()
     candidates = []
+    tool_texts: list[str] = []
+    tool_names: list[str] = []
+    task_tokens = _tokens(task or "")
     raw_chars = 0
     for index, spec in enumerate(specs):
         text = _tool_text(spec)
+        tool_texts.append(text)
+        tool_name = _tool_name(spec, index)
+        tool_names.append(tool_name)
         raw_chars += len(text)
+        tool_tokens = (
+            _tokens(text)
+            if task_tokens and tool_name not in _ALWAYS_RELEVANT_TOOL_NAMES
+            else set()
+        )
         candidates.append(
             # ``compact_score`` is above the valid score range: schemas must
             # be kept whole, so a partially fitting schema is excluded.
             ContextCandidate(
-                item_id=_tool_name(spec, index),
+                item_id=tool_name,
                 source="tool_definition",
                 section="tool_definitions",
                 content=text,
-                relevance=_relevance(task, spec),
+                relevance=_relevance(
+                    task,
+                    spec,
+                    task_tokens=task_tokens,
+                    tool_tokens=tool_tokens,
+                ),
             )
         )
 
@@ -97,10 +126,10 @@ def select_tool_definitions(
     decisions = engine.decide(candidates, budget=active_budget)
     decision_by_id = {decision.item_id: decision for decision in decisions}
     selected_entries = [
-        (index, spec, decision_by_id[_tool_name(spec, index)])
+        (index, spec, decision_by_id[tool_names[index]])
         for index, spec in enumerate(specs)
-        if _tool_name(spec, index) in decision_by_id
-        and decision_by_id[_tool_name(spec, index)].action == "KEEP"
+        if tool_names[index] in decision_by_id
+        and decision_by_id[tool_names[index]].action == "KEEP"
     ]
     if max_tools is not None and len(selected_entries) > max_tools:
         selected_entries = sorted(
@@ -110,7 +139,7 @@ def select_tool_definitions(
         selected_entries.sort(key=lambda entry: entry[0])
     selected = [spec for _, spec, _ in selected_entries]
 
-    active_chars = sum(len(_tool_text(spec)) for spec in selected)
+    active_chars = sum(len(tool_texts[index]) for index, _, _ in selected_entries)
     return ToolDefinitionSelection(
         specs=selected,
         decisions=decisions,
