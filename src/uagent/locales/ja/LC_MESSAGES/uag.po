@@ -760,6 +760,10 @@ msgstr "入力中にプロンプトが切り替わったため、入力は送信
 msgid "Multiline input cannot be submitted while a response or another prompt is active. Please try again when idle."
 msgstr "応答中または別のプロンプトが有効な間は複数行入力を送信できません。待機状態になってからもう一度お試しください。"
 
+#: src/uagent/cli_impl/main.py
+msgid "[LOCAL] No other participating UAG peers are currently online."
+msgstr "[LOCAL] 現在オンラインの他のUAGピアはいません。"
+
 #: src/uagent/llm_round_helpers.py
 #, python-format
 msgid "[System Prompt] Rebuilt for %(provider)s/%(model)s: tool_catalog guidance restored for this route."

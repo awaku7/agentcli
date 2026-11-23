@@ -105,7 +105,7 @@ def _stop_cli_local_messaging(core_obj: Any) -> bool:
 
 def _print_local_message_peers(peers: list[dict[str, Any]]) -> None:
     if not peers:
-        print("[LOCAL] No other participating UAG peers are currently online.")
+        print(_("[LOCAL] No other participating UAG peers are currently online."))
         return
     print("[LOCAL] Available UAG peers:")
     for peer in peers:
