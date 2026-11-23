@@ -387,7 +387,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_MOONSHOT_DEPNAME",
             False,
-            _("Moonshot model name (optional, default: kimi-k3)"),
+            _("Moonshot model name (optional, default: kimi-k3.1-pro)"),
         ),
     ],
     "mimo": [
@@ -400,7 +400,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_MIMO_DEPNAME",
             False,
-            _("MiMo model name (optional, default: mimo-v2.5-pro)"),
+            _("MiMo model name (optional, default: mimo-v2.6-pro)"),
         ),
     ],
     "lmstudio": [
@@ -512,7 +512,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_SARASHINA_DEPNAME",
             False,
-            _("Sarashina model name (optional, default: sarashina3-mini)"),
+            _("Sarashina model name (optional, default: sarashina3.2-mini-thinking)"),
         ),
         ("UAGENT_SARASHINA_TEMPERATURE", False, _("Sarashina temperature (optional)")),
     ],
@@ -528,7 +528,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_VERCEL_DEPNAME",
             False,
-            _("Vercel model name (optional, default: openai/gpt-5.4-nano)"),
+            _("Vercel model name (optional, default: openai/gpt-6-luna)"),
         ),
         (
             "UAGENT_VERCEL_TEMPERATURE",
@@ -566,7 +566,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_INCEPTION_DEPNAME",
             False,
-            _("Inception model name (optional, default: mercury-2.5)"),
+            _("Inception model name (optional, default: mercury-3)"),
         ),
         (
             "UAGENT_INCEPTION_TEMPERATURE",
@@ -589,7 +589,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_NOVITA_DEPNAME",
             False,
-            _("Novita AI model name (optional, default: tensent/hy3)"),
+            _("Novita AI model name (optional, default: tencent/hy3)"),
         ),
         (
             "UAGENT_NOVITA_TEMPERATURE",
@@ -649,6 +649,7 @@ DECISION_PROVIDERS: list[tuple[str, str]] = [
     ("typesafe", "TypeSafe / Jev"),
     ("openrouter", "OpenRouter Decisions / Jev"),
     ("openai", "OpenAI Decisions API / GPT-6 Luna"),
+    ("google", "Google Gemini Decisions API / Gemini Decision 1"),
     ("laya", "Laya (local decision model)"),
 ]
 
@@ -677,6 +678,12 @@ DECISION_PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str, str]]] = {
             "UAGENT_DECISION_ENDPOINT",
             False,
             _("Full Decision API endpoint override (optional)"),
+            "",
+        ),
+        (
+            "UAGENT_DECISION_API_KEY",
+            False,
+            _("Decision API key override (optional)"),
             "",
         ),
     ],
@@ -742,6 +749,29 @@ DECISION_PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str, str]]] = {
             _(
                 "OpenAI decision API key "
                 "(optional if UAGENT_OPENAI_API_KEY or OPENAI_API_KEY is set)"
+            ),
+            "",
+        ),
+    ],
+    "google": [
+        (
+            "UAGENT_DECISION_GOOGLE_DEPNAME",
+            False,
+            _("Google Gemini Decisions API model name"),
+            "gemini-decision-1",
+        ),
+        (
+            "UAGENT_DECISION_GOOGLE_BASE_URL",
+            False,
+            _("Google Gemini Decisions API base URL"),
+            "https://generativelanguage.googleapis.com/v1beta",
+        ),
+        (
+            "UAGENT_DECISION_GOOGLE_API_KEY",
+            False,
+            _(
+                "Google decision API key "
+                "(optional if a Google/Gemini API-key environment variable is set)"
             ),
             "",
         ),
@@ -991,8 +1021,13 @@ def _ask_decision_provider(
     configured_provider = str(
         (st.values or {}).get("UAGENT_DECISION_PROVIDER") or ""
     ).strip()
-    if current == "none" and st.provider == "openai" and not configured_provider:
-        current = "openai"
+    if current == "none" and not configured_provider:
+        current = {
+            "azure": "auto",
+            "openai": "openai",
+            "gemini": "google",
+            "google": "google",
+        }.get(str(st.provider or "").strip().lower(), current)
     default_index = 1
     for index, (provider, _label) in enumerate(DECISION_PROVIDERS, 1):
         if provider == current:
@@ -1011,7 +1046,26 @@ def _ask_decision_provider(
     provider = DECISION_PROVIDERS[int(choice) - 1][0]
     values = dict(st.decision_values or {})
     fields = DECISION_PROVIDER_FIELDS[provider]
+    azure_foundry_auto = (
+        provider == "auto" and str(st.provider or "").strip().lower() == "azure"
+    )
     for key, required, label, default_value in fields:
+        if azure_foundry_auto:
+            if key == "UAGENT_DECISION_MODEL":
+                default_value = "Microsoft-Decision-1.1"
+            elif key == "UAGENT_DECISION_MODEL_PROVIDER":
+                required = True
+                label = _("llmcapa provider name")
+                default_value = "microsoft"
+            elif key == "UAGENT_DECISION_DEPLOYMENT":
+                required = True
+                label = _("Microsoft Foundry Decision deployment name")
+            elif key == "UAGENT_DECISION_ENDPOINT":
+                required = True
+                label = _(
+                    "Full Microsoft Foundry Decision endpoint URL "
+                    "(ending in /providers/microsoft/v1/systemone)"
+                )
         status, value = _ask_text(
             label,
             default=values.get(key, default_value),
@@ -1723,10 +1777,17 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     decision_values = st.decision_values or {}
     if st.decision_provider == "auto":
         for key, _required, _label, default_value in DECISION_PROVIDER_FIELDS["auto"]:
+            if key == "UAGENT_DECISION_API_KEY":
+                continue
             out.append(f"{key}={decision_values.get(key, default_value)}")
-        out.append(
-            "# UAGENT_DECISION_API_KEY= (optional; falls back to provider credentials)"
-        )
+        decision_api_key = decision_values.get("UAGENT_DECISION_API_KEY", "")
+        if decision_api_key:
+            out.append(f"UAGENT_DECISION_API_KEY={decision_api_key}")
+        else:
+            out.append(
+                "# UAGENT_DECISION_API_KEY= "
+                "(optional; falls back to provider credentials)"
+            )
         out.append(
             "# Microsoft Foundry models: UAGENT_AZURE_BASE_URL and UAGENT_AZURE_API_KEY"
         )
@@ -1809,6 +1870,30 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         )
         out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
         out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+    elif st.decision_provider == "google":
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append(
+            "UAGENT_DECISION_GOOGLE_DEPNAME="
+            + decision_values.get("UAGENT_DECISION_GOOGLE_DEPNAME", "gemini-decision-1")
+        )
+        out.append(
+            "UAGENT_DECISION_GOOGLE_BASE_URL="
+            + decision_values.get(
+                "UAGENT_DECISION_GOOGLE_BASE_URL",
+                "https://generativelanguage.googleapis.com/v1beta",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_GOOGLE_API_KEY="
+            + decision_values.get("UAGENT_DECISION_GOOGLE_API_KEY", "")
+        )
+        out.append(
+            "# Google credentials can come from UAGENT_GEMINI_API_KEY, "
+            "UAGENT_GOOGLE_API_KEY, GEMINI_API_KEY, or GOOGLE_API_KEY"
+        )
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
     elif st.decision_provider == "laya":
         out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
         out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")

@@ -13,6 +13,7 @@ SUPPORTED_DECISION_PROVIDERS = (
     "typesafe",
     "openrouter",
     "openai",
+    "google",
     "laya",
 )
 
@@ -54,6 +55,24 @@ def normalize_decision_provider(value: Any) -> str:
     return raw
 
 
+def default_decision_provider_for_llm(provider: Any) -> str | None:
+    """Return the native Decisions adapter matching a main LLM provider."""
+
+    normalized = str(provider or "").strip().lower()
+    return {
+        "openai": "openai",
+        "gemini": "google",
+        "google": "google",
+    }.get(normalized)
+
+
+def default_decision_model_for_llm(provider: Any) -> str | None:
+    """Return a provider-native model ID when one has a built-in default."""
+
+    normalized = str(provider or "").strip().lower()
+    return {"azure": "Microsoft-Decision-1.1"}.get(normalized)
+
+
 def resolve_decision_settings(
     *,
     cli_provider: str | None = None,
@@ -75,8 +94,21 @@ def resolve_decision_settings(
             source="env",
         )
 
-    if str(env.get("UAGENT_PROVIDER") or "").strip().lower() == "openai":
-        return DecisionSettings(provider="openai", source="provider_default")
+    provider_default = default_decision_provider_for_llm(env.get("UAGENT_PROVIDER"))
+    if provider_default is not None:
+        return DecisionSettings(provider=provider_default, source="provider_default")
+
+    main_provider = str(env.get("UAGENT_PROVIDER") or "").strip().lower()
+    if main_provider == "azure":
+        decision_endpoint = str(env.get("UAGENT_DECISION_ENDPOINT") or "").strip()
+        azure_endpoint = str(
+            env.get("UAGENT_AZURE_BASE_URL") or env.get("AZURE_ENDPOINT") or ""
+        ).strip().lower()
+        # Azure OpenAI and Microsoft Foundry have different endpoints and
+        # credentials. Only infer the Microsoft adapter when configuration
+        # identifies a Foundry Decision endpoint/resource.
+        if decision_endpoint or ".services.ai.azure.com" in azure_endpoint:
+            return DecisionSettings(provider="auto", source="provider_default")
 
     return DecisionSettings()
 
@@ -114,7 +146,9 @@ def add_decision_provider_argument(parser: Any) -> Any:
             "Select the dedicated decision provider. "
             "'auto' routes catalogued models using llmcapa protocol metadata. "
             "Overrides UAGENT_DECISION_PROVIDER; defaults to OpenAI Decisions "
-            "when UAGENT_PROVIDER=openai, otherwise none."
+            "for UAGENT_PROVIDER=openai, Google Decisions for gemini, and "
+            "Microsoft Foundry Decisions for Azure when a Foundry endpoint is "
+            "configured; otherwise none."
         ),
     )
     return parser

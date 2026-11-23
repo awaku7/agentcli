@@ -55,7 +55,14 @@ def _capability(provider, endpoint, *, protocol="", extra=None):
             decision=True,
             endpoints=(endpoint,),
             question_kinds=("noul", "choice", "score"),
-            answer_fields=("noul", "choice", "score", "probabilities", "confidence"),
+            answer_fields=(
+                "noul",
+                "choice",
+                "score",
+                "probabilities",
+                "confidence",
+                "legend",
+            ),
             calibrated_confidence=True,
             extra={"endpoint_protocol": protocol, **(extra or {})},
         ),
@@ -80,7 +87,7 @@ def test_auto_routes_microsoft_systemone_model_and_uses_foundry_api_key(monkeypa
     capability = _capability(
         "microsoft",
         "https://{azure_endpoint}/providers/microsoft/v1/systemone",
-        protocol="microsoft-systemone-v1",
+        protocol="microsoft-foundry-systemone",
     )
     monkeypatch.setattr(
         "uagent.decision.catalog.get_capability",
@@ -94,7 +101,7 @@ def test_auto_routes_microsoft_systemone_model_and_uses_foundry_api_key(monkeypa
     provider = CatalogDecisionProvider(
         settings=DecisionSettings("auto"),
         environ={
-            "UAGENT_DECISION_MODEL": "Microsoft-Decision-1",
+            "UAGENT_DECISION_MODEL": "Microsoft-Decision-1.1",
             "UAGENT_DECISION_MODEL_PROVIDER": "microsoft",
             "UAGENT_DECISION_DEPLOYMENT": "ticket-router-prod",
             "UAGENT_AZURE_BASE_URL": "https://foundry.example.test",
@@ -106,7 +113,7 @@ def test_auto_routes_microsoft_systemone_model_and_uses_foundry_api_key(monkeypa
     result = provider.decide(_request())
 
     assert provider.name == "microsoft"
-    assert provider.catalog_model == "Microsoft-Decision-1"
+    assert provider.catalog_model == "Microsoft-Decision-1.1"
     assert provider.model == "ticket-router-prod"
     assert result.provider == "microsoft"
     assert result.answers["goal_status"].value == "COMPLETE"
@@ -118,6 +125,49 @@ def test_auto_routes_microsoft_systemone_model_and_uses_foundry_api_key(monkeypa
     assert client.calls[0]["json"]["model"] == "ticket-router-prod"
     provider.close()
     assert client.closed is False
+
+
+def test_azure_foundry_defaults_model_and_provider_from_main_llm(monkeypatch):
+    capability = _capability(
+        "microsoft",
+        "https://{azure_endpoint}/providers/microsoft/v1/systemone",
+        protocol="microsoft-foundry-systemone",
+    )
+    lookup = {}
+
+    def fake_get_capability(model, provider, *, scoped_only):
+        lookup.update(model=model, provider=provider, scoped_only=scoped_only)
+        return capability
+
+    monkeypatch.setattr("uagent.decision.catalog.get_capability", fake_get_capability)
+    monkeypatch.setattr(
+        "uagent.decision.catalog.validate_model_decision_request",
+        lambda **_kwargs: capability.decision,
+    )
+    client = FakeClient()
+    provider = CatalogDecisionProvider(
+        settings=DecisionSettings("auto"),
+        environ={
+            "UAGENT_PROVIDER": "azure",
+            "UAGENT_AZURE_BASE_URL": "https://resource.services.ai.azure.com",
+            "UAGENT_AZURE_API_KEY": "foundry-secret",
+            "UAGENT_DECISION_DEPLOYMENT": "decision-prod",
+        },
+        client=client,
+    )
+
+    assert lookup == {
+        "model": "Microsoft-Decision-1.1",
+        "provider": "microsoft",
+        "scoped_only": True,
+    }
+    assert provider.name == "microsoft"
+    assert provider.catalog_model == "Microsoft-Decision-1.1"
+    assert provider.model == "decision-prod"
+    assert provider._delegate._config.endpoint == (
+        "https://resource.services.ai.azure.com/providers/microsoft/v1/systemone"
+    )
+    provider.close()
 
 
 def test_auto_routes_perplexity_only_when_systemone_schema_is_documented(monkeypatch):
@@ -168,6 +218,15 @@ def test_auto_selects_known_native_protocols():
         )
         == "openrouter"
     )
+    assert (
+        _select_adapter(
+            provider="google",
+            protocol="google-gemini-decisions-v1beta",
+            endpoint="https://generativelanguage.googleapis.com/v1beta/decisions",
+            extra={},
+        )
+        == "google"
+    )
 
 
 @pytest.mark.parametrize(
@@ -186,6 +245,13 @@ def test_auto_selects_known_native_protocols():
             "https://openrouter.ai/api/alpha/decisions",
             "uagent.decision.openrouter",
             "OpenRouterDecisionProvider",
+        ),
+        (
+            "google",
+            "google-gemini-decisions-v1beta",
+            "https://generativelanguage.googleapis.com/v1beta/decisions",
+            "uagent.decision.google",
+            "GoogleDecisionProvider",
         ),
     ],
 )
@@ -220,6 +286,46 @@ def test_auto_passes_catalog_endpoint_and_key_to_native_adapters(
     assert captured["environ"][prefix + "DEPNAME"] == "catalog-model"
     assert captured["environ"][prefix + "BASE_URL"] == endpoint
     assert captured["environ"][prefix + "API_KEY"] == "catalog-key"
+
+
+def test_auto_executes_google_decisions_protocol(monkeypatch):
+    endpoint = "https://generativelanguage.googleapis.com/v1beta/decisions"
+    capability = _capability(
+        "google", endpoint, protocol="google-gemini-decisions-v1beta"
+    )
+    monkeypatch.setattr(
+        "uagent.decision.catalog.get_capability",
+        lambda *_args, **_kwargs: capability,
+    )
+    monkeypatch.setattr(
+        "uagent.decision.capabilities.get_capability",
+        lambda *_args, **_kwargs: capability,
+    )
+    monkeypatch.setattr(
+        "uagent.decision.catalog.validate_model_decision_request",
+        lambda **_kwargs: capability.decision,
+    )
+    client = FakeClient()
+    provider = CatalogDecisionProvider(
+        settings=DecisionSettings("auto"),
+        environ={
+            "UAGENT_DECISION_MODEL": "gemini-decision-1",
+            "UAGENT_DECISION_MODEL_PROVIDER": "google",
+            "UAGENT_DECISION_API_KEY": "google-key",
+        },
+        client=client,
+    )
+
+    result = provider.decide(_request())
+
+    assert provider.name == "google"
+    assert provider._adapter == "google"
+    assert result.provider == "google"
+    assert result.answers["goal_status"].value == "COMPLETE"
+    assert client.calls[0]["url"] == endpoint
+    assert client.calls[0]["headers"]["x-goog-api-key"] == "google-key"
+    assert client.calls[0]["json"]["model"] == "gemini-decision-1"
+    provider.close()
 
 
 def test_auto_fails_closed_for_undocumented_chat_completion_decision_protocol():
@@ -279,7 +385,7 @@ def test_auto_goal_completion_uses_catalog_question_kinds(monkeypatch):
     provider = SimpleNamespace(
         name="microsoft",
         model="ticket-router-prod",
-        catalog_model="Microsoft-Decision-1",
+        catalog_model="Microsoft-Decision-1.1",
         uses_catalog_metadata=True,
     )
 

@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from ..decision.settings import get_decision_settings
+from ..decision.settings import (
+    default_decision_model_for_llm,
+    get_decision_settings,
+)
 from ..env_utils import env_get
 from ..image_defaults import default_image_model
 from ..i18n import _
@@ -87,7 +90,7 @@ def _audio_model_info(mode: str) -> tuple[str, str] | None:
             ["UAGENT_AUDIO_TRANSCRIBE_PROVIDER", "UAGENT_PROVIDER"], default="openai"
         ).lower()
         default_model = "gpt-transcribe"
-        default_google_model = "gemini-3.8-flash"
+        default_google_model = "gemini-3.5-transcribe"
         default_grok_model = "grok-stt-batch"
 
     # Align with audio_speech / audio_transcribe tools (xai is an alias of grok).
@@ -239,7 +242,7 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
     include_global = provider in {"openai", "azure"}
     depname = _img_env(provider, "analysis", "depname", include_global=include_global)
     if provider in {"gemini", "vertexai"} and not depname:
-        depname = "gemini-3.8-flash"
+        depname = "gemini-4-hydrogen"
     if provider == "deepseek" and not depname:
         depname = "deepseek-flash"
     if not depname:
@@ -301,12 +304,16 @@ def _decision_model_info() -> tuple[str, str]:
         "typesafe": "jev-latest",
         "openrouter": "~typesafe/jev-latest",
         "openai": "gpt-6-luna",
+        "google": "gemini-decision-1",
         "laya": "laya-multilingual",
     }
     if provider == "none":
         return provider, "-"
     if provider == "auto":
-        return provider, _env("UAGENT_DECISION_MODEL") or default_models[provider]
+        model = _env("UAGENT_DECISION_MODEL") or default_decision_model_for_llm(
+            _env("UAGENT_PROVIDER")
+        )
+        return provider, model or default_models[provider]
     model = _env(f"UAGENT_DECISION_{provider.upper()}_DEPNAME")
     return provider, model or default_models[provider]
 

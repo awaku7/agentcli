@@ -30,11 +30,37 @@ def test_setup_defaults_decision_provider_to_openai_for_openai_llm(monkeypatch):
     assert setup_cli._ask_decision_provider(state) == "ok"
     assert seen["options"][seen["default_index"] - 1].startswith("openai ")
     assert state.decision_provider == "openai"
+    assert state.decision_values["UAGENT_DECISION_OPENAI_DEPNAME"] == "gpt-6-luna"
+
+
+def test_setup_defaults_decision_provider_to_google_for_gemini_llm(monkeypatch):
+    state = _state("none")
+    state.provider = "gemini"
+    seen = {}
+
+    def fake_menu(_title, options, *, default_index, allow_back):
+        seen["options"] = options
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+    monkeypatch.setattr(
+        setup_cli,
+        "_ask_text",
+        lambda _label, *, default, required, allow_back: ("ok", default),
+    )
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["options"][seen["default_index"] - 1].startswith("google ")
+    assert state.decision_provider == "google"
+    assert (
+        state.decision_values["UAGENT_DECISION_GOOGLE_DEPNAME"] == "gemini-decision-1"
+    )
 
 
 def test_setup_keeps_none_as_default_for_other_llm_providers(monkeypatch):
     state = _state("none")
-    state.provider = "azure"
+    state.provider = "claude"
     seen = {}
 
     def fake_menu(_title, options, *, default_index, allow_back):
@@ -46,6 +72,70 @@ def test_setup_keeps_none_as_default_for_other_llm_providers(monkeypatch):
 
     assert setup_cli._ask_decision_provider(state) == "ok"
     assert seen["options"][seen["default_index"] - 1].startswith("none ")
+    assert state.decision_provider == "none"
+
+
+def test_setup_defaults_azure_to_microsoft_foundry_decisions(monkeypatch):
+    state = _state("none")
+    state.provider = "azure"
+    seen = {}
+
+    def fake_menu(_title, options, *, default_index, allow_back):
+        seen["options"] = options
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    asked = []
+    required_blank_count = 0
+
+    def fake_ask(label, *, default, required, allow_back):
+        nonlocal required_blank_count
+        asked.append((label, default, required))
+        value = default
+        if required and not value:
+            required_blank_count += 1
+            value = (
+                "deployment-prod"
+                if required_blank_count == 1
+                else "https://foundry.example.test/providers/microsoft/v1/systemone"
+            )
+        return "ok", value
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+    monkeypatch.setattr(setup_cli, "_ask_text", fake_ask)
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["options"][seen["default_index"] - 1].startswith("auto ")
+    assert state.decision_provider == "auto"
+    assert state.decision_values["UAGENT_DECISION_MODEL"] == "Microsoft-Decision-1.1"
+    assert state.decision_values["UAGENT_DECISION_MODEL_PROVIDER"] == "microsoft"
+    assert state.decision_values["UAGENT_DECISION_DEPLOYMENT"] == "deployment-prod"
+    assert state.decision_values["UAGENT_DECISION_ENDPOINT"].endswith(
+        "/providers/microsoft/v1/systemone"
+    )
+    assert [required for _label, _default, required in asked] == [
+        True,
+        True,
+        True,
+        True,
+        False,
+    ]
+
+
+def test_setup_preserves_explicit_none_for_gemini_llm(monkeypatch):
+    state = _state("none")
+    state.provider = "gemini"
+    state.values = {"UAGENT_DECISION_PROVIDER": "none"}
+    seen = {}
+
+    def fake_menu(_title, _options, *, default_index, allow_back):
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["default_index"] == 1
     assert state.decision_provider == "none"
 
 
@@ -71,6 +161,26 @@ def test_setup_env_emits_decision_provider_none():
 
     assert "UAGENT_DECISION_PROVIDER=none" in text
     assert "# UAGENT_DECISION_TYPESAFE_API_KEY=" in text
+
+
+def test_setup_env_emits_google_decision_settings():
+    lines = setup_cli._env_lines_from_state(
+        _state(
+            "google",
+            {
+                "UAGENT_DECISION_GOOGLE_DEPNAME": "gemini-custom",
+                "UAGENT_DECISION_GOOGLE_BASE_URL": "https://google.example/v1beta",
+                "UAGENT_DECISION_GOOGLE_API_KEY": "secret",
+            },
+        )
+    )
+    text = "\n".join(lines)
+
+    assert "UAGENT_DECISION_PROVIDER=google" in text
+    assert "UAGENT_DECISION_GOOGLE_DEPNAME=gemini-custom" in text
+    assert "UAGENT_DECISION_GOOGLE_BASE_URL=https://google.example/v1beta" in text
+    assert "UAGENT_DECISION_GOOGLE_API_KEY=secret" in text
+    assert "UAGENT_GOOGLE_API_KEY, GEMINI_API_KEY, or GOOGLE_API_KEY" in text
     assert "# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna" in text
     assert "# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual" in text
 
@@ -80,7 +190,7 @@ def test_setup_env_emits_auto_llmcapa_decision_settings():
         _state(
             "auto",
             {
-                "UAGENT_DECISION_MODEL": "Microsoft-Decision-1",
+                "UAGENT_DECISION_MODEL": "Microsoft-Decision-1.1",
                 "UAGENT_DECISION_MODEL_PROVIDER": "microsoft",
                 "UAGENT_DECISION_DEPLOYMENT": "ticket-router-prod",
             },
@@ -89,7 +199,7 @@ def test_setup_env_emits_auto_llmcapa_decision_settings():
     text = "\n".join(lines)
 
     assert "UAGENT_DECISION_PROVIDER=auto" in text
-    assert "UAGENT_DECISION_MODEL=Microsoft-Decision-1" in text
+    assert "UAGENT_DECISION_MODEL=Microsoft-Decision-1.1" in text
     assert "UAGENT_DECISION_MODEL_PROVIDER=microsoft" in text
     assert "UAGENT_DECISION_DEPLOYMENT=ticket-router-prod" in text
     assert "UAGENT_DECISION_ENDPOINT=" in text

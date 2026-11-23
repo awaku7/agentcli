@@ -14,7 +14,7 @@ from ..llmcapa_util import get_capability
 from .base import DecisionProvider
 from .capabilities import validate_model_decision_request
 from .models import DecisionRequest, DecisionResult
-from .settings import DecisionSettings
+from .settings import DecisionSettings, default_decision_model_for_llm
 
 
 class CatalogDecisionError(RuntimeError):
@@ -48,6 +48,8 @@ def _select_adapter(
         return "openai"
     if normalized_protocol == "openrouter-alpha-decisions":
         return "openrouter"
+    if normalized_protocol == "google-gemini-decisions-v1beta":
+        return "google"
     if normalized_protocol == "openai-compatible-chat-completions":
         raise CatalogDecisionConfigurationError(
             "This model is catalogued as an OpenAI-compatible Chat Completions "
@@ -68,6 +70,8 @@ def _select_adapter(
         return "openai"
     if provider == "openrouter" and "/alpha/decisions" in path:
         return "openrouter"
+    if provider == "google" and path.endswith("/v1beta/decisions"):
+        return "google"
 
     label = normalized_protocol or "unspecified protocol"
     raise CatalogDecisionConfigurationError(
@@ -190,14 +194,21 @@ class CatalogDecisionProvider:
         env = os.environ if environ is None else environ
         self._environ = env
         self._owns_environment = environ is None
-        self._catalog_model = str(env.get("UAGENT_DECISION_MODEL") or "").strip()
+        main_provider = str(env.get("UAGENT_PROVIDER") or "").strip().lower()
+        default_model = default_decision_model_for_llm(main_provider)
+        self._catalog_model = str(
+            env.get("UAGENT_DECISION_MODEL") or default_model or ""
+        ).strip()
         if not self._catalog_model:
             raise CatalogDecisionConfigurationError(
                 "UAGENT_DECISION_MODEL is required when "
                 "UAGENT_DECISION_PROVIDER=auto."
             )
 
-        provider_hint = str(env.get("UAGENT_DECISION_MODEL_PROVIDER") or "").strip()
+        provider_hint = str(
+            env.get("UAGENT_DECISION_MODEL_PROVIDER")
+            or ("microsoft" if main_provider == "azure" else "")
+        ).strip()
         capability = get_capability(
             self._catalog_model,
             provider_hint or None,
@@ -271,6 +282,15 @@ class CatalogDecisionProvider:
                 }
             )
             adapter_provider = "openrouter"
+        elif adapter == "google":
+            adapter_env.update(
+                {
+                    "UAGENT_DECISION_GOOGLE_DEPNAME": self._model,
+                    "UAGENT_DECISION_GOOGLE_BASE_URL": endpoint,
+                    "UAGENT_DECISION_GOOGLE_API_KEY": api_key,
+                }
+            )
+            adapter_provider = "google"
         else:
             adapter_env.update(
                 {
@@ -287,10 +307,12 @@ class CatalogDecisionProvider:
         from .openai import OpenAIDecisionProvider
         from .openrouter import OpenRouterDecisionProvider
         from .typesafe import TypeSafeDecisionProvider
+        from .google import GoogleDecisionProvider
 
         adapters = {
             "openai": OpenAIDecisionProvider,
             "openrouter": OpenRouterDecisionProvider,
+            "google": GoogleDecisionProvider,
             "typesafe": TypeSafeDecisionProvider,
         }
         self._delegate: DecisionProvider = adapters[adapter_provider](
@@ -331,6 +353,17 @@ class CatalogDecisionProvider:
                 "boolean": ("probability",),
                 "choice": ("choice",),
                 "score": ("score",),
+            }
+        elif self._adapter == "google":
+            question_kinds = {
+                "boolean": "noul",
+                "choice": "choice",
+                "score": "score",
+            }
+            required_fields = {
+                "boolean": ("noul", "confidence"),
+                "choice": ("choice", "probabilities", "confidence"),
+                "score": ("score", "probabilities", "legend", "confidence"),
             }
         else:
             question_kinds = {

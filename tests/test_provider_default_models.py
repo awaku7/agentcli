@@ -10,11 +10,23 @@ from uagent.providers.util_providers import get_model_name
 @pytest.mark.parametrize(
     ("provider", "expected"),
     [
+        ("azure", "gpt-6.2-sol"),
+        ("bedrock", "openai.gpt-oss-120b"),
+        ("openai", "gpt-6-luna"),
+        ("openrouter", "openai/gpt-6-luna"),
+        ("claude", "claude-sonnet-5-5"),
         ("grok", "grok-4.7"),
+        ("gemini", "gemini-4-hydrogen"),
+        ("vertexai", "gemini-4-hydrogen"),
+        ("deepseek", "deepseek-flash"),
+        ("inception", "mercury-3"),
         ("zai", "glm-5.3"),
         ("alibaba", "qwen3.7-plus"),
-        ("sarashina", "sarashina3-mini"),
-        ("moonshot", "kimi-k3"),
+        ("moonshot", "kimi-k3.1-pro"),
+        ("mimo", "mimo-v2.6-pro"),
+        ("novita", "tencent/hy3"),
+        ("sarashina", "sarashina3.2-mini-thinking"),
+        ("vercel", "openai/gpt-6-luna"),
     ],
 )
 def test_current_provider_default_models(

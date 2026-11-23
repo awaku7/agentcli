@@ -13,6 +13,7 @@ _ADAPTERS: dict[str, tuple[str, str]] = {
     "typesafe": ("uagent.decision.typesafe", "TypeSafeDecisionProvider"),
     "openrouter": ("uagent.decision.openrouter", "OpenRouterDecisionProvider"),
     "openai": ("uagent.decision.openai", "OpenAIDecisionProvider"),
+    "google": ("uagent.decision.google", "GoogleDecisionProvider"),
     "laya": ("uagent.decision.laya", "LayaDecisionProvider"),
 }
 

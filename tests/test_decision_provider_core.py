@@ -39,16 +39,69 @@ def test_openai_main_provider_selects_openai_decision_provider_by_default():
     assert settings.enabled is True
 
 
-def test_non_openai_main_provider_keeps_none_as_the_default():
-    settings = resolve_decision_settings(environ={"UAGENT_PROVIDER": "azure"})
+def test_gemini_main_provider_selects_google_decision_provider_by_default():
+    settings = resolve_decision_settings(environ={"UAGENT_PROVIDER": "gemini"})
+
+    assert settings == DecisionSettings(provider="google", source="provider_default")
+    assert settings.enabled is True
+
+
+def test_unconfigured_non_decision_main_provider_keeps_none_as_the_default():
+    settings = resolve_decision_settings(environ={"UAGENT_PROVIDER": "claude"})
 
     assert settings == DecisionSettings(provider="none", source="default")
+
+
+def test_azure_foundry_endpoint_selects_catalog_decision_provider_by_default():
+    settings = resolve_decision_settings(
+        environ={
+            "UAGENT_PROVIDER": "azure",
+            "UAGENT_AZURE_BASE_URL": "https://resource.services.ai.azure.com",
+        }
+    )
+
+    assert settings == DecisionSettings(provider="auto", source="provider_default")
+
+
+def test_azure_openai_endpoint_does_not_infer_foundry_decisions():
+    settings = resolve_decision_settings(
+        environ={
+            "UAGENT_PROVIDER": "azure",
+            "UAGENT_AZURE_BASE_URL": "https://resource.openai.azure.com",
+        }
+    )
+
+    assert settings == DecisionSettings(provider="none", source="default")
+
+
+def test_azure_explicit_decision_endpoint_selects_catalog_provider():
+    settings = resolve_decision_settings(
+        environ={
+            "UAGENT_PROVIDER": "azure",
+            "UAGENT_DECISION_ENDPOINT": (
+                "https://resource.example/providers/microsoft/v1/systemone"
+            ),
+        }
+    )
+
+    assert settings == DecisionSettings(provider="auto", source="provider_default")
 
 
 def test_explicit_none_disables_openai_provider_default():
     settings = resolve_decision_settings(
         environ={
             "UAGENT_PROVIDER": "openai",
+            "UAGENT_DECISION_PROVIDER": "none",
+        }
+    )
+
+    assert settings == DecisionSettings(provider="none", source="env")
+
+
+def test_explicit_none_disables_gemini_provider_default():
+    settings = resolve_decision_settings(
+        environ={
+            "UAGENT_PROVIDER": "gemini",
             "UAGENT_DECISION_PROVIDER": "none",
         }
     )
@@ -151,6 +204,7 @@ def test_none_factory_does_not_import_any_adapter(monkeypatch):
             "OpenRouterDecisionProvider",
         ),
         ("openai", "uagent.decision.openai", "OpenAIDecisionProvider"),
+        ("google", "uagent.decision.google", "GoogleDecisionProvider"),
         ("laya", "uagent.decision.laya", "LayaDecisionProvider"),
     ],
 )
@@ -213,7 +267,7 @@ def test_decision_result_serialization_omits_raw_by_default():
     assert "raw" not in payload
 
 
-@pytest.mark.parametrize("provider_name", ["laya", "openai", "auto"])
+@pytest.mark.parametrize("provider_name", ["laya", "openai", "google", "auto"])
 def test_parse_startup_args_accepts_decision_provider(monkeypatch, provider_name):
     monkeypatch.setattr(
         sys,

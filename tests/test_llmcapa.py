@@ -76,6 +76,16 @@ class TestLlmcapaModelSpecs:
         ("cohere-command-a", "cohere", 131072, 4096, False, True),
     ]
 
+    def test_gemini_decision_model_has_native_decisions_protocol(self) -> None:
+        cap = llmcapa.get("gemini-decision-1", provider="google")
+        assert cap is not None
+        assert cap.decision is not None
+        assert cap.decision.decision is True
+        assert cap.decision.question_kinds == ("noul", "choice", "score")
+        assert cap.decision.extra["endpoint_protocol"] == (
+            "google-gemini-decisions-v1beta"
+        )
+
     @pytest.mark.parametrize(
         "model_id,provider,min_ctx,min_out,expect_vision,expect_fc",
         MODEL_CHECKS,
