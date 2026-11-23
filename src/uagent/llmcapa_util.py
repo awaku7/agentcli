@@ -115,11 +115,10 @@ def current_model(provider: str | None = None) -> str:
     return (env_get("UAGENT_DEPNAME") or "").strip()
 
 
-@lru_cache(maxsize=256)
-def _get_capability_cached(
+def _lookup_capability(
     model_id: str, provider_key: str, scoped_only: bool = False
 ) -> Any | None:
-    """Cached llmcapa.get with provider/model candidate fallbacks."""
+    """Uncached llmcapa.get with provider/model candidate fallbacks."""
     try:
         with measure_detail("llmcapa.catalog_import"):
             import llmcapa
@@ -185,6 +184,42 @@ def _get_capability_cached(
     except Exception:
         pass
     return None
+
+
+_capability_cache: dict[tuple[str, str, bool], Any] = {}
+_CAPABILITY_CACHE_MAXSIZE = 256
+
+
+def _get_capability_cached(
+    model_id: str, provider_key: str, scoped_only: bool = False
+) -> Any | None:
+    """Cached capability lookup; only successful results are cached.
+
+    A miss can be transient: while llmcapa's first catalog load is still
+    running in another thread, its lookups raise ModelNotFoundError even
+    for models that exist. Caching that None (as an lru_cache did) pins
+    the failure for the whole process, so later rounds keep resolving
+    the model as unknown. Misses are therefore looked up again on the
+    next call; once the catalog is loaded they are cheap in-memory
+    lookups.
+    """
+    key = (model_id, provider_key, scoped_only)
+    if key in _capability_cache:
+        return _capability_cache[key]
+    result = _lookup_capability(model_id, provider_key, scoped_only)
+    if result is not None:
+        if len(_capability_cache) >= _CAPABILITY_CACHE_MAXSIZE:
+            _capability_cache.clear()
+        _capability_cache[key] = result
+    return result
+
+
+def _clear_capability_cache() -> None:
+    _capability_cache.clear()
+
+
+# Kept for callers that clear the lookup cache through the function.
+_get_capability_cached.cache_clear = _clear_capability_cache  # type: ignore[attr-defined]
 
 
 def get_capability(
