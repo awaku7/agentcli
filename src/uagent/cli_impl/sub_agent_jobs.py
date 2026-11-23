@@ -21,6 +21,7 @@ def _safe_terminal_text(value: Any, limit: int = 4000) -> str:
     return text[: max(0, limit)]
 
 
+from .prompt_session import print_text_above_toolkit_prompt
 from ..runtime.sub_agent_jobs import SubAgentJobOwner
 from ..runtime.sub_agent_jobs import (
     SubAgentConfirmationUnavailable,
@@ -258,6 +259,11 @@ def display_job_notice(core: Any, notice: dict[str, Any]) -> str:
         return text
 
     with lock:
+        if toolkit_prompt and print_text_above_toolkit_prompt(core, text):
+            # The prompt application erased and redrew itself around the
+            # notice, edit buffer intact; the line-tracking flags belong
+            # to the prompt and stay untouched.
+            return text
         if not toolkit_prompt:
             if getattr(core, "_stream_line_open", False) or getattr(
                 core, "_prompt_line_open", False

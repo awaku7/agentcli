@@ -509,7 +509,7 @@ def test_remote_cli_echo_restores_only_active_busy_spinner(
     ]
 
 
-def test_remote_cli_echo_leaves_prompt_toolkit_redraw_to_patch_stdout(
+def test_remote_cli_echo_falls_back_to_direct_print_without_prompt_app(
     monkeypatch, capsys
 ) -> None:
     from uagent.nostr_remote_runtime import _display_nostr_incoming
@@ -528,6 +528,91 @@ def test_remote_cli_echo_leaves_prompt_toolkit_redraw_to_patch_stdout(
     assert "[NOSTR] Received from abababababab: hello" in capsys.readouterr().out
     assert core._prompt_line_open is True
     assert core.prompt_needs_redraw is False
+
+
+def test_remote_cli_echo_prints_above_an_open_toolkit_prompt(
+    monkeypatch, capsys
+) -> None:
+    import io
+    import threading
+
+    pytest.importorskip("prompt_toolkit")
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.data_structures import Size
+    from prompt_toolkit.input.defaults import create_pipe_input
+    from prompt_toolkit.output.vt100 import Vt100_Output
+
+    from uagent.nostr_remote_runtime import _display_nostr_incoming
+    from uagent.runtime import spinner
+
+    monkeypatch.setattr(spinner, "is_running", lambda: False)
+    monkeypatch.setattr(spinner, "stop_quietly", lambda: None)
+
+    term_out = io.StringIO()
+    output = Vt100_Output(term_out, lambda: Size(columns=80, rows=24))
+    # Keep the context manager alive: dropping it closes the pipe and the
+    # prompt reads EOF immediately.
+    pipe_cm = create_pipe_input()
+    pipe_input = pipe_cm.__enter__()
+    session = PromptSession(input=pipe_input, output=output)
+    result: dict = {}
+
+    def _run() -> None:
+        try:
+            result["text"] = session.prompt("User> ")
+        except Exception as exc:  # noqa: BLE001 - surfaced by assertions
+            result["error"] = exc
+
+    thread = threading.Thread(target=_run, daemon=True)
+    thread.start()
+    try:
+        deadline = time.time() + 5
+        while time.time() < deadline:
+            app = session.app
+            if app is not None and app.is_running and "User>" in term_out.getvalue():
+                break
+            time.sleep(0.02)
+        else:
+            raise AssertionError("toolkit prompt did not start")
+        pipe_input.send_text("draft")
+        deadline = time.time() + 5
+        while "draft" not in term_out.getvalue() and time.time() < deadline:
+            time.sleep(0.02)
+
+        core = SimpleNamespace(
+            print_lock=threading.RLock(),
+            _stream_line_open=False,
+            _reasoning_stream_open=False,
+            _prompt_line_open=True,
+            _cli_prompt_toolkit_active=True,
+            _cli_prompt_app=session.app,
+            prompt_needs_redraw=False,
+        )
+        mark = len(term_out.getvalue())
+        _display_nostr_incoming(core, {"pubkey": "ab" * 32, "content": "hello"})
+
+        # The notice was printed (above the prompt), not written into the
+        # line being edited.
+        assert "[NOSTR] Received from abababababab: hello" in capsys.readouterr().out
+        # The prompt redraws below the notice with the edit buffer intact,
+        # and still owns the line afterwards.
+        deadline = time.time() + 5
+        redrawn = ""
+        while time.time() < deadline:
+            redrawn = term_out.getvalue()[mark:]
+            if "User>" in redrawn and "draft" in redrawn:
+                break
+            time.sleep(0.02)
+        assert "User>" in redrawn
+        assert "draft" in redrawn
+        assert core._prompt_line_open is True
+        assert core.prompt_needs_redraw is False
+
+        pipe_input.send_text("\r")
+        thread.join(timeout=5)
+        assert result.get("text") == "draft"
+    finally:
+        pipe_input.close()
 
 
 def test_remote_cli_echo_escapes_terminal_controls(capsys) -> None:

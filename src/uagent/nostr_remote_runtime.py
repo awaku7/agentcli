@@ -1657,17 +1657,28 @@ def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
         lock = getattr(core, "print_lock", None)
         with lock if lock is not None else nullcontext():
             toolkit_prompt = bool(getattr(core, "_cli_prompt_toolkit_active", False))
-            if not toolkit_prompt:
-                if getattr(core, "_stream_line_open", False) or getattr(
-                    core, "_prompt_line_open", False
-                ):
-                    print(flush=True)
-                core._stream_line_open = False
-                core._reasoning_stream_open = False
-                core._prompt_line_open = False
-            print(f"[NOSTR] Received from {sender[:12]}: {preview}", flush=True)
-            if not toolkit_prompt:
-                core.prompt_needs_redraw = True
+            text = f"[NOSTR] Received from {sender[:12]}: {preview}"
+            above_prompt = False
+            if toolkit_prompt:
+                # The toolkit prompt is not wrapped in patch_stdout, so a
+                # bare print would land inside the line being edited.
+                # Let the prompt application print it above itself and
+                # redraw; only fall back to a direct print if it refuses.
+                from .cli_impl.prompt_session import print_text_above_toolkit_prompt
+
+                above_prompt = print_text_above_toolkit_prompt(core, text)
+            if not above_prompt:
+                if not toolkit_prompt:
+                    if getattr(core, "_stream_line_open", False) or getattr(
+                        core, "_prompt_line_open", False
+                    ):
+                        print(flush=True)
+                    core._stream_line_open = False
+                    core._reasoning_stream_open = False
+                    core._prompt_line_open = False
+                print(text, flush=True)
+                if not toolkit_prompt:
+                    core.prompt_needs_redraw = True
     except (OSError, UnicodeError):
         pass
     finally:
