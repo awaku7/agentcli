@@ -49,13 +49,6 @@ def cli_confirmation_supported(*, enabled: bool = True) -> bool:
         "on",
     }:
         return False
-    if os.environ.get("UAGENT_SIMPLE_PROMPT", "").strip().lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }:
-        return False
     try:
         from ..tools.pybitchat_shared import is_chat_mode
 

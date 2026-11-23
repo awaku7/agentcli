@@ -59,7 +59,11 @@ from .startup import (
     _cli_workdir,
     _env_workdir,
 )
-from .state import _CLI_SHUTDOWN
+from .state import (
+    _CLI_SHUTDOWN,
+    release_typeahead_slot,
+    reset_typeahead_slot,
+)
 from .stdin_loop import stdin_loop
 from .sub_agent_receipt_review import dispatch_cli_receipt_command_event
 from .sub_agent_jobs import (
@@ -276,6 +280,7 @@ def _resolve_realtime_sandbox_mode() -> str:
 
 def main() -> int:
     _CLI_SHUTDOWN.clear()
+    reset_typeahead_slot()
     from ..runtime.logging_setup import bind_event_context
 
     configure_event_logging()
@@ -683,6 +688,12 @@ def main() -> int:
             remote_execution_outcome = "completed"
             remote_message_start = len(messages)
             kind = ev.get("kind")
+
+            if ev.get("cli_typeahead"):
+                # The previous turn has completed before this foreground
+                # event is dequeued, so it is now safe to expose it as active.
+                core.set_status(True, "user_pending")
+                release_typeahead_slot()
 
             if kind == "local_agent_started":
                 peer = ev.get("peer") if isinstance(ev.get("peer"), dict) else {}
@@ -1245,6 +1256,7 @@ def main() -> int:
         print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
     finally:
         _CLI_SHUTDOWN.set()
+        reset_typeahead_slot()
 
         try:
             _stop_cli_local_messaging(core)
