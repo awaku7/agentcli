@@ -455,7 +455,9 @@ class ScheckWorker(QtCore.QObject):
                             _runtime, _message, _ask_local_message
                         )
                         if _accepted_event is None:
-                            print(_("[LOCAL] Incoming message was rejected or expired."))
+                            print(
+                                _("[LOCAL] Incoming message was rejected or expired.")
+                            )
                             continue
                         ev = _accepted_event
                         kind = ev["kind"]

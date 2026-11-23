@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.54] - 2026-11-23
+
+### Added
+
+- Queue one ordinary CLI type-ahead message while a response is running.
+- Translate local messaging notices across all supported locales.
+
+### Changed
+
+- Use `max_completion_tokens` for recent OpenAI GPT and o-series models, with a compatibility retry for history summaries when an endpoint rejects `max_tokens`.
+- Reuse parsed tool arguments and cache tool-schema text and relevance tokens.
+- Remove the `UAGENT_SIMPLE_PROMPT` switch and stabilize the CLI prompt path.
+
+### Fixed
+
+- Prevent spinner and prompt redraws from overlapping streamed output or session-load output; stop the command spinner before `:load` and `:cont`.
+
 ## [0.7.53] - 2026-11-20
 
 ### Changed

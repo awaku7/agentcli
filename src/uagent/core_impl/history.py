@@ -1094,18 +1094,16 @@ def compress_history_with_llm(
                         # capability catalog has learned their requirements.
                         while True:
                             try:
-                                resp = client.chat.completions.create(
-                                    **_summary_kwargs
-                                )
+                                resp = client.chat.completions.create(**_summary_kwargs)
                                 break
                             except Exception as request_error:
                                 if (
                                     "max_tokens" in _summary_kwargs
                                     and _is_legacy_max_tokens_rejected(request_error)
                                 ):
-                                    _summary_kwargs[
-                                        "max_completion_tokens"
-                                    ] = _summary_kwargs.pop("max_tokens")
+                                    _summary_kwargs["max_completion_tokens"] = (
+                                        _summary_kwargs.pop("max_tokens")
+                                    )
                                     continue
                                 if (
                                     "temperature" in _summary_kwargs

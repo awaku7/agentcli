@@ -63,8 +63,7 @@ def test_tool_loop_warnings_are_translated_to_japanese() -> None:
         assert "search_web -> read_file" in cycle
 
         consecutive = translate(
-            "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; "
-            "aborting.",
+            "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; " "aborting.",
             name="read_file",
             n=50,
         )

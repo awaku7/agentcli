@@ -701,7 +701,9 @@ def main() -> int:
                 runtime = getattr(core, "_local_messaging_runtime", None)
                 if runtime is not None and runtime.is_peer_active(endpoint_id):
                     print(
-                        _("[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)")
+                        _(
+                            "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+                        )
                         % {
                             "endpoint": endpoint_id,
                             "pid": peer.get("pid", "?"),

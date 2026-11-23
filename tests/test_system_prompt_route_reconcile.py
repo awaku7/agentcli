@@ -263,7 +263,9 @@ def test_reconcile_notice_pauses_spinner_while_printing(monkeypatch):
             events.append("resumed")
 
     monkeypatch.setattr(round_helpers, "_spinner_paused", paused)
-    monkeypatch.setattr("builtins.print", lambda *_args, **_kwargs: events.append("print"))
+    monkeypatch.setattr(
+        "builtins.print", lambda *_args, **_kwargs: events.append("print")
+    )
 
     result = _reconcile_system_prompt_for_route(
         _messages(BASE), None, _core_returning(STRIPPED), **ROUTE

@@ -36,6 +36,7 @@ def reset_typeahead_slot() -> None:
     """Reset type-ahead state for a fresh CLI main-loop invocation."""
     release_typeahead_slot()
 
+
 _PROMPT_SESSION: Any = None
 _PROMPT_REPLY_SESSION: Any = None
 _PROMPT_HISTORY: list[str] = []

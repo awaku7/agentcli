@@ -27,17 +27,11 @@ def test_other_cli_local_peer_notices_have_japanese_translations() -> None:
             _("[LOCAL] Available UAG peers:"),
             _("[LOCAL] Incoming message was rejected or expired."),
             _("[LOCAL] Local messaging could not start: %(error)s"),
-            _(
-                "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
-            ),
+            _("[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"),
             _("[LOCAL] Local messaging shutdown failed: %(error)s"),
             _("[LOCAL] Web messaging event failed: %(error_type)s."),
-            _(
-                "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
-            ),
-            _(
-                "[LOCAL] Could not start the accepted message turn: %(error_type)s."
-            ),
+            _("[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."),
+            _("[LOCAL] Could not start the accepted message turn: %(error_type)s."),
         ]
     finally:
         reset_contextvar_locale(token)
@@ -103,11 +97,17 @@ def test_rejected_incoming_local_message_notice_is_translated(
 
 def test_local_messaging_tool_a2a_errors_use_japanese_catalog(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_LANG", "ja")
-    assert local_messaging_tool._(
-        "err.inbox_unavailable",
-        default="Inbox retrieval is available only to explicitly enabled A2A tasks.",
-    ) == "inbox の取得は、有効化されたA2Aタスクでのみ利用できます。"
-    assert local_messaging_tool._(
-        "err.a2a_task_required",
-        default="Inbox retrieval requires an authenticated A2A task context.",
-    ) == "inbox の取得には、認証済みのA2Aタスクコンテキストが必要です。"
+    assert (
+        local_messaging_tool._(
+            "err.inbox_unavailable",
+            default="Inbox retrieval is available only to explicitly enabled A2A tasks.",
+        )
+        == "inbox の取得は、有効化されたA2Aタスクでのみ利用できます。"
+    )
+    assert (
+        local_messaging_tool._(
+            "err.a2a_task_required",
+            default="Inbox retrieval requires an authenticated A2A task context.",
+        )
+        == "inbox の取得には、認証済みのA2Aタスクコンテキストが必要です。"
+    )

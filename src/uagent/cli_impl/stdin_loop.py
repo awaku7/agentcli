@@ -567,11 +567,7 @@ def stdin_loop(*, hook_runner=None) -> None:
         # Response processing for human_ask
         handled_human_ask = False
         with core.human_ask_lock:
-            if (
-                is_reply
-                and core.human_ask_active
-                and core.human_ask_queue is not None
-            ):
+            if is_reply and core.human_ask_active and core.human_ask_queue is not None:
                 handled_human_ask = True
                 is_ha_multiline = core.human_ask_multiline_active
                 is_ha_password = core.human_ask_is_password

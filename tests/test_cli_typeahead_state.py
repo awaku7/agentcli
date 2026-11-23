@@ -38,26 +38,19 @@ def test_typeahead_accepts_only_ordinary_single_line_user_messages() -> None:
         is None
     )
     assert (
-        _typeahead_rejection_notice("", multiline_active=False, mesh_only=False)
-        == ""
+        _typeahead_rejection_notice("", multiline_active=False, mesh_only=False) == ""
     )
     for unsafe in (":exit", "f", "first\nsecond", "first\rsecond"):
         assert (
-            _typeahead_rejection_notice(
-                unsafe, multiline_active=False, mesh_only=False
-            )
+            _typeahead_rejection_notice(unsafe, multiline_active=False, mesh_only=False)
             is not None
         )
     assert (
-        _typeahead_rejection_notice(
-            "follow-up", multiline_active=True, mesh_only=False
-        )
+        _typeahead_rejection_notice("follow-up", multiline_active=True, mesh_only=False)
         is not None
     )
     assert (
-        _typeahead_rejection_notice(
-            "follow-up", multiline_active=False, mesh_only=True
-        )
+        _typeahead_rejection_notice("follow-up", multiline_active=False, mesh_only=True)
         is not None
     )
 

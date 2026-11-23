@@ -196,9 +196,7 @@ class WebLocalMessagingAdapter:
                         {
                             "role": "assistant",
                             "content": (
-                                _(
-                                    "[LOCAL] Web messaging event failed: %(error_type)s."
-                                )
+                                _("[LOCAL] Web messaging event failed: %(error_type)s.")
                                 % {"error_type": type(exc).__name__}
                             ),
                         }

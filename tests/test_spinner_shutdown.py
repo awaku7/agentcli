@@ -78,7 +78,9 @@ def test_stop_clears_frame_drawn_while_shutdown_is_requested(monkeypatch) -> Non
     assert spinner._thread is None
 
 
-def test_command_pending_spinner_does_not_leave_done_line_by_default(monkeypatch) -> None:
+def test_command_pending_spinner_does_not_leave_done_line_by_default(
+    monkeypatch,
+) -> None:
     monkeypatch.delenv("UAGENT_SPINNER_DONE", raising=False)
 
     assert spinner._done_line_kept("command_pending") is False
