@@ -1395,16 +1395,20 @@ class SubAgentRunner:
                     {"role": "user", "content": user_prompt},
                 ],
             )
-            # OpenAI reasoning models may reject temperature.
-            from ..llmcapa_util import openai_uses_max_completion_tokens
+            # Keep token-parameter selection separate from reasoning-model
+            # temperature compatibility: recent non-reasoning GPT models also
+            # accept max_completion_tokens.
+            from ..llmcapa_util import (
+                openai_is_reasoning_model,
+                openai_uses_max_completion_tokens,
+            )
 
             _modern_openai_model = openai_uses_max_completion_tokens(
                 model_name, provider
             )
-            if not _modern_openai_model:
+            if not openai_is_reasoning_model(model_name, provider):
                 kwargs["temperature"] = 0.2
-            # New OpenAI reasoning models (GPT-5/o-series) reject the legacy
-            # ``max_tokens`` parameter and require ``max_completion_tokens``.
+            # Recent OpenAI GPT/o-series models use ``max_completion_tokens``.
             # Keep the legacy name for older chat-completions models and other
             # OpenAI-compatible providers.
             if _modern_openai_model:

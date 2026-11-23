@@ -75,6 +75,26 @@ class _RejectTemperatureClient:
         self.chat = SimpleNamespace(completions=_RejectTemperatureCompletions(contents))
 
 
+class _RejectLegacyMaxTokensCompletions(_FakeCompletions):
+    def create(self, **kwargs: Any) -> _FakeResp:
+        self.calls.append(kwargs)
+        if "max_tokens" in kwargs:
+            raise RuntimeError(
+                "Unsupported parameter: 'max_tokens' is not supported with this model. "
+                "Use 'max_completion_tokens' instead."
+            )
+        if not self._contents:
+            raise AssertionError("unexpected extra LLM call")
+        return _FakeResp(self._contents.pop(0))
+
+
+class _RejectLegacyMaxTokensClient:
+    def __init__(self, contents: list[str]) -> None:
+        self.chat = SimpleNamespace(
+            completions=_RejectLegacyMaxTokensCompletions(contents)
+        )
+
+
 def _make_dialog(n_user: int = 6) -> list[dict[str, Any]]:
     msgs: list[dict[str, Any]] = [
         {"role": "system", "content": "SYSTEM_PROMPT"},
@@ -403,6 +423,25 @@ def test_compress_new_reasoning_model_uses_modern_token_parameter(
     kwargs = client.chat.completions.calls[0]
     assert kwargs["max_completion_tokens"] == 2048
     assert "max_tokens" not in kwargs
+
+
+def test_compress_retries_with_modern_token_parameter_when_model_rejects_legacy():
+    client = _RejectLegacyMaxTokensClient(["RETRIED_WITH_MODERN_TOKEN_PARAMETER"])
+
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="new-unknown-model",
+        messages=_make_dialog(3),
+        keep_last=2,
+        use_responses_api=False,
+    )
+
+    calls = client.chat.completions.calls
+    assert len(calls) == 2
+    assert "max_tokens" in calls[0]
+    assert calls[1]["max_completion_tokens"] == calls[0]["max_tokens"]
+    assert "max_tokens" not in calls[1]
+    assert any("RETRIED_WITH_MODERN_TOKEN_PARAMETER" in m["content"] for m in out)
 
 
 def test_compress_second_run_merges_prior_summary_no_stack():

@@ -245,25 +245,59 @@ def supports_feature(
         return bool(val)
 
 
+_OPENAI_MODERN_TOKEN_MODEL_PREFIXES = (
+    "gpt-4o",
+    "gpt-4.1",
+    "gpt-4.5",
+    "gpt-5",
+    "gpt-6",
+    "o1",
+    "o2",
+    "o3",
+    "o4",
+)
+_OPENAI_REASONING_MODEL_PREFIXES = ("gpt-5", "gpt-6", "o1", "o2", "o3", "o4")
+
+
+def openai_is_reasoning_model(
+    model_id: str | None = None, provider: str | None = None
+) -> bool:
+    """Whether an OpenAI-compatible model is known to be a reasoning model."""
+    prov = normalize_provider(provider)
+    if prov not in {"openai", "azure"}:
+        return False
+
+    model = (model_id or "").strip().lower()
+    # Keep the well-known OpenAI reasoning families as a deterministic
+    # fallback. Capability catalogs can lag behind new model IDs (for example,
+    # a newly released GPT-6 variant), or may contain stale negative metadata.
+    if model.startswith(_OPENAI_REASONING_MODEL_PREFIXES):
+        return True
+
+    reasoning = supports_feature("reasoning", model_id, prov, default=None)
+    return bool(reasoning)
+
+
 def openai_uses_max_completion_tokens(
     model_id: str | None = None, provider: str | None = None
 ) -> bool:
-    """Whether an OpenAI-compatible chat endpoint needs the modern token key.
+    """Whether an OpenAI-compatible chat endpoint should use the modern token key.
 
-    Prefer llmcapa's reasoning capability so newly catalogued reasoning models
-    do not depend on a hard-coded model-name prefix. Keep the existing prefix
-    check as a compatibility fallback when the catalog has no model evidence.
+    Model-family prefixes cover current GPT and o-series releases, including
+    dated/suffixed IDs. Capability metadata remains the fallback for future or
+    provider-specific reasoning models. A request-time compatibility retry in
+    history compression handles models that are not yet known here.
     """
     prov = normalize_provider(provider)
     if prov not in {"openai", "azure"}:
         return False
 
-    reasoning = supports_feature("reasoning", model_id, prov, default=None)
-    if reasoning is not None:
-        return reasoning
-
     model = (model_id or "").strip().lower()
-    return model.startswith("gpt-5") or model.startswith(("o1", "o2", "o3", "o4"))
+    if model.startswith(_OPENAI_MODERN_TOKEN_MODEL_PREFIXES):
+        return True
+
+    reasoning = supports_feature("reasoning", model_id, prov, default=None)
+    return bool(reasoning)
 
 
 def _supports_structured_output_feature(

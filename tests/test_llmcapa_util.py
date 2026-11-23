@@ -28,6 +28,7 @@ from uagent.llmcapa_util import (
     get_context_window_details,
     get_max_output_tokens,
     provider_candidates,
+    openai_is_reasoning_model,
     supports_vision,
     supports_audio_input,
     supports_audio_output,
@@ -62,8 +63,20 @@ def test_openai_token_parameter_keeps_legacy_prefix_fallback(monkeypatch) -> Non
 
     monkeypatch.setattr(util, "supports_feature", lambda *_args, default=None: default)
 
-    assert openai_uses_max_completion_tokens("gpt-5-test", "openai")
+    for model in (
+        "gpt-4o",
+        "gpt-4.1-mini",
+        "gpt-4.5-preview",
+        "gpt-5-test",
+        "gpt-6-luna",
+        "o1",
+        "o1-mini",
+        "o3-mini",
+        "o4-mini",
+    ):
+        assert openai_uses_max_completion_tokens(model, "openai")
     assert not openai_uses_max_completion_tokens("custom-model", "openai")
+    assert not openai_is_reasoning_model("gpt-4.1-mini", "openai")
 
 
 def test_installed_llmcapa_marks_gpt6_as_a_reasoning_model() -> None:

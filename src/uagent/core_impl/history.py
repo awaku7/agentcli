@@ -869,6 +869,23 @@ def compress_history_with_llm(
             )
         )
 
+    def _is_legacy_max_tokens_rejected(err: Exception) -> bool:
+        """Return whether the API explicitly asks for max_completion_tokens."""
+        s = f"{type(err).__name__}: {err}".lower()
+        return (
+            "max_tokens" in s
+            and "max_completion_tokens" in s
+            and any(
+                marker in s
+                for marker in (
+                    "unsupported parameter",
+                    "unknown parameter",
+                    "unexpected keyword",
+                    "not supported",
+                )
+            )
+        )
+
     summary_debug_raw = env_get("UAGENT_SESSION_SUMMARY_DEBUG", "") or ""
     summary_debug_enabled = summary_debug_raw.strip().lower() in {
         "1",
@@ -1071,15 +1088,34 @@ def compress_history_with_llm(
                             _summary_kwargs["max_completion_tokens"] = _sum_max
                         else:
                             _summary_kwargs["max_tokens"] = _sum_max
-                        try:
-                            resp = client.chat.completions.create(**_summary_kwargs)
-                        except Exception as temperature_error:
-                            if not _is_temperature_rejected(temperature_error):
+                        # Retry only when the endpoint explicitly rejects one
+                        # of these optional/request-compatibility parameters.
+                        # This also covers newly released model IDs before the
+                        # capability catalog has learned their requirements.
+                        while True:
+                            try:
+                                resp = client.chat.completions.create(
+                                    **_summary_kwargs
+                                )
+                                break
+                            except Exception as request_error:
+                                if (
+                                    "max_tokens" in _summary_kwargs
+                                    and _is_legacy_max_tokens_rejected(request_error)
+                                ):
+                                    _summary_kwargs[
+                                        "max_completion_tokens"
+                                    ] = _summary_kwargs.pop("max_tokens")
+                                    continue
+                                if (
+                                    "temperature" in _summary_kwargs
+                                    and _is_temperature_rejected(request_error)
+                                ):
+                                    # Some reasoning models require their
+                                    # default temperature and reject the field.
+                                    _summary_kwargs.pop("temperature", None)
+                                    continue
                                 raise
-                            # Some reasoning models require their default
-                            # temperature and reject any explicit value.
-                            _summary_kwargs.pop("temperature", None)
-                            resp = client.chat.completions.create(**_summary_kwargs)
                         choices = _obj_field(resp, "choices", None) or []
                         choice = choices[0] if choices else None
                         response_message = _obj_field(choice, "message", None)
