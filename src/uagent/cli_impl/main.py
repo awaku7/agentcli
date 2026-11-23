@@ -782,6 +782,7 @@ def main() -> int:
                         )
                     continue
                 if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
+                    _set_status_for_command_result(core, None)
                     if remote_request_event is not None:
                         _finish_nostr_remote_request(
                             core, remote_request_event, "completed"
@@ -813,6 +814,10 @@ def main() -> int:
                             "Session switch cancelled; Sub-Agent workers are still running: "
                             + ", ".join(lingering)
                         )
+                        # The command-pending status was set by stdin_loop.
+                        # A rejected session switch does not reach the common
+                        # command-result status transition below.
+                        _set_status_for_command_result(core, None)
                         if remote_request_event is not None:
                             _finish_nostr_remote_request(
                                 core, remote_request_event, "rejected"

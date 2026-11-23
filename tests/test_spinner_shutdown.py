@@ -18,6 +18,20 @@ def test_stop_quietly_does_not_leave_done_line(monkeypatch) -> None:
     assert calls == [{"clear": False, "keep_last_line": False}]
 
 
+def test_paused_clears_spinner_without_leaving_done_line(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    def record_stop(**kwargs: object) -> None:
+        calls.append(kwargs)
+
+    monkeypatch.setattr(spinner, "stop", record_stop)
+
+    with spinner.paused():
+        pass
+
+    assert calls == [{"clear": True, "keep_last_line": False}]
+
+
 def test_stop_clears_frame_drawn_while_shutdown_is_requested(monkeypatch) -> None:
     frame_started = Event()
     release_frame = Event()
@@ -27,7 +41,7 @@ def test_stop_clears_frame_drawn_while_shutdown_is_requested(monkeypatch) -> Non
     monkeypatch.setattr(spinner, "spinner_enabled", lambda: True)
     monkeypatch.setattr(spinner, "_ok_to_draw", lambda: True)
     monkeypatch.setattr(spinner, "_frames", lambda: ("*",))
-    monkeypatch.setattr(spinner, "_done_line_kept", lambda: True)
+    monkeypatch.setattr(spinner, "_done_line_kept", lambda _label="": True)
     monkeypatch.setattr(
         spinner,
         "_write_done_line",
@@ -62,3 +76,18 @@ def test_stop_clears_frame_drawn_while_shutdown_is_requested(monkeypatch) -> Non
     assert len(done_lines) == 1
     assert spinner._DREW is False
     assert spinner._thread is None
+
+
+def test_command_pending_spinner_does_not_leave_done_line_by_default(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_SPINNER_DONE", raising=False)
+
+    assert spinner._done_line_kept("command_pending") is False
+    assert spinner._done_line_kept("LLM") is True
+
+
+def test_spinner_done_setting_can_override_command_default(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_SPINNER_DONE", "on")
+    assert spinner._done_line_kept("command_pending") is True
+
+    monkeypatch.setenv("UAGENT_SPINNER_DONE", "off")
+    assert spinner._done_line_kept("LLM") is False

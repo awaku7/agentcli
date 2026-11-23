@@ -9,7 +9,9 @@ Safety-first design:
   streaming assistant text is never polluted.
 - Leaves one final ``OK done`` line in scrollback on stop
   (disable with ``UAGENT_SPINNER_DONE=off``), so history stays visible
-  after scrolling. Stream start stays clean with no done line.
+  after scrolling. Short CLI command-pending spinners are erased without a
+  done line; ``UAGENT_SPINNER_DONE=on`` can retain those too. Stream start
+  stays clean with no done line.
 - Stops automatically when the first stream delta arrives
   (:func:`notify_stream_started`), when busy clears, when ``human_ask`` owns
   stdin, or when a prompt line is open — the same conditions the legacy
@@ -341,7 +343,7 @@ def is_running() -> bool:
             return _thread is not None and _thread.is_alive() and not _stop.is_set()
 
 
-def _done_line_kept() -> bool:
+def _done_line_kept(label: str = "") -> bool:
     """Return True when the finished line should stay in scrollback."""
     try:
         from ..env_utils import env_get as _env_get
@@ -352,8 +354,17 @@ def _done_line_kept() -> bool:
             raw = (os.environ.get("UAGENT_SPINNER_DONE") or "").strip().lower()
         except Exception:
             raw = ""
-    # Default: keep "done" line ("off"/"0"/"false"/"no"/"clear" to erase).
-    return raw not in ("0", "false", "no", "off", "clear", "erase")
+    # Explicit opt-out/opt-in overrides the label-specific default.
+    if raw in ("0", "false", "no", "off", "clear", "erase"):
+        return False
+    if raw in ("1", "true", "yes", "on"):
+        return True
+    if raw:
+        return True
+    # A command's own output already records what happened; retaining a
+    # synthetic "OK done [command_pending]" line makes :load/:cont appear to
+    # leave a spinner behind after the command has completed.
+    return label != "command_pending"
 
 
 def _write_done_line(label: str, elapsed: float | None) -> None:
@@ -476,7 +487,7 @@ def stop(*, clear: bool = True, keep_last_line: bool | None = None) -> None:
             keep = keep_last_line
             if keep is None:
                 try:
-                    keep = _done_line_kept()
+                    keep = _done_line_kept(label)
                 except Exception:
                     keep = True
             if clear and drew:
@@ -530,7 +541,9 @@ def paused():
     @_cm
     def _inner():
         try:
-            stop(clear=True)
+            # Pausing is for writing unrelated output, so never leave a
+            # completion line at the cursor before that output is printed.
+            stop(clear=True, keep_last_line=False)
         except Exception:
             pass
         try:
