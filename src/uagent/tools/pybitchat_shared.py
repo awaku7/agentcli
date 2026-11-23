@@ -126,19 +126,38 @@ def _display_worker() -> None:
             # [bitchat]
             # Reasoning/assistant
             with _core.print_lock:
-                if _core._stream_line_open:
-                    _core.print_stream_delta(chr(10))
-                if getattr(_core, "_prompt_line_open", False):
-                    #  [bitchat]
-                    # agentcli> [bitchat] ...
-                    #
-                    _core.print_stream_delta(chr(10))
-                    _core._prompt_line_open = False
-                    try:
-                        _core.prompt_needs_redraw = True
-                    except Exception:
-                        pass
-                _core.print_stream_delta(msg + chr(10))
+                # When a prompt_toolkit prompt owns the input line, print
+                # through the shared helper instead: it hands the text to
+                # the prompt's own event loop, which erases the prompt,
+                # prints above it and redraws with the edit buffer intact.
+                # The manual path below relies on prompt_needs_redraw,
+                # which nothing consumes while a toolkit prompt is open.
+                # Lazy import, like the core import above: this module is
+                # a tool-side utility and must not pull in cli_impl at
+                # module load time.
+                printed_above = False
+                try:
+                    from ..cli_impl.prompt_session import (
+                        print_text_above_toolkit_prompt,
+                    )
+
+                    printed_above = print_text_above_toolkit_prompt(_core, msg)
+                except Exception:
+                    printed_above = False
+                if not printed_above:
+                    if _core._stream_line_open:
+                        _core.print_stream_delta(chr(10))
+                    if getattr(_core, "_prompt_line_open", False):
+                        #  [bitchat]
+                        # agentcli> [bitchat] ...
+                        #
+                        _core.print_stream_delta(chr(10))
+                        _core._prompt_line_open = False
+                        try:
+                            _core.prompt_needs_redraw = True
+                        except Exception:
+                            pass
+                    _core.print_stream_delta(msg + chr(10))
         except Exception:
             try:
                 print(msg, flush=True)
