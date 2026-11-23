@@ -2,6 +2,18 @@
 
 `uag` は環境変数を使用して、LLMプロバイダの認証情報やエージェントの動作を制御します。これらの変数は通常、カレントディレクトリの `.env` ファイルに保存されます。
 
+## ローカルUAGメッセージ（自然文で利用）
+
+対話CLI/GUIと認証済みWebのprivate roomは既定で自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` の peer を調べたり、宛先を指定して送信したりする操作は、LLMへ自然文で依頼してください。受信内容は既存の `human_ask` で確認します（`y`=今回のみ、`n`=拒否、`all`=このUI endpointの終了まで同じ送信元を承認）。
+
+参加したくない場合は次を設定し、UAGプロセスを再起動します。
+
+```env
+UAGENT_LOCAL_MESSAGING=off
+```
+
+Web endpointはprincipal・private room・projectごとに分離され、公開roomには作られません。A2Aは既定では参加せず、管理者が `UAGENT_LOCAL_MESSAGING_A2A=on` を設定した場合だけ参加します。A2Aの受信は自動ではなく、認証済みtaskが `local_messaging(action=inbox)` を明示的に呼び出した場合に限ります。
+
 ## Session Store / 統合Policy
 
 Session StoreはSQLiteベースのセッション履歴です。現在は既定で有効です。無効にする場合は `UAGENT_SESSION_STORE=0` を指定します。Artifact 本体は `<state-dir>/artifacts/`（通常は `~/.uag/artifacts/`）に保存されるため、別の workdir から保存済みセッションを開いても参照できます。
