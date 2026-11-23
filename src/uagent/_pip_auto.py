@@ -91,6 +91,7 @@ _ALLOWED_PACKAGES = {
         "tree-sitter",
         "tree-sitter-language-pack",
         "mdformat",
+        "markitdown",
         "oletools",
         "packaging",
         "mermaid-cli",
@@ -321,7 +322,10 @@ def install_with_status(
         try:
             from importlib.metadata import version as _pkg_version
 
-            installed = _pkg_version(package_name)
+            # Extras are pip requirement syntax, not distribution names.
+            # Query the base distribution for requirements like foo[bar].
+            distribution_name = package_name.split("[", 1)[0]
+            installed = _pkg_version(distribution_name)
             return _version_satisfies(installed, version_spec)
         except Exception:
             return True  # version check failed, assume OK

@@ -1198,7 +1198,8 @@ get_workdir, add/get_long_memory, tool_catalog, generate_prompt
 
 **file**
 create_file, read_file, replace_in_file, delete_files, search_files, file_grep,
-file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops, disc_image_ops
+file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops, disc_image_ops,
+markitdown
 
 **exec**
 cmd_exec, cmd_exec_json, python_exec, python_compile, bash_exec, pwsh_exec,
@@ -1210,6 +1211,12 @@ Both dependencies are lazy-installed through the shared
 `UAGENT_AUTO_INSTALL=allow|prompt|off` policy when absent. ISO-to-CHD and
 CHD-to-ISO conversion follows xverter's supported image formats; unsupported CHD
 shapes fail explicitly rather than silently falling back to an unrelated converter.
+
+`markitdown` converts local workdir files to Markdown. It lazily installs
+`markitdown[all]` on first use through the shared `UAGENT_AUTO_INSTALL` policy,
+keeps plugins and URL fetching disabled, and caps input size. Use the dedicated
+Office conversion tools when their richer Excel/PowerPoint-specific options are
+needed.
 
 **devel**
 code_map, lint_format, run_tests, git_ops, system_reload
