@@ -21,6 +21,7 @@ def _run_tool(
     core=None,
     responses_api_continuation=False,
     responses_runtime=None,
+    tool_arguments="{}",
 ):
     monkeypatch.setattr(
         "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *args: False
@@ -50,7 +51,7 @@ def _run_tool(
         {
             "id": "call-1",
             "type": "function",
-            "function": {"name": tool_name, "arguments": "{}"},
+            "function": {"name": tool_name, "arguments": tool_arguments},
         }
     ]
     _execute_tool_calls(
@@ -62,6 +63,23 @@ def _run_tool(
         responses_runtime=responses_runtime,
     )
     return messages[0], core
+
+
+def test_valid_tool_arguments_are_decoded_only_once(monkeypatch) -> None:
+    raw_arguments = '{"decode_once_marker": 817263}'
+    original_loads = json.loads
+    decoded_arguments: list[str] = []
+
+    def counting_loads(value, *args, **kwargs):
+        if value == raw_arguments:
+            decoded_arguments.append(value)
+        return original_loads(value, *args, **kwargs)
+
+    monkeypatch.setattr("uagent.llm_flow_helpers.json.loads", counting_loads)
+
+    _run_tool(monkeypatch, "ok", tool_arguments=raw_arguments)
+
+    assert decoded_arguments == [raw_arguments]
 
 
 def test_small_json_keeps_legacy_content(monkeypatch) -> None:

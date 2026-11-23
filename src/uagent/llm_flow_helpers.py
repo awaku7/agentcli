@@ -741,8 +741,12 @@ def _execute_tool_calls(
         []
     )  # (idx_in_list, name, parsed_args)
     _parallel_tc_ids: list[str] = []
+    # Normalize valid argument objects once and reuse them in phase 2. The
+    # second phase still parses invalid/non-object input to preserve its
+    # existing detailed error response.
+    parsed_args_by_index: list[dict[str, Any] | None] = [None for _ in tool_calls_list]
 
-    for tc in tool_calls_list:
+    for call_index, tc in enumerate(tool_calls_list):
         name = tc["function"]["name"]
         if str(tc.get("id") or "") in _blocked_file_grep_ids:
             continue
@@ -753,6 +757,7 @@ def _execute_tool_calls(
                 continue
         except Exception:
             continue
+        parsed_args_by_index[call_index] = parsed_args
         if not tools.is_parallel_safe(name, parsed_args):
             continue
         _parallel_batch.append((len(_parallel_batch), name, parsed_args))
@@ -785,11 +790,11 @@ def _execute_tool_calls(
             core.set_status(True, "LLM")
 
     # ---- Phase 2: sequential processing (prefetched results merged in) ----
-    for tc in tool_calls_list:
+    for call_index, tc in enumerate(tool_calls_list):
         func = tc["function"]
         name = func["name"]
         arg_str = func.get("arguments") or "{}"
-        parsed_args = None
+        parsed_args = parsed_args_by_index[call_index]
         tool_result = ""
 
         if str(tc.get("id") or "") in _blocked_file_grep_ids:
@@ -807,28 +812,29 @@ def _execute_tool_calls(
                 ensure_ascii=False,
             )
 
-        try:
-            parsed_args = json.loads(arg_str)
-            if not isinstance(parsed_args, dict):
-                raise ValueError(
-                    _(
-                        "arguments must be a JSON object.",
-                        default="arguments must be a JSON object.",
+        if parsed_args is None:
+            try:
+                parsed_args = json.loads(arg_str)
+                if not isinstance(parsed_args, dict):
+                    raise ValueError(
+                        _(
+                            "arguments must be a JSON object.",
+                            default="arguments must be a JSON object.",
+                        )
                     )
-                )
-        except Exception as e:
-            tb = traceback.format_exc()
-            tool_result = _(
-                "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
-                default=f"[tool args error] name={name!r} raw={arg_str!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
-            ) % {
-                "name": name,
-                "raw": arg_str,
-                "etype": type(e).__name__,
-                "err": e,
-                "tb": tb,
-            }
-            parsed_args = None
+            except Exception as e:
+                tb = traceback.format_exc()
+                tool_result = _(
+                    "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                    default=f"[tool args error] name={name!r} raw={arg_str!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                ) % {
+                    "name": name,
+                    "raw": arg_str,
+                    "etype": type(e).__name__,
+                    "err": e,
+                    "tb": tb,
+                }
+                parsed_args = None
 
         if str(tc.get("id") or "") in _blocked_file_grep_ids:
             parsed_args = None
