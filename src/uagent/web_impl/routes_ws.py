@@ -142,6 +142,19 @@ async def websocket_endpoint(websocket: WebSocket):
         turn_context=bootstrap_turn_context,
         identity_context=connection.identity,
     )
+    if room_created and connection.private_session:
+        from ..runtime.local_messaging import local_messaging_enabled
+
+        if local_messaging_enabled():
+            try:
+                from .local_messaging import start_web_local_messaging
+
+                await asyncio.to_thread(start_web_local_messaging, room, connection)
+            except Exception as exc:
+                _web_server_log(
+                    "[local-messaging] Web endpoint startup failed: "
+                    f"{type(exc).__name__}: {exc}"
+                )
 
     try:
         while True:

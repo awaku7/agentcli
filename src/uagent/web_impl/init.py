@@ -274,6 +274,11 @@ def _fire_web_lifecycle_hook(event_name: str) -> None:
 def init_web():
     print(get_welcome_message())
 
+    # Install the common side-effect confirmation callback in every Web
+    # process, including spawned room workers. Without it the dispatcher
+    # fails closed before it can route a confirmation through Web human_ask.
+    tools.configure_default_confirmation()
+
     from .sub_agent_jobs import initialize_web_job_runtime
 
     # Web process: suppress CLI [STATE] console output for the whole lifetime.
@@ -367,6 +372,36 @@ def init_web():
                 return web_manager.active_room
         except Exception:
             return None
+
+    # The tool callback is resolved in the currently bound room rather than
+    # against one process-wide Web endpoint. This preserves the principal/room
+    # routing boundary when the Web server serves multiple users concurrently.
+    def _web_local_messaging_runtime_ref():
+        room = _resolve_web_room()
+        if room is None:
+            return None
+        adapter = getattr(room, "_local_messaging_adapter", None)
+        runtime = getattr(adapter, "runtime", None)
+        if runtime is None:
+            return None
+        try:
+            from ..runtime.identity_context import get_current_turn_context
+
+            turn = get_current_turn_context()
+        except Exception:
+            return None
+        if (
+            turn is None
+            or turn.entry_point != "web"
+            or turn.principal_id != adapter.principal_id
+            or turn.room_id != room.room_id
+            or turn.project_id != adapter.project_id
+            or not turn.private_session
+        ):
+            return None
+        return runtime
+
+    cb.local_messaging_runtime_ref = _web_local_messaging_runtime_ref
 
     def web_run_tool_wrapper(name, args):
         room = _resolve_web_room()

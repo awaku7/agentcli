@@ -49,6 +49,16 @@ def _prepare_display_message(msg: dict[str, Any]) -> dict[str, Any]:
     return display_msg
 
 
+def _stop_room_local_messaging(room: Any) -> None:
+    """Close a room's opted-in mailbox when its Web room is retired."""
+    try:
+        from .local_messaging import stop_web_local_messaging
+
+        stop_web_local_messaging(room)
+    except Exception:
+        pass
+
+
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
@@ -768,6 +778,7 @@ class WebManager:
             _scope, cleanup = self._detach_room_sandbox_scope(expected_room)
         self._release_room_worker(expected_room)
         try:
+            _stop_room_local_messaging(expected_room)
             if cleanup is not None:
                 cleanup()
         finally:
@@ -788,6 +799,7 @@ class WebManager:
             _scope, cleanup = self._detach_room_sandbox_scope(room)
         self._release_room_worker(room)
         try:
+            _stop_room_local_messaging(room)
             if cleanup is not None:
                 cleanup()
         finally:
@@ -859,6 +871,7 @@ class WebManager:
         for room, cleanup in evicted_rooms:
             self._release_room_worker(room)
             try:
+                _stop_room_local_messaging(room)
                 if cleanup is not None:
                     cleanup()
             finally:

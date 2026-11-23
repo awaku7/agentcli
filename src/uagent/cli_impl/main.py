@@ -18,6 +18,14 @@ from ..providers import util_providers as providers
 from ..runtime.execution import lifecycle_execution
 from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 from ..runtime.logging_setup import configure_event_logging, log_event
+from ..runtime.local_messaging import (
+    LocalMessageRuntime,
+    accept_incoming_message,
+    local_messaging_enabled,
+    safe_message_preview,
+    start_host_local_messaging,
+    stop_host_local_messaging,
+)
 from ..runtime.round_outcome import project_round_outcome
 from ..scheduler import start_background_scheduler, stop_background_scheduler
 from ..tools.pybitchat_shared import (
@@ -68,6 +76,71 @@ from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_envir
 from ..runtime.sub_agent_cli_receipt import deliver_cli_finished_job_notice
 from ..runtime.sub_agent_receipt_context import queue_cli_sub_agent_receipt
 from ..runtime.sub_agent_jobs import SubAgentJobManager
+
+
+def _start_cli_local_messaging(core_obj: Any) -> tuple[Any, list[dict[str, Any]]]:
+    return start_host_local_messaging(core_obj, core_obj.event_queue, entrypoint="cli")
+
+
+def _stop_cli_local_messaging(core_obj: Any) -> bool:
+    runtime = getattr(core_obj, "_local_messaging_runtime", None)
+    if runtime is None:
+        return False
+    try:
+        return stop_host_local_messaging(core_obj)
+    except Exception as exc:
+        log_event("local_messaging.stop_failed", error_type=type(exc).__name__)
+    finally:
+        if getattr(core_obj, "_local_messaging_runtime", None) is not None:
+            try:
+                delattr(core_obj, "_local_messaging_runtime")
+            except Exception:
+                pass
+    return True
+
+
+def _print_local_message_peers(peers: list[dict[str, Any]]) -> None:
+    if not peers:
+        print("[LOCAL] No other participating UAG peers are currently online.")
+        return
+    print("[LOCAL] Available UAG peers:")
+    for peer in peers:
+        print(
+            "  %(endpoint)s (%(entrypoint)s, pid=%(pid)s, started=%(started)s)"
+            % {
+                "endpoint": safe_message_preview(str(peer.get("endpoint_id") or "")),
+                "entrypoint": peer.get("entrypoint", "cli"),
+                "pid": peer.get("pid", "?"),
+                "started": time.strftime(
+                    "%Y-%m-%d %H:%M:%S",
+                    time.localtime(float(peer.get("create_time") or 0)),
+                ),
+            }
+        )
+
+
+def _accept_cli_local_message(
+    core_obj: Any,
+    runtime: LocalMessageRuntime | None,
+    message: dict[str, Any],
+    run_cli_turn: Any,
+    tool_runner: Any,
+) -> dict[str, str] | None:
+    """Confirm one queued inbox item and convert approval to a user turn."""
+
+    def ask_user(prompt: str) -> str:
+        core_obj.set_status(False, "")
+        result = run_cli_turn(
+            tool_runner,
+            "human_ask",
+            {"message": prompt, "is_password": False},
+        )
+        return str(json.loads(result).get("user_reply", ""))
+
+    result = accept_incoming_message(runtime, message, ask_user)
+    if result is None:
+        print("[LOCAL] Incoming message was rejected or expired.")
+    return result
 
 
 def _exit_code_for_round_outcome(core: Any) -> int:
@@ -443,6 +516,16 @@ def main() -> int:
     start_background_scheduler(core.event_queue)
     # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
     set_llm_event_queue(core.event_queue)
+    if not UAGENT_NON_INTERACTIVE and local_messaging_enabled():
+        try:
+            _local_runtime, _local_peers = _start_cli_local_messaging(core)
+            _print_local_message_peers(_local_peers)
+        except Exception as exc:
+            log_event("local_messaging.start_failed", error_type=type(exc).__name__)
+            print(
+                "[LOCAL] Local messaging could not start: "
+                f"{type(exc).__name__}: {exc}"
+            )
     core.start_interrupt_monitor()
     checkpoint("background_services_started")
 
@@ -600,6 +683,34 @@ def main() -> int:
             remote_execution_outcome = "completed"
             remote_message_start = len(messages)
             kind = ev.get("kind")
+
+            if kind == "local_agent_started":
+                peer = ev.get("peer") if isinstance(ev.get("peer"), dict) else {}
+                endpoint_id = safe_message_preview(str(peer.get("endpoint_id") or ""))
+                runtime = getattr(core, "_local_messaging_runtime", None)
+                if runtime is not None and runtime.is_peer_active(endpoint_id):
+                    print(
+                        "[LOCAL] Another UAG peer is online: "
+                        f"{endpoint_id} (pid={peer.get('pid', '?')})"
+                    )
+                continue
+
+            if kind == "local_message_received":
+                runtime = getattr(core, "_local_messaging_runtime", None)
+                message = (
+                    ev.get("message") if isinstance(ev.get("message"), dict) else {}
+                )
+                accepted_event = _accept_cli_local_message(
+                    core,
+                    runtime,
+                    message,
+                    _run_cli_turn,
+                    tools.run_tool,
+                )
+                if accepted_event is None:
+                    continue
+                kind = accepted_event["kind"]
+                ev = accepted_event
 
             if kind == "nostr_remote_request":
                 # Revalidate durable inbox ownership, message identity, current
@@ -1129,6 +1240,11 @@ def main() -> int:
         print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
     finally:
         _CLI_SHUTDOWN.set()
+
+        try:
+            _stop_cli_local_messaging(core)
+        except Exception as exc:
+            log_event("local_messaging.shutdown_failed", error_type=type(exc).__name__)
 
         if getattr(core, "_nostr_remote_runtime", None) is not None:
             try:

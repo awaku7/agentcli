@@ -1,0 +1,595 @@
+{
+  "ja": {
+    "tool.description": "参加中のローカルUAG endpointを一覧表示するか、指定したendpointへテキストメッセージを送信します。A2Aでは明示的なinbox取得も可能です。",
+    "x_search_terms": [
+      "ローカルUAG",
+      "別のUAGへメッセージ",
+      "ローカルエージェント一覧",
+      "UAG間メッセージ",
+      "ローカルメッセージ送信"
+    ],
+    "param.action.description": "操作: %(action_list)s で参加中peerを一覧表示、%(action_send)s でメッセージ送信、A2Aのみ %(action_inbox)s でこのendpointのinboxを明示的に取得します。",
+    "param.recipient.description": "送信（%(action_send)s）時はpeer一覧にある宛先endpoint_idを指定します。",
+    "param.message.description": "選択したpeerへ送るテキスト。%(action_send)s 時に必須です。",
+    "err.disabled": "このendpointはローカルメッセージに参加していません。UAGENT_LOCAL_MESSAGING設定を確認してプロセスを再起動してください。",
+    "err.missing_recipient": "peer一覧にある endpoint_id を指定してください。",
+    "err.invalid_action": "action は %(action_list)s、%(action_send)s、またはA2A専用の %(action_inbox)s です。",
+    "err.failed": "ローカルメッセージ操作に失敗しました。"
+  },
+  "es": {
+    "tool.description": "Enumere los pares UAG locales participantes o envíe un mensaje de texto dirigido. El punto final actual debe estar participando. La recuperación explícita de la bandeja de entrada solo es compatible con una tarea A2A habilitada.",
+    "x_search_terms": [
+      "pares UAG locales",
+      "mensajería de agentes locales",
+      "enviar mensaje a otro UAG",
+      "listar agentes locales"
+    ],
+    "param.action.description": "Acción: %(action_list)s pares participantes, %(action_send)s un mensaje o (solo A2A) %(action_inbox)s para recuperar mensajes explícitamente de la bandeja de entrada de este punto final.",
+    "param.recipient.description": "Destinatario endpoint_id de la lista de pares; requerido para %(action_send)s.",
+    "param.message.description": "Texto para enviar al par seleccionado; requerido para %(action_send)s.",
+    "err.disabled": "Este punto final no participa. Verifique la configuración UAGENT_LOCAL_MESSAGING y reinicie el proceso.",
+    "err.missing_recipient": "Seleccione un par endpoint_id de la lista.",
+    "err.invalid_action": "La acción debe ser %(action_list)s, %(action_send)s o %(action_inbox)s (solo A2A).",
+    "err.failed": "Error en la operación del mensaje local."
+  },
+  "ar": {
+    "tool.description": "قم بإدراج أقران UAG المحليين المشاركين أو أرسل رسالة نصية مستهدفة. يجب أن تكون نقطة النهاية الحالية مشاركة. لا يتم دعم استرداد البريد الوارد الصريح إلا من خلال مهمة A2A التي تم تمكينها.",
+    "x_search_terms": [
+      "أقران UAG المحليون ",
+      " مراسلة الوكيل المحلي ",
+      " إرسال رسالة إلى UAG آخر ",
+      " قائمة الوكلاء المحليين"
+    ],
+    "param.action.description": "الإجراء: %(action_list)s من النظراء المشاركين، %(action_send)s رسالة، أو (A2A فقط) %(action_inbox)s لاسترداد الرسائل بشكل صريح من البريد الوارد لنقطة النهاية هذه.",
+    "param.recipient.description": "المستلم endpoint_id من قائمة النظراء؛ مطلوب لـ %(action_send)s.",
+    "param.message.description": "نص لإرساله إلى النظير المحدد؛ مطلوب لـ %(action_send)s.",
+    "err.disabled": "نقطة النهاية هذه غير مشاركة. تحقق من الإعداد UAGENT_LOCAL_MESSAGING وأعد تشغيل العملية.",
+    "err.missing_recipient": "حدد النظير endpoint_id من القائمة.",
+    "err.invalid_action": "يجب أن يكون الإجراء %(action_list)s أو %(action_send)s أو %(action_inbox)s (A2A فقط).",
+    "err.failed": "فشلت عملية الرسالة المحلية."
+  },
+  "bn": {
+    "tool.description": "অংশগ্রহণকারী স্থানীয় UAG সহকর্মীদের তালিকা করুন বা একটি লক্ষ্যযুক্ত পাঠ্য বার্তা পাঠান। বর্তমান শেষ বিন্দু অংশগ্রহণ করা আবশ্যক. স্পষ্ট ইনবক্স পুনরুদ্ধার শুধুমাত্র একটি সক্ষম A2A টাস্ক দ্বারা সমর্থিত।",
+    "x_search_terms": [
+      "স্থানীয় UAG সহকর্মী",
+      "স্থানীয় এজেন্ট মেসেজিং",
+      "অন্য UAG",
+      "তালিকা স্থানীয় এজেন্টদের কাছে বার্তা পাঠান"
+    ],
+    "param.action.description": "ক্রিয়া: %(action_list)s অংশগ্রহণকারী সহকর্মী, %(action_send)s একটি বার্তা, বা (শুধুমাত্র A2A) %(action_inbox)s এই শেষপয়েন্টের ইনবক্স থেকে স্পষ্টভাবে বার্তাগুলি পুনরুদ্ধার করতে৷",
+    "param.recipient.description": "সহকর্মী তালিকা থেকে প্রাপক endpoint_id; %(action_send)s এর জন্য প্রয়োজনীয়।",
+    "param.message.description": "নির্বাচিত সহকর্মীকে পাঠানোর জন্য পাঠ্য; %(action_send)s এর জন্য প্রয়োজনীয়।",
+    "err.disabled": "এই শেষ বিন্দু অংশগ্রহণ করছে না. UAGENT_LOCAL_MESSAGING সেটিং চেক করুন এবং প্রক্রিয়া পুনরায় আরম্ভ করুন।",
+    "err.missing_recipient": "তালিকা থেকে একজন সহকর্মী endpoint_id নির্বাচন করুন৷",
+    "err.invalid_action": "অ্যাকশন অবশ্যই %(action_list)s, %(action_send)s, বা %(action_inbox)s (শুধুমাত্র A2A) হতে হবে।",
+    "err.failed": "স্থানীয় বার্তা অপারেশন ব্যর্থ হয়েছে."
+  },
+  "cs": {
+    "tool.description": "Vypište zúčastněné místní partnery UAG nebo pošlete cílenou textovou zprávu. Účastnit se musí aktuální koncový bod. Explicitní načítání doručené pošty je podporováno pouze povolenou úlohou A2A.",
+    "x_search_terms": [
+      "místní kolegové UAG",
+      "zasílání zpráv místnímu agentovi",
+      "poslat zprávu jinému UAG",
+      "seznam místních agentů"
+    ],
+    "param.action.description": "Akce: %(action_list)s zúčastněných kolegů, %(action_send)s zprávu nebo (pouze A2A) %(action_inbox)s pro explicitní načtení zpráv z doručené pošty tohoto koncového bodu.",
+    "param.recipient.description": "Příjemce endpoint_id ze seznamu partnerů; vyžadováno pro %(action_send)s.",
+    "param.message.description": "Text k odeslání vybranému partnerovi; vyžadováno pro %(action_send)s.",
+    "err.disabled": "Tento koncový bod se neúčastní. Zkontrolujte nastavení UAGENT_LOCAL_MESSAGING a restartujte proces.",
+    "err.missing_recipient": "Vyberte ze seznamu partner endpoint_id.",
+    "err.invalid_action": "Akce musí být %(action_list)s, %(action_send)s nebo %(action_inbox)s (pouze A2A).",
+    "err.failed": "Operace místní zprávy se nezdařila."
+  },
+  "da": {
+    "tool.description": "Angiv deltagende lokale UAG-kammerater, eller send en målrettet tekstbesked. Det aktuelle slutpunkt skal deltage. Eksplicit hentning af indbakke understøttes kun af en aktiveret A2A-opgave.",
+    "x_search_terms": [
+      "lokale UAG-peers",
+      "lokale agentbeskeder",
+      "send besked til en anden UAG",
+      "liste over lokale agenter"
+    ],
+    "param.action.description": "Handling: %(action_list)s deltagende peers, %(action_send)s en besked eller (kun A2A) %(action_inbox)s for eksplicit at hente beskeder fra dette slutpunkts indbakke.",
+    "param.recipient.description": "Modtager endpoint_id fra peer-listen; påkrævet for %(action_send)s.",
+    "param.message.description": "Tekst, der skal sendes til den valgte peer; påkrævet for %(action_send)s.",
+    "err.disabled": "Dette endepunkt deltager ikke. Tjek indstillingen UAGENT_LOCAL_MESSAGING, og genstart processen.",
+    "err.missing_recipient": "Vælg en peer endpoint_id fra listen.",
+    "err.invalid_action": "Handlingen skal være %(action_list)s, %(action_send)s eller %(action_inbox)s (kun A2A).",
+    "err.failed": "Lokal beskedhandling mislykkedes."
+  },
+  "de": {
+    "tool.description": "Listen Sie die teilnehmenden lokalen UAG-Kollegen auf oder senden Sie eine gezielte Textnachricht. Der aktuelle Endpunkt muss teilnehmen. Der explizite Abruf des Posteingangs wird nur von einer aktivierten A2A-Aufgabe unterstützt.",
+    "x_search_terms": [
+      "lokale UAG-Peers",
+      "lokale Agenten-Nachrichtenübermittlung",
+      "Nachricht an eine andere UAG senden",
+      "lokale Agenten auflisten"
+    ],
+    "param.action.description": "Aktion: %(action_list)s teilnehmende Peers, %(action_send)s eine Nachricht oder (nur A2A) %(action_inbox)s, um Nachrichten explizit aus dem Posteingang dieses Endpunkts abzurufen.",
+    "param.recipient.description": "Empfänger endpoint_id aus der Peer-Liste; erforderlich für %(action_send)s.",
+    "param.message.description": "Text, der an den ausgewählten Peer gesendet werden soll; erforderlich für %(action_send)s.",
+    "err.disabled": "Dieser Endpunkt nimmt nicht teil. Überprüfen Sie die Einstellung UAGENT_LOCAL_MESSAGING und starten Sie den Vorgang neu.",
+    "err.missing_recipient": "Wählen Sie einen Peer endpoint_id aus der Liste aus.",
+    "err.invalid_action": "Die Aktion muss %(action_list)s, %(action_send)s oder %(action_inbox)s (nur A2A) sein.",
+    "err.failed": "Der lokale Nachrichtenvorgang ist fehlgeschlagen."
+  },
+  "el": {
+    "tool.description": "Καταχωρίστε τους συμμετέχοντες τοπικούς ομοτίμους UAG ή στείλτε ένα στοχευμένο μήνυμα κειμένου. Το τρέχον τελικό σημείο πρέπει να συμμετέχει. Η ρητή ανάκτηση εισερχομένων υποστηρίζεται μόνο από μια ενεργοποιημένη εργασία A2A.",
+    "x_search_terms": [
+      "τοπικοί ομότιμοι UAG",
+      "μηνύματα τοπικού πράκτορα",
+      "στείλτε μήνυμα σε άλλους τοπικούς πράκτορες της λίστας UAG",
+      "list local agents"
+    ],
+    "param.action.description": "Ενέργεια: %(action_list)s συμμετέχοντες ομότιμοι, %(action_send)s ένα μήνυμα ή (μόνο A2A) %(action_inbox)s για ρητή ανάκτηση μηνυμάτων από τα εισερχόμενα αυτού του τελικού σημείου.",
+    "param.recipient.description": "Παραλήπτης endpoint_id από τη λίστα ομοτίμων. απαιτείται για %(action_send)s.",
+    "param.message.description": "Κείμενο προς αποστολή στον επιλεγμένο ομότιμο. απαιτείται για %(action_send)s.",
+    "err.disabled": "Αυτό το τελικό σημείο δεν συμμετέχει. Ελέγξτε τη ρύθμιση UAGENT_LOCAL_MESSAGING και επανεκκινήστε τη διαδικασία.",
+    "err.missing_recipient": "Επιλέξτε έναν ομότιμο endpoint_id από τη λίστα.",
+    "err.invalid_action": "Η ενέργεια πρέπει να είναι %(action_list)s, %(action_send)s ή %(action_inbox)s (μόνο A2A).",
+    "err.failed": "Η λειτουργία τοπικού μηνύματος απέτυχε."
+  },
+  "fa": {
+    "tool.description": "همتایان UAG محلی شرکت کننده را فهرست کنید یا یک پیام متنی هدفمند ارسال کنید. نقطه پایان فعلی باید مشارکت داشته باشد. بازیابی صریح صندوق ورودی فقط توسط یک کار فعال A2A پشتیبانی می شود.",
+    "x_search_terms": [
+      "همتایان UAG محلی",
+      "پیام عامل محلی",
+      "ارسال پیام به نمایندگان محلی UAG",
+      "فهرست دیگر"
+    ],
+    "param.action.description": "اقدام: %(action_list)s همتای شرکت‌کننده، %(action_send)s یک پیام، یا (فقط A2A) %(action_inbox)s برای بازیابی صریح پیام‌ها از صندوق ورودی این نقطه پایانی.",
+    "param.recipient.description": "گیرنده endpoint_id از لیست همتایان؛ برای %(action_send)s مورد نیاز است.",
+    "param.message.description": "متن برای ارسال به همتای انتخابی؛ برای %(action_send)s مورد نیاز است.",
+    "err.disabled": "این نقطه پایانی شرکت نمی کند. تنظیم UAGENT_LOCAL_MESSAGING را بررسی کنید و فرآیند را مجدداً راه اندازی کنید.",
+    "err.missing_recipient": "یک همتا endpoint_id را از لیست انتخاب کنید.",
+    "err.invalid_action": "اقدام باید %(action_list)s، %(action_send)s، یا %(action_inbox)s (فقط A2A) باشد.",
+    "err.failed": "عملیات پیام محلی ناموفق بود."
+  },
+  "fi": {
+    "tool.description": "Listaa osallistuvat paikalliset UAG-vertaisyritykset tai lähetä kohdennettu tekstiviesti. Nykyisen päätepisteen on oltava mukana. Vain käytössä oleva A2A-tehtävä tukee nimenomaista postilaatikon hakua.",
+    "x_search_terms": [
+      "paikalliset UAG-vertaiset",
+      "paikallisten agenttien viestit",
+      "lähetä viesti toiselle UAG",
+      "listalle paikalliset agentit"
+    ],
+    "param.action.description": "Toimi: %(action_list)s osallistuvat vertaiskumppanit, %(action_send)s viesti tai (vain A2A) %(action_inbox)s noutaa viestit tämän päätepisteen postilaatikosta.",
+    "param.recipient.description": "Vastaanottaja endpoint_id vertaisluettelosta; vaaditaan %(action_send)s.",
+    "param.message.description": "Teksti lähetettäväksi valitulle vertaiselle; vaaditaan %(action_send)s.",
+    "err.disabled": "Tämä päätepiste ei osallistu. Tarkista UAGENT_LOCAL_MESSAGING-asetus ja aloita prosessi uudelleen.",
+    "err.missing_recipient": "Valitse vertaiskumppani endpoint_id luettelosta.",
+    "err.invalid_action": "Toiminnon on oltava %(action_list)s, %(action_send)s tai %(action_inbox)s (vain A2A).",
+    "err.failed": "Paikallinen viestitoiminto epäonnistui."
+  },
+  "fil": {
+    "tool.description": "Maglista ng mga kalahok na lokal na kapantay ng UAG o magpadala ng naka-target na text message. Ang kasalukuyang endpoint ay dapat na kalahok. Ang tahasang pagkuha ng inbox ay sinusuportahan lamang ng isang pinaganang A2A na gawain.",
+    "x_search_terms": [
+      "lokal na mga kapantay ng UAG",
+      "pagmemensahe ng lokal na ahente",
+      "magpadala ng mensahe sa ibang UAG",
+      "maglista ng mga lokal na ahente"
+    ],
+    "param.action.description": "Pagkilos: %(action_list)s mga kalahok na kapantay, %(action_send)s isang mensahe, o (A2A lang) %(action_inbox)s upang tahasang kunin ang mga mensahe mula sa inbox ng endpoint na ito.",
+    "param.recipient.description": "Recipient endpoint_id mula sa peer list; kinakailangan para sa %(action_send)s.",
+    "param.message.description": "Tekstong ipapadala sa napiling peer; kinakailangan para sa %(action_send)s.",
+    "err.disabled": "Ang endpoint na ito ay hindi nakikilahok. Suriin ang setting na UAGENT_LOCAL_MESSAGING at i-restart ang proseso.",
+    "err.missing_recipient": "Pumili ng peer endpoint_id mula sa listahan.",
+    "err.invalid_action": "Ang aksyon ay dapat %(action_list)s, %(action_send)s, o %(action_inbox)s (A2A lang).",
+    "err.failed": "Nabigo ang pagpapatakbo ng lokal na mensahe."
+  },
+  "fr": {
+    "tool.description": "Répertoriez les pairs UAG locaux participants ou envoyez un message texte ciblé. Le point de terminaison actuel doit participer. La récupération explicite de la boîte de réception est prise en charge uniquement par une tâche A2A activée.",
+    "x_search_terms": [
+      "pairs UAG locaux",
+      "messagerie d'agent local",
+      "envoyer un message à un autre UAG",
+      "lister les agents locaux"
+    ],
+    "param.action.description": "Action : %(action_list)s pairs participants, %(action_send)s un message ou (A2A uniquement) %(action_inbox)s pour récupérer explicitement les messages de la boîte de réception de ce point de terminaison.",
+    "param.recipient.description": "Destinataire endpoint_id de la liste des pairs ; requis pour %(action_send)s.",
+    "param.message.description": "Texte à envoyer au pair sélectionné ; requis pour %(action_send)s.",
+    "err.disabled": "Ce point de terminaison ne participe pas. Vérifiez le paramètre UAGENT_LOCAL_MESSAGING et redémarrez le processus.",
+    "err.missing_recipient": "Sélectionnez un homologue endpoint_id dans la liste.",
+    "err.invalid_action": "L'action doit être %(action_list)s, %(action_send)s ou %(action_inbox)s (A2A uniquement).",
+    "err.failed": "L'opération de message local a échoué."
+  },
+  "he": {
+    "tool.description": "רשום עמיתים מקומיים ל-UAG המשתתפים או שלח הודעת טקסט ממוקדת. נקודת הקצה הנוכחית חייבת להיות משתתפת. אחזור מפורש של תיבת דואר נכנס נתמך רק על ידי משימה A2A מופעלת.",
+    "x_search_terms": [
+      "עמיתי UAG מקומיים",
+      "הודעות בין סוכנים מקומיים",
+      "שליחת הודעה ל-UAG אחר",
+      "רשימת סוכני UAG מקומיים"
+    ],
+    "param.action.description": "פעולה: %(action_list)s עמיתים משתתפים, %(action_send)s הודעה, או (A2A בלבד) %(action_inbox)s כדי לאחזר במפורש הודעות מתיבת הדואר הנכנס של נקודת הקצה הזו.",
+    "param.recipient.description": "נמען endpoint_id מרשימת העמיתים; נדרש עבור %(action_send)s.",
+    "param.message.description": "טקסט לשליחה לעמית שנבחר; נדרש עבור %(action_send)s.",
+    "err.disabled": "נקודת קצה זו אינה משתתפת. בדוק את ההגדרה UAGENT_LOCAL_MESSAGING והתחל מחדש את התהליך.",
+    "err.missing_recipient": "בחר עמית endpoint_id מהרשימה.",
+    "err.invalid_action": "הפעולה חייבת להיות %(action_list)s, %(action_send)s או %(action_inbox)s (A2A בלבד).",
+    "err.failed": "פעולת ההודעה המקומית נכשלה."
+  },
+  "hi": {
+    "tool.description": "भाग लेने वाले स्थानीय यूएजी साथियों की सूची बनाएं या एक लक्षित पाठ संदेश भेजें। वर्तमान समापन बिंदु को भाग लेना चाहिए। स्पष्ट इनबॉक्स पुनर्प्राप्ति केवल सक्षम A2A कार्य द्वारा समर्थित है।",
+    "x_search_terms": [
+      "स्थानीय यूएजी सहकर्मी",
+      "स्थानीय एजेंट मैसेजिंग",
+      "अन्य यूएजी",
+      "स्थानीय एजेंटों को संदेश भेजें"
+    ],
+    "param.action.description": "कार्रवाई: %(action_list)s भाग लेने वाले सहकर्मी, %(action_send)s एक संदेश, या (A2A केवल) %(action_inbox)s इस एंडपॉइंट के इनबॉक्स से संदेशों को स्पष्ट रूप से पुनर्प्राप्त करने के लिए।",
+    "param.recipient.description": "समकक्ष सूची से प्राप्तकर्ता endpoint_id; %(action_send)s के लिए आवश्यक.",
+    "param.message.description": "चयनित सहकर्मी को भेजने के लिए पाठ; %(action_send)s के लिए आवश्यक.",
+    "err.disabled": "यह समापन बिंदु भाग नहीं ले रहा है. UAGENT_LOCAL_MESSAGING सेटिंग जांचें और प्रक्रिया पुनः आरंभ करें।",
+    "err.missing_recipient": "सूची से एक सहकर्मी endpoint_id चुनें।",
+    "err.invalid_action": "कार्रवाई %(action_list)s, %(action_send)s, या %(action_inbox)s (केवल A2A) होनी चाहिए।",
+    "err.failed": "स्थानीय संदेश कार्रवाई विफल रही."
+  },
+  "hu": {
+    "tool.description": "Sorolja fel a résztvevő helyi UAG-társakat, vagy küldjön célzott szöveges üzenetet. Az aktuális végpontnak részt kell vennie. Az explicit beérkező levelek lekérését csak egy engedélyezett A2A feladat támogatja.",
+    "x_search_terms": [
+      "helyi UAG-társak",
+      "helyi ügynök üzenetküldése",
+      "üzenet küldése egy másik UAG-nak",
+      "lista helyi ügynökök"
+    ],
+    "param.action.description": "Művelet: %(action_list)s részt vevő partnerek, %(action_send)s üzenet vagy (csak A2A) %(action_inbox)s az üzenetek kifejezetten lekérése ennek a végpontnak a beérkező levelei közül.",
+    "param.recipient.description": "Címzett endpoint_id a társlistáról; szükséges a %(action_send)s számára.",
+    "param.message.description": "A kiválasztott társnak küldendő szöveg; szükséges a %(action_send)s számára.",
+    "err.disabled": "Ez a végpont nem vesz részt. Ellenőrizze a UAGENT_LOCAL_MESSAGING beállítást, és indítsa újra a folyamatot.",
+    "err.missing_recipient": "Válasszon ki egy endpoint_id társat a listából.",
+    "err.invalid_action": "A műveletnek %(action_list)s, %(action_send)s vagy %(action_inbox)s (csak A2A) értékűnek kell lennie.",
+    "err.failed": "A helyi üzenetkezelés nem sikerült."
+  },
+  "id": {
+    "tool.description": "Buat daftar rekan UAG lokal yang berpartisipasi atau kirim pesan teks yang ditargetkan. Titik akhir saat ini harus berpartisipasi. Pengambilan kotak masuk secara eksplisit hanya didukung oleh tugas A2A yang diaktifkan.",
+    "x_search_terms": [
+      "rekan UAG lokal",
+      "pesan agen lokal",
+      "mengirim pesan ke agen lokal daftar UAG lain",
+      "list local agents"
+    ],
+    "param.action.description": "Tindakan: %(action_list)s rekan yang berpartisipasi, %(action_send)s pesan, atau (A2A saja) %(action_inbox)s untuk mengambil pesan secara eksplisit dari kotak masuk titik akhir ini.",
+    "param.recipient.description": "Penerima endpoint_id dari daftar rekan; diperlukan untuk %(action_send)s.",
+    "param.message.description": "Teks untuk dikirim ke rekan yang dipilih; diperlukan untuk %(action_send)s.",
+    "err.disabled": "Titik akhir ini tidak berpartisipasi. Periksa pengaturan UAGENT_LOCAL_MESSAGING dan mulai ulang prosesnya.",
+    "err.missing_recipient": "Pilih rekan endpoint_id dari daftar.",
+    "err.invalid_action": "Tindakan harus berupa %(action_list)s, %(action_send)s, atau %(action_inbox)s (khusus A2A).",
+    "err.failed": "Operasi pesan lokal gagal."
+  },
+  "it": {
+    "tool.description": "Elenca i peer UAG locali partecipanti o invia un messaggio di testo mirato. L'endpoint corrente deve partecipare. Il recupero esplicito della posta in arrivo è supportato solo da un'attività A2A abilitata.",
+    "x_search_terms": [
+      "peer UAG locali",
+      "messaggistica agente locale",
+      "invia messaggio a un altro UAG",
+      "elenco agenti locali"
+    ],
+    "param.action.description": "Azione: %(action_list)s peer partecipanti, %(action_send)s un messaggio o (solo A2A) %(action_inbox)s per recuperare in modo esplicito i messaggi dalla posta in arrivo di questo endpoint.",
+    "param.recipient.description": "Destinatario endpoint_id dall'elenco dei peer; richiesto per %(action_send)s.",
+    "param.message.description": "Testo da inviare al peer selezionato; richiesto per %(action_send)s.",
+    "err.disabled": "Questo endpoint non partecipa. Controlla l'impostazione UAGENT_LOCAL_MESSAGING e riavvia il processo.",
+    "err.missing_recipient": "Seleziona un peer endpoint_id dall'elenco.",
+    "err.invalid_action": "L'azione deve essere %(action_list)s, %(action_send)s o %(action_inbox)s (solo A2A).",
+    "err.failed": "L'operazione di messaggio locale non è riuscita."
+  },
+  "ko": {
+    "tool.description": "참여하는 로컬 UAG 피어를 나열하거나 대상 문자 메시지를 보냅니다. 현재 엔드포인트가 참여하고 있어야 합니다. 명시적인 받은 편지함 검색은 활성화된 A2A 작업에서만 지원됩니다.",
+    "x_search_terms": [
+      "로컬 UAG 피어",
+      "로컬 에이전트 메시징",
+      "다른 UAG",
+      "목록 로컬 에이전트에 메시지 보내기"
+    ],
+    "param.action.description": "작업: %(action_list)s 참여 피어, %(action_send)s 메시지 또는 (A2A만 해당) %(action_inbox)s - 이 엔드포인트의 받은 편지함에서 메시지를 명시적으로 검색합니다.",
+    "param.recipient.description": "피어 목록의 수신자 endpoint_id; %(action_send)s에 필요합니다.",
+    "param.message.description": "선택한 피어에게 보낼 텍스트입니다. %(action_send)s에 필요합니다.",
+    "err.disabled": "이 끝점은 참여하지 않습니다. UAGENT_LOCAL_MESSAGING 설정을 확인하고 프로세스를 다시 시작하세요.",
+    "err.missing_recipient": "목록에서 피어 endpoint_id을 선택하세요.",
+    "err.invalid_action": "작업은 %(action_list)s, %(action_send)s 또는 %(action_inbox)s(A2A만 해당)여야 합니다.",
+    "err.failed": "로컬 메시지 작업이 실패했습니다."
+  },
+  "mn": {
+    "tool.description": "Оролцогч орон нутгийн UAG үе тэнгийнхний жагсаалтыг гаргах эсвэл зорилтот мессеж илгээх. Одоогийн эцсийн цэг оролцож байх ёстой. Илт ирсэн имэйлийг зөвхөн идэвхжүүлсэн A2A даалгавраар дэмжинэ.",
+    "x_search_terms": [
+      "орон нутгийн UAG үе тэнгийнхэн",
+      "орон нутгийн агентийн мессеж",
+      "өөр нэг UAG руу мессеж илгээх",
+      "орон нутгийн агентуудын жагсаалт"
+    ],
+    "param.action.description": "Үйлдэл: %(action_list)s оролцогч үе тэнгийнхэн, %(action_send)s зурвас, эсвэл (зөвхөн A2A) %(action_inbox)s энэ төгсгөлийн цэгийн ирсэн имэйл хайрцагнаас мессежийг шууд татаж авах.",
+    "param.recipient.description": "Хүлээн авагчийн жагсаалтаас endpoint_id; %(action_send)s-д шаардлагатай.",
+    "param.message.description": "Сонгосон үе тэнгийнхэн рүү илгээх текст; %(action_send)s-д шаардлагатай.",
+    "err.disabled": "Энэ төгсгөлийн цэг оролцохгүй байна. UAGENT_LOCAL_MESSAGING тохиргоог шалгаад процессыг дахин эхлүүлнэ үү.",
+    "err.missing_recipient": "Жагсаалтаас үе тэнгийн endpoint_id сонгоно уу.",
+    "err.invalid_action": "Үйлдэл нь %(action_list)s, %(action_send)s эсвэл %(action_inbox)s (зөвхөн A2A) байх ёстой.",
+    "err.failed": "Орон нутгийн мессежийн ажиллагаа амжилтгүй боллоо."
+  },
+  "mr": {
+    "tool.description": "सहभागी स्थानिक UAG समवयस्कांची यादी करा किंवा लक्ष्यित मजकूर संदेश पाठवा. वर्तमान एंडपॉइंट सहभागी असणे आवश्यक आहे. स्पष्ट इनबॉक्स पुनर्प्राप्ती केवळ सक्षम केलेल्या A2A कार्याद्वारे समर्थित आहे.",
+    "x_search_terms": [
+      "स्थानिक UAG समवयस्क ",
+      "स्थानिक एजंट संदेशन",
+      "दुसऱ्या UAG ",
+      "स्थानिक एजंटना संदेश पाठवा"
+    ],
+    "param.action.description": "क्रिया: %(action_list)s सहभागी समवयस्क, %(action_send)s संदेश, किंवा (केवळ A2A) %(action_inbox)s या एंडपॉइंटच्या इनबॉक्समधून स्पष्टपणे संदेश पुनर्प्राप्त करण्यासाठी.",
+    "param.recipient.description": "समवयस्क सूचीमधून प्राप्तकर्ता endpoint_id; %(action_send)s साठी आवश्यक.",
+    "param.message.description": "निवडलेल्या समवयस्कांना पाठवण्यासाठी मजकूर; %(action_send)s साठी आवश्यक.",
+    "err.disabled": "हा एंडपॉइंट सहभागी होत नाही. UAGENT_LOCAL_MESSAGING सेटिंग तपासा आणि प्रक्रिया रीस्टार्ट करा.",
+    "err.missing_recipient": "सूचीमधून एक समवयस्क endpoint_id निवडा.",
+    "err.invalid_action": "क्रिया %(action_list)s, %(action_send)s, किंवा %(action_inbox)s (फक्त A2A) असणे आवश्यक आहे.",
+    "err.failed": "स्थानिक संदेश ऑपरेशन अयशस्वी."
+  },
+  "ms": {
+    "tool.description": "Senaraikan rakan UAG tempatan yang mengambil bahagian atau hantar mesej teks yang disasarkan. Titik akhir semasa mesti mengambil bahagian. Pendapatan peti masuk eksplisit hanya disokong oleh tugasan A2A yang didayakan.",
+    "x_search_terms": [
+      "rakan UAG tempatan",
+      "pemesejan ejen tempatan",
+      "hantar mesej kepada UAG lain",
+      "senarai ejen tempatan"
+    ],
+    "param.action.description": "Tindakan: %(action_list)s rakan sebaya yang mengambil bahagian, %(action_send)s mesej atau (A2A sahaja) %(action_inbox)s untuk mendapatkan semula mesej secara eksplisit daripada peti masuk titik akhir ini.",
+    "param.recipient.description": "Penerima endpoint_id daripada senarai rakan sebaya; diperlukan untuk %(action_send)s.",
+    "param.message.description": "Teks untuk dihantar kepada rakan sebaya yang dipilih; diperlukan untuk %(action_send)s.",
+    "err.disabled": "Titik akhir ini tidak mengambil bahagian. Semak tetapan UAGENT_LOCAL_MESSAGING dan mulakan semula proses.",
+    "err.missing_recipient": "Pilih rakan sebaya endpoint_id daripada senarai.",
+    "err.invalid_action": "Tindakan mestilah %(action_list)s, %(action_send)s atau %(action_inbox)s (A2A sahaja).",
+    "err.failed": "Operasi mesej setempat gagal."
+  },
+  "nb": {
+    "tool.description": "List opp deltakende lokale UAG-kolleger eller send en målrettet tekstmelding. Det gjeldende endepunktet må delta. Eksplisitt innbokshenting støttes bare av en aktivert A2A-oppgave.",
+    "x_search_terms": [
+      "lokale UAG-kolleger",
+      "lokale agentmeldinger",
+      "send melding til en annen UAG",
+      "liste lokale agenter"
+    ],
+    "param.action.description": "Handling: %(action_list)s deltakende jevnaldrende, %(action_send)s en melding, eller (kun A2A) %(action_inbox)s for å eksplisitt hente meldinger fra dette endepunktets innboks.",
+    "param.recipient.description": "Mottaker endpoint_id fra peer-listen; kreves for %(action_send)s.",
+    "param.message.description": "Tekst som skal sendes til den valgte motparten; kreves for %(action_send)s.",
+    "err.disabled": "Dette endepunktet deltar ikke. Kontroller UAGENT_LOCAL_MESSAGING-innstillingen og start prosessen på nytt.",
+    "err.missing_recipient": "Velg en peer endpoint_id fra listen.",
+    "err.invalid_action": "Handlingen må være %(action_list)s, %(action_send)s eller %(action_inbox)s (kun A2A).",
+    "err.failed": "Lokal meldingsoperasjon mislyktes."
+  },
+  "nl": {
+    "tool.description": "Maak een lijst van deelnemende lokale UAG-collega's of stuur een gericht sms-bericht. Het huidige eindpunt moet deelnemen. Het expliciet ophalen van het Postvak IN wordt alleen ondersteund door een ingeschakelde taak A2A.",
+    "x_search_terms": [
+      "lokale UAG-peers",
+      "berichten van lokale agenten",
+      "stuur een bericht naar een andere UAG",
+      "lijst lokale agenten"
+    ],
+    "param.action.description": "Actie: %(action_list)s deelnemende peers, %(action_send)s een bericht of (alleen A2A) %(action_inbox)s om expliciet berichten op te halen uit de inbox van dit eindpunt.",
+    "param.recipient.description": "Ontvanger endpoint_id uit de peerlijst; vereist voor %(action_send)s.",
+    "param.message.description": "Tekst om naar de geselecteerde peer te sturen; vereist voor %(action_send)s.",
+    "err.disabled": "Dit eindpunt doet niet mee. Controleer de instelling UAGENT_LOCAL_MESSAGING en start het proces opnieuw.",
+    "err.missing_recipient": "Selecteer een peer endpoint_id uit de lijst.",
+    "err.invalid_action": "Actie moet %(action_list)s, %(action_send)s of %(action_inbox)s zijn (alleen A2A).",
+    "err.failed": "Lokale berichtbewerking is mislukt."
+  },
+  "nn": {
+    "tool.description": "Vis deltakande lokale UAG-peers eller send ei målretta tekstmelding. Det gjeldande endepunktet må delta. Eksplisitt henting av innboksen blir berre støtta av ei aktivert A2A-oppgåve.",
+    "x_search_terms": [
+      "lokale UAG-peers",
+      "lokal meldingsutveksling mellom agentar",
+      "send melding til ein annan UAG",
+      "liste over lokale agentar"
+    ],
+    "param.action.description": "Handling: %(action_list)s deltakande peers, %(action_send)s ei melding eller (berre A2A) %(action_inbox)s for å hente meldingar eksplisitt frå innboksen til dette endepunktet.",
+    "param.recipient.description": "Mottakarens endpoint_id frå peer-lista; påkravd for %(action_send)s.",
+    "param.message.description": "Tekst som skal sendast til vald peer; påkravd for %(action_send)s.",
+    "err.disabled": "Dette endepunktet deltek ikkje i lokal meldingsutveksling. Kontroller UAGENT_LOCAL_MESSAGING og start prosessen på nytt.",
+    "err.missing_recipient": "Oppgi endpoint_id frå peer-lista.",
+    "err.invalid_action": "Handlinga må vere %(action_list)s, %(action_send)s eller %(action_inbox)s (berre A2A).",
+    "err.failed": "Den lokale meldingsoperasjonen mislukkast."
+  },
+  "pl": {
+    "tool.description": "Wyświetl listę uczestniczących lokalnych partnerów UAG lub wyślij ukierunkowaną wiadomość tekstową. Bieżący punkt końcowy musi uczestniczyć. Jawne pobieranie skrzynki odbiorczej jest obsługiwane tylko przez włączone zadanie A2A.",
+    "x_search_terms": [
+      "lokalni równorzędni użytkownicy UAG ",
+      " wysyłanie wiadomości do lokalnych agentów ",
+      " wysyłanie wiadomości do innego UAG ",
+      " lista lokalnych agentów"
+    ],
+    "param.action.description": "Akcja: %(action_list)s uczestniczące elementy równorzędne, %(action_send)s wiadomość lub (tylko A2A) %(action_inbox)s, aby jawnie pobrać wiadomości ze skrzynki odbiorczej tego punktu końcowego.",
+    "param.recipient.description": "Odbiorca endpoint_id z listy równorzędnej; wymagane dla %(action_send)s.",
+    "param.message.description": "Tekst do wysłania do wybranego partnera; wymagane dla %(action_send)s.",
+    "err.disabled": "Ten punkt końcowy nie uczestniczy. Sprawdź ustawienie UAGENT_LOCAL_MESSAGING i uruchom ponownie proces.",
+    "err.missing_recipient": "Wybierz partnera endpoint_id z listy.",
+    "err.invalid_action": "Akcja musi mieć wartość %(action_list)s, %(action_send)s lub %(action_inbox)s (tylko A2A).",
+    "err.failed": "Operacja na wiadomościach lokalnych nie powiodła się."
+  },
+  "pt": {
+    "tool.description": "Liste os pares locais participantes do UAG ou envie uma mensagem de texto direcionada. O endpoint atual deve estar participando. A recuperação explícita da caixa de entrada é suportada apenas por uma tarefa A2A habilitada.",
+    "x_search_terms": [
+      "peers UAG locais",
+      "mensagens de agentes locais",
+      "enviar mensagem para outro UAG",
+      "listar agentes locais"
+    ],
+    "param.action.description": "Ação: %(action_list)s peers participantes, %(action_send)s uma mensagem ou (apenas A2A) %(action_inbox)s para recuperar explicitamente mensagens da caixa de entrada deste endpoint.",
+    "param.recipient.description": "Destinatário endpoint_id da lista de pares; obrigatório para %(action_send)s.",
+    "param.message.description": "Texto a enviar ao par selecionado; obrigatório para %(action_send)s.",
+    "err.disabled": "Este endpoint não está participando. Verifique a configuração UAGENT_LOCAL_MESSAGING e reinicie o processo.",
+    "err.missing_recipient": "Selecione um peer endpoint_id na lista.",
+    "err.invalid_action": "A ação deve ser %(action_list)s, %(action_send)s ou %(action_inbox)s (somente A2A).",
+    "err.failed": "A operação de mensagem local falhou."
+  },
+  "pt_BR": {
+    "tool.description": "Liste os pares locais participantes do UAG ou envie uma mensagem de texto direcionada. O endpoint atual deve estar participando. A recuperação explícita da caixa de entrada é suportada apenas por uma tarefa A2A habilitada.",
+    "x_search_terms": [
+      "peers UAG locais",
+      "mensagens de agentes locais",
+      "enviar mensagem para outro UAG",
+      "listar agentes locais"
+    ],
+    "param.action.description": "Ação: %(action_list)s peers participantes, %(action_send)s uma mensagem ou (apenas A2A) %(action_inbox)s para recuperar explicitamente mensagens da caixa de entrada deste endpoint.",
+    "param.recipient.description": "Destinatário endpoint_id da lista de pares; obrigatório para %(action_send)s.",
+    "param.message.description": "Texto a enviar ao par selecionado; obrigatório para %(action_send)s.",
+    "err.disabled": "Este endpoint não está participando. Verifique a configuração UAGENT_LOCAL_MESSAGING e reinicie o processo.",
+    "err.missing_recipient": "Selecione um peer endpoint_id na lista.",
+    "err.invalid_action": "A ação deve ser %(action_list)s, %(action_send)s ou %(action_inbox)s (somente A2A).",
+    "err.failed": "A operação de mensagem local falhou."
+  },
+  "ro": {
+    "tool.description": "Listați colegii UAG locali participanți sau trimiteți un mesaj text vizat. Punctul final actual trebuie să participe. Preluarea explicită a căsuței primite este acceptată numai de o sarcină A2A activată.",
+    "x_search_terms": [
+      "colegii UAG locali",
+      "mesaj agent local",
+      "trimite mesaj către alt agent UAG",
+      "listă agenți locali"
+    ],
+    "param.action.description": "Acțiune: %(action_list)s colegi participanți, %(action_send)s un mesaj sau (numai A2A) %(action_inbox)s pentru a prelua în mod explicit mesajele din căsuța de e-mail a acestui punct final.",
+    "param.recipient.description": "Destinatar endpoint_id din lista de colegi; necesar pentru %(action_send)s.",
+    "param.message.description": "Text pe care să-l trimiți peer-ului selectat; necesar pentru %(action_send)s.",
+    "err.disabled": "Acest punct final nu participă. Verificați setarea UAGENT_LOCAL_MESSAGING și reporniți procesul.",
+    "err.missing_recipient": "Selectați un peer endpoint_id din listă.",
+    "err.invalid_action": "Acțiunea trebuie să fie %(action_list)s, %(action_send)s sau %(action_inbox)s (numai A2A).",
+    "err.failed": "Operarea mesajelor locale a eșuat."
+  },
+  "ru": {
+    "tool.description": "Перечислите участвующие локальные узлы UAG или отправьте целевое текстовое сообщение. Текущая конечная точка должна участвовать. Явное извлечение входящих сообщений поддерживается только включенной задачей A2A.",
+    "x_search_terms": [
+      "локальные узлы UAG",
+      "обмен сообщениями локального агента",
+      "отправить сообщение другому UAG",
+      "перечислить локальные агенты"
+    ],
+    "param.action.description": "Действие: %(action_list)s участвующих узлов, %(action_send)s сообщение или (только A2A) %(action_inbox)s для явного получения сообщений из папки \"Входящие\" этой конечной точки.",
+    "param.recipient.description": "Получатель endpoint_id из списка одноранговых устройств; требуется для %(action_send)s.",
+    "param.message.description": "Текст для отправки выбранному узлу; требуется для %(action_send)s.",
+    "err.disabled": "Эта конечная точка не участвует. Проверьте настройку UAGENT_LOCAL_MESSAGING и перезапустите процесс.",
+    "err.missing_recipient": "Выберите узел endpoint_id из списка.",
+    "err.invalid_action": "Действие должно быть %(action_list)s, %(action_send)s или %(action_inbox)s (только A2A).",
+    "err.failed": "Не удалось выполнить операцию локального сообщения."
+  },
+  "sv": {
+    "tool.description": "Lista deltagande lokala UAG-kamrater eller skicka ett riktat textmeddelande. Den aktuella slutpunkten måste delta. Explicit inkorgshämtning stöds endast av en aktiverad A2A-uppgift.",
+    "x_search_terms": [
+      "lokala UAG-kamrater",
+      "lokala agentmeddelanden",
+      "skicka meddelande till en annan UAG",
+      "lista lokala agenter"
+    ],
+    "param.action.description": "Åtgärd: %(action_list)s deltagande kamrater, %(action_send)s ett meddelande eller (endast A2A) %(action_inbox)s för att explicit hämta meddelanden från denna slutpunkts inkorg.",
+    "param.recipient.description": "Mottagare endpoint_id från peer-listan; krävs för %(action_send)s.",
+    "param.message.description": "Text att skicka till den valda kamraten; krävs för %(action_send)s.",
+    "err.disabled": "Denna slutpunkt deltar inte. Kontrollera inställningen UAGENT_LOCAL_MESSAGING och starta om processen.",
+    "err.missing_recipient": "Välj en peer endpoint_id från listan.",
+    "err.invalid_action": "Åtgärden måste vara %(action_list)s, %(action_send)s eller %(action_inbox)s (endast A2A).",
+    "err.failed": "Lokal meddelandeåtgärd misslyckades."
+  },
+  "sw": {
+    "tool.description": "Orodhesha wenzao wa eneo la UAG wanaoshiriki au tuma ujumbe wa maandishi unaolengwa. Mwisho wa sasa lazima uwe unashiriki. Urejeshaji wa kikasha pokezi hutumika tu na kazi A2A iliyowezeshwa.",
+    "x_search_terms": [
+      "marafiki wa karibu wa UAG",
+      "wakala wa ndani ujumbe",
+      "tuma ujumbe kwa UAG",
+      "orodhesha mawakala wengine wa ndani"
+    ],
+    "param.action.description": "Kitendo: %(action_list)s marafiki wanaoshiriki, %(action_send)s ujumbe, au (A2A pekee) %(action_inbox)s ili kurejesha ujumbe kutoka kwa kikasha cha mwisho wa sehemu hii ya mwisho.",
+    "param.recipient.description": "Mpokeaji endpoint_id kutoka kwa orodha ya programu zingine; inahitajika kwa %(action_send)s.",
+    "param.message.description": "Maandishi ya kutuma kwa rika uliyochaguliwa; inahitajika kwa %(action_send)s.",
+    "err.disabled": "Mwisho huu haushiriki. Angalia mipangilio ya UAGENT_LOCAL_MESSAGING na uanze upya mchakato.",
+    "err.missing_recipient": "Chagua rika endpoint_id kutoka kwenye orodha.",
+    "err.invalid_action": "Kitendo lazima kiwe %(action_list)s, %(action_send)s, au %(action_inbox)s (A2A pekee).",
+    "err.failed": "Uendeshaji wa ujumbe wa ndani haukufaulu."
+  },
+  "th": {
+    "tool.description": "แสดงรายการเพื่อน UAG ในพื้นที่ที่เข้าร่วมหรือส่งข้อความตัวอักษรที่กำหนดเป้าหมาย ปลายทางปัจจุบันจะต้องเข้าร่วม การเรียกค้นกล่องจดหมายที่ชัดเจนได้รับการสนับสนุนโดยงาน A2A ที่เปิดใช้งานเท่านั้น",
+    "x_search_terms": [
+      "เพียร์ UAG ท้องถิ่น",
+      "การส่งข้อความตัวแทนท้องถิ่น",
+      "ส่งข้อความไปยังตัวแทนท้องถิ่น UAG อื่น",
+      "รายการ"
+    ],
+    "param.action.description": "การดำเนินการ: %(action_list)s เพื่อนที่เข้าร่วม %(action_send)s ข้อความ หรือ (A2A เท่านั้น) %(action_inbox)s เพื่อดึงข้อความจากกล่องจดหมายของปลายทางนี้อย่างชัดเจน",
+    "param.recipient.description": "ผู้รับ endpoint_id จากรายชื่อเพื่อน; จำเป็นสำหรับ %(action_send)s",
+    "param.message.description": "ข้อความที่จะส่งถึงเพียร์ที่เลือก จำเป็นสำหรับ %(action_send)s",
+    "err.disabled": "ปลายทางนี้ไม่ได้เข้าร่วม ตรวจสอบการตั้งค่า UAGENT_LOCAL_MESSAGING และเริ่มต้นกระบวนการใหม่",
+    "err.missing_recipient": "เลือกเพียร์ endpoint_id จากรายการ",
+    "err.invalid_action": "การดำเนินการต้องเป็น %(action_list)s, %(action_send)s หรือ %(action_inbox)s (A2A เท่านั้น)",
+    "err.failed": "การดำเนินการข้อความในเครื่องล้มเหลว"
+  },
+  "tr": {
+    "tool.description": "Katılımcı yerel UAG akranlarını listeleyin veya hedeflenen bir kısa mesaj gönderin. Geçerli uç nokta katılıyor olmalıdır. Açık gelen kutusu alımı yalnızca etkinleştirilmiş bir A2A görevi tarafından desteklenir.",
+    "x_search_terms": [
+      "yerel UAG eşleri",
+      "yerel temsilci mesajları",
+      "başka bir UAG'ye mesaj gönderin",
+      "yerel temsilcileri listeleyin"
+    ],
+    "param.action.description": "İşlem: %(action_list)s katılımcı eş, %(action_send)s bir mesaj veya (yalnızca A2A) %(action_inbox)s, bu uç noktanın gelen kutusundan mesajları açıkça almak için.",
+    "param.recipient.description": "Benzerler listesinden endpoint_id numaralı alıcı; %(action_send)s için gerekli.",
+    "param.message.description": "Seçilen eşe gönderilecek metin; %(action_send)s için gerekli.",
+    "err.disabled": "Bu uç nokta katılmıyor. UAGENT_LOCAL_MESSAGING ayarını kontrol edin ve işlemi yeniden başlatın.",
+    "err.missing_recipient": "Listeden endpoint_id numaralı bir eş seçin.",
+    "err.invalid_action": "İşlem %(action_list)s, %(action_send)s veya %(action_inbox)s (yalnızca A2A) olmalıdır.",
+    "err.failed": "Yerel mesaj işlemi başarısız oldu."
+  },
+  "uk": {
+    "tool.description": "Перелічіть місцевих партнерів UAG, які беруть участь, або надішліть цільове текстове повідомлення. Поточна кінцева точка має брати участь. Явне отримання вхідних повідомлень підтримується лише ввімкненим завданням A2A.",
+    "x_search_terms": [
+      "локальні партнери UAG",
+      "обмін повідомленнями локального агента",
+      "надіслати повідомлення іншому UAG",
+      "перелік локальних агентів"
+    ],
+    "param.action.description": "Дія: %(action_list)s партнерів-учасників, %(action_send)s повідомлення або (лише A2A) %(action_inbox)s для явного отримання повідомлень із папки \"Вхідні\" цієї кінцевої точки.",
+    "param.recipient.description": "Одержувач endpoint_id зі списку однорангових; потрібно для %(action_send)s.",
+    "param.message.description": "Текст для надсилання вибраному партнеру; потрібно для %(action_send)s.",
+    "err.disabled": "Ця кінцева точка не бере участі. Перевірте налаштування UAGENT_LOCAL_MESSAGING і перезапустіть процес.",
+    "err.missing_recipient": "Виберіть партнера endpoint_id зі списку.",
+    "err.invalid_action": "Дія має бути %(action_list)s, %(action_send)s або %(action_inbox)s (лише A2A).",
+    "err.failed": "Помилка операції з локальним повідомленням."
+  },
+  "vi": {
+    "tool.description": "Liệt kê các đồng nghiệp UAG địa phương tham gia hoặc gửi tin nhắn văn bản được nhắm mục tiêu. Điểm cuối hiện tại phải tham gia. Truy xuất hộp thư đến rõ ràng chỉ được hỗ trợ bởi tác vụ A2A đã bật.",
+    "x_search_terms": [
+      "các đồng nghiệp UAG cục bộ",
+      "nhắn tin đại lý cục bộ",
+      "gửi tin nhắn đến một UAG khác",
+      "liệt kê các đại lý cục bộ"
+    ],
+    "param.action.description": "Hành động: %(action_list)s ngang hàng tham gia, %(action_send)s một tin nhắn hoặc (chỉ A2A) %(action_inbox)s để truy xuất rõ ràng các tin nhắn từ hộp thư đến của điểm cuối này.",
+    "param.recipient.description": "Người nhận endpoint_id từ danh sách ngang hàng; được yêu cầu cho %(action_send)s.",
+    "param.message.description": "Văn bản để gửi đến đồng nghiệp đã chọn; được yêu cầu cho %(action_send)s.",
+    "err.disabled": "Điểm cuối này không tham gia. Kiểm tra cài đặt UAGENT_LOCAL_MESSAGING và khởi động lại quá trình.",
+    "err.missing_recipient": "Chọn một thiết bị ngang hàng endpoint_id từ danh sách.",
+    "err.invalid_action": "Hành động phải là %(action_list)s, %(action_send)s hoặc %(action_inbox)s (chỉ A2A).",
+    "err.failed": "Thao tác tin nhắn cục bộ không thành công."
+  },
+  "zh_CN": {
+    "tool.description": "列出参与的本地 UAG 对等方或发送有针对性的文本消息。当前端点必须正在参与。仅启用的 A2A 任务支持显式收件箱检索。",
+    "x_search_terms": [
+      "本地UAG对等点",
+      "本地代理消息传递",
+      "向另一个UAG发送消息",
+      "列出本地代理"
+    ],
+    "param.action.description": "操作：%(action_list)s 参与对等方、%(action_send)s 一条消息，或（仅 A2A）%(action_inbox)s 显式从此端点的收件箱检索消息。",
+    "param.recipient.description": "对等列表中的接收者 endpoint_id； %(action_send)s 所需。",
+    "param.message.description": "发送给选定对等点的文本； %(action_send)s 所需。",
+    "err.disabled": "该端点不参与。检查 UAGENT_LOCAL_MESSAGING 设置并重新启动该过程。",
+    "err.missing_recipient": "从列表中选择一个对等点 endpoint_id。",
+    "err.invalid_action": "操作必须是 %(action_list)s、%(action_send)s 或 %(action_inbox)s（仅限 A2A）。",
+    "err.failed": "本地消息操作失败。"
+  },
+  "zh_TW": {
+    "tool.description": "列出參與的本地 UAG 對等方或發送有針對性的文字訊息。當前端點必須正在參與。僅啟用的 A2A 任務支援明確收件匣檢索。",
+    "x_search_terms": [
+      "本地UAG對等點",
+      "本地代理訊息傳遞",
+      "向另一個UAG發送訊息",
+      "列出本地代理"
+    ],
+    "param.action.description": "操作：%(action_list)s 參與對等方、%(action_send)s 一則訊息，或（僅 A2A）%(action_inbox)s 明確從此端點的收件匣擷取訊息。",
+    "param.recipient.description": "對等清單中的接收者 endpoint_id； %(action_send)s 所需。",
+    "param.message.description": "傳送給選定對等點的文字； %(action_send)s 所需。",
+    "err.disabled": "該端點不參與。檢查 UAGENT_LOCAL_MESSAGING 設定並重新啟動程序。",
+    "err.missing_recipient": "從清單中選擇一個對等點 endpoint_id。",
+    "err.invalid_action": "操作必須是 %(action_list)s、%(action_send)s 或 %(action_inbox)s（僅限 A2A）。",
+    "err.failed": "本地訊息操作失敗。"
+  }
+}

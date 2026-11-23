@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import json
 import sys
 import threading
 from typing import Any, Optional
@@ -15,6 +16,13 @@ from .. import core
 from .. import tools
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.execution import lifecycle_execution
+from ..runtime.local_messaging import (
+    accept_incoming_message,
+    local_messaging_enabled,
+    safe_message_preview,
+    start_host_local_messaging,
+    stop_host_local_messaging,
+)
 from ..runtime.turn_context_runtime import (
     call_with_resolved_turn_context,
     resolved_turn_context,
@@ -173,6 +181,9 @@ class ScheckWorker(QtCore.QObject):
             is_auto_pilot_active=(lambda: core.auto_pilot_active),
             event_queue=core.event_queue,
             session_id=getattr(core, "session_id", None),
+            local_messaging_runtime_ref=lambda: getattr(
+                core, "_local_messaging_runtime", None
+            ),
             cmd_encoding=core.CMD_ENCODING,
             cmd_exec_timeout_ms=core.CMD_EXEC_TIMEOUT_MS,
             python_exec_timeout_ms=core.PYTHON_EXEC_TIMEOUT_MS,
@@ -201,6 +212,29 @@ class ScheckWorker(QtCore.QObject):
                 pass
             start_background_scheduler(core.event_queue)
             set_llm_event_queue(core.event_queue)
+            if local_messaging_enabled():
+                try:
+                    _local_runtime, _local_peers = start_host_local_messaging(
+                        core, core.event_queue, entrypoint="gui"
+                    )
+                    if _local_peers:
+                        print("[LOCAL] Available UAG peers:")
+                        for _peer in _local_peers:
+                            print(
+                                "  %(endpoint)s (%(entrypoint)s, pid=%(pid)s)"
+                                % {
+                                    "endpoint": safe_message_preview(
+                                        str(_peer.get("endpoint_id") or "")
+                                    ),
+                                    "entrypoint": _peer.get("entrypoint", "cli"),
+                                    "pid": _peer.get("pid", "?"),
+                                }
+                            )
+                except Exception as exc:
+                    print(
+                        "[LOCAL] Local messaging could not start: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
             if not bool(getattr(core, "_sandbox_enabled", False)):
                 try:
                     self.tools.start_tools_warmup()
@@ -383,6 +417,47 @@ class ScheckWorker(QtCore.QObject):
                         ev.get("reply_route") if ev.get("src") == "bitchat" else None
                     )
 
+                    if kind == "local_agent_started":
+                        _peer = (
+                            ev.get("peer") if isinstance(ev.get("peer"), dict) else {}
+                        )
+                        _runtime = getattr(core, "_local_messaging_runtime", None)
+                        _peer_id = str(_peer.get("endpoint_id") or "")
+                        if (
+                            _runtime is not None
+                            and _runtime.is_peer_active(_peer_id)
+                        ):
+                            print(
+                                "[LOCAL] Another UAG peer is online: "
+                                f"{safe_message_preview(_peer_id)}"
+                            )
+                        continue
+
+                    if kind == "local_message_received":
+                        _runtime = getattr(core, "_local_messaging_runtime", None)
+                        _message = (
+                            ev.get("message")
+                            if isinstance(ev.get("message"), dict)
+                            else {}
+                        )
+
+                        def _ask_local_message(_prompt: str) -> str:
+                            _answer = self._run_gui_turn(
+                                self.tools.run_tool,
+                                "human_ask",
+                                {"message": _prompt, "is_password": False},
+                            )
+                            return str(json.loads(_answer).get("user_reply", ""))
+
+                        _accepted_event = accept_incoming_message(
+                            _runtime, _message, _ask_local_message
+                        )
+                        if _accepted_event is None:
+                            print("[LOCAL] Incoming message was rejected or expired.")
+                            continue
+                        ev = _accepted_event
+                        kind = ev["kind"]
+
                     if kind == "command":
                         command_text = ev.get("text", "")
                         from .sub_agent_jobs import (
@@ -461,7 +536,11 @@ class ScheckWorker(QtCore.QObject):
                         continue
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")
-                        if kind != "timer" and is_chat_mode() == "on":
+                        if (
+                            kind != "timer"
+                            and ev.get("src") != "local_messaging"
+                            and is_chat_mode() == "on"
+                        ):
                             continue
                         files = list(ev.get("files", []) or [])
                         attachment_derived = bool(
@@ -652,6 +731,13 @@ class ScheckWorker(QtCore.QObject):
                         pass
                     continue
         finally:
+            try:
+                stop_host_local_messaging(core)
+            except Exception as exc:
+                print(
+                    "[LOCAL] Local messaging shutdown failed: "
+                    f"{type(exc).__name__}: {exc}"
+                )
             try:
                 delattr(core, "_inception_diffusion_callback")
             except Exception:

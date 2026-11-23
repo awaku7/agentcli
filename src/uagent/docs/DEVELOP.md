@@ -65,6 +65,21 @@ deadline before the child handles the interrupt.
 
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
+## Local CLI messaging
+
+`runtime/local_messaging.py` provides the shared SQLite mailbox and
+process-local poller. Interactive CLI/GUI processes participate automatically
+unless `UAGENT_LOCAL_MESSAGING=off`; authenticated Web private rooms also get a
+room/principal/project-scoped endpoint. A2A participation additionally requires
+`UAGENT_LOCAL_MESSAGING_A2A=on` and only retrieves inbox messages on an explicit
+task-level Tool call. Pollers enqueue typed events; the host UI owns
+`human_ask` confirmation and conversation injection. `all` grants temporary
+acceptance for one sender endpoint in that UI lifetime. Use natural-language
+requests to list peers or send messages; there are no messaging colon commands.
+Run `tests/test_local_messaging.py`, `tests/test_local_messaging_tool.py`, and
+`tests/test_web_local_messaging.py` when changing this path. Design:
+[`LOCAL_UAG_MESSAGING_DESIGN.ja.md`](../../../docs/LOCAL_UAG_MESSAGING_DESIGN.ja.md).
+
 - Entry points:
   - CLI: `python -m uagent` (command: `uag`)
   - GUI: `python -m uagent.gui` (command: `uagg`)
@@ -535,7 +550,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--workdir` / `-C` | CLI, GUI, Web, A2A | Working directory. Priority: CLI arg > `UAGENT_WORKDIR` > current dir | `util_tools.py:parse_startup_args()` |
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
-| `--decision-provider <none|auto|typesafe|openrouter|openai|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. `auto` routes catalogued models from llmcapa protocol metadata. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` configures the same setting. | `decision/settings.py`, `decision/catalog.py`, `setup_cli.py`, and entry-point parsers |
+| `--decision-provider <none|auto|typesafe|openrouter|openai|google|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. `auto` routes catalogued models from llmcapa protocol metadata. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` configures the same setting. | `decision/settings.py`, `decision/catalog.py`, `setup_cli.py`, and entry-point parsers |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Bind port (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
@@ -561,8 +576,14 @@ Key modules:
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
 - Decision-provider core: `src/uagent/decision/`
   - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` >
-    `none` consistently across CLI/GUI/Web/A2A. `auto` routes catalogued models
-    using `UAGENT_DECISION_MODEL` and optional `UAGENT_DECISION_MODEL_PROVIDER`.
+    the main-provider default > `none` consistently across CLI/GUI/Web/A2A.
+    OpenAI defaults to its Decisions API (`gpt-6-luna`); Gemini defaults to
+    Google's Decisions API (`gemini-decision-1`). `auto` routes catalogued
+    models using `UAGENT_DECISION_MODEL` and optional
+    `UAGENT_DECISION_MODEL_PROVIDER`. Azure uses the Microsoft Foundry
+    `Microsoft-Decision-1.1` model through `auto`; setup asks for the Foundry
+    endpoint and deployment name because Azure OpenAI and Foundry endpoints
+    differ. An explicit `none` always disables it.
   - `models.py` and `base.py` define provider-neutral typed decision requests/results and the common protocol.
   - `registry.py` lazily imports only an explicitly selected adapter; `none` returns no active provider and performs no adapter import/initialization.
   - `typesafe.py` implements the opt-in TypeSafe/Jev System One adapter using `httpx`. It maps UAG `boolean/choice/score` to TypeSafe `noul/choice/score` and reads `UAGENT_DECISION_TYPESAFE_DEPNAME`, `UAGENT_DECISION_TYPESAFE_BASE_URL`, and `UAGENT_DECISION_TYPESAFE_API_KEY` only on the TypeSafe path.
@@ -574,6 +595,7 @@ Key modules:
     `UAGENT_DECISION_API_KEY` is supplied. Unknown protocols fail closed;
     OpenAI-compatible Chat Completions decision responses are not yet translated.
   - `openrouter.py` implements OpenRouter's Decisions API path using `httpx`. It defaults to `~typesafe/jev-latest`, calls `/api/alpha/decisions`, and can reuse the normal OpenRouter API key.
+  - `google.py` implements Google's native Gemini Decisions API (`POST /v1beta/decisions`). It defaults to `gemini-decision-1`, maps UAG boolean/choice/score questions to Google's `noul`/`choice`/`score` schema, and validates documented decision capabilities through llmcapa while allowing unknown custom models. See [Google's Decisions API guide](https://aistudio.google.com/docs/decisions-api).
   - `laya.py` implements the opt-in local Laya adapter. The optional `laya` package and `Router` are loaded only on the first `decide()`; `UAGENT_DECISION_LAYA_DEPNAME` defaults to `laya-multilingual`, `UAGENT_DECISION_LAYA_DEVICE` defaults to `auto`, and the optional runtime is installable with `pip install "uag[decision-laya]"`.
 - Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel/etc.): `src/uagent/providers/util_providers.py`
   - To add a new provider, modify: `provider_caps.py` (add to `ALL_PROVIDERS`), `setup_cli.py` (PROVIDERS list / PROVIDER_FIELDS), `util_providers.py` (get_model_name/make_client), `llm_round_helpers.py` (temperature setting), `runtime/runtime_banner.py` (banner display). The `detect_provider()` and `env_validate.py` validation are now centralised via `provider_caps.ALL_PROVIDERS`.
@@ -582,7 +604,7 @@ Key modules:
     - Runs the goal through iterative LLM rounds. Each round consists of a
       continuation query (Step A) followed by a reviewer judgment (Step B).
     - `uag_setup` can configure `none`, `auto`, `typesafe`, `openrouter`,
-      `openai`, or `laya` and writes the provider-specific Decision Provider
+      `openai`, `google`, or `laya` and writes the provider-specific Decision Provider
       settings to the generated environment.
     - When Laya is selected, `uag_setup` attempts to install the optional `laya`
       runtime through the shared `UAGENT_AUTO_INSTALL=allow|prompt|off` policy.
@@ -591,7 +613,7 @@ Key modules:
     - With `UAGENT_DECISION_PROVIDER=none`, judgment uses the same
       provider/code path as the main query via
       `run_llm_rounds(judgment_mode=True)`, including Responses API support.
-    - With `auto`, `typesafe`, `openrouter`, `openai`, or `laya`, auto-pilot
+    - With `auto`, `typesafe`, `openrouter`, `openai`, `google`, or `laya`, auto-pilot
       first requests a typed `COMPLETE / CONTINUE` Decision Provider judgment.
       Provider failures or invalid output fall back to the existing LLM
       reviewer; confidence is logged only and is not used as a threshold.
@@ -765,10 +787,9 @@ constants as a fresh store so the two cannot drift. When auxiliary persistence
 fails afterwards, the log callback disables SQLite writing for the remainder of
 the run and reports it, instead of failing the interaction.
 
-### 3.6 Tool levels and genres
+### 3.6 Tool levels
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
-- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"` (development), `"iot"`, `"exec"` (execution), `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
 
 ### 3.6.1 Tool-less mode (UAGENT_USE_TOOL / :tools on/off)
 
@@ -1100,15 +1121,7 @@ flowchart TD
 
     subgraph Tools["ツール (200+)"]
         direction TB
-        GENRE_BASIC["basic<br/>browser, fetch_url, search_web<br/>human_ask, calculator, db_query"]
-        GENRE_FILE["file<br/>create/read/delete/replace_in_file<br/>search_files, file_grep, zip_ops, disc_image_ops"]
-        GENRE_EXEC["exec<br/>cmd_exec, python_exec<br/>bash_exec, pwsh_exec"]
-        GENRE_DEVEL["devel<br/>code_map, lint_format, python_compile<br/>git_ops, run_tests, index系 (26形式)"]
-        GENRE_EXTERNAL["external<br/>bluesky, discord, gmail<br/>teams_webhook, mcp_servers"]
-        GENRE_IOT["iot<br/>BACnet, DALI, ECHONET Lite<br/>Modbus, OPC UA, Matter<br/>MQTT, SwitchBot, UPnP"]
-        GENRE_MEDIA["media<br/>generate_image, img2img<br/>analyze_image, audio_speech"]
-        GENRE_OFFICE["office<br/>excel_ops, read_pptx_pdf<br/>document_extract, pdf_export"]
-        GENRE_INDEX["index<br/>py2idx, ts2idx, go2idx<br/>rs2idx, md2idx 等 (26形式)"]
+        TOOL_DISCOVERY["TOOL_SPEC / tool_level<br/>ツールを個別に発見・ロード"]
     end
 
     subgraph Subsystems["サブシステム"]
@@ -1377,7 +1390,6 @@ and registers its room-owned Job resolver with
 `runtime.sub_agent_job_access.register_web_job_runtime_resolver`.
 The common runtime must not import Web host modules. Authentication and foreground
 Job gates remain in UAG; room/session ownership checks remain in the host adapter.
-
 
 ### Standard OTel user attributes
 

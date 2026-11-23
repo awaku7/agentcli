@@ -79,6 +79,13 @@ def _bool_env(name: str, default: bool = False) -> bool:
     return v in ("1", "true", "yes", "on")
 
 
+def _a2a_local_messaging_enabled() -> bool:
+    """Require both the global opt-in and the A2A-specific admin opt-in."""
+    from ..runtime.local_messaging import local_messaging_enabled
+
+    return local_messaging_enabled() and _bool_env("UAGENT_LOCAL_MESSAGING_A2A", False)
+
+
 def _lifecycle_transition(runtime: TaskRuntime | None, method: str) -> None:
     if runtime is None:
         return
@@ -113,10 +120,11 @@ def build_app(
 ) -> FastAPI:
     """Build the Remote A2A app; require MXC unless explicitly tool-less."""
     shutdown_callback: Any = None
+    local_messaging_host: Any = None
 
     @asynccontextmanager
     async def _lifespan(_app: FastAPI):
-        nonlocal sandbox_manager
+        nonlocal sandbox_manager, local_messaging_host
         try:
             if sandbox_required:
                 from ..runtime.execution_broker import (
@@ -159,6 +167,34 @@ def build_app(
                 if report is not None:
                     print(
                         f"[sandbox] A2A enabled: {describe_probe(report)}",
+                        file=sys.stderr,
+                    )
+            if _a2a_local_messaging_enabled():
+                from ..runtime.local_messaging import start_host_local_messaging
+
+                from .. import core as _core_module
+
+                try:
+                    local_messaging_host = _core_module
+                    runtime, peers = await asyncio.to_thread(
+                        start_host_local_messaging,
+                        local_messaging_host,
+                        None,
+                        entrypoint="a2a",
+                        receive_messages=False,
+                        announce_peers=False,
+                    )
+                    _app.state.local_messaging_runtime = runtime
+                    print(
+                        "[local-messaging] A2A endpoint enabled "
+                        f"({len(peers)} participating peer(s)); inbox delivery is task-pull only.",
+                        file=sys.stderr,
+                    )
+                except Exception as exc:
+                    local_messaging_host = None
+                    print(
+                        "[local-messaging] A2A endpoint unavailable: "
+                        f"{type(exc).__name__}: {exc}",
                         file=sys.stderr,
                     )
             yield
@@ -251,6 +287,17 @@ def build_app(
         return reports, truncated
 
     async def _shutdown_job_manager() -> None:
+        if local_messaging_host is not None:
+            from ..runtime.local_messaging import stop_host_local_messaging
+
+            try:
+                await asyncio.to_thread(stop_host_local_messaging, local_messaging_host)
+            except Exception as exc:
+                print(
+                    "[local-messaging] A2A endpoint cleanup failed: "
+                    f"{type(exc).__name__}: {exc}",
+                    file=sys.stderr,
+                )
         for record in store.list(limit=500):
             if record.status not in (
                 TaskStatus.IN_PROGRESS.value,

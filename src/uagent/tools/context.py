@@ -66,6 +66,7 @@ class ToolCallbacks:
     event_queue: Any = None
     session_id: str | None = None
     session_store: Any = None
+    local_messaging_runtime_ref: Optional[Callable[[], Any]] = None
 
     # Display environment
     is_gui: bool = False

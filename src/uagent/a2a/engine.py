@@ -95,6 +95,10 @@ def run_once_uag(
     attached_store, _session_id = attach_opt_in_session_store(
         core, project_path=os.getcwd(), entry_point="a2a"
     )
+    # Bind this task's session and the process's optional A2A local-message
+    # endpoint to tool callbacks. A2A receives inbox messages only by explicit
+    # task-level tool call, never through the background listener.
+    tools_util.init_tools_callbacks(core)
 
     def _run_a2a_turn(fn, *args, **kwargs):
         return call_with_resolved_turn_context(
