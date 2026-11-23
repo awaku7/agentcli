@@ -172,7 +172,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "index",
+    "tool_level": 1,
     "function": {
         "name": "mdreorder_tool",
         "description": _(

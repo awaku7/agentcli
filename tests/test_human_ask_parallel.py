@@ -52,6 +52,10 @@ def test_human_ask_exposes_and_clears_question_message(monkeypatch):
 
     from uagent.tools.context import ToolCallbacks
 
+    # The test runner disables interactive tools globally; this test exercises
+    # the interactive hand-off path explicitly.
+    monkeypatch.delenv("UAGENT_NON_INTERACTIVE", raising=False)
+
     state = {"active": False, "message": None, "queue": None, "lines": []}
     message_seen = threading.Event()
 

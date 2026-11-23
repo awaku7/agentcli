@@ -1573,12 +1573,6 @@ msgstr ""
 "Angiv arbejdsbiblioteket. Hvis den udelades, skal du bruge miljøvariablen "
 "UAGENT_WORKDIR eller den aktuelle mappe."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3397,10 +3391,6 @@ msgstr "Vis/indstil/fjern/gem UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "Liste/anvende/installere færdigheder"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "Liste/indlæs/tænd/sluk værktøjer og genrer"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "Administrer plugins"
@@ -3595,21 +3585,15 @@ msgstr ""
 ":skills find <søgeord> Samme som liste med filter.\n"
 "Dynamiske underkommandoer kommer fra værktøjet CMD_SPEC (installer, afinstaller, apm, mp_søg efter færdigheder)."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "Kontroller afsendelse af værktøj, genrer og indlæste værktøjer"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off Aktiver/deaktiver afsendelsesværktøjer til LLM\n"
-":tools on|off <genre> Aktiver/deaktiver en værktøjsgenre (og synkronisering globalt til)\n"
 ":tools liste [forespørgsel] Liste over indlæste værktøjer\n"
 ":tools indlæs <navn> Indlæs ét værktøj efter navn resultater i UI"
 

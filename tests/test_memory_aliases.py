@@ -153,7 +153,9 @@ def test_tool_saves_aliases(
     output = add_long_memory_tool.run_tool(
         {"note": "車を買い替えた", "aliases": ["自動車を購入した"]}
     )
-    assert "saved" in output
+    # User-facing success text is localized; the stable memory identifier is
+    # the locale-independent indication that the save completed.
+    assert "memory_id" in output
 
     records = long_memory.load_long_memory_records()
     assert records[0]["aliases"] == ["自動車を購入した"]

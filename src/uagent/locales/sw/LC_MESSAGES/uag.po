@@ -1638,12 +1638,6 @@ msgstr ""
 "Taja saraka ya kufanya kazi. Ikiwa imeachwa, tumia UAGENT_WORKDIR utofauti "
 "wa mazingira au saraka ya sasa."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3529,10 +3523,6 @@ msgstr "Onyesha/weka/acha kuweka/hifadhi UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "Orodhesha/tuma/sakinisha ujuzi"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "Orodhesha/pakia/washa/zima zana na aina"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "Dhibiti programu-jalizi"
@@ -3727,21 +3717,15 @@ msgstr ""
 "Amri ndogo zinazobadilika hutoka kwenye CMD_SPEC ya zana (install, uninstall, apm, mp_search).\n"
 "Tumia :help skills install kwa amri ndogo."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "Kudhibiti utumaji wa zana, aina, na zana zilizopakiwa"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off           Washa/zima kutuma zana kwa LLM\n"
-":tools on|off <genre>   Washa/zima aina ya zana (na usawazishe global on)\n"
 ":tools list [query]     Orodhesha zana zilizopakiwa\n"
 ":tools load <name>      Pakia zana moja kwa jina\n"
 ":tools reload           Pakia upya moduli za zana kutoka diski\n"

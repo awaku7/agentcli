@@ -13,7 +13,7 @@ BUSY_LABEL = True
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "devel",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "db_query",

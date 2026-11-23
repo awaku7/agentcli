@@ -43,7 +43,7 @@ _ = make_tool_translator(Path(__file__).resolve().parent.parent / "code_map_tool
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "devel",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "code_map",

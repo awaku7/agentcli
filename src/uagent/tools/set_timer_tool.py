@@ -26,7 +26,7 @@ BUSY_LABEL = False
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "set_timer",
         "description": _(

@@ -10,7 +10,6 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "devel",
     "tool_level": 1,
     "function": {
         "name": "create_tool",

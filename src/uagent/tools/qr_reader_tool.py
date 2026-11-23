@@ -18,7 +18,7 @@ _ = make_tool_translator(__file__)
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 20,
     "type": "function",
-    "tool_genre": "media",
+    "tool_level": 1,
     "function": {
         "name": "read_qr_code",
         "description": _(

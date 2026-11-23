@@ -20,7 +20,7 @@ _ERROR_INVALID_DATE_RANGE = "invalid_date_range"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "session_resume",
         "description": _(

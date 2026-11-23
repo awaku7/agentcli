@@ -1654,12 +1654,6 @@ msgstr ""
 "कार्यशील निर्देशिका निर्दिष्ट करें. यदि छोड़ा गया है, तो UAGENT_WORKDIR "
 "पर्यावरण चर या वर्तमान निर्देशिका का उपयोग करें।"
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3607,10 +3601,6 @@ msgstr "UAGENT_* env दिखाएँ/सेट/अनसेट/सहेज�
 msgid "List/apply/install skills"
 msgstr "कौशलों की सूची बनाएं/लागू करें/स्थापित करें"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "टूल और शैलियों की सूची/लोड/चालू/बंद करें"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "प्लगइन्स प्रबंधित करें"
@@ -3804,21 +3794,15 @@ msgstr ""
 "अंतर्निहित: सूची/सक्रिय/स्पष्ट (रनटाइम कौशल हैंडलर देखें)।\n"
 ":skills सूची <कीवर्ड> कीवर्ड (नाम/विवरण) द्वारा कौशल फ़िल्टर करें।"
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "टूल भेजने, शैलियों और लोड किए गए टूल को नियंत्रित करें"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools चालू|बंद LLM\n"
-":tools पर उपकरण भेजने को सक्षम/अक्षम करें|बंद <शैली> एक उपकरण शैली को सक्षम/अक्षम करें (और वैश्विक रूप से सिंक करें)\n"
 ":tools सूची [क्वेरी] लोड किए गए उपकरणों की सूची\n"
 ":tools लोड <नाम> नाम से एक उपकरण लोड करें\n"
 ":tools पुनः लोड करें उपकरण मॉड्यूल को डिस्क से पुनः लोड करें\n"

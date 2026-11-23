@@ -373,7 +373,6 @@ ______________________________________________________________________
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",                     # Fixed
     "x_build": "rust",                      # Only for Rust implementation
-    "tool_genre": "utility",                # Genre (optional)
     "tool_level": 0,                        # 0=enabled, 1=conditional, -1=disabled
     "function": {
         "name": "tool_name",                # Tool name (snake_case)
@@ -405,7 +404,6 @@ TOOL_SPEC: dict[str, Any] = {
 |-------|------|-------------|
 | `type` | str | Always `"function"` |
 | `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Classification metadata for tool discovery |
 | `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
 | `x_parallel_safe` | bool | Whether independent calls may run concurrently |
 | `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |

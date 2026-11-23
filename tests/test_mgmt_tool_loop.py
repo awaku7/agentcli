@@ -87,7 +87,7 @@ def test_batch_load_same_target_repeated_is_blocked() -> None:
 
 def test_tool_load_single_shape_is_unchanged(monkeypatch) -> None:
     from uagent.tools import catalog_tool
-    from uagent.tools import _genre_control_util as gcu
+    from uagent.tools import _tool_load_util as gcu
 
     monkeypatch.setattr(
         "uagent.tools.get_tool_specs",
@@ -132,7 +132,7 @@ def test_tool_load_batch_shape_and_missing_name() -> None:
 
 def test_tool_load_already_visible_does_not_reload(monkeypatch) -> None:
     from uagent.tools import catalog_tool
-    from uagent.tools import _genre_control_util as gcu
+    from uagent.tools import _tool_load_util as gcu
 
     monkeypatch.setattr(
         "uagent.tools.get_tool_specs",
@@ -232,7 +232,7 @@ def test_clear_mgmt_load_streak_helper() -> None:
 
 def test_disable_single_tool_clears_load_streak(monkeypatch) -> None:
     """Auto-unload path uses disable_single_tool, not unload_tool."""
-    from uagent.tools import _genre_control_util as gcu
+    from uagent.tools import _tool_load_util as gcu
 
     check_mgmt_tool_loop([_tc("tool_load", name="read_file")])
     check_mgmt_tool_loop([_tc("tool_load", name="file_grep")])

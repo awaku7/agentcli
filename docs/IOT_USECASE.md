@@ -1,6 +1,6 @@
 # IOT_USECASE
 
-This document explains how to use `tool_genre: "iot"` tools from `uag`.
+This document explains how to use IoT tools from `uag`.
 
 It is a common guide for IoT, LAN devices, BLE devices, and cloud-connected devices. It focuses on what to use first, in what order, and what to check when something fails.
 
@@ -15,7 +15,7 @@ It is a common guide for IoT, LAN devices, BLE devices, and cloud-connected devi
 
 ## Tool groups
 
-The main `tool_genre: "iot"` tools are:
+The main IoT tools are:
 
 ### BLE
 

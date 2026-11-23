@@ -90,7 +90,7 @@ _TIMEOUT_SEC = 120
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "forecast",
+    "tool_level": 1,
     "function": {
         "name": "forecast",
         "description": _(

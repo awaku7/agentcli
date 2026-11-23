@@ -16,7 +16,6 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:ble_ops"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "function": {

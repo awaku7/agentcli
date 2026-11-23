@@ -10,7 +10,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "index",
+    "tool_level": 1,
     "function": {
         "name": "kt2idx",
         "description": _(

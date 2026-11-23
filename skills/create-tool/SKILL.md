@@ -38,7 +38,6 @@ agentcli に新規ツールを追加する一連の工程を自動実行する�
 
 | 項目 | 判断基準 |
 |------|---------|
-| `tool_genre` | ツールの機能から判断。ファイル操作→`file`、API呼出→`external`、デバイス制御→`iot`、開発補助→`devel`、汎用→`basic` |
 | `BUSY_LABEL` | 時間のかかる処理なら `True`、即時返却なら `False` |
 | `STATUS_LABEL` | 任意。表示用ラベル文字列、なければ None |
 | `LAZY_LOAD` | 重いimport（PIL/numpy等）が必要な場合のみ `True` |
@@ -81,7 +80,6 @@ STATUS_LABEL = None
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "<genre>",  # LLM判断
     "x_parallel_safe": False,
     "function": {
         "name": "<name>",

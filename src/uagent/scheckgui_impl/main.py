@@ -15,6 +15,7 @@ from ..decision.settings import (
 )
 from ..i18n import _, detect_lang
 from .. import core
+from .. import tools
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.logging_setup import log_event
 from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_sandbox_mode
@@ -29,6 +30,10 @@ from .widgets import RedirectToLog
 
 def main():
     from ..runtime.logging_setup import bind_event_context
+
+    # Install the shared confirmation callback before GUI workers dispatch
+    # side-effecting tools, so the gate can present its human_ask UI.
+    tools.configure_default_confirmation()
 
     bind_event_context(session_id="gui", correlation_id="gui")
     log_event("gui.start")

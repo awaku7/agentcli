@@ -24,7 +24,7 @@ def _reload_tools():
         T._RUNNERS.clear()
         T._TOOL_SPECS_CACHE = None
         T._TOOL_SPECS_DIRTY = True
-        from uagent.tools import _genre_control_util as G
+        from uagent.tools import _tool_load_util as G
 
         G._LOADED_SINGLE_TOOLS.clear()
         G._TOOL_DYNAMIC_THRESHOLDS.clear()
@@ -115,8 +115,8 @@ def test_embedded_no_stale_state_after_failed_load(monkeypatch):
 
     _reload_tools()
     from uagent import tools as T
-    from uagent.tools import _genre_control_util as G
-    from uagent.tools._genre_control_util import enable_single_tool
+    from uagent.tools import _tool_load_util as G
+    from uagent.tools._tool_load_util import enable_single_tool
 
     orig = T._register_tool_module
 
@@ -137,7 +137,7 @@ def test_embedded_explicit_load_management_tool(monkeypatch):
 
     _reload_tools()
     from uagent import tools as T
-    from uagent.tools._genre_control_util import enable_single_tool
+    from uagent.tools._tool_load_util import enable_single_tool
 
     assert enable_single_tool("tool_catalog") is True
     names = [s.get("function", {}).get("name") for s in T.TOOL_SPECS]
@@ -161,7 +161,7 @@ def test_embedded_explicit_load_management_tool_catalog(monkeypatch):
 
     _reload_tools()
     from uagent import tools as T
-    from uagent.tools._genre_control_util import enable_single_tool
+    from uagent.tools._tool_load_util import enable_single_tool
 
     assert enable_single_tool("tool_catalog") is True
     rows = T.get_tool_catalog(query="", all_items=True)

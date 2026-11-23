@@ -36,7 +36,7 @@ _ALLOWED_STATUSES = {"active", "done", "paused", "cancelled", "error"}
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "batch_state",
         "description": _(

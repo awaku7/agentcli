@@ -112,7 +112,7 @@ def is_tool_loadable(spec: dict[str, Any] | None, mod: Any = None) -> bool:
 
 
 def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
-    """Enable a single tool by name (regardless of genre).
+    """Enable a single tool by name (regardless of its configured load level).
 
     Args:
         tool_name: Name of the tool to load.

@@ -166,7 +166,6 @@ ______________________________________________________________________
       {
         "name": "tool_catalog",
         "description": "Return a JSON catalog of available tools...",
-        "genre": "",
         "parallel_safe": true,
         "parameters": ["query", "all"]
       },

@@ -22,7 +22,7 @@ TOOL_SPEC: Dict[str, Any] = {
     "load_order": 55,
     "type": "function",
     "x_parallel_safe": False,
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "run_sub_agent_chain",
         "description": _(

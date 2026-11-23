@@ -29,6 +29,9 @@ def _enable_vt_if_windows() -> bool:
     """
     if not sys.platform.startswith("win"):
         return True
+    vt_mode = str(env_get("UAGENT_WINDOWS_VT_MODE", "1") or "1").strip().lower()
+    if vt_mode in {"0", "false", "no", "off"}:
+        return False
     try:
         import ctypes
 

@@ -777,6 +777,10 @@ def translate_lang(
     print(f"[translate] {lang}: {len(texts)} texts in {len(batches)} batch(es)")
 
     extra_terms = [
+        # UAG-local peer messaging terminology and stable API identifiers
+        "UAG",
+        "A2A",
+        "endpoint_id",
         # param / tool identifiers
         "protect_terms",
         "protect_placeholders",

@@ -541,7 +541,7 @@ def _session_tool_names(messages: list[dict[str, Any]]) -> set[str]:
 def _restore_session_tools(messages: list[dict[str, Any]]) -> list[str]:
     """Best-effort re-enable tools referenced by a loaded session."""
     try:
-        from .tools._genre_control_util import enable_single_tool
+        from .tools._tool_load_util import enable_single_tool
     except Exception:
         return []
     try:
@@ -571,16 +571,14 @@ def _restore_session_tools(messages: list[dict[str, Any]]) -> list[str]:
 def _load_skill_tools() -> None:
     """Make the tools used by Agent Skills visible to the next LLM round.
 
-    Skill tools belong to the ``basic`` genre and are therefore normally
-    omitted when genres are disabled at startup.  The ``:skills`` command is
-    an explicit request to work with skills, so it should not require the
-    user/model to issue a separate ``tool_load`` for every skill operation.
+    Skill tools are not all preloaded. The ``:skills`` command is an explicit
+    request to work with skills, so it can load individual tools on demand.
     Only the core read/list/validate tools are preloaded here.  Installation,
     marketplace search, uninstall, and ``finish_skill`` have separate
     lifecycles and should remain opt-in.
     """
     try:
-        from .tools._genre_control_util import _find_tool_modules, enable_single_tool
+        from .tools._tool_load_util import _find_tool_modules, enable_single_tool
 
         skill_tool_names = {
             "skills_list",

@@ -223,29 +223,6 @@ def _make_detail_icon(size: int = 18) -> QtGui.QIcon:
     return QtGui.QIcon(pm)
 
 
-def _make_genre_icon(size: int = 18) -> QtGui.QIcon:
-    """Create a grouped-tools icon for tool genre selection."""
-    pm = QtGui.QPixmap(size, size)
-    pm.fill(QtCore.Qt.transparent)
-    p = QtGui.QPainter(pm)
-    p.setRenderHint(QtGui.QPainter.Antialiasing)
-    color = _menu_icon_color()
-    p.setPen(QtGui.QPen(color, max(1, size // 10)))
-    p.setBrush(QtCore.Qt.NoBrush)
-    for i, x in enumerate((0.12, 0.38, 0.64)):
-        p.drawRoundedRect(
-            int(size * x),
-            int(size * (0.24 + i * 0.08)),
-            int(size * 0.24),
-            int(size * 0.24),
-            2,
-            2,
-        )
-    p.drawLine(size * 0.25, size * 0.75, size * 0.75, size * 0.75)
-    p.end()
-    return QtGui.QIcon(pm)
-
-
 def _make_help_icon(size: int = 16) -> QtGui.QIcon:
     try:
         pm = QtGui.QPixmap(size, size)

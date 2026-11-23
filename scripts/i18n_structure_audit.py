@@ -82,7 +82,14 @@ TOOL_FALLBACK_FINDING_KINDS = frozenset(
 )
 # Search terms are locale-specific keyword sets. Their item count does not need
 # to match English because runtime English fallback lives in x_search_terms_en.
-VARIABLE_LENGTH_ARRAY_KEYS = frozenset({"x_search_terms"})
+VARIABLE_LENGTH_ARRAY_KEYS = frozenset(
+    {
+        "x_search_terms",
+        "reply_all_aliases",
+        "reply_yes_aliases",
+        "reply_no_aliases",
+    }
+)
 TOOL_TRANSLATION_LOCALES = tuple(locale for locale in SHIPPED_LOCALES if locale != "en")
 TOOL_LOCALE_CANDIDATE_RE = re.compile(r"^[A-Za-z]{2,3}(?:[-_][A-Za-z]{2})?$")
 

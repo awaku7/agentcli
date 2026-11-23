@@ -1629,12 +1629,6 @@ msgstr ""
 "تحديد دليل العمل. إذا تم حذفه، استخدم متغير البيئة UAGENT_WORKDIR أو الدليل "
 "الحالي."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3577,10 +3571,6 @@ msgstr "إظهار/تعيين/إلغاء تعيين/حفظ UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "مهارات القائمة/التطبيق/التثبيت"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "قائمة/تحميل/تشغيل/إيقاف الأدوات والأنواع"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "إدارة المكونات الإضافية"
@@ -3773,21 +3763,15 @@ msgstr ""
 "الأوامر الفرعية الديناميكية تأتي من الأداة CMD_SPEC (تثبيت، إلغاء التثبيت، apm، mp_search).\n"
 " استخدم :help تثبيت المهارات لأمر فرعي."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "التحكم في إرسال الأدوات والأنواع والأدوات المحملة"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools تشغيل|إيقاف تمكين/تعطيل إرسال الأدوات إلى LLM\n"
-":tools تشغيل|إيقاف <genre> تمكين/تعطيل نوع الأداة (والمزامنة العامة تشغيل)\n"
 ":tools قائمة [استعلام] قائمة الأدوات المحملة\n"
 ":tools تحميل <name> تحميل أداة واحدة بالاسم\n"
 ":tools إعادة تحميل وحدات الأداة من القرص\n"

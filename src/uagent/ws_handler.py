@@ -456,7 +456,6 @@ class WsHandler:
                 {
                     "name": t.get("name", ""),
                     "description": t.get("description", ""),
-                    "genre": t.get("genre", "unknown"),
                     "parallel_safe": t.get("loaded", False),
                     "parameters": t.get("parameters", []),
                 }

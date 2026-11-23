@@ -1648,12 +1648,6 @@ msgstr ""
 "कार्यरत निर्देशिका निर्दिष्ट करा. वगळल्यास, UAGENT_WORKDIR पर्यावरण "
 "व्हेरिएबल किंवा वर्तमान निर्देशिका वापरा."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3590,10 +3584,6 @@ msgstr "दर्शवा/सेट/अनसेट/सेव्ह UAGENT_* en
 msgid "List/apply/install skills"
 msgstr "कौशल्यांची यादी/लागू/स्थापित करा"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "सूची/लोड/चालू/बंद साधने आणि शैली"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "प्लगइन व्यवस्थापित करा"
@@ -3786,21 +3776,15 @@ msgstr ""
 ":skills <कीवर्ड> फिल्टरसह सूची प्रमाणेच शोधा. \n"
 "डायनॅमिक सबकमांड्स CMD_SPEC टूलमधून येतात (स्थापित करा, mp_pm_install करा, अनार्च करा). सबकमांडसाठी :help कौशल्ये स्थापित होतात."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "नियंत्रण साधन पाठवणे, शैली, आणि लोड साधने"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools चालू डिस्क\n"
-":tools आउटपुट UI मध्ये टूल परिणाम दर्शविते टॉगल"
 
 #: src/uagent/util_help.py:214
 msgid "Tool authoring helpers"

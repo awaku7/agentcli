@@ -22,7 +22,7 @@ STATUS_LABEL = "tool:disc_image_ops"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "function": {
         "name": "disc_image_ops",
         "description": _(

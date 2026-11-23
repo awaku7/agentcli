@@ -19,7 +19,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:coverage_report"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "coverage_report",

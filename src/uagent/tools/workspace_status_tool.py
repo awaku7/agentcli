@@ -19,7 +19,7 @@ _MAX_CHANGE_PREVIEW = 100
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

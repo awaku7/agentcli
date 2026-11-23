@@ -1029,7 +1029,6 @@ def _resolve_translation_provider(requested: object, target_lang: str) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "devel",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

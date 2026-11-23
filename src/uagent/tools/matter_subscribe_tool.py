@@ -13,7 +13,6 @@ BUSY_LABEL = False
 STATUS_LABEL = "tool:matter_subscribe"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

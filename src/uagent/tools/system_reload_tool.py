@@ -10,7 +10,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "system_reload",

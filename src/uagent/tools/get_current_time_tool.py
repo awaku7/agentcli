@@ -16,7 +16,7 @@ BUSY_LABEL = False  # Light tool; no Busy label needed.
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "get_current_time",

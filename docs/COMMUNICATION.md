@@ -1,8 +1,8 @@
 # Communication Tools (comm)
 
-`tool_genre: "comm"` tools for sending messages and interacting with communication platforms.
+Tools for sending messages and interacting with communication platforms.
 
-These tools are discovered and loaded individually with `tool_catalog` / `tool_load`, or with `:tools load <name>` in the CLI. The `comm` genre is catalog metadata, not an enable/disable switch.
+These tools are discovered and loaded individually with `tool_catalog` / `tool_load`, or with `:tools load <name>` in the CLI.
 
 ## Tools
 
@@ -96,7 +96,7 @@ Load the required tool individually, for example:
 :tools load discord_channel_chat
 ```
 
-LLM tool discovery can also select tools through `tool_catalog` and `tool_load`. There is no genre-wide `comm_control` switch or `UAGENT_COMM_ENABLED` startup setting.
+LLM tool discovery can also select tools through `tool_catalog` and `tool_load`.
 
 ## Common notes
 

@@ -249,7 +249,6 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "x_parallel_safe": True,
     "tool_level": 1,
-    "tool_genre": "file",
     "function": {
         "name": "file_type",
         "description": _(

@@ -1940,7 +1940,7 @@ def _on_nostr_dm(sender_pubkey: str, text: str, _raw: str = "") -> None:
 def _pin_bitchat_tools() -> None:
     """Pin bitchat tools against auto-unload while the node is running."""
     try:
-        from ._genre_control_util import pin_tool
+        from ._tool_load_util import pin_tool
 
         pin_tool("pybitchat_subscribe", reason="bitchat node running")
         pin_tool("pybitchat_send", reason="bitchat node running")
@@ -1951,7 +1951,7 @@ def _pin_bitchat_tools() -> None:
 def _unpin_bitchat_tools() -> None:
     """Unpin bitchat tools once the node has stopped."""
     try:
-        from ._genre_control_util import unpin_tool
+        from ._tool_load_util import unpin_tool
 
         unpin_tool("pybitchat_subscribe")
         unpin_tool("pybitchat_send")

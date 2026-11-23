@@ -113,21 +113,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         }
 
     def tool_help_detail() -> str:
-        # Compiled gettext catalogs still use the historical six-line key.
-        # Remove its retired genre-toggle line by position, not by a
-        # language-dependent "<genre>" placeholder.
-        lines = tr(
-            ":tools on|off           Enable/disable sending tools to the LLM\n"
-            ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
-            ":tools list [query]     List loaded tools\n"
-            ":tools load <name>      Load one tool by name\n"
-            ":tools reload           Reload tool modules from disk\n"
-            ":tools output           Toggle showing tool results in UI"
-        ).splitlines()
-        if len(lines) == 6:
-            return "\n".join(lines[:1] + lines[2:])
-        # Malformed external translations must not reintroduce old commands.
-        return (
+        return tr(
             ":tools on|off           Enable/disable sending tools to the LLM\n"
             ":tools list [query]     List loaded tools\n"
             ":tools load <name>      Load one tool by name\n"

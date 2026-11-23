@@ -34,7 +34,7 @@ STATUS_LABEL = "tool:plugin_manage"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "plugin_manage",
         "description": _(

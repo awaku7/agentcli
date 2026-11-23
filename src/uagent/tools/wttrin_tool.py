@@ -10,7 +10,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
-    "tool_genre": "external",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "type": "function",
     "function": {

@@ -549,7 +549,7 @@ TOOL_SPEC: dict[str, Any] = {
     "external_data": True,
     "type": "function",
     "x_parallel_safe": True,
-    "tool_genre": "external",
+    "tool_level": 1,
     "function": {
         "name": "search_web",
         "description": _(

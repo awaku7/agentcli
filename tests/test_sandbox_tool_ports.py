@@ -126,7 +126,7 @@ def test_apply_patch_multi_hunk_displacement(workspace):
 def test_quantities_without_pint_is_a_clear_error(monkeypatch):
     try:
         import pint  # noqa: F401
-    except ImportError:
+    except (ImportError, OSError):
         monkeypatch.setattr(worker, "_ensure_package", lambda name: None)
         out = json.loads(_call("quantities", {"expression": "1 km to m"}))
         assert out["ok"] is False
@@ -335,7 +335,10 @@ def test_expand_aliases_in_args_against_explicit_workspace(workspace):
 
 
 def test_svg_to_image_jpeg_flattens_transparency_on_white(workspace):
-    pytest.importorskip("cairosvg")
+    try:
+        import cairosvg  # noqa: F401
+    except (ImportError, OSError):
+        pytest.skip("CairoSVG or its native Cairo library is unavailable")
     from PIL import Image
 
     (worker.ROOT / "half.svg").write_text(
@@ -556,7 +559,7 @@ def test_svg_to_image_missing_library_is_clear_error(workspace, monkeypatch):
     )
     try:
         import cairosvg  # noqa: F401
-    except ImportError:
+    except (ImportError, OSError):
         monkeypatch.setattr(worker, "_ensure_package", lambda name: None)
         out = json.loads(
             _call("svg_to_image", {"svg": "a.svg", "output_path": "a.png"})
@@ -576,7 +579,10 @@ def test_svg_to_image_validation(workspace):
 
 
 def test_svg_to_image_returns_attachment(workspace):
-    pytest.importorskip("cairosvg")
+    try:
+        import cairosvg  # noqa: F401
+    except (ImportError, OSError):
+        pytest.skip("CairoSVG or its native Cairo library is unavailable")
     (workspace / "in.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10">'
         '<rect width="10" height="10" fill="red"/></svg>',

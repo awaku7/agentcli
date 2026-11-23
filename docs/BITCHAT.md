@@ -8,10 +8,10 @@
 
 Two tool plugins provide the bitchat interface:
 
-| Tool | Genre | Description |
-|------|-------|-------------|
-| `pybitchat_subscribe` | comm | Start/stop/monitor the BLE Mesh node. Chat mode for forwarding user input. |
-| `pybitchat_send` | comm | Send text messages, announcements, or files over the mesh. |
+| Tool | Description |
+|------|-------------|
+| `pybitchat_subscribe` | Start/stop/monitor the BLE Mesh node. Chat mode for forwarding user input. |
+| `pybitchat_send` | Send text messages, announcements, or files over the mesh. |
 
 ## Quick Start
 

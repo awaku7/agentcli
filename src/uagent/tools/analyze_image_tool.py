@@ -15,7 +15,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "x_parallel_safe": True,
-    "tool_genre": "media",
+    "tool_level": 1,
     "function": {
         "name": "analyze_image",
         "description": _(

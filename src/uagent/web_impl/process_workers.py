@@ -454,7 +454,7 @@ def _child_turn(
     from .. import core
     from ..decision.settings import configure_decision_settings
     from ..runtime.session_store import attach_opt_in_session_store
-    from ..tools._genre_control_util import enable_single_tool
+    from ..tools._tool_load_util import enable_single_tool
     from .agent_worker import run_agent_worker
     from .init import init_web
     from .rooms import WebRoom, web_manager
@@ -715,7 +715,7 @@ def _child_turn(
             ):
                 if hasattr(core, name):
                     setattr(room, name, getattr(core, name))
-        from ..tools._genre_control_util import get_enabled_tool_names
+        from ..tools._tool_load_util import get_enabled_tool_names
 
         room._worker_tool_names = get_enabled_tool_names()
         room._worker_parent_tool_names = payload["parent_tools"]
@@ -1216,7 +1216,7 @@ class RoomWorkerPool:
             ) == "local_trusted" and not bool(
                 getattr(web_manager, "sandbox_enabled", False)
             ):
-                from ..tools._genre_control_util import get_enabled_tool_names
+                from ..tools._tool_load_util import get_enabled_tool_names
 
                 parent_tools = get_enabled_tool_names()
                 tool_names = (

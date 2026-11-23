@@ -32,7 +32,7 @@
 | `tools/skills_list_tool.py` | frontmatterのみでSkillを列挙 | 従来の出力を変えない |
 | `tools/skills_load_tool.py` | 本文読込と`allowed-tools`に記載されたツールのロード・保持 | 従来の挙動を変えない |
 | `tools/skill_history.py` | 実行中Skillのツール保持・解除、`finish_skill` | 既存APIを保持 |
-| `tools/_genre_control_util.py` | ツール保持がプロセス共有の辞書（ツール名→理由） | 複数インスタンス対応のため「所有者付き保持」を追加 |
+| `tools/_tool_load_util.py` | ツール保持がプロセス共有の辞書（ツール名→理由） | 複数インスタンス対応のため「所有者付き保持」を追加 |
 | `util_message.py`, `util_cmd_session.py` | `[SKILL]` systemメッセージ、`:skills`・解除 | 変更せず並行利用可能にする |
 | `runtime/skill_lifecycle.py` | draft/reviewed/enabled/improved/deprecated のSkill定義ライフサイクル | **Skill実行インスタンスの状態**とは分離 |
 | `runtime/session_store.py` | SQLiteによるセッション、ツール呼び出し等の保存 | インスタンス状態を同じセッションIDに関連付ける |
@@ -264,7 +264,7 @@ created ----------> cancelled
 
 ### 7.1 現行のグローバルツール保持との競合（必修の対応）
 
-現在の `_genre_control_util.py` では `_PINNED_TOOLS` がプロセス共有のツール名→理由の辞書である。`skill_history.py` の `finish_skill` はSkillが保持したツールを解除する。単純にオブジェクト型Skillでも同じ仕組みを用いると、別インスタンスが使用中のツールが解除される恐れがある。
+現在の `_tool_load_util.py` では `_PINNED_TOOLS` がプロセス共有のツール名→理由の辞書である。`skill_history.py` の `finish_skill` はSkillが保持したツールを解除する。単純にオブジェクト型Skillでも同じ仕組みを用いると、別インスタンスが使用中のツールが解除される恐れがある。
 
 対策は**既存APIを残したまま、新規インスタンス向けの所有者付きリースを追加**すること。
 
@@ -416,7 +416,7 @@ test_composition_rejects_cycle_and_permission_escalation
 - UAG既存Skill共通処理: https://github.com/awaku7/agentcli/blob/main/src/uagent/tools/agent_skills_shared.py
 - UAG既存Skill読み込み: https://github.com/awaku7/agentcli/blob/main/src/uagent/tools/skills_load_tool.py
 - UAG既存ツール保持: https://github.com/awaku7/agentcli/blob/main/src/uagent/tools/skill_history.py
-- UAG既存ツール管理: https://github.com/awaku7/agentcli/blob/main/src/uagent/tools/_genre_control_util.py
+- UAG既存ツール管理: https://github.com/awaku7/agentcli/blob/main/src/uagent/tools/_tool_load_util.py
 - UAG Skill Lifecycle: https://github.com/awaku7/agentcli/blob/main/src/uagent/runtime/skill_lifecycle.py
 - UAG新アーキテクチャ: https://github.com/awaku7/agentcli/blob/main/docs/NEW_ARCHITECTURE.md
 - AgentFile関連提案（正式標準ではない）: https://github.com/agentskills/agentskills/issues/178

@@ -28,7 +28,7 @@ _API_BASE = "https://bsky.social/xrpc"
 
 TOOL_SPEC: dict[str, Any] = {
     "external_data": True,
-    "tool_genre": "comm",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

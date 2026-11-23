@@ -16,7 +16,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "function": {
         "name": "delete_files",
         "description": _(

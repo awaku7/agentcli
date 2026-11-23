@@ -1633,12 +1633,6 @@ msgstr ""
 "دایرکتوری کاری را مشخص کنید. اگر حذف شد، از متغیر محیطی UAGENT_WORKDIR یا "
 "دایرکتوری فعلی استفاده کنید."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3571,10 +3565,6 @@ msgstr "نمایش/تنظیم/تنظیم/ذخیره UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "فهرست/اعمال/نصب مهارت ها"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "فهرست/بارگذاری/روشن/خاموش کردن ابزارها و ژانرها"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "پلاگین ها را مدیریت کنید"
@@ -3766,21 +3756,15 @@ msgstr ""
 "زیر‌فرمان‌های پویا از CMD_SPEC ابزار می‌آیند (install, uninstall, apm, mp_search).\n"
 "برای یک زیر‌فرمان از :help skills install استفاده کنید."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "کنترل ارسال ابزار، ژانرها و ابزارهای بارگذاری شده"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off           فعال/غیرفعال کردن ارسال ابزارها به LLM\n"
-":tools on|off <genre>   فعال/غیرفعال کردن یک گونه ابزار (و همگام‌سازی global on)\n"
 ":tools list [query]     فهرست ابزارهای بارگذاری‌شده\n"
 ":tools load <name>      بارگذاری یک ابزار با نام\n"
 ":tools reload           بارگذاری دوباره ماژول‌های ابزار از دیسک\n"

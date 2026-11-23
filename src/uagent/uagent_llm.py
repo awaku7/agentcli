@@ -70,7 +70,7 @@ from .llm_flow_helpers import (
     _consume_empty_no_tool_recovery,
 )
 from . import core as _core_module
-from .tools._genre_control_util import (
+from .tools._tool_load_util import (
     _LOADED_SINGLE_TOOLS as _LOADED_SINGLE_TOOLS,
     disable_single_tool as _disable_single_tool,
     get_threshold as _get_threshold,

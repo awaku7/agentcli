@@ -32,7 +32,7 @@ MAX_DIFF_OUTPUT_LINES = 400
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "function": {
         "name": "apply_patch",
         "description": _(

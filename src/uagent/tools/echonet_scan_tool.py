@@ -206,7 +206,6 @@ _EOJ_CLASS_NAMES: dict[int, tuple[str, str]] = {
 }
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

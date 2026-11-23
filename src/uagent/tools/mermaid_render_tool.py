@@ -15,7 +15,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "media",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "mermaid_render",

@@ -79,7 +79,6 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "index",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

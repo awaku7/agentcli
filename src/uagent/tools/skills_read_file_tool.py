@@ -21,7 +21,7 @@ STATUS_LABEL = "tool:skills_read_file"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "skills_read_file",
         "description": _(

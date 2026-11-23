@@ -476,7 +476,7 @@ send fixed-schema Sandbox tool requests over a size-bounded private JSON pipe;
 the parent revalidates the active Room scope and authorization for each request
 before dispatching to its MXC session. A2A receives a server-created per-task
 scope and closes it at task completion. The MXC manager caps active sessions.
-Sandbox mode also blocks Host plugin imports, Host hooks, tool-genre changes,
+Sandbox mode also blocks Host plugin imports, Host hooks, tool loading changes,
 general Web commands, and non-allowlisted tools.
 
 Remote Web and tool-enabled A2A now use the same supported MXC backend as

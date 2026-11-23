@@ -50,7 +50,7 @@ STATUS_LABEL = "tool:read_file"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "read_file",

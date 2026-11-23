@@ -15,7 +15,7 @@ req_tools = tools.get_tool_specs() if send_tools_this_round else None
 ```
 
 - `tools.get_tool_specs()` returns all currently registered tools from `TOOL_SPECS`.
-- Registration depends on `tool_level` and individually loaded tools; `tool_genre` is descriptive metadata for catalog searches, not an activation switch.
+- Registration depends on `tool_level` and individually loaded tools.
 - By default, only core tools are registered. Other tools are loaded dynamically through `tool_catalog` and `tool_load`.
 - `UAGENT_GPT54_TOOL_SEARCH` has no effect in this mode.
 
@@ -115,7 +115,7 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 ### Implementation
 
 - `tool_catalog`, `tool_load`, and `unload_tool` are implemented in `tools/catalog_tool.py`.
-- These management tools are available as core tools regardless of their descriptive genre metadata.
+- These management tools are available as core tools.
 - `_select_tool_specs_legacy()` analyzes user messages and adds related tools to the initial set.
 
 ## Environment variables

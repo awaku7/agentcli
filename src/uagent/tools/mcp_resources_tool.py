@@ -18,7 +18,7 @@ _ = make_tool_translator(__file__)
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "x_parallel_safe": True,
-    "tool_genre": "external",
+    "tool_level": 1,
     "function": {
         "name": "mcp_resources",
         "description": _(

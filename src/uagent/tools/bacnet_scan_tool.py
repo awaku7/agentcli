@@ -126,7 +126,6 @@ def _bac0_vendor_name(vendor_id: int | None) -> str | None:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

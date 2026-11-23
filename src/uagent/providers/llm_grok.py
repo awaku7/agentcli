@@ -339,7 +339,7 @@ def build_xai_tools(
         still_missing = loaded_names - seen_names
         if still_missing:
             try:
-                from ..tools._genre_control_util import _find_tool_modules
+                from ..tools._tool_load_util import _find_tool_modules
 
                 for mname, mod in _find_tool_modules():
                     for attr_name in ("TOOL_SPEC", "TOOL_SPEC_2", "TOOL_SPEC_3"):

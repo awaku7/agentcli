@@ -31,7 +31,6 @@ def _ffmpeg_backend() -> str:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "function": {

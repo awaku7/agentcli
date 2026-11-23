@@ -31,7 +31,7 @@ _ = make_tool_translator(__file__)
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "run_tests",

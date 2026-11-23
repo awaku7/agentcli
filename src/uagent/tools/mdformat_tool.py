@@ -42,7 +42,7 @@ STATUS_LABEL = "tool:mdformat_check"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "dev",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "mdformat_check",

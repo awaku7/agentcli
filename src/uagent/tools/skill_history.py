@@ -21,7 +21,7 @@ def pin_skill_tools(allowed_tools: object) -> list[str]:
     if not isinstance(allowed_tools, str):
         return []
 
-    from ._genre_control_util import pin_tool
+    from ._tool_load_util import pin_tool
 
     names = [n for n in re.split(r"[\s,]+", allowed_tools.strip()) if n]
     pinned: list[str] = []
@@ -36,7 +36,7 @@ def pin_skill_tools(allowed_tools: object) -> list[str]:
 
 def unpin_skill_tools() -> list[str]:
     """Release tool pins created for the active skill."""
-    from ._genre_control_util import unpin_tool
+    from ._tool_load_util import unpin_tool
 
     names = sorted(_ACTIVE_SKILL_PINNED_TOOLS)
     for name in names:

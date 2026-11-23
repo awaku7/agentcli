@@ -1054,7 +1054,7 @@ if not _ENABLE_SEMANTIC_SEARCH or vec_tool is None:
 else:
     TOOL_SPEC = {
         "type": "function",
-        "tool_genre": "devel",
+        "tool_level": 1,
         "function": {
             "name": "graph_rag_search",
             "description": _(

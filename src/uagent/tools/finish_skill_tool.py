@@ -14,7 +14,7 @@ STATUS_LABEL = "tool:finish_skill"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "finish_skill",
         "description": _(

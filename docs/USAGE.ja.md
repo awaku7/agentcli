@@ -75,6 +75,14 @@ uag --embedded --enable-tool handle_mcp_v2,human_ask
 
 ______________________________________________________________________
 
+## ローカルUAGメッセージ（自然文で利用）
+
+対話CLI/GUIと、認証済みWebのprivate roomは起動時に自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` のUAGに対して、たとえば「ほかに起動中のUAGはある？」「この状況を endpoint `...` に共有して」と自然文で依頼してください。LLMが `local_messaging` Toolでpeer一覧を調べ、宛先を指定して送信します。受信メッセージは `human_ask` で確認され、`y` は今回のみ、`n` は拒否、`all` は現在のUI endpointが終了するまで同じ送信元を承認します。
+
+参加を止めるには `UAGENT_LOCAL_MESSAGING=off` を設定してプロセスを再起動します。Webはprincipal・private room・project単位で分離され、公開roomは参加しません。A2Aはさらに管理者が `UAGENT_LOCAL_MESSAGING_A2A=on` を設定した場合だけ参加します。A2Aの受信は自動ではなく、認証済みタスクが `local_messaging(action=inbox)` を明示的に呼び出した場合に限ります。
+
+機能の詳細と信頼境界は[設計書](LOCAL_UAG_MESSAGING_DESIGN.ja.md)を参照してください。
+
 ## CLI 専用のオプション
 
 ### `--inject-message-auto <goal-options>`
@@ -182,6 +190,8 @@ ______________________________________________________________________
 | `UAGENT_A2A_HOST` | A2A サーバーのバインドアドレス（デフォルト：`0.0.0.0`） |
 | `UAGENT_A2A_PORT` | A2A サーバーのポート (デフォルト: `8765`) |
 | `UAGENT_A2A_RELOAD` | A2A ホットリロードをデフォルトで有効にする |
+| `UAGENT_LOCAL_MESSAGING` | ローカルUAG間メッセージ（既定: `on`、`off` で参加しない） |
+| `UAGENT_LOCAL_MESSAGING_A2A` | A2Aのローカルメッセージendpointを有効化（`UAGENT_LOCAL_MESSAGING=on` との併用が必要） |
 | `UAGENT_USE_TOOL` | `0`、`false`、`no`、または `off` に設定するとツールを無効化 |
 | `UAGENT_COMPUTER_USE` | Computer Use をデフォルトで有効または無効にする |
 | `UAGENT_SESSION_STORE` | セッションストアを有効または無効にする； 組み込みモードでは `0` が強制される |

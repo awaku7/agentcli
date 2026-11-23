@@ -18,7 +18,7 @@ STATUS_LABEL = "tool:pdf_export"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 10,
     "type": "function",
-    "tool_genre": "utility",
+    "tool_level": 1,
     "x_parallel_safe": False,
     "function": {
         "name": "pdf_export",

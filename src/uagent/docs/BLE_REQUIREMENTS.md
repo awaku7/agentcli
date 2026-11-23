@@ -89,7 +89,6 @@ ______________________________________________________________________
 ```json
 {
   "tool_level": 1,
-  "tool_genre": "devel",
   "function": {
     "name": "ble_ops",
     "description": "Bluetooth Low Energy (BLE) デバイスのスキャン、接続、GATTデータの読み書きを行います。Windows/LinuxではMACアドレス、macOSではUUIDをアドレスとして指定します。",

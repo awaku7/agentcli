@@ -8,7 +8,7 @@ from ..runtime.tool_execution_result import ToolExecutionText
 _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
-    "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "get_current_location",

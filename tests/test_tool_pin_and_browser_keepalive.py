@@ -3,7 +3,7 @@ from __future__ import annotations
 import time
 from types import SimpleNamespace
 
-from uagent.tools._genre_control_util import (
+from uagent.tools._tool_load_util import (
     disable_single_tool,
     is_tool_pinned,
     list_pinned_tools,

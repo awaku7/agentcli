@@ -1332,7 +1332,7 @@
         "@id": "uag:file/tests/test_mgmt_tool_loop.py#test_disable_single_tool_clears_load_streak@d5e675bec6ed53f9"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 268
     },
@@ -1860,7 +1860,7 @@
         "@id": "uag:file/src/uagent/cli_startup.py#run_cli_startup@5d91f013eb0b1297"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 352
     },
@@ -2525,17 +2525,6 @@
       "uag:source_line": 237
     },
     {
-      "@id": "uag:calls/06b39c280da87c736c0c9cb53ed12e98750a4ed5e32e6be3e8be024a3317f1cd",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_genre_tools@e1f841eba73453c1"
-      },
-      "uag:source_line": 42
-    },
-    {
       "@id": "uag:calls/06c7c553c7bc1f8f695878af6bb2158b4cf1b82306d79fb002b5a0c56f81ea25",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -2740,7 +2729,7 @@
         "@id": "uag:file/src/uagent/cli_startup.py#run_cli_startup@5d91f013eb0b1297"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 350
     },
@@ -4082,7 +4071,7 @@
         "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_list@f91e521ed698fd91"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_threshold@0224a2da4b236e90"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_threshold@0224a2da4b236e90"
       },
       "uag:source_line": 247
     },
@@ -4868,17 +4857,6 @@
       "uag:source_line": 541
     },
     {
-      "@id": "uag:calls/0de417a6e713ae8b265ad839dd746b39012463f990d4f42984e945394bbddfe4",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_off@8fd60fdd85fae239"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:source_line": 299
-    },
-    {
       "@id": "uag:calls/0ded1e1fa00e4c4524e0f2e97f36de93a26f067db6a4a6a5b987eb6a1008c62f",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -5347,7 +5325,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 66
     },
@@ -5369,7 +5347,7 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py#_lookup_tool_spec@1b6d1726b8a488be"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 330
     },
@@ -5435,7 +5413,7 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py#_pin_bitchat_tools@add3c9e8c28d73a8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 1886
     },
@@ -10885,17 +10863,6 @@
       "uag:source_line": 100
     },
     {
-      "@id": "uag:calls/1fce4e3b1ec848492275db987c6ff4a0fdc184d10d844e0f5c318d614e5cef8e",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:target": {
-        "@id": "uag:file/vscode-extension/src/treeProvider.ts#tools@c5a84b35862ce7a0"
-      },
-      "uag:source_line": 62
-    },
-    {
       "@id": "uag:calls/1fd039a4c56f07c4912d51f257087906da11e0cd41a39b018ae998e7718007ef",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -11081,17 +11048,6 @@
         "@id": "uag:file/vscode-extension/src/treeProvider.ts#items@41b6c759b5a7fe46"
       },
       "uag:source_line": 395
-    },
-    {
-      "@id": "uag:calls/20488d0e1673fa1a6c40f067d5e796c8afbba104cd5ca1ef70f2b1bf45a8cf6d",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_genre_mask.py#test_embedded_zero_genre_mask_is_silent@5afcd80d892adc0f"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 70
     },
     {
       "@id": "uag:calls/204985b5b89b12d7a5f7a1dc060ab43144e3602f9f51a25997ebd66008d8c61b",
@@ -11782,7 +11738,7 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py#_run_tool_unload@2df78c1666637238"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 233
     },
@@ -12392,17 +12348,6 @@
       "uag:source_line": 20
     },
     {
-      "@id": "uag:calls/23c8463d18c06a42309f4888f7f0bafff940d0d0e6d3e38fcefdc45e6c04ea77",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tool_genre@115acfb9b617caf5"
-      },
-      "uag:target": {
-        "@id": "uag:file/tests/test_wttrin_tool.py#json@d7fa450315dfe90e"
-      },
-      "uag:source_line": 120
-    },
-    {
       "@id": "uag:calls/23c96ead87404c62e0a1093ea2b15720bc7ed00aa8af1ee69bb25794cb2a11d0",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -13000,7 +12945,7 @@
       "@id": "uag:calls/25535be1be130a207e41077c6648669140eed1bbb51363a591474ac505bb889d",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/uagent_llm.py#clear_mgmt_load_streak@5a6781e1a6e2acb1"
@@ -13039,17 +12984,6 @@
         "@id": "uag:file/src/uagent/runtime/round_identity.py#DeterministicTestWorkspaceKeyProvider@66cd0d387687777a"
       },
       "uag:source_line": 736
-    },
-    {
-      "@id": "uag:calls/2590762a8edd59066af47e3f8a9ec9cf08d4ed03bb8aa7e553bcaa5d5c2d7f36",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:target": {
-        "@id": "uag:file/vscode-extension/src/treeProvider.ts#items@41b6c759b5a7fe46"
-      },
-      "uag:source_line": 74
     },
     {
       "@id": "uag:calls/259dae1c45a6d976b1d7adff7319326ad41166048548326c88e7a3c9fe847602",
@@ -15753,7 +15687,7 @@
         "@id": "uag:file/tests/test_auto_unload_grace_from_load.py#test_empty_rounds_do_not_age_idle_counter@5fa914bf03fc6485"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_threshold@0224a2da4b236e90"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_threshold@0224a2da4b236e90"
       },
       "uag:source_line": 43
     },
@@ -16072,7 +16006,7 @@
         "@id": "uag:file/tests/test_embedded_mode.py#test_embedded_explicit_load_management_tool@c6e14412d3e797a6"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 142
     },
@@ -17422,7 +17356,7 @@
       "@id": "uag:calls/319c1d490a6c1fe883cd1a1fa8e69e5b5fb97ef7eedbb884b1a41d148eef7aa8",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/tools/__init__.py#_register_tool_module@7c2333642ee7a8cd"
@@ -17931,7 +17865,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_unpin_api@bacd37a79db096e7"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#list_pinned_tools@d3d055339d6be1ad"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#list_pinned_tools@d3d055339d6be1ad"
       },
       "uag:source_line": 28
     },
@@ -19790,7 +19724,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_disable_single_tool_respects_pin@c53c6281690b49e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 39
     },
@@ -19999,7 +19933,7 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py#_unpin_bitchat_tools@d2dc9f412868deba"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 1897
     },
@@ -21539,7 +21473,7 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py#_run_tool_unload@2df78c1666637238"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 218
     },
@@ -23563,7 +23497,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_loadable@fe7917f65338f721"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_loadable@fe7917f65338f721"
       },
       "uag:source_line": 1728
     },
@@ -24264,7 +24198,7 @@
       "@id": "uag:calls/45d2f542b3bd1dfd1e6b4da388c51057e7dc8ca6cc80641bf5ae2cb20b342077",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_enabled_genre_mask@4cfc1d3ef987d585"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_enabled_genre_mask@4cfc1d3ef987d585"
       },
       "uag:target": {
         "@id": "uag:file/vscode-extension/src/treeProvider.ts#items@41b6c759b5a7fe46"
@@ -24421,7 +24355,7 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py#_load_single_tool_by_name@6f663b9a6b5f2eb1"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 372
     },
@@ -24630,7 +24564,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 69
     },
@@ -24894,7 +24828,7 @@
         "@id": "uag:file/src/uagent/tools/skills_load_tool.py#run_tool@2666e89873cb6bd1"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 95
     },
@@ -28007,7 +27941,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_unpin_api@bacd37a79db096e7"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 29
     },
@@ -28524,7 +28458,7 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py#_run_tool_catalog@79cd3eaefdf8376b"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 315
     },
@@ -32880,7 +32814,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_disable_single_tool_respects_pin@c53c6281690b49e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 43
     },
@@ -33169,17 +33103,6 @@
         "@id": "uag:file/src/uagent/providers/llm_meta_responses.py#apply_meta_responses_reasoning_summary@9ca873f0e66087c8"
       },
       "uag:source_line": 260
-    },
-    {
-      "@id": "uag:calls/61037f7928158beb26ad3961dfbea0b3abe5401cea41d7c4ff2af4d312adfce1",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_genre_tools@7f0d3a2696aa0187"
-      },
-      "uag:source_line": 58
     },
     {
       "@id": "uag:calls/6109baac768da943cc48df3f8aa000efe4ed19ada9121f26309220cccca801e8",
@@ -33598,17 +33521,6 @@
         "@id": "uag:file/src/uagent/utils/paths.py#get_outputs_dir@0f0216d7c168f94f"
       },
       "uag:source_line": 1905
-    },
-    {
-      "@id": "uag:calls/621eb1436ab6f4dab01cdac100a87fad87530b3341099aa60596c9f1c7a42ad1",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:source_line": 78
     },
     {
       "@id": "uag:calls/622b40a2d86b37a93541fe0b973e6b5823b6d65f97a2ebae83f844bed43844d1",
@@ -34552,7 +34464,7 @@
         "@id": "uag:file/tests/test_enable_tool_cli.py#test_enable_tool_pins_requested_tools@777e42d3e6821909"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 74
     },
@@ -36229,17 +36141,6 @@
       "uag:source_line": 121
     },
     {
-      "@id": "uag:calls/69df7fe6db1aaa483b7c9cd820b26533491579aec025cf617696bc10bffab36e",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/web_impl/init.py#main@3f57d02c43511a4e"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 299
-    },
-    {
       "@id": "uag:calls/69e04bf9e4b28257e9698b56a3f08465b01257f00c1bc6533c17b34af7010624",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -36444,7 +36345,7 @@
         "@id": "uag:file/tests/test_enable_tool_cli.py#test_enable_tool_pins_requested_tools@777e42d3e6821909"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 68
     },
@@ -38633,7 +38534,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 59
     },
@@ -39183,7 +39084,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 1788
     },
@@ -39285,17 +39186,6 @@
         "@id": "uag:file/src/uagent/providers/responses_runtime.py#restore_continuation@652abe5b6fe10a56"
       },
       "uag:source_line": 659
-    },
-    {
-      "@id": "uag:calls/72c9652e0059e951c76a7930e8440a0b35d3f7fa751d017bd5021548dcb60404",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/web_impl/init.py#main@3f57d02c43511a4e"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 295
     },
     {
       "@id": "uag:calls/72ed13fb12ad3e8ad3f375c7583d8e00a478e9f6af5d8fef65f629d49525bc3b",
@@ -39414,7 +39304,7 @@
         "@id": "uag:file/src/uagent/tools/skill_history.py#unpin_skill_tools@9beb5308433ba83d"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 43
     },
@@ -39799,7 +39689,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_disable_single_tool_respects_pin@c53c6281690b49e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 37
     },
@@ -40052,7 +39942,7 @@
         "@id": "uag:file/src/uagent/providers/llm_grok.py#build_xai_tools@5997c18f110ad75b"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 344
     },
@@ -42048,17 +41938,6 @@
       "uag:source_line": 2078
     },
     {
-      "@id": "uag:calls/7a8defba815bb8382b97c790a5ea6b524304695c894606d537c06bca6119dd51",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:target": {
-        "@id": "uag:file/vscode-extension/src/treeProvider.ts#tools@c5a84b35862ce7a0"
-      },
-      "uag:source_line": 46
-    },
-    {
       "@id": "uag:calls/7a935aee215131121b4ef49232691add3fbcea25d57f5dc8a4ec7603a382471b",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -42153,7 +42032,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 64
     },
@@ -42593,7 +42472,7 @@
         "@id": "uag:file/tests/test_embedded_mode.py#test_embedded_no_stale_state_after_failed_load@2838098c3f30d403"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 127
     },
@@ -42854,7 +42733,7 @@
       "@id": "uag:calls/7d51fe7e2ddf8bc60c2d463d93eab2ac0233b79b0fe3823bbba7f045d1110c55",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_genre_tools@7f0d3a2696aa0187"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_genre_tools@7f0d3a2696aa0187"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/tools/__init__.py#_sort_registered_tools@ed984e5200418927"
@@ -48500,7 +48379,7 @@
         "@id": "uag:file/tests/test_auto_unload_grace_from_load.py#test_never_used_uses_load_round_not_process_start@aadb24ba82429489"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_threshold@0224a2da4b236e90"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_threshold@0224a2da4b236e90"
       },
       "uag:source_line": 23
     },
@@ -49765,7 +49644,7 @@
         "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_load@afc127f4cd4f268f"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 83
     },
@@ -50749,17 +50628,6 @@
       "uag:source_line": 10
     },
     {
-      "@id": "uag:calls/94f37e135bb02cdf5295305ec1431a4dd959bef2efade252f5db45cbdbd7a5fd",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/a2a/server.py#main@3dad337adbf0f24d"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 608
-    },
-    {
       "@id": "uag:calls/94f3b9588045ed705652406753bf8ca7c8c6087ec438f05cf39bb7ae048f713d",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -50780,17 +50648,6 @@
         "@id": "uag:file/src/uagent/runtime/policy_engine.py#permission_from_environment@de5800029ec82593"
       },
       "uag:source_line": 18
-    },
-    {
-      "@id": "uag:calls/94f6b92b6f527b19ac59b40826eacb39b524c7fbd41e4e5703fa08f299ed9ec9",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/scheckgui_impl/main.py#main@26ef32222b17e3a8"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 140
     },
     {
       "@id": "uag:calls/9511c01f8fc716b18226e8fe3ea102e36d65f7a2ba20ca1721ef0aaff50a2290",
@@ -51222,17 +51079,6 @@
       "uag:source_line": 6
     },
     {
-      "@id": "uag:calls/965f9fbad3c075e72649530f4c63702dc4258fe633463cd8f6282a24e6635c31",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_genre_tools@e1f841eba73453c1"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/__init__.py#_register_tool_module@7c2333642ee7a8cd"
-      },
-      "uag:source_line": 161
-    },
-    {
       "@id": "uag:calls/96621675986595eff1080b9cdccaf308c8c383085420487e7f5c5af3ba4c4204",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -51283,7 +51129,7 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py#_restore_session_tools@1883720d67fb2647"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 375
     },
@@ -51591,7 +51437,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_unpin_api@bacd37a79db096e7"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 26
     },
@@ -51690,7 +51536,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 1654
     },
@@ -53153,7 +52999,7 @@
         "@id": "uag:file/src/uagent/tools/skill_history.py#pin_skill_tools@023a66e431db26b4"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 31
     },
@@ -53791,7 +53637,7 @@
         "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_list@f91e521ed698fd91"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 244
     },
@@ -54297,7 +54143,7 @@
         "@id": "uag:file/src/uagent/llm_round_helpers.py#_call_openai_azure_round@421dc3b899be27b3"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 623
     },
@@ -54652,17 +54498,6 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py#_parse_clean_threshold@37b9f75426126e9d"
       },
       "uag:source_line": 194
-    },
-    {
-      "@id": "uag:calls/a01ac46d8e50c38c7390069c5d8f98e620a657b7f90a8f673b5153cf1d440898",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_genre_mask.py#test_embedded_ignores_genre_mask_with_warning@82b1c5d4e85770a0"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 58
     },
     {
       "@id": "uag:calls/a03a31b64704d549ac0d3887992525e89bf949a0b2a84a10ebfe528d1d0c89ae",
@@ -56211,7 +56046,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_loadable@fe7917f65338f721"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_loadable@fe7917f65338f721"
       },
       "uag:source_line": 1660
     },
@@ -58059,7 +57894,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 1827
     },
@@ -58169,7 +58004,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_unpin_api@bacd37a79db096e7"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 30
     },
@@ -59236,7 +59071,7 @@
         "@id": "uag:file/src/uagent/tools/browser_playwright_tool.py#_pin_browser_tool@f109e35563f7bdd5"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 1729
     },
@@ -59907,7 +59742,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_unpin_api@bacd37a79db096e7"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 27
     },
@@ -61034,17 +60869,6 @@
       "uag:source_line": 206
     },
     {
-      "@id": "uag:calls/b3578fbbb1a9a67b8933981efb9e81e57caa427c7f4a5067e60b49fa775546b5",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_genre_mask.py#_enabled_genres_after@ba09a6b9fb29216f"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 29
-    },
-    {
       "@id": "uag:calls/b35a877893cae8fce4fd520e59577d9b56dc9e857d3cbfe83ed091a46d842adc",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -62162,7 +61986,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_catalog@6938cbd21041b318"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_is_lazy_module@d402d44c48fa3323"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_is_lazy_module@d402d44c48fa3323"
       },
       "uag:source_line": 1711
     },
@@ -62330,17 +62154,6 @@
         "@id": "uag:file/src/uagent/providers/responses_runtime.py#accept_retry@91b53793f0a62b3b"
       },
       "uag:source_line": 569
-    },
-    {
-      "@id": "uag:calls/b7b8b009bf4ba45dc05e69b9d449ce5c034d748e31f24435bb576ec20de4ec48",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/a2a/server.py#main@3dad337adbf0f24d"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-      },
-      "uag:source_line": 611
     },
     {
       "@id": "uag:calls/b7c287f919e2461fa5632a03b0d1c54469699c3bd3a892ef114ae2b659f8a0c1",
@@ -62704,17 +62517,6 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_specs@e6e5338e0dc99ec2"
       },
       "uag:source_line": 381
-    },
-    {
-      "@id": "uag:calls/b8de9817d7fdb47fafccac286fadfd750d9134689002eaf7f4d85f6fa457569f",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_uses_prompt_toolkit_when_tty@df5da856282bc86f"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_prompt_startup_tool_genre_mask@27db786515d142c0"
-      },
-      "uag:source_line": 38
     },
     {
       "@id": "uag:calls/b8e5a1a1563a5b799dbe8d7a9ebf5358ff09c1b13385c871abfee46fb8bf7e2c",
@@ -65239,7 +65041,7 @@
       "@id": "uag:calls/c209d4ddd2f58a14332a65178f6941c2f25cf935219363698cfac3938ecddb75",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/tools/__init__.py#get_tool_specs@e6e5338e0dc99ec2"
@@ -67117,17 +66919,6 @@
       "uag:source_line": 193
     },
     {
-      "@id": "uag:calls/c7f047a52a6c3c91e2969be3cd1ab58d52780af4b09ac15d507ec7bf24a29fe7",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_on@f408f60e6a0d89a3"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:source_line": 282
-    },
-    {
       "@id": "uag:calls/c8021014636cca2f0529e93984cd58a72455d1d644187afd8f5a9413c07a40e2",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -68432,7 +68223,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#list_pinned_tools@d3d055339d6be1ad"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#list_pinned_tools@d3d055339d6be1ad"
       },
       "uag:source_line": 37
     },
@@ -69334,7 +69125,7 @@
         "@id": "uag:file/src/uagent/tools/browser_playwright_tool.py#_maybe_unpin_browser_tool@88177fd01b582cdb"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 1742
     },
@@ -69760,7 +69551,7 @@
       "@id": "uag:calls/d06894940601df1af812bf8c19cb64c8b1707d7a7f2b0201499900cb4c2b7c17",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/tools/__init__.py#_sort_registered_tools@ed984e5200418927"
@@ -69873,7 +69664,7 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py#_pin_bitchat_tools@add3c9e8c28d73a8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 1887
     },
@@ -70434,7 +70225,7 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py#_unpin_bitchat_tools@d2dc9f412868deba"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196"
       },
       "uag:source_line": 1898
     },
@@ -71930,7 +71721,7 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py#_load_skill_tools@e452f6183a5e30e4"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5"
       },
       "uag:source_line": 405
     },
@@ -71996,7 +71787,7 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py#_load_skill_tools@e452f6183a5e30e4"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 416
     },
@@ -72271,7 +72062,7 @@
         "@id": "uag:file/src/uagent/tools/__init__.py#run_tool@0cf92658d5fced0d"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 2120
     },
@@ -75087,7 +74878,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_disable_single_tool_respects_pin@c53c6281690b49e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 41
     },
@@ -76126,17 +75917,6 @@
       "uag:source_line": 17
     },
     {
-      "@id": "uag:calls/e44d9194131a1017a9a5832ecb3f3bb9beb866f95da782f602bb6dbf65b68f55",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tool_genre@115acfb9b617caf5"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-      },
-      "uag:source_line": 140
-    },
-    {
       "@id": "uag:calls/e45588da431fefa313b41d0520616b478a0a65c6f7540e419bdff420bae8a96c",
       "@type": "uag:CallRelation",
       "uag:source": {
@@ -77100,7 +76880,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 52
     },
@@ -77716,7 +77496,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_helpers_on_browser_tool@41a86ba2a28942e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 78
     },
@@ -78035,7 +77815,7 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py#required_tools_guard@c1c5e285001d4241"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 58
     },
@@ -78390,17 +78170,6 @@
         "@id": "uag:file/tests/test_llm_gemini_thinking.py#ThinkingConfig@a60efe50cb4a0d5f"
       },
       "uag:source_line": 732
-    },
-    {
-      "@id": "uag:calls/eb42966ec5ddf85e0c37fd4338982bebe2f4d4b0ecb8e63e8be88f0726f2a667",
-      "@type": "uag:CallRelation",
-      "uag:source": {
-        "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_falls_back_without_tty@0f6d91c5cb382d3e"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/cli_startup.py#_prompt_startup_tool_genre_mask@27db786515d142c0"
-      },
-      "uag:source_line": 58
     },
     {
       "@id": "uag:calls/eb4473d1259865a7565945de309fd2186fc0bcff4addd115e6c3cd2b5af6f039",
@@ -79542,7 +79311,7 @@
         "@id": "uag:file/tests/test_embedded_mode.py#test_embedded_explicit_load_management_tool_catalog@acc55f52b6639cca"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62"
       },
       "uag:source_line": 166
     },
@@ -81082,7 +80851,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_pin_helpers_on_browser_tool@41a86ba2a28942e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 76
     },
@@ -81742,7 +81511,7 @@
         "@id": "uag:file/tests/test_enable_tool_cli.py#test_enable_tool_pins_requested_tools@777e42d3e6821909"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4"
       },
       "uag:source_line": 73
     },
@@ -81775,7 +81544,7 @@
         "@id": "uag:file/tests/test_enable_tool_cli.py#test_enable_tool_pins_requested_tools@777e42d3e6821909"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73"
       },
       "uag:source_line": 71
     },
@@ -82223,7 +81992,7 @@
       "@id": "uag:calls/f75d96999e1f664a0895b4d439291513f7fdaff575abfa835191545a7cad668f",
       "@type": "uag:CallRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#list_pinned_tools@d3d055339d6be1ad"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#list_pinned_tools@d3d055339d6be1ad"
       },
       "uag:target": {
         "@id": "uag:file/frontend/src/lib/i18n.svelte.js#dict@405460de880076e7"
@@ -83337,7 +83106,7 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py#test_disable_single_tool_respects_pin@c53c6281690b49e8"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868"
       },
       "uag:source_line": 38
     },
@@ -93169,82 +92938,6 @@
       "uag:name": "stdin_loop"
     },
     {
-      "@id": "uag:file/src/uagent/cli_startup.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\cli_startup.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/env_utils.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/i18n.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/providers/__init__.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/runtime/runtime_init.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/runtime/runtime_memory.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/runtime/runtime_plugins.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/runtime/session_store.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/__init__.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/mcp_servers_shared.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/uagent_llm.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/util_tools.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/welcome.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#CliStartupState@d849f3fe1b86bec6"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_flush_startup_pager_and_continue@a7df070b9d1983c4"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_prompt_startup_tool_genre_mask@27db786515d142c0"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_startup_timing_emit@7b9bd6da8eb7c494"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_startup_timing_emit_detail@17f4f504f68cadc3"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#_startup_timing_mark@abbd0d815bf997ab"
-        },
-        {
-          "@id": "uag:file/src/uagent/cli_startup.py#run_cli_startup@5d91f013eb0b1297"
-        }
-      ]
-    },
-    {
       "@id": "uag:file/src/uagent/cli_startup.py#CliStartupState@d849f3fe1b86bec6",
       "@type": "uag:Class",
       "uag:file": {
@@ -93255,16 +92948,6 @@
       "uag:name": "CliStartupState"
     },
     {
-      "@id": "uag:file/src/uagent/cli_startup.py#_apply_startup_tool_genre_mask@52f50dea214d20d1",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/cli_startup.py"
-      },
-      "uag:line": 48,
-      "uag:end_line": 85,
-      "uag:name": "_apply_startup_tool_genre_mask"
-    },
-    {
       "@id": "uag:file/src/uagent/cli_startup.py#_flush_startup_pager_and_continue@a7df070b9d1983c4",
       "@type": "uag:Function",
       "uag:file": {
@@ -93273,16 +92956,6 @@
       "uag:line": 169,
       "uag:end_line": 172,
       "uag:name": "_flush_startup_pager_and_continue"
-    },
-    {
-      "@id": "uag:file/src/uagent/cli_startup.py#_prompt_startup_tool_genre_mask@27db786515d142c0",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/cli_startup.py"
-      },
-      "uag:line": 24,
-      "uag:end_line": 45,
-      "uag:name": "_prompt_startup_tool_genre_mask"
     },
     {
       "@id": "uag:file/src/uagent/cli_startup.py#_startup_timing_emit@7b9bd6da8eb7c494",
@@ -98924,7 +98597,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/llm_tool_narrowing.py"
@@ -102768,7 +102441,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/catalog_tool.py"
@@ -117932,229 +117605,6 @@
       "uag:name": "main"
     },
     {
-      "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\scheckgui_impl\\mainwindow.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/attachment_utils.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/core.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/i18n.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/config.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/icons.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/state.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/widgets.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/worker.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheduler/__init__.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/pybitchat_shared.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/util_tools.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/utils/paths.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/welcome.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#MainWindow@70378cf3fe43ac61"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#__init__@7e0c297bc2d0259c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_add@4be2d10cd6e9ceac"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_add@c59bac667e689956"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_add_file_item@b5c3675aeca5c476"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_add_thumb@3a39fb16d26aaae5"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_ansi_256_color@ccca224455032c3d"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_ansi_color@d35193a3a8510074"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_append_ansi_text@19874c3b94b5458c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_append_audio_preview@fec12bc4bc6fa104"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_append_image_preview@e9fe1b1ad66fa574"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_apply@9f6e5bc5d3cad816"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_apply_font_size@e7b575ae1b4a5aae"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_c@1a30440e6aa45a6d"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_collect_generated_audio_paths@d24abd8cb116cd7c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_collect_generated_image_entries@37ae0496c7874544"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_collect_generated_image_paths@2c4c0980c91aabdb"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_escape_html@20dbbfb8c01d042d"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_find_generated_image_url@c3acc24ce433eec3"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_format@50231c8f975d415c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_handle_output_anchor@bf601b5791f7660c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_insert_plain_semantic@1091af39a7a5f8c8"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_insert_with_links@f49e228f37e5ba45"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_is_audio_path@f2fd8850b776a9af"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_linkify_html@09853c37ce519ff2"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_load@42efd331744ae0ac"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_load@a2478c64d3d1ac88"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_load@c69ea42c78e539c9"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_load@dce52d8b40ae693a"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_load_history_from_file@a5d3c1e51d3ac5ed"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_normalize_stream_chunk@1c96f0ac21f2381c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_auto_stop@843936960bba64cb"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_choose_files@9b28d63f79eaac43"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_files_dropped@5f783c523ca6ea94"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_history_bootstrap@bbdfaa3942ded309"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_image_event@3eddcd1a3eb479c1"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_inception_diffusion@4c33259c9f1c31db"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_send@f5613340c42c1e7f"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_on_stop@b6c0ae452c05349c"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_open_image@e989eabbb202e96b"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_plain_line_format@168c6bba1385db12"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_repl@f16616cfdcb7c11b"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_restore_history@2f65cabbb9838844"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_save_history_to_file@4454255b7afefda0"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_set_reasoning@de336553d9428324"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_set_verbosity@b8e524bd0b3bbe80"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_set_welcome_text@9becbf1e48a692d0"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_show_artifact_cleanup_report@1b98ebc7ae6e5570"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_show_welcome_dialog@e933934a864e82e7"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_toggle_display_reasoning@7b184244b1bf5e43"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_update_display_reasoning_btn@14fbf9cc2ea70984"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_update_mode_label@24d94fe9518b6a95"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_update_tools_menu_state@8ef55140ab5d62e2"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#_update_ui_from_log@aa2f316adbd8e551"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#closeEvent@953d5ab474665b04"
-        },
-        {
-          "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#eventFilter@567f5b6fc3beaeef"
-        }
-      ]
-    },
-    {
       "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py#MainWindow@70378cf3fe43ac61",
       "@type": "uag:Class",
       "uag:file": {
@@ -120047,7 +119497,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         }
       ],
       "uag:defines": [
@@ -143082,7 +142532,7 @@
           "@id": "uag:file/src/uagent/runtime/tool_discovery.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/context.py"
@@ -143989,211 +143439,140 @@
       "uag:name": "register_atexit"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\tools\\_genre_control_util.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/uagent_llm.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_is_lazy_module@d402d44c48fa3323"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#bump_threshold@64e406aa16b03060"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_genre_tools@7f0d3a2696aa0187"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_genre_tools@e1f841eba73453c1"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_enabled_genre_mask@4cfc1d3ef987d585"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_enabled_tool_names@c63f2111ca7d2a6e"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_threshold@0224a2da4b236e90"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_loadable@fe7917f65338f721"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#list_pinned_tools@d3d055339d6be1ad"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_find_tool_modules@fbea67ce3d0edbd5",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_find_tool_modules@fbea67ce3d0edbd5",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 101,
       "uag:end_line": 129,
       "uag:name": "_find_tool_modules"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#_is_lazy_module@d402d44c48fa3323",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#_is_lazy_module@d402d44c48fa3323",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 82,
       "uag:end_line": 98,
       "uag:name": "_is_lazy_module"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#bump_threshold@64e406aa16b03060",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#bump_threshold@64e406aa16b03060",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 346,
       "uag:end_line": 358,
       "uag:name": "bump_threshold"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_genre_tools@7f0d3a2696aa0187",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_genre_tools@7f0d3a2696aa0187",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 170,
       "uag:end_line": 196,
       "uag:name": "disable_genre_tools"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#disable_single_tool@c8dcbdb1018ef868",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#disable_single_tool@c8dcbdb1018ef868",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 397,
       "uag:end_line": 428,
       "uag:name": "disable_single_tool"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_genre_tools@e1f841eba73453c1",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#enable_single_tool@040bcc201254ea62",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-      },
-      "uag:line": 132,
-      "uag:end_line": 167,
-      "uag:name": "enable_genre_tools"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#enable_single_tool@040bcc201254ea62",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 219,
       "uag:end_line": 332,
       "uag:name": "enable_single_tool"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_enabled_genre_mask@4cfc1d3ef987d585",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_enabled_genre_mask@4cfc1d3ef987d585",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 40,
       "uag:end_line": 46,
       "uag:name": "get_enabled_genre_mask"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_enabled_tool_names@c63f2111ca7d2a6e",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_enabled_tool_names@c63f2111ca7d2a6e",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 65,
       "uag:end_line": 76,
       "uag:name": "get_enabled_tool_names"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#get_threshold@0224a2da4b236e90",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#get_threshold@0224a2da4b236e90",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 335,
       "uag:end_line": 343,
       "uag:name": "get_threshold"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_loadable@fe7917f65338f721",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_loadable@fe7917f65338f721",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 199,
       "uag:end_line": 216,
       "uag:name": "is_tool_loadable"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#is_tool_pinned@c175deddd5b3fca4",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#is_tool_pinned@c175deddd5b3fca4",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 384,
       "uag:end_line": 389,
       "uag:name": "is_tool_pinned"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#list_pinned_tools@d3d055339d6be1ad",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#list_pinned_tools@d3d055339d6be1ad",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 392,
       "uag:end_line": 394,
       "uag:name": "list_pinned_tools"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#pin_tool@660d6d765218bb73",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#pin_tool@660d6d765218bb73",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 361,
       "uag:end_line": 370,
       "uag:name": "pin_tool"
     },
     {
-      "@id": "uag:file/src/uagent/tools/_genre_control_util.py#unpin_tool@ded8ec925e37e196",
+      "@id": "uag:file/src/uagent/tools/_tool_load_util.py#unpin_tool@ded8ec925e37e196",
       "@type": "uag:Function",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:line": 373,
       "uag:end_line": 381,
@@ -149386,7 +148765,7 @@
           "@id": "uag:file/src/uagent/tools/_browser_session_registry.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/i18n_helper.py"
@@ -150314,7 +149693,7 @@
       "uag:relative_path": "src\\uagent\\tools\\catalog_tool.py",
       "uag:imports": [
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/i18n_helper.py"
@@ -160525,178 +159904,6 @@
       "uag:name": "generate_image_zai"
     },
     {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\tools\\genre_control_tool.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_basic_tools_enabled@494183b2818892e9"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_comm_tools_enabled@67304a90b2f711dc"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_devel_tools_enabled@91a386e7aa2c5be1"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_exec_tools_enabled@f748131e1ce4f497"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_external_tools_enabled@a6ba2bc34c17e23c"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_file_tools_enabled@3af0250a1af260ac"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_index_tools_enabled@38f46e701d0108f8"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_iot_tools_enabled@362e2206a11b612d"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_media_tools_enabled@94f8eac77b212249"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_office_tools_enabled@11d31c38a9967e7d"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py#run_tool@410329c7ffc21ecb"
-        }
-      ]
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_basic_tools_enabled@494183b2818892e9",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 76,
-      "uag:end_line": 77,
-      "uag:name": "_set_basic_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_comm_tools_enabled@67304a90b2f711dc",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 80,
-      "uag:end_line": 81,
-      "uag:name": "_set_comm_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_devel_tools_enabled@91a386e7aa2c5be1",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 88,
-      "uag:end_line": 89,
-      "uag:name": "_set_devel_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_exec_tools_enabled@f748131e1ce4f497",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 96,
-      "uag:end_line": 97,
-      "uag:name": "_set_exec_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_external_tools_enabled@a6ba2bc34c17e23c",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 100,
-      "uag:end_line": 101,
-      "uag:name": "_set_external_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_file_tools_enabled@3af0250a1af260ac",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 104,
-      "uag:end_line": 105,
-      "uag:name": "_set_file_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_genre_tools_enabled@d3eae869b8e3e73b",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 38,
-      "uag:end_line": 72,
-      "uag:name": "_set_genre_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_index_tools_enabled@38f46e701d0108f8",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 112,
-      "uag:end_line": 113,
-      "uag:name": "_set_index_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_iot_tools_enabled@362e2206a11b612d",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 92,
-      "uag:end_line": 93,
-      "uag:name": "_set_iot_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_media_tools_enabled@94f8eac77b212249",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 108,
-      "uag:end_line": 109,
-      "uag:name": "_set_media_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#_set_office_tools_enabled@11d31c38a9967e7d",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 84,
-      "uag:end_line": 85,
-      "uag:name": "_set_office_tools_enabled"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/genre_control_tool.py#run_tool@410329c7ffc21ecb",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:line": 153,
-      "uag:end_line": 154,
-      "uag:name": "run_tool"
-    },
-    {
       "@id": "uag:file/src/uagent/tools/geodesic_distance_tool.py",
       "@type": "uag:SourceFile",
       "uag:language": "Python",
@@ -163891,7 +163098,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/catalog_tool.py"
@@ -173980,7 +173187,7 @@
           "@id": "uag:file/src/uagent/runtime/bitchat_identity_store.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/bitchat_noise.py"
@@ -179238,7 +178445,7 @@
           "@id": "uag:file/src/uagent/profile_manager.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/context.py"
@@ -179810,7 +179017,7 @@
       "uag:relative_path": "src\\uagent\\tools\\skills_load_tool.py",
       "uag:imports": [
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/agent_skills_shared.py"
@@ -183456,64 +182663,6 @@
       "uag:line": 94,
       "uag:end_line": 97,
       "uag:name": "reset_confirmation_grants"
-    },
-    {
-      "@id": "uag:file/src/uagent/tools/tools_control_tool.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\tools\\tools_control_tool.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/runtime/tool_discovery.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/uagent_llm.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/util_tools.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#_ago@12c9de9c58ac457a"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#_register_tools_subcommands@16addf9f27cec18a"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#_tool_expire_display@38917b13ab037444"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_list@f91e521ed698fd91"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_load@afc127f4cd4f268f"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_off@8fd60fdd85fae239"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_on@f408f60e6a0d89a3"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_output@c62d9bac8ebba072"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#handle_cmd_tools_reload@104a56dddf1dad86"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/tools_control_tool.py#run_tool@3fb3c65e03523876"
-        }
-      ]
     },
     {
       "@id": "uag:file/src/uagent/tools/tools_control_tool.py#_ago@12c9de9c58ac457a",
@@ -187375,7 +186524,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/context.py"
@@ -188636,7 +187785,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/context.py"
@@ -191650,109 +190799,6 @@
       "uag:name": "set_status"
     },
     {
-      "@id": "uag:file/src/uagent/web_impl/routes_api.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\web_impl\\routes_api.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/core.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/i18n.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/profile_manager.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/providers/__init__.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/__init__.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/util_tools.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/agent_worker.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/app.py"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/rooms.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#_log_first_user_message@dd15ffffbe14e437"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#_web_genre_labels@845330bd6a830647"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#add_memory@95218c64b9300511"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#api_command@ec22eabf242efd90"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#artifact_cleanup@ff87461701e32a08"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#artifact_cleanup_report@d3afb6101ef5943c"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#clear_profile@dc74d0acfc767c65"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#delete_memory@f6f1609c9bea87d7"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_log_preview@d73a72daa7c6ccb1"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_log_preview_by_path@003e4beaab252d08"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_logs@954152e3a0200cac"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_memories@8c2340b9ef287f1d"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_profile@23a38dcd8a4605c8"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_tool_genres@643bf7bdc0d13c63"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_tools_enabled@f137b563c0ff5a68"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#profile_from_logs@7737bf3b9efe85b9"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tool_genre@115acfb9b617caf5"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tools_enabled@e20a8f26b5c9fd48"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#update_memory@8fa7cbea62916635"
-        },
-        {
-          "@id": "uag:file/src/uagent/web_impl/routes_api.py#update_profile@9a72b229ad2b0eb6"
-        }
-      ]
-    },
-    {
       "@id": "uag:file/src/uagent/web_impl/routes_api.py#_log_first_user_message@dd15ffffbe14e437",
       "@type": "uag:Function",
       "uag:file": {
@@ -191883,16 +190929,6 @@
       "uag:name": "get_profile"
     },
     {
-      "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_tool_genres@643bf7bdc0d13c63",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/web_impl/routes_api.py"
-      },
-      "uag:line": 92,
-      "uag:end_line": 111,
-      "uag:name": "get_tool_genres"
-    },
-    {
       "@id": "uag:file/src/uagent/web_impl/routes_api.py#get_tools_enabled@f137b563c0ff5a68",
       "@type": "uag:Function",
       "uag:file": {
@@ -191911,16 +190947,6 @@
       "uag:line": 255,
       "uag:end_line": 262,
       "uag:name": "profile_from_logs"
-    },
-    {
-      "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tool_genre@115acfb9b617caf5",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/src/uagent/web_impl/routes_api.py"
-      },
-      "uag:line": 115,
-      "uag:end_line": 144,
-      "uag:name": "set_tool_genre"
     },
     {
       "@id": "uag:file/src/uagent/web_impl/routes_api.py#set_tools_enabled@e20a8f26b5c9fd48",
@@ -198688,46 +197714,6 @@
       "uag:name": "test_search_web_main_raises_runtime_error_on_failure"
     },
     {
-      "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py",
-      "@type": "uag:SourceFile",
-      "uag:language": "Python",
-      "uag:relative_path": "tests\\test_cli_startup_prompt_toolkit.py",
-      "uag:imports": [
-        {
-          "@id": "uag:file/src/uagent/__init__.py"
-        }
-      ],
-      "uag:defines": [
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#_Dialog@815f7fed6c28e494"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#_NonTTYStream@1b0cc00896c953c2"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#_TTYStream@5442ccd332c6b4aa"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#fail_import@761be8500b3e67e5"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#isatty@970e0e19bbfc15ff"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#isatty@ec1ab4cf8e07fe85"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#run@b7e9b0c888ab223c"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_falls_back_without_tty@0f6d91c5cb382d3e"
-        },
-        {
-          "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_uses_prompt_toolkit_when_tty@df5da856282bc86f"
-        }
-      ]
-    },
-    {
       "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#_Dialog@815f7fed6c28e494",
       "@type": "uag:Class",
       "uag:file": {
@@ -198796,26 +197782,6 @@
       "uag:line": 25,
       "uag:end_line": 27,
       "uag:name": "run"
-    },
-    {
-      "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_falls_back_without_tty@0f6d91c5cb382d3e",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py"
-      },
-      "uag:line": 42,
-      "uag:end_line": 58,
-      "uag:name": "test_startup_tool_genre_prompt_falls_back_without_tty"
-    },
-    {
-      "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py#test_startup_tool_genre_prompt_uses_prompt_toolkit_when_tty@df5da856282bc86f",
-      "@type": "uag:Function",
-      "uag:file": {
-        "@id": "uag:file/tests/test_cli_startup_prompt_toolkit.py"
-      },
-      "uag:line": 17,
-      "uag:end_line": 39,
-      "uag:name": "test_startup_tool_genre_prompt_uses_prompt_toolkit_when_tty"
     },
     {
       "@id": "uag:file/tests/test_cmake2idx.py",
@@ -203362,7 +202328,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/tools/llm_tool_narrowing.py"
@@ -204024,7 +202990,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/util_common.py"
@@ -205435,7 +204401,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         },
         {
           "@id": "uag:file/src/uagent/util_common.py"
@@ -234402,7 +233368,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         }
       ],
       "uag:defines": [
@@ -239465,7 +238431,7 @@
           "@id": "uag:file/src/uagent/tools/__init__.py"
         },
         {
-          "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+          "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
         }
       ],
       "uag:defines": [
@@ -246097,7 +245063,7 @@
       "@id": "uag:import/0747f14a4f32193d4024719edee836ae8a3dcaa40a809076b0e60bcea1fbabd9",
       "@type": "uag:ImportRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/uagent_llm.py"
@@ -246340,9 +245306,9 @@
         "@id": "uag:file/src/uagent/tools/browser_playwright_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1740
     },
     {
@@ -247216,9 +246182,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 652
     },
     {
@@ -247948,9 +246914,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1825
     },
     {
@@ -248344,9 +247310,9 @@
         "@id": "uag:file/src/uagent/tools/browser_playwright_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1727
     },
     {
@@ -251104,9 +250070,9 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1895
     },
     {
@@ -251248,9 +250214,9 @@
         "@id": "uag:file/tests/test_scheduler_tool_guard.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 8
     },
     {
@@ -253318,18 +252284,6 @@
       "uag:source_line": 9
     },
     {
-      "@id": "uag:import/34afee848b9a8e90afb374d3b46369cae15f5f3a3ef2d570293605d45cbb21c5",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
-      },
-      "uag:module": "_genre_control_util",
-      "uag:source_line": 13
-    },
-    {
       "@id": "uag:import/34cb00d5a3ff8969d228ec123d98e978b8cec6e2501e3c29d3a611a6941410cc",
       "@type": "uag:ImportRelation",
       "uag:source": {
@@ -254488,9 +253442,9 @@
         "@id": "uag:file/tests/test_embedded_mode.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 140
     },
     {
@@ -255256,9 +254210,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 2118
     },
     {
@@ -255772,9 +254726,9 @@
         "@id": "uag:file/src/uagent/tools/tools_control_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 196
     },
     {
@@ -255904,9 +254858,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 636
     },
     {
@@ -256396,9 +255350,9 @@
         "@id": "uag:file/tests/test_scheduler_tool_guard.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 34
     },
     {
@@ -256912,9 +255866,9 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 216
     },
     {
@@ -258064,9 +257018,9 @@
         "@id": "uag:file/src/uagent/uagent_llm.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 73
     },
     {
@@ -258388,22 +257342,10 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1289
-    },
-    {
-      "@id": "uag:import/529e2bdcf1fe7868c25ddf5dd5264ab6450e100fc9048ac4a0742fa0c2ce882c",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/i18n_helper.py"
-      },
-      "uag:module": "i18n_helper",
-      "uag:source_line": 14
     },
     {
       "@id": "uag:import/52a1e99689885acc9d6aa216ca1a9cf658c760c80051b7f028ecd46669c7fdc3",
@@ -258532,9 +257474,9 @@
         "@id": "uag:file/tests/test_embedded_mode.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 119
     },
     {
@@ -258844,9 +257786,9 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 313
     },
     {
@@ -258952,9 +257894,9 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 344
     },
     {
@@ -260041,7 +258983,7 @@
       "@id": "uag:import/5b06bdaa0c5cd7cdd0394be0e220cda9b05483193ed67d95c4f7cc9196ab3caf",
       "@type": "uag:ImportRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/uagent_llm.py"
@@ -260788,9 +259730,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 154
     },
     {
@@ -260812,9 +259754,9 @@
         "@id": "uag:file/tests/test_tool_pin_and_browser_keepalive.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 6
     },
     {
@@ -261886,18 +260828,6 @@
       "uag:source_line": 14
     },
     {
-      "@id": "uag:import/667d1c626c317f2dc7c22cfef48f3de03bedb213e3ccb7c1d7e63d6949583ece",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/web_impl/routes_api.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:module": "tools.genre_control_tool",
-      "uag:source_line": 118
-    },
-    {
       "@id": "uag:import/6694b347c967af654d237e3e1b22b0eda9f7896dc784ec089882a3a12a5653c4",
       "@type": "uag:ImportRelation",
       "uag:source": {
@@ -262300,9 +261230,9 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 357
     },
     {
@@ -262316,18 +261246,6 @@
       },
       "uag:module": "uagent.runtime.context_recovery",
       "uag:source_line": 14
-    },
-    {
-      "@id": "uag:import/68cbdb19c48f584009bb3191dccf0fd913caa83a2ba7159f8a62d6753823ee50",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/cli_startup.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:module": "tools.genre_control_tool",
-      "uag:source_line": 69
     },
     {
       "@id": "uag:import/68e3e7f38780cd2e042f225704ab23d148ba25ea4f6a9269eb56ca5d2825f0e9",
@@ -262364,18 +261282,6 @@
       },
       "uag:module": "context",
       "uag:source_line": 677
-    },
-    {
-      "@id": "uag:import/6928ed9e80b43f543273e88365a1e18475bea686501f4eb33e028d46cbaeb33e",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:module": "tools.genre_control_tool",
-      "uag:source_line": 804
     },
     {
       "@id": "uag:import/692f3e1818a68905b0bff0c75b4580c32dd80e3f1fb9ec517f9f539488e47ad2",
@@ -263596,9 +262502,9 @@
         "@id": "uag:file/src/uagent/tools/catalog_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 328
     },
     {
@@ -263728,9 +262634,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1705
     },
     {
@@ -264148,9 +263054,9 @@
         "@id": "uag:file/tests/test_embedded_mode.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 164
     },
     {
@@ -265012,9 +263918,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 501
     },
     {
@@ -268732,9 +267638,9 @@
         "@id": "uag:file/src/uagent/scheduler/tool_guard.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 28
     },
     {
@@ -268792,9 +267698,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 521
     },
     {
@@ -269084,18 +267990,6 @@
       },
       "uag:module": "runtime.tool_discovery",
       "uag:source_line": 83
-    },
-    {
-      "@id": "uag:import/90b3bd91bbf46d78cbca578ffe5fdf915d6f6e092be391f71a2b6875ec6a4457",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/tools_control_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:module": "genre_control_tool",
-      "uag:source_line": 275
     },
     {
       "@id": "uag:import/90bdc58f71cb59884bb30a7a97bcfa4da2796eda181a80d942a490370ad33c1e",
@@ -272104,9 +270998,9 @@
         "@id": "uag:file/tests/test_genre_mask.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 75
     },
     {
@@ -272764,9 +271658,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1652
     },
     {
@@ -272860,9 +271754,9 @@
         "@id": "uag:file/src/uagent/web_impl/routes_api.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 117
     },
     {
@@ -273109,7 +272003,7 @@
       "@id": "uag:import/aa5be29a60691f551cf6f3fdbc9cba2bde52a7d54542195b870d13af0b780729",
       "@type": "uag:ImportRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/uagent_llm.py"
@@ -273412,9 +272306,9 @@
         "@id": "uag:file/src/uagent/tools/skills_load_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 89
     },
     {
@@ -273688,9 +272582,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1786
     },
     {
@@ -276172,9 +275066,9 @@
         "@id": "uag:file/src/uagent/cli_startup.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 68
     },
     {
@@ -276580,9 +275474,9 @@
         "@id": "uag:file/tests/test_enable_tool_cli.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 63
     },
     {
@@ -277060,9 +275954,9 @@
         "@id": "uag:file/src/uagent/cli_startup.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 33
     },
     {
@@ -279100,9 +277994,9 @@
         "@id": "uag:file/src/uagent/cli_startup.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 334
     },
     {
@@ -279544,9 +278438,9 @@
         "@id": "uag:file/src/uagent/tools/llm_tool_narrowing.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 322
     },
     {
@@ -279560,18 +278454,6 @@
       },
       "uag:module": "i18n_helper",
       "uag:source_line": 9
-    },
-    {
-      "@id": "uag:import/d4ce07734c28ba9eacba58b18a8f96e110485e88b7e0b8e36e682c88a0c8cddc",
-      "@type": "uag:ImportRelation",
-      "uag:source": {
-        "@id": "uag:file/src/uagent/tools/tools_control_tool.py"
-      },
-      "uag:target": {
-        "@id": "uag:file/src/uagent/tools/genre_control_tool.py"
-      },
-      "uag:module": "genre_control_tool",
-      "uag:source_line": 292
     },
     {
       "@id": "uag:import/d4d9040a0a76eda8b22838ed29ab7204a6cab05206dc65fc9a9a3f8d81f08248",
@@ -279676,9 +278558,9 @@
         "@id": "uag:file/src/uagent/util_cmd_session.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 396
     },
     {
@@ -280780,9 +279662,9 @@
         "@id": "uag:file/src/uagent/providers/llm_grok.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 342
     },
     {
@@ -281452,9 +280334,9 @@
         "@id": "uag:file/src/uagent/scheckgui_impl/mainwindow.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 879
     },
     {
@@ -282916,9 +281798,9 @@
         "@id": "uag:file/src/uagent/tools/__init__.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1541
     },
     {
@@ -282985,7 +281867,7 @@
       "@id": "uag:import/ed3127a57642532e7dd0e859925602627efaff07baac5d8300fc64fe58d29fc6",
       "@type": "uag:ImportRelation",
       "uag:source": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
       "uag:target": {
         "@id": "uag:file/src/uagent/tools/i18n_helper.py"
@@ -283792,9 +282674,9 @@
         "@id": "uag:file/src/uagent/llm_round_helpers.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 620
     },
     {
@@ -283828,9 +282710,9 @@
         "@id": "uag:file/src/uagent/tools/tools_control_tool.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 81
     },
     {
@@ -284428,9 +283310,9 @@
         "@id": "uag:file/src/uagent/tools/skill_history.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 24
     },
     {
@@ -284668,9 +283550,9 @@
         "@id": "uag:file/tests/test_genre_mask.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "uagent.tools._genre_control_util",
+      "uag:module": "uagent.tools._tool_load_util",
       "uag:source_line": 35
     },
     {
@@ -285292,9 +284174,9 @@
         "@id": "uag:file/src/uagent/tools/skill_history.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 39
     },
     {
@@ -285832,9 +284714,9 @@
         "@id": "uag:file/src/uagent/web_impl/routes_api.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "tools._genre_control_util",
+      "uag:module": "tools._tool_load_util",
       "uag:source_line": 94
     },
     {
@@ -285856,9 +284738,9 @@
         "@id": "uag:file/src/uagent/tools/pybitchat_shared.py"
       },
       "uag:target": {
-        "@id": "uag:file/src/uagent/tools/_genre_control_util.py"
+        "@id": "uag:file/src/uagent/tools/_tool_load_util.py"
       },
-      "uag:module": "_genre_control_util",
+      "uag:module": "_tool_load_util",
       "uag:source_line": 1884
     },
     {

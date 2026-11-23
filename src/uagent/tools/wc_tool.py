@@ -17,7 +17,7 @@ STATUS_LABEL = "tool:wc"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "wc",

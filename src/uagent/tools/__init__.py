@@ -204,7 +204,7 @@ def _embedded_management_tool_allowed(tool_name: str) -> bool:
     if not _is_embedded_mode():
         return True
     try:
-        from ._genre_control_util import _LOADED_SINGLE_TOOLS
+        from ._tool_load_util import _LOADED_SINGLE_TOOLS
 
         loaded = set(_LOADED_SINGLE_TOOLS)
     except Exception:
@@ -946,16 +946,15 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         ):
             return False
 
-    # tool_level controls per-tool lazy loading; tool_genre is classification
-    # metadata, not an enable/disable switch.
+    # Tool availability is controlled only by tool_level.
     # -1: never register; 0: always register; 1: dynamically load on demand.
     try:
-        default_level = 1 if spec.get("tool_genre") else 0
+        default_level = 0
         tool_level = int(spec.get("tool_level", default_level))
     except Exception:
-        tool_level = 1 if spec.get("tool_genre") else 0
+        tool_level = 0
 
-    # In native GPT-5.4 tool_search mode, register all tools regardless of genre
+    # In native GPT-5.4 tool_search mode, register all tools regardless of tool_level
     # so the full tool set is sent to the server for server-side narrowing.
     if tool_level == 1 and _should_preload_lazy_specs():
         tool_level = 0
@@ -968,7 +967,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         _fi_name = str(_fi.get("name") or "").strip()
     if tool_level == 1 and _fi_name:
         try:
-            from ._genre_control_util import _LOADED_SINGLE_TOOLS
+            from ._tool_load_util import _LOADED_SINGLE_TOOLS
 
             if _fi_name in _LOADED_SINGLE_TOOLS:
                 tool_level = 0
@@ -1077,12 +1076,12 @@ def _register_extra_spec(
     if _tn2 in _EMBEDDED_EXCLUDED_TOOLS and not _embedded_management_tool_allowed(_tn2):
         return False
     try:
-        default_level = 1 if spec.get("tool_genre") else 0
+        default_level = 0
         tool_level = int(spec.get("tool_level", default_level))
     except Exception:
-        tool_level = 1 if spec.get("tool_genre") else 0
+        tool_level = 0
 
-    # Native GPT-5.4 tool_search mode: register all tools regardless of genre
+    # Native GPT-5.4 tool_search mode: register all tools regardless of tool_level
     if tool_level == 1 and _should_preload_lazy_specs():
         tool_level = 0
 
@@ -1091,7 +1090,7 @@ def _register_extra_spec(
         _fi = spec.get("function", {})
         if isinstance(_fi, dict) and _fi.get("name"):
             try:
-                from ._genre_control_util import _LOADED_SINGLE_TOOLS
+                from ._tool_load_util import _LOADED_SINGLE_TOOLS
 
                 if _fi["name"] in _LOADED_SINGLE_TOOLS:
                     tool_level = 0
@@ -1190,7 +1189,7 @@ def _load_plugins() -> None:
             continue
 
         # Lazy-loaded modules are skipped here; imported on demand
-        # (e.g. when genre is enabled or tool is individually loaded).
+        # (e.g. when an on-demand tool is loaded individually).
         if m.name in _LAZY_TOOL_MODULES:
             lazy_spec = _load_lazy_tool_spec(m.name)
             # In native GPT-5.4 tool_search mode, pre-register lazy tool specs
@@ -1813,7 +1812,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         # :tools load). Loading tool_catalog therefore also surfaces
         # tool_load / unload_tool so discovery keeps working.
         try:
-            from ._genre_control_util import _LOADED_SINGLE_TOOLS
+            from ._tool_load_util import _LOADED_SINGLE_TOOLS
 
             _loaded = set(_LOADED_SINGLE_TOOLS)
             _native_exclusions = {
@@ -1852,7 +1851,6 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("disabled", None)
         spec_copy.pop("tool_level", None)
         spec_copy.pop("load_order", None)
-        spec_copy.pop("tool_genre", None)
         spec_copy.pop("computer_use_conflict", None)
         spec_copy.pop("_single_load_seq", None)
         # Remove top-level extended fields (x_* prefixed) that strict OpenAI-compatible
@@ -2092,7 +2090,7 @@ def get_tool_catalog(
             pass
 
     specs = get_tool_specs() if tool_specs is None else tool_specs
-    from ._genre_control_util import is_tool_loadable
+    from ._tool_load_util import is_tool_loadable
 
     # Build set of loaded tool names for dedup
     loaded_names: set[str] = set()
@@ -2195,7 +2193,6 @@ def get_tool_catalog(
                 ),
                 "parameters": param_names,
                 "loaded": True,
-                "genre": str(spec.get("tool_genre") or ""),
                 "score": score,
             }
         )
@@ -2203,7 +2200,7 @@ def get_tool_catalog(
     # 2. Also search unloaded tool modules (for discovery)
     if q or all_items:
         try:
-            from ._genre_control_util import _find_tool_modules
+            from ._tool_load_util import _find_tool_modules
 
             for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
@@ -2239,7 +2236,6 @@ def get_tool_catalog(
                         "required": [],
                         "parameters": param_names,
                         "loaded": False,
-                        "genre": str(spec.get("tool_genre") or ""),
                         "score": score - 100 if q else 0,
                     }
                 )
@@ -2256,7 +2252,7 @@ def get_tool_catalog(
         # only the first few lines; os.scandir is a single directory read).
         _lazy_mod_names: list[str] = []
         try:
-            from ._genre_control_util import _is_lazy_module
+            from ._tool_load_util import _is_lazy_module
 
             _pkg_dir = os.path.dirname(__file__)
             for _entry in os.scandir(_pkg_dir):
@@ -2314,7 +2310,6 @@ def get_tool_catalog(
                     "required": [],
                     "parameters": param_names,
                     "loaded": False,
-                    "genre": str(spec.get("tool_genre") or ""),
                     "score": score - 100 if q else 0,
                 }
             )
@@ -2332,14 +2327,13 @@ def get_tool_catalog(
                 "required": row["required"],
                 "parameters": row["parameters"],
                 "loaded": row["loaded"],
-                "genre": row["genre"],
             }
         )
 
     # Ensure web_search and fetch_url are always included in catalog results
     if not any(r["name"] == "search_web" for r in out):
         try:
-            from ._genre_control_util import _find_tool_modules
+            from ._tool_load_util import _find_tool_modules
 
             for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
@@ -2368,7 +2362,6 @@ def get_tool_catalog(
                         ),
                         "parameters": param_names,
                         "loaded": False,
-                        "genre": str(spec.get("tool_genre") or ""),
                     }
                 )
                 break
@@ -2378,7 +2371,7 @@ def get_tool_catalog(
     # Ensure fetch_url is always included in catalog results
     if not any(r["name"] == "fetch_url" for r in out):
         try:
-            from ._genre_control_util import _find_tool_modules
+            from ._tool_load_util import _find_tool_modules
 
             for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
@@ -2407,7 +2400,6 @@ def get_tool_catalog(
                         ),
                         "parameters": param_names,
                         "loaded": False,
-                        "genre": str(spec.get("tool_genre") or ""),
                     }
                 )
                 break
@@ -2932,7 +2924,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             runner = _RUNNERS.get(name)
         if runner is None:
             try:
-                from ._genre_control_util import enable_single_tool
+                from ._tool_load_util import enable_single_tool
 
                 if enable_single_tool(name):
                     runner = _RUNNERS.get(name)

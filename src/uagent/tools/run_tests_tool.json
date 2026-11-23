@@ -1288,10 +1288,10 @@
     "error.framework_auto_detect_failed": "Auto-detektering av rammeverk mislukkast",
     "error.unsupported_framework": "ikke-støttet rammeverk: {framework}",
     "describe.framework_auto": "Automatisk oppdaging",
-    "describe.default_target": "default test target",
-    "describe.current_directory": "Arbeidsmappe:",
-    "describe.extra_args": "Angi ekstra argumenter for denne UPSen, f.eks. \"port=auto\".",
+    "describe.default_target": "standard testmål",
+    "describe.current_directory": "gjeldande arbeidskatalog",
+    "describe.extra_args": "Ekstra argument: %(args)s",
     "describe.pythonpath": "PYTHONPATH: %(path)s",
-    "describe.summary": "Run tests (framework: %(framework)s; target: %(target)s; working directory: %(cwd)s; timeout: %(timeout)s seconds%(options)s)."
+    "describe.summary": "Køyr testar (rammeverk: %(framework)s; mål: %(target)s; arbeidskatalog: %(cwd)s; tidsavbrot: %(timeout)s sekund%(options)s)."
   }
 }

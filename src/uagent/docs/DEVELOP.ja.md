@@ -147,11 +147,9 @@ SQLite または JSONL へ保存する前に、Tool Message のコピーから�
 PDF・スクリーンショット・MCP バイナリのインラインデータを bounded marker
 へ置換します。メモリ上の UI / リモート向け attachment は変更しません。
 
-### 3.6 ツールレベルとツールジャンル
 
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。
-- **ツールジャンル (`tool_genre`)**: ツールを `"basic"`, `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系), `"iot"`, `"exec"` (実行系), `"external"`, `"media"`, `"file"` に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
-- `tool_genre` は検索・分類用のメタデータです。ジャンル単位の有効化・無効化や起動時のマスク指定はありません。
+
 
 ### 3.6.2 GPT-5.4+ / Responses API のツール送信フロー
 

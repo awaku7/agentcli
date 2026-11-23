@@ -9,7 +9,7 @@ from typing import Any
 # Tool metadata definition (loaded by tools/__init__.py)
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",  # Mandatory for OpenAI / Azure
-    "tool_genre": "basic",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "get_workdir",

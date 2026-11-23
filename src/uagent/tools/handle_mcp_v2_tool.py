@@ -97,7 +97,7 @@ def mask_values(data: Any) -> Any:
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "x_parallel_safe": True,
-    "tool_genre": "external",
+    "tool_level": 1,
     "function": {
         "name": "handle_mcp_v2",
         "description": _(

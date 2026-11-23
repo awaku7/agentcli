@@ -1,6 +1,7 @@
 """Genre-wide activation is retired; per-tool discovery remains available."""
 
 import inspect
+import json
 from pathlib import Path
 
 from uagent.util_common import parse_startup_args
@@ -25,7 +26,7 @@ def test_genre_control_api_removed():
 
 
 def test_individual_tool_discovery_remains():
-    from uagent.tools._genre_control_util import enable_single_tool, is_tool_loadable
+    from uagent.tools._tool_load_util import enable_single_tool, is_tool_loadable
     from uagent.tools.tools_control_tool import _register_tools_subcommands
 
     assert callable(enable_single_tool)
@@ -54,10 +55,31 @@ def test_web_clients_no_longer_request_genre_controls():
         assert "toggleGenre(" not in source
 
 
-def test_tool_genre_remains_catalog_metadata():
+def test_tools_and_catalog_no_longer_expose_genre_metadata():
     from uagent.tools import get_tool_catalog
+    from uagent.tools._tool_load_util import _find_tool_modules
 
-    assert callable(get_tool_catalog)
+    root = Path(__file__).resolve().parents[1]
+    tool_dirs = (root / "src/uagent/tools", root / "src/uagent/tools_rust")
+    for tool_dir in tool_dirs:
+        for path in tool_dir.rglob("*.py"):
+            assert '"tool_genre"' not in path.read_text(encoding="utf-8"), path
+
+    for _module_name, module in _find_tool_modules():
+        for attr in dir(module):
+            if attr.startswith("TOOL_SPEC"):
+                spec = getattr(module, attr, None)
+                if isinstance(spec, dict):
+                    assert "tool_genre" not in spec
+    tool_control_messages = json.loads(
+        (root / "src/uagent/tools/tools_control_tool.json").read_text(encoding="utf-8")
+    )
+    assert all(
+        "genre" not in json.dumps(messages, ensure_ascii=False).lower()
+        for messages in tool_control_messages.values()
+        if isinstance(messages, dict)
+    )
+    assert all("genre" not in row for row in get_tool_catalog(query="", all_items=True))
 
 
 def test_bundled_web_javascript_parses():
@@ -90,31 +112,39 @@ def test_retired_startup_masks_are_absent_in_gui_web_and_a2a():
         assert "--tool-genre-mask" not in source
 
 
-def test_translated_tools_help_hides_retired_genre_command():
+def test_tools_help_contains_no_retired_category_command():
     from types import SimpleNamespace
 
     from uagent.util_help import format_help_detail
 
-    # Some translations localize the placeholder itself (for example, pt).
-    def translated(value):
-        return value.replace("<genre>", "<gênero>")
-
-    result = format_help_detail("tools", core=SimpleNamespace(tr=translated))
+    result = format_help_detail("tools", core=SimpleNamespace(tr=lambda value: value))
     assert ":tools on|off" in result
     assert ":tools list" in result
     assert ":tools load" in result
-    assert "<gênero>" not in result
-    assert "Enable/disable a tool genre" not in result
+    assert "<genre>" not in result
+    assert "genre" not in result.lower()
 
 
 def test_current_documentation_does_not_advertise_genre_switches():
     root = Path(__file__).resolve().parents[1]
     communication = (root / "docs/COMMUNICATION.md").read_text(encoding="utf-8")
-    flow = (root / "src/uagent/docs/TOOL_FLOW.md").read_text(encoding="utf-8")
-    develop_ja = (root / "src/uagent/docs/DEVELOP.ja.md").read_text(encoding="utf-8")
+    active_docs = (
+        root / "src/uagent/docs/TOOL_FLOW.md",
+        root / "src/uagent/docs/DEVELOP.md",
+        root / "src/uagent/docs/DEVELOP.ja.md",
+        root / "src/uagent/docs/DEVELOP_TOOL.md",
+        root / "src/uagent/docs/BLE_REQUIREMENTS.md",
+        root / "src/uagent/docs/SPEC_CL2IDX_DDS2IDX.md",
+        root / "skills/create-tool/SKILL.md",
+    )
     assert "comm_control enable" not in communication
     assert "UAGENT_COMM_ENABLED=1" not in communication
-    assert "Registration is controlled by `tool_level`, `tool_genre`" not in flow
-    assert "起動時の genre mask でフィルタ" not in develop_ja
+    for path in active_docs:
+        source = path.read_text(encoding="utf-8")
+        assert "tool_genre" not in source
+        assert "tool genre" not in source.lower()
     for path in (root / "docs").glob("TOOL_CREATOR_GUIDE.*.md"):
-        assert "Enables genre-based control" not in path.read_text(encoding="utf-8")
+        assert "tool_genre" not in path.read_text(encoding="utf-8")
+    assert "tool_genre" not in (root / "TOOL_CREATOR_GUIDE.md").read_text(
+        encoding="utf-8"
+    )

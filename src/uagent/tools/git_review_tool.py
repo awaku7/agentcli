@@ -16,7 +16,7 @@ BUSY_LABEL = False
 STATUS_LABEL = "tool:git_review"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "git_review",

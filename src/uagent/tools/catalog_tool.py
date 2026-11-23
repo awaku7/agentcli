@@ -14,7 +14,6 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
         "tool_level": 0,
         "type": "function",
         "x_parallel_safe": True,
-        # "tool_genre": "basic",
         "function": {
             "name": "tool_catalog",
             "description": _(
@@ -113,8 +112,7 @@ def _build_tool_load_spec() -> dict[str, Any]:
     return {
         "tool_level": 0,
         "type": "function",
-        # tool_load is infrastructure; not controlled by genre toggling
-        # "tool_genre": "basic",
+        # tool_load is infrastructure for explicit per-tool loading.
         "function": {
             "name": "tool_load",
             "description": _(
@@ -215,7 +213,7 @@ def _run_tool_unload(args: dict[str, Any]) -> str:
         )
 
     try:
-        from ._genre_control_util import disable_single_tool, is_tool_pinned
+        from ._tool_load_util import disable_single_tool, is_tool_pinned
 
         if is_tool_pinned(name):
             return json.dumps(
@@ -292,7 +290,6 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
                             spec.get("parameters", {}).get("properties", {}).keys()
                         ),
                         "loaded": True,
-                        "genre": "file",
                         "score": 2000,
                     },
                 )
@@ -312,7 +309,7 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
         if not top.get("loaded"):
             name = top["name"]
             try:
-                from ._genre_control_util import enable_single_tool
+                from ._tool_load_util import enable_single_tool
 
                 ok = enable_single_tool(name, initial_threshold=5)
                 if ok:
@@ -327,7 +324,7 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
 
 def _lookup_tool_spec(tool_name: str) -> dict[str, Any] | None:
     """Find the TOOL_SPEC.function dict for a tool by name."""
-    from ._genre_control_util import _find_tool_modules
+    from ._tool_load_util import _find_tool_modules
 
     for mname, mod in _find_tool_modules():
         spec = getattr(mod, "TOOL_SPEC", None)
@@ -343,11 +340,11 @@ def _lookup_tool_spec(tool_name: str) -> dict[str, Any] | None:
 
 def _load_single_tool_by_name(name: str) -> dict[str, Any]:
     """Load one tool; return a per-tool result dict."""
-    from ._genre_control_util import _LOADED_SINGLE_TOOLS, enable_single_tool
+    from ._tool_load_util import _LOADED_SINGLE_TOOLS, enable_single_tool
     from . import get_tool_specs
 
     # ``tool_load`` may be called for a tool that is already visible,
-    # e.g. one enabled by genre or the CLI. Avoid reloading it: repeated
+    # e.g. one registered at startup. Avoid reloading it: repeated
     # reloads create needless churn and can form an LLM management loop.
     try:
         visible = any(

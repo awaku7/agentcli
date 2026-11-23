@@ -16,7 +16,6 @@ STATUS_LABEL = "tool:opcua_read"
 _DEFAULT_TIMEOUT = 10
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

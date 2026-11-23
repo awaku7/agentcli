@@ -18,8 +18,7 @@ You can also explicitly preload only essential tools:
 uag --enable-tool calculator
 ```
 
-Tool genre names are descriptive metadata; genre-wide toggles and bitmasks are no
-longer supported.
+Tools are discovered and loaded individually; there are no category-wide toggles or bitmasks.
 
 ### 1.2 Disable tools entirely
 

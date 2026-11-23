@@ -35,7 +35,7 @@ _OPENAI_FORMATS = frozenset({"mp3", "opus", "aac", "flac", "wav", "pcm"})
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
-    "tool_genre": "media",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "audio_speech",

@@ -132,7 +132,7 @@ def _configure_cli_startup_tools(
     if not enable_tools:
         return
 
-    from .tools._genre_control_util import enable_single_tool, pin_tool
+    from .tools._tool_load_util import enable_single_tool, pin_tool
     from .i18n import _
 
     # enable_single_tool() registers single-loaded tools newest-first

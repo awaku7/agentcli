@@ -27,7 +27,6 @@ _DEFAULT_IGD_SEARCH_TARGET = "urn:schemas-upnp-org:device:InternetGatewayDevice:
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "iot",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

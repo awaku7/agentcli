@@ -69,7 +69,6 @@ _BULB_DEVICE_TYPES = {0x75}
 _STRIP_DEVICE_TYPES = {0x72}
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

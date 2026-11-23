@@ -56,7 +56,6 @@ _QUOTED_PUNCTUATION_RESTORE = {
 TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
     "type": "function",
-    "tool_genre": "exec",
     # Shell execution remains opt-in even when the backend is available.
     "tool_level": 1 if _TOOL_AVAILABLE else -1,
     "function": {

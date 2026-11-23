@@ -78,7 +78,7 @@ def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
     tool_name = clean_parts[0]
 
     try:
-        from ._genre_control_util import enable_single_tool
+        from ._tool_load_util import enable_single_tool
 
         ok = enable_single_tool(tool_name)
         if ok:
@@ -193,7 +193,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
         _TOTAL_ROUNDS,
         _PRODUCTIVE_ROUNDS,
     )
-    from ._genre_control_util import (
+    from ._tool_load_util import (
         _LOADED_SINGLE_TOOLS,
         is_tool_pinned,
         get_threshold,

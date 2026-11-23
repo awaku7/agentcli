@@ -18,7 +18,7 @@ except Exception:  # pragma: no cover
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "external",
+    "tool_level": 1,
     "function": {
         "name": "mcp_servers",
         "description": _(

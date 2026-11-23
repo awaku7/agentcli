@@ -3084,13 +3084,6 @@ msgid ""
 "the startup file (if any)."
 msgstr ""
 
-#: src/uagent/a2a/server.py:442 src/uagent/util_common.py:170
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/util_common.py:178
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
@@ -3197,10 +3190,6 @@ msgstr ""
 
 #: src/uagent/util_help.py:44
 msgid "Search/manage opt-in SQLite sessions"
-msgstr ""
-
-#: src/uagent/util_help.py:45
-msgid "List/load/on/off tools and genres"
 msgstr ""
 
 #: src/uagent/util_help.py:46
@@ -3397,14 +3386,9 @@ msgid ""
 ":sessions import <path>    Import a legacy JSONL log."
 msgstr ""
 
-#: src/uagent/util_help.py:229
-msgid "Control tool sending, genres, and loaded tools"
-msgstr ""
-
 #: src/uagent/util_help.py:232
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"

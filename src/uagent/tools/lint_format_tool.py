@@ -35,7 +35,7 @@ STATUS_LABEL = "tool:lint_format"
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "lint_format",

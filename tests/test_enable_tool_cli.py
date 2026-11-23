@@ -45,7 +45,7 @@ def test_enable_tool_not_specified(monkeypatch):
 def test_enable_tool_pins_requested_tools(monkeypatch):
     """Tools loaded via --enable-tool are pinned against auto-unload."""
     from uagent import tools as T
-    from uagent.tools import _genre_control_util as G
+    from uagent.tools import _tool_load_util as G
 
     G._PINNED_TOOLS.clear()
     G._LOADED_SINGLE_TOOLS.clear()
@@ -59,7 +59,7 @@ def test_enable_tool_pins_requested_tools(monkeypatch):
         T._load_plugins()
         T._INITIALIZED = True
 
-    from uagent.tools._genre_control_util import is_tool_pinned
+    from uagent.tools._tool_load_util import is_tool_pinned
 
     # Same enable-tool block as cli_startup.run_cli_startup(): load then pin.
     enable_tools = ["md2idx", "mk2idx"]

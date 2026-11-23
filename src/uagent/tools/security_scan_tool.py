@@ -14,7 +14,7 @@ BUSY_LABEL = False
 STATUS_LABEL = "tool:security_scan"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "security_scan",

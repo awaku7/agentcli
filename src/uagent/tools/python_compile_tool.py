@@ -16,7 +16,7 @@ STATUS_LABEL = "tool:python_compile"
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "devel",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

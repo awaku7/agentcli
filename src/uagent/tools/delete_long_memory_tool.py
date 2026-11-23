@@ -21,7 +21,7 @@ def is_loadable() -> bool:
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 7002,
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "delete_long_memory",
         "description": _(

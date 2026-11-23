@@ -91,35 +91,6 @@ You can also define `LOAD_DISABLED_REASON` at the module level to explain why th
 LOAD_DISABLED_REASON = "This tool is available on Windows only."
 ```
 
-### 3.2 Tool Genre (`tool_genre`)
-
-`tool_genre` is optional classification metadata for tool discovery. It does not enable or disable an entire genre. The supported category names are:
-
-- `"basic"`: Basic tools (env, time, prompts, skills, memory, tools control)
-- `"comm"`: Communication tools (e.g., Teams, Discord)
-- `"office"`: Office tools (e.g., Excel, Word, Document extraction)
-- `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
-- `"iot"`: IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
-- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash)
-- `"external"`: External tools (e.g., A2A, MCP, fetch, search web)
-- `"media"`: Media tools (e.g., image gen/edit/analyze, audio, QR code)
-- `"file"`: File tools (e.g., create, delete, read, write, search, zip)
-- `"index"`: Code and documentation indexing/AST tools (e.g., \*2idx)
-- `"dev"`: Additional developer utility tools
-- `"web"`: Web/browser automation and transit search tools
-- `"utility"`: System and maintenance utilities
-
-Example:
-
-```python
-TOOL_SPEC: Dict[str, Any] = {
-    "tool_level": 1, # Loaded conditionally by tool_catalog / tool_load
-    "tool_genre": "office",
-    "type": "function",
-    "function": { ... }
-}
-```
-
 ### 3.3 External data flag (prompt injection defense)
 
 If your tool fetches content from external/third-party sources (web pages, user messages, emails, etc.),

@@ -76,7 +76,6 @@ TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
     "type": "function",
     "external_data": True,
-    "tool_genre": "basic",
     "function": {
         "name": "browser_playwright",
         "description": _(
@@ -1951,7 +1950,7 @@ def _close_session_sync(session: BrowserSession) -> None:
 
 def _pin_browser_tool(reason: str = "active browser session") -> None:
     try:
-        from ._genre_control_util import pin_tool
+        from ._tool_load_util import pin_tool
 
         pin_tool("browser_playwright", reason=reason)
     except Exception:
@@ -1964,7 +1963,7 @@ def _maybe_unpin_browser_tool() -> None:
         with _SESSIONS_LOCK:
             alive = any(not getattr(s, "closed", True) for s in _SESSIONS.values())
         if not alive:
-            from ._genre_control_util import unpin_tool
+            from ._tool_load_util import unpin_tool
 
             unpin_tool("browser_playwright")
     except Exception:

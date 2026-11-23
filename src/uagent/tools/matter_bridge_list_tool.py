@@ -22,7 +22,6 @@ _ENV_BRIDGES_JSON = "UAGENT_MATTER_BRIDGES_JSON"
 _ENV_BRIDGES_FILE = "UAGENT_MATTER_BRIDGES_FILE"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,

@@ -590,7 +590,6 @@
 ### Changed
 
 - Apply Black formatting to refactored modules.
-- Clarify embedded tool genre mask behavior.
 
 ### Fixed
 
@@ -1213,7 +1212,7 @@
 - fix(i18n): add missing en/ja keys for pybitchat nostr/on/via params; fix `err.payload_required` ja translation
 - fix(i18n): replace non-ASCII arrows/dashes in pybitchat_shared.py comments and messages (utilities i18n check)
 - fix(i18n): fill missing same-as-en keys for 18 tool JSONs (bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control etc.) via `translate_text` engine; wrap literal descriptions in `_()` for browser_playwright_tool/tools_control_tool; i18n sub_agent_tool status returns; replace non-ASCII in \_matter_common/index_tool_helpers/nostr_transport
-- fix(i18n): wrap user-facing string literals in utilities with `_()` (21 modules: \_genre_control_util/\_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_\*) and add `make_tool_translator` where missing — `test_tools_utilities_no_user_facing_string_literals` now passes
+- fix(i18n): wrap user-facing string literals in utilities with `_()` (21 modules: \_tool_load_util/\_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_\*) and add `make_tool_translator` where missing — `test_tools_utilities_no_user_facing_string_literals` now passes
 - fix(i18n): localize pybitchat display/inject messages (handshake/peer/file/scan/service/Nostr notifications, "sending as plain text (unencrypted)" etc.) via `_()` with %(name)s placeholders; add `pybitchat_shared.json` with en/ja translations
 - fix(logs): `:logs` now shows the same message count that `:load` reports ("Conversation message count") — the count includes the re-inserted system prompt, preserved `[SKILL]`/`[HOOK]` system messages, user/assistant/tool messages, plus the auto-restored `[CWD]` marker when its directory still exists (previously `:logs` counted only user+assistant, so it differed by tool messages + 1)
 - fix(load): `:load` workdir auto-restore now actually works — `[CWD]` is extracted from the raw log lines instead of the normalized messages (which strip non-[SKILL]/[HOOK] system messages); the restored `[CWD]` marker is included in the reported count
@@ -1536,14 +1535,12 @@
 ### Added
 
 - New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
-- Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
 
 ### Changed
 
 - 2026-07-12
 - llmcapa dependency bumped to >=0.3.1.
 - README and 33 translations: tool count updated to 170, parallel-safe to 111.
-- AGENTS.md: tool genre list updated to include `dev`, `web`, `utility`.
 
 ### Fixed
 

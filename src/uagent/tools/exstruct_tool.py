@@ -10,7 +10,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 # This module is lazy-loaded: it is not imported during _load_plugins()
-# unless the "office" genre is enabled or the tool is individually loaded.
+# unless the tool is individually loaded.
 LAZY_LOAD = True
 
 # The package is installed/imported only when this tool is first used.
@@ -121,7 +121,6 @@ def _resolve_input_file(
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "office",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

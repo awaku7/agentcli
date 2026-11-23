@@ -97,7 +97,7 @@ def resolve_profile(name_or_uri: Optional[str]) -> dict[str, Any]:
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 9000,
     "type": "function",
-    "tool_genre": "external",
+    "tool_level": 1,
     "function": {
         "name": "a2a_servers",
         "description": _(

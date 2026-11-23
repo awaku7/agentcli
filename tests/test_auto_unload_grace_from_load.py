@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from uagent import uagent_llm as llm
-from uagent.tools import _genre_control_util as gcu
+from uagent.tools import _tool_load_util as gcu
 
 
 def setup_function() -> None:

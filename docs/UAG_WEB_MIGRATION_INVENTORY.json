@@ -173,7 +173,7 @@
         "..runtime.runtime_plugins",
         "..runtime.session_store",
         "..runtime.turn_context_runtime",
-        "..tools._genre_control_util",
+        "..tools._tool_load_util",
         "..util_mode"
       ],
       "routes": []
@@ -605,7 +605,7 @@
     "tests/test_web_tool_running_badge.py",
     "tests/test_web_loaded_session_runtime.py",
     "tests/test_integration_management_history.py",
-    "tests/test_genre_control_removed.py",
+    "tests/test_tool_loading_cleanup.py",
     "tests/test_web_authorization_hardening.py",
     "tests/test_websocket_origin_policy.py",
     "tests/test_web_session_portability.py",

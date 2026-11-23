@@ -29,7 +29,7 @@ def required_tools_guard(
         return
 
     from .. import tools
-    from ..tools._genre_control_util import (
+    from ..tools._tool_load_util import (
         disable_single_tool,
         enable_single_tool,
         is_tool_pinned,

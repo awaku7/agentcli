@@ -29,7 +29,7 @@ _HUMAN_ASK_SERIAL_LOCK = threading.RLock()
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "human_ask",
         "x_scheck": {"emit_tool_trace": False},

@@ -1660,12 +1660,6 @@ msgstr ""
 "কাজের ডিরেক্টরি উল্লেখ করুন। যদি বাদ দেওয়া হয়, তাহলে UAGENT_WORKDIR পরিবেশ"
 " পরিবর্তনশীল বা বর্তমান ডিরেক্টরি ব্যবহার করুন।"
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3608,10 +3602,6 @@ msgstr "প্রদর্শন/সেট/আনসেট/সংরক্ষণ
 msgid "List/apply/install skills"
 msgstr "দক্ষতা তালিকা/প্রয়োগ/ইনস্টল করুন"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "তালিকা/লোড/অন/অফ টুল এবং জেনার"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "প্লাগইন পরিচালনা করুন"
@@ -3804,21 +3794,15 @@ msgstr ""
 "অন্তর্নির্মিত: তালিকা/সক্রিয়/ক্লিয়ার (রানটাইম দক্ষতা হ্যান্ডলারগুলি দেখুন)। \n"
 ":skills তালিকা <কীওয়ার্ড> কীওয়ার্ড (নাম/বর্ণনা) দ্বারা ফিল্টার দক্ষতা। একটি সাবকমান্ডের জন্য :help দক্ষতা ইনস্টল করা হয়।"
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "কন্ট্রোল টুল সেন্ডিং, জেনার, এবং লোড করা টুল"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools চালু disk\n"
-":tools আউটপুট UI এ টুলের ফলাফল দেখানো টগল"
 
 #: src/uagent/util_help.py:214
 msgid "Tool authoring helpers"

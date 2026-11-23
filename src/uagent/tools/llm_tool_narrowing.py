@@ -297,10 +297,10 @@ def _select_tool_specs_legacy(
         "finish_skill",
     }
     # Keep dynamically loaded tools (via tool_load) so they persist across
-    # rounds. Genre-filtered tools that were never loaded stay out of the
-    # narrowed set unless tool_catalog finds them for this request.
+    # rounds. On-demand tools that were never loaded stay out of the narrowed
+    # set unless tool_catalog finds them for this request.
     try:
-        from ._genre_control_util import _LOADED_SINGLE_TOOLS
+        from ._tool_load_util import _LOADED_SINGLE_TOOLS
 
         for name in _LOADED_SINGLE_TOOLS:
             if name:

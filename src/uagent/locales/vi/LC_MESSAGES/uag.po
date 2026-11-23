@@ -1626,12 +1626,6 @@ msgstr ""
 "Chỉ định thư mục làm việc. Nếu bị bỏ qua, hãy sử dụng biến môi trường "
 "UAGENT_WORKDIR hoặc thư mục hiện tại."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3487,10 +3481,6 @@ msgstr "Hiển thị/đặt/bỏ đặt/lưu UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "Liệt kê/áp dụng/cài đặt kỹ năng"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "Danh sách/tải/bật/tắt các công cụ và thể loại"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "Quản lý plugin"
@@ -3684,21 +3674,15 @@ msgstr ""
 "Các lệnh phụ động đến từ công cụ CMD_SPEC (cài đặt, gỡ cài đặt, apm, mp_search).\n"
 "Sử dụng cài đặt kỹ năng :help cho lệnh phụ."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "Kiểm soát việc gửi công cụ, thể loại và công cụ được tải"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools bật|tắt Bật/tắt gửi công cụ tới LLM\n"
-":tools bật|tắt <genre> Bật/tắt một loại công cụ (và bật đồng bộ hóa toàn cầu)\n"
 ":tools danh sách [truy vấn] Danh sách các công cụ đã tải\n"
 ":tools tải <name> Tải một công cụ theo tên\n"
 ":tools tải lại Tải lại mô-đun công cụ từ đĩa\n"

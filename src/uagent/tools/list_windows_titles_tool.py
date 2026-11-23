@@ -18,7 +18,7 @@ _ = make_tool_translator(__file__)
 TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
     "type": "function",
-    "tool_genre": "devel",
+    "tool_level": 1,
     "function": {
         "name": "list_windows_titles",
         "description": _(

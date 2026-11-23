@@ -1591,12 +1591,6 @@ msgid ""
 "environment variable or the current directory."
 msgstr "작업 디렉터리를 지정합니다. 생략하는 경우 UAGENT_WORKDIR 환경 변수 또는 현재 디렉터리를 사용합니다."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3488,10 +3482,6 @@ msgstr "UAGENT_* 환경 표시/설정/설정 해제/저장"
 msgid "List/apply/install skills"
 msgstr "스킬 나열/적용/설치"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "도구 및 장르 목록/로드/켜기/끄기"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "플러그인 관리"
@@ -3676,21 +3666,15 @@ msgstr ""
 "동적 하위 명령은 도구 CMD_SPEC(install, uninstall, apm, mp_search)에서 제공됩니다.\n"
 "하위 명령에 :help 기술 설치를 사용합니다."
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "도구 전송, 장르 및 로드된 도구 제어"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off LLM\n"
-":tools으로 도구 보내기 활성화/비활성화 on|off <genre> 도구 장르 활성화/비활성화(및 전역 동기화)\n"
 ":tools list [query] 로드된 도구 목록\n"
 ":tools load <name> 이름별로 하나의 도구 로드\n"
 ":tools reload 디스크에서 도구 모듈 다시 로드\n"

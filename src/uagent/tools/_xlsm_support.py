@@ -16,7 +16,6 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "office",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

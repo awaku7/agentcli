@@ -1594,12 +1594,6 @@ msgstr ""
 "Tukuyin ang gumaganang direktoryo. Kung tinanggal, gamitin ang "
 "UAGENT_WORKDIR environment variable o ang kasalukuyang direktoryo."
 
-msgid ""
-"Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
-" Skips the interactive genre prompt when specified."
-msgstr ""
-
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -3437,10 +3431,6 @@ msgstr "Ipakita/itakda/i-unset/i-save ang UAGENT_* env"
 msgid "List/apply/install skills"
 msgstr "Maglista/mag-apply/mag-install ng mga kasanayan"
 
-#: src/uagent/util_help.py:44
-msgid "List/load/on/off tools and genres"
-msgstr "Listahan/load/on/off ang mga tool at genre"
-
 #: src/uagent/util_help.py:45
 msgid "Manage plugins"
 msgstr "Pamahalaan ang mga plugin"
@@ -3639,21 +3629,15 @@ msgstr ""
 "Dynamic na subcommands ay nagmumula sa tool na CMD_SPEC (i-install, i-uninstall, apm, mp_search).\n"
 ":helpGamitin ang mga kasanayan sa pag-install.\n"
 
-#: src/uagent/util_help.py:202
-msgid "Control tool sending, genres, and loaded tools"
-msgstr "Kontrolin ang pagpapadala ng tool, genre, at load na tool"
-
 #: src/uagent/util_help.py:205
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
-":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off           I-enable/i-disable ang pagpapadala ng mga tool sa LLM\n"
-":tools on|off <genre>   I-enable/i-disable ang isang genre ng tool (at i-sync ang global on)\n"
 ":tools list [query]     Ilista ang mga naka-load na tool\n"
 ":tools load <name>      Mag-load ng isang tool ayon sa pangalan\n"
 ":tools reload           I-reload ang mga module ng tool mula sa disk\n"

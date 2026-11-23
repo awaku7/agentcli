@@ -98,6 +98,33 @@ def test_tool_audit_allows_locale_specific_search_term_counts(
     )
 
 
+def test_tool_audit_allows_locale_specific_confirmation_alias_counts(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"confirm.reply_yes_aliases": ["yes", "y", "yeah"]},
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {"ja": {"confirm.reply_yes_aliases": ["はい"]}},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.locale == "ja"
+        and finding.kind
+        in {"structure_missing", "structure_extra", "value_type_mismatch"}
+        for finding in findings
+    )
+
+
 def test_tool_audit_keeps_other_array_lengths_strict(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()

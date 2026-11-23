@@ -63,7 +63,6 @@ def _get_mmdb_reader() -> Any:
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 1,
     "tool_level": 1,
-    "tool_genre": "iot",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

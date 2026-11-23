@@ -12,7 +12,7 @@ from .context import get_callbacks
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "calculator",

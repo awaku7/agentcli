@@ -31,7 +31,7 @@ _MIN_SCREEN_KEY_CHARS = 4
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "search_past_sessions",
         "description": _(

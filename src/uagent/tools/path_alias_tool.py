@@ -11,7 +11,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "x_parallel_safe": False,
     "function": {
         "name": "path_alias",

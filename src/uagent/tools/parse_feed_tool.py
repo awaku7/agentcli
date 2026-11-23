@@ -28,7 +28,6 @@ MAX_TEXT_CHARS = 20_000
 TOOL_SPEC: dict[str, Any] = {
     "external_data": True,
     "type": "function",
-    "tool_genre": "external",
     "tool_level": 1,
     "x_parallel_safe": True,
     "function": {

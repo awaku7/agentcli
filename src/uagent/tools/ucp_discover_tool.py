@@ -25,7 +25,6 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:ucp_discover"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "web",
     "tool_level": 1,
     "type": "function",
     "function": {

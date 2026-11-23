@@ -17,7 +17,7 @@ STATUS_LABEL = "tool:skills_load"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "function": {
         "name": "skills_load",
         "description": _(
@@ -86,7 +86,7 @@ def run_tool(args: dict[str, Any]) -> str:
         # for direct LLM calls to skills_load; the :skills command only
         # preloads the core skill-management tools.
         if isinstance(allowed_tools, str):
-            from ._genre_control_util import enable_single_tool
+            from ._tool_load_util import enable_single_tool
 
             management_tools = {"tool_catalog", "tool_load", "unload_tool"}
             for tool_name in re.split(r"[\s,]+", allowed_tools.strip()):

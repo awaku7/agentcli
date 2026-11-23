@@ -19,7 +19,6 @@ run_tool = _rust_mod.run_uuid_gen
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "x_build": "rust",
-    "tool_genre": "utility",
     "tool_level": 0,
     "function": {
         "name": "uuid_gen",

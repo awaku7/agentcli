@@ -57,7 +57,6 @@ dds2idx(path="...", mode="section", section=N)
 
 | 項目 | 内容 |
 |------|------|
-| genre | `index` |
 | 依存 | stdlib のみ（`index_tool_helpers` 再利用） |
 | パス解決 | `resolve_index_path` |
 | 読込 | `read_index_source` |
@@ -454,7 +453,6 @@ ______________________________________________________________________
 ```python
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "index",
     "function": {
         "name": "cl2idx",
         "description": (
@@ -513,7 +511,6 @@ TOOL_SPEC = {
 ```python
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "index",
     "function": {
         "name": "dds2idx",
         "description": (

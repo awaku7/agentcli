@@ -142,16 +142,16 @@ def test_cli_startup_turn_uses_local_sandbox_profile_when_enabled(
 
 def test_cli_startup_skips_host_tool_selection_when_sandboxed(monkeypatch) -> None:
     from uagent import cli_startup
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     tool_calls = []
     monkeypatch.setattr(
-        _genre_control_util,
+        _tool_load_util,
         "enable_single_tool",
         lambda name: tool_calls.append(("enable", name)) or True,
     )
     monkeypatch.setattr(
-        _genre_control_util,
+        _tool_load_util,
         "pin_tool",
         lambda name, *, reason: tool_calls.append(("pin", name, reason)),
     )

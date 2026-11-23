@@ -29,6 +29,11 @@ def _offline_child(connection, payload):
     agent_worker.providers.make_client = lambda bound_core: ("openai", None, "offline")
 
     def run_rounds(provider, client, model, history, **kwargs):
+        from uagent import tools
+        from uagent.tools.tool_policy import default_confirmation_callback
+
+        assert tools.get_confirmation_callback() is default_confirmation_callback
+
         from uagent.tools.python_exec_tool import run_tool
         from uagent.decision.settings import get_decision_settings
         from uagent.util_mode import get_display_reasoning
@@ -73,10 +78,10 @@ def _bootstrap_only_child(connection, payload):
     from uagent.runtime import runtime_plugins
     from uagent.web_impl import agent_worker, history
     from uagent.web_impl.process_workers import _child_turn
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
-    _genre_control_util.get_enabled_tool_names = lambda: []
+    _tool_load_util.get_enabled_tool_names = lambda: []
 
     def initialize_room(room):
         room.history = [{"role": "system", "content": "initialized before input"}]
@@ -225,7 +230,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
     monkeypatch, tmp_path, private_session
 ):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
     from uagent.web_impl.rooms import web_manager
 
     # This test exercises the legacy trusted-local worker flow. Web startup
@@ -248,7 +253,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
     )
     monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     pool = RoomWorkerPool(2, target=_offline_child)
     initial_cwd = os.getcwd()
     rooms = [WebRoom(name) for name in ("a", "b", "c")]
@@ -381,12 +386,12 @@ def test_attach_worker_reuses_session_without_creating_an_empty_startup_session(
 
 def test_process_pool_bootstraps_room_without_a_user_turn(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.setattr(core, "session_store", None, raising=False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     room = WebRoom("bootstrap-only")
     room.private_session = True
     room.base_dir = str(tmp_path)
@@ -411,13 +416,13 @@ def test_worker_capacity_must_be_positive(value):
 
 def test_confirmation_responses_reach_only_their_own_process(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.setattr(core, "session_store", None, raising=False)
     monkeypatch.setattr(core, "auto_pilot_active", False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     pool = RoomWorkerPool(2, target=_asking_child)
     rooms = [WebRoom(name) for name in ("ask-a", "ask-b")]
     threads = []
@@ -478,10 +483,10 @@ def test_shutdown_terminates_and_reaps_unresponsive_worker(monkeypatch, tmp_path
 
 def test_crashed_worker_releases_room_and_capacity(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setattr(core, "session_store", None, raising=False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     room = WebRoom("crash")
     room.history = [{"role": "assistant", "content": "previous"}]
     room.messages = list(room.history)
@@ -510,10 +515,10 @@ def test_crashed_worker_releases_room_and_capacity(monkeypatch, tmp_path):
 
 def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setattr(core, "session_store", None, raising=False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     spawn_entered = threading.Event()
     allow_spawn = threading.Event()
     busy_exposed = threading.Event()
@@ -568,10 +573,10 @@ def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path)
 
 def test_pool_busy_stays_set_across_queued_worker_handoff(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setattr(core, "session_store", None, raising=False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     pool = RoomWorkerPool(1, target=_interruptible_child)
     first, queued = WebRoom("handoff-first"), WebRoom("handoff-queued")
     first.base_dir = queued.base_dir = str(tmp_path)
@@ -762,10 +767,10 @@ def _reconnect_messages(room, monkeypatch):
 
 def test_crashed_stream_preserves_partial_reply_on_reconnect(monkeypatch, tmp_path):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
 
     monkeypatch.setattr(core, "session_store", None, raising=False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     room = WebRoom("stream-crash")
     room.history = [{"role": "assistant", "content": "previous"}]
     room.messages = list(room.history)
@@ -1094,13 +1099,13 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
 ):
     from uagent import core
     from uagent.runtime import mxc_backend
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
     from uagent.web_impl import agent_worker
     from uagent.web_impl.rooms import web_manager
 
     tool_name_calls = []
     monkeypatch.setattr(
-        _genre_control_util,
+        _tool_load_util,
         "get_enabled_tool_names",
         lambda: tool_name_calls.append("loaded") or ["read_file"],
     )
@@ -1204,7 +1209,7 @@ def _pooled_echo_child(connection, payload, pending):
 
 def _pooled_test_pool(monkeypatch, tmp_path, **kwargs):
     from uagent import core
-    from uagent.tools import _genre_control_util
+    from uagent.tools import _tool_load_util
     from uagent.web_impl.process_workers import _child_turn
     from uagent.web_impl.rooms import web_manager
 
@@ -1214,7 +1219,7 @@ def _pooled_test_pool(monkeypatch, tmp_path, **kwargs):
     monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
     monkeypatch.setattr(core, "session_store", None, raising=False)
     monkeypatch.setattr(core, "auto_pilot_active", False)
-    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    monkeypatch.setattr(_tool_load_util, "get_enabled_tool_names", lambda: [])
     kwargs.setdefault("pooled_target", _pooled_echo_child)
     kwargs.setdefault("warm_workers", 1)
     return RoomWorkerPool(2, target=_child_turn, **kwargs)
@@ -1701,7 +1706,9 @@ def test_prewarm_defers_relative_external_tools_dirs(monkeypatch):
     _prewarm_child_imports(execution_profile="local_trusted")
     assert calls == ["client"]
     calls.clear()
-    monkeypatch.setenv("UAGENT_EXTERNAL_TOOLS_DIRS", "/abs/tools")
+    monkeypatch.setenv(
+        "UAGENT_EXTERNAL_TOOLS_DIRS", os.path.abspath(os.path.join("abs", "tools"))
+    )
     _prewarm_child_imports(execution_profile="local_trusted")
     assert calls == ["specs", "client"]
 

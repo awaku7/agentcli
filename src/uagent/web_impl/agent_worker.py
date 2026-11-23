@@ -466,7 +466,7 @@ def run_agent_worker(
 
         room.set_status(True, "BUSY")
         try:
-            # Keep core.status_busy in sync for interrupt / genre guards.
+            # Keep core.status_busy in sync for interrupt / tool guards.
             # Call original directly to avoid recursive room.set_status.
             if web_manager.original_set_status:
                 web_manager.original_set_status(True, "BUSY")

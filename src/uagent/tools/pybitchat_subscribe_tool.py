@@ -25,7 +25,6 @@ STATUS_LABEL = "tool:pybitchat_subscribe"
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_genre": "comm",
     "tool_level": 1,
     "type": "function",
     "x_parallel_safe": False,

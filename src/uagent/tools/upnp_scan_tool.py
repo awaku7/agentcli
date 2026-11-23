@@ -28,7 +28,6 @@ _DEFAULT_SEARCH_TARGET = "ssdp:all"
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "iot",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

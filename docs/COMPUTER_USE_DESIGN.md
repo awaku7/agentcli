@@ -498,7 +498,7 @@ Computer Useの実装は、テストを先に作成するTDD（Test-Driven Devel
 - スクリーンショットの圧縮・マスキング
 - Computer Use専用UIの設計
 - Provider Adapterの既存LLM round loopへの挿入位置
-- tool catalog / genre maskとの統合方法
+- tool catalogとの統合方法
 - 既存の通常ツール実行ループとのエラー境界
 
 ## 15. I18N: 38か国語対応

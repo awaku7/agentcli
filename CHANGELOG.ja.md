@@ -580,7 +580,6 @@
 ### 変更
 
 - refactor モジュールへ Black のフォーマットを適用。
-- embedded tool genre mask の挙動を明確化。
 
 ### 修正
 
@@ -1200,7 +1199,7 @@
 - fix(i18n): pybitchat の nostr/on/via パラメータの en/ja キー欠落を追加。`err.payload_required` の日本語訳を修正
 - fix(i18n): pybitchat_shared.py のコメント・メッセージ内の非ASCII矢印/ダッシュを ASCII に置換（utilities i18n チェック対応）
 - fix(i18n): 18ツールの JSON の same-as-en キー欠落を `translate_text` エンジンで補充（bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control など）。browser_playwright_tool/tools_control_tool のリテラル description を `_()` 化。sub_agent_tool のステータス返値を i18n 化。\_matter_common/index_tool_helpers/nostr_transport の非ASCIIを置換
-- fix(i18n): ユーティリティ21モジュールのユーザー向け文字列リテラルを `_()` 化（\_genre_control_util/\_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_\*）。`make_tool_translator` を追加 — `test_tools_utilities_no_user_facing_string_literals` が通過
+- fix(i18n): ユーティリティ21モジュールのユーザー向け文字列リテラルを `_()` 化（\_tool_load_util/\_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_\*）。`make_tool_translator` を追加 — `test_tools_utilities_no_user_facing_string_literals` が通過
 - fix(i18n): pybitchat の表示/注入メッセージ（ハンドシェイク・ピア・ファイル・スキャン・サービス・Nostr通知、「sending as plain text (unencrypted)」等）を `_()` + %(name)s プレースホルダで i18n 化。`pybitchat_shared.json`（en/ja 翻訳）を追加
 - fix(logs): `:logs` のメッセージ件数を `:load` の報告（「会話メッセージ数」）と一致させた — 再挿入されるシステムプロンプト、保持される `[SKILL]`/`[HOOK]` システムメッセージ、user/assistant/tool メッセージ、およびディレクトリが存在する場合の自動復元 `[CWD]` マーカーを含めてカウント（従来は user+assistant のみで、ツールメッセージ+1件ぶん異なっていた）
 - fix(load): `:load` の workdir 自動復元を実際に機能させた — `[CWD]` を正規化後メッセージではなくログの生行から抽出（正規化では `[SKILL]`/`[HOOK]` 以外のシステムメッセージが除去されるため）。復元された `[CWD]` マーカーは報告件数に含まれる
@@ -1519,13 +1518,11 @@
 ### 追加
 
 - 新ツール: `diff_files`（2ファイルの行比較）と `apply_patch`（unified diff パッチ適用）、全34言語 i18n 対応。
-- ツールジャンル: `dev`、`web`、`utility` をジャンルビットマップとジャンル制御システムに追加。
 
 ### 変更
 
 - llmcapa 依存を >=0.3.1 に更新。
 - README と33言語翻訳: ツール数170、並列セーフ111に更新。
-- AGENTS.md: ツールジャンル一覧に `dev`、`web`、`utility` を追加。
 
 ### 修正
 

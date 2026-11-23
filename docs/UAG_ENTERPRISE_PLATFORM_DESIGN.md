@@ -639,7 +639,7 @@ Create a registry for managed Agent/Sub-Agent definitions containing metadata su
 - version;
 - risk level;
 - allowed providers;
-- allowed tool genres / tools;
+- allowed tools;
 - MCP/A2A destinations;
 - applicable policy revision;
 - prompt/configuration hash;

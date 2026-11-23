@@ -17,7 +17,7 @@ STATUS_LABEL = "tool:gmail_send"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "comm",
+    "tool_level": 1,
     "x_parallel_safe": False,
     "function": {
         "name": "gmail_send",

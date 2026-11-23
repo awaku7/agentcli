@@ -35,7 +35,7 @@ _ = make_tool_translator(__file__)
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "file",
+    "tool_level": 1,
     "function": {
         "name": "zip_ops",
         "description": _(

@@ -16,7 +16,7 @@ TOOL_SPEC: dict[str, Any] = {
     "external_data": True,
     "load_order": -1,
     "type": "function",
-    "tool_genre": "comm",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "gmail_read",

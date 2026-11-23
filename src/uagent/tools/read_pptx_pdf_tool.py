@@ -85,7 +85,6 @@ JSON_SCHEMA_VERSION = "1.1"
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
-    "tool_genre": "office",
     "type": "function",
     "x_parallel_safe": True,
     "function": {

@@ -17,7 +17,6 @@ TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
     "external_data": True,
     "type": "function",
-    "tool_genre": "external",
     "tool_level": 1,
     "x_parallel_safe": False,
     "function": {

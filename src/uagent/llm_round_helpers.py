@@ -625,7 +625,7 @@ def _call_openai_azure_round(
                         _excluded = MANAGEMENT_TOOL_NAMES
                         _all_tools: list[dict[str, Any]] = []
                         try:
-                            from .tools._genre_control_util import _find_tool_modules
+                            from .tools._tool_load_util import _find_tool_modules
                             from .tools import is_computer_use_conflict
 
                             for _mname, _mod in _find_tool_modules():

@@ -35,7 +35,7 @@ def _json_err(message: str, **extra: Any) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "date_calc",
