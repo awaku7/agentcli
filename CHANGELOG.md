@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.7.55] - 2026-11-23
+
+### Added
+
+- Add the `markitdown` tool for converting local documents and media to Markdown, with lazy installation and translations for all supported tool locales.
+
+### Changed
+
+- Keep the interactive CLI prompt available while idle with history, completion, and bracketed paste, while removing the turn-time type-ahead queue and live prompt path.
+- Route asynchronous job, Nostr, and bitchat notices through prompt-safe rendering while preserving the user's draft input.
+
+### Fixed
+
+- Process input that arrives as a turn starts after the active turn completes, avoiding terminal corruption during streamed output.
+
 ## [0.7.54] - 2026-11-23
 
 ### Added
@@ -90,7 +105,6 @@
 - Show Git commit messages in tool activity.
 - Fix registry tool discovery selection.
 
-
 ## [0.7.48] - 2026-11-14
 
 ### Changed
@@ -153,7 +167,6 @@
 ### Fixed
 
 - Repair missing standalone `uag-envsec` during startup while respecting project auto-install policy, including scheduled projects.
-
 
 ## [0.7.43] - 2026-11-03
 
