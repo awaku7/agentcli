@@ -5,26 +5,11 @@ import os
 from typing import Any
 
 from uagent.tools.i18n_helper import make_tool_translator
+from uagent.tools.tool_policy import AWS_API_READONLY_PREFIXES
 
 _ = make_tool_translator(__file__)
 
-_READONLY_PREFIXES = (
-    "BatchGet",
-    "Check",
-    "Describe",
-    "Get",
-    "Head",
-    "List",
-    "Lookup",
-    "Preview",
-    "Query",
-    "Read",
-    "Retrieve",
-    "Scan",
-    "Search",
-    "Select",
-    "Validate",
-)
+_READONLY_PREFIXES = AWS_API_READONLY_PREFIXES
 
 
 def _boto_session() -> Any:

@@ -9,21 +9,12 @@ from ..lazy_import import lazy_module
 requests = lazy_module("requests")
 
 from uagent.tools.i18n_helper import make_tool_translator
+from uagent.tools.tool_policy import GCP_API_READONLY_METHODS
 
 _ = make_tool_translator(__file__)
 
 _DISCOVERY_URL = "https://www.googleapis.com/discovery/v1/apis"
-_READONLY_METHODS = {
-    "get",
-    "list",
-    "aggregatedList",
-    "search",
-    "query",
-    "check",
-    "validate",
-    "testIamPermissions",
-    "getIamPolicy",
-}
+_READONLY_METHODS = GCP_API_READONLY_METHODS
 
 
 def _google_credentials() -> Any:

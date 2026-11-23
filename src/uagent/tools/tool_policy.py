@@ -54,7 +54,51 @@ _READ_ONLY = {
     "code_map",
     "coverage_report",
     "security_scan",
+    "generate_prompt",
 }
+
+# Keep these allowlists aligned with the corresponding tool implementations.
+# They describe operations those tools already reject as writes unless their
+# own explicit write-confirmation argument is supplied.
+AWS_API_READONLY_PREFIXES = (
+    "BatchGet",
+    "Check",
+    "Describe",
+    "Get",
+    "Head",
+    "List",
+    "Lookup",
+    "Preview",
+    "Query",
+    "Read",
+    "Retrieve",
+    "Scan",
+    "Search",
+    "Select",
+    "Validate",
+)
+GCP_API_READONLY_METHODS = frozenset(
+    {
+        "get",
+        "list",
+        "aggregatedList",
+        "search",
+        "query",
+        "check",
+        "validate",
+        "testIamPermissions",
+        "getIamPolicy",
+    }
+)
+
+_GIT_READ_ONLY_COMMANDS = frozenset(
+    {
+        "status",
+        "diff",
+        "log",
+        "rev-list",
+    }
+)
 _EXTERNAL_SEND = {
     "gmail_send",
     "discord_channel_chat",
@@ -267,6 +311,62 @@ def _patch_deletes_file(args: dict[str, Any]) -> bool:
 
 def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy:
     args = args or {}
+
+    # Cloud API wrappers accept both read and write actions, so classify the
+    # operation rather than exposing the entire tool to parallel scheduling.
+    if tool_name == "aws_api":
+        action = str(args.get("action", "list_services")).strip().lower()
+        operation = str(args.get("operation") or "").strip()
+        if action in {"list_services", "list_operations"} or (
+            action == "call" and operation.startswith(AWS_API_READONLY_PREFIXES)
+        ):
+            return ToolPolicy(
+                SideEffect.READ_ONLY,
+                parallel_safe=True,
+                resource_key=_resource_key(tool_name, args),
+            )
+
+    if tool_name == "azure_api":
+        action = str(args.get("action", "list_providers")).strip().lower()
+        method = str(args.get("method") or "GET").strip().upper()
+        if action in {"list_providers", "list_operations"} or (
+            action == "call" and method == "GET"
+        ):
+            return ToolPolicy(
+                SideEffect.READ_ONLY,
+                parallel_safe=True,
+                resource_key=_resource_key(tool_name, args),
+            )
+
+    if tool_name == "gcp_api":
+        action = str(args.get("action", "list_services")).strip().lower()
+        method = str(args.get("method") or "").strip()
+        if action in {"list_services", "list_methods"} or (
+            action == "call" and method in GCP_API_READONLY_METHODS
+        ):
+            return ToolPolicy(
+                SideEffect.READ_ONLY,
+                parallel_safe=True,
+                resource_key=_resource_key(tool_name, args),
+            )
+
+    if tool_name == "git_ops":
+        command = str(args.get("command") or "").strip().lower()
+        if command in _GIT_READ_ONLY_COMMANDS:
+            return ToolPolicy(
+                SideEffect.READ_ONLY,
+                parallel_safe=True,
+                resource_key=_resource_key(tool_name, args),
+            )
+
+    if tool_name == "zip_ops":
+        action = str(args.get("action") or "").strip().lower()
+        if action in {"list", "view"}:
+            return ToolPolicy(
+                SideEffect.READ_ONLY,
+                parallel_safe=True,
+                resource_key=_resource_key(tool_name, args),
+            )
 
     # Preview returns matched paths without deleting them. Keep real deletion,
     # including caller-provided confirmed=True, subject to host confirmation.

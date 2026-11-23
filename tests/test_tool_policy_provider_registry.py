@@ -30,6 +30,52 @@ def test_lint_format_fix_requires_common_confirmation() -> None:
     assert fix_policy.requires_confirmation
 
 
+def test_parallel_policy_classifies_read_only_cloud_api_calls() -> None:
+    read_only_calls = (
+        ("aws_api", {"action": "list_services"}),
+        ("aws_api", {"action": "list_operations", "include_write": True}),
+        ("aws_api", {"action": "call", "operation": "DescribeInstances"}),
+        ("azure_api", {"action": "list_providers"}),
+        ("azure_api", {"action": "call", "method": "GET"}),
+        ("gcp_api", {"action": "list_methods", "include_write": True}),
+        ("gcp_api", {"action": "call", "method": "get"}),
+    )
+    for tool_name, args in read_only_calls:
+        policy = policy_for(tool_name, args)
+        assert policy.side_effect is SideEffect.READ_ONLY, (tool_name, args)
+        assert policy.parallel_safe, (tool_name, args)
+
+    writes = (
+        ("aws_api", {"action": "call", "operation": "RunInstances"}),
+        ("azure_api", {"action": "call", "method": "DELETE"}),
+        ("gcp_api", {"action": "call", "method": "insert"}),
+    )
+    for tool_name, args in writes:
+        assert not policy_for(tool_name, args).parallel_safe, (tool_name, args)
+
+
+def test_parallel_policy_classifies_read_only_git_and_archive_actions() -> None:
+    for command in ("status", "diff", "log", "rev-list"):
+        policy = policy_for("git_ops", {"command": command})
+        assert policy.side_effect is SideEffect.READ_ONLY
+        assert policy.parallel_safe
+    for command in ("add", "commit", "checkout", "push", "fetch"):
+        assert not policy_for("git_ops", {"command": command}).parallel_safe
+
+    for action in ("list", "view"):
+        policy = policy_for("zip_ops", {"action": action})
+        assert policy.side_effect is SideEffect.READ_ONLY
+        assert policy.parallel_safe
+    for action in ("create", "extract"):
+        assert not policy_for("zip_ops", {"action": action}).parallel_safe
+
+
+def test_generate_prompt_is_parallel_safe_read_only() -> None:
+    policy = policy_for("generate_prompt", {"path": "notes.txt"})
+    assert policy.side_effect is SideEffect.READ_ONLY
+    assert policy.parallel_safe
+
+
 def test_delete_file_preview_never_requires_destructive_confirmation() -> None:
     previews = (
         {"filename": "example.txt", "dry_run": True},
