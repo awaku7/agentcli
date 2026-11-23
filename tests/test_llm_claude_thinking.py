@@ -166,8 +166,16 @@ def test_legacy_modern_model_sends_enabled_budget():
 
 
 @pytest.mark.parametrize("model", ["claude-sonnet-4-5", "claude-haiku-4-5"])
-def test_manual_budget_models_use_enabled_thinking(model):
-    # These models expose budget_tokens rather than adaptive output_config.effort.
+def test_manual_budget_models_use_enabled_thinking(model, monkeypatch):
+    # Pin the capability decision so this test remains independent of whichever
+    # llmcapa catalog version happens to be installed in the test environment.
+    from uagent.providers import llm_claude
+
+    monkeypatch.setattr(llm_claude, "_claude_supports_effort", lambda _model: False)
+    monkeypatch.setattr(
+        llm_claude, "_claude_supports_manual_thinking_budget", lambda _model: True
+    )
+
     client = FakeClient([Block("text", text="ok")])
     out_cfg = build_claude_output_config_for_effort(model, "high")
     assert out_cfg == {"effort": "high"}

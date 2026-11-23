@@ -184,7 +184,7 @@ def analyze_image_openai(
                 or "https://api.moonshot.cn/v1"
             )
             model = _img_env("moonshot", "analysis", "depname") or _env_first(
-                ["UAGENT_MOONSHOT_DEPNAME"], default="kimi-k3"
+                ["UAGENT_MOONSHOT_DEPNAME"], default="kimi-k3.1-pro"
             )
             if not (api_key and model):
                 raise RuntimeError(
@@ -206,7 +206,7 @@ def analyze_image_openai(
                 or "https://api.openai.com/v1"
             )
             model = _img_env("openai", "analysis", "depname") or _env_first(
-                ["UAGENT_OPENAI_DEPNAME"], default="gpt-4o-mini"
+                ["UAGENT_OPENAI_DEPNAME"], default="gpt-6-luna"
             )
         client = OpenAI(api_key=api_key, base_url=base_url)
 

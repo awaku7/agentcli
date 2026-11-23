@@ -75,7 +75,7 @@ def test_sarashina_openai_compatible_client_defaults(monkeypatch) -> None:
 
     assert provider == "sarashina"
     assert isinstance(client, FakeOpenAI)
-    assert model == "sarashina3-mini"
+    assert model == "sarashina3.2-mini-thinking"
     assert captured == {
         "api_key": "test-sarashina-key",
         "base_url": "https://api.sarashina.ai/v1",

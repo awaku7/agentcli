@@ -76,7 +76,7 @@ class _StatusSpinner:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "media",
+    "tool_level": 1,
     "x_parallel_safe": True,
     "function": {
         "name": "generate_image",
@@ -1029,7 +1029,7 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         image_model = _get_image_depname(cb.get_env, provider)
         if provider in ("gemini", "vertexai") and not image_model:
-            image_model = "gemini-3.1-flash-image"
+            image_model = default_image_model(provider) or "gemini-nano-banana-2.1"
         try:
             from uagent.llmcapa_util import (
                 check_image_output_support,
@@ -1051,7 +1051,7 @@ def run_tool(args: dict[str, Any]) -> str:
             pass
     except RuntimeError:
         if provider in ("gemini", "vertexai"):
-            image_model = "gemini-3.1-flash-image"
+            image_model = default_image_model(provider) or "gemini-nano-banana-2.1"
         else:
             return _(
                 "err.depname_missing",

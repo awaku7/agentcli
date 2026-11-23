@@ -29,7 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
     "x_parallel_safe": True,
-    "tool_genre": "media",
+    "tool_level": 1,
     "function": {
         "name": "audio_transcribe",
         "description": _(
@@ -218,7 +218,7 @@ def _model(provider: str) -> str:
     if provider in ("gemini", "vertexai"):
         return _env_first(
             ["UAGENT_GEMINI_TRANSCRIBE_DEPNAME", "UAGENT_GEMINI_MODEL"],
-            default="gemini-3.8-flash",
+            default="gemini-3.5-transcribe",
         )
     if provider == "grok":
         return _env_first(

@@ -369,37 +369,44 @@ def get_model_name() -> str:
     """利用プロバイダに応じてモデル名を取得する（scheck.py の main ロジックに準拠）"""
     provider = detect_provider()
     if provider == "azure":
-        return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+        return env_get("UAGENT_AZURE_DEPNAME", "gpt-6.2-sol") or "gpt-6.2-sol"
     if provider == "openai":
-        return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+        return env_get("UAGENT_OPENAI_DEPNAME", "gpt-6-luna") or "gpt-6-luna"
     if provider == "meta":
         return env_get("UAGENT_META_DEPNAME", "muse-spark-1.3") or "muse-spark-1.3"
     if provider == "pfn":
         return env_get("UAGENT_PFN_DEPNAME", "plamo-3.0-prime") or "plamo-3.0-prime"
     if provider == "bedrock":
-        return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+        return (
+            env_get("UAGENT_BEDROCK_DEPNAME", "openai.gpt-oss-120b")
+            or "openai.gpt-oss-120b"
+        )
     if provider == "openrouter":
-        return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+        return (
+            env_get("UAGENT_OPENROUTER_DEPNAME", "openai/gpt-6-luna")
+            or "openai/gpt-6-luna"
+        )
     if provider == "perplexity":
         return (
             env_get("UAGENT_PERPLEXITY_DEPNAME", "perplexity/kimi-k3")
             or "perplexity/kimi-k3"
         )
     if provider == "inception":
-        return env_get("UAGENT_INCEPTION_DEPNAME", "mercury-2.5") or "mercury-2.5"
+        return env_get("UAGENT_INCEPTION_DEPNAME", "mercury-3") or "mercury-3"
     if provider == "grok":
         return env_get("UAGENT_GROK_DEPNAME", "grok-4.7") or "grok-4.7"
     if provider == "gemini":
         return (
-            env_get("UAGENT_GEMINI_DEPNAME", "gemini-3.8-flash") or "gemini-3.8-flash"
+            env_get("UAGENT_GEMINI_DEPNAME", "gemini-4-hydrogen") or "gemini-4-hydrogen"
         )
     if provider == "vertexai":
         return (
-            env_get("UAGENT_VERTEXAI_DEPNAME", "gemini-3.8-flash") or "gemini-3.8-flash"
+            env_get("UAGENT_VERTEXAI_DEPNAME", "gemini-4-hydrogen")
+            or "gemini-4-hydrogen"
         )
     if provider == "claude":
         return (
-            env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4-6") or "claude-sonnet-4-6"
+            env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-5-5") or "claude-sonnet-5-5"
         )
     if provider == "ollama":
         return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.3") or "llama3.3"
@@ -421,9 +428,9 @@ def get_model_name() -> str:
     if provider == "alibaba":
         return env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.7-plus") or "qwen3.7-plus"
     if provider == "moonshot":
-        return env_get("UAGENT_MOONSHOT_DEPNAME", "kimi-k3") or "kimi-k3"
+        return env_get("UAGENT_MOONSHOT_DEPNAME", "kimi-k3.1-pro") or "kimi-k3.1-pro"
     if provider == "mimo":
-        return env_get("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro") or "mimo-v2.5-pro"
+        return env_get("UAGENT_MIMO_DEPNAME", "mimo-v2.6-pro") or "mimo-v2.6-pro"
     if provider == "lmstudio":
         return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
     if provider == "foundry_local":
@@ -437,12 +444,13 @@ def get_model_name() -> str:
     if provider == "sakana":
         return env_get("UAGENT_SAKANA_DEPNAME", "fugu") or "fugu"
     if provider == "novita":
-        return env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3") or "tensent/hy3"
+        return env_get("UAGENT_NOVITA_DEPNAME", "tencent/hy3") or "tencent/hy3"
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
     if provider == "sarashina":
         return (
-            env_get("UAGENT_SARASHINA_DEPNAME", "sarashina3-mini") or "sarashina3-mini"
+            env_get("UAGENT_SARASHINA_DEPNAME", "sarashina3.2-mini-thinking")
+            or "sarashina3.2-mini-thinking"
         )
     if provider == "together":
         return (
@@ -451,10 +459,9 @@ def get_model_name() -> str:
         )
     if provider == "vercel":
         return (
-            env_get("UAGENT_VERCEL_DEPNAME", "openai/gpt-5.4-nano")
-            or "openai/gpt-5.4-nano"
+            env_get("UAGENT_VERCEL_DEPNAME", "openai/gpt-6-luna") or "openai/gpt-6-luna"
         )
-    return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+    return env_get("UAGENT_OPENAI_DEPNAME", "gpt-6-luna") or "gpt-6-luna"
 
 
 def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float | None:

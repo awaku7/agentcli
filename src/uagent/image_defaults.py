@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-DEFAULT_OPENAI_IMAGE_MODEL = "gpt-image-2.5-flare"
+DEFAULT_OPENAI_IMAGE_MODEL = "gpt-image-2.6-flare"
 
 
 def default_image_model(provider: str) -> str | None:
@@ -10,9 +10,9 @@ def default_image_model(provider: str) -> str | None:
     provider = str(provider or "").strip().lower()
     defaults = {
         "openai": DEFAULT_OPENAI_IMAGE_MODEL,
+        "gemini": "gemini-nano-banana-2.1",
+        "vertexai": "gemini-nano-banana-2.1",
         "meta": "muse-image-1.0",
-        "gemini": "gemini-3.1-flash-image",
-        "vertexai": "gemini-3.1-flash-image",
         "zai": "glm-image",
         "grok": "grok-imagine-image",
     }

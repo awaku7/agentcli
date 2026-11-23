@@ -1,6 +1,17 @@
 from types import SimpleNamespace
 
 from uagent import llmcapa_util
+from uagent.image_defaults import DEFAULT_OPENAI_IMAGE_MODEL, default_image_model
+
+
+def test_openai_image_default_uses_latest_fast_model():
+    assert DEFAULT_OPENAI_IMAGE_MODEL == "gpt-image-2.6-flare"
+    assert default_image_model("openai") == "gpt-image-2.6-flare"
+
+
+def test_gemini_image_defaults_use_latest_fast_model():
+    assert default_image_model("gemini") == "gemini-nano-banana-2.1"
+    assert default_image_model("vertexai") == "gemini-nano-banana-2.1"
 
 
 def test_image_capability_helpers_read_structured_metadata(monkeypatch):
