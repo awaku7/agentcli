@@ -423,10 +423,7 @@ class ScheckWorker(QtCore.QObject):
                         )
                         _runtime = getattr(core, "_local_messaging_runtime", None)
                         _peer_id = str(_peer.get("endpoint_id") or "")
-                        if (
-                            _runtime is not None
-                            and _runtime.is_peer_active(_peer_id)
-                        ):
+                        if _runtime is not None and _runtime.is_peer_active(_peer_id):
                             print(
                                 "[LOCAL] Another UAG peer is online: "
                                 f"{safe_message_preview(_peer_id)}"

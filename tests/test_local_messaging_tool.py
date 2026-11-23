@@ -36,18 +36,16 @@ def test_local_messaging_tool_translations_cover_all_shipped_locales() -> None:
     catalog = json.loads(
         (tools_dir / "local_messaging_tool.json").read_text(encoding="utf-8")
     )
-    expected_locales = {path.name for path in locales_dir.iterdir() if path.is_dir()} - {
-        "en"
-    }
+    expected_locales = {
+        path.name for path in locales_dir.iterdir() if path.is_dir()
+    } - {"en"}
 
     assert set(catalog) == expected_locales
     expected_keys = set(catalog["ja"])
     for locale, messages in catalog.items():
         assert set(messages) == expected_keys, locale
         assert all(
-            value.strip()
-            for key, value in messages.items()
-            if isinstance(value, str)
+            value.strip() for key, value in messages.items() if isinstance(value, str)
         ), locale
         assert all(
             term.strip()

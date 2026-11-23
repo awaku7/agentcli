@@ -1,12 +1,4 @@
-"""Regression: [STATE] must yield a prompt_toolkit prompt, not erase it.
-
-When an injected round starts while a prompt_toolkit prompt is on
-screen, print_status_line used to erase the prompt line by hand while
-the application was still running; the application then redrew the
-prompt over the spinner frame, leaving a merged line in the
-scrollback. The status printer now asks the application to exit and
-waits for the input loop to release the line first.
-"""
+"""Busy status updates must preserve an active prompt_toolkit prompt."""
 
 from __future__ import annotations
 
@@ -53,25 +45,25 @@ def _setup(monkeypatch, app) -> tuple[io.StringIO, io.StringIO]:
     return stdout, stderr
 
 
-def test_status_line_exits_toolkit_prompt_instead_of_erasing(monkeypatch):
+def test_status_line_preserves_a_live_toolkit_prompt(monkeypatch):
     app = _FakeApp(releases=True)
     stdout, stderr = _setup(monkeypatch, app)
 
     core.print_status_line()
 
-    assert app.exit_calls == 1
-    # The application released the line, so the manual erase (carriage
-    # return plus a run of spaces) must not appear in the output.
-    assert " " * 120 not in stdout.getvalue()
-    assert "[STATE] BUSY [LLM]" in stderr.getvalue()
+    assert app.exit_calls == 0
+    assert stdout.getvalue() == ""
+    assert stderr.getvalue() == ""
+    assert core._prompt_line_open
 
 
-def test_status_line_falls_back_to_manual_erase_when_prompt_stays(monkeypatch):
+def test_status_line_does_not_erase_prompt_when_toolkit_keeps_running(monkeypatch):
     app = _FakeApp(releases=False)
     stdout, stderr = _setup(monkeypatch, app)
 
     core.print_status_line()
 
-    assert app.exit_calls == 1
-    assert " " * 120 in stdout.getvalue()
-    assert "[STATE] BUSY [LLM]" in stderr.getvalue()
+    assert app.exit_calls == 0
+    assert stdout.getvalue() == ""
+    assert stderr.getvalue() == ""
+    assert core._prompt_line_open

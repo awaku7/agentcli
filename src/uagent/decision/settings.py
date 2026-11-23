@@ -101,9 +101,11 @@ def resolve_decision_settings(
     main_provider = str(env.get("UAGENT_PROVIDER") or "").strip().lower()
     if main_provider == "azure":
         decision_endpoint = str(env.get("UAGENT_DECISION_ENDPOINT") or "").strip()
-        azure_endpoint = str(
-            env.get("UAGENT_AZURE_BASE_URL") or env.get("AZURE_ENDPOINT") or ""
-        ).strip().lower()
+        azure_endpoint = (
+            str(env.get("UAGENT_AZURE_BASE_URL") or env.get("AZURE_ENDPOINT") or "")
+            .strip()
+            .lower()
+        )
         # Azure OpenAI and Microsoft Foundry have different endpoints and
         # credentials. Only infer the Microsoft adapter when configuration
         # identifies a Foundry Decision endpoint/resource.
