@@ -13,6 +13,11 @@ def _enable_windows_vt_mode() -> bool:
     """Enable VT processing on stdout/stderr. Return True if stderr supports it."""
     if os.name != "nt":
         return True
+    # Keep a legacy-console escape hatch for Windows hosts with VT rendering
+    # or selection issues, without changing the terminal profile.
+    vt_mode = str(env_get("UAGENT_WINDOWS_VT_MODE", "1") or "1").strip().lower()
+    if vt_mode in {"0", "false", "no", "off"}:
+        return False
     stderr_ok = False
     try:
         import ctypes
@@ -30,7 +35,6 @@ def _enable_windows_vt_mode() -> bool:
         kernel32.SetConsoleMode.restype = wintypes.BOOL
 
         ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004
-        DISABLE_NEWLINE_AUTO_RETURN = 0x0008
         INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
         # STD_OUTPUT_HANDLE = -11, STD_ERROR_HANDLE = -12
         for std_id in (wintypes.DWORD(-11).value, wintypes.DWORD(-12).value):
@@ -40,11 +44,9 @@ def _enable_windows_vt_mode() -> bool:
             mode = wintypes.DWORD()
             if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
                 continue
-            new_mode = (
-                int(mode.value)
-                | ENABLE_VIRTUAL_TERMINAL_PROCESSING
-                | DISABLE_NEWLINE_AUTO_RETURN
-            )
+            # VT escape-sequence processing only requires this bit; preserve
+            # the console's other output modes rather than changing wrapping.
+            new_mode = int(mode.value) | ENABLE_VIRTUAL_TERMINAL_PROCESSING
             if new_mode != int(mode.value):
                 if not kernel32.SetConsoleMode(handle, new_mode):
                     continue

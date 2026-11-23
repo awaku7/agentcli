@@ -230,3 +230,43 @@ def test_print_status_line_starts_spinner_outside_print_lock(monkeypatch):
 
     assert held, "spinner.start() was not called for a busy status"
     assert held == [False] * len(held)
+
+
+def test_busy_status_does_not_rewrite_a_live_cli_prompt(monkeypatch):
+    """Status redraws must not erase an interactive prompt or mouse selection."""
+    import io
+    import sys
+
+    import uagent.core_impl.display as display
+
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    monkeypatch.setattr(sys, "stdout", stdout)
+    monkeypatch.setattr(sys, "stderr", stderr)
+    monkeypatch.setattr(core, "IS_GUI", False)
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "human_ask_active", False)
+    monkeypatch.setattr(core, "_stream_line_open", False)
+    monkeypatch.setattr(core, "_prompt_line_open", True)
+    monkeypatch.setattr(core, "_cli_prompt_toolkit_active", True, raising=False)
+    monkeypatch.setattr(core, "status_busy", True)
+    monkeypatch.setattr(core, "status_label", "tool:delete_files")
+    monkeypatch.setattr(display, "_stop_spinner_quietly", lambda: None)
+
+    class FakeApp:
+        is_running = True
+
+        def __init__(self):
+            self.exited = False
+
+        def exit(self, result=None):
+            self.exited = True
+
+    app = FakeApp()
+    monkeypatch.setattr(core, "_cli_prompt_app", app, raising=False)
+
+    core.print_status_line()
+
+    assert stdout.getvalue() == ""
+    assert stderr.getvalue() == ""
+    assert not app.exited

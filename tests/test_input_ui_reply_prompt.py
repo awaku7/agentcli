@@ -12,6 +12,7 @@ swallowing a line into a queue nobody reads).
 from __future__ import annotations
 
 import threading
+from contextlib import nullcontext
 
 import pytest
 
@@ -44,6 +45,16 @@ class _FakeSession:
 
 @pytest.fixture()
 def fake_session(monkeypatch):
+    monkeypatch.delenv("UAGENT_NON_INTERACTIVE", raising=False)
+    input_ui._CLI_SHUTDOWN.clear()
+    # The stand-in does not interact with a terminal; avoid patch_stdout's
+    # prompt-toolkit event-loop setup so the state watcher is the only thing
+    # under test.
+    import prompt_toolkit.patch_stdout
+
+    monkeypatch.setattr(
+        prompt_toolkit.patch_stdout, "patch_stdout", lambda: nullcontext()
+    )
     session = _FakeSession()
     monkeypatch.setattr(input_ui, "_get_prompt_session", lambda reply=False: session)
     monkeypatch.setattr(input_ui, "_reset_prompt_sessions", lambda: None)
@@ -51,6 +62,7 @@ def fake_session(monkeypatch):
     yield session
     with core.human_ask_lock:
         core.human_ask_active = False
+    input_ui._CLI_SHUTDOWN.clear()
 
 
 def _run_prompt_async(**kwargs):

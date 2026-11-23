@@ -227,11 +227,10 @@ def stdin_loop(*, hook_runner=None) -> None:
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
 
-                            # The normal prompt must relinquish stdin when a
-                            # tool or human_ask starts.  Without this watcher,
-                            # the prompt remains visible and is redrawn on
-                            # every status update even though it cannot accept
-                            # input.
+                            # Ordinary BUSY/status changes do not interrupt a
+                            # live prompt: repainting it cancels terminal mouse
+                            # selections. A human_ask is different because it
+                            # explicitly takes ownership of stdin.
                             stop_prompt_watch = threading.Event()
 
                             def _watch_normal_prompt() -> None:
@@ -242,9 +241,6 @@ def stdin_loop(*, hook_runner=None) -> None:
                                         return
                                     with core.human_ask_lock:
                                         interrupted = bool(core.human_ask_active)
-                                    interrupted = interrupted or bool(
-                                        getattr(core, "status_busy", False)
-                                    )
                                     if not interrupted:
                                         continue
                                     app = getattr(prompt_session, "app", None)
@@ -517,6 +513,19 @@ def stdin_loop(*, hook_runner=None) -> None:
 
         if _skip:
             continue
+
+        # A prompt may remain visible while background work runs so terminal
+        # output does not repeatedly erase/redraw the user's selection. If the
+        # user submits input during that interval, hold the line until the
+        # current round is idle; a newly active human_ask still takes priority.
+        if line is not None and not is_reply:
+            while getattr(core, "status_busy", False):
+                if _CLI_SHUTDOWN.is_set():
+                    return
+                with core.human_ask_lock:
+                    if core.human_ask_active:
+                        break
+                time.sleep(0.05)
 
         core.input_prompt_active = False
         line = line.rstrip("\n")

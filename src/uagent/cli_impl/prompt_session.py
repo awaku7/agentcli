@@ -46,7 +46,8 @@ def _create_prompt_output() -> Any:
     try:
         from .. import core as _core
 
-        _core._enable_windows_vt_mode()
+        if not _core._enable_windows_vt_mode():
+            return None
         # Do not let create_output() silently select Win32Output again when
         # VT detection is conservative.  Windows10_Output uses the same UTF-8
         # VT path as ordinary print() and supports supplementary-plane emoji.
@@ -462,29 +463,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                             yield Completion(
                                                 fl, start_position=-len(last_token)
                                             )
-                        elif after_tools.startswith(("on ", "off ")):
-                            genre_prefix = (
-                                after_tools.split(" ", 1)[1]
-                                if " " in after_tools
-                                else ""
-                            )
-                            genres = [
-                                "basic",
-                                "file",
-                                "comm",
-                                "office",
-                                "devel",
-                                "iot",
-                                "exec",
-                                "external",
-                                "media",
-                                "index",
-                            ]
-                            for g in genres:
-                                if g.startswith(genre_prefix):
-                                    yield Completion(
-                                        g, start_position=-len(genre_prefix)
-                                    )
                     elif stripped.startswith(":sessions "):
                         after_sessions = stripped[len(":sessions ") :]
                         parts = after_sessions.split()

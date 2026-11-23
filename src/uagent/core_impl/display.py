@@ -105,6 +105,14 @@ def print_status_line() -> None:
         _stop_spinner_quietly()
         return
 
+    # Do not tear down or repaint a live CLI prompt merely to show BUSY/IDLE.
+    # Apart from stealing the input line, rewriting the terminal invalidates
+    # mouse selections (and therefore clipboard copying) in common terminals.
+    # A real human_ask is handled above and still takes ownership of stdin.
+    if bool(getattr(_core, "_prompt_line_open", False)):
+        _stop_spinner_quietly()
+        return
+
     with _core.status_lock:
         busy = _core.status_busy
         label = _core.status_label
@@ -113,18 +121,6 @@ def print_status_line() -> None:
     # set_status(); this covers direct print_status_line() callers too.
     _sync_spinner_to_status(bool(busy))
 
-    # An idle prompt is already the user's visual indication that the CLI is
-    # ready. Do not tear it down just to print a redundant IDLE line: the
-    # prompt can be redrawn a moment later and produce `agentcli> [STATE] IDLE`
-    # on terminals with prompt wrappers.
-    if not busy and _core._prompt_line_open:
-        _stop_spinner_quietly()
-        return
-
-    # Status has priority over a stale prompt. If a prompt is still marked
-    # open, close it below and emit the state on its own line; the input loop
-    # will redraw the prompt afterward. This also applies to non-TTY prompt
-    # wrappers that render `agentcli> ` themselves.
     state = "BUSY" if busy else "IDLE"
     label_part = f" [{label}]" if label else ""
 

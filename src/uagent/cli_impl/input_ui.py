@@ -238,10 +238,6 @@ def _prompt_toolkit_input(
                         interrupted = not core.human_ask_active
                     else:
                         interrupted = bool(core.human_ask_active)
-                if not reply:
-                    interrupted = interrupted or bool(
-                        getattr(core, "status_busy", False)
-                    )
                 if not interrupted:
                     continue
                 app = prompt_app
