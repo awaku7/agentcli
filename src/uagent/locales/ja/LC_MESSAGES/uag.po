@@ -737,22 +737,6 @@ msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
 
 #: src/uagent/cli_impl/stdin_loop.py
-msgid "Type-ahead accepts one single-line user message; commands and multiline input must wait until the current response finishes."
-msgstr "先行入力できるのは1行のユーザーメッセージのみです。コマンドと複数行入力は応答の完了後に入力してください。"
-
-#: src/uagent/cli_impl/stdin_loop.py
-msgid "Type-ahead is unavailable in mesh-only chat mode."
-msgstr "メッシュ専用チャットモードでは先行入力を利用できません。"
-
-#: src/uagent/cli_impl/stdin_loop.py
-msgid "A message is already queued; wait for it to start before queuing another."
-msgstr "すでにメッセージが1件待機中です。次のメッセージはその処理が始まってから入力してください。"
-
-#: src/uagent/cli_impl/stdin_loop.py
-msgid "Message queued for after the current response."
-msgstr "現在の応答が終わった後に送信するメッセージを受け付けました。"
-
-#: src/uagent/cli_impl/stdin_loop.py
 msgid "Input was not sent because the active prompt changed while you were typing. Please enter it again at the current prompt."
 msgstr "入力中にプロンプトが切り替わったため、入力は送信されませんでした。現在のプロンプトにもう一度入力してください。"
 

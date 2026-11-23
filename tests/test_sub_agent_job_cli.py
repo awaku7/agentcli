@@ -112,6 +112,106 @@ def test_job_notice_is_short_and_background_display_does_not_change_busy(capsys)
     assert fake_core._prompt_line_open is False
 
 
+def _start_toolkit_prompt():
+    """Run a real PromptSession on pipe input in a background thread."""
+    import io
+
+    import pytest
+
+    pytest.importorskip("prompt_toolkit")
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.data_structures import Size
+    from prompt_toolkit.input.defaults import create_pipe_input
+    from prompt_toolkit.output.vt100 import Vt100_Output
+
+    term_out = io.StringIO()
+    output = Vt100_Output(term_out, lambda: Size(columns=80, rows=24))
+    # Keep the context manager alive: dropping it closes the pipe and the
+    # prompt reads EOF immediately.
+    pipe_cm = create_pipe_input()
+    pipe_input = pipe_cm.__enter__()
+    session = PromptSession(input=pipe_input, output=output)
+    session._test_pipe_cm = pipe_cm
+    result: dict = {}
+
+    def _run() -> None:
+        try:
+            result["text"] = session.prompt("User> ")
+        except Exception as exc:  # noqa: BLE001 - surfaced by assertions
+            result["error"] = exc
+
+    thread = threading.Thread(target=_run, daemon=True)
+    thread.start()
+    deadline = time.time() + 5
+    while time.time() < deadline:
+        app = session.app
+        if app is not None and app.is_running and "User>" in term_out.getvalue():
+            break
+        time.sleep(0.02)
+    else:
+        raise AssertionError("toolkit prompt did not start")
+    return pipe_input, session, term_out, result, thread
+
+
+def _wait_for_rendered(term_out, mark: int, *fragments: str) -> str:
+    deadline = time.time() + 5
+    rendered = ""
+    while time.time() < deadline:
+        rendered = term_out.getvalue()[mark:]
+        if all(fragment in rendered for fragment in fragments):
+            break
+        time.sleep(0.02)
+    return rendered
+
+
+def test_job_notice_prints_above_an_open_toolkit_prompt(capsys):
+    pipe_input, session, term_out, result, thread = _start_toolkit_prompt()
+    try:
+        pipe_input.send_text("draft")
+        _wait_for_rendered(term_out, 0, "draft")
+
+        fake_core = SimpleNamespace(
+            print_lock=threading.RLock(),
+            status_busy=False,
+            _stream_line_open=False,
+            _reasoning_stream_open=False,
+            _prompt_line_open=True,
+            _cli_prompt_toolkit_active=True,
+            _cli_prompt_app=session.app,
+            prompt_needs_redraw=False,
+        )
+        notice = {
+            "event": "finished",
+            "job_id": "sa_123",
+            "agent_name": "planner",
+            "state": "completed",
+            "elapsed_sec": 2.25,
+        }
+        mark = len(term_out.getvalue())
+        assert display_job_notice(fake_core, notice) == (
+            "[JOB sa_123 planner] completed (2.2s)"
+        )
+
+        # The notice was printed (above the prompt), not written into the
+        # line being edited.
+        assert "[JOB sa_123 planner] completed (2.2s)" in capsys.readouterr().out
+        # The prompt redraws below the notice with the edit buffer intact.
+        redrawn = _wait_for_rendered(term_out, mark, "User>", "draft")
+        assert "User>" in redrawn
+        assert "draft" in redrawn
+        # The prompt still owns the line; no manual redraw was requested
+        # and the foreground BUSY state is untouched.
+        assert fake_core._prompt_line_open is True
+        assert fake_core.prompt_needs_redraw is False
+        assert fake_core.status_busy is False
+
+        pipe_input.send_text("\r")
+        thread.join(timeout=5)
+        assert result.get("text") == "draft"
+    finally:
+        pipe_input.close()
+
+
 def test_cli_jobs_commands_are_owner_scoped_and_do_not_print_result(capsys):
     manager = _manager()
     owner = _owner()

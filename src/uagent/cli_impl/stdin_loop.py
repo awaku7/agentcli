@@ -16,46 +16,20 @@ from .history import _append_prompt_history_entry
 from .input_ui import (
     _can_use_textarea,
     _clear_abandoned_prompt,
+    _exit_prompt_application,
     _flush_stdin_input_buffer,
     _getpass_fallback,
     _make_prompt_key_bindings,
     _multiline_editor,
     _normalize_multiline_text,
     _prompt_toolkit_input,
-    _exit_prompt_application,
 )
-from .prompt_session import _get_prompt_session
-from .state import _CLI_SHUTDOWN, reserve_typeahead_slot, release_typeahead_slot
+from .prompt_session import _get_prompt_session, _reset_prompt_sessions
+from .state import _CLI_SHUTDOWN
 from ..runtime.spinner import (
     paused as _spinner_paused,
     stop_quietly as _stop_spinner_quietly,
 )
-
-
-def _typeahead_rejection_notice(
-    line: str, *, multiline_active: bool, mesh_only: bool
-) -> str | None:
-    """Return a notice for input that must not be queued during an LLM turn.
-
-    ``None`` means the line is an ordinary single-line user message; an empty
-    string means ignore a blank line without printing a notice.
-    """
-    if not line.strip():
-        return ""
-    if (
-        multiline_active
-        or "\n" in line
-        or "\r" in line
-        or line.startswith(":")
-        or line == "f"
-    ):
-        return _(
-            "Type-ahead accepts one single-line user message; commands and "
-            "multiline input must wait until the current response finishes."
-        )
-    if mesh_only:
-        return _("Type-ahead is unavailable in mesh-only chat mode.")
-    return None
 
 
 def stdin_loop(*, hook_runner=None) -> None:
@@ -72,7 +46,6 @@ def stdin_loop(*, hook_runner=None) -> None:
         # Never carry the ownership marker across an abandoned prompt slot.
         core.input_prompt_active = False
         _skip = False
-        typeahead_enabled = False
         try:
             # First, check if we are waiting for a reply
             with core.human_ask_lock:
@@ -233,7 +206,12 @@ def stdin_loop(*, hook_runner=None) -> None:
                 else:
                     line = None
 
-                    # Use prompt_toolkit when available (handles prompt drawing internally)
+                    # Use prompt_toolkit when available (it draws the
+                    # prompt itself). The session read restores history,
+                    # completion and bracketed paste for the idle prompt.
+                    # patch_stdout is deliberately not used: the prompt
+                    # opens only while idle (see the wait above) and must
+                    # not stay alive across streamed output.
                     prompt_session = _get_prompt_session()
                     # bitchat chat_mode="llm" 中は prompt_toolkit を無効化する。
                     # プロンプト表示中に注入メッセージの LLM ラウンドが始まると、
@@ -243,80 +221,74 @@ def stdin_loop(*, hook_runner=None) -> None:
                     _chat_mode_active = is_chat_mode() == "llm"
                     if (
                         prompt_session is not None
-                        and sys.stdin.isatty()
+                        and getattr(sys.stdin, "isatty", lambda: False)()
                         and not _chat_mode_active
                     ):
-                        # prompt_toolkit's patch_stdout keeps the live editor
-                        # coherent while a response streams. The manual
-                        # fallback cannot safely share the terminal with that
-                        # output, so it retains the legacy wait-until-idle path.
-                        typeahead_enabled = True
-                        try:
-                            from prompt_toolkit.patch_stdout import patch_stdout
+                        # Ordinary BUSY/status changes do not interrupt an
+                        # idle prompt. A human_ask is different because it
+                        # explicitly takes ownership of stdin.
+                        stop_prompt_watch = threading.Event()
 
-                            # Ordinary BUSY/status changes do not interrupt a
-                            # live prompt: repainting it cancels terminal mouse
-                            # selections. A human_ask is different because it
-                            # explicitly takes ownership of stdin.
-                            stop_prompt_watch = threading.Event()
-
-                            def _watch_normal_prompt() -> None:
-                                while not stop_prompt_watch.wait(0.05):
-                                    if _CLI_SHUTDOWN.is_set():
-                                        app = getattr(prompt_session, "app", None)
-                                        _exit_prompt_application(app)
-                                        return
-                                    with core.human_ask_lock:
-                                        interrupted = bool(core.human_ask_active)
-                                    if not interrupted:
-                                        continue
+                        def _watch_normal_prompt() -> None:
+                            while not stop_prompt_watch.wait(0.05):
+                                if _CLI_SHUTDOWN.is_set():
                                     app = getattr(prompt_session, "app", None)
                                     _exit_prompt_application(app)
                                     return
+                                with core.human_ask_lock:
+                                    interrupted = bool(core.human_ask_active)
+                                if not interrupted:
+                                    continue
+                                app = getattr(prompt_session, "app", None)
+                                _exit_prompt_application(app)
+                                return
 
-                            prompt_watcher = threading.Thread(
-                                target=_watch_normal_prompt,
-                                name="prompt-toolkit-normal-state-watcher",
-                                daemon=True,
+                        prompt_watcher = threading.Thread(
+                            target=_watch_normal_prompt,
+                            name="prompt-toolkit-normal-state-watcher",
+                            daemon=True,
+                        )
+                        prompt_watcher.start()
+
+                        # Treat the prompt_toolkit-rendered line like the
+                        # manual prompt so status output can close it
+                        # before writing [STATE]. The application handle is
+                        # published so status output can ask the prompt to
+                        # yield instead of erasing its line.
+                        try:
+                            core._prompt_line_open = True
+                            core._cli_prompt_toolkit_active = True
+                            core._cli_prompt_app = getattr(prompt_session, "app", None)
+                        except Exception:
+                            pass
+                        try:
+                            line = prompt_session.prompt(
+                                prompt, key_bindings=_make_prompt_key_bindings()
                             )
-                            prompt_watcher.start()
-
-                            # Treat the prompt_toolkit-rendered line like the
-                            # manual prompt so status output can close it
-                            # before writing [STATE]. The application handle
-                            # is published so status output can ask the
-                            # prompt to yield instead of erasing its line.
+                        except EOFError:
+                            raise
+                        except Exception:
+                            # Do not reuse a PromptSession whose
+                            # Application/input context failed.
+                            _reset_prompt_sessions()
+                            line = None
+                        finally:
+                            stop_prompt_watch.set()
+                            prompt_watcher.join(timeout=0.2)
                             try:
-                                core._prompt_line_open = True
-                                core._cli_prompt_toolkit_active = True
-                                core._cli_prompt_app = getattr(
-                                    prompt_session, "app", None
-                                )
+                                core._prompt_line_open = False
+                                core._cli_prompt_toolkit_active = False
+                                core._cli_prompt_app = None
                             except Exception:
                                 pass
-                            try:
-                                with patch_stdout():
-                                    line = prompt_session.prompt(
-                                        prompt, key_bindings=_make_prompt_key_bindings()
-                                    )
-                            finally:
-                                stop_prompt_watch.set()
-                                prompt_watcher.join(timeout=0.2)
-                                try:
-                                    core._prompt_line_open = False
-                                    core._cli_prompt_toolkit_active = False
-                                    core._cli_prompt_app = None
-                                except Exception:
-                                    pass
-                            if line is not None:
-                                line = tools_util.strip_surrogates(line)
-                        except Exception:
-                            line = None
+                        if line is not None:
+                            line = tools_util.strip_surrogates(line)
                         if line is None:
                             # ``None`` is also the sentinel used when the
                             # watcher aborts a normal prompt because a tool
-                            # or human_ask has taken stdin.  Do not fall back
-                            # to blocking readline() while input is unavailable.
+                            # or human_ask has taken stdin.  Do not fall
+                            # back to blocking readline() while input is
+                            # unavailable.
                             with core.human_ask_lock:
                                 prompt_interrupted = core.human_ask_active
                             if prompt_interrupted or getattr(
@@ -324,10 +296,10 @@ def stdin_loop(*, hook_runner=None) -> None:
                             ):
                                 _clear_abandoned_prompt(prompt)
                                 core.input_prompt_active = False
-                                _skip = True
-                                continue
                     else:
-                        # Manual prompt drawing fallback
+                        # Manual prompt drawing. The prompt opens only
+                        # while idle, so it never shares the terminal with
+                        # streamed output.
                         lock = getattr(core, "print_lock", None)
                         if lock is None:
                             lock = threading.RLock()
@@ -667,14 +639,14 @@ def stdin_loop(*, hook_runner=None) -> None:
                 pass
             continue
 
-        # Accept one ordinary user message while a turn is running, but queue
-        # it for the serialized main loop. Never reinterpret a line typed at
-        # the normal prompt as a human_ask/confirmation reply if that prompt
-        # became active during the race between Enter and this check.
-        if busy_at_submit and not typeahead_enabled:
-            # The simple/manual prompt cannot safely coexist with streamed
-            # output. Preserve its old behavior: hold the submitted line until
-            # the current turn finishes, unless stdin ownership changes.
+        # A line submitted at a prompt that was open when a turn started is
+        # held until the current turn finishes, unless stdin ownership
+        # changes. Never reinterpret it as a human_ask/confirmation reply if
+        # that prompt became active during the race between Enter and this
+        # check.
+        if busy_at_submit:
+            # The manual prompt cannot safely coexist with streamed output,
+            # so the submitted line waits for the turn to finish.
             while getattr(core, "status_busy", False):
                 if _CLI_SHUTDOWN.is_set():
                     return
@@ -695,60 +667,6 @@ def stdin_loop(*, hook_runner=None) -> None:
                     )
                 continue
             busy_at_submit = False
-
-        if busy_at_submit:
-            rejection = _typeahead_rejection_notice(
-                line,
-                multiline_active=user_multiline_active,
-                mesh_only=is_chat_mode() == "on",
-            )
-            if rejection is not None:
-                user_multiline_active = False
-                user_lines.clear()
-                if rejection:
-                    with _spinner_paused():
-                        print(rejection)
-                continue
-            if not reserve_typeahead_slot():
-                with _spinner_paused():
-                    print(
-                        _(
-                            "A message is already queued; wait for it to start "
-                            "before queuing another."
-                        )
-                    )
-                continue
-
-            queued = False
-            try:
-                # Recheck under the same lock used by human_ask before
-                # queueing, so a password/reply prompt that took ownership
-                # just after the earlier check cannot receive this text.
-                with core.human_ask_lock:
-                    prompt_changed = bool(core.human_ask_active)
-                    if not prompt_changed:
-                        core.event_queue.put(
-                            {"kind": "user", "text": line, "cli_typeahead": True}
-                        )
-                        queued = True
-            finally:
-                if not queued:
-                    release_typeahead_slot()
-            if prompt_changed:
-                with _spinner_paused():
-                    print(
-                        _(
-                            "Input was not sent because the active prompt changed "
-                            "while you were typing. Please enter it again at the "
-                            "current prompt."
-                        )
-                    )
-                continue
-            _append_prompt_history_entry(line)
-            forward_to_mesh(line)
-            with _spinner_paused():
-                print(_("Message queued for after the current response."))
-            continue
 
         if not user_multiline_active:
             if line.startswith(":"):

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 import re
 import sys
@@ -761,6 +762,56 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
             state._PROMPT_SESSION = False
             return None
     return state._PROMPT_SESSION
+
+
+def print_text_above_toolkit_prompt(core: Any, text: str) -> bool:
+    """Print ``text`` while a prompt_toolkit prompt owns the input line.
+
+    The idle prompt is deliberately not wrapped in patch_stdout, so a
+    bare ``print()`` from another thread lands inside the line being
+    edited and desynchronises the prompt's cursor tracking.  Instead,
+    hand the print to the prompt's own event loop via ``in_terminal``:
+    the application erases its prompt, runs the print, and redraws the
+    prompt (edit buffer intact) below the printed text.
+
+    The caller may hold ``core.print_lock``: the handoff only waits for
+    the application's loop, which never takes that lock.  Returns True
+    when the text was printed this way.  Returns False when no toolkit
+    prompt is running (or it refused the handoff), in which case the
+    caller should fall back to its manual line-tracking print path.
+    """
+    if not bool(getattr(core, "_cli_prompt_toolkit_active", False)):
+        return False
+    app = getattr(core, "_cli_prompt_app", None)
+    if app is None:
+        return False
+    try:
+        if not bool(getattr(app, "is_running", False)):
+            return False
+        loop = getattr(app, "loop", None)
+    except Exception:
+        return False
+    if loop is None:
+        return False
+
+    async def _emit() -> None:
+        from prompt_toolkit.application import in_terminal
+
+        async with in_terminal():
+            print(text, flush=True)
+
+    future = None
+    try:
+        future = asyncio.run_coroutine_threadsafe(_emit(), loop)
+        future.result(timeout=2.0)
+    except Exception:
+        if future is not None:
+            try:
+                future.cancel()
+            except Exception:
+                pass
+        return False
+    return True
 
 
 def _reset_prompt_sessions() -> None:
