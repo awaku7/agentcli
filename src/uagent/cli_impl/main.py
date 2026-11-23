@@ -107,7 +107,7 @@ def _print_local_message_peers(peers: list[dict[str, Any]]) -> None:
     if not peers:
         print(_("[LOCAL] No other participating UAG peers are currently online."))
         return
-    print("[LOCAL] Available UAG peers:")
+    print(_("[LOCAL] Available UAG peers:"))
     for peer in peers:
         print(
             "  %(endpoint)s (%(entrypoint)s, pid=%(pid)s, started=%(started)s)"
@@ -143,7 +143,7 @@ def _accept_cli_local_message(
 
     result = accept_incoming_message(runtime, message, ask_user)
     if result is None:
-        print("[LOCAL] Incoming message was rejected or expired.")
+        print(_("[LOCAL] Incoming message was rejected or expired."))
     return result
 
 
@@ -528,8 +528,8 @@ def main() -> int:
         except Exception as exc:
             log_event("local_messaging.start_failed", error_type=type(exc).__name__)
             print(
-                "[LOCAL] Local messaging could not start: "
-                f"{type(exc).__name__}: {exc}"
+                _("[LOCAL] Local messaging could not start: %(error)s")
+                % {"error": f"{type(exc).__name__}: {exc}"}
             )
     core.start_interrupt_monitor()
     checkpoint("background_services_started")
@@ -701,8 +701,11 @@ def main() -> int:
                 runtime = getattr(core, "_local_messaging_runtime", None)
                 if runtime is not None and runtime.is_peer_active(endpoint_id):
                     print(
-                        "[LOCAL] Another UAG peer is online: "
-                        f"{endpoint_id} (pid={peer.get('pid', '?')})"
+                        _("[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)")
+                        % {
+                            "endpoint": endpoint_id,
+                            "pid": peer.get("pid", "?"),
+                        }
                     )
                 continue
 

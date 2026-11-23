@@ -218,7 +218,7 @@ class ScheckWorker(QtCore.QObject):
                         core, core.event_queue, entrypoint="gui"
                     )
                     if _local_peers:
-                        print("[LOCAL] Available UAG peers:")
+                        print(_("[LOCAL] Available UAG peers:"))
                         for _peer in _local_peers:
                             print(
                                 "  %(endpoint)s (%(entrypoint)s, pid=%(pid)s)"
@@ -232,8 +232,8 @@ class ScheckWorker(QtCore.QObject):
                             )
                 except Exception as exc:
                     print(
-                        "[LOCAL] Local messaging could not start: "
-                        f"{type(exc).__name__}: {exc}"
+                        _("[LOCAL] Local messaging could not start: %(error)s")
+                        % {"error": f"{type(exc).__name__}: {exc}"}
                     )
             if not bool(getattr(core, "_sandbox_enabled", False)):
                 try:
@@ -425,8 +425,13 @@ class ScheckWorker(QtCore.QObject):
                         _peer_id = str(_peer.get("endpoint_id") or "")
                         if _runtime is not None and _runtime.is_peer_active(_peer_id):
                             print(
-                                "[LOCAL] Another UAG peer is online: "
-                                f"{safe_message_preview(_peer_id)}"
+                                _(
+                                    "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+                                )
+                                % {
+                                    "endpoint": safe_message_preview(_peer_id),
+                                    "pid": _peer.get("pid", "?"),
+                                }
                             )
                         continue
 
@@ -450,7 +455,7 @@ class ScheckWorker(QtCore.QObject):
                             _runtime, _message, _ask_local_message
                         )
                         if _accepted_event is None:
-                            print("[LOCAL] Incoming message was rejected or expired.")
+                            print(_("[LOCAL] Incoming message was rejected or expired."))
                             continue
                         ev = _accepted_event
                         kind = ev["kind"]
@@ -732,8 +737,8 @@ class ScheckWorker(QtCore.QObject):
                 stop_host_local_messaging(core)
             except Exception as exc:
                 print(
-                    "[LOCAL] Local messaging shutdown failed: "
-                    f"{type(exc).__name__}: {exc}"
+                    _("[LOCAL] Local messaging shutdown failed: %(error)s")
+                    % {"error": f"{type(exc).__name__}: {exc}"}
                 )
             try:
                 delattr(core, "_inception_diffusion_callback")

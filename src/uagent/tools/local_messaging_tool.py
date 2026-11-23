@@ -167,7 +167,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 if str(getattr(runtime, "entrypoint", "")) != "a2a":
                     return _json_error(
                         "INBOX_UNAVAILABLE",
-                        "Inbox retrieval is available only to explicitly enabled A2A tasks.",
+                        _(
+                            "err.inbox_unavailable",
+                            default=(
+                                "Inbox retrieval is available only to explicitly enabled A2A tasks."
+                            ),
+                        ),
                     )
                 from ..runtime.identity_context import get_current_turn_context
                 from ..runtime.local_messaging import external_message_text
@@ -176,7 +181,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 if turn is None or str(getattr(turn, "entry_point", "")) != "a2a":
                     return _json_error(
                         "A2A_TASK_REQUIRED",
-                        "Inbox retrieval requires an authenticated A2A task context.",
+                        _(
+                            "err.a2a_task_required",
+                            default=(
+                                "Inbox retrieval requires an authenticated A2A task context."
+                            ),
+                        ),
                     )
                 messages = store.claim_messages(endpoint_id)
                 items = []

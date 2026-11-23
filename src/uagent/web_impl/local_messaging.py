@@ -10,6 +10,7 @@ import time
 from typing import Any
 from uuid import uuid4
 
+from ..i18n import _
 from ..runtime.local_messaging import (
     LocalMessageRuntime,
     accept_incoming_message,
@@ -195,8 +196,10 @@ class WebLocalMessagingAdapter:
                         {
                             "role": "assistant",
                             "content": (
-                                "[LOCAL] Web messaging event failed: "
-                                f"{type(exc).__name__}."
+                                _(
+                                    "[LOCAL] Web messaging event failed: %(error_type)s."
+                                )
+                                % {"error_type": type(exc).__name__}
                             ),
                         }
                     )
@@ -214,9 +217,15 @@ class WebLocalMessagingAdapter:
                 {
                     "role": "assistant",
                     "content": (
-                        "[LOCAL] Another UAG peer is online: "
-                        f"{safe_message_preview(str(peer.get('entrypoint') or 'UAG'))} "
-                        f"(PID {peer.get('pid', '?')})."
+                        _(
+                            "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+                        )
+                        % {
+                            "entrypoint": safe_message_preview(
+                                str(peer.get("entrypoint") or "UAG")
+                            ),
+                            "pid": peer.get("pid", "?"),
+                        }
                     ),
                 }
             )
@@ -291,8 +300,10 @@ class WebLocalMessagingAdapter:
                 {
                     "role": "assistant",
                     "content": (
-                        "[LOCAL] Could not start the accepted message turn: "
-                        f"{type(exc).__name__}."
+                        _(
+                            "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+                        )
+                        % {"error_type": type(exc).__name__}
                     ),
                 }
             )

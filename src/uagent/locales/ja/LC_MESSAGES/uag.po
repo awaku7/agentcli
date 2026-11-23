@@ -764,6 +764,44 @@ msgstr "応答中または別のプロンプトが有効な間は複数行入力
 msgid "[LOCAL] No other participating UAG peers are currently online."
 msgstr "[LOCAL] 現在オンラインの他のUAGピアはいません。"
 
+#: src/uagent/cli_impl/main.py
+msgid "[LOCAL] Available UAG peers:"
+msgstr "[LOCAL] 利用可能なUAGピア:"
+
+#: src/uagent/cli_impl/main.py
+msgid "[LOCAL] Incoming message was rejected or expired."
+msgstr "[LOCAL] 受信メッセージは拒否されたか、有効期限切れです。"
+
+#: src/uagent/cli_impl/main.py
+#, python-format
+msgid "[LOCAL] Local messaging could not start: %(error)s"
+msgstr "[LOCAL] ローカルメッセージングを開始できませんでした: %(error)s"
+
+#: src/uagent/cli_impl/main.py
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(endpoint)s (pid=%(pid)s)"
+msgstr "[LOCAL] 別のUAGピアがオンラインです: %(endpoint)s (pid=%(pid)s)"
+
+#: src/uagent/scheckgui_impl/worker.py
+#, python-format
+msgid "[LOCAL] Local messaging shutdown failed: %(error)s"
+msgstr "[LOCAL] ローカルメッセージングの停止に失敗しました: %(error)s"
+
+#: src/uagent/web_impl/local_messaging.py
+#, python-format
+msgid "[LOCAL] Web messaging event failed: %(error_type)s."
+msgstr "[LOCAL] Webメッセージングのイベントでエラーが発生しました: %(error_type)s。"
+
+#: src/uagent/web_impl/local_messaging.py
+#, python-format
+msgid "[LOCAL] Another UAG peer is online: %(entrypoint)s (PID %(pid)s)."
+msgstr "[LOCAL] 別のUAGピアがオンラインです: %(entrypoint)s (PID %(pid)s)。"
+
+#: src/uagent/web_impl/local_messaging.py
+#, python-format
+msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
+msgstr "[LOCAL] 受信したメッセージのターンを開始できませんでした: %(error_type)s。"
+
 #: src/uagent/llm_round_helpers.py
 #, python-format
 msgid "[System Prompt] Rebuilt for %(provider)s/%(model)s: tool_catalog guidance restored for this route."
