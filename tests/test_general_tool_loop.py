@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from collections import deque
 
-from uagent.i18n import set_thread_lang
+from uagent.i18n import _ as translate, set_thread_lang
 from uagent.uagent_llm import (
     _GENERAL_TOOL_LOOP_THRESHOLD,
     _TOOL_CALL_FINGERPRINTS,
@@ -28,6 +28,50 @@ def setup_function() -> None:
     set_thread_lang("en")
     _TOOL_CALL_FINGERPRINTS.clear()
     clear_consecutive_tool_call_streak()
+
+
+def test_tool_loop_warnings_are_translated_to_japanese() -> None:
+    set_thread_lang("ja")
+    try:
+        same_arguments = translate(
+            "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
+            "arguments; aborting to prevent loop.",
+            name="local_messaging",
+            n=5,
+        )
+        assert same_arguments == (
+            "[警告] ツール 'local_messaging' が同じ引数で 5 回繰り返されたため、"
+            "ループ防止のため中断します。"
+        )
+
+        management = translate(
+            "[WARN] Management tool call '%(name)s' repeated %(n)d times; "
+            "aborting to prevent loop.",
+            name="tool_load",
+            n=3,
+        )
+        assert "[警告] 管理ツール 'tool_load'" in management
+        assert "3 回" in management
+
+        cycle = translate(
+            "[WARN] Tool-call cycle %(cycle)s repeated 3 times across %(n)d "
+            "rounds; aborting.",
+            cycle="search_web -> read_file",
+            n=6,
+        )
+        assert "[警告]" in cycle
+        assert "search_web -> read_file" in cycle
+
+        consecutive = translate(
+            "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; "
+            "aborting.",
+            name="read_file",
+            n=50,
+        )
+        assert "[警告] ツール 'read_file'" in consecutive
+        assert "50 ラウンド連続" in consecutive
+    finally:
+        set_thread_lang("en")
 
 
 def test_consecutive_tool_rounds_are_scoped_to_one_tool_name() -> None:

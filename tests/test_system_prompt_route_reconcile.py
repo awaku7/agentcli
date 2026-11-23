@@ -9,13 +9,16 @@ prompt variant, the stored and outgoing system entries are swapped
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 from types import SimpleNamespace
 
 import uagent.core  # noqa: F401  (core first: core_impl.prompt imports it back)
+import uagent.llm_round_helpers as round_helpers
 from uagent.core_impl.prompt import (
     _base_system_prompt_for_mode,
     _strip_catalog_steering_text,
 )
+from uagent.i18n import reset_contextvar_locale, set_contextvar_locale
 from uagent.llm_round_helpers import _reconcile_system_prompt_for_route
 
 BASE = _base_system_prompt_for_mode()
@@ -52,7 +55,7 @@ def test_stale_full_prompt_swapped_for_native_route(capsys):
     assert call_messages[1]["content"] == "long-term memory note"
     out = capsys.readouterr().out
     assert "openai/gpt-6-luna" in out
-    assert "removed" in out
+    assert out.strip()
 
 
 def test_stale_stripped_prompt_restored_for_other_route(capsys):
@@ -64,7 +67,7 @@ def test_stale_stripped_prompt_restored_for_other_route(capsys):
     assert result is True
     assert call_messages[0]["content"] == BASE
     assert stored[0]["content"] == BASE
-    assert "restored" in capsys.readouterr().out
+    assert capsys.readouterr().out.strip()
 
 
 def test_matching_prompt_left_alone(capsys):
@@ -214,7 +217,7 @@ def test_registry_round_receives_reconciled_prompt(monkeypatch, capsys):
     dispatched = _drive_round_to_dispatch(monkeypatch, messages)
     assert dispatched[0]["content"] == STRIPPED
     assert messages[0]["content"] == STRIPPED
-    assert "removed" in capsys.readouterr().out
+    assert capsys.readouterr().out.strip()
 
 
 def test_reconcile_runs_before_semantic_translation(monkeypatch, capsys):
@@ -245,4 +248,46 @@ def test_reconcile_runs_before_semantic_translation(monkeypatch, capsys):
     assert dispatched[0]["content"] == STRIPPED + " [T]"
     assert "tool_catalog" not in dispatched[0]["content"]
     assert messages[0]["content"] == STRIPPED
-    assert "removed" in capsys.readouterr().out
+    assert capsys.readouterr().out.strip()
+
+
+def test_reconcile_notice_pauses_spinner_while_printing(monkeypatch):
+    events: list[str] = []
+
+    @contextmanager
+    def paused():
+        events.append("paused")
+        try:
+            yield
+        finally:
+            events.append("resumed")
+
+    monkeypatch.setattr(round_helpers, "_spinner_paused", paused)
+    monkeypatch.setattr("builtins.print", lambda *_args, **_kwargs: events.append("print"))
+
+    result = _reconcile_system_prompt_for_route(
+        _messages(BASE), None, _core_returning(STRIPPED), **ROUTE
+    )
+
+    assert result is True
+    assert events == ["paused", "print", "resumed"]
+
+
+def test_reconcile_notice_is_translated_to_japanese(capsys):
+    token = set_contextvar_locale("ja")
+    try:
+        restored = _reconcile_system_prompt_for_route(
+            _messages(STRIPPED), None, _core_returning(BASE), **ROUTE
+        )
+        removed = _reconcile_system_prompt_for_route(
+            _messages(BASE), None, _core_returning(STRIPPED), **ROUTE
+        )
+    finally:
+        reset_contextvar_locale(token)
+
+    assert restored is True
+    assert removed is True
+    out = capsys.readouterr().out
+    assert "[システムプロンプト]" in out
+    assert "このルートでは tool_catalog の案内を有効にしました" in out
+    assert "このルートでは tool_catalog の案内を削除しました" in out

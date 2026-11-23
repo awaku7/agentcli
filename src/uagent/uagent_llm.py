@@ -2255,7 +2255,10 @@ def _run_one_round(
             )
             _spinner_stop_quietly()
             print(
-                "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
+                _(
+                    "[WARN] Management tool call '%(name)s' repeated %(n)d times; "
+                    "aborting to prevent loop."
+                )
                 % {"name": blocked_name, "n": blocked_count}
             )
             return (
@@ -2281,8 +2284,10 @@ def _run_one_round(
             )
             _spinner_stop_quietly()
             print(
-                "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
-                "arguments; aborting to prevent loop."
+                _(
+                    "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
+                    "arguments; aborting to prevent loop."
+                )
                 % {"name": blocked_name, "n": blocked_count}
             )
             return (

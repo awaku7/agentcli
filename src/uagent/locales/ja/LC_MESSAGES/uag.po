@@ -736,6 +736,36 @@ msgstr "429 のリトライ上限（%(max_retries)s）に達しました。"
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
 
+#: src/uagent/llm_round_helpers.py
+#, python-format
+msgid "[System Prompt] Rebuilt for %(provider)s/%(model)s: tool_catalog guidance restored for this route."
+msgstr "[システムプロンプト] %(provider)s/%(model)s 用に再構築しました: このルートでは tool_catalog の案内を有効にしました。"
+
+#: src/uagent/llm_round_helpers.py
+#, python-format
+msgid "[System Prompt] Rebuilt for %(provider)s/%(model)s: tool_catalog guidance removed (native tool search)."
+msgstr "[システムプロンプト] %(provider)s/%(model)s 用に再構築しました: ネイティブのツール検索を使うため、このルートでは tool_catalog の案内を削除しました。"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
+msgstr "[警告] 管理ツール '%(name)s' が %(n)d 回繰り返されたため、ループ防止のため中断します。"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "[WARN] Tool call '%(name)s' repeated %(n)d times with the same arguments; aborting to prevent loop."
+msgstr "[警告] ツール '%(name)s' が同じ引数で %(n)d 回繰り返されたため、ループ防止のため中断します。"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "[WARN] Tool-call cycle %(cycle)s repeated 3 times across %(n)d rounds; aborting."
+msgstr "[警告] ツール呼び出しサイクル %(cycle)s が %(n)d ラウンドにわたって 3 回繰り返されたため、中断します。"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; aborting."
+msgstr "[警告] ツール '%(name)s' が %(n)d ラウンド連続で呼び出されたため、中断します。"
+
 #: src/uagent/llm_round_helpers.py:410
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"

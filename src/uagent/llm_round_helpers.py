@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .runtime.round_ui import stop_round_spinner
+from .runtime.spinner import paused as _spinner_paused
 from .runtime.error_renderer import (
     exception_text,
     is_zscaler_responses_block,
@@ -443,21 +444,17 @@ def _reconcile_system_prompt_for_route(
         if not swapped:
             return False
         if _prompt_has_catalog_steering(new_prompt):
-            print(
-                _(
-                    "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
-                    "tool_catalog guidance restored for this route."
-                )
-                % {"provider": provider, "model": depname}
-            )
+            notice = _(
+                "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
+                "tool_catalog guidance restored for this route."
+            ) % {"provider": provider, "model": depname}
         else:
-            print(
-                _(
-                    "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
-                    "tool_catalog guidance removed (native tool search)."
-                )
-                % {"provider": provider, "model": depname}
-            )
+            notice = _(
+                "[System Prompt] Rebuilt for %(provider)s/%(model)s: "
+                "tool_catalog guidance removed (native tool search)."
+            ) % {"provider": provider, "model": depname}
+        with _spinner_paused():
+            print(notice)
         return True
     except Exception:
         return False
