@@ -199,6 +199,28 @@ def _auto_unload_state() -> _AutoUnloadState:
     return state
 
 
+def _bind_auto_unload_state(owner: object) -> _AutoUnloadState:
+    """Bind the auto-unload counters carried by ``owner`` to this context.
+
+    Web turns run in a fresh thread per message, which would otherwise
+    reset the counters every turn. The room object outlives its turns, so
+    it carries the state: rebind the stored object when one exists, and
+    adopt (then store) the current context's state on first sight — which
+    also keeps processes that serve one conversation per context (CLI,
+    pooled Web workers) on their ongoing state.
+    """
+    state = getattr(owner, "_auto_unload_state", None)
+    if state is None:
+        state = _auto_unload_state()
+        try:
+            owner._auto_unload_state = state  # type: ignore[attr-defined]
+        except Exception:
+            pass
+    else:
+        _AUTO_UNLOAD_STATE.set(state)
+    return state
+
+
 def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
     """Return age on the productive-round timeline.
 

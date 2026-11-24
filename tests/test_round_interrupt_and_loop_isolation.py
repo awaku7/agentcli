@@ -350,3 +350,32 @@ def test_auto_unload_counters_are_isolated_between_threads() -> None:
 
     assert seen["a"] == (3, 3, 3)
     assert seen["b"] == (1, 1, 1)
+
+
+def test_auto_unload_state_rebinds_across_threads_via_owner() -> None:
+    """Web shape: a fresh thread per turn keeps the room's counters."""
+    import uagent.uagent_llm as llm
+
+    room = SimpleNamespace()
+    seen: dict[str, int] = {}
+
+    def turn(owner, name: str, rounds: int) -> None:
+        state = llm._bind_auto_unload_state(owner)
+        for _ in range(rounds):
+            state.productive_rounds += 1
+        state.last_round["tool_x"] = state.productive_rounds
+        seen[name] = state.productive_rounds
+
+    first = threading.Thread(target=turn, args=(room, "first", 2))
+    first.start()
+    first.join(timeout=10)
+    second = threading.Thread(target=turn, args=(room, "second", 3))
+    second.start()
+    second.join(timeout=10)
+    assert seen == {"first": 2, "second": 5}
+
+    other_room = SimpleNamespace()
+    third = threading.Thread(target=turn, args=(other_room, "other", 1))
+    third.start()
+    third.join(timeout=10)
+    assert seen["other"] == 1
