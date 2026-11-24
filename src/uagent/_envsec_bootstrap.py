@@ -11,8 +11,8 @@ import stat
 import sys
 from pathlib import Path
 
-_REPAIR_SPEC = "uag-envsec>=0.1.1"
-_REPAIR_HINT = "python -m pip install --force-reinstall --no-deps 'uag-envsec>=0.1.1'"
+_REPAIR_SPEC = "uag-envsec>=0.1.2"
+_REPAIR_HINT = "python -m pip install --force-reinstall --no-deps 'uag-envsec>=0.1.2'"
 _POLICY_LINE = re.compile(r"^\s*(?:export\s+)?UAGENT_AUTO_INSTALL\s*=\s*(.*)$")
 
 

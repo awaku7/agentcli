@@ -18,11 +18,11 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
+from .envsec_util import encrypt_env_document
 from .i18n import _, detect_lang, set_thread_lang
 from .providers.provider_caps import RESPONSES_PROVIDERS
 from uag_envsec import (
     DEFAULT_SEC_SUFFIX,
-    encrypt_text,
     decrypt_text,
     ensure_key_file,
 )
@@ -2528,8 +2528,8 @@ def main() -> int:
             sec_path = paths["env"].with_suffix(
                 paths["env"].suffix + DEFAULT_SEC_SUFFIX
             )
-            sec_text = encrypt_text(env_text)
-            sec_path.write_text(sec_text + "\n", encoding="utf-8", newline="\n")
+            sec_text = encrypt_env_document(env_text)
+            sec_path.write_text(sec_text, encoding="utf-8", newline="\n")
             print(encrypt_msg % {"path": sec_path})
             # Remove plain .env after encryption
             try:

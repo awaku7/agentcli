@@ -59,7 +59,7 @@ def test_missing_envsec_is_reinstalled_once(monkeypatch: pytest.MonkeyPatch) -> 
         "install",
         "--force-reinstall",
         "--no-deps",
-        "uag-envsec>=0.1.1",
+        "uag-envsec>=0.1.2",
     ]
     assert calls[0][1]["check"] is True
 

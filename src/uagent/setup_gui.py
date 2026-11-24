@@ -11,8 +11,9 @@ import sys
 from pathlib import Path
 from typing import Mapping
 
-from uag_envsec import DEFAULT_SEC_SUFFIX, decrypt_text, encrypt_text, ensure_key_file
+from uag_envsec import DEFAULT_SEC_SUFFIX, decrypt_text, ensure_key_file
 
+from .envsec_util import encrypt_env_document
 from .setup_cli import PROVIDERS, PROVIDER_FIELDS
 
 
@@ -98,7 +99,7 @@ def save_config(directory: Path, config: Mapping[str, str], *, encrypted: bool) 
     text = serialize_config(config)
     if encrypted:
         ensure_key_file()
-        payload = encrypt_text(text) + "\n"
+        payload = encrypt_env_document(text)
         target = directory / f".env{DEFAULT_SEC_SUFFIX}"
     else:
         payload = text

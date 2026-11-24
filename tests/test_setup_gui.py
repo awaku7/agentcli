@@ -1,5 +1,6 @@
 import builtins
 import sys
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -62,6 +63,26 @@ def test_load_saved_config_merges_plain_and_encrypted_files(tmp_path, monkeypatc
     assert setup_gui.load_saved_config(tmp_path) == {
         "UAGENT_LANG": "ja",
         "UAGENT_PROVIDER": "ollama",
+    }
+
+
+def test_save_config_encrypted_writes_values_only_format(tmp_path, monkeypatch):
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
+
+    path = setup_gui.save_config(
+        tmp_path,
+        {"UAGENT_PROVIDER": "openai", "UAGENT_OPENAI_API_KEY": "secret"},
+        encrypted=True,
+    )
+
+    text = path.read_text(encoding="utf-8")
+    assert text.startswith("# uag-envsec:values-only:v1;format=1\n")
+    assert "UAGENT_PROVIDER=" in text
+    assert "secret" not in text
+    assert setup_gui.load_saved_config(tmp_path) == {
+        "UAGENT_PROVIDER": "openai",
+        "UAGENT_OPENAI_API_KEY": "secret",
     }
 
 
