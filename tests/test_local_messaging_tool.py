@@ -216,9 +216,7 @@ def test_a2a_endpoint_requires_both_opt_in_settings(monkeypatch) -> None:
 def test_cli_endpoint_natural_tool_list_and_send(tmp_path, monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path))
     monkeypatch.setenv("UAGENT_LOCAL_MESSAGING", "on")
-    core = SimpleNamespace(
-        event_queue=queue.Queue(), base_dir=str(tmp_path / "stale")
-    )
+    core = SimpleNamespace(event_queue=queue.Queue(), base_dir=str(tmp_path / "stale"))
     monkeypatch.setattr(
         local_messaging_tool,
         "get_callbacks",
@@ -252,10 +250,7 @@ def test_cli_endpoint_natural_tool_list_and_send(tmp_path, monkeypatch) -> None:
         assert result["work_status"]["workdir"] == str(Path.cwd())
         assert str(tmp_path) in result["peers"][0]["workdir"]
         assert "peer task" in result["peers"][0]["purpose"]
-        assert (
-            "---BEGIN_UAGENT_EXTERNAL_CONTENT---"
-            in result["peers"][0]["purpose"]
-        )
+        assert "---BEGIN_UAGENT_EXTERNAL_CONTENT---" in result["peers"][0]["purpose"]
         sent = json.loads(
             local_messaging_tool.run_tool(
                 {"action": "send", "recipient": "peer", "message": "hello"}
