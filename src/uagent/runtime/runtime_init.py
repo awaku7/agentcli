@@ -8,7 +8,7 @@ from pathlib import Path
 from ..i18n import _
 
 from .runtime_banner import build_startup_banner
-from .runtime_env import validate_or_exit_startup_env
+from .runtime_env import describe_error, validate_or_exit_startup_env
 from .runtime_memory import append_long_memory_system_messages
 from .runtime_workdir import WorkdirDecision, apply_workdir, decide_workdir
 
@@ -88,7 +88,10 @@ def load_dotenv_custom() -> None:
     except Exception as e:
         # Key migration is best effort and must not block startup.
         print(
-            _("[WARN] Failed to migrate envsec key to OS keyring: %(err)s", err=e),
+            _(
+                "[WARN] Failed to migrate envsec key to OS keyring: %(err)s",
+                err=describe_error(e),
+            ),
             file=sys.stderr,
         )
 
@@ -123,7 +126,7 @@ def load_dotenv_custom() -> None:
         except Exception as e:
             # Always report decryption errors to stderr if it exists but fails.
             print(
-                _("[WARN] Failed to decrypt .env.sec: %(err)s", err=e),
+                _("[WARN] Failed to decrypt .env.sec: %(err)s", err=describe_error(e)),
                 file=sys.stderr,
             )
 
