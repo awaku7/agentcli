@@ -102,10 +102,13 @@ TOOL_SPEC: dict[str, Any] = {
                 "purpose": {
                     "type": "string",
                     "maxLength": 500,
-                    "description": (
-                        "Optional brief summary of the current task to publish to "
-                        "same-scope local UAG peers when action='list'. Do not include "
-                        "the full prompt or unrelated/private details."
+                    "description": _(
+                        "param.purpose.description",
+                        default=(
+                            "Optional brief summary of the current task to publish to "
+                            "same-scope local UAG peers when action='list'. Do not include "
+                            "the full prompt or unrelated/private details."
+                        ),
                     ),
                 },
                 "recipient": {
@@ -189,7 +192,7 @@ def run_tool(args: dict[str, Any]) -> str:
                             ),
                         }
                         for peer in peers
-                    ]
+                    ],
                 )
             if action == "send":
                 recipient = get_str(args, "recipient", "").strip()
