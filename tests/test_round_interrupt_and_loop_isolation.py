@@ -381,6 +381,32 @@ def test_auto_unload_state_rebinds_across_threads_via_owner() -> None:
     assert seen["other"] == 1
 
 
+def test_auto_unload_state_persists_across_to_thread_calls() -> None:
+    """asyncio.to_thread copies context in but never back: bind per call."""
+    import asyncio
+
+    import uagent.uagent_llm as llm
+
+    owner = SimpleNamespace()
+    seen: dict[str, int] = {}
+
+    async def request(key: str, rounds: int) -> None:
+        def _run() -> None:
+            state = llm._bind_auto_unload_state(owner)
+            state.total_rounds += rounds
+            seen[key] = state.total_rounds
+
+        await asyncio.to_thread(_run)
+
+    async def main() -> None:
+        await request("first", 2)
+        await request("second", 3)
+
+    asyncio.run(main())
+    # Without the bind, the second request would restart from 0 (total 3).
+    assert seen == {"first": 2, "second": 5}
+
+
 def test_auto_unload_state_bound_for_command_context() -> None:
     """Web command handlers read the room's counters inside the bound block."""
     import uagent.uagent_llm as llm
