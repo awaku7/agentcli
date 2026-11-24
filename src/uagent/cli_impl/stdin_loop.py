@@ -674,11 +674,12 @@ def stdin_loop(*, hook_runner=None) -> None:
                     _append_prompt_history_entry(line)
                 core.set_status(True, "command_pending")
                 command_name = line.split(maxsplit=1)[0]
-                if command_name in {":load", ":cont"}:
-                    # Session restore prints several status/detail lines. Stop
-                    # the stderr spinner before dispatch so its CR redraws do
-                    # not interleave with those stdout messages or leave a
-                    # stale frame behind after the command completes.
+                if command_name in {":load", ":cont", ":nostr"}:
+                    # Session restore and :nostr print several status/detail
+                    # lines. Stop the stderr spinner before dispatch so its
+                    # CR redraws do not interleave with those stdout messages
+                    # or leave a stale frame behind after the command
+                    # completes.
                     _stop_spinner_quietly()
                 core.event_queue.put({"kind": "command", "text": line})
                 continue

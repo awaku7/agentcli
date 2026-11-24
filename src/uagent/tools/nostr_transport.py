@@ -33,7 +33,10 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "nostr_transport_dummy",
-        "description": "Dummy tool for Nostr transport CLI commands registration.",
+        "description": _(
+            "tool.description",
+            default="Dummy tool for Nostr transport CLI commands registration.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {},
@@ -251,8 +254,10 @@ def _read_key_file() -> tuple[str, str] | None:
                 "nostr.msg25",
                 default=(
                     "stored Nostr key file could not be read (encryption backend "
-                    f"error: {exc}); leaving it untouched: {_NOSTR_KEY_FILE}"
+                    "error: %(error)s); leaving it untouched: %(path)s"
                 ),
+                error=exc,
+                path=_NOSTR_KEY_FILE,
             )
         ) from exc
     if parsed is None:
@@ -262,8 +267,9 @@ def _read_key_file() -> tuple[str, str] | None:
                 default=(
                     "Warning: the stored Nostr key file could not be decrypted; "
                     "a new key was generated and the previous Nostr identity "
-                    f"was discarded: {_NOSTR_KEY_FILE}"
+                    "was discarded: %(path)s"
                 ),
+                path=_NOSTR_KEY_FILE,
             ),
             flush=True,
         )
@@ -1620,14 +1626,32 @@ def _cmd_nostr_connect(arg: str, **kwargs: Any) -> Any:
         npub = encode_npub(pubkey)
         print(_("nostr.msg1", default="Nostr connected."))
         if pubkey:
-            print(_("nostr.msg2", default=f"  pubkey (hex):  {pubkey}"))
+            print(
+                _(
+                    "nostr.msg2",
+                    default="  pubkey (hex):  %(pubkey)s",
+                    pubkey=pubkey,
+                )
+            )
             if npub:
-                print(_("nostr.msg3", default=f"  pubkey (npub): {npub}"))
+                print(
+                    _(
+                        "nostr.msg3",
+                        default="  pubkey (npub): %(npub)s",
+                        npub=npub,
+                    )
+                )
         r_list = res.get("relays", [])
         for r in r_list:
-            print(_("nostr.msg4", default=f"  relay: {r}"))
+            print(_("nostr.msg4", default="  relay: %(relay)s", relay=r))
     else:
-        print(_("nostr.msg5", default=f"Error connecting to Nostr: {res.get('error')}"))
+        print(
+            _(
+                "nostr.msg5",
+                default="Error connecting to Nostr: %(error)s",
+                error=res.get("error"),
+            )
+        )
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1648,18 +1672,30 @@ def _cmd_nostr_status(arg: str, **kwargs: Any) -> Any:
     state = st.get("state", "stopped")
     pub = st.get("pubkey", "") or nostr_pubkey()
     npub = encode_npub(pub)
-    print(_("nostr.msg7", default=f"Nostr status: {state}"))
+    print(_("nostr.msg7", default="Nostr status: %(state)s", state=state))
     if pub:
-        print(_("nostr.msg8", default=f"  pubkey (hex):  {pub}"))
+        print(_("nostr.msg8", default="  pubkey (hex):  %(pubkey)s", pubkey=pub))
         if npub:
-            print(_("nostr.msg9", default=f"  pubkey (npub): {npub}"))
-    print(_("nostr.msg10", default=f"  key file:      {_NOSTR_KEY_FILE}"))
+            print(_("nostr.msg9", default="  pubkey (npub): %(npub)s", npub=npub))
+    print(
+        _(
+            "nostr.msg10",
+            default="  key file:      %(path)s",
+            path=_NOSTR_KEY_FILE,
+        )
+    )
     if state == "running":
         conns = st.get("connections", 0)
         relays = st.get("relays", [])
-        print(_("nostr.msg11", default=f"  connections:   {conns}"))
+        print(
+            _(
+                "nostr.msg11",
+                default="  connections:   %(connections)s",
+                connections=conns,
+            )
+        )
         for r in relays:
-            print(_("nostr.msg12", default=f"  relay:         {r}"))
+            print(_("nostr.msg12", default="  relay:         %(relay)s", relay=r))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1678,7 +1714,13 @@ def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
     if not inst or not inst.is_running:
         res = start_nostr()
         if not res.get("ok"):
-            print(_("nostr.msg14", default=f"Error starting Nostr: {res.get('error')}"))
+            print(
+                _(
+                    "nostr.msg14",
+                    default="Error starting Nostr: %(error)s",
+                    error=res.get("error"),
+                )
+            )
             from ..util_tools import CommandResult
 
             return CommandResult()
@@ -1686,9 +1728,21 @@ def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
 
     res = nostr_send_text(msg)
     if res.get("ok"):
-        print(_("nostr.msg15", default=f"Posted note to Nostr: {msg}"))
+        print(
+            _(
+                "nostr.msg15",
+                default="Posted note to Nostr: %(message)s",
+                message=msg,
+            )
+        )
     else:
-        print(_("nostr.msg16", default=f"Error posting note: {res.get('error')}"))
+        print(
+            _(
+                "nostr.msg16",
+                default="Error posting note: %(error)s",
+                error=res.get("error"),
+            )
+        )
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1707,7 +1761,13 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
         )
         res = start_nostr()
         if not res.get("ok"):
-            print(_("nostr.msg18", default=f"Error starting Nostr: {res.get('error')}"))
+            print(
+                _(
+                    "nostr.msg18",
+                    default="Error starting Nostr: %(error)s",
+                    error=res.get("error"),
+                )
+            )
             from ..util_tools import CommandResult
 
             return CommandResult()
@@ -1715,7 +1775,11 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
 
     # Request global kind-1 notes from relays
     print(
-        _("nostr.msg19", default=f"Fetching recent {limit} notes from Nostr relays...")
+        _(
+            "nostr.msg19",
+            default="Fetching recent %(limit)s notes from Nostr relays...",
+            limit=limit,
+        )
     )
     notes: list[dict] = []
     import websockets
@@ -1754,7 +1818,7 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
     try:
         asyncio.run(_fetch())
     except Exception as e:
-        print(_("nostr.msg20", default=f"Fetch timeline error: {e}"))
+        print(_("nostr.msg20", default="Fetch timeline error: %(error)s", error=e))
 
     # Deduplicate and sort by created_at
     seen = set()
@@ -1773,7 +1837,8 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
         print(
             _(
                 "nostr.msg22",
-                default=f"--- Nostr Timeline ({len(unique_notes)} notes) ---",
+                default="--- Nostr Timeline (%(count)s notes) ---",
+                count=len(unique_notes),
             )
         )
         for n in unique_notes[-limit:]:
@@ -1784,7 +1849,15 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
                 "%Y-%m-%d %H:%M:%S", _time.localtime(n.get("created_at", 0))
             )
             text = n.get("content", "").strip().replace("\n", " ")
-            print(_("nostr.msg23", default=f"[{ts}] {short_author}: {text}"))
+            print(
+                _(
+                    "nostr.msg23",
+                    default="[%(timestamp)s] %(author)s: %(text)s",
+                    timestamp=ts,
+                    author=short_author,
+                    text=text,
+                )
+            )
 
     from ..util_tools import CommandResult
 
