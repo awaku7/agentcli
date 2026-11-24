@@ -121,16 +121,41 @@ def test_corrupt_key_file_is_replaced_with_warning(key_env, capsys):
     assert nt._load_or_create_key() == (priv, pub)
 
 
-def test_undecryptable_key_file_is_replaced_with_warning(key_env, monkeypatch, capsys):
+def test_undecryptable_key_file_is_not_replaced(key_env, monkeypatch):
     import uag_envsec
 
     # Store a valid encrypted key, then simulate a locked backend.
     priv, pub = nt._load_or_create_key()
+    before = key_env.read_bytes()
 
     def _boom(_text):
         raise RuntimeError("keyring locked")
 
+    orig_decrypt = uag_envsec.decrypt_text
     monkeypatch.setattr(uag_envsec, "decrypt_text", _boom)
+
+    with pytest.raises(nt.NostrKeyUnreadableError):
+        nt._load_or_create_key()
+    assert key_env.read_bytes() == before
+
+    # Once the backend works again, the original identity is intact.
+    monkeypatch.setattr(uag_envsec, "decrypt_text", orig_decrypt)
+    assert nt._load_or_create_key() == (priv, pub)
+
+
+def test_key_mismatch_key_file_is_replaced_with_warning(key_env, monkeypatch, capsys):
+    import uag_envsec
+    from cryptography.exceptions import InvalidTag
+
+    # Store a valid encrypted key, then simulate a replaced master key:
+    # decryption now fails authentication (InvalidTag).
+    priv, pub = nt._load_or_create_key()
+
+    def _wrong_key(_text):
+        raise InvalidTag()
+
+    orig_decrypt = uag_envsec.decrypt_text
+    monkeypatch.setattr(uag_envsec, "decrypt_text", _wrong_key)
 
     new_priv, new_pub = nt._load_or_create_key()
 
@@ -138,3 +163,7 @@ def test_undecryptable_key_file_is_replaced_with_warning(key_env, monkeypatch, c
     assert (new_priv, new_pub) != (priv, pub)
     raw = key_env.read_text(encoding="utf-8")
     assert raw.startswith("uag-envsec:v1:")
+
+    # The replacement key loads back normally once decryption works.
+    monkeypatch.setattr(uag_envsec, "decrypt_text", orig_decrypt)
+    assert nt._load_or_create_key() == (new_priv, new_pub)

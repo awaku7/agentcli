@@ -137,6 +137,17 @@ _NOSTR_KEY_FILE = os.path.join(
 )
 
 
+class NostrKeyUnreadableError(RuntimeError):
+    """The stored Nostr key file could not be read due to a backend error.
+
+    Raised when the encryption backend itself fails (for example a
+    locked OS keyring), so the file is left untouched and the stored
+    identity survives until the backend works again. A file that can
+    never match the current key (wrong key or corrupt) does not raise;
+    it is replaced with a fresh key after a warning.
+    """
+
+
 def _parse_key_text(text: str) -> tuple[str, str] | None:
     """Parse key-file JSON text into (private_key, public_key) hex."""
     try:
@@ -203,10 +214,12 @@ def _read_key_file() -> tuple[str, str] | None:
     (written by older versions) is still accepted and is rewritten in
     encrypted form as a side effect of the read.
 
-    Returns None when no key file exists, and also when the file exists
-    but cannot be decrypted or parsed. In the latter case a warning is
-    printed and the caller generates a fresh key and replaces the file,
-    so an unreadable key file never blocks startup.
+    Returns None when no key file exists, and also when the stored
+    ciphertext can never match the current key (wrong key or corrupt):
+    a warning is printed and the caller generates a fresh key and
+    replaces the file. When the encryption backend itself fails (locked
+    keyring, timeout), raises NostrKeyUnreadableError and leaves the
+    file untouched, so the identity survives until the backend recovers.
     """
     try:
         with open(_NOSTR_KEY_FILE, "r", encoding="utf-8") as f:
@@ -221,11 +234,22 @@ def _read_key_file() -> tuple[str, str] | None:
             pass
         return parsed
     try:
+        from cryptography.exceptions import InvalidTag
         from uag_envsec import decrypt_text
 
         parsed = _parse_key_text(decrypt_text(raw.strip()))
-    except Exception:
+    except (InvalidTag, ValueError, FileNotFoundError):
+        # The ciphertext can never be read with the current key (wrong
+        # key, corrupt file, or no key left at all): fall through and
+        # replace it.
         parsed = None
+    except Exception as exc:
+        # The encryption backend itself failed (locked keyring, timeout):
+        # leave the file untouched so the identity survives the outage.
+        raise NostrKeyUnreadableError(
+            "stored Nostr key file could not be read (encryption backend "
+            f"error: {exc}); leaving it untouched: {_NOSTR_KEY_FILE}"
+        ) from exc
     if parsed is None:
         print(
             _(
