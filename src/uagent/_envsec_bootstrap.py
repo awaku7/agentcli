@@ -16,6 +16,18 @@ _REPAIR_SPEC = "uag-envsec>=0.1.2"
 _REPAIR_HINT = "python -m pip install --force-reinstall --no-deps 'uag-envsec>=0.1.2'"
 _POLICY_LINE = re.compile(r"^\s*(?:export\s+)?UAGENT_AUTO_INSTALL\s*=\s*(.*)$")
 
+# Names agentcli imports from uag_envsec across the codebase. A stale or
+# partial install can report a current version while lacking some of
+# these, so presence is checked directly, not just the version number.
+_REQUIRED_EXPORTS = (
+    "DEFAULT_SEC_SUFFIX",
+    "decrypt_text",
+    "encrypt_env_values",
+    "encrypt_text",
+    "ensure_key_file",
+    "migrate_key_file_to_keyring",
+)
+
 
 def _scheduled_payload_workdir(payload_id: str, payload_dir: str | None) -> str:
     """Inspect an OS schedule's project without consuming its one-shot payload.
@@ -216,6 +228,53 @@ def _upgrade_envsec_if_outdated() -> None:
     importlib.invalidate_caches()
 
 
+def _missing_exports(module: object) -> tuple[str, ...]:
+    return tuple(name for name in _REQUIRED_EXPORTS if not hasattr(module, name))
+
+
+def _repair_missing_exports(module: object, missing: tuple[str, ...]) -> None:
+    """Repair an install whose uag_envsec lacks functions agentcli imports.
+
+    Unlike the outdated-version path this must not continue on failure:
+    the missing names are imported unconditionally during startup, so
+    raise with the reason and the manual command instead of letting a
+    later import fail with a bare ImportError. On success the repaired
+    module replaces the stale one in sys.modules, so this same startup
+    continues with the fixed code.
+    """
+    from ._pip_auto import _may_install
+
+    names = ", ".join(missing)
+    location = getattr(module, "__file__", None) or "unknown location"
+    policy = _project_auto_install_policy()
+    if not _may_install("uag-envsec", policy_override=policy):
+        raise ImportError(
+            f"uag_envsec at {location} is missing required functions: {names}. "
+            f"Repair with: {_REPAIR_HINT}"
+        )
+    try:
+        _run_repair_pip()
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+        raise ImportError(
+            f"Could not repair uag_envsec (missing functions: {names}). "
+            f"Run: {_REPAIR_HINT}"
+        ) from exc
+    importlib.invalidate_caches()
+    for key in [
+        name
+        for name in sys.modules
+        if name == "uag_envsec" or name.startswith("uag_envsec.")
+    ]:
+        sys.modules.pop(key, None)
+    fresh = importlib.import_module("uag_envsec")
+    still_missing = _missing_exports(fresh)
+    if still_missing:
+        raise ImportError(
+            "uag_envsec is still missing required functions after repair: "
+            f"{', '.join(still_missing)}. Run: {_REPAIR_HINT}"
+        )
+
+
 def ensure_envsec_available() -> None:
     """Repair the missing top-level module and upgrade an outdated one.
 
@@ -224,12 +283,16 @@ def ensure_envsec_available() -> None:
     Its metadata remains, so reinstalling UAG alone does not restore the module.
     """
     try:
-        importlib.import_module("uag_envsec")
+        module = importlib.import_module("uag_envsec")
     except ModuleNotFoundError as exc:
         if exc.name != "uag_envsec":
             raise
     else:
-        _upgrade_envsec_if_outdated()
+        missing = _missing_exports(module)
+        if missing:
+            _repair_missing_exports(module, missing)
+        else:
+            _upgrade_envsec_if_outdated()
         return
 
     from ._pip_auto import _may_install
@@ -249,10 +312,16 @@ def ensure_envsec_available() -> None:
 
     importlib.invalidate_caches()
     try:
-        importlib.import_module("uag_envsec")
+        module = importlib.import_module("uag_envsec")
     except ModuleNotFoundError as exc:
         if exc.name != "uag_envsec":
             raise
         raise ModuleNotFoundError(
             f"uag_envsec is still missing after repair. Run: {_REPAIR_HINT}"
         ) from exc
+    still_missing = _missing_exports(module)
+    if still_missing:
+        raise ImportError(
+            "uag_envsec is still missing required functions after repair: "
+            f"{', '.join(still_missing)}. Run: {_REPAIR_HINT}"
+        )

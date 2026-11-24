@@ -16,9 +16,19 @@ def _missing(name: str) -> ModuleNotFoundError:
     return exc
 
 
+def _complete_module() -> SimpleNamespace:
+    return SimpleNamespace(**{name: object() for name in bootstrap._REQUIRED_EXPORTS})
+
+
+def _incomplete_module() -> SimpleNamespace:
+    module = _complete_module()
+    del module.encrypt_env_values
+    return module
+
+
 def test_available_envsec_never_runs_pip(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(
-        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+        bootstrap.importlib, "import_module", lambda name: _complete_module()
     )
 
     def unexpected(*args, **kwargs):
@@ -36,7 +46,7 @@ def test_missing_envsec_is_reinstalled_once(monkeypatch: pytest.MonkeyPatch) -> 
         imports.append(name)
         if len(imports) == 1:
             raise _missing("uag_envsec")
-        return SimpleNamespace()
+        return _complete_module()
 
     def running(command, **kwargs):
         calls.append((command, kwargs))
@@ -285,7 +295,7 @@ def test_outdated_envsec_is_upgraded(monkeypatch: pytest.MonkeyPatch) -> None:
         return subprocess.CompletedProcess(command, 0)
 
     monkeypatch.setattr(
-        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+        bootstrap.importlib, "import_module", lambda name: _complete_module()
     )
     _set_envsec_version(monkeypatch, "0.1.1")
     monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
@@ -302,7 +312,7 @@ def test_outdated_envsec_policy_off_warns_without_pip(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture
 ) -> None:
     monkeypatch.setattr(
-        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+        bootstrap.importlib, "import_module", lambda name: _complete_module()
     )
     _set_envsec_version(monkeypatch, "0.1.1")
     monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: False)
@@ -317,9 +327,83 @@ def test_outdated_envsec_policy_off_warns_without_pip(
     assert "--force-reinstall" in capsys.readouterr().err
 
 
+def test_missing_exports_are_repaired_and_reloaded(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    imports: list[str] = []
+    calls: list[tuple[list[str], dict]] = []
+    modules = [_incomplete_module(), _complete_module()]
+
+    def importing(name: str):
+        imports.append(name)
+        return modules[len(imports) - 1]
+
+    def running(command, **kwargs):
+        calls.append((command, kwargs))
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr(bootstrap.importlib, "import_module", importing)
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
+    monkeypatch.setattr(bootstrap.subprocess, "run", running)
+
+    bootstrap.ensure_envsec_available()
+
+    assert imports == ["uag_envsec", "uag_envsec"]
+    assert len(calls) == 1
+    assert calls[0][0][-1] == "uag-envsec>=0.1.2"
+    assert calls[0][1]["check"] is True
+
+
+def test_missing_exports_policy_off_raises_with_reason(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: _incomplete_module()
+    )
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: False)
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("pip must not run when auto-install is disabled")
+
+    monkeypatch.setattr(bootstrap.subprocess, "run", unexpected)
+    with pytest.raises(ImportError, match="encrypt_env_values"):
+        bootstrap.ensure_envsec_available()
+
+
+def test_missing_exports_failed_repair_raises(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def failing(command, **kwargs):
+        raise subprocess.CalledProcessError(1, command)
+
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: _incomplete_module()
+    )
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
+    monkeypatch.setattr(bootstrap.subprocess, "run", failing)
+    with pytest.raises(ImportError, match="--force-reinstall"):
+        bootstrap.ensure_envsec_available()
+
+
+def test_missing_exports_still_missing_after_repair_raises(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: _incomplete_module()
+    )
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
+    monkeypatch.setattr(
+        bootstrap.subprocess,
+        "run",
+        lambda command, **kwargs: subprocess.CompletedProcess(command, 0),
+    )
+    with pytest.raises(ImportError, match="still missing required functions"):
+        bootstrap.ensure_envsec_available()
+
+
 def test_current_envsec_never_runs_pip(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(
-        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+        bootstrap.importlib, "import_module", lambda name: _complete_module()
     )
     _set_envsec_version(monkeypatch, "0.1.3")
 
@@ -337,7 +421,7 @@ def test_failed_upgrade_warns_without_raising(
         raise subprocess.CalledProcessError(1, command)
 
     monkeypatch.setattr(
-        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+        bootstrap.importlib, "import_module", lambda name: _complete_module()
     )
     _set_envsec_version(monkeypatch, "0.1.0")
     monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
