@@ -1,6 +1,6 @@
 # UAG ラウンドループのレビューと修正記録（2026-11-24）
 
-- Status: done（RL-01〜04）/ deferred（RL-05〜06）
+- Status: done（RL-01〜05）/ deferred（RL-06）
 - Priority: P1
 - Source: `src/uagent/uagent_llm.py` のコードレビュー（`run_llm_rounds()` / `_run_one_round()`）
 - 確認基準: `main` = `cdcee2d05`（v0.7.56、レビュー開始時）
@@ -66,22 +66,25 @@ run_llm_rounds()            ← ユーザー 1 ターン（Auto-Pilot は後続�
 
 ## 先送りにした項目
 
-### RL-05: 自動アンロード用のカウンタがグローバル変数のまま
+### RL-05: 自動アンロード用のカウンタがグローバル変数のまま（対応済み: PR #465）
 
 - `_TOOL_LAST_ROUND`、`_PRODUCTIVE_ROUNDS`、`_TOTAL_ROUNDS` はモジュールのグローバル変数のまま。
 - 管理対象のツール一覧（`_LOADED_SINGLE_TOOLS`、`TOOL_SPECS`）自体がプロセス全体で 1 つなので、カウンタだけをセッション単位にしても意味が通らない。ツール一覧のセッション分離と合わせて設計から見直す必要がある。
 - 影響するのは RL-02 と同じく、スレッド並列の A2A だけ。
+- **対応（2026-11-25、PR #465）:** カウンタ 3 つを `_AutoUnloadState` にまとめ、RL-02 と同じく ContextVar で持つ形にした。セッション（スレッド／コピーされた文脈）ごとに時計と使用記録が分かれ、片方のラウンドがもう片方のツールを古くすることはなくなった。
+- ツール一覧の分離は今回も見送り。一覧が共有である以上、アンロードの効果自体はプロセス全体に及ぶ。一覧ごと分ける必要が出たら、そのとき改めて設計する。
 
 ### RL-06: 巨大なファイルと関数の分割
 
 - 候補: `runtime/session_store.py`（約 4,300 行）、`runtime/sandbox_worker.py`（約 4,000 行）、`uagent_llm.py`（約 3,500 行）、`tools/__init__.py`（約 3,200 行）。
 - `_run_one_round()` は約 875 行あり、引数が 20 個、戻り値が 5 要素のタプル。前処理、振り分け、後処理の 3 段階に分け、戻り値を dataclass にする案がある。
+- **一部対応（2026-11-24、PR #464）:** `_run_one_round()` を前処理・振り分け・後処理の 3 段階に分け、戻り値を `_RoundOutcome` dataclass にした。残りの 3 ファイルは未着手。
 
 ## テスト
 
 | ファイル | 内容 |
 |---|---|
-| `tests/test_round_interrupt_and_loop_isolation.py` | registry/openai 両経路の割り込み、別スレッドのセッション間でのループガードの分離 |
+| `tests/test_round_interrupt_and_loop_isolation.py` | registry/openai 両経路の割り込み、別スレッドのセッション間でのループガードと自動アンロード用カウンタの分離 |
 | `tests/test_computer_use_navigation_i18n.py` | 全言語の訳とプレースホルダ、実行時の表示、直書きが残っていないこと |
 | `tests/test_round_loop_turn_prep_and_guards.py` | ターン前準備の実行順と失敗時の扱い、共通化した停止処理 |
 
@@ -90,3 +93,4 @@ run_llm_rounds()            ← ユーザー 1 ターン（Auto-Pilot は後続�
 ## 更新履歴
 
 - 2026-11-24: 作成。RL-01〜04 は PR #460〜#462 で完了。RL-05〜06 は先送り。
+- 2026-11-25: RL-05 を PR #465 で対応。RL-06 は `_run_one_round()` の分割（PR #464）のみ済み、残りは先送りのまま。
