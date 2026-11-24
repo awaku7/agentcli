@@ -1,6 +1,6 @@
 # 巨大ファイル分割の方針（速度・パフォーマンス重視）（2026-11-25）
 
-- Status: in progress（P0-1、P0-2 完了）
+- Status: in progress（P0 完了。P1、P2 は未着手）
 - Priority: P1
 - Source: `UAG_ROUND_LOOP_REVIEW_20261124.md` の RL-06（巨大なファイルと関数の分割）
 - 確認基準: `main` = `1ad63ec3a`（PR #465 マージ後）
@@ -44,7 +44,7 @@
   - モジュールの import はツールの初回実行時まで遅らせる。目標は `_load_plugins` を 0.1 s 前後にすること。
   - 考慮すること: `reload` の扱い、`CMD_SPEC` のハンドラ、`LOAD_DISABLED_REASON`、describer、ロケールごとの spec、外部ツールと Rust ツール。
   - P0-1 で残した `httpx`（MCP の `MCPOAuthHTTPXAuth` が `httpx.Auth` を継承している）、`msoffcrypto`（`excel_ops`）、PIL（`preprocess_image`）もこれで解消する。MCP 系はテストがモジュール属性の `MCPClient` を差し替えているので、個別に直すよりマニフェストで import 自体を遅らせる方が安全。
-- **P0-3: `tools/__init__.py` の分割**（P0-2 の後）
+- **P0-3: `tools/__init__.py` の分割**（P0-2 の後）— 完了、下記参照（ローダーは分けなかった）。
   - ローダー、カタログ検索（CJK トークナイザを含む。`tool_catalog` を呼んだときだけ読み込む）、動的コマンド、トレースに分ける。
   - グローバルな状態と、テストが差し替える名前（`_ensure_loaded`、`run_tool`、`_CONFIRMATION_CALLBACK` など）は `__init__` に残し、状態の持ち主を 1 か所にする。
 
@@ -137,6 +137,34 @@
 - `tests/test_tool_manifest.py`（新規）: 分類の規則（遅延・スキップ・import し続ける 12 パターン）、フィンガープリントがファイル・ロケール・環境変数で変わること（プロセスごとの値では変わらないこと）、保存と読み込み、壊れたファイルや形式違いの拒否、無効化スイッチ、`ManifestModuleView` が import せずに答えること。別プロセスでの通しの確認: 1 回目でキャッシュを作り、2 回目で同じ登録になること、カタログで見つかっても import されないこと、実行時に import されて結果が正しいこと、`enable_single_tool` で LLM に見えるようになること、無効化で従来の経路に戻ること。
 - ローダーの内部を使う既存のテスト 29 ファイルと、全ツールを静的に検査するテスト 16 ファイルを手元で実行した。
 
+## P0-3 の結果
+
+### 方針の変更
+
+計画では、ローダーも分けるとしていた。実際には、ローダー・登録処理・`get_tool_specs`・`run_tool` は `__init__.py` に残した。
+
+- これらは `global` で状態を付け替える（`_TOOL_SPECS_DIRTY`、`_INITIALIZED`、`_TOOL_SPECS_CACHE` など）。テストもパッケージの属性としてこれらを差し替えている（`_ensure_loaded` だけで 17 か所）。
+- 別モジュールに移すと、付け替えの対象が移動先のモジュールになり、パッケージ側の差し替えが効かなくなる。状態の持ち主を 1 か所にするという P0-3 の条件を優先した。
+
+### 分けたもの
+
+| モジュール | 行数 | 内容 |
+|---|---|---|
+| `tools/_catalog.py` | 678 | `get_tool_catalog()` と CJK のクエリ分割（janome / jieba / kiwi / pythainlp）。パッケージの `get_tool_catalog()` が初回の検索時に import する |
+| `tools/_trace.py` | 463 | trace 行、翻訳された実行前の説明文、リモートへの進捗通知 |
+| `tools/_dynamic_commands.py` | 401 | `CMD_SPEC(S)` のコマンド登録と検索。`_DYNAMIC_COMMANDS` の持ち主 |
+| `tools/__init__.py` | 3,340 → 1,943 | ローダー、登録処理、`get_tool_specs`、`run_tool`、並列実行、確認 |
+
+- 移した関数がパッケージの名前（`get_tool_specs`、`_ensure_loaded`、`TOOL_SPECS` など）を使うときは、関数の中で `from . import ...` して呼び出し時に読む。パッケージ側での差し替えがそのまま効く。
+- パッケージは移した公開名とテストが使う名前を再エクスポートする。`run_tool` は再エクスポートした `_emit_tool_trace` などをパッケージのグローバルとして呼ぶので、`tools._emit_tool_trace` の差し替えも効く。
+- `_trace.py` のメッセージは、これまでどおり `tools/__init__.json` を使う（`make_tool_translator(.../__init__.py)`。`tool_json_i18n_batch.py` の委譲の仕組みで英語の既定値も拾われる）。
+- `_register_tool_module` の中にあった `CMD_SPEC(S)` 登録の重複コードは、`_register_dynamic_commands()` の呼び出しにまとめた。
+- 速度: `tools: load plugins` 262 ms → 255 ms、カタログ検索は変わらず（`_catalog` は起動時に読み込まれない）。
+
+### テストの変更
+
+移動先のモジュールの内部を差し替える 4 ファイルを、移動先を差し替えるように直した（`test_tool_catalog_korean_terms`、`test_external_web_host`、`test_tool_result_display`、`test_web_command_catalog`）。`test_tools_utilities_i18n` の除外リストに、`__init__.py` から移した 3 モジュールを追加した（同じインフラのコード）。
+
 ## 補足: 開発環境の注意
 
 `F:\Python314\Lib\site-packages` に、編集可能ではない古い `uagent` が入っていて、`src/` と 177 か所違う。`PYTHONPATH` を指定せずに `python` を実行すると古いコードが読み込まれる。`scripts/bench_startup.py` は常に `src/` を先頭にして計測する。`pip install -e .` で解消できる。
@@ -145,3 +173,4 @@
 
 - 2026-11-25: 作成。方針を決定し、P0-1 を実施。
 - 2026-11-25: P0-2（実行時に作るマニフェストのキャッシュによる遅延読み込み）を実施。
+- 2026-11-25: P0-3（`_catalog` / `_trace` / `_dynamic_commands` への分割）を実施。

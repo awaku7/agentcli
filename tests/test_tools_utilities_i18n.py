@@ -11,6 +11,10 @@ TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 # (they are not intended to surface user-facing messages directly).
 EXCLUDE_FILES = {
     "__init__.py",
+    # Split out of __init__.py (speed-first plan P0-3); same infrastructure code.
+    "_catalog.py",
+    "_dynamic_commands.py",
+    "_trace.py",
     # i18n infrastructure
     "i18n_helper.py",
     # misc infra/helpers

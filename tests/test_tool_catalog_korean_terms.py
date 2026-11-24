@@ -15,7 +15,7 @@ from typing import Any
 
 import pytest
 
-from uagent import tools
+from uagent.tools import _catalog as tools
 
 
 @pytest.fixture()

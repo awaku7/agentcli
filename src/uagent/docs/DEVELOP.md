@@ -696,6 +696,13 @@ Tools are plugin modules under `src/uagent/tools/`.
   - `run_tool(args: dict) -> str` (runner)
 
 Tool loading happens in `src/uagent/tools/__init__.py` and is triggered at import time.
+The package also keeps the registry, `get_tool_specs()` and `run_tool()`; helpers
+live in private submodules that the package re-exports:
+
+- `tools/_manifest.py`: cached tool-spec manifest for lazy plugin loading
+- `tools/_catalog.py`: `get_tool_catalog()` and CJK query tokenizers (imported on first search)
+- `tools/_trace.py`: tool trace lines and localized action sentences
+- `tools/_dynamic_commands.py`: `CMD_SPEC(S)` command registry (`_DYNAMIC_COMMANDS`)
 
 - Internal tools: discovered by `pkgutil.iter_modules([tools_dir])`
 - External tools (optional): loaded from `UAGENT_EXTERNAL_TOOLS_DIR` (each `*.py` file)
