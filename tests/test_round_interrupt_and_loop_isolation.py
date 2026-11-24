@@ -379,3 +379,25 @@ def test_auto_unload_state_rebinds_across_threads_via_owner() -> None:
     third.start()
     third.join(timeout=10)
     assert seen["other"] == 1
+
+
+def test_auto_unload_state_bound_for_command_context() -> None:
+    """Web command handlers read the room's counters inside the bound block."""
+    import uagent.uagent_llm as llm
+
+    room = SimpleNamespace()
+    state = llm._bind_auto_unload_state(room)
+    state.productive_rounds = 5
+    state.last_round["tool_x"] = 5
+
+    def command() -> tuple[int, int]:
+        with llm._bound_auto_unload_state(room) as bound:
+            inside = (bound.productive_rounds, bound.last_round["tool_x"])
+        # The block restores the command thread's own (fresh) counters.
+        return inside, llm._auto_unload_state().productive_rounds
+
+    results: dict[str, tuple[int, int]] = {}
+    thread = threading.Thread(target=lambda: results.setdefault("cmd", command()))
+    thread.start()
+    thread.join(timeout=10)
+    assert results["cmd"] == ((5, 5), 0)

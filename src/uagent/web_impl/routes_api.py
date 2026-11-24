@@ -1889,6 +1889,7 @@ async def api_command(req: Request):
         try:
             _sys.stdout = _capture
             from ..util_cmd_session import bind_session_selection_context
+            from ..uagent_llm import _bound_auto_unload_state
 
             with guard_room_session_command(
                 room,
@@ -1899,9 +1900,10 @@ async def api_command(req: Request):
                     with bind_room_auto_pilot(
                         room, enabled=web_manager.room_worker_pool is not None
                     ):
-                        _result = tools_util.handle_command(
-                            cmd_line, room.history, _client, _depname, core=core
-                        )
+                        with _bound_auto_unload_state(room):
+                            _result = tools_util.handle_command(
+                                cmd_line, room.history, _client, _depname, core=core
+                            )
         finally:
             _sys.stdout = _old_stdout
         _output = _capture.getvalue().strip()

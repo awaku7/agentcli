@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from collections import deque
-from collections.abc import MutableMapping
+from collections.abc import Iterator, MutableMapping
+from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 import hashlib
@@ -199,15 +200,12 @@ def _auto_unload_state() -> _AutoUnloadState:
     return state
 
 
-def _bind_auto_unload_state(owner: object) -> _AutoUnloadState:
-    """Bind the auto-unload counters carried by ``owner`` to this context.
+def _owner_auto_unload_state(owner: object) -> _AutoUnloadState:
+    """Return the auto-unload counters carried by ``owner``.
 
-    Web turns run in a fresh thread per message, which would otherwise
-    reset the counters every turn. The room object outlives its turns, so
-    it carries the state: rebind the stored object when one exists, and
-    adopt (then store) the current context's state on first sight — which
-    also keeps processes that serve one conversation per context (CLI,
-    pooled Web workers) on their ongoing state.
+    On first sight the current context's state is adopted and stored on
+    the owner, which also keeps processes that serve one conversation
+    per context (CLI, pooled Web workers) on their ongoing state.
     """
     state = getattr(owner, "_auto_unload_state", None)
     if state is None:
@@ -216,9 +214,34 @@ def _bind_auto_unload_state(owner: object) -> _AutoUnloadState:
             owner._auto_unload_state = state  # type: ignore[attr-defined]
         except Exception:
             pass
-    else:
-        _AUTO_UNLOAD_STATE.set(state)
     return state
+
+
+def _bind_auto_unload_state(owner: object) -> _AutoUnloadState:
+    """Bind the auto-unload counters carried by ``owner`` to this context.
+
+    Web turns run in a fresh thread per message, which would otherwise
+    reset the counters every turn. The room object outlives its turns,
+    so it carries the state and each turn rebinds the stored object.
+    """
+    state = _owner_auto_unload_state(owner)
+    _AUTO_UNLOAD_STATE.set(state)
+    return state
+
+
+@contextmanager
+def _bound_auto_unload_state(owner: object) -> Iterator[_AutoUnloadState]:
+    """Bind ``owner``'s auto-unload counters for the duration of the block.
+
+    Web command handlers (e.g. ``:tools list``) run outside the worker
+    thread that binds the room's state per turn; wrap them so they read
+    the same counters the auto-unloader uses.
+    """
+    token = _AUTO_UNLOAD_STATE.set(_owner_auto_unload_state(owner))
+    try:
+        yield _AUTO_UNLOAD_STATE.get()
+    finally:
+        _AUTO_UNLOAD_STATE.reset(token)
 
 
 def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
