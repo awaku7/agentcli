@@ -178,14 +178,14 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
         # Empty LLM rounds must not age this counter.
         _loaded_round = 0
         try:
-            from uagent.uagent_llm import _PRODUCTIVE_ROUNDS as _pr
+            from uagent.uagent_llm import _auto_unload_state
 
-            _loaded_round = int(_pr)
+            _loaded_round = int(_auto_unload_state().productive_rounds)
         except Exception:
             try:
-                from uagent.uagent_llm import _TOTAL_ROUNDS as _tr
+                from uagent.uagent_llm import _auto_unload_state
 
-                _loaded_round = int(_tr)
+                _loaded_round = int(_auto_unload_state().total_rounds)
             except Exception:
                 _loaded_round = 0
         _LOADED_SINGLE_TOOLS[tool_name] = _loaded_round

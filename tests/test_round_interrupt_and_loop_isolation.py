@@ -6,6 +6,8 @@
 2. Loop-guard state belongs to one conversation. A2A with
    UAGENT_A2A_CONCURRENCY>1 runs Tasks as threads in one process, so one Task
    must neither trip nor reset another Task's guard.
+3. Auto-unload counters belong to one conversation too (RL-05): one Task's
+   rounds must not age another Task's tools.
 """
 
 from __future__ import annotations
@@ -312,3 +314,39 @@ def test_auto_pilot_preserve_keeps_counters_in_same_context() -> None:
     assert llm._TOOL_CALL_FINGERPRINTS["tool_load:file_grep"] == 1
     llm.begin_loop_guard_turn()
     assert "tool_load:file_grep" not in llm._TOOL_CALL_FINGERPRINTS
+
+
+# ---------------------------------------------------------------------------
+# 3. Auto-unload counter isolation
+# ---------------------------------------------------------------------------
+
+
+def test_auto_unload_counters_are_isolated_between_threads() -> None:
+    """Two sessions in separate threads keep separate auto-unload counters."""
+    import uagent.uagent_llm as llm
+
+    seen: dict[str, tuple[int, int, int]] = {}
+
+    def session(name: str, rounds: int) -> None:
+        state = llm._auto_unload_state()
+        for _ in range(rounds):
+            state.total_rounds += 1
+            state.productive_rounds += 1
+        state.last_round["tool_x"] = state.productive_rounds
+        seen[name] = (
+            state.total_rounds,
+            state.productive_rounds,
+            state.last_round["tool_x"],
+        )
+
+    threads = [
+        threading.Thread(target=session, args=("a", 3)),
+        threading.Thread(target=session, args=("b", 1)),
+    ]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=10)
+
+    assert seen["a"] == (3, 3, 3)
+    assert seen["b"] == (1, 1, 1)
