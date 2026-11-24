@@ -137,7 +137,7 @@ def test_openai_path_honours_interrupt_before_tool_execution(monkeypatch) -> Non
         source="openai_compatible",
         raw_result=(True, None, "", "", [dict(_TOOL_CALL)], False),
     )
-    assert result[0] == llm._RS_BREAK
+    assert result.status == llm._RS_BREAK
     assert executed == []
     assert stop_prompts == [True]
 
@@ -150,7 +150,7 @@ def test_registry_path_honours_interrupt_before_tool_execution(monkeypatch) -> N
         raw_result=(True, "", "", [dict(_TOOL_CALL)]),
     )
     assert executed == [], "tool executed although interrupt was requested"
-    assert result[0] == llm._RS_BREAK
+    assert result.status == llm._RS_BREAK
     assert stop_prompts == [True]
 
 

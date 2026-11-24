@@ -1611,133 +1611,152 @@ def _try_registry_simple_chat_round(
         return None
 
 
-def _run_one_round(
-    provider: str,
-    client: Any,
-    depname: str,
-    messages: list[dict[str, Any]],
-    *,
-    core: Any,
-    make_client_fn: Any,
-    append_result_to_outfile_fn: Any,
-    try_open_images_from_text_fn: Any,
-    round_count: int,
-    max_tool_rounds: int,
-    empty_no_tool_rounds: int,
-    empty_no_tool_max: int,
-    cache_mgr: Any,
-    gemini_cache_name: str | None,
-    use_llm_thread: bool,
-    judgment_mode: bool = False,
-    tool_round_history: deque[tuple[tuple[str, str], ...]] | None = None,
-    consecutive_tool_streak: dict[str, Any] | None = None,
-) -> tuple[str, Any, str | None, int, str]:
-    """Run a single LLM round.
+@dataclass(frozen=True)
+class _RoundOutcome:
+    """Terminal outcome of one LLM round.
 
-    Returns (status, client, gemini_cache_name, empty_no_tool_rounds, assistant_text).
-    Caller dispatches on status:
-      RS_RETURN   → return from run_llm_rounds
-      RS_BREAK    → break while loop
-      RS_CONTINUE → continue while loop (skip postamble)
-      RS_OK       → execute postamble, then continue loop
-    When judgment_mode=True, tool execution is suppressed and side effects
-    (log, outfile, image open) are skipped. Only the assistant text is returned.
+    status is one of the _RS_* constants; the caller (run_llm_rounds)
+    dispatches on it. client / gemini_cache_name / empty_no_tool_rounds
+    carry the round's updated values back to the caller's loop state.
     """
-    if tool_round_history is None:
-        tool_round_history = deque(maxlen=_TOOL_ROUND_HISTORY_SIZE)
-    if consecutive_tool_streak is None:
-        consecutive_tool_streak = _loop_guard_state().consecutive
 
+    status: str
+    client: Any
+    gemini_cache_name: str | None
+    empty_no_tool_rounds: int
+    assistant_text: str
+
+
+@dataclass
+class _RoundContext:
+    """Inputs and cross-phase state for one LLM round.
+
+    _run_one_round is split into _prepare_round (preamble),
+    _dispatch_round (provider dispatch) and _execute_round_tools
+    (postamble: tool execution). Values that only one phase uses stay
+    local to that phase; everything the phases share lives here.
+    """
+
+    provider: str
+    client: Any
+    depname: str
+    messages: list[dict[str, Any]]
+    core: Any
+    make_client_fn: Any
+    append_result_to_outfile_fn: Any
+    try_open_images_from_text_fn: Any
+    round_count: int
+    max_tool_rounds: int
+    empty_no_tool_rounds: int
+    empty_no_tool_max: int
+    cache_mgr: Any
+    gemini_cache_name: str | None
+    use_llm_thread: bool
+    judgment_mode: bool = False
+    tool_round_history: deque[tuple[tuple[str, str], ...]] | None = None
+    consecutive_tool_streak: dict[str, Any] | None = None
+    # Cross-phase state, filled in by _prepare_round / _dispatch_round.
+    assistant_text: str = ""
+    reasoning_content: str = ""
+    tool_calls_list: list[dict[str, Any]] = field(default_factory=list)
+    ok: bool = False
+    dispatch: Any = None
+    registry_simple_result: Any = None
+    stream_responses: bool = False
+    use_responses_api: bool = False
+    round_supports_tool_continuation: bool = False
+    clear_continuation: Any = None
+
+
+def _round_outcome(
+    ctx: _RoundContext, status: str, assistant_text: str
+) -> _RoundOutcome:
+    return _RoundOutcome(
+        status=status,
+        client=ctx.client,
+        gemini_cache_name=ctx.gemini_cache_name,
+        empty_no_tool_rounds=ctx.empty_no_tool_rounds,
+        assistant_text=assistant_text,
+    )
+
+
+def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
+    """Preamble: interrupt / memory checks, message building, planning.
+
+    Returns a _RoundOutcome when the round ends here, else None.
+    """
     # ── Preamble ──────────────────────────────────────────────────
 
     # --- Interrupt check: per-round ---
     with _core_module.interrupt_lock:
         if _core_module.interrupt_requested:
             _core_module.interrupt_requested = False
-            core._last_round_reason = "interrupted"
-            _inject_stop_prompt(messages, core)
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                "",
-            )
+            ctx.core._last_round_reason = "interrupted"
+            _inject_stop_prompt(ctx.messages, ctx.core)
+            return _round_outcome(ctx, _RS_BREAK, "")
 
     # Optional translation layer (off by default).
     tr_cfg = load_translate_config()
-    if judgment_mode:
+    if ctx.judgment_mode:
         tr_cfg = None  # judgment prompt is English; skip translate
 
-    memory_snapshot = getattr(core, "memory_projection_snapshot", None)
-    if not judgment_mode and not memory_projection_access_is_current(
-        memory_snapshot, core
+    memory_snapshot = getattr(ctx.core, "memory_projection_snapshot", None)
+    if not ctx.judgment_mode and not memory_projection_access_is_current(
+        memory_snapshot, ctx.core
     ):
-        core._last_round_reason = "memory_access_changed"
-        core._memory_projection_invalidated = True
-        _clear_responses_after_tool_loop(core, reason="memory_access_changed")
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            "",
-        )
+        ctx.core._last_round_reason = "memory_access_changed"
+        ctx.core._memory_projection_invalidated = True
+        _clear_responses_after_tool_loop(ctx.core, reason="memory_access_changed")
+        return _round_outcome(ctx, _RS_BREAK, "")
 
     call_messages = _build_call_messages(
-        provider=provider,
-        messages=messages,
-        core=core,
-        depname=depname,
-        gemini_cache_name=gemini_cache_name,
+        provider=ctx.provider,
+        messages=ctx.messages,
+        core=ctx.core,
+        depname=ctx.depname,
+        gemini_cache_name=ctx.gemini_cache_name,
     )
     call_messages = apply_memory_projection(
         call_messages,
         (
-            getattr(core, "memory_projection_snapshot", None)
-            if not judgment_mode
+            getattr(ctx.core, "memory_projection_snapshot", None)
+            if not ctx.judgment_mode
             else None
         ),
-        core,
+        ctx.core,
     )
-    if not judgment_mode and not memory_projection_access_is_current(
-        memory_snapshot, core
+    if not ctx.judgment_mode and not memory_projection_access_is_current(
+        memory_snapshot, ctx.core
     ):
-        core._last_round_reason = "memory_access_changed"
-        core._memory_projection_invalidated = True
-        _clear_responses_after_tool_loop(core, reason="memory_access_changed")
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            "",
-        )
+        ctx.core._last_round_reason = "memory_access_changed"
+        ctx.core._memory_projection_invalidated = True
+        _clear_responses_after_tool_loop(ctx.core, reason="memory_access_changed")
+        return _round_outcome(ctx, _RS_BREAK, "")
 
     def _call_maybe_thread_fn(fn: Any) -> Any:
-        return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
+        return _call_maybe_thread(fn, use_llm_thread=ctx.use_llm_thread)
 
-    use_responses_api, stream_responses = _resolve_round_runtime_flags(
+    ctx.use_responses_api, ctx.stream_responses = _resolve_round_runtime_flags(
         tr_cfg=tr_cfg,
-        core=core,
-        provider=provider,
-        depname=depname,
+        core=ctx.core,
+        provider=ctx.provider,
+        depname=ctx.depname,
     )
 
     transport_selection = RoundTransportSelection.from_flags(
-        use_responses_api=use_responses_api,
-        stream_responses=stream_responses,
+        use_responses_api=ctx.use_responses_api,
+        stream_responses=ctx.stream_responses,
     )
 
     # Build an optional LLM-summary projection before context selection. This
     # keeps auto-shrink on the same ContextPlan -> Projection path as the
     # uncompressed request and avoids rebuilding context after planning.
-    _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
-    if use_responses_api:
+    _using_prev_rid = bool(ctx.core.responses_state.get("previous_response_id"))
+    if ctx.use_responses_api:
         from .providers.responses_manager import get_responses_capabilities
 
-        if not get_responses_capabilities(provider).previous_response_id:
-            state = getattr(core, "responses_state", None)
+        if not get_responses_capabilities(ctx.provider).previous_response_id:
+            state = getattr(ctx.core, "responses_state", None)
             if isinstance(state, dict):
                 had_previous_id = state.pop("previous_response_id", None) is not None
                 state.pop("_stale_rid_occurred", None)
@@ -1748,84 +1767,88 @@ def _run_one_round(
                         _save_responses_state()
                     except Exception:
                         pass
-            runtime = getattr(core, "responses_runtime", None)
-            clear_continuation = getattr(runtime, "clear_continuation", None)
-            if callable(clear_continuation):
-                clear_continuation("unsupported_continuation")
+            runtime = getattr(ctx.core, "responses_runtime", None)
+            ctx.clear_continuation = getattr(runtime, "clear_continuation", None)
+            if callable(ctx.clear_continuation):
+                ctx.clear_continuation("unsupported_continuation")
             _using_prev_rid = False
     projection_changed = False
     structured_projection = None
     # A new user turn is the safe boundary for a durable checkpoint. Tool
     # continuation rounds must preserve their pending call_id/response_id chain.
-    if not judgment_mode and messages and messages[-1].get("role") in {"user", "tool"}:
+    if (
+        not ctx.judgment_mode
+        and ctx.messages
+        and ctx.messages[-1].get("role") in {"user", "tool"}
+    ):
         structured_projection = build_structured_auto_shrink_projection(
-            provider=provider,
-            client=client,
-            depname=depname,
-            messages=messages,
-            core=core,
-            cache_mgr=cache_mgr,
-            gemini_cache_name=gemini_cache_name,
+            provider=ctx.provider,
+            client=ctx.client,
+            depname=ctx.depname,
+            messages=ctx.messages,
+            core=ctx.core,
+            cache_mgr=ctx.cache_mgr,
+            gemini_cache_name=ctx.gemini_cache_name,
             call_maybe_thread_fn=_call_maybe_thread_fn,
-            use_responses_api=use_responses_api,
+            use_responses_api=ctx.use_responses_api,
             previous_response_id=_using_prev_rid,
-            allow_checkpoint_creation=messages[-1].get("role") == "user",
+            allow_checkpoint_creation=ctx.messages[-1].get("role") == "user",
         )
     if structured_projection is not None:
         # A locally shortened request cannot continue a server-held response
         # that still contains the uncompressed history.
         if _using_prev_rid:
-            _clear_responses_after_tool_loop(core, reason="structured_compaction")
+            _clear_responses_after_tool_loop(ctx.core, reason="structured_compaction")
             _using_prev_rid = False
         projection_changed = True
-        gemini_cache_name = structured_projection.cache_name
+        ctx.gemini_cache_name = structured_projection.cache_name
         call_messages = _build_call_messages(
-            provider=provider,
+            provider=ctx.provider,
             messages=list(structured_projection.messages),
-            core=core,
-            depname=depname,
-            gemini_cache_name=gemini_cache_name,
+            core=ctx.core,
+            depname=ctx.depname,
+            gemini_cache_name=ctx.gemini_cache_name,
         )
         call_messages = apply_memory_projection(
             call_messages,
-            getattr(core, "memory_projection_snapshot", None),
-            core,
+            getattr(ctx.core, "memory_projection_snapshot", None),
+            ctx.core,
         )
-    elif not judgment_mode and not _using_prev_rid:
+    elif not ctx.judgment_mode and not _using_prev_rid:
         auto_shrink_projection = build_auto_shrink_projection(
-            provider=provider,
-            client=client,
-            depname=depname,
-            messages=messages,
-            core=core,
-            cache_mgr=cache_mgr,
-            gemini_cache_name=gemini_cache_name,
+            provider=ctx.provider,
+            client=ctx.client,
+            depname=ctx.depname,
+            messages=ctx.messages,
+            core=ctx.core,
+            cache_mgr=ctx.cache_mgr,
+            gemini_cache_name=ctx.gemini_cache_name,
             call_maybe_thread_fn=_call_maybe_thread_fn,
-            use_responses_api=use_responses_api,
+            use_responses_api=ctx.use_responses_api,
         )
         if auto_shrink_projection.changed:
             projection_changed = True
-            gemini_cache_name = auto_shrink_projection.cache_name
+            ctx.gemini_cache_name = auto_shrink_projection.cache_name
             call_messages = _build_call_messages(
-                provider=provider,
+                provider=ctx.provider,
                 messages=list(auto_shrink_projection.messages),
-                core=core,
-                depname=depname,
-                gemini_cache_name=gemini_cache_name,
+                core=ctx.core,
+                depname=ctx.depname,
+                gemini_cache_name=ctx.gemini_cache_name,
             )
             call_messages = apply_memory_projection(
                 call_messages,
-                getattr(core, "memory_projection_snapshot", None),
-                core,
+                getattr(ctx.core, "memory_projection_snapshot", None),
+                ctx.core,
             )
 
-    if not judgment_mode:
-        context_manager = getattr(core, "context_manager", None)
+    if not ctx.judgment_mode:
+        context_manager = getattr(ctx.core, "context_manager", None)
         build_message_context = getattr(context_manager, "build_message_context", None)
         if callable(build_message_context):
-            session_store = getattr(core, "session_store", None)
-            session_id = getattr(core, "_session_store_active_id", None) or getattr(
-                core, "session_id", None
+            session_store = getattr(ctx.core, "session_store", None)
+            session_id = getattr(ctx.core, "_session_store_active_id", None) or getattr(
+                ctx.core, "session_id", None
             )
             if session_store is not None and session_id:
                 active_context = build_message_context(
@@ -1835,12 +1858,15 @@ def _run_one_round(
                 )
             else:
                 active_context = build_message_context(call_messages)
-            core.active_context = active_context
-            _persist_context_decision_log(active_context, core)
+            ctx.core.active_context = active_context
+            _persist_context_decision_log(active_context, ctx.core)
             call_messages = active_context.messages
-    if not judgment_mode:
+    if not ctx.judgment_mode:
         round_plan = _record_round_context_plan(
-            provider=provider, depname=depname, call_messages=call_messages, core=core
+            provider=ctx.provider,
+            depname=ctx.depname,
+            call_messages=call_messages,
+            core=ctx.core,
         )
         if round_plan is not None:
             call_messages = [dict(message) for message in round_plan.messages]
@@ -1851,59 +1877,53 @@ def _run_one_round(
     # copy while still swapping the stored one.
     _reconcile_system_prompt_for_route(
         call_messages,
-        messages,
-        core,
-        provider=provider,
-        depname=depname,
-        use_responses_api=use_responses_api,
+        ctx.messages,
+        ctx.core,
+        provider=ctx.provider,
+        depname=ctx.depname,
+        use_responses_api=ctx.use_responses_api,
     )
     call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
     call_messages = project_messages_for_provider(
-        call_messages, provider=provider, model=depname
+        call_messages, provider=ctx.provider, model=ctx.depname
     )
 
     _begin_responses_runtime(
-        core=core,
-        provider=provider,
-        model=depname,
-        enabled=(transport_selection.use_responses_api and not judgment_mode),
+        core=ctx.core,
+        provider=ctx.provider,
+        model=ctx.depname,
+        enabled=(transport_selection.use_responses_api and not ctx.judgment_mode),
         transport_selection=transport_selection,
     )
 
     cache_plan = plan_provider_cache(
-        provider=provider,
-        model=depname,
+        provider=ctx.provider,
+        model=ctx.depname,
         projection_changed=projection_changed,
         previous_response_id=_using_prev_rid,
     )
     try:
-        core.provider_cache_plan = cache_plan.to_dict()
+        ctx.core.provider_cache_plan = cache_plan.to_dict()
     except Exception:
         pass
 
-    if round_count > max_tool_rounds:
+    if ctx.round_count > ctx.max_tool_rounds:
         # A hard tool-round stop can leave the provider cache paired with the
         # last assistant tool turn. Rebuild Gemini/Vertex cache state before a
         # later user continuation rather than reusing that stale turn.
-        if provider in ("gemini", "vertexai"):
+        if ctx.provider in ("gemini", "vertexai"):
             try:
-                core._gemini_cache_needs_refresh = True
+                ctx.core._gemini_cache_needs_refresh = True
             except Exception:
                 pass
-        core._last_round_reason = "max_tool_rounds"
-        _clear_responses_after_tool_loop(core, reason="tool_round_limit")
+        ctx.core._last_round_reason = "max_tool_rounds"
+        _clear_responses_after_tool_loop(ctx.core, reason="tool_round_limit")
         _spinner_stop_quietly()
         print(
             _("[WARN] Tool rounds exceeded %(max)d; aborting.")
-            % {"max": max_tool_rounds}
+            % {"max": ctx.max_tool_rounds}
         )
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            "",
-        )
+        return _round_outcome(ctx, _RS_BREAK, "")
 
     send_tools_this_round = getattr(_core_module, "tools_enabled", True)
     from .runtime.execution_broker import (
@@ -1919,18 +1939,18 @@ def _run_one_round(
     # The isolated LM Studio SDK adapter can reuse the normal uagent tool
     # executor without importing this module at provider-import time.
     try:
-        core._lmstudio_sdk_messages = messages
-        core._lmstudio_sdk_cache_mgr = cache_mgr
+        ctx.core._lmstudio_sdk_messages = ctx.messages
+        ctx.core._lmstudio_sdk_cache_mgr = ctx.cache_mgr
     except Exception:
         pass
-    if judgment_mode:
+    if ctx.judgment_mode:
         send_tools_this_round = False
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
     retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
     retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
 
-    tool_calls_list: list[dict[str, Any]] = []
-    assistant_text: str = ""
+    ctx.tool_calls_list: list[dict[str, Any]] = []
+    ctx.assistant_text: str = ""
 
     from .runtime.provider_round_dispatcher import (
         dispatch_provider_round,
@@ -1939,23 +1959,23 @@ def _run_one_round(
 
     registry_discovery = None
     registry_route = None
-    if not judgment_mode:
+    if not ctx.judgment_mode:
         try:
             registry_discovery = resolve_tool_discovery(
-                provider=provider,
-                depname=depname,
+                provider=ctx.provider,
+                depname=ctx.depname,
                 use_responses_api=True,
             )
             registry_route = resolve_registry_round_route(
-                provider=provider,
+                provider=ctx.provider,
                 configured_providers=env_get("UAGENT_PROVIDER_REGISTRY", "") or "",
-                use_responses_api=use_responses_api,
+                use_responses_api=ctx.use_responses_api,
                 responses_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"),
                 send_tools=bool(send_tools_this_round),
                 tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
-                has_context_tools=bool(getattr(core, "context_tool_specs", None)),
+                has_context_tools=bool(getattr(ctx.core, "context_tool_specs", None)),
                 uses_legacy_catalog=(
-                    use_responses_api and registry_discovery.uses_legacy_catalog
+                    ctx.use_responses_api and registry_discovery.uses_legacy_catalog
                 ),
                 transport_selection=transport_selection,
             )
@@ -1964,49 +1984,49 @@ def _run_one_round(
             # Let the compatibility runner retain its own safety gate.
             registry_route = None
 
-    dispatch = dispatch_provider_round(
+    ctx.dispatch = dispatch_provider_round(
         registry_runner=_try_registry_simple_chat_round,
-        registry_allowed=not judgment_mode,
+        registry_allowed=not ctx.judgment_mode,
         registry_route=registry_route,
         legacy_runner=run_legacy_provider_outcome,
         openai_runner=call_legacy_openai_compatible_outcome,
         registry_kwargs={
-            "provider": provider,
-            "client": client,
-            "depname": depname,
+            "provider": ctx.provider,
+            "client": ctx.client,
+            "depname": ctx.depname,
             "call_messages": call_messages,
-            "core": core,
-            "use_responses_api": use_responses_api,
-            "stream_responses": stream_responses,
+            "core": ctx.core,
+            "use_responses_api": ctx.use_responses_api,
+            "stream_responses": ctx.stream_responses,
             "transport_selection": transport_selection,
             "send_tools_this_round": bool(send_tools_this_round),
-            "round_count": round_count,
+            "round_count": ctx.round_count,
             "registry_route": registry_route,
             "tool_discovery": registry_discovery,
         },
         legacy_kwargs={
-            "provider": provider,
-            "client": client,
-            "depname": depname,
+            "provider": ctx.provider,
+            "client": ctx.client,
+            "depname": ctx.depname,
             "call_messages": call_messages,
-            "messages": messages,
-            "gemini_cache_name": gemini_cache_name,
-            "cache_mgr": cache_mgr,
-            "core": core,
-            "make_client_fn": make_client_fn,
+            "messages": ctx.messages,
+            "gemini_cache_name": ctx.gemini_cache_name,
+            "cache_mgr": ctx.cache_mgr,
+            "core": ctx.core,
+            "make_client_fn": ctx.make_client_fn,
             "call_maybe_thread_fn": _call_maybe_thread_fn,
-            "append_result_to_outfile_fn": append_result_to_outfile_fn,
-            "try_open_images_from_text_fn": try_open_images_from_text_fn,
-            "empty_no_tool_rounds": empty_no_tool_rounds,
-            "empty_no_tool_max": empty_no_tool_max,
+            "append_result_to_outfile_fn": ctx.append_result_to_outfile_fn,
+            "try_open_images_from_text_fn": ctx.try_open_images_from_text_fn,
+            "empty_no_tool_rounds": ctx.empty_no_tool_rounds,
+            "empty_no_tool_max": ctx.empty_no_tool_max,
             "tr_cfg": tr_cfg,
-            "use_responses_api": use_responses_api,
-            "stream_responses": stream_responses,
+            "use_responses_api": ctx.use_responses_api,
+            "stream_responses": ctx.stream_responses,
             "send_tools_this_round": send_tools_this_round,
             "max_retries_429": max_retries_429,
             "retry_base": retry_base,
             "retry_cap": retry_cap,
-            "judgment_mode": judgment_mode,
+            "judgment_mode": ctx.judgment_mode,
             "inject_stop_prompt_fn": _inject_stop_prompt,
             "translate_assistant_fn": _translate_assistant_if_needed,
             "should_keep_assistant_message_fn": _should_keep_assistant_message,
@@ -2015,229 +2035,190 @@ def _run_one_round(
             "emit_final_answer_fn": _emit_final_answer_if_any,
         },
         openai_kwargs={
-            "provider": provider,
-            "client": client,
-            "depname": depname,
+            "provider": ctx.provider,
+            "client": ctx.client,
+            "depname": ctx.depname,
             "call_messages": call_messages,
-            "core": core,
-            "make_client_fn": make_client_fn,
+            "core": ctx.core,
+            "make_client_fn": ctx.make_client_fn,
             "call_maybe_thread_fn": _call_maybe_thread_fn,
-            "use_responses_api": use_responses_api,
-            "stream_responses": stream_responses,
+            "use_responses_api": ctx.use_responses_api,
+            "stream_responses": ctx.stream_responses,
             "send_tools_this_round": send_tools_this_round,
             "max_retries_429": max_retries_429,
             "retry_base": retry_base,
             "retry_cap": retry_cap,
-            "messages": messages,
-            "responses_state": core.responses_state,
-            "round_count": round_count,
+            "messages": ctx.messages,
+            "responses_state": ctx.core.responses_state,
+            "round_count": ctx.round_count,
         },
     )
-    if dispatch.source != "registry":
+    if ctx.dispatch.source != "registry":
         _sync_responses_runtime_completed(
-            core=core,
-            enabled=use_responses_api and not judgment_mode,
-            round_outcome=dispatch.outcome,
+            core=ctx.core,
+            enabled=ctx.use_responses_api and not ctx.judgment_mode,
+            round_outcome=ctx.dispatch.outcome,
         )
-    registry_simple_result = (
-        dispatch.outcome.raw_result if dispatch.handles_collected_result else None
+    ctx.registry_simple_result = (
+        ctx.dispatch.outcome.raw_result
+        if ctx.dispatch.handles_collected_result
+        else None
     )
-    round_supports_tool_continuation = False
-    if registry_simple_result is not None:
-        ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
-        round_supports_tool_continuation = dispatch.supports_tool_continuation
-        if not ok:
-            core._last_round_reason = "error"
-            return (
-                _RS_RETURN,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+    ctx.round_supports_tool_continuation = False
+    if ctx.registry_simple_result is not None:
+        ctx.ok, ctx.assistant_text, ctx.reasoning_content, ctx.tool_calls_list = (
+            ctx.registry_simple_result
+        )
+        ctx.round_supports_tool_continuation = ctx.dispatch.supports_tool_continuation
+        if not ctx.ok:
+            ctx.core._last_round_reason = "error"
+            return _round_outcome(ctx, _RS_RETURN, ctx.assistant_text)
         # Same boundary as the OpenAI-compatible path: an interrupt that
         # arrived during the provider call must win before any tool runs.
-        if _consume_post_response_interrupt(messages, core):
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-        if not round_supports_tool_continuation:
-            assistant_text = _translate_assistant_if_needed(
-                assistant_text=assistant_text,
+        if _consume_post_response_interrupt(ctx.messages, ctx.core):
+            return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
+        if not ctx.round_supports_tool_continuation:
+            ctx.assistant_text = _translate_assistant_if_needed(
+                assistant_text=ctx.assistant_text,
                 tr_cfg=tr_cfg,
-                use_responses_api=use_responses_api,
-                stream_responses=stream_responses,
+                use_responses_api=ctx.use_responses_api,
+                stream_responses=ctx.stream_responses,
                 stream_output_rendered=False,
             )
             _emit_final_answer_if_any(
-                assistant_text=assistant_text,
-                use_responses_api=use_responses_api,
-                stream_responses=stream_responses,
-                append_result_to_outfile_fn=append_result_to_outfile_fn,
-                try_open_images_from_text_fn=try_open_images_from_text_fn,
-                reasoning_content=reasoning_content,
+                assistant_text=ctx.assistant_text,
+                use_responses_api=ctx.use_responses_api,
+                stream_responses=ctx.stream_responses,
+                append_result_to_outfile_fn=ctx.append_result_to_outfile_fn,
+                try_open_images_from_text_fn=ctx.try_open_images_from_text_fn,
+                reasoning_content=ctx.reasoning_content,
                 skip_print=False,
                 stream_output_rendered=False,
-                core=core,
-                provider=provider,
+                core=ctx.core,
+                provider=ctx.provider,
             )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
+        if _should_keep_assistant_message(ctx.assistant_text, ctx.tool_calls_list):
             _append_assistant_message(
-                messages=messages,
-                core=core,
-                assistant_text=assistant_text,
-                tool_calls_list=tool_calls_list,
+                messages=ctx.messages,
+                core=ctx.core,
+                assistant_text=ctx.assistant_text,
+                tool_calls_list=ctx.tool_calls_list,
             )
-        empty_no_tool_rounds = 0
+        ctx.empty_no_tool_rounds = 0
 
+
+def _dispatch_round(ctx: _RoundContext) -> _RoundOutcome | None:
+    """Provider dispatch: registry / legacy / OpenAI-compatible paths.
+
+    Returns a _RoundOutcome when the round ends here, else None.
+    """
     # ── Provider dispatch ─────────────────────────────────────────
 
-    if registry_simple_result is not None:
+    if ctx.registry_simple_result is not None:
         pass
     else:
-        legacy_round_result = dispatch.outcome if dispatch.owns_tool_execution else None
+        legacy_round_result = (
+            ctx.dispatch.outcome if ctx.dispatch.owns_tool_execution else None
+        )
         if legacy_round_result is not None:
-            return legacy_round_result.raw_result
-        openai_round_result = dispatch.outcome
+            return _RoundOutcome(*legacy_round_result.raw_result)
+        openai_round_result = ctx.dispatch.outcome
         (
-            ok,
-            client,
-            assistant_text,
-            reasoning_content,
-            tool_calls_list,
+            ctx.ok,
+            ctx.client,
+            ctx.assistant_text,
+            ctx.reasoning_content,
+            ctx.tool_calls_list,
             _is_xai_grpc,
         ) = openai_round_result.raw_result
-        round_supports_tool_continuation = dispatch.supports_tool_continuation
-        if not ok:
-            core._last_round_reason = "error"
-            return (
-                _RS_RETURN,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+        ctx.round_supports_tool_continuation = ctx.dispatch.supports_tool_continuation
+        if not ctx.ok:
+            ctx.core._last_round_reason = "error"
+            return _round_outcome(ctx, _RS_RETURN, ctx.assistant_text)
 
         # Preserve native Responses output items (including reasoning items)
         # for full-history fallback and tool-call continuation.
-        responses_output_items = getattr(core, "_last_responses_output_items", None)
+        responses_output_items = getattr(ctx.core, "_last_responses_output_items", None)
 
-        if _consume_post_response_interrupt(messages, core):
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+        if _consume_post_response_interrupt(ctx.messages, ctx.core):
+            return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
 
-        if _should_keep_assistant_message(assistant_text, tool_calls_list):
-            if reasoning_content:
+        if _should_keep_assistant_message(ctx.assistant_text, ctx.tool_calls_list):
+            if ctx.reasoning_content:
                 deepseek_msg = build_assistant_message_with_reasoning(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    reasoning_content=reasoning_content,
+                    assistant_text=ctx.assistant_text,
+                    tool_calls_list=ctx.tool_calls_list,
+                    reasoning_content=ctx.reasoning_content,
                 )
-                if str(provider or "").strip().lower() == "sarashina":
+                if str(ctx.provider or "").strip().lower() == "sarashina":
                     # Store Sarashina's encrypted token under its native field.
                     # The web display projection intentionally does not expose
                     # this field, while provider replay preserves it verbatim.
                     deepseek_msg["reasoning"] = deepseek_msg.pop("reasoning_content")
                 if isinstance(responses_output_items, list) and responses_output_items:
                     deepseek_msg["_responses_output_items"] = responses_output_items
-                messages.append(deepseek_msg)
-                if not judgment_mode:
-                    core.log_message(deepseek_msg)
+                ctx.messages.append(deepseek_msg)
+                if not ctx.judgment_mode:
+                    ctx.core.log_message(deepseek_msg)
             else:
                 _append_assistant_message(
-                    messages=messages,
-                    core=core,
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
+                    messages=ctx.messages,
+                    core=ctx.core,
+                    assistant_text=ctx.assistant_text,
+                    tool_calls_list=ctx.tool_calls_list,
                     responses_output_items=responses_output_items,
                 )
 
-        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            provider=provider,
-            depname=depname,
-            messages=messages,
-            core=core,
+        action, ctx.empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=ctx.assistant_text,
+            tool_calls_list=ctx.tool_calls_list,
+            empty_no_tool_rounds=ctx.empty_no_tool_rounds,
+            empty_no_tool_max=ctx.empty_no_tool_max,
+            provider=ctx.provider,
+            depname=ctx.depname,
+            messages=ctx.messages,
+            core=ctx.core,
         )
-        if not tool_calls_list:
-            if tool_round_history is not None:
-                tool_round_history.clear()
-            clear_consecutive_tool_call_streak(consecutive_tool_streak)
+        if not ctx.tool_calls_list:
+            if ctx.tool_round_history is not None:
+                ctx.tool_round_history.clear()
+            clear_consecutive_tool_call_streak(ctx.consecutive_tool_streak)
         if action == "continue":
-            return (
-                _RS_CONTINUE,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _round_outcome(ctx, _RS_CONTINUE, ctx.assistant_text)
         if action == "break":
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
 
-        if not round_supports_tool_continuation:
-            if not judgment_mode:
+        if not ctx.round_supports_tool_continuation:
+            if not ctx.judgment_mode:
                 # Host-rendering capability controls duplicate final output.
                 _emit_final_answer_if_any(
-                    assistant_text=assistant_text,
-                    reasoning_content=locals().get("reasoning_content", ""),
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                    append_result_to_outfile_fn=append_result_to_outfile_fn,
-                    try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    skip_print=dispatch.host_rendered,
-                    core=core,
-                    provider=provider,
+                    assistant_text=ctx.assistant_text,
+                    reasoning_content=ctx.reasoning_content,
+                    use_responses_api=ctx.use_responses_api,
+                    stream_responses=ctx.stream_responses,
+                    append_result_to_outfile_fn=ctx.append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=ctx.try_open_images_from_text_fn,
+                    skip_print=ctx.dispatch.host_rendered,
+                    core=ctx.core,
+                    provider=ctx.provider,
                 )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
 
-        empty_no_tool_rounds = 0
+        ctx.empty_no_tool_rounds = 0
 
+
+def _execute_round_tools(ctx: _RoundContext) -> _RoundOutcome:
+    """Postamble: append the assistant message and execute tool calls."""
     # ── Postamble: tool execution ────────────────────────────────
 
-    if judgment_mode:
-        return (
-            _RS_OK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+    if ctx.judgment_mode:
+        return _round_outcome(ctx, _RS_OK, ctx.assistant_text)
 
     _debug_tool_loop(
         "received",
-        provider=provider,
-        count=len(tool_calls_list),
+        provider=ctx.provider,
+        count=len(ctx.tool_calls_list),
         calls=[
             {
                 "id": tc.get("id"),
@@ -2248,47 +2229,41 @@ def _run_one_round(
                     )
                 ).hexdigest()[:12],
             }
-            for tc in tool_calls_list
+            for tc in ctx.tool_calls_list
             if isinstance(tc, dict)
         ],
     )
     response_tool_continuation = bool(
-        use_responses_api and round_supports_tool_continuation
+        ctx.use_responses_api and ctx.round_supports_tool_continuation
     )
     _record_responses_runtime_response(
-        core=core,
+        core=ctx.core,
         enabled=response_tool_continuation,
-        tool_calls=tool_calls_list,
+        tool_calls=ctx.tool_calls_list,
     )
     executed_new_tool, fresh_tool_calls = execute_tool_continuation(
-        tool_calls_list=tool_calls_list,
-        messages=messages,
-        core=core,
-        cache_mgr=cache_mgr,
+        tool_calls_list=ctx.tool_calls_list,
+        messages=ctx.messages,
+        core=ctx.core,
+        cache_mgr=ctx.cache_mgr,
         responses_api_continuation=response_tool_continuation,
-        responses_runtime=getattr(core, "responses_runtime", None),
+        responses_runtime=getattr(ctx.core, "responses_runtime", None),
     )
-    if bool(getattr(core, "_session_resume_control_transfer", False)):
+    if bool(getattr(ctx.core, "_session_resume_control_transfer", False)):
         try:
-            core._session_resume_control_transfer = False
+            ctx.core._session_resume_control_transfer = False
         except Exception:
             pass
-        core._last_round_reason = "session_resume"
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
-    if provider in ("gemini", "vertexai") and any(
+        ctx.core._last_round_reason = "session_resume"
+        return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
+    if ctx.provider in ("gemini", "vertexai") and any(
         isinstance(tc, dict)
         and (tc.get("function") or {}).get("name") == "tool_catalog"
         for tc in fresh_tool_calls
     ):
         # Only a successful catalog call completes the Gemini discovery
         # boundary. Other tool calls must not silently skip discovery later.
-        core._gemini_tool_catalog_ready = True
+        ctx.core._gemini_tool_catalog_ready = True
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a
     # genuinely used tool to look idle to the auto-unloader.
@@ -2310,10 +2285,10 @@ def _run_one_round(
         ],
     )
 
-    if not supports_generate_image_continuation(provider) and any(
+    if not supports_generate_image_continuation(ctx.provider) and any(
         isinstance(tc, dict)
         and (tc.get("function") or {}).get("name") == "generate_image"
-        for tc in tool_calls_list
+        for tc in ctx.tool_calls_list
     ):
         # This path intentionally terminates the Responses tool continuation:
         # the provider cannot safely continue after generate_image. Clear the
@@ -2321,48 +2296,44 @@ def _run_one_round(
         # next user turn starts from the local history instead of reusing an
         # incomplete response chain.
         try:
-            clear_continuation = getattr(core, "clear_responses_continuation", None)
-            if callable(clear_continuation):
-                clear_continuation()
+            ctx.clear_continuation = getattr(
+                ctx.core, "clear_responses_continuation", None
+            )
+            if callable(ctx.clear_continuation):
+                ctx.clear_continuation()
         except Exception:
             pass
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+        return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
 
     # Re-check before the next LLM call.
 
-    core.set_status(True, "LLM")
+    ctx.core.set_status(True, "LLM")
 
     # Detect repeated same-target management tool calls.
     # Parallel tool_load of different tools is allowed; only the same target
     # (e.g. tool_load(file_grep) x4) across rounds is treated as a loop.
     # unload_tool(target) clears that target's load streak first.
-    if tool_calls_list and not judgment_mode:
+    if ctx.tool_calls_list and not ctx.judgment_mode:
         # Re-planning via tool_catalog starts a fresh general-tool streak.
-        if _tool_calls_include_name(tool_calls_list, "tool_catalog"):
+        if _tool_calls_include_name(ctx.tool_calls_list, "tool_catalog"):
             clear_general_tool_loop_streaks()
 
         _rs_break = (
             _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
+            ctx.client,
+            ctx.gemini_cache_name,
+            ctx.empty_no_tool_rounds,
+            ctx.assistant_text,
         )
-        blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
+        blocked, blocked_name, blocked_count = check_mgmt_tool_loop(ctx.tool_calls_list)
         if blocked:
             _block_tool_loop(
-                core=core,
+                core=ctx.core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="management_tool_repeat",
-                round_count=round_count,
-                tool_calls_list=tool_calls_list,
+                round_count=ctx.round_count,
+                tool_calls_list=ctx.tool_calls_list,
                 warning=_(
                     "[WARN] Management tool call '%(name)s' repeated %(n)d times; "
                     "aborting to prevent loop."
@@ -2375,11 +2346,11 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             _block_tool_loop(
-                core=core,
+                core=ctx.core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="same_arguments",
-                round_count=round_count,
+                round_count=ctx.round_count,
                 tool_calls_list=fresh_tool_calls,
                 warning=_(
                     "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
@@ -2393,17 +2364,17 @@ def _run_one_round(
         # three times. Only digests are retained; argument values are not logged.
         cycle_blocked, cycle_names, cycle_length = check_repeating_tool_round_cycle(
             fresh_tool_calls,
-            history=tool_round_history,
+            history=ctx.tool_round_history,
         )
         if cycle_blocked:
             cycle_label = " -> ".join("+".join(names) for names in cycle_names)
             cycle_rounds = cycle_length * 3
             _block_tool_loop(
-                core=core,
+                core=ctx.core,
                 tool_name=f"cycle:{cycle_label}",
                 count=cycle_rounds,
                 reason="repeating_tool_cycle",
-                round_count=round_count,
+                round_count=ctx.round_count,
                 tool_calls_list=fresh_tool_calls,
                 clear_reason="repeating_tool_cycle",
                 warning=_(
@@ -2420,15 +2391,15 @@ def _run_one_round(
         # Mixed-tool rounds reset it; UAGENT_MAX_TOOL_ROUNDS remains the final
         # limit.
         blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
-            fresh_tool_calls, streak=consecutive_tool_streak
+            fresh_tool_calls, streak=ctx.consecutive_tool_streak
         )
         if blocked:
             _block_tool_loop(
-                core=core,
+                core=ctx.core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="consecutive_tool_calls",
-                round_count=round_count,
+                round_count=ctx.round_count,
                 tool_calls_list=fresh_tool_calls,
                 warning=_(
                     "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; aborting."
@@ -2437,18 +2408,77 @@ def _run_one_round(
             )
             return _rs_break
 
-    elif not judgment_mode:
+    elif not ctx.judgment_mode:
         # A no-tool response breaks every consecutive-tool loop signal.
-        tool_round_history.clear()
-        clear_consecutive_tool_call_streak(consecutive_tool_streak)
+        ctx.tool_round_history.clear()
+        clear_consecutive_tool_call_streak(ctx.consecutive_tool_streak)
 
-    return (
-        _RS_OK,
-        client,
-        gemini_cache_name,
-        empty_no_tool_rounds,
-        assistant_text,
+    return _round_outcome(ctx, _RS_OK, ctx.assistant_text)
+
+
+def _run_one_round(
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    *,
+    core: Any,
+    make_client_fn: Any,
+    append_result_to_outfile_fn: Any,
+    try_open_images_from_text_fn: Any,
+    round_count: int,
+    max_tool_rounds: int,
+    empty_no_tool_rounds: int,
+    empty_no_tool_max: int,
+    cache_mgr: Any,
+    gemini_cache_name: str | None,
+    use_llm_thread: bool,
+    judgment_mode: bool = False,
+    tool_round_history: deque[tuple[tuple[str, str], ...]] | None = None,
+    consecutive_tool_streak: dict[str, Any] | None = None,
+) -> _RoundOutcome:
+    """Run a single LLM round.
+
+    Returns a _RoundOutcome. Caller dispatches on status:
+      RS_RETURN   → return from run_llm_rounds
+      RS_BREAK    → break while loop
+      RS_CONTINUE → continue while loop (skip postamble)
+      RS_OK       → execute postamble, then continue loop
+    When judgment_mode=True, tool execution is suppressed and side effects
+    (log, outfile, image open) are skipped. Only the assistant text is returned.
+    """
+    if tool_round_history is None:
+        tool_round_history = deque(maxlen=_TOOL_ROUND_HISTORY_SIZE)
+    if consecutive_tool_streak is None:
+        consecutive_tool_streak = _loop_guard_state().consecutive
+
+    ctx = _RoundContext(
+        provider=provider,
+        client=client,
+        depname=depname,
+        messages=messages,
+        core=core,
+        make_client_fn=make_client_fn,
+        append_result_to_outfile_fn=append_result_to_outfile_fn,
+        try_open_images_from_text_fn=try_open_images_from_text_fn,
+        round_count=round_count,
+        max_tool_rounds=max_tool_rounds,
+        empty_no_tool_rounds=empty_no_tool_rounds,
+        empty_no_tool_max=empty_no_tool_max,
+        cache_mgr=cache_mgr,
+        gemini_cache_name=gemini_cache_name,
+        use_llm_thread=use_llm_thread,
+        judgment_mode=judgment_mode,
+        tool_round_history=tool_round_history,
+        consecutive_tool_streak=consecutive_tool_streak,
     )
+    outcome = _prepare_round(ctx)
+    if outcome is not None:
+        return outcome
+    outcome = _dispatch_round(ctx)
+    if outcome is not None:
+        return outcome
+    return _execute_round_tools(ctx)
 
 
 def _observed_llm_rounds(fn: Any) -> Any:
@@ -3340,13 +3370,7 @@ def run_llm_rounds(
                     )
                     core._gemini_cache_needs_refresh = False
 
-            (
-                round_status,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                _round_text,
-            ) = _run_one_round(
+            _outcome = _run_one_round(
                 provider=provider,
                 client=client,
                 depname=depname,
@@ -3366,6 +3390,11 @@ def run_llm_rounds(
                 tool_round_history=tool_round_history,
                 consecutive_tool_streak=consecutive_tool_streak,
             )
+            round_status = _outcome.status
+            client = _outcome.client
+            gemini_cache_name = _outcome.gemini_cache_name
+            empty_no_tool_rounds = _outcome.empty_no_tool_rounds
+            _round_text = _outcome.assistant_text
 
             completion_regex = getattr(core, "auto_pilot_complete_regex", None)
             if completion_regex and _completion_regex_matches(
