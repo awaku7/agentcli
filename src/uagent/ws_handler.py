@@ -348,9 +348,14 @@ class WsHandler:
                 os.environ.get("UAGENT_STREAMING", "?"),
                 len(cache["messages"]),
             )
-            try:
-                await asyncio.to_thread(
-                    llm_util.run_llm_rounds,
+
+            def _run_rounds() -> None:
+                # asyncio.to_thread copies the caller's context into the
+                # worker thread; counters created there never reach the
+                # next request. Bind the handler's own state (one handler
+                # serves one conversation) so it persists across requests.
+                llm_util._bind_auto_unload_state(self)
+                llm_util.run_llm_rounds(
                     cache["provider"],
                     cache["client"],
                     cache["depname"],
@@ -360,6 +365,9 @@ class WsHandler:
                     append_result_to_outfile_fn=lambda *a, **kw: None,
                     try_open_images_from_text_fn=lambda *a, **kw: None,
                 )
+
+            try:
+                await asyncio.to_thread(_run_rounds)
                 _lg.getLogger("uag.ws_handler").info(
                     "_AFTER_CALL_OK provider=%s msgs=%d",
                     cache["provider"],

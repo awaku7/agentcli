@@ -6,6 +6,8 @@
 2. Loop-guard state belongs to one conversation. A2A with
    UAGENT_A2A_CONCURRENCY>1 runs Tasks as threads in one process, so one Task
    must neither trip nor reset another Task's guard.
+3. Auto-unload counters belong to one conversation too (RL-05): one Task's
+   rounds must not age another Task's tools.
 """
 
 from __future__ import annotations
@@ -312,3 +314,118 @@ def test_auto_pilot_preserve_keeps_counters_in_same_context() -> None:
     assert llm._TOOL_CALL_FINGERPRINTS["tool_load:file_grep"] == 1
     llm.begin_loop_guard_turn()
     assert "tool_load:file_grep" not in llm._TOOL_CALL_FINGERPRINTS
+
+
+# ---------------------------------------------------------------------------
+# 3. Auto-unload counter isolation
+# ---------------------------------------------------------------------------
+
+
+def test_auto_unload_counters_are_isolated_between_threads() -> None:
+    """Two sessions in separate threads keep separate auto-unload counters."""
+    import uagent.uagent_llm as llm
+
+    seen: dict[str, tuple[int, int, int]] = {}
+
+    def session(name: str, rounds: int) -> None:
+        state = llm._auto_unload_state()
+        for _ in range(rounds):
+            state.total_rounds += 1
+            state.productive_rounds += 1
+        state.last_round["tool_x"] = state.productive_rounds
+        seen[name] = (
+            state.total_rounds,
+            state.productive_rounds,
+            state.last_round["tool_x"],
+        )
+
+    threads = [
+        threading.Thread(target=session, args=("a", 3)),
+        threading.Thread(target=session, args=("b", 1)),
+    ]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=10)
+
+    assert seen["a"] == (3, 3, 3)
+    assert seen["b"] == (1, 1, 1)
+
+
+def test_auto_unload_state_rebinds_across_threads_via_owner() -> None:
+    """Web shape: a fresh thread per turn keeps the room's counters."""
+    import uagent.uagent_llm as llm
+
+    room = SimpleNamespace()
+    seen: dict[str, int] = {}
+
+    def turn(owner, name: str, rounds: int) -> None:
+        state = llm._bind_auto_unload_state(owner)
+        for _ in range(rounds):
+            state.productive_rounds += 1
+        state.last_round["tool_x"] = state.productive_rounds
+        seen[name] = state.productive_rounds
+
+    first = threading.Thread(target=turn, args=(room, "first", 2))
+    first.start()
+    first.join(timeout=10)
+    second = threading.Thread(target=turn, args=(room, "second", 3))
+    second.start()
+    second.join(timeout=10)
+    assert seen == {"first": 2, "second": 5}
+
+    other_room = SimpleNamespace()
+    third = threading.Thread(target=turn, args=(other_room, "other", 1))
+    third.start()
+    third.join(timeout=10)
+    assert seen["other"] == 1
+
+
+def test_auto_unload_state_persists_across_to_thread_calls() -> None:
+    """asyncio.to_thread copies context in but never back: bind per call."""
+    import asyncio
+
+    import uagent.uagent_llm as llm
+
+    # A fresh state on the owner: binding must not adopt whatever state
+    # earlier tests left in this process's ambient context.
+    owner = SimpleNamespace(_auto_unload_state=llm._AutoUnloadState())
+    seen: dict[str, int] = {}
+
+    async def request(key: str, rounds: int) -> None:
+        def _run() -> None:
+            state = llm._bind_auto_unload_state(owner)
+            state.total_rounds += rounds
+            seen[key] = state.total_rounds
+
+        await asyncio.to_thread(_run)
+
+    async def main() -> None:
+        await request("first", 2)
+        await request("second", 3)
+
+    asyncio.run(main())
+    # Without the bind, the second request would restart from 0 (total 3).
+    assert seen == {"first": 2, "second": 5}
+
+
+def test_auto_unload_state_bound_for_command_context() -> None:
+    """Web command handlers read the room's counters inside the bound block."""
+    import uagent.uagent_llm as llm
+
+    room = SimpleNamespace(_auto_unload_state=llm._AutoUnloadState())
+    state = room._auto_unload_state
+    state.productive_rounds = 5
+    state.last_round["tool_x"] = 5
+
+    def command() -> tuple[int, int]:
+        with llm._bound_auto_unload_state(room) as bound:
+            inside = (bound.productive_rounds, bound.last_round["tool_x"])
+        # The block restores the command thread's own (fresh) counters.
+        return inside, llm._auto_unload_state().productive_rounds
+
+    results: dict[str, tuple[int, int]] = {}
+    thread = threading.Thread(target=lambda: results.setdefault("cmd", command()))
+    thread.start()
+    thread.join(timeout=10)
+    assert results["cmd"] == ((5, 5), 0)

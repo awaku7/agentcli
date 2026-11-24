@@ -27,6 +27,7 @@ from ..util_cmd_session import (
 )
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
+from ..uagent_llm import _bound_auto_unload_state
 from .process_workers import bind_room_auto_pilot
 from .connection_identity import resolve_web_connection
 from .app import app
@@ -297,13 +298,14 @@ async def websocket_endpoint(websocket: WebSocket):
                                     room,
                                     enabled=web_manager.room_worker_pool is not None,
                                 ):
-                                    _result = tools_util.handle_command(
-                                        _cmd_line,
-                                        room.history,
-                                        _wc_client,
-                                        _wc_depname,
-                                        core=core,
-                                    )
+                                    with _bound_auto_unload_state(room):
+                                        _result = tools_util.handle_command(
+                                            _cmd_line,
+                                            room.history,
+                                            _wc_client,
+                                            _wc_depname,
+                                            core=core,
+                                        )
                     finally:
                         _sys.stdout = _old_stdout
                     # :load replaces the server-side history. Refresh the

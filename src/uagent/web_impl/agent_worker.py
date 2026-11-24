@@ -332,6 +332,10 @@ def run_agent_worker(
             client_message_id=client_message_id,
         )
 
+    # Web turns run in a fresh thread per message; rebind this room's
+    # auto-unload counters so a tool's idle history survives across turns.
+    llm_util._bind_auto_unload_state(room)
+
     def _run_web_turn(fn, *args, **kwargs):
         if turn_context is not None:
             return call_with_turn_context(

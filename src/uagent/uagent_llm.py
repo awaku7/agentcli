@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from collections import deque
-from collections.abc import MutableMapping
+from collections.abc import Iterator, MutableMapping
+from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 import hashlib
@@ -165,14 +166,82 @@ def _consume_post_response_interrupt(
 
 
 # --- Tool usage tracking for auto-unload ---
-_TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
 _TOOL_AUTO_UNLOAD_ROUNDS = int(
     env_get("UAGENT_AUTO_UNLOAD_ROUNDS", "10")
 )  # unload after this many rounds without use
-_TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
-# Rounds that actually executed the tool postamble (RS_OK). Empty/no-tool
-# continue rounds must not age auto-unload counters.
-_PRODUCTIVE_ROUNDS: int = 0
+
+
+# The counters live in a ContextVar: each thread/copied context (e.g. one
+# A2A task) tracks its own rounds, so parallel sessions cannot age each
+# other's tools. Helpers that run tools via ``submit_with_current_context``
+# share the current session's counters.
+@dataclass
+class _AutoUnloadState:
+    last_round: dict[str, int] = field(
+        default_factory=dict
+    )  # tool_name -> last round used
+    total_rounds: int = 0  # total rounds across all LLM calls, monotonically increasing
+    # Rounds that actually executed the tool postamble (RS_OK). Empty/no-tool
+    # continue rounds must not age auto-unload counters.
+    productive_rounds: int = 0
+
+
+_AUTO_UNLOAD_STATE: ContextVar[_AutoUnloadState | None] = ContextVar(
+    "uagent_auto_unload_state", default=None
+)
+
+
+def _auto_unload_state() -> _AutoUnloadState:
+    """Return the current conversation's auto-unload counters, creating them once."""
+    state = _AUTO_UNLOAD_STATE.get()
+    if state is None:
+        state = _AutoUnloadState()
+        _AUTO_UNLOAD_STATE.set(state)
+    return state
+
+
+def _owner_auto_unload_state(owner: object) -> _AutoUnloadState:
+    """Return the auto-unload counters carried by ``owner``.
+
+    On first sight the current context's state is adopted and stored on
+    the owner, which also keeps processes that serve one conversation
+    per context (CLI, pooled Web workers) on their ongoing state.
+    """
+    state = getattr(owner, "_auto_unload_state", None)
+    if state is None:
+        state = _auto_unload_state()
+        try:
+            owner._auto_unload_state = state  # type: ignore[attr-defined]
+        except Exception:
+            pass
+    return state
+
+
+def _bind_auto_unload_state(owner: object) -> _AutoUnloadState:
+    """Bind the auto-unload counters carried by ``owner`` to this context.
+
+    Web turns run in a fresh thread per message, which would otherwise
+    reset the counters every turn. The room object outlives its turns,
+    so it carries the state and each turn rebinds the stored object.
+    """
+    state = _owner_auto_unload_state(owner)
+    _AUTO_UNLOAD_STATE.set(state)
+    return state
+
+
+@contextmanager
+def _bound_auto_unload_state(owner: object) -> Iterator[_AutoUnloadState]:
+    """Bind ``owner``'s auto-unload counters for the duration of the block.
+
+    Web command handlers (e.g. ``:tools list``) run outside the worker
+    thread that binds the room's state per turn; wrap them so they read
+    the same counters the auto-unloader uses.
+    """
+    token = _AUTO_UNLOAD_STATE.set(_owner_auto_unload_state(owner))
+    try:
+        yield _AUTO_UNLOAD_STATE.get()
+    finally:
+        _AUTO_UNLOAD_STATE.reset(token)
 
 
 def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
@@ -185,7 +254,7 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
         s = int(stamp)  # type: ignore[arg-type]
     except Exception:
         return None
-    cur = _PRODUCTIVE_ROUNDS if now is None else int(now)
+    cur = _auto_unload_state().productive_rounds if now is None else int(now)
     if s > cur:
         return 10**9
     return cur - s
@@ -2267,13 +2336,14 @@ def _execute_round_tools(ctx: _RoundContext) -> _RoundOutcome:
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a
     # genuinely used tool to look idle to the auto-unloader.
-    next_productive_round = _PRODUCTIVE_ROUNDS + 1
+    _au_state = _auto_unload_state()
+    next_productive_round = _au_state.productive_rounds + 1
     for _tc in fresh_tool_calls:
         if not isinstance(_tc, dict):
             continue
         _name = str((_tc.get("function") or {}).get("name") or "").strip()
         if _name:
-            _TOOL_LAST_ROUND[_name] = next_productive_round
+            _au_state.last_round[_name] = next_productive_round
     _debug_tool_loop(
         "executed",
         fresh_count=len(fresh_tool_calls),
@@ -3135,7 +3205,7 @@ def run_llm_rounds(
     judgment_messages: list[dict[str, Any]] | None = None,
     preserve_tool_loop_state: bool = False,
 ) -> str | None:
-    global _TOTAL_ROUNDS, _PRODUCTIVE_ROUNDS, _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
+    global _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
     # Judgment mode: swap messages so all side effects go to judgment_messages
     if judgment_mode:
         if not judgment_messages:
@@ -3346,7 +3416,7 @@ def run_llm_rounds(
             usage_before_round = getattr(core, "_last_responses_usage", {})
             if not isinstance(usage_before_round, dict):
                 usage_before_round = {}
-            _TOTAL_ROUNDS += 1
+            _auto_unload_state().total_rounds += 1
             if not judgment_mode:
                 core.computer_use_turn_id = str(round_count)
                 # Tool loading/unloading changes the active registry. Refresh
@@ -3543,7 +3613,8 @@ def run_llm_rounds(
             # Empty LLM continue rounds must not decrement/advance per-tool
             # disappearance counters.
             if round_status == _RS_OK:
-                _PRODUCTIVE_ROUNDS += 1
+                _au_state = _auto_unload_state()
+                _au_state.productive_rounds += 1
                 # Search backwards for the LAST assistant message with tool_calls.
                 _found_tool_names: set[str] = set()
                 for _m in reversed(messages):
@@ -3561,7 +3632,7 @@ def run_llm_rounds(
                     break
 
                 for _tname in _found_tool_names:
-                    _TOOL_LAST_ROUND[_tname] = _PRODUCTIVE_ROUNDS
+                    _au_state.last_round[_tname] = _au_state.productive_rounds
                     _bump_threshold(_tname)
                     # tool_load(target) intentionally requested a target.
                     if _tname == "tool_load":
@@ -3592,7 +3663,9 @@ def run_llm_rounds(
                                             _args.get("name") or _args.get("tool") or ""
                                         ).strip()
                                     if _target:
-                                        _TOOL_LAST_ROUND[_target] = _PRODUCTIVE_ROUNDS
+                                        _au_state.last_round[_target] = (
+                                            _au_state.productive_rounds
+                                        )
                                 break
                         except Exception:
                             pass
@@ -3601,8 +3674,10 @@ def run_llm_rounds(
                     if _tname == "tool_catalog":
                         try:
                             for _loaded_name in list(_LOADED_SINGLE_TOOLS):
-                                if _loaded_name not in _TOOL_LAST_ROUND:
-                                    _TOOL_LAST_ROUND[_loaded_name] = _PRODUCTIVE_ROUNDS
+                                if _loaded_name not in _au_state.last_round:
+                                    _au_state.last_round[_loaded_name] = (
+                                        _au_state.productive_rounds
+                                    )
                         except Exception:
                             pass
 
@@ -3630,7 +3705,7 @@ def run_llm_rounds(
                         threshold = _get_threshold(tname)
                         if threshold <= 0:
                             continue
-                        last = _TOOL_LAST_ROUND.get(tname)
+                        last = _au_state.last_round.get(tname)
                         if last is None:
                             # An explicitly loaded tool is retained until it is
                             # used or explicitly unloaded. Unloading a tool
@@ -3646,7 +3721,7 @@ def run_llm_rounds(
                                 % {"name": tname, "n": threshold},
                                 flush=True,
                             )
-                            _TOOL_LAST_ROUND.pop(tname, None)
+                            _au_state.last_round.pop(tname, None)
                             _disable_single_tool(tname)
             # --- end auto-unload ---
 

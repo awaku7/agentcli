@@ -187,17 +187,14 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
         return CommandResult()
 
     from . import get_tool_specs
-    from ..uagent_llm import (
-        _TOOL_LAST_ROUND,
-        _TOOL_AUTO_UNLOAD_ROUNDS,
-        _TOTAL_ROUNDS,
-        _PRODUCTIVE_ROUNDS,
-    )
+    from ..uagent_llm import _TOOL_AUTO_UNLOAD_ROUNDS, _auto_unload_state
     from ._tool_load_util import (
         _LOADED_SINGLE_TOOLS,
         is_tool_pinned,
         get_threshold,
     )
+
+    _au_state = _auto_unload_state()
 
     specs = get_tool_specs()
     if not specs:
@@ -234,7 +231,11 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
                 default=(
                     "[tools] Loaded tools ({count}), total_round={r}, llm_round={p}:"
                 ),
-            ).format(count=len(names), r=_TOTAL_ROUNDS, p=_PRODUCTIVE_ROUNDS)
+            ).format(
+                count=len(names),
+                r=_au_state.total_rounds,
+                p=_au_state.productive_rounds,
+            )
         )
         for n in sorted(names):
             if n in ("tool_catalog", "tool_load", "unload_tool"):
@@ -251,10 +252,10 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
 
             # Keep display math identical to auto-unload:
             # only productive rounds age the counter.
-            if n not in _LOADED_SINGLE_TOOLS and n not in _TOOL_LAST_ROUND:
+            if n not in _LOADED_SINGLE_TOOLS and n not in _au_state.last_round:
                 print(f"  {n}  -")
                 continue
-            last = _TOOL_LAST_ROUND.get(n)
+            last = _au_state.last_round.get(n)
             loaded_at = (
                 _LOADED_SINGLE_TOOLS.get(n) if n in _LOADED_SINGLE_TOOLS else None
             )
@@ -262,7 +263,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
                 print(f"  {n}  -")
                 continue
             print(
-                f"  {n}  {_tool_expire_display(n, thr=thr, last=last, loaded_at=loaded_at, productive_rounds=_PRODUCTIVE_ROUNDS)}"
+                f"  {n}  {_tool_expire_display(n, thr=thr, last=last, loaded_at=loaded_at, productive_rounds=_au_state.productive_rounds)}"
             )
 
     from ..util_tools import CommandResult
