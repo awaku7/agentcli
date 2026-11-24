@@ -387,7 +387,9 @@ def test_auto_unload_state_persists_across_to_thread_calls() -> None:
 
     import uagent.uagent_llm as llm
 
-    owner = SimpleNamespace()
+    # A fresh state on the owner: binding must not adopt whatever state
+    # earlier tests left in this process's ambient context.
+    owner = SimpleNamespace(_auto_unload_state=llm._AutoUnloadState())
     seen: dict[str, int] = {}
 
     async def request(key: str, rounds: int) -> None:
@@ -411,8 +413,8 @@ def test_auto_unload_state_bound_for_command_context() -> None:
     """Web command handlers read the room's counters inside the bound block."""
     import uagent.uagent_llm as llm
 
-    room = SimpleNamespace()
-    state = llm._bind_auto_unload_state(room)
+    room = SimpleNamespace(_auto_unload_state=llm._AutoUnloadState())
+    state = room._auto_unload_state
     state.productive_rounds = 5
     state.last_round["tool_x"] = 5
 
