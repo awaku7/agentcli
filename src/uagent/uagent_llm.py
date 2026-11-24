@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from collections import deque
+from collections.abc import MutableMapping
+from contextvars import ContextVar
+from dataclasses import dataclass, field
 import hashlib
 import json
 import os
@@ -135,6 +138,32 @@ def _inject_stop_prompt(
     core.log_message(user_msg)
 
 
+def _consume_post_response_interrupt(
+    messages: list[dict[str, Any]],
+    core: Any,
+) -> bool:
+    """Honour an interrupt that arrived while the provider call was running.
+
+    Called after a provider response is collected and before its assistant
+    message is stored or its tool calls run, so an interrupted round never
+    executes tools or leaves unanswered tool calls in history. A Computer Use
+    confirmation that just completed consumes the pending flag once (the
+    confirmation dialog itself raised it).
+    """
+    confirmation_just_completed = bool(
+        getattr(core, "computer_use_confirmation_just_completed", False)
+    )
+    if confirmation_just_completed:
+        core.computer_use_confirmation_just_completed = False
+    with _core_module.interrupt_lock:
+        if not _core_module.interrupt_requested or confirmation_just_completed:
+            return False
+        _core_module.interrupt_requested = False
+    core._last_round_reason = "interrupted"
+    _inject_stop_prompt(messages, core)
+    return True
+
+
 # --- Tool usage tracking for auto-unload ---
 _TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
 _TOOL_AUTO_UNLOAD_ROUNDS = int(
@@ -168,11 +197,75 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 # repeated across rounds is treated as a loop (e.g. Grok reloading one tool).
 # unload_tool(target) clears that target's tool_load counter so a later
 # intentional reload is not counted as a continuation of the prior streak.
-_TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
-# Count adjacent rounds using one tool name, including rounds with new args.
-# Exact-argument repeats and short multi-tool cycles have narrower guards.
-_CONSECUTIVE_TOOL_CALL_COUNT = 0
-_CONSECUTIVE_TOOL_CALL_NAME = ""
+#
+# Loop-guard state belongs to one conversation, not to the process. A2A runs
+# concurrent Tasks as threads in a single process, so a module-global counter
+# would let one Task trip (or reset) another Task's guard. The state therefore
+# lives in a ContextVar: each thread/copied context sees its own object, while
+# helpers that run tools via ``submit_with_current_context`` share it.
+
+
+@dataclass
+class _LoopGuardState:
+    fingerprints: dict[str, int] = field(default_factory=dict)
+    # Count adjacent rounds using one tool name, including rounds with new args.
+    # Exact-argument repeats and short multi-tool cycles have narrower guards.
+    consecutive: dict[str, Any] = field(
+        default_factory=lambda: {"name": "", "count": 0}
+    )
+
+
+_LOOP_GUARD_STATE: ContextVar[_LoopGuardState | None] = ContextVar(
+    "uagent_loop_guard_state", default=None
+)
+
+
+def _loop_guard_state() -> _LoopGuardState:
+    """Return the current conversation's loop-guard state, creating it once."""
+    state = _LOOP_GUARD_STATE.get()
+    if state is None:
+        state = _LoopGuardState()
+        _LOOP_GUARD_STATE.set(state)
+    return state
+
+
+def begin_loop_guard_turn() -> _LoopGuardState:
+    """Start a fresh loop-guard state for a new user turn in this context."""
+    state = _LoopGuardState()
+    _LOOP_GUARD_STATE.set(state)
+    return state
+
+
+class _ContextFingerprints(MutableMapping):
+    """Mapping view of the current context's loop-guard fingerprints.
+
+    Kept under the historical ``_TOOL_CALL_FINGERPRINTS`` name so existing
+    callers and tests keep working while the storage is context-local.
+    """
+
+    def _data(self) -> dict[str, int]:
+        return _loop_guard_state().fingerprints
+
+    def __getitem__(self, key: str) -> int:
+        return self._data()[key]
+
+    def __setitem__(self, key: str, value: int) -> None:
+        self._data()[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self._data()[key]
+
+    def __iter__(self):
+        return iter(list(self._data()))
+
+    def __len__(self) -> int:
+        return len(self._data())
+
+    def __repr__(self) -> str:
+        return f"_ContextFingerprints({self._data()!r})"
+
+
+_TOOL_CALL_FINGERPRINTS: MutableMapping = _ContextFingerprints()
 _TOOL_ROUND_HISTORY_SIZE = 12
 _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
@@ -384,14 +477,11 @@ def clear_general_tool_loop_streaks() -> None:
 def clear_consecutive_tool_call_streak(
     streak: dict[str, Any] | None = None,
 ) -> None:
-    """Clear a same-tool-name streak (or the legacy module-level counter)."""
-    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
-    if streak is not None:
-        streak.clear()
-        streak.update({"name": "", "count": 0})
-        return
-    _CONSECUTIVE_TOOL_CALL_COUNT = 0
-    _CONSECUTIVE_TOOL_CALL_NAME = ""
+    """Clear a same-tool-name streak (default: the current context's streak)."""
+    if streak is None:
+        streak = _loop_guard_state().consecutive
+    streak.clear()
+    streak.update({"name": "", "count": 0})
 
 
 def check_consecutive_tool_calls(
@@ -407,7 +497,8 @@ def check_consecutive_tool_calls(
     round resets this name-specific streak; repeated multi-tool cycles are
     handled separately by ``check_repeating_tool_round_cycle``.
     """
-    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
+    if streak is None:
+        streak = _loop_guard_state().consecutive
     raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "50")
     try:
         default_limit = max(1, int(raw_limit))
@@ -432,23 +523,11 @@ def check_consecutive_tool_calls(
         return False, _("consecutive tool calls"), 0
 
     current_name = round_names[0]
-    previous_name = (
-        str(streak.get("name", ""))
-        if streak is not None
-        else _CONSECUTIVE_TOOL_CALL_NAME
-    )
-    previous_count = (
-        int(streak.get("count", 0))
-        if streak is not None
-        else _CONSECUTIVE_TOOL_CALL_COUNT
-    )
+    previous_name = str(streak.get("name", ""))
+    previous_count = int(streak.get("count", 0))
     count = previous_count + 1 if current_name == previous_name else 1
     if record:
-        if streak is not None:
-            streak.update({"name": current_name, "count": count})
-        else:
-            _CONSECUTIVE_TOOL_CALL_COUNT = count
-            _CONSECUTIVE_TOOL_CALL_NAME = current_name
+        streak.update({"name": current_name, "count": count})
     return count >= limit, current_name, count
 
 
@@ -1540,7 +1619,7 @@ def _run_one_round(
     if tool_round_history is None:
         tool_round_history = deque(maxlen=_TOOL_ROUND_HISTORY_SIZE)
     if consecutive_tool_streak is None:
-        consecutive_tool_streak = {"name": "", "count": 0}
+        consecutive_tool_streak = _loop_guard_state().consecutive
 
     # ── Preamble ──────────────────────────────────────────────────
 
@@ -1949,6 +2028,16 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
+        # Same boundary as the OpenAI-compatible path: an interrupt that
+        # arrived during the provider call must win before any tool runs.
+        if _consume_post_response_interrupt(messages, core):
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
         if not round_supports_tool_continuation:
             assistant_text = _translate_assistant_if_needed(
                 assistant_text=assistant_text,
@@ -2017,23 +2106,14 @@ def _run_one_round(
         # for full-history fallback and tool-call continuation.
         responses_output_items = getattr(core, "_last_responses_output_items", None)
 
-        # --- Interrupt check (OpenAI/Azure) ---
-        confirmation_just_completed = bool(
-            getattr(core, "computer_use_confirmation_just_completed", False)
-        )
-        if confirmation_just_completed:
-            core.computer_use_confirmation_just_completed = False
-        with _core_module.interrupt_lock:
-            if _core_module.interrupt_requested and not confirmation_just_completed:
-                _core_module.interrupt_requested = False
-                _inject_stop_prompt(messages, core)
-                return (
-                    _RS_BREAK,
-                    client,
-                    gemini_cache_name,
-                    empty_no_tool_rounds,
-                    assistant_text,
-                )
+        if _consume_post_response_interrupt(messages, core):
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
 
         if _should_keep_assistant_message(assistant_text, tool_calls_list):
             if reasoning_content:
@@ -2337,7 +2417,7 @@ def _run_one_round(
         # A per-tool-name streak is a secondary guard for varying arguments.
         # Mixed-tool rounds reset it; the 128-round cap remains the final limit.
         blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
-            fresh_tool_calls
+            fresh_tool_calls, streak=consecutive_tool_streak
         )
         if blocked:
             core._last_round_reason = "loop_guard"
@@ -3119,16 +3199,15 @@ def run_llm_rounds(
     tool_round_history: deque[tuple[tuple[str, str], ...]] = deque(
         maxlen=_TOOL_ROUND_HISTORY_SIZE
     )
-    if preserve_tool_loop_state:
-        consecutive_tool_streak = getattr(core, "_consecutive_tool_streak", None)
-        if not isinstance(consecutive_tool_streak, dict):
-            consecutive_tool_streak = {"name": "", "count": 0}
-    else:
-        consecutive_tool_streak = {"name": "", "count": 0}
-    try:
-        core._consecutive_tool_streak = consecutive_tool_streak
-    except Exception:
-        pass
+    # Reset loop detection for a new user operation. Auto-Pilot invokes this
+    # function once for each follow-up round from the same context, so those
+    # calls must preserve the counters or a repeated tool_load can evade the
+    # runaway guard forever. The state is context-local (see _LoopGuardState)
+    # so concurrent A2A Tasks never share or reset each other's counters.
+    loop_guard_state = (
+        _loop_guard_state() if preserve_tool_loop_state else begin_loop_guard_turn()
+    )
+    consecutive_tool_streak = loop_guard_state.consecutive
 
     empty_no_tool_rounds = 0
 
@@ -3155,12 +3234,7 @@ def run_llm_rounds(
 
     use_llm_thread = _env_default_on("UAGENT_LLM_IN_THREAD")
 
-    # Reset loop detection for a new user operation. Auto-Pilot invokes this
-    # function once for each follow-up round, so those calls must preserve the
-    # counters or a repeated tool_load can evade the runaway guard forever.
     if not preserve_tool_loop_state:
-        _TOOL_CALL_FINGERPRINTS.clear()
-        clear_consecutive_tool_call_streak()
         try:
             core._file_grep_turn_count = 0
         except Exception:
