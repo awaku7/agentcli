@@ -94,6 +94,16 @@ def _build_uagent_env_text(
     return "\n".join(lines).rstrip() + "\n"
 
 
+def describe_error(exc: BaseException) -> str:
+    """Format an exception for a warning line, always naming its type.
+
+    Some exceptions (notably cryptography's InvalidTag) have an empty
+    message; printing the exception alone would leave the reason blank.
+    """
+    message = str(exc)
+    return f"{type(exc).__name__}: {message}" if message else type(exc).__name__
+
+
 def _write_text_atomic(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_name(path.name + ".tmp")
@@ -168,7 +178,8 @@ def _maybe_offer_envsec_sync(
             sec_plain = _read_envsec_plaintext(sec_path)
         except Exception as e:
             print(
-                "[WARN] Failed to decrypt .env.sec: %(err)s" % {"err": e},
+                "[WARN] Failed to decrypt .env.sec: %(err)s"
+                % {"err": describe_error(e)},
                 file=sys.stderr,
             )
             sec_plain = ""
@@ -237,7 +248,10 @@ def _maybe_offer_envsec_sync(
                 return True
             except Exception as e:
                 print(
-                    _("[WARN] Failed to update .env.sec: %(err)s", err=e),
+                    _(
+                        "[WARN] Failed to update .env.sec: %(err)s",
+                        err=describe_error(e),
+                    ),
                     file=sys.__stderr__,
                 )
                 return False
@@ -252,7 +266,7 @@ def _maybe_offer_envsec_sync(
             return True
         except Exception as e:
             print(
-                _("[WARN] Failed to update .env.sec: %(err)s", err=e),
+                _("[WARN] Failed to update .env.sec: %(err)s", err=describe_error(e)),
                 file=sys.__stderr__,
             )
             return False
