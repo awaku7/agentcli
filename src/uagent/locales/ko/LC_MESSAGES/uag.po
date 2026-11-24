@@ -5151,3 +5151,12 @@ msgstr "[LOCAL] 다른 UAG 피어가 온라인 상태입니다: %(entrypoint)s(P
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] 수락된 메시지 차례를 시작할 수 없습니다: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "브라우저를 열 수 없습니다: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "브라우저를 열었습니다."

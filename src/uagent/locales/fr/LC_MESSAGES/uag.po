@@ -5439,3 +5439,12 @@ msgstr "[LOCAL] Un autre homologue UAG est en ligne : %(entrypoint)s (PID %(pid)
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Impossible de démarrer le tour de message accepté : %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Impossible d'ouvrir le navigateur : %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Le navigateur a été ouvert."

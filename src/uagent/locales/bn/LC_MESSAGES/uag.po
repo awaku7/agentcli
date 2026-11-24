@@ -5337,3 +5337,12 @@ msgstr "[LOCAL] অন্য UAG পিয়ার অনলাইন: %(entryp
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] গৃহীত বার্তার পালা শুরু করা যায়নি: %(error_type)s।"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "ব্রাউজার খোলা যায়নি: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "ব্রাউজার খোলা হয়েছে।"

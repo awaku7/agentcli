@@ -5414,3 +5414,12 @@ msgstr "[LOCAL] Інший партнер UAG у мережі: %(entrypoint)s (P
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Не вдалося почати чергу прийнятих повідомлень: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Не вдалося відкрити браузер: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Браузер відкрито."

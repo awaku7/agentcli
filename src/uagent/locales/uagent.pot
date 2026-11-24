@@ -4561,3 +4561,12 @@ msgstr ""
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr ""
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr ""
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr ""

@@ -5208,3 +5208,12 @@ msgstr "[LOCAL] Rekan UAG lainnya sedang online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Tidak dapat memulai giliran pesan yang diterima: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Tidak dapat membuka browser: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Browser telah dibuka."

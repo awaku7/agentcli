@@ -5071,3 +5071,12 @@ msgstr "[LOCAL] Seorang lagi rakan sebaya UAG sedang dalam talian: %(entrypoint)
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Tidak dapat memulakan giliran mesej yang diterima: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Tidak dapat membuka pelayar: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Pelayar telah dibuka."

@@ -5379,3 +5379,12 @@ msgstr "[LOCAL] Başka bir UAG eşi çevrimiçi: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Kabul edilen mesaj sırası başlatılamadı: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Tarayıcı açılamadı: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Tarayıcı açıldı."
