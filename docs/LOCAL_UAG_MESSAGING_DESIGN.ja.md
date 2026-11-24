@@ -100,7 +100,7 @@ SQLite は参加 endpoint の登録/heartbeat とメッセージの耐久化・�
 1. endpoint は正常終了/opt-out 時に削除する。クラッシュ時は heartbeat の期限切れと PID + `create_time` の照合で stale と判定し、PID だけで稼働中と判断しない。
 1. 登録簿や DB が利用不能でも UAG 本体の起動は妨げない。監視・メッセージ機能は best-effort とする。
 
-**初期版の状態表示**は稼働中かどうか、entrypoint、PID、起動時刻までに限定する。CLI poller は inbox を約 0.5 秒ごとに確認し、heartbeat を 2 秒ごとに更新する。heartbeat が 15 秒以上古い endpoint は peer 一覧から除外する。`idle`/`busy`/`awaiting_confirmation` といった活動状態が必要なら、別途 heartbeat/status の仕様とプライバシー方針を定義する。会話本文、prompt、Tool 入出力は状態表示へ含めない。
+endpoint の状態表示には稼働情報（entrypoint、PID、起動時刻）に加え、workdir と短い purpose を含める。workdir は現在のプロセスのカレントディレクトリ（Web は private room の base_dir）、purpose は `UAGENT_WORK_PURPOSE` または `local_messaging(action=list, purpose=...)` で明示された最大500文字の要約とする。会話本文・prompt・Tool 入出力を自動収集しない。作業状況は同じ scope の peer 一覧から直接参照でき、状態の登録・一覧表示に `human_ask` は使わない。CLI poller は inbox を約 0.5 秒ごとに確認し、heartbeat と workdir を 2 秒ごとに更新する。heartbeat が 15 秒以上古い endpoint は peer 一覧から除外する。`idle`/`busy`/`awaiting_confirmation` といった活動状態は引き続き対象外。
 
 ## 7. SQLite メールボックス
 
@@ -122,6 +122,8 @@ SQLite は参加 endpoint の登録/heartbeat とメッセージの耐久化・�
 | `entrypoint` | `cli` / `gui` / `web` / `a2a` |
 | `pid` / `create_time` | OS process incarnation の照合。PID 再利用を誤認しない |
 | `enabled_at` / `heartbeat_at` | 参加状態と稼働状態の確認。endpoint は heartbeat TTL で期限切れとする |
+| `workdir` | ホストが共有する現在の作業ディレクトリ |
+| `purpose` | endpoint が明示的に共有する短い作業目的（最大500文字）。prompt全文は保存しない |
 
 Web 対応時は `principal_id` / `room_id` 等の認証・配送スコープを追加し、Web server process 一つを一つのユーザー endpoint とみなさない。
 
@@ -177,7 +179,7 @@ A2A endpoint は既定で無効とする。両管理者設定が有効な場合�
 
 ## 10. 送信 API / Tool 案
 
-- `local_messaging(action=list)`: 到達可能な参加 endpoint を一覧表示する。Webではprincipal/room/projectの範囲内に限定する。会話本文や秘密情報は返さない。
+- `local_messaging(action=list, purpose=...)`: 到達可能な参加 endpoint と共有済みの workdir/purpose を一覧表示する。`purpose` を指定した場合は現在のendpoint情報として共有する。Webではprincipal/room/projectの範囲内に限定し、状態共有に `human_ask` は使わない。会話本文や秘密情報は返さない。
 - `local_messaging(action=send)`: 一覧の `endpoint_id` を指定してテキストを送る。message ID と配送受付状態を返す。
 - `local_messaging(action=inbox)`: A2A専用。管理者opt-in済みA2A endpointに対し、現在の認証済みtaskが明示的に受信内容を取得する。
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import multiprocessing
 import queue
+import sqlite3
 import time
 
 import psutil
@@ -19,13 +20,21 @@ from uagent.runtime.local_messaging import (
 )
 
 
-def _register(store: LocalMessageStore, endpoint_id: str) -> None:
+def _register(
+    store: LocalMessageStore,
+    endpoint_id: str,
+    *,
+    workdir: str = "",
+    purpose: str = "",
+) -> None:
     process = psutil.Process(os.getpid())
     store.register_endpoint(
         endpoint_id,
         entrypoint="cli",
         pid=process.pid,
         create_time=process.create_time(),
+        workdir=workdir,
+        purpose=purpose,
     )
 
 
@@ -160,10 +169,12 @@ def test_runtime_reports_new_peers_and_delivers_inbox(tmp_path) -> None:
     runtime = LocalMessageRuntime(events, store=store, poll_interval=0.05)
     runtime.start()
     try:
-        _register(store, "peer")
+        _register(store, "peer", workdir=str(tmp_path), purpose="peer purpose")
         started = events.get(timeout=2)
         assert started["kind"] == "local_agent_started"
         assert started["peer"]["endpoint_id"] == "peer"
+        assert started["peer"]["workdir"] == str(tmp_path)
+        assert started["peer"]["purpose"] == "peer purpose"
         assert runtime.is_peer_active("peer")
 
         message_id = store.send_message("peer", runtime.endpoint_id, "incoming")
@@ -178,6 +189,51 @@ def test_runtime_reports_new_peers_and_delivers_inbox(tmp_path) -> None:
     finally:
         runtime.stop()
     assert not runtime.is_sender_approved("peer")
+
+
+def test_existing_message_database_migrates_status_columns(tmp_path) -> None:
+    db_path = tmp_path / "messages.sqlite3"
+    with sqlite3.connect(db_path) as connection:
+        connection.execute(
+            "CREATE TABLE endpoints ("
+            "endpoint_id TEXT PRIMARY KEY, process_key TEXT NOT NULL, "
+            "entrypoint TEXT NOT NULL, pid INTEGER NOT NULL, "
+            "create_time REAL NOT NULL, enabled_at REAL NOT NULL, "
+            "heartbeat_at REAL NOT NULL)"
+        )
+
+    store = LocalMessageStore(db_path)
+    _register(store, "legacy-peer", workdir=str(tmp_path), purpose="legacy migrated")
+    peer = store.active_endpoint("legacy-peer")
+    assert peer is not None
+    assert peer["workdir"] == str(tmp_path)
+    assert peer["purpose"] == "legacy migrated"
+
+
+def test_endpoint_status_can_be_published_without_a_message(tmp_path) -> None:
+    store = LocalMessageStore(tmp_path / "messages.sqlite3")
+    events: queue.Queue[dict] = queue.Queue()
+    runtime = LocalMessageRuntime(
+        events,
+        store=store,
+        poll_interval=0.05,
+        workdir=str(tmp_path),
+        purpose="starting purpose",
+    )
+    runtime.start()
+    try:
+        status = runtime.publish_status("Review local peer status exchange")
+        assert status == {
+            "workdir": str(tmp_path.resolve()),
+            "purpose": "Review local peer status exchange",
+        }
+        saved = store.active_endpoint(runtime.endpoint_id)
+        assert saved is not None
+        assert saved["workdir"] == status["workdir"]
+        assert saved["purpose"] == status["purpose"]
+        assert store.claim_messages(runtime.endpoint_id) == []
+    finally:
+        runtime.stop()
 
 
 def test_two_process_cli_message_round_trip(tmp_path) -> None:

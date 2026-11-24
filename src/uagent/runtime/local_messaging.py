@@ -28,6 +28,8 @@ ENDPOINT_TTL = 15.0
 MESSAGE_TTL = 3600.0
 MESSAGE_RETENTION = 7 * 24 * 3600.0
 MAX_MESSAGE_CHARS = 4000
+MAX_WORKDIR_CHARS = 2048
+MAX_PURPOSE_CHARS = 500
 _ACTIVE_ENDPOINTS: set[str] = set()
 _ACTIVE_ENDPOINTS_LOCK = threading.Lock()
 
@@ -45,6 +47,33 @@ def current_process_key() -> str:
 
 def current_endpoint_id(entrypoint: str = "cli") -> str:
     return f"{entrypoint}:{current_process_key()}"
+
+
+def _normalize_workdir(value: Any = None) -> str:
+    raw = str(value or os.getcwd()).strip()
+    try:
+        resolved = str(Path(raw).expanduser().resolve())
+    except (OSError, RuntimeError):
+        resolved = os.path.abspath(os.path.expanduser(raw))
+    if len(resolved) > MAX_WORKDIR_CHARS:
+        raise ValueError(f"workdir exceeds {MAX_WORKDIR_CHARS} characters")
+    return resolved
+
+
+def _normalize_purpose(value: Any = None) -> str:
+    purpose = str(value or "").strip()
+    if len(purpose) > MAX_PURPOSE_CHARS:
+        raise ValueError(f"purpose exceeds {MAX_PURPOSE_CHARS} characters")
+    return purpose
+
+
+def _host_workdir(host: Any, entrypoint: str) -> str:
+    """Use per-room base_dir for Web; other entrypoints track process cwd."""
+    if str(entrypoint) == "web":
+        room_workdir = getattr(host, "base_dir", None)
+        if room_workdir:
+            return _normalize_workdir(room_workdir)
+    return _normalize_workdir(os.getcwd())
 
 
 def local_endpoint_is_active(endpoint_id: str) -> bool:
@@ -158,6 +187,8 @@ class LocalMessageStore:
                     principal_id TEXT NOT NULL DEFAULT '',
                     room_id TEXT NOT NULL DEFAULT '',
                     project_id TEXT NOT NULL DEFAULT '',
+                    workdir TEXT NOT NULL DEFAULT '',
+                    purpose TEXT NOT NULL DEFAULT '',
                     enabled_at REAL NOT NULL,
                     heartbeat_at REAL NOT NULL
                 );
@@ -182,7 +213,13 @@ class LocalMessageStore:
                 str(row["name"])
                 for row in connection.execute("PRAGMA table_info(endpoints)")
             }
-            for column in ("principal_id", "room_id", "project_id"):
+            for column in (
+                "principal_id",
+                "room_id",
+                "project_id",
+                "workdir",
+                "purpose",
+            ):
                 if column not in existing_columns:
                     connection.execute(
                         f"ALTER TABLE endpoints ADD COLUMN {column} TEXT NOT NULL DEFAULT ''"
@@ -206,6 +243,8 @@ class LocalMessageStore:
         principal_id: str = "",
         room_id: str = "",
         project_id: str = "",
+        workdir: str = "",
+        purpose: str = "",
     ) -> None:
         process = psutil.Process(os.getpid() if pid is None else int(pid))
         resolved_pid = int(process.pid)
@@ -221,8 +260,9 @@ class LocalMessageStore:
                 """
                 INSERT INTO endpoints(
                     endpoint_id, process_key, entrypoint, pid, create_time,
-                    principal_id, room_id, project_id, enabled_at, heartbeat_at
-                ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    principal_id, room_id, project_id, workdir, purpose,
+                    enabled_at, heartbeat_at
+                ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(endpoint_id) DO UPDATE SET
                     process_key=excluded.process_key,
                     entrypoint=excluded.entrypoint,
@@ -231,6 +271,8 @@ class LocalMessageStore:
                     principal_id=excluded.principal_id,
                     room_id=excluded.room_id,
                     project_id=excluded.project_id,
+                    workdir=excluded.workdir,
+                    purpose=excluded.purpose,
                     heartbeat_at=excluded.heartbeat_at
                 """,
                 (
@@ -242,6 +284,8 @@ class LocalMessageStore:
                     str(principal_id or ""),
                     str(room_id or ""),
                     str(project_id or ""),
+                    str(workdir or ""),
+                    str(purpose or ""),
                     now,
                     now,
                 ),
@@ -252,6 +296,36 @@ class LocalMessageStore:
             cursor = connection.execute(
                 "UPDATE endpoints SET heartbeat_at=? WHERE endpoint_id=?",
                 (time.time(), endpoint_id),
+            )
+            return cursor.rowcount == 1
+
+    def update_endpoint_status(
+        self,
+        endpoint_id: str,
+        *,
+        workdir: str | None = None,
+        purpose: str | None = None,
+    ) -> bool:
+        """Update the active endpoint's explicitly shareable status fields."""
+        values: dict[str, Any] = {}
+        if workdir is not None:
+            normalized_workdir = str(workdir).strip()
+            if len(normalized_workdir) > MAX_WORKDIR_CHARS:
+                raise ValueError(f"workdir exceeds {MAX_WORKDIR_CHARS} characters")
+            values["workdir"] = normalized_workdir
+        if purpose is not None:
+            normalized_purpose = str(purpose).strip()
+            if len(normalized_purpose) > MAX_PURPOSE_CHARS:
+                raise ValueError(f"purpose exceeds {MAX_PURPOSE_CHARS} characters")
+            values["purpose"] = normalized_purpose
+        if not values:
+            return self.active_endpoint(endpoint_id) is not None
+        values["heartbeat_at"] = time.time()
+        assignments = ", ".join(f"{column}=?" for column in values)
+        with self._connect() as connection:
+            cursor = connection.execute(
+                f"UPDATE endpoints SET {assignments} WHERE endpoint_id=?",
+                [*values.values(), endpoint_id],
             )
             return cursor.rowcount == 1
 
@@ -289,7 +363,8 @@ class LocalMessageStore:
         with self._connect() as connection:
             row = connection.execute(
                 "SELECT endpoint_id, process_key, entrypoint, pid, create_time, "
-                "principal_id, room_id, project_id, enabled_at, heartbeat_at "
+                "principal_id, room_id, project_id, workdir, purpose, "
+                "enabled_at, heartbeat_at "
                 "FROM endpoints WHERE endpoint_id=?",
                 (endpoint_id,),
             ).fetchone()
@@ -353,7 +428,8 @@ class LocalMessageStore:
                 )
             rows = connection.execute(
                 "SELECT endpoint_id, process_key, entrypoint, pid, create_time, "
-                "principal_id, room_id, project_id, enabled_at, heartbeat_at "
+                "principal_id, room_id, project_id, workdir, purpose, "
+                "enabled_at, heartbeat_at "
                 "FROM endpoints WHERE " + " AND ".join(filters) + " "
                 "ORDER BY enabled_at, endpoint_id",
                 params,
@@ -519,6 +595,8 @@ class LocalMessageRuntime:
         principal_id: str = "",
         room_id: str = "",
         project_id: str = "",
+        workdir: str | None = None,
+        purpose: str | None = None,
         store: LocalMessageStore | None = None,
         poll_interval: float = DEFAULT_POLL_INTERVAL,
         receive_messages: bool = True,
@@ -532,6 +610,11 @@ class LocalMessageRuntime:
         self.principal_id = str(principal_id or "")
         self.room_id = str(room_id or "")
         self.project_id = str(project_id or "")
+        self.workdir = _normalize_workdir(workdir)
+        self.purpose = _normalize_purpose(
+            purpose if purpose is not None else env_get("UAGENT_WORK_PURPOSE", "")
+        )
+        self.host: Any | None = None
         self.poll_interval = max(0.1, float(poll_interval))
         self.receive_messages = bool(receive_messages)
         self.announce_peers = bool(announce_peers)
@@ -548,6 +631,25 @@ class LocalMessageRuntime:
             room_id=self.room_id,
             project_id=self.project_id,
         )
+
+    def publish_status(self, purpose: str | None = None) -> dict[str, str]:
+        """Publish current workdir and short purpose as endpoint metadata.
+
+        Purpose is supplied explicitly by the caller or configured through
+        UAGENT_WORK_PURPOSE; arbitrary conversation content is not harvested.
+        """
+        if purpose is not None:
+            self.purpose = _normalize_purpose(purpose)
+        self.workdir = (
+            _host_workdir(self.host, self.entrypoint)
+            if self.host is not None
+            else self.workdir
+        )
+        if not self.store.update_endpoint_status(
+            self.endpoint_id, workdir=self.workdir, purpose=self.purpose
+        ):
+            raise ValueError("local messaging endpoint is not active")
+        return {"workdir": self.workdir, "purpose": self.purpose}
 
     def is_peer_active(self, endpoint_id: str) -> bool:
         """Recheck peer liveness before displaying a queued online notice."""
@@ -571,6 +673,8 @@ class LocalMessageRuntime:
             principal_id=self.principal_id,
             room_id=self.room_id,
             project_id=self.project_id,
+            workdir=self.workdir,
+            purpose=self.purpose,
         )
 
     def start(self) -> list[dict[str, Any]]:
@@ -624,6 +728,16 @@ class LocalMessageRuntime:
                 if now - last_heartbeat >= HEARTBEAT_INTERVAL:
                     if not self.store.heartbeat(self.endpoint_id):
                         self._register()
+                    self.workdir = (
+                        _host_workdir(self.host, self.entrypoint)
+                        if self.host is not None
+                        else self.workdir
+                    )
+                    self.store.update_endpoint_status(
+                        self.endpoint_id,
+                        workdir=self.workdir,
+                        purpose=self.purpose,
+                    )
                     last_heartbeat = now
 
                 peers = self.list_peers()
@@ -662,6 +776,8 @@ def start_host_local_messaging(
     principal_id: str = "",
     room_id: str = "",
     project_id: str = "",
+    workdir: str | None = None,
+    purpose: str | None = None,
     store: LocalMessageStore | None = None,
     receive_messages: bool = True,
     announce_peers: bool = True,
@@ -676,6 +792,8 @@ def start_host_local_messaging(
         principal_id=principal_id,
         room_id=room_id,
         project_id=project_id,
+        workdir=workdir or _host_workdir(host, entrypoint),
+        purpose=purpose,
         store=store,
         receive_messages=receive_messages,
         announce_peers=announce_peers,
@@ -686,6 +804,7 @@ def start_host_local_messaging(
         runtime.stop()
         raise
     host._local_messaging_runtime = runtime
+    runtime.host = host
     return runtime, peers
 
 

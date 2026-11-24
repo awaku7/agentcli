@@ -77,7 +77,7 @@ ______________________________________________________________________
 
 ## ローカルUAGメッセージ（自然文で利用）
 
-対話CLI/GUIと、認証済みWebのprivate roomは起動時に自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` のUAGに対して、たとえば「ほかに起動中のUAGはある？」「この状況を endpoint `...` に共有して」と自然文で依頼してください。LLMが `local_messaging` Toolでpeer一覧を調べ、宛先を指定して送信します。受信メッセージは `human_ask` で確認され、`y` は今回のみ、`n` は拒否、`all` は現在のUI endpointが終了するまで同じ送信元を承認します。
+対話CLI/GUIと、認証済みWebのprivate roomは起動時に自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` のUAGに対して、たとえば「ほかに起動中のUAGはある？」「現在の作業状況をピアと共有して」と自然文で依頼してください。`local_messaging(action=list, purpose="...")` は、現在のworkdirと短い作業目的をendpointの状態情報として登録し、同じscopeのpeer一覧とともに返します。この作業状況共有は `human_ask` を呼び出しません。目的は会話全体から自動収集せず、短い要約を `purpose` に渡してください（最大500文字）。省略時は `UAGENT_WORK_PURPOSE` の値または空欄です。通常の自由文メッセージは従来どおり `human_ask` で確認され、`y` は今回のみ、`n` は拒否、`all` は現在のUI endpointが終了するまで同じ送信元を承認します。
 
 参加を止めるには `UAGENT_LOCAL_MESSAGING=off` を設定してプロセスを再起動します。Webはprincipal・private room・project単位で分離され、公開roomは参加しません。A2Aはさらに管理者が `UAGENT_LOCAL_MESSAGING_A2A=on` を設定した場合だけ参加します。A2Aの受信は自動ではなく、認証済みタスクが `local_messaging(action=inbox)` を明示的に呼び出した場合に限ります。
 

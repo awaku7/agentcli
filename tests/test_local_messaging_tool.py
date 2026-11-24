@@ -63,6 +63,8 @@ def _register(
     principal_id: str = "",
     room_id: str = "",
     project_id: str = "",
+    workdir: str = "",
+    purpose: str = "",
 ) -> None:
     process = psutil.Process(os.getpid())
     store.register_endpoint(
@@ -73,6 +75,8 @@ def _register(
         principal_id=principal_id,
         room_id=room_id,
         project_id=project_id,
+        workdir=workdir,
+        purpose=purpose,
     )
 
 
@@ -95,7 +99,7 @@ def test_local_messaging_tool_lists_opted_in_peers_and_sends(
     )
 
     listed = json.loads(local_messaging_tool.run_tool({"action": "list"}))
-    assert listed["ok"] is True
+    assert listed["ok"] is True, listed
     assert [peer["endpoint_id"] for peer in listed["peers"]] == ["peer"]
 
     sent = json.loads(
@@ -212,7 +216,9 @@ def test_a2a_endpoint_requires_both_opt_in_settings(monkeypatch) -> None:
 def test_cli_endpoint_natural_tool_list_and_send(tmp_path, monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path))
     monkeypatch.setenv("UAGENT_LOCAL_MESSAGING", "on")
-    core = SimpleNamespace(event_queue=queue.Queue())
+    core = SimpleNamespace(
+        event_queue=queue.Queue(), base_dir=str(tmp_path / "stale")
+    )
     monkeypatch.setattr(
         local_messaging_tool,
         "get_callbacks",
@@ -229,10 +235,27 @@ def test_cli_endpoint_natural_tool_list_and_send(tmp_path, monkeypatch) -> None:
         assert runtime.endpoint_id == current_endpoint_id("cli")
         assert runtime.store.active_endpoint(runtime.endpoint_id) is not None
         assert peers == []
-        _register(runtime.store, "peer")
-        result = json.loads(local_messaging_tool.run_tool({"action": "list"}))
-        assert result["ok"] is True
+        _register(
+            runtime.store,
+            "peer",
+            workdir=str(tmp_path),
+            purpose="peer task",
+        )
+        result = json.loads(
+            local_messaging_tool.run_tool(
+                {"action": "list", "purpose": "Implement peer status sharing"}
+            )
+        )
+        assert result["ok"] is True, result
         assert [peer["endpoint_id"] for peer in result["peers"]] == ["peer"]
+        assert result["work_status"]["purpose"] == "Implement peer status sharing"
+        assert result["work_status"]["workdir"] == str(Path.cwd())
+        assert str(tmp_path) in result["peers"][0]["workdir"]
+        assert "peer task" in result["peers"][0]["purpose"]
+        assert (
+            "---BEGIN_UAGENT_EXTERNAL_CONTENT---"
+            in result["peers"][0]["purpose"]
+        )
         sent = json.loads(
             local_messaging_tool.run_tool(
                 {"action": "send", "recipient": "peer", "message": "hello"}

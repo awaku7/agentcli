@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from ..runtime.local_messaging import local_endpoint_is_active
+from ..runtime.local_messaging import external_message_text, local_endpoint_is_active
 from .arg_util import get_str
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -48,9 +48,22 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "List participating local UAG peers or send a targeted text message. "
-                "The current endpoint must be participating. "
-                "Explicit inbox retrieval is supported only by an enabled A2A task."
+                "List participating local UAG peers with their shared workdir and "
+                "purpose, optionally publishing this endpoint's short current purpose "
+                "(max 500 characters), or send a targeted text message. Work-status "
+                "metadata is shared directly with same-scope peers without a "
+                "human_ask confirmation; arbitrary incoming messages retain their "
+                "existing confirmation behavior. The current endpoint must be "
+                "participating. Explicit inbox retrieval is supported only by an "
+                "enabled A2A task."
+            ),
+        )
+        + " "
+        + _(
+            "tool.status_sharing_description",
+            default=(
+                "For work-status sharing, action='list' also publishes this endpoint's "
+                "current workdir and optional purpose as metadata; no human_ask is used."
             ),
         ),
         "x_search_terms": _(
@@ -84,6 +97,15 @@ TOOL_SPEC: dict[str, Any] = {
                         action_list="list",
                         action_send="send",
                         action_inbox="inbox",
+                    ),
+                },
+                "purpose": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": (
+                        "Optional brief summary of the current task to publish to "
+                        "same-scope local UAG peers when action='list'. Do not include "
+                        "the full prompt or unrelated/private details."
                     ),
                 },
                 "recipient": {
@@ -136,14 +158,35 @@ def run_tool(args: dict[str, Any]) -> str:
         try:
             action = get_str(args, "action", "").strip().lower()
             if action == "list":
+                publish_status = getattr(runtime, "publish_status", None)
+                if callable(publish_status):
+                    own_status = (
+                        publish_status(get_str(args, "purpose", ""))
+                        if "purpose" in args
+                        else publish_status()
+                    )
+                else:
+                    own_status = {
+                        "workdir": str(getattr(runtime, "workdir", "") or ""),
+                        "purpose": str(getattr(runtime, "purpose", "") or ""),
+                    }
                 peers = runtime.list_peers()
                 return _json_ok(
+                    work_status=own_status,
                     peers=[
                         {
                             "endpoint_id": str(peer["endpoint_id"]),
                             "entrypoint": str(peer["entrypoint"]),
                             "pid": int(peer["pid"]),
                             "started_at": float(peer["create_time"]),
+                            "workdir": external_message_text(
+                                str(peer["endpoint_id"]),
+                                str(peer.get("workdir") or ""),
+                            ),
+                            "purpose": external_message_text(
+                                str(peer["endpoint_id"]),
+                                str(peer.get("purpose") or ""),
+                            ),
                         }
                         for peer in peers
                     ]
@@ -175,7 +218,6 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     )
                 from ..runtime.identity_context import get_current_turn_context
-                from ..runtime.local_messaging import external_message_text
 
                 turn = get_current_turn_context()
                 if turn is None or str(getattr(turn, "entry_point", "")) != "a2a":

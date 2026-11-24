@@ -4,7 +4,7 @@
 
 ## ローカルUAGメッセージ（自然文で利用）
 
-対話CLI/GUIと認証済みWebのprivate roomは既定で自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` の peer を調べたり、宛先を指定して送信したりする操作は、LLMへ自然文で依頼してください。受信内容は既存の `human_ask` で確認します（`y`=今回のみ、`n`=拒否、`all`=このUI endpointの終了まで同じ送信元を承認）。
+対話CLI/GUIと認証済みWebのprivate roomは既定で自動参加します。同じOSユーザー・同じ `UAGENT_STATE_DIR` のpeerを調べたり、宛先を指定して送信したりする操作は、LLMへ自然文で依頼してください。作業状況共有では、`local_messaging(action=list, purpose="...")` が現在のworkdirと短い作業目的をendpointの状態情報として登録・一覧表示し、この操作に `human_ask` は挟みません。目的は会話全体から自動収集せず、最大500文字の要約を `purpose` に渡します。省略時は `UAGENT_WORK_PURPOSE` または空欄です。通常の受信メッセージは従来どおり `human_ask` で確認します（`y`=今回のみ、`n`=拒否、`all`=このUI endpointの終了まで同じ送信元を承認）。
 
 参加したくない場合は次を設定し、UAGプロセスを再起動します。
 
