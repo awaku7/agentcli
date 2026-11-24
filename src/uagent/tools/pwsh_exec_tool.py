@@ -33,17 +33,21 @@ def _detect_powershell_executables() -> dict[str, bool]:
 
 
 def _describe_detected(found: dict[str, bool]) -> str:
+    # Suffix of the LLM-facing tool description (kept in English, as before).
     if os.name == "nt":
         if found.get("pwsh") and found.get("powershell"):
-            return " (detected: pwsh / powershell)"
-        if found.get("pwsh"):
-            return " (detected: pwsh)"
-        if found.get("powershell"):
-            return " (detected: powershell)"
-        return " (PowerShell executable not found)"
-    if found.get("pwsh"):
-        return " (detected: pwsh)"
-    return " (pwsh not found)"
+            suffix = " (detected: pwsh / powershell)"
+        elif found.get("pwsh"):
+            suffix = " (detected: pwsh)"
+        elif found.get("powershell"):
+            suffix = " (detected: powershell)"
+        else:
+            suffix = " (PowerShell executable not found)"
+    elif found.get("pwsh"):
+        suffix = " (detected: pwsh)"
+    else:
+        suffix = " (pwsh not found)"
+    return suffix
 
 
 _DESC_SUFFIX = _describe_detected(_detect_powershell_executables())
