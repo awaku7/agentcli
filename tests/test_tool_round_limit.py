@@ -69,7 +69,7 @@ def test_round_limit_clears_responses_continuation_before_break(monkeypatch) -> 
         use_llm_thread=False,
     )
 
-    assert result[0] == llm._RS_BREAK
+    assert result.status == llm._RS_BREAK
     assert core._last_round_reason == "max_tool_rounds"
     assert clear_reasons == ["tool_round_limit"]
     assert "previous_response_id" not in response_state
@@ -131,7 +131,7 @@ def test_memory_projection_change_clears_pending_tool_continuation(monkeypatch) 
         use_llm_thread=False,
     )
 
-    assert result[0] == llm._RS_BREAK
+    assert result.status == llm._RS_BREAK
     assert core._last_round_reason == "memory_access_changed"
     assert core._memory_projection_invalidated is True
     assert cleared == ["memory_access_changed"]

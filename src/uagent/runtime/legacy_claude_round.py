@@ -48,7 +48,8 @@ def run_legacy_claude_round(
 ) -> RoundResult:
     """Run Claude's compatibility round and its provider-neutral postprocess.
 
-    The tuple contract intentionally matches ``uagent_llm._run_one_round``.
+    The tuple field order intentionally matches the ``_RoundOutcome``
+    returned by ``uagent_llm._run_one_round``.
     All UI and loop callbacks are injected so this module does not import the
     main round loop or own persistent conversation state.
     """
