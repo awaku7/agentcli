@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.56] - 2026-11-24
+
+### Changed
+
+- Raise the minimum `llmcapa` dependency version to `0.5.96`.
+- Do not cache missing `llmcapa` capability lookups.
+- Write `.env.sec` in values-only format by default.
+- Automatically upgrade outdated `uag-envsec` on startup and repair installations missing required functions.
+- Harden Nostr key recovery and improve localized warnings, backend errors, and transport tool descriptions.
+
 ## [0.7.55] - 2026-11-23
 
 ### Added
