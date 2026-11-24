@@ -2970,6 +2970,134 @@ def _resolve_max_tool_rounds() -> int:
         return _DEFAULT_MAX_TOOL_ROUNDS
 
 
+def _message_content_chars(messages: list[dict[str, Any]]) -> int:
+    return sum(
+        len(str(message.get("content") or ""))
+        for message in messages
+        if isinstance(message, dict)
+    )
+
+
+def _run_turn_prep_step(step: str, fn: Any, *args: Any) -> bool:
+    """Run one per-turn preparation step without aborting the others.
+
+    Each step is best-effort, but a failure must stay diagnosable and must not
+    skip later steps: the context budget and tool narrowing still have to run
+    so the provider never receives an unbudgeted request or a stale tool
+    surface from a previous turn.
+    """
+    try:
+        fn(*args)
+        return True
+    except Exception as exc:
+        try:
+            from .runtime.logging_setup import log_event
+
+            log_event(
+                "llm.turn_prep.failed",
+                step=step,
+                error_type=type(exc).__name__,
+                status="error",
+            )
+        except Exception:
+            pass
+        return False
+
+
+def _observe_shadow_retrieval(messages: list[dict[str, Any]], core: Any) -> None:
+    from .runtime.memory_retrieval import observe_memory_shadow_retrieval
+
+    observe_memory_shadow_retrieval(messages, core)
+
+
+def _prepare_turn_memory_projection(messages: list[dict[str, Any]], core: Any) -> None:
+    # Cleared first so a failure never reuses the previous turn's snapshot.
+    core.memory_projection_snapshot = None
+    core.memory_projection_snapshot = prepare_memory_projection(messages, core)
+
+
+def _inject_turn_receipt_context(messages: list[dict[str, Any]], core: Any) -> None:
+    from .runtime.sub_agent_receipt_context import inject_sub_agent_receipt_context
+
+    inject_sub_agent_receipt_context(messages, core)
+
+
+def _build_turn_active_context(messages: list[dict[str, Any]], core: Any) -> None:
+    core.active_context = None
+    core.active_context = core.context_manager.build_message_context(
+        messages,
+        budget=ContextBudget(total_chars=max(1, _message_content_chars(messages))),
+    )
+
+
+def _select_turn_tool_specs(messages: list[dict[str, Any]], core: Any) -> None:
+    # Cleared first: on failure the provider falls back to the full registry
+    # instead of the previous turn's narrowed selection.
+    core.context_tool_specs = None
+    from . import tools as _tools
+
+    task_text = next(
+        (
+            str(message.get("content") or "")
+            for message in reversed(messages)
+            if isinstance(message, dict) and message.get("role") == "user"
+        ),
+        "",
+    )
+    tool_selection = core.context_manager.optimize_tool_definitions(
+        _tools.get_tool_specs(),
+        task=task_text,
+    )
+    core.context_tool_specs = tool_selection.specs
+    core.context_tool_decisions = tool_selection.decisions
+    core.context_tool_report = {
+        "raw_chars": tool_selection.raw_chars,
+        "active_chars": tool_selection.active_chars,
+    }
+
+
+def _prepare_turn_context(messages: list[dict[str, Any]], core: Any) -> None:
+    """Prepare per-user-turn context. Order matters; each step is isolated."""
+    raw_context_chars = _message_content_chars(messages)
+    # Shadow retrieval is observational and opt-in. Run it before
+    # state/tool-result injection so its query is the user's original turn and
+    # never changes the provider input.
+    _run_turn_prep_step("shadow_retrieval", _observe_shadow_retrieval, messages, core)
+    # Prepare once per user turn; _run_one_round reuses this snapshot for
+    # retries and the entire tool loop.
+    _run_turn_prep_step(
+        "memory_projection", _prepare_turn_memory_projection, messages, core
+    )
+    _run_turn_prep_step(
+        "agent_state_context", _inject_agent_state_context, messages, core
+    )
+    _run_turn_prep_step(
+        "retrieved_tool_context", _inject_retrieved_tool_context, messages, core
+    )
+    _run_turn_prep_step(
+        "agent_state_update", _update_agent_state_for_turn, messages, core
+    )
+    # Add lower-trust receipt evidence only AFTER state updates: the generated
+    # receipt prose must never become a persisted Goal.
+    _run_turn_prep_step(
+        "sub_agent_receipt_context", _inject_turn_receipt_context, messages, core
+    )
+    # Apply the budget after state/retrieval injection so recovered context is
+    # governed by the same policy as the conversation.
+    _run_turn_prep_step("context_budget", _apply_context_budget, messages, core)
+    # Keep a provider-neutral snapshot as the single context hand-off, without
+    # compacting a second time or changing tool metadata/call pairing.
+    _run_turn_prep_step("active_context", _build_turn_active_context, messages, core)
+    _run_turn_prep_step(
+        "context_telemetry",
+        _record_context_telemetry,
+        messages,
+        core,
+        raw_context_chars,
+    )
+    _run_turn_prep_step("tool_selection", _select_turn_tool_specs, messages, core)
+
+
 @ephemeral_receipt_context_round
 @_observed_llm_rounds
 def run_llm_rounds(
@@ -2998,87 +3126,7 @@ def run_llm_rounds(
             provider=provider, model=depname
         )
         core.context_manager = ContextManager(policy=core.context_policy)
-        try:
-            raw_context_chars = sum(
-                len(str(message.get("content") or ""))
-                for message in messages
-                if isinstance(message, dict)
-            )
-            # Shadow retrieval is observational and opt-in. Run it before
-            # state/tool-result injection so its query is the user's original
-            # turn and never changes the provider input.
-            try:
-                from .runtime.memory_retrieval import observe_memory_shadow_retrieval
-
-                observe_memory_shadow_retrieval(messages, core)
-            except Exception:
-                pass
-            try:
-                # Prepare once per user turn; _run_one_round reuses this
-                # snapshot for retries and the entire tool loop.
-                core.memory_projection_snapshot = prepare_memory_projection(
-                    messages, core
-                )
-            except Exception:
-                core.memory_projection_snapshot = None
-            _inject_agent_state_context(messages, core)
-            _inject_retrieved_tool_context(messages, core)
-            _update_agent_state_for_turn(messages, core)
-            # Add lower-trust receipt evidence only AFTER state updates:
-            # the generated receipt prose must never become a persisted Goal.
-            from .runtime.sub_agent_receipt_context import (
-                inject_sub_agent_receipt_context,
-            )
-
-            inject_sub_agent_receipt_context(messages, core)
-            # Apply the budget after state/retrieval injection so recovered
-            # context is governed by the same policy as the conversation.
-            _apply_context_budget(messages, core)
-            # Keep a provider-neutral snapshot as the single context
-            # hand-off, without compacting a second time or changing tool
-            # metadata/call pairing.
-            active_context = core.context_manager.build_message_context(
-                messages,
-                budget=ContextBudget(
-                    total_chars=max(
-                        1,
-                        sum(
-                            len(str(message.get("content") or ""))
-                            for message in messages
-                            if isinstance(message, dict)
-                        ),
-                    )
-                ),
-            )
-            core.active_context = active_context
-            _record_context_telemetry(messages, core, raw_context_chars)
-            if core.context_manager is not None:
-                try:
-                    from . import tools as _tools
-
-                    task_text = next(
-                        (
-                            str(message.get("content") or "")
-                            for message in reversed(messages)
-                            if isinstance(message, dict)
-                            and message.get("role") == "user"
-                        ),
-                        "",
-                    )
-                    tool_selection = core.context_manager.optimize_tool_definitions(
-                        _tools.get_tool_specs(),
-                        task=task_text,
-                    )
-                    core.context_tool_specs = tool_selection.specs
-                    core.context_tool_decisions = tool_selection.decisions
-                    core.context_tool_report = {
-                        "raw_chars": tool_selection.raw_chars,
-                        "active_chars": tool_selection.active_chars,
-                    }
-                except Exception:
-                    core.context_tool_specs = None
-        except Exception:
-            pass
+        _prepare_turn_context(messages, core)
 
     # Provider/model must be set before first LLM round (for save to file)
     if not judgment_mode:
