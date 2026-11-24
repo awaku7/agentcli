@@ -215,6 +215,11 @@ from ._dynamic_commands import (  # noqa: E402,F401
     register_dynamic_command,
     unregister_dynamic_commands_by_source,
 )
+from ._dynamic_commands import _reset_dynamic_command_registry  # noqa: E402
+
+# Executing this module (first import or importlib.reload for ":tools reload")
+# starts from an empty command registry, as when the registry lived here.
+_reset_dynamic_command_registry()
 
 from ._trace import (  # noqa: E402,F401
     _emit_remote_tool_progress,

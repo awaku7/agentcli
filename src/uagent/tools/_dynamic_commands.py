@@ -133,6 +133,17 @@ def _invalidate_dynamic_map_cache() -> None:
     _DYNAMIC_MAP_CACHE = None
 
 
+def _reset_dynamic_command_registry() -> None:
+    """Empty the registry in place (the package re-exports the same dict).
+
+    The package calls this every time ``tools/__init__.py`` executes, so that
+    ``importlib.reload(uagent.tools)`` (``:tools reload``) drops commands of
+    removed plugins. This module itself stays cached across that reload.
+    """
+    _DYNAMIC_COMMANDS.clear()
+    _invalidate_dynamic_map_cache()
+
+
 def _build_dynamic_map_snapshot() -> dict[str, list[str]]:
     """Build command -> sorted subcommand map from the current registry.
 
