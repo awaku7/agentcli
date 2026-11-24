@@ -1,6 +1,6 @@
 # 巨大ファイル分割の方針（速度・パフォーマンス重視）（2026-11-25）
 
-- Status: in progress（P0-1 完了）
+- Status: in progress（P0-1、P0-2 完了）
 - Priority: P1
 - Source: `UAG_ROUND_LOOP_REVIEW_20261124.md` の RL-06（巨大なファイルと関数の分割）
 - 確認基準: `main` = `1ad63ec3a`（PR #465 マージ後）
@@ -39,7 +39,7 @@
 ### P0: `tools/`（体感に効くのはここだけ）
 
 - **P0-1: import 時の重い処理を取り除く**（低リスク）— 完了、下記参照。
-- **P0-2: マニフェストによる遅延読み込み**（効果が最大、中リスク）
+- **P0-2: マニフェストによる遅延読み込み**（効果が最大、中リスク）— 完了、下記参照。
   - `TOOL_SPEC`、`CMD_SPEC` のメタ情報、ポリシーのフラグを、生成したマニフェストから登録する。古くなったことの検出も入れる。
   - モジュールの import はツールの初回実行時まで遅らせる。目標は `_load_plugins` を 0.1 s 前後にすること。
   - 考慮すること: `reload` の扱い、`CMD_SPEC` のハンドラ、`LOAD_DISABLED_REASON`、describer、ロケールごとの spec、外部ツールと Rust ツール。
@@ -102,6 +102,41 @@
 - `tests/test_tool_plugin_import_cost.py`（新規）: プラグインを読み込んでも遅延対象のライブラリが import されないこと（別プロセスで確認）、`pwsh_exec_tool` が import 時にプロセスを起動しないこと、screenshot の依存が初回に 1 回だけ読み込まれること、import に失敗する導入済みパッケージを再インストールしないこと、document_extract でライブラリがないときのエラー。
 - 変更したツールに関係する既存のテストを手元で実行した。テストスイート全体は CI で確認する。
 
+## P0-2 の結果
+
+### 方式
+
+計画では「生成したマニフェスト」としていたが、ビルド時に生成する方式はやめ、**実行時に作るキャッシュ**にした。翻訳済みの説明文や環境で変わる spec をビルド時には確定できないため。
+
+- 新規 `tools/_manifest.py`: 分類、フィンガープリント、保存と読み込み、`ManifestModuleView`。
+- キャッシュはユーザーのキャッシュディレクトリの `tool_manifest/<パッケージ位置>-<ロケール>.json`。
+- フィンガープリント（どれかが変わると全体を作り直す）: `tools/` 以下のすべての `.py`/`.json`（相対パス、mtime、サイズ）、ロケール、Python のバージョン、プラットフォーム、`UAGENT_*` 環境変数（プロセスごとに変わる 4 つを除く）、`PATH`。走査は約 1 ms。
+  - import 時に環境変数を読んで spec を変えるツールがある（`analyze_image`、`semantic_search_files`、`bash_exec` など）。静的に検出するには AST の解析に約 0.7 s かかるため、環境変数をまとめてキーに入れた。キーに余分なものが入ってもキャッシュミスで遅くなるだけで、間違った spec にはならない。
+- 遅延登録の対象: すべての spec が起動時に LLM から見えない（`tool_level` が 1 か -1）、`CMD_SPEC(S)`・`is_loadable()`・`LOAD_DISABLED_REASON`・`LAZY_LOAD` がない、spec が JSON そのまま、組み込みモードの除外対象でない、個別に読み込まれていない。それ以外はこれまでどおり import する。
+- 遅延ツールには `_LazyRunner` を登録する。`run_tool` は trace と describer の前に本物を import して登録し直す。`get_tool_describer` も必要なら解決する。
+- `_find_tool_modules()` は、まだ import していない遅延モジュールに `ManifestModuleView` を返す。キャッシュした `TOOL_SPEC*` と「ないと分かっている属性」はそのまま答え、それ以外の属性を読んだときだけ本物を import する。`tool_catalog`、`enable_single_tool`、`catalog_tool`、grok、`:skills` はこれで変更なしに動く。
+- TOOL_SPEC も CMD_SPEC もないヘルパーモジュール（`mcp` パッケージ、`*_shared` など）は、ローダーが import しなくなった。
+- 無効化: `UAGENT_TOOL_MANIFEST=off`。GPT-5.4 のネイティブ `tool_search` モードでも使わない（全ツールの spec を送るため）。
+
+### 計測
+
+| 項目 | P0-1 後（`UAGENT_TOOL_MANIFEST=off`） | P0-2（キャッシュあり） |
+|---|---|---|
+| `tools: load plugins`（`bench_startup.py`、中央値） | 776 ms | **262 ms** |
+| CLI の import 後のプラグイン読み込み（実際の起動に近い） | 約 590 ms | **約 90 ms** |
+| `tools: catalog (en)` | 151 ms | 160 ms |
+| `tools: catalog (ja, first)` | 347 ms | 354 ms |
+| プラグイン読み込み後に残る重い依存 | httpx、msoffcrypto、PIL | なし |
+
+- キャッシュがない初回（または作り直し）は、これまでと同じく全モジュールを import する（約 0.8 s）。
+- キャッシュありの 262 ms の大半は、import し続けるモジュール（約 40 個）とその依存（`util_tools`、`core` など）。CLI ではこれらは起動時にすでに読み込まれているので、実際の差は上の「CLI の import 後」の行になる。
+- 249 個のランナーのうち 222 個が遅延登録。登録されるランナーと LLM に見える spec は、キャッシュなしのときと同じ（テストで確認）。
+
+### テスト
+
+- `tests/test_tool_manifest.py`（新規）: 分類の規則（遅延・スキップ・import し続ける 12 パターン）、フィンガープリントがファイル・ロケール・環境変数で変わること（プロセスごとの値では変わらないこと）、保存と読み込み、壊れたファイルや形式違いの拒否、無効化スイッチ、`ManifestModuleView` が import せずに答えること。別プロセスでの通しの確認: 1 回目でキャッシュを作り、2 回目で同じ登録になること、カタログで見つかっても import されないこと、実行時に import されて結果が正しいこと、`enable_single_tool` で LLM に見えるようになること、無効化で従来の経路に戻ること。
+- ローダーの内部を使う既存のテスト 29 ファイルと、全ツールを静的に検査するテスト 16 ファイルを手元で実行した。
+
 ## 補足: 開発環境の注意
 
 `F:\Python314\Lib\site-packages` に、編集可能ではない古い `uagent` が入っていて、`src/` と 177 か所違う。`PYTHONPATH` を指定せずに `python` を実行すると古いコードが読み込まれる。`scripts/bench_startup.py` は常に `src/` を先頭にして計測する。`pip install -e .` で解消できる。
@@ -109,3 +144,4 @@
 ## 更新履歴
 
 - 2026-11-25: 作成。方針を決定し、P0-1 を実施。
+- 2026-11-25: P0-2（実行時に作るマニフェストのキャッシュによる遅延読み込み）を実施。
