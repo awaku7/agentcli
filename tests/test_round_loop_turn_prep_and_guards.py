@@ -1,4 +1,4 @@
-"""Per-turn context preparation isolation."""
+"""Per-turn context preparation isolation and the shared loop-guard stop path."""
 
 from __future__ import annotations
 
@@ -145,3 +145,47 @@ def test_failed_steps_clear_previous_turn_state(monkeypatch, llm) -> None:
         "active_context",
         "tool_selection",
     ]
+
+
+def test_block_tool_loop_runs_common_stop_sequence(monkeypatch, llm, capsys) -> None:
+    cleared: list[str] = []
+    emitted: list[dict] = []
+    monkeypatch.setattr(
+        llm,
+        "_clear_responses_after_tool_loop",
+        lambda core, *, reason="tool_loop_guard": cleared.append(reason),
+    )
+    monkeypatch.setattr(llm, "_emit_tool_loop_block", lambda **kw: emitted.append(kw))
+    monkeypatch.setattr(llm, "_spinner_stop_quietly", lambda: None)
+    core = SimpleNamespace()
+    calls = [{"id": "c1", "function": {"name": "read_file", "arguments": "{}"}}]
+
+    llm._block_tool_loop(
+        core=core,
+        tool_name="cycle:a -> b",
+        count=6,
+        reason="repeating_tool_cycle",
+        round_count=7,
+        tool_calls_list=calls,
+        warning="[WARN] stop",
+        clear_reason="repeating_tool_cycle",
+    )
+    llm._block_tool_loop(
+        core=core,
+        tool_name="read_file",
+        count=4,
+        reason="same_arguments",
+        round_count=8,
+        tool_calls_list=calls,
+        warning="[WARN] again",
+    )
+
+    assert core._last_round_reason == "loop_guard"
+    assert cleared == ["repeating_tool_cycle", "tool_loop_guard"]
+    assert [
+        (e["tool_name"], e["reason"], e["count"], e["round_count"]) for e in emitted
+    ] == [
+        ("cycle:a -> b", "repeating_tool_cycle", 6, 7),
+        ("read_file", "same_arguments", 4, 8),
+    ]
+    assert capsys.readouterr().out.splitlines() == ["[WARN] stop", "[WARN] again"]

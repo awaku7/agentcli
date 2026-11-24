@@ -318,6 +318,33 @@ def _emit_tool_loop_block(
         pass
 
 
+def _block_tool_loop(
+    *,
+    core: Any,
+    tool_name: str,
+    count: int,
+    reason: str,
+    round_count: int,
+    tool_calls_list: list[dict[str, Any]],
+    warning: str,
+    clear_reason: str = "tool_loop_guard",
+) -> None:
+    """Common stop sequence shared by every tool-loop guard."""
+    core._last_round_reason = "loop_guard"
+    _clear_responses_after_tool_loop(core, reason=clear_reason)
+    _debug_tool_loop("blocked", name=tool_name, count=count)
+    _emit_tool_loop_block(
+        core=core,
+        tool_name=tool_name,
+        count=count,
+        reason=reason,
+        round_count=round_count,
+        tool_calls_list=tool_calls_list,
+    )
+    _spinner_stop_quietly()
+    print(warning)
+
+
 def _clear_responses_after_tool_loop(
     core: Any, *, reason: str = "tool_loop_guard"
 ) -> None:
@@ -2320,63 +2347,47 @@ def _run_one_round(
         if _tool_calls_include_name(tool_calls_list, "tool_catalog"):
             clear_general_tool_loop_streaks()
 
+        _rs_break = (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
-            core._last_round_reason = "loop_guard"
-            _clear_responses_after_tool_loop(core)
-            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
-            _emit_tool_loop_block(
+            _block_tool_loop(
                 core=core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="management_tool_repeat",
                 round_count=round_count,
                 tool_calls_list=tool_calls_list,
-            )
-            _spinner_stop_quietly()
-            print(
-                _(
+                warning=_(
                     "[WARN] Management tool call '%(name)s' repeated %(n)d times; "
                     "aborting to prevent loop."
                 )
-                % {"name": blocked_name, "n": blocked_count}
+                % {"name": blocked_name, "n": blocked_count},
             )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _rs_break
+
         # Exact tool+argument repeats are the narrowest loop signal.
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
-            core._last_round_reason = "loop_guard"
-            _clear_responses_after_tool_loop(core)
-            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
-            _emit_tool_loop_block(
+            _block_tool_loop(
                 core=core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="same_arguments",
                 round_count=round_count,
                 tool_calls_list=fresh_tool_calls,
-            )
-            _spinner_stop_quietly()
-            print(
-                _(
+                warning=_(
                     "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
                     "arguments; aborting to prevent loop."
                 )
-                % {"name": blocked_name, "n": blocked_count}
+                % {"name": blocked_name, "n": blocked_count},
             )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _rs_break
 
         # Match short, exact cycles such as search_web -> read_file repeated
         # three times. Only digests are retained; argument values are not logged.
@@ -2386,65 +2397,45 @@ def _run_one_round(
         )
         if cycle_blocked:
             cycle_label = " -> ".join("+".join(names) for names in cycle_names)
-            cycle_display = json.dumps(cycle_label, ensure_ascii=False)
             cycle_rounds = cycle_length * 3
-            core._last_round_reason = "loop_guard"
-            _clear_responses_after_tool_loop(core, reason="repeating_tool_cycle")
-            _debug_tool_loop("blocked", name=cycle_label, count=cycle_rounds)
-            _emit_tool_loop_block(
+            _block_tool_loop(
                 core=core,
                 tool_name=f"cycle:{cycle_label}",
                 count=cycle_rounds,
                 reason="repeating_tool_cycle",
                 round_count=round_count,
                 tool_calls_list=fresh_tool_calls,
-            )
-            _spinner_stop_quietly()
-            print(
-                _(
+                clear_reason="repeating_tool_cycle",
+                warning=_(
                     "[WARN] Tool-call cycle %(cycle)s repeated 3 times across %(n)d rounds; aborting."
                 )
-                % {"cycle": cycle_display, "n": cycle_rounds}
+                % {
+                    "cycle": json.dumps(cycle_label, ensure_ascii=False),
+                    "n": cycle_rounds,
+                },
             )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _rs_break
 
         # A per-tool-name streak is a secondary guard for varying arguments.
-        # Mixed-tool rounds reset it; the 128-round cap remains the final limit.
+        # Mixed-tool rounds reset it; UAGENT_MAX_TOOL_ROUNDS remains the final
+        # limit.
         blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
             fresh_tool_calls, streak=consecutive_tool_streak
         )
         if blocked:
-            core._last_round_reason = "loop_guard"
-            _clear_responses_after_tool_loop(core)
-            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
-            _emit_tool_loop_block(
+            _block_tool_loop(
                 core=core,
                 tool_name=blocked_name,
                 count=blocked_count,
                 reason="consecutive_tool_calls",
                 round_count=round_count,
                 tool_calls_list=fresh_tool_calls,
-            )
-            _spinner_stop_quietly()
-            print(
-                _(
+                warning=_(
                     "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; aborting."
                 )
-                % {"name": blocked_name, "n": blocked_count}
+                % {"name": blocked_name, "n": blocked_count},
             )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+            return _rs_break
 
     elif not judgment_mode:
         # A no-tool response breaks every consecutive-tool loop signal.
