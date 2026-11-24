@@ -44,10 +44,16 @@ def test_save_uagent_envsec_writes_values_only_format(
     )
 
 
-def test_encrypt_env_document_falls_back_for_trailing_backslash() -> None:
-    from uag_envsec import decrypt_text
+def test_encrypt_env_document_falls_back_for_trailing_backslash(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uag_envsec import decrypt_text, ensure_key_file
 
     from uagent.envsec_util import encrypt_env_document
+
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
+    ensure_key_file()
 
     document = "UAGENT_WORKDIR=C:\\work\\\n"
     encrypted = encrypt_env_document(document)
