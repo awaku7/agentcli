@@ -108,14 +108,17 @@ def test_write_falls_back_to_plaintext_when_envsec_fails(key_env, monkeypatch):
     assert nt._load_or_create_key() == (priv, pub)
 
 
-def test_corrupt_key_file_is_not_replaced(key_env):
+def test_corrupt_key_file_is_replaced_with_warning(key_env, capsys):
     key_env.parent.mkdir(parents=True)
     key_env.write_text("not a key file", encoding="utf-8")
-    before = key_env.read_bytes()
 
-    with pytest.raises(nt.NostrKeyUnreadableError):
-        nt._load_or_create_key()
-    assert key_env.read_bytes() == before
+    priv, pub = nt._load_or_create_key()
+
+    assert "could not be decrypted" in capsys.readouterr().out
+    raw = key_env.read_text(encoding="utf-8")
+    assert raw.startswith("uag-envsec:v1:")
+    # The replacement key loads back normally.
+    assert nt._load_or_create_key() == (priv, pub)
 
 
 def test_undecryptable_key_file_is_not_replaced(key_env, monkeypatch):
@@ -138,3 +141,29 @@ def test_undecryptable_key_file_is_not_replaced(key_env, monkeypatch):
     # Once the backend works again, the original identity is intact.
     monkeypatch.setattr(uag_envsec, "decrypt_text", orig_decrypt)
     assert nt._load_or_create_key() == (priv, pub)
+
+
+def test_key_mismatch_key_file_is_replaced_with_warning(key_env, monkeypatch, capsys):
+    import uag_envsec
+    from cryptography.exceptions import InvalidTag
+
+    # Store a valid encrypted key, then simulate a replaced master key:
+    # decryption now fails authentication (InvalidTag).
+    priv, pub = nt._load_or_create_key()
+
+    def _wrong_key(_text):
+        raise InvalidTag()
+
+    orig_decrypt = uag_envsec.decrypt_text
+    monkeypatch.setattr(uag_envsec, "decrypt_text", _wrong_key)
+
+    new_priv, new_pub = nt._load_or_create_key()
+
+    assert "could not be decrypted" in capsys.readouterr().out
+    assert (new_priv, new_pub) != (priv, pub)
+    raw = key_env.read_text(encoding="utf-8")
+    assert raw.startswith("uag-envsec:v1:")
+
+    # The replacement key loads back normally once decryption works.
+    monkeypatch.setattr(uag_envsec, "decrypt_text", orig_decrypt)
+    assert nt._load_or_create_key() == (new_priv, new_pub)

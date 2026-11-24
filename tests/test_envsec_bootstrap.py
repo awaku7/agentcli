@@ -271,3 +271,78 @@ def test_unavailable_scheduled_payload_fails_closed(
     _scheduled_fixture(monkeypatch, tmp_path, str(tmp_path))
     (tmp_path / "scheduled_payloads" / f"{'a' * 32}.json").unlink()
     assert bootstrap._project_auto_install_policy() == "off"
+
+
+def _set_envsec_version(monkeypatch: pytest.MonkeyPatch, version: str) -> None:
+    monkeypatch.setattr(bootstrap.importlib.metadata, "version", lambda name: version)
+
+
+def test_outdated_envsec_is_upgraded(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[tuple[list[str], dict]] = []
+
+    def running(command, **kwargs):
+        calls.append((command, kwargs))
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+    )
+    _set_envsec_version(monkeypatch, "0.1.1")
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
+    monkeypatch.setattr(bootstrap.subprocess, "run", running)
+
+    bootstrap.ensure_envsec_available()
+
+    assert len(calls) == 1
+    assert calls[0][0][-1] == "uag-envsec>=0.1.2"
+    assert calls[0][1]["check"] is True
+
+
+def test_outdated_envsec_policy_off_warns_without_pip(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture
+) -> None:
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+    )
+    _set_envsec_version(monkeypatch, "0.1.1")
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: False)
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("pip must not run when auto-install is disabled")
+
+    monkeypatch.setattr(bootstrap.subprocess, "run", unexpected)
+
+    bootstrap.ensure_envsec_available()  # Must not raise.
+
+    assert "--force-reinstall" in capsys.readouterr().err
+
+
+def test_current_envsec_never_runs_pip(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+    )
+    _set_envsec_version(monkeypatch, "0.1.3")
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("pip must not run for a current uag_envsec")
+
+    monkeypatch.setattr(bootstrap.subprocess, "run", unexpected)
+    bootstrap.ensure_envsec_available()
+
+
+def test_failed_upgrade_warns_without_raising(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture
+) -> None:
+    def failing(command, **kwargs):
+        raise subprocess.CalledProcessError(1, command)
+
+    monkeypatch.setattr(
+        bootstrap.importlib, "import_module", lambda name: SimpleNamespace()
+    )
+    _set_envsec_version(monkeypatch, "0.1.0")
+    monkeypatch.setattr(_pip_auto, "_may_install", lambda name, **kwargs: True)
+    monkeypatch.setattr(bootstrap.subprocess, "run", failing)
+
+    bootstrap.ensure_envsec_available()  # Must not raise.
+
+    assert "--force-reinstall" in capsys.readouterr().err

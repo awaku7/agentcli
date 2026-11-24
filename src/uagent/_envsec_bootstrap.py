@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import importlib.metadata
 import json
 import os
 import re
@@ -137,8 +138,86 @@ def _project_auto_install_policy() -> str | None:
     return normalized if normalized in {"allow", "prompt", "off"} else "off"
 
 
+def _run_repair_pip() -> None:
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--force-reinstall",
+            "--no-deps",
+            _REPAIR_SPEC,
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=sys.stderr,
+        timeout=120,
+    )
+
+
+def _version_tuple(text: str) -> tuple[int, ...] | None:
+    parts: list[int] = []
+    for part in text.strip().split("."):
+        match = re.match(r"[0-9]+", part)
+        if match is None:
+            return None
+        parts.append(int(match.group(0)))
+    return tuple(parts) or None
+
+
+def _envsec_is_outdated() -> bool:
+    """Whether the installed uag-envsec is older than the required floor.
+
+    The floor is the version in _REPAIR_SPEC. Unknown versions (no
+    distribution metadata, unparseable strings) are left alone: the
+    module imports, and guessing would risk a pip run on every startup.
+    """
+    floor_match = re.search(r">=\s*([0-9]+(?:\.[0-9]+)*)", _REPAIR_SPEC)
+    if floor_match is None:
+        return False
+    required = _version_tuple(floor_match.group(1))
+    if required is None:
+        return False
+    try:
+        installed = _version_tuple(importlib.metadata.version("uag-envsec"))
+    except importlib.metadata.PackageNotFoundError:
+        return False
+    if installed is None:
+        return False
+    width = max(len(installed), len(required))
+    installed += (0,) * (width - len(installed))
+    required += (0,) * (width - len(required))
+    return installed < required
+
+
+def _upgrade_envsec_if_outdated() -> None:
+    """Best-effort upgrade of an outdated uag-envsec; never raises.
+
+    The module still imports, so a declined or failed upgrade must not
+    stop startup: warn with the manual command and continue.
+    """
+    if not _envsec_is_outdated():
+        return
+    from ._pip_auto import _may_install
+
+    policy = _project_auto_install_policy()
+    if not _may_install("uag-envsec", policy_override=policy):
+        print(
+            f"uag-envsec is outdated and auto-install is off. Run: {_REPAIR_HINT}",
+            file=sys.stderr,
+        )
+        return
+    try:
+        _run_repair_pip()
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        print(f"Could not upgrade uag-envsec. Run: {_REPAIR_HINT}", file=sys.stderr)
+        return
+    importlib.invalidate_caches()
+
+
 def ensure_envsec_available() -> None:
-    """Repair only the missing top-level module, respecting auto-install policy.
+    """Repair the missing top-level module and upgrade an outdated one.
 
     Older UAG wheels included uag_envsec. During an upgrade, pip may install
     the standalone distribution and delete its files while uninstalling old UAG.
@@ -146,10 +225,12 @@ def ensure_envsec_available() -> None:
     """
     try:
         importlib.import_module("uag_envsec")
-        return
     except ModuleNotFoundError as exc:
         if exc.name != "uag_envsec":
             raise
+    else:
+        _upgrade_envsec_if_outdated()
+        return
 
     from ._pip_auto import _may_install
 
@@ -160,21 +241,7 @@ def ensure_envsec_available() -> None:
         ) from None
 
     try:
-        subprocess.run(
-            [
-                sys.executable,
-                "-m",
-                "pip",
-                "install",
-                "--force-reinstall",
-                "--no-deps",
-                _REPAIR_SPEC,
-            ],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=sys.stderr,
-            timeout=120,
-        )
+        _run_repair_pip()
     except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
         raise ModuleNotFoundError(
             f"Could not repair uag_envsec. Run: {_REPAIR_HINT}"
