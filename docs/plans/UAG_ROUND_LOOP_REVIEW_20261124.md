@@ -79,6 +79,7 @@ run_llm_rounds()            ← ユーザー 1 ターン（Auto-Pilot は後続�
 - 候補: `runtime/session_store.py`（約 4,300 行）、`runtime/sandbox_worker.py`（約 4,000 行）、`uagent_llm.py`（約 3,500 行）、`tools/__init__.py`（約 3,200 行）。
 - `_run_one_round()` は約 875 行あり、引数が 20 個、戻り値が 5 要素のタプル。前処理、振り分け、後処理の 3 段階に分け、戻り値を dataclass にする案がある。
 - **一部対応（2026-11-24、PR #464）:** `_run_one_round()` を前処理・振り分け・後処理の 3 段階に分け、戻り値を `_RoundOutcome` dataclass にした。残りの 3 ファイルは未着手。
+- 残りの進め方は `UAG_SPEED_FIRST_SPLIT_PLAN_20261125.md`（速度重視の分割方針）で管理する。
 
 ## テスト
 

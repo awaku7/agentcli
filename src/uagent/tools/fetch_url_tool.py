@@ -5,7 +5,7 @@ import json
 import sys
 import warnings
 from pathlib import Path
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
 from urllib.request import (
     Request,
     urlopen,
@@ -15,13 +15,8 @@ from urllib.request import (
 )
 import urllib.error
 
-try:
-    from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-except ImportError:
-    from .._pip_auto import install_with_status as _install_bs4
-
-    _install_bs4("beautifulsoup4", "bs4")
-    from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+if TYPE_CHECKING:
+    from bs4 import BeautifulSoup
 
 from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
 from ..runtime.tool_execution_result import ToolExecutionText
@@ -29,7 +24,28 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+_BS4_LOADED = False
+
+
+def _load_bs4() -> Any:
+    """Import bs4 on first use (~120 ms), installing it once if missing.
+
+    The plugin loader imports every tool module, so bs4 is not imported at
+    module level.
+    """
+    global _BS4_LOADED
+    try:
+        import bs4
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_bs4
+
+        _install_bs4("beautifulsoup4", "bs4")
+        import bs4
+    if not _BS4_LOADED:
+        warnings.filterwarnings("ignore", category=bs4.XMLParsedAsHTMLWarning)
+        _BS4_LOADED = True
+    return bs4
+
 
 BUSY_LABEL = True
 
@@ -274,13 +290,7 @@ def _pick_html_element(soup: BeautifulSoup, selector: str | None):
 
 
 def _html_to_markdown(soup_or_el) -> str:
-    try:
-        import bs4
-    except ImportError:
-        from .._pip_auto import install_with_status as _install_bs4
-
-        _install_bs4("beautifulsoup4", "bs4")
-        import bs4
+    bs4 = _load_bs4()
 
     def _convert(node) -> str:
         if isinstance(node, bs4.element.NavigableString):
@@ -476,7 +486,7 @@ def run_tool(args: dict[str, Any]) -> str:
             return ToolExecutionText(result + _content_note(content_type, extract))
 
         if extract in ("text", "html", "markdown"):
-            soup = BeautifulSoup(text, "html.parser")
+            soup = _load_bs4().BeautifulSoup(text, "html.parser")
             el = _pick_html_element(soup, selector=selector)
             if extract == "text":
                 extracted = el.get_text("\n", strip=True)

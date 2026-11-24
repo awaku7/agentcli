@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 from io import BytesIO
 from pathlib import Path
@@ -9,53 +10,77 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-try:
-    from docx import Document
-except ImportError:
-    from .._pip_auto import install_with_status as _install_docx
+# The document libraries (python-docx, odfpy, msoffcrypto) cost ~150 ms to
+# import, so they are loaded (and auto-installed if missing) on first use
+# instead of when the plugin loader imports this module. ``_NOT_LOADED`` means
+# "not tried yet"; ``None`` means "unavailable".
+_NOT_LOADED: Any = object()
+Document: Any = _NOT_LOADED
+msoffcrypto: Any = _NOT_LOADED
+rtf_to_text: Any = _NOT_LOADED
+odf_load: Any = _NOT_LOADED
+teletype: Any = _NOT_LOADED
+Table: Any = _NOT_LOADED
+TableCell: Any = _NOT_LOADED
+TableRow: Any = _NOT_LOADED
+H: Any = _NOT_LOADED
+P: Any = _NOT_LOADED
 
-    if not _install_docx("python-docx", "docx"):
-        Document = None
-    else:
-        from docx import Document
 
-try:
-    from odf import teletype
-    from odf.opendocument import load as odf_load
-    from odf.table import Table, TableCell, TableRow
-    from odf.text import H, P
-except ImportError:
-    from .._pip_auto import install_with_status as _install_odf
+def _import_optional(module: str, package: str, import_name: str) -> Any:
+    """Import ``module``, installing ``package`` once if it is missing."""
+    try:
+        return importlib.import_module(module)
+    except ImportError:
+        pass
+    from .._pip_auto import install_with_status
 
-    if not _install_odf("odfpy", "odf"):
-        teletype = None
-        odf_load = None
-        Table = TableCell = TableRow = H = P = None
-    else:
-        from odf import teletype
-        from odf.opendocument import load as odf_load
-        from odf.table import Table, TableCell, TableRow
-        from odf.text import H, P
+    if not install_with_status(package, import_name):
+        return None
+    try:
+        return importlib.import_module(module)
+    except ImportError:
+        return None
 
-try:
-    from striprtf.striprtf import rtf_to_text
-except ImportError:
-    from .._pip_auto import install_with_status as _install_rtf
 
-    if not _install_rtf("striprtf"):
-        rtf_to_text = None
-    else:
-        from striprtf.striprtf import rtf_to_text
+def _load_docx() -> None:
+    global Document, msoffcrypto
+    if Document is _NOT_LOADED:
+        mod = _import_optional("docx", "python-docx", "docx")
+        Document = getattr(mod, "Document", None) if mod is not None else None
+    if msoffcrypto is _NOT_LOADED:
+        msoffcrypto = _import_optional("msoffcrypto", "msoffcrypto-tool", "msoffcrypto")
 
-try:
-    import msoffcrypto
-except ImportError:
-    from .._pip_auto import install_with_status as _install_mso
 
-    if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
-        msoffcrypto = None  # type: ignore[assignment]
-    else:
-        import msoffcrypto
+def _load_rtf() -> None:
+    global rtf_to_text
+    if rtf_to_text is _NOT_LOADED:
+        mod = _import_optional("striprtf.striprtf", "striprtf", "striprtf")
+        rtf_to_text = getattr(mod, "rtf_to_text", None) if mod is not None else None
+
+
+def _load_odf() -> None:
+    global odf_load, teletype, Table, TableCell, TableRow, H, P
+    if odf_load is not _NOT_LOADED:
+        return
+    if _import_optional("odf", "odfpy", "odf") is None:
+        odf_load = teletype = Table = TableCell = TableRow = H = P = None
+        return
+    from odf import teletype as _teletype
+    from odf.opendocument import load as _odf_load
+    from odf.table import Table as _Table, TableCell as _TableCell
+    from odf.table import TableRow as _TableRow
+    from odf.text import H as _H, P as _P
+
+    teletype, Table, TableCell, TableRow, H, P = (
+        _teletype,
+        _Table,
+        _TableCell,
+        _TableRow,
+        _H,
+        _P,
+    )
+    odf_load = _odf_load
 
 
 TOOL_SPEC: dict[str, Any] = {
@@ -150,6 +175,7 @@ def _prompt_for_password(path: str) -> str | None:
 
 
 def _docx_extract(path: Path, password: str | None = None) -> dict[str, Any]:
+    _load_docx()
     if Document is None:
         raise RuntimeError("python-docx is not available")
 
@@ -217,6 +243,7 @@ def _docx_extract(path: Path, password: str | None = None) -> dict[str, Any]:
 
 
 def _rtf_extract(path: Path) -> dict[str, Any]:
+    _load_rtf()
     if rtf_to_text is None:
         raise RuntimeError("striprtf is not available")
 
@@ -233,6 +260,7 @@ def _rtf_extract(path: Path) -> dict[str, Any]:
 
 
 def _odt_extract(path: Path) -> dict[str, Any]:
+    _load_odf()
     if odf_load is None:
         raise RuntimeError("odfpy is not available")
 

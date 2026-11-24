@@ -18,64 +18,39 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 STATUS_LABEL = "tool:pwsh_exec"
 
 
-def _probe_powershell_versions() -> dict[str, str]:
-    """Return detected PowerShell versions as strings."""
+def _detect_powershell_executables() -> dict[str, bool]:
+    """Return which PowerShell executables are on PATH.
 
-    def probe(exe: str) -> str:
-        if not shutil.which(exe):
-            return ""
-        try:
-            cmd = [
-                exe,
-                "-NoLogo",
-                "-NoProfile",
-                "-NonInteractive",
-                "-Command",
-                "$PSVersionTable.PSVersion.ToString()",
-            ]
-            r = subprocess.run(
-                cmd,
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-                timeout=3,
-            )
-            out = (r.stdout or "").strip()
-            if r.returncode == 0 and out:
-                return out
-        except Exception:
-            return ""
-        return ""
-
-    vers: dict[str, str] = {}
-    v_pwsh = probe("pwsh")
-    v_ps = probe("powershell")
-    if v_pwsh:
-        vers["pwsh"] = v_pwsh
-    if v_ps:
-        vers["powershell"] = v_ps
-    return vers
+    This runs at import time (the result is baked into the tool description),
+    so it must stay cheap: only a PATH lookup, never a subprocess. Launching
+    PowerShell to read ``$PSVersionTable`` here cost ~0.5 s on every first
+    tool access.
+    """
+    return {
+        "pwsh": bool(shutil.which("pwsh")),
+        "powershell": bool(shutil.which("powershell")),
+    }
 
 
-_VERSIONS = _probe_powershell_versions()
-
-if os.name == "nt":
-    if _VERSIONS.get("pwsh") and _VERSIONS.get("powershell"):
-        _DESC_SUFFIX = f" (detected: pwsh {_VERSIONS['pwsh']} / powershell {_VERSIONS['powershell']})"
-    elif _VERSIONS.get("pwsh"):
-        _DESC_SUFFIX = f" (detected: pwsh {_VERSIONS['pwsh']})"
-    elif _VERSIONS.get("powershell"):
-        _DESC_SUFFIX = f" (detected: powershell {_VERSIONS['powershell']})"
+def _describe_detected(found: dict[str, bool]) -> str:
+    # Suffix of the LLM-facing tool description (kept in English, as before).
+    if os.name == "nt":
+        if found.get("pwsh") and found.get("powershell"):
+            suffix = " (detected: pwsh / powershell)"
+        elif found.get("pwsh"):
+            suffix = " (detected: pwsh)"
+        elif found.get("powershell"):
+            suffix = " (detected: powershell)"
+        else:
+            suffix = " (PowerShell executable not found)"
+    elif found.get("pwsh"):
+        suffix = " (detected: pwsh)"
     else:
-        _DESC_SUFFIX = " (PowerShell executable not found)"
-else:
-    if _VERSIONS.get("pwsh"):
-        _DESC_SUFFIX = f" (detected: pwsh {_VERSIONS['pwsh']})"
-    else:
-        _DESC_SUFFIX = " (pwsh not found)"
+        suffix = " (pwsh not found)"
+    return suffix
+
+
+_DESC_SUFFIX = _describe_detected(_detect_powershell_executables())
 
 
 TOOL_SPEC: dict[str, Any] = {
