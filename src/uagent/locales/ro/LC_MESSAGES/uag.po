@@ -5417,3 +5417,12 @@ msgstr "[LOCAL] Un alt peer UAG este online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Nu s-a putut porni mesajul acceptat: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Browserul nu a putut fi deschis: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Browserul a fost deschis."

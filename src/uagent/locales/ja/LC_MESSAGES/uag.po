@@ -5804,3 +5804,12 @@ msgstr "読み取り専用のOTel診断です。有効状態、送信結果、�
 #, python-format
 msgid "Sandbox: %(state)s"
 msgstr "サンドボックス: %(state)s"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "ブラウザーを開けませんでした: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "ブラウザーを開きました。"

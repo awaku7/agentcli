@@ -5304,3 +5304,12 @@ msgstr "[LOCAL] เพียร์ UAG อื่นออนไลน์อย�
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] ไม่สามารถเริ่มการส่งข้อความที่ยอมรับได้: %(error_type)s"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "ไม่สามารถเปิดเบราว์เซอร์ได้: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "เปิดเบราว์เซอร์แล้ว"

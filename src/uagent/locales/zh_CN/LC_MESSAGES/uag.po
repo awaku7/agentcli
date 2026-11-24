@@ -5133,3 +5133,12 @@ msgstr "[LOCAL] 另一个 UAG 对等点在线：%(entrypoint)s (PID %(pid)s)。"
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] 无法启动接受的消息轮次：%(error_type)s。"
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "无法打开浏览器：%(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "已打开浏览器。"

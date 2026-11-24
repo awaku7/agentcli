@@ -5250,3 +5250,12 @@ msgstr "[LOCAL] Mwenzi mwingine wa UAG yuko mtandaoni: %(entrypoint)s (PID %(pid
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Haikuweza kuanzisha zamu ya ujumbe unaokubalika: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Imeshindwa kufungua kivinjari: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Kivinjari kimefunguliwa."

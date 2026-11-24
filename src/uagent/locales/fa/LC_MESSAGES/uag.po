@@ -5293,3 +5293,12 @@ msgstr "[LOCAL] همتای دیگر UAG آنلاین است: %(entrypoint)s (PID
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] نوبت پیام پذیرفته شده شروع نشد: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "مرورگر باز نشد: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "مرورگر باز شد."

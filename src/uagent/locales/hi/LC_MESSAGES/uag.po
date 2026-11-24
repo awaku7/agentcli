@@ -5336,3 +5336,12 @@ msgstr "[LOCAL] एक अन्य UAG सहकर्मी ऑनलाइन
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] स्वीकृत संदेश मोड़ प्रारंभ नहीं हो सका: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "ब्राउज़र नहीं खोला जा सका: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "ब्राउज़र खोल दिया गया।"

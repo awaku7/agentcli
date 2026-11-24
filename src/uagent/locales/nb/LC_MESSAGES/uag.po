@@ -5329,3 +5329,12 @@ msgstr "[LOCAL] En annen UAG-kollega er online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Kunne ikke starte den aksepterte meldingssvingen: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Kunne ikke åpne nettleseren: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Nettleseren ble åpnet."

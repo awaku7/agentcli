@@ -5381,3 +5381,12 @@ msgstr "[LOCAL] Toinen UAG-vertais on online-tilassa: %(entrypoint)s (PID %(pid)
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Hyväksyttyä viestin käännöstä ei voitu aloittaa: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Selainta ei voitu avata: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Selain avattiin."

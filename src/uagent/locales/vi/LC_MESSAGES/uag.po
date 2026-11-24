@@ -5187,3 +5187,12 @@ msgstr "[LOCAL] Một thiết bị ngang hàng UAG khác đang trực tuyến: %
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Không thể bắt đầu lượt tin nhắn được chấp nhận: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Không thể mở trình duyệt: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Đã mở trình duyệt."

@@ -5394,3 +5394,12 @@ msgstr "[LOCAL] Өөр нэг UAG гишүүн онлайн байна: %(entryp
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Хүлээн зөвшөөрөгдсөн зурвасын эргэлтийг эхлүүлж чадсангүй: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Хөтчийг нээж чадсангүй: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Хөтчийг нээлээ."

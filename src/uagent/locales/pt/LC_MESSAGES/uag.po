@@ -5387,3 +5387,12 @@ msgstr "[LOCAL] Outro par UAG está online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Não foi possível iniciar a mensagem aceita: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Não foi possível abrir o navegador: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "O navegador foi aberto."

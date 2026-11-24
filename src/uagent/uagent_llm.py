@@ -3188,8 +3188,10 @@ def run_llm_rounds(
         # release BUSY state explicitly.
         core.set_status(False, "")
         if diagnostic:
-            return f"ブラウザーを開けませんでした: {diagnostic}"
-        return "ブラウザーを開きました。"
+            return _("Could not open the browser: %(diagnostic)s") % {
+                "diagnostic": diagnostic
+            }
+        return _("Opened the browser.")
 
     # A runaway model can otherwise spend a very long time issuing tool calls.
     # Keep a high but finite final backstop so long tool-heavy workflows can

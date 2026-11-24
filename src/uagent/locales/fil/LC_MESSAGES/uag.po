@@ -5140,3 +5140,12 @@ msgstr "[LOCAL] Isa pang UAG peer ang online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Hindi masimulan ang tinanggap na pagliko ng mensahe: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Hindi mabuksan ang browser: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Nabuksan ang browser."

@@ -5411,3 +5411,12 @@ msgstr "[LOCAL] Egy másik UAG-társ online: %(entrypoint)s (PID %(pid)s)."
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Nem sikerült elindítani az elfogadott üzenetfordulatot: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Nem sikerült megnyitni a böngészőt: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "A böngésző megnyílt."

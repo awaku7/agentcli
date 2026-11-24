@@ -5454,3 +5454,12 @@ msgstr "[LOCAL] Ένας άλλος ομότιμος UAG είναι συνδεδ
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] Δεν ήταν δυνατή η έναρξη του αποδεκτού μηνύματος: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "Δεν ήταν δυνατό το άνοιγμα του προγράμματος περιήγησης: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "Το πρόγραμμα περιήγησης άνοιξε."

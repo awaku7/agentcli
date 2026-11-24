@@ -5292,3 +5292,12 @@ msgstr "[LOCAL] نظير UAG آخر متصل بالإنترنت: %(entrypoint)s 
 #, python-format
 msgid "[LOCAL] Could not start the accepted message turn: %(error_type)s."
 msgstr "[LOCAL] تعذر بدء تشغيل الرسالة المقبولة: %(error_type)s."
+
+#: src/uagent/uagent_llm.py
+#, python-format
+msgid "Could not open the browser: %(diagnostic)s"
+msgstr "تعذّر فتح المتصفح: %(diagnostic)s"
+
+#: src/uagent/uagent_llm.py
+msgid "Opened the browser."
+msgstr "تم فتح المتصفح."
