@@ -1171,6 +1171,13 @@ def _ensure_lazy_tool_loaded(mod_name: str) -> None:
         return
 
 
+# Modules under tools/ that are not plugins and must not be imported by the
+# loader. ``qr_reader_ui`` is a standalone Tkinter script launched in a
+# subprocess by ``qr_reader_tool``; importing it would load tkinter and numpy
+# for nothing.
+_NON_PLUGIN_MODULES: frozenset[str] = frozenset({"context", "qr_reader_ui"})
+
+
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
     with _TOOLS_LOCK:
@@ -1185,7 +1192,7 @@ def _load_plugins() -> None:
     # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
     for m in iter_modules([pkg_dir]):
-        if m.name.startswith("_") or m.name == "context":
+        if m.name.startswith("_") or m.name in _NON_PLUGIN_MODULES:
             continue
 
         # Lazy-loaded modules are skipped here; imported on demand

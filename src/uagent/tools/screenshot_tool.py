@@ -9,50 +9,42 @@ _ = make_tool_translator(__file__)
 
 import base64
 import datetime
+import importlib
 import importlib.util
 import os
 import time
 from typing import Any
 
-try:
-    import pyautogui
-except Exception:
-    pyautogui = None
-_PYAUTOGUI_AVAILABLE_AT_IMPORT = pyautogui is not None
+# pyautogui/pygetwindow pull in pyscreeze, cv2 and friends (~100 ms), so they
+# are imported on first use, not when the plugin loader imports this module.
+# ``_NOT_LOADED`` means "not tried yet"; ``None`` means "unavailable" (tests
+# also set ``None`` to simulate a missing package).
+_NOT_LOADED: Any = object()
+pyautogui: Any = _NOT_LOADED
+pygetwindow: Any = _NOT_LOADED
 
-try:
-    import pygetwindow
-except Exception:
-    pygetwindow = None
-_PYGETWINDOW_AVAILABLE_AT_IMPORT = pygetwindow is not None
+
+def _import_or_install(name: str) -> Any:
+    try:
+        return importlib.import_module(name)
+    except Exception:
+        pass
+    # Install only when the package is truly absent; an installed package that
+    # fails to import (e.g. no display) must not trigger a reinstall.
+    if importlib.util.find_spec(name) is None and install_with_status(name):
+        try:
+            return importlib.import_module(name)
+        except Exception:
+            return None
+    return None
 
 
 def _ensure_screenshot_dependencies() -> None:
     global pyautogui, pygetwindow
-    if (
-        (not _PYAUTOGUI_AVAILABLE_AT_IMPORT)
-        and pyautogui is None
-        and importlib.util.find_spec("pyautogui") is None
-        and install_with_status("pyautogui")
-    ):
-        try:
-            import pyautogui as _pyautogui
-
-            pyautogui = _pyautogui
-        except Exception:
-            pass
-    if (
-        (not _PYGETWINDOW_AVAILABLE_AT_IMPORT)
-        and pygetwindow is None
-        and importlib.util.find_spec("pygetwindow") is None
-        and install_with_status("pygetwindow")
-    ):
-        try:
-            import pygetwindow as _pygetwindow
-
-            pygetwindow = _pygetwindow
-        except Exception:
-            pass
+    if pyautogui is _NOT_LOADED:
+        pyautogui = _import_or_install("pyautogui")
+    if pygetwindow is _NOT_LOADED:
+        pygetwindow = _import_or_install("pygetwindow")
 
 
 TOOL_SPEC: dict[str, Any] = {

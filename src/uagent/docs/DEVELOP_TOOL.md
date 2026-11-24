@@ -262,8 +262,12 @@ ______________________________________________________________________
 ## 6. How tools are loaded
 
 - Internal tools are discovered by scanning `src/uagent/tools/`.
-- Modules starting with `_` and `context` are skipped.
+- Modules starting with `_` are skipped, as are the non-plugin modules listed in
+  `_NON_PLUGIN_MODULES` (`context`, and standalone scripts such as
+  `qr_reader_ui`).
 - If a module is already imported, it is reloaded.
+- **Every plugin module is imported on first tool access**, whether or not its
+  tool is ever called. Keep module import cheap (see section 9).
 - Tool specs and runners are stored in memory:
   - `TOOL_SPECS` (list of specs)
   - `_RUNNERS` (name -> runner)
@@ -365,6 +369,13 @@ ______________________________________________________________________
 - Missing `TOOL_SPEC` or `run_tool` → tool is not registered.
 - Invalid JSON schema under `parameters` → LLM tool call args may break.
 - Printing sensitive data → use masking and `human_ask(is_password=True)` when necessary.
+- Expensive work at import time → it slows down the first tool access for every
+  user, because the loader imports all plugins. Do not start subprocesses at
+  module level, and import heavy optional libraries (and call
+  `install_with_status()` for them) inside the function that needs them, not
+  at the top of the module. `fetch_url_tool`, `document_extract_tool` and
+  `screenshot_tool` show the pattern. Measure with
+  `python scripts/bench_startup.py`.
 
 ______________________________________________________________________
 

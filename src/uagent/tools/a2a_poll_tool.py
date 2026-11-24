@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from ..a2a.client import A2AClient
 from .arg_util import get_int, get_str
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -117,6 +116,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
         interval_ms = get_int(args, "interval_ms", int(prof.get("interval_ms") or 500))
         timeout_s = get_int(args, "timeout_s", int(prof.get("timeout_s") or 300))
+
+        # Imported here: the client pulls in httpx (~150 ms), which the
+        # plugin loader should not pay for when the tool is never called.
+        from ..a2a.client import A2AClient
 
         client = A2AClient(
             base_url=str(prof.get("base_url")),

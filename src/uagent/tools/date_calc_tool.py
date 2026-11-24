@@ -6,14 +6,6 @@ import json
 from typing import Any, Optional
 
 try:
-    import holidays
-except ImportError:
-    from .._pip_auto import install_with_status as _install_hd
-
-    _install_hd("holidays")
-    import holidays
-
-try:
     from dateutil.relativedelta import relativedelta
 except ImportError:
     from .._pip_auto import install_with_status as _install_dutil
@@ -135,8 +127,25 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _load_holidays() -> Any:
+    """Import ``holidays`` on first use (~80 ms), installing it once if missing.
+
+    The plugin loader imports every tool module, so the library is not
+    imported at module level.
+    """
+    try:
+        import holidays
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_hd
+
+        _install_hd("holidays")
+        import holidays
+    return holidays
+
+
 def get_holiday_info(dt: datetime.datetime, country_code: str) -> Optional[str]:
     """Get the holiday name for the specified country using the holidays library."""
+    holidays = _load_holidays()
     try:
         if country_code.upper() == "JP":
             hols = holidays.Japan(language="ja")
