@@ -6,9 +6,10 @@ import sys
 from collections.abc import Mapping
 from pathlib import Path
 
-from uag_envsec import decrypt_text, encrypt_text, ensure_key_file
+from uag_envsec import decrypt_text, ensure_key_file
 
 from ..env_validate import format_missing_env_message, validate_startup_env
+from ..envsec_util import encrypt_env_document
 from ..i18n import _
 from .runtime_workdir import get_startup_workdir
 
@@ -108,11 +109,16 @@ def _write_text_atomic(path: Path, content: str) -> None:
 
 
 def _read_envsec_plaintext(sec_path: Path) -> str:
-    body = sec_path.read_text(encoding="utf-8").strip()
+    raw = sec_path.read_text(encoding="utf-8")
+    body = raw.strip()
     if not body:
         return ""
     local_key = Path.cwd() / ".uagent.key"
     kp = str(local_key) if local_key.exists() else None
+    if body.startswith("# uag-envsec:values-only:") and raw.endswith(("\n", "\r")):
+        # decrypt_env_values restores line endings from its input, so pass
+        # back the final line ending that strip() removed.
+        body += "\n"
     return decrypt_text(body, key_path=kp)
 
 
@@ -141,7 +147,7 @@ def save_uagent_envsec(*, env: Mapping[str, str] | None = None) -> Path:
     snapshot = _snapshot_uagent_env(env)
     ensure_key_file()
     plaintext = _build_uagent_env_text(snapshot)
-    _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+    _write_text_atomic(sec_path, encrypt_env_document(plaintext))
     return sec_path
 
 
@@ -223,7 +229,7 @@ def _maybe_offer_envsec_sync(
                 merged_values = dict(sec_values)
                 merged_values.update(snapshot)
                 plaintext = _build_uagent_env_text(merged_values)
-                _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+                _write_text_atomic(sec_path, encrypt_env_document(plaintext))
                 print(
                     _("Updated .env.sec: %(path)s", path=sec_path),
                     file=sys.__stderr__,
@@ -241,7 +247,7 @@ def _maybe_offer_envsec_sync(
             merged_values = dict(sec_values)
             merged_values.update(snapshot)
             plaintext = _build_uagent_env_text(merged_values)
-            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+            _write_text_atomic(sec_path, encrypt_env_document(plaintext))
             print(_("Updated .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
             return True
         except Exception as e:
@@ -282,7 +288,7 @@ def _maybe_offer_envsec_sync(
         try:
             ensure_key_file()
             plaintext = _build_uagent_env_text(snapshot)
-            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+            _write_text_atomic(sec_path, encrypt_env_document(plaintext))
             print(
                 _("Created .env.sec: %(path)s", path=sec_path),
                 file=sys.__stderr__,
@@ -298,7 +304,7 @@ def _maybe_offer_envsec_sync(
     try:
         ensure_key_file()
         plaintext = _build_uagent_env_text(snapshot)
-        _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+        _write_text_atomic(sec_path, encrypt_env_document(plaintext))
         print(_("Created .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
         return True
     except Exception as e:
