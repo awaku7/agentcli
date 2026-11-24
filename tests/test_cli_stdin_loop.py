@@ -74,7 +74,7 @@ def test_prompt_input_is_not_read_while_status_is_busy(monkeypatch) -> None:
     assert event == {"kind": "user", "text": "hello"}
 
 
-@pytest.mark.parametrize("command", (":load 0", ":cont"))
+@pytest.mark.parametrize("command", (":load 0", ":cont", ":nostr connect"))
 def test_load_and_continue_stop_spinner_before_command_output(
     monkeypatch, command: str
 ) -> None:

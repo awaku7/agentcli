@@ -251,8 +251,10 @@ def _read_key_file() -> tuple[str, str] | None:
                 "nostr.msg25",
                 default=(
                     "stored Nostr key file could not be read (encryption backend "
-                    f"error: {exc}); leaving it untouched: {_NOSTR_KEY_FILE}"
+                    "error: %(error)s); leaving it untouched: %(path)s"
                 ),
+                error=exc,
+                path=_NOSTR_KEY_FILE,
             )
         ) from exc
     if parsed is None:
@@ -262,8 +264,9 @@ def _read_key_file() -> tuple[str, str] | None:
                 default=(
                     "Warning: the stored Nostr key file could not be decrypted; "
                     "a new key was generated and the previous Nostr identity "
-                    f"was discarded: {_NOSTR_KEY_FILE}"
+                    "was discarded: %(path)s"
                 ),
+                path=_NOSTR_KEY_FILE,
             ),
             flush=True,
         )
