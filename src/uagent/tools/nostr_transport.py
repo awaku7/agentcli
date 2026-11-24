@@ -247,8 +247,13 @@ def _read_key_file() -> tuple[str, str] | None:
         # The encryption backend itself failed (locked keyring, timeout):
         # leave the file untouched so the identity survives the outage.
         raise NostrKeyUnreadableError(
-            "stored Nostr key file could not be read (encryption backend "
-            f"error: {exc}); leaving it untouched: {_NOSTR_KEY_FILE}"
+            _(
+                "nostr.msg25",
+                default=(
+                    "stored Nostr key file could not be read (encryption backend "
+                    f"error: {exc}); leaving it untouched: {_NOSTR_KEY_FILE}"
+                ),
+            )
         ) from exc
     if parsed is None:
         print(
