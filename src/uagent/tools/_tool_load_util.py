@@ -65,7 +65,23 @@ def _find_tool_modules(skip_lazy: bool = False) -> list[tuple[str, Any]]:
 
     If skip_lazy is True, modules with LAZY_LOAD = True are not imported
     (used for catalog discovery without importing heavy dependencies).
+
+    Plugins registered from the tool manifest and not imported yet are
+    returned as ``ManifestModuleView`` objects: they expose the cached
+    ``TOOL_SPEC``/``TOOL_SPEC_2``/``TOOL_SPEC_3`` and import the real module
+    only when another attribute is read.
     """
+    from ._manifest import ManifestModuleView
+
+    try:
+        # Populated by plugin loading. Do not trigger loading from here: this
+        # function may run while plugins are being imported. Before the first
+        # load the dict is empty and every module is imported, as before.
+        from . import _MANIFEST_VIEWS
+
+        manifest_views = dict(_MANIFEST_VIEWS)
+    except Exception:
+        manifest_views = {}
     pkg_dir = os.path.dirname(__file__)
     results: list[tuple[str, Any]] = []
     for m in pkgutil.iter_modules([pkg_dir]):
@@ -83,6 +99,8 @@ def _find_tool_modules(skip_lazy: bool = False) -> list[tuple[str, Any]]:
             # Reload wipes module-level state (e.g. browser sessions).
             if mod_name in sys.modules:
                 mod = sys.modules[mod_name]
+            elif mname in manifest_views:
+                mod = ManifestModuleView(mod_name, manifest_views[mname])
             else:
                 mod = importlib.import_module(mod_name)
             results.append((mname, mod))

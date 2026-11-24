@@ -20,6 +20,7 @@ import os
 import statistics
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,12 @@ PROBES: dict[str, str] = {
         "T._ensure_loaded()\n"
         "result['ms'] = (time.perf_counter() - t1) * 1000\n"
     ),
+    "tools: load plugins (manifest off)": (
+        "import uagent.tools as T\n"
+        "t1 = time.perf_counter()\n"
+        "T._ensure_loaded()\n"
+        "result['ms'] = (time.perf_counter() - t1) * 1000\n"
+    ),
     "tools: catalog (en)": (
         "import uagent.tools as T\n"
         "T._ensure_loaded()\n"
@@ -82,8 +89,14 @@ PROBES: dict[str, str] = {
     ),
 }
 
+# Extra environment per probe. ``UAGENT_TOOL_MANIFEST=off`` measures the eager
+# path, i.e. the first run before the tool manifest cache exists.
+PROBE_ENV: dict[str, dict[str, str]] = {
+    "tools: load plugins (manifest off)": {"UAGENT_TOOL_MANIFEST": "off"},
+}
 
-def _run_probe(body: str) -> dict:
+
+def _run_probe(body: str, state_dir: str, extra_env: dict[str, str]) -> dict:
     code = _PROBE_TEMPLATE.format(src=str(SRC_DIR), body=body, watched=WATCHED_MODULES)
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
@@ -91,6 +104,10 @@ def _run_probe(body: str) -> dict:
     # Tool warmup and auto-install must not skew or block the measurement.
     env["UAGENT_TOOLS_WARMUP"] = "0"
     env.setdefault("UAGENT_AUTO_INSTALL", "off")
+    # Keep caches (e.g. the tool manifest) out of the user's state directory;
+    # the directory lives for one benchmark run, so warm-up runs fill it.
+    env["UAGENT_STATE_DIR"] = state_dir
+    env.update(extra_env)
     proc = subprocess.run(
         [sys.executable, "-c", code],
         cwd=str(REPO_ROOT),
@@ -120,29 +137,34 @@ def main() -> int:
     args = parser.parse_args()
 
     report: dict[str, dict] = {}
-    for name, body in PROBES.items():
-        if args.only and not any(token in name for token in args.only):
-            continue
-        _run_probe(body)  # warm-up: .pyc compilation, OS file cache
-        samples = [_run_probe(body) for _ in range(max(1, args.runs))]
-        times = [s["ms"] for s in samples]
-        report[name] = {
-            "median_ms": round(statistics.median(times), 1),
-            "min_ms": round(min(times), 1),
-            "max_ms": round(max(times), 1),
-            "watched_loaded": samples[-1]["watched_loaded"],
-        }
+    with tempfile.TemporaryDirectory(prefix="uag-bench-") as state_dir:
+        for name, body in PROBES.items():
+            if args.only and not any(token in name for token in args.only):
+                continue
+            extra_env = PROBE_ENV.get(name, {})
+            # Warm-up: .pyc compilation, OS file cache, tool manifest cache.
+            _run_probe(body, state_dir, extra_env)
+            samples = [
+                _run_probe(body, state_dir, extra_env) for _ in range(max(1, args.runs))
+            ]
+            times = [s["ms"] for s in samples]
+            report[name] = {
+                "median_ms": round(statistics.median(times), 1),
+                "min_ms": round(min(times), 1),
+                "max_ms": round(max(times), 1),
+                "watched_loaded": samples[-1]["watched_loaded"],
+            }
 
     if args.json:
         print(json.dumps(report, indent=2, ensure_ascii=False))
         return 0
 
     print(f"python {sys.version.split()[0]}  runs={args.runs}  src={SRC_DIR}")
-    print(f"{'probe':30} {'median':>9} {'min':>9} {'max':>9}  watched modules loaded")
+    print(f"{'probe':36} {'median':>9} {'min':>9} {'max':>9}  watched modules loaded")
     for name, row in report.items():
         watched = ", ".join(row["watched_loaded"]) or "-"
         print(
-            f"{name:30} {row['median_ms']:8.1f}ms {row['min_ms']:8.1f}ms "
+            f"{name:36} {row['median_ms']:8.1f}ms {row['min_ms']:8.1f}ms "
             f"{row['max_ms']:8.1f}ms  {watched}"
         )
     return 0

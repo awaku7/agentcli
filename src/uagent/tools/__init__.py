@@ -1177,6 +1177,143 @@ def _ensure_lazy_tool_loaded(mod_name: str) -> None:
 # for nothing.
 _NON_PLUGIN_MODULES: frozenset[str] = frozenset({"context", "qr_reader_ui"})
 
+# Cached specs of lazy plugin modules that have not been imported yet
+# (short module name -> {"TOOL_SPEC": ..., ...}). Read by
+# ``_tool_load_util._find_tool_modules`` so discovery does not import them.
+_MANIFEST_VIEWS: dict[str, dict[str, Any]] = {}
+
+
+class _LazyRunner:
+    """Runner placeholder for a plugin registered from the tool manifest.
+
+    The real module is imported and registered the first time the tool is
+    resolved (``run_tool``, ``get_tool_describer``) or called directly.
+    """
+
+    __slots__ = ("module_name", "tool_name")
+
+    def __init__(self, module_name: str, tool_name: str) -> None:
+        self.module_name = module_name
+        self.tool_name = tool_name
+
+    def resolve(self) -> Optional[Callable[[dict[str, Any]], str]]:
+        """Import and register the real module; return its runner (or None)."""
+        mod = sys.modules.get(self.module_name)
+        if mod is None:
+            mod = import_module(self.module_name)
+        _register_tool_module(mod, self.module_name)
+        with _TOOLS_LOCK:
+            _MANIFEST_VIEWS.pop(self.module_name.rsplit(".", 1)[-1], None)
+            runner = _RUNNERS.get(self.tool_name)
+        if runner is None or isinstance(runner, _LazyRunner):
+            return None
+        return runner
+
+    def __call__(self, args: dict[str, Any]) -> str:
+        runner = self.resolve()
+        if runner is None:
+            raise RuntimeError(f"tool {self.tool_name!r} could not be loaded")
+        return runner(args)
+
+    def __repr__(self) -> str:
+        return f"<_LazyRunner {self.tool_name} from {self.module_name}>"
+
+
+def _resolve_lazy_runner(name: str) -> Optional[Callable[[dict[str, Any]], str]]:
+    """Return the real runner for ``name``, importing a lazy plugin if needed."""
+    with _TOOLS_LOCK:
+        runner = _RUNNERS.get(name)
+    if isinstance(runner, _LazyRunner):
+        return runner.resolve()
+    return runner
+
+
+class _ManifestSession:
+    """Per-``_load_plugins`` manifest state: cached entries in, new entries out."""
+
+    def __init__(self, pkg_dir: str) -> None:
+        from . import _manifest
+
+        self.locale = get_locale()
+        self.fingerprint = _manifest.compute_fingerprint(pkg_dir, self.locale)
+        self.path = _manifest.manifest_path(pkg_dir, self.locale)
+        self.cached = _manifest.load_manifest(self.path, self.fingerprint) or {}
+        self.entries: dict[str, dict[str, Any]] = {}
+
+    def record(self, short_name: str, mod: Any) -> None:
+        from . import _manifest
+
+        try:
+            entry = _manifest.classify_module(mod, frozenset(_EMBEDDED_EXCLUDED_TOOLS))
+        except Exception:
+            entry = None
+        if entry is not None:
+            self.entries[short_name] = entry
+
+    def save(self) -> None:
+        from . import _manifest
+
+        if self.entries != self.cached:
+            _manifest.save_manifest(self.path, self.fingerprint, self.entries)
+
+
+def _open_manifest_session(pkg_dir: str) -> Optional[_ManifestSession]:
+    """Return a manifest session, or None when lazy loading must not be used."""
+    from . import _manifest
+
+    if not _manifest.manifest_enabled():
+        return None
+    # Native tool_search sends every tool spec to the server and needs every
+    # module's real registration; keep the eager path there.
+    if _should_preload_lazy_specs():
+        return None
+    try:
+        return _ManifestSession(pkg_dir)
+    except Exception:
+        return None
+
+
+def _register_from_manifest(short_name: str, entry: dict[str, Any]) -> bool:
+    """Register a plugin from its manifest entry without importing it.
+
+    Mirrors what ``_register_tool_module`` does for a module whose specs are
+    all hidden from the LLM (``tool_level`` 1 or -1): the main spec gets a
+    runner and a trace flag; extra specs get nothing. Returns False when the
+    module must be imported instead.
+    """
+    from . import _manifest
+
+    kind = entry.get("kind")
+    if kind == _manifest.KIND_SKIP:
+        return True
+    if kind != _manifest.KIND_LAZY:
+        return False
+    specs = entry.get("specs")
+    if not isinstance(specs, dict):
+        return False
+    spec = specs.get("TOOL_SPEC")
+    names = _manifest.tool_names_of(entry)
+    if not isinstance(spec, dict) or not names:
+        return False
+    try:
+        from ._tool_load_util import _LOADED_SINGLE_TOOLS
+
+        # Individually loaded tools must become LLM-visible: import them.
+        if any(name in _LOADED_SINGLE_TOOLS for name in names):
+            return False
+    except Exception:
+        return False
+    if any(name in _EMBEDDED_EXCLUDED_TOOLS for name in names):
+        return False
+    tool_name = names[0]
+    module_name = f"{__name__}.{short_name}"
+    with _TOOLS_LOCK:
+        _RUNNERS[tool_name] = _LazyRunner(module_name, tool_name)
+        _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
+        _TOOL_DESCRIBERS.pop(tool_name, None)
+        _MANIFEST_VIEWS[short_name] = specs
+    return True
+
 
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
@@ -1188,9 +1325,11 @@ def _load_plugins() -> None:
         _TOOL_SPECS_DIRTY = True
         _TOOL_TRACE_FLAGS.clear()
         _TOOL_DESCRIBERS.clear()
+        _MANIFEST_VIEWS.clear()
 
     # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
+    manifest = _open_manifest_session(pkg_dir)
     for m in iter_modules([pkg_dir]):
         if m.name.startswith("_") or m.name in _NON_PLUGIN_MODULES:
             continue
@@ -1214,6 +1353,15 @@ def _load_plugins() -> None:
             continue
 
         mod_name = f"{__name__}.{m.name}"
+        # Fast path: register from the cached manifest without importing.
+        # Modules imported earlier in this process keep the reload path below.
+        if manifest is not None and mod_name not in sys.modules:
+            cached_entry = manifest.cached.get(m.name)
+            if cached_entry is not None and _register_from_manifest(
+                m.name, cached_entry
+            ):
+                manifest.entries[m.name] = cached_entry
+                continue
         try:
             if mod_name in sys.modules:
                 _existing_mod = sys.modules[mod_name]
@@ -1230,10 +1378,15 @@ def _load_plugins() -> None:
                     # Preserve CLI-only modules already imported as helpers;
                     # they still may contribute CMD_SPEC/CMD_SPECS entries.
                     _register_dynamic_commands(_existing_mod)
+                    if manifest is not None:
+                        manifest.record(m.name, _existing_mod)
                     continue
                 mod = reload(_existing_mod)
             else:
                 mod = import_module(mod_name)
+            # Classify before registering: registration may mutate the spec.
+            if manifest is not None:
+                manifest.record(m.name, mod)
             loaded = _register_tool_module(mod, mod_name)
             reason = getattr(mod, "LOAD_DISABLED_REASON", "")
             if (not loaded) and reason:
@@ -1257,6 +1410,9 @@ def _load_plugins() -> None:
                 ),
                 file=sys.stderr,
             )
+
+    if manifest is not None:
+        manifest.save()
 
     # 2. Load external tools (UAGENT_EXTERNAL_TOOLS_DIRS / UAGENT_EXTERNAL_TOOLS_DIR)
     _ext_dirs_raw = (
@@ -2689,7 +2845,17 @@ def get_tool_describer(tool_name: str) -> Optional[Callable[..., Any]]:
     """Return the registered action describer for ``tool_name`` (if any)."""
 
     with _TOOLS_LOCK:
-        return _TOOL_DESCRIBERS.get(tool_name)
+        describer = _TOOL_DESCRIBERS.get(tool_name)
+        lazy = isinstance(_RUNNERS.get(tool_name), _LazyRunner)
+    if describer is None and lazy:
+        # A lazy plugin registers its describer when it is imported.
+        try:
+            _resolve_lazy_runner(tool_name)
+        except Exception:
+            return None
+        with _TOOLS_LOCK:
+            describer = _TOOL_DESCRIBERS.get(tool_name)
+    return describer
 
 
 def build_tool_description(tool_name: str, args: Any) -> str:
@@ -2937,6 +3103,18 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                     runner = _RUNNERS.get(name)
             except Exception:
                 pass
+        if runner is None:
+            return f"[tool error] unknown tool: {name}"
+    if isinstance(runner, _LazyRunner):
+        # Import the plugin now so its describer, busy label and real runner
+        # are registered before the trace and the call below.
+        try:
+            runner = runner.resolve()
+        except Exception as exc:
+            return (
+                f"[tool error] failed to load tool {name}: "
+                f"{type(exc).__name__}: {exc}"
+            )
         if runner is None:
             return f"[tool error] unknown tool: {name}"
 

@@ -266,13 +266,35 @@ ______________________________________________________________________
   `_NON_PLUGIN_MODULES` (`context`, and standalone scripts such as
   `qr_reader_ui`).
 - If a module is already imported, it is reloaded.
-- **Every plugin module is imported on first tool access**, whether or not its
-  tool is ever called. Keep module import cheap (see section 9).
 - Tool specs and runners are stored in memory:
   - `TOOL_SPECS` (list of specs)
   - `_RUNNERS` (name -> runner)
 
 The tool list shown at startup is printed to stderr.
+
+### 6.1 Tool manifest (lazy loading)
+
+On the first load, every plugin module is imported. The loader then records a
+manifest in the user cache directory (`<cache>/tool_manifest/`), and later
+processes register most tools from it **without importing them**:
+
+- A module is registered lazily only when all of its specs are hidden at
+  startup (`tool_level` 1 or -1) and it has no `CMD_SPEC(S)`, no
+  `is_loadable()`, no `LOAD_DISABLED_REASON`, no `LAZY_LOAD`, and plain-JSON
+  specs. Everything else is imported as before.
+- A lazy tool gets a placeholder runner. The module is imported the first time
+  the tool runs, is loaded with `tool_load`, or its describer is needed.
+  `tool_catalog` and `_find_tool_modules()` read the cached specs instead.
+- Helper modules without `TOOL_SPEC`/`run_tool` and without commands are not
+  imported by the loader at all.
+- The cache is rebuilt when any `.py`/`.json` file under `tools/`, the locale,
+  the Python version/platform, a `UAGENT_*` variable or `PATH` changes.
+- `UAGENT_TOOL_MANIFEST=off` disables the manifest (always import everything).
+  The manifest is also not used in native GPT-5.4 `tool_search` mode.
+
+Because the first load still imports every plugin, keep module import cheap
+(see section 9). Do not rely on import-time side effects of a tool module:
+with the manifest, a lazy tool's module is imported only when the tool is used.
 
 ______________________________________________________________________
 
