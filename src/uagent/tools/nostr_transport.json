@@ -84,7 +84,8 @@
     "nostr.setup_self_pair_rejected": "رفض إقران المفتاح العام الخاص بـ PC نفسه.",
     "nostr.setup_transport_error": "نقل Nostr غير جاهز.",
     "nostr.setup_usage": "الاستخدام: :nostr setup",
-    "secp256k1.invalid_pubkey": "نقطة مفتاح عام غير صالحة"
+    "secp256k1.invalid_pubkey": "نقطة مفتاح عام غير صالحة",
+    "tool.description": "أداة وهمية لتسجيل أوامر CLI الخاصة بنقل Nostr."
   },
   "bn": {
     "nostr.active_key_mismatch": "সক্রিয় Nostr কী তার পাবলিক কী-এর সাথে মিলছে না",
@@ -171,7 +172,8 @@
     "nostr.setup_self_pair_rejected": "PC-এর নিজের পাবলিক কী পেয়ার করতে অস্বীকৃতি জানানো হচ্ছে।",
     "nostr.setup_transport_error": "Nostr transport প্রস্তুত নয়।",
     "nostr.setup_usage": "ব্যবহার: :nostr setup",
-    "secp256k1.invalid_pubkey": "অবৈধ পাবলিক কী পয়েন্ট"
+    "secp256k1.invalid_pubkey": "অবৈধ পাবলিক কী পয়েন্ট",
+    "tool.description": "Nostr ট্রান্সপোর্ট CLI কমান্ড নিবন্ধনের জন্য ডামি টুল।"
   },
   "cs": {
     "nostr.active_key_mismatch": "aktivní klíč Nostr neodpovídá jeho veřejnému klíči",
@@ -258,7 +260,8 @@
     "nostr.setup_self_pair_rejected": "Odmítáme spárovat vlastní veřejný klíč tohoto PC.",
     "nostr.setup_transport_error": "Transport Nostr není připraven.",
     "nostr.setup_usage": "Použití: :nostr setup",
-    "secp256k1.invalid_pubkey": "Neplatný bod veřejného klíče"
+    "secp256k1.invalid_pubkey": "Neplatný bod veřejného klíče",
+    "tool.description": "Fiktivní nástroj pro registraci příkazů CLI transportu Nostr."
   },
   "da": {
     "nostr.active_key_mismatch": "aktiv Nostr-nøgle stemmer ikke overens med dens offentlige nøgle",
@@ -345,7 +348,8 @@
     "nostr.setup_self_pair_rejected": "Nægter at parre PC'ens egen offentlige nøgle.",
     "nostr.setup_transport_error": "Nostr-transport er ikke klar.",
     "nostr.setup_usage": "Brug: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ugyldigt punkt for offentlig nøgle"
+    "secp256k1.invalid_pubkey": "Ugyldigt punkt for offentlig nøgle",
+    "tool.description": "Dummy-værktøj til registrering af Nostr-transportens CLI-kommandoer."
   },
   "de": {
     "nostr.active_key_mismatch": "Aktiver Nostr-Schlüssel stimmt nicht mit seinem öffentlichen Schlüssel überein",
@@ -432,7 +436,8 @@
     "nostr.setup_self_pair_rejected": "Der eigene öffentliche Schlüssel des PC wird nicht gekoppelt.",
     "nostr.setup_transport_error": "Nostr-Transport ist nicht bereit.",
     "nostr.setup_usage": "Verwendung: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ungültiger Punkt des öffentlichen Schlüssels"
+    "secp256k1.invalid_pubkey": "Ungültiger Punkt des öffentlichen Schlüssels",
+    "tool.description": "Dummy-Tool zur Registrierung der CLI-Befehle des Nostr-Transports."
   },
   "el": {
     "nostr.active_key_mismatch": "Το ενεργό κλειδί Nostr δεν ταιριάζει με το δημόσιο κλειδί του",
@@ -519,7 +524,8 @@
     "nostr.setup_self_pair_rejected": "Άρνηση σύζευξης του ίδιου του δημόσιου κλειδιού του PC.",
     "nostr.setup_transport_error": "Το Nostr transport δεν είναι έτοιμο.",
     "nostr.setup_usage": "Χρήση: :nostr setup",
-    "secp256k1.invalid_pubkey": "Μη έγκυρο σημείο δημόσιου κλειδιού"
+    "secp256k1.invalid_pubkey": "Μη έγκυρο σημείο δημόσιου κλειδιού",
+    "tool.description": "Εικονικό εργαλείο για την καταχώρηση εντολών CLI της μεταφοράς Nostr."
   },
   "es": {
     "nostr.active_key_mismatch": "La clave Nostr activa no coincide con su clave pública",
@@ -606,7 +612,8 @@
     "nostr.setup_self_pair_rejected": "Se rechaza emparejar la propia clave pública del PC.",
     "nostr.setup_transport_error": "El transporte de Nostr no está listo.",
     "nostr.setup_usage": "Uso: :nostr setup",
-    "secp256k1.invalid_pubkey": "Punto de clave pública no válido"
+    "secp256k1.invalid_pubkey": "Punto de clave pública no válido",
+    "tool.description": "Herramienta ficticia para registrar los comandos CLI del transporte Nostr."
   },
   "fa": {
     "nostr.active_key_mismatch": "کلید فعال Nostr با کلید عمومی آن مطابقت ندارد",
@@ -693,7 +700,8 @@
     "nostr.setup_self_pair_rejected": "از جفت‌سازی کلید عمومی خود PC خودداری می‌شود.",
     "nostr.setup_transport_error": "ترابری Nostr آماده نیست.",
     "nostr.setup_usage": "نحوه استفاده: :nostr setup",
-    "secp256k1.invalid_pubkey": "نقطه کلید عمومی نامعتبر"
+    "secp256k1.invalid_pubkey": "نقطه کلید عمومی نامعتبر",
+    "tool.description": "ابزار ساختگی برای ثبت فرمان‌های CLI انتقال Nostr."
   },
   "fi": {
     "nostr.active_key_mismatch": "aktiivinen Nostr-avain ei vastaa sen julkista avainta",
@@ -780,7 +788,8 @@
     "nostr.setup_self_pair_rejected": "PC:n oman julkisen avaimen pariliitos hylätään.",
     "nostr.setup_transport_error": "Nostr-siirto ei ole valmis.",
     "nostr.setup_usage": "Käyttö: :nostr setup",
-    "secp256k1.invalid_pubkey": "Virheellinen julkisen avaimen piste"
+    "secp256k1.invalid_pubkey": "Virheellinen julkisen avaimen piste",
+    "tool.description": "Valetyökalu Nostr-siirron CLI-komentojen rekisteröintiin."
   },
   "fil": {
     "nostr.active_key_mismatch": "Ang aktibong Nostr key ay hindi tumutugma sa public key nito",
@@ -867,7 +876,8 @@
     "nostr.setup_self_pair_rejected": "Tinatanggihang ipairing ang sariling public key ng PC.",
     "nostr.setup_transport_error": "Hindi pa handa ang Nostr transport.",
     "nostr.setup_usage": "Paggamit: :nostr setup",
-    "secp256k1.invalid_pubkey": "Hindi wastong public key point"
+    "secp256k1.invalid_pubkey": "Hindi wastong public key point",
+    "tool.description": "Dummy na tool para sa pagpaparehistro ng mga CLI command ng Nostr transport."
   },
   "fr": {
     "nostr.active_key_mismatch": "La clé Nostr active ne correspond pas à sa clé publique",
@@ -954,7 +964,8 @@
     "nostr.setup_self_pair_rejected": "Refus d'appairer la propre clé publique du PC.",
     "nostr.setup_transport_error": "Le transport Nostr n'est pas prêt.",
     "nostr.setup_usage": "Utilisation : :nostr setup",
-    "secp256k1.invalid_pubkey": "Point de clé publique invalide"
+    "secp256k1.invalid_pubkey": "Point de clé publique invalide",
+    "tool.description": "Outil factice pour l'enregistrement des commandes CLI du transport Nostr."
   },
   "he": {
     "nostr.active_key_mismatch": "מפתח Nostr הפעיל אינו תואם את המפתח הציבורי שלו",
@@ -1041,7 +1052,8 @@
     "nostr.setup_self_pair_rejected": "מסרב לצמד את המפתח הציבורי של PC עצמו.",
     "nostr.setup_transport_error": "תעבורת Nostr אינה מוכנה.",
     "nostr.setup_usage": "שימוש: :nostr setup",
-    "secp256k1.invalid_pubkey": "נקודת מפתח ציבורי לא תקינה"
+    "secp256k1.invalid_pubkey": "נקודת מפתח ציבורי לא תקינה",
+    "tool.description": "כלי דמה לרישום פקודות ה-CLI של תעבורת Nostr."
   },
   "hi": {
     "nostr.active_key_mismatch": "सक्रिय Nostr कुंजी उसकी सार्वजनिक कुंजी से मेल नहीं खाती",
@@ -1128,7 +1140,8 @@
     "nostr.setup_self_pair_rejected": "PC की अपनी सार्वजनिक कुंजी को पेयर करने से इनकार किया जा रहा है।",
     "nostr.setup_transport_error": "Nostr transport तैयार नहीं है।",
     "nostr.setup_usage": "उपयोग: :nostr setup",
-    "secp256k1.invalid_pubkey": "अमान्य सार्वजनिक कुंजी बिंदु"
+    "secp256k1.invalid_pubkey": "अमान्य सार्वजनिक कुंजी बिंदु",
+    "tool.description": "Nostr ट्रांसपोर्ट CLI कमांड पंजीकरण के लिए डमी टूल।"
   },
   "hu": {
     "nostr.active_key_mismatch": "az aktív Nostr kulcs nem egyezik a nyilvános kulcsával",
@@ -1215,7 +1228,8 @@
     "nostr.setup_self_pair_rejected": "A PC saját nyilvános kulcsának párosítása elutasítva.",
     "nostr.setup_transport_error": "A Nostr átvitel nem áll készen.",
     "nostr.setup_usage": "Használat: :nostr setup",
-    "secp256k1.invalid_pubkey": "Érvénytelen nyilvános kulcspont"
+    "secp256k1.invalid_pubkey": "Érvénytelen nyilvános kulcspont",
+    "tool.description": "Helyettesítő eszköz a Nostr transport CLI-parancsainak regisztrálásához."
   },
   "id": {
     "nostr.active_key_mismatch": "Kunci Nostr aktif tidak cocok dengan kunci publiknya",
@@ -1302,7 +1316,8 @@
     "nostr.setup_self_pair_rejected": "Menolak memasangkan kunci publik PC sendiri.",
     "nostr.setup_transport_error": "Nostr transport belum siap.",
     "nostr.setup_usage": "Penggunaan: :nostr setup",
-    "secp256k1.invalid_pubkey": "Titik kunci publik tidak valid"
+    "secp256k1.invalid_pubkey": "Titik kunci publik tidak valid",
+    "tool.description": "Alat dummy untuk pendaftaran perintah CLI transport Nostr."
   },
   "it": {
     "nostr.active_key_mismatch": "La chiave Nostr attiva non corrisponde alla sua chiave pubblica",
@@ -1389,7 +1404,8 @@
     "nostr.setup_self_pair_rejected": "Rifiuto di abbinare la chiave pubblica del PC stesso.",
     "nostr.setup_transport_error": "Il trasporto Nostr non è pronto.",
     "nostr.setup_usage": "Uso: :nostr setup",
-    "secp256k1.invalid_pubkey": "Punto di chiave pubblica non valido"
+    "secp256k1.invalid_pubkey": "Punto di chiave pubblica non valido",
+    "tool.description": "Strumento fittizio per la registrazione dei comandi CLI del trasporto Nostr."
   },
   "ja": {
     "nostr.active_key_mismatch": "有効な Nostr 鍵が、その公開鍵と合っていません",
@@ -1476,7 +1492,8 @@
     "nostr.setup_self_pair_rejected": "PC 自身の公開鍵はペアリングできません。",
     "nostr.setup_transport_error": "Nostr transport の準備ができていません。",
     "nostr.setup_usage": "使い方: :nostr setup",
-    "secp256k1.invalid_pubkey": "無効な公開鍵ポイントです"
+    "secp256k1.invalid_pubkey": "無効な公開鍵ポイントです",
+    "tool.description": "Nostr transport の CLI コマンド登録用のダミーツール。"
   },
   "ko": {
     "nostr.active_key_mismatch": "활성 Nostr 키가 해당 공개 키와 일치하지 않습니다",
@@ -1563,7 +1580,8 @@
     "nostr.setup_self_pair_rejected": "PC 자체 공개 키와의 페어링을 거부합니다.",
     "nostr.setup_transport_error": "Nostr 전송이 준비되지 않았습니다.",
     "nostr.setup_usage": "사용법: :nostr setup",
-    "secp256k1.invalid_pubkey": "유효하지 않은 공개 키 점"
+    "secp256k1.invalid_pubkey": "유효하지 않은 공개 키 점",
+    "tool.description": "Nostr 전송 CLI 명령 등록을 위한 더미 도구입니다."
   },
   "mn": {
     "nostr.active_key_mismatch": "Идэвхтэй Nostr түлхүүр өөрийн нийтийн түлхүүртэй таарахгүй байна",
@@ -1650,7 +1668,8 @@
     "nostr.setup_self_pair_rejected": "PC-ийн өөрийн нийтийн түлхүүрийг хослуулахаас татгалзаж байна.",
     "nostr.setup_transport_error": "Nostr transport бэлэн биш байна.",
     "nostr.setup_usage": "Хэрэглээ: :nostr setup",
-    "secp256k1.invalid_pubkey": "Нийтийн түлхүүрийн цэг буруу байна"
+    "secp256k1.invalid_pubkey": "Нийтийн түлхүүрийн цэг буруу байна",
+    "tool.description": "Nostr тээврийн CLI командуудыг бүртгэх зориулалттай дамми хэрэгсэл."
   },
   "mr": {
     "nostr.active_key_mismatch": "सक्रिय Nostr की तिच्या सार्वजनिक कीशी जुळत नाही",
@@ -1737,7 +1756,8 @@
     "nostr.setup_self_pair_rejected": "PC ची स्वतःची सार्वजनिक की पेअर करण्यास नकार देत आहे.",
     "nostr.setup_transport_error": "Nostr transport तयार नाही.",
     "nostr.setup_usage": "वापर: :nostr setup",
-    "secp256k1.invalid_pubkey": "अवैध सार्वजनिक की बिंदू"
+    "secp256k1.invalid_pubkey": "अवैध सार्वजनिक की बिंदू",
+    "tool.description": "Nostr ट्रान्सपोर्ट CLI कमांड नोंदणीसाठी डमी टूल."
   },
   "ms": {
     "nostr.active_key_mismatch": "Kunci Nostr aktif tidak sepadan dengan kunci awamnya",
@@ -1824,7 +1844,8 @@
     "nostr.setup_self_pair_rejected": "Enggan memasangkan kunci awam PC sendiri.",
     "nostr.setup_transport_error": "Nostr transport belum bersedia.",
     "nostr.setup_usage": "Penggunaan: :nostr setup",
-    "secp256k1.invalid_pubkey": "Titik kunci awam tidak sah"
+    "secp256k1.invalid_pubkey": "Titik kunci awam tidak sah",
+    "tool.description": "Alat dummy untuk pendaftaran arahan CLI pengangkutan Nostr."
   },
   "nb": {
     "nostr.active_key_mismatch": "aktiv Nostr-nøkkel samsvarer ikke med den offentlige nøkkelen",
@@ -1911,7 +1932,8 @@
     "nostr.setup_self_pair_rejected": "Nekter å koble sammen PC-ens egen offentlige nøkkel.",
     "nostr.setup_transport_error": "Nostr-transport er ikke klar.",
     "nostr.setup_usage": "Bruk: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ugyldig punkt for offentlig nøkkel"
+    "secp256k1.invalid_pubkey": "Ugyldig punkt for offentlig nøkkel",
+    "tool.description": "Dummy-verktøy for registrering av CLI-kommandoer for Nostr-transport."
   },
   "nl": {
     "nostr.active_key_mismatch": "actieve Nostr-sleutel komt niet overeen met de openbare sleutel",
@@ -1998,7 +2020,8 @@
     "nostr.setup_self_pair_rejected": "Weigering om de eigen openbare sleutel van de PC te koppelen.",
     "nostr.setup_transport_error": "Nostr-transport is niet gereed.",
     "nostr.setup_usage": "Gebruik: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ongeldig punt voor openbare sleutel"
+    "secp256k1.invalid_pubkey": "Ongeldig punt voor openbare sleutel",
+    "tool.description": "Dummy-tool voor het registreren van de CLI-opdrachten van het Nostr-transport."
   },
   "nn": {
     "nostr.active_key_mismatch": "aktiv Nostr-nøkkel samsvarar ikkje med den offentlege nøkkelen",
@@ -2085,7 +2108,8 @@
     "nostr.setup_self_pair_rejected": "Nektar å kople saman den eigen offentlege nøkkelen til PC-en.",
     "nostr.setup_transport_error": "Nostr-transport er ikkje klar.",
     "nostr.setup_usage": "Bruk: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ugyldig punkt for offentleg nøkkel"
+    "secp256k1.invalid_pubkey": "Ugyldig punkt for offentleg nøkkel",
+    "tool.description": "Dummy-verktøy for registrering av CLI-kommandoar for Nostr-transport."
   },
   "pl": {
     "nostr.active_key_mismatch": "aktywny klucz Nostr nie pasuje do jego klucza publicznego",
@@ -2172,7 +2196,8 @@
     "nostr.setup_self_pair_rejected": "Odmowa sparowania własnego klucza publicznego tego PC.",
     "nostr.setup_transport_error": "Transport Nostr nie jest gotowy.",
     "nostr.setup_usage": "Użycie: :nostr setup",
-    "secp256k1.invalid_pubkey": "Nieprawidłowy punkt klucza publicznego"
+    "secp256k1.invalid_pubkey": "Nieprawidłowy punkt klucza publicznego",
+    "tool.description": "Narzędzie zastępcze do rejestracji poleceń CLI transportu Nostr."
   },
   "pt": {
     "nostr.active_key_mismatch": "A chave Nostr ativa não corresponde à sua chave pública",
@@ -2259,7 +2284,8 @@
     "nostr.setup_self_pair_rejected": "A recusar emparelhar a própria chave pública do PC.",
     "nostr.setup_transport_error": "O transporte Nostr não está pronto.",
     "nostr.setup_usage": "Utilização: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ponto de chave pública inválido"
+    "secp256k1.invalid_pubkey": "Ponto de chave pública inválido",
+    "tool.description": "Ferramenta fictícia para o registo dos comandos CLI do transporte Nostr."
   },
   "pt_BR": {
     "nostr.active_key_mismatch": "A chave Nostr ativa não corresponde à sua chave pública",
@@ -2346,7 +2372,8 @@
     "nostr.setup_self_pair_rejected": "Recusando parear a própria chave pública do PC.",
     "nostr.setup_transport_error": "O transporte Nostr não está pronto.",
     "nostr.setup_usage": "Uso: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ponto de chave pública inválido"
+    "secp256k1.invalid_pubkey": "Ponto de chave pública inválido",
+    "tool.description": "Ferramenta fictícia para o registro dos comandos CLI do transporte Nostr."
   },
   "ro": {
     "nostr.active_key_mismatch": "cheia Nostr activă nu corespunde cheii sale publice",
@@ -2433,7 +2460,8 @@
     "nostr.setup_self_pair_rejected": "Se refuză asocierea propriei chei publice a acestui PC.",
     "nostr.setup_transport_error": "Transportul Nostr nu este pregătit.",
     "nostr.setup_usage": "Utilizare: :nostr setup",
-    "secp256k1.invalid_pubkey": "Punct de cheie publică invalid"
+    "secp256k1.invalid_pubkey": "Punct de cheie publică invalid",
+    "tool.description": "Instrument fictiv pentru înregistrarea comenzilor CLI ale transportului Nostr."
   },
   "ru": {
     "nostr.active_key_mismatch": "активный ключ Nostr не соответствует его публичному ключу",
@@ -2520,7 +2548,8 @@
     "nostr.setup_self_pair_rejected": "Отказ в сопряжении собственного публичного ключа этого PC.",
     "nostr.setup_transport_error": "Транспорт Nostr не готов.",
     "nostr.setup_usage": "Использование: :nostr setup",
-    "secp256k1.invalid_pubkey": "Недействительная точка публичного ключа"
+    "secp256k1.invalid_pubkey": "Недействительная точка публичного ключа",
+    "tool.description": "Фиктивный инструмент для регистрации CLI-команд транспорта Nostr."
   },
   "sv": {
     "nostr.active_key_mismatch": "aktiv Nostr-nyckel matchar inte dess publika nyckel",
@@ -2607,7 +2636,8 @@
     "nostr.setup_self_pair_rejected": "Vägrar att parkoppla datorns egen publika nyckel.",
     "nostr.setup_transport_error": "Nostr-transport är inte redo.",
     "nostr.setup_usage": "Användning: :nostr setup",
-    "secp256k1.invalid_pubkey": "Ogiltig punkt för publik nyckel"
+    "secp256k1.invalid_pubkey": "Ogiltig punkt för publik nyckel",
+    "tool.description": "Dummyverktyg för registrering av CLI-kommandon för Nostr-transport."
   },
   "sw": {
     "nostr.active_key_mismatch": "Ufunguo wa Nostr unaotumika haulingani na ufunguo wake wa umma",
@@ -2694,7 +2724,8 @@
     "nostr.setup_self_pair_rejected": "Inakataa kuoanisha ufunguo wa umma wa PC yenyewe.",
     "nostr.setup_transport_error": "Nostr transport haiko tayari.",
     "nostr.setup_usage": "Matumizi: :nostr setup",
-    "secp256k1.invalid_pubkey": "Pointi ya ufunguo wa umma si halali"
+    "secp256k1.invalid_pubkey": "Pointi ya ufunguo wa umma si halali",
+    "tool.description": "Zana dummy kwa ajili ya kusajili amri za CLI za usafirishaji wa Nostr."
   },
   "th": {
     "nostr.active_key_mismatch": "คีย์ Nostr ที่ใช้งานอยู่ไม่ตรงกับคีย์สาธารณะของมัน",
@@ -2781,7 +2812,8 @@
     "nostr.setup_self_pair_rejected": "ปฏิเสธการจับคู่คีย์สาธารณะของ PC เอง",
     "nostr.setup_transport_error": "Nostr transport ยังไม่พร้อม",
     "nostr.setup_usage": "วิธีใช้: :nostr setup",
-    "secp256k1.invalid_pubkey": "จุดคีย์สาธารณะไม่ถูกต้อง"
+    "secp256k1.invalid_pubkey": "จุดคีย์สาธารณะไม่ถูกต้อง",
+    "tool.description": "เครื่องมือจำลองสำหรับลงทะเบียนคำสั่ง CLI ของการขนส่ง Nostr"
   },
   "tr": {
     "nostr.active_key_mismatch": "etkin Nostr anahtarı genel anahtarıyla eşleşmiyor",
@@ -2868,7 +2900,8 @@
     "nostr.setup_self_pair_rejected": "PC'nin kendi genel anahtarını eşleştirmeyi reddediyor.",
     "nostr.setup_transport_error": "Nostr aktarımı hazır değil.",
     "nostr.setup_usage": "Kullanım: :nostr setup",
-    "secp256k1.invalid_pubkey": "Geçersiz genel anahtar noktası"
+    "secp256k1.invalid_pubkey": "Geçersiz genel anahtar noktası",
+    "tool.description": "Nostr aktarımı CLI komutlarının kaydı için sahte araç."
   },
   "uk": {
     "nostr.active_key_mismatch": "активний ключ Nostr не відповідає його публічному ключу",
@@ -2955,7 +2988,8 @@
     "nostr.setup_self_pair_rejected": "Відмова у сполученні власного публічного ключа цього PC.",
     "nostr.setup_transport_error": "Транспорт Nostr не готовий.",
     "nostr.setup_usage": "Використання: :nostr setup",
-    "secp256k1.invalid_pubkey": "Недійсна точка публічного ключа"
+    "secp256k1.invalid_pubkey": "Недійсна точка публічного ключа",
+    "tool.description": "Фіктивний інструмент для реєстрації CLI-команд транспорту Nostr."
   },
   "vi": {
     "nostr.active_key_mismatch": "Khóa Nostr đang hoạt động không khớp với khóa công khai của nó",
@@ -3042,7 +3076,8 @@
     "nostr.setup_self_pair_rejected": "Từ chối ghép nối khóa công khai của chính PC.",
     "nostr.setup_transport_error": "Nostr transport chưa sẵn sàng.",
     "nostr.setup_usage": "Cách dùng: :nostr setup",
-    "secp256k1.invalid_pubkey": "Điểm khóa công khai không hợp lệ"
+    "secp256k1.invalid_pubkey": "Điểm khóa công khai không hợp lệ",
+    "tool.description": "Công cụ giả để đăng ký các lệnh CLI của phương thức truyền tải Nostr."
   },
   "zh_CN": {
     "nostr.active_key_mismatch": "当前 Nostr 密钥与其公钥不匹配",
@@ -3129,7 +3164,8 @@
     "nostr.setup_self_pair_rejected": "拒绝配对 PC 自身的公钥。",
     "nostr.setup_transport_error": "Nostr 传输尚未就绪。",
     "nostr.setup_usage": "用法：:nostr setup",
-    "secp256k1.invalid_pubkey": "无效的公钥点"
+    "secp256k1.invalid_pubkey": "无效的公钥点",
+    "tool.description": "用于注册 Nostr 传输 CLI 命令的虚拟工具。"
   },
   "zh_TW": {
     "nostr.active_key_mismatch": "目前的 Nostr 金鑰與其公鑰不相符",
@@ -3216,6 +3252,7 @@
     "nostr.setup_self_pair_rejected": "拒絕配對 PC 自身的公鑰。",
     "nostr.setup_transport_error": "Nostr 傳輸尚未就緒。",
     "nostr.setup_usage": "用法：:nostr setup",
-    "secp256k1.invalid_pubkey": "無效的公鑰點"
+    "secp256k1.invalid_pubkey": "無效的公鑰點",
+    "tool.description": "用於註冊 Nostr 傳輸 CLI 命令的虛擬工具。"
   }
 }

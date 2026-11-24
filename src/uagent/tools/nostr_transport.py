@@ -33,7 +33,10 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "nostr_transport_dummy",
-        "description": "Dummy tool for Nostr transport CLI commands registration.",
+        "description": _(
+            "tool.description",
+            default="Dummy tool for Nostr transport CLI commands registration.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {},
