@@ -137,15 +137,6 @@ _NOSTR_KEY_FILE = os.path.join(
 )
 
 
-class NostrKeyUnreadableError(RuntimeError):
-    """The stored Nostr key file exists but cannot be decrypted or parsed.
-
-    Raised instead of generating a replacement key, so a temporarily
-    unavailable encryption backend (for example a locked OS keyring) can
-    never silently destroy the stored identity.
-    """
-
-
 def _parse_key_text(text: str) -> tuple[str, str] | None:
     """Parse key-file JSON text into (private_key, public_key) hex."""
     try:
@@ -212,9 +203,10 @@ def _read_key_file() -> tuple[str, str] | None:
     (written by older versions) is still accepted and is rewritten in
     encrypted form as a side effect of the read.
 
-    Returns None only when no key file exists. When the file exists but
-    cannot be decrypted or parsed, raises NostrKeyUnreadableError so the
-    caller never replaces the stored identity with a fresh key.
+    Returns None when no key file exists, and also when the file exists
+    but cannot be decrypted or parsed. In the latter case a warning is
+    printed and the caller generates a fresh key and replaces the file,
+    so an unreadable key file never blocks startup.
     """
     try:
         with open(_NOSTR_KEY_FILE, "r", encoding="utf-8") as f:
@@ -235,9 +227,18 @@ def _read_key_file() -> tuple[str, str] | None:
     except Exception:
         parsed = None
     if parsed is None:
-        raise NostrKeyUnreadableError(
-            "stored Nostr key file exists but cannot be decrypted: " + _NOSTR_KEY_FILE
+        print(
+            _(
+                "nostr.msg24",
+                default=(
+                    "Warning: the stored Nostr key file could not be decrypted; "
+                    "a new key was generated and the previous Nostr identity "
+                    f"was discarded: {_NOSTR_KEY_FILE}"
+                ),
+            ),
+            flush=True,
         )
+        return None
     return parsed
 
 
