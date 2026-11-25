@@ -53,6 +53,31 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
+def test_registry_stream_skip_print_still_renders_reasoning(monkeypatch, capsys) -> None:
+    rendered_reasoning: list[str] = []
+    saved: list[str] = []
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.render_reasoning",
+        lambda text, **_kwargs: rendered_reasoning.append(text),
+    )
+
+    _emit_final_answer_if_any(
+        assistant_text="already streamed answer",
+        reasoning_content="reasoning summary",
+        use_responses_api=True,
+        stream_responses=True,
+        skip_print=True,
+        render_reasoning_when_skip_print=True,
+        append_result_to_outfile_fn=saved.append,
+        try_open_images_from_text_fn=lambda _text: None,
+        core=SimpleNamespace(),
+    )
+
+    assert rendered_reasoning == ["reasoning summary"]
+    assert capsys.readouterr().out == ""
+    assert saved == ["already streamed answer"]
+
+
 def test_final_answer_starts_after_displayed_reasoning_line(
     monkeypatch, capsys
 ) -> None:

@@ -907,6 +907,9 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                     skip_print=bool(
                         getattr(ctx.core, "_registry_stream_output_rendered", False)
                     ),
+                    render_reasoning_when_skip_print=bool(
+                        getattr(ctx.core, "_registry_stream_output_rendered", False)
+                    ),
                     stream_output_rendered=False,
                     core=ctx.core,
                     provider=ctx.provider,

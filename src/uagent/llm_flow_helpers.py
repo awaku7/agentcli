@@ -220,15 +220,17 @@ def _emit_final_answer_if_any(
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
     skip_print: bool = False,
+    render_reasoning_when_skip_print: bool = False,
     stream_output_rendered: bool = True,
     core: Any = None,
     provider: str = "LLM",
 ) -> None:
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
-        if not skip_print and not (
+        should_print_answer = not skip_print and not (
             use_responses_api and stream_responses and stream_output_rendered
-        ):
+        )
+        if should_print_answer:
             # Clear the spinner line first (no-op when disabled).
             _spinner_stop_quietly()
             if reasoning_content:
@@ -247,6 +249,22 @@ def _emit_final_answer_if_any(
                     else:
                         print()
             print(assistant_text)
+        elif skip_print and render_reasoning_when_skip_print and reasoning_content:
+            # Registry TextDelta events already showed the answer, but that
+            # observer does not render reasoning. Preserve the normal reasoning
+            # display without printing the collected answer a second time.
+            _spinner_stop_quietly()
+            render_reasoning(
+                reasoning_content,
+                provider=provider,
+                core=core,
+            )
+            if bool(getattr(core, "_reasoning_stream_open", False)):
+                close_line = getattr(core, "print_stream_delta", None)
+                if callable(close_line):
+                    close_line("\n")
+                else:
+                    print()
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)
 
