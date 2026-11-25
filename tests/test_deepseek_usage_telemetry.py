@@ -382,11 +382,17 @@ def test_deepseek_legacy_stream_stopped_mid_way_reports_no_usage() -> None:
         yield _chunk(text="b", usage=_usage())
 
     snapshots: list[dict[str, int]] = []
+    terminals: list[str] = []
     parse_deepseek_stream(
         stream(),
         core=core,
-        callbacks=_callbacks(),
+        callbacks=StreamCallbacks(
+            on_delta=lambda _text: None,
+            on_reasoning=lambda _text: None,
+            on_terminal=lambda event, _data: terminals.append(event),
+        ),
         usage_sink=snapshots,
     )
     assert snapshots == []
+    assert terminals == ["ResponseStarted", "ResponseInterrupted"]
     assert core.interrupt_requested is True  # left for the round to handle

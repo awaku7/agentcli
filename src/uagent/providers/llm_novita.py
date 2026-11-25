@@ -35,7 +35,11 @@ from .llm_novita_usage import (
     request_novita_stream_usage,
 )
 from .._lazy_sdk import is_openai_error
-from ..llm_helpers import iter_until_stopped, stream_stop_requested
+from ..llm_helpers import (
+    iter_until_stopped,
+    stream_stop_requested,
+    stream_terminal_event,
+)
 
 _LABEL = "Novita"
 _ENV_PREFIX = "UAGENT_NOVITA"
@@ -347,7 +351,7 @@ def _parse_novita_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
 

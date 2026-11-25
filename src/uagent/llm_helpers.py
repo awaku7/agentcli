@@ -74,6 +74,15 @@ def iter_until_stopped(stream: Any, core: Any = None):
         yield item
 
 
+def stream_terminal_event(core: Any = None) -> str:
+    """Terminal event for a legacy stream parser that has left its loop.
+
+    A stream ended by ``iter_until_stopped`` on Stop finished without an
+    error; report it as interrupted rather than completed.
+    """
+    return "ResponseInterrupted" if stream_stop_requested(core) else "ResponseCompleted"
+
+
 # Log/UI message types that carry live stream output.
 _STREAM_OUTPUT_TYPES = frozenset(
     {

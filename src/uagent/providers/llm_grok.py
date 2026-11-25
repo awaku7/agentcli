@@ -13,7 +13,11 @@ from typing import Any, Callable, Iterator, Optional
 from ..env_utils import env_get
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
-from ..llm_helpers import iter_until_stopped, stream_stop_requested
+from ..llm_helpers import (
+    iter_until_stopped,
+    stream_stop_requested,
+    stream_terminal_event,
+)
 
 
 def _ensure_xai_chat() -> None:
@@ -580,7 +584,7 @@ def parse_xai_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
     return assistant_text, tool_calls_list

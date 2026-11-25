@@ -38,6 +38,7 @@ from ..llm_helpers import (
     _maybe_print_certifi_where,
     iter_until_stopped,
     stream_stop_requested,
+    stream_terminal_event,
 )
 from .._lazy_sdk import is_openai_error
 
@@ -678,7 +679,7 @@ def parse_deepseek_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
 

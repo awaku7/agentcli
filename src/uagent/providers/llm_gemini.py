@@ -13,7 +13,11 @@ from ..i18n import _
 from .. import tools
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
-from ..llm_helpers import iter_until_stopped, stream_stop_requested
+from ..llm_helpers import (
+    iter_until_stopped,
+    stream_stop_requested,
+    stream_terminal_event,
+)
 
 
 def _vertex_debug(event: str, **fields: Any) -> None:
@@ -1641,7 +1645,7 @@ def gemini_chat_with_tools(
                     pass
         if callable(callbacks.on_terminal):
             try:
-                callbacks.on_terminal("ResponseCompleted", {})
+                callbacks.on_terminal(stream_terminal_event(core), {})
             except Exception:
                 pass
 

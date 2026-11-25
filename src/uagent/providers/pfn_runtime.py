@@ -27,6 +27,7 @@ from .llm_pfn import (
     parse_pfn_response,
 )
 from .openai_compatible_runtime import OpenAICompatibleRuntime, _reported_usage
+from ..llm_helpers import stream_stop_requested
 
 
 class PfnProviderRuntime(OpenAICompatibleRuntime):
@@ -89,6 +90,11 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})
                         return
                     yield self._event("TextDelta", {"text": text})
+                # iter_pfn_stream_content also ends early on Stop; that is a
+                # cancellation, not a completed (truncated) response.
+                if stream_stop_requested():
+                    yield self._event("ResponseCancelled", {"reason": "cancelled"})
+                    return
             else:
                 measured_usage = _reported_usage(
                     _value(response, "usage"), responses=False
