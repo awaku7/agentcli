@@ -26,6 +26,15 @@ DEFAULT_WAIT_S = 30
 DEFAULT_POLL_INTERVAL_S = 2
 
 
+def _interrupt_requested() -> bool:
+    try:
+        from .. import core
+
+        return bool(getattr(core, "interrupt_requested", False))
+    except Exception:
+        return False
+
+
 def _json_ok(**obj: Any) -> str:
     out: dict[str, Any] = {"ok": True}
     out.update(obj)
@@ -350,10 +359,14 @@ def run_tool(args: dict[str, Any]) -> str:
         start = time.time()
         seen_ids: set[str] = set()
         replies: list[dict[str, Any]] = []
+        interrupted = False
 
         while True:
             elapsed = time.time() - start
             if elapsed >= wait_s:
+                break
+            if _interrupt_requested():
+                interrupted = True
                 break
 
             msgs = _fetch_recent_messages(
@@ -387,6 +400,7 @@ def run_tool(args: dict[str, Any]) -> str:
             sent_message=_compact_message(sent),
             replies=replies,
             timed_out=not bool(replies),
+            interrupted=interrupted,
             waited_s=round(time.time() - start, 3),
         )
 

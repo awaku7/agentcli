@@ -141,6 +141,33 @@ def test_auto_unload_state_persists_across_worker_turns():
     assert seen[1][2] == seen[0][2] + 1
 
 
+def test_loop_guard_state_survives_the_auto_pilot_handoff():
+    # Regression: the initial turn begins a fresh loop-guard state
+    # inside its worker; the auto-pilot continuation runs in a second
+    # worker and passes preserve_tool_loop_state=True, so it must read
+    # the state the first worker left on the session owner, not an
+    # empty one.
+    from uagent import llm_loop_guards as guards
+
+    core = _fake_core()
+    seen: list[object] = []
+
+    def _initial_turn() -> None:
+        state = guards.begin_loop_guard_turn()
+        state.fingerprints["tool:example"] = 3
+        state.consecutive.update({"name": "example", "count": 2})
+        seen.append(state)
+
+    def _continuation() -> None:
+        seen.append(guards._loop_guard_state())
+
+    run_turn_on_worker(core, _initial_turn, channel=dc.DisplayChannel())
+    run_turn_on_worker(core, _continuation, channel=dc.DisplayChannel())
+    assert seen[0] is seen[1]
+    assert seen[1].fingerprints["tool:example"] == 3
+    assert seen[1].consecutive["count"] == 2
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="SIGINT delivery differs")
 def test_ctrl_c_cancels_a_pending_human_ask():
     # Regression: a human_ask wait blocks on its answer queue, which

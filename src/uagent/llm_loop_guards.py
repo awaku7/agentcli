@@ -53,6 +53,48 @@ def begin_loop_guard_turn() -> _LoopGuardState:
     return state
 
 
+def _owner_loop_guard_state(owner: object) -> _LoopGuardState:
+    """Return the loop-guard state carried by ``owner``.
+
+    On first sight the current context's state is adopted and stored
+    on the owner, mirroring the auto-unload state's owner pattern.
+    """
+    state = getattr(owner, "_loop_guard_state", None)
+    if state is None:
+        state = _loop_guard_state()
+        try:
+            owner._loop_guard_state = state  # type: ignore[attr-defined]
+        except Exception:
+            pass
+    return state
+
+
+def _bind_loop_guard_state(owner: object) -> _LoopGuardState:
+    """Bind the loop-guard state carried by ``owner`` to this context."""
+    state = _owner_loop_guard_state(owner)
+    _LOOP_GUARD_STATE.set(state)
+    return state
+
+
+def _store_loop_guard_state(owner: object) -> None:
+    """Write this context's loop-guard state back to ``owner``.
+
+    A turn that starts fresh counters (begin_loop_guard_turn) replaces
+    the bound state inside its own context; storing it back lets the
+    next context that binds from the same owner pick the counters up
+    where the turn left them.  The CLI auto-pilot continuation relies
+    on this: it runs in a separate worker context and passes
+    preserve_tool_loop_state=True precisely so the guard keeps
+    counting across the handoff.
+    """
+    state = _LOOP_GUARD_STATE.get()
+    if state is not None:
+        try:
+            owner._loop_guard_state = state  # type: ignore[attr-defined]
+        except Exception:
+            pass
+
+
 class _ContextFingerprints(MutableMapping):
     """Mapping view of the current context's loop-guard fingerprints.
 

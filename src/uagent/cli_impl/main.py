@@ -194,17 +194,22 @@ def run_turn_on_worker(
     if channel is None:
         channel = default_channel()
     ensure_pump()
-    # Keep the session's auto-unload counters across worker turns.
-    # They are lazily created inside run_llm_rounds, so a state bound
-    # only inside a worker's copied context would be discarded with it
-    # and the counters would restart empty every turn.  The core
-    # object is the CLI session's owner (the Web side carries the same
-    # state on its room object), so bind its stored state into this
-    # context before copying.
+    # Keep the session's per-turn ContextVar states across worker
+    # turns: the auto-unload counters and the loop-guard state are
+    # lazily created inside run_llm_rounds, so a state bound only
+    # inside a worker's copied context would be discarded with it and
+    # restart empty every turn (the loop guard also has to survive
+    # the handoff into the auto-pilot continuation, which explicitly
+    # preserves it).  The core object is the CLI session's owner (the
+    # Web side carries the same states on its room object), so bind
+    # its stored states into this context before copying; the worker
+    # stores the loop-guard state back when it finishes.
     try:
         from .. import uagent_llm as _llm_util
+        from ..llm_loop_guards import _bind_loop_guard_state
 
         _llm_util._bind_auto_unload_state(core)
+        _bind_loop_guard_state(core)
     except Exception:
         pass
     caller_context = contextvars.copy_context()
@@ -222,6 +227,17 @@ def run_turn_on_worker(
         except BaseException as exc:  # re-raised on the waiting thread
             outcome["error"] = exc
         finally:
+            # Hand the loop-guard counters back to the session owner:
+            # a fresh state begun inside this worker (begin_loop_guard_
+            # turn) replaces the bound one in this context only, and
+            # the auto-pilot continuation binds from the owner in a
+            # separate worker with preserve_tool_loop_state=True.
+            try:
+                from ..llm_loop_guards import _store_loop_guard_state
+
+                _store_loop_guard_state(core)
+            except Exception:
+                pass
             # A stuck pump must not hang the CLI forever; on timeout
             # the turn still ends and anything unrendered stays queued
             # and renders late.
