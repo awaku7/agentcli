@@ -75,7 +75,8 @@ def test_runtime_returns_localized_navigation_results(
 
 
 def test_direct_navigation_has_no_hard_coded_japanese() -> None:
-    source = (
-        Path(__file__).resolve().parents[1] / "src" / "uagent" / "uagent_llm.py"
-    ).read_text(encoding="utf-8")
-    assert "ブラウザーを開" not in source
+    # Direct navigation moved from uagent_llm.py to llm_computer_use_nav.py.
+    src = Path(__file__).resolve().parents[1] / "src" / "uagent"
+    for name in ("uagent_llm.py", "llm_computer_use_nav.py"):
+        source = (src / name).read_text(encoding="utf-8")
+        assert "ブラウザーを開" not in source, name

@@ -17,7 +17,9 @@ def _patch_identity(monkeypatch) -> None:
         lambda: DeterministicTestWorkspaceKeyProvider(),
     )
     monkeypatch.setattr("uagent.llmcapa_util.clamp_max_tokens", lambda *args: 321)
-    monkeypatch.setattr("uagent.uagent_llm._get_shrink_max_tokens", lambda _: 654)
+    monkeypatch.setattr(
+        "uagent.llm_registry_round._get_shrink_max_tokens", lambda _: 654
+    )
 
 
 def test_registry_projects_chat_generation_options(monkeypatch, tmp_path) -> None:
@@ -453,7 +455,7 @@ def test_registry_reuses_matching_prepared_context_plan(monkeypatch, tmp_path) -
     _patch_identity(monkeypatch)
     monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setattr(
-        "uagent.uagent_llm._build_round_context_plan",
+        "uagent.llm_registry_round._build_round_context_plan",
         lambda **_kwargs: (_ for _ in ()).throw(
             AssertionError("matching prepared plan must be reused")
         ),

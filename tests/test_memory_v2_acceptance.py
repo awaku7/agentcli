@@ -33,7 +33,12 @@ def test_v2_hosts_route_through_shared_llm_round(
 
 
 def test_v2_shared_round_owns_memory_projection_boundary() -> None:
-    source = (ROOT / "src/uagent/uagent_llm.py").read_text(encoding="utf-8")
+    # The shared round loop lives in uagent_llm.py; its per-turn preparation
+    # was split out into llm_turn_context.py.
+    source = "\n".join(
+        (ROOT / "src/uagent" / name).read_text(encoding="utf-8")
+        for name in ("uagent_llm.py", "llm_turn_context.py")
+    )
 
     # Host adapters should not each implement their own retrieval/projection logic.
     # The shared round is the single turn boundary for Memory V2.

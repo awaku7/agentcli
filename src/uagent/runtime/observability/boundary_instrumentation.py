@@ -117,12 +117,16 @@ def _install_memory_projection_boundary() -> None:
     observed._uag_observability_wrapped = True  # type: ignore[attr-defined]
     memory_projection.prepare_memory_projection = observed
 
-    llm_module = sys.modules.get("uagent.uagent_llm")
-    if (
-        llm_module is not None
-        and getattr(llm_module, "prepare_memory_projection", None) is original
-    ):
-        llm_module.prepare_memory_projection = observed
+    # Modules that imported the function by name still hold the original.
+    # The round loop calls it from llm_turn_context (uagent_llm before that
+    # code was split out); modules imported later pick up ``observed``.
+    for caller_name in ("uagent.llm_turn_context", "uagent.uagent_llm"):
+        caller = sys.modules.get(caller_name)
+        if (
+            caller is not None
+            and getattr(caller, "prepare_memory_projection", None) is original
+        ):
+            caller.prepare_memory_projection = observed
 
 
 def _install_decision_log_boundary() -> None:

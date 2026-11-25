@@ -84,10 +84,13 @@ def test_tool_round_limit_defaults_to_512(monkeypatch) -> None:
 
 
 def test_tool_round_limit_override_remains_supported(monkeypatch) -> None:
+    import uagent.llm_turn_context as turn_context
     import uagent.uagent_llm as llm
 
-    monkeypatch.setattr(llm, "env_get", lambda _name, _default=None: "700")
-    assert llm._resolve_max_tool_rounds() == 700
+    monkeypatch.setattr(turn_context, "env_get", lambda _name, _default=None: "700")
+    assert turn_context._resolve_max_tool_rounds() == 700
+    # uagent_llm keeps re-exporting the helper used by run_llm_rounds.
+    assert llm._resolve_max_tool_rounds is turn_context._resolve_max_tool_rounds
 
 
 def test_memory_projection_change_clears_pending_tool_continuation(monkeypatch) -> None:

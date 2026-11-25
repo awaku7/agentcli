@@ -9,7 +9,8 @@ import pytest
 
 @pytest.fixture
 def llm(monkeypatch):
-    import uagent.uagent_llm as module
+    # Per-turn preparation lives in llm_turn_context (split out of uagent_llm).
+    import uagent.llm_turn_context as module
 
     events: list[tuple[str, dict]] = []
     import uagent.runtime.logging_setup as logging_setup
@@ -147,20 +148,24 @@ def test_failed_steps_clear_previous_turn_state(monkeypatch, llm) -> None:
     ]
 
 
-def test_block_tool_loop_runs_common_stop_sequence(monkeypatch, llm, capsys) -> None:
+def test_block_tool_loop_runs_common_stop_sequence(monkeypatch, capsys) -> None:
+    import uagent.llm_loop_guards as guards
+
     cleared: list[str] = []
     emitted: list[dict] = []
     monkeypatch.setattr(
-        llm,
+        guards,
         "_clear_responses_after_tool_loop",
         lambda core, *, reason="tool_loop_guard": cleared.append(reason),
     )
-    monkeypatch.setattr(llm, "_emit_tool_loop_block", lambda **kw: emitted.append(kw))
-    monkeypatch.setattr(llm, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(
+        guards, "_emit_tool_loop_block", lambda **kw: emitted.append(kw)
+    )
+    monkeypatch.setattr(guards, "_spinner_stop_quietly", lambda: None)
     core = SimpleNamespace()
     calls = [{"id": "c1", "function": {"name": "read_file", "arguments": "{}"}}]
 
-    llm._block_tool_loop(
+    guards._block_tool_loop(
         core=core,
         tool_name="cycle:a -> b",
         count=6,
@@ -170,7 +175,7 @@ def test_block_tool_loop_runs_common_stop_sequence(monkeypatch, llm, capsys) -> 
         warning="[WARN] stop",
         clear_reason="repeating_tool_cycle",
     )
-    llm._block_tool_loop(
+    guards._block_tool_loop(
         core=core,
         tool_name="read_file",
         count=4,
