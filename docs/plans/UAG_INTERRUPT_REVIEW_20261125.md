@@ -1,6 +1,6 @@
 # 割り込み（Stop / F12）の計測と修正計画（2026-11-25）
 
-- Status: in progress（INT-01〜05 完了。CLI / Web / GUI の停止表示と状態同期は別途確認予定）
+- Status: registry/interrupt fixes complete; CLI / Web / GUI stop paths reviewed; Web registry stream bridging fixed in follow-up.
 - Priority: P1
 - Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md) の「P1: Auto-Pilot / Interrupt の残課題」、[`docs/INTERRUPT.md`](../INTERRUPT.md)
 - 確認基準: `main` = `3dfca2816`（PR #470 マージ後）
@@ -38,9 +38,9 @@
 | INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 完了（PR #472） |
 | INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 完了（PR #473） |
 | INT-04 | Claude / Gemini / DeepSeek などの受信ループも同様に確認する。プロトコルごとに偽サーバーで計測する | 中 | 完了（PR #474） |
-| INT-05 | registry 経路（`openai_compatible_runtime`）が、ツールを使う普段のターンで毎回失敗している不具合を直し、割り込みに対応させる | 高 | 進行中（05a〜05d） |
+| INT-05 | registry 経路（`openai_compatible_runtime`）が、ツールを使う普段のターンで毎回失敗している不具合を直し、割り込みに対応させる | 高 | 完了（05a〜05d） |
 
-CLI / Web / GUI での停止表示と状態の同期（ロードマップの項目）は、INT-01〜04 の後に、それぞれの入口で確認する。
+CLI / Web / GUI での Stop 表示と状態同期も追確認済み。Web の registry ストリーム表示にあった端末出力との不整合は、後述の follow-up で修正した。
 
 ## INT-01 の結果
 
@@ -154,6 +154,13 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
 - 同じ偽サーバーで両経路の割り込みも検証し、部分出力後に早期終了して接続が閉じることを確認。表示差分から見つかった registry の行末改行漏れも修正。
 - `UAGENT_REASONING=auto` は Responses の再試行のためストリーミングを無効化するため、該当テストでは `off` を明示。関連6ファイルのテスト48件成功、ruff 検査成功。
 
+### Stop 表示・フロントエンド経路の追確認
+
+- CLI の F12 は端末入力モニター、GUI の Stop は共有割り込みフラグ、Web の Stop は WebSocket 経由（process-worker 使用時は IPC）で、Web ではアクティブルームの所有権を検証してから割り込みを届ける。ブラウザーの F12 は Stop 操作ではない。
+- 追確認中、registry 経路のテキスト observer が `print_stream_delta`（端末専用）だけを呼び、Web の `core.log_message` ストリームイベントへ流していないことを発見。registry の Web 出力を `assistant_stream_delta` に流し、完了/中断時に terminal event を送るように修正。
+- `tests/test_registry_round_parity.py` に Web イベント橋渡しと完了/中断イベントのテストを追加。Web Stop のプロセス経路とアクティブルーム制約は `tests/test_web_process_workers.py` / `tests/test_web_loaded_session_runtime.py` で追確認。
+- `docs/INTERRUPT.md` を古い単一 `c` キー案から現行の CLI F12 / GUI Stop / Web Stop の説明に置き換えた。
+
 ## 別件として見つかったこと
 
 Responses を使う設定で、llmcapa が知らないモデル名（独自のモデルや新しいモデル）を使うと、プラグインの読み込み時に llmcapa のモデル検索がツールのモジュールごとに走り、15 秒以上かかる。見つからなかった結果がキャッシュされない（`_should_preload_lazy_specs()` が `_register_tool_module` のたびに呼ばれる）ため。割り込みとは別の性能の問題として扱う。
@@ -168,3 +175,4 @@ Responses を使う設定で、llmcapa が知らないモデル名（独自の�
 - 2026-11-25: INT-05b（registry 経路の逐次表示）を実施。イベント単位の表示と最終回答の二重表示防止を追加。
 - 2026-11-25: INT-05c（registry 経路の割り込みキャンセル）を実施。openai-responses の割り込みテストが reasoning auto により非ストリーミングになっていたため、テスト環境を固定して再確認し、途中切断を確認。
 - 2026-11-25: INT-05d（ContextDecision 変換と registry/legacy の parity 検証）を実施。テキスト、履歴、ツール呼び出し、割り込み、registry off の経路を偽サーバーで確認。
+- 2026-11-25: CLI / GUI / Web の Stop 経路を追確認し、registry ストリームの Web イベント橋渡しを修正。古い割り込み案内を現行仕様へ更新。
