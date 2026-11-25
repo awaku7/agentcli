@@ -18,6 +18,7 @@ from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..llm_helpers import _maybe_print_certifi_where
 from ..i18n import _
 from ..runtime.stream_renderer import StreamCallbacks
+from ..llm_helpers import iter_until_stopped, stream_terminal_event
 
 
 def _pfn_tool_specs(core: Any = None) -> list[dict[str, Any]]:
@@ -148,9 +149,9 @@ def parse_pfn_response(resp: Any) -> tuple[str, list[dict[str, Any]]]:
     return content, result
 
 
-def iter_pfn_stream_content(stream: Any):
+def iter_pfn_stream_content(stream: Any, core: Any = None):
     """Yield text deltas from PFN's stream without host-side side effects."""
-    for chunk in stream:
+    for chunk in iter_until_stopped(stream, core):
         choices = _value(chunk, "choices") or []
         if not choices:
             continue
@@ -185,7 +186,7 @@ def parse_pfn_stream(
             callbacks.on_terminal("ResponseStarted", {})
         except Exception:
             pass
-    for text in iter_pfn_stream_content(stream):
+    for text in iter_pfn_stream_content(stream, core):
         parts.append(text)
         if callable(callbacks.on_delta):
             try:
@@ -215,7 +216,7 @@ def parse_pfn_stream(
             print("", flush=True)
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
     return "".join(parts)

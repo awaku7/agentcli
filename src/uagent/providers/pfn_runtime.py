@@ -27,6 +27,7 @@ from .llm_pfn import (
     parse_pfn_response,
 )
 from .openai_compatible_runtime import OpenAICompatibleRuntime, _reported_usage
+from ..llm_helpers import stream_stop_requested
 
 
 class PfnProviderRuntime(OpenAICompatibleRuntime):
@@ -75,20 +76,36 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
 
                 def chunks_with_usage() -> Iterator[Any]:
                     nonlocal measured_usage
-                    for chunk in response:
-                        if not (_value(chunk, "choices") or []):
-                            terminal = _reported_usage(
-                                _value(chunk, "usage"), responses=False
-                            )
-                            if terminal:
-                                measured_usage = terminal
-                        yield chunk
+                    try:
+                        for chunk in response:
+                            if not (_value(chunk, "choices") or []):
+                                terminal = _reported_usage(
+                                    _value(chunk, "usage"), responses=False
+                                )
+                                if terminal:
+                                    measured_usage = terminal
+                            yield chunk
+                    finally:
+                        # iter_until_stopped() closes this generator on Stop;
+                        # forward that to the SDK response so the connection
+                        # is released instead of waiting for cleanup.
+                        close = getattr(response, "close", None)
+                        if callable(close):
+                            try:
+                                close()
+                            except Exception:
+                                pass
 
                 for text in iter_pfn_stream_content(chunks_with_usage()):
                     if cancellation.is_cancelled():
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})
                         return
                     yield self._event("TextDelta", {"text": text})
+                # iter_pfn_stream_content also ends early on Stop; that is a
+                # cancellation, not a completed (truncated) response.
+                if stream_stop_requested():
+                    yield self._event("ResponseCancelled", {"reason": "cancelled"})
+                    return
             else:
                 measured_usage = _reported_usage(
                     _value(response, "usage"), responses=False

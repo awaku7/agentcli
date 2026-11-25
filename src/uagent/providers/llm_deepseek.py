@@ -36,6 +36,9 @@ from ..llm_helpers import (
     _extract_latest_user_text,
     _is_thinking_task,
     _maybe_print_certifi_where,
+    iter_until_stopped,
+    stream_stop_requested,
+    stream_terminal_event,
 )
 from .._lazy_sdk import is_openai_error
 
@@ -547,7 +550,7 @@ def parse_deepseek_stream(
             pass
 
     try:
-        for chunk in stream:
+        for chunk in iter_until_stopped(stream, core):
             if usage_sink is not None:
                 reported = usage_normalizer(getattr(chunk, "usage", None))
                 if reported:
@@ -631,6 +634,9 @@ def parse_deepseek_stream(
         stream_failed = True
 
     # Never mutate the shared core from an abandoned worker thread.
+    if stream_stop_requested(core):
+        # Ended early by Stop: any usage seen so far is partial.
+        stream_failed = True
     # The caller publishes this only after its waiting function returns.
     if usage_sink is not None and not stream_failed and latest_usage:
         usage_sink.append(latest_usage)
@@ -673,7 +679,7 @@ def parse_deepseek_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
 

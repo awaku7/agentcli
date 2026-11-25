@@ -34,6 +34,11 @@ from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
 from ..runtime.telemetry import together_chat_usage_to_dict
 from .._lazy_sdk import is_openai_error
+from ..llm_helpers import (
+    iter_until_stopped,
+    stream_stop_requested,
+    stream_terminal_event,
+)
 
 _LABEL = "Together"
 _ENV_PREFIX = "UAGENT_TOGETHER"
@@ -214,7 +219,7 @@ def _parse_together_stream(
             pass
 
     try:
-        for chunk in stream:
+        for chunk in iter_until_stopped(stream, core):
             if usage_sink is not None:
                 reported = together_chat_usage_to_dict(getattr(chunk, "usage", None))
                 if reported:
@@ -292,6 +297,9 @@ def _parse_together_stream(
     except Exception:
         stream_failed = True
 
+    if stream_stop_requested(core):
+        # Ended early by Stop: any usage seen so far is partial.
+        stream_failed = True
     # The owning request publishes usage only after its waiting call returns;
     # abandoned worker threads must never mutate shared core state.
     if usage_sink is not None and not stream_failed and latest_usage:
@@ -333,7 +341,7 @@ def _parse_together_stream(
                 pass
     if callable(callbacks.on_terminal):
         try:
-            callbacks.on_terminal("ResponseCompleted", {})
+            callbacks.on_terminal(stream_terminal_event(core), {})
         except Exception:
             pass
 

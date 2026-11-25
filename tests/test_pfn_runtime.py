@@ -246,3 +246,51 @@ def test_pfn_stream_respects_explicit_include_usage_false() -> None:
 
 
 __all__ = []
+
+
+def test_pfn_stream_stopped_by_stop_flag_is_cancelled(monkeypatch) -> None:
+    """A Stop ends the stream early (INT-04); it is not a completed response."""
+    from uagent import core
+
+    monkeypatch.setattr(core, "interrupt_requested", False)
+
+    class _Response:
+        """SDK-like stream response that records close()."""
+
+        closed = False
+
+        def __iter__(self):
+            yield {"choices": [{"delta": {"content": "hello"}}]}
+            core.interrupt_requested = True
+            yield {"choices": [{"delta": {"content": " world"}}]}
+
+        def close(self):
+            self.closed = True
+
+    response = _Response()
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=SimpleNamespace(create=lambda **_kwargs: response)
+        )
+    )
+    runtime = PfnProviderRuntime(
+        client=client,
+        provider="pfn",
+        model="plamo-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    events = list(
+        runtime.run(
+            _request({"model": "plamo-test", "messages": [], "tools": []}),
+            _Cancellation(),
+        )
+    )
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ResponseCancelled",
+    ]
+    # The SDK response itself is closed, not just the usage wrapper.
+    assert response.closed is True

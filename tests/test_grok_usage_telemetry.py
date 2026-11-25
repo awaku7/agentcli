@@ -186,3 +186,47 @@ def test_grok_legacy_incomplete_stream_keeps_prior_snapshot() -> None:
         callbacks=StreamCallbacks(on_delta=lambda _text: None),
     )
     assert core._last_responses_usage is previous
+
+
+def test_grok_legacy_stream_stopped_mid_way_keeps_prior_snapshot() -> None:
+    """A Stop ends the stream early (INT-04): its partial usage is not stored."""
+    from threading import Lock
+
+    previous = {"input_tokens": 999}
+    core = SimpleNamespace(
+        _last_responses_usage=previous,
+        interrupt_lock=Lock(),
+        interrupt_requested=False,
+    )
+
+    def stream():
+        yield SimpleNamespace(usage=_usage(10, 1, 1)), SimpleNamespace(content="a")
+        core.interrupt_requested = True
+        yield SimpleNamespace(usage=_usage(110, 12, 23, 40)), SimpleNamespace(
+            content="b"
+        )
+
+    parse_xai_stream(
+        stream(),
+        core=core,
+        callbacks=StreamCallbacks(on_delta=lambda _text: None),
+    )
+    assert core._last_responses_usage is previous
+
+
+def test_grok_registry_stream_stopped_by_stop_flag_is_cancelled(monkeypatch) -> None:
+    from uagent import core
+
+    monkeypatch.setattr(core, "interrupt_requested", False)
+
+    def stream():
+        yield SimpleNamespace(usage=_usage(10, 1, 1)), SimpleNamespace(content="a")
+        core.interrupt_requested = True
+        yield SimpleNamespace(usage=_usage(110, 12, 23, 40)), SimpleNamespace(
+            content="b"
+        )
+
+    runtime = _runtime(monkeypatch, stream=stream())
+    events = list(runtime.run(_request(), _Cancellation()))
+    assert events[-1].type == "ResponseCancelled"
+    assert "usage" not in events[-1].data
