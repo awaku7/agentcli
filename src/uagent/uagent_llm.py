@@ -884,18 +884,28 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                 stream_responses=ctx.stream_responses,
                 stream_output_rendered=False,
             )
-            _emit_final_answer_if_any(
-                assistant_text=ctx.assistant_text,
-                use_responses_api=ctx.use_responses_api,
-                stream_responses=ctx.stream_responses,
-                append_result_to_outfile_fn=ctx.append_result_to_outfile_fn,
-                try_open_images_from_text_fn=ctx.try_open_images_from_text_fn,
-                reasoning_content=ctx.reasoning_content,
-                skip_print=False,
-                stream_output_rendered=False,
-                core=ctx.core,
-                provider=ctx.provider,
-            )
+            # Store the final answer in the conversation like the legacy path
+            # does; without this the next turn never sees the reply.
+            if _should_keep_assistant_message(ctx.assistant_text, ctx.tool_calls_list):
+                _append_assistant_message(
+                    messages=ctx.messages,
+                    core=ctx.core,
+                    assistant_text=ctx.assistant_text,
+                    tool_calls_list=ctx.tool_calls_list,
+                )
+            if not ctx.judgment_mode:
+                _emit_final_answer_if_any(
+                    assistant_text=ctx.assistant_text,
+                    use_responses_api=ctx.use_responses_api,
+                    stream_responses=ctx.stream_responses,
+                    append_result_to_outfile_fn=ctx.append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=ctx.try_open_images_from_text_fn,
+                    reasoning_content=ctx.reasoning_content,
+                    skip_print=False,
+                    stream_output_rendered=False,
+                    core=ctx.core,
+                    provider=ctx.provider,
+                )
             return _round_outcome(ctx, _RS_BREAK, ctx.assistant_text)
         if _should_keep_assistant_message(ctx.assistant_text, ctx.tool_calls_list):
             _append_assistant_message(
