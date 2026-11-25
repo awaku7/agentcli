@@ -580,6 +580,13 @@ Key modules:
     - `src/uagent/llm_registry_round.py`: the provider-registry round path
     - `src/uagent/llm_computer_use_nav.py`: Computer Use direct navigation
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
+- Opt-in SQLite session store: `src/uagent/runtime/session_store.py` (`SessionStore`:
+  connection, schema, sessions, messages, decision logs). Other areas are mixins:
+  `session_store_tools.py` (tool calls/results/context), `session_store_agent_state.py`,
+  `session_store_receipts.py` (Sub-Agent receipts), `session_store_compaction.py`,
+  `session_store_index.py` (term index, search, summaries). Shared definitions are in
+  `session_store_common.py`; attach/detach in `session_store_attach.py`. Import
+  everything from `session_store`, which re-exports the public names.
 - Decision-provider core: `src/uagent/decision/`
   - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` >
     the main-provider default > `none` consistently across CLI/GUI/Web/A2A.

@@ -270,13 +270,14 @@ def test_tool_result_persistence_enforces_utf8_record_byte_budget(tmp_path) -> N
 def test_tool_result_redaction_failure_never_persists_raw_fallback(
     tmp_path, monkeypatch
 ) -> None:
-    from uagent.runtime import session_store as session_store_module
+    # record_tool_result lives in the session_store_tools mixin.
+    from uagent.runtime import session_store_tools
 
     def fail_serialization(*_args, **_kwargs):
         raise RuntimeError("simulated sanitizer failure")
 
     monkeypatch.setattr(
-        session_store_module, "bounded_persistent_json", fail_serialization
+        session_store_tools, "bounded_persistent_json", fail_serialization
     )
     secret = "raw-dummy-payload-secret"
     with SessionStore(tmp_path / "sessions.sqlite3") as store:

@@ -1,6 +1,6 @@
 # 巨大ファイル分割の方針（速度・パフォーマンス重視）（2026-11-25）
 
-- Status: in progress（P0、P1 完了。P2 は未着手）
+- Status: done（P0、P1、P2 完了）
 - Priority: P1
 - Source: `UAG_ROUND_LOOP_REVIEW_20261124.md` の RL-06（巨大なファイルと関数の分割）
 - 確認基準: `main` = `1ad63ec3a`（PR #465 マージ後）
@@ -54,7 +54,7 @@
 - ラウンドごとに呼ぶ関数はモジュールの先頭で import する。めったに通らない経路（Computer Use、リモート復旧）だけを遅延 import にする。
 - テストが `uagent_llm.X` を差し替えている約 25 か所は、移動先のモジュールを差し替えるように直す。公開関数は `uagent_llm` から再エクスポートする。
 
-### P2: `session_store.py`（速度への影響はない。優先度は最も低い）
+### P2: `session_store.py`（速度への影響はない。優先度は最も低い）— 完了、下記参照（パッケージにはしなかった）
 
 - パッケージにして、`SessionStore` を mixin に分ける（スキーマと移行、メッセージと検索、ツール結果、エージェント状態、サブエージェントの receipt、圧縮記録）。
 - 接続とロックは 1 つのまま。import パスは変えない。
@@ -202,6 +202,35 @@
 
 `import uagent.uagent_llm` 337 ms、`import uagent.cli` 316 ms（P0-3 の時点と同じ。`bench_startup.py`、中央値）。
 
+## P2 の結果
+
+### 分けたもの
+
+| モジュール | 行数 | 内容 |
+|---|---|---|
+| `runtime/session_store.py` | 4,319 → 1,608 | `SessionStore`（接続、スキーマと移行、`_execute`、セッション、メッセージ、判断ログ） |
+| `runtime/session_store_common.py` | 430 | 例外、スキーマ定数、`_db_locked` などの共通ヘルパー |
+| `runtime/session_store_tools.py` | 468 | mixin: ツール呼び出し、ツール結果、ツールコンテキスト |
+| `runtime/session_store_agent_state.py` | 177 | mixin: AgentState の保存と取得 |
+| `runtime/session_store_receipts.py` | 788 | mixin: サブエージェントの receipt の確認・適用・確定 |
+| `runtime/session_store_compaction.py` | 351 | mixin: 圧縮記録 |
+| `runtime/session_store_index.py` | 308 | mixin: 語の索引、検索、セッションの要約 |
+| `runtime/session_store_attach.py` | 419 | オプトインのストアの接続と切断 |
+
+### 計画からの変更
+
+- **パッケージにはしなかった。** `session_store.py` をそのまま残し、同じディレクトリに `session_store_*.py` を並べた。モジュールをパッケージに変えると、`session_store.time` などモジュール属性の差し替えや import パスの扱いが変わるため。
+- `SessionStore` は mixin を継承する。メソッドの中身は変えていない。接続とロックは 1 つのまま。
+- `session_store` は、これまで外部から import されていた名前（`SessionStore`、例外 3 つ、`attach_`/`detach_opt_in_session_store`、`project_id_from_path`、`redact_sensitive`、`normalize_tool_call` など）を再エクスポートする。
+- `session_store_attach` は `SessionStore` を関数の中で import する（`session_store` がこのモジュールを再エクスポートするため、循環を避ける）。
+
+### 確認したこと
+
+- テストが `session_store` 上で差し替える名前を実行時に記録した（4 種類）。`_SQLITE_LOCK_RETRY_DELAY`（`_execute`）と `sanitize_message_for_history`（メッセージの保存）は `session_store.py` に残ったコードが使う。`attach_`/`detach_opt_in_session_store` は呼び出し側が `session_store` から読む。いずれも差し替えが効く。
+- `bounded_persistent_json` を差し替えていた `test_tool_result_store` は、`record_tool_result` が移った `session_store_tools` を差し替えるように直した。
+- 名前で差し替えるコードは、observability の `SessionStore.record_context_decisions`（クラス属性）だけで、mixin になっても効く。
+- 速度への影響はない（呼び出しはすべて同じクラスのメソッド）。
+
 ## 補足: 開発環境の注意
 
 `F:\Python314\Lib\site-packages` に、編集可能ではない古い `uagent` が入っていて、`src/` と 177 か所違う。`PYTHONPATH` を指定せずに `python` を実行すると古いコードが読み込まれる。`scripts/bench_startup.py` は常に `src/` を先頭にして計測する。`pip install -e .` で解消できる。
@@ -212,3 +241,4 @@
 - 2026-11-25: P0-2（実行時に作るマニフェストのキャッシュによる遅延読み込み）を実施。
 - 2026-11-25: P0-3（`_catalog` / `_trace` / `_dynamic_commands` への分割）を実施。
 - 2026-11-25: P1（`uagent_llm.py` を 5 つのモジュールに分割）を実施。
+- 2026-11-25: P2（`session_store.py` を mixin と補助モジュールに分割）を実施。計画の項目はすべて完了。
