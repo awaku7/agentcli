@@ -211,6 +211,27 @@ def _append_assistant_message(
         core.log_message(assistant_msg)
 
 
+def _drain_relayed_stream(timeout: float = 5.0) -> None:
+    """Wait for relayed stream deltas to render, when a relay is bound.
+
+    The final-answer path below writes with a direct print() after
+    rendering reasoning; while the CLI round worker relays stream
+    output through the display channel, that reasoning is only queued
+    at that point, so the print could overtake it (and the reasoning
+    line state would still read closed).  Draining first keeps the
+    on-screen order reasoning → answer.  No-op when no relay is bound
+    (every other surface renders synchronously already).
+    """
+    try:
+        from .runtime.display_channel import stream_relay
+
+        channel = stream_relay()
+        if channel is not None:
+            channel.wait_for_stream_drain(timeout=timeout)
+    except Exception:
+        pass
+
+
 def _emit_final_answer_if_any(
     *,
     assistant_text: str,
@@ -239,6 +260,9 @@ def _emit_final_answer_if_any(
                     provider=provider,
                     core=core,
                 )
+                # The line-state check below must observe the rendered
+                # reasoning, not the queued relay events.
+                _drain_relayed_stream()
                 if bool(getattr(core, "_reasoning_stream_open", False)):
                     # The final answer is printed below with print(), not through
                     # print_stream_delta(). Close the reasoning line first so
@@ -248,6 +272,10 @@ def _emit_final_answer_if_any(
                         close_line("\n")
                     else:
                         print()
+            # Any relayed deltas (the reasoning above, or reasoning
+            # streamed live during the call) render before this direct
+            # print, so the answer cannot jump ahead of them.
+            _drain_relayed_stream()
             print(assistant_text)
         elif skip_print and render_reasoning_when_skip_print and reasoning_content:
             # Registry TextDelta events already showed the answer, but that
@@ -259,6 +287,7 @@ def _emit_final_answer_if_any(
                 provider=provider,
                 core=core,
             )
+            _drain_relayed_stream()
             if bool(getattr(core, "_reasoning_stream_open", False)):
                 close_line = getattr(core, "print_stream_delta", None)
                 if callable(close_line):
