@@ -595,6 +595,15 @@ def run_agent_worker(
         def _patched_log_message(msg: dict[str, Any]) -> None:
             nonlocal client_message_id
             try:
+                from ..llm_helpers import is_abandoned_stream_output
+
+                if is_abandoned_stream_output(msg):
+                    # Late output of a stopped call must not reach this room
+                    # (it may already be streaming the next turn).
+                    return
+            except Exception:
+                pass
+            try:
                 if (
                     isinstance(msg, dict)
                     and msg.get("type") == "assistant_reasoning_delta"

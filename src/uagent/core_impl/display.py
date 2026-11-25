@@ -10,6 +10,19 @@ from .. import core as _core
 from ..runtime.spinner import stop_quietly as _stop_spinner_quietly
 
 
+def _abandoned() -> bool:
+    """Whether the calling thread is an LLM call abandoned by a Stop.
+
+    Its stream output must not appear after the turn has returned.
+    """
+    try:
+        from ..llm_helpers import llm_call_abandoned
+
+        return llm_call_abandoned()
+    except Exception:
+        return False
+
+
 def _sync_spinner_to_status(busy: bool) -> None:
     """Start/stop the spinner. No-op when disabled (UAGENT_SPINNER=0)."""
     try:
@@ -30,7 +43,7 @@ def print_stream_delta(s: str) -> None:
     (no trailing newline yet). print_status_line() closes an open line before
     emitting [STATE], so status never appears mid-text.
     """
-    if not s:
+    if not s or _abandoned():
         return
     # First token arrived: stop the spinner (ollama-style).
     # No-op when the spinner is disabled.
@@ -47,7 +60,7 @@ def print_stream_delta(s: str) -> None:
 
 def print_reasoning_delta(s: str) -> None:
     """Print reasoning output while marking the current line as reasoning."""
-    if not s:
+    if not s or _abandoned():
         return
     _stop_spinner_quietly()
     with _core.print_lock:

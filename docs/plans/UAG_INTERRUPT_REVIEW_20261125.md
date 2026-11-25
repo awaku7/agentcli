@@ -1,6 +1,6 @@
 # 割り込み（Stop / F12）の計測と修正計画（2026-11-25）
 
-- Status: in progress（INT-01 完了）
+- Status: in progress（INT-01、INT-02 完了）
 - Priority: P1
 - Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md) の「P1: Auto-Pilot / Interrupt の残課題」、[`docs/INTERRUPT.md`](../INTERRUPT.md)
 - 確認基準: `main` = `3dfca2816`（PR #470 マージ後）
@@ -34,8 +34,8 @@
 
 | ID | 内容 | 重要度 | 状態 |
 |---|---|---|---|
-| INT-01 | 残ったフラグを消す処理をターンの最初に移す。準備中の割り込みは最初のラウンドの確認で止まる | 高 | 完了 |
-| INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 未着手 |
+| INT-01 | 残ったフラグを消す処理をターンの最初に移す。準備中の割り込みは最初のラウンドの確認で止まる | 高 | 完了（PR #471） |
+| INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 完了 |
 | INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 未着手 |
 | INT-04 | Claude / Gemini / DeepSeek などの受信ループも同様に確認する。プロトコルごとに偽サーバーで計測する | 中 | 未着手 |
 
@@ -48,6 +48,19 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
 - 計測: 準備中（開始から 0.07 秒 / 0.25 秒）の割り込みで、0.04〜0.2 秒で戻る。LLM へのリクエストは送られない（サーバーへのリクエスト 0 件）。履歴には停止のプロンプトが追加され、assistant の応答は追加されない。
 - テスト: `tests/test_interrupt_during_turn_prep.py`（準備中の割り込みで LLM を呼ばないこと、ターンの前から残っていた割り込みは従来どおり消えること、準備中の割り込みでは URL 直接ナビゲーションをしないこと）。修正前のコードでは、新しい動作を確かめる 2 つのテストが失敗することを確認した。
 
+## INT-02 の結果
+
+- 判定の関数 `is_abandoned_stream_output()` を `llm_helpers` に追加した。見捨てられた呼び出し（`llm_call_abandoned()`）のスレッドから出た、ストリーム系のメッセージ（`assistant_stream_*`、`assistant_reasoning_delta`、`reasoning`）なら真を返す。
+- 次の 3 か所で、見捨てられた呼び出しからの出力を捨てる。
+  - `core_impl/display.py` の `print_stream_delta` / `print_reasoning_delta`（端末。大半のプロバイダが使う）
+  - `core_impl/logs.py` の `log_message`（ログファイルへの書き込み）
+  - `web_impl/agent_worker.py` の `_patched_log_message`（Web のルームへの転送。次のターンを表示中のこともある）
+- プロバイダが直接 `print` するのは、`core` に `print_stream_delta` がない場合の代替だけ（テストなど）なので、対象にしなかった。
+- 計測（200 トークン、Responses のストリーミング）: 戻るまで 0.05 秒。戻った後の出力は 188 トークン → **0**。受信ループ自体はまだ最後まで回り、サーバーは 200 トークンすべてを送る（INT-03 で対応）。
+- テスト:
+  - `tests/test_interrupt_stream_output.py`: 偽サーバー（`tests/fake_openai_stream_server.py`）に対して、別プロセスで実際のラウンドを動かし、ストリームの途中で割り込む。戻った後の出力が 0 であることを確かめる。ガードを外すと 49 トークンが出て失敗することを確認した。
+  - 同じファイルに、表示の関数と判定の関数の単体テストもある。
+
 ## 別件として見つかったこと
 
 Responses を使う設定で、llmcapa が知らないモデル名（独自のモデルや新しいモデル）を使うと、プラグインの読み込み時に llmcapa のモデル検索がツールのモジュールごとに走り、15 秒以上かかる。見つからなかった結果がキャッシュされない（`_should_preload_lazy_specs()` が `_register_tool_module` のたびに呼ばれる）ため。割り込みとは別の性能の問題として扱う。
@@ -55,3 +68,4 @@ Responses を使う設定で、llmcapa が知らないモデル名（独自の�
 ## 更新履歴
 
 - 2026-11-25: 作成。計測と原因の分析、INT-01 を実施。
+- 2026-11-25: INT-02（見捨てられた呼び出しの出力を止める）を実施。

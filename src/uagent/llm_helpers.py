@@ -28,6 +28,32 @@ def llm_call_abandoned() -> bool:
     return signal is not None and signal.is_set()
 
 
+# Log/UI message types that carry live stream output.
+_STREAM_OUTPUT_TYPES = frozenset(
+    {
+        "assistant_stream_start",
+        "assistant_stream_delta",
+        "assistant_stream_replace",
+        "assistant_stream_end",
+        "assistant_stream_interrupted",
+        "assistant_reasoning_delta",
+        "reasoning",
+    }
+)
+
+
+def is_abandoned_stream_output(message: Any) -> bool:
+    """Whether ``message`` is stream output from an abandoned LLM call.
+
+    After a Stop, the waiter returns while the daemon call thread may keep
+    reading the provider stream. Its output must not reach the terminal, the
+    Web room (possibly already showing the next turn) or the log.
+    """
+    if not llm_call_abandoned():
+        return False
+    return isinstance(message, dict) and message.get("type") in _STREAM_OUTPUT_TYPES
+
+
 class LLMWaitInterrupted(BaseException):
     """User interrupt while waiting on a blocking LLM network call.
 
