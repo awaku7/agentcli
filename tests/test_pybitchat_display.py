@@ -96,6 +96,7 @@ def test_display_worker_prints_above_an_open_toolkit_prompt(capsys, monkeypatch)
             _cli_prompt_toolkit_active=True,
             _cli_prompt_app=session.app,
             print_stream_delta=deltas.append,
+            print_stream_delta_locked=deltas.append,
         )
 
         mark = len(term_out.getvalue())
@@ -131,7 +132,7 @@ def test_display_worker_manual_path_without_toolkit_prompt(monkeypatch):
         prompt_needs_redraw=False,
         _cli_prompt_toolkit_active=False,
         _cli_prompt_app=None,
-        print_stream_delta=deltas.append,
+        print_stream_delta_locked=deltas.append,
     )
 
     shared._notify_display("[bitchat] manual path message")

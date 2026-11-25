@@ -170,6 +170,7 @@ from .core_impl.display import (
     print_reasoning_delta,
     print_status_line,
     print_stream_delta,
+    print_stream_delta_locked,
 )
 from .core_impl.status import (
     get_computer_use_policy,
@@ -345,6 +346,7 @@ __all__ = [
     "print_reasoning_delta",
     "print_status_line",
     "print_stream_delta",
+    "print_stream_delta_locked",
     "prompt_needs_redraw",
     "read_responses_state_records",
     "refresh_system_prompt",

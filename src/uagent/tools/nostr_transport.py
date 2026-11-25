@@ -1486,11 +1486,21 @@ class NostrTransport:
 
 
 def _notify_display(msg: str) -> None:
-    """Display notification (not sent to LLM)."""
+    """Display notification (not sent to LLM).
+
+    Posts to the shared display channel so listener threads never write
+    to the terminal directly; falls back to a plain print if the channel
+    is unavailable.
+    """
     try:
-        print(msg, flush=True)
+        from ..runtime.display_channel import post_notice
+
+        post_notice(msg, source="nostr", wait_for_stream=True)
     except Exception:
-        pass
+        try:
+            print(msg, flush=True)
+        except Exception:
+            pass
 
 
 def get_nostr_instance() -> NostrTransport | None:

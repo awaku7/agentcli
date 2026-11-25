@@ -1,8 +1,9 @@
 # CLI terminal output single-writer refactor
 
-- Status: preparation / design
+- Status: in progress. The display channel foundation and the notice producers are migrated; the prompt/round move (stage 2) and the stream migration (stage 3) are still open.
 - Scope: interactive CLI terminal I/O only. GUI and Web have their own renderers and are not changed by this plan.
 - Baseline: `main` after PR #479 (`882e215`).
+- Progress: `runtime/display_channel.py` provides the typed events and the decided queue policies (stream unbounded, notices bounded at 200 with drop-oldest, status redraws latest-only) plus a single pump thread that renders posted notices. BitChat incoming messages and the Nostr tool's relay notices now post to the channel; the BitChat display worker thread and the Nostr tool's bare `print()` are gone. Nostr remote-control notifications use the channel's shared renderer synchronously for now, because that path renders against a caller-supplied core object; it switches to posting when the stage-2 owner exists. The two notice renderers keep each surface's previous insertion behaviour (wait-for-stream vs. spinner stop/restore) until the stage-2 owner converges them. Status lines and the spinner are NOT migrated yet: their start/stop and rendering are synchronous with the foreground path (`set_status` renders synchronously; spinner `stop()` joins its thread before erasing) and interlock with `print_lock` ordering, so they move together with the stage-2 round/prompt move rather than before it.
 
 ## Goal
 

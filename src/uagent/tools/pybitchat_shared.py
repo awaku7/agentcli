@@ -78,15 +78,6 @@ def _atexit_cleanup() -> None:
 
 _atexit.register(_atexit_cleanup)
 
-# : BLE  print_lock
-# BLE  put
-_DISPLAY_QUEUE: "queue.Queue[str]" = queue.Queue()
-_DISPLAY_THREAD: threading.Thread | None = None
-_DISPLAY_THREAD_STARTED = False
-# LLM  [bitchat]
-#
-_DISPLAY_WAIT_STREAM_SEC = 2.0
-
 # BLE :  Noise
 #
 _EVENT_LOOP: "asyncio.AbstractEventLoop | None" = None
@@ -95,101 +86,19 @@ _EVENT_LOOP: "asyncio.AbstractEventLoop | None" = None
 _DEBUG = os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
 
 
-def _display_worker() -> None:
-    """Display-only worker: dequeue from the queue and serialize output with print_lock."""
-    while True:
-        try:
-            msg = _DISPLAY_QUEUE.get()
-        except Exception:
-            return
-        try:
-            #  core  (from import
-            # core  _stream_line_open )
-            from .. import core as _core
-
-            # LLM  Reasoning/assistant  [bitchat]
-            #  _DISPLAY_WAIT_STREAM_SEC
-            #  [bitchat]
-            #
-            deadline = _time.time() + _DISPLAY_WAIT_STREAM_SEC
-            # Never interrupt a reasoning stream. Reasoning uses a separate
-            # flag because its deltas are written without a trailing newline.
-            while getattr(_core, "_reasoning_stream_open", False):
-                _time.sleep(0.02)
-            # After reasoning ends, give ordinary streamed answer text a
-            # short grace period before inserting the bitchat message.
-            while _core._stream_line_open and _time.time() < deadline:
-                _time.sleep(0.02)
-
-            #    print_lock
-            #  print_stream_delta  LLM
-            # [bitchat]
-            # Reasoning/assistant
-            with _core.print_lock:
-                # When a prompt_toolkit prompt owns the input line, print
-                # through the shared helper instead: it hands the text to
-                # the prompt's own event loop, which erases the prompt,
-                # prints above it and redraws with the edit buffer intact.
-                # The manual path below relies on prompt_needs_redraw,
-                # which nothing consumes while a toolkit prompt is open.
-                # Lazy import, like the core import above: this module is
-                # a tool-side utility and must not pull in cli_impl at
-                # module load time.
-                printed_above = False
-                try:
-                    from ..cli_impl.prompt_session import (
-                        print_text_above_toolkit_prompt,
-                    )
-
-                    printed_above = print_text_above_toolkit_prompt(_core, msg)
-                except Exception:
-                    printed_above = False
-                if not printed_above:
-                    if _core._stream_line_open:
-                        _core.print_stream_delta(chr(10))
-                    if getattr(_core, "_prompt_line_open", False):
-                        #  [bitchat]
-                        # agentcli> [bitchat] ...
-                        #
-                        _core.print_stream_delta(chr(10))
-                        _core._prompt_line_open = False
-                        try:
-                            _core.prompt_needs_redraw = True
-                        except Exception:
-                            pass
-                    _core.print_stream_delta(msg + chr(10))
-        except Exception:
-            try:
-                print(msg, flush=True)
-            except Exception:
-                pass
-
-
-def _ensure_display_thread() -> None:
-    """Start the display worker only once (it is a daemon and exits with the process)."""
-    global _DISPLAY_THREAD, _DISPLAY_THREAD_STARTED
-    if _DISPLAY_THREAD_STARTED:
-        return
-    _DISPLAY_THREAD_STARTED = True
-    _DISPLAY_THREAD = threading.Thread(
-        target=_display_worker,
-        daemon=True,
-        name="bitchat-display",
-    )
-    _DISPLAY_THREAD.start()
-
-
 def _notify_display(msg: str) -> None:
     """Display a notification on screen (NOT sent to the LLM).
 
-    Only enqueue the notification so the BLE receive thread is not blocked.
-    Actual display is serialized by the dedicated worker thread using core print_lock.
+    Only post the notification to the shared display channel so the BLE
+    receive thread is not blocked.  The channel's pump thread renders it
+    (see runtime/display_channel.py).
     """
     if not _DEBUG and msg.startswith("[bitchat] [debug]"):
         return
     try:
-        _ensure_display_thread()
-        _DISPLAY_QUEUE.put_nowait(msg)
+        from ..runtime.display_channel import post_notice
+
+        post_notice(msg, source="bitchat", wait_for_stream=True)
     except Exception:
         try:
             print(msg, flush=True)

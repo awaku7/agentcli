@@ -49,13 +49,25 @@ def print_stream_delta(s: str) -> None:
     # No-op when the spinner is disabled.
     _stop_spinner_quietly()
     with _core.print_lock:
-        if _core._reasoning_stream_open:
-            if s != chr(10):
-                print("", flush=True)
-            _core._reasoning_stream_open = False
-        print(s, end="", flush=True)
-        # Open iff the final character is not a newline (handles embedded \n).
-        _core._stream_line_open = not s.endswith(chr(10))
+        print_stream_delta_locked(s)
+
+
+def print_stream_delta_locked(s: str) -> None:
+    """Write a stream delta while the caller holds ``print_lock``.
+
+    The caller must already have stopped the spinner. Unlike
+    print_stream_delta(), this never touches the spinner, so it is safe
+    under print_lock: calling print_stream_delta() there inverts the
+    spinner lifecycle-lock / print_lock order against a concurrent
+    spinner stop and can deadlock.
+    """
+    if _core._reasoning_stream_open:
+        if s != chr(10):
+            print("", flush=True)
+        _core._reasoning_stream_open = False
+    print(s, end="", flush=True)
+    # Open iff the final character is not a newline (handles embedded \n).
+    _core._stream_line_open = not s.endswith(chr(10))
 
 
 def print_reasoning_delta(s: str) -> None:
