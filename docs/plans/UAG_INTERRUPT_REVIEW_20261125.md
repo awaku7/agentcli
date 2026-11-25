@@ -1,6 +1,6 @@
 # 割り込み（Stop / F12）の計測と修正計画（2026-11-25）
 
-- Status: in progress（INT-01〜04 完了、INT-05 進行中）
+- Status: in progress（INT-01〜05 完了。CLI / Web / GUI の停止表示と状態同期は別途確認予定）
 - Priority: P1
 - Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md) の「P1: Auto-Pilot / Interrupt の残課題」、[`docs/INTERRUPT.md`](../INTERRUPT.md)
 - 確認基準: `main` = `3dfca2816`（PR #470 マージ後）
@@ -122,9 +122,9 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
 | ID | 内容 | 状態 |
 |---|---|---|
 | INT-05a | 最終回答を会話の履歴に追加する | 完了 |
-| INT-05b | 逐次表示する | 未着手 |
-| INT-05c | 割り込みで止まる（キャンセル用トークンを割り込みのフラグにつなぐ） | 未着手 |
-| INT-05d | 判断の変換を直して有効にする。偽サーバーで legacy 経路と、出力・履歴・ツール呼び出し・割り込みを比べる | 未着手 |
+| INT-05b | 逐次表示する | 完了 |
+| INT-05c | 割り込みで止まる（キャンセル用トークンを割り込みのフラグにつなぐ） | 完了 |
+| INT-05d | 判断の変換を直して有効にする。偽サーバーで legacy 経路と、出力・履歴・ツール呼び出し・割り込みを比べる | 完了 |
 
 ### INT-05a の結果
 
@@ -132,6 +132,27 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
 - judgment モードでは、legacy 経路と同じく最終回答を表示しない。
 - 確認: 変換の修正を一時的に当てて偽サーバーで動かすと、履歴が `['user']` → `['user', 'assistant']` になった（Chat、Responses とも）。
 - テスト: `tests/test_registry_round_parity.py`（新規）。履歴への追加と、judgment モードで表示しないこと。修正前は 2 つとも失敗することを確認した。
+
+### INT-05b の結果
+
+- Registry の `RoundOrchestrator` が渡すイベント observer で `TextDelta` を受け取り、従来の `core.print_stream_delta` を使って到着ごとに表示する。
+- `TextSnapshot` は累積スナップショットとして扱い、前回表示済みの文字列に続く差分だけを表示する。プロバイダが過去の内容を修正した場合は端末上で巻き戻せないため、新しいスナップショット全体を出す。非ストリーミング時は observer から出力しない。
+- Registry ストリームで表示済みの最終回答は、ラウンド終了後にもう一度 `print()` しない。履歴保存、結果ファイルへの追記、画像処理は従来どおり行う。
+- `tests/test_registry_round_parity.py` にイベント差分表示、スナップショット差分、最終回答の二重表示防止を追加。5 件成功、ruff 検査成功。
+
+### INT-05c の結果
+
+- Registry 用のキャンセル用トークンを追加し、既存の `core.cancellation_token` があれば維持しつつ、`stream_stop_requested(core)` も確認する。F12 / Web Stop が立てる `interrupt_requested` がストリームのキャンセルに届く。
+- Registry が `cancelled` / `interrupted` を返した場合、互換経路へフォールバックして二度目のリクエストを送らず、標準のラウンド割り込み処理に渡す。
+- OpenAI-compatible runtime のストリーム停止・close、キャンセル結果での fallback 抑止、割り込みフラグとの接続をテスト。関連3ファイルのテスト21件成功、ruff検査成功。
+- `tests/test_interrupt_stream_output.py` の最初の失敗原因は、テストプロセスが親環境の `UAGENT_REASONING=auto` を引き継いでいたこと。Responses + reasoning auto は再試行のため streaming を意図的に無効化するため、偽サーバーへの要求も `stream=false` となり、ストリーム切断を測れていなかった。テストで `UAGENT_REASONING=off` を固定し、全10件成功、openai-responses の途中切断も確認。
+
+### INT-05d の結果
+
+- `ContextDecision` を `to_dict()` で ContextPlan の判断記録に正規化し、デフォルトで使われる registry 経路の `TypeError` を解消。判断オブジェクト入りの plan 作成と registry 呼び出し準備をテスト。
+- 偽 Responses サーバーで `UAGENT_PROVIDER_REGISTRY=off` の legacy 経路と `=all` の registry 経路を比較。表示テキスト、履歴、正規化したツール呼び出し、スタブ実行結果が一致することを確認。
+- 同じ偽サーバーで両経路の割り込みも検証し、部分出力後に早期終了して接続が閉じることを確認。表示差分から見つかった registry の行末改行漏れも修正。
+- `UAGENT_REASONING=auto` は Responses の再試行のためストリーミングを無効化するため、該当テストでは `off` を明示。関連6ファイルのテスト48件成功、ruff 検査成功。
 
 ## 別件として見つかったこと
 
@@ -144,3 +165,6 @@ Responses を使う設定で、llmcapa が知らないモデル名（独自の�
 - 2026-11-25: INT-03（Responses の受信ループを抜けて接続を閉じる）を実施。
 - 2026-11-25: INT-04（各プロバイダの受信ループ）を実施。registry 経路の不具合を INT-05 として記録。
 - 2026-11-25: INT-05 の追加調査（legacy 経路との差 3 つ）と計画（05a〜05d）。INT-05a（最終回答を履歴に追加）を実施。
+- 2026-11-25: INT-05b（registry 経路の逐次表示）を実施。イベント単位の表示と最終回答の二重表示防止を追加。
+- 2026-11-25: INT-05c（registry 経路の割り込みキャンセル）を実施。openai-responses の割り込みテストが reasoning auto により非ストリーミングになっていたため、テスト環境を固定して再確認し、途中切断を確認。
+- 2026-11-25: INT-05d（ContextDecision 変換と registry/legacy の parity 検証）を実施。テキスト、履歴、ツール呼び出し、割り込み、registry off の経路を偽サーバーで確認。

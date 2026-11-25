@@ -22,6 +22,82 @@ from .llm_responses_runtime import (
 from .llm_turn_context import _build_round_context_plan
 
 
+class _CoreInterruptCancellationToken:
+    """Combine the provider token with the application's Stop/F12 signal."""
+
+    def __init__(self, core: Any, delegate: Any = None) -> None:
+        self._core = core
+        self._delegate = delegate
+
+    def is_cancelled(self) -> bool:
+        try:
+            from .llm_helpers import stream_stop_requested
+
+            if stream_stop_requested(self._core):
+                return True
+        except Exception:
+            pass
+        is_cancelled = getattr(self._delegate, "is_cancelled", None)
+        if callable(is_cancelled):
+            try:
+                return bool(is_cancelled())
+            except Exception:
+                return False
+        return False
+
+
+def _registry_stream_event_observer(
+    core: Any,
+    *,
+    streaming: bool,
+    progress_observer: Any = None,
+) -> Any:
+    """Render registry text deltas through the host's standard stream hook."""
+    snapshot = ""
+    try:
+        core._registry_stream_output_rendered = False
+        core._registry_stream_line_open = False
+    except Exception:
+        pass
+
+    def observe(event: Any) -> None:
+        nonlocal snapshot
+        if callable(progress_observer):
+            try:
+                progress_observer(event)
+            except Exception:
+                # Progress rendering must not prevent text delivery or fail
+                # the provider round.
+                pass
+        if not streaming:
+            return
+        event_type = str(getattr(event, "type", "") or "")
+        data = getattr(event, "data", {})
+        if not hasattr(data, "get"):
+            return
+        text = str(data.get("text") or "")
+        if event_type == "TextSnapshot":
+            if text.startswith(snapshot):
+                text = text[len(snapshot) :]
+            # A terminal cannot retract an already printed prefix. If the
+            # provider revises it, emit the new snapshot as best effort.
+            snapshot = str(data.get("text") or "")
+        elif event_type != "TextDelta":
+            return
+        if not text:
+            return
+        render_delta = getattr(core, "print_stream_delta", None)
+        if callable(render_delta):
+            render_delta(text)
+            try:
+                core._registry_stream_output_rendered = True
+                core._registry_stream_line_open = not text.endswith("\n")
+            except Exception:
+                pass
+
+    return observe
+
+
 def _select_registry_tool_specs(
     tool_specs: Any,
     *,
@@ -231,13 +307,17 @@ def _try_registry_simple_chat_round(
             from .providers.llm_foundry_local import FoundryLocalProgressObserver
 
             foundry_progress_observer = FoundryLocalProgressObserver(core)
-        cancellation = getattr(core, "cancellation_token", None)
-        if cancellation is None:
-            cancellation = type(
-                "NoCancellation",
-                (),
-                {"is_cancelled": lambda self: False},
-            )()
+
+        registry_event_observer = _registry_stream_event_observer(
+            core,
+            streaming=stream_responses,
+            progress_observer=foundry_progress_observer,
+        )
+
+        cancellation = _CoreInterruptCancellationToken(
+            core,
+            delegate=getattr(core, "cancellation_token", None),
+        )
         result = (
             RoundOrchestrator(registry)
             .run(
@@ -249,7 +329,7 @@ def _try_registry_simple_chat_round(
                     "recovery_hint": getattr(core, "last_recovery_update", None),
                 },
                 cancellation=cancellation,
-                on_event=foundry_progress_observer,
+                on_event=registry_event_observer,
             )
             .result
         )
@@ -307,7 +387,7 @@ def _try_registry_simple_chat_round(
                             ),
                         },
                         cancellation=cancellation,
-                        on_event=foundry_progress_observer,
+                        on_event=registry_event_observer,
                     )
                     .result
                 )
@@ -316,6 +396,19 @@ def _try_registry_simple_chat_round(
                     "initial_effort": effort_used,
                     "retry_effort": next_effort,
                 }
+        # Match the legacy host renderer: each streamed response ends its
+        # partial stdout line before the next status/tool output is shown.
+        if bool(getattr(core, "_registry_stream_line_open", False)):
+            close_line = getattr(core, "print_stream_delta", None)
+            if callable(close_line):
+                try:
+                    close_line("\n")
+                except Exception:
+                    pass
+            try:
+                core._registry_stream_line_open = False
+            except Exception:
+                pass
         if result.status == "failed":
             core.context_projection_id = result.projection_id
             from .runtime.context_recovery import ContextRecoveryManager
@@ -379,6 +472,16 @@ def _try_registry_simple_chat_round(
         if result.status != "completed":
             if use_responses_api:
                 _sync_registry_responses_terminal(core, result.status)
+            if result.status in {"cancelled", "interrupted"}:
+                # Return an empty, handled result so dispatch does not fall
+                # through to the legacy path and issue a second request. The
+                # round loop consumes the pending Stop and injects its normal
+                # stop prompt immediately after dispatch.
+                try:
+                    core._last_round_reason = "interrupted"
+                except Exception:
+                    pass
+                return True, "", "", []
             try:
                 from .runtime.logging_setup import log_event
 

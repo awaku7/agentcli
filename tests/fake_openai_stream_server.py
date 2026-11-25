@@ -14,6 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 N_CHUNKS = 60
 DT = 0.03
+TOOL_CALL_FIRST_REQUEST = False
 
 STATS: list[dict] = []
 _LOCK = threading.Lock()
@@ -42,6 +43,7 @@ class _Handler(BaseHTTPRequestHandler):
         stat = {
             "path": self.path,
             "stream": bool(req.get("stream")),
+            "request_index": len(STATS),
             "sent": 0,
             "started": time.time(),
             "ended": None,
@@ -93,6 +95,11 @@ class _Handler(BaseHTTPRequestHandler):
     def _responses(self, req, stat) -> None:
         model = req.get("model", "fake-model")
         self._start_sse()
+        if TOOL_CALL_FIRST_REQUEST and stat["request_index"] == 0:
+            name = _tool_name(req.get("tools") or ())
+            if name:
+                self._responses_tool_call(model, name, stat)
+                return
         resp = {
             "id": "resp_1",
             "object": "response",
@@ -162,6 +169,89 @@ class _Handler(BaseHTTPRequestHandler):
                 "response": final,
             },
         )
+
+    def _responses_tool_call(self, model: str, name: str, stat: dict) -> None:
+        resp = {
+            "id": "resp_tool_1",
+            "object": "response",
+            "created_at": 0,
+            "model": model,
+            "status": "in_progress",
+            "output": [],
+        }
+        self._event(
+            "response.created",
+            {"type": "response.created", "sequence_number": 0, "response": resp},
+        )
+        item = {
+            "id": "fc_item_1",
+            "type": "function_call",
+            "status": "in_progress",
+            "call_id": "call_tool_1",
+            "name": name,
+            "arguments": "",
+        }
+        self._event(
+            "response.output_item.added",
+            {
+                "type": "response.output_item.added",
+                "sequence_number": 1,
+                "output_index": 0,
+                "item": item,
+            },
+        )
+        self._event(
+            "response.function_call_arguments.delta",
+            {
+                "type": "response.function_call_arguments.delta",
+                "sequence_number": 2,
+                "item_id": "fc_item_1",
+                "output_index": 0,
+                "delta": "{}",
+            },
+        )
+        self._event(
+            "response.function_call_arguments.done",
+            {
+                "type": "response.function_call_arguments.done",
+                "sequence_number": 3,
+                "item_id": "fc_item_1",
+                "arguments": "{}",
+            },
+        )
+        completed_item = dict(item, status="completed", arguments="{}")
+        self._event(
+            "response.output_item.done",
+            {
+                "type": "response.output_item.done",
+                "sequence_number": 4,
+                "output_index": 0,
+                "item": completed_item,
+            },
+        )
+        final = dict(resp, status="completed", output=[completed_item])
+        self._event(
+            "response.completed",
+            {
+                "type": "response.completed",
+                "sequence_number": 5,
+                "response": final,
+            },
+        )
+        stat["sent"] = 6
+
+
+def _tool_name(tools) -> str:
+    for tool in tools:
+        if not isinstance(tool, dict):
+            continue
+        function = tool.get("function")
+        name = tool.get("name")
+        if not name and isinstance(function, dict):
+            name = function.get("name")
+        if isinstance(name, str) and name:
+            return name
+    return ""
 
 
 def start() -> int:
