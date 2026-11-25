@@ -148,6 +148,8 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
     spinner-stopping writer under ``print_lock`` deadlocks against it.
     The spinner is therefore stopped before the lock, and the writes
     use ``print_stream_delta_locked``, which never touches the spinner.
+    A spinner that was active before the notice is restored afterwards
+    under the same rule as ``_render_notice_now``.
     """
     deadline = time.time() + STREAM_GRACE_SEC
     # Reasoning deltas are written without a trailing newline, so wait
@@ -157,11 +159,19 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
     while getattr(core, "_stream_line_open", False) and time.time() < deadline:
         time.sleep(0.02)
     # Stop the spinner before acquiring print_lock (see the lock-order
-    # note above).  Best-effort: a spinner failure must not lose the
-    # notice.
+    # note above), remembering whether it was active so it can be
+    # restored afterwards.  Best-effort: a spinner failure must not
+    # lose the notice.
+    was_spinning = False
+    stream_was_open = bool(
+        getattr(core, "_stream_line_open", False)
+        or getattr(core, "_reasoning_stream_open", False)
+    )
     try:
         from . import spinner
 
+        # Do not resume a spinner that had already stopped for streaming.
+        was_spinning = spinner.is_running()
         spinner.stop_quietly()
     except Exception:
         pass
@@ -198,6 +208,23 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
             print(text, flush=True)
         except Exception:
             pass
+    finally:
+        # Restore the progress indicator only if it was active before
+        # this notice and the foreground is still waiting for work
+        # (same rule as _render_notice_now).  Outside print_lock:
+        # spinner.start() must never run under it.
+        if (
+            was_spinning
+            and not stream_was_open
+            and getattr(core, "status_busy", False)
+            and not getattr(core, "_prompt_line_open", False)
+        ):
+            try:
+                from . import spinner
+
+                spinner.start()
+            except Exception:
+                pass
 
 
 def _render_notice_now(core: Any, text: str) -> None:

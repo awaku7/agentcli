@@ -120,6 +120,59 @@ def test_render_notice_after_stream_lock_order_and_atomicity(monkeypatch):
     assert all(event[2] for event in writes)  # print_lock held throughout
 
 
+def _patch_spinner(monkeypatch, *, running: bool) -> list[str]:
+    from uagent.runtime import spinner
+
+    calls: list[str] = []
+    monkeypatch.setattr(spinner, "is_running", lambda: running)
+    monkeypatch.setattr(spinner, "stop_quietly", lambda: calls.append("stop"))
+    monkeypatch.setattr(spinner, "start", lambda: calls.append("start"))
+    return calls
+
+
+def test_render_notice_after_stream_restores_busy_spinner(monkeypatch):
+    calls = _patch_spinner(monkeypatch, running=True)
+    deltas: list[str] = []
+    core = _fake_core(
+        print_stream_delta_locked=deltas.append,
+        status_busy=True,
+    )
+    dc.render_notice(
+        core,
+        dc.Notice(text="relay notice", source="nostr", wait_for_stream=True),
+    )
+    assert deltas == ["relay notice\n"]
+    assert calls == ["stop", "start"]
+
+
+def test_render_notice_after_stream_keeps_spinner_off_when_idle(monkeypatch):
+    calls = _patch_spinner(monkeypatch, running=True)
+    core = _fake_core(
+        print_stream_delta_locked=lambda _text: None,
+        status_busy=False,
+    )
+    dc.render_notice(
+        core,
+        dc.Notice(text="relay notice", source="nostr", wait_for_stream=True),
+    )
+    assert calls == ["stop"]
+
+
+def test_render_notice_after_stream_does_not_resume_during_stream(monkeypatch):
+    monkeypatch.setattr(dc, "STREAM_GRACE_SEC", 0.05)
+    calls = _patch_spinner(monkeypatch, running=True)
+    core = _fake_core(
+        print_stream_delta_locked=lambda _text: None,
+        status_busy=True,
+        _stream_line_open=True,
+    )
+    dc.render_notice(
+        core,
+        dc.Notice(text="peer message", source="bitchat", wait_for_stream=True),
+    )
+    assert calls == ["stop"]
+
+
 def test_render_notice_after_stream_closes_open_lines():
     deltas: list[str] = []
     core = _fake_core(
