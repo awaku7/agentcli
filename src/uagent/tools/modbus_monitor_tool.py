@@ -21,6 +21,27 @@ _MONITORS: dict[str, dict[str, Any]] = {}
 _MONITORS_LOCK = threading.Lock()
 
 
+def _interrupt_requested() -> bool:
+    try:
+        from .. import core
+
+        return bool(getattr(core, "interrupt_requested", False))
+    except Exception:
+        return False
+
+
+def _sleep_interruptibly(seconds: float) -> bool:
+    """Sleep in slices; return False when an interrupt is requested."""
+    deadline = time.monotonic() + seconds
+    while True:
+        if _interrupt_requested():
+            return False
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return True
+        time.sleep(min(remaining, 0.25))
+
+
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "type": "function",
@@ -231,10 +252,14 @@ def run_tool(args: dict[str, Any]) -> str:
     previous: list[Any] | None = None
     all_changes: list[dict[str, Any]] = []
     polls = 0
+    interrupted = False
 
     while True:
         now = time.monotonic()
         if now >= deadline:
+            break
+        if _interrupt_requested():
+            interrupted = True
             break
 
         client = None
@@ -265,8 +290,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
         # Wait for next interval
         sleep_for = max(0, min(interval, deadline - time.monotonic()))
-        if sleep_for > 0:
-            time.sleep(sleep_for)
+        if sleep_for > 0 and not _sleep_interruptibly(sleep_for):
+            interrupted = True
+            break
 
     elapsed_ms = int((time.monotonic() - start_time) * 1000)
 
@@ -287,6 +313,8 @@ def run_tool(args: dict[str, Any]) -> str:
         "polls": polls,
         "elapsed_ms": elapsed_ms,
     }
+    if interrupted:
+        payload["stopped_reason"] = "interrupted"
 
     if output_format == "text":
         return _format_text(payload)
