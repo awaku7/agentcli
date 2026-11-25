@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import os
 import re
+import signal
 import subprocess
 import time
 from dataclasses import dataclass
@@ -40,6 +41,50 @@ def _interrupt_requested() -> bool:
         return False
 
 
+def _terminate_process_tree(proc: subprocess.Popen) -> None:
+    """Kill ``proc`` together with its descendants, then reap it.
+
+    Killing only the immediate child is not enough: the command runs
+    under a shell (``shell=True`` on Windows, ``sh -lc`` / PowerShell
+    elsewhere), and the programs the shell launched would keep
+    running — and keep modifying files — after the caller has already
+    reported the command as cancelled.
+    """
+    try:
+        if os.name == "nt":
+            try:
+                subprocess.run(
+                    ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=10,
+                )
+            except Exception:
+                pass
+            if proc.poll() is None:
+                try:
+                    proc.kill()
+                except Exception:
+                    pass
+        else:
+            # The child was started in its own session (see
+            # run_interruptible), so its process group is exactly the
+            # command's tree and never includes this process.
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except Exception:
+                try:
+                    proc.kill()
+                except Exception:
+                    pass
+    finally:
+        try:
+            proc.wait(timeout=10)
+        except Exception:
+            pass
+
+
 def run_interruptible(**run_kwargs: Any) -> subprocess.CompletedProcess:
     """``subprocess.run()`` that also honours the user interrupt flag.
 
@@ -48,10 +93,11 @@ def run_interruptible(**run_kwargs: Any) -> subprocess.CompletedProcess:
     never see it, and the Windows exec tools deliberately start their
     children in a separate process group, so the console signal does
     not reach them either.  Poll the child in short slices instead:
-    when an interrupt is requested, kill the child and raise
-    SubprocessInterrupted so the caller can return its interrupted
-    result.  Timeout handling matches subprocess.run(): the child is
-    killed and TimeoutExpired is raised with the output collected.
+    when an interrupt is requested, terminate the child's whole
+    process tree and raise SubprocessInterrupted so the caller can
+    return its interrupted result.  Timeout handling matches
+    subprocess.run(): the tree is terminated and TimeoutExpired is
+    raised with the output collected.
     """
     timeout = run_kwargs.pop("timeout", None)
     check = bool(run_kwargs.pop("check", False))
@@ -62,6 +108,12 @@ def run_interruptible(**run_kwargs: Any) -> subprocess.CompletedProcess:
             raise ValueError
         run_kwargs["stdout"] = subprocess.PIPE
         run_kwargs["stderr"] = subprocess.PIPE
+    if os.name != "nt":
+        # Own session => own process group, so _terminate_process_tree
+        # can kill the whole command tree with killpg without ever
+        # endangering this process.  (Windows callers already pass
+        # CREATE_NEW_PROCESS_GROUP.)
+        run_kwargs.setdefault("start_new_session", True)
     proc = subprocess.Popen(**run_kwargs)
     deadline = None if timeout is None else time.monotonic() + float(timeout)
     out: Any = None
@@ -75,11 +127,10 @@ def run_interruptible(**run_kwargs: Any) -> subprocess.CompletedProcess:
             break
         except subprocess.TimeoutExpired:
             if _interrupt_requested():
-                proc.kill()
-                proc.wait()
+                _terminate_process_tree(proc)
                 raise SubprocessInterrupted() from None
             if deadline is not None and time.monotonic() >= deadline:
-                proc.kill()
+                _terminate_process_tree(proc)
                 out, err = proc.communicate()
                 raise subprocess.TimeoutExpired(
                     proc.args, float(timeout or 0.0), output=out, stderr=err
