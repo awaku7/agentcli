@@ -36,6 +36,7 @@ from ..llm_helpers import (
     _extract_latest_user_text,
     _is_thinking_task,
     _maybe_print_certifi_where,
+    iter_until_stopped,
 )
 from .._lazy_sdk import is_openai_error
 
@@ -547,7 +548,7 @@ def parse_deepseek_stream(
             pass
 
     try:
-        for chunk in stream:
+        for chunk in iter_until_stopped(stream):
             if usage_sink is not None:
                 reported = usage_normalizer(getattr(chunk, "usage", None))
                 if reported:

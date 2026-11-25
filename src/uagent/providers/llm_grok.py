@@ -13,6 +13,7 @@ from typing import Any, Callable, Iterator, Optional
 from ..env_utils import env_get
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from ..llm_helpers import iter_until_stopped
 
 
 def _ensure_xai_chat() -> None:
@@ -469,7 +470,7 @@ def iter_xai_stream_parts(
     stream_iter: Any, *, on_response: Callable[[Any], None] | None = None
 ) -> Iterator[tuple[str, Any]]:
     """Yield xAI stream parts, optionally observing cumulative response usage."""
-    for response, chunk in stream_iter:
+    for response, chunk in iter_until_stopped(stream_iter):
         if on_response is not None:
             on_response(response)
         content = getattr(chunk, "content", "") or ""

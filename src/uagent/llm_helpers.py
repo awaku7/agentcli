@@ -28,6 +28,45 @@ def llm_call_abandoned() -> bool:
     return signal is not None and signal.is_set()
 
 
+def stream_stop_requested() -> bool:
+    """Whether a provider stream loop should stop reading now.
+
+    In a call thread run by ``_call_maybe_thread`` the signal is abandonment:
+    the waiter has already returned and the round may have cleared the Stop
+    flag. A stream read directly on the round thread has no waiter, so the
+    Stop flag itself is the signal; it is left set for the round to handle.
+    """
+    signal = _LLM_CALL_ABANDONED.get()
+    if signal is not None:
+        return signal.is_set()
+    try:
+        from uagent import core as _core
+
+        with _core.interrupt_lock:
+            return bool(_core.interrupt_requested)
+    except Exception:
+        return False
+
+
+def iter_until_stopped(stream: Any):
+    """Yield items of a provider stream until a Stop; then close the stream.
+
+    Checked before each item is handed on, so a stopped call neither keeps
+    processing (or printing) the response nor keeps the connection open
+    while the server finishes generating.
+    """
+    for item in stream:
+        if stream_stop_requested():
+            close = getattr(stream, "close", None)
+            if callable(close):
+                try:
+                    close()
+                except Exception:
+                    pass
+            return
+        yield item
+
+
 # Log/UI message types that carry live stream output.
 _STREAM_OUTPUT_TYPES = frozenset(
     {

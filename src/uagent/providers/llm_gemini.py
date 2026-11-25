@@ -13,6 +13,7 @@ from ..i18n import _
 from .. import tools
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from ..llm_helpers import iter_until_stopped
 
 
 def _vertex_debug(event: str, **fields: Any) -> None:
@@ -1524,7 +1525,7 @@ def gemini_chat_with_tools(
         stream_complete = True
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
-            for response in stream_iter:
+            for response in iter_until_stopped(stream_iter):
                 if _first_chunk:
                     _first_chunk = False
                     _vertex_debug(

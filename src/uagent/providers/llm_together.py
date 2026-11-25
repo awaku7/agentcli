@@ -34,6 +34,7 @@ from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
 from ..runtime.telemetry import together_chat_usage_to_dict
 from .._lazy_sdk import is_openai_error
+from ..llm_helpers import iter_until_stopped
 
 _LABEL = "Together"
 _ENV_PREFIX = "UAGENT_TOGETHER"
@@ -214,7 +215,7 @@ def _parse_together_stream(
             pass
 
     try:
-        for chunk in stream:
+        for chunk in iter_until_stopped(stream):
             if usage_sink is not None:
                 reported = together_chat_usage_to_dict(getattr(chunk, "usage", None))
                 if reported:

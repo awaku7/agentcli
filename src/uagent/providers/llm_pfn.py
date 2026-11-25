@@ -18,6 +18,7 @@ from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..llm_helpers import _maybe_print_certifi_where
 from ..i18n import _
 from ..runtime.stream_renderer import StreamCallbacks
+from ..llm_helpers import iter_until_stopped
 
 
 def _pfn_tool_specs(core: Any = None) -> list[dict[str, Any]]:
@@ -150,7 +151,7 @@ def parse_pfn_response(resp: Any) -> tuple[str, list[dict[str, Any]]]:
 
 def iter_pfn_stream_content(stream: Any):
     """Yield text deltas from PFN's stream without host-side side effects."""
-    for chunk in stream:
+    for chunk in iter_until_stopped(stream):
         choices = _value(chunk, "choices") or []
         if not choices:
             continue

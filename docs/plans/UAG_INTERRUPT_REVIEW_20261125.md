@@ -1,6 +1,6 @@
 # 割り込み（Stop / F12）の計測と修正計画（2026-11-25）
 
-- Status: in progress（INT-01〜03 完了）
+- Status: in progress（INT-01〜04 完了、INT-05 は未着手）
 - Priority: P1
 - Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md) の「P1: Auto-Pilot / Interrupt の残課題」、[`docs/INTERRUPT.md`](../INTERRUPT.md)
 - 確認基準: `main` = `3dfca2816`（PR #470 マージ後）
@@ -36,8 +36,9 @@
 |---|---|---|---|
 | INT-01 | 残ったフラグを消す処理をターンの最初に移す。準備中の割り込みは最初のラウンドの確認で止まる | 高 | 完了（PR #471） |
 | INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 完了（PR #472） |
-| INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 完了 |
-| INT-04 | Claude / Gemini / DeepSeek などの受信ループも同様に確認する。プロトコルごとに偽サーバーで計測する | 中 | 未着手 |
+| INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 完了（PR #473） |
+| INT-04 | Claude / Gemini / DeepSeek などの受信ループも同様に確認する。プロトコルごとに偽サーバーで計測する | 中 | 完了 |
+| INT-05 | registry 経路（`openai_compatible_runtime`）が、ツールを使う普段のターンで毎回失敗している不具合を直し、割り込みに対応させる | 高 | 未着手 |
 
 CLI / Web / GUI での停止表示と状態の同期（ロードマップの項目）は、INT-01〜04 の後に、それぞれの入口で確認する。
 
@@ -70,6 +71,42 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
 - テスト: `tests/test_interrupt_stream_output.py` の端から端までのテストに「接続が切られ、サーバーが途中で止まる」確認を加えた（修正前は失敗することを確認）。vLLM の包みの単体テストも追加した。
 - registry 経路（`openai_compatible_runtime`）は、`UAGENT_PROVIDER_REGISTRY=all` を指定してもこの構成では使われなかった。この経路はラウンドのスレッドで直接ストリームを読み、既定の `NoCancellation` は止まらないので、INT-04 で扱う。
 
+## INT-04 の結果
+
+### 対象の洗い出し
+
+| プロバイダ | 受信ループ | 修正前の状態 | 対応 |
+|---|---|---|---|
+| DeepSeek（Z.AI なども同じ関数） | `parse_deepseek_stream` | 割り込みの確認なし、閉じない | 共通ラッパーを適用 |
+| Gemini / Vertex AI | `gemini_chat_with_tools` | 同上 | 同上 |
+| Novita | `_parse_novita_stream` | 同上 | 同上 |
+| Together | `_parse_together_stream` | 同上 | 同上 |
+| PFN | `iter_pfn_stream_content` | 同上 | 同上 |
+| Grok | `iter_xai_stream_parts` | 同上 | 同上 |
+| Claude | — | ストリーミングしない | 待つ側がすぐ戻るので対応不要 |
+| Vercel、LM Studio SDK、Inception（legacy） | — | 見捨てられたかを確認済み | 変更なし |
+| Foundry Local、Inception（registry） | キャンセル用トークン | registry 経路の作り | INT-05 で扱う |
+
+### 変更
+
+- `llm_helpers` に 2 つを追加した。
+  - `stream_stop_requested()`: 待つ側がいる呼び出しのスレッドでは「見捨てられたか」、ラウンドのスレッドで直接読む場合は割り込みフラグを返す。フラグは消さず、ラウンドに処理を任せる。
+  - `iter_until_stopped(stream)`: 項目を渡す前に `stream_stop_requested()` を確認し、真ならストリームを閉じて止める。
+- 上の 6 つの受信ループを `iter_until_stopped(...)` で包んだ。
+- 計測（DeepSeek、Chat Completions のストリーミング、200 トークン中 10 トークン目で割り込み）: サーバーが送ったのは 200 → **12** トークン。接続は切られた。
+- Gemini は uag 側に接続先を変える設定がなく、偽サーバーで計測できなかった。ループの変更は他と同じなので、共通ラッパーの単体テストで確かめた。Grok（gRPC）も同様。
+- テスト: `tests/test_interrupt_stream_output.py` の端から端までのテストを、OpenAI Responses と DeepSeek Chat の 2 つで回すようにした。DeepSeek は修正前のコードでは「接続が切られない」で失敗することを確認した。共通ラッパーの単体テスト（止めないとき、見捨てられたとき、ラウンドのスレッドでフラグが立ったとき）も追加した。
+
+## INT-05: registry 経路の不具合（調査済み、未修正）
+
+- **現象:** registry 経路（`llm_registry_round._try_registry_simple_chat_round`）は、ツールを使う普段のターンで毎回例外になり、`except Exception: return None` で黙って legacy 経路に戻っている。対応プロバイダ（openai、azure、openrouter、vllm、ollama、nvidia、grok、pfn、lmstudio、sakana など）で、既定で有効なはずの経路が実際にはほぼ使われていない。
+- **原因:** ツール選択が返す判断（`ContextDecision` オブジェクト）を、`runtime/context_plan_builder.py` の `build_context_plan` が `dict(item)` で dict として扱い、`TypeError: 'ContextDecision' object is not iterable` になる。判断は 2026-09-07 から `ContextDecision` で、`dict(item)` は 2026-09-15（`6ad2c7697`）に入った。
+- **直すときの注意:** 直すと多くのプロバイダで、実際に通る経路が registry に切り替わる。この経路はラウンドのスレッドでストリームを直接読み、既定のキャンセル用トークン（`NoCancellation`）は止まらないので、割り込みがまったく効かない。
+- **進め方:**
+  1. 判断の変換を直し、割り込み（キャンセル）にも対応させる。
+  1. 偽サーバーで、legacy 経路と registry 経路の出力・ツール呼び出し・割り込みの動作を比べる。
+  1. 差がなければ有効にする。`UAGENT_PROVIDER_REGISTRY=off` で元の経路に戻せることも確認する。
+
 ## 別件として見つかったこと
 
 Responses を使う設定で、llmcapa が知らないモデル名（独自のモデルや新しいモデル）を使うと、プラグインの読み込み時に llmcapa のモデル検索がツールのモジュールごとに走り、15 秒以上かかる。見つからなかった結果がキャッシュされない（`_should_preload_lazy_specs()` が `_register_tool_module` のたびに呼ばれる）ため。割り込みとは別の性能の問題として扱う。
@@ -79,3 +116,4 @@ Responses を使う設定で、llmcapa が知らないモデル名（独自の�
 - 2026-11-25: 作成。計測と原因の分析、INT-01 を実施。
 - 2026-11-25: INT-02（見捨てられた呼び出しの出力を止める）を実施。
 - 2026-11-25: INT-03（Responses の受信ループを抜けて接続を閉じる）を実施。
+- 2026-11-25: INT-04（各プロバイダの受信ループ）を実施。registry 経路の不具合を INT-05 として記録。

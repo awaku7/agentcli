@@ -35,6 +35,7 @@ from .llm_novita_usage import (
     request_novita_stream_usage,
 )
 from .._lazy_sdk import is_openai_error
+from ..llm_helpers import iter_until_stopped
 
 _LABEL = "Novita"
 _ENV_PREFIX = "UAGENT_NOVITA"
@@ -231,7 +232,7 @@ def _parse_novita_stream(
             pass
 
     try:
-        for chunk in stream:
+        for chunk in iter_until_stopped(stream):
             if usage_sink is not None:
                 reported = novita_chat_usage_to_dict(getattr(chunk, "usage", None))
                 if reported:
