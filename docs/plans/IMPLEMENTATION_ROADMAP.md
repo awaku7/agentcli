@@ -262,7 +262,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 ## P1: Auto-Pilot / Interruptの残課題
 
-- Status: planned
+- Status: in-progress（割り込みの実測と修正は [`UAG_INTERRUPT_REVIEW_20261125.md`](UAG_INTERRUPT_REVIEW_20261125.md) で管理）
 - Priority: P1
 - Source: [`docs/INTERRUPT.md`](../INTERRUPT.md)、[`src/uagent/docs/AUTO_REVIEW.md`](../../src/uagent/docs/AUTO_REVIEW.md)
 
