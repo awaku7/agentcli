@@ -53,7 +53,9 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
-def test_registry_stream_skip_print_still_renders_reasoning(monkeypatch, capsys) -> None:
+def test_registry_stream_skip_print_still_renders_reasoning(
+    monkeypatch, capsys
+) -> None:
     rendered_reasoning: list[str] = []
     saved: list[str] = []
     monkeypatch.setattr(

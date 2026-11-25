@@ -74,9 +74,7 @@ def registry_round(monkeypatch):
         lambda **_: dispatcher.RegistryRoundRoute(True, "test"),
     )
 
-    def run(
-        *, answer: str, judgment_mode: bool = False, stream_rendered: bool = False
-    ):
+    def run(*, answer: str, judgment_mode: bool = False, stream_rendered: bool = False):
         raw_result = (True, answer, "", [])
         monkeypatch.setattr(
             dispatcher,
@@ -178,9 +176,7 @@ def test_registry_streamed_answer_is_not_printed_again(registry_round) -> None:
 
 
 def test_registry_cancellation_token_tracks_interrupt_flag() -> None:
-    core = SimpleNamespace(
-        interrupt_lock=threading.Lock(), interrupt_requested=False
-    )
+    core = SimpleNamespace(interrupt_lock=threading.Lock(), interrupt_requested=False)
     token = _CoreInterruptCancellationToken(core)
 
     assert token.is_cancelled() is False
@@ -250,9 +246,7 @@ def test_registry_cancelled_round_does_not_fall_back_to_legacy(
 
     stream = InterruptingStream()
     client = SimpleNamespace(
-        chat=SimpleNamespace(
-            completions=SimpleNamespace(create=lambda **_: stream)
-        )
+        chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: stream))
     )
 
     monkeypatch.setattr(registry_round, "_get_shrink_max_tokens", lambda *_: 0)

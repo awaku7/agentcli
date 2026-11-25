@@ -193,9 +193,7 @@ def test_registry_support_check_is_normalized_and_has_one_source_of_truth(
 
 
 def test_openai_runtime_stops_and_closes_stream_on_core_interrupt() -> None:
-    core = SimpleNamespace(
-        interrupt_lock=threading.Lock(), interrupt_requested=False
-    )
+    core = SimpleNamespace(interrupt_lock=threading.Lock(), interrupt_requested=False)
 
     class _Stream:
         closed = False
@@ -218,9 +216,7 @@ def test_openai_runtime_stops_and_closes_stream_on_core_interrupt() -> None:
 
     stream = _Stream()
     client = SimpleNamespace(
-        chat=SimpleNamespace(
-            completions=SimpleNamespace(create=lambda **_: stream)
-        )
+        chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: stream))
     )
     runtime = OpenAICompatibleRuntime(
         client=client,
