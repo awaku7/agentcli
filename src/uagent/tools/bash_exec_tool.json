@@ -1,6 +1,6 @@
 {
   "ja": {
-    "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
+    "err.unavailable": "bash がインストールされた Unix 系でのみ利用できます。",
     "param.command.description": "bash -lc に渡すコマンド文字列。",
     "x_search_terms": [
       "bash",

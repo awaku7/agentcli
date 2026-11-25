@@ -15,7 +15,7 @@
       "pythonプログラム"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Python コードを制御された方法で実行します。このツールは、計算、データ処理、または短いスクリプトの実行に使用します。このツールを使用する前に、`tool_catalog` で他の適切なツールを検索してください。"
+    "tool.description": "Python コードを制御された方法で実行します。計算、データ処理、または短いスクリプトの実行に利用できます。使用前に、`tool_catalog` で他の適切なツールを検索してください。"
   },
   "es": {
     "describe.python": "Ejecutando Python",
