@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import asyncio
-from contextlib import nullcontext
 import queue
 import threading
 import time
@@ -1631,7 +1630,12 @@ class NostrRemoteRuntime:
 
 
 def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
-    """Print a bounded one-line preview without terminal control sequences."""
+    """Render a bounded one-line preview via the shared display channel.
+
+    Rendered synchronously with the caller's core object (the runtime's
+    contract); the insertion logic itself lives in
+    runtime/display_channel.py alongside the other notice surfaces.
+    """
     sender = rumor.get("pubkey")
     content = rumor.get("content")
     if not isinstance(sender, str) or not isinstance(content, str):
@@ -1641,59 +1645,13 @@ def _display_nostr_incoming(core: Any, rumor: dict[str, Any]) -> None:
     )
     if len(preview) > 2_000:
         preview = preview[:2_000] + "…"
-    was_spinning = False
-    stream_was_open = False
+    text = f"[NOSTR] Received from {sender[:12]}: {preview}"
     try:
-        from .runtime import spinner
+        from .runtime.display_channel import Notice, render_notice
 
-        # Do not resume a spinner that had already stopped for streaming.
-        was_spinning = spinner.is_running()
-        stream_was_open = bool(
-            getattr(core, "_stream_line_open", False)
-            or getattr(core, "_reasoning_stream_open", False)
-        )
-        # Stop before taking print_lock: spinner.stop() acquires that lock.
-        spinner.stop_quietly()
-        lock = getattr(core, "print_lock", None)
-        with lock if lock is not None else nullcontext():
-            toolkit_prompt = bool(getattr(core, "_cli_prompt_toolkit_active", False))
-            text = f"[NOSTR] Received from {sender[:12]}: {preview}"
-            above_prompt = False
-            if toolkit_prompt:
-                # The toolkit prompt is not wrapped in patch_stdout, so a
-                # bare print would land inside the line being edited.
-                # Let the prompt application print it above itself and
-                # redraw; only fall back to a direct print if it refuses.
-                from .cli_impl.prompt_session import print_text_above_toolkit_prompt
-
-                above_prompt = print_text_above_toolkit_prompt(core, text)
-            if not above_prompt:
-                if not toolkit_prompt:
-                    if getattr(core, "_stream_line_open", False) or getattr(
-                        core, "_prompt_line_open", False
-                    ):
-                        print(flush=True)
-                    core._stream_line_open = False
-                    core._reasoning_stream_open = False
-                    core._prompt_line_open = False
-                print(text, flush=True)
-                if not toolkit_prompt:
-                    core.prompt_needs_redraw = True
-    except (OSError, UnicodeError):
+        render_notice(core, Notice(text=text, source="nostr"))
+    except Exception:
         pass
-    finally:
-        # Restore the progress indicator only if it was active before this
-        # notification and the foreground is still waiting for work.
-        if (
-            was_spinning
-            and not stream_was_open
-            and getattr(core, "status_busy", False)
-            and not getattr(core, "_prompt_line_open", False)
-        ):
-            try:
-                spinner.start()
-            except Exception:
-                pass
 
 
 def create_nostr_remote_runtime(
