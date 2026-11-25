@@ -121,7 +121,7 @@ CMD_SPEC = {
 ### 6.2 Registration Lifecycle
 
 1. During startup, `tools/__init__.py` scans and loads all tool modules.
-1. If a module exports a valid `CMD_SPEC`, it is registered in a global registry `_DYNAMIC_COMMANDS`.
+1. If a module exports a valid `CMD_SPEC`, it is registered in a global registry `_DYNAMIC_COMMANDS` (owned by `tools/_dynamic_commands.py`, re-exported by `tools`).
 1. When a command is executed in the CLI, `util_tools.py` checks the dynamic registry first. If a matching handler is found, it is executed.
 1. If a tool is disabled or not loaded, its corresponding commands automatically become unavailable.
 

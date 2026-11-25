@@ -94,7 +94,7 @@ def test_command_catalog_rejects_room_without_access(monkeypatch):
 def test_dynamic_catalog_does_not_include_callable_handlers(monkeypatch):
     monkeypatch.setattr(tools, "_ensure_loaded", lambda: None)
     monkeypatch.setattr(
-        tools,
+        tools._dynamic_commands,
         "_DYNAMIC_COMMANDS",
         {
             "sample": {

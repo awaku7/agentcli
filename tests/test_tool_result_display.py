@@ -298,7 +298,7 @@ def test_web_tool_trace_uses_the_cli_description_without_raw_results(
     monkeypatch.setattr(core, "_is_web", True, raising=False)
     monkeypatch.setattr(core, "IS_GUI", False, raising=False)
     monkeypatch.setattr(rooms, "get_context_web_room", lambda: room)
-    monkeypatch.setattr(tools_pkg, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
     monkeypatch.setitem(
         tools_pkg._TOOL_DESCRIBERS,
         "web_trace_probe",
@@ -366,7 +366,7 @@ def test_web_tool_trace_does_not_fallback_to_other_rooms(
     monkeypatch.setattr(core, "_is_web", True, raising=False)
     monkeypatch.setattr(rooms, "get_context_web_room", lambda: None)
     monkeypatch.setattr(rooms._thread_ctx, "room", None, raising=False)
-    monkeypatch.setattr(tools_pkg, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
 
     tools_pkg._emit_tool_trace("web_trace_probe", {"path": "src/example.py"})
 

@@ -90,6 +90,11 @@ ______________________________________________________________________
 ロード処理:
 
 - `src/uagent/tools/__init__.py` が import 時に `_load_plugins()` を実行
+- 登録情報、`get_tool_specs()`、`run_tool()` も `__init__.py` にある。補助処理は次の非公開モジュールに分かれ、パッケージから再エクスポートされる:
+  - `tools/_manifest.py`: 遅延読み込み用のツール spec マニフェスト（キャッシュ）
+  - `tools/_catalog.py`: `get_tool_catalog()` と CJK のクエリ分割（初回の検索時に読み込む）
+  - `tools/_trace.py`: ツールの trace 行と、翻訳された実行前の説明文
+  - `tools/_dynamic_commands.py`: `CMD_SPEC(S)` のコマンド登録（`_DYNAMIC_COMMANDS`）
 - 内部ツールは `pkgutil.iter_modules()` で列挙して import/reload される
 - `UAGENT_EXTERNAL_TOOLS_DIR` が指定されていれば、そこから `*.py` を追加ロードする
 

@@ -52,7 +52,8 @@ def test_external_job_resolver_absent_or_failed_is_unavailable(monkeypatch):
 
 
 def test_external_tool_sink_receives_masked_bounded_text(monkeypatch, capsys):
-    from uagent import core, tools
+    from uagent import core
+    from uagent.tools import _trace as tools
 
     received = []
     monkeypatch.setattr(core, "_is_web", True, raising=False)
@@ -72,7 +73,8 @@ def test_external_tool_sink_receives_masked_bounded_text(monkeypatch, capsys):
 
 
 def test_absent_tool_sink_does_not_print_web_trace(monkeypatch, capsys):
-    from uagent import core, tools
+    from uagent import core
+    from uagent.tools import _trace as tools
 
     monkeypatch.setattr(core, "_is_web", True, raising=False)
     monkeypatch.setattr(tools, "_spinner_stop_quietly", lambda: None)

@@ -20,6 +20,11 @@ The plugin loader is implemented in:
 
 - `src/uagent/tools/__init__.py`
 
+with helpers in `_manifest.py` (lazy-loading manifest), `_catalog.py`
+(`tool_catalog` search), `_trace.py` (trace and action sentences) and
+`_dynamic_commands.py` (`CMD_SPEC(S)` registry). The trace code still uses the
+package's message catalog, `tools/__init__.json`.
+
 A module is registered only when both are present.
 
 ______________________________________________________________________
