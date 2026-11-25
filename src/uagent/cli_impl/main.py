@@ -255,6 +255,19 @@ def run_turn_on_worker(
                     core.auto_pilot_exit_requested = True
             except Exception:
                 pass
+            # Release a pending human_ask wait: the worker blocks on
+            # its answer queue, which neither flag reaches (before the
+            # worker move, KeyboardInterrupt hit that wait directly).
+            # Delivering "cancel" ends the ask as a user cancellation,
+            # the same result typing cancel at the prompt produces; the
+            # per-call queue is discarded afterwards, so a late real
+            # answer racing this is harmless.
+            try:
+                ask_queue = getattr(core, "human_ask_queue", None)
+                if ask_queue is not None:
+                    ask_queue.put("cancel")
+            except Exception:
+                pass
     if interrupted:
         raise KeyboardInterrupt
     if "error" in outcome:

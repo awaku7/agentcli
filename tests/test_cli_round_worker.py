@@ -22,6 +22,7 @@ def _fake_core() -> types.SimpleNamespace:
         interrupt_requested=False,
         auto_pilot_exit_lock=threading.Lock(),
         auto_pilot_exit_requested=False,
+        human_ask_queue=None,
     )
 
 
@@ -138,6 +139,42 @@ def test_auto_unload_state_persists_across_worker_turns():
     assert seen[0][0] is seen[1][0]
     assert seen[1][1] == 1
     assert seen[1][2] == seen[0][2] + 1
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="SIGINT delivery differs")
+def test_ctrl_c_cancels_a_pending_human_ask():
+    # Regression: a human_ask wait blocks on its answer queue, which
+    # the interrupt flags do not reach; Ctrl+C must deliver the same
+    # "cancel" the prompt itself accepts, or the CLI stays stuck until
+    # the ask timeout (300s by default).
+    import queue as queue_mod
+
+    core = _fake_core()
+    ask_queue: "queue_mod.Queue[str]" = queue_mod.Queue()
+    core.human_ask_queue = ask_queue
+    started = threading.Event()
+    replies: list[str] = []
+
+    def _fn() -> str:
+        started.set()
+        try:
+            reply = ask_queue.get(timeout=5.0)
+        except queue_mod.Empty:
+            reply = ""
+        replies.append(reply)
+        return "ask done"
+
+    def _send_sigint() -> None:
+        started.wait(timeout=5.0)
+        time.sleep(0.1)
+        os.kill(os.getpid(), signal.SIGINT)
+
+    sender = threading.Thread(target=_send_sigint, daemon=True)
+    sender.start()
+    with pytest.raises(KeyboardInterrupt):
+        run_turn_on_worker(core, _fn, channel=dc.DisplayChannel())
+    sender.join(timeout=5.0)
+    assert replies == ["cancel"]
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="SIGINT delivery differs")
