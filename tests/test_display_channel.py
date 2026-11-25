@@ -80,6 +80,33 @@ def test_render_notice_after_stream_uses_stream_delta():
     assert deltas == ["peer message\n"]
 
 
+def test_render_notice_after_stream_never_holds_print_lock_for_delta_calls():
+    # Regression: print_stream_delta stops the spinner (spinner lifecycle
+    # lock) before taking print_lock itself.  If the renderer held
+    # print_lock while calling it, a concurrent spinner.stop() (holding
+    # the lifecycle lock while waiting for print_lock) would deadlock.
+    lock = threading.Lock()
+    held_when_called: list[bool] = []
+
+    def fake_delta(_text: str) -> None:
+        acquired = lock.acquire(blocking=False)
+        held_when_called.append(not acquired)
+        if acquired:
+            lock.release()
+
+    core = _fake_core(
+        print_lock=lock,
+        print_stream_delta=fake_delta,
+        _prompt_line_open=True,
+    )
+    dc.render_notice(
+        core,
+        dc.Notice(text="peer message", source="bitchat", wait_for_stream=True),
+    )
+    assert held_when_called
+    assert not any(held_when_called)
+
+
 def test_render_notice_after_stream_closes_open_lines():
     deltas: list[str] = []
     core = _fake_core(
