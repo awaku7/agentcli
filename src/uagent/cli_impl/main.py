@@ -194,6 +194,11 @@ def run_turn_on_worker(
     ensure_pump()
     caller_context = contextvars.copy_context()
     outcome: dict[str, Any] = {}
+    # Completion is tracked with this event, never with Thread.join /
+    # is_alive: on CPython 3.11 an interrupted join can mark the thread
+    # stopped while its target is still running, which would let the
+    # caller resume while the old worker is still active.
+    done = threading.Event()
 
     def _target() -> None:
         try:
@@ -206,6 +211,7 @@ def run_turn_on_worker(
             # the turn still ends and anything unrendered stays queued
             # and renders late.
             channel.wait_for_stream_drain(timeout=10.0)
+            done.set()
 
     worker = threading.Thread(
         target=lambda: caller_context.run(_target),
@@ -216,7 +222,8 @@ def run_turn_on_worker(
     interrupted = False
     while True:
         try:
-            worker.join(0.05)
+            if done.wait(0.05):
+                break
         except KeyboardInterrupt:
             interrupted = True
             try:
@@ -224,8 +231,6 @@ def run_turn_on_worker(
                     core.interrupt_requested = True
             except Exception:
                 pass
-        if not worker.is_alive():
-            break
     if interrupted:
         raise KeyboardInterrupt
     if "error" in outcome:

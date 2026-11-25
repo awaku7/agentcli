@@ -115,6 +115,7 @@ def test_worker_returns_only_after_relayed_stream_drains():
 def test_ctrl_c_sets_interrupt_flag_and_reraises():
     core = _fake_core()
     started = threading.Event()
+    completed: list[str] = []
 
     def _fn() -> str:
         started.set()
@@ -122,6 +123,7 @@ def test_ctrl_c_sets_interrupt_flag_and_reraises():
         while time.monotonic() < deadline:
             with core.interrupt_lock:
                 if core.interrupt_requested:
+                    completed.append("wound down")
                     return "wound down"
             time.sleep(0.01)
         return "never interrupted"
@@ -138,3 +140,8 @@ def test_ctrl_c_sets_interrupt_flag_and_reraises():
     sender.join(timeout=5.0)
     with core.interrupt_lock:
         assert core.interrupt_requested is True
+    # Regression (CPython 3.11): an interrupted Thread.join can report
+    # the worker stopped while it still runs. The wrapper must only
+    # re-raise after the worker has actually wound down, which the
+    # completion event (not join bookkeeping) guarantees.
+    assert completed == ["wound down"]
