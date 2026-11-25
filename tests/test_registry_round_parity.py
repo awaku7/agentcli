@@ -16,6 +16,7 @@ import pytest
 from uagent.runtime.active_context import ContextDecision
 from uagent.llm_registry_round import (
     _CoreInterruptCancellationToken,
+    _finish_registry_stream,
     _registry_stream_event_observer,
     _try_registry_simple_chat_round,
 )
@@ -164,6 +165,38 @@ def test_registry_stream_snapshots_render_only_new_suffixes() -> None:
     observe(SimpleNamespace(type="TextSnapshot", data={"text": "first answer"}))
 
     assert emitted == ["first", " answer"]
+    assert core._registry_stream_output_rendered is True
+
+
+@pytest.mark.parametrize(
+    ("terminal_status", "terminal_event"),
+    [
+        ("completed", "assistant_stream_end"),
+        ("cancelled", "assistant_stream_interrupted"),
+    ],
+)
+def test_registry_web_stream_uses_log_events_and_ends_stream(
+    terminal_status: str, terminal_event: str
+) -> None:
+    web_events: list[dict] = []
+
+    def terminal_print(_text: str) -> None:
+        pytest.fail("Web deltas must not be written to the worker terminal")
+
+    core = SimpleNamespace(
+        _is_web=True,
+        log_message=web_events.append,
+        print_stream_delta=terminal_print,
+    )
+    observe = _registry_stream_event_observer(core, streaming=True)
+
+    observe(SimpleNamespace(type="TextDelta", data={"text": "web answer"}))
+    _finish_registry_stream(core, terminal_status=terminal_status)
+
+    assert web_events == [
+        {"type": "assistant_stream_delta", "delta": "web answer"},
+        {"type": terminal_event},
+    ]
     assert core._registry_stream_output_rendered is True
 
 

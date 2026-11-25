@@ -77,9 +77,7 @@ def get_welcome_message(*, include_ascii: bool = True):
         _(
             "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
         ),
-        _(
-            "- Interrupt: press `c` key to stop the current LLM response (injected as 'Stop')."
-        ),
+        _("- Interrupt: use F12 in the CLI, or Stop in GUI/Web."),
         "",
         _("[Examples]"),
         _('- "Analyze the source code in this folder and create a README.md."'),

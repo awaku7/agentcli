@@ -86,16 +86,55 @@ def _registry_stream_event_observer(
             return
         if not text:
             return
+        is_web = bool(getattr(core, "_is_web", False))
+        log_message = getattr(core, "log_message", None)
         render_delta = getattr(core, "print_stream_delta", None)
-        if callable(render_delta):
+        if is_web and callable(log_message):
+            log_message({"type": "assistant_stream_delta", "delta": text})
+            rendered = True
+        elif callable(render_delta):
             render_delta(text)
+            rendered = True
+        else:
+            rendered = False
+        if rendered:
             try:
                 core._registry_stream_output_rendered = True
-                core._registry_stream_line_open = not text.endswith("\n")
+                core._registry_stream_line_open = not is_web and not text.endswith("\n")
             except Exception:
                 pass
 
     return observe
+
+
+def _finish_registry_stream(core: Any, *, terminal_status: str) -> None:
+    """Close the host stream surface after a registry response terminates."""
+    if not bool(getattr(core, "_registry_stream_output_rendered", False)):
+        return
+    if bool(getattr(core, "_is_web", False)):
+        log_message = getattr(core, "log_message", None)
+        if callable(log_message):
+            event_type = (
+                "assistant_stream_interrupted"
+                if terminal_status in {"cancelled", "interrupted"}
+                else "assistant_stream_end"
+            )
+            try:
+                log_message({"type": event_type})
+            except Exception:
+                pass
+        return
+    if bool(getattr(core, "_registry_stream_line_open", False)):
+        close_line = getattr(core, "print_stream_delta", None)
+        if callable(close_line):
+            try:
+                close_line("\n")
+            except Exception:
+                pass
+        try:
+            core._registry_stream_line_open = False
+        except Exception:
+            pass
 
 
 def _select_registry_tool_specs(
@@ -401,19 +440,7 @@ def _try_registry_simple_chat_round(
                     "initial_effort": effort_used,
                     "retry_effort": next_effort,
                 }
-        # Match the legacy host renderer: each streamed response ends its
-        # partial stdout line before the next status/tool output is shown.
-        if bool(getattr(core, "_registry_stream_line_open", False)):
-            close_line = getattr(core, "print_stream_delta", None)
-            if callable(close_line):
-                try:
-                    close_line("\n")
-                except Exception:
-                    pass
-            try:
-                core._registry_stream_line_open = False
-            except Exception:
-                pass
+        _finish_registry_stream(core, terminal_status=result.status)
         if result.status == "failed":
             core.context_projection_id = result.projection_id
             from .runtime.context_recovery import ContextRecoveryManager
