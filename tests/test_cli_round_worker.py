@@ -18,7 +18,10 @@ from uagent.runtime import display_channel as dc
 
 def _fake_core() -> types.SimpleNamespace:
     return types.SimpleNamespace(
-        interrupt_lock=threading.Lock(), interrupt_requested=False
+        interrupt_lock=threading.Lock(),
+        interrupt_requested=False,
+        auto_pilot_exit_lock=threading.Lock(),
+        auto_pilot_exit_requested=False,
     )
 
 
@@ -111,6 +114,28 @@ def test_worker_returns_only_after_relayed_stream_drains():
         renderer.join(timeout=5.0)
 
 
+def test_auto_unload_state_persists_across_worker_turns():
+    # Regression: the auto-unload counters are lazily created inside
+    # run_llm_rounds; bound only inside a worker's copied context they
+    # would be discarded with it and restart empty on the next turn.
+    from uagent import uagent_llm
+
+    core = _fake_core()
+    seen: list[tuple[object, dict]] = []
+
+    def _fn() -> None:
+        state = uagent_llm._auto_unload_state()
+        seen.append((state, dict(state.last_round)))
+        state.last_round["tool_a"] = len(seen)
+        state.total_rounds += 1
+
+    run_turn_on_worker(core, _fn, channel=dc.DisplayChannel())
+    run_turn_on_worker(core, _fn, channel=dc.DisplayChannel())
+    assert seen[0][0] is seen[1][0]
+    assert seen[1][1] == {"tool_a": 1}
+    assert seen[1][0].total_rounds == 2
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="SIGINT delivery differs")
 def test_ctrl_c_sets_interrupt_flag_and_reraises():
     core = _fake_core()
@@ -140,6 +165,10 @@ def test_ctrl_c_sets_interrupt_flag_and_reraises():
     sender.join(timeout=5.0)
     with core.interrupt_lock:
         assert core.interrupt_requested is True
+    # Auto-pilot consumes interrupt_requested per round, so Ctrl+C must
+    # also raise its exit request (the F12 monitor sets both).
+    with core.auto_pilot_exit_lock:
+        assert core.auto_pilot_exit_requested is True
     # Regression (CPython 3.11): an interrupted Thread.join can report
     # the worker stopped while it still runs. The wrapper must only
     # re-raise after the worker has actually wound down, which the

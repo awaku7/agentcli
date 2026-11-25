@@ -174,8 +174,10 @@ def run_turn_on_worker(
     so the caller's own post-turn output cannot overtake its tail.
 
     Ctrl+C while waiting no longer raises inside the round: it sets the
-    core interrupt flag (the same signal F12 uses, which provider waits
-    poll and receive loops honour) and the wait continues until the
+    core interrupt flag and the auto-pilot exit request (the same
+    signals F12 uses; provider waits poll the interrupt flag and
+    receive loops honour it, and the auto-pilot loop checks its exit
+    request before every follow-up) and the wait continues until the
     round has wound down; KeyboardInterrupt is then re-raised so the
     caller's existing interrupt handling runs unchanged.
 
@@ -192,6 +194,19 @@ def run_turn_on_worker(
     if channel is None:
         channel = default_channel()
     ensure_pump()
+    # Keep the session's auto-unload counters across worker turns.
+    # They are lazily created inside run_llm_rounds, so a state bound
+    # only inside a worker's copied context would be discarded with it
+    # and the counters would restart empty every turn.  The core
+    # object is the CLI session's owner (the Web side carries the same
+    # state on its room object), so bind its stored state into this
+    # context before copying.
+    try:
+        from .. import uagent_llm as _llm_util
+
+        _llm_util._bind_auto_unload_state(core)
+    except Exception:
+        pass
     caller_context = contextvars.copy_context()
     outcome: dict[str, Any] = {}
     # Completion is tracked with this event, never with Thread.join /
@@ -229,6 +244,15 @@ def run_turn_on_worker(
             try:
                 with core.interrupt_lock:
                     core.interrupt_requested = True
+            except Exception:
+                pass
+            # Mirror the F12 monitor: auto-pilot consumes and clears
+            # interrupt_requested per round, so stopping it also needs
+            # its exit request; the auto-pilot loop checks that flag
+            # before every follow-up round.
+            try:
+                with core.auto_pilot_exit_lock:
+                    core.auto_pilot_exit_requested = True
             except Exception:
                 pass
     if interrupted:
