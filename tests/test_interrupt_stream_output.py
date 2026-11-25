@@ -49,6 +49,14 @@ from uagent import core, tools
 from uagent.providers import util_providers as providers
 from uagent import uagent_llm
 
+if cfg.get("force_registry_route"):
+    import uagent.runtime.provider_round_dispatcher as round_dispatcher
+    from uagent.runtime.provider_round_dispatcher import RegistryRoundRoute
+
+    round_dispatcher.resolve_registry_round_route = lambda **_kwargs: RegistryRoundRoute(
+        True, "integration_test"
+    )
+
 provider, client, depname = providers.make_client(core)
 tools._ensure_loaded()
 messages = [{"role": "user", "content": "count"}]
@@ -149,6 +157,7 @@ _SCENARIOS = {
             "UAGENT_PROVIDER_REGISTRY_RESPONSES": "1",
             "UAGENT_PROVIDER_REGISTRY_TOOLS": "1",
         },
+        "force_registry_route": True,
     },
     # Chat Completions stream loop shared by DeepSeek, Z.AI and others (INT-04).
     "deepseek-chat": {
@@ -244,6 +253,7 @@ def test_registry_and_legacy_match_text_history_and_tool_calls(tmp_path) -> None
     registry_config["env"]["UAGENT_PROVIDER_REGISTRY"] = "all"
     registry_config["env"]["UAGENT_PROVIDER_REGISTRY_TOOLS"] = "1"
     registry_config["env"]["UAGENT_PROVIDER_REGISTRY_RESPONSES"] = "1"
+    registry_config["force_registry_route"] = True
 
     legacy = _run_fake_round(tmp_path / "legacy", legacy_config)
     registry = _run_fake_round(tmp_path / "registry", registry_config)
