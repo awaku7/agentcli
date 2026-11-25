@@ -8,7 +8,12 @@ import subprocess
 from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
-from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
+from .safe_exec_ops import (
+    SubprocessInterrupted,
+    confirm_if_needed,
+    decide_cmd_exec,
+    run_interruptible,
+)
 from .safe_file_ops_extras import ensure_within_workdir
 
 _ = make_tool_translator(__file__)
@@ -165,14 +170,14 @@ def _run(
                 parts = shlex.split(command)
                 run_kwargs["args"] = parts
                 run_kwargs["shell"] = False
-                p = subprocess.run(**run_kwargs)
+                p = run_interruptible(**run_kwargs)
             else:
                 run_kwargs["args"] = f"chcp 65001 >nul & {command}"
                 run_kwargs["shell"] = True
-                p = subprocess.run(**run_kwargs)
+                p = run_interruptible(**run_kwargs)
         else:
             run_kwargs["args"] = ["sh", "-lc", command]
-            p = subprocess.run(**run_kwargs)
+            p = run_interruptible(**run_kwargs)
 
         stdout = _decode_process_output(p.stdout, encoding)
         stderr = _decode_process_output(p.stderr, encoding)
@@ -202,7 +207,7 @@ def _run(
             )
             % {"seconds": e.timeout},
         }
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, SubprocessInterrupted):
         return {
             "ok": False,
             "interrupted": True,

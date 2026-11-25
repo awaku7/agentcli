@@ -17,12 +17,77 @@ from __future__ import annotations
 
 import os
 import re
+import subprocess
+import time
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
+
+
+class SubprocessInterrupted(Exception):
+    """The user interrupt flag stopped a subprocess wait."""
+
+
+def _interrupt_requested() -> bool:
+    try:
+        from .. import core
+
+        return bool(getattr(core, "interrupt_requested", False))
+    except Exception:
+        return False
+
+
+def run_interruptible(**run_kwargs: Any) -> subprocess.CompletedProcess:
+    """``subprocess.run()`` that also honours the user interrupt flag.
+
+    Command execution used to be released by KeyboardInterrupt reaching
+    the wait on the main thread; rounds now run on worker threads that
+    never see it, and the Windows exec tools deliberately start their
+    children in a separate process group, so the console signal does
+    not reach them either.  Poll the child in short slices instead:
+    when an interrupt is requested, kill the child and raise
+    SubprocessInterrupted so the caller can return its interrupted
+    result.  Timeout handling matches subprocess.run(): the child is
+    killed and TimeoutExpired is raised with the output collected.
+    """
+    timeout = run_kwargs.pop("timeout", None)
+    check = bool(run_kwargs.pop("check", False))
+    if run_kwargs.pop("capture_output", False):
+        # capture_output is a subprocess.run() convenience; Popen wants
+        # the explicit pipes (same translation run() performs).
+        if "stdout" in run_kwargs or "stderr" in run_kwargs:
+            raise ValueError
+        run_kwargs["stdout"] = subprocess.PIPE
+        run_kwargs["stderr"] = subprocess.PIPE
+    proc = subprocess.Popen(**run_kwargs)
+    deadline = None if timeout is None else time.monotonic() + float(timeout)
+    out: Any = None
+    err: Any = None
+    while True:
+        slice_timeout = 0.2
+        if deadline is not None:
+            slice_timeout = min(slice_timeout, max(0.0, deadline - time.monotonic()))
+        try:
+            out, err = proc.communicate(timeout=slice_timeout)
+            break
+        except subprocess.TimeoutExpired:
+            if _interrupt_requested():
+                proc.kill()
+                proc.wait()
+                raise SubprocessInterrupted() from None
+            if deadline is not None and time.monotonic() >= deadline:
+                proc.kill()
+                out, err = proc.communicate()
+                raise subprocess.TimeoutExpired(
+                    proc.args, float(timeout or 0.0), output=out, stderr=err
+                ) from None
+    result = subprocess.CompletedProcess(proc.args, proc.returncode, out, err)
+    if check:
+        result.check_returncode()
+    return result
 
 
 @dataclass(frozen=True)

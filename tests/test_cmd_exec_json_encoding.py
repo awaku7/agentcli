@@ -68,7 +68,7 @@ def test_cmd_runner_captures_bytes_and_decodes_after_communication(monkeypatch):
             stderr=b"",
         )
 
-    monkeypatch.setattr(cmd_exec_json_tool.subprocess, "run", fake_run)
+    monkeypatch.setattr(cmd_exec_json_tool, "run_interruptible", fake_run)
     result = cmd_exec_json_tool._run("echo test", cwd=None)
 
     assert "text" not in captured
