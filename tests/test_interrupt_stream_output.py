@@ -48,6 +48,15 @@ class Recorder(io.TextIOBase):
 from uagent import core, tools
 from uagent.providers import util_providers as providers
 from uagent import uagent_llm
+from uagent.runtime.round_identity import (
+    DeterministicTestWorkspaceKeyProvider,
+    RoundIdentityFactory,
+)
+
+core.round_identity_factory = RoundIdentityFactory(
+    workspace_id=str(getattr(core, "workdir", "") or os.getcwd()),
+    key_provider=DeterministicTestWorkspaceKeyProvider(),
+)
 
 if cfg.get("force_registry_route"):
     import uagent.runtime.provider_round_dispatcher as round_dispatcher
