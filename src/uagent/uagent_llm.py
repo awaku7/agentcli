@@ -901,7 +901,15 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                     append_result_to_outfile_fn=ctx.append_result_to_outfile_fn,
                     try_open_images_from_text_fn=ctx.try_open_images_from_text_fn,
                     reasoning_content=ctx.reasoning_content,
-                    skip_print=False,
+                    # Registry text deltas have already been rendered by the
+                    # event observer. Avoid printing the collected answer a
+                    # second time, while still recording it and opening media.
+                    skip_print=bool(
+                        getattr(ctx.core, "_registry_stream_output_rendered", False)
+                    ),
+                    render_reasoning_when_skip_print=bool(
+                        getattr(ctx.core, "_registry_stream_output_rendered", False)
+                    ),
                     stream_output_rendered=False,
                     core=ctx.core,
                     provider=ctx.provider,

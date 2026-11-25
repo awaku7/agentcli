@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 from types import SimpleNamespace
 
 import pytest
@@ -16,7 +17,12 @@ from uagent.runtime.capability_resolver import (
     CapabilityResolver,
     ProviderCapabilitySnapshot,
 )
-from uagent.runtime.round_contracts import RoundIdentifiers, RoundTransportSelection
+from uagent.runtime.round_contracts import (
+    RoundIdentifiers,
+    RoundTransportSelection,
+    SerializedRequest,
+)
+from uagent.llm_registry_round import _CoreInterruptCancellationToken
 
 
 class _RecordingCapabilityResolver:
@@ -184,3 +190,53 @@ def test_registry_support_check_is_normalized_and_has_one_source_of_truth(
     assert supports_provider_runtime("lmstudio") is False
     assert supports_provider_runtime("meta") is True
     assert supports_provider_runtime("") is False
+
+
+def test_openai_runtime_stops_and_closes_stream_on_core_interrupt() -> None:
+    core = SimpleNamespace(interrupt_lock=threading.Lock(), interrupt_requested=False)
+
+    class _Stream:
+        closed = False
+        sent = 0
+
+        def __iter__(self):
+            for index in range(20):
+                self.sent += 1
+                yield SimpleNamespace(
+                    choices=[
+                        SimpleNamespace(delta=SimpleNamespace(content=f"tok{index}"))
+                    ]
+                )
+                if index == 1:
+                    with core.interrupt_lock:
+                        core.interrupt_requested = True
+
+        def close(self):
+            self.closed = True
+
+    stream = _Stream()
+    client = SimpleNamespace(
+        chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: stream))
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+    request = SerializedRequest(
+        identifiers=_identifiers(),
+        plan_id="plan",
+        projection_id="projection",
+        provider="openai",
+        model="gpt-test",
+        payload={"model": "gpt-test", "messages": []},
+    )
+
+    events = list(runtime.run(request, _CoreInterruptCancellationToken(core)))
+
+    assert [event.type for event in events].count("TextDelta") == 2
+    assert events[-1].type == "ResponseCancelled"
+    assert stream.sent < 20
+    assert stream.closed is True

@@ -34,12 +34,24 @@ def context_plan_matches(
     )
 
 
+def _decision_mapping(item: Any) -> dict[str, Any]:
+    """Normalize a decision record or its serializable object form."""
+    if isinstance(item, Mapping):
+        return copy.deepcopy(dict(item))
+    to_dict = getattr(item, "to_dict", None)
+    if callable(to_dict):
+        value = to_dict()
+        if isinstance(value, Mapping):
+            return copy.deepcopy(dict(value))
+    raise TypeError("context decisions must be mappings or expose to_dict()")
+
+
 def build_context_plan(
     *,
     workspace_id: str,
     messages: Sequence[Mapping[str, Any]],
     tool_specs: Sequence[Mapping[str, Any]] = (),
-    decisions: Sequence[Mapping[str, Any]] = (),
+    decisions: Sequence[Any] = (),
     policy: Mapping[str, Any] | None = None,
     telemetry: Mapping[str, Any] | None = None,
     key_provider: WorkspaceKeyProvider | None = None,
@@ -50,7 +62,7 @@ def build_context_plan(
 
     frozen_messages = tuple(copy.deepcopy(dict(message)) for message in messages)
     frozen_tools = tuple(copy.deepcopy(dict(spec)) for spec in tool_specs)
-    frozen_decisions = tuple(copy.deepcopy(dict(item)) for item in decisions)
+    frozen_decisions = tuple(_decision_mapping(item) for item in decisions)
     identity_payload = {
         "messages": frozen_messages,
         "tool_specs": frozen_tools,

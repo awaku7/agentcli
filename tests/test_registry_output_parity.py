@@ -53,6 +53,33 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
+def test_registry_stream_skip_print_still_renders_reasoning(
+    monkeypatch, capsys
+) -> None:
+    rendered_reasoning: list[str] = []
+    saved: list[str] = []
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.render_reasoning",
+        lambda text, **_kwargs: rendered_reasoning.append(text),
+    )
+
+    _emit_final_answer_if_any(
+        assistant_text="already streamed answer",
+        reasoning_content="reasoning summary",
+        use_responses_api=True,
+        stream_responses=True,
+        skip_print=True,
+        render_reasoning_when_skip_print=True,
+        append_result_to_outfile_fn=saved.append,
+        try_open_images_from_text_fn=lambda _text: None,
+        core=SimpleNamespace(),
+    )
+
+    assert rendered_reasoning == ["reasoning summary"]
+    assert capsys.readouterr().out == ""
+    assert saved == ["already streamed answer"]
+
+
 def test_final_answer_starts_after_displayed_reasoning_line(
     monkeypatch, capsys
 ) -> None:
@@ -132,6 +159,16 @@ def test_registry_retries_low_quality_auto_reasoning_once(
         def create(self, **kwargs):
             self.calls.append(kwargs)
             text = self.responses.pop(0)
+            if kwargs.get("stream"):
+                return iter(
+                    [
+                        SimpleNamespace(
+                            choices=[
+                                SimpleNamespace(delta=SimpleNamespace(content=text))
+                            ]
+                        )
+                    ]
+                )
             return SimpleNamespace(
                 choices=[
                     SimpleNamespace(
@@ -141,6 +178,7 @@ def test_registry_retries_low_quality_auto_reasoning_once(
             )
 
     chat = Chat()
+    emitted: list[str] = []
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
     monkeypatch.setenv("UAGENT_REASONING", "auto")
     monkeypatch.setattr(
@@ -155,9 +193,13 @@ def test_registry_retries_low_quality_auto_reasoning_once(
         call_messages=[
             {"role": "user", "content": "Explain this architecture design."}
         ],
-        core=SimpleNamespace(workdir=str(tmp_path), cancellation_token=None),
+        core=SimpleNamespace(
+            workdir=str(tmp_path),
+            cancellation_token=None,
+            print_stream_delta=emitted.append,
+        ),
         use_responses_api=False,
-        stream_responses=False,
+        stream_responses=True,
         send_tools_this_round=False,
         round_count=1,
     )
@@ -165,3 +207,6 @@ def test_registry_retries_low_quality_auto_reasoning_once(
     assert result == (True, "A detailed architecture explanation.", "", [])
     assert chat.calls[0]["reasoning_effort"] == "minimal"
     assert chat.calls[1]["reasoning_effort"] == "low"
+    # A low-quality first attempt is rejected and retried; streaming it would
+    # leave its text merged with the accepted answer in the host display.
+    assert emitted == []

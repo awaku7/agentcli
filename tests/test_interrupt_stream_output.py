@@ -27,6 +27,9 @@ src, tests, cfg = sys.argv[1], sys.argv[2], json.loads(sys.argv[3])
 sys.path[:0] = [src, tests]
 import fake_openai_stream_server as fake
 
+fake.N_CHUNKS = cfg.get("n_chunks", fake.N_CHUNKS)
+fake.DT = cfg.get("chunk_delay_s", fake.DT)
+fake.TOOL_CALL_FIRST_REQUEST = cfg.get("tool_call_first_request", False)
 port = fake.start()
 os.environ.update(
     {k: v.replace("{port}", str(port)) for k, v in cfg["env"].items()}
@@ -45,11 +48,47 @@ class Recorder(io.TextIOBase):
 from uagent import core, tools
 from uagent.providers import util_providers as providers
 from uagent import uagent_llm
+from uagent.runtime.round_identity import (
+    DeterministicTestWorkspaceKeyProvider,
+    RoundIdentityFactory,
+)
+
+core.round_identity_factory = RoundIdentityFactory(
+    workspace_id=str(getattr(core, "workdir", "") or os.getcwd()),
+    key_provider=DeterministicTestWorkspaceKeyProvider(),
+)
+
+if cfg.get("force_registry_route"):
+    import uagent.runtime.provider_round_dispatcher as round_dispatcher
+    from uagent.runtime.provider_round_dispatcher import RegistryRoundRoute
+
+    round_dispatcher.resolve_registry_round_route = lambda **_kwargs: RegistryRoundRoute(
+        True, "integration_test"
+    )
 
 provider, client, depname = providers.make_client(core)
 tools._ensure_loaded()
 messages = [{"role": "user", "content": "count"}]
 marks = {}
+captured_tool_calls = []
+
+if cfg.get("capture_tool_calls"):
+    from uagent import llm_flow_helpers
+
+    def record_tool_calls(**kwargs):
+        calls = kwargs["tool_calls_list"]
+        captured_tool_calls.extend(calls)
+        for call in calls:
+            messages.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": call.get("id", ""),
+                    "content": "stubbed test result",
+                }
+            )
+        return bool(calls), calls
+
+    llm_flow_helpers._execute_tool_calls = record_tool_calls
 
 def stop_mid_stream():
     deadline = time.time() + 60
@@ -64,7 +103,8 @@ def stop_mid_stream():
 
 real_stdout = sys.stdout
 sys.stdout = Recorder()
-threading.Thread(target=stop_mid_stream, daemon=True).start()
+if cfg.get("interrupt", True):
+    threading.Thread(target=stop_mid_stream, daemon=True).start()
 uagent_llm.run_llm_rounds(
     provider, client, depname, messages, core=core,
     make_client_fn=providers.make_client,
@@ -72,15 +112,24 @@ uagent_llm.run_llm_rounds(
     try_open_images_from_text_fn=lambda *a, **k: None,
 )
 marks["returned"] = time.time()
-time.sleep(fake.N_CHUNKS * fake.DT + 0.8)  # longer than the rest of the stream
+if cfg.get("interrupt", True):
+    time.sleep(fake.N_CHUNKS * fake.DT + 0.8)  # longer than the rest of the stream
 sys.stdout = real_stdout
+visible = "".join(s for _t, s in writes)
 late = "".join(s for t, s in writes if t >= marks["returned"])
 print("RESULT=" + json.dumps({
     "stopped": "stop" in marks,
     "return_after_stop_s": marks["returned"] - marks.get("stop", marks["returned"]),
     "late_tokens": late.count("tok"),
     "assistant_messages": sum(1 for m in messages if m.get("role") == "assistant"),
+    "assistant_contents": [m.get("content") for m in messages if m.get("role") == "assistant"],
+    "tool_messages": [m.get("content") for m in messages if m.get("role") == "tool"],
+    "tool_calls": captured_tool_calls,
+    "visible": visible,
+    "registry_stream_rendered": bool(getattr(core, "_registry_stream_output_rendered", False)),
+    "round_reason": getattr(core, "_last_round_reason", ""),
     "server_sent": [s["sent"] for s in fake.STATS if s["path"].endswith(STREAM_PATH)],
+    "server_stream": [s["stream"] for s in fake.STATS if s["path"].endswith(STREAM_PATH)],
     "server_saw_disconnect": [
         s["client_gone"] for s in fake.STATS if s["path"].endswith(STREAM_PATH)
     ],
@@ -92,7 +141,7 @@ os._exit(0)
 
 # A model llmcapa knows: unknown models make plugin loading slow.
 _SCENARIOS = {
-    "openai-responses": {
+    "openai-responses-legacy": {
         "path": "/responses",
         "env": {
             "UAGENT_PROVIDER": "openai",
@@ -101,7 +150,23 @@ _SCENARIOS = {
             "UAGENT_OPENAI_DEPNAME": "gpt-4o-mini",
             "UAGENT_RESPONSES": "1",
             "UAGENT_STREAMING": "1",
+            "UAGENT_PROVIDER_REGISTRY": "off",
         },
+    },
+    "openai-responses-registry": {
+        "path": "/responses",
+        "env": {
+            "UAGENT_PROVIDER": "openai",
+            "UAGENT_OPENAI_BASE_URL": "http://127.0.0.1:{port}/v1",
+            "UAGENT_OPENAI_API_KEY": "dummy",
+            "UAGENT_OPENAI_DEPNAME": "gpt-4o-mini",
+            "UAGENT_RESPONSES": "1",
+            "UAGENT_STREAMING": "1",
+            "UAGENT_PROVIDER_REGISTRY": "all",
+            "UAGENT_PROVIDER_REGISTRY_RESPONSES": "1",
+            "UAGENT_PROVIDER_REGISTRY_TOOLS": "1",
+        },
+        "force_registry_route": True,
     },
     # Chat Completions stream loop shared by DeepSeek, Z.AI and others (INT-04).
     "deepseek-chat": {
@@ -118,8 +183,8 @@ _SCENARIOS = {
 }
 
 
-@pytest.mark.parametrize("scenario", sorted(_SCENARIOS))
-def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> None:
+def _run_fake_round(tmp_path: Path, config: dict) -> dict:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
     env.update(
@@ -128,6 +193,9 @@ def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> 
             "UAGENT_WORKDIR": str(tmp_path),
             "UAGENT_AUTO_INSTALL": "off",
             "UAGENT_TOOLS_WARMUP": "0",
+            # Responses + reasoning auto deliberately disables streaming to
+            # allow a quality retry; tests here require a streaming transport.
+            "UAGENT_REASONING": "off",
             "PYTHONIOENCODING": "utf-8",
         }
     )
@@ -138,7 +206,7 @@ def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> 
             _SCRIPT,
             str(SRC_DIR),
             str(TESTS_DIR),
-            json.dumps(_SCENARIOS[scenario]),
+            json.dumps(config),
         ],
         cwd=str(tmp_path),
         env=env,
@@ -151,7 +219,12 @@ def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> 
     )
     lines = [ln for ln in proc.stdout.splitlines() if ln.startswith("RESULT=")]
     assert lines, proc.stderr[-3000:]
-    result = json.loads(lines[-1][len("RESULT=") :])
+    return json.loads(lines[-1][len("RESULT=") :])
+
+
+@pytest.mark.parametrize("scenario", sorted(_SCENARIOS))
+def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> None:
+    result = _run_fake_round(tmp_path, _SCENARIOS[scenario])
     assert result["stopped"] is True
     assert result["return_after_stop_s"] < 1.0
     assert result["late_tokens"] == 0
@@ -159,6 +232,65 @@ def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path, scenario) -> 
     # INT-03: the abandoned stream is closed, so the server stops early.
     assert result["server_saw_disconnect"] == [True]
     assert result["server_sent"][0] < result["n_chunks"]
+    assert result["server_stream"] == [True]
+    if scenario.endswith("-registry"):
+        assert result["registry_stream_rendered"] is True
+    elif scenario.endswith("-legacy"):
+        assert result["registry_stream_rendered"] is False
+
+
+def test_registry_and_legacy_match_text_history_and_tool_calls(tmp_path) -> None:
+    common = {
+        "path": "/responses",
+        "env": {
+            "UAGENT_PROVIDER": "openai",
+            "UAGENT_OPENAI_BASE_URL": "http://127.0.0.1:{port}/v1",
+            "UAGENT_OPENAI_API_KEY": "dummy",
+            "UAGENT_OPENAI_DEPNAME": "gpt-4o-mini",
+            "UAGENT_RESPONSES": "1",
+            "UAGENT_STREAMING": "1",
+        },
+        "interrupt": False,
+        "n_chunks": 3,
+        "chunk_delay_s": 0.002,
+        "tool_call_first_request": True,
+        "capture_tool_calls": True,
+    }
+    legacy_config = json.loads(json.dumps(common))
+    legacy_config["env"]["UAGENT_PROVIDER_REGISTRY"] = "off"
+    registry_config = json.loads(json.dumps(common))
+    registry_config["env"]["UAGENT_PROVIDER_REGISTRY"] = "all"
+    registry_config["env"]["UAGENT_PROVIDER_REGISTRY_TOOLS"] = "1"
+    registry_config["env"]["UAGENT_PROVIDER_REGISTRY_RESPONSES"] = "1"
+    registry_config["force_registry_route"] = True
+
+    legacy = _run_fake_round(tmp_path / "legacy", legacy_config)
+    registry = _run_fake_round(tmp_path / "registry", registry_config)
+
+    def tool_projection(calls):
+        return [
+            {
+                "id": call.get("id"),
+                "type": call.get("type"),
+                "function": {
+                    "name": (call.get("function") or {}).get("name"),
+                    "arguments": (call.get("function") or {}).get("arguments"),
+                },
+            }
+            for call in calls
+        ]
+
+    assert legacy["assistant_contents"] == registry["assistant_contents"]
+    assert tool_projection(legacy["tool_calls"]) == tool_projection(
+        registry["tool_calls"]
+    )
+    assert legacy["tool_messages"] == registry["tool_messages"]
+    assert legacy["visible"] == registry["visible"]
+    assert legacy["tool_calls"]
+    assert legacy["tool_messages"] == ["stubbed test result"]
+    assert legacy["server_stream"] == registry["server_stream"] == [True, True]
+    assert legacy["registry_stream_rendered"] is False
+    assert registry["registry_stream_rendered"] is True
 
 
 @pytest.fixture

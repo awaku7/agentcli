@@ -8,9 +8,17 @@ with the legacy path before it is enabled again.
 
 from __future__ import annotations
 
+import threading
 from types import SimpleNamespace
 
 import pytest
+
+from uagent.runtime.active_context import ContextDecision
+from uagent.llm_registry_round import (
+    _CoreInterruptCancellationToken,
+    _registry_stream_event_observer,
+    _try_registry_simple_chat_round,
+)
 
 
 def _patch_round_preamble(monkeypatch, llm) -> None:
@@ -51,10 +59,14 @@ def registry_round(monkeypatch):
 
     _patch_round_preamble(monkeypatch, llm)
     emitted: list[str] = []
+    emit_skip_print: list[bool] = []
     monkeypatch.setattr(
         llm,
         "_emit_final_answer_if_any",
-        lambda *, assistant_text, **_: emitted.append(assistant_text),
+        lambda *, assistant_text, skip_print=False, **_: (
+            emitted.append(assistant_text),
+            emit_skip_print.append(skip_print),
+        ),
     )
     monkeypatch.setattr(
         dispatcher,
@@ -62,7 +74,7 @@ def registry_round(monkeypatch):
         lambda **_: dispatcher.RegistryRoundRoute(True, "test"),
     )
 
-    def run(*, answer: str, judgment_mode: bool = False):
+    def run(*, answer: str, judgment_mode: bool = False, stream_rendered: bool = False):
         raw_result = (True, answer, "", [])
         monkeypatch.setattr(
             dispatcher,
@@ -81,6 +93,7 @@ def registry_round(monkeypatch):
         core = SimpleNamespace(
             responses_state={},
             memory_projection_snapshot=None,
+            _registry_stream_output_rendered=stream_rendered,
             set_status=lambda *a, **k: None,
             log_message=logged.append,
         )
@@ -103,13 +116,15 @@ def registry_round(monkeypatch):
             use_llm_thread=False,
             judgment_mode=judgment_mode,
         )
-        return llm, result, messages, emitted, logged
+        return llm, result, messages, emitted, logged, emit_skip_print
 
     return run
 
 
 def test_registry_final_answer_is_stored_in_history(registry_round) -> None:
-    llm, result, messages, emitted, logged = registry_round(answer="final answer")
+    llm, result, messages, emitted, logged, _skip_print = registry_round(
+        answer="final answer"
+    )
 
     assert result.status == llm._RS_BREAK
     assert messages[-1]["role"] == "assistant"
@@ -119,9 +134,167 @@ def test_registry_final_answer_is_stored_in_history(registry_round) -> None:
 
 
 def test_registry_final_answer_is_not_printed_in_judgment_mode(registry_round) -> None:
-    _llm, _result, messages, emitted, _logged = registry_round(
+    _llm, _result, messages, emitted, _logged, _skip_print = registry_round(
         answer="COMPLETE", judgment_mode=True
     )
 
     assert messages[-1]["content"] == "COMPLETE"
     assert emitted == []
+
+
+def test_registry_stream_events_render_deltas_incrementally() -> None:
+    emitted: list[str] = []
+    core = SimpleNamespace(print_stream_delta=emitted.append)
+    observe = _registry_stream_event_observer(core, streaming=True)
+
+    observe(SimpleNamespace(type="ResponseStarted", data={}))
+    observe(SimpleNamespace(type="TextDelta", data={"text": "first "}))
+    observe(SimpleNamespace(type="TextDelta", data={"text": "answer"}))
+
+    assert emitted == ["first ", "answer"]
+    assert core._registry_stream_output_rendered is True
+
+
+def test_registry_stream_snapshots_render_only_new_suffixes() -> None:
+    emitted: list[str] = []
+    core = SimpleNamespace(print_stream_delta=emitted.append)
+    observe = _registry_stream_event_observer(core, streaming=True)
+
+    observe(SimpleNamespace(type="TextSnapshot", data={"text": "first"}))
+    observe(SimpleNamespace(type="TextSnapshot", data={"text": "first answer"}))
+
+    assert emitted == ["first", " answer"]
+    assert core._registry_stream_output_rendered is True
+
+
+def test_registry_streamed_answer_is_not_printed_again(registry_round) -> None:
+    _llm, _result, _messages, _emitted, _logged, skip_print = registry_round(
+        answer="already displayed", stream_rendered=True
+    )
+
+    assert skip_print == [True]
+
+
+def test_registry_cancellation_token_tracks_interrupt_flag() -> None:
+    core = SimpleNamespace(interrupt_lock=threading.Lock(), interrupt_requested=False)
+    token = _CoreInterruptCancellationToken(core)
+
+    assert token.is_cancelled() is False
+    with core.interrupt_lock:
+        core.interrupt_requested = True
+    assert token.is_cancelled() is True
+
+
+def test_registry_cancelled_round_does_not_fall_back_to_legacy(
+    monkeypatch,
+) -> None:
+    import uagent.providers.openai_projection_policy as projection_policy
+    from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
+    import uagent.providers.runtime_registry as runtime_registry
+    from uagent.runtime.round_contracts import ProviderRuntimeRegistry
+    import uagent.llm_registry_round as registry_round
+
+    emitted: list[str] = []
+    core = SimpleNamespace(
+        interrupt_lock=threading.Lock(),
+        interrupt_requested=False,
+        context_plan=None,
+        context_tool_specs=(),
+        context_tool_decisions=(
+            ContextDecision(
+                item_id="result-1",
+                source="tool_result",
+                section="tool_results",
+                action="KEEP",
+                reason="within budget",
+            ),
+        ),
+        context_schema_revision="1",
+        history_revision="",
+        responses_state={},
+        workdir=".",
+        print_stream_delta=emitted.append,
+        round_identity_factory=SimpleNamespace(
+            projection_id=lambda *_: "projection",
+            key_provider=SimpleNamespace(get_key=lambda *_: b"x" * 32),
+        ),
+    )
+    discovery = SimpleNamespace(
+        uses_legacy_catalog=False,
+        uses_native_search=False,
+        uses_management_bootstrap=lambda **_: False,
+    )
+
+    class InterruptingStream:
+        closed = False
+        sent = 0
+
+        def __iter__(self):
+            for index in range(20):
+                self.sent += 1
+                yield SimpleNamespace(
+                    choices=[
+                        SimpleNamespace(delta=SimpleNamespace(content=f"tok{index}"))
+                    ]
+                )
+                if index == 1:
+                    with core.interrupt_lock:
+                        core.interrupt_requested = True
+
+        def close(self):
+            self.closed = True
+
+    stream = InterruptingStream()
+    client = SimpleNamespace(
+        chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: stream))
+    )
+
+    monkeypatch.setattr(registry_round, "_get_shrink_max_tokens", lambda *_: 0)
+    monkeypatch.setattr(
+        projection_policy,
+        "build_openai_projection",
+        lambda **_: SimpleNamespace(
+            options={}, reasoning="", auto_user_text="", effort_used=None
+        ),
+    )
+
+    def build_runtime_registry(**kwargs):
+        runtimes = ProviderRuntimeRegistry()
+        runtimes.register(
+            "openai",
+            OpenAICompatibleRuntime(
+                client=kwargs["client"],
+                provider=kwargs["provider"],
+                model=kwargs["model"],
+                identifiers=kwargs["identifiers"],
+                transport=kwargs["transport"],
+                streaming=kwargs["streaming"],
+                options=kwargs["options"],
+            ),
+        )
+        return runtimes
+
+    monkeypatch.setattr(
+        runtime_registry, "build_provider_runtime_registry", build_runtime_registry
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=client,
+        depname="test-model",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+        registry_route=SimpleNamespace(allowed=True),
+        tool_discovery=discovery,
+    )
+
+    assert result == (True, "", "", [])
+    assert core._last_round_reason == "interrupted"
+    assert emitted == ["tok0", "tok1", "\n"]
+    assert core._registry_stream_output_rendered is True
+    assert stream.sent < 20
+    assert stream.closed is True
