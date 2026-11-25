@@ -34,6 +34,21 @@ def test_result_passes_through_and_runs_on_a_worker_thread():
     assert seen["thread"] == "uagent-cli-round"
 
 
+def test_turn_core_keyword_reaches_the_wrapped_function():
+    # Regression: the production call sites pass core=core to the turn
+    # function; the wrapper must not consume that keyword itself.
+    core = _fake_core()
+    marker = object()
+
+    def _fn(provider: str, core: object = None) -> object:
+        return core
+
+    result = run_turn_on_worker(
+        core, _fn, "prov", core=marker, channel=dc.DisplayChannel()
+    )
+    assert result is marker
+
+
 def test_exception_is_reraised_on_the_waiting_thread():
     core = _fake_core()
 

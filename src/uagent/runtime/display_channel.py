@@ -112,6 +112,13 @@ class DisplayChannel:
                 self._stream_pending -= 1
             self._cond.notify_all()
 
+    def take_stream_nowait(self) -> StreamDelta | None:
+        """Pop one pending stream delta without waiting, or None."""
+        with self._cond:
+            if self._stream:
+                return self._stream.popleft()
+            return None
+
     def wait_for_stream_drain(self, timeout: float | None = None) -> bool:
         """Wait until every posted stream delta has been rendered.
 
@@ -174,7 +181,9 @@ class DisplayChannel:
 # ---------------------------------------------------------------------------
 
 
-def _render_notice_after_stream(core: Any, text: str) -> None:
+def _render_notice_after_stream(
+    core: Any, text: str, *, stream_drain: Any = None
+) -> None:
     """Insert a notice without splitting an open stream (BitChat style).
 
     Never interrupts a reasoning stream; gives ordinary streamed answer
@@ -190,13 +199,23 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
     use ``print_stream_delta_locked``, which never touches the spinner.
     A spinner that was active before the notice is restored afterwards
     under the same rule as ``_render_notice_now``.
+
+    ``stream_drain`` (pump only): the pump is the thread that renders
+    the stream this function waits on, so waiting without draining
+    would stall the stream behind the notice.  When given, each wait
+    iteration first renders one queued stream delta, which is what
+    advances the flags being waited on.
     """
     deadline = time.time() + STREAM_GRACE_SEC
     # Reasoning deltas are written without a trailing newline, so wait
     # for the reasoning stream to close completely.
     while getattr(core, "_reasoning_stream_open", False):
+        if stream_drain is not None and stream_drain():
+            continue
         time.sleep(0.02)
     while getattr(core, "_stream_line_open", False) and time.time() < deadline:
+        if stream_drain is not None and stream_drain():
+            continue
         time.sleep(0.02)
     # Stop the spinner before acquiring print_lock (see the lock-order
     # note above), remembering whether it was active so it can be
@@ -331,9 +350,9 @@ def _render_notice_now(core: Any, text: str) -> None:
                 pass
 
 
-def render_notice(core: Any, notice: Notice) -> None:
+def render_notice(core: Any, notice: Notice, *, stream_drain: Any = None) -> None:
     if notice.wait_for_stream:
-        _render_notice_after_stream(core, notice.text)
+        _render_notice_after_stream(core, notice.text, stream_drain=stream_drain)
     else:
         _render_notice_now(core, notice.text)
 
@@ -351,6 +370,18 @@ def default_channel() -> DisplayChannel:
     return _default_channel
 
 
+def _render_stream_event(
+    core: Any, channel: DisplayChannel, event: StreamDelta
+) -> None:
+    try:
+        if event.kind == "reasoning":
+            core.print_reasoning_delta(event.text)
+        else:
+            core.print_stream_delta(event.text)
+    finally:
+        channel.note_stream_rendered()
+
+
 def _pump_loop(channel: DisplayChannel) -> None:
     while True:
         event = channel.take()
@@ -364,17 +395,19 @@ def _pump_loop(channel: DisplayChannel) -> None:
             continue
         try:
             if isinstance(event, Notice):
-                render_notice(_core, event)
+
+                def _drain_one() -> bool:
+                    pending = channel.take_stream_nowait()
+                    if pending is None:
+                        return False
+                    _render_stream_event(_core, channel, pending)
+                    return True
+
+                render_notice(_core, event, stream_drain=_drain_one)
             elif isinstance(event, StatusRedraw):
                 _core.print_status_line()
             elif isinstance(event, StreamDelta):
-                try:
-                    if event.kind == "reasoning":
-                        _core.print_reasoning_delta(event.text)
-                    else:
-                        _core.print_stream_delta(event.text)
-                finally:
-                    channel.note_stream_rendered()
+                _render_stream_event(_core, channel, event)
         except Exception:
             continue
 

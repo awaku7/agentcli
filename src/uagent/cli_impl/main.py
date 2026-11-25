@@ -157,6 +157,7 @@ def _exit_code_for_round_outcome(core: Any) -> int:
 def run_turn_on_worker(
     core: Any,
     fn: Any,
+    /,
     *args: Any,
     channel: Any = None,
     **kwargs: Any,
@@ -177,6 +178,10 @@ def run_turn_on_worker(
     poll and receive loops honour) and the wait continues until the
     round has wound down; KeyboardInterrupt is then re-raised so the
     caller's existing interrupt handling runs unchanged.
+
+    ``core`` and ``fn`` are positional-only: the wrapped turn functions
+    take their own ``core=`` keyword, which must flow through
+    ``**kwargs`` to them untouched.
     """
     from ..runtime.display_channel import (
         bind_stream_relay,
