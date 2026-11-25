@@ -209,6 +209,12 @@ def _consume_post_response_interrupt(
     return True
 
 
+def _interrupt_pending() -> bool:
+    """Whether a Stop/F12 interrupt is waiting to be handled (not consumed)."""
+    with _core_module.interrupt_lock:
+        return bool(_core_module.interrupt_requested)
+
+
 # --- Tool usage tracking for auto-unload ---
 _TOOL_AUTO_UNLOAD_ROUNDS = int(
     env_get("UAGENT_AUTO_UNLOAD_ROUNDS", "10")
@@ -1339,6 +1345,13 @@ def run_llm_rounds(
             return ""
         messages = judgment_messages
 
+    # Drop a stale interrupt left over from before this turn. Do it before the
+    # turn preparation below: a Stop pressed while the turn is being prepared
+    # must survive until the first round checks it, instead of being cleared
+    # and letting the LLM call run to completion.
+    with _core_module.interrupt_lock:
+        _core_module.interrupt_requested = False
+
     if not judgment_mode:
         core.context_policy = ContextPolicy.from_environment(
             provider=provider, model=depname
@@ -1428,9 +1441,11 @@ def run_llm_rounds(
                         )
                         if manager is not None:
                             _register_runtime_manager(core, manager)
-                    direct_navigation_done = _maybe_navigate_computer_runtime(
-                        messages, core, policy
-                    )
+                    # Stop pressed during preparation: do not open the browser;
+                    # the first round's interrupt check ends the turn.
+                    direct_navigation_done = (
+                        not _interrupt_pending()
+                    ) and _maybe_navigate_computer_runtime(messages, core, policy)
                 except RuntimeError as exc:
                     core.computer_use_diagnostic = str(exc)
                     core.computer_use_handler = make_unavailable_computer_use_handler(
@@ -1520,10 +1535,6 @@ def run_llm_rounds(
             messages=messages,
             core=core,
         )
-
-    # Clear any stale interrupt flag from a previous session
-    with _core_module.interrupt_lock:
-        _core_module.interrupt_requested = False
 
     final_text: str | None = None
 
