@@ -14,6 +14,14 @@ from .. import core as _core
 
 def log_message(message: dict[str, Any]) -> None:
     """Route background agent logs to their private bounded Job log."""
+    try:
+        from ..llm_helpers import is_abandoned_stream_output
+
+        if is_abandoned_stream_output(message):
+            # Late stream output of a call the user already stopped.
+            return
+    except Exception:
+        pass
     background = False
     try:
         from ..runtime.sub_agent_jobs import (
