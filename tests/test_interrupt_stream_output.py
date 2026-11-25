@@ -1,4 +1,4 @@
-"""A Stop during a streamed reply must not leave output behind (INT-02).
+"""A Stop during a streamed reply must not leave output behind (INT-02/03).
 
 After a Stop the waiter returns while the abandoned call thread may keep
 reading the provider stream. Its tokens must not be printed after the turn
@@ -85,6 +85,11 @@ print("RESULT=" + json.dumps({
     "return_after_stop_s": marks["returned"] - marks.get("stop", marks["returned"]),
     "late_tokens": late.count("tok"),
     "assistant_messages": sum(1 for m in messages if m.get("role") == "assistant"),
+    "server_sent": [s["sent"] for s in fake.STATS if s["path"].endswith("/responses")],
+    "server_saw_disconnect": [
+        s["client_gone"] for s in fake.STATS if s["path"].endswith("/responses")
+    ],
+    "n_chunks": fake.N_CHUNKS,
 }), flush=True)
 os._exit(0)
 """
@@ -120,6 +125,9 @@ def test_stop_mid_stream_leaves_no_output_after_the_turn(tmp_path) -> None:
     assert result["return_after_stop_s"] < 1.0
     assert result["late_tokens"] == 0
     assert result["assistant_messages"] == 0
+    # INT-03: the abandoned stream is closed, so the server stops early.
+    assert result["server_saw_disconnect"] == [True]
+    assert result["server_sent"][0] < result["n_chunks"]
 
 
 @pytest.fixture
@@ -158,3 +166,25 @@ def test_only_stream_messages_of_an_abandoned_call_are_dropped(abandoned) -> Non
 
 def test_stream_messages_of_a_live_call_are_kept() -> None:
     assert not is_abandoned_stream_output({"type": "assistant_stream_delta"})
+
+
+def test_vllm_usage_wrapper_closes_the_stream_when_closed_early() -> None:
+    from types import SimpleNamespace
+
+    from uagent.providers.llm_vllm_usage import capture_vllm_responses_usage
+
+    class Stream:
+        closed = False
+
+        def __iter__(self):
+            for i in range(5):
+                yield SimpleNamespace(type="response.output_text.delta", delta=str(i))
+
+        def close(self):
+            self.closed = True
+
+    stream = Stream()
+    events = capture_vllm_responses_usage(stream, provider="vllm", sink=[])
+    next(events)
+    events.close()  # what parse_responses_stream does after a Stop
+    assert stream.closed is True

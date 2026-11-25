@@ -1,6 +1,6 @@
 # 割り込み（Stop / F12）の計測と修正計画（2026-11-25）
 
-- Status: in progress（INT-01、INT-02 完了）
+- Status: in progress（INT-01〜03 完了）
 - Priority: P1
 - Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md) の「P1: Auto-Pilot / Interrupt の残課題」、[`docs/INTERRUPT.md`](../INTERRUPT.md)
 - 確認基準: `main` = `3dfca2816`（PR #470 マージ後）
@@ -35,8 +35,8 @@
 | ID | 内容 | 重要度 | 状態 |
 |---|---|---|---|
 | INT-01 | 残ったフラグを消す処理をターンの最初に移す。準備中の割り込みは最初のラウンドの確認で止まる | 高 | 完了（PR #471） |
-| INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 完了 |
-| INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 未着手 |
+| INT-02 | 見捨てられた呼び出しからの出力を画面と Web に出さない（`print_stream_delta` など共通の出力処理で止める） | 高 | 完了（PR #472） |
+| INT-03 | Responses などの受信ループで `llm_call_abandoned()` も確認し、ループを抜けて接続を閉じる | 中 | 完了 |
 | INT-04 | Claude / Gemini / DeepSeek などの受信ループも同様に確認する。プロトコルごとに偽サーバーで計測する | 中 | 未着手 |
 
 CLI / Web / GUI での停止表示と状態の同期（ロードマップの項目）は、INT-01〜04 の後に、それぞれの入口で確認する。
@@ -61,6 +61,15 @@ CLI / Web / GUI での停止表示と状態の同期（ロードマップの項�
   - `tests/test_interrupt_stream_output.py`: 偽サーバー（`tests/fake_openai_stream_server.py`）に対して、別プロセスで実際のラウンドを動かし、ストリームの途中で割り込む。戻った後の出力が 0 であることを確かめる。ガードを外すと 49 トークンが出て失敗することを確認した。
   - 同じファイルに、表示の関数と判定の関数の単体テストもある。
 
+## INT-03 の結果
+
+- `parse_responses_stream`（`providers/responses_common.py`）の受信ループで、イベントごとに `llm_call_abandoned()` も確認し、真ならループを抜ける。割り込みのフラグが先に消されていても止まる。
+- 割り込みでループを抜けたときは、`finally` でストリームを閉じる（これまでは抜けるだけで、HTTP の応答は閉じていなかった）。フラグを見て抜けた場合も同じ。
+- vLLM の使用量を拾う包み（`capture_vllm_responses_usage`）は、閉じられたときに中のストリームも閉じるようにした。
+- 計測（200 トークン、Responses のストリーミング、10 トークン目で割り込み）: サーバーが送ったのは 200 → **12** トークン。割り込みから 0.15 秒で接続が切れた。戻るまで 0.03 秒、戻った後の出力は 0。
+- テスト: `tests/test_interrupt_stream_output.py` の端から端までのテストに「接続が切られ、サーバーが途中で止まる」確認を加えた（修正前は失敗することを確認）。vLLM の包みの単体テストも追加した。
+- registry 経路（`openai_compatible_runtime`）は、`UAGENT_PROVIDER_REGISTRY=all` を指定してもこの構成では使われなかった。この経路はラウンドのスレッドで直接ストリームを読み、既定の `NoCancellation` は止まらないので、INT-04 で扱う。
+
 ## 別件として見つかったこと
 
 Responses を使う設定で、llmcapa が知らないモデル名（独自のモデルや新しいモデル）を使うと、プラグインの読み込み時に llmcapa のモデル検索がツールのモジュールごとに走り、15 秒以上かかる。見つからなかった結果がキャッシュされない（`_should_preload_lazy_specs()` が `_register_tool_module` のたびに呼ばれる）ため。割り込みとは別の性能の問題として扱う。
@@ -69,3 +78,4 @@ Responses を使う設定で、llmcapa が知らないモデル名（独自の�
 
 - 2026-11-25: 作成。計測と原因の分析、INT-01 を実施。
 - 2026-11-25: INT-02（見捨てられた呼び出しの出力を止める）を実施。
+- 2026-11-25: INT-03（Responses の受信ループを抜けて接続を閉じる）を実施。
