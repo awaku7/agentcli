@@ -15,7 +15,7 @@
     ],
     "param.include_volumes.description": "マウントされているボリュームの使用量情報を含めます。",
     "param.include_disks.description": "可能な場合、物理ディスク情報を含めます（取得できる範囲で）。",
-    "tool.system_prompt": "このツールは、OS、CPU、RAM サイズ、ストレージ ディスク (ベストエフォート)、ボリュームの空き容量などのシステム仕様を収集する目的で使用されます。"
+    "tool.system_prompt": "OS、CPU、RAM サイズ、ストレージ ディスク (ベストエフォート)、ボリュームの空き容量などのシステム仕様を収集します。"
   },
   "es": {
     "tool.description": "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo).",
