@@ -1,6 +1,6 @@
 # UAG ラウンドループのレビューと修正記録（2026-11-24）
 
-- Status: done（RL-01〜05）/ deferred（RL-06）
+- Status: done（RL-01〜06）
 - Priority: P1
 - Source: `src/uagent/uagent_llm.py` のコードレビュー（`run_llm_rounds()` / `_run_one_round()`）
 - 確認基準: `main` = `cdcee2d05`（v0.7.56、レビュー開始時）
@@ -80,6 +80,7 @@ run_llm_rounds()            ← ユーザー 1 ターン（Auto-Pilot は後続�
 - `_run_one_round()` は約 875 行あり、引数が 20 個、戻り値が 5 要素のタプル。前処理、振り分け、後処理の 3 段階に分け、戻り値を dataclass にする案がある。
 - **一部対応（2026-11-24、PR #464）:** `_run_one_round()` を前処理・振り分け・後処理の 3 段階に分け、戻り値を `_RoundOutcome` dataclass にした。残りの 3 ファイルは未着手。
 - 残りの進め方は `UAG_SPEED_FIRST_SPLIT_PLAN_20261125.md`（速度重視の分割方針）で管理する。
+- **対応（2026-11-25、PR #466〜）:** 同計画で完了。`tools/__init__.py` は遅延読み込みと 3 モジュールへの分割、`uagent_llm.py` と `session_store.py` は機能ごとのモジュールに分割した。`sandbox_worker.py` はサンドボックスにコピーする 1 ファイルのため分割しない。
 
 ## テスト
 
@@ -95,3 +96,4 @@ run_llm_rounds()            ← ユーザー 1 ターン（Auto-Pilot は後続�
 
 - 2026-11-24: 作成。RL-01〜04 は PR #460〜#462 で完了。RL-05〜06 は先送り。
 - 2026-11-25: RL-05 を PR #465 で対応。RL-06 は `_run_one_round()` の分割（PR #464）のみ済み、残りは先送りのまま。
+- 2026-11-25: RL-06 を `UAG_SPEED_FIRST_SPLIT_PLAN_20261125.md` の P0〜P2 で完了。

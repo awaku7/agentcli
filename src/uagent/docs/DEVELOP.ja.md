@@ -43,6 +43,9 @@ ______________________________________________________________________
     - `src/uagent/llm_registry_round.py`: プロバイダレジストリ経由のラウンド
     - `src/uagent/llm_computer_use_nav.py`: Computer Use の URL 直接ナビゲーション
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
+- **セッションストア（オプトイン、SQLite）**: `src/uagent/runtime/session_store.py`
+  - `SessionStore` は接続、スキーマ、セッション、メッセージ、判断ログを持つ。その他の領域は mixin に分かれている: `session_store_tools.py`（ツール呼び出し・結果・コンテキスト）、`session_store_agent_state.py`、`session_store_receipts.py`（サブエージェントの receipt）、`session_store_compaction.py`、`session_store_index.py`（語の索引、検索、要約）
+  - 共通の定義は `session_store_common.py`、接続と切断は `session_store_attach.py`。import は `session_store` から行う（公開名を再エクスポートしている）
 - **Providers**: `src/uagent/providers/util_providers.py`
   - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Perplexity Router/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel 等）
   - プロバイダキーの一覧は `src/uagent/providers/provider_caps.py` の `ALL_PROVIDERS` で一元管理。
