@@ -147,8 +147,8 @@ def test_powershell_truncation_keeps_localized_failure_status(monkeypatch) -> No
         ),
     )
     monkeypatch.setattr(
-        pwsh_exec_tool.subprocess,
-        "run",
+        pwsh_exec_tool,
+        "run_interruptible",
         lambda **kwargs: SimpleNamespace(
             returncode=7, stdout="x" * 400_100, stderr="error"
         ),

@@ -116,10 +116,17 @@ def _choose_shell(requested: str = "") -> str:
 
 
 try:
-    from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
+    from .safe_exec_ops import (
+        SubprocessInterrupted,
+        confirm_if_needed,
+        decide_cmd_exec,
+        run_interruptible,
+    )
 except Exception:
     decide_cmd_exec = None  # type: ignore[assignment]
     confirm_if_needed = None  # type: ignore[assignment]
+    run_interruptible = None  # type: ignore[assignment]
+    SubprocessInterrupted = ()  # type: ignore[assignment]
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -189,16 +196,20 @@ def run_tool(args: dict[str, Any]) -> str:
             run_kwargs["creationflags"] = creationflags
 
     try:
-        proc = subprocess.run(**run_kwargs)
+        if run_interruptible is not None:
+            proc = run_interruptible(**run_kwargs)
+        else:
+            proc = subprocess.run(**run_kwargs)
     except subprocess.TimeoutExpired:
         return _(
             "err.timeout",
             default="[pwsh_exec timeout] did not finish within %(seconds)s seconds",
         ) % {"seconds": cb.cmd_exec_timeout_ms / 1000.0}
-    except KeyboardInterrupt:
-        # subprocess.run can propagate the console interrupt to the parent
-        # while it is waiting for the child. A tool must return a result, not
-        # terminate the agent process, so convert it to an explicit response.
+    except (KeyboardInterrupt, SubprocessInterrupted):
+        # The wait was interrupted (console interrupt on the main thread,
+        # or the interrupt flag via run_interruptible on a worker
+        # thread). A tool must return a result, not terminate the agent
+        # process, so convert it to an explicit response.
         return _(
             "err.interrupted",
             default="[pwsh_exec interrupted] PowerShell command was interrupted",

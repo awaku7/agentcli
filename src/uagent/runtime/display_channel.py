@@ -27,6 +27,14 @@ surface had before the move: ``wait_for_stream`` notices (BitChat, Nostr
 tool) wait out an open stream line before inserting, while immediate
 notices (Nostr remote control) stop/restore the spinner around the
 insertion exactly as the previous direct implementation did.
+
+Stage 2a adds the stream relay: while a CLI round runs on its worker
+thread, ``bind_stream_relay`` is bound in that thread's context and
+``core.print_stream_delta`` / ``core.print_reasoning_delta`` post
+``StreamDelta`` events here instead of printing; the pump renders them
+in order.  The channel counts unrendered stream deltas so the worker
+can wait for the drain before the turn is considered finished (the
+caller's own post-turn output must not overtake the stream tail).
 """
 
 from __future__ import annotations
@@ -34,9 +42,10 @@ from __future__ import annotations
 import collections
 import threading
 import time
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
+from contextvars import ContextVar
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Iterator
 
 NOTICE_LIMIT = 200
 
@@ -49,11 +58,14 @@ STREAM_GRACE_SEC = 2.0
 
 @dataclass(frozen=True)
 class StreamDelta:
-    """One piece of streamed model output (stage-3 producer)."""
+    """One piece of streamed model output."""
 
     text: str
     source: str = ""
     turn: int = 0
+    # "answer" for assistant text, "reasoning" for reasoning output;
+    # the pump renders each through its matching core printer.
+    kind: str = "answer"
 
 
 @dataclass(frozen=True)
@@ -84,12 +96,47 @@ class DisplayChannel:
         self._notices: collections.deque[Notice] = collections.deque()
         self._notice_limit = max(1, int(notice_limit))
         self._status: StatusRedraw | None = None
+        self._stream_pending = 0
         self.dropped_notices = 0
 
     def post_stream(self, event: StreamDelta) -> None:
         with self._cond:
             self._stream.append(event)
+            self._stream_pending += 1
             self._cond.notify()
+
+    def note_stream_rendered(self) -> None:
+        """Mark one taken stream delta as rendered (pump side)."""
+        with self._cond:
+            if self._stream_pending > 0:
+                self._stream_pending -= 1
+            self._cond.notify_all()
+
+    def take_stream_nowait(self) -> StreamDelta | None:
+        """Pop one pending stream delta without waiting, or None."""
+        with self._cond:
+            if self._stream:
+                return self._stream.popleft()
+            return None
+
+    def wait_for_stream_drain(self, timeout: float | None = None) -> bool:
+        """Wait until every posted stream delta has been rendered.
+
+        Returns False on timeout.  Only meaningful while a single
+        producer turn is relaying; other producers' deltas count too,
+        which can only make the wait longer, never shorter.
+        """
+        with self._cond:
+            deadline = None if timeout is None else time.monotonic() + timeout
+            while self._stream_pending > 0:
+                if deadline is not None:
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        return False
+                    self._cond.wait(remaining)
+                else:
+                    self._cond.wait()
+            return True
 
     def post_notice(self, event: Notice) -> None:
         with self._cond:
@@ -134,7 +181,9 @@ class DisplayChannel:
 # ---------------------------------------------------------------------------
 
 
-def _render_notice_after_stream(core: Any, text: str) -> None:
+def _render_notice_after_stream(
+    core: Any, text: str, *, stream_drain: Any = None
+) -> None:
     """Insert a notice without splitting an open stream (BitChat style).
 
     Never interrupts a reasoning stream; gives ordinary streamed answer
@@ -150,13 +199,23 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
     use ``print_stream_delta_locked``, which never touches the spinner.
     A spinner that was active before the notice is restored afterwards
     under the same rule as ``_render_notice_now``.
+
+    ``stream_drain`` (pump only): the pump is the thread that renders
+    the stream this function waits on, so waiting without draining
+    would stall the stream behind the notice.  When given, each wait
+    iteration first renders one queued stream delta, which is what
+    advances the flags being waited on.
     """
     deadline = time.time() + STREAM_GRACE_SEC
     # Reasoning deltas are written without a trailing newline, so wait
     # for the reasoning stream to close completely.
     while getattr(core, "_reasoning_stream_open", False):
+        if stream_drain is not None and stream_drain():
+            continue
         time.sleep(0.02)
     while getattr(core, "_stream_line_open", False) and time.time() < deadline:
+        if stream_drain is not None and stream_drain():
+            continue
         time.sleep(0.02)
     # Stop the spinner before acquiring print_lock (see the lock-order
     # note above), remembering whether it was active so it can be
@@ -291,9 +350,9 @@ def _render_notice_now(core: Any, text: str) -> None:
                 pass
 
 
-def render_notice(core: Any, notice: Notice) -> None:
+def render_notice(core: Any, notice: Notice, *, stream_drain: Any = None) -> None:
     if notice.wait_for_stream:
-        _render_notice_after_stream(core, notice.text)
+        _render_notice_after_stream(core, notice.text, stream_drain=stream_drain)
     else:
         _render_notice_now(core, notice.text)
 
@@ -311,6 +370,18 @@ def default_channel() -> DisplayChannel:
     return _default_channel
 
 
+def _render_stream_event(
+    core: Any, channel: DisplayChannel, event: StreamDelta
+) -> None:
+    try:
+        if event.kind == "reasoning":
+            core.print_reasoning_delta(event.text)
+        else:
+            core.print_stream_delta(event.text)
+    finally:
+        channel.note_stream_rendered()
+
+
 def _pump_loop(channel: DisplayChannel) -> None:
     while True:
         event = channel.take()
@@ -319,18 +390,30 @@ def _pump_loop(channel: DisplayChannel) -> None:
         try:
             from .. import core as _core
         except Exception:
+            if isinstance(event, StreamDelta):
+                channel.note_stream_rendered()
             continue
         try:
             if isinstance(event, Notice):
-                render_notice(_core, event)
+
+                def _drain_one() -> bool:
+                    pending = channel.take_stream_nowait()
+                    if pending is None:
+                        return False
+                    _render_stream_event(_core, channel, pending)
+                    return True
+
+                render_notice(_core, event, stream_drain=_drain_one)
             elif isinstance(event, StatusRedraw):
                 _core.print_status_line()
-            # StreamDelta rendering arrives with the stream migration.
+            elif isinstance(event, StreamDelta):
+                _render_stream_event(_core, channel, event)
         except Exception:
             continue
 
 
-def _ensure_pump() -> None:
+def ensure_pump() -> None:
+    """Start the render pump thread if it is not already running."""
     global _pump_thread
     with _pump_lock:
         if _pump_thread is not None and _pump_thread.is_alive():
@@ -349,4 +432,33 @@ def post_notice(text: str, *, source: str, wait_for_stream: bool = False) -> Non
     _default_channel.post_notice(
         Notice(text=text, source=source, wait_for_stream=wait_for_stream)
     )
-    _ensure_pump()
+    ensure_pump()
+
+
+# ---------------------------------------------------------------------------
+# Stream relay binding (stage 2a)
+# ---------------------------------------------------------------------------
+
+_STREAM_RELAY: ContextVar[DisplayChannel | None] = ContextVar(
+    "uagent_stream_relay", default=None
+)
+
+
+def stream_relay() -> DisplayChannel | None:
+    """The channel stream output is relayed to in this context, if any."""
+    return _STREAM_RELAY.get()
+
+
+@contextmanager
+def bind_stream_relay(channel: DisplayChannel) -> Iterator[None]:
+    """Relay this context's stream output to ``channel``.
+
+    Bound on the CLI round worker thread; provider call threads inherit
+    it through their context copies.  While bound, the core stream
+    printers post StreamDelta events instead of printing.
+    """
+    token = _STREAM_RELAY.set(channel)
+    try:
+        yield
+    finally:
+        _STREAM_RELAY.reset(token)

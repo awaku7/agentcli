@@ -239,7 +239,7 @@ def test_subprocess_uses_devnull_stdin(monkeypatch) -> None:
         captured["kwargs"] = kwargs
         return _FakeProc()
 
-    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(mod, "run_interruptible", fake_run)
     monkeypatch.setattr(mod.shutil, "which", lambda _name: "C:\\fake\\pwsh.exe")
     monkeypatch.setattr(mod, "decide_cmd_exec", None)
     monkeypatch.setattr(mod, "confirm_if_needed", None)

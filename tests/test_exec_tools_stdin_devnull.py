@@ -185,7 +185,7 @@ def test_cmd_exec_json_uses_devnull_stdin(monkeypatch):
         captured.update(k)
         return _P()
 
-    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(mod, "run_interruptible", fake_run)
     monkeypatch.setattr(
         mod,
         "decide_cmd_exec",
@@ -211,7 +211,7 @@ def test_cmd_exec_json_converts_timeout_to_result(monkeypatch):
             k.get("args", "command"), k["timeout"], output=b"partial", stderr=b"err"
         )
 
-    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(mod, "run_interruptible", fake_run)
     monkeypatch.setattr(
         mod,
         "decide_cmd_exec",
@@ -227,13 +227,15 @@ def test_cmd_exec_json_converts_timeout_to_result(monkeypatch):
     assert result["stdout"] == "partial"
 
 
-def test_cmd_exec_json_converts_keyboard_interrupt_to_result(monkeypatch):
+def test_cmd_exec_json_converts_interrupt_to_result(monkeypatch):
     from uagent.tools import cmd_exec_json_tool as mod
 
     def fake_run(*a, **k):
-        raise KeyboardInterrupt
+        from uagent.tools.safe_exec_ops import SubprocessInterrupted
 
-    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+        raise SubprocessInterrupted
+
+    monkeypatch.setattr(mod, "run_interruptible", fake_run)
     monkeypatch.setattr(
         mod,
         "decide_cmd_exec",

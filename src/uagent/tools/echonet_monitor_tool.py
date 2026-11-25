@@ -23,6 +23,28 @@ _DEFAULT_INTERVAL = 5
 _DEFAULT_DURATION = 30
 _DEFAULT_TIMEOUT = 4
 
+
+def _interrupt_requested() -> bool:
+    try:
+        from .. import core
+
+        return bool(getattr(core, "interrupt_requested", False))
+    except Exception:
+        return False
+
+
+def _sleep_interruptibly(seconds: float) -> bool:
+    """Sleep in slices; return False when an interrupt is requested."""
+    deadline = time.monotonic() + seconds
+    while True:
+        if _interrupt_requested():
+            return False
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return True
+        time.sleep(min(remaining, 0.25))
+
+
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "type": "function",
@@ -299,6 +321,9 @@ def run_tool(args: dict[str, Any]) -> str:
         now = time.monotonic()
         if now >= deadline:
             break
+        if _interrupt_requested():
+            stopped_reason = "interrupted"
+            break
         remaining = max(1, int(deadline - now))
         poll_timeout = min(timeout, remaining)
         frames = _query_node(
@@ -330,8 +355,9 @@ def run_tool(args: dict[str, Any]) -> str:
         if next_tick >= deadline:
             break
         sleep_for = max(0.0, min(interval, deadline - time.monotonic()))
-        if sleep_for > 0:
-            time.sleep(sleep_for)
+        if sleep_for > 0 and not _sleep_interruptibly(sleep_for):
+            stopped_reason = "interrupted"
+            break
 
     elapsed_ms = int((time.monotonic() - start) * 1000)
 

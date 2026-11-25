@@ -234,3 +234,131 @@ def test_nostr_remote_incoming_renders_formatted_preview(monkeypatch):
     rendered.clear()
     nostr_remote_runtime._display_nostr_incoming(object(), {"pubkey": 1})
     assert rendered == []
+
+
+def test_stream_drain_waits_for_all_renders():
+    channel = dc.DisplayChannel()
+    for i in range(3):
+        channel.post_stream(dc.StreamDelta(text=f"s{i}"))
+    assert channel.wait_for_stream_drain(timeout=0.05) is False
+
+    rendered: list[str] = []
+
+    def _render() -> None:
+        while len(rendered) < 3:
+            event = channel.take(timeout=1.0)
+            if isinstance(event, dc.StreamDelta):
+                rendered.append(event.text)
+                channel.note_stream_rendered()
+
+    renderer = threading.Thread(target=_render, daemon=True)
+    renderer.start()
+    assert channel.wait_for_stream_drain(timeout=5.0) is True
+    renderer.join(timeout=5.0)
+    assert rendered == ["s0", "s1", "s2"]
+
+
+def test_pump_renders_stream_deltas_by_kind(monkeypatch):
+    from uagent import core
+
+    rendered: list[tuple[str, str]] = []
+    monkeypatch.setattr(
+        core, "print_stream_delta", lambda s: rendered.append(("answer", s))
+    )
+    monkeypatch.setattr(
+        core,
+        "print_reasoning_delta",
+        lambda s: rendered.append(("reasoning", s)),
+    )
+    channel = dc.default_channel()
+    channel.post_stream(dc.StreamDelta(text="think", kind="reasoning"))
+    channel.post_stream(dc.StreamDelta(text="answer"))
+    dc.ensure_pump()
+    assert channel.wait_for_stream_drain(timeout=5.0) is True
+    assert rendered == [("reasoning", "think"), ("answer", "answer")]
+
+
+def test_after_stream_wait_drains_queued_stream():
+    # Regression (stage 2a): the pump renders the stream itself, so a
+    # wait_for_stream notice must keep draining queued deltas while it
+    # waits — otherwise the delta that closes the stream never renders
+    # and the pump stalls behind the notice.
+    core = _fake_core(
+        _reasoning_stream_open=True,
+        _stream_line_open=True,
+        print_stream_delta_locked=lambda _text: None,
+    )
+    calls: list[int] = []
+
+    def _drain() -> bool:
+        calls.append(1)
+        if len(calls) >= 3:
+            core._reasoning_stream_open = False
+            core._stream_line_open = False
+        return True
+
+    dc._render_notice_after_stream(core, "drained", stream_drain=_drain)
+    assert len(calls) >= 3
+
+
+def test_pump_notice_wait_does_not_stall_the_stream(monkeypatch, capsys):
+    import time as _time
+
+    from uagent import core
+
+    rendered: list[tuple[str, str]] = []
+
+    def _fake_reasoning(text: str) -> None:
+        rendered.append(("reasoning", text))
+        core._reasoning_stream_open = True
+        core._stream_line_open = True
+
+    def _fake_answer(text: str) -> None:
+        rendered.append(("answer", text))
+        core._reasoning_stream_open = False
+        core._stream_line_open = False
+
+    monkeypatch.setattr(core, "print_reasoning_delta", _fake_reasoning)
+    monkeypatch.setattr(core, "print_stream_delta", _fake_answer)
+    monkeypatch.setattr(core, "_reasoning_stream_open", False)
+    monkeypatch.setattr(core, "_stream_line_open", False)
+    monkeypatch.setattr(core, "_prompt_line_open", False)
+
+    channel = dc.default_channel()
+    channel.post_stream(dc.StreamDelta(text="think", kind="reasoning"))
+    dc.ensure_pump()
+    deadline = _time.monotonic() + 5.0
+    while not rendered and _time.monotonic() < deadline:
+        _time.sleep(0.01)
+    assert rendered == [("reasoning", "think")]
+
+    channel.post_notice(
+        dc.Notice(text="p2-notice-marker", source="bitchat", wait_for_stream=True)
+    )
+    _time.sleep(0.3)  # let the pump enter the notice's stream wait
+    channel.post_stream(dc.StreamDelta(text="answer-text"))
+    assert channel.wait_for_stream_drain(timeout=5.0) is True
+    assert rendered == [("reasoning", "think"), ("answer", "answer-text")]
+    deadline = _time.monotonic() + 5.0
+    while "p2-notice-marker" not in capsys.readouterr().out:
+        assert _time.monotonic() < deadline
+        _time.sleep(0.01)
+
+
+def test_relay_binding_redirects_core_printers(capsys):
+    from uagent import core
+
+    channel = dc.DisplayChannel()
+    assert dc.stream_relay() is None
+    with dc.bind_stream_relay(channel):
+        assert dc.stream_relay() is channel
+        core.print_stream_delta("relayed answer")
+        core.print_reasoning_delta("relayed thought")
+    assert dc.stream_relay() is None
+    assert capsys.readouterr().out == ""
+    first = channel.take(timeout=0.1)
+    second = channel.take(timeout=0.1)
+    assert isinstance(first, dc.StreamDelta)
+    assert (first.text, first.kind) == ("relayed answer", "answer")
+    assert isinstance(second, dc.StreamDelta)
+    assert (second.text, second.kind) == ("relayed thought", "reasoning")

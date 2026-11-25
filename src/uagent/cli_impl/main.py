@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextvars
 import json
 import os
 import sys
@@ -151,6 +152,143 @@ def _exit_code_for_round_outcome(core: Any) -> int:
     if status == "failed":
         return 1
     return 0
+
+
+def run_turn_on_worker(
+    core: Any,
+    fn: Any,
+    /,
+    *args: Any,
+    channel: Any = None,
+    **kwargs: Any,
+) -> Any:
+    """Run one CLI turn (LLM rounds / auto-pilot) on a worker thread.
+
+    Stage 2a of the CLI single-writer refactor: the event-loop thread no
+    longer runs rounds itself.  The worker inherits the caller's context
+    (turn context, execution profile, and the other ContextVar state the
+    round machinery uses) and binds the display channel's stream relay,
+    so streamed answer/reasoning deltas are rendered by the display
+    pump thread instead of being printed from the round's call threads.
+    Before returning, the worker waits for the relayed stream to drain
+    so the caller's own post-turn output cannot overtake its tail.
+
+    Ctrl+C while waiting no longer raises inside the round: it sets the
+    core interrupt flag and the auto-pilot exit request (the same
+    signals F12 uses; provider waits poll the interrupt flag and
+    receive loops honour it, and the auto-pilot loop checks its exit
+    request before every follow-up) and the wait continues until the
+    round has wound down; KeyboardInterrupt is then re-raised so the
+    caller's existing interrupt handling runs unchanged.
+
+    ``core`` and ``fn`` are positional-only: the wrapped turn functions
+    take their own ``core=`` keyword, which must flow through
+    ``**kwargs`` to them untouched.
+    """
+    from ..runtime.display_channel import (
+        bind_stream_relay,
+        default_channel,
+        ensure_pump,
+    )
+
+    if channel is None:
+        channel = default_channel()
+    ensure_pump()
+    # Keep the session's per-turn ContextVar states across worker
+    # turns: the auto-unload counters and the loop-guard state are
+    # lazily created inside run_llm_rounds, so a state bound only
+    # inside a worker's copied context would be discarded with it and
+    # restart empty every turn (the loop guard also has to survive
+    # the handoff into the auto-pilot continuation, which explicitly
+    # preserves it).  The core object is the CLI session's owner (the
+    # Web side carries the same states on its room object), so bind
+    # its stored states into this context before copying; the worker
+    # stores the loop-guard state back when it finishes.
+    try:
+        from .. import uagent_llm as _llm_util
+        from ..llm_loop_guards import _bind_loop_guard_state
+
+        _llm_util._bind_auto_unload_state(core)
+        _bind_loop_guard_state(core)
+    except Exception:
+        pass
+    caller_context = contextvars.copy_context()
+    outcome: dict[str, Any] = {}
+    # Completion is tracked with this event, never with Thread.join /
+    # is_alive: on CPython 3.11 an interrupted join can mark the thread
+    # stopped while its target is still running, which would let the
+    # caller resume while the old worker is still active.
+    done = threading.Event()
+
+    def _target() -> None:
+        try:
+            with bind_stream_relay(channel):
+                outcome["result"] = fn(*args, **kwargs)
+        except BaseException as exc:  # re-raised on the waiting thread
+            outcome["error"] = exc
+        finally:
+            # Hand the loop-guard counters back to the session owner:
+            # a fresh state begun inside this worker (begin_loop_guard_
+            # turn) replaces the bound one in this context only, and
+            # the auto-pilot continuation binds from the owner in a
+            # separate worker with preserve_tool_loop_state=True.
+            try:
+                from ..llm_loop_guards import _store_loop_guard_state
+
+                _store_loop_guard_state(core)
+            except Exception:
+                pass
+            # A stuck pump must not hang the CLI forever; on timeout
+            # the turn still ends and anything unrendered stays queued
+            # and renders late.
+            channel.wait_for_stream_drain(timeout=10.0)
+            done.set()
+
+    worker = threading.Thread(
+        target=lambda: caller_context.run(_target),
+        name="uagent-cli-round",
+        daemon=True,
+    )
+    worker.start()
+    interrupted = False
+    while True:
+        try:
+            if done.wait(0.05):
+                break
+        except KeyboardInterrupt:
+            interrupted = True
+            try:
+                with core.interrupt_lock:
+                    core.interrupt_requested = True
+            except Exception:
+                pass
+            # Mirror the F12 monitor: auto-pilot consumes and clears
+            # interrupt_requested per round, so stopping it also needs
+            # its exit request; the auto-pilot loop checks that flag
+            # before every follow-up round.
+            try:
+                with core.auto_pilot_exit_lock:
+                    core.auto_pilot_exit_requested = True
+            except Exception:
+                pass
+            # Release a pending human_ask wait: the worker blocks on
+            # its answer queue, which neither flag reaches (before the
+            # worker move, KeyboardInterrupt hit that wait directly).
+            # Delivering "cancel" ends the ask as a user cancellation,
+            # the same result typing cancel at the prompt produces; the
+            # per-call queue is discarded afterwards, so a late real
+            # answer racing this is harmless.
+            try:
+                ask_queue = getattr(core, "human_ask_queue", None)
+                if ask_queue is not None:
+                    ask_queue.put("cancel")
+            except Exception:
+                pass
+    if interrupted:
+        raise KeyboardInterrupt
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome.get("result")
 
 
 def _reset_startup_responses_continuation(
@@ -415,6 +553,18 @@ def main() -> int:
 
         restore_imported_session(core, session_store, messages, resume_id)
     process_exit_code = 0
+
+    def _run_rounds_turn(*args, **kwargs):
+        # Stage 2a: rounds run on the round worker thread (see
+        # run_turn_on_worker); the turn-context/profile wrapping that
+        # _run_cli_turn applies still runs on this thread first, and the
+        # worker inherits it through the copied context.
+        return run_turn_on_worker(core, llm_util.run_llm_rounds, *args, **kwargs)
+
+    def _run_auto_pilot_turn(*args, **kwargs):
+        return run_turn_on_worker(
+            core, tools_util._run_auto_pilot_loop, *args, **kwargs
+        )
 
     def _run_cli_turn(fn, *args, **kwargs):
         if sandbox_mode != "off":
@@ -871,7 +1021,7 @@ def main() -> int:
                             _run_llm_event(
                                 ev,
                                 _run_cli_turn,
-                                llm_util.run_llm_rounds,
+                                _run_rounds_turn,
                                 provider,
                                 client,
                                 depname,
@@ -929,7 +1079,7 @@ def main() -> int:
                         try:
                             with lifecycle_execution():
                                 _run_cli_turn(
-                                    tools_util._run_auto_pilot_loop,
+                                    _run_auto_pilot_turn,
                                     provider,
                                     client,
                                     depname,
@@ -1170,7 +1320,7 @@ def main() -> int:
                         _run_llm_event(
                             ev,
                             _run_cli_turn,
-                            llm_util.run_llm_rounds,
+                            _run_rounds_turn,
                             provider,
                             client,
                             depname,
