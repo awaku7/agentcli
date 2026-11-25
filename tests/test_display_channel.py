@@ -72,7 +72,7 @@ def test_render_notice_now_prints_and_requests_redraw(capsys):
 
 def test_render_notice_after_stream_uses_stream_delta():
     deltas: list[str] = []
-    core = _fake_core(print_stream_delta=deltas.append)
+    core = _fake_core(print_stream_delta_locked=deltas.append)
     dc.render_notice(
         core,
         dc.Notice(text="peer message", source="bitchat", wait_for_stream=True),
@@ -80,37 +80,50 @@ def test_render_notice_after_stream_uses_stream_delta():
     assert deltas == ["peer message\n"]
 
 
-def test_render_notice_after_stream_never_holds_print_lock_for_delta_calls():
-    # Regression: print_stream_delta stops the spinner (spinner lifecycle
-    # lock) before taking print_lock itself.  If the renderer held
-    # print_lock while calling it, a concurrent spinner.stop() (holding
-    # the lifecycle lock while waiting for print_lock) would deadlock.
-    lock = threading.Lock()
-    held_when_called: list[bool] = []
+def test_render_notice_after_stream_lock_order_and_atomicity(monkeypatch):
+    # Regression (Codex P1 + P2 on PR #481): the insertion must stay
+    # atomic under print_lock, but the spinner must be stopped BEFORE
+    # that lock is taken, and the writes under it must use the
+    # non-spinner-stopping locked writer.  Calling print_stream_delta
+    # (which stops the spinner) under print_lock deadlocks against a
+    # concurrent spinner.stop(); dropping the lock entirely lets a
+    # foreground delta land between the line close and the notice.
+    from uagent.runtime import spinner
 
-    def fake_delta(_text: str) -> None:
+    lock = threading.Lock()
+    events: list = []
+    monkeypatch.setattr(spinner, "stop_quietly", lambda: events.append("stop_spinner"))
+
+    def fake_locked_write(text: str) -> None:
         acquired = lock.acquire(blocking=False)
-        held_when_called.append(not acquired)
+        events.append(("locked_write", text, not acquired))
         if acquired:
             lock.release()
 
+    def fake_plain_delta(text: str) -> None:
+        events.append(("plain_delta", text))
+
     core = _fake_core(
         print_lock=lock,
-        print_stream_delta=fake_delta,
+        print_stream_delta_locked=fake_locked_write,
+        print_stream_delta=fake_plain_delta,
         _prompt_line_open=True,
     )
     dc.render_notice(
         core,
         dc.Notice(text="peer message", source="bitchat", wait_for_stream=True),
     )
-    assert held_when_called
-    assert not any(held_when_called)
+    assert events[0] == "stop_spinner"
+    writes = [event for event in events if isinstance(event, tuple)]
+    assert writes
+    assert all(event[0] == "locked_write" for event in writes)
+    assert all(event[2] for event in writes)  # print_lock held throughout
 
 
 def test_render_notice_after_stream_closes_open_lines():
     deltas: list[str] = []
     core = _fake_core(
-        print_stream_delta=deltas.append,
+        print_stream_delta_locked=deltas.append,
         _stream_line_open=True,
         _prompt_line_open=True,
     )

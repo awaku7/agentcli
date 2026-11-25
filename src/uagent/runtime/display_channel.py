@@ -140,16 +140,14 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
     Never interrupts a reasoning stream; gives ordinary streamed answer
     text a short grace period to finish before inserting anyway.
 
-    Lock order: ``print_stream_delta`` stops the spinner (taking the
-    spinner lifecycle lock) before taking ``print_lock`` itself, so this
-    renderer must not hold ``print_lock`` while calling it — that
-    inverts the order against a concurrent ``spinner.stop()``, which
-    holds the lifecycle lock while waiting for ``print_lock``, and
-    deadlocks.  Each delta call therefore takes the lock on its own;
-    only the prompt-line flags are updated under a short lock that calls
-    nothing spinner-related.  (The previous BitChat worker held the
-    lock across the whole insertion; the per-call locking here is the
-    granularity the streaming path itself uses.)
+    Lock order: the insertion stays atomic under ``print_lock`` (the
+    previous BitChat worker's guarantee, so a foreground delta cannot
+    land between the line close and the notice), but nothing called
+    under that lock may stop the spinner — ``spinner.stop()`` holds the
+    spinner lifecycle lock while waiting for ``print_lock``, so a
+    spinner-stopping writer under ``print_lock`` deadlocks against it.
+    The spinner is therefore stopped before the lock, and the writes
+    use ``print_stream_delta_locked``, which never touches the spinner.
     """
     deadline = time.time() + STREAM_GRACE_SEC
     # Reasoning deltas are written without a trailing newline, so wait
@@ -158,35 +156,43 @@ def _render_notice_after_stream(core: Any, text: str) -> None:
         time.sleep(0.02)
     while getattr(core, "_stream_line_open", False) and time.time() < deadline:
         time.sleep(0.02)
+    # Stop the spinner before acquiring print_lock (see the lock-order
+    # note above).  Best-effort: a spinner failure must not lose the
+    # notice.
     try:
-        # When a prompt_toolkit prompt owns the input line, print
-        # through the shared helper instead: it hands the text to the
-        # prompt's own event loop, which erases the prompt, prints
-        # above it and redraws with the edit buffer intact.  The helper
-        # never takes print_lock or the spinner locks.
-        printed_above = False
-        try:
-            from ..cli_impl.prompt_session import (
-                print_text_above_toolkit_prompt,
-            )
+        from . import spinner
 
-            printed_above = print_text_above_toolkit_prompt(core, text)
-        except Exception:
+        spinner.stop_quietly()
+    except Exception:
+        pass
+    try:
+        with core.print_lock:
+            # When a prompt_toolkit prompt owns the input line, print
+            # through the shared helper instead: it hands the text to
+            # the prompt's own event loop, which erases the prompt,
+            # prints above it and redraws with the edit buffer intact.
             printed_above = False
-        if not printed_above:
-            if getattr(core, "_stream_line_open", False):
-                core.print_stream_delta(chr(10))
-            if getattr(core, "_prompt_line_open", False):
-                # Close the prompt line first so the notice does not
-                # land on the same line as the prompt text.
-                core.print_stream_delta(chr(10))
-                with core.print_lock:
+            try:
+                from ..cli_impl.prompt_session import (
+                    print_text_above_toolkit_prompt,
+                )
+
+                printed_above = print_text_above_toolkit_prompt(core, text)
+            except Exception:
+                printed_above = False
+            if not printed_above:
+                if getattr(core, "_stream_line_open", False):
+                    core.print_stream_delta_locked(chr(10))
+                if getattr(core, "_prompt_line_open", False):
+                    # Close the prompt line first so the notice does
+                    # not land on the same line as the prompt text.
+                    core.print_stream_delta_locked(chr(10))
                     core._prompt_line_open = False
                     try:
                         core.prompt_needs_redraw = True
                     except Exception:
                         pass
-            core.print_stream_delta(text + chr(10))
+                core.print_stream_delta_locked(text + chr(10))
     except Exception:
         try:
             print(text, flush=True)
