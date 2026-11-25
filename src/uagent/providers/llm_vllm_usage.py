@@ -79,14 +79,24 @@ def capture_vllm_responses_usage(stream: Any, *, provider: str, sink: list[Any])
             if callable(getattr(stream, "iter_events", None))
             else stream
         )
-        for event in source:
-            if getattr(event, "type", None) == "response.completed":
-                response = getattr(event, "response", None)
-                usage = _field(response, "usage")
-                if usage is not None:
-                    # Keep the original API object; normalize once on publish.
-                    sink.append(usage)
-            yield event
+        try:
+            for event in source:
+                if getattr(event, "type", None) == "response.completed":
+                    response = getattr(event, "response", None)
+                    usage = _field(response, "usage")
+                    if usage is not None:
+                        # Keep the original API object; normalize once on publish.
+                        sink.append(usage)
+                yield event
+        finally:
+            # Closing this generator early (e.g. after a Stop) must also close
+            # the underlying HTTP stream.
+            close = getattr(stream, "close", None)
+            if callable(close):
+                try:
+                    close()
+                except Exception:
+                    pass
 
     return _events()
 

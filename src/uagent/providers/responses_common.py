@@ -22,6 +22,16 @@ from ..util_tools import image_file_to_data_url
 # ---------------------------------------------------------------------------
 
 
+def _call_abandoned() -> bool:
+    """Whether this stream belongs to an LLM call abandoned by a Stop."""
+    try:
+        from ..llm_helpers import llm_call_abandoned
+
+        return llm_call_abandoned()
+    except Exception:
+        return False
+
+
 def as_str(x: Any) -> str:
     if x is None:
         return ""
@@ -1210,6 +1220,12 @@ def parse_responses_stream(
             it = stream.iter_events()
 
         for ev in it:
+            # The waiter already gave up on this call after a Stop (and the
+            # round may have cleared the flag below): nobody will read the
+            # result, so stop reading and close the connection in ``finally``.
+            if _call_abandoned():
+                _stream_interrupted = True
+                break
             # --- Interrupt check ---
             interrupt_source = core
             if interrupt_source is None or not hasattr(
@@ -1505,6 +1521,15 @@ def parse_responses_stream(
                     merge_tool_buf(tool_calls_buf, cid_candidate, iid_candidate)
 
     finally:
+        if _stream_interrupted:
+            # Leaving the loop early does not end the HTTP response; close it
+            # so the server stops generating and the connection is released.
+            close_stream = getattr(stream, "close", None)
+            if callable(close_stream):
+                try:
+                    close_stream()
+                except Exception:
+                    pass
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
                 lm = getattr(core, "log_message", None)
