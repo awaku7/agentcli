@@ -13,6 +13,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
   - `core.py` — core state and UI integration
   - `uagent_llm.py` — LLM orchestration entrypoint
   - `llm_helpers.py`, `llm_message_helpers.py`, `llm_round_helpers.py`, `llm_flow_helpers.py` — round/message/tool-call helpers
+  - `llm_loop_guards.py`, `llm_turn_context.py`, `llm_responses_runtime.py`, `llm_registry_round.py`, `llm_computer_use_nav.py` — parts of the round loop split out of `uagent_llm.py`
   - `llm_errors.py` — retry/backoff
   - `util_tools.py` — common helpers, commands (`:auto`, `:cd`, `:ls`, etc.)
   - `util_providers.py` — provider wiring (detect, model name, client creation)

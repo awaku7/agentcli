@@ -91,7 +91,7 @@ def test_consecutive_tool_rounds_are_scoped_to_one_tool_name() -> None:
 
 
 def test_invalid_consecutive_limit_uses_documented_default(monkeypatch) -> None:
-    monkeypatch.setattr("uagent.uagent_llm.env_get", lambda *_args: "invalid")
+    monkeypatch.setattr("uagent.llm_loop_guards.env_get", lambda *_args: "invalid")
 
     for _ in range(49):
         blocked, _, _ = check_consecutive_tool_calls([_tc("read_file")])

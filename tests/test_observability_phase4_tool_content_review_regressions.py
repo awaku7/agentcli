@@ -167,3 +167,22 @@ def test_escaped_tool_argument_scalar_respects_field_limit() -> None:
     assert candidate is not None
     assert buffer.admit(candidate) is True
     assert buffer.prepared_events() == ()
+
+
+def test_memory_projection_boundary_wraps_the_round_loop_caller(monkeypatch) -> None:
+    """The round loop calls prepare_memory_projection from llm_turn_context."""
+    import uagent.llm_turn_context as turn_context
+    from uagent.runtime import memory_projection
+
+    def fresh(messages, core):
+        return None
+
+    monkeypatch.setattr(memory_projection, "prepare_memory_projection", fresh)
+    monkeypatch.setattr(turn_context, "prepare_memory_projection", fresh)
+
+    boundary_instrumentation._install_memory_projection_boundary()
+
+    wrapped = memory_projection.prepare_memory_projection
+    assert wrapped is not fresh
+    assert getattr(wrapped, "_uag_observability_wrapped", False) is True
+    assert turn_context.prepare_memory_projection is wrapped

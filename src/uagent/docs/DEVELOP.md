@@ -573,6 +573,12 @@ Key modules:
     - `src/uagent/llm_message_helpers.py`
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
+  - Parts of the round loop live in their own modules (re-exported by `uagent_llm`):
+    - `src/uagent/llm_loop_guards.py`: tool-loop guards (per-conversation state)
+    - `src/uagent/llm_turn_context.py`: per-turn context preparation and the round context plan
+    - `src/uagent/llm_responses_runtime.py`: Responses continuation state and remote recovery
+    - `src/uagent/llm_registry_round.py`: the provider-registry round path
+    - `src/uagent/llm_computer_use_nav.py`: Computer Use direct navigation
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
 - Decision-provider core: `src/uagent/decision/`
   - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` >

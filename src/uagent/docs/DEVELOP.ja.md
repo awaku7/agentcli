@@ -36,6 +36,12 @@ ______________________________________________________________________
     - `src/uagent/llm_message_helpers.py`
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
+  - ラウンドループの一部は別モジュールにある（`uagent_llm` から再エクスポート）
+    - `src/uagent/llm_loop_guards.py`: ツールのループガード（会話ごとの状態）
+    - `src/uagent/llm_turn_context.py`: ターンごとのコンテキスト準備とラウンドのコンテキスト計画
+    - `src/uagent/llm_responses_runtime.py`: Responses の続きの状態とリモート復旧
+    - `src/uagent/llm_registry_round.py`: プロバイダレジストリ経由のラウンド
+    - `src/uagent/llm_computer_use_nav.py`: Computer Use の URL 直接ナビゲーション
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
 - **Providers**: `src/uagent/providers/util_providers.py`
   - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Perplexity Router/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel 等）

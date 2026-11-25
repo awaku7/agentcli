@@ -1,6 +1,6 @@
 # 巨大ファイル分割の方針（速度・パフォーマンス重視）（2026-11-25）
 
-- Status: in progress（P0 完了。P1、P2 は未着手）
+- Status: in progress（P0、P1 完了。P2 は未着手）
 - Priority: P1
 - Source: `UAG_ROUND_LOOP_REVIEW_20261124.md` の RL-06（巨大なファイルと関数の分割）
 - 確認基準: `main` = `1ad63ec3a`（PR #465 マージ後）
@@ -48,7 +48,7 @@
   - ローダー、カタログ検索（CJK トークナイザを含む。`tool_catalog` を呼んだときだけ読み込む）、動的コマンド、トレースに分ける。
   - グローバルな状態と、テストが差し替える名前（`_ensure_loaded`、`run_tool`、`_CONFIRMATION_CALLBACK` など）は `__init__` に残し、状態の持ち主を 1 か所にする。
 
-### P1: `uagent_llm.py`（速度への影響はない。保守性のため）
+### P1: `uagent_llm.py`（速度への影響はない。保守性のため）— 完了、下記参照
 
 - ループガード（約 600 行、純粋関数）、Responses の続きと復旧（約 300 行）、registry 経路（約 390 行）、ターン前準備（約 500 行）、Computer Use（約 150 行）に分ける。
 - ラウンドごとに呼ぶ関数はモジュールの先頭で import する。めったに通らない経路（Computer Use、リモート復旧）だけを遅延 import にする。
@@ -165,6 +165,43 @@
 
 移動先のモジュールの内部を差し替える 4 ファイルを、移動先を差し替えるように直した（`test_tool_catalog_korean_terms`、`test_external_web_host`、`test_tool_result_display`、`test_web_command_catalog`）。`test_tools_utilities_i18n` の除外リストに、`__init__.py` から移した 3 モジュールを追加した（同じインフラのコード）。
 
+## P1 の結果
+
+### 分けたもの
+
+| モジュール | 行数 | 内容 |
+|---|---|---|
+| `llm_loop_guards.py` | 583 | 4 つのループガード、共通の停止処理、会話ごとのガード状態（ContextVar） |
+| `llm_turn_context.py` | 529 | ターン前準備（`_prepare_turn_context` と各ステップ）、コンテキスト予算、テレメトリ、エージェント状態、取得したツール情報、ラウンドのコンテキスト計画（`_build_round_context_plan`） |
+| `llm_registry_round.py` | 442 | registry 経路（`_try_registry_simple_chat_round`）と、その経路のツール選択 |
+| `llm_responses_runtime.py` | 291 | Responses の続きの状態、リモート復旧、registry 経路の終了処理 |
+| `llm_computer_use_nav.py` | 152 | Computer Use の URL 直接ナビゲーション |
+| `uagent_llm.py` | 3,747 → 1,880 | `run_llm_rounds`、1 ラウンドの 3 段階（前処理・振り分け・後処理）、割り込み、自動アンロードの状態 |
+
+- 分割は AST で行い、関数の中身は変えていない。新しいモジュールは `uagent_llm` を import しない（循環なし）。
+- `_build_round_context_plan` は registry 経路と `_record_round_context_plan` の両方が使うので、`llm_turn_context` に置いた。
+- `uagent_llm` は、残ったコードが使う名前と、テストや他のモジュールが `uagent_llm` から読む名前を再エクスポートする（`clear_mgmt_load_streak`、`check_*` など）。
+
+### 計画からの変更
+
+- **Computer Use も遅延 import にしなかった。** 有効かどうかの判定を毎ターン呼ぶので、遅延 import にしても読み込みは避けられない。モジュールは 152 行で、import のコストは無視できる。
+- **リモート復旧も同様。** `llm_responses_runtime` の一部で、registry 経路から普通に呼ばれる。
+
+### 見つかった問題と修正
+
+- **observability の計装が効かなくなる不具合を防いだ。** `boundary_instrumentation` は、`uagent.uagent_llm.prepare_memory_projection` を計装付きの関数に差し替えていた。この関数の呼び出し元は `llm_turn_context` に移ったので、そのままではメモリ投影のメトリクスが記録されなくなる。差し替え先に `uagent.llm_turn_context` を加え、テストを追加した（修正なしでは失敗することを確認）。
+- **差し替えが空振りするテストを直した。** テストが `uagent_llm` 上で差し替えている名前を、実行時に記録して確認した。移動したコードが使う名前を差し替えていたテストは次のとおりで、移動先を差し替えるように直した。
+  - `test_registry_generation_options`（`_get_shrink_max_tokens`、`_build_round_context_plan`）
+  - `test_round_loop_turn_prep_and_guards`（ターン前準備の各ステップ、`_block_tool_loop` の停止処理）
+  - `test_tool_round_limit`（`_resolve_max_tool_rounds` の `env_get`）
+  - `test_general_tool_loop`（`check_consecutive_tool_calls` の `env_get`）。このテストは差し替えが効かなくても既定値で偶然通っていた。
+  - 修正後に記録した `uagent_llm` 上の差し替え 21 種類は、20 種類が `uagent_llm` に残ったコードが使う名前、残る 1 つは関数ごと差し替える `run_llm_rounds` だった。
+- ソースを直接読むテスト 2 つ（Computer Use の直書きの日本語、Memory V2 の境界）は、移動先のファイルも読むようにした。
+
+### 速度
+
+`import uagent.uagent_llm` 337 ms、`import uagent.cli` 316 ms（P0-3 の時点と同じ。`bench_startup.py`、中央値）。
+
 ## 補足: 開発環境の注意
 
 `F:\Python314\Lib\site-packages` に、編集可能ではない古い `uagent` が入っていて、`src/` と 177 か所違う。`PYTHONPATH` を指定せずに `python` を実行すると古いコードが読み込まれる。`scripts/bench_startup.py` は常に `src/` を先頭にして計測する。`pip install -e .` で解消できる。
@@ -174,3 +211,4 @@
 - 2026-11-25: 作成。方針を決定し、P0-1 を実施。
 - 2026-11-25: P0-2（実行時に作るマニフェストのキャッシュによる遅延読み込み）を実施。
 - 2026-11-25: P0-3（`_catalog` / `_trace` / `_dynamic_commands` への分割）を実施。
+- 2026-11-25: P1（`uagent_llm.py` を 5 つのモジュールに分割）を実施。
