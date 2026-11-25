@@ -28,35 +28,42 @@ def llm_call_abandoned() -> bool:
     return signal is not None and signal.is_set()
 
 
-def stream_stop_requested() -> bool:
+def stream_stop_requested(core: Any = None) -> bool:
     """Whether a provider stream loop should stop reading now.
 
     In a call thread run by ``_call_maybe_thread`` the signal is abandonment:
     the waiter has already returned and the round may have cleared the Stop
     flag. A stream read directly on the round thread has no waiter, so the
     Stop flag itself is the signal; it is left set for the round to handle.
+    ``core`` is the core object the provider was given (``uagent.core`` when
+    omitted or when it has no interrupt flag).
     """
     signal = _LLM_CALL_ABANDONED.get()
     if signal is not None:
         return signal.is_set()
     try:
-        from uagent import core as _core
+        source = core
+        if source is None or not hasattr(source, "interrupt_lock"):
+            from uagent import core as source
 
-        with _core.interrupt_lock:
-            return bool(_core.interrupt_requested)
+        with source.interrupt_lock:
+            return bool(source.interrupt_requested)
     except Exception:
         return False
 
 
-def iter_until_stopped(stream: Any):
+def iter_until_stopped(stream: Any, core: Any = None):
     """Yield items of a provider stream until a Stop; then close the stream.
 
     Checked before each item is handed on, so a stopped call neither keeps
     processing (or printing) the response nor keeps the connection open
-    while the server finishes generating.
+    while the server finishes generating. Callers that publish data only for
+    a completed response (e.g. cumulative usage) must check
+    ``stream_stop_requested(core)`` after the loop: a stop ends the loop
+    without an error.
     """
     for item in stream:
-        if stream_stop_requested():
+        if stream_stop_requested(core):
             close = getattr(stream, "close", None)
             if callable(close):
                 try:

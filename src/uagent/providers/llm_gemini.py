@@ -13,7 +13,7 @@ from ..i18n import _
 from .. import tools
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
-from ..llm_helpers import iter_until_stopped
+from ..llm_helpers import iter_until_stopped, stream_stop_requested
 
 
 def _vertex_debug(event: str, **fields: Any) -> None:
@@ -1525,7 +1525,7 @@ def gemini_chat_with_tools(
         stream_complete = True
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
-            for response in iter_until_stopped(stream_iter):
+            for response in iter_until_stopped(stream_iter, core):
                 if _first_chunk:
                     _first_chunk = False
                     _vertex_debug(
@@ -1562,6 +1562,10 @@ def gemini_chat_with_tools(
                     tool_calls_list.extend(chunk_tool_calls)
                 if chunk_dump:
                     gemini_content_dump = chunk_dump
+            if stream_stop_requested(core):
+                # Ended early by Stop: the cumulative usage is partial and
+                # must not be published as this response's usage.
+                stream_complete = False
             _vertex_debug(
                 "request_end",
                 elapsed=f"{time.monotonic() - _request_started:.3f}s",

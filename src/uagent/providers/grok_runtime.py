@@ -18,6 +18,7 @@ from .llm_grok import (
     parse_xai_response,
 )
 from .openai_compatible_runtime import OpenAICompatibleRuntime
+from ..llm_helpers import stream_stop_requested
 
 
 class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
@@ -74,6 +75,13 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
                     try:
                         part_type, value = next(parts)
                     except StopIteration:
+                        # iter_xai_stream_parts also ends early on Stop; that
+                        # is a cancellation, not a completed response.
+                        if stream_stop_requested():
+                            yield self._event(
+                                "ResponseCancelled", {"reason": "cancelled"}
+                            )
+                            return
                         break
                     if cancellation.is_cancelled():
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})

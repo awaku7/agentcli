@@ -13,7 +13,7 @@ from typing import Any, Callable, Iterator, Optional
 from ..env_utils import env_get
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
-from ..llm_helpers import iter_until_stopped
+from ..llm_helpers import iter_until_stopped, stream_stop_requested
 
 
 def _ensure_xai_chat() -> None:
@@ -467,10 +467,13 @@ def _normalize_xai_stream_tool_call(tool_call: Any) -> dict[str, Any] | None:
 
 
 def iter_xai_stream_parts(
-    stream_iter: Any, *, on_response: Callable[[Any], None] | None = None
+    stream_iter: Any,
+    *,
+    on_response: Callable[[Any], None] | None = None,
+    core: Any = None,
 ) -> Iterator[tuple[str, Any]]:
     """Yield xAI stream parts, optionally observing cumulative response usage."""
-    for response, chunk in iter_until_stopped(stream_iter):
+    for response, chunk in iter_until_stopped(stream_iter, core):
         if on_response is not None:
             on_response(response)
         content = getattr(chunk, "content", "") or ""
@@ -528,7 +531,7 @@ def parse_xai_stream(
 
     try:
         for part_type, value in iter_xai_stream_parts(
-            stream_iter, on_response=observe_response
+            stream_iter, on_response=observe_response, core=core
         ):
             if part_type == "text":
                 if saw_reasoning:
@@ -557,6 +560,9 @@ def parse_xai_stream(
     except Exception as exc:
         stream_complete = False
         _debug_log("stream_error", error=str(exc))
+    if stream_stop_requested(core):
+        # Ended early by Stop: the cumulative usage is partial.
+        stream_complete = False
 
     if stream_complete and latest_usage and core is not None:
         try:

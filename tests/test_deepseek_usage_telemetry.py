@@ -368,3 +368,25 @@ def test_mimo_stream_error_does_not_publish_partial_usage(monkeypatch) -> None:
     assert result[0] is True
     assert core._last_responses_usage is previous
     assert "stream_options" not in client.calls[0]
+
+
+def test_deepseek_legacy_stream_stopped_mid_way_reports_no_usage() -> None:
+    """A Stop ends the stream early (INT-04): usage seen so far is partial."""
+    from threading import Lock
+
+    core = SimpleNamespace(interrupt_lock=Lock(), interrupt_requested=False)
+
+    def stream():
+        yield _chunk(text="a", usage=_usage())
+        core.interrupt_requested = True
+        yield _chunk(text="b", usage=_usage())
+
+    snapshots: list[dict[str, int]] = []
+    parse_deepseek_stream(
+        stream(),
+        core=core,
+        callbacks=_callbacks(),
+        usage_sink=snapshots,
+    )
+    assert snapshots == []
+    assert core.interrupt_requested is True  # left for the round to handle

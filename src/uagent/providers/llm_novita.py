@@ -35,7 +35,7 @@ from .llm_novita_usage import (
     request_novita_stream_usage,
 )
 from .._lazy_sdk import is_openai_error
-from ..llm_helpers import iter_until_stopped
+from ..llm_helpers import iter_until_stopped, stream_stop_requested
 
 _LABEL = "Novita"
 _ENV_PREFIX = "UAGENT_NOVITA"
@@ -232,7 +232,7 @@ def _parse_novita_stream(
             pass
 
     try:
-        for chunk in iter_until_stopped(stream):
+        for chunk in iter_until_stopped(stream, core):
             if usage_sink is not None:
                 reported = novita_chat_usage_to_dict(getattr(chunk, "usage", None))
                 if reported:
@@ -351,6 +351,9 @@ def _parse_novita_stream(
         except Exception:
             pass
 
+    if stream_stop_requested(core):
+        # Ended early by Stop: any usage seen so far is partial.
+        stream_failed = True
     # The owner, not a worker thread, publishes the completed request's usage.
     if usage_sink is not None and not stream_failed and last_usage:
         usage_sink.append(last_usage)
