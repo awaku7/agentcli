@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextvars
 import json
 import os
 import sys
@@ -151,6 +152,80 @@ def _exit_code_for_round_outcome(core: Any) -> int:
     if status == "failed":
         return 1
     return 0
+
+
+def run_turn_on_worker(
+    core: Any,
+    fn: Any,
+    *args: Any,
+    channel: Any = None,
+    **kwargs: Any,
+) -> Any:
+    """Run one CLI turn (LLM rounds / auto-pilot) on a worker thread.
+
+    Stage 2a of the CLI single-writer refactor: the event-loop thread no
+    longer runs rounds itself.  The worker inherits the caller's context
+    (turn context, execution profile, and the other ContextVar state the
+    round machinery uses) and binds the display channel's stream relay,
+    so streamed answer/reasoning deltas are rendered by the display
+    pump thread instead of being printed from the round's call threads.
+    Before returning, the worker waits for the relayed stream to drain
+    so the caller's own post-turn output cannot overtake its tail.
+
+    Ctrl+C while waiting no longer raises inside the round: it sets the
+    core interrupt flag (the same signal F12 uses, which provider waits
+    poll and receive loops honour) and the wait continues until the
+    round has wound down; KeyboardInterrupt is then re-raised so the
+    caller's existing interrupt handling runs unchanged.
+    """
+    from ..runtime.display_channel import (
+        bind_stream_relay,
+        default_channel,
+        ensure_pump,
+    )
+
+    if channel is None:
+        channel = default_channel()
+    ensure_pump()
+    caller_context = contextvars.copy_context()
+    outcome: dict[str, Any] = {}
+
+    def _target() -> None:
+        try:
+            with bind_stream_relay(channel):
+                outcome["result"] = fn(*args, **kwargs)
+        except BaseException as exc:  # re-raised on the waiting thread
+            outcome["error"] = exc
+        finally:
+            # A stuck pump must not hang the CLI forever; on timeout
+            # the turn still ends and anything unrendered stays queued
+            # and renders late.
+            channel.wait_for_stream_drain(timeout=10.0)
+
+    worker = threading.Thread(
+        target=lambda: caller_context.run(_target),
+        name="uagent-cli-round",
+        daemon=True,
+    )
+    worker.start()
+    interrupted = False
+    while True:
+        try:
+            worker.join(0.05)
+        except KeyboardInterrupt:
+            interrupted = True
+            try:
+                with core.interrupt_lock:
+                    core.interrupt_requested = True
+            except Exception:
+                pass
+        if not worker.is_alive():
+            break
+    if interrupted:
+        raise KeyboardInterrupt
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome.get("result")
 
 
 def _reset_startup_responses_continuation(
@@ -415,6 +490,18 @@ def main() -> int:
 
         restore_imported_session(core, session_store, messages, resume_id)
     process_exit_code = 0
+
+    def _run_rounds_turn(*args, **kwargs):
+        # Stage 2a: rounds run on the round worker thread (see
+        # run_turn_on_worker); the turn-context/profile wrapping that
+        # _run_cli_turn applies still runs on this thread first, and the
+        # worker inherits it through the copied context.
+        return run_turn_on_worker(core, llm_util.run_llm_rounds, *args, **kwargs)
+
+    def _run_auto_pilot_turn(*args, **kwargs):
+        return run_turn_on_worker(
+            core, tools_util._run_auto_pilot_loop, *args, **kwargs
+        )
 
     def _run_cli_turn(fn, *args, **kwargs):
         if sandbox_mode != "off":
@@ -871,7 +958,7 @@ def main() -> int:
                             _run_llm_event(
                                 ev,
                                 _run_cli_turn,
-                                llm_util.run_llm_rounds,
+                                _run_rounds_turn,
                                 provider,
                                 client,
                                 depname,
@@ -929,7 +1016,7 @@ def main() -> int:
                         try:
                             with lifecycle_execution():
                                 _run_cli_turn(
-                                    tools_util._run_auto_pilot_loop,
+                                    _run_auto_pilot_turn,
                                     provider,
                                     client,
                                     depname,
@@ -1170,7 +1257,7 @@ def main() -> int:
                         _run_llm_event(
                             ev,
                             _run_cli_turn,
-                            llm_util.run_llm_rounds,
+                            _run_rounds_turn,
                             provider,
                             client,
                             depname,

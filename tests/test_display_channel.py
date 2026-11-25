@@ -234,3 +234,64 @@ def test_nostr_remote_incoming_renders_formatted_preview(monkeypatch):
     rendered.clear()
     nostr_remote_runtime._display_nostr_incoming(object(), {"pubkey": 1})
     assert rendered == []
+
+
+def test_stream_drain_waits_for_all_renders():
+    channel = dc.DisplayChannel()
+    for i in range(3):
+        channel.post_stream(dc.StreamDelta(text=f"s{i}"))
+    assert channel.wait_for_stream_drain(timeout=0.05) is False
+
+    rendered: list[str] = []
+
+    def _render() -> None:
+        while len(rendered) < 3:
+            event = channel.take(timeout=1.0)
+            if isinstance(event, dc.StreamDelta):
+                rendered.append(event.text)
+                channel.note_stream_rendered()
+
+    renderer = threading.Thread(target=_render, daemon=True)
+    renderer.start()
+    assert channel.wait_for_stream_drain(timeout=5.0) is True
+    renderer.join(timeout=5.0)
+    assert rendered == ["s0", "s1", "s2"]
+
+
+def test_pump_renders_stream_deltas_by_kind(monkeypatch):
+    from uagent import core
+
+    rendered: list[tuple[str, str]] = []
+    monkeypatch.setattr(
+        core, "print_stream_delta", lambda s: rendered.append(("answer", s))
+    )
+    monkeypatch.setattr(
+        core,
+        "print_reasoning_delta",
+        lambda s: rendered.append(("reasoning", s)),
+    )
+    channel = dc.default_channel()
+    channel.post_stream(dc.StreamDelta(text="think", kind="reasoning"))
+    channel.post_stream(dc.StreamDelta(text="answer"))
+    dc.ensure_pump()
+    assert channel.wait_for_stream_drain(timeout=5.0) is True
+    assert rendered == [("reasoning", "think"), ("answer", "answer")]
+
+
+def test_relay_binding_redirects_core_printers(capsys):
+    from uagent import core
+
+    channel = dc.DisplayChannel()
+    assert dc.stream_relay() is None
+    with dc.bind_stream_relay(channel):
+        assert dc.stream_relay() is channel
+        core.print_stream_delta("relayed answer")
+        core.print_reasoning_delta("relayed thought")
+    assert dc.stream_relay() is None
+    assert capsys.readouterr().out == ""
+    first = channel.take(timeout=0.1)
+    second = channel.take(timeout=0.1)
+    assert isinstance(first, dc.StreamDelta)
+    assert (first.text, first.kind) == ("relayed answer", "answer")
+    assert isinstance(second, dc.StreamDelta)
+    assert (second.text, second.kind) == ("relayed thought", "reasoning")

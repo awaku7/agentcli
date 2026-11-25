@@ -7,6 +7,7 @@ import time
 
 from ..env_utils import env_get
 from .. import core as _core
+from ..runtime import display_channel as _display_channel
 from ..runtime.spinner import stop_quietly as _stop_spinner_quietly
 
 
@@ -45,6 +46,13 @@ def print_stream_delta(s: str) -> None:
     """
     if not s or _abandoned():
         return
+    # Stage 2a relay: on the CLI round worker thread the delta is
+    # posted to the display channel and rendered by the pump thread
+    # (which calls back into this function with no relay bound).
+    relay = _display_channel.stream_relay()
+    if relay is not None:
+        relay.post_stream(_display_channel.StreamDelta(text=s, kind="answer"))
+        return
     # First token arrived: stop the spinner (ollama-style).
     # No-op when the spinner is disabled.
     _stop_spinner_quietly()
@@ -73,6 +81,10 @@ def print_stream_delta_locked(s: str) -> None:
 def print_reasoning_delta(s: str) -> None:
     """Print reasoning output while marking the current line as reasoning."""
     if not s or _abandoned():
+        return
+    relay = _display_channel.stream_relay()
+    if relay is not None:
+        relay.post_stream(_display_channel.StreamDelta(text=s, kind="reasoning"))
         return
     _stop_spinner_quietly()
     with _core.print_lock:
