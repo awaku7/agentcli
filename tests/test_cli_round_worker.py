@@ -121,19 +121,23 @@ def test_auto_unload_state_persists_across_worker_turns():
     from uagent import uagent_llm
 
     core = _fake_core()
-    seen: list[tuple[object, dict]] = []
+    # The owner binding adopts the ambient context state on first
+    # sight, which other tests in the same process may already have
+    # populated; assert carry-over of this test's own marker and the
+    # round counter's advance, not a pristine state.
+    seen: list[tuple[object, object, int]] = []
 
     def _fn() -> None:
         state = uagent_llm._auto_unload_state()
-        seen.append((state, dict(state.last_round)))
-        state.last_round["tool_a"] = len(seen)
+        seen.append((state, state.last_round.get("tool_a"), state.total_rounds))
+        state.last_round["tool_a"] = 1
         state.total_rounds += 1
 
     run_turn_on_worker(core, _fn, channel=dc.DisplayChannel())
     run_turn_on_worker(core, _fn, channel=dc.DisplayChannel())
     assert seen[0][0] is seen[1][0]
-    assert seen[1][1] == {"tool_a": 1}
-    assert seen[1][0].total_rounds == 2
+    assert seen[1][1] == 1
+    assert seen[1][2] == seen[0][2] + 1
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="SIGINT delivery differs")
