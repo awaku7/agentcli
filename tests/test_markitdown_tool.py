@@ -36,6 +36,7 @@ def _fake_markitdown(
 
 
 def test_local_conversion_disables_plugins(repo_tmp_path: Path, monkeypatch) -> None:
+    assert tool.TOOL_SPEC["tool_level"] == 1
     calls = _fake_markitdown(monkeypatch)
     source = repo_tmp_path / "source.epub"
     source.write_bytes(b"book")

@@ -18,16 +18,12 @@ from uagent.runtime.local_messaging import LocalMessageRuntime, current_endpoint
 from uagent.tools import local_messaging_tool
 
 
-def test_local_messaging_tool_is_directly_visible_to_the_llm() -> None:
-    from uagent import tools
+def test_local_messaging_tool_is_loadable_on_demand() -> None:
+    from uagent.tools._tool_load_util import is_tool_loadable
 
     assert "tool_genre" not in local_messaging_tool.TOOL_SPEC
-    names = {
-        spec.get("function", {}).get("name")
-        for spec in tools.get_tool_specs()
-        if isinstance(spec.get("function"), dict)
-    }
-    assert "local_messaging" in names
+    assert local_messaging_tool.TOOL_SPEC["tool_level"] == 1
+    assert is_tool_loadable(local_messaging_tool.TOOL_SPEC, local_messaging_tool)
 
 
 def test_local_messaging_tool_translations_cover_all_shipped_locales() -> None:

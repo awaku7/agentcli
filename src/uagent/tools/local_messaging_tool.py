@@ -38,9 +38,9 @@ def _store_for_active_endpoint() -> tuple[Any | None, Any | None, str]:
 
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 9000,
-    # Keep the natural-language peer/send capability directly visible to the
-    # model rather than requiring an on-demand tool-load step.
-    "tool_level": 0,
+    # Keep peer messaging discoverable through the internal catalog without
+    # adding it to every round's initial tool surface.
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": False,
     "function": {

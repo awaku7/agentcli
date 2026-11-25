@@ -26,7 +26,7 @@ _MAX_OUTPUT_CHARS = 2_000_000
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_level": 0,
+    "tool_level": 1,
     "external_data": True,
     "x_parallel_safe": True,
     "function": {

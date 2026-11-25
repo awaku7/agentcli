@@ -18,6 +18,31 @@ def test_startup_preload_uses_central_native_search_decision(monkeypatch) -> Non
     assert _should_preload_lazy_specs()
 
 
+def test_catalog_bootstrap_defers_optional_discovery_tools(monkeypatch) -> None:
+    from uagent import tools
+    from uagent.tools import catalog_tool, local_messaging_tool, markitdown_tool
+
+    monkeypatch.setenv("UAGENT_EMBEDDED", "0")
+    monkeypatch.setattr(tools, "_should_preload_lazy_specs", lambda: False)
+    monkeypatch.setattr(tools, "TOOL_SPECS", [])
+    monkeypatch.setattr(tools, "_RUNNERS", {})
+    monkeypatch.setattr(tools, "_BUSY_LABEL_TOOLS", {})
+    monkeypatch.setattr(tools, "_TOOL_TRACE_FLAGS", {})
+    monkeypatch.setattr(tools, "_TOOL_DESCRIBERS", {})
+    monkeypatch.setattr(tools, "_TOOL_SPECS_DIRTY", True)
+
+    for module in (catalog_tool, local_messaging_tool, markitdown_tool):
+        assert tools._register_tool_module(module, module.__name__)
+
+    visible_names = {
+        spec["function"]["name"]
+        for spec in tools.TOOL_SPECS
+        if isinstance(spec.get("function"), dict)
+    }
+    assert visible_names == {"tool_catalog", "tool_load", "unload_tool"}
+    assert {"local_messaging", "markitdown"} <= set(tools._RUNNERS)
+
+
 def test_startup_preload_rejects_nano_and_legacy_modes(monkeypatch) -> None:
     from uagent.tools import _should_preload_lazy_specs
 
