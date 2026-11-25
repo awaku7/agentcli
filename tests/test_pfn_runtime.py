@@ -254,12 +254,25 @@ def test_pfn_stream_stopped_by_stop_flag_is_cancelled(monkeypatch) -> None:
 
     monkeypatch.setattr(core, "interrupt_requested", False)
 
-    def stream():
-        yield {"choices": [{"delta": {"content": "hello"}}]}
-        core.interrupt_requested = True
-        yield {"choices": [{"delta": {"content": " world"}}]}
+    class _Response:
+        """SDK-like stream response that records close()."""
 
-    client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions(stream())))
+        closed = False
+
+        def __iter__(self):
+            yield {"choices": [{"delta": {"content": "hello"}}]}
+            core.interrupt_requested = True
+            yield {"choices": [{"delta": {"content": " world"}}]}
+
+        def close(self):
+            self.closed = True
+
+    response = _Response()
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=SimpleNamespace(create=lambda **_kwargs: response)
+        )
+    )
     runtime = PfnProviderRuntime(
         client=client,
         provider="pfn",
@@ -279,3 +292,5 @@ def test_pfn_stream_stopped_by_stop_flag_is_cancelled(monkeypatch) -> None:
         "TextDelta",
         "ResponseCancelled",
     ]
+    # The SDK response itself is closed, not just the usage wrapper.
+    assert response.closed is True

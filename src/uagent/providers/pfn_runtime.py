@@ -76,14 +76,25 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
 
                 def chunks_with_usage() -> Iterator[Any]:
                     nonlocal measured_usage
-                    for chunk in response:
-                        if not (_value(chunk, "choices") or []):
-                            terminal = _reported_usage(
-                                _value(chunk, "usage"), responses=False
-                            )
-                            if terminal:
-                                measured_usage = terminal
-                        yield chunk
+                    try:
+                        for chunk in response:
+                            if not (_value(chunk, "choices") or []):
+                                terminal = _reported_usage(
+                                    _value(chunk, "usage"), responses=False
+                                )
+                                if terminal:
+                                    measured_usage = terminal
+                            yield chunk
+                    finally:
+                        # iter_until_stopped() closes this generator on Stop;
+                        # forward that to the SDK response so the connection
+                        # is released instead of waiting for cleanup.
+                        close = getattr(response, "close", None)
+                        if callable(close):
+                            try:
+                                close()
+                            except Exception:
+                                pass
 
                 for text in iter_pfn_stream_content(chunks_with_usage()):
                     if cancellation.is_cancelled():
