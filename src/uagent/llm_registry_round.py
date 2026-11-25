@@ -310,7 +310,12 @@ def _try_registry_simple_chat_round(
 
         registry_event_observer = _registry_stream_event_observer(
             core,
-            streaming=stream_responses,
+            # Auto reasoning can retry a low-quality answer after the first
+            # attempt completes. Do not publish that provisional attempt; the
+            # final accepted answer is rendered once by the compatibility loop.
+            streaming=(
+                stream_responses and str(reasoning or "").strip().lower() != "auto"
+            ),
             progress_observer=foundry_progress_observer,
         )
 
