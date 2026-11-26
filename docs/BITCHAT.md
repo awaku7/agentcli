@@ -143,7 +143,10 @@ device (the *chat binding*), on both transports:
 - `room` — the device gets its own session, kept separate from the
   main conversation, with its own history. Replies and questions
   stay inside that session. Room turns use the same session binding
-  as the Web UI's rooms.
+  as the Web UI's rooms. A room idle for 24 hours (configurable via
+  `UAGENT_CHAT_ROOM_IDLE_TTL_SECONDS`, like the Web private-room
+  grace period) is forgotten: the next message starts a fresh room,
+  while the old session remains in the session store as history.
 
 Change it with `:bitchat bind <noise_key_hex> attach|room` or
 `:nostr bind <pubkey_or_npub> attach|room`. `:bitchat devices` and

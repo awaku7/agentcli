@@ -461,6 +461,57 @@ def _chat_room_store_room_session(
         pass
 
 
+def _chat_room_clear_assignment(
+    core: Any, chat_room: dict[str, Any], peer_key: str
+) -> None:
+    """Forget a pairing's room session assignment (best effort)."""
+    store_kind = chat_room.get("store")
+    try:
+        if store_kind == "nostr":
+            store = _room_nostr_pairing_store(core)
+            if store is not None:
+                store.clear_room_session_id(peer_key)
+        elif store_kind == "bitchat":
+            from ..bitchat_pairing import open_bitchat_pairing_store
+
+            with open_bitchat_pairing_store() as store:
+                store.clear_room_session_id(peer_key)
+    except Exception:
+        pass
+
+
+def _chat_room_session_expired(session_row: dict[str, Any]) -> bool:
+    """True when a room session has been idle past its retention.
+
+    Mirrors the Web private-room grace period (default 24 hours,
+    ``UAGENT_CHAT_ROOM_IDLE_TTL_SECONDS``). An unreadable timestamp
+    keeps the room.
+    """
+    from datetime import datetime, timezone
+
+    from ..runtime.room_access import chat_room_idle_ttl_seconds
+
+    raw = session_row.get("last_used_at") or session_row.get("created_at")
+    if not isinstance(raw, str) or not raw:
+        return False
+    parsed = None
+    for fmt in (
+        "%Y-%m-%d %H:%M:%S.%f",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+    ):
+        try:
+            parsed = datetime.strptime(raw, fmt).replace(tzinfo=timezone.utc)
+            break
+        except ValueError:
+            continue
+    if parsed is None:
+        return False
+    age = (datetime.now(timezone.utc) - parsed).total_seconds()
+    return age > chat_room_idle_ttl_seconds()
+
+
 def _enter_chat_room_turn(
     core: Any,
     session_store: Any,
@@ -497,9 +548,24 @@ def _enter_chat_room_turn(
         room_session_id = record.room_session_id
         if room_session_id is not None:
             try:
-                session_store.get_session(room_session_id)
+                room_row = session_store.get_session(room_session_id)
             except Exception:
                 room_session_id = None
+            else:
+                if _chat_room_session_expired(room_row):
+                    # Idle past the retention period: forget the room
+                    # instance (the session itself stays in the store
+                    # as history) and start a fresh one below.
+                    _chat_room_clear_assignment(core, chat_room, peer_key)
+                    states_cache = getattr(core, "_chat_room_states", None)
+                    if isinstance(states_cache, dict):
+                        states_cache.pop(room_session_id, None)
+                    room_session_id = None
+                else:
+                    try:
+                        session_store.touch_session(room_session_id)
+                    except Exception:
+                        pass
         if room_session_id is None:
             project = None
             project_path = None

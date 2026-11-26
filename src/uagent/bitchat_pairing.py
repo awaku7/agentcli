@@ -211,6 +211,21 @@ class SQLiteBitchatPairingStore:
             )
             return cursor.rowcount == 1
 
+    def clear_room_session_id(self, noise_key: str) -> bool:
+        """Forget the room session assigned to an active pairing."""
+        try:
+            key = _normalize_key(noise_key, "noise_key")
+        except (TypeError, ValueError):
+            return False
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE bitchat_pairings SET room_session_id = NULL "
+                "WHERE noise_key = ? AND revoked_at IS NULL",
+                (key,),
+            )
+            self._connection.commit()
+            return cursor.rowcount > 0
+
     def assign_room_session_id(self, noise_key: str, session_id: str) -> bool:
         """Overwrite an active pairing's room session id.
 

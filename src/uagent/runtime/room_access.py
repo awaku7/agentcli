@@ -23,6 +23,20 @@ def private_room_idle_ttl_seconds() -> int:
     return min(max(configured, 60), 30 * 24 * 60 * 60)
 
 
+def chat_room_idle_ttl_seconds() -> int:
+    """Return the idle retention for a paired device's chat room.
+
+    Mirrors the Web private-room grace period: a device room whose
+    session has not been used for this long is forgotten, and the
+    device's next message starts a fresh room.
+    """
+    try:
+        configured = int(env_get("UAGENT_CHAT_ROOM_IDLE_TTL_SECONDS", "86400"))
+    except (TypeError, ValueError):
+        configured = 86400
+    return min(max(configured, 60), 30 * 24 * 60 * 60)
+
+
 def configured_admin_principals() -> frozenset[str]:
     """Return server-configured administrators; browser input is never used."""
     values = str(env_get("UAGENT_ADMIN_PRINCIPALS", "") or "").split(",")

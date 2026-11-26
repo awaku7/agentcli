@@ -229,6 +229,21 @@ class SQLitePairingStore:
             )
             return cursor.rowcount == 1
 
+    def clear_room_session_id(self, pubkey: str) -> bool:
+        """Forget the room session assigned to an active pairing."""
+        try:
+            key = _normalize_pubkey(pubkey)
+        except (TypeError, ValueError):
+            return False
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE nostr_remote_pairings SET room_session_id = NULL "
+                "WHERE pubkey = ? AND revoked_at IS NULL",
+                (key,),
+            )
+            self._connection.commit()
+            return cursor.rowcount > 0
+
     def assign_room_session_id(self, pubkey: str, session_id: str) -> bool:
         """Overwrite an active pairing's room session id.
 

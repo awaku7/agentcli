@@ -134,6 +134,44 @@ def test_bitchat_room_turn_uses_the_noise_keyed_record(tmp_path, monkeypatch) ->
     sessions.close()
 
 
+def test_idle_room_is_forgotten_and_recreated(tmp_path) -> None:
+    import sqlite3
+
+    sessions_path = tmp_path / "sessions.sqlite3"
+    sessions = SessionStore(sessions_path)
+    main = sessions.create_session(project="proj", entry_point="cli")
+    with SQLitePairingStore(tmp_path / "pairings.sqlite3") as pairings:
+        pairings.pair(_pubkey(71), "phone", approved=True, binding="room")
+        core = _core(main.session_id, pairings)
+        messages = [{"role": "user", "content": "main history"}]
+        descriptor = {"store": "nostr", "peer_key": _pubkey(71)}
+        ctx = _enter_chat_room_turn(core, sessions, messages, descriptor)
+        assert ctx is not None
+        first_room_id = core.session_id
+        sessions.append_message(first_room_id, "user", "old room history")
+        _leave_chat_room_turn(core, messages, ctx)
+
+        # Age the room past the idle retention (default 24 hours).
+        with sqlite3.connect(sessions_path) as conn:
+            conn.execute(
+                "UPDATE sessions SET last_used_at = '2000-01-01 00:00:00.000' "
+                "WHERE session_id = ?",
+                (first_room_id,),
+            )
+
+        ctx = _enter_chat_room_turn(core, sessions, messages, descriptor)
+        assert ctx is not None
+        assert core.session_id != first_room_id
+        # The fresh room does not load the expired room's history,
+        # but the old session itself is kept in the store.
+        assert "old room history" not in [m["content"] for m in messages]
+        assert sessions.get_session(first_room_id)["session_id"] == first_room_id
+        record = pairings.record_for(_pubkey(71))
+        assert record is not None and record.room_session_id == core.session_id
+        _leave_chat_room_turn(core, messages, ctx)
+    sessions.close()
+
+
 def test_nostr_room_turn_without_a_running_listener(tmp_path, monkeypatch) -> None:
     # BitChat-over-Nostr peers paired only in the Nostr registry keep
     # their room even when the remote listener is not running: the
