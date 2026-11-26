@@ -146,6 +146,39 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         "mv ",
                         "cat ",
                     )
+                    # A bare argument-taking command (":cd" with no
+                    # trailing space yet) completes its argument:
+                    # behave as if the space were already there, and
+                    # have each candidate bring the space with it.
+                    argument_commands = {
+                        value.strip().lower() for value in path_cmds
+                    } | {
+                        ":logs",
+                        ":auto",
+                        ":plugin",
+                        ":mem-del",
+                        ":profile-fromlog",
+                        ":env",
+                    }
+                    if (
+                        text.strip().lower() in argument_commands
+                        and not text.endswith((" ", "\t"))
+                        and document.cursor_position == len(document.text)
+                    ):
+                        spaced = Document(
+                            text=text + " ",
+                            cursor_position=len(text) + 1,
+                        )
+                        for comp in self.get_completions(spaced, complete_event):
+                            yield Completion(
+                                " " + comp.text,
+                                start_position=comp.start_position,
+                                display=comp.display,
+                                display_meta=comp.display_meta,
+                                style=comp.style,
+                                selected_style=comp.selected_style,
+                            )
+                        return
                     # Complete the path at the cursor, not only at the end of
                     # the prompt. This keeps prose before and after the path.
                     cursor = document.cursor_position

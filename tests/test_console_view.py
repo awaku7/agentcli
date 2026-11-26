@@ -1709,6 +1709,36 @@ def test_view_drag_at_the_bottom_edge_steps_through_unrendered_segments():
             view.stop()
 
 
+def test_view_completes_while_typing_like_the_legacy_prompt():
+    # The legacy PromptSession completes while typing; the view
+    # must offer candidates the same way, without waiting for Tab.
+    from prompt_toolkit.completion import Completer, Completion
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    class _Completer(Completer):
+        def get_completions(self, document, complete_event):
+            text = document.text_before_cursor
+            for candidate in (":head", ":help"):
+                if candidate.startswith(text):
+                    yield Completion(candidate, start_position=-len(text))
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe, pt_output=DummyOutput(), completer=_Completer()
+        )
+        view.start()
+        try:
+            pipe.send_text(":he")
+            assert _wait_for(
+                lambda: view._input_buffer.complete_state is not None
+                and [c.text for c in view._input_buffer.complete_state.completions]
+                == [":head", ":help"]
+            )
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character
