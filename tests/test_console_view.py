@@ -322,6 +322,30 @@ def test_print_status_line_routes_to_view(monkeypatch):
         core.status_label = ""
 
 
+def test_print_status_line_routes_to_view_during_ask(monkeypatch):
+    # An IDLE transition printed while a human_ask is active
+    # must still reach the (suspended) view: the suppression
+    # protects the legacy ask prompt, and dropping the update
+    # loses it for good — the state has already changed, so
+    # nothing prints it again, and the resumed view would keep
+    # showing the stale BUSY [tool:human_ask] line.
+    from uagent import core
+
+    fake = _FakeView()
+    console_view._set_active(fake)  # type: ignore[arg-type]
+    try:
+        with core.status_lock:
+            core.status_busy = False
+            core.status_label = ""
+        with core.human_ask_lock:
+            core.human_ask_active = True
+        core.print_status_line()
+        assert fake.status == [("[STATE] IDLE", False)]
+    finally:
+        with core.human_ask_lock:
+            core.human_ask_active = False
+
+
 def test_stdin_loop_view_ctrl_c_busy_sets_interrupt(monkeypatch):
     from uagent import core
     from uagent.cli_impl import stdin_loop

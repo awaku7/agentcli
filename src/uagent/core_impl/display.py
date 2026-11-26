@@ -158,11 +158,23 @@ def print_status_line() -> None:
     - In Web mode, status is delivered via WebSocket type=status; skip stderr.
     """
 
-    # Suppress status display while human_ask is active to avoid disrupting the prompt display
+    view = _active_console_view()
+
+    # Suppress status display while human_ask is active to avoid
+    # disrupting the prompt display.  A console view is the one
+    # exception: while an ask owns the terminal the view is
+    # suspended and set_status only stores the text, so routing
+    # the update keeps the bottom line truthful when the view
+    # resumes.  Dropping it instead loses the transition for
+    # good — the state has already changed, so no later call
+    # prints it again, and the view keeps showing the stale
+    # BUSY line (e.g. [STATE] BUSY [tool:human_ask]) at an idle
+    # prompt.
     with _core.human_ask_lock:
-        if _core.human_ask_active:
-            _stop_spinner_quietly()
-            return
+        ask_active = _core.human_ask_active
+    if ask_active and view is None:
+        _stop_spinner_quietly()
+        return
 
     # Web UI already receives status via web_set_status -> room.set_status.
     # Avoid also writing [STATE] to stderr (which becomes type=log and can
@@ -173,7 +185,6 @@ def print_status_line() -> None:
 
     # Full-screen console view: the status lives on the fixed bottom
     # line; none of the line-boundary machinery below applies.
-    view = _active_console_view()
     if view is not None:
         with _core.status_lock:
             busy = _core.status_busy
