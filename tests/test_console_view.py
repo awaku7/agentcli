@@ -832,6 +832,53 @@ def test_view_capture_redirects_preexisting_stderr_handlers():
         sys.stdout, sys.stderr = real_stdout, real_stderr
 
 
+def test_view_capture_redirects_handlers_bound_before_the_startup_tee():
+    # The event logger is configured before main() installs the
+    # startup tee, so its handler holds the stream the tee wraps,
+    # not sys.stderr itself.  The capture must redirect it too —
+    # otherwise its events write onto the full-screen terminal.
+    # On restore the handler lands on the captured stream (the
+    # tee), which forwards to the same terminal.
+    import io
+    import logging
+    import sys
+
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    terminal = io.StringIO()
+    logger = logging.getLogger("uagent.test.capture_redirect_tee")
+    handler = logging.StreamHandler(terminal)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    real_stdout, real_stderr = sys.stdout, sys.stderr
+    tee = console_view._StartupOutputTee(terminal, [], False)
+    sys.stderr = tee
+    try:
+        with create_pipe_input() as pipe:
+            view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+            view.start()
+            try:
+                assert _wait_for(
+                    lambda: isinstance(sys.stderr, console_view._ViewStreamProxy)
+                )
+                assert handler.stream is sys.stderr
+                logger.info("event while captured")
+                segments, _v, _e = dc.default_document().snapshot()
+                text = "".join(s.text for s in segments)
+                assert "event while captured" in text
+                assert "event while captured" not in terminal.getvalue()
+            finally:
+                view.stop()
+            assert handler.stream is tee
+            logger.info("event after restore")
+            assert "event after restore" in terminal.getvalue()
+    finally:
+        logger.removeHandler(handler)
+        sys.stdout, sys.stderr = real_stdout, real_stderr
+
+
 def test_view_arrow_keys_navigate_history():
     # The input buffer carries the legacy prompt's history: Up/Down
     # walk it in place, like the legacy prompt.

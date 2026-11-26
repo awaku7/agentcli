@@ -796,11 +796,18 @@ class ConsoleView:
         event logger, for one) hold the original stderr object, so
         replacing sys.stderr alone leaves them writing onto the
         full-screen terminal and out of the transcript.  Only handlers
-        bound to the very stream being captured are redirected.
+        bound to the very stream being captured are redirected.  A
+        handler bound before the startup tee was installed holds the
+        stream the tee wraps rather than the tee itself; that stream
+        counts as the captured one too.
         """
         try:
             import logging
 
+            captured = [self._orig_stderr]
+            inner = getattr(self._orig_stderr, "_original", None)
+            if inner is not None and inner is not self._orig_stderr:
+                captured.append(inner)
             loggers = [logging.getLogger()]
             loggers += [
                 logging.getLogger(name)
@@ -808,9 +815,9 @@ class ConsoleView:
             ]
             for logger in loggers:
                 for handler in getattr(logger, "handlers", []):
-                    if (
-                        isinstance(handler, logging.StreamHandler)
-                        and getattr(handler, "stream", None) is self._orig_stderr
+                    if isinstance(handler, logging.StreamHandler) and any(
+                        getattr(handler, "stream", None) is stream
+                        for stream in captured
                     ):
                         handler.setStream(self._proxy_stderr)
         except Exception:
