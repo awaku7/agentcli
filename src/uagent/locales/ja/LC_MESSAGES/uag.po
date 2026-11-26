@@ -5833,3 +5833,7 @@ msgstr "未登録の端末（%(npub)s）から Nostr の DM が届きました�
 #: src/uagent/scheckgui_impl/worker.py
 msgid "[bitchat] Skipped a room-bound device message: device rooms are handled by the CLI."
 msgstr "[bitchat] room 行きの端末のメッセージを飛ばしました。端末の room は CLI で扱います。"
+
+#: src/uagent/cli_impl/main.py
+msgid "Session switching is not available inside a device room."
+msgstr "端末の room の中ではセッションの切り替えはできません。"

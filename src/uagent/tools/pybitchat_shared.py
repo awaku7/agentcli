@@ -1245,6 +1245,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 )
                 % {"sender": sender, "text": text},
                 reply_route={"via": "ble", "peer": peer_hex},
+                verified_noise_key=noise_key_hex,
             )
 
     # ---- End Noise DM handlers ---------------------------------------------
@@ -2251,6 +2252,8 @@ def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
 
 def _chat_room_descriptor(
     reply_route: dict[str, str] | None,
+    *,
+    verified_noise_key: str = "",
 ) -> dict[str, str] | None:
     """Return the CLI chat-room descriptor for a room-bound peer, or None.
 
@@ -2260,6 +2263,12 @@ def _chat_room_descriptor(
     same binding the Web rooms use). BitChat records are keyed by
     the Noise key even when the DM arrived over Nostr; a peer paired
     only in the Nostr remote registry resolves through that store.
+
+    BLE resolution uses ONLY the Noise key the completed handshake
+    verified (``verified_noise_key``): the ANNOUNCE-populated key
+    cache is attacker-controlled, so a room-bound peer could
+    otherwise announce a different key and escape its room (or be
+    resolved into another peer's room).
     """
     if not reply_route:
         return None
@@ -2273,11 +2282,8 @@ def _chat_room_descriptor(
         with open_bitchat_pairing_store() as store:
             record = None
             if via == "ble":
-                noise_public = _PEER_NOISE_KEYS.get(peer) or _PEER_NOISE_KEYS.get(
-                    peer.lower()
-                )
-                if noise_public:
-                    record = store.record_for(bytes(noise_public).hex())
+                if verified_noise_key:
+                    record = store.record_for(verified_noise_key)
             elif via == "nostr":
                 record = store.record_for_nostr(peer)
             if record is not None and record.active and record.binding == "room":
@@ -2299,12 +2305,20 @@ def _chat_room_descriptor(
     return None
 
 
-def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None:
+def _inject_to_llm(
+    text: str,
+    reply_route: dict[str, str] | None = None,
+    *,
+    verified_noise_key: str = "",
+) -> None:
     """Inject a paired peer's DM into the LLM event queue (thread-safe).
 
     ``reply_route`` tells the CLI where the LLM's answer goes back to:
     ``{"via": "ble", "peer": <peer_id_hex>}`` for a BLE Noise DM or
     ``{"via": "nostr", "peer": <nostr_pubkey_hex>}`` for a Nostr DM.
+    ``verified_noise_key`` is the sender's Noise key as verified by
+    the completed handshake (BLE only); room resolution trusts only
+    that, never the ANNOUNCE cache.
     """
     global _LLM_EVENT_QUEUE
     q = _LLM_EVENT_QUEUE
@@ -2314,7 +2328,9 @@ def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None
             event: dict[str, Any] = {"kind": "user", "text": text, "src": "bitchat"}
             if reply_route:
                 event["reply_route"] = dict(reply_route)
-            descriptor = _chat_room_descriptor(reply_route)
+            descriptor = _chat_room_descriptor(
+                reply_route, verified_noise_key=verified_noise_key
+            )
             if descriptor is not None:
                 event["chat_room"] = descriptor
             q.put_nowait(event)

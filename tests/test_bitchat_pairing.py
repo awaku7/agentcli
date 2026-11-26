@@ -93,13 +93,30 @@ def test_chat_room_descriptor_for_room_bound_peers(tmp_path, monkeypatch) -> Non
         s.pair(NOISE_A, "peer", approved=True, binding="room")
         s.pair(NOISE_B, "peer2", approved=True)
     peer_id = "ab" * 8
-    monkeypatch.setitem(pbs._PEER_NOISE_KEYS, peer_id, bytes.fromhex(NOISE_A))
-    assert pbs._chat_room_descriptor({"via": "ble", "peer": peer_id}) == {
+    # BLE resolution trusts only the handshake-verified key.
+    assert pbs._chat_room_descriptor(
+        {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_A
+    ) == {
         "store": "bitchat",
         "peer_key": NOISE_A,
     }
-    monkeypatch.setitem(pbs._PEER_NOISE_KEYS, peer_id, bytes.fromhex(NOISE_B))
+    assert (
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_B
+        )
+        is None
+    )
+    # A poisoned ANNOUNCE cache cannot move a peer in or out of a
+    # room: the cache alone yields nothing, and a verified attach key
+    # stays attach even if the cache claims the room peer's key.
+    monkeypatch.setitem(pbs._PEER_NOISE_KEYS, peer_id, bytes.fromhex(NOISE_A))
     assert pbs._chat_room_descriptor({"via": "ble", "peer": peer_id}) is None
+    assert (
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_B
+        )
+        is None
+    )
 
     # A peer paired only in the Nostr remote registry resolves there.
     def _pubkey(value: int) -> str:

@@ -157,16 +157,14 @@ def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]
         if not normalized_parts:
             raise RemoteCLIRequestError("invalid explicit CLI command")
         command_head = normalized_parts[0].lower()
-        nostr_subcommand = ""
+        command_name = command_head
+        subcommand = ""
         if ":" in command_head:
             command_name, subcommand = command_head.split(":", 1)
-            if command_name == "nostr":
-                nostr_subcommand = subcommand.lstrip(":").split(":", 1)[0]
-        elif command_head == "nostr" and len(normalized_parts) == 2:
-            nostr_subcommand = (
-                normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
-            )
-        if nostr_subcommand in {
+            subcommand = subcommand.lstrip(":").split(":", 1)[0]
+        elif len(normalized_parts) == 2:
+            subcommand = normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
+        if command_name == "nostr" and subcommand in {
             "pair",
             "revoke",
             "remote",
@@ -178,6 +176,17 @@ def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]
         }:
             raise RemoteCLIRequestError(
                 "Nostr device and listener management are local-only"
+            )
+        if command_name == "bitchat" and subcommand in {
+            "bind",
+            "pair",
+            "link",
+            "on",
+            "off",
+            "llm",
+        }:
+            raise RemoteCLIRequestError(
+                "BitChat device and listener management are local-only"
             )
         return "command", command
 

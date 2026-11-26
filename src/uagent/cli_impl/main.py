@@ -1305,6 +1305,24 @@ def main() -> int:
                         )
                     continue
                 session_transition = is_cli_session_transition_command(line)
+                if session_transition and active_room_ctx is not None:
+                    # A room's session is owned by the device's
+                    # binding, not by commands inside the room: a
+                    # switch would desync the room's cached
+                    # continuation state on exit. Refuse it without
+                    # touching the room.
+                    print(_("Session switching is not available inside a device room."))
+                    _set_status_for_command_result(core, None)
+                    if remote_request_event is not None:
+                        _finish_nostr_remote_request(
+                            core, remote_request_event, "rejected"
+                        )
+                        _send_nostr_remote_reply(
+                            core,
+                            remote_request_event,
+                            "Session switching is not available inside a device room.",
+                        )
+                    continue
                 old_owner = job_owner
                 if session_transition:
                     try:
