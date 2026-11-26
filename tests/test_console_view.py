@@ -997,6 +997,60 @@ def test_view_confirmation_queues_when_the_turn_ends():
             view.stop()
 
 
+def test_view_wheel_over_the_input_scrolls_the_output():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0  # the transcript starts scrolled to the tail
+            rows = view._app.output.get_size().rows
+            input_y = rows - 3  # the middle of the 3-line input area
+            for _ in range(2):
+                pipe.send_text(f"\x1b[<64;5;{input_y}M")
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            for _ in range(2):
+                pipe.send_text(f"\x1b[<65;5;{input_y}M")
+            assert _wait_for(lambda: window.vertical_scroll == top)
+        finally:
+            view.stop()
+
+
+def test_view_drag_on_the_output_copies_the_selection():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "alpha bravo charlie\ndelta echo foxtrot\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            pipe.send_text("\x1b[<0;1;1M")
+            assert _wait_for(lambda: view._output_buffer.cursor_position == 0)
+            pipe.send_text("\x1b[<32;6;1M")
+            assert _wait_for(lambda: view._output_buffer.selection_state is not None)
+            pipe.send_text("\x1b[<0;6;1m")
+            assert _wait_for(lambda: view._app.clipboard.get_data().text == "alpha")
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

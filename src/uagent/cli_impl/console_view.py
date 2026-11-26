@@ -48,6 +48,12 @@ are dispatched.  The confirmation never interrupts by default: a
 human_ask preempting it (the view suspends) or the turn simply
 ending resolves it as "queue", with a notice in the transcript for
 the preempted case.
+
+Mouse: the view owns the mouse while it runs, so it provides the
+two things the terminal's own handling otherwise would — the
+wheel scrolls the output area no matter where the pointer is,
+and dragging over the output (or the input) selects text and
+copies it to the system clipboard on release.
 """
 
 from __future__ import annotations
@@ -218,6 +224,69 @@ class _OutputLexer:
         return get_line
 
 
+def _write_system_clipboard(text: str) -> bool:
+    """Best-effort write to the OS clipboard (Windows via ctypes).
+
+    The full-screen view owns the mouse, so the terminal's own
+    selection is unavailable; text the user selects in the view
+    is copied through here.  Any failure just leaves the copy
+    inside the app.
+    """
+    if sys.platform == "win32":
+        try:
+            import ctypes
+
+            user32 = ctypes.windll.user32
+            kernel32 = ctypes.windll.kernel32
+            if not user32.OpenClipboard(None):
+                return False
+            try:
+                user32.EmptyClipboard()
+                data = text.encode("utf-16-le") + b"\x00\x00"
+                handle = kernel32.GlobalAlloc(0x0002, len(data))
+                if not handle:
+                    return False
+                pointer = kernel32.GlobalLock(handle)
+                ctypes.memmove(pointer, data, len(data))
+                kernel32.GlobalUnlock(handle)
+                if not user32.SetClipboardData(13, handle):
+                    kernel32.GlobalFree(handle)
+                    return False
+                return True
+            finally:
+                user32.CloseClipboard()
+        except Exception:
+            return False
+    try:
+        import pyperclip
+
+        pyperclip.copy(text)
+        return True
+    except Exception:
+        return False
+
+
+def _make_clipboard() -> Any:
+    """An app clipboard that also mirrors copies to the OS one."""
+    from prompt_toolkit.clipboard.base import Clipboard, ClipboardData
+
+    class _SystemClipboard(Clipboard):
+        def __init__(self) -> None:
+            self._data = ClipboardData("")
+
+        def set_data(self, data: Any) -> None:
+            self._data = data
+            try:
+                _write_system_clipboard(data.text)
+            except Exception:
+                pass
+
+        def get_data(self) -> Any:
+            return self._data
+
+    return _SystemClipboard()
+
+
 def view_enabled() -> bool:
     """Whether the full-screen view may be used for this session."""
     if str(env_get("UAGENT_CLI_VIEW", "1")).strip().lower() in (
@@ -309,6 +378,7 @@ class ConsoleView:
 
         self._Document = Document
         self._output_buffer = Buffer(read_only=True)
+        self._output_window: Any = None
         # The view is a projection of the shared output document
         # (runtime.display_channel): it keeps the projected text and
         # the kind-colour ranges computed from the document's
@@ -912,7 +982,7 @@ class ConsoleView:
         return get_cwidth(self._prompt_display_text())
 
     def _make_app(self) -> Any:
-        from prompt_toolkit.application import Application
+        from prompt_toolkit.application import Application, get_app
         from prompt_toolkit.filters import Condition
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.layout import (
@@ -930,6 +1000,8 @@ class ConsoleView:
             BufferControl,
             FormattedTextControl,
         )
+        from prompt_toolkit.mouse_events import MouseButton, MouseEventType
+        from prompt_toolkit.selection import SelectionType
         from prompt_toolkit.styles import Style
 
         bindings = KeyBindings()
@@ -1048,18 +1120,104 @@ class ConsoleView:
             }
         )
 
+        view = self
+
+        class _OutputControl(BufferControl):
+            """Output text with mouse selection and copy.
+
+            The stock BufferControl mouse handler only works on
+            the focused control, and this one never takes focus
+            (the input keeps it), so selection is handled here
+            directly: drag selects, and releasing the button
+            copies the selection to the clipboard.
+            """
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type in (
+                    MouseEventType.SCROLL_UP,
+                    MouseEventType.SCROLL_DOWN,
+                ):
+                    return NotImplemented  # the window scrolls itself
+                get_processed_line = getattr(self, "_last_get_processed_line", None)
+                if get_processed_line is None:
+                    return NotImplemented
+                buffer = self.buffer
+                processed_line = get_processed_line(mouse_event.position.y)
+                xpos = processed_line.display_to_source(mouse_event.position.x)
+                index = buffer.document.translate_row_col_to_index(
+                    mouse_event.position.y, xpos
+                )
+                if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
+                    buffer.exit_selection()
+                    buffer.cursor_position = index
+                elif (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    if (
+                        buffer.selection_state is None
+                        and abs(buffer.cursor_position - index) > 0
+                    ):
+                        buffer.start_selection(selection_type=SelectionType.CHARACTERS)
+                    buffer.cursor_position = index
+                elif mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    if buffer.selection_state is not None:
+                        try:
+                            get_app().clipboard.set_data(buffer.copy_selection())
+                        except Exception:
+                            pass
+                else:
+                    return NotImplemented
+                return None
+
+        class _InputControl(BufferControl):
+            """Input control: the wheel scrolls the output (the
+            input itself has nothing to scroll), and releasing a
+            drag copies the input's own selection."""
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type == MouseEventType.SCROLL_UP:
+                    view._scroll_output_wheel(-3)
+                    return None
+                if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
+                    view._scroll_output_wheel(3)
+                    return None
+                result = super().mouse_handler(mouse_event)
+                if mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    if self.buffer.selection_state is not None:
+                        try:
+                            get_app().clipboard.set_data(self.buffer.copy_selection())
+                        except Exception:
+                            pass
+                return result
+
+        class _PassiveControl(FormattedTextControl):
+            """A display-only text row (spinner, prompt, status):
+            the wheel scrolls the output instead of dying on a
+            one-line strip."""
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type == MouseEventType.SCROLL_UP:
+                    view._scroll_output_wheel(-3)
+                    return None
+                if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
+                    view._scroll_output_wheel(3)
+                    return None
+                return super().mouse_handler(mouse_event)
+
+        output_window = Window(
+            content=_OutputControl(buffer=self._output_buffer, lexer=self._lexer),
+            wrap_lines=True,
+        )
+        self._output_window = output_window
+
         layout = Layout(
             FloatContainer(
                 content=HSplit(
                     [
+                        output_window,
                         Window(
-                            content=BufferControl(
-                                buffer=self._output_buffer, lexer=self._lexer
-                            ),
-                            wrap_lines=True,
-                        ),
-                        Window(
-                            content=FormattedTextControl(self._spinner_fragments),
+                            content=_PassiveControl(self._spinner_fragments),
                             height=1,
                             style="class:spinner",
                         ),
@@ -1070,7 +1228,7 @@ class ConsoleView:
                         # the status line for space.
                         ConditionalContainer(
                             content=Window(
-                                content=FormattedTextControl(self._confirm_fragments),
+                                content=_PassiveControl(self._confirm_fragments),
                                 height=1,
                                 style="class:confirm",
                             ),
@@ -1079,21 +1237,19 @@ class ConsoleView:
                         VSplit(
                             [
                                 Window(
-                                    content=FormattedTextControl(
-                                        self._prompt_fragments
-                                    ),
+                                    content=_PassiveControl(self._prompt_fragments),
                                     width=self._prompt_width,
                                     height=Dimension(min=3, max=3),
                                 ),
                                 Window(
-                                    content=BufferControl(buffer=self._input_buffer),
+                                    content=_InputControl(buffer=self._input_buffer),
                                     height=Dimension(min=3, max=3),
                                 ),
                             ]
                         ),
                         Window(char="─", height=1, style="class:rule"),
                         Window(
-                            content=FormattedTextControl(self._status_fragments),
+                            content=_PassiveControl(self._status_fragments),
                             height=1,
                         ),
                     ]
@@ -1119,6 +1275,7 @@ class ConsoleView:
             "style": style,
             "refresh_interval": 0.12,
             "mouse_support": True,
+            "clipboard": _make_clipboard(),
         }
         if self._pt_input is not None:
             kwargs["input"] = self._pt_input
@@ -1136,11 +1293,6 @@ class ConsoleView:
         return Application(**kwargs)
 
     def _scroll_output(self, pages: int) -> None:
-        buffer = self._output_buffer
-        text = buffer.text
-        if not text:
-            return
-        lines = text.split("\n")
         height = 20
         app = self._app
         if app is not None:
@@ -1148,13 +1300,54 @@ class ConsoleView:
                 height = max(5, app.output.get_size().rows - 7)
             except Exception:
                 pass
-        # Convert the cursor's byte offset to a line, move by pages,
-        # and convert back; the output window follows the cursor.
+        self._scroll_output_lines(pages * height)
+
+    def _scroll_output_lines(self, delta: int) -> None:
+        buffer = self._output_buffer
+        text = buffer.text
+        if not text:
+            return
+        lines = text.split("\n")
+        # Convert the cursor's byte offset to a line, move by the
+        # delta, and convert back; the output window follows the
+        # cursor.
         cursor = buffer.cursor_position
         line_no = text[:cursor].count("\n")
-        line_no = max(0, min(len(lines) - 1, line_no + pages * height))
+        line_no = max(0, min(len(lines) - 1, line_no + delta))
         pos = sum(len(line) + 1 for line in lines[:line_no])
         buffer.set_document(
             self._Document(text, cursor_position=min(pos, len(text))),
             bypass_readonly=True,
         )
+
+    def _scroll_output_wheel(self, lines: int) -> None:
+        """Scroll the output window by a few lines (mouse wheel).
+
+        The renderer persistently honours the window's own scroll
+        offset — moving the buffer cursor (the PageUp path) only
+        scrolls once the cursor leaves the visible area — so the
+        wheel drives the window's scroll directly, with the
+        public offset attribute as a fallback.
+        """
+        window = self._output_window
+        if window is None:
+            return
+        step = getattr(window, "_scroll_up" if lines < 0 else "_scroll_down", None)
+        if step is None:
+            try:
+                info = window.render_info
+                if info is None:
+                    return
+                max_scroll = max(0, info.content_height - info.window_height)
+                window.vertical_scroll = max(
+                    0, min(max_scroll, window.vertical_scroll + lines)
+                )
+            except Exception:
+                return
+        else:
+            for _ in range(abs(lines)):
+                try:
+                    step()
+                except Exception:
+                    return
+        self._invalidate()
