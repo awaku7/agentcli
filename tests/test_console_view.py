@@ -1160,6 +1160,25 @@ def test_view_resync_busy_after_suspend_clears_the_stale_flag():
             view.stop()
 
 
+def test_view_batched_keys_after_a_confirmation_start_fresh():
+    # Codex's repro: a confirmation answer and the next message in
+    # one input batch.  The buffer must be reset synchronously when
+    # the answer is processed — a deferred reset lets the batched
+    # keys append to the answered message ("onesecond").
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("one\rnsecond\rn")
+            assert view.wait_line(abort=lambda: False) == "one"
+            assert view.wait_line(abort=lambda: False) == "second"
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
 def test_view_priority_line_reports_itself_and_requeues():
     from prompt_toolkit.input import create_pipe_input
 

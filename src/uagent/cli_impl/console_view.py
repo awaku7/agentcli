@@ -424,12 +424,15 @@ class ConsoleView:
         # its interrupt confirmation is unanswered (see _submit).
         # The input buffer is read-only exactly while this is set.
         self._confirm_text: str | None = None
+        self._reset_pending: bool = False
         self._input_buffer = Buffer(
             completer=completer,
             history=history,
             multiline=True,
             complete_while_typing=False,
-            read_only=Condition(lambda: self._confirm_text is not None),
+            read_only=Condition(
+                lambda: self._confirm_text is not None or self._reset_pending
+            ),
         )
         # Queue items are (text, pending token) pairs; the token is
         # the output document's pending-user segment for a line that
@@ -540,6 +543,7 @@ class ConsoleView:
         pending = self._take_confirmation()
         if pending is not None:
             self._finish_confirmation(pending, interrupt=False)
+            self._reset_input_buffer()
             if self._document is not None:
                 try:
                     self._document.append(
@@ -571,6 +575,12 @@ class ConsoleView:
                 # terminal, the streams, or the run loop.
                 return
             self._app = app
+        if self._reset_pending:
+            # A reset posted for a worker-resolved confirmation
+            # never ran (the previous application exited first);
+            # the buffer still holds the answered message and is
+            # still read-only.
+            self._reset_input_buffer()
         # The application output is built from the real streams inside
         # _make_app; only now is it safe to redirect Python-level
         # stdout/stderr into the document.
@@ -766,10 +776,13 @@ class ConsoleView:
             # The turn ended while an interrupt confirmation was
             # still open: the question is moot, so the message
             # takes the safe side and queues (it dispatches next
-            # through the ordinary path).
-            pending = self._take_confirmation()
+            # through the ordinary path).  This runs on a worker
+            # thread, so the input buffer is reset on the
+            # application thread; until then it stays read-only.
+            pending = self._take_confirmation(defer_reset=True)
             if pending is not None:
                 self._finish_confirmation(pending, interrupt=False)
+                self._call_on_loop(self._reset_input_buffer)
 
     def set_prompt_text(self, text: str) -> None:
         with self._state_lock:
@@ -882,18 +895,33 @@ class ConsoleView:
 
     # -- interrupt confirmation (input during generation) -------------
 
-    def _take_confirmation(self) -> str | None:
-        """Pop the open confirmation's message, if one is open."""
+    def _take_confirmation(self, *, defer_reset: bool = False) -> str | None:
+        """Pop the open confirmation's message, if one is open.
+
+        With ``defer_reset``, the input buffer's clearing is still
+        owed: ``_reset_pending`` keeps the buffer read-only until
+        the reset runs on the application thread, so keys batched
+        behind the answer cannot append to the answered message.
+        """
         with self._state_lock:
             text = self._confirm_text
             self._confirm_text = None
+            if text is not None and defer_reset:
+                self._reset_pending = True
             return text
 
     def _resolve_confirmation(self, *, interrupt: bool) -> None:
-        """Answer the open confirmation (from a key binding)."""
+        """Answer the open confirmation (from a key binding).
+
+        Runs on the application thread, so the input buffer is
+        reset synchronously: keys batched behind the answer (the
+        next message typed in the same paste) start from an empty
+        buffer, not from the answered message's text.
+        """
         text = self._take_confirmation()
         if text is not None:
             self._finish_confirmation(text, interrupt=interrupt)
+            self._reset_input_buffer()
 
     def _finish_confirmation(self, text: str, *, interrupt: bool) -> None:
         """Carry out a decided (or defaulted) confirmation outcome.
@@ -921,7 +949,6 @@ class ConsoleView:
                     pass
         else:
             self._queue_line(text)
-        self._call_on_loop(self._reset_input_buffer)
         self._invalidate()
 
     def _queue_line(self, text: str) -> None:
@@ -944,10 +971,19 @@ class ConsoleView:
         self._submissions.put((text, token))
 
     def _reset_input_buffer(self) -> None:
+        """Clear the input buffer and reopen it for typing.
+
+        Runs on the application thread — directly from a key
+        binding, posted for a worker-triggered resolution, or at
+        startup when a posted reset never ran.  Until it runs,
+        ``_reset_pending`` keeps the buffer read-only.
+        """
         try:
             self._input_buffer.reset()
         except Exception:
             pass
+        with self._state_lock:
+            self._reset_pending = False
 
     def _confirm_fragments(self) -> list[tuple[str, str]]:
         with self._state_lock:
