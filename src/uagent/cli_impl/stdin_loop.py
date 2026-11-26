@@ -173,6 +173,25 @@ def _read_line_from_view(view, prompt: str):
     )
 
 
+def _requeue_pending_line(view, line, token) -> bool:
+    """Return a queued-during-generation line to the view queue.
+
+    A line carrying a pending token was a deliberate queue
+    decision, so when stdin ownership changes underneath it (a
+    human_ask takes over) it must survive and dispatch at the
+    next ordinary prompt, instead of taking the legacy
+    ambiguous-input drop that lines typed at a replaced prompt
+    get.  Returns True when the line was requeued.
+    """
+    if view is None or token is None:
+        return False
+    try:
+        view.requeue_front(line, token)
+    except Exception:
+        return False
+    return True
+
+
 def _resolve_pending_echo(token) -> None:
     """Drop the queued marker from a view line that is being sent.
 
@@ -778,6 +797,8 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
         if (not is_reply and human_ask_active_now) or (
             is_reply and not human_ask_active_now
         ):
+            if _requeue_pending_line(_line_view, line, _pending_token):
+                continue
             _resolve_pending_echo(_pending_token)
             with _spinner_paused():
                 print(
@@ -910,6 +931,8 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             with core.human_ask_lock:
                 human_ask_active_now = bool(core.human_ask_active)
             if human_ask_active_now:
+                if _requeue_pending_line(_line_view, line, _pending_token):
+                    continue
                 _resolve_pending_echo(_pending_token)
                 with _spinner_paused():
                     print(

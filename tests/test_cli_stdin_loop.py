@@ -648,3 +648,132 @@ def test_priority_line_overtakes_the_held_line(monkeypatch) -> None:
     assert events.get_nowait() == {"kind": "user", "text": "held message"}
     assert view.requeued == [("held message", view.held_token)]
     assert view.resolved == [view.held_token]
+
+
+class _AskRequeueView:
+    """Hands out one queued line; records requeues and resolves."""
+
+    eof_sentinel = object()
+
+    def __init__(self, flip_early: bool) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.token = object()
+        self.calls = 0
+        self.flip_early = flip_early
+        self.front: list = []
+        self.requeued: list = []
+        self.resolved: list = []
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        self.calls += 1
+        if self.calls == 1:
+            # A turn starts while this read is in flight (the race
+            # the busy-at-submit hold exists for); in the early
+            # variant its human_ask opens at the same moment.
+            core.status_busy = True
+            if self.flip_early:
+                with core.human_ask_lock:
+                    core.human_ask_active = True
+            self.last_pending_token = self.token
+            return "queued message"
+        if self.front:
+            text, self.last_pending_token = self.front.pop(0)
+            return text
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def take_priority_line(self):
+        return None
+
+    def requeue_front(self, text, token=None) -> None:
+        self.requeued.append((text, token))
+        self.front.append((text, token))
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def _run_ask_requeue_scenario(monkeypatch, *, flip_early: bool) -> None:
+    import io
+
+    view = _AskRequeueView(flip_early)
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Proceed?")
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = False
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+    monkeypatch.setattr(
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+    )
+
+    def fake_sleep(seconds: float) -> None:
+        if seconds == 0.05 and not flip_early:
+            # The running turn opens its question during the hold.
+            with core.human_ask_lock:
+                core.human_ask_active = True
+        if seconds == 0.03:
+            # The tool side consuming the reply clears the ask.
+            with core.human_ask_lock:
+                core.human_ask_active = False
+            core.status_busy = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    # The question was answered normally while the queued line
+    # waited, and the queued line then dispatched exactly once,
+    # its marker resolved only at that dispatch.
+    assert ask_queue.get_nowait() == "answer"
+    assert events.get_nowait() == {"kind": "user", "text": "queued message"}
+    assert events.empty()
+    assert view.requeued == [("queued message", view.token)]
+    assert view.resolved == [view.token]
+
+
+def test_queued_line_survives_an_ask_opening_during_the_hold(monkeypatch) -> None:
+    _run_ask_requeue_scenario(monkeypatch, flip_early=False)
+
+
+def test_queued_line_survives_an_ask_already_open_at_the_check(monkeypatch) -> None:
+    _run_ask_requeue_scenario(monkeypatch, flip_early=True)
