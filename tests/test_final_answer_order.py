@@ -50,3 +50,37 @@ def test_relayed_reasoning_renders_before_the_final_answer(monkeypatch, capsys):
     assert "THINKING" in out
     assert "FINAL ANSWER" in out
     assert out.index("THINKING") < out.index("FINAL ANSWER")
+
+
+def test_final_answer_is_kept_in_the_document_while_the_view_is_suspended(
+    monkeypatch, capsys
+):
+    # Regression (PR #483 Codex P2): the non-streaming final answer
+    # was a bare print().  While the console view is suspended for a
+    # legacy reply prompt, the stream capture is uninstalled, so the
+    # print reached only the restored terminal and the answer vanished
+    # from the transcript when the view resumed.
+    from uagent import llm_flow_helpers
+    from uagent.cli_impl import console_view
+
+    document = dc.default_document()
+
+    def _document_text() -> str:
+        return "".join(s.text for s in document.snapshot()[0])
+
+    # No view on screen (suspended or legacy): the answer is both
+    # recorded in the document and printed live.
+    monkeypatch.setattr(console_view, "_active_view", None)
+    llm_flow_helpers._print_final_answer("SUSPENDED ANSWER")
+    assert "SUSPENDED ANSWER" in _document_text()
+    assert "SUSPENDED ANSWER" in capsys.readouterr().out
+    segment = next(s for s in document.snapshot()[0] if "SUSPENDED ANSWER" in s.text)
+    assert segment.kind == "answer"
+
+    # View on screen: recorded, but not printed — the view renders
+    # the document, and a print would double back as a captured
+    # "output" segment.
+    monkeypatch.setattr(console_view, "_active_view", object())
+    llm_flow_helpers._print_final_answer("ACTIVE ANSWER")
+    assert "ACTIVE ANSWER" in _document_text()
+    assert "ACTIVE ANSWER" not in capsys.readouterr().out

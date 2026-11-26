@@ -232,6 +232,36 @@ def _drain_relayed_stream(timeout: float = 5.0) -> None:
         pass
 
 
+def _print_final_answer(text: str) -> None:
+    """Print the collected answer, keeping it in the output document.
+
+    The document is the console view's transcript.  While the view
+    runs, its stream capture would file a bare print under the
+    "output" kind; while the view is suspended for a legacy reply
+    prompt, the print would never reach the document at all, and the
+    answer would vanish from the transcript when the view resumes.
+    So record the answer as an "answer" segment unconditionally, and
+    print it only when no view is on screen — on the legacy terminal,
+    or on the restored terminal while suspended, where the user still
+    sees it live.
+    """
+    try:
+        from .runtime.display_channel import post_segment
+
+        post_segment("answer", text + "\n")
+    except Exception:
+        pass
+    view = None
+    try:
+        from .cli_impl.console_view import active_view
+
+        view = active_view()
+    except Exception:
+        view = None
+    if view is None:
+        print(text)
+
+
 def _emit_final_answer_if_any(
     *,
     assistant_text: str,
@@ -276,7 +306,7 @@ def _emit_final_answer_if_any(
             # streamed live during the call) render before this direct
             # print, so the answer cannot jump ahead of them.
             _drain_relayed_stream()
-            print(assistant_text)
+            _print_final_answer(assistant_text)
         elif skip_print and render_reasoning_when_skip_print and reasoning_content:
             # Registry TextDelta events already showed the answer, but that
             # observer does not render reasoning. Preserve the normal reasoning
