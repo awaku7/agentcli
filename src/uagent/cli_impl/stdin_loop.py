@@ -133,6 +133,29 @@ def _read_line_from_view(view, prompt: str):
     return tools_util.strip_surrogates(str(item))
 
 
+def _suspend_console_view() -> None:
+    """Yield the terminal to a legacy prompt or editor, if the view runs.
+
+    The next normal read restarts the view, so callers only suspend.
+    """
+    view = _console_view
+    if view is not None and view.running:
+        try:
+            view.suspend()
+        except Exception:
+            pass
+
+
+def _stop_console_view() -> None:
+    """Stop the console view for good (the stdin loop is exiting)."""
+    view = _console_view
+    if view is not None:
+        try:
+            view.stop()
+        except Exception:
+            pass
+
+
 from ..runtime.spinner import (
     paused as _spinner_paused,
     stop_quietly as _stop_spinner_quietly,
@@ -143,6 +166,16 @@ def stdin_loop(*, hook_runner=None) -> None:
     """
     Read standard input and push events to core.event_queue.
     """
+    try:
+        _stdin_loop_impl(hook_runner=hook_runner)
+    finally:
+        # The view is a separate daemon thread owning the terminal;
+        # every exit path (shutdown, EOF, error) must stop it so the
+        # terminal's raw mode and alternate screen are restored.
+        _stop_console_view()
+
+
+def _stdin_loop_impl(*, hook_runner=None) -> None:
     user_multiline_active = False
     user_lines: list[str] = []
     _last_ha_reply_mono = 0.0
@@ -167,6 +200,13 @@ def stdin_loop(*, hook_runner=None) -> None:
             # Prompt is resolved *only when we are ready to actually read input*.
             # If we compute it while BUSY and then loop/sleep, it can become stale
             # (e.g. show a normal prompt while a human_ask is actually active).
+
+            if is_reply:
+                # A legacy reply/password prompt is about to own the
+                # terminal — including asks opened during generation,
+                # where no view read is outstanding to abort. The
+                # next normal read restarts the view.
+                _suspend_console_view()
 
             if is_password:
                 # When replying to a prompt (human_ask password), flush any pending
@@ -804,6 +844,9 @@ def stdin_loop(*, hook_runner=None) -> None:
                 continue
 
             if line == "f" and _can_use_textarea():
+                # The editor opens its own application; the view
+                # must not compete with it for the terminal.
+                _suspend_console_view()
                 text = _multiline_editor()
                 if text is None:
                     continue

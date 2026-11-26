@@ -299,3 +299,67 @@ def test_chat_mode_llm_keeps_manual_prompt(monkeypatch) -> None:
 
     assert session.prompt_calls == []
     assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+class _LifecycleView:
+    """Console-view stand-in recording lifecycle calls."""
+
+    def __init__(self) -> None:
+        self.running = True
+        self.suspend_calls = 0
+        self.stop_calls = 0
+
+    def suspend(self) -> None:
+        self.suspend_calls += 1
+        self.running = False
+
+    def stop(self) -> None:
+        self.stop_calls += 1
+        self.running = False
+
+
+def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch) -> None:
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = True
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+    monkeypatch.setattr(
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+    )
+
+    def fake_sleep(seconds: float) -> None:
+        # The tool side consuming the reply clears the ask flag.
+        if seconds == 0.03:
+            with core.human_ask_lock:
+                core.human_ask_active = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    assert ask_queue.get_nowait() == "answer"
+    # The reply prompt owned the terminal: the view was suspended.
+    assert view.suspend_calls >= 1
+    # And the loop's exit stopped the view exactly once.
+    assert view.stop_calls == 1
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
