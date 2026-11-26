@@ -2,8 +2,10 @@
 
 The view is the terminal renderer decided for stage 2b: a scrolling
 output area above a fixed bottom region — spinner line, rule, the
-3-line input area, rule, and the status line on the very bottom line,
-in the style of Claude Code's CLI.  The output area is a projection
+1-line input area, rule, and the status line on the very bottom line,
+in the style of Claude Code's CLI.  The input line carries no prompt
+text, only the cursor; the prompt's identifying text (the working
+directory at idle) rides inside the upper rule instead.  The output area is a projection
 of the shared output document (``runtime.display_channel``): the
 view subscribes to the document and re-projects its tail as new
 segments arrive, colouring each segment by its kind — colour is
@@ -36,10 +38,29 @@ do not corrupt the full-screen rendering or vanish with the
 alternate screen.  The originals are restored whenever the view
 suspends or stops.  File-descriptor-level output (child processes
 inheriting the real terminal) is not captured.
+
+Input during generation (stage 2b, second half): the input area
+stays live while a turn runs.  A message submitted while busy opens
+an interrupt confirmation on its own line above the input area —
+Enter/y interrupts the turn and sends the message next, n queues
+it.  Commands (``:``-prefixed) skip the question and queue
+directly.  Queued lines dispatch in FIFO order once the turn ends;
+their document echo carries a pending marker until the moment they
+are dispatched.  The confirmation never interrupts by default: a
+human_ask preempting it (the view suspends) or the turn simply
+ending resolves it as "queue", with a notice in the transcript for
+the preempted case.
+
+Mouse: the view owns the mouse while it runs, so it provides the
+two things the terminal's own handling otherwise would — the
+wheel scrolls the output area no matter where the pointer is,
+and dragging over the output (or the input) selects text and
+copies it to the system clipboard on release.
 """
 
 from __future__ import annotations
 
+import collections
 import io
 import queue
 import sys
@@ -49,9 +70,13 @@ from typing import Any, Callable
 
 
 from ..env_utils import env_get
+from ..i18n import _
 
 _EOF = object()
-_PREFIX_WIDTH = 24
+# Cap on the prompt prefix: longer prompts are truncated with an
+# ellipsis so they cannot eat the whole input row.  The prompt
+# window itself hugs the (possibly truncated) text.
+_PREFIX_MAX_WIDTH = 24
 
 _active_lock = threading.Lock()
 _active_view: "ConsoleView | None" = None
@@ -201,6 +226,142 @@ class _OutputLexer:
         return get_line
 
 
+def _write_system_clipboard(text: str) -> bool:
+    """Best-effort write to the OS clipboard (Windows via ctypes).
+
+    The full-screen view owns the mouse, so the terminal's own
+    selection is unavailable; text the user selects in the view
+    is copied through here.  Any failure just leaves the copy
+    inside the app.
+    """
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            from ctypes import wintypes
+
+            user32 = ctypes.windll.user32
+            kernel32 = ctypes.windll.kernel32
+            # ctypes defaults to C int for return values and
+            # arguments; the handles and pointers here are
+            # pointer-sized on 64-bit Windows, so declare the
+            # signatures — otherwise the values truncate, and
+            # memmove can write through a truncated pointer.
+            kernel32.GlobalAlloc.restype = wintypes.HGLOBAL
+            kernel32.GlobalAlloc.argtypes = [wintypes.UINT, ctypes.c_size_t]
+            kernel32.GlobalLock.restype = wintypes.LPVOID
+            kernel32.GlobalLock.argtypes = [wintypes.HGLOBAL]
+            kernel32.GlobalUnlock.restype = wintypes.BOOL
+            kernel32.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+            kernel32.GlobalFree.restype = wintypes.HGLOBAL
+            kernel32.GlobalFree.argtypes = [wintypes.HGLOBAL]
+            user32.OpenClipboard.restype = wintypes.BOOL
+            user32.OpenClipboard.argtypes = [wintypes.HWND]
+            user32.EmptyClipboard.restype = wintypes.BOOL
+            user32.EmptyClipboard.argtypes = []
+            user32.SetClipboardData.restype = wintypes.HANDLE
+            user32.SetClipboardData.argtypes = [wintypes.UINT, wintypes.HANDLE]
+            user32.CloseClipboard.restype = wintypes.BOOL
+            user32.CloseClipboard.argtypes = []
+            kernel32.GetConsoleWindow.restype = wintypes.HWND
+            kernel32.GetConsoleWindow.argtypes = []
+            # Fill the memory block before touching the clipboard,
+            # so a failure up to here leaves the user's current
+            # clipboard contents alone.
+            data = text.encode("utf-16-le") + b"\x00\x00"
+            handle = kernel32.GlobalAlloc(0x0002, len(data))
+            if not handle:
+                return False
+            pointer = kernel32.GlobalLock(handle)
+            if not pointer:
+                kernel32.GlobalFree(handle)
+                return False
+            try:
+                ctypes.memmove(pointer, data, len(data))
+            finally:
+                kernel32.GlobalUnlock(handle)
+            # The clipboard needs a real owner window: opened
+            # with NULL, EmptyClipboard leaves the owner NULL and
+            # SetClipboardData then fails — after the previous
+            # contents were already erased.  The console window
+            # is this process's window.
+            owner = kernel32.GetConsoleWindow()
+            if not owner:
+                kernel32.GlobalFree(handle)
+                return False
+            if not user32.OpenClipboard(owner):
+                kernel32.GlobalFree(handle)
+                return False
+            try:
+                user32.EmptyClipboard()
+                if not user32.SetClipboardData(13, handle):
+                    kernel32.GlobalFree(handle)
+                    return False
+                return True
+            finally:
+                user32.CloseClipboard()
+        except Exception:
+            return False
+    # The native command-line clipboard tools need no extra
+    # dependency: pbcopy always ships with macOS, and on Linux
+    # the Wayland and X11 tools are tried in turn.  pyperclip,
+    # when a user happens to have it, is the last resort.
+    import shutil
+    import subprocess
+
+    if sys.platform == "darwin":
+        candidates = [["pbcopy"]]
+    else:
+        candidates = [
+            ["wl-copy"],
+            ["xclip", "-selection", "clipboard"],
+            ["xsel", "--clipboard", "--input"],
+        ]
+    for command in candidates:
+        if shutil.which(command[0]) is None:
+            continue
+        try:
+            result = subprocess.run(
+                command,
+                input=text.encode("utf-8"),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=5,
+                check=False,
+            )
+            if result.returncode == 0:
+                return True
+        except Exception:
+            continue
+    try:
+        import pyperclip
+
+        pyperclip.copy(text)
+        return True
+    except Exception:
+        return False
+
+
+def _make_clipboard() -> Any:
+    """An app clipboard that also mirrors copies to the OS one."""
+    from prompt_toolkit.clipboard.base import Clipboard, ClipboardData
+
+    class _SystemClipboard(Clipboard):
+        def __init__(self) -> None:
+            self._data = ClipboardData("")
+
+        def set_data(self, data: Any) -> None:
+            self._data = data
+            try:
+                _write_system_clipboard(data.text)
+            except Exception:
+                pass
+
+        def get_data(self) -> Any:
+            return self._data
+
+    return _SystemClipboard()
+
+
 def view_enabled() -> bool:
     """Whether the full-screen view may be used for this session."""
     if str(env_get("UAGENT_CLI_VIEW", "1")).strip().lower() in (
@@ -281,15 +442,18 @@ class ConsoleView:
         history: Any = None,
         on_ctrl_c: Callable[[], None] | None = None,
         on_f12: Callable[[], None] | None = None,
+        on_interrupt: Callable[[], None] | None = None,
         pt_input: Any = None,
         pt_output: Any = None,
         document: Any = None,
     ) -> None:
         from prompt_toolkit.buffer import Buffer
         from prompt_toolkit.document import Document
+        from prompt_toolkit.filters import Condition
 
         self._Document = Document
         self._output_buffer = Buffer(read_only=True)
+        self._output_window: Any = None
         # The view is a projection of the shared output document
         # (runtime.display_channel): it keeps the projected text and
         # the kind-colour ranges computed from the document's
@@ -302,15 +466,36 @@ class ConsoleView:
         self._proj_seg_count = 0
         self._proj_prefix_len = 0
         self._lexer = _OutputLexer(self)
+        # The text of a message submitted during generation, while
+        # its interrupt confirmation is unanswered (see _submit).
+        # The input buffer is read-only exactly while this is set.
+        self._confirm_text: str | None = None
+        self._reset_pending: bool = False
         self._input_buffer = Buffer(
             completer=completer,
             history=history,
             multiline=True,
             complete_while_typing=False,
+            read_only=Condition(
+                lambda: self._confirm_text is not None or self._reset_pending
+            ),
         )
+        # Queue items are (text, pending token) pairs; the token is
+        # the output document's pending-user segment for a line that
+        # was queued during generation, else None.
         self._submissions: queue.Queue[Any] = queue.Queue()
+        # Lines the user chose to interrupt for: wait_line returns
+        # them ahead of the ordinary queue.
+        self._priority: queue.Queue[Any] = queue.Queue()
+        # Lines the reader already took and hands back to go first
+        # among the ordinary ones (see requeue_front): a line held
+        # by the busy-at-submit wait that a priority line overtook.
+        self._front: collections.deque[Any] = collections.deque()
+        self._last_pending_token: Any = None
+        self._last_line_priority: bool = False
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
+        self._on_interrupt = on_interrupt
         self._pt_input = pt_input
         self._pt_output = pt_output
         self._prompt_text = ""
@@ -395,6 +580,29 @@ class ConsoleView:
                 self._thread = None
             if self._app is app:
                 self._app = None
+        # A human_ask (or another legacy prompt) taking the terminal
+        # preempts an open interrupt confirmation.  The message is
+        # never lost and never interrupts as a side effect: it
+        # queues, and the transcript says so.  This runs after the
+        # application thread has unwound, so touching the input
+        # buffer here cannot race it.
+        pending = self._take_confirmation()
+        if pending is not None:
+            self._finish_confirmation(pending, interrupt=False)
+            self._reset_input_buffer()
+            if self._document is not None:
+                try:
+                    self._document.append(
+                        "notice",
+                        "\n[INFO] "
+                        + _(
+                            "The interrupt confirmation was cancelled, "
+                            "so the message was queued."
+                        )
+                        + "\n",
+                    )
+                except Exception:
+                    pass
 
     def stop(self) -> None:
         self.suspend()
@@ -413,6 +621,12 @@ class ConsoleView:
                 # terminal, the streams, or the run loop.
                 return
             self._app = app
+        if self._reset_pending:
+            # A reset posted for a worker-resolved confirmation
+            # never ran (the previous application exited first);
+            # the buffer still holds the answered message and is
+            # still read-only.
+            self._reset_input_buffer()
         # The application output is built from the real streams inside
         # _make_app; only now is it safe to redirect Python-level
         # stdout/stderr into the document.
@@ -579,9 +793,42 @@ class ConsoleView:
     def set_status(self, text: str, *, busy: bool) -> None:
         """Set the bottom status line (e.g. ``[STATE] BUSY [LLM]``)."""
         with self._state_lock:
+            was_busy = self._status_busy
             self._status_text = text
-            self._status_busy = busy
+            self._status_busy = bool(busy)
+        self._resolve_confirmation_on_idle(was_busy, busy)
         self._invalidate()
+
+    def resync_busy(self, busy: bool) -> None:
+        """Re-align the cached busy flag with the core's truth.
+
+        Status updates only reach the view while it is active, so
+        a turn that ends while the view is suspended for a
+        human_ask leaves the cached flag stale — and submissions
+        are gated by it (an idle prompt would offer an interrupt
+        confirmation, or a running turn would look idle).  The
+        reader calls this on resume with the core's current flag.
+        The status text is left alone; the next status render
+        refreshes it.
+        """
+        with self._state_lock:
+            was_busy = self._status_busy
+            self._status_busy = bool(busy)
+        self._resolve_confirmation_on_idle(was_busy, busy)
+        self._invalidate()
+
+    def _resolve_confirmation_on_idle(self, was_busy: bool, busy: bool) -> None:
+        if was_busy and not busy:
+            # The turn ended while an interrupt confirmation was
+            # still open: the question is moot, so the message
+            # takes the safe side and queues (it dispatches next
+            # through the ordinary path).  This runs on a worker
+            # thread, so the input buffer is reset on the
+            # application thread; until then it stays read-only.
+            pending = self._take_confirmation(defer_reset=True)
+            if pending is not None:
+                self._finish_confirmation(pending, interrupt=False)
+                self._call_on_loop(self._reset_input_buffer)
 
     def set_prompt_text(self, text: str) -> None:
         with self._state_lock:
@@ -595,12 +842,32 @@ class ConsoleView:
 
         ``abort`` is polled while waiting; when it turns true the wait
         ends with None (the caller decides why: human_ask took stdin,
-        shutdown, ...).  Submitted text is returned as ``str``.
+        shutdown, ...).  Submitted text is returned as ``str``.  A
+        line the user chose to interrupt for is returned ahead of
+        lines queued earlier.  After a ``str`` return,
+        :attr:`last_pending_token` holds the output document's
+        pending-user segment for the line when it was queued during
+        generation (else None), so the dispatcher can resolve the
+        marker at the moment the line is actually sent.
         """
         while True:
             try:
-                item = self._submissions.get(timeout=0.05)
-                return item
+                text, token = self._priority.get_nowait()
+                self._last_pending_token = token
+                self._last_line_priority = True
+                return text
+            except queue.Empty:
+                pass
+            if self._front:
+                text, token = self._front.popleft()
+                self._last_pending_token = token
+                self._last_line_priority = False
+                return text
+            try:
+                text, token = self._submissions.get(timeout=0.05)
+                self._last_pending_token = token
+                self._last_line_priority = False
+                return text
             except queue.Empty:
                 if abort():
                     return None
@@ -611,9 +878,173 @@ class ConsoleView:
                     # queue no one will ever fill again.
                     return self.eof_sentinel
 
+    def take_priority_line(self) -> str | None:
+        """Pop one interrupt-chosen line without waiting, if any.
+
+        The reader calls this before committing a line it already
+        holds: a line the user explicitly chose to send next must
+        overtake a line that was merely dequeued earlier and is
+        being held by the busy-at-submit wait.
+        """
+        try:
+            text, _token = self._priority.get_nowait()
+        except queue.Empty:
+            return None
+        return text
+
+    def requeue_front(self, text: str, token: Any = None) -> None:
+        """Return a line the reader already took to the queue front.
+
+        Used when a priority line overtakes the held line: the held
+        line keeps its pending token and is read again before any
+        ordinary queued line.
+        """
+        self._front.appendleft((text, token))
+
+    def requeue_priority(self, text: str) -> None:
+        """Return an interrupt-chosen line to the priority queue.
+
+        Used when a human_ask takes stdin after the reader took
+        the line but before it could dispatch: the user's
+        explicit "send this next" choice survives the question
+        and is read again ahead of ordinary queued lines.
+        """
+        self._priority.put((text, None))
+
     @property
     def eof_sentinel(self) -> object:
         return _EOF
+
+    @property
+    def last_pending_token(self) -> Any:
+        """The pending-user segment of the line wait_line returned."""
+        return self._last_pending_token
+
+    @property
+    def last_line_priority(self) -> bool:
+        """Whether the line wait_line returned was interrupt-chosen.
+
+        Tracked separately from the pending token: an
+        interrupt-chosen line carries no token (it was echoed as
+        an ordinary user segment at once), but it is still a
+        deliberate choice that must survive a human_ask takeover.
+        """
+        return self._last_line_priority
+
+    def resolve_pending(self, token: Any) -> None:
+        """Drop the queued marker from a pending line being sent."""
+        if token is not None and self._document is not None:
+            try:
+                self._document.resolve_pending_user(token)
+            except Exception:
+                pass
+
+    # -- interrupt confirmation (input during generation) -------------
+
+    def _take_confirmation(self, *, defer_reset: bool = False) -> str | None:
+        """Pop the open confirmation's message, if one is open.
+
+        With ``defer_reset``, the input buffer's clearing is still
+        owed: ``_reset_pending`` keeps the buffer read-only until
+        the reset runs on the application thread, so keys batched
+        behind the answer cannot append to the answered message.
+        """
+        with self._state_lock:
+            text = self._confirm_text
+            self._confirm_text = None
+            if text is not None and defer_reset:
+                self._reset_pending = True
+            return text
+
+    def _resolve_confirmation(self, *, interrupt: bool) -> None:
+        """Answer the open confirmation (from a key binding).
+
+        Runs on the application thread, so the input buffer is
+        reset synchronously: keys batched behind the answer (the
+        next message typed in the same paste) start from an empty
+        buffer, not from the answered message's text.
+        """
+        text = self._take_confirmation()
+        if text is not None:
+            self._finish_confirmation(text, interrupt=interrupt)
+            self._reset_input_buffer()
+
+    def _finish_confirmation(self, text: str, *, interrupt: bool) -> None:
+        """Carry out a decided (or defaulted) confirmation outcome.
+
+        Interrupt: the line is echoed as an ordinary user line, the
+        turn interrupt is requested through the ``on_interrupt``
+        callback, and the line goes to the priority queue so it is
+        the next one dispatched once the turn winds down.  Queue:
+        the line joins the ordinary FIFO behind anything already
+        waiting, echoed with the pending marker until dispatched.
+        """
+        with self._state_lock:
+            prompt_text = self._prompt_text
+        if interrupt:
+            if self._document is not None:
+                try:
+                    self._document.append("user", f"{prompt_text}{text}\n")
+                except Exception:
+                    pass
+            self._priority.put((text, None))
+            if self._on_interrupt is not None:
+                try:
+                    self._on_interrupt()
+                except Exception:
+                    pass
+        else:
+            self._queue_line(text)
+        self._invalidate()
+
+    def _queue_line(self, text: str) -> None:
+        """Queue a line submitted during generation (FIFO order).
+
+        The line is echoed into the document with the pending
+        marker; the marker is resolved when the line is dispatched.
+        """
+        with self._state_lock:
+            prompt_text = self._prompt_text
+        token = None
+        if self._document is not None:
+            try:
+                token = self._document.append_pending_user(
+                    f"{prompt_text}{text}{_(' (queued)')}\n",
+                    _(" (queued)"),
+                )
+            except Exception:
+                token = None
+        self._submissions.put((text, token))
+
+    def _reset_input_buffer(self) -> None:
+        """Clear the input buffer and reopen it for typing.
+
+        Runs on the application thread — directly from a key
+        binding, posted for a worker-triggered resolution, or at
+        startup when a posted reset never ran.  Until it runs,
+        ``_reset_pending`` keeps the buffer read-only.
+        """
+        try:
+            self._input_buffer.reset()
+        except Exception:
+            pass
+        with self._state_lock:
+            self._reset_pending = False
+
+    def _confirm_fragments(self) -> list[tuple[str, str]]:
+        with self._state_lock:
+            active = self._confirm_text is not None
+        if not active:
+            return [("class:confirm", "")]
+        return [
+            (
+                "class:confirm",
+                _(
+                    "Interrupt the current response and send this "
+                    "message now?  Enter/y: interrupt   n: queue"
+                ),
+            )
+        ]
 
     # -- internals ------------------------------------------------------
 
@@ -668,23 +1099,56 @@ class ConsoleView:
         style = "class:status.busy" if busy else "class:status.idle"
         return [(style, text)]
 
-    def _prompt_fragments(self) -> list[tuple[str, str]]:
+    def _rule_label(self) -> str:
+        """The prompt's identifying text, carried by the upper rule.
+
+        The prompt string ("UAGEXE> ", "[BUSY:LLM] > ") loses its
+        trailing ">" — what remains names where the user is (the
+        working directory at idle), which is all the rule shows.
+        The input line itself carries no prompt, just the cursor.
+        """
         with self._state_lock:
             text = self._prompt_text
-        if len(text) > _PREFIX_WIDTH:
-            text = text[: _PREFIX_WIDTH - 1] + "…"
-        return [("class:prompt", text.ljust(_PREFIX_WIDTH))]
+        text = text.rstrip()
+        if text.endswith(">"):
+            text = text[:-1].rstrip()
+        if len(text) > _PREFIX_MAX_WIDTH:
+            text = text[: _PREFIX_MAX_WIDTH - 1] + "…"
+        return text
+
+    def _upper_rule_fragments(self) -> list[tuple[str, str]]:
+        return self._make_rule_fragments(self._rule_label())
+
+    def _lower_rule_fragments(self) -> list[tuple[str, str]]:
+        return self._make_rule_fragments("")
+
+    def _make_rule_fragments(self, label: str) -> list[tuple[str, str]]:
+        from prompt_toolkit.utils import get_cwidth
+
+        width = 80
+        app = self._app
+        if app is not None:
+            try:
+                width = app.output.get_size().columns
+            except Exception:
+                pass
+        if label:
+            head = f"── {label} "
+            fill = max(0, width - get_cwidth(head))
+            return [("class:rule", head + "─" * fill)]
+        return [("class:rule", "─" * width)]
 
     def _make_app(self) -> Any:
-        from prompt_toolkit.application import Application
+        from prompt_toolkit.application import Application, get_app
+        from prompt_toolkit.filters import Condition
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.layout import (
+            ConditionalContainer,
             Dimension,
             Float,
             FloatContainer,
             HSplit,
             Layout,
-            VSplit,
             Window,
         )
         from prompt_toolkit.layout.menus import CompletionsMenu
@@ -692,20 +1156,51 @@ class ConsoleView:
             BufferControl,
             FormattedTextControl,
         )
+        from prompt_toolkit.mouse_events import MouseButton, MouseEventType
+        from prompt_toolkit.selection import SelectionType
         from prompt_toolkit.styles import Style
 
         bindings = KeyBindings()
 
         @bindings.add("enter")
         def _submit(event: Any) -> None:
+            if self._confirm_text is not None:
+                # Enter answers the open confirmation (it means
+                # "interrupt"); the filtered binding below normally
+                # wins, and this guard keeps the meaning if it does
+                # not.
+                self._resolve_confirmation(interrupt=True)
+                return
             buffer = event.app.current_buffer
             text = buffer.text
             try:
                 buffer.append_to_history()
             except Exception:
                 pass
+            # The busy check and the confirmation installation are
+            # one atomic step: if the turn ended in between, the
+            # BUSY->IDLE transition would resolve a confirmation
+            # that does not exist yet, and the one installed right
+            # after would sit at an idle prompt forever — input
+            # read-only, the message undispatched.
+            with self._state_lock:
+                busy = self._status_busy
+                confirm = busy and bool(text.strip()) and not text.startswith(":")
+                if confirm:
+                    # A message submitted during generation first
+                    # asks: interrupt the turn for it, or queue it?
+                    # The text stays visible in the (now read-only)
+                    # input buffer until the question is answered.
+                    # Commands skip the question and queue directly.
+                    self._confirm_text = text
+            if confirm:
+                self._invalidate()
+                return
             buffer.reset()
-            self._submissions.put(text)
+            if busy:
+                self._queue_line(text)
+                return
+            self._submissions.put((text, None))
             # The legacy terminal keeps the submitted line in its
             # scrollback; the transcript here is the document, so
             # record the line (with its prompt) or it vanishes.
@@ -721,6 +1216,11 @@ class ConsoleView:
 
         @bindings.add("c-c")
         def _ctrl_c(event: Any) -> None:
+            if self._confirm_text is not None:
+                # Ctrl+C at the confirmation cancels the question,
+                # not the turn: the message queues (the safe side).
+                self._resolve_confirmation(interrupt=False)
+                return
             if self._on_ctrl_c is not None:
                 try:
                     self._on_ctrl_c()
@@ -731,6 +1231,10 @@ class ConsoleView:
         def _f12(event: Any) -> None:
             # While the view owns the terminal it also owns the
             # interrupt key; the legacy F12 monitor stays out.
+            if self._confirm_text is not None:
+                # F12 still interrupts the turn; the message whose
+                # confirmation was open queues behind it.
+                self._resolve_confirmation(interrupt=False)
             if self._on_f12 is not None:
                 try:
                     self._on_f12()
@@ -740,8 +1244,26 @@ class ConsoleView:
         @bindings.add("c-d")
         def _ctrl_d(event: Any) -> None:
             if not event.app.current_buffer.text:
-                self._submissions.put(_EOF)
+                self._submissions.put((_EOF, None))
                 event.app.exit()
+
+        # Confirmation answers.  These are registered after the
+        # plain bindings so they win while a confirmation is open;
+        # the guards inside the plain handlers keep the meaning even
+        # if one of them is reached first.
+        confirming = Condition(lambda: self._confirm_text is not None)
+
+        @bindings.add("y", filter=confirming)
+        @bindings.add("Y", filter=confirming)
+        @bindings.add("enter", filter=confirming)
+        def _confirm_interrupt(event: Any) -> None:
+            self._resolve_confirmation(interrupt=True)
+
+        @bindings.add("n", filter=confirming)
+        @bindings.add("N", filter=confirming)
+        @bindings.add("escape", filter=confirming)
+        def _confirm_queue(event: Any) -> None:
+            self._resolve_confirmation(interrupt=False)
 
         @bindings.add("pageup")
         def _page_up(event: Any) -> None:
@@ -754,46 +1276,144 @@ class ConsoleView:
         style = Style.from_dict(
             {
                 "rule": "#5f5f5f",
-                "prompt": "",
+                "confirm": "ansiyellow",
                 **_spinner_style(),
                 **_status_styles(),
             }
         )
 
+        view = self
+
+        class _OutputControl(BufferControl):
+            """Output text with mouse selection and copy.
+
+            The stock BufferControl mouse handler only works on
+            the focused control, and this one never takes focus
+            (the input keeps it), so selection is handled here
+            directly: drag selects, and releasing the button
+            copies the selection to the clipboard.
+            """
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type in (
+                    MouseEventType.SCROLL_UP,
+                    MouseEventType.SCROLL_DOWN,
+                ):
+                    return NotImplemented  # the window scrolls itself
+                get_processed_line = getattr(self, "_last_get_processed_line", None)
+                if get_processed_line is None:
+                    return NotImplemented
+                buffer = self.buffer
+                processed_line = get_processed_line(mouse_event.position.y)
+                xpos = processed_line.display_to_source(mouse_event.position.x)
+                index = buffer.document.translate_row_col_to_index(
+                    mouse_event.position.y, xpos
+                )
+                if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
+                    buffer.exit_selection()
+                    buffer.cursor_position = index
+                elif (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    if (
+                        buffer.selection_state is None
+                        and abs(buffer.cursor_position - index) > 0
+                    ):
+                        buffer.start_selection(selection_type=SelectionType.CHARACTERS)
+                    buffer.cursor_position = index
+                elif mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    if buffer.selection_state is not None:
+                        try:
+                            get_app().clipboard.set_data(buffer.copy_selection())
+                        except Exception:
+                            pass
+                else:
+                    return NotImplemented
+                return None
+
+        class _InputControl(BufferControl):
+            """Input control: the wheel scrolls the output (the
+            input itself has nothing to scroll), and releasing a
+            drag copies the input's own selection."""
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type == MouseEventType.SCROLL_UP:
+                    view._scroll_output_wheel(-3)
+                    return None
+                if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
+                    view._scroll_output_wheel(3)
+                    return None
+                result = super().mouse_handler(mouse_event)
+                if mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    if self.buffer.selection_state is not None:
+                        try:
+                            get_app().clipboard.set_data(self.buffer.copy_selection())
+                        except Exception:
+                            pass
+                return result
+
+        class _PassiveControl(FormattedTextControl):
+            """A display-only text row (spinner, prompt, status):
+            the wheel scrolls the output instead of dying on a
+            one-line strip."""
+
+            def mouse_handler(self, mouse_event: Any) -> Any:
+                if mouse_event.event_type == MouseEventType.SCROLL_UP:
+                    view._scroll_output_wheel(-3)
+                    return None
+                if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
+                    view._scroll_output_wheel(3)
+                    return None
+                return super().mouse_handler(mouse_event)
+
+        output_window = Window(
+            content=_OutputControl(buffer=self._output_buffer, lexer=self._lexer),
+            wrap_lines=True,
+        )
+        self._output_window = output_window
+
         layout = Layout(
             FloatContainer(
                 content=HSplit(
                     [
+                        output_window,
                         Window(
-                            content=BufferControl(
-                                buffer=self._output_buffer, lexer=self._lexer
-                            ),
-                            wrap_lines=True,
-                        ),
-                        Window(
-                            content=FormattedTextControl(self._spinner_fragments),
+                            content=_PassiveControl(self._spinner_fragments),
                             height=1,
                             style="class:spinner",
                         ),
-                        Window(char="─", height=1, style="class:rule"),
-                        VSplit(
-                            [
-                                Window(
-                                    content=FormattedTextControl(
-                                        self._prompt_fragments
-                                    ),
-                                    width=_PREFIX_WIDTH,
-                                    height=Dimension(min=3, max=3),
-                                ),
-                                Window(
-                                    content=BufferControl(buffer=self._input_buffer),
-                                    height=Dimension(min=3, max=3),
-                                ),
-                            ]
-                        ),
-                        Window(char="─", height=1, style="class:rule"),
                         Window(
-                            content=FormattedTextControl(self._status_fragments),
+                            content=_PassiveControl(self._upper_rule_fragments),
+                            height=1,
+                            style="class:rule",
+                        ),
+                        # The interrupt confirmation gets its own
+                        # line, visible only while it is open, so the
+                        # question never has to fight the spinner or
+                        # the status line for space.
+                        ConditionalContainer(
+                            content=Window(
+                                content=_PassiveControl(self._confirm_fragments),
+                                height=1,
+                                style="class:confirm",
+                            ),
+                            filter=Condition(lambda: self._confirm_text is not None),
+                        ),
+                        # One input line, no prompt text: the rule
+                        # above carries the where-am-I label, and
+                        # the blinking cursor marks the input.
+                        Window(
+                            content=_InputControl(buffer=self._input_buffer),
+                            height=Dimension(min=1, max=1),
+                        ),
+                        Window(
+                            content=_PassiveControl(self._lower_rule_fragments),
+                            height=1,
+                            style="class:rule",
+                        ),
+                        Window(
+                            content=_PassiveControl(self._status_fragments),
                             height=1,
                         ),
                     ]
@@ -819,6 +1439,7 @@ class ConsoleView:
             "style": style,
             "refresh_interval": 0.12,
             "mouse_support": True,
+            "clipboard": _make_clipboard(),
         }
         if self._pt_input is not None:
             kwargs["input"] = self._pt_input
@@ -836,25 +1457,61 @@ class ConsoleView:
         return Application(**kwargs)
 
     def _scroll_output(self, pages: int) -> None:
+        height = 20
+        app = self._app
+        if app is not None:
+            try:
+                height = max(5, app.output.get_size().rows - 5)
+            except Exception:
+                pass
+        self._scroll_output_lines(pages * height)
+
+    def _scroll_output_lines(self, delta: int) -> None:
         buffer = self._output_buffer
         text = buffer.text
         if not text:
             return
         lines = text.split("\n")
-        height = 20
-        app = self._app
-        if app is not None:
-            try:
-                height = max(5, app.output.get_size().rows - 7)
-            except Exception:
-                pass
-        # Convert the cursor's byte offset to a line, move by pages,
-        # and convert back; the output window follows the cursor.
+        # Convert the cursor's byte offset to a line, move by the
+        # delta, and convert back; the output window follows the
+        # cursor.
         cursor = buffer.cursor_position
         line_no = text[:cursor].count("\n")
-        line_no = max(0, min(len(lines) - 1, line_no + pages * height))
+        line_no = max(0, min(len(lines) - 1, line_no + delta))
         pos = sum(len(line) + 1 for line in lines[:line_no])
         buffer.set_document(
             self._Document(text, cursor_position=min(pos, len(text))),
             bypass_readonly=True,
         )
+
+    def _scroll_output_wheel(self, lines: int) -> None:
+        """Scroll the output window by a few lines (mouse wheel).
+
+        The renderer persistently honours the window's own scroll
+        offset — moving the buffer cursor (the PageUp path) only
+        scrolls once the cursor leaves the visible area — so the
+        wheel drives the window's scroll directly, with the
+        public offset attribute as a fallback.
+        """
+        window = self._output_window
+        if window is None:
+            return
+        step = getattr(window, "_scroll_up" if lines < 0 else "_scroll_down", None)
+        if step is None:
+            try:
+                info = window.render_info
+                if info is None:
+                    return
+                max_scroll = max(0, info.content_height - info.window_height)
+                window.vertical_scroll = max(
+                    0, min(max_scroll, window.vertical_scroll + lines)
+                )
+            except Exception:
+                return
+        else:
+            for _ in range(abs(lines)):
+                try:
+                    step()
+                except Exception:
+                    return
+        self._invalidate()

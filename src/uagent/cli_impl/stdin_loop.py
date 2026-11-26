@@ -31,6 +31,26 @@ _console_view = None
 _console_view_failed = False
 
 
+def _request_turn_interrupt() -> None:
+    """Ask the running turn to stop (the core interrupt flags).
+
+    Shared by the view's Ctrl+C, its F12 handler's semantics, and the
+    interrupt confirmation for a message submitted during
+    generation: one place sets the flags, mirroring the round
+    worker's KeyboardInterrupt path.
+    """
+    try:
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+    except Exception:
+        pass
+    try:
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+    except Exception:
+        pass
+
+
 def _console_view_ctrl_c() -> None:
     """Ctrl+C inside the console view (it arrives as a key, not SIGINT)."""
     with core.human_ask_lock:
@@ -47,16 +67,7 @@ def _console_view_ctrl_c() -> None:
     if getattr(core, "status_busy", False):
         # Interrupt the running turn, mirroring the F12 monitor and the
         # round worker's KeyboardInterrupt path.
-        try:
-            with core.interrupt_lock:
-                core.interrupt_requested = True
-        except Exception:
-            pass
-        try:
-            with core.auto_pilot_exit_lock:
-                core.auto_pilot_exit_requested = True
-        except Exception:
-            pass
+        _request_turn_interrupt()
         return
     # Idle: the legacy prompt path starts the shutdown sequence.
     if _console_view is not None:
@@ -88,16 +99,7 @@ def _console_view_f12() -> None:
             ask_queue.put("cancel")
         except Exception:
             pass
-    try:
-        with core.interrupt_lock:
-            core.interrupt_requested = True
-    except Exception:
-        pass
-    try:
-        with core.auto_pilot_exit_lock:
-            core.auto_pilot_exit_requested = True
-    except Exception:
-        pass
+    _request_turn_interrupt()
 
 
 def _get_console_view():
@@ -118,6 +120,7 @@ def _get_console_view():
                 history=getattr(session, "history", None),
                 on_ctrl_c=_console_view_ctrl_c,
                 on_f12=_console_view_f12,
+                on_interrupt=_request_turn_interrupt,
             )
         except Exception:
             _console_view_failed = True
@@ -128,14 +131,27 @@ def _get_console_view():
 def _read_line_from_view(view, prompt: str):
     """Read one normal-prompt line through the console view.
 
-    Returns the submitted line, or None when the wait was aborted
-    because a human_ask took stdin (the view is suspended so the
-    legacy reply path can own the terminal) or shutdown began.
-    Raises EOFError on Ctrl+D, like the legacy prompt paths.
+    Returns ``(line, pending_token)``: the submitted line and the
+    output document's pending-user segment when the line was queued
+    during generation (else None).  Returns ``(None, None)`` when
+    the wait was aborted because a human_ask took stdin (the view is
+    suspended so the legacy reply path can own the terminal) or
+    shutdown began.  Raises EOFError on Ctrl+D, like the legacy
+    prompt paths.
     """
     if not view.running:
         view.start()
     view.set_prompt_text(prompt)
+    # Status updates only reach the view while it is active; a
+    # turn that ended while the view was suspended for a human_ask
+    # leaves its cached busy flag stale.  Re-align it with the
+    # core before the flag gates any submission.
+    resync_busy = getattr(view, "resync_busy", None)
+    if resync_busy is not None:
+        try:
+            resync_busy(bool(getattr(core, "status_busy", False)))
+        except Exception:
+            pass
     try:
         core._prompt_line_open = True
         core._cli_prompt_toolkit_active = True
@@ -158,11 +174,77 @@ def _read_line_from_view(view, prompt: str):
             pass
     if item is None:
         view.suspend()
-        return None
+        return None, None
     if item is view.eof_sentinel:
         view.suspend()
         raise EOFError
-    return tools_util.strip_surrogates(str(item))
+    return tools_util.strip_surrogates(str(item)), getattr(
+        view, "last_pending_token", None
+    )
+
+
+def _requeue_pending_line(view, line, token) -> bool:
+    """Return a queued-during-generation line to the view queue.
+
+    A line carrying a pending token was a deliberate queue
+    decision, so when stdin ownership changes underneath it (a
+    human_ask takes over) it must survive and dispatch at the
+    next ordinary prompt, instead of taking the legacy
+    ambiguous-input drop that lines typed at a replaced prompt
+    get.  Returns True when the line was requeued.
+    """
+    if view is None or token is None:
+        return False
+    try:
+        view.requeue_front(line, token)
+    except Exception:
+        return False
+    return True
+
+
+def _preserve_line_across_ask(view, line, token) -> bool:
+    """Whether a line the loop read survives a human_ask takeover.
+
+    Queued lines go back with their pending token
+    (:func:`_requeue_pending_line`).  An interrupt-chosen line
+    carries no token — it was echoed as an ordinary user segment
+    at once — but it is an explicit "send this next" choice, so
+    it goes back to the view's priority queue instead of taking
+    the legacy drop.  Returns True when the line was preserved.
+    """
+    if _requeue_pending_line(view, line, token):
+        return True
+    if view is None or token is not None:
+        return False
+    if not getattr(view, "last_line_priority", False):
+        return False
+    requeue = getattr(view, "requeue_priority", None)
+    if requeue is None:
+        return False
+    try:
+        requeue(line)
+    except Exception:
+        return False
+    return True
+
+
+def _resolve_pending_echo(token) -> None:
+    """Drop the queued marker from a view line that is being sent.
+
+    Lines submitted during generation are echoed into the output
+    document with a pending marker; the marker comes off at the
+    moment the line is actually dispatched (or definitively
+    dropped), so the transcript never claims a sent line is still
+    waiting, or a dropped one was sent.
+    """
+    if token is None:
+        return
+    view = _console_view
+    if view is not None:
+        try:
+            view.resolve_pending(token)
+        except Exception:
+            pass
 
 
 def _suspend_console_view() -> bool:
@@ -240,6 +322,8 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
         # Never carry the ownership marker across an abandoned prompt slot.
         core.input_prompt_active = False
         _skip = False
+        _pending_token = None
+        _line_view = None
         try:
             # First, check if we are waiting for a reply
             with core.human_ask_lock:
@@ -440,7 +524,8 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                         # the terminal first.
                         _suspend_console_view()
                     if _view is not None:
-                        line = _read_line_from_view(_view, prompt)
+                        _line_view = _view
+                        line, _pending_token = _read_line_from_view(_view, prompt)
                     elif (
                         prompt_session is not None
                         and getattr(sys.stdin, "isatty", lambda: False)()
@@ -748,6 +833,9 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
         if (not is_reply and human_ask_active_now) or (
             is_reply and not human_ask_active_now
         ):
+            if _preserve_line_across_ask(_line_view, line, _pending_token):
+                continue
+            _resolve_pending_echo(_pending_token)
             with _spinner_paused():
                 print(
                     _(
@@ -879,6 +967,9 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             with core.human_ask_lock:
                 human_ask_active_now = bool(core.human_ask_active)
             if human_ask_active_now:
+                if _preserve_line_across_ask(_line_view, line, _pending_token):
+                    continue
+                _resolve_pending_echo(_pending_token)
                 with _spinner_paused():
                     print(
                         _(
@@ -889,6 +980,27 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                     )
                 continue
             busy_at_submit = False
+
+        # A line the user chose to interrupt for may have been
+        # submitted while this line was being held (or while it was
+        # read across the turn boundary): it was explicitly chosen
+        # to go next, so it overtakes the held line, which returns
+        # to the front of the view queue with its marker intact.
+        if _line_view is not None:
+            try:
+                _priority_line = _line_view.take_priority_line()
+            except Exception:
+                _priority_line = None
+            if _priority_line is not None:
+                _line_view.requeue_front(line, _pending_token)
+                line = _priority_line
+                _pending_token = None
+
+        # The line is committed to dispatch now: a line that was
+        # queued during generation loses its pending marker here, so
+        # every dispatch branch below (command, editor, message)
+        # presents it as sent.
+        _resolve_pending_echo(_pending_token)
 
         if not user_multiline_active:
             if line.startswith(":"):

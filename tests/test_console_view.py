@@ -322,6 +322,30 @@ def test_print_status_line_routes_to_view(monkeypatch):
         core.status_label = ""
 
 
+def test_print_status_line_routes_to_view_during_ask(monkeypatch):
+    # An IDLE transition printed while a human_ask is active
+    # must still reach the (suspended) view: the suppression
+    # protects the legacy ask prompt, and dropping the update
+    # loses it for good — the state has already changed, so
+    # nothing prints it again, and the resumed view would keep
+    # showing the stale BUSY [tool:human_ask] line.
+    from uagent import core
+
+    fake = _FakeView()
+    console_view._set_active(fake)  # type: ignore[arg-type]
+    try:
+        with core.status_lock:
+            core.status_busy = False
+            core.status_label = ""
+        with core.human_ask_lock:
+            core.human_ask_active = True
+        core.print_status_line()
+        assert fake.status == [("[STATE] IDLE", False)]
+    finally:
+        with core.human_ask_lock:
+            core.human_ask_active = False
+
+
 def test_stdin_loop_view_ctrl_c_busy_sets_interrupt(monkeypatch):
     from uagent import core
     from uagent.cli_impl import stdin_loop
@@ -369,6 +393,8 @@ class _StubView:
     def set_prompt_text(self, text: str) -> None:
         pass
 
+    last_pending_token = None
+
     def wait_line(self, *, abort):
         if isinstance(self._item, BaseException):
             raise self._item
@@ -379,14 +405,14 @@ def test_read_line_from_view_returns_submitted_line():
     from uagent.cli_impl import stdin_loop
 
     view = _StubView("typed line")
-    assert stdin_loop._read_line_from_view(view, "prompt> ") == "typed line"  # type: ignore[arg-type]
+    assert stdin_loop._read_line_from_view(view, "prompt> ") == ("typed line", None)  # type: ignore[arg-type]
 
 
 def test_read_line_from_view_abort_suspends():
     from uagent.cli_impl import stdin_loop
 
     view = _StubView(None)
-    assert stdin_loop._read_line_from_view(view, "prompt> ") is None  # type: ignore[arg-type]
+    assert stdin_loop._read_line_from_view(view, "prompt> ") == (None, None)  # type: ignore[arg-type]
     assert view.suspended
 
 
@@ -857,6 +883,477 @@ def test_view_bracketed_paste_inserts_without_submitting():
             assert view._submissions.empty()
             pipe.send_text("\r")
             item = view._submissions.get(timeout=5)
-            assert item == "line one\nline two\nline three"
+            assert item == ("line one\nline two\nline three", None)
+        finally:
+            view.stop()
+
+
+def _busy_view(pipe, document, **kwargs):
+    """A started view whose status says a turn is running."""
+    from prompt_toolkit.output import DummyOutput
+
+    view = ConsoleView(
+        pt_input=pipe, pt_output=DummyOutput(), document=document, **kwargs
+    )
+    view.start()
+    assert _wait_for(lambda: view._app is not None and view.running)
+    view.set_prompt_text("User> ")
+    view.set_status("[STATE] BUSY [LLM]", busy=True)
+    return view
+
+
+def test_view_message_during_generation_queues_after_no():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("hello later\r")
+            # The confirmation opens; nothing is queued or echoed yet.
+            assert _wait_for(lambda: view._confirm_text == "hello later")
+            assert view._submissions.empty()
+            assert "hello later" not in _document_text(document)
+            pipe.send_text("n")
+            line = view.wait_line(abort=lambda: False)
+            assert line == "hello later"
+            token = view.last_pending_token
+            assert token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> hello later (queued)\n"
+                for s in document.snapshot()[0]
+            )
+            # Dispatch resolves the marker.
+            view.resolve_pending(token)
+            assert any(
+                s.kind == "user" and s.text == "User> hello later\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_message_during_generation_enter_interrupts():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    interrupts: list[bool] = []
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document, on_interrupt=lambda: interrupts.append(True))
+        try:
+            # Queue a command first so the priority order is visible.
+            pipe.send_text(":status\r")
+            assert _wait_for(lambda: not view._submissions.empty())
+            pipe.send_text("stop and do this\r")
+            assert _wait_for(lambda: view._confirm_text == "stop and do this")
+            pipe.send_text("\r")
+            assert _wait_for(lambda: interrupts == [True])
+            # The interrupt line is returned ahead of the queued one,
+            # and its echo is an ordinary user line (no marker).
+            assert view.wait_line(abort=lambda: False) == "stop and do this"
+            assert view.last_pending_token is None
+            assert view.wait_line(abort=lambda: False) == ":status"
+            assert view.last_pending_token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> stop and do this\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_command_during_generation_queues_without_confirmation():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text(":some command\r")
+            assert _wait_for(lambda: not view._submissions.empty())
+            assert view._confirm_text is None
+            assert view.wait_line(abort=lambda: False) == ":some command"
+            assert view.last_pending_token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> :some command (queued)\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_confirmation_preempted_by_suspend_queues_with_notice():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("a question\r")
+            assert _wait_for(lambda: view._confirm_text == "a question")
+            # A human_ask taking the terminal suspends the view; the
+            # open confirmation is cancelled into the queue, never
+            # into an interrupt, and the transcript says so.
+            view.suspend()
+            assert view.wait_line(abort=lambda: False) == "a question"
+            assert view.last_pending_token is not None
+            text = _document_text(document)
+            assert "User> a question (queued)\n" in text
+            assert "confirmation was cancelled" in text
+        finally:
+            view.stop()
+
+
+def test_view_confirmation_queues_when_the_turn_ends():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("late message\r")
+            assert _wait_for(lambda: view._confirm_text == "late message")
+            view.set_status("[STATE] IDLE", busy=False)
+            assert view.wait_line(abort=lambda: False) == "late message"
+            assert view.last_pending_token is not None
+            assert view._confirm_text is None
+        finally:
+            view.stop()
+
+
+def test_system_clipboard_write_never_raises():
+    # The OS clipboard write is best-effort: whatever the
+    # platform offers, the view must survive the attempt.
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    assert _write_system_clipboard("x") in (True, False)
+
+
+def test_system_clipboard_windows_uses_console_window_owner(monkeypatch):
+    # The Windows branch must open the clipboard with a real
+    # owner window (the console window): with a NULL owner,
+    # EmptyClipboard leaves the owner NULL and SetClipboardData
+    # fails — after the previous contents were already erased.
+    # The memory block is also filled before the clipboard is
+    # opened, so early failures never touch the clipboard.
+    import ctypes
+    import sys
+    import types
+
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    calls: list = []
+    buffer = ctypes.create_string_buffer(64)
+
+    class _Func:
+        def __init__(self, name, result):
+            self.name = name
+            self.result = result
+
+        def __call__(self, *args):
+            calls.append((self.name, args))
+            return self.result
+
+    kernel32 = types.SimpleNamespace(
+        GlobalAlloc=_Func("GlobalAlloc", 4242),
+        GlobalLock=_Func("GlobalLock", ctypes.addressof(buffer)),
+        GlobalUnlock=_Func("GlobalUnlock", True),
+        GlobalFree=_Func("GlobalFree", None),
+        GetConsoleWindow=_Func("GetConsoleWindow", 777),
+    )
+    user32 = types.SimpleNamespace(
+        OpenClipboard=_Func("OpenClipboard", True),
+        EmptyClipboard=_Func("EmptyClipboard", True),
+        SetClipboardData=_Func("SetClipboardData", 4242),
+        CloseClipboard=_Func("CloseClipboard", True),
+    )
+    monkeypatch.setattr(
+        ctypes,
+        "windll",
+        types.SimpleNamespace(user32=user32, kernel32=kernel32),
+        raising=False,
+    )
+    monkeypatch.setattr(sys, "platform", "win32")
+    assert _write_system_clipboard("hi") is True
+    names = [name for name, _args in calls]
+    assert names.index("GlobalAlloc") < names.index("OpenClipboard")
+    assert ("OpenClipboard", (777,)) in calls
+    assert ("SetClipboardData", (13, 4242)) in calls
+    written = buffer.raw[:6]
+    assert written == "hi".encode("utf-16-le") + b"\x00\x00"
+
+
+def test_system_clipboard_write_uses_a_native_tool(monkeypatch, tmp_path):
+    # No third-party dependency is required: a native clipboard
+    # tool on PATH (xclip here, standing in for pbcopy/wl-copy)
+    # receives the text.
+    import os
+    import stat
+    import sys
+
+    if sys.platform == "win32":
+        return
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    sink = tmp_path / "clipboard.txt"
+    tool = tmp_path / "xclip"
+    tool.write_text(f"#!/bin/sh\ncat > {sink}\n")
+    tool.chmod(tool.stat().st_mode | stat.S_IEXEC)
+    monkeypatch.setenv("PATH", f"{tmp_path}{os.pathsep}{os.environ['PATH']}")
+    assert _write_system_clipboard("copied text") is True
+    assert sink.read_text() == "copied text"
+
+
+def test_view_submit_racing_the_turn_end_never_wedges_the_confirmation():
+    # The busy check and the confirmation installation are one
+    # atomic step.  If the turn ends in between, the BUSY->IDLE
+    # transition resolves a confirmation that does not exist yet
+    # and the one installed after sits at an idle prompt forever:
+    # input read-only, the message undispatched.
+    import threading
+
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            real_lock = view._state_lock
+            entered = threading.Event()
+
+            class _RendezvousLock:
+                def __enter__(self):
+                    real_lock.acquire()
+                    entered.set()
+                    return self
+
+                def __exit__(self, *exc):
+                    real_lock.release()
+                    return False
+
+            view._state_lock = _RendezvousLock()
+            pipe.send_text("race me\r")
+            assert entered.wait(timeout=5)
+            # The turn ends while the submission is in flight.
+            end_turn = threading.Thread(
+                target=lambda: view.set_status("[STATE] IDLE", busy=False)
+            )
+            end_turn.start()
+            end_turn.join(timeout=5)
+            view._state_lock = real_lock
+            # Whichever side won the lock, the outcome is the same:
+            # no confirmation is left open, and the line dispatches
+            # (as a queued line if the question was installed and
+            # then resolved, as a plain one if the turn ended first).
+            assert view._confirm_text is None
+            assert view.wait_line(abort=lambda: False) == "race me"
+        finally:
+            view.stop()
+
+
+def test_view_rule_carries_the_prompt_label_not_the_input_line():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+    from prompt_toolkit.utils import get_cwidth
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            view.set_prompt_text("UAGEXE> ")
+            upper = "".join(text for _style, text in view._upper_rule_fragments())
+            # The where-am-I label rides inside the upper rule; the
+            # trailing ">" of the prompt string is dropped.
+            assert upper.startswith("── UAGEXE ")
+            assert get_cwidth(upper) == 80
+            lower = "".join(text for _style, text in view._lower_rule_fragments())
+            assert set(lower) == {"─"}
+            assert get_cwidth(lower) == 80
+        finally:
+            view.stop()
+
+
+def test_view_wheel_over_the_input_scrolls_the_output():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0  # the transcript starts scrolled to the tail
+            rows = view._app.output.get_size().rows
+            input_y = rows - 2  # the single input line
+            for _ in range(2):
+                pipe.send_text(f"\x1b[<64;5;{input_y}M")
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            for _ in range(2):
+                pipe.send_text(f"\x1b[<65;5;{input_y}M")
+            assert _wait_for(lambda: window.vertical_scroll == top)
+        finally:
+            view.stop()
+
+
+def test_view_drag_on_the_output_copies_the_selection():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "alpha bravo charlie\ndelta echo foxtrot\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            pipe.send_text("\x1b[<0;1;1M")
+            assert _wait_for(lambda: view._output_buffer.cursor_position == 0)
+            pipe.send_text("\x1b[<32;6;1M")
+            assert _wait_for(lambda: view._output_buffer.selection_state is not None)
+            pipe.send_text("\x1b[<0;6;1m")
+            assert _wait_for(lambda: view._app.clipboard.get_data().text == "alpha")
+        finally:
+            view.stop()
+
+
+def test_view_resync_busy_after_suspend_clears_the_stale_flag():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            view.suspend()
+            # The turn ended while the view was suspended, so no
+            # status update reached it; on resume the reader
+            # re-aligns the cached flag before submissions gate.
+            view.start()
+            assert _wait_for(lambda: view._app is not None and view.running)
+            view.resync_busy(False)
+            pipe.send_text("ordinary now\r")
+            line = view.wait_line(abort=lambda: False)
+            assert line == "ordinary now"
+            # Idle path: no confirmation opened, no pending token.
+            assert view._confirm_text is None
+            assert view.last_pending_token is None
+            # The reverse direction re-arms the confirmation gate.
+            view.resync_busy(True)
+            pipe.send_text("while busy\r")
+            assert _wait_for(lambda: view._confirm_text == "while busy")
+            pipe.send_text("n")
+            assert view.wait_line(abort=lambda: False) == "while busy"
+        finally:
+            view.stop()
+
+
+def test_view_batched_keys_after_a_confirmation_start_fresh():
+    # Codex's repro: a confirmation answer and the next message in
+    # one input batch.  The buffer must be reset synchronously when
+    # the answer is processed — a deferred reset lets the batched
+    # keys append to the answered message ("onesecond").
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("one\rnsecond\rn")
+            assert view.wait_line(abort=lambda: False) == "one"
+            assert view.wait_line(abort=lambda: False) == "second"
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
+def test_view_priority_line_reports_itself_and_requeues():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("queued one\r")
+            assert _wait_for(lambda: view._confirm_text == "queued one")
+            pipe.send_text("n")
+            assert _wait_for(lambda: view._confirm_text is None)
+            pipe.send_text("chosen one\r")
+            assert _wait_for(lambda: view._confirm_text == "chosen one")
+            pipe.send_text("y")
+            assert _wait_for(lambda: not view._priority.empty())
+            line = view.wait_line(abort=lambda: False)
+            assert line == "chosen one"
+            # Interrupt-chosen lines carry no pending token, but
+            # they report themselves as priority so a human_ask
+            # takeover can preserve them by that flag instead.
+            assert view.last_pending_token is None
+            assert view.last_line_priority is True
+            view.requeue_priority(line)
+            assert view.wait_line(abort=lambda: False) == "chosen one"
+            assert view.last_line_priority is True
+            assert view.wait_line(abort=lambda: False) == "queued one"
+            assert view.last_line_priority is False
+            assert view.last_pending_token is not None
+        finally:
+            view.stop()
+
+
+def test_view_priority_line_overtakes_a_requeued_held_line():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text(":status\r")
+            held = view.wait_line(abort=lambda: False)
+            held_token = view.last_pending_token
+            assert held == ":status"
+            assert held_token is not None
+            # While the reader holds that line, the user submits a
+            # message and chooses to interrupt for it.
+            pipe.send_text("urgent\r")
+            assert _wait_for(lambda: view._confirm_text == "urgent")
+            pipe.send_text("y")
+            assert _wait_for(lambda: view.take_priority_line() == "urgent")
+            # The held line goes back to the front and is read
+            # again ahead of anything queued later, token intact.
+            view.requeue_front(held, held_token)
+            pipe.send_text(":later\r")
+            assert view.wait_line(abort=lambda: False) == ":status"
+            assert view.last_pending_token is held_token
+            assert view.wait_line(abort=lambda: False) == ":later"
+        finally:
+            view.stop()
+
+
+def test_view_ctrl_c_at_confirmation_queues_instead_of_cancelling():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    ctrl_c_calls: list[bool] = []
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document, on_ctrl_c=lambda: ctrl_c_calls.append(True))
+        try:
+            pipe.send_text("careful message\r")
+            assert _wait_for(lambda: view._confirm_text == "careful message")
+            pipe.send_text("\x03")
+            assert view.wait_line(abort=lambda: False) == "careful message"
+            assert view.last_pending_token is not None
+            # Ctrl+C answered the question (queue); it did not fall
+            # through to the turn-level Ctrl+C handler.
+            assert ctrl_c_calls == []
         finally:
             view.stop()

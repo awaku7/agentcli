@@ -533,3 +533,40 @@ def test_document_snapshot_replace_preserves_intervening_user_segment():
     text = "".join(s.text for s in segments)
     assert text == "snap v3 one\nsnap v3 twoUser> follow-up\n"
     assert [s.kind for s in segments] == ["answer", "user"]
+
+
+def test_document_pending_user_segments_stay_separate_and_resolve():
+    document = dc.OutputDocument()
+    document.append("user", "User> first\n")
+    token = document.append_pending_user("User> second (queued)\n", " (queued)")
+    assert token is not None
+    # A later append of the same kind must not merge into the
+    # pending segment (it has to stay individually resolvable).
+    document.append("user", "User> third\n")
+    segments, _version, epoch = document.snapshot()
+    assert [s.text for s in segments] == [
+        "User> first\n",
+        "User> second (queued)\n",
+        "User> third\n",
+    ]
+    assert document.resolve_pending_user(token) is True
+    segments, _version, new_epoch = document.snapshot()
+    assert segments[1].text == "User> second\n"
+    # The text changed mid-document: renderers must rebuild.
+    assert new_epoch > epoch
+    # Resolving the same segment twice is a no-op.
+    assert document.resolve_pending_user(token) is False
+
+
+def test_document_pending_user_never_merges_with_previous():
+    document = dc.OutputDocument()
+    document.append("user", "User> first\n")
+    token = document.append_pending_user("User> second (queued)\n", " (queued)")
+    assert token is not None
+    segments, _version, _epoch = document.snapshot()
+    # The pending append did not merge into the previous user
+    # segment either.
+    assert [s.text for s in segments] == [
+        "User> first\n",
+        "User> second (queued)\n",
+    ]

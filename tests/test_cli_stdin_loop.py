@@ -487,3 +487,493 @@ def test_multiline_editor_text_is_echoed_to_the_document(monkeypatch) -> None:
         segment.kind == "user" and "multiline\nquestion" in segment.text
         for segment in new_segments
     )
+
+
+class _QueuedLineView:
+    """View stub handing the loop one line queued during generation."""
+
+    eof_sentinel = object()
+
+    def __init__(self, line: str, token) -> None:
+        self.running = True
+        self._line: str | None = line
+        self.last_pending_token = token
+        self.resolved: list = []
+        self.suspended = 0
+        self.stopped = 0
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.suspended += 1
+        self.running = False
+
+    def stop(self) -> None:
+        self.stopped += 1
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        if self._line is not None:
+            line, self._line = self._line, None
+            return line
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def test_queued_line_marker_resolved_at_dispatch(monkeypatch) -> None:
+    # A line the view queued during generation carries a pending
+    # token; the loop resolves the marker at the moment the line is
+    # dispatched, so the transcript stops calling it "queued" once
+    # it has actually been sent.
+    import io
+
+    token = object()
+    view = _QueuedLineView("queued message", token)
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "queued message"}
+    assert view.resolved == [token]
+
+
+class _OvertakeView:
+    """Hands out a held line first; a priority line then overtakes."""
+
+    eof_sentinel = object()
+
+    def __init__(self) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.held_token = object()
+        self.calls = 0
+        self.front: list = []
+        self.requeued: list = []
+        self.resolved: list = []
+        self._priority: str | None = "urgent message"
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        self.calls += 1
+        if self.calls == 1:
+            self.last_pending_token = self.held_token
+            return "held message"
+        if self.front:
+            text, self.last_pending_token = self.front.pop(0)
+            return text
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def take_priority_line(self):
+        line, self._priority = self._priority, None
+        return line
+
+    def requeue_front(self, text, token=None) -> None:
+        self.requeued.append((text, token))
+        self.front.append((text, token))
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def test_priority_line_overtakes_the_held_line(monkeypatch) -> None:
+    # A line read just before a turn started can sit in the loop
+    # while the user submits another message and chooses to
+    # interrupt for it. The chosen line was explicitly picked to go
+    # next, so it dispatches first; the held line returns to the
+    # front of the queue and follows with its marker resolved at
+    # its own dispatch.
+    import io
+
+    view = _OvertakeView()
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "urgent message"}
+    assert events.get_nowait() == {"kind": "user", "text": "held message"}
+    assert view.requeued == [("held message", view.held_token)]
+    assert view.resolved == [view.held_token]
+
+
+class _AskRequeueView:
+    """Hands out one queued line; records requeues and resolves."""
+
+    eof_sentinel = object()
+
+    def __init__(self, flip_early: bool) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.token = object()
+        self.calls = 0
+        self.flip_early = flip_early
+        self.front: list = []
+        self.requeued: list = []
+        self.resolved: list = []
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        self.calls += 1
+        if self.calls == 1:
+            # A turn starts while this read is in flight (the race
+            # the busy-at-submit hold exists for); in the early
+            # variant its human_ask opens at the same moment.
+            core.status_busy = True
+            if self.flip_early:
+                with core.human_ask_lock:
+                    core.human_ask_active = True
+            self.last_pending_token = self.token
+            return "queued message"
+        if self.front:
+            text, self.last_pending_token = self.front.pop(0)
+            return text
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def take_priority_line(self):
+        return None
+
+    def requeue_front(self, text, token=None) -> None:
+        self.requeued.append((text, token))
+        self.front.append((text, token))
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def _run_ask_requeue_scenario(monkeypatch, *, flip_early: bool) -> None:
+    import io
+
+    view = _AskRequeueView(flip_early)
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Proceed?")
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = False
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+    monkeypatch.setattr(
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+    )
+
+    def fake_sleep(seconds: float) -> None:
+        if seconds == 0.05 and not flip_early:
+            # The running turn opens its question during the hold.
+            with core.human_ask_lock:
+                core.human_ask_active = True
+        if seconds == 0.03:
+            # The tool side consuming the reply clears the ask.
+            with core.human_ask_lock:
+                core.human_ask_active = False
+            core.status_busy = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    # The question was answered normally while the queued line
+    # waited, and the queued line then dispatched exactly once,
+    # its marker resolved only at that dispatch.
+    assert ask_queue.get_nowait() == "answer"
+    assert events.get_nowait() == {"kind": "user", "text": "queued message"}
+    assert events.empty()
+    assert view.requeued == [("queued message", view.token)]
+    assert view.resolved == [view.token]
+
+
+class _ResyncView:
+    """View stub recording the busy re-alignment at each read."""
+
+    eof_sentinel = object()
+
+    def __init__(self) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.resync_calls: list = []
+        self._line: str | None = "hello"
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def resync_busy(self, busy: bool) -> None:
+        self.resync_calls.append(busy)
+
+    def wait_line(self, *, abort):
+        if self._line is not None:
+            line, self._line = self._line, None
+            return line
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def resolve_pending(self, token) -> None:
+        pass
+
+
+def test_view_read_resyncs_the_busy_flag(monkeypatch) -> None:
+    # Status updates reach the view only while it is active, so
+    # every read first re-aligns its cached busy flag with the
+    # core's current state.
+    import io
+
+    view = _ResyncView()
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+    assert view.resync_calls
+    assert all(flag is False for flag in view.resync_calls)
+
+
+class _PriorityAskView:
+    """Hands out one interrupt-chosen line; records its requeues."""
+
+    eof_sentinel = object()
+
+    def __init__(self, flip_early: bool) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.last_line_priority = False
+        self.calls = 0
+        self.flip_early = flip_early
+        self.priority_back: list = []
+        self.priority_requeued: list = []
+        self.resolved: list = []
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        self.calls += 1
+        if self.calls == 1:
+            # A turn starts while this read is in flight; in the
+            # early variant its human_ask opens at the same moment.
+            core.status_busy = True
+            if self.flip_early:
+                with core.human_ask_lock:
+                    core.human_ask_active = True
+            self.last_line_priority = True
+            return "chosen message"
+        if self.priority_back:
+            self.last_line_priority = True
+            return self.priority_back.pop(0)
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def take_priority_line(self):
+        return None
+
+    def requeue_priority(self, text) -> None:
+        self.priority_requeued.append(text)
+        self.priority_back.append(text)
+
+    def requeue_front(self, text, token=None) -> None:
+        raise AssertionError("a priority line has no token to requeue with")
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def _run_priority_ask_scenario(monkeypatch, *, flip_early: bool) -> None:
+    import io
+
+    view = _PriorityAskView(flip_early)
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Proceed?")
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = False
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+    monkeypatch.setattr(
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+    )
+
+    def fake_sleep(seconds: float) -> None:
+        if seconds == 0.05 and not flip_early:
+            with core.human_ask_lock:
+                core.human_ask_active = True
+        if seconds == 0.03:
+            with core.human_ask_lock:
+                core.human_ask_active = False
+            core.status_busy = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    # The question was answered normally while the chosen line
+    # waited, and the line then dispatched exactly once — it was
+    # preserved by its priority flag, not by a pending token.
+    assert ask_queue.get_nowait() == "answer"
+    assert events.get_nowait() == {"kind": "user", "text": "chosen message"}
+    assert events.empty()
+    assert view.priority_requeued == ["chosen message"]
+    assert view.resolved == []
+
+
+def test_chosen_line_survives_an_ask_opening_during_the_hold(monkeypatch) -> None:
+    _run_priority_ask_scenario(monkeypatch, flip_early=False)
+
+
+def test_chosen_line_survives_an_ask_already_open_at_the_check(monkeypatch) -> None:
+    _run_priority_ask_scenario(monkeypatch, flip_early=True)
+
+
+def test_queued_line_survives_an_ask_opening_during_the_hold(monkeypatch) -> None:
+    _run_ask_requeue_scenario(monkeypatch, flip_early=False)
+
+
+def test_queued_line_survives_an_ask_already_open_at_the_check(monkeypatch) -> None:
+    _run_ask_requeue_scenario(monkeypatch, flip_early=True)
