@@ -94,7 +94,10 @@ def stop_mid_stream():
     deadline = time.time() + 60
     while time.time() < deadline:
         live = [s for s in fake.STATS if s["path"].endswith(STREAM_PATH)]
-        if live and live[-1]["sent"] >= 10:
+        registry_output_seen = not cfg.get("force_registry_route") or bool(
+            getattr(core, "_registry_stream_output_rendered", False)
+        )
+        if live and live[-1]["sent"] >= 10 and registry_output_seen:
             break
         time.sleep(0.005)
     marks["stop"] = time.time()
