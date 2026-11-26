@@ -55,15 +55,47 @@ def _validate_label(label: str) -> str:
     return label
 
 
+CHAT_BINDINGS = ("attach", "room")
+_MAX_ROOM_SESSION_ID_CHARS = 128
+
+
+def _validate_binding(binding: str) -> str:
+    if binding not in CHAT_BINDINGS:
+        raise ValueError("binding must be 'attach' or 'room'")
+    return binding
+
+
+def _validate_room_session_id(session_id: str) -> str:
+    if (
+        not isinstance(session_id, str)
+        or not session_id
+        or len(session_id) > _MAX_ROOM_SESSION_ID_CHARS
+        or "\x00" in session_id
+    ):
+        raise ValueError(
+            "room session id must be a non-empty string of at most "
+            f"{_MAX_ROOM_SESSION_ID_CHARS} characters"
+        )
+    return session_id
+
+
 @dataclass(frozen=True)
 class BitchatPairingRecord:
-    """One paired BitChat peer; ``revoked_at`` is set after revocation."""
+    """One paired BitChat peer; ``revoked_at`` is set after revocation.
+
+    ``binding`` decides where the peer's llm-mode conversation
+    lives: ``attach`` joins the operator's current (main) session,
+    ``room`` gives the peer its own session (``room_session_id``,
+    assigned on first use).
+    """
 
     noise_key: str
     nostr_key: str | None
     label: str
     paired_at: int
     revoked_at: int | None
+    binding: str = "attach"
+    room_session_id: str | None = None
 
     @property
     def active(self) -> bool:
@@ -102,6 +134,21 @@ class SQLiteBitchatPairingStore:
             "CREATE INDEX IF NOT EXISTS idx_bitchat_pairings_nostr "
             "ON bitchat_pairings (nostr_key)"
         )
+        columns = {
+            row[1]
+            for row in self._connection.execute(
+                "PRAGMA table_info(bitchat_pairings)"
+            ).fetchall()
+        }
+        if "binding" not in columns:
+            self._connection.execute(
+                "ALTER TABLE bitchat_pairings "
+                "ADD COLUMN binding TEXT NOT NULL DEFAULT 'attach'"
+            )
+        if "room_session_id" not in columns:
+            self._connection.execute(
+                "ALTER TABLE bitchat_pairings ADD COLUMN room_session_id TEXT"
+            )
 
     # -- operator actions (local console only) --
 
@@ -112,36 +159,133 @@ class SQLiteBitchatPairingStore:
         *,
         approved: bool = False,
         paired_at: int | None = None,
+        binding: str = "attach",
     ) -> BitchatPairingRecord:
         """Create or reactivate a pairing for ``noise_key``.
 
         Reactivating a revoked record clears any Nostr link it had:
         re-pairing is a fresh operator decision, so Nostr access must be
-        linked again explicitly. ``approved`` must be True: pairing
-        grants LLM access, so it may only happen as an explicit local
-        operator action.
+        linked again explicitly. It likewise resets the chat
+        ``binding`` (to the given value, default ``attach``) and
+        clears any room session assigned under the old pairing.
+        ``approved`` must be True: pairing grants LLM access, so it
+        may only happen as an explicit local operator action.
         """
         if not approved:
             raise PermissionError("local operator approval is required to pair")
         key = _normalize_key(noise_key, "noise_key")
         clean_label = _validate_label(label)
+        clean_binding = _validate_binding(binding)
         when = int(time.time()) if paired_at is None else int(paired_at)
         with self._lock:
             self._connection.execute(
                 """
-                INSERT INTO bitchat_pairings (noise_key, nostr_key, label, paired_at, revoked_at)
-                VALUES (?, NULL, ?, ?, NULL)
+                INSERT INTO bitchat_pairings (
+                    noise_key, nostr_key, label, paired_at, revoked_at,
+                    binding, room_session_id
+                )
+                VALUES (?, NULL, ?, ?, NULL, ?, NULL)
                 ON CONFLICT(noise_key) DO UPDATE SET
                     label = excluded.label,
                     paired_at = excluded.paired_at,
                     nostr_key = NULL,
-                    revoked_at = NULL
+                    revoked_at = NULL,
+                    binding = excluded.binding,
+                    room_session_id = NULL
                 """,
-                (key, clean_label, when),
+                (key, clean_label, when, clean_binding),
             )
         record = self._get(key)
         assert record is not None
         return record
+
+    def set_binding(self, noise_key: str, binding: str) -> bool:
+        """Change an active pairing's chat binding; False if not active."""
+        key = _normalize_key(noise_key, "noise_key")
+        clean_binding = _validate_binding(binding)
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE bitchat_pairings SET binding = ? "
+                "WHERE noise_key = ? AND revoked_at IS NULL",
+                (clean_binding, key),
+            )
+            return cursor.rowcount == 1
+
+    def clear_room_session_id(self, noise_key: str) -> bool:
+        """Forget the room session assigned to an active pairing."""
+        try:
+            key = _normalize_key(noise_key, "noise_key")
+        except (TypeError, ValueError):
+            return False
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE bitchat_pairings SET room_session_id = NULL "
+                "WHERE noise_key = ? AND revoked_at IS NULL",
+                (key,),
+            )
+            self._connection.commit()
+            return cursor.rowcount > 0
+
+    def assign_room_session_id(self, noise_key: str, session_id: str) -> bool:
+        """Overwrite an active pairing's room session id.
+
+        Used when the recorded room session no longer exists (for
+        example it was deleted), so the peer gets a fresh room.
+        """
+        key = _normalize_key(noise_key, "noise_key")
+        clean_session_id = _validate_room_session_id(session_id)
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE bitchat_pairings SET room_session_id = ? "
+                "WHERE noise_key = ? AND revoked_at IS NULL",
+                (clean_session_id, key),
+            )
+            return cursor.rowcount == 1
+
+    def ensure_room_session_id(self, noise_key: str, new_session_id: str) -> str | None:
+        """Return the pairing's room session id, assigning one if unset.
+
+        The first session id offered for an active pairing sticks, so
+        a peer's room is stable across restarts. Returns None when
+        there is no active pairing for the key.
+        """
+        try:
+            key = _normalize_key(noise_key, "noise_key")
+        except (TypeError, ValueError):
+            return None
+        clean_session_id = _validate_room_session_id(new_session_id)
+        with self._lock:
+            row = self._connection.execute(
+                "SELECT room_session_id FROM bitchat_pairings "
+                "WHERE noise_key = ? AND revoked_at IS NULL",
+                (key,),
+            ).fetchone()
+            if row is None:
+                return None
+            if row[0]:
+                return str(row[0])
+            self._connection.execute(
+                "UPDATE bitchat_pairings SET room_session_id = ? "
+                "WHERE noise_key = ? AND room_session_id IS NULL",
+                (clean_session_id, key),
+            )
+            return clean_session_id
+
+    def record_for_nostr(self, nostr_key: str) -> BitchatPairingRecord | None:
+        """Return the pairing record linked to ``nostr_key``, or None."""
+        try:
+            key = _normalize_key(nostr_key, "nostr_key")
+        except (TypeError, ValueError):
+            return None
+        with self._lock:
+            row = self._connection.execute(
+                "SELECT noise_key, nostr_key, label, paired_at, revoked_at, "
+                "binding, room_session_id "
+                "FROM bitchat_pairings WHERE nostr_key = ? "
+                "AND revoked_at IS NULL ORDER BY paired_at DESC LIMIT 1",
+                (key,),
+            ).fetchone()
+        return BitchatPairingRecord(*row) if row is not None else None
 
     def link_nostr(
         self,
@@ -271,7 +415,8 @@ class SQLiteBitchatPairingStore:
         self, *, include_revoked: bool = False
     ) -> list[BitchatPairingRecord]:
         query = (
-            "SELECT noise_key, nostr_key, label, paired_at, revoked_at "
+            "SELECT noise_key, nostr_key, label, paired_at, revoked_at, "
+            "binding, room_session_id "
             "FROM bitchat_pairings"
         )
         if not include_revoked:
@@ -284,7 +429,8 @@ class SQLiteBitchatPairingStore:
     def _get(self, noise_key: str) -> BitchatPairingRecord | None:
         with self._lock:
             row = self._connection.execute(
-                "SELECT noise_key, nostr_key, label, paired_at, revoked_at "
+                "SELECT noise_key, nostr_key, label, paired_at, revoked_at, "
+                "binding, room_session_id "
                 "FROM bitchat_pairings WHERE noise_key = ?",
                 (noise_key,),
             ).fetchone()

@@ -39,6 +39,7 @@ from ..util_tools import (
     provider_allows_chat_vision,
 )
 from ..tools.pybitchat_shared import (
+    cancel_bitchat_turn,
     finish_bitchat_turn,
     is_chat_mode,
     set_active_bitchat_turn,
@@ -416,6 +417,20 @@ class ScheckWorker(QtCore.QObject):
                     set_active_bitchat_turn(
                         ev.get("reply_route") if ev.get("src") == "bitchat" else None
                     )
+
+                    if isinstance(ev.get("chat_room"), dict):
+                        # A room-bound device's messages belong to its
+                        # own session, which only the CLI loop binds.
+                        # Never run one against the GUI's history.
+                        print(
+                            _(
+                                "[bitchat] Skipped a room-bound device message: "
+                                "device rooms are handled by the CLI."
+                            )
+                        )
+                        if ev.get("src") == "bitchat":
+                            cancel_bitchat_turn()
+                        continue
 
                     if kind == "local_agent_started":
                         _peer = (

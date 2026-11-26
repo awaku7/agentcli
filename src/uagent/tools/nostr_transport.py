@@ -2017,6 +2017,14 @@ def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
                     status=status,
                 )
             )
+            if record.revoked_at is None:
+                print(
+                    _(
+                        "nostr.device_binding",
+                        default="  chat binding: %(binding)s",
+                        binding=record.binding,
+                    )
+                )
     except Exception as exc:
         print(
             _(
@@ -2026,6 +2034,162 @@ def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
             )
         )
     return CommandResult()
+
+
+def _cmd_nostr_bind(arg: str, **kwargs: Any) -> Any:
+    """Set a paired device's chat binding: attach (main session) or room."""
+    from ..nostr_remote_pairing import SQLitePairingStore
+    from ..util_tools import CommandResult
+
+    parts = arg.strip().split()
+    if len(parts) != 2 or parts[1].lower() not in ("attach", "room"):
+        print(
+            _(
+                "nostr.bind_usage",
+                default="Usage: :nostr bind <pubkey_or_npub> attach|room",
+            )
+        )
+        return CommandResult()
+
+    try:
+        path = _pairing_database_path()
+        os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
+        with SQLitePairingStore(path) as store:
+            from ..nostr_setup import decode_pairing_pubkey
+
+            changed = store.set_binding(
+                decode_pairing_pubkey(parts[0]), parts[1].lower()
+            )
+        print(
+            _(
+                "nostr.bind_success",
+                default="Nostr device chat binding: %(binding)s",
+                binding=parts[1].lower(),
+            )
+            if changed
+            else _(
+                "nostr.no_active_pairing",
+                default="No active pairing for that key.",
+            )
+        )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.bind_error",
+                default="Could not set Nostr device chat binding: %(error)s",
+                error=exc,
+            )
+        )
+    return CommandResult()
+
+
+def _start_nostr_remote_for_command(core: Any):
+    """Start the remote runtime for a command; None after printing why not."""
+    instance = get_nostr_instance()
+    if instance is None or not instance.is_running:
+        print(
+            _(
+                "nostr.remote_connect_first",
+                default="Run :nostr connect first, then :nostr llm.",
+            )
+        )
+        return None
+    try:
+        from ..nostr_nip17 import _public_key_x, _validate_private_key
+        from ..nostr_remote_runtime import start_nostr_remote_runtime
+
+        private_key = _validate_private_key(bytes.fromhex(instance._priv_hex))
+        if _public_key_x(private_key).hex() != instance.pubkey_hex:
+            raise ValueError(
+                _(
+                    "nostr.active_key_mismatch",
+                    default="active Nostr key does not match its public key",
+                )
+            )
+        return start_nostr_remote_runtime(
+            core,
+            private_key=private_key,
+            relays=list(instance.relays),
+        )
+    except Exception as exc:
+        print(
+            _(
+                "nostr.remote_start_error",
+                default="Could not start Nostr remote listener: %(error_type)s: %(error)s",
+                error_type=type(exc).__name__,
+                error=exc,
+            )
+        )
+        return None
+
+
+def _cmd_nostr_mode(mode: str, **kwargs: Any) -> Any:
+    """Shared handler for :nostr on|off|llm — the chat mode, aligned
+    with :bitchat.
+
+    off stops the remote listener; on starts it (if needed) in
+    display-only mode; llm starts it (if needed) in LLM mode.
+    """
+    from ..util_tools import CommandResult
+
+    core = kwargs.get("core")
+    if core is None:
+        print(
+            _(
+                "nostr.remote_requires_session",
+                default="Nostr remote listener requires an active CLI session.",
+            )
+        )
+        return CommandResult()
+
+    if mode == "off":
+        from ..nostr_remote_runtime import stop_nostr_remote_runtime
+
+        stop_nostr_remote_runtime(core)
+        print(_("nostr.mode_off", default="Nostr remote chat mode: OFF"))
+        return CommandResult()
+
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is not None:
+        try:
+            listener_running = runtime.status().get("state") == "running"
+        except Exception:
+            listener_running = False
+        if not listener_running:
+            # The listener thread has exited (error/stopped): a bare
+            # set_mode would print success while nothing listens.
+            # Recreate the runtime through the startup helper, as
+            # the retired `:nostr remote start` path did.
+            runtime = None
+    if runtime is None:
+        runtime = _start_nostr_remote_for_command(core)
+        if runtime is None:
+            return CommandResult()
+    runtime.set_mode(mode)
+    print(
+        _(
+            "nostr.mode_on",
+            default="Nostr remote chat mode: ON (paired devices' messages are only displayed)",
+        )
+        if mode == "on"
+        else _(
+            "nostr.mode_llm",
+            default="Nostr remote chat mode: LLM (paired devices' messages reach the LLM)",
+        )
+    )
+    return CommandResult()
+
+
+def _cmd_nostr_on(arg: str, **kwargs: Any) -> Any:
+    return _cmd_nostr_mode("on", **kwargs)
+
+
+def _cmd_nostr_off(arg: str, **kwargs: Any) -> Any:
+    return _cmd_nostr_mode("off", **kwargs)
+
+
+def _cmd_nostr_llm(arg: str, **kwargs: Any) -> Any:
+    return _cmd_nostr_mode("llm", **kwargs)
 
 
 CMD_SPECS = [
@@ -2082,20 +2246,49 @@ CMD_SPECS.extend(
             "handler": _cmd_nostr_devices,
             "help_text": "  :nostr devices [all]         List paired devices",
         },
+        {
+            "command": "nostr",
+            "subcommand": "bind",
+            "handler": _cmd_nostr_bind,
+            "help_text": "  :nostr bind <pubkey_or_npub> attach|room  Set a device's chat binding",
+        },
+        {
+            "command": "nostr",
+            "subcommand": "on",
+            "handler": _cmd_nostr_on,
+            "help_text": "  :nostr on                    Display paired devices' messages only",
+        },
+        {
+            "command": "nostr",
+            "subcommand": "off",
+            "handler": _cmd_nostr_off,
+            "help_text": "  :nostr off                   Stop accepting remote messages",
+        },
+        {
+            "command": "nostr",
+            "subcommand": "llm",
+            "handler": _cmd_nostr_llm,
+            "help_text": "  :nostr llm                   Paired devices' messages reach the LLM",
+        },
     ]
 )
 
 
 def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
-    """Start, stop, or inspect the opt-in NIP-17 CLI inbox listener."""
+    """Inspect the opt-in NIP-17 CLI inbox listener.
+
+    Starting and stopping live on the chat-mode commands
+    (``:nostr llm`` / ``:nostr off``); this command only shows the
+    listener status and verifies the latest reply's readback.
+    """
     from ..util_tools import CommandResult
 
     parts = arg.strip().split()
-    if not parts or parts[0].lower() not in {"start", "stop", "status", "verify"}:
+    if not parts or parts[0].lower() not in {"status", "verify"}:
         print(
             _(
                 "nostr.remote_usage",
-                default="Usage: :nostr remote start|stop|status|verify",
+                default="Usage: :nostr remote status|verify",
             )
         )
         return CommandResult()
@@ -2108,70 +2301,6 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                 default="Nostr remote listener requires an active CLI session.",
             )
         )
-        return CommandResult()
-
-    if operation == "start":
-        instance = get_nostr_instance()
-        if instance is None or not instance.is_running:
-            print(
-                _(
-                    "nostr.remote_connect_first",
-                    default="Run :nostr connect first, then :nostr remote start.",
-                )
-            )
-            return CommandResult()
-        try:
-            from ..nostr_nip17 import _public_key_x, _validate_private_key
-            from ..nostr_remote_runtime import start_nostr_remote_runtime
-
-            private_key = _validate_private_key(bytes.fromhex(instance._priv_hex))
-            if _public_key_x(private_key).hex() != instance.pubkey_hex:
-                raise ValueError(
-                    _(
-                        "nostr.active_key_mismatch",
-                        default="active Nostr key does not match its public key",
-                    )
-                )
-            runtime = start_nostr_remote_runtime(
-                core,
-                private_key=private_key,
-                relays=list(instance.relays),
-            )
-            print(
-                _(
-                    "nostr.remote_started",
-                    default="Nostr remote listener started on %(relays)s (session %(session_id)s).",
-                    relays=", ".join(runtime.relays),
-                    session_id=runtime.session_id,
-                )
-            )
-        except Exception as exc:
-            print(
-                _(
-                    "nostr.remote_start_error",
-                    default="Could not start Nostr remote listener: %(error_type)s: %(error)s",
-                    error_type=type(exc).__name__,
-                    error=exc,
-                )
-            )
-        return CommandResult()
-
-    if operation == "stop":
-        from ..nostr_remote_runtime import stop_nostr_remote_runtime
-
-        result = stop_nostr_remote_runtime(core)
-        message = (
-            _(
-                "nostr.remote_stopped",
-                default="Nostr remote listener stopped.",
-            )
-            if result["stopped"]
-            else _(
-                "nostr.remote_still_stopping",
-                default="Listener is still stopping.",
-            )
-        )
-        print(message)
         return CommandResult()
 
     runtime = getattr(core, "_nostr_remote_runtime", None)
@@ -2261,6 +2390,13 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                 state=status["state"],
                 pending=status["pending"],
                 dispatching=status["dispatching"],
+            )
+        )
+        print(
+            _(
+                "nostr.remote_mode",
+                default="Chat mode: %(mode)s",
+                mode=getattr(runtime, "mode", "llm"),
             )
         )
         diagnostics = status.get("diagnostics")
@@ -2383,7 +2519,7 @@ CMD_SPECS.append(
         "command": "nostr",
         "subcommand": "remote",
         "handler": _cmd_nostr_remote,
-        "help_text": "  :nostr remote start|stop|status|verify  Manage and diagnose the private inbox",
+        "help_text": "  :nostr remote status|verify  Show and diagnose the private inbox listener",
     }
 )
 
@@ -2552,7 +2688,7 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
             npub=encode_npub(phone_pubkey),
         )
     )
-    _cmd_nostr_remote("start", **kwargs)
+    _cmd_nostr_llm("", **kwargs)
     print(
         _(
             "nostr.setup_relay_warning",

@@ -65,14 +65,46 @@ def _validate_label(label: str) -> str:
     return label
 
 
+CHAT_BINDINGS = ("attach", "room")
+_MAX_ROOM_SESSION_ID_CHARS = 128
+
+
+def _validate_binding(binding: str) -> str:
+    if binding not in CHAT_BINDINGS:
+        raise ValueError("binding must be 'attach' or 'room'")
+    return binding
+
+
+def _validate_room_session_id(session_id: str) -> str:
+    if (
+        not isinstance(session_id, str)
+        or not session_id
+        or len(session_id) > _MAX_ROOM_SESSION_ID_CHARS
+        or "\x00" in session_id
+    ):
+        raise ValueError(
+            "room session id must be a non-empty string of at most "
+            f"{_MAX_ROOM_SESSION_ID_CHARS} characters"
+        )
+    return session_id
+
+
 @dataclass(frozen=True)
 class PairingRecord:
-    """A locally approved device record; ``revoked_at`` is set after revocation."""
+    """A locally approved device record; ``revoked_at`` is set after revocation.
+
+    ``binding`` decides where the device's llm-mode conversation
+    lives: ``attach`` joins the operator's current (main) session,
+    ``room`` gives the device its own session (``room_session_id``,
+    assigned on first use).
+    """
 
     pubkey: str
     label: str
     paired_at: int
     revoked_at: int | None
+    binding: str = "attach"
+    room_session_id: str | None = None
 
     @property
     def active(self) -> bool:
@@ -107,6 +139,21 @@ class SQLitePairingStore:
                 revoked_at INTEGER
             )
             """)
+        columns = {
+            row[1]
+            for row in self._connection.execute(
+                "PRAGMA table_info(nostr_remote_pairings)"
+            ).fetchall()
+        }
+        if "binding" not in columns:
+            self._connection.execute(
+                "ALTER TABLE nostr_remote_pairings "
+                "ADD COLUMN binding TEXT NOT NULL DEFAULT 'attach'"
+            )
+        if "room_session_id" not in columns:
+            self._connection.execute(
+                "ALTER TABLE nostr_remote_pairings " "ADD COLUMN room_session_id TEXT"
+            )
 
     def pair(
         self,
@@ -115,37 +162,132 @@ class SQLitePairingStore:
         *,
         approved: bool,
         paired_at: int | None = None,
+        binding: str = "attach",
     ) -> PairingRecord:
         """Persist a pairing only after the local caller explicitly approved it.
 
         Re-pairing a previously revoked key is permitted only with a new explicit
         approval; it creates a fresh active record and resets the old revoke
         timestamp. The caller must not derive ``approved`` from any Relay input.
+        Re-pairing is a fresh decision: it also resets the chat
+        ``binding`` (to the given value, default ``attach``) and
+        clears any room session assigned under the old pairing.
         """
         if approved is not True:
             raise PermissionError("local operator approval is required to pair")
         normalized = _normalize_pubkey(pubkey)
         label = _validate_label(label)
         paired_at = _timestamp(paired_at, "paired_at")
+        binding = _validate_binding(binding)
 
         with self._lock:
             self._connection.execute(
                 """
-                INSERT INTO nostr_remote_pairings (pubkey, label, paired_at, revoked_at)
-                VALUES (?, ?, ?, NULL)
+                INSERT INTO nostr_remote_pairings (
+                    pubkey, label, paired_at, revoked_at, binding, room_session_id
+                )
+                VALUES (?, ?, ?, NULL, ?, NULL)
                 ON CONFLICT(pubkey) DO UPDATE SET
                     label = excluded.label,
                     paired_at = excluded.paired_at,
-                    revoked_at = NULL
+                    revoked_at = NULL,
+                    binding = excluded.binding,
+                    room_session_id = NULL
                 """,
-                (normalized, label, paired_at),
+                (normalized, label, paired_at, binding),
             )
             row = self._connection.execute(
-                "SELECT pubkey, label, paired_at, revoked_at "
+                "SELECT pubkey, label, paired_at, revoked_at, binding, room_session_id "
                 "FROM nostr_remote_pairings WHERE pubkey = ?",
                 (normalized,),
             ).fetchone()
         return PairingRecord(*row)
+
+    def record_for(self, pubkey: str) -> PairingRecord | None:
+        """Return the pairing record for ``pubkey``, or None."""
+        try:
+            normalized = _normalize_pubkey(pubkey)
+        except (TypeError, ValueError):
+            return None
+        with self._lock:
+            row = self._connection.execute(
+                "SELECT pubkey, label, paired_at, revoked_at, binding, room_session_id "
+                "FROM nostr_remote_pairings WHERE pubkey = ?",
+                (normalized,),
+            ).fetchone()
+        return None if row is None else PairingRecord(*row)
+
+    def set_binding(self, pubkey: str, binding: str) -> bool:
+        """Change an active pairing's chat binding; False if not active."""
+        normalized = _normalize_pubkey(pubkey)
+        binding = _validate_binding(binding)
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE nostr_remote_pairings SET binding = ? "
+                "WHERE pubkey = ? AND revoked_at IS NULL",
+                (binding, normalized),
+            )
+            return cursor.rowcount == 1
+
+    def clear_room_session_id(self, pubkey: str) -> bool:
+        """Forget the room session assigned to an active pairing."""
+        try:
+            key = _normalize_pubkey(pubkey)
+        except (TypeError, ValueError):
+            return False
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE nostr_remote_pairings SET room_session_id = NULL "
+                "WHERE pubkey = ? AND revoked_at IS NULL",
+                (key,),
+            )
+            self._connection.commit()
+            return cursor.rowcount > 0
+
+    def assign_room_session_id(self, pubkey: str, session_id: str) -> bool:
+        """Overwrite an active pairing's room session id.
+
+        Used when the recorded room session no longer exists (for
+        example it was deleted), so the device gets a fresh room.
+        """
+        normalized = _normalize_pubkey(pubkey)
+        session_id = _validate_room_session_id(session_id)
+        with self._lock:
+            cursor = self._connection.execute(
+                "UPDATE nostr_remote_pairings SET room_session_id = ? "
+                "WHERE pubkey = ? AND revoked_at IS NULL",
+                (session_id, normalized),
+            )
+            return cursor.rowcount == 1
+
+    def ensure_room_session_id(self, pubkey: str, new_session_id: str) -> str | None:
+        """Return the pairing's room session id, assigning one if unset.
+
+        The first session id offered for an active pairing sticks, so
+        a device's room is stable across restarts. Returns None when
+        there is no active pairing for the key.
+        """
+        try:
+            normalized = _normalize_pubkey(pubkey)
+        except (TypeError, ValueError):
+            return None
+        new_session_id = _validate_room_session_id(new_session_id)
+        with self._lock:
+            row = self._connection.execute(
+                "SELECT room_session_id FROM nostr_remote_pairings "
+                "WHERE pubkey = ? AND revoked_at IS NULL",
+                (normalized,),
+            ).fetchone()
+            if row is None:
+                return None
+            if row[0]:
+                return str(row[0])
+            self._connection.execute(
+                "UPDATE nostr_remote_pairings SET room_session_id = ? "
+                "WHERE pubkey = ? AND room_session_id IS NULL",
+                (new_session_id, normalized),
+            )
+            return new_session_id
 
     def revoke(self, pubkey: str, *, revoked_at: int | None = None) -> bool:
         """Immediately revoke an active key; return False for unknown/already revoked keys.
@@ -182,7 +324,8 @@ class SQLitePairingStore:
         if not isinstance(include_revoked, bool):
             raise TypeError("include_revoked must be bool")
         query = (
-            "SELECT pubkey, label, paired_at, revoked_at " "FROM nostr_remote_pairings"
+            "SELECT pubkey, label, paired_at, revoked_at, binding, room_session_id "
+            "FROM nostr_remote_pairings"
         )
         if not include_revoked:
             query += " WHERE revoked_at IS NULL"

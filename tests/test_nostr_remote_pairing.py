@@ -15,6 +15,58 @@ def _pubkey(value: int) -> str:
     return public_key.public_numbers().x.to_bytes(32, "big").hex()
 
 
+def test_pairing_binding_defaults_to_attach_and_can_switch(tmp_path) -> None:
+    path = tmp_path / "remote-pairings.sqlite3"
+    with SQLitePairingStore(path) as store:
+        record = store.pair(_pubkey(41), "phone", approved=True)
+        assert record.binding == "attach"
+        assert record.room_session_id is None
+        assert store.set_binding(_pubkey(41), "room")
+        record = store.record_for(_pubkey(41))
+        assert record is not None and record.binding == "room"
+        with pytest.raises(ValueError):
+            store.set_binding(_pubkey(41), "sideways")
+        assert not store.set_binding(_pubkey(42), "room")
+
+
+def test_room_session_id_sticks_and_repairing_resets_binding(tmp_path) -> None:
+    path = tmp_path / "remote-pairings.sqlite3"
+    with SQLitePairingStore(path) as store:
+        store.pair(_pubkey(43), "phone", approved=True, binding="room")
+        assert store.ensure_room_session_id(_pubkey(43), "sess-first") == "sess-first"
+        assert store.ensure_room_session_id(_pubkey(43), "sess-other") == "sess-first"
+        assert store.ensure_room_session_id(_pubkey(44), "sess-x") is None
+        store.revoke(_pubkey(43))
+        assert store.ensure_room_session_id(_pubkey(43), "sess-y") is None
+        record = store.pair(_pubkey(43), "phone", approved=True)
+        assert record.binding == "attach"
+        assert record.room_session_id is None
+
+
+def test_pairing_store_migrates_a_pre_binding_database(tmp_path) -> None:
+    import sqlite3
+
+    path = tmp_path / "remote-pairings.sqlite3"
+    connection = sqlite3.connect(path)
+    connection.execute(
+        "CREATE TABLE nostr_remote_pairings ("
+        "pubkey TEXT PRIMARY KEY, label TEXT NOT NULL, "
+        "paired_at INTEGER NOT NULL, revoked_at INTEGER)"
+    )
+    connection.execute(
+        "INSERT INTO nostr_remote_pairings VALUES (?, 'old phone', 1, NULL)",
+        (_pubkey(45),),
+    )
+    connection.commit()
+    connection.close()
+    with SQLitePairingStore(path) as store:
+        record = store.record_for(_pubkey(45))
+        assert record is not None
+        assert record.binding == "attach"
+        assert record.room_session_id is None
+        assert store.is_authorized(_pubkey(45))
+
+
 def test_pairing_requires_explicit_local_approval(tmp_path) -> None:
     path = tmp_path / "remote-pairings.sqlite3"
     with SQLitePairingStore(path) as store:

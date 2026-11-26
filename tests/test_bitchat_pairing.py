@@ -24,6 +24,167 @@ def store(tmp_path):
         yield s
 
 
+def test_pairing_binding_defaults_to_attach_and_can_switch(store) -> None:
+    record = store.pair(NOISE_A, "phone", approved=True)
+    assert record.binding == "attach"
+    assert record.room_session_id is None
+    assert store.set_binding(NOISE_A, "room")
+    record = store.record_for(NOISE_A)
+    assert record is not None and record.binding == "room"
+    with pytest.raises(ValueError):
+        store.set_binding(NOISE_A, "sideways")
+    assert not store.set_binding(NOISE_B, "room")
+
+
+def test_room_session_id_sticks_and_repairing_resets(store) -> None:
+    store.pair(NOISE_A, "phone", approved=True, binding="room")
+    assert store.ensure_room_session_id(NOISE_A, "sess-first") == "sess-first"
+    assert store.ensure_room_session_id(NOISE_A, "sess-other") == "sess-first"
+    store.link_nostr(NOISE_A, NOSTR_A, approved=True)
+    by_nostr = store.record_for_nostr(NOSTR_A)
+    assert by_nostr is not None and by_nostr.binding == "room"
+    assert by_nostr.room_session_id == "sess-first"
+    store.revoke(NOISE_A)
+    record = store.pair(NOISE_A, "phone", approved=True)
+    assert record.binding == "attach"
+    assert record.room_session_id is None
+    assert record.nostr_key is None
+
+
+def test_bitchat_pairing_store_migrates_a_pre_binding_database(tmp_path) -> None:
+    import sqlite3
+
+    path = tmp_path / "pairings.sqlite3"
+    connection = sqlite3.connect(path)
+    connection.execute(
+        "CREATE TABLE bitchat_pairings ("
+        "noise_key TEXT PRIMARY KEY, nostr_key TEXT, label TEXT NOT NULL, "
+        "paired_at INTEGER NOT NULL, revoked_at INTEGER)"
+    )
+    connection.execute(
+        "INSERT INTO bitchat_pairings VALUES (?, NULL, 'old phone', 1, NULL)",
+        (NOISE_A,),
+    )
+    connection.commit()
+    connection.close()
+    with SQLiteBitchatPairingStore(path) as reopened:
+        record = reopened.record_for(NOISE_A)
+        assert record is not None
+        assert record.binding == "attach"
+        assert record.room_session_id is None
+
+
+def test_chat_room_descriptor_for_room_bound_peers(tmp_path, monkeypatch) -> None:
+    import contextlib
+
+    from cryptography.hazmat.primitives.asymmetric import ec
+
+    from uagent.tools import pybitchat_shared as pbs
+
+    bitchat_db = tmp_path / "bitchat.sqlite3"
+
+    @contextlib.contextmanager
+    def _open():
+        with SQLiteBitchatPairingStore(bitchat_db) as s:
+            yield s
+
+    monkeypatch.setattr("uagent.bitchat_pairing.open_bitchat_pairing_store", _open)
+    with SQLiteBitchatPairingStore(bitchat_db) as s:
+        s.pair(NOISE_A, "peer", approved=True, binding="room")
+        s.pair(NOISE_B, "peer2", approved=True)
+    peer_id = "ab" * 8
+    # BLE resolution trusts only the handshake-verified key.
+    assert pbs._chat_room_descriptor(
+        {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_A
+    ) == {
+        "store": "bitchat",
+        "peer_key": NOISE_A,
+    }
+    assert (
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_B
+        )
+        is None
+    )
+    # A poisoned ANNOUNCE cache cannot move a peer in or out of a
+    # room: the cache alone yields nothing, and a verified attach key
+    # stays attach even if the cache claims the room peer's key.
+    monkeypatch.setitem(pbs._PEER_NOISE_KEYS, peer_id, bytes.fromhex(NOISE_A))
+    assert pbs._chat_room_descriptor({"via": "ble", "peer": peer_id}) is None
+    assert (
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_B
+        )
+        is None
+    )
+
+    # A peer paired only in the Nostr remote registry resolves there.
+    def _pubkey(value: int) -> str:
+        public_key = ec.derive_private_key(value, ec.SECP256K1()).public_key()
+        return public_key.public_numbers().x.to_bytes(32, "big").hex()
+
+    from uagent.nostr_remote_pairing import SQLitePairingStore
+
+    nostr_db = tmp_path / "nostr-pairings.sqlite3"
+    with SQLitePairingStore(nostr_db) as nstore:
+        nstore.pair(_pubkey(61), "phone", approved=True, binding="room")
+    monkeypatch.setattr(
+        "uagent.tools.nostr_transport._pairing_database_path", lambda: nostr_db
+    )
+    assert pbs._chat_room_descriptor({"via": "nostr", "peer": _pubkey(61)}) == {
+        "store": "nostr",
+        "peer_key": _pubkey(61),
+    }
+    assert pbs._chat_room_descriptor(None) is None
+
+    # A BitChat store failure must not take the Nostr fallback down
+    # with it, and must not silently degrade a possibly room-bound
+    # peer to attach: resolution fails closed instead.
+    import pytest
+
+    def _broken_open():
+        raise RuntimeError("corrupt pairing database")
+
+    monkeypatch.setattr(
+        "uagent.bitchat_pairing.open_bitchat_pairing_store", _broken_open
+    )
+    assert pbs._chat_room_descriptor({"via": "nostr", "peer": _pubkey(61)}) == {
+        "store": "nostr",
+        "peer_key": _pubkey(61),
+    }
+    with pytest.raises(pbs._ChatRoomResolutionError):
+        pbs._chat_room_descriptor({"via": "nostr", "peer": _pubkey(62)})
+    with pytest.raises(pbs._ChatRoomResolutionError):
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_A
+        )
+
+    # And the injection path drops the message on resolution failure
+    # instead of queueing it against the main conversation.
+    import queue as queue_module
+
+    events: queue_module.Queue = queue_module.Queue()
+    monkeypatch.setattr(pbs, "_LLM_EVENT_QUEUE", events)
+    pbs._inject_to_llm("hello", {"via": "nostr", "peer": _pubkey(62)})
+    assert events.empty()
+
+
+def test_record_for_nostr_skips_revoked_pairings(store) -> None:
+    # A peer that re-pairs under a new Noise identity keeps its Nostr
+    # key: the revoked row must not shadow the active room binding.
+    store.pair(NOISE_A, "old phone", approved=True)
+    store.link_nostr(NOISE_A, NOSTR_A, approved=True)
+    store.revoke(NOISE_A)
+    store.pair(NOISE_B, "new phone", approved=True, binding="room")
+    store.link_nostr(NOISE_B, NOSTR_A, approved=True)
+
+    record = store.record_for_nostr(NOSTR_A)
+    assert record is not None
+    assert record.noise_key == NOISE_B
+    assert record.binding == "room"
+    assert record.active
+
+
 def test_pair_requires_approval(store) -> None:
     with pytest.raises(PermissionError):
         store.pair(NOISE_A, "phone")
@@ -441,6 +602,26 @@ def test_forward_to_mesh_only_in_on_mode(any_mode, monkeypatch) -> None:
         pbs.forward_to_mesh("local prompt")
     # Only the explicit public-chat mode forwards the local user's text.
     assert sent == [("text", "local prompt", None, "ble")]
+
+
+def test_bind_command_switches_chat_binding(cmd_env, capsys) -> None:
+    pst, _pbs, db = cmd_env
+    pst._cmd_bitchat_pair(NOISE_A)
+    pst._cmd_bitchat_bind(f"{NOISE_A} room")
+    assert "room" in capsys.readouterr().out
+    with SQLiteBitchatPairingStore(db) as s:
+        record = s.record_for(NOISE_A)
+        assert record is not None and record.binding == "room"
+    pst._cmd_bitchat_devices("")
+    assert "chat=room" in capsys.readouterr().out
+    pst._cmd_bitchat_bind(f"{NOISE_A} attach")
+    with SQLiteBitchatPairingStore(db) as s:
+        record = s.record_for(NOISE_A)
+        assert record is not None and record.binding == "attach"
+    pst._cmd_bitchat_bind(NOISE_A)
+    assert "Usage:" in capsys.readouterr().out
+    pst._cmd_bitchat_bind(f"{NOISE_B} room")
+    assert "No active pairing" in capsys.readouterr().out
 
 
 def test_pair_command_does_not_change_chat_mode(cmd_env, any_mode) -> None:

@@ -1245,6 +1245,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 )
                 % {"sender": sender, "text": text},
                 reply_route={"via": "ble", "peer": peer_hex},
+                verified_noise_key=noise_key_hex,
             )
 
     # ---- End Noise DM handlers ---------------------------------------------
@@ -2249,12 +2250,96 @@ def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
     return True
 
 
-def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None:
+class _ChatRoomResolutionError(Exception):
+    """The sender's chat binding could not be resolved (store failure)."""
+
+
+def _chat_room_descriptor(
+    reply_route: dict[str, str] | None,
+    *,
+    verified_noise_key: str = "",
+) -> dict[str, str] | None:
+    """Return the CLI chat-room descriptor for a room-bound peer, or None.
+
+    A peer whose pairing record is bound to a room gets its LLM turn
+    in its own session; the CLI loop reads the ``chat_room``
+    descriptor off the injected event and binds that session (the
+    same binding the Web rooms use). BitChat records are keyed by
+    the Noise key even when the DM arrived over Nostr; a peer paired
+    only in the Nostr remote registry resolves through that store.
+
+    BLE resolution uses ONLY the Noise key the completed handshake
+    verified (``verified_noise_key``): the ANNOUNCE-populated key
+    cache is attacker-controlled, so a room-bound peer could
+    otherwise announce a different key and escape its room (or be
+    resolved into another peer's room).
+
+    A store failure raises :class:`_ChatRoomResolutionError` instead
+    of returning None: None means "attach", and treating an
+    unreadable binding as attach would run a room-bound peer's
+    message against the operator's main conversation. The Nostr
+    registry fallback stays independent of BitChat store failures.
+    """
+    if not reply_route:
+        return None
+    via = reply_route.get("via")
+    peer = reply_route.get("peer") or ""
+    if not peer:
+        return None
+    bitchat_failed = False
+    record = None
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            if via == "ble":
+                if verified_noise_key:
+                    record = store.record_for(verified_noise_key)
+            elif via == "nostr":
+                record = store.record_for_nostr(peer)
+    except Exception as exc:
+        if via == "ble":
+            raise _ChatRoomResolutionError from exc
+        bitchat_failed = True
+    if record is not None and record.active and record.binding == "room":
+        return {"store": "bitchat", "peer_key": record.noise_key}
+    if via == "nostr":
+        try:
+            from ..nostr_remote_pairing import SQLitePairingStore
+            from .nostr_transport import _pairing_database_path
+
+            with SQLitePairingStore(_pairing_database_path()) as nostr_store:
+                nostr_record = nostr_store.record_for(peer)
+        except Exception as exc:
+            raise _ChatRoomResolutionError from exc
+        if (
+            nostr_record is not None
+            and nostr_record.active
+            and nostr_record.binding == "room"
+        ):
+            return {"store": "nostr", "peer_key": nostr_record.pubkey}
+        if bitchat_failed:
+            # The BitChat registry, which may hold this peer's room
+            # binding, could not be read, and the Nostr registry has
+            # no room binding for the peer: fail closed.
+            raise _ChatRoomResolutionError
+    return None
+
+
+def _inject_to_llm(
+    text: str,
+    reply_route: dict[str, str] | None = None,
+    *,
+    verified_noise_key: str = "",
+) -> None:
     """Inject a paired peer's DM into the LLM event queue (thread-safe).
 
     ``reply_route`` tells the CLI where the LLM's answer goes back to:
     ``{"via": "ble", "peer": <peer_id_hex>}`` for a BLE Noise DM or
     ``{"via": "nostr", "peer": <nostr_pubkey_hex>}`` for a Nostr DM.
+    ``verified_noise_key`` is the sender's Noise key as verified by
+    the completed handshake (BLE only); room resolution trusts only
+    that, never the ANNOUNCE cache.
     """
     global _LLM_EVENT_QUEUE
     q = _LLM_EVENT_QUEUE
@@ -2264,6 +2349,20 @@ def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None
             event: dict[str, Any] = {"kind": "user", "text": text, "src": "bitchat"}
             if reply_route:
                 event["reply_route"] = dict(reply_route)
+            try:
+                descriptor = _chat_room_descriptor(
+                    reply_route, verified_noise_key=verified_noise_key
+                )
+            except _ChatRoomResolutionError:
+                # Fail closed: an unresolved binding must not fall
+                # back to the operator's main conversation.
+                _notify_display(
+                    "[bitchat] Dropped a paired peer message: "
+                    "its chat binding could not be resolved."
+                )
+                return
+            if descriptor is not None:
+                event["chat_room"] = descriptor
             q.put_nowait(event)
         except Exception:
             pass

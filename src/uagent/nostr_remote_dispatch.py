@@ -34,13 +34,21 @@ NOT_PAIRED_MESSAGE = "remote sender is not paired"
 
 @dataclass(frozen=True)
 class RemoteCLIAction:
-    """Validated user action ready for the CLI's existing event handler."""
+    """Validated user action ready for the CLI's existing event handler.
 
-    kind: Literal["user", "command", "status"]
+    ``binding`` is the sender's per-device chat binding: ``attach``
+    (the action joins the operator's current session) or ``room``
+    (the action runs in the device's own session). ``display`` kind
+    actions are shown to the operator only (chat mode ``on``); they
+    never execute.
+    """
+
+    kind: Literal["user", "command", "status", "display"]
     text: str
     sender_pubkey: str
     rumor_id: str
     session_id: str
+    binding: str = "attach"
 
 
 def _valid_hex32(value: Any, field: str) -> str:
@@ -149,18 +157,36 @@ def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]
         if not normalized_parts:
             raise RemoteCLIRequestError("invalid explicit CLI command")
         command_head = normalized_parts[0].lower()
-        nostr_subcommand = ""
+        command_name = command_head
+        subcommand = ""
         if ":" in command_head:
             command_name, subcommand = command_head.split(":", 1)
-            if command_name == "nostr":
-                nostr_subcommand = subcommand.lstrip(":").split(":", 1)[0]
-        elif command_head == "nostr" and len(normalized_parts) == 2:
-            nostr_subcommand = (
-                normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
-            )
-        if nostr_subcommand in {"pair", "revoke", "remote", "setup"}:
+            subcommand = subcommand.lstrip(":").split(":", 1)[0]
+        elif len(normalized_parts) == 2:
+            subcommand = normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
+        if command_name == "nostr" and subcommand in {
+            "pair",
+            "revoke",
+            "remote",
+            "setup",
+            "bind",
+            "on",
+            "off",
+            "llm",
+        }:
             raise RemoteCLIRequestError(
                 "Nostr device and listener management are local-only"
+            )
+        if command_name == "bitchat" and subcommand in {
+            "bind",
+            "pair",
+            "link",
+            "on",
+            "off",
+            "llm",
+        }:
+            raise RemoteCLIRequestError(
+                "BitChat device and listener management are local-only"
             )
         return "command", command
 

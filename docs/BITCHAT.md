@@ -120,6 +120,38 @@ a linked Nostr key (linked automatically when they favorite you, or
 with `:bitchat link`). The switch is shown in the terminal. Peers
 without a linked key keep the BLE-only behaviour.
 
+### Chat modes and per-peer binding
+
+BitChat and the Nostr remote listener share one chat-mode spec:
+
+- `off` — do not accept chat input.
+- `on` — display only: incoming messages are shown, nothing reaches
+  the LLM.
+- `llm` — paired peers' direct messages are sent to the LLM as
+  conversation, and the reply goes back over the same route.
+
+Set the mode with `:bitchat off|on|llm` or `:nostr off|on|llm`
+(`:nostr llm` starts the listener; the older `:nostr remote start|stop`
+commands were retired in favour of the mode commands, while
+`:nostr remote status|verify` remain for status and diagnostics).
+
+In `llm` mode, where a device's conversation lives is chosen per
+device (the *chat binding*), on both transports:
+
+- `attach` (default) — the device's messages join the operator's
+  current (main) session.
+- `room` — the device gets its own session, kept separate from the
+  main conversation, with its own history. Replies and questions
+  stay inside that session. Room turns use the same session binding
+  as the Web UI's rooms. A room idle for 24 hours (configurable via
+  `UAGENT_CHAT_ROOM_IDLE_TTL_SECONDS`, like the Web private-room
+  grace period) is forgotten: the next message starts a fresh room,
+  while the old session remains in the session store as history.
+
+Change it with `:bitchat bind <noise_key_hex> attach|room` or
+`:nostr bind <pubkey_or_npub> attach|room`. `:bitchat devices` and
+`:nostr devices` show each device's current binding.
+
 ### Nostr Pubkey
 
 When Nostr transport is running, the node gets a keypair. Use the pubkey for targeted messaging:
@@ -188,12 +220,18 @@ The command calculates a geohash and subscribes to Nostr messages from users in 
 | `:bitchat stop` | Stop the BLE Mesh node |
 | `:bitchat on` | Enable chat mode (user input forwarded to mesh) |
 | `:bitchat off` | Disable chat mode |
+| `:bitchat llm` | LLM chat mode (paired peers' DMs are sent to the LLM) |
+| `:bitchat pair <noise_key_hex \| number \| nickname> [label]` | Pair a peer (allows their DMs to reach the LLM) |
+| `:bitchat devices [all]` | List paired peers, with each peer's chat binding |
+| `:bitchat bind <noise_key_hex> attach\|room` | Set a paired peer's chat binding |
 | `:bitchat status` | Show node state, chat mode, peers, Nostr status |
 | `:bitchat peers` | List discovered Nostr bitchat peers |
 | `:bitchat geo join [<geohash>|lat lng [prec]]` | List geo candidates or join a geohash channel |
 | `:bitchat geo leave <geohash>` | Leave a geohash channel |
 | `:bitchat geo list` | List active geo channels |
 | `:nostr connect [relays]` | Connect to Nostr relays |
+| `:nostr on` / `:nostr off` / `:nostr llm` | Set the remote chat mode (display only / stop / LLM) |
+| `:nostr bind <pubkey_or_npub> attach\|room` | Set a paired device's chat binding |
 | `:nostr status` | Show Nostr status |
 | `:nostr post <message>` | Post public text note (Kind 1) to Nostr |
 | `:nostr timeline [limit]` | Fetch recent public notes from Nostr relays |
