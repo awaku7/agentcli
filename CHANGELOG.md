@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.8.0] - 2026-11-26
+
+### Added
+
+- Add a full-screen CLI console view with integrated `human_ask` replies, mouse-based scrolling and selection, clipboard copy, and drag-edge auto-scrolling; document the keyboard controls.
+- Add the `nikkei225jp_chart_data` tool and optional timestamps for `[TOOL]` trace output.
+- Share local UAG work status without requiring confirmation.
+
+### Changed
+
+- Run CLI rounds on a worker thread and route output through a display channel for coordinated terminal rendering.
+- Defer optional tool imports, register hidden tools from a cached manifest, and split the tool registry, LLM round loop, and session store into focused modules.
+- Improve interruption handling across LLM/provider streams, command processes, and monitor tools, including cleanup of abandoned streams.
+
+### Fixed
+
+- Improve console-view handling of prompts, completions, resizing, suspend/resume, queued input, and stream rendering.
+- Keep password replies out of clipboard/history and Emacs macro recordings, and make confirmation teardown and interrupt handling reliable.
+
 ## [0.7.56] - 2026-11-24
 
 ### Changed
