@@ -268,6 +268,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
         core.input_prompt_active = False
         _skip = False
         _pending_token = None
+        _line_view = None
         try:
             # First, check if we are waiting for a reply
             with core.human_ask_lock:
@@ -468,6 +469,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                         # the terminal first.
                         _suspend_console_view()
                     if _view is not None:
+                        _line_view = _view
                         line, _pending_token = _read_line_from_view(_view, prompt)
                     elif (
                         prompt_session is not None
@@ -919,6 +921,21 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                     )
                 continue
             busy_at_submit = False
+
+        # A line the user chose to interrupt for may have been
+        # submitted while this line was being held (or while it was
+        # read across the turn boundary): it was explicitly chosen
+        # to go next, so it overtakes the held line, which returns
+        # to the front of the view queue with its marker intact.
+        if _line_view is not None:
+            try:
+                _priority_line = _line_view.take_priority_line()
+            except Exception:
+                _priority_line = None
+            if _priority_line is not None:
+                _line_view.requeue_front(line, _pending_token)
+                line = _priority_line
+                _pending_token = None
 
         # The line is committed to dispatch now: a line that was
         # queued during generation loses its pending marker here, so

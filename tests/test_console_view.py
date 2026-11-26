@@ -997,6 +997,35 @@ def test_view_confirmation_queues_when_the_turn_ends():
             view.stop()
 
 
+def test_view_priority_line_overtakes_a_requeued_held_line():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text(":status\r")
+            held = view.wait_line(abort=lambda: False)
+            held_token = view.last_pending_token
+            assert held == ":status"
+            assert held_token is not None
+            # While the reader holds that line, the user submits a
+            # message and chooses to interrupt for it.
+            pipe.send_text("urgent\r")
+            assert _wait_for(lambda: view._confirm_text == "urgent")
+            pipe.send_text("y")
+            assert _wait_for(lambda: view.take_priority_line() == "urgent")
+            # The held line goes back to the front and is read
+            # again ahead of anything queued later, token intact.
+            view.requeue_front(held, held_token)
+            pipe.send_text(":later\r")
+            assert view.wait_line(abort=lambda: False) == ":status"
+            assert view.last_pending_token is held_token
+            assert view.wait_line(abort=lambda: False) == ":later"
+        finally:
+            view.stop()
+
+
 def test_view_ctrl_c_at_confirmation_queues_instead_of_cancelling():
     from prompt_toolkit.input import create_pipe_input
 

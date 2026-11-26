@@ -52,6 +52,7 @@ the preempted case.
 
 from __future__ import annotations
 
+import collections
 import io
 import queue
 import sys
@@ -335,6 +336,10 @@ class ConsoleView:
         # Lines the user chose to interrupt for: wait_line returns
         # them ahead of the ordinary queue.
         self._priority: queue.Queue[Any] = queue.Queue()
+        # Lines the reader already took and hands back to go first
+        # among the ordinary ones (see requeue_front): a line held
+        # by the busy-at-submit wait that a priority line overtook.
+        self._front: collections.deque[Any] = collections.deque()
         self._last_pending_token: Any = None
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
@@ -669,6 +674,10 @@ class ConsoleView:
                 return text
             except queue.Empty:
                 pass
+            if self._front:
+                text, token = self._front.popleft()
+                self._last_pending_token = token
+                return text
             try:
                 text, token = self._submissions.get(timeout=0.05)
                 self._last_pending_token = token
@@ -682,6 +691,29 @@ class ConsoleView:
                     # the reader exits cleanly instead of polling a
                     # queue no one will ever fill again.
                     return self.eof_sentinel
+
+    def take_priority_line(self) -> str | None:
+        """Pop one interrupt-chosen line without waiting, if any.
+
+        The reader calls this before committing a line it already
+        holds: a line the user explicitly chose to send next must
+        overtake a line that was merely dequeued earlier and is
+        being held by the busy-at-submit wait.
+        """
+        try:
+            text, _token = self._priority.get_nowait()
+        except queue.Empty:
+            return None
+        return text
+
+    def requeue_front(self, text: str, token: Any = None) -> None:
+        """Return a line the reader already took to the queue front.
+
+        Used when a priority line overtakes the held line: the held
+        line keeps its pending token and is read again before any
+        ordinary queued line.
+        """
+        self._front.appendleft((text, token))
 
     @property
     def eof_sentinel(self) -> object:

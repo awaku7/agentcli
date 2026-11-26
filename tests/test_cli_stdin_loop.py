@@ -560,3 +560,91 @@ def test_queued_line_marker_resolved_at_dispatch(monkeypatch) -> None:
 
     assert events.get_nowait() == {"kind": "user", "text": "queued message"}
     assert view.resolved == [token]
+
+
+class _OvertakeView:
+    """Hands out a held line first; a priority line then overtakes."""
+
+    eof_sentinel = object()
+
+    def __init__(self) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.held_token = object()
+        self.calls = 0
+        self.front: list = []
+        self.requeued: list = []
+        self.resolved: list = []
+        self._priority: str | None = "urgent message"
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        self.calls += 1
+        if self.calls == 1:
+            self.last_pending_token = self.held_token
+            return "held message"
+        if self.front:
+            text, self.last_pending_token = self.front.pop(0)
+            return text
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def take_priority_line(self):
+        line, self._priority = self._priority, None
+        return line
+
+    def requeue_front(self, text, token=None) -> None:
+        self.requeued.append((text, token))
+        self.front.append((text, token))
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def test_priority_line_overtakes_the_held_line(monkeypatch) -> None:
+    # A line read just before a turn started can sit in the loop
+    # while the user submits another message and chooses to
+    # interrupt for it. The chosen line was explicitly picked to go
+    # next, so it dispatches first; the held line returns to the
+    # front of the queue and follows with its marker resolved at
+    # its own dispatch.
+    import io
+
+    view = _OvertakeView()
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "urgent message"}
+    assert events.get_nowait() == {"kind": "user", "text": "held message"}
+    assert view.requeued == [("held message", view.held_token)]
+    assert view.resolved == [view.held_token]
