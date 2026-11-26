@@ -1328,6 +1328,49 @@ def test_view_drag_held_at_the_edge_keeps_scrolling_without_events():
             view.stop()
 
 
+def test_view_drag_released_outside_the_output_stops_edge_scrolling():
+    # Mouse events go to the control under the pointer, so a
+    # release over the spinner row never reaches the output's
+    # handler.  It must still end the edge-scroll repeat —
+    # otherwise the view keeps scrolling after the drag is over.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the edge; repeat starts
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            rows = view._app.output.get_size().rows
+            spinner_y = rows - 4  # the row just below the output area
+            pipe.send_text(f"\x1b[<0;1;{spinner_y}m")  # release over the spinner
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+            settled = window.vertical_scroll
+            import time as _time
+
+            _time.sleep(0.6)
+            assert window.vertical_scroll == settled
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

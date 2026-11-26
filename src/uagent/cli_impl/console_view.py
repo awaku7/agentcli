@@ -454,6 +454,7 @@ class ConsoleView:
         self._Document = Document
         self._output_buffer = Buffer(read_only=True)
         self._output_window: Any = None
+        self._output_control: Any = None
         # The view is a projection of the shared output document
         # (runtime.display_channel): it keeps the projected text and
         # the kind-colour ranges computed from the document's
@@ -1444,6 +1445,16 @@ class ConsoleView:
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
                     view._scroll_output_wheel(3)
                     return None
+                if mouse_event.event_type in (
+                    MouseEventType.MOUSE_DOWN,
+                    MouseEventType.MOUSE_UP,
+                ) or (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    # A drag that left the output area ends its
+                    # edge scroll here, where its events land.
+                    view._stop_output_edge_scroll()
                 result = super().mouse_handler(mouse_event)
                 if mouse_event.event_type == MouseEventType.MOUSE_UP:
                     if self.buffer.selection_state is not None:
@@ -1465,10 +1476,23 @@ class ConsoleView:
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
                     view._scroll_output_wheel(3)
                     return None
+                if mouse_event.event_type in (
+                    MouseEventType.MOUSE_DOWN,
+                    MouseEventType.MOUSE_UP,
+                ) or (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    # A drag that left the output area ends its
+                    # edge scroll here, where its events land.
+                    view._stop_output_edge_scroll()
                 return super().mouse_handler(mouse_event)
 
+        self._output_control = _OutputControl(
+            buffer=self._output_buffer, lexer=self._lexer
+        )
         output_window = Window(
-            content=_OutputControl(buffer=self._output_buffer, lexer=self._lexer),
+            content=self._output_control,
             wrap_lines=True,
         )
         self._output_window = output_window
@@ -1583,6 +1607,18 @@ class ConsoleView:
             self._Document(text, cursor_position=min(pos, len(text))),
             bypass_readonly=True,
         )
+
+    def _stop_output_edge_scroll(self) -> None:
+        """Cancel the output's drag edge-scroll repeat, if any.
+
+        Mouse events are dispatched per control, so a drag that
+        leaves the output area reports its move/release to the
+        row under the pointer instead; those controls call this
+        so the repeat does not run on after the drag has left.
+        """
+        control = self._output_control
+        if control is not None:
+            control._stop_edge_scroll()
 
     def _scroll_output_wheel(self, lines: int) -> None:
         """Scroll the output window by a few lines (mouse wheel).
