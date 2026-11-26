@@ -623,6 +623,70 @@ def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[st
     return chunks
 
 
+def _paired_nostr_route(recipient_hex: str) -> tuple[str, str] | None:
+    """Return (nostr pubkey, display name) for a paired peer, if linked.
+
+    The pairing store is keyed by the full Noise key; the peer id a
+    sender addresses is derived from that key, so scan the active
+    records and match the derived id.
+    """
+    try:
+        from bitchat_protocol import peer_id_from_noise_key
+
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            records = store.list_devices()
+    except Exception:
+        return None
+    for record in records:
+        if not record.nostr_key:
+            continue
+        try:
+            peer_id = peer_id_from_noise_key(bytes.fromhex(record.noise_key))
+        except Exception:
+            continue
+        if peer_id.lower() == recipient_hex.lower():
+            return record.nostr_key, record.label or recipient_hex[:8]
+    return None
+
+
+def _send_dm_via_nostr_fallback(text: str, recipient: str) -> bool:
+    """Send a DM over Nostr because the peer is not on the BLE mesh.
+
+    Applies only when the peer has not been heard this session (no
+    announce, so no Noise key to start a BLE DM with) but is paired
+    with a linked Nostr key. Returns True when the message went out
+    via Nostr; otherwise the caller keeps the normal BLE path. The
+    switch is always shown, never silent.
+    """
+    if not (_NOSTR_RUNNING and _NOSTR is not None):
+        return False
+    recipient_hex = _resolve_recipient_hex(recipient)
+    if recipient_hex is None:
+        return False
+    if any(recipient_hex.lower() == key.lower() for key in _PEER_NOISE_KEYS):
+        return False
+    route = _paired_nostr_route(recipient_hex)
+    if route is None:
+        return False
+    nostr_key, display_name = route
+    try:
+        result = _NOSTR.nostr_send_kind1059(text, nostr_key)
+    except Exception:
+        return False
+    if isinstance(result, dict) and result.get("ok") is False:
+        return False
+    _notify_display(
+        _(
+            "bitchat.dm_via_nostr",
+            default="[bitchat] %(recipient)s is not on the mesh; DM sent via Nostr",
+        )
+        % {"recipient": display_name}
+    )
+    return True
+
+
 def enqueue_send(
     type_: str,
     payload: str | bytes,
@@ -644,6 +708,12 @@ def enqueue_send(
                 payload_text = payload.hex()
         else:
             payload_text = str(payload)
+        # A BLE DM to a peer who is not on the mesh right now goes
+        # out over Nostr instead, when that peer is paired with a
+        # linked Nostr key. Explicit via choices are left alone.
+        if via == "ble" and recipient and not plain:
+            if _send_dm_via_nostr_fallback(payload_text, recipient):
+                return
         chunk_limit = _TEXT_CHUNK_BYTES
         # PrivateMessagePacket uses one-byte TLV lengths for the message
         # content. Split BLE Noise DMs before encoding instead of dropping
