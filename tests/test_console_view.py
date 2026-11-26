@@ -1998,6 +1998,44 @@ def test_view_reply_end_then_begin_survives_a_stalled_app_loop():
             view.stop()
 
 
+def test_view_password_reply_ctrl_o_never_reaches_the_file_history(tmp_path):
+    # Regression (PR #491 Codex P1, third round): the input buffer
+    # kept the prompt's file-backed history during a password
+    # reply, and prompt_toolkit's default Ctrl+O binding accepts
+    # the buffer through validate_and_handle() — appending the
+    # plaintext password to the history file and clearing the
+    # buffer without delivering the reply.  Reply mode now swaps
+    # in a throwaway history for the whole mode and treats
+    # Ctrl+O as Enter.
+    from prompt_toolkit.history import FileHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    history_file = tmp_path / "history"
+    history = FileHistory(str(history_file))
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), history=history)
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._input_buffer.history is not history
+            pipe.send_text("s3cret\x0f")
+            deadline = time.monotonic() + 3
+            item = view.wait_reply(abort=lambda: time.monotonic() > deadline)
+            assert item == "s3cret"
+            assert _wait_for(lambda: view._input_buffer.history is history)
+            contents = (
+                history_file.read_text(encoding="utf-8")
+                if history_file.exists()
+                else ""
+            )
+            assert "s3cret" not in contents
+            assert "s3cret" not in history.get_strings()
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character

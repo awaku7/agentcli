@@ -639,6 +639,7 @@ class ConsoleView:
         self._reply_queue: queue.Queue[Any] = queue.Queue()
         self._reply_draft: Any = None
         self._reply_completer: Any = None
+        self._reply_history: Any = None
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
         self._on_interrupt = on_interrupt
@@ -1175,7 +1176,18 @@ class ConsoleView:
                         self._input_buffer.reset()
                     self._reply_draft = self._input_buffer.document
                     self._reply_completer = self._input_buffer.completer
+                    self._reply_history = self._input_buffer.history
                     self._input_buffer.completer = None
+                    # Isolate the reply from the prompt's
+                    # (file-backed) history for the whole mode:
+                    # nothing typed as a reply — above all a
+                    # password — may be written to it by any
+                    # binding, and browsing stays off, exactly
+                    # like completion.  The reset below restarts
+                    # the history load against the throwaway.
+                    from prompt_toolkit.history import InMemoryHistory
+
+                    self._input_buffer.history = InMemoryHistory()
                     self._input_buffer.reset()
                 except Exception:
                     pass
@@ -1251,8 +1263,10 @@ class ConsoleView:
             self._reply_armed = False
             draft = self._reply_draft
             completer = self._reply_completer
+            history = self._reply_history
             self._reply_draft = None
             self._reply_completer = None
+            self._reply_history = None
         if not armed:
             # The buffer surgery never ran (or a racing restore
             # already undid it): the buffer still holds exactly
@@ -1262,6 +1276,12 @@ class ConsoleView:
             return
         try:
             self._input_buffer.completer = completer
+            if history is not None:
+                # The real history comes back BEFORE the reset,
+                # so the reset's history load repopulates the
+                # working lines from it (browsing works again
+                # immediately, as if no reply had happened).
+                self._input_buffer.history = history
             # reset(), not set_document(): the reply's editing
             # state (above all the undo stack, which still holds
             # the reply text — a password in the clear) must not
@@ -1586,6 +1606,19 @@ class ConsoleView:
         @bindings.add("c-j")
         def _newline(event: Any) -> None:
             event.app.current_buffer.insert_text("\n")
+
+        in_reply = Condition(lambda: self._reply_label is not None)
+
+        @bindings.add("c-o", filter=in_reply)
+        def _reply_operate_and_get_next(event: Any) -> None:
+            # prompt_toolkit's default Ctrl+O (operate-and-get-
+            # next) accepts the buffer through validate_and_handle:
+            # it appends the text to the history and clears the
+            # buffer WITHOUT delivering anything.  In reply mode
+            # that would swallow the reply (and, before the history
+            # isolation, persist a password to disk), so here it
+            # means exactly what Enter means.
+            _submit(event)
 
         @bindings.add("c-c")
         def _ctrl_c(event: Any) -> None:
