@@ -83,6 +83,33 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _ask_install_confirmation(prompt: str) -> str | None:
+    """Ask the install confirmation via human_ask when the console
+    view owns the terminal; return None when that does not apply.
+
+    The ask queue ref is None until a human_ask call installs one,
+    so the plain fallback below reads stdin directly — which races
+    the view's own stdin reading: the answer can be swallowed into
+    the view's submission queue while the install blocks.  human_ask
+    is the coordinated path (the input loop suspends the view and
+    routes the reply).  Any failure refuses the install.
+    """
+    try:
+        from ..runtime.display_channel import _active_console_view
+
+        if _active_console_view() is None:
+            return None
+    except Exception:
+        return None
+    try:
+        from .human_ask_tool import run_tool as human_ask
+
+        res = json.loads(human_ask({"message": prompt}))
+        return str(res.get("user_reply") or "")
+    except Exception:
+        return "n"
+
+
 def _infer_name_from_source(source: str) -> str:
     """Infer a safe folder name from the source string."""
     s = source.rstrip("/\\")
@@ -685,15 +712,19 @@ def run_tool(args: dict[str, Any]) -> str:
 
                 user_input = ""
                 try:
-                    q = cb.human_ask_queue_ref()
-                    if q is not None:
-                        user_input = q.get(timeout=300)
+                    confirmed = _ask_install_confirmation(prompt)
+                    if confirmed is not None:
+                        user_input = confirmed
                     else:
-                        # Fallback: read from stdin
-                        try:
-                            user_input = input("")
-                        except Exception:
-                            user_input = "n"
+                        q = cb.human_ask_queue_ref()
+                        if q is not None:
+                            user_input = q.get(timeout=300)
+                        else:
+                            # Fallback: read from stdin
+                            try:
+                                user_input = input("")
+                            except Exception:
+                                user_input = "n"
                 except Exception:
                     user_input = "n"
 
