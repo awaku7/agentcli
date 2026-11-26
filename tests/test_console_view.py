@@ -624,3 +624,39 @@ def test_suspend_during_startup_never_runs_the_app(monkeypatch) -> None:
     finally:
         gate.set()
         console_view._set_active(None)
+
+
+def test_wait_line_returns_eof_when_the_app_died(monkeypatch) -> None:
+    import threading
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    view = ConsoleView(document=OutputDocument())
+
+    class _DyingApp:
+        def run(self) -> None:
+            return None
+
+        def exit(self) -> None:
+            pass
+
+    monkeypatch.setattr(view, "_make_app", lambda: _DyingApp())
+    view.start()
+    try:
+        # Wait for the application thread to end on its own.
+        deadline = time.monotonic() + 5
+        while view.running and time.monotonic() < deadline:
+            time.sleep(0.02)
+        assert view.running is False
+        results: list[object] = []
+        waiter = threading.Thread(
+            target=lambda: results.append(view.wait_line(abort=lambda: False)),
+            daemon=True,
+        )
+        waiter.start()
+        waiter.join(timeout=5)
+        assert not waiter.is_alive()
+        assert results == [view.eof_sentinel]
+    finally:
+        view.stop()
+        console_view._set_active(None)

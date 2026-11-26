@@ -548,6 +548,12 @@ class ConsoleView:
             except queue.Empty:
                 if abort():
                     return None
+                if not self._running:
+                    # The application ended on its own (terminal input
+                    # closed, or the renderer raised): report EOF so
+                    # the reader exits cleanly instead of polling a
+                    # queue no one will ever fill again.
+                    return self.eof_sentinel
 
     @property
     def eof_sentinel(self) -> object:
