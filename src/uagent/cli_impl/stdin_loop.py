@@ -881,6 +881,16 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                     _skip = True
         except EOFError:
             # EOF (e.g. piped stdin end): request clean exit so short logs are discarded
+            # Release a pending human_ask first: its waiter (e.g. the
+            # pairing prompt) blocks the dispatcher, so without this
+            # the exit event could not be processed until the ask
+            # timeout expired.
+            try:
+                with core.human_ask_lock:
+                    if core.human_ask_active and core.human_ask_queue is not None:
+                        core.human_ask_queue.put_nowait(None)
+            except Exception:
+                pass
             try:
                 core.event_queue.put({"kind": "command", "text": ":exit"})
             except Exception:

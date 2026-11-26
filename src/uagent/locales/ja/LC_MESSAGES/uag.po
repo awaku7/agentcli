@@ -5825,3 +5825,7 @@ msgstr "生成中の応答を止めて、この文を今送りますか？　Ent
 #: src/uagent/cli_impl/console_view.py
 msgid "The interrupt confirmation was cancelled, so the message was queued."
 msgstr "割り込みの確認が取り消されたため、文は順番待ちに入りました。"
+
+#: src/uagent/nostr_remote_runtime.py
+msgid "A Nostr DM arrived from an unregistered device (%(npub)s). Register this device and process the message? Answer yes or no."
+msgstr "未登録の端末（%(npub)s）から Nostr の DM が届きました。この端末を登録して、その DM を処理しますか？ yes か no で答えてください。"

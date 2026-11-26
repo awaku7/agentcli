@@ -26,9 +26,14 @@ def test_local_pairing_commands_pair_list_and_revoke(
         assert store.list_devices()[0].label == "My phone"
 
     nostr_transport._cmd_nostr_devices("")
-    assert pubkey in capsys.readouterr().out
+    devices_out = capsys.readouterr().out
+    # Devices are shown by their npub, the form users recognize and
+    # can paste back into pair/revoke, not by raw pubkey hex.
+    assert nostr_transport.encode_npub(pubkey) in devices_out
+    assert pubkey not in devices_out
 
-    nostr_transport._cmd_nostr_revoke(pubkey)
+    # Revoke accepts the npub form shown by :nostr devices.
+    nostr_transport._cmd_nostr_revoke(nostr_transport.encode_npub(pubkey))
     with SQLitePairingStore(db_path) as store:
         assert not store.is_authorized(pubkey)
         assert store.list_devices() == []

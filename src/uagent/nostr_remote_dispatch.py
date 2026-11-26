@@ -26,6 +26,12 @@ class RemoteCLIRequestError(ValueError):
     """A remote request failed validation, freshness, or foreground authorization."""
 
 
+#: The authorization failure for a request that verified in every
+#: other respect but whose sender has no pairing.  Only this failure
+#: may be offered to the local operator for on-the-spot pairing.
+NOT_PAIRED_MESSAGE = "remote sender is not paired"
+
+
 @dataclass(frozen=True)
 class RemoteCLIAction:
     """Validated user action ready for the CLI's existing event handler."""
@@ -238,7 +244,7 @@ def authorize_nostr_remote_request(
             close()
         raise RemoteCLIRequestError("remote sender authorization must be synchronous")
     if authorized is not True:
-        raise RemoteCLIRequestError("remote sender is not paired")
+        raise RemoteCLIRequestError(NOT_PAIRED_MESSAGE)
 
     text = event.get("text")
     if not isinstance(text, str) or not text.strip():
