@@ -2250,6 +2250,10 @@ def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
     return True
 
 
+class _ChatRoomResolutionError(Exception):
+    """The sender's chat binding could not be resolved (store failure)."""
+
+
 def _chat_room_descriptor(
     reply_route: dict[str, str] | None,
     *,
@@ -2269,6 +2273,12 @@ def _chat_room_descriptor(
     cache is attacker-controlled, so a room-bound peer could
     otherwise announce a different key and escape its room (or be
     resolved into another peer's room).
+
+    A store failure raises :class:`_ChatRoomResolutionError` instead
+    of returning None: None means "attach", and treating an
+    unreadable binding as attach would run a room-bound peer's
+    message against the operator's main conversation. The Nostr
+    registry fallback stays independent of BitChat store failures.
     """
     if not reply_route:
         return None
@@ -2276,32 +2286,47 @@ def _chat_room_descriptor(
     peer = reply_route.get("peer") or ""
     if not peer:
         return None
+    bitchat_failed = False
+    record = None
     try:
         from ..bitchat_pairing import open_bitchat_pairing_store
 
         with open_bitchat_pairing_store() as store:
-            record = None
             if via == "ble":
                 if verified_noise_key:
                     record = store.record_for(verified_noise_key)
             elif via == "nostr":
                 record = store.record_for_nostr(peer)
-            if record is not None and record.active and record.binding == "room":
-                return {"store": "bitchat", "peer_key": record.noise_key}
-        if via == "nostr":
+    except Exception as exc:
+        if via == "ble":
+            raise _ChatRoomResolutionError(
+                "BitChat pairing store could not be read"
+            ) from exc
+        bitchat_failed = True
+    if record is not None and record.active and record.binding == "room":
+        return {"store": "bitchat", "peer_key": record.noise_key}
+    if via == "nostr":
+        try:
             from ..nostr_remote_pairing import SQLitePairingStore
             from .nostr_transport import _pairing_database_path
 
             with SQLitePairingStore(_pairing_database_path()) as nostr_store:
                 nostr_record = nostr_store.record_for(peer)
-                if (
-                    nostr_record is not None
-                    and nostr_record.active
-                    and nostr_record.binding == "room"
-                ):
-                    return {"store": "nostr", "peer_key": nostr_record.pubkey}
-    except Exception:
-        return None
+        except Exception as exc:
+            raise _ChatRoomResolutionError(
+                "Nostr pairing store could not be read"
+            ) from exc
+        if (
+            nostr_record is not None
+            and nostr_record.active
+            and nostr_record.binding == "room"
+        ):
+            return {"store": "nostr", "peer_key": nostr_record.pubkey}
+        if bitchat_failed:
+            # The BitChat registry — which may hold this peer's room
+            # binding — could not be read, and the Nostr registry has
+            # no room binding for the peer: fail closed.
+            raise _ChatRoomResolutionError("BitChat pairing store could not be read")
     return None
 
 
@@ -2328,9 +2353,18 @@ def _inject_to_llm(
             event: dict[str, Any] = {"kind": "user", "text": text, "src": "bitchat"}
             if reply_route:
                 event["reply_route"] = dict(reply_route)
-            descriptor = _chat_room_descriptor(
-                reply_route, verified_noise_key=verified_noise_key
-            )
+            try:
+                descriptor = _chat_room_descriptor(
+                    reply_route, verified_noise_key=verified_noise_key
+                )
+            except _ChatRoomResolutionError:
+                # Fail closed: an unresolved binding must not fall
+                # back to the operator's main conversation.
+                _notify_display(
+                    "[bitchat] Dropped a paired peer message: "
+                    "its chat binding could not be resolved."
+                )
+                return
             if descriptor is not None:
                 event["chat_room"] = descriptor
             q.put_nowait(event)

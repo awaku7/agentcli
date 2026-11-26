@@ -2150,6 +2150,17 @@ def _cmd_nostr_mode(mode: str, **kwargs: Any) -> Any:
         return CommandResult()
 
     runtime = getattr(core, "_nostr_remote_runtime", None)
+    if runtime is not None:
+        try:
+            listener_running = runtime.status().get("state") == "running"
+        except Exception:
+            listener_running = False
+        if not listener_running:
+            # The listener thread has exited (error/stopped): a bare
+            # set_mode would print success while nothing listens.
+            # Recreate the runtime through the startup helper, as
+            # the retired `:nostr remote start` path did.
+            runtime = None
     if runtime is None:
         runtime = _start_nostr_remote_for_command(core)
         if runtime is None:

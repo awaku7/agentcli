@@ -137,6 +137,37 @@ def test_chat_room_descriptor_for_room_bound_peers(tmp_path, monkeypatch) -> Non
     }
     assert pbs._chat_room_descriptor(None) is None
 
+    # A BitChat store failure must not take the Nostr fallback down
+    # with it, and must not silently degrade a possibly room-bound
+    # peer to attach: resolution fails closed instead.
+    import pytest
+
+    def _broken_open():
+        raise RuntimeError("corrupt pairing database")
+
+    monkeypatch.setattr(
+        "uagent.bitchat_pairing.open_bitchat_pairing_store", _broken_open
+    )
+    assert pbs._chat_room_descriptor({"via": "nostr", "peer": _pubkey(61)}) == {
+        "store": "nostr",
+        "peer_key": _pubkey(61),
+    }
+    with pytest.raises(pbs._ChatRoomResolutionError):
+        pbs._chat_room_descriptor({"via": "nostr", "peer": _pubkey(62)})
+    with pytest.raises(pbs._ChatRoomResolutionError):
+        pbs._chat_room_descriptor(
+            {"via": "ble", "peer": peer_id}, verified_noise_key=NOISE_A
+        )
+
+    # And the injection path drops the message on resolution failure
+    # instead of queueing it against the main conversation.
+    import queue as queue_module
+
+    events: queue_module.Queue = queue_module.Queue()
+    monkeypatch.setattr(pbs, "_LLM_EVENT_QUEUE", events)
+    pbs._inject_to_llm("hello", {"via": "nostr", "peer": _pubkey(62)})
+    assert events.empty()
+
 
 def test_record_for_nostr_skips_revoked_pairings(store) -> None:
     # A peer that re-pairs under a new Noise identity keeps its Nostr

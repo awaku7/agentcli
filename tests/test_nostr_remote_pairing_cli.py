@@ -73,13 +73,39 @@ def test_mode_commands_switch_a_running_runtime(capsys) -> None:
     from types import SimpleNamespace
 
     modes: list[str] = []
-    runtime = SimpleNamespace(mode="llm", set_mode=modes.append)
+    runtime = SimpleNamespace(
+        mode="llm",
+        set_mode=modes.append,
+        status=lambda: {"state": "running"},
+    )
     core = SimpleNamespace(_nostr_remote_runtime=runtime)
     nostr_transport._cmd_nostr_on("", core=core)
     assert modes == ["on"]
     assert "ON" in capsys.readouterr().out
     nostr_transport._cmd_nostr_llm("", core=core)
     assert modes == ["on", "llm"]
+    assert "LLM" in capsys.readouterr().out
+
+
+def test_mode_commands_restart_a_dead_listener(monkeypatch, capsys) -> None:
+    from types import SimpleNamespace
+
+    old_modes: list[str] = []
+    dead = SimpleNamespace(
+        mode="llm",
+        set_mode=old_modes.append,
+        status=lambda: {"state": "stopped"},
+    )
+    new_modes: list[str] = []
+    fresh = SimpleNamespace(mode="llm", set_mode=new_modes.append)
+    monkeypatch.setattr(
+        nostr_transport, "_start_nostr_remote_for_command", lambda core: fresh
+    )
+    core = SimpleNamespace(_nostr_remote_runtime=dead)
+    nostr_transport._cmd_nostr_llm("", core=core)
+    # The dead runtime is recreated, not merely re-moded.
+    assert old_modes == []
+    assert new_modes == ["llm"]
     assert "LLM" in capsys.readouterr().out
 
 
