@@ -2,8 +2,10 @@
 
 The view is the terminal renderer decided for stage 2b: a scrolling
 output area above a fixed bottom region — spinner line, rule, the
-3-line input area, rule, and the status line on the very bottom line,
-in the style of Claude Code's CLI.  The output area is a projection
+1-line input area, rule, and the status line on the very bottom line,
+in the style of Claude Code's CLI.  The input line carries no prompt
+text, only the cursor; the prompt's identifying text (the working
+directory at idle) rides inside the upper rule instead.  The output area is a projection
 of the shared output document (``runtime.display_channel``): the
 view subscribes to the document and re-projects its tail as new
 segments arrive, colouring each segment by its kind — colour is
@@ -1015,23 +1017,44 @@ class ConsoleView:
         style = "class:status.busy" if busy else "class:status.idle"
         return [(style, text)]
 
-    def _prompt_display_text(self) -> str:
+    def _rule_label(self) -> str:
+        """The prompt's identifying text, carried by the upper rule.
+
+        The prompt string ("UAGEXE> ", "[BUSY:LLM] > ") loses its
+        trailing ">" — what remains names where the user is (the
+        working directory at idle), which is all the rule shows.
+        The input line itself carries no prompt, just the cursor.
+        """
         with self._state_lock:
             text = self._prompt_text
+        text = text.rstrip()
+        if text.endswith(">"):
+            text = text[:-1].rstrip()
         if len(text) > _PREFIX_MAX_WIDTH:
             text = text[: _PREFIX_MAX_WIDTH - 1] + "…"
         return text
 
-    def _prompt_fragments(self) -> list[tuple[str, str]]:
-        # No padding: the prompt window is sized to the text (see
-        # _prompt_width), so the input starts right after the
-        # prompt however short it is.
-        return [("class:prompt", self._prompt_display_text())]
+    def _upper_rule_fragments(self) -> list[tuple[str, str]]:
+        return self._make_rule_fragments(self._rule_label())
 
-    def _prompt_width(self) -> int:
+    def _lower_rule_fragments(self) -> list[tuple[str, str]]:
+        return self._make_rule_fragments("")
+
+    def _make_rule_fragments(self, label: str) -> list[tuple[str, str]]:
         from prompt_toolkit.utils import get_cwidth
 
-        return get_cwidth(self._prompt_display_text())
+        width = 80
+        app = self._app
+        if app is not None:
+            try:
+                width = app.output.get_size().columns
+            except Exception:
+                pass
+        if label:
+            head = f"── {label} "
+            fill = max(0, width - get_cwidth(head))
+            return [("class:rule", head + "─" * fill)]
+        return [("class:rule", "─" * width)]
 
     def _make_app(self) -> Any:
         from prompt_toolkit.application import Application, get_app
@@ -1044,7 +1067,6 @@ class ConsoleView:
             FloatContainer,
             HSplit,
             Layout,
-            VSplit,
             Window,
         )
         from prompt_toolkit.layout.menus import CompletionsMenu
@@ -1172,7 +1194,6 @@ class ConsoleView:
         style = Style.from_dict(
             {
                 "rule": "#5f5f5f",
-                "prompt": "",
                 "confirm": "ansiyellow",
                 **_spinner_style(),
                 **_status_styles(),
@@ -1280,7 +1301,11 @@ class ConsoleView:
                             height=1,
                             style="class:spinner",
                         ),
-                        Window(char="─", height=1, style="class:rule"),
+                        Window(
+                            content=_PassiveControl(self._upper_rule_fragments),
+                            height=1,
+                            style="class:rule",
+                        ),
                         # The interrupt confirmation gets its own
                         # line, visible only while it is open, so the
                         # question never has to fight the spinner or
@@ -1293,20 +1318,18 @@ class ConsoleView:
                             ),
                             filter=Condition(lambda: self._confirm_text is not None),
                         ),
-                        VSplit(
-                            [
-                                Window(
-                                    content=_PassiveControl(self._prompt_fragments),
-                                    width=self._prompt_width,
-                                    height=Dimension(min=3, max=3),
-                                ),
-                                Window(
-                                    content=_InputControl(buffer=self._input_buffer),
-                                    height=Dimension(min=3, max=3),
-                                ),
-                            ]
+                        # One input line, no prompt text: the rule
+                        # above carries the where-am-I label, and
+                        # the blinking cursor marks the input.
+                        Window(
+                            content=_InputControl(buffer=self._input_buffer),
+                            height=Dimension(min=1, max=1),
                         ),
-                        Window(char="─", height=1, style="class:rule"),
+                        Window(
+                            content=_PassiveControl(self._lower_rule_fragments),
+                            height=1,
+                            style="class:rule",
+                        ),
                         Window(
                             content=_PassiveControl(self._status_fragments),
                             height=1,
@@ -1356,7 +1379,7 @@ class ConsoleView:
         app = self._app
         if app is not None:
             try:
-                height = max(5, app.output.get_size().rows - 7)
+                height = max(5, app.output.get_size().rows - 5)
             except Exception:
                 pass
         self._scroll_output_lines(pages * height)

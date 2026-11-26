@@ -1052,6 +1052,30 @@ def test_view_submit_racing_the_turn_end_never_wedges_the_confirmation():
             view.stop()
 
 
+def test_view_rule_carries_the_prompt_label_not_the_input_line():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+    from prompt_toolkit.utils import get_cwidth
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            view.set_prompt_text("UAGEXE> ")
+            upper = "".join(text for _style, text in view._upper_rule_fragments())
+            # The where-am-I label rides inside the upper rule; the
+            # trailing ">" of the prompt string is dropped.
+            assert upper.startswith("── UAGEXE ")
+            assert get_cwidth(upper) == 80
+            lower = "".join(text for _style, text in view._lower_rule_fragments())
+            assert set(lower) == {"─"}
+            assert get_cwidth(lower) == 80
+        finally:
+            view.stop()
+
+
 def test_view_wheel_over_the_input_scrolls_the_output():
     from prompt_toolkit.input import create_pipe_input
     from prompt_toolkit.output import DummyOutput
@@ -1071,7 +1095,7 @@ def test_view_wheel_over_the_input_scrolls_the_output():
             top = window.vertical_scroll
             assert top > 0  # the transcript starts scrolled to the tail
             rows = view._app.output.get_size().rows
-            input_y = rows - 3  # the middle of the 3-line input area
+            input_y = rows - 2  # the single input line
             for _ in range(2):
                 pipe.send_text(f"\x1b[<64;5;{input_y}M")
             assert _wait_for(lambda: window.vertical_scroll < top)
