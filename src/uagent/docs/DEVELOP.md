@@ -746,6 +746,9 @@ payloads are represented by size, and secrets are masked. Mode `0` restores the
 classic `[TOOL] 2025-... name=<tool> args=<masked-json>` trace; mode `1` adds a
 bounded result summary after execution.
 
+The trace line's timestamp is opt-in: it is omitted by default and shown
+only with `UAGENT_TOOL_TRACE_TIMESTAMP=1`.
+
 A tool may suppress its trace using the extended flag:
 
 - `TOOL_SPEC['function']['x_scheck']['emit_tool_trace'] = False`

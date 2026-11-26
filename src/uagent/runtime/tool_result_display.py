@@ -12,6 +12,10 @@
 
 Displayed text is flattened, secret-masked, and length-bounded so raw secrets
 are not exposed through the display path.
+
+The ``[TOOL]`` trace line's wall-clock timestamp is opt-in via
+``UAGENT_TOOL_TRACE_TIMESTAMP``: it is noise in the common case, so it is
+shown only when explicitly enabled (``1``/``true``/``yes``/``on``).
 """
 
 from __future__ import annotations
@@ -56,6 +60,20 @@ def tool_result_display_mode() -> int:
     """Return the effective tool display mode for this process."""
 
     return parse_tool_result_display_mode(env_get("UAGENT_SHOW_TOOL_RESULTS", "2"))
+
+
+_TRUE_VALUES = frozenset({"1", "true", "yes", "on"})
+
+
+def tool_trace_timestamp_enabled() -> bool:
+    """Whether ``[TOOL]`` trace lines carry a wall-clock timestamp.
+
+    Opt-in via ``UAGENT_TOOL_TRACE_TIMESTAMP``; unset or any other
+    value keeps the timestamp off.
+    """
+
+    raw = str(env_get("UAGENT_TOOL_TRACE_TIMESTAMP", "") or "").strip().lower()
+    return raw in _TRUE_VALUES
 
 
 def bound_display_text(text: Any, *, max_chars: int = DEFAULT_MAX_CHARS) -> str:

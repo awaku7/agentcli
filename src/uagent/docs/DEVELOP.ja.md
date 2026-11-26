@@ -129,6 +129,7 @@ stdout に表示します。専用の説明がないツールも、操作と主�
 内容を出さずサイズのみ、秘密情報はマスクします。表示行は400文字以内です。
 
 `UAGENT_SHOW_TOOL_RESULTS=0` にすると従来の `[TOOL] 2025-... name=<tool> args=<masked-json>` 形式に戻り、`1` では従来のトレースに実行後の結果要約を加えます。
+トレース行の日時はオプトインで、既定では出ません。`UAGENT_TOOL_TRACE_TIMESTAMP=1` のときだけ表示します。
 ツール側で `x_scheck.emit_tool_trace=false` を指定するとトレースを抑制できます。
 `human_ask` は全モードでトレースを抑制します。`apply_patch` は diff ヘッダーから
 対象ファイル名を表示します。詳細は `DEVELOP_TOOL.md` の 3.4.1 を参照してください。
