@@ -1740,6 +1740,133 @@ def test_view_completes_while_typing_like_the_legacy_prompt():
             view.stop()
 
 
+def test_view_reply_mode_delivers_the_answer_and_restores_the_draft():
+    # A human_ask is answered in the view: the screen never
+    # switches, the reply is not a submission (no document echo,
+    # no history entry), and the half-typed draft comes back.
+    from prompt_toolkit.history import InMemoryHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    document = OutputDocument()
+    history = InMemoryHistory()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            history=history,
+            document=document,
+        )
+        view.start()
+        try:
+            pipe.send_text("my draft")
+            assert _wait_for(lambda: view._input_buffer.text == "my draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._input_buffer.text == ""
+            assert view._rule_label() == "[REPLY]"
+            pipe.send_text("yes please\r")
+            assert view.wait_reply(abort=lambda: False) == "yes please"
+            assert _wait_for(lambda: view._input_buffer.text == "my draft")
+            assert history.get_strings() == []
+            segments, _version, _epoch = document.snapshot()
+            assert all("yes please" not in s.text for s in segments)
+        finally:
+            view.stop()
+
+
+def test_view_password_reply_is_masked_and_never_recorded():
+    # A password reply renders as asterisks, is delivered to the
+    # waiter, and leaves no trace in the document or the history.
+    from prompt_toolkit.history import InMemoryHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    document = OutputDocument()
+    document.append("output", "Enter the API key\n")
+    history = InMemoryHistory()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            history=history,
+            document=document,
+        )
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._rule_label() == "[PASSWORD]"
+            pipe.send_text("s3cret")
+            assert _wait_for(lambda: view._input_buffer.text == "s3cret")
+            control = None
+            for window in view._app.layout.find_all_windows():
+                candidate = getattr(window, "content", None)
+                if getattr(candidate, "buffer", None) is view._input_buffer:
+                    control = candidate
+            assert control is not None
+            line = control.create_content(80, 1).get_line(0)
+            assert "".join(text for _style, text, *_ in line).strip() == "******"
+            pipe.send_text("\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            assert history.get_strings() == []
+            segments, _version, _epoch = document.snapshot()
+            assert any("Enter the API key" in s.text for s in segments)
+            assert all("s3cret" not in s.text for s in segments)
+        finally:
+            view.stop()
+
+
+def test_view_reply_ctrl_c_cancels_and_restores_the_draft():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("partial\x03")
+            assert view.wait_reply(abort=lambda: False) is view.reply_cancelled
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+        finally:
+            view.stop()
+
+
+def test_view_reply_answered_elsewhere_drops_the_typed_text():
+    # The reader stops waiting (the ask was answered from another
+    # channel) and ends reply mode: the typed text is dropped, the
+    # draft returns, and nothing stale leaks into the next ask.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("stale")
+            assert _wait_for(lambda: view._input_buffer.text == "stale")
+            view.end_reply()
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("real\r")
+            assert view.wait_reply(abort=lambda: False) == "real"
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character

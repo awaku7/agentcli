@@ -304,10 +304,15 @@ def test_chat_mode_llm_keeps_manual_prompt(monkeypatch) -> None:
 class _LifecycleView:
     """Console-view stand-in recording lifecycle calls."""
 
+    eof_sentinel = object()
+    reply_cancelled = object()
+
     def __init__(self) -> None:
         self.running = True
         self.suspend_calls = 0
         self.stop_calls = 0
+        self.reply_begins: list = []
+        self.reply_ends = 0
 
     def suspend(self) -> None:
         self.suspend_calls += 1
@@ -317,8 +322,17 @@ class _LifecycleView:
         self.stop_calls += 1
         self.running = False
 
+    def begin_reply(self, label, *, is_password=False) -> None:
+        self.reply_begins.append((label, is_password))
 
-def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch, capsys) -> None:
+    def wait_reply(self, *, abort):
+        return "answer"
+
+    def end_reply(self) -> None:
+        self.reply_ends += 1
+
+
+def test_reply_is_served_by_a_running_view_in_place(monkeypatch, capsys) -> None:
     view = _LifecycleView()
     monkeypatch.setattr(stdin_loop, "_console_view", view)
     fake_stdin = _FakeStdin(["hello\n"])
@@ -338,7 +352,7 @@ def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch, capsys) -> None
         core.human_ask_prompt = ""
         core.human_ask_multiline_active = False
     monkeypatch.setattr(
-        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "legacy"
     )
 
     def fake_sleep(seconds: float) -> None:
@@ -359,13 +373,57 @@ def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch, capsys) -> None
             core.human_ask_queue = original_queue
 
     assert ask_queue.get_nowait() == "answer"
-    # The reply prompt owned the terminal: the view was suspended.
-    assert view.suspend_calls >= 1
-    # The question was printed into the (now hidden) view, so suspending
-    # for the reply replayed it onto the restored terminal.
-    assert "Proceed with the thing?" in capsys.readouterr().out
+    # The running view answered in place: it was never suspended,
+    # the legacy reply prompt never ran, and the question (which
+    # lives in the view's document) was not replayed anywhere.
+    assert view.reply_begins == [("[REPLY] > ", False)]
+    assert view.suspend_calls == 0
+    assert "Proceed with the thing?" not in capsys.readouterr().out
     # And the loop's exit stopped the view exactly once.
     assert view.stop_calls == 1
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_password_reply_is_served_by_a_running_view_masked(monkeypatch) -> None:
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = True
+        core.human_ask_is_password = True
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+
+    def fake_sleep(seconds: float) -> None:
+        if seconds == 0.03:
+            with core.human_ask_lock:
+                core.human_ask_active = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    assert ask_queue.get_nowait() == "answer"
+    # The view was asked for a masked reply; nothing was suspended
+    # and no getpass fallback ran.
+    assert view.reply_begins == [("[PASSWORD] > ", True)]
+    assert view.suspend_calls == 0
     assert events.get_nowait() == {"kind": "user", "text": "hello"}
 
 
@@ -654,6 +712,7 @@ class _AskRequeueView:
     """Hands out one queued line; records requeues and resolves."""
 
     eof_sentinel = object()
+    reply_cancelled = object()
 
     def __init__(self, flip_early: bool) -> None:
         self.running = True
@@ -704,6 +763,17 @@ class _AskRequeueView:
 
     def resolve_pending(self, token) -> None:
         self.resolved.append(token)
+
+    # A running view answers an ask in place; the scenario's reply
+    # is the same "answer" the legacy prompt stub used to give.
+    def begin_reply(self, _label, *, is_password=False) -> None:
+        pass
+
+    def wait_reply(self, *, abort):
+        return "answer"
+
+    def end_reply(self) -> None:
+        pass
 
 
 def _run_ask_requeue_scenario(monkeypatch, *, flip_early: bool) -> None:
@@ -846,6 +916,7 @@ class _PriorityAskView:
     """Hands out one interrupt-chosen line; records its requeues."""
 
     eof_sentinel = object()
+    reply_cancelled = object()
 
     def __init__(self, flip_early: bool) -> None:
         self.running = True
@@ -898,6 +969,17 @@ class _PriorityAskView:
 
     def resolve_pending(self, token) -> None:
         self.resolved.append(token)
+
+    # A running view answers an ask in place; the scenario's reply
+    # is the same "answer" the legacy prompt stub used to give.
+    def begin_reply(self, _label, *, is_password=False) -> None:
+        pass
+
+    def wait_reply(self, *, abort):
+        return "answer"
+
+    def end_reply(self) -> None:
+        pass
 
 
 def _run_priority_ask_scenario(monkeypatch, *, flip_early: bool) -> None:
