@@ -815,11 +815,16 @@ class ConsoleView:
             ]
             for logger in loggers:
                 for handler in getattr(logger, "handlers", []):
-                    if isinstance(handler, logging.StreamHandler) and any(
-                        getattr(handler, "stream", None) is stream
-                        for stream in captured
-                    ):
-                        handler.setStream(self._proxy_stderr)
+                    # Per-handler isolation: one broken handler
+                    # must not skip the remaining ones.
+                    try:
+                        if isinstance(handler, logging.StreamHandler) and any(
+                            getattr(handler, "stream", None) is stream
+                            for stream in captured
+                        ):
+                            handler.setStream(self._proxy_stderr)
+                    except Exception:
+                        pass
         except Exception:
             pass
 
@@ -835,11 +840,14 @@ class ConsoleView:
             ]
             for logger in loggers:
                 for handler in getattr(logger, "handlers", []):
-                    if (
-                        isinstance(handler, logging.StreamHandler)
-                        and getattr(handler, "stream", None) is self._proxy_stderr
-                    ):
-                        handler.setStream(self._orig_stderr)
+                    try:
+                        if (
+                            isinstance(handler, logging.StreamHandler)
+                            and getattr(handler, "stream", None) is self._proxy_stderr
+                        ):
+                            handler.setStream(self._orig_stderr)
+                    except Exception:
+                        pass
         except Exception:
             pass
 

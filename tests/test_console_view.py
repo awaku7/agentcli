@@ -816,7 +816,10 @@ def test_view_capture_redirects_preexisting_stderr_handlers():
                 assert _wait_for(
                     lambda: isinstance(sys.stderr, console_view._ViewStreamProxy)
                 )
-                assert handler.stream is sys.stderr
+                # The redirect walks every registered logger, which
+                # can take a moment in a large process; wait for it
+                # instead of asserting the moment the proxy appears.
+                assert _wait_for(lambda: handler.stream is sys.stderr)
                 logger.info("event while captured")
                 segments, _v, _e = dc.default_document().snapshot()
                 text = "".join(s.text for s in segments)
@@ -824,7 +827,7 @@ def test_view_capture_redirects_preexisting_stderr_handlers():
                 assert "event while captured" not in terminal.getvalue()
             finally:
                 view.stop()
-            assert handler.stream is terminal
+            assert _wait_for(lambda: handler.stream is terminal)
             logger.info("event after restore")
             assert "event after restore" in terminal.getvalue()
     finally:
@@ -863,7 +866,7 @@ def test_view_capture_redirects_handlers_bound_before_the_startup_tee():
                 assert _wait_for(
                     lambda: isinstance(sys.stderr, console_view._ViewStreamProxy)
                 )
-                assert handler.stream is sys.stderr
+                assert _wait_for(lambda: handler.stream is sys.stderr)
                 logger.info("event while captured")
                 segments, _v, _e = dc.default_document().snapshot()
                 text = "".join(s.text for s in segments)
@@ -871,7 +874,7 @@ def test_view_capture_redirects_handlers_bound_before_the_startup_tee():
                 assert "event while captured" not in terminal.getvalue()
             finally:
                 view.stop()
-            assert handler.stream is tee
+            assert _wait_for(lambda: handler.stream is tee)
             logger.info("event after restore")
             assert "event after restore" in terminal.getvalue()
     finally:
