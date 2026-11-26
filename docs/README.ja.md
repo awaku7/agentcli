@@ -99,7 +99,7 @@ python -m pip install "uag[web]" fastapi uvicorn
 
 Webサーバーは起動時にFastAPIやUvicornのインストールを試みることもありますが、
 先に導入しておけば実行時の自動インストールに依存しません。
-詳しくは[インターフェース設定](USAGE.md)と[環境設定](ENVIRONMENT.md)を参照してください。
+詳しくは[インターフェース設定](USAGE.md)と[環境設定](ENVIRONMENT.md)を参照してください。キー操作は[キーボード操作](KEYBOARD.ja.md)にあります。
 
 ## UAGでできること
 <!-- README-SYNC:capabilities -->

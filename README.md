@@ -109,6 +109,8 @@ The Web server can also attempt to install FastAPI and Uvicorn at launch;
 installing them up front does not depend on runtime auto-installation.
 See [interface options](docs/USAGE.md) and
 [environment configuration](docs/ENVIRONMENT.md) for further setup.
+For the keys available at the prompt, see the
+[keyboard reference](docs/KEYBOARD.md).
 
 ## What you can build
 <!-- README-SYNC:capabilities -->
