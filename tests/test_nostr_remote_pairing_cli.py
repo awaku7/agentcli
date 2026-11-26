@@ -97,14 +97,20 @@ def test_pairing_commands_reject_bad_usage(tmp_path, monkeypatch, capsys) -> Non
     assert "Usage:" in capsys.readouterr().out
 
 
-def test_remote_listener_start_requires_explicit_nostr_connection(
-    monkeypatch, capsys
-) -> None:
+def test_llm_mode_start_requires_explicit_nostr_connection(monkeypatch, capsys) -> None:
     from types import SimpleNamespace
 
     monkeypatch.setattr(nostr_transport, "get_nostr_instance", lambda: None)
-    nostr_transport._cmd_nostr_remote("start", core=SimpleNamespace())
+    nostr_transport._cmd_nostr_llm("", core=SimpleNamespace())
     assert "Run :nostr connect first" in capsys.readouterr().out
+
+
+def test_remote_command_no_longer_starts_or_stops(capsys) -> None:
+    from types import SimpleNamespace
+
+    for operation in ("start", "stop"):
+        nostr_transport._cmd_nostr_remote(operation, core=SimpleNamespace())
+        assert "Usage: :nostr remote status|verify" in capsys.readouterr().out
 
 
 def test_remote_status_prints_aggregate_receive_diagnostics(

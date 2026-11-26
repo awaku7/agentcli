@@ -131,7 +131,9 @@ BitChat and the Nostr remote listener share one chat-mode spec:
   conversation, and the reply goes back over the same route.
 
 Set the mode with `:bitchat off|on|llm` or `:nostr off|on|llm`
-(`:nostr remote start` starts the listener in `llm` mode).
+(`:nostr llm` starts the listener; the older `:nostr remote start|stop`
+commands were retired in favour of the mode commands, while
+`:nostr remote status|verify` remain for status and diagnostics).
 
 In `llm` mode, where a device's conversation lives is chosen per
 device (the *chat binding*), on both transports:

@@ -2090,7 +2090,7 @@ def _start_nostr_remote_for_command(core: Any):
         print(
             _(
                 "nostr.remote_connect_first",
-                default="Run :nostr connect first, then :nostr remote start.",
+                default="Run :nostr connect first, then :nostr llm.",
             )
         )
         return None
@@ -2264,15 +2264,20 @@ CMD_SPECS.extend(
 
 
 def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
-    """Start, stop, or inspect the opt-in NIP-17 CLI inbox listener."""
+    """Inspect the opt-in NIP-17 CLI inbox listener.
+
+    Starting and stopping live on the chat-mode commands
+    (``:nostr llm`` / ``:nostr off``); this command only shows the
+    listener status and verifies the latest reply's readback.
+    """
     from ..util_tools import CommandResult
 
     parts = arg.strip().split()
-    if not parts or parts[0].lower() not in {"start", "stop", "status", "verify"}:
+    if not parts or parts[0].lower() not in {"status", "verify"}:
         print(
             _(
                 "nostr.remote_usage",
-                default="Usage: :nostr remote start|stop|status|verify",
+                default="Usage: :nostr remote status|verify",
             )
         )
         return CommandResult()
@@ -2285,37 +2290,6 @@ def _cmd_nostr_remote(arg: str, **kwargs: Any) -> Any:
                 default="Nostr remote listener requires an active CLI session.",
             )
         )
-        return CommandResult()
-
-    if operation == "start":
-        runtime = _start_nostr_remote_for_command(core)
-        if runtime is not None:
-            print(
-                _(
-                    "nostr.remote_started",
-                    default="Nostr remote listener started on %(relays)s (session %(session_id)s).",
-                    relays=", ".join(runtime.relays),
-                    session_id=runtime.session_id,
-                )
-            )
-        return CommandResult()
-
-    if operation == "stop":
-        from ..nostr_remote_runtime import stop_nostr_remote_runtime
-
-        result = stop_nostr_remote_runtime(core)
-        message = (
-            _(
-                "nostr.remote_stopped",
-                default="Nostr remote listener stopped.",
-            )
-            if result["stopped"]
-            else _(
-                "nostr.remote_still_stopping",
-                default="Listener is still stopping.",
-            )
-        )
-        print(message)
         return CommandResult()
 
     runtime = getattr(core, "_nostr_remote_runtime", None)
@@ -2534,7 +2508,7 @@ CMD_SPECS.append(
         "command": "nostr",
         "subcommand": "remote",
         "handler": _cmd_nostr_remote,
-        "help_text": "  :nostr remote start|stop|status|verify  Manage and diagnose the private inbox",
+        "help_text": "  :nostr remote status|verify  Show and diagnose the private inbox listener",
     }
 )
 
@@ -2703,7 +2677,7 @@ def _cmd_nostr_setup(arg: str, **kwargs: Any) -> Any:
             npub=encode_npub(phone_pubkey),
         )
     )
-    _cmd_nostr_remote("start", **kwargs)
+    _cmd_nostr_llm("", **kwargs)
     print(
         _(
             "nostr.setup_relay_warning",

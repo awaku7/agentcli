@@ -75,7 +75,7 @@ def test_setup_pairs_only_after_local_approval(tmp_path, monkeypatch, capsys) ->
     monkeypatch.setattr(nostr_setup, "confirm_local_pairing", lambda _key: True)
     monkeypatch.setattr(
         nostr_transport,
-        "_cmd_nostr_remote",
+        "_cmd_nostr_llm",
         lambda arg, **kwargs: calls.append((arg, kwargs)),
     )
 
@@ -83,7 +83,7 @@ def test_setup_pairs_only_after_local_approval(tmp_path, monkeypatch, capsys) ->
     nostr_transport._cmd_nostr_setup("", core=core)
     with SQLitePairingStore(db_path) as store:
         assert store.is_authorized(phone)
-    assert calls == [("start", {"core": core})]
+    assert calls == [("", {"core": core})]
     assert "experimental" in capsys.readouterr().out
 
 
