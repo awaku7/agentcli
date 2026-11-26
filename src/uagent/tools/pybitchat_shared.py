@@ -2299,9 +2299,7 @@ def _chat_room_descriptor(
                 record = store.record_for_nostr(peer)
     except Exception as exc:
         if via == "ble":
-            raise _ChatRoomResolutionError(
-                "BitChat pairing store could not be read"
-            ) from exc
+            raise _ChatRoomResolutionError from exc
         bitchat_failed = True
     if record is not None and record.active and record.binding == "room":
         return {"store": "bitchat", "peer_key": record.noise_key}
@@ -2313,9 +2311,7 @@ def _chat_room_descriptor(
             with SQLitePairingStore(_pairing_database_path()) as nostr_store:
                 nostr_record = nostr_store.record_for(peer)
         except Exception as exc:
-            raise _ChatRoomResolutionError(
-                "Nostr pairing store could not be read"
-            ) from exc
+            raise _ChatRoomResolutionError from exc
         if (
             nostr_record is not None
             and nostr_record.active
@@ -2323,10 +2319,10 @@ def _chat_room_descriptor(
         ):
             return {"store": "nostr", "peer_key": nostr_record.pubkey}
         if bitchat_failed:
-            # The BitChat registry — which may hold this peer's room
-            # binding — could not be read, and the Nostr registry has
+            # The BitChat registry, which may hold this peer's room
+            # binding, could not be read, and the Nostr registry has
             # no room binding for the peer: fail closed.
-            raise _ChatRoomResolutionError("BitChat pairing store could not be read")
+            raise _ChatRoomResolutionError
     return None
 
 
