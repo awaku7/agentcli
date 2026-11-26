@@ -997,6 +997,49 @@ def _cmd_bitchat_revoke(arg: str, **kwargs) -> "CommandResult":
     return CommandResult()
 
 
+def _cmd_bitchat_bind(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat bind <noise_key_hex> attach|room"""
+    from ..bitchat_pairing import open_bitchat_pairing_store
+
+    parts = arg.strip().split()
+    if len(parts) != 2 or parts[1].lower() not in ("attach", "room"):
+        print(
+            _(
+                "bind.usage",
+                default="Usage: :bitchat bind <noise_key_hex> attach|room",
+            )
+        )
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+    try:
+        with open_bitchat_pairing_store() as store:
+            changed = store.set_binding(parts[0], parts[1].lower())
+        print(
+            _(
+                "bind.success",
+                default="Bitchat peer chat binding: %(binding)s",
+                binding=parts[1].lower(),
+            )
+            if changed
+            else _(
+                "bind.none",
+                default="No active pairing for that Noise key.",
+            )
+        )
+    except Exception as exc:
+        print(
+            _(
+                "bind.error",
+                default="Could not set bitchat peer chat binding: %(error)s",
+            )
+            % {"error": exc}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
 def _cmd_bitchat_devices(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat devices [all] - list paired bitchat peers"""
     from ..bitchat_pairing import open_bitchat_pairing_store
@@ -1032,6 +1075,12 @@ def _cmd_bitchat_devices(arg: str, **kwargs) -> "CommandResult":
                 "devices.entry_nostr",
                 default="nostr=%(nostr_key)s",
                 nostr_key=record.nostr_key,
+            )
+        if record.revoked_at is None:
+            line += " " + _(
+                "devices.entry_binding",
+                default="chat=%(binding)s",
+                binding=record.binding,
             )
         if record.revoked_at is not None:
             line += " " + _("devices.revoked", default="(revoked)")
@@ -1139,6 +1188,16 @@ CMD_SPECS = [
             ":bitchat devices [all]",
             "help.devices",
             "List paired bitchat peers",
+        ),
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "bind",
+        "handler": _cmd_bitchat_bind,
+        "help_text": _cmd_help(
+            ":bitchat bind <noise_key_hex> attach|room",
+            "help.bind",
+            "Set a paired peer's chat binding (attach = main session, room = its own session)",
         ),
     },
     # Geo channel commands

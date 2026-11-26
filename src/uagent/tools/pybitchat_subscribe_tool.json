@@ -100,7 +100,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "BLE ピアがまだ表示されていません。先に :bitchat peers を実行してください。",
     "pair.unknown_peer": "表示済の BLE ピアに '%(selector)s' はいません。:bitchat peers で一覧を確認してください。",
-    "pair.ambiguous": "'%(selector)s' という名前の表示済ピアが複数います。番号で指定してください。"
+    "pair.ambiguous": "'%(selector)s' という名前の表示済ピアが複数います。番号で指定してください。",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "使い方: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat ピアのチャットの入り先: %(binding)s",
+    "bind.none": "その Noise 鍵の有効なペアリングはありません。",
+    "bind.error": "Bitchat ピアのチャットの入り先を設定できませんでした: %(error)s"
   },
   "fil": {
     "tool.description": "Simulan/ihinto/subaybayan ang pybitchat BLE Mesh node. Ang mga kaganapan sa pagtuklas ng peer ay ipinapakita bilang mga notification ng [INFO] sa terminal.",
@@ -203,7 +208,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Wala pang naipapakitang BLE peer. Patakbuhin muna ang :bitchat peers.",
     "pair.unknown_peer": "Walang ipinapakitang BLE peer na tumutugma sa '%(selector)s'. Patakbuhin ang :bitchat peers upang tingnan ang listahan.",
-    "pair.ambiguous": "Mahigit sa isang ipinapakitang peer ang may pangalang '%(selector)s'. Gamitin ang numero sa halip."
+    "pair.ambiguous": "Mahigit sa isang ipinapakitang peer ang may pangalang '%(selector)s'. Gamitin ang numero sa halip.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Paggamit: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chat binding ng Bitchat peer: %(binding)s",
+    "bind.none": "Walang aktibong pagpapares para sa Noise key na iyon.",
+    "bind.error": "Hindi maitakda ang chat binding ng Bitchat peer: %(error)s"
   },
   "ms": {
     "tool.description": "Mulakan/hentikan/pantau nod BLE Mesh pybitchat. Peristiwa penemuan rakan sebaya ditunjukkan sebagai pemberitahuan [INFO] dalam terminal.",
@@ -306,7 +316,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Tiada rakan BLE yang telah dipaparkan lagi. Jalankan :bitchat peers dahulu.",
     "pair.unknown_peer": "Tiada rakan BLE yang dipaparkan sepadan dengan '%(selector)s'. Jalankan :bitchat peers untuk menyemak senarai.",
-    "pair.ambiguous": "Lebih daripada satu rakan yang dipaparkan bernama '%(selector)s'. Gunakan nombor sebaliknya."
+    "pair.ambiguous": "Lebih daripada satu rakan yang dipaparkan bernama '%(selector)s'. Gunakan nombor sebaliknya.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Penggunaan: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Ikatan sembang rakan Bitchat: %(binding)s",
+    "bind.none": "Tiada pasangan aktif untuk kunci Noise itu.",
+    "bind.error": "Tidak dapat menetapkan ikatan sembang rakan Bitchat: %(error)s"
   },
   "da": {
     "tool.description": "Start/stop/overvåg pybitchat BLE Mesh-noden. Peer-opdagelseshændelser vises som [INFO]-meddelelser i terminalen.",
@@ -409,7 +424,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Ingen BLE-peers er blevet vist endnu. Kør :bitchat peers først.",
     "pair.unknown_peer": "Ingen vist BLE-peer matcher '%(selector)s'. Kør :bitchat peers for at se listen.",
-    "pair.ambiguous": "Mere end én vist peer hedder '%(selector)s'. Brug nummeret i stedet."
+    "pair.ambiguous": "Mere end én vist peer hedder '%(selector)s'. Brug nummeret i stedet.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Brug: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chatbinding for Bitchat-peer: %(binding)s",
+    "bind.none": "Ingen aktiv parring for den Noise-nøgle.",
+    "bind.error": "Kunne ikke indstille chatbinding for Bitchat-peer: %(error)s"
   },
   "nn": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -512,7 +532,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Ingen BLE-peerar er viste enno. Køyr :bitchat peers først.",
     "pair.unknown_peer": "Ingen vist BLE-peer samsvarar med '%(selector)s'. Køyr :bitchat peers for å sjå lista.",
-    "pair.ambiguous": "Meir enn éin vist peer heiter '%(selector)s'. Bruk nummeret i staden."
+    "pair.ambiguous": "Meir enn éin vist peer heiter '%(selector)s'. Bruk nummeret i staden.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Bruk: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chatbinding for Bitchat-motpart: %(binding)s",
+    "bind.none": "Inga aktiv parkobling for den Noise-nøkkelen.",
+    "bind.error": "Kunne ikkje angi chatbinding for Bitchat-motpart: %(error)s"
   },
   "ar": {
     "tool.description": "بدء/إيقاف/مراقبة عقدة pybitchat BLE Mesh. تظهر أحداث اكتشاف النظراء كإشعارات [INFO] في الجهاز.",
@@ -615,7 +640,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "لم يتم عرض أي نظير BLE بعد. شغّل :bitchat peers أولاً.",
     "pair.unknown_peer": "لا يوجد نظير BLE معروض يطابق '%(selector)s'. شغّل :bitchat peers للتحقق من القائمة.",
-    "pair.ambiguous": "أكثر من نظير معروض واحد يحمل اسم '%(selector)s'. استخدم الرقم بدلاً من ذلك."
+    "pair.ambiguous": "أكثر من نظير معروض واحد يحمل اسم '%(selector)s'. استخدم الرقم بدلاً من ذلك.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "الاستخدام: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "ربط دردشة نظير Bitchat: %(binding)s",
+    "bind.none": "لا يوجد إقران نشط لذلك المفتاح Noise.",
+    "bind.error": "تعذر تعيين ربط دردشة نظير Bitchat: %(error)s"
   },
   "bn": {
     "tool.description": "পাইবিটচ্যাট BLE মেশ নোড শুরু/বন্ধ/নিরীক্ষণ করুন। পিয়ার আবিষ্কারের ঘটনাগুলি টার্মিনালে [INFO] বিজ্ঞপ্তি হিসাবে দেখানো হয়।",
@@ -718,7 +748,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "এখনো কোনো BLE পিয়ার দেখানো হয়নি। প্রথমে :bitchat peers চালান।",
     "pair.unknown_peer": "দেখানো কোনো BLE পিয়ার '%(selector)s'-এর সাথে মেলে না। তালিকা দেখতে :bitchat peers চালান।",
-    "pair.ambiguous": "একাধিক দেখানো পিয়ারের নাম '%(selector)s'। পরিবর্তে নম্বর ব্যবহার করুন।"
+    "pair.ambiguous": "একাধিক দেখানো পিয়ারের নাম '%(selector)s'। পরিবর্তে নম্বর ব্যবহার করুন।",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "ব্যবহার: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat পিয়ারের চ্যাট বাইন্ডিং: %(binding)s",
+    "bind.none": "সেই Noise কী-এর জন্য কোনো সক্রিয় পেয়ারিং নেই।",
+    "bind.error": "Bitchat পিয়ারের চ্যাট বাইন্ডিং সেট করা যায়নি: %(error)s"
   },
   "cs": {
     "tool.description": "Spusťte/zastavte/monitorujte uzel pybitchat BLE Mesh. Události zjišťování vrstevníků se v terminálu zobrazují jako oznámení [INFO].",
@@ -821,7 +856,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Zatím nebyli zobrazeni žádní BLE peeři. Nejprve spusťte :bitchat peers.",
     "pair.unknown_peer": "Žádný zobrazený BLE peer neodpovídá '%(selector)s'. Seznam zobrazíte příkazem :bitchat peers.",
-    "pair.ambiguous": "Více zobrazených peerů má jméno '%(selector)s'. Použijte místo toho číslo."
+    "pair.ambiguous": "Více zobrazených peerů má jméno '%(selector)s'. Použijte místo toho číslo.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Použití: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Vazba chatu protějšku Bitchat: %(binding)s",
+    "bind.none": "Pro tento klíč Noise neexistuje aktivní párování.",
+    "bind.error": "Nelze nastavit vazbu chatu protějšku Bitchat: %(error)s"
   },
   "de": {
     "tool.description": "Starten/stoppen/überwachen Sie den pybitchat BLE Mesh-Knoten. Peer-Discovery-Ereignisse werden als [INFO]-Benachrichtigungen im Terminal angezeigt.",
@@ -924,7 +964,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Es wurden noch keine BLE-Peers angezeigt. Führen Sie zuerst :bitchat peers aus.",
     "pair.unknown_peer": "Kein angezeigter BLE-Peer entspricht '%(selector)s'. Prüfen Sie die Liste mit :bitchat peers.",
-    "pair.ambiguous": "Mehr als ein angezeigter Peer heißt '%(selector)s'. Verwenden Sie stattdessen die Nummer."
+    "pair.ambiguous": "Mehr als ein angezeigter Peer heißt '%(selector)s'. Verwenden Sie stattdessen die Nummer.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Verwendung: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chat-Bindung des Bitchat-Peers: %(binding)s",
+    "bind.none": "Keine aktive Kopplung für diesen Noise-Schlüssel.",
+    "bind.error": "Chat-Bindung des Bitchat-Peers konnte nicht gesetzt werden: %(error)s"
   },
   "el": {
     "tool.description": "Έναρξη/διακοπή/παρακολούθηση του κόμβου pybitchat BLE Mesh. Τα συμβάντα ανακάλυψης ομοτίμων εμφανίζονται ως ειδοποιήσεις [INFO] στο τερματικό.",
@@ -1027,7 +1072,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Δεν έχουν εμφανιστεί ακόμη ομότιμοι BLE. Εκτελέστε πρώτα το :bitchat peers.",
     "pair.unknown_peer": "Κανένας εμφανιζόμενος ομότιμος BLE δεν ταιριάζει με το '%(selector)s'. Εκτελέστε το :bitchat peers για να δείτε τη λίστα.",
-    "pair.ambiguous": "Περισσότεροι από ένας εμφανιζόμενοι ομότιμοι ονομάζονται '%(selector)s'. Χρησιμοποιήστε τον αριθμό."
+    "pair.ambiguous": "Περισσότεροι από ένας εμφανιζόμενοι ομότιμοι ονομάζονται '%(selector)s'. Χρησιμοποιήστε τον αριθμό.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Χρήση: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Σύνδεση συνομιλίας ομότιμου Bitchat: %(binding)s",
+    "bind.none": "Δεν υπάρχει ενεργή σύζευξη για αυτό το κλειδί Noise.",
+    "bind.error": "Δεν ήταν δυνατή η ρύθμιση της σύνδεσης συνομιλίας του ομότιμου Bitchat: %(error)s"
   },
   "es": {
     "tool.description": "Iniciar/detener/monitorear el nodo pybitchat BLE Mesh. Los eventos de descubrimiento de pares se muestran como notificaciones [INFO] en la terminal.",
@@ -1130,7 +1180,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Aún no se ha mostrado ningún par BLE. Ejecuta primero :bitchat peers.",
     "pair.unknown_peer": "Ningún par BLE mostrado coincide con '%(selector)s'. Ejecuta :bitchat peers para ver la lista.",
-    "pair.ambiguous": "Más de un par mostrado se llama '%(selector)s'. Usa el número en su lugar."
+    "pair.ambiguous": "Más de un par mostrado se llama '%(selector)s'. Usa el número en su lugar.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Uso: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Vinculación de chat del par de Bitchat: %(binding)s",
+    "bind.none": "No hay un emparejamiento activo para esa clave Noise.",
+    "bind.error": "No se pudo establecer la vinculación de chat del par de Bitchat: %(error)s"
   },
   "fa": {
     "tool.description": "شروع/توقف/نظارت گره pybitchat BLE Mesh. رویدادهای کشف همتا به عنوان اعلان‌های [INFO] در ترمینال نشان داده می‌شوند.",
@@ -1233,7 +1288,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "هنوز هیچ همتای BLE نمایش داده نشده است. ابتدا :bitchat peers را اجرا کنید.",
     "pair.unknown_peer": "هیچ همتای BLE نمایش‌داده‌شده‌ای با '%(selector)s' مطابقت ندارد. برای مشاهده فهرست :bitchat peers را اجرا کنید.",
-    "pair.ambiguous": "بیش از یک همتای نمایش‌داده‌شده '%(selector)s' نام دارد. به‌جای آن از شماره استفاده کنید."
+    "pair.ambiguous": "بیش از یک همتای نمایش‌داده‌شده '%(selector)s' نام دارد. به‌جای آن از شماره استفاده کنید.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "استفاده: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "اتصال گفتگوی همتای Bitchat: %(binding)s",
+    "bind.none": "برای آن کلید Noise هیچ جفت‌سازی فعالی وجود ندارد.",
+    "bind.error": "تنظیم اتصال گفتگوی همتای Bitchat ممکن نشد: %(error)s"
   },
   "fi": {
     "tool.description": "Käynnistä/pysäytä/seuraa pybitchat BLE Mesh -solmua. Vertaisetsintätapahtumat näkyvät [INFO]-ilmoituksina päätteessä.",
@@ -1336,7 +1396,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "BLE-vertaislaitteita ei ole vielä näytetty. Aja ensin :bitchat peers.",
     "pair.unknown_peer": "Yksikään näytetty BLE-vertaislaite ei vastaa kohdetta '%(selector)s'. Tarkista luettelo komennolla :bitchat peers.",
-    "pair.ambiguous": "Useamman kuin yhden näytetyn vertaislaitteen nimi on '%(selector)s'. Käytä sen sijaan numeroa."
+    "pair.ambiguous": "Useamman kuin yhden näytetyn vertaislaitteen nimi on '%(selector)s'. Käytä sen sijaan numeroa.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Käyttö: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat-vertaisen chat-sidonta: %(binding)s",
+    "bind.none": "Tuolle Noise-avaimelle ei ole aktiivista paritusta.",
+    "bind.error": "Bitchat-vertaisen chat-sidontaa ei voitu asettaa: %(error)s"
   },
   "fr": {
     "tool.description": "Démarrez/arrêtez/surveillez le nœud pybitchat BLE Mesh. Les événements de découverte par les pairs sont affichés sous forme de notifications [INFO] dans le terminal.",
@@ -1439,7 +1504,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Aucun pair BLE n'a encore été affiché. Exécutez d'abord :bitchat peers.",
     "pair.unknown_peer": "Aucun pair BLE affiché ne correspond à '%(selector)s'. Exécutez :bitchat peers pour voir la liste.",
-    "pair.ambiguous": "Plusieurs pairs affichés s'appellent '%(selector)s'. Utilisez plutôt le numéro."
+    "pair.ambiguous": "Plusieurs pairs affichés s'appellent '%(selector)s'. Utilisez plutôt le numéro.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Utilisation: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Liaison de discussion du pair Bitchat : %(binding)s",
+    "bind.none": "Aucun appairage actif pour cette clé Noise.",
+    "bind.error": "Impossible de définir la liaison de discussion du pair Bitchat : %(error)s"
   },
   "he": {
     "tool.description": "התחל/עצור/עקוב אחר צומת pybitchat BLE Mesh. אירועי גילוי עמיתים מוצגים כהודעות [INFO] בטרמינל.",
@@ -1542,7 +1612,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "עדיין לא הוצגו עמיתי BLE. הפעל תחילה את :bitchat peers.",
     "pair.unknown_peer": "אין עמית BLE מוצג התואם ל-'%(selector)s'. הפעל את :bitchat peers כדי לראות את הרשימה.",
-    "pair.ambiguous": "יותר מעמית מוצג אחד נקרא '%(selector)s'. השתמש במספר במקום זאת."
+    "pair.ambiguous": "יותר מעמית מוצג אחד נקרא '%(selector)s'. השתמש במספר במקום זאת.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "שימוש: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "קישור הצ'אט של עמית Bitchat: %(binding)s",
+    "bind.none": "אין התאמה פעילה עבור מפתח Noise זה.",
+    "bind.error": "לא ניתן להגדיר את קישור הצ'אט של עמית Bitchat: %(error)s"
   },
   "hi": {
     "tool.description": "पाइबिटचैट BLE मेश नोड को प्रारंभ/रोकें/निगरानी करें। सहकर्मी खोज घटनाओं को टर्मिनल में [सूचना] सूचनाओं के रूप में दिखाया जाता है।",
@@ -1645,7 +1720,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "अभी तक कोई BLE पीयर दिखाया नहीं गया है। पहले :bitchat peers चलाएँ।",
     "pair.unknown_peer": "कोई भी दिखाया गया BLE पीयर '%(selector)s' से मेल नहीं खाता। सूची देखने के लिए :bitchat peers चलाएँ।",
-    "pair.ambiguous": "एक से अधिक दिखाए गए पीयर का नाम '%(selector)s' है। इसके बजाय नंबर का उपयोग करें।"
+    "pair.ambiguous": "एक से अधिक दिखाए गए पीयर का नाम '%(selector)s' है। इसके बजाय नंबर का उपयोग करें।",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "उपयोग: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat पीयर चैट बाइंडिंग: %(binding)s",
+    "bind.none": "उस Noise कुंजी के लिए कोई सक्रिय युग्मन नहीं है।",
+    "bind.error": "Bitchat पीयर चैट बाइंडिंग सेट नहीं हो सकी: %(error)s"
   },
   "hu": {
     "tool.description": "A pybitchat BLE Mesh csomópont indítása/leállítása/figyelése. A társfelderítési események [INFO] értesítésként jelennek meg a terminálon.",
@@ -1748,7 +1828,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Még nem jelent meg BLE-peer. Előbb futtassa a :bitchat peers parancsot.",
     "pair.unknown_peer": "Egyetlen megjelenített BLE-peer sem felel meg ennek: '%(selector)s'. A listához futtassa a :bitchat peers parancsot.",
-    "pair.ambiguous": "Több megjelenített peer neve is '%(selector)s'. Használja helyette a számot."
+    "pair.ambiguous": "Több megjelenített peer neve is '%(selector)s'. Használja helyette a számot.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Használat: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "A Bitchat partner chat kötése: %(binding)s",
+    "bind.none": "Nincs aktív párosítás ehhez a Noise kulcshoz.",
+    "bind.error": "Nem sikerült beállítani a Bitchat partner chat kötését: %(error)s"
   },
   "id": {
     "tool.description": "Mulai/hentikan/pantau node pybitchat BLE Mesh. Peristiwa penemuan rekan ditampilkan sebagai pemberitahuan [INFO] di terminal.",
@@ -1851,7 +1936,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Belum ada rekan BLE yang ditampilkan. Jalankan :bitchat peers terlebih dahulu.",
     "pair.unknown_peer": "Tidak ada rekan BLE yang ditampilkan cocok dengan '%(selector)s'. Jalankan :bitchat peers untuk memeriksa daftar.",
-    "pair.ambiguous": "Lebih dari satu rekan yang ditampilkan bernama '%(selector)s'. Gunakan nomor sebagai gantinya."
+    "pair.ambiguous": "Lebih dari satu rekan yang ditampilkan bernama '%(selector)s'. Gunakan nomor sebagai gantinya.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Penggunaan: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Binding chat peer Bitchat: %(binding)s",
+    "bind.none": "Tidak ada pemasangan aktif untuk kunci Noise itu.",
+    "bind.error": "Tidak dapat mengatur binding chat peer Bitchat: %(error)s"
   },
   "it": {
     "tool.description": "Avvia/arresta/monitora il nodo mesh BLE pybitchat. Gli eventi di rilevamento peer vengono visualizzati come notifiche [INFO] nel terminale.",
@@ -1954,7 +2044,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Nessun peer BLE è stato ancora visualizzato. Esegui prima :bitchat peers.",
     "pair.unknown_peer": "Nessun peer BLE visualizzato corrisponde a '%(selector)s'. Esegui :bitchat peers per vedere l'elenco.",
-    "pair.ambiguous": "Più di un peer visualizzato si chiama '%(selector)s'. Usa invece il numero."
+    "pair.ambiguous": "Più di un peer visualizzato si chiama '%(selector)s'. Usa invece il numero.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Utilizzo: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Associazione chat del peer Bitchat: %(binding)s",
+    "bind.none": "Nessun abbinamento attivo per quella chiave Noise.",
+    "bind.error": "Impossibile impostare l'associazione chat del peer Bitchat: %(error)s"
   },
   "ko": {
     "tool.description": "pybitchat BLE Mesh 노드를 시작/중지/모니터링합니다. 피어 검색 이벤트는 터미널에 [INFO] 알림으로 표시됩니다.",
@@ -2057,7 +2152,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "아직 표시된 BLE 피어가 없습니다. 먼저 :bitchat peers를 실행하세요.",
     "pair.unknown_peer": "표시된 BLE 피어 중 '%(selector)s'와(과) 일치하는 피어가 없습니다. :bitchat peers로 목록을 확인하세요.",
-    "pair.ambiguous": "'%(selector)s'라는 이름의 표시된 피어가 여러 개입니다. 번호로 지정하세요."
+    "pair.ambiguous": "'%(selector)s'라는 이름의 표시된 피어가 여러 개입니다. 번호로 지정하세요.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "사용법: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat 피어 채팅 바인딩: %(binding)s",
+    "bind.none": "해당 Noise 키에 대한 활성 페어링이 없습니다.",
+    "bind.error": "Bitchat 피어 채팅 바인딩을 설정할 수 없습니다: %(error)s"
   },
   "mn": {
     "tool.description": "Pybitchat BLE Mesh зангилааг эхлүүлэх / зогсоох / хянах. Үе тэнгийн нээлтийн үйл явдлуудыг терминал дээр [INFO] мэдэгдэл хэлбэрээр харуулдаг.",
@@ -2160,7 +2260,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "BLE түнш хараахан харагдаагүй байна. Эхлээд :bitchat peers-г ажиллуулна уу.",
     "pair.unknown_peer": "'%(selector)s'-д тохирох харагдаж буй BLE түнш алга. Жагсаалтыг :bitchat peers-ээр шалгана уу.",
-    "pair.ambiguous": "'%(selector)s' нэртэй харагдаж буй түнш нэгээс олон байна. Оронд нь дугаар ашиглана уу."
+    "pair.ambiguous": "'%(selector)s' нэртэй харагдаж буй түнш нэгээс олон байна. Оронд нь дугаар ашиглана уу.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Хэрэглээ: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat үе тэнгийн чат холболт: %(binding)s",
+    "bind.none": "Тэр Noise түлхүүрт идэвхтэй хослол байхгүй.",
+    "bind.error": "Bitchat үе тэнгийн чат холболтыг тохируулж чадсангүй: %(error)s"
   },
   "mr": {
     "tool.description": "पायबिचॅट बीएलई मेश नोड सुरू/थांबवा/निरीक्षण करा. पीअर डिस्कवरी इव्हेंट टर्मिनलमध्ये [INFO] सूचना म्हणून दाखवले जातात.",
@@ -2263,7 +2368,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "अद्याप कोणतेही BLE पीअर दाखवलेले नाही. प्रथम :bitchat peers चालवा.",
     "pair.unknown_peer": "दाखवलेल्या कोणत्याही BLE पीअरशी '%(selector)s' जुळत नाही. यादी पाहण्यासाठी :bitchat peers चालवा.",
-    "pair.ambiguous": "एकापेक्षा जास्त दाखवलेल्या पीअरचे नाव '%(selector)s' आहे. त्याऐवजी क्रमांक वापरा."
+    "pair.ambiguous": "एकापेक्षा जास्त दाखवलेल्या पीअरचे नाव '%(selector)s' आहे. त्याऐवजी क्रमांक वापरा.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "वापर: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat पीअर चॅट बाइंडिंग: %(binding)s",
+    "bind.none": "त्या Noise की साठी कोणतेही सक्रिय पेअरिंग नाही.",
+    "bind.error": "Bitchat पीअर चॅट बाइंडिंग सेट करता आले नाही: %(error)s"
   },
   "nb": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -2366,7 +2476,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Ingen BLE-peers er vist ennå. Kjør :bitchat peers først.",
     "pair.unknown_peer": "Ingen vist BLE-peer samsvarer med '%(selector)s'. Kjør :bitchat peers for å se listen.",
-    "pair.ambiguous": "Mer enn én vist peer heter '%(selector)s'. Bruk nummeret i stedet."
+    "pair.ambiguous": "Mer enn én vist peer heter '%(selector)s'. Bruk nummeret i stedet.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Bruk: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chatbinding for Bitchat-motpart: %(binding)s",
+    "bind.none": "Ingen aktiv sammenkobling for den Noise-nøkkelen.",
+    "bind.error": "Kunne ikke angi chatbinding for Bitchat-motpart: %(error)s"
   },
   "nl": {
     "tool.description": "Start/stop/bewaak het pybitchat BLE Mesh-knooppunt. Peer-ontdekkingsgebeurtenissen worden weergegeven als [INFO]-meldingen in de terminal.",
@@ -2469,7 +2584,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Er zijn nog geen BLE-peers weergegeven. Voer eerst :bitchat peers uit.",
     "pair.unknown_peer": "Geen weergegeven BLE-peer komt overeen met '%(selector)s'. Voer :bitchat peers uit om de lijst te bekijken.",
-    "pair.ambiguous": "Meer dan één weergegeven peer heet '%(selector)s'. Gebruik in plaats daarvan het nummer."
+    "pair.ambiguous": "Meer dan één weergegeven peer heet '%(selector)s'. Gebruik in plaats daarvan het nummer.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Gebruik: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chatbinding van Bitchat-peer: %(binding)s",
+    "bind.none": "Geen actieve koppeling voor die Noise-sleutel.",
+    "bind.error": "Chatbinding van Bitchat-peer kon niet worden ingesteld: %(error)s"
   },
   "pl": {
     "tool.description": "Uruchom/zatrzymaj/monitoruj węzeł pybitchat BLE Mesh. Zdarzenia Peer Discovery są wyświetlane w terminalu jako powiadomienia [INFO].",
@@ -2572,7 +2692,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Nie wyświetlono jeszcze żadnych peerów BLE. Najpierw uruchom :bitchat peers.",
     "pair.unknown_peer": "Żaden wyświetlony peer BLE nie pasuje do '%(selector)s'. Uruchom :bitchat peers, aby zobaczyć listę.",
-    "pair.ambiguous": "Więcej niż jeden wyświetlony peer nazywa się '%(selector)s'. Użyj zamiast tego numeru."
+    "pair.ambiguous": "Więcej niż jeden wyświetlony peer nazywa się '%(selector)s'. Użyj zamiast tego numeru.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Użycie: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Powiązanie czatu peera Bitchat: %(binding)s",
+    "bind.none": "Brak aktywnego parowania dla tego klucza Noise.",
+    "bind.error": "Nie można ustawić powiązania czatu peera Bitchat: %(error)s"
   },
   "pt": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -2675,7 +2800,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Nenhum par BLE foi exibido ainda. Execute :bitchat peers primeiro.",
     "pair.unknown_peer": "Nenhum par BLE exibido corresponde a '%(selector)s'. Execute :bitchat peers para ver a lista.",
-    "pair.ambiguous": "Mais de um par exibido se chama '%(selector)s'. Use o número em vez disso."
+    "pair.ambiguous": "Mais de um par exibido se chama '%(selector)s'. Use o número em vez disso.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Utilização: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Vinculação de chat do par Bitchat: %(binding)s",
+    "bind.none": "Sem emparelhamento ativo para essa chave Noise.",
+    "bind.error": "Não foi possível definir a vinculação de chat do par Bitchat: %(error)s"
   },
   "pt_BR": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -2778,7 +2908,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Nenhum par BLE foi exibido ainda. Execute :bitchat peers primeiro.",
     "pair.unknown_peer": "Nenhum par BLE exibido corresponde a '%(selector)s'. Execute :bitchat peers para ver a lista.",
-    "pair.ambiguous": "Mais de um par exibido se chama '%(selector)s'. Use o número em vez disso."
+    "pair.ambiguous": "Mais de um par exibido se chama '%(selector)s'. Use o número em vez disso.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Uso: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Vinculação de chat do par Bitchat: %(binding)s",
+    "bind.none": "Nenhum pareamento ativo para essa chave Noise.",
+    "bind.error": "Não foi possível definir a vinculação de chat do par Bitchat: %(error)s"
   },
   "ro": {
     "tool.description": "Porniți/opriți/monitorizați nodul pybitchat BLE Mesh. Evenimentele de descoperire peer sunt afișate ca notificări [INFO] în terminal.",
@@ -2881,7 +3016,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Niciun peer BLE nu a fost afișat încă. Rulați mai întâi :bitchat peers.",
     "pair.unknown_peer": "Niciun peer BLE afișat nu corespunde cu '%(selector)s'. Rulați :bitchat peers pentru a vedea lista.",
-    "pair.ambiguous": "Mai mulți peer afișați se numesc '%(selector)s'. Folosiți numărul în schimb."
+    "pair.ambiguous": "Mai mulți peer afișați se numesc '%(selector)s'. Folosiți numărul în schimb.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Utilizare: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Legătura de chat a partenerului Bitchat: %(binding)s",
+    "bind.none": "Nicio asociere activă pentru acea cheie Noise.",
+    "bind.error": "Nu s-a putut seta legătura de chat a partenerului Bitchat: %(error)s"
   },
   "ru": {
     "tool.description": "Запуск/остановка/отслеживание узла pybitchat BLE Mesh. События обнаружения одноранговых узлов отображаются в терминале в виде уведомлений [INFO].",
@@ -2984,7 +3124,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Пиры BLE ещё не отображались. Сначала выполните :bitchat peers.",
     "pair.unknown_peer": "Ни один отображённый пир BLE не соответствует '%(selector)s'. Выполните :bitchat peers, чтобы увидеть список.",
-    "pair.ambiguous": "Несколько отображённых пиров носят имя '%(selector)s'. Укажите номер."
+    "pair.ambiguous": "Несколько отображённых пиров носят имя '%(selector)s'. Укажите номер.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Использование: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Привязка чата пира Bitchat: %(binding)s",
+    "bind.none": "Нет активной пары для этого ключа Noise.",
+    "bind.error": "Не удалось задать привязку чата пира Bitchat: %(error)s"
   },
   "sv": {
     "tool.description": "Starta/stoppa/övervaka pybitchat BLE Mesh-noden. Peer discovery-händelser visas som [INFO]-meddelanden i terminalen.",
@@ -3087,7 +3232,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Inga BLE-peers har visats ännu. Kör :bitchat peers först.",
     "pair.unknown_peer": "Ingen visad BLE-peer matchar '%(selector)s'. Kör :bitchat peers för att se listan.",
-    "pair.ambiguous": "Mer än en visad peer heter '%(selector)s'. Använd numret i stället."
+    "pair.ambiguous": "Mer än en visad peer heter '%(selector)s'. Använd numret i stället.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Användning: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Chattbindning för Bitchat-peer: %(binding)s",
+    "bind.none": "Ingen aktiv parkoppling för den Noise-nyckeln.",
+    "bind.error": "Kunde inte ange chattbindning för Bitchat-peer: %(error)s"
   },
   "sw": {
     "tool.description": "Anza/simamisha/fuatilia nodi ya pybitchat BLE Mesh. Matukio ya ugunduzi wa marafiki huonyeshwa kama arifa za [INFO] kwenye terminal.",
@@ -3190,7 +3340,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Hakuna rika wa BLE aliyeonyeshwa bado. Endesha :bitchat peers kwanza.",
     "pair.unknown_peer": "Hakuna rika wa BLE aliyeonyeshwa anayelingana na '%(selector)s'. Endesha :bitchat peers ili kuona orodha.",
-    "pair.ambiguous": "Zaidi ya rika mmoja aliyeonyeshwa anaitwa '%(selector)s'. Tumia nambari badala yake."
+    "pair.ambiguous": "Zaidi ya rika mmoja aliyeonyeshwa anaitwa '%(selector)s'. Tumia nambari badala yake.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Matumizi: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Ufungaji wa gumzo la rika wa Bitchat: %(binding)s",
+    "bind.none": "Hakuna uoanishaji unaotumika kwa ufunguo huo wa Noise.",
+    "bind.error": "Haikuweza kuweka ufungaji wa gumzo la rika wa Bitchat: %(error)s"
   },
   "th": {
     "tool.description": "เริ่ม/หยุด/ตรวจสอบโหนด pybitchat BLE Mesh กิจกรรมการค้นพบเพื่อนจะแสดงเป็นการแจ้งเตือน [INFO] ในเทอร์มินัล",
@@ -3293,7 +3448,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "ยังไม่มีเพียร์ BLE ที่แสดงไว้ เรียก :bitchat peers ก่อน",
     "pair.unknown_peer": "ไม่มีเพียร์ BLE ที่แสดงไว้ตรงกับ '%(selector)s' เรียก :bitchat peers เพื่อดูรายการ",
-    "pair.ambiguous": "มีเพียร์ที่แสดงไว้มากกว่าหนึ่งรายชื่อ '%(selector)s' โปรดใช้หมายเลขแทน"
+    "pair.ambiguous": "มีเพียร์ที่แสดงไว้มากกว่าหนึ่งรายชื่อ '%(selector)s' โปรดใช้หมายเลขแทน",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "การใช้งาน: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "การผูกแชทของเพียร์ Bitchat: %(binding)s",
+    "bind.none": "ไม่มีการจับคู่ที่ใช้งานอยู่สำหรับคีย์ Noise นั้น",
+    "bind.error": "ไม่สามารถตั้งค่าการผูกแชทของเพียร์ Bitchat ได้: %(error)s"
   },
   "tr": {
     "tool.description": "Pybitchat BLE Mesh düğümünü başlatın/durdurun/izleyin. Eş bulma olayları terminalde [BİLGİ] bildirimleri olarak gösterilir.",
@@ -3396,7 +3556,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Henüz görüntülenen BLE eşi yok. Önce :bitchat peers komutunu çalıştırın.",
     "pair.unknown_peer": "Görüntülenen BLE eşlerinden hiçbiri '%(selector)s' ile eşleşmiyor. Listeyi görmek için :bitchat peers komutunu çalıştırın.",
-    "pair.ambiguous": "Görüntülenen birden fazla eş '%(selector)s' adını taşıyor. Bunun yerine numarayı kullanın."
+    "pair.ambiguous": "Görüntülenen birden fazla eş '%(selector)s' adını taşıyor. Bunun yerine numarayı kullanın.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Kullanım: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat eşinin sohbet bağlaması: %(binding)s",
+    "bind.none": "Bu Noise anahtarı için aktif eşleştirme yok.",
+    "bind.error": "Bitchat eşinin sohbet bağlaması ayarlanamadı: %(error)s"
   },
   "uk": {
     "tool.description": "Запуск/зупинка/моніторинг вузла pybitchat BLE Mesh. Події виявлення однорангових пристроїв відображаються як сповіщення [INFO] у терміналі.",
@@ -3499,7 +3664,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Піри BLE ще не відображалися. Спочатку виконайте :bitchat peers.",
     "pair.unknown_peer": "Жоден відображений пір BLE не відповідає '%(selector)s'. Виконайте :bitchat peers, щоб побачити список.",
-    "pair.ambiguous": "Кілька відображених пірів мають ім'я '%(selector)s'. Вкажіть номер."
+    "pair.ambiguous": "Кілька відображених пірів мають ім'я '%(selector)s'. Вкажіть номер.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Використання: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Прив'язка чату піра Bitchat: %(binding)s",
+    "bind.none": "Немає активної пари для цього ключа Noise.",
+    "bind.error": "Не вдалося задати прив'язку чату піра Bitchat: %(error)s"
   },
   "vi": {
     "tool.description": "Bắt đầu/dừng/giám sát nút BLE Mesh pybitchat. Các sự kiện khám phá ngang hàng được hiển thị dưới dạng thông báo [INFO] trong thiết bị đầu cuối.",
@@ -3602,7 +3772,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "Chưa có peer BLE nào được hiển thị. Hãy chạy :bitchat peers trước.",
     "pair.unknown_peer": "Không có peer BLE nào đã hiển thị khớp với '%(selector)s'. Hãy chạy :bitchat peers để xem danh sách.",
-    "pair.ambiguous": "Có nhiều hơn một peer đã hiển thị tên là '%(selector)s'. Hãy dùng số thứ tự thay thế."
+    "pair.ambiguous": "Có nhiều hơn một peer đã hiển thị tên là '%(selector)s'. Hãy dùng số thứ tự thay thế.",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "Cách dùng: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Liên kết trò chuyện của đối tác Bitchat: %(binding)s",
+    "bind.none": "Không có ghép nối đang hoạt động cho khóa Noise đó.",
+    "bind.error": "Không thể đặt liên kết trò chuyện của đối tác Bitchat: %(error)s"
   },
   "zh_CN": {
     "tool.description": "启动/停止/监控 pybitchat BLE Mesh 节点。对等发现事件在终端中显示为 [INFO] 通知。",
@@ -3705,7 +3880,12 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "尚未显示任何 BLE 节点。请先运行 :bitchat peers。",
     "pair.unknown_peer": "已显示的 BLE 节点中没有与 '%(selector)s' 匹配的。运行 :bitchat peers 查看列表。",
-    "pair.ambiguous": "名为 '%(selector)s' 的已显示节点不止一个。请改用编号。"
+    "pair.ambiguous": "名为 '%(selector)s' 的已显示节点不止一个。请改用编号。",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "用法: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat 对端聊天绑定：%(binding)s",
+    "bind.none": "该 Noise 密钥没有有效的配对。",
+    "bind.error": "无法设置 Bitchat 对端聊天绑定：%(error)s"
   },
   "zh_TW": {
     "tool.description": "啟動/停止/監控 pybitchat BLE Mesh 節點。對等發現事件在終端機中顯示為 [INFO] 通知。",
@@ -3808,6 +3988,11 @@
     "peers.ble_entry_numbered": "  %(index)d. %(nick)s noise=%(noise_key)s",
     "pair.not_displayed": "尚未顯示任何 BLE 節點。請先執行 :bitchat peers。",
     "pair.unknown_peer": "已顯示的 BLE 節點中沒有與 '%(selector)s' 相符的。執行 :bitchat peers 查看清單。",
-    "pair.ambiguous": "名為 '%(selector)s' 的已顯示節點不只一個。請改用編號。"
+    "pair.ambiguous": "名為 '%(selector)s' 的已顯示節點不只一個。請改用編號。",
+    "devices.entry_binding": "chat=%(binding)s",
+    "bind.usage": "用法: :bitchat bind <noise_key_hex> attach|room",
+    "bind.success": "Bitchat 對端聊天綁定：%(binding)s",
+    "bind.none": "該 Noise 金鑰沒有有效的配對。",
+    "bind.error": "無法設定 Bitchat 對端聊天綁定：%(error)s"
   }
 }
