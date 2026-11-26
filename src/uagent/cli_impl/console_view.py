@@ -65,7 +65,10 @@ from ..env_utils import env_get
 from ..i18n import _
 
 _EOF = object()
-_PREFIX_WIDTH = 24
+# Cap on the prompt prefix: longer prompts are truncated with an
+# ellipsis so they cannot eat the whole input row.  The prompt
+# window itself hugs the (possibly truncated) text.
+_PREFIX_MAX_WIDTH = 24
 
 _active_lock = threading.Lock()
 _active_view: "ConsoleView | None" = None
@@ -869,12 +872,23 @@ class ConsoleView:
         style = "class:status.busy" if busy else "class:status.idle"
         return [(style, text)]
 
-    def _prompt_fragments(self) -> list[tuple[str, str]]:
+    def _prompt_display_text(self) -> str:
         with self._state_lock:
             text = self._prompt_text
-        if len(text) > _PREFIX_WIDTH:
-            text = text[: _PREFIX_WIDTH - 1] + "…"
-        return [("class:prompt", text.ljust(_PREFIX_WIDTH))]
+        if len(text) > _PREFIX_MAX_WIDTH:
+            text = text[: _PREFIX_MAX_WIDTH - 1] + "…"
+        return text
+
+    def _prompt_fragments(self) -> list[tuple[str, str]]:
+        # No padding: the prompt window is sized to the text (see
+        # _prompt_width), so the input starts right after the
+        # prompt however short it is.
+        return [("class:prompt", self._prompt_display_text())]
+
+    def _prompt_width(self) -> int:
+        from prompt_toolkit.utils import get_cwidth
+
+        return get_cwidth(self._prompt_display_text())
 
     def _make_app(self) -> Any:
         from prompt_toolkit.application import Application
@@ -1047,7 +1061,7 @@ class ConsoleView:
                                     content=FormattedTextControl(
                                         self._prompt_fragments
                                     ),
-                                    width=_PREFIX_WIDTH,
+                                    width=self._prompt_width,
                                     height=Dimension(min=3, max=3),
                                 ),
                                 Window(
