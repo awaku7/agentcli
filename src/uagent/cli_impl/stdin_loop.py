@@ -202,6 +202,32 @@ def _requeue_pending_line(view, line, token) -> bool:
     return True
 
 
+def _preserve_line_across_ask(view, line, token) -> bool:
+    """Whether a line the loop read survives a human_ask takeover.
+
+    Queued lines go back with their pending token
+    (:func:`_requeue_pending_line`).  An interrupt-chosen line
+    carries no token — it was echoed as an ordinary user segment
+    at once — but it is an explicit "send this next" choice, so
+    it goes back to the view's priority queue instead of taking
+    the legacy drop.  Returns True when the line was preserved.
+    """
+    if _requeue_pending_line(view, line, token):
+        return True
+    if view is None or token is not None:
+        return False
+    if not getattr(view, "last_line_priority", False):
+        return False
+    requeue = getattr(view, "requeue_priority", None)
+    if requeue is None:
+        return False
+    try:
+        requeue(line)
+    except Exception:
+        return False
+    return True
+
+
 def _resolve_pending_echo(token) -> None:
     """Drop the queued marker from a view line that is being sent.
 
@@ -807,7 +833,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
         if (not is_reply and human_ask_active_now) or (
             is_reply and not human_ask_active_now
         ):
-            if _requeue_pending_line(_line_view, line, _pending_token):
+            if _preserve_line_across_ask(_line_view, line, _pending_token):
                 continue
             _resolve_pending_echo(_pending_token)
             with _spinner_paused():
@@ -941,7 +967,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             with core.human_ask_lock:
                 human_ask_active_now = bool(core.human_ask_active)
             if human_ask_active_now:
-                if _requeue_pending_line(_line_view, line, _pending_token):
+                if _preserve_line_across_ask(_line_view, line, _pending_token):
                     continue
                 _resolve_pending_echo(_pending_token)
                 with _spinner_paused():

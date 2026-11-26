@@ -441,6 +441,7 @@ class ConsoleView:
         # by the busy-at-submit wait that a priority line overtook.
         self._front: collections.deque[Any] = collections.deque()
         self._last_pending_token: Any = None
+        self._last_line_priority: bool = False
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
         self._on_interrupt = on_interrupt
@@ -792,16 +793,19 @@ class ConsoleView:
             try:
                 text, token = self._priority.get_nowait()
                 self._last_pending_token = token
+                self._last_line_priority = True
                 return text
             except queue.Empty:
                 pass
             if self._front:
                 text, token = self._front.popleft()
                 self._last_pending_token = token
+                self._last_line_priority = False
                 return text
             try:
                 text, token = self._submissions.get(timeout=0.05)
                 self._last_pending_token = token
+                self._last_line_priority = False
                 return text
             except queue.Empty:
                 if abort():
@@ -836,6 +840,16 @@ class ConsoleView:
         """
         self._front.appendleft((text, token))
 
+    def requeue_priority(self, text: str) -> None:
+        """Return an interrupt-chosen line to the priority queue.
+
+        Used when a human_ask takes stdin after the reader took
+        the line but before it could dispatch: the user's
+        explicit "send this next" choice survives the question
+        and is read again ahead of ordinary queued lines.
+        """
+        self._priority.put((text, None))
+
     @property
     def eof_sentinel(self) -> object:
         return _EOF
@@ -844,6 +858,17 @@ class ConsoleView:
     def last_pending_token(self) -> Any:
         """The pending-user segment of the line wait_line returned."""
         return self._last_pending_token
+
+    @property
+    def last_line_priority(self) -> bool:
+        """Whether the line wait_line returned was interrupt-chosen.
+
+        Tracked separately from the pending token: an
+        interrupt-chosen line carries no token (it was echoed as
+        an ordinary user segment at once), but it is still a
+        deliberate choice that must survive a human_ask takeover.
+        """
+        return self._last_line_priority
 
     def resolve_pending(self, token: Any) -> None:
         """Drop the queued marker from a pending line being sent."""

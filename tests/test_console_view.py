@@ -1136,6 +1136,38 @@ def test_view_resync_busy_after_suspend_clears_the_stale_flag():
             view.stop()
 
 
+def test_view_priority_line_reports_itself_and_requeues():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("queued one\r")
+            assert _wait_for(lambda: view._confirm_text == "queued one")
+            pipe.send_text("n")
+            assert _wait_for(lambda: view._confirm_text is None)
+            pipe.send_text("chosen one\r")
+            assert _wait_for(lambda: view._confirm_text == "chosen one")
+            pipe.send_text("y")
+            assert _wait_for(lambda: not view._priority.empty())
+            line = view.wait_line(abort=lambda: False)
+            assert line == "chosen one"
+            # Interrupt-chosen lines carry no pending token, but
+            # they report themselves as priority so a human_ask
+            # takeover can preserve them by that flag instead.
+            assert view.last_pending_token is None
+            assert view.last_line_priority is True
+            view.requeue_priority(line)
+            assert view.wait_line(abort=lambda: False) == "chosen one"
+            assert view.last_line_priority is True
+            assert view.wait_line(abort=lambda: False) == "queued one"
+            assert view.last_line_priority is False
+            assert view.last_pending_token is not None
+        finally:
+            view.stop()
+
+
 def test_view_priority_line_overtakes_a_requeued_held_line():
     from prompt_toolkit.input import create_pipe_input
 
