@@ -1867,6 +1867,61 @@ def test_view_reply_answered_elsewhere_drops_the_typed_text():
             view.stop()
 
 
+def test_view_password_reply_cannot_be_undone_back_into_the_prompt():
+    # Regression (PR #491 Codex P1): restoring the draft with
+    # set_document() left the reply in the buffer's undo stack —
+    # Ctrl+_ at the normal (unmasked) prompt brought the password
+    # back visibly, and Enter could then send it.  The restore
+    # now resets the buffer's editing state.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("s3cret\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            pipe.send_text("\x1f")
+            assert _wait_for(lambda: view._input_buffer.text != "s3cret")
+            time.sleep(0.2)
+            assert view._input_buffer.text == "draft"
+        finally:
+            view.stop()
+
+
+def test_view_reply_opening_over_a_confirmation_does_not_restore_its_text():
+    # Regression (PR #491 Codex P2): begin_reply settled an open
+    # confirmation as a queue entry but left its text in the
+    # buffer, so the arming step stashed that already-queued text
+    # as the "draft" and the restore after the reply handed it
+    # back as editable input — Enter would submit it twice.
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("next task\r")
+            assert _wait_for(lambda: view._confirm_text == "next task")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            # The confirmation settled as exactly one queue entry.
+            assert view.wait_line(abort=lambda: False) == "next task"
+            assert "next task (queued)" in _document_text(document)
+            pipe.send_text("the answer\r")
+            assert view.wait_reply(abort=lambda: False) == "the answer"
+            assert _wait_for(lambda: view._reply_label is None)
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character

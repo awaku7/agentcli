@@ -1132,7 +1132,7 @@ class ConsoleView:
         lands earlier is ignored rather than submitting the draft
         as the answer.
         """
-        self._resolve_open_confirmation_as_queue()
+        settled = self._resolve_open_confirmation_as_queue()
         # Nothing stale may survive into this ask: a reply finished
         # after its wait had already aborted belongs to no one.
         while True:
@@ -1150,6 +1150,15 @@ class ConsoleView:
         def _arm() -> None:
             if not already:
                 try:
+                    if settled:
+                        # The settled confirmation's text was
+                        # queued by the helper but still sits in
+                        # the buffer; clear it BEFORE the draft is
+                        # stashed, or the restore after the reply
+                        # would hand it back as editable input and
+                        # Enter would submit it a second time.  The
+                        # suspension path clears it the same way.
+                        self._input_buffer.reset()
                     self._reply_draft = self._input_buffer.document
                     self._reply_completer = self._input_buffer.completer
                     self._input_buffer.completer = None
@@ -1212,10 +1221,12 @@ class ConsoleView:
             self._reply_completer = None
         try:
             self._input_buffer.completer = completer
-            if draft is not None:
-                self._input_buffer.set_document(draft, bypass_readonly=True)
-            else:
-                self._input_buffer.reset()
+            # reset(), not set_document(): the reply's editing
+            # state (above all the undo stack, which still holds
+            # the reply text — a password in the clear) must not
+            # survive into the normal prompt, where Ctrl+_ would
+            # bring it back visibly and Enter could send it.
+            self._input_buffer.reset(document=draft)
         except Exception:
             pass
         self._invalidate()
