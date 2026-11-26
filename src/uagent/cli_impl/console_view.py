@@ -322,6 +322,7 @@ class ConsoleView:
         self._app: Any = None
         self._thread: threading.Thread | None = None
         self._running = False
+        self._generation = 0
         self._state_lock = threading.Lock()
         self._capture_lock = threading.Lock()
         self._orig_stdout: Any = None
@@ -337,6 +338,8 @@ class ConsoleView:
             if self._running:
                 return
             self._running = True
+            self._generation += 1
+            generation = self._generation
         if self._document is None:
             from ..runtime import display_channel
 
@@ -346,7 +349,10 @@ class ConsoleView:
             self._subscribed = True
         _set_active(self)
         self._thread = threading.Thread(
-            target=self._run_app, name="uagent-console-view", daemon=True
+            target=self._run_app,
+            args=(generation,),
+            name="uagent-console-view",
+            daemon=True,
         )
         self._thread.start()
 
@@ -356,9 +362,14 @@ class ConsoleView:
         Buffers and region state survive; :meth:`start` resumes with a
         fresh Application around the same state.
         """
-        app = self._app
         with self._state_lock:
             self._running = False
+            # Invalidate any startup still constructing its application;
+            # _run_app checks the generation before it may install the
+            # stream capture or enter its run loop.
+            self._generation += 1
+            app = self._app
+            thread = self._thread
         if active_view() is self:
             _set_active(None)
         if app is not None:
@@ -370,11 +381,13 @@ class ConsoleView:
                     app.exit()
             except Exception:
                 pass
-        thread = self._thread
         if thread is not None and thread is not threading.current_thread():
             thread.join(timeout=1.0)
-        self._thread = None
-        self._app = None
+        with self._state_lock:
+            if self._thread is thread:
+                self._thread = None
+            if self._app is app:
+                self._app = None
 
     def stop(self) -> None:
         self.suspend()
@@ -384,24 +397,33 @@ class ConsoleView:
         with self._state_lock:
             return self._running
 
-    def _run_app(self) -> None:
+    def _run_app(self, generation: int) -> None:
         app = self._make_app()
-        self._app = app
+        with self._state_lock:
+            if generation != self._generation or not self._running:
+                # Suspended (or superseded by a newer start) while the
+                # application was being constructed: never touch the
+                # terminal, the streams, or the run loop.
+                return
+            self._app = app
         # The application output is built from the real streams inside
         # _make_app; only now is it safe to redirect Python-level
         # stdout/stderr into the document.
         self._install_capture()
+        installed = sys.stdout is self._proxy_stdout
         self._project_document()
         try:
             app.run()
         except Exception:
             pass
         finally:
-            self._restore_capture()
+            if installed:
+                self._restore_capture()
             with self._state_lock:
                 if self._app is app:
                     self._app = None
-                self._running = False
+                if generation == self._generation:
+                    self._running = False
             if active_view() is self:
                 _set_active(None)
 

@@ -581,3 +581,46 @@ def test_interrupt_monitor_stays_out_while_view_active(monkeypatch):
     monkeypatch.setattr(console_view, "_active_view", None)
     interrupt._check_key_posix()
     assert select_calls
+
+
+def test_suspend_during_startup_never_runs_the_app(monkeypatch) -> None:
+    import sys
+    import threading
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    view = ConsoleView(document=OutputDocument())
+    gate = threading.Event()
+    ran: list[bool] = []
+
+    class _StubApp:
+        def run(self) -> None:
+            ran.append(True)
+
+        def exit(self) -> None:
+            pass
+
+    def _slow_make_app() -> _StubApp:
+        gate.wait(timeout=5)
+        return _StubApp()
+
+    monkeypatch.setattr(view, "_make_app", _slow_make_app)
+    real_stdout = sys.stdout
+    try:
+        view.start()
+        thread = view._thread
+        assert thread is not None
+        # Suspend while the application is still being constructed.
+        view.suspend()
+        gate.set()
+        thread.join(timeout=5)
+        assert not thread.is_alive()
+        # The superseded startup never entered its run loop, never
+        # installed the stream capture, and left no app behind.
+        assert ran == []
+        assert sys.stdout is real_stdout
+        assert view._app is None
+        assert view.running is False
+    finally:
+        gate.set()
+        console_view._set_active(None)

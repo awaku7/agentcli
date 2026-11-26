@@ -318,7 +318,7 @@ class _LifecycleView:
         self.running = False
 
 
-def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch) -> None:
+def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch, capsys) -> None:
     view = _LifecycleView()
     monkeypatch.setattr(stdin_loop, "_console_view", view)
     fake_stdin = _FakeStdin(["hello\n"])
@@ -327,6 +327,7 @@ def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch) -> None:
     monkeypatch.setattr(core, "event_queue", events)
     monkeypatch.setattr(core, "status_busy", False)
     monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Proceed with the thing?")
     _patch_common(monkeypatch, fake_stdin)
     original_queue = core.human_ask_queue
     with core.human_ask_lock:
@@ -360,6 +361,9 @@ def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch) -> None:
     assert ask_queue.get_nowait() == "answer"
     # The reply prompt owned the terminal: the view was suspended.
     assert view.suspend_calls >= 1
+    # The question was printed into the (now hidden) view, so suspending
+    # for the reply replayed it onto the restored terminal.
+    assert "Proceed with the thing?" in capsys.readouterr().out
     # And the loop's exit stopped the view exactly once.
     assert view.stop_calls == 1
     assert events.get_nowait() == {"kind": "user", "text": "hello"}

@@ -165,17 +165,39 @@ def _read_line_from_view(view, prompt: str):
     return tools_util.strip_surrogates(str(item))
 
 
-def _suspend_console_view() -> None:
+def _suspend_console_view() -> bool:
     """Yield the terminal to a legacy prompt or editor, if the view runs.
 
     The next normal read restarts the view, so callers only suspend.
+    Returns True when a running view was actually suspended.
     """
     view = _console_view
     if view is not None and view.running:
         try:
             view.suspend()
         except Exception:
-            pass
+            return False
+        return True
+    return False
+
+
+def _replay_pending_question() -> None:
+    """Re-show the pending human_ask question on the restored terminal.
+
+    The question was printed while the console view owned the screen,
+    so it only exists inside the view's document; once the view is
+    suspended for a legacy reply prompt, the user would otherwise see
+    nothing but ``[REPLY] > ``.  The message is the one the ask
+    registered on the core (foreground asks and sub-agent job asks
+    alike).
+    """
+    try:
+        with core.human_ask_lock:
+            message = str(getattr(core, "human_ask_message", "") or "")
+    except Exception:
+        return
+    if message.strip():
+        print(message, flush=True)
 
 
 def _stop_console_view() -> None:
@@ -237,8 +259,11 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                 # A legacy reply/password prompt is about to own the
                 # terminal — including asks opened during generation,
                 # where no view read is outstanding to abort. The
-                # next normal read restarts the view.
-                _suspend_console_view()
+                # next normal read restarts the view. The question was
+                # printed into the view's document, so replay it onto
+                # the restored terminal for the user to answer.
+                if _suspend_console_view():
+                    _replay_pending_question()
 
             if is_password:
                 # When replying to a prompt (human_ask password), flush any pending
