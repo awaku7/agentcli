@@ -456,8 +456,16 @@ def _write_system_clipboard(text: str) -> bool:
         return False
 
 
-def _make_clipboard() -> Any:
-    """An app clipboard that also mirrors copies to the OS one."""
+def _make_clipboard(write_guard: Callable[[], bool] | None = None) -> Any:
+    """An app clipboard that also mirrors copies to the OS one.
+
+    ``write_guard``, when given, is consulted on every write: a
+    False verdict freezes the clipboard (the previous content is
+    kept, nothing is stored or mirrored).  The console view uses
+    it to keep a password reply's text out of the clipboard —
+    the keyboard cut bindings (Ctrl+K and friends) write through
+    here just like the mouse copy does.
+    """
     from prompt_toolkit.clipboard.base import Clipboard, ClipboardData
 
     class _SystemClipboard(Clipboard):
@@ -465,6 +473,12 @@ def _make_clipboard() -> Any:
             self._data = ClipboardData("")
 
         def set_data(self, data: Any) -> None:
+            if write_guard is not None:
+                try:
+                    if not write_guard():
+                        return
+                except Exception:
+                    pass
             self._data = data
             try:
                 _write_system_clipboard(data.text)
@@ -1181,11 +1195,30 @@ class ConsoleView:
         thread, so an Enter that lands in between is still treated
         as a reply (and then dropped as stale by the next
         begin_reply) instead of leaking out as a normal line.
+
+        This call waits until the restore has actually run.  The
+        reader goes on to open the NEXT ask's reply mode from this
+        same thread, and a restore still queued behind it would
+        observe the old label, skip arming, and then clear the
+        new mode's state when it finally ran — leaving the reader
+        blocked in wait_reply while Enter submits normal lines.
+        If the view stops first the state no longer matters, so
+        the wait ends there too.
         """
         with self._state_lock:
             if self._reply_label is None:
                 return
-        self._call_on_loop(self._restore_reply_buffer)
+        done = threading.Event()
+
+        def _restore_and_signal() -> None:
+            try:
+                self._restore_reply_buffer()
+            finally:
+                done.set()
+
+        self._call_on_loop(_restore_and_signal)
+        while self._running and not done.wait(0.05):
+            pass
 
     def wait_reply(self, *, abort: Callable[[], bool]) -> Any:
         """Return the reply line, the EOF sentinel, or None.
@@ -1212,6 +1245,7 @@ class ConsoleView:
         thread has unwound.
         """
         with self._state_lock:
+            armed = self._reply_armed
             self._reply_label = None
             self._reply_is_password = False
             self._reply_armed = False
@@ -1219,6 +1253,13 @@ class ConsoleView:
             completer = self._reply_completer
             self._reply_draft = None
             self._reply_completer = None
+        if not armed:
+            # The buffer surgery never ran (or a racing restore
+            # already undid it): the buffer still holds exactly
+            # what the user had typed before the ask, so there is
+            # nothing to restore — resetting here would wipe it.
+            self._invalidate()
+            return
         try:
             self._input_buffer.completer = completer
             # reset(), not set_document(): the reply's editing
@@ -2074,7 +2115,9 @@ class ConsoleView:
             "style": style,
             "refresh_interval": 0.12,
             "mouse_support": True,
-            "clipboard": _make_clipboard(),
+            "clipboard": _make_clipboard(
+                write_guard=lambda: not self._reply_password_active()
+            ),
         }
         if self._pt_input is not None:
             kwargs["input"] = self._pt_input

@@ -1922,6 +1922,82 @@ def test_view_reply_opening_over_a_confirmation_does_not_restore_its_text():
             view.stop()
 
 
+def test_view_password_reply_keeps_text_out_of_the_clipboard():
+    # Regression (PR #491 Codex P1, second round): the mouse-copy
+    # guard did not cover prompt_toolkit's keyboard cut bindings —
+    # Ctrl+A / Ctrl+K during a password reply wrote the plaintext
+    # password to the (OS-mirroring) app clipboard, and Ctrl+Y
+    # after the reply pasted it back visibly.  Clipboard writes
+    # are frozen while a password reply is open.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("s3cret")
+            assert _wait_for(lambda: view._input_buffer.text == "s3cret")
+            pipe.send_text("\x01\x0b")  # Ctrl+A, Ctrl+K: kill the line.
+            assert _wait_for(lambda: view._input_buffer.text == "")
+            assert "s3cret" not in view._app.clipboard.get_data().text
+            pipe.send_text("\x19")  # Ctrl+Y must not bring it back.
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+            view.end_reply()
+        finally:
+            view.stop()
+
+
+def test_view_reply_end_then_begin_survives_a_stalled_app_loop():
+    # Regression (PR #491 Codex P2, second round): end_reply only
+    # POSTED the restore, so when the reader immediately opened
+    # the next ask's reply, begin_reply still saw the old label,
+    # skipped arming, and the queued restore then cleared the NEW
+    # mode's state — Enter submitted normal lines while the
+    # reader blocked in wait_reply.  end_reply now waits until
+    # the restore has run.
+    import threading
+
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    gate = threading.Event()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            # Wait for the real application: before it exists,
+            # _call_on_loop runs callbacks inline on the caller
+            # and there is no loop to stall.
+            assert _wait_for(lambda: view._app is not None and view.running)
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            # Stall the application loop: callbacks posted now
+            # (the restore included) queue behind this one.
+            view._call_on_loop(lambda: gate.wait(5))
+            worker = threading.Thread(
+                target=lambda: (view.end_reply(), view.begin_reply("[REPLY] > ")),
+                daemon=True,
+            )
+            worker.start()
+            time.sleep(0.3)
+            # end_reply cannot have returned: its restore is
+            # still queued behind the stall.
+            assert worker.is_alive()
+            gate.set()
+            worker.join(timeout=5)
+            assert not worker.is_alive()
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("second answer\r")
+            assert view.wait_reply(abort=lambda: False) == "second answer"
+        finally:
+            gate.set()
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character
