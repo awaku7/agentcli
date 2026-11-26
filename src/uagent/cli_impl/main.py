@@ -384,6 +384,178 @@ def _interrupt_nostr_remote_request(core: Any, request_event: dict[str, Any]) ->
     )
 
 
+def _chat_room_record(core: Any, chat_room: dict[str, Any]):
+    """Return the pairing record for a chat-room descriptor, or None.
+
+    The descriptor names the transport's pairing store and the
+    device key (a Nostr pubkey, or a BitChat Noise key — BitChat
+    descriptors always carry the Noise key, even for peers reached
+    over Nostr, because the room assignment hangs off the record).
+    """
+    store_kind = chat_room.get("store")
+    peer_key = chat_room.get("peer_key")
+    if not isinstance(peer_key, str) or not peer_key:
+        return None
+    if store_kind == "nostr":
+        runtime = getattr(core, "_nostr_remote_runtime", None)
+        store = getattr(runtime, "pairing_store", None)
+        return store.record_for(peer_key) if store is not None else None
+    if store_kind == "bitchat":
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            return store.record_for(peer_key)
+    return None
+
+
+def _chat_room_store_room_session(
+    core: Any,
+    chat_room: dict[str, Any],
+    peer_key: str,
+    session_id: str,
+    *,
+    overwrite: bool,
+) -> None:
+    """Persist a room session id on the pairing record (best effort)."""
+    store_kind = chat_room.get("store")
+    try:
+        if store_kind == "nostr":
+            runtime = getattr(core, "_nostr_remote_runtime", None)
+            store = getattr(runtime, "pairing_store", None)
+            if store is None:
+                return
+            if overwrite:
+                store.assign_room_session_id(peer_key, session_id)
+            else:
+                store.ensure_room_session_id(peer_key, session_id)
+        elif store_kind == "bitchat":
+            from ..bitchat_pairing import open_bitchat_pairing_store
+
+            with open_bitchat_pairing_store() as store:
+                if overwrite:
+                    store.assign_room_session_id(peer_key, session_id)
+                else:
+                    store.ensure_room_session_id(peer_key, session_id)
+    except Exception:
+        pass
+
+
+def _enter_chat_room_turn(
+    core: Any,
+    session_store: Any,
+    messages: list[dict[str, Any]],
+    chat_room: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Bind this loop iteration to a room-bound device's own session.
+
+    Uses the same session binding as the Web rooms
+    (``bind_room_session_runtime``): the core's session-bound state
+    is swapped for the room's for the duration of the turn, and the
+    loop's message list is replaced with the room session's history
+    (persisted in the session store). Returns a context the caller
+    hands to :func:`_leave_chat_room_turn`, or None when the room
+    cannot be entered (the caller then fails the request closed
+    rather than running it in the operator's session).
+    """
+    from types import SimpleNamespace
+
+    from ..runtime.agent_state import AgentStateManager
+    from ..runtime.session_command_service import SessionCommandService
+    from ..runtime.session_restore import apply_persisted_state
+    from ..util_cmd_session import bind_room_session_runtime
+
+    if session_store is None:
+        return None
+    peer_key = chat_room.get("peer_key")
+    try:
+        record = _chat_room_record(core, chat_room)
+        if record is None or not record.active or record.binding != "room":
+            return None
+        room_session_id = record.room_session_id
+        if room_session_id is not None:
+            try:
+                session_store.get_session(room_session_id)
+            except Exception:
+                room_session_id = None
+        if room_session_id is None:
+            project = None
+            project_path = None
+            try:
+                main_row = session_store.get_session(str(core.session_id))
+                project = main_row.get("project")
+                project_path = main_row.get("project_path")
+            except Exception:
+                pass
+            created = session_store.create_session(
+                project=project, entry_point="cli-room", project_path=project_path
+            )
+            room_session_id = created.session_id
+            _chat_room_store_room_session(
+                core,
+                chat_room,
+                peer_key,
+                room_session_id,
+                overwrite=record.room_session_id is not None,
+            )
+
+        loaded = session_store.list_messages(room_session_id)
+        sanitize = getattr(core, "sanitize_messages_for_tools", None)
+        if callable(sanitize):
+            loaded = sanitize(loaded)
+        plan = SessionCommandService(session_store).build_restore_plan(
+            room_session_id,
+            loaded,
+            system_prompt=getattr(core, "SYSTEM_PROMPT", None),
+        )
+        states = getattr(core, "_chat_room_states", None)
+        if not isinstance(states, dict):
+            states = {}
+            core._chat_room_states = states
+        room = states.get(room_session_id)
+        if room is None:
+            room = SimpleNamespace(
+                session_id=room_session_id,
+                responses_state={},
+                tool_context={},
+                agent_state_manager=AgentStateManager(),
+                mcp_request_generation=0,
+            )
+            apply_persisted_state(room, plan)
+            states[room_session_id] = room
+        saved_messages = messages[:]
+        messages[:] = plan.messages
+        binding = bind_room_session_runtime(core, room)
+        try:
+            binding.__enter__()
+        except Exception:
+            messages[:] = saved_messages
+            raise
+        return {"binding": binding, "saved_messages": saved_messages}
+    except Exception as exc:
+        log_event(
+            "chat_room.enter_failed",
+            error_type=type(exc).__name__,
+            store=chat_room.get("store"),
+        )
+        return None
+
+
+def _leave_chat_room_turn(
+    core: Any, messages: list[dict[str, Any]], room_ctx: dict[str, Any] | None
+) -> None:
+    """Undo :func:`_enter_chat_room_turn` (best effort, never raises)."""
+    if room_ctx is None:
+        return
+    try:
+        room_ctx["binding"].__exit__(None, None, None)
+    except Exception:
+        pass
+    try:
+        messages[:] = room_ctx["saved_messages"]
+    except Exception:
+        pass
+
+
 def _new_assistant_text(messages: list[dict[str, Any]], start_index: int) -> str:
     """Return assistant text added since one CLI event began, if any."""
     try:
@@ -828,6 +1000,7 @@ def main() -> int:
             )
 
         checkpoint("event_loop_ready")
+        active_room_ctx: dict[str, Any] | None = None
         while running:
             try:
                 ev = core.event_queue.get()
@@ -836,6 +1009,12 @@ def main() -> int:
                 print()
                 print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
                 break
+            if active_room_ctx is not None:
+                # The previous iteration ran a room-bound device's
+                # turn; restore the operator's session before anything
+                # else in this iteration.
+                _leave_chat_room_turn(core, messages, active_room_ctx)
+                active_room_ctx = None
             if not first_event_received:
                 first_event_received = True
                 _startup_timing_mark("first_event_received")
@@ -922,6 +1101,50 @@ def main() -> int:
                 remote_request_event = ev
                 kind = remote_action.kind
                 ev = {"kind": kind, "text": remote_action.text}
+                if remote_action.binding == "room" and kind in ("user", "command"):
+                    ev["chat_room"] = {
+                        "store": "nostr",
+                        "peer_key": remote_action.sender_pubkey,
+                    }
+
+            if kind == "display" and remote_request_event is not None:
+                # Chat mode "on": show the paired device's message and
+                # stop there — nothing is executed and no reply is sent.
+                _display_sender = remote_request_event.get("sender_pubkey") or ""
+                _display_record = _chat_room_record(
+                    core,
+                    {"store": "nostr", "peer_key": _display_sender},
+                )
+                _display_label = (
+                    _display_record.label
+                    if _display_record is not None and _display_record.label
+                    else _display_sender[:16]
+                )
+                print(
+                    _("[nostr] %(sender)s: %(text)s")
+                    % {"sender": _display_label, "text": ev.get("text", "")}
+                )
+                _finish_nostr_remote_request(core, remote_request_event, "completed")
+                continue
+
+            if kind in ("user", "command") and isinstance(ev, dict):
+                chat_room = ev.get("chat_room")
+                if isinstance(chat_room, dict):
+                    active_room_ctx = _enter_chat_room_turn(
+                        core, session_store, messages, chat_room
+                    )
+                    if active_room_ctx is None:
+                        if remote_request_event is not None:
+                            _finish_nostr_remote_request(
+                                core, remote_request_event, "failed"
+                            )
+                            _send_nostr_remote_reply(
+                                core,
+                                remote_request_event,
+                                "The device's room session is unavailable.",
+                            )
+                        continue
+                    remote_message_start = len(messages)
 
             # Progress notes (tool / reasoning) for a bitchat peer are
             # scoped to the event whose turn is about to run.
@@ -1450,6 +1673,9 @@ def main() -> int:
                 delattr(core, attr)
             except Exception:
                 pass
+        if active_room_ctx is not None:
+            _leave_chat_room_turn(core, messages, active_room_ctx)
+            active_room_ctx = None
         try:
             stop_background_scheduler()
         except Exception:

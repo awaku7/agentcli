@@ -2249,6 +2249,56 @@ def _handle_favorite_claim(noise_key_hex: str, sender: str, text: str) -> bool:
     return True
 
 
+def _chat_room_descriptor(
+    reply_route: dict[str, str] | None,
+) -> dict[str, str] | None:
+    """Return the CLI chat-room descriptor for a room-bound peer, or None.
+
+    A peer whose pairing record is bound to a room gets its LLM turn
+    in its own session; the CLI loop reads the ``chat_room``
+    descriptor off the injected event and binds that session (the
+    same binding the Web rooms use). BitChat records are keyed by
+    the Noise key even when the DM arrived over Nostr; a peer paired
+    only in the Nostr remote registry resolves through that store.
+    """
+    if not reply_route:
+        return None
+    via = reply_route.get("via")
+    peer = reply_route.get("peer") or ""
+    if not peer:
+        return None
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            record = None
+            if via == "ble":
+                noise_public = _PEER_NOISE_KEYS.get(peer) or _PEER_NOISE_KEYS.get(
+                    peer.lower()
+                )
+                if noise_public:
+                    record = store.record_for(bytes(noise_public).hex())
+            elif via == "nostr":
+                record = store.record_for_nostr(peer)
+            if record is not None and record.active and record.binding == "room":
+                return {"store": "bitchat", "peer_key": record.noise_key}
+        if via == "nostr":
+            from ..nostr_remote_pairing import SQLitePairingStore
+            from .nostr_transport import _pairing_database_path
+
+            with SQLitePairingStore(_pairing_database_path()) as nostr_store:
+                nostr_record = nostr_store.record_for(peer)
+                if (
+                    nostr_record is not None
+                    and nostr_record.active
+                    and nostr_record.binding == "room"
+                ):
+                    return {"store": "nostr", "peer_key": nostr_record.pubkey}
+    except Exception:
+        return None
+    return None
+
+
 def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None:
     """Inject a paired peer's DM into the LLM event queue (thread-safe).
 
@@ -2264,6 +2314,9 @@ def _inject_to_llm(text: str, reply_route: dict[str, str] | None = None) -> None
             event: dict[str, Any] = {"kind": "user", "text": text, "src": "bitchat"}
             if reply_route:
                 event["reply_route"] = dict(reply_route)
+            descriptor = _chat_room_descriptor(reply_route)
+            if descriptor is not None:
+                event["chat_room"] = descriptor
             q.put_nowait(event)
         except Exception:
             pass
