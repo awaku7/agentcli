@@ -997,6 +997,53 @@ def test_view_confirmation_queues_when_the_turn_ends():
             view.stop()
 
 
+def test_view_submit_racing_the_turn_end_never_wedges_the_confirmation():
+    # The busy check and the confirmation installation are one
+    # atomic step.  If the turn ends in between, the BUSY->IDLE
+    # transition resolves a confirmation that does not exist yet
+    # and the one installed after sits at an idle prompt forever:
+    # input read-only, the message undispatched.
+    import threading
+
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            real_lock = view._state_lock
+            entered = threading.Event()
+
+            class _RendezvousLock:
+                def __enter__(self):
+                    real_lock.acquire()
+                    entered.set()
+                    return self
+
+                def __exit__(self, *exc):
+                    real_lock.release()
+                    return False
+
+            view._state_lock = _RendezvousLock()
+            pipe.send_text("race me\r")
+            assert entered.wait(timeout=5)
+            # The turn ends while the submission is in flight.
+            end_turn = threading.Thread(
+                target=lambda: view.set_status("[STATE] IDLE", busy=False)
+            )
+            end_turn.start()
+            end_turn.join(timeout=5)
+            view._state_lock = real_lock
+            # Whichever side won the lock, the outcome is the same:
+            # no confirmation is left open, and the line dispatches
+            # (as a queued line if the question was installed and
+            # then resolved, as a plain one if the turn ended first).
+            assert view._confirm_text is None
+            assert view.wait_line(abort=lambda: False) == "race me"
+        finally:
+            view.stop()
+
+
 def test_view_wheel_over_the_input_scrolls_the_output():
     from prompt_toolkit.input import create_pipe_input
     from prompt_toolkit.output import DummyOutput

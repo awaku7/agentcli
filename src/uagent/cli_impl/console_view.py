@@ -1021,16 +1021,23 @@ class ConsoleView:
                 buffer.append_to_history()
             except Exception:
                 pass
+            # The busy check and the confirmation installation are
+            # one atomic step: if the turn ended in between, the
+            # BUSY->IDLE transition would resolve a confirmation
+            # that does not exist yet, and the one installed right
+            # after would sit at an idle prompt forever — input
+            # read-only, the message undispatched.
             with self._state_lock:
                 busy = self._status_busy
-            if busy and text.strip() and not text.startswith(":"):
-                # A message submitted during generation first asks:
-                # interrupt the turn for it, or queue it?  The text
-                # stays visible in the (now read-only) input buffer
-                # until the question is answered.  Commands skip the
-                # question and queue directly.
-                with self._state_lock:
+                confirm = busy and bool(text.strip()) and not text.startswith(":")
+                if confirm:
+                    # A message submitted during generation first
+                    # asks: interrupt the turn for it, or queue it?
+                    # The text stays visible in the (now read-only)
+                    # input buffer until the question is answered.
+                    # Commands skip the question and queue directly.
                     self._confirm_text = text
+            if confirm:
                 self._invalidate()
                 return
             buffer.reset()
