@@ -446,7 +446,15 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
     try:
         body = _tool_trace_body(name, args)
 
-        ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # The timestamp is opt-in (UAGENT_TOOL_TRACE_TIMESTAMP);
+        # by default the trace line is just the prefix and body.
+        try:
+            from ..runtime.tool_result_display import tool_trace_timestamp_enabled
+
+            show_ts = tool_trace_timestamp_enabled()
+        except Exception:
+            show_ts = False
+        ts_prefix = datetime.now().strftime("%Y-%m-%d %H:%M:%S ") if show_ts else ""
         try:
             from .context import get_active_sub_agent
 
@@ -481,8 +489,8 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                 if bool(getattr(_core, "IS_GUI", False)):
                     return
                 with _core.print_lock:
-                    _emit_trace_line(f"{trace_prefix}{ts} {body}")
+                    _emit_trace_line(f"{trace_prefix}{ts_prefix}{body}")
             except Exception:
-                print(f"{trace_prefix}{ts} {body}", flush=True)
+                print(f"{trace_prefix}{ts_prefix}{body}", flush=True)
     except Exception:
         return

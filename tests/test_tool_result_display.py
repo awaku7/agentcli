@@ -31,6 +31,50 @@ def test_tool_result_display_is_opt_in_and_cli_only(monkeypatch) -> None:
     )
 
 
+def test_tool_trace_timestamp_is_opt_in(monkeypatch) -> None:
+    from uagent.runtime.tool_result_display import tool_trace_timestamp_enabled
+
+    monkeypatch.delenv("UAGENT_TOOL_TRACE_TIMESTAMP", raising=False)
+    assert tool_trace_timestamp_enabled() is False
+    monkeypatch.setenv("UAGENT_TOOL_TRACE_TIMESTAMP", "0")
+    assert tool_trace_timestamp_enabled() is False
+    monkeypatch.setenv("UAGENT_TOOL_TRACE_TIMESTAMP", "1")
+    assert tool_trace_timestamp_enabled() is True
+    monkeypatch.setenv("UAGENT_TOOL_TRACE_TIMESTAMP", "yes")
+    assert tool_trace_timestamp_enabled() is True
+    monkeypatch.setenv("UAGENT_TOOL_TRACE_TIMESTAMP", "banana")
+    assert tool_trace_timestamp_enabled() is False
+
+
+def test_tool_trace_line_timestamp_opt_in(monkeypatch) -> None:
+    import re
+    from types import SimpleNamespace
+
+    from uagent import core
+    from uagent.tools import _trace as tools
+
+    lines: list[str] = []
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(tools, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(tools, "_emit_trace_line", lines.append)
+    monkeypatch.setattr(
+        tools, "get_callbacks", lambda: SimpleNamespace(tool_trace=None)
+    )
+
+    monkeypatch.delenv("UAGENT_TOOL_TRACE_TIMESTAMP", raising=False)
+    tools._emit_tool_trace("probe", {})
+    assert len(lines) == 1
+    assert lines[0].startswith("[TOOL] ")
+    assert not re.match(r"\[TOOL\] \d{4}-\d{2}-\d{2} ", lines[0])
+
+    lines.clear()
+    monkeypatch.setenv("UAGENT_TOOL_TRACE_TIMESTAMP", "1")
+    tools._emit_tool_trace("probe", {})
+    assert len(lines) == 1
+    assert re.match(r"\[TOOL\] \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} ", lines[0])
+
+
 def test_host_tool_result_display_is_enabled_for_gui_and_web(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
