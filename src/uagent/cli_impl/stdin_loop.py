@@ -927,6 +927,15 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                         )
                     continue
                 _append_prompt_history_entry(text)
+                if _console_view is not None:
+                    # The editor ran on the restored terminal while
+                    # the view was suspended; without this the resumed
+                    # transcript shows only the "f" line, not the
+                    # message itself.
+                    from ..runtime import display_channel
+
+                    prompt = getattr(core, "get_prompt", lambda: "User> ")()
+                    display_channel.post_segment("user", f"{prompt}{text}\n")
                 forward_to_mesh(text)
                 if is_chat_mode() == "on":
                     # "on" mode: forward to mesh only, not to LLM

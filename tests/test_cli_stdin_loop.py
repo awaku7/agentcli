@@ -451,3 +451,39 @@ def test_view_not_used_when_stdout_is_redirected(monkeypatch) -> None:
 
     assert view_requests == []
     assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_multiline_editor_text_is_echoed_to_the_document(monkeypatch) -> None:
+    # Regression (PR #483 Codex P2): with the view active, the "f"
+    # editor runs while the view is suspended, and its accepted
+    # text was never appended to the document — the resumed
+    # transcript showed only "User> f".  The accepted text is now
+    # posted as a user segment before dispatch.
+    from uagent.runtime import display_channel as dc
+
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["f\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop, "_can_use_textarea", lambda: True)
+    monkeypatch.setattr(stdin_loop, "_multiline_editor", lambda: "multiline\nquestion")
+
+    document = dc.default_document()
+    before = len(document.snapshot()[0])
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "multiline\nquestion"}
+    new_segments = document.snapshot()[0][before:]
+    assert any(
+        segment.kind == "user" and "multiline\nquestion" in segment.text
+        for segment in new_segments
+    )
