@@ -166,7 +166,16 @@ def _parse_action(text: str) -> tuple[Literal["user", "command", "status"], str]
             nostr_subcommand = (
                 normalized_parts[1].lstrip(":").split(maxsplit=1)[0].lower()
             )
-        if nostr_subcommand in {"pair", "revoke", "remote", "setup"}:
+        if nostr_subcommand in {
+            "pair",
+            "revoke",
+            "remote",
+            "setup",
+            "bind",
+            "on",
+            "off",
+            "llm",
+        }:
             raise RemoteCLIRequestError(
                 "Nostr device and listener management are local-only"
             )

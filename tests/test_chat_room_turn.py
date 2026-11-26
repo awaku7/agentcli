@@ -35,21 +35,33 @@ def _core(session_id: str, pairing_store) -> SimpleNamespace:
 
 
 def test_nostr_room_turn_swaps_and_restores_the_session(tmp_path) -> None:
+    from uagent.cli_impl.sub_agent_jobs import SubAgentJobOwner
+
     sessions = SessionStore(tmp_path / "sessions.sqlite3")
     main = sessions.create_session(project="proj", entry_point="cli")
     with SQLitePairingStore(tmp_path / "pairings.sqlite3") as pairings:
         pairings.pair(_pubkey(51), "phone", approved=True, binding="room")
         core = _core(main.session_id, pairings)
+        core._sub_agent_job_owner = SubAgentJobOwner(
+            entry_point="cli", session_id=main.session_id
+        )
         messages = [
             {"role": "system", "content": "sys-prompt"},
             {"role": "user", "content": "main history"},
         ]
         ctx = _enter_chat_room_turn(
-            core, sessions, messages, {"store": "nostr", "peer_key": _pubkey(51)}
+            core,
+            sessions,
+            messages,
+            {"store": "nostr", "peer_key": _pubkey(51)},
+            job_owner=core._sub_agent_job_owner,
         )
         assert ctx is not None
         room_session_id = core.session_id
         assert room_session_id != main.session_id
+        # The Sub-Agent job owner follows the room session.
+        assert core._sub_agent_job_owner.session_id == room_session_id
+        assert ctx["job_owner"].session_id == room_session_id
         record = pairings.record_for(_pubkey(51))
         assert record is not None and record.room_session_id == room_session_id
         # The room starts from its own (empty) history plus the
@@ -60,6 +72,7 @@ def test_nostr_room_turn_swaps_and_restores_the_session(tmp_path) -> None:
         sessions.append_message(room_session_id, "assistant", "room reply")
         _leave_chat_room_turn(core, messages, ctx)
         assert core.session_id == main.session_id
+        assert core._sub_agent_job_owner.session_id == main.session_id
         assert [m["content"] for m in messages] == ["sys-prompt", "main history"]
 
         # Re-entering reuses the same room and reloads its history.
@@ -118,4 +131,32 @@ def test_bitchat_room_turn_uses_the_noise_keyed_record(tmp_path, monkeypatch) ->
     _leave_chat_room_turn(core, messages, ctx)
     assert core.session_id == main.session_id
     assert messages == [{"role": "user", "content": "main history"}]
+    sessions.close()
+
+
+def test_nostr_room_turn_without_a_running_listener(tmp_path, monkeypatch) -> None:
+    # BitChat-over-Nostr peers paired only in the Nostr registry keep
+    # their room even when the remote listener is not running: the
+    # record resolves through the persistent pairing database.
+    from uagent.tools import nostr_transport
+
+    sessions = SessionStore(tmp_path / "sessions.sqlite3")
+    main = sessions.create_session(project="proj", entry_point="cli")
+    pairing_db = tmp_path / "pairings.sqlite3"
+    with SQLitePairingStore(pairing_db) as pairings:
+        pairings.pair(_pubkey(61), "phone", approved=True, binding="room")
+    monkeypatch.setattr(nostr_transport, "_pairing_database_path", lambda: pairing_db)
+    core = SimpleNamespace(session_id=main.session_id, SYSTEM_PROMPT="sys-prompt")
+    messages = [{"role": "user", "content": "main history"}]
+    ctx = _enter_chat_room_turn(
+        core, sessions, messages, {"store": "nostr", "peer_key": _pubkey(61)}
+    )
+    assert ctx is not None
+    room_session_id = core.session_id
+    assert room_session_id != main.session_id
+    _leave_chat_room_turn(core, messages, ctx)
+    assert core.session_id == main.session_id
+    with SQLitePairingStore(pairing_db) as pairings:
+        record = pairings.record_for(_pubkey(61))
+        assert record is not None and record.room_session_id == room_session_id
     sessions.close()

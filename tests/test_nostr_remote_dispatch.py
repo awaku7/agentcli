@@ -125,6 +125,11 @@ def test_remote_status_query_is_not_forwarded_as_chat_or_cli_command() -> None:
         "/uag cmd ::nostr pair abcd",
         "/uag cmd ::nostr:revoke abcd",
         "/uag cmd ::nostr remote start",
+        "/uag cmd :nostr bind abcd room",
+        "/uag cmd :nostr off",
+        "/uag cmd :nostr:off",
+        "/uag cmd :nostr on",
+        "/uag cmd :nostr llm",
     ],
 )
 def test_pairing_changes_are_local_only(content: str) -> None:

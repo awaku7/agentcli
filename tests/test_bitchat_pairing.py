@@ -121,6 +121,22 @@ def test_chat_room_descriptor_for_room_bound_peers(tmp_path, monkeypatch) -> Non
     assert pbs._chat_room_descriptor(None) is None
 
 
+def test_record_for_nostr_skips_revoked_pairings(store) -> None:
+    # A peer that re-pairs under a new Noise identity keeps its Nostr
+    # key: the revoked row must not shadow the active room binding.
+    store.pair(NOISE_A, "old phone", approved=True)
+    store.link_nostr(NOISE_A, NOSTR_A, approved=True)
+    store.revoke(NOISE_A)
+    store.pair(NOISE_B, "new phone", approved=True, binding="room")
+    store.link_nostr(NOISE_B, NOSTR_A, approved=True)
+
+    record = store.record_for_nostr(NOSTR_A)
+    assert record is not None
+    assert record.noise_key == NOISE_B
+    assert record.binding == "room"
+    assert record.active
+
+
 def test_pair_requires_approval(store) -> None:
     with pytest.raises(PermissionError):
         store.pair(NOISE_A, "phone")

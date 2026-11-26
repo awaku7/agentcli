@@ -384,6 +384,26 @@ def _interrupt_nostr_remote_request(core: Any, request_event: dict[str, Any]) ->
     )
 
 
+def _room_nostr_pairing_store(core: Any):
+    """The Nostr pairing store for room lookups.
+
+    Prefers the running remote runtime's store; falls back to the
+    persistent pairing database so BitChat-over-Nostr peers keep
+    their room binding even when the remote listener is not running.
+    """
+    runtime = getattr(core, "_nostr_remote_runtime", None)
+    store = getattr(runtime, "pairing_store", None)
+    if store is not None:
+        return store
+    try:
+        from ..nostr_remote_pairing import SQLitePairingStore
+        from ..tools.nostr_transport import _pairing_database_path
+
+        return SQLitePairingStore(_pairing_database_path())
+    except Exception:
+        return None
+
+
 def _chat_room_record(core: Any, chat_room: dict[str, Any]):
     """Return the pairing record for a chat-room descriptor, or None.
 
@@ -396,15 +416,17 @@ def _chat_room_record(core: Any, chat_room: dict[str, Any]):
     peer_key = chat_room.get("peer_key")
     if not isinstance(peer_key, str) or not peer_key:
         return None
-    if store_kind == "nostr":
-        runtime = getattr(core, "_nostr_remote_runtime", None)
-        store = getattr(runtime, "pairing_store", None)
-        return store.record_for(peer_key) if store is not None else None
-    if store_kind == "bitchat":
-        from ..bitchat_pairing import open_bitchat_pairing_store
+    try:
+        if store_kind == "nostr":
+            store = _room_nostr_pairing_store(core)
+            return store.record_for(peer_key) if store is not None else None
+        if store_kind == "bitchat":
+            from ..bitchat_pairing import open_bitchat_pairing_store
 
-        with open_bitchat_pairing_store() as store:
-            return store.record_for(peer_key)
+            with open_bitchat_pairing_store() as store:
+                return store.record_for(peer_key)
+    except Exception:
+        return None
     return None
 
 
@@ -420,8 +442,7 @@ def _chat_room_store_room_session(
     store_kind = chat_room.get("store")
     try:
         if store_kind == "nostr":
-            runtime = getattr(core, "_nostr_remote_runtime", None)
-            store = getattr(runtime, "pairing_store", None)
+            store = _room_nostr_pairing_store(core)
             if store is None:
                 return
             if overwrite:
@@ -445,6 +466,8 @@ def _enter_chat_room_turn(
     session_store: Any,
     messages: list[dict[str, Any]],
     chat_room: dict[str, Any],
+    *,
+    job_owner: Any = None,
 ) -> dict[str, Any] | None:
     """Bind this loop iteration to a room-bound device's own session.
 
@@ -530,7 +553,24 @@ def _enter_chat_room_turn(
         except Exception:
             messages[:] = saved_messages
             raise
-        return {"binding": binding, "saved_messages": saved_messages}
+        # The Sub-Agent job owner follows the session: while bound,
+        # the turn runs under a room owner so the job tools resolve
+        # (their runtime context rejects a mismatched owner), and
+        # the loop's :job commands act on the room's jobs.
+        saved_core_owner = getattr(core, "_sub_agent_job_owner", None)
+        manager = getattr(core, "_sub_agent_job_manager", None)
+        if manager is not None:
+            room_owner = refresh_cli_job_owner(manager, core, "")
+        else:
+            room_owner = current_cli_job_owner(core, "")
+            core._sub_agent_job_owner = room_owner
+        return {
+            "binding": binding,
+            "saved_messages": saved_messages,
+            "saved_job_owner": job_owner,
+            "saved_core_owner": saved_core_owner,
+            "job_owner": room_owner,
+        }
     except Exception as exc:
         log_event(
             "chat_room.enter_failed",
@@ -550,6 +590,15 @@ def _leave_chat_room_turn(
         room_ctx["binding"].__exit__(None, None, None)
     except Exception:
         pass
+    saved_core_owner = room_ctx.get("saved_core_owner")
+    if saved_core_owner is not None:
+        try:
+            core._sub_agent_job_owner = saved_core_owner
+            manager = getattr(core, "_sub_agent_job_manager", None)
+            if manager is not None:
+                manager.resume_owner(saved_core_owner)
+        except Exception:
+            pass
     try:
         messages[:] = room_ctx["saved_messages"]
     except Exception:
@@ -1002,6 +1051,15 @@ def main() -> int:
         checkpoint("event_loop_ready")
         active_room_ctx: dict[str, Any] | None = None
         while running:
+            if active_room_ctx is not None:
+                # The previous iteration ran a room-bound device's
+                # turn; restore the operator's session BEFORE blocking
+                # on the queue, so the idle period (including the
+                # background Nostr status path, which reads the
+                # operator's current session id) runs unbound.
+                _leave_chat_room_turn(core, messages, active_room_ctx)
+                job_owner = active_room_ctx.get("saved_job_owner", job_owner)
+                active_room_ctx = None
             try:
                 ev = core.event_queue.get()
             except KeyboardInterrupt:
@@ -1009,12 +1067,6 @@ def main() -> int:
                 print()
                 print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
                 break
-            if active_room_ctx is not None:
-                # The previous iteration ran a room-bound device's
-                # turn; restore the operator's session before anything
-                # else in this iteration.
-                _leave_chat_room_turn(core, messages, active_room_ctx)
-                active_room_ctx = None
             if not first_event_received:
                 first_event_received = True
                 _startup_timing_mark("first_event_received")
@@ -1131,8 +1183,10 @@ def main() -> int:
                 chat_room = ev.get("chat_room")
                 if isinstance(chat_room, dict):
                     active_room_ctx = _enter_chat_room_turn(
-                        core, session_store, messages, chat_room
+                        core, session_store, messages, chat_room, job_owner=job_owner
                     )
+                    if active_room_ctx is not None:
+                        job_owner = active_room_ctx.get("job_owner", job_owner)
                     if active_room_ctx is None:
                         if remote_request_event is not None:
                             _finish_nostr_remote_request(
@@ -1668,14 +1722,15 @@ def main() -> int:
             confirmation_broker.shutdown()
         except Exception:
             pass
+        if active_room_ctx is not None:
+            _leave_chat_room_turn(core, messages, active_room_ctx)
+            job_owner = active_room_ctx.get("saved_job_owner", job_owner)
+            active_room_ctx = None
         for attr in ("_sub_agent_job_manager", "_sub_agent_job_owner"):
             try:
                 delattr(core, attr)
             except Exception:
                 pass
-        if active_room_ctx is not None:
-            _leave_chat_room_turn(core, messages, active_room_ctx)
-            active_room_ctx = None
         try:
             stop_background_scheduler()
         except Exception:

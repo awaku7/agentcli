@@ -266,7 +266,8 @@ class SQLiteBitchatPairingStore:
             row = self._connection.execute(
                 "SELECT noise_key, nostr_key, label, paired_at, revoked_at, "
                 "binding, room_session_id "
-                "FROM bitchat_pairings WHERE nostr_key = ?",
+                "FROM bitchat_pairings WHERE nostr_key = ? "
+                "AND revoked_at IS NULL ORDER BY paired_at DESC LIMIT 1",
                 (key,),
             ).fetchone()
         return BitchatPairingRecord(*row) if row is not None else None
