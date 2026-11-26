@@ -160,6 +160,66 @@ def test_ask_answer_from_other_peer_not_consumed(sent, ask_state) -> None:
     assert ask_state.empty()
 
 
+# ---------------------------------------------------------------------------
+# human_ask answers arriving over the other transport
+# ---------------------------------------------------------------------------
+
+_XNOISE = "aa" * 32
+_XNOSTR = "cc" * 32
+
+
+@pytest.fixture()
+def linked_store(tmp_path, monkeypatch):
+    from bitchat_protocol import peer_id_from_noise_key
+
+    from uagent import bitchat_pairing
+    from uagent.bitchat_pairing import SQLiteBitchatPairingStore
+
+    db = tmp_path / "pairings.sqlite3"
+    monkeypatch.setattr(
+        bitchat_pairing,
+        "open_bitchat_pairing_store",
+        lambda: SQLiteBitchatPairingStore(db),
+    )
+    with SQLiteBitchatPairingStore(db) as store:
+        store.pair(_XNOISE, "phone", approved=True)
+        store.link_nostr(_XNOISE, _XNOSTR, approved=True)
+    return peer_id_from_noise_key(bytes.fromhex(_XNOISE))
+
+
+def test_ask_answer_over_nostr_from_linked_peer_consumed(
+    sent, ask_state, linked_store
+) -> None:
+    route = {"via": "ble", "peer": linked_store}
+    shared.set_active_bitchat_turn(route)
+    shared._forward_pending_ask_once()
+    answer_route = {"via": "nostr", "peer": _XNOSTR}
+    assert shared._try_deliver_bitchat_ask_answer(answer_route, "a.txt")
+    assert ask_state.get_nowait() == "a.txt"
+
+
+def test_ask_answer_over_nostr_from_unlinked_key_not_consumed(
+    sent, ask_state, linked_store
+) -> None:
+    route = {"via": "ble", "peer": linked_store}
+    shared.set_active_bitchat_turn(route)
+    shared._forward_pending_ask_once()
+    answer_route = {"via": "nostr", "peer": "dd" * 32}
+    assert not shared._try_deliver_bitchat_ask_answer(answer_route, "a.txt")
+    assert ask_state.empty()
+
+
+def test_ask_answer_over_ble_for_nostr_turn_from_linked_peer_consumed(
+    sent, ask_state, linked_store
+) -> None:
+    route = {"via": "nostr", "peer": _XNOSTR}
+    shared.set_active_bitchat_turn(route)
+    shared._forward_pending_ask_once()
+    answer_route = {"via": "ble", "peer": linked_store}
+    assert shared._try_deliver_bitchat_ask_answer(answer_route, "a.txt")
+    assert ask_state.get_nowait() == "a.txt"
+
+
 def test_ask_control_text_not_consumed(sent, ask_state) -> None:
     shared.set_active_bitchat_turn(ROUTE)
     shared._forward_pending_ask_once()

@@ -112,6 +112,14 @@ To send over both transports simultaneously:
 pybitchat_send type="text" payload="Hello world!" via="both"
 ```
 
+### Automatic fallback for paired peers
+
+With the default `via="ble"`, a direct message to a paired peer who is
+not on the mesh right now is sent over Nostr instead, if that peer has
+a linked Nostr key (linked automatically when they favorite you, or
+with `:bitchat link`). The switch is shown in the terminal. Peers
+without a linked key keep the BLE-only behaviour.
+
 ### Nostr Pubkey
 
 When Nostr transport is running, the node gets a keypair. Use the pubkey for targeted messaging:

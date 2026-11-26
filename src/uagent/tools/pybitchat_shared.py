@@ -623,6 +623,96 @@ def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[st
     return chunks
 
 
+def _paired_nostr_route(recipient_hex: str) -> tuple[str, str] | None:
+    """Return (nostr pubkey, display name) for a paired peer, if linked.
+
+    The pairing store is keyed by the full Noise key; the peer id a
+    sender addresses is derived from that key, so scan the active
+    records and match the derived id.
+    """
+    try:
+        from bitchat_protocol import peer_id_from_noise_key
+
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            records = store.list_devices()
+    except Exception:
+        return None
+    for record in records:
+        if not record.nostr_key:
+            continue
+        try:
+            peer_id = peer_id_from_noise_key(bytes.fromhex(record.noise_key))
+        except Exception:
+            continue
+        if peer_id.lower() == recipient_hex.lower():
+            return record.nostr_key, record.label or recipient_hex[:8]
+    return None
+
+
+def _routes_identify_same_peer(
+    route_a: dict[str, str], route_b: dict[str, str]
+) -> bool:
+    """True when two reply routes name the same paired peer across transports.
+
+    A turn can start on one transport and continue on the other: a
+    BLE peer who leaves the mesh still receives a forwarded question
+    over Nostr and answers there. The pairing store's linked Nostr
+    key is the shared identity — a ble route for a peer id and a
+    nostr route for its linked pubkey identify the same peer.
+    """
+    ble_peer: str | None = None
+    nostr_key: str | None = None
+    for route in (route_a, route_b):
+        via = route.get("via")
+        peer = route.get("peer") or ""
+        if via == "ble":
+            ble_peer = peer
+        elif via == "nostr":
+            nostr_key = peer
+    if ble_peer is None or nostr_key is None:
+        return False
+    linked = _paired_nostr_route(ble_peer)
+    return linked is not None and linked[0].lower() == nostr_key.lower()
+
+
+def _send_dm_via_nostr_fallback(text: str, recipient: str) -> bool:
+    """Send a DM over Nostr because the peer is not on the BLE mesh.
+
+    Applies only when the peer has not been heard this session (no
+    announce, so no Noise key to start a BLE DM with) but is paired
+    with a linked Nostr key. Returns True when the message went out
+    via Nostr; otherwise the caller keeps the normal BLE path. The
+    switch is always shown, never silent.
+    """
+    if not (_NOSTR_RUNNING and _NOSTR is not None):
+        return False
+    recipient_hex = _resolve_recipient_hex(recipient)
+    if recipient_hex is None:
+        return False
+    if any(recipient_hex.lower() == key.lower() for key in _PEER_NOISE_KEYS):
+        return False
+    route = _paired_nostr_route(recipient_hex)
+    if route is None:
+        return False
+    nostr_key, display_name = route
+    try:
+        result = _NOSTR.nostr_send_kind1059(text, nostr_key)
+    except Exception:
+        return False
+    if isinstance(result, dict) and result.get("ok") is False:
+        return False
+    _notify_display(
+        _(
+            "bitchat.dm_via_nostr",
+            default="[bitchat] %(recipient)s is not on the mesh; DM sent via Nostr",
+        )
+        % {"recipient": display_name}
+    )
+    return True
+
+
 def enqueue_send(
     type_: str,
     payload: str | bytes,
@@ -644,6 +734,12 @@ def enqueue_send(
                 payload_text = payload.hex()
         else:
             payload_text = str(payload)
+        # A BLE DM to a peer who is not on the mesh right now goes
+        # out over Nostr instead, when that peer is paired with a
+        # linked Nostr key. Explicit via choices are left alone.
+        if via == "ble" and recipient and not plain:
+            if _send_dm_via_nostr_fallback(payload_text, recipient):
+                return
         chunk_limit = _TEXT_CHUNK_BYTES
         # PrivateMessagePacket uses one-byte TLV lengths for the message
         # content. Split BLE Noise DMs before encoding instead of dropping
@@ -2490,6 +2586,8 @@ def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
     Returns True when the DM was consumed as the ask's answer: it is
     neither displayed nor injected as a new turn. Only the active
     turn's peer can answer, and only the exact ask that was forwarded.
+    The answer may arrive over the other transport when the peer's
+    linked identity matches (see _routes_identify_same_peer).
     Control texts (/uag ...) are never consumed as answers. Callers
     recheck the sender's pairing immediately before calling, so a
     peer revoked while the ask was pending cannot answer it.
@@ -2502,7 +2600,7 @@ def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
         forwarded = _ASK_FORWARDED_QUEUE
     if active_route is None or forwarded is None:
         return False
-    if route != active_route:
+    if route != active_route and not _routes_identify_same_peer(route, active_route):
         return False
     snapshot = _ask_state_snapshot()
     if not snapshot or not snapshot.get("active"):
