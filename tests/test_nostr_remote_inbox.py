@@ -387,3 +387,51 @@ def test_isolated_ingress_caps_first_contact_storage_only(tmp_path) -> None:
         # The paired inbox is untouched by the exhausted contact budget.
         assert _enqueue(store, paired_wrap, paired_rumor)
         assert primary.get(paired_rumor["pubkey"], paired_rumor["id"]) is not None
+
+
+def test_isolated_ingress_dedupes_across_stores_when_pairing_flips(
+    tmp_path,
+) -> None:
+    wrap, rumor = _wrap_for(3, "execute once")
+    authorized: set[str] = set()
+    with (
+        SQLiteNostrInboxStore(tmp_path / "primary.sqlite3") as primary,
+        SQLiteNostrInboxStore(tmp_path / "contact.sqlite3") as contact,
+    ):
+        store = IsolatedIngressInboxStore(
+            primary, contact, lambda pubkey: pubkey in authorized
+        )
+        # First delivery as first contact; the request is approved
+        # and executed, leaving its tombstone in the contact store.
+        assert _enqueue(store, wrap, rumor)
+        assert store.claim(rumor["pubkey"], rumor["id"]) is not None
+        assert store.finish(rumor["pubkey"], rumor["id"], "completed")
+        # The sender pairs, and a relay redelivers the same wrap:
+        # it must not persist (or execute) a second time.
+        authorized.add(rumor["pubkey"])
+        assert not _enqueue(store, wrap, rumor)
+        assert primary.get(rumor["pubkey"], rumor["id"]) is None
+        # The reverse flip dedupes too.
+        assert _enqueue(store, wrap, rumor) is False
+        authorized.clear()
+        assert not _enqueue(store, wrap, rumor)
+
+
+def test_isolated_ingress_claim_retires_a_twin_in_the_other_store(
+    tmp_path,
+) -> None:
+    wrap, rumor = _wrap_for(3, "delivered twice")
+    with (
+        SQLiteNostrInboxStore(tmp_path / "primary.sqlite3") as primary,
+        SQLiteNostrInboxStore(tmp_path / "contact.sqlite3") as contact,
+    ):
+        # A pairing flip mid-delivery persisted a copy in each store.
+        assert _enqueue(primary, wrap, rumor)
+        assert _enqueue(contact, wrap, rumor)
+        store = IsolatedIngressInboxStore(primary, contact, lambda _pubkey: True)
+        record = store.claim(rumor["pubkey"], rumor["id"])
+        assert record is not None
+        twin = contact.get(rumor["pubkey"], rumor["id"])
+        assert twin is not None and twin.status == "rejected"
+        # Nothing dispatchable remains for the same request.
+        assert store.claim(rumor["pubkey"], rumor["id"]) is None

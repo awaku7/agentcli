@@ -490,9 +490,13 @@ class IsolatedIngressInboxStore:
     everyone else in a separate first-contact store with its own
     small capacity. Unauthorized traffic can therefore exhaust only
     the first-contact budget, never the paired-request inbox (whose
-    payload budget is cumulative and never refunded). All other
-    operations consult both stores, so a request stored as first
-    contact is claimed and finished normally once its sender pairs.
+    payload budget is cumulative and never refunded). Deduplication
+    spans both stores regardless of the sender's current pairing
+    state, so a redelivery after pairing (or revocation) cannot
+    persist a second copy of a request that already executed. All
+    other operations consult both stores, so a request stored as
+    first contact is claimed and finished normally once its sender
+    pairs.
     """
 
     def __init__(
@@ -517,6 +521,14 @@ class IsolatedIngressInboxStore:
         received_at: int | None = None,
         session_id: str,
     ) -> bool:
+        # Dedupe across both stores: a tombstone left in either one
+        # means this signed wrap was already accepted once, whatever
+        # the sender's pairing state is now.
+        if (
+            self._primary.get(sender_pubkey_hex, rumor_id_hex) is not None
+            or self._first_contact.get(sender_pubkey_hex, rumor_id_hex) is not None
+        ):
+            return False
         try:
             authorized = bool(self._is_authorized(sender_pubkey_hex))
         except Exception:
@@ -551,14 +563,38 @@ class IsolatedIngressInboxStore:
             claimed_at=claimed_at,
             session_id=session_id,
         )
-        if record is None:
-            record = self._first_contact.claim(
-                sender_pubkey_hex,
-                rumor_id_hex,
-                claimed_at=claimed_at,
-                session_id=session_id,
-            )
+        if record is not None:
+            self._neutralize_twin(self._first_contact, sender_pubkey_hex, rumor_id_hex)
+            return record
+        record = self._first_contact.claim(
+            sender_pubkey_hex,
+            rumor_id_hex,
+            claimed_at=claimed_at,
+            session_id=session_id,
+        )
+        if record is not None:
+            self._neutralize_twin(self._primary, sender_pubkey_hex, rumor_id_hex)
         return record
+
+    @staticmethod
+    def _neutralize_twin(
+        store: SQLiteNostrInboxStore, sender_pubkey_hex: str, rumor_id_hex: str
+    ) -> None:
+        """Finish a duplicate of a just-claimed request in the other store.
+
+        Cross-store dedupe at enqueue leaves one narrow race: two
+        relays delivering the same wrap while the sender's pairing
+        flips can persist a copy in each store. Claiming one copy
+        retires the other as rejected so the request still executes
+        at most once. Best-effort: any failure leaves the twin for
+        normal dispatch, which re-checks pairing and freshness.
+        """
+        try:
+            twin = store.claim(sender_pubkey_hex, rumor_id_hex)
+            if twin is not None:
+                store.finish(sender_pubkey_hex, rumor_id_hex, "rejected")
+        except Exception:
+            pass
 
     def finish(
         self,
