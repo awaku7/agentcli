@@ -121,8 +121,18 @@ def run_tool(args: dict[str, Any]) -> str:
         # The context module is deliberately removed below. Preserve the
         # host-injected callbacks or a reload will silently reset human_ask to
         # an empty ToolCallbacks object until the host is restarted.
+        old_package = sys.modules.get(pkg_name)
         old_context = sys.modules.get(pkg_name + ".context")
         preserved_callbacks = getattr(old_context, "_CALLBACKS", None)
+        preserved_confirmation_callback = None
+        get_confirmation_callback = getattr(
+            old_package, "get_confirmation_callback", None
+        )
+        if callable(get_confirmation_callback):
+            try:
+                preserved_confirmation_callback = get_confirmation_callback()
+            except Exception:
+                pass
         # importlib.reload() does not recursively reload submodules, so
         # Stale code left in sys.modules would continue to be referenced by tools.
         # Remove submodules before package reload so __init__.py imports the latest code.
@@ -138,6 +148,12 @@ def run_tool(args: dict[str, Any]) -> str:
         new_context = sys.modules.get(pkg_name + ".context")
         if preserved_callbacks is not None and new_context is not None:
             new_context.init_callbacks(preserved_callbacks)
+        if preserved_confirmation_callback is not None:
+            set_confirmation_callback = getattr(
+                new_mod, "set_confirmation_callback", None
+            )
+            if callable(set_confirmation_callback):
+                set_confirmation_callback(preserved_confirmation_callback)
         new_mod._INITIALIZED = False
         new_mod._DYNAMIC_COMMANDS.clear()
         new_mod._load_plugins()
