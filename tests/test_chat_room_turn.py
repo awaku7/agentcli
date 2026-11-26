@@ -134,6 +134,36 @@ def test_bitchat_room_turn_uses_the_noise_keyed_record(tmp_path, monkeypatch) ->
     sessions.close()
 
 
+def test_room_session_entry_point_matches_cli_job_owner(tmp_path) -> None:
+    # With structured handoff enabled, the host policy requires the
+    # job owner's entry point to equal the parent session's; a room
+    # session persisted as anything but "cli" makes Sub-Agent jobs
+    # inside the room fail before execution.
+    from uagent.runtime.sub_agent_host_policy import (
+        build_scoped_job_handoff_policy,
+    )
+    from uagent.runtime.sub_agent_jobs import SubAgentJobOwner
+
+    sessions_path = tmp_path / "sessions.sqlite3"
+    sessions = SessionStore(sessions_path)
+    main = sessions.create_session(project="proj", entry_point="cli")
+    with SQLitePairingStore(tmp_path / "pairings.sqlite3") as pairings:
+        pairings.pair(_pubkey(73), "phone", approved=True, binding="room")
+        core = _core(main.session_id, pairings)
+        messages = [{"role": "user", "content": "main history"}]
+        ctx = _enter_chat_room_turn(
+            core, sessions, messages, {"store": "nostr", "peer_key": _pubkey(73)}
+        )
+        assert ctx is not None
+        room_row = sessions.get_session(core.session_id)
+        assert room_row["entry_point"] == "cli"
+        policy = build_scoped_job_handoff_policy(sessions, entry_point="cli")
+        owner = SubAgentJobOwner(entry_point="cli", session_id=core.session_id)
+        policy(owner, "worker", "task")  # must not raise
+        _leave_chat_room_turn(core, messages, ctx)
+    sessions.close()
+
+
 def test_idle_room_is_forgotten_and_recreated(tmp_path) -> None:
     import sqlite3
 

@@ -575,8 +575,14 @@ def _enter_chat_room_turn(
                 project_path = main_row.get("project_path")
             except Exception:
                 pass
+            # The room session is hosted by this CLI process, so it
+            # takes the CLI entry point: the Sub-Agent job owner for
+            # the turn is a "cli" owner, and the structured-handoff
+            # policy requires the parent session's entry point to
+            # match it. The room distinction lives in the pairing
+            # record, not in the session row.
             created = session_store.create_session(
-                project=project, entry_point="cli-room", project_path=project_path
+                project=project, entry_point="cli", project_path=project_path
             )
             room_session_id = created.session_id
             _chat_room_store_room_session(
