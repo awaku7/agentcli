@@ -660,3 +660,41 @@ def test_wait_line_returns_eof_when_the_app_died(monkeypatch) -> None:
     finally:
         view.stop()
         console_view._set_active(None)
+
+
+def test_completion_menu_is_part_of_the_layout():
+    from prompt_toolkit.completion import WordCompleter
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.layout.menus import CompletionsMenu
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            document=document,
+            completer=WordCompleter(["status", "start", "stop"]),
+        )
+        view.start()
+        try:
+            # Tab populates the completion state...
+            pipe.send_text("st\t")
+            assert _wait_for(lambda: view._input_buffer.complete_state is not None)
+            state = view._input_buffer.complete_state
+            assert state is not None
+            assert len(state.completions) >= 3
+            # ...and the layout carries a menu that renders them (the
+            # legacy PromptSession shows one; without it the
+            # candidates exist but stay invisible).
+            containers: list[object] = []
+
+            def _walk(container: object) -> None:
+                containers.append(container)
+                for child in container.get_children():
+                    _walk(child)
+
+            _walk(view._app.layout.container)
+            assert any(isinstance(c, CompletionsMenu) for c in containers)
+        finally:
+            view.stop()

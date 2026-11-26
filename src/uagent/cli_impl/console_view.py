@@ -624,11 +624,14 @@ class ConsoleView:
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.layout import (
             Dimension,
+            Float,
+            FloatContainer,
             HSplit,
             Layout,
             VSplit,
             Window,
         )
+        from prompt_toolkit.layout.menus import CompletionsMenu
         from prompt_toolkit.layout.controls import (
             BufferControl,
             FormattedTextControl,
@@ -702,39 +705,53 @@ class ConsoleView:
         )
 
         layout = Layout(
-            HSplit(
-                [
-                    Window(
-                        content=BufferControl(
-                            buffer=self._output_buffer, lexer=self._lexer
+            FloatContainer(
+                content=HSplit(
+                    [
+                        Window(
+                            content=BufferControl(
+                                buffer=self._output_buffer, lexer=self._lexer
+                            ),
+                            wrap_lines=True,
                         ),
-                        wrap_lines=True,
-                    ),
-                    Window(
-                        content=FormattedTextControl(self._spinner_fragments),
-                        height=1,
-                        style="class:spinner",
-                    ),
-                    Window(char="─", height=1, style="class:rule"),
-                    VSplit(
-                        [
-                            Window(
-                                content=FormattedTextControl(self._prompt_fragments),
-                                width=_PREFIX_WIDTH,
-                                height=Dimension(min=3, max=3),
-                            ),
-                            Window(
-                                content=BufferControl(buffer=self._input_buffer),
-                                height=Dimension(min=3, max=3),
-                            ),
-                        ]
-                    ),
-                    Window(char="─", height=1, style="class:rule"),
-                    Window(
-                        content=FormattedTextControl(self._status_fragments),
-                        height=1,
-                    ),
-                ]
+                        Window(
+                            content=FormattedTextControl(self._spinner_fragments),
+                            height=1,
+                            style="class:spinner",
+                        ),
+                        Window(char="─", height=1, style="class:rule"),
+                        VSplit(
+                            [
+                                Window(
+                                    content=FormattedTextControl(
+                                        self._prompt_fragments
+                                    ),
+                                    width=_PREFIX_WIDTH,
+                                    height=Dimension(min=3, max=3),
+                                ),
+                                Window(
+                                    content=BufferControl(buffer=self._input_buffer),
+                                    height=Dimension(min=3, max=3),
+                                ),
+                            ]
+                        ),
+                        Window(char="─", height=1, style="class:rule"),
+                        Window(
+                            content=FormattedTextControl(self._status_fragments),
+                            height=1,
+                        ),
+                    ]
+                ),
+                # Tab fills the input buffer's completion state; the
+                # candidates need a renderer or they stay invisible
+                # (the legacy PromptSession shows this menu).
+                floats=[
+                    Float(
+                        xcursor=True,
+                        ycursor=True,
+                        content=CompletionsMenu(max_height=16, scroll_offset=1),
+                    )
+                ],
             ),
             focused_element=self._input_buffer,
         )
