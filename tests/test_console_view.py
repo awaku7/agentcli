@@ -1319,6 +1319,434 @@ def test_view_drag_on_the_output_copies_the_selection():
             view.stop()
 
 
+def test_view_drag_at_the_top_edge_autoscrolls_and_extends():
+    # Holding a drag at the output's top edge scrolls the view
+    # and keeps extending the selection upward, so text above
+    # the visible area can be selected and copied.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0  # the transcript starts scrolled to the tail
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second visible row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            press_row, _ = view._output_buffer.document.translate_index_to_position(
+                view._output_buffer.cursor_position
+            )
+            for _ in range(8):
+                pipe.send_text("\x1b[<32;1;1M")  # hold at the top edge
+            assert _wait_for(lambda: window.vertical_scroll < top - 2)
+            state = view._output_buffer.selection_state
+            assert state is not None
+            start = min(
+                state.original_cursor_position, view._output_buffer.cursor_position
+            )
+            start_row, _ = view._output_buffer.document.translate_index_to_position(
+                start
+            )
+            # The selection reached above the first visible row.
+            assert start_row < press_row - 1
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(
+                lambda: view._app.clipboard.get_data().text.startswith(
+                    f"line {start_row + 1:02d}"
+                )
+            )
+            copied = view._app.clipboard.get_data().text
+            # The press anchored the selection at the start of its
+            # line, so the copy ends with the line just above it.
+            assert copied.endswith(f"line {press_row:02d}\n")
+        finally:
+            view.stop()
+
+
+def test_view_drag_held_at_the_edge_keeps_scrolling_without_events():
+    # A stationary pointer sends no mouse events: once the drag
+    # is pinned at the edge, the view must keep scrolling and
+    # extending on its own until the button is released.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second visible row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;1M")  # move to the top row
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the edge, then hold still
+            # No further events: the scroll advances by itself.
+            assert _wait_for(lambda: window.vertical_scroll <= top - 3)
+            assert view._output_buffer.selection_state is not None
+            start_row, _ = view._output_buffer.document.translate_index_to_position(
+                view._output_buffer.cursor_position
+            )
+            assert start_row < top - 2
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(
+                lambda: view._app.clipboard.get_data().text.startswith("line ")
+            )
+        finally:
+            view.stop()
+
+
+def test_view_drag_released_outside_the_output_stops_edge_scrolling():
+    # Mouse events go to the control under the pointer, so a
+    # release over the spinner row never reaches the output's
+    # handler.  It must still end the edge-scroll repeat —
+    # otherwise the view keeps scrolling after the drag is over.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the edge; repeat starts
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            rows = view._app.output.get_size().rows
+            spinner_y = rows - 4  # the row just below the output area
+            pipe.send_text(f"\x1b[<0;1;{spinner_y}m")  # release over the spinner
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+            settled = window.vertical_scroll
+            import time as _time
+
+            _time.sleep(0.6)
+            assert window.vertical_scroll == settled
+        finally:
+            view.stop()
+
+
+def test_view_drag_on_a_wrapped_lines_middle_row_is_not_the_edge():
+    # A wrapped line spans several screen rows.  Only its first
+    # screen row is the top edge: dragging on a middle segment
+    # must not start the edge-scroll repeat, while the true top
+    # row still does.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for _ in range(15):
+        document.append("answer", "W" * 183 + "\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;3M")  # press on the third screen row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;2M")  # middle segment of the top line
+            pipe.send_text("\x1b[<32;1;2M")
+            import time as _time
+
+            _time.sleep(0.8)  # past the repeat's initial delay
+            assert view._output_control._edge_task is None
+            assert window.vertical_scroll == top
+            # The true top row still starts the repeat.
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_at_the_top_edge_when_the_view_starts_mid_line():
+    # When the viewport starts partway through a wrapped line,
+    # the render mapping also carries the off-screen segments
+    # above it (negative keys).  The first actual screen row
+    # must still count as the top edge.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(20):
+        document.append("answer", f"line {i:02d}\n")
+    document.append("answer", "W" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # The cursor sits on the huge last line, so the window
+            # scrolls inside it: the mapping carries the segments
+            # above the viewport under negative keys.
+            assert _wait_for(
+                lambda: min(window.render_info.visible_line_to_row_col) < 0
+            )
+            inner_top = window.vertical_scroll_2
+            assert inner_top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            assert _wait_for(lambda: window.vertical_scroll_2 < inner_top)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_at_the_edge_of_a_single_huge_line_scrolls_within_it():
+    # A single paragraph taller than the viewport: the top edge
+    # must keep scrolling through its wrapped segments instead
+    # of stopping at the first visible one — the document row
+    # is already 0, but segments remain above.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            assert _wait_for(lambda: window.vertical_scroll_2 > 0)
+            inner_top = window.vertical_scroll_2
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            top_endpoint = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            # The repeat steps the endpoint segment by segment
+            # toward the paragraph's start, and the view follows.
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position < top_endpoint
+                and window.vertical_scroll_2 < inner_top
+            )
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_crossing_into_a_wrapped_line_enters_its_nearest_segment():
+    # Crossing a line boundary at the edge must enter the
+    # neighbouring wrapped line at its nearest segment — one
+    # screen row — not jump to its far end and select the
+    # whole paragraph in one tick.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 4000 + "\n")
+    for i in range(40):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # Bring the first short line (document row 1, starting
+            # at index 4001) to the top of the viewport.
+            view._output_buffer.cursor_position = 4001
+            assert _wait_for(
+                lambda: window.render_info.visible_line_to_row_col.get(0) == (1, 0)
+            )
+            pipe.send_text("\x1b[<0;1;1M")  # press at its start
+            pipe.send_text("\x1b[<32;1;1M")  # pinned at the top edge
+            # The extension crosses into the paragraph's LAST
+            # segment (index 3920), then steps segment by
+            # segment; it never lands on 0 in one jump.
+            assert _wait_for(lambda: 0 < view._output_buffer.cursor_position < 4001)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_at_the_edge_of_a_wide_char_line_scrolls_within_it():
+    # Same as the huge-line case, but with double-width
+    # characters: the render map's segment starts are
+    # terminal-cell offsets while mouse events and the document
+    # use character offsets.  The edge detection must convert
+    # between them, or the top edge is never recognized.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "界" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            assert _wait_for(lambda: window.vertical_scroll_2 > 0)
+            inner_top = window.vertical_scroll_2
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            top_endpoint = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position < top_endpoint
+                and window.vertical_scroll_2 < inner_top
+            )
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_at_the_bottom_edge_steps_through_unrendered_segments():
+    # A wrapped line extending below the viewport: the render
+    # map covers only its rendered prefix, but the downward
+    # extension must still step segment by segment through the
+    # unrendered part instead of jumping to the line's end.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 10000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # Start from the line's beginning.
+            view._output_buffer.cursor_position = 0
+            assert _wait_for(lambda: window.vertical_scroll_2 == 0)
+            rows = view._app.output.get_size().rows
+            bottom_y = rows - 5  # the output area's last screen row
+            pipe.send_text("\x1b[<0;1;1M")  # press at the top
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")  # drag to the bottom edge
+            assert _wait_for(lambda: view._output_buffer.cursor_position > 0)
+            first_endpoint = view._output_buffer.cursor_position
+            assert first_endpoint < 10000
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")  # pin at the edge
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position > first_endpoint
+            )
+            # Stepping, not jumping to the end of the line.
+            assert view._output_buffer.cursor_position < 6000
+            pipe.send_text(f"\x1b[<0;1;{bottom_y}m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
+def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
+    # Tabs render as ^I (2 cells) but get_cwidth counts them as
+    # 0, so converting segment offsets with plain character
+    # widths drifts: an interior wrapped row of a tabbed line
+    # must not be mistaken for the top edge, while the true
+    # first row still is the edge.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for _ in range(30):
+        document.append("answer", "abc\t" * 60 + "\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            view._output_buffer.cursor_position = 0
+            assert _wait_for(lambda: window.vertical_scroll == 0)
+            top = window.vertical_scroll
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second screen row
+            assert _wait_for(lambda: view._output_buffer.cursor_position == 64)
+            pipe.send_text("\x1b[<32;1;2M")  # drag within the interior row
+            pipe.send_text("\x1b[<32;1;2M")
+            import time as _time
+
+            _time.sleep(0.8)  # past the repeat's initial delay
+            assert view._output_control._edge_task is None
+            assert window.vertical_scroll == top
+            pipe.send_text("\x1b[<0;1;2m")
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

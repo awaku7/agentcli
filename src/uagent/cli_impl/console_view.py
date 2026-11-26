@@ -563,6 +563,7 @@ class ConsoleView:
         self._Document = Document
         self._output_buffer = Buffer(read_only=True)
         self._output_window: Any = None
+        self._output_control: Any = None
         # The view is a projection of the shared output document
         # (runtime.display_channel): it keeps the projected text and
         # the kind-colour ranges computed from the document's
@@ -1415,8 +1416,232 @@ class ConsoleView:
             the focused control, and this one never takes focus
             (the input keeps it), so selection is handled here
             directly: drag selects, and releasing the button
-            copies the selection to the clipboard.
+            copies the selection to the clipboard.  Holding the
+            drag at the top or bottom edge auto-scrolls, so a
+            selection can extend past what is on screen.
             """
+
+            def _edge_step(self, mouse_event: Any) -> int:
+                """-1 at the top edge, +1 at the bottom, else 0.
+
+                The event's position is the document (row, col)
+                under the pointer.  A wrapped line spans several
+                screen rows, so the row alone cannot tell the
+                first or last screen row from the line's other
+                segments; the render info's visible_line_to_row_col
+                gives each screen row's segment start, and the
+                pointer is at an edge only within the first or
+                last segment.
+                """
+                info = getattr(view._output_window, "render_info", None)
+                all_rows = getattr(info, "visible_line_to_row_col", None)
+                if not all_rows:
+                    return 0
+                # The mapping also carries segments just outside
+                # the viewport (negative keys above, keys past the
+                # height below) when the view starts or ends
+                # partway through a wrapped line; only the actual
+                # screen rows decide the edges.
+                height = getattr(info, "window_height", None)
+                if not isinstance(height, int) or height <= 0:
+                    return 0
+                rows = {
+                    key: value for key, value in all_rows.items() if 0 <= key < height
+                }
+                if not rows:
+                    return 0
+                row = mouse_event.position.y
+                col = mouse_event.position.x
+                # The mapping's columns are terminal-cell offsets;
+                # the event's are character offsets.  Convert
+                # before comparing (they differ on wide chars).
+                first_key = min(rows)
+                first_row, first_cell = rows[first_key]
+                first_col = self._cell_to_char_col(first_row, first_cell)
+                if row == first_row and col >= first_col:
+                    second = rows.get(first_key + 1)
+                    if (
+                        second is None
+                        or second[0] != first_row
+                        or col < self._cell_to_char_col(second[0], second[1])
+                    ):
+                        return -1
+                last_row, last_cell = rows[max(rows)]
+                if row == last_row and col >= self._cell_to_char_col(
+                    last_row, last_cell
+                ):
+                    return 1
+                return 0
+
+            @staticmethod
+            def _rendered_width(char: str) -> int:
+                """The width the renderer gives one character:
+                control characters are drawn as ^X (2 cells),
+                everything else follows get_cwidth (which counts
+                control characters as 0 and would skew every
+                offset past a tab)."""
+                from prompt_toolkit.utils import get_cwidth
+
+                code = ord(char)
+                if code < 32 or code == 127:
+                    return 2
+                return get_cwidth(char)
+
+            def _cell_to_char_col(self, row: int, cell_col: int) -> int:
+                """Convert a terminal-cell offset within a document
+                row to a character offset, by walking the line's
+                rendered character widths."""
+                if cell_col <= 0:
+                    return 0
+                total = 0
+                for index, char in enumerate(self.buffer.document.lines[row]):
+                    if total >= cell_col:
+                        return index
+                    total += self._rendered_width(char)
+                return len(self.buffer.document.lines[row])
+
+            def _cells_to_char_cols(self, row: int, cell_cols: list[int]) -> list[int]:
+                """Convert several cell offsets within a row to
+                character offsets in one walk over the line."""
+                from prompt_toolkit.utils import get_cwidth
+
+                line = self.buffer.document.lines[row]
+                converted: list[int] = []
+                targets = sorted(cell_cols)
+                target_index = 0
+                total = 0
+                for index, char in enumerate(line):
+                    while (
+                        target_index < len(targets) and total >= targets[target_index]
+                    ):
+                        converted.append(index)
+                        target_index += 1
+                    total += get_cwidth(char)
+                while target_index < len(targets):
+                    converted.append(len(line))
+                    target_index += 1
+                return converted
+
+            def _segment_starts(self, row: int) -> list[int]:
+                """ALL wrapped segment start columns of a document
+                row, in character offsets.  The render map only
+                covers the rendered region of a long line, so its
+                starts (converted from cell offsets) are completed
+                by a walk over the line's text at the terminal
+                width; the union keeps the renderer's own break
+                points wherever it reported them."""
+                info = getattr(view._output_window, "render_info", None)
+                mapping = getattr(info, "visible_line_to_row_col", None) or {}
+                cells = sorted({c for r, c in mapping.values() if r == row})
+                starts = set(self._cells_to_char_cols(row, cells)) if cells else set()
+                starts.add(0)
+                try:
+                    width = int(view._app.output.get_size().columns)
+                except Exception:
+                    width = 0
+                if width > 0:
+                    segment = 0
+                    for index, char in enumerate(self.buffer.document.lines[row]):
+                        char_width = self._rendered_width(char)
+                        if segment + char_width > width:
+                            starts.add(index)
+                            segment = char_width
+                        else:
+                            segment += char_width
+                return sorted(starts)
+
+            def _extend_past_edge(self, step: int) -> bool:
+                """Scroll one screen row and step the selection
+                endpoint one screen row in the same direction.
+
+                A screen row is one wrapped segment: inside a
+                wrapped line the endpoint steps segment by
+                segment (the renderer scrolls within the line to
+                follow it); at the line's first/last segment it
+                steps to the neighbouring line.  False only at
+                the document's own beginning or end.
+                """
+                buffer = self.buffer
+                document = buffer.document
+                row, col = document.translate_index_to_position(buffer.cursor_position)
+                starts = self._segment_starts(row)
+                if buffer.selection_state is None:
+                    buffer.start_selection(selection_type=SelectionType.CHARACTERS)
+                if step < 0:
+                    earlier = [s for s in starts if s < col]
+                    if earlier:
+                        target = document.translate_row_col_to_index(row, max(earlier))
+                    elif row == 0:
+                        return False
+                    else:
+                        # Enter the line above at its LAST segment,
+                        # not its start: one screen row up.
+                        prev = row - 1
+                        target = document.translate_row_col_to_index(
+                            prev, self._segment_starts(prev)[-1]
+                        )
+                else:
+                    line_end = len(document.lines[row])
+                    ends = starts[1:] + [line_end]
+                    later = [e for e in ends if e > col]
+                    if later:
+                        target = document.translate_row_col_to_index(row, min(later))
+                    elif row + 1 >= document.line_count:
+                        return False
+                    else:
+                        # Enter the line below at its FIRST
+                        # segment's end, not the line's end.
+                        nxt = row + 1
+                        next_starts = self._segment_starts(nxt)
+                        target_col = (
+                            next_starts[1]
+                            if len(next_starts) > 1
+                            else len(document.lines[nxt])
+                        )
+                        target = document.translate_row_col_to_index(nxt, target_col)
+                view._scroll_output_wheel(step)
+                buffer.cursor_position = target
+                return True
+
+            def _start_edge_scroll(self, step: int) -> None:
+                """Keep extending while the drag holds at an edge.
+
+                A stationary pointer sends no mouse events, so the
+                extension repeats on a background task (after a
+                short initial delay, like key repeat) until it is
+                stopped or the document's own edge is reached.
+                """
+                self._stop_edge_scroll()
+                import asyncio
+
+                holder: dict[str, Any] = {}
+
+                async def _repeat() -> None:
+                    try:
+                        await asyncio.sleep(0.3)
+                        while self._extend_past_edge(step):
+                            await asyncio.sleep(0.05)
+                    except asyncio.CancelledError:
+                        pass
+                    finally:
+                        if getattr(self, "_edge_task", None) is holder.get("task"):
+                            self._edge_task = None
+                            self._edge_scroll_step = 0
+
+                try:
+                    holder["task"] = get_app().create_background_task(_repeat())
+                    self._edge_task = holder["task"]
+                    self._edge_scroll_step = step
+                except Exception:
+                    self._edge_task = None
+                    self._edge_scroll_step = 0
+
+            def _stop_edge_scroll(self) -> None:
+                task = getattr(self, "_edge_task", None)
+                self._edge_task = None
+                self._edge_scroll_step = 0
+                if task is not None:
+                    task.cancel()
 
             def mouse_handler(self, mouse_event: Any) -> Any:
                 if mouse_event.event_type in (
@@ -1434,12 +1659,29 @@ class ConsoleView:
                     mouse_event.position.y, xpos
                 )
                 if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
+                    self._stop_edge_scroll()
                     buffer.exit_selection()
                     buffer.cursor_position = index
                 elif (
                     mouse_event.event_type == MouseEventType.MOUSE_MOVE
                     and mouse_event.button != MouseButton.NONE
                 ):
+                    step = self._edge_step(mouse_event)
+                    if step and getattr(self, "_edge_scroll_step", 0) == step:
+                        # The repeat task is extending for as long
+                        # as the drag holds at this edge.
+                        return None
+                    if step and index == buffer.cursor_position:
+                        # The endpoint is pinned at the edge line:
+                        # extend once and let the repeat task take
+                        # over.  At the document's edge the endpoint
+                        # simply stays — falling through to the
+                        # mapping below would use the pre-scroll
+                        # render and yank the endpoint back.
+                        if self._extend_past_edge(step):
+                            self._start_edge_scroll(step)
+                        return None
+                    self._stop_edge_scroll()
                     if (
                         buffer.selection_state is None
                         and abs(buffer.cursor_position - index) > 0
@@ -1447,6 +1689,7 @@ class ConsoleView:
                         buffer.start_selection(selection_type=SelectionType.CHARACTERS)
                     buffer.cursor_position = index
                 elif mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    self._stop_edge_scroll()
                     if buffer.selection_state is not None:
                         try:
                             get_app().clipboard.set_data(buffer.copy_selection())
@@ -1468,6 +1711,16 @@ class ConsoleView:
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
                     view._scroll_output_wheel(3)
                     return None
+                if mouse_event.event_type in (
+                    MouseEventType.MOUSE_DOWN,
+                    MouseEventType.MOUSE_UP,
+                ) or (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    # A drag that left the output area ends its
+                    # edge scroll here, where its events land.
+                    view._stop_output_edge_scroll()
                 result = super().mouse_handler(mouse_event)
                 if mouse_event.event_type == MouseEventType.MOUSE_UP:
                     if self.buffer.selection_state is not None:
@@ -1489,10 +1742,23 @@ class ConsoleView:
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
                     view._scroll_output_wheel(3)
                     return None
+                if mouse_event.event_type in (
+                    MouseEventType.MOUSE_DOWN,
+                    MouseEventType.MOUSE_UP,
+                ) or (
+                    mouse_event.event_type == MouseEventType.MOUSE_MOVE
+                    and mouse_event.button != MouseButton.NONE
+                ):
+                    # A drag that left the output area ends its
+                    # edge scroll here, where its events land.
+                    view._stop_output_edge_scroll()
                 return super().mouse_handler(mouse_event)
 
+        self._output_control = _OutputControl(
+            buffer=self._output_buffer, lexer=self._lexer
+        )
         output_window = Window(
-            content=_OutputControl(buffer=self._output_buffer, lexer=self._lexer),
+            content=self._output_control,
             wrap_lines=True,
         )
         self._output_window = output_window
@@ -1607,6 +1873,18 @@ class ConsoleView:
             self._Document(text, cursor_position=min(pos, len(text))),
             bypass_readonly=True,
         )
+
+    def _stop_output_edge_scroll(self) -> None:
+        """Cancel the output's drag edge-scroll repeat, if any.
+
+        Mouse events are dispatched per control, so a drag that
+        leaves the output area reports its move/release to the
+        row under the pointer instead; those controls call this
+        so the repeat does not run on after the drag has left.
+        """
+        control = self._output_control
+        if control is not None:
+            control._stop_edge_scroll()
 
     def _scroll_output_wheel(self, lines: int) -> None:
         """Scroll the output window by a few lines (mouse wheel).
