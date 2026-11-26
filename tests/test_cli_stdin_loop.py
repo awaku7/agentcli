@@ -418,3 +418,36 @@ def test_console_view_f12_interrupts_only_when_busy(monkeypatch) -> None:
     stdin_loop._console_view_f12()
     assert ask_queue.get_nowait() == "cancel"
     assert core.interrupt_requested is True
+
+
+def test_view_not_used_when_stdout_is_redirected(monkeypatch) -> None:
+    # Regression (PR #483 Codex P2): with stdin interactive but
+    # stdout redirected (uag > session.log), the full-screen view
+    # still took over — prompt_toolkit fell back to a plain output
+    # on the redirected stream and the log received rendered screen
+    # updates instead of the ordered output.  The view requires an
+    # output TTY as well as an input TTY.
+    import io
+
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop.sys, "stdout", io.StringIO())
+    view_requests: list[bool] = []
+    monkeypatch.setattr(
+        stdin_loop,
+        "_get_console_view",
+        lambda: view_requests.append(True) or None,
+    )
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert view_requests == []
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import getpass
 import secrets
 import json
 import sys
@@ -75,11 +74,13 @@ def _handle_git_credential_command(
         if not sys.stdin.isatty():
             print("Git credential removal requires an interactive terminal.")
             return CommandResult()
-        try:
-            answer = input("Remove the selected Git credential? [y/N] ")
-        except (EOFError, KeyboardInterrupt):
-            answer = ""
-        if answer.strip().lower() not in {"y", "yes"}:
+        # Ask through human_ask, like :credential set/remove: a direct
+        # input() here would compete with the console view (or another
+        # input owner) for the terminal.
+        answer = _ask_user(
+            core, "Remove the selected Git credential? Enter y to proceed."
+        )
+        if (answer or "").strip().lower() not in {"y", "yes"}:
             print("Git credential removal cancelled.")
             return CommandResult()
         remove_git_https_token(scope, alias, store=store)
@@ -99,10 +100,11 @@ def _handle_git_credential_command(
         print("Git credential setup requires an interactive terminal.")
         return CommandResult()
 
-    try:
-        secret = getpass.getpass(f"Git HTTPS token for {host}: ")
-    except (EOFError, KeyboardInterrupt, OSError):
-        secret = ""
+    # Ask through human_ask as a password, like :credential set: a
+    # direct getpass here would compete with the console view for the
+    # terminal, and the typed token could land in the view's visible
+    # transcript and input history.
+    secret = _ask_user(core, f"Git HTTPS token for {host}:", password=True) or ""
     if not secret:
         print("Git credential setup cancelled.")
         return CommandResult()

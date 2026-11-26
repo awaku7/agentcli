@@ -431,6 +431,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                     if (
                         not _chat_mode_active
                         and getattr(sys.stdin, "isatty", lambda: False)()
+                        and getattr(sys.stdout, "isatty", lambda: False)()
                     ):
                         _view = _get_console_view()
                     if _chat_mode_active:
