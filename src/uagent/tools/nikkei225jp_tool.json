@@ -1,0 +1,298 @@
+{
+  "ar": {
+    "tool.description": "اجلب بيانات الرسم البياني مباشرةً من نقطة البيانات الداخلية لصفحة nikkei225jp.com. يعيد الحقول التي توفرها الصفحة وأحدث نقاط الرسم البياني. هذه نقطة نهاية غير موثقة وليست واجهة API رسمية. code هو معرّف سلسلة داخلي للموقع (111 هو Japan 225)، وليس رمز سهم يابانيًا.",
+    "x_search_terms": ["بيانات Nikkei225jp", "رسم Nikkei225jp البياني", "مؤشر Japan 225", "AJAX Nikkei 225", "بيانات سوق الأسهم العالمية", "رسم Nikkei 225 البياني"],
+    "param.code.description": "معرّف سلسلة الرسم البياني الداخلي في Nikkei225jp، وليس رمز سهم. 111 هو Japan 225.",
+    "param.dataset.description": "لاحقة ملف البيانات الداخلية التي يستخدمها الموقع (168 أو 24). هذا ليس فاصلًا زمنيًا موثقًا رسميًا.",
+    "param.max_points.description": "الحد الأقصى لأحدث نقاط الرسم البياني المطلوب إرجاعها (1-500).",
+    "param.timeout.description": "مهلة طلب HTTP بالثواني (1-30)."
+  },
+  "bn": {
+    "tool.description": "nikkei225jp.com পৃষ্ঠার অভ্যন্তরীণ ডেটা এন্ডপয়েন্ট থেকে সরাসরি চার্ট ডেটা আনে। পৃষ্ঠায় দেওয়া ক্ষেত্র এবং সাম্প্রতিক চার্ট পয়েন্ট ফেরত দেয়। এটি অনথিভুক্ত এন্ডপয়েন্ট, অফিসিয়াল API নয়। code হলো সাইটের অভ্যন্তরীণ সিরিজ ID (111 হলো Japan 225), জাপানি শেয়ারের টিকার নয়।",
+    "x_search_terms": ["Nikkei225jp ডেটা", "nikkei225jp চার্ট ডেটা", "Japan 225 সূচক", "Nikkei 225 AJAX", "বিশ্ব শেয়ারবাজারের ডেটা", "Nikkei 225 চার্ট"],
+    "param.code.description": "Nikkei225jp-এর অভ্যন্তরীণ চার্ট সিরিজ ID, শেয়ারের টিকার নয়। 111 হলো Japan 225।",
+    "param.dataset.description": "ওয়েবসাইট ব্যবহৃত অভ্যন্তরীণ ডেটা-ফাইলের প্রত্যয় (168 বা 24)। এটি আনুষ্ঠানিকভাবে নথিভুক্ত সময়-ব্যবধান নয়।",
+    "param.max_points.description": "ফেরত দেওয়ার জন্য সর্বাধিক সাম্প্রতিক চার্ট পয়েন্টের সংখ্যা (1-500)।",
+    "param.timeout.description": "সেকেন্ডে HTTP অনুরোধের সময়সীমা (1-30)।"
+  },
+  "cs": {
+    "tool.description": "Načte data grafu přímo z interního datového koncového bodu stránky nikkei225jp.com. Vrací pole poskytovaná stránkou a nejnovější body grafu. Jde o nezdokumentovaný koncový bod, nikoli o oficiální API. code je interní ID řady webu (111 je Japan 225), nikoli symbol japonské akcie.",
+    "x_search_terms": ["data Nikkei225jp", "graf Nikkei225jp", "index Japan 225", "Nikkei 225 AJAX", "data světových akciových trhů", "graf Nikkei 225"],
+    "param.code.description": "Interní ID řady grafu Nikkei225jp, nikoli symbol akcie. 111 je Japan 225.",
+    "param.dataset.description": "Interní přípona datového souboru používaná webem (168 nebo 24). Nejde o oficiálně zdokumentovaný interval.",
+    "param.max_points.description": "Maximální počet nejnovějších bodů grafu, které se mají vrátit (1–500).",
+    "param.timeout.description": "Časový limit požadavku HTTP v sekundách (1–30)."
+  },
+  "da": {
+    "tool.description": "Hent diagramdata direkte fra sidens interne dataendepunkt på nikkei225jp.com. Returnerer sidens felter og de seneste diagramdatapunkter. Dette er et udokumenteret endepunkt, ikke et officielt API. code er webstedets interne serie-id (111 er Japan 225), ikke en japansk aktieticker.",
+    "x_search_terms": ["Nikkei225jp-data", "Nikkei225jp-diagramdata", "Japan 225-indeks", "Nikkei 225 AJAX", "data om verdens aktiemarkeder", "Nikkei 225-diagram"],
+    "param.code.description": "Internt serie-id for Nikkei225jp-diagrammet, ikke en aktieticker. 111 er Japan 225.",
+    "param.dataset.description": "Internt suffiks til datafil, som webstedet bruger (168 eller 24). Det er ikke et officielt dokumenteret interval.",
+    "param.max_points.description": "Maksimalt antal seneste diagramdatapunkter, der skal returneres (1-500).",
+    "param.timeout.description": "Timeout for HTTP-anmodning i sekunder (1-30)."
+  },
+  "de": {
+    "tool.description": "Ruft Kursdiagrammdaten direkt über den internen Datenendpunkt der Seite nikkei225jp.com ab. Gibt die von der Seite bereitgestellten Felder und die neuesten Diagrammpunkte zurück. Dies ist ein undokumentierter Endpunkt, keine offizielle API. code ist die interne Serien-ID der Website (111 steht für Japan 225), kein japanisches Aktiensymbol.",
+    "x_search_terms": ["Nikkei225jp-Daten", "Nikkei225jp-Kursdiagramm", "Japan-225-Index", "Nikkei 225 AJAX", "Daten zu globalen Aktienmärkten", "Nikkei-225-Diagramm"],
+    "param.code.description": "Interne Serien-ID des Nikkei225jp-Diagramms, kein Aktiensymbol. 111 steht für Japan 225.",
+    "param.dataset.description": "Interne Datendatei-Endung der Website (168 oder 24). Dies ist kein offiziell dokumentiertes Intervall.",
+    "param.max_points.description": "Maximale Anzahl der neuesten zurückzugebenden Diagrammpunkte (1–500).",
+    "param.timeout.description": "HTTP-Zeitlimit in Sekunden (1–30)."
+  },
+  "el": {
+    "tool.description": "Ανακτά δεδομένα γραφήματος απευθείας από το εσωτερικό τελικό σημείο δεδομένων της σελίδας nikkei225jp.com. Επιστρέφει τα πεδία που παρέχει η σελίδα και τα πιο πρόσφατα σημεία του γραφήματος. Πρόκειται για μη τεκμηριωμένο τελικό σημείο, όχι για επίσημο API. Το code είναι εσωτερικό αναγνωριστικό σειράς του ιστότοπου (111 είναι το Japan 225), όχι σύμβολο ιαπωνικής μετοχής.",
+    "x_search_terms": ["δεδομένα Nikkei225jp", "γράφημα Nikkei225jp", "δείκτης Japan 225", "Nikkei 225 AJAX", "δεδομένα παγκόσμιων χρηματιστηρίων", "γράφημα Nikkei 225"],
+    "param.code.description": "Εσωτερικό αναγνωριστικό σειράς γραφήματος του Nikkei225jp, όχι σύμβολο μετοχής. Το 111 είναι το Japan 225.",
+    "param.dataset.description": "Εσωτερική κατάληξη αρχείου δεδομένων που χρησιμοποιεί ο ιστότοπος (168 ή 24). Δεν είναι επίσημα τεκμηριωμένο χρονικό διάστημα.",
+    "param.max_points.description": "Μέγιστος αριθμός πιο πρόσφατων σημείων γραφήματος προς επιστροφή (1-500).",
+    "param.timeout.description": "Χρονικό όριο αιτήματος HTTP σε δευτερόλεπτα (1-30)."
+  },
+  "es": {
+    "tool.description": "Obtiene datos del gráfico directamente del endpoint de datos interno de la página nikkei225jp.com. Devuelve los campos proporcionados por la página y los puntos de gráfico más recientes. Es un endpoint no documentado, no una API oficial. code es el ID interno de serie del sitio (111 corresponde a Japan 225), no el símbolo de una acción japonesa.",
+    "x_search_terms": ["datos de Nikkei225jp", "gráfico de Nikkei225jp", "índice Japan 225", "AJAX Nikkei 225", "datos de mercados bursátiles mundiales", "gráfico del Nikkei 225"],
+    "param.code.description": "ID interno de serie del gráfico de Nikkei225jp, no un símbolo bursátil. 111 corresponde a Japan 225.",
+    "param.dataset.description": "Sufijo interno del archivo de datos utilizado por el sitio web (168 o 24). No es un intervalo documentado oficialmente.",
+    "param.max_points.description": "Número máximo de puntos de gráfico recientes que se devolverán (1-500).",
+    "param.timeout.description": "Tiempo de espera de la solicitud HTTP en segundos (1-30)."
+  },
+  "fa": {
+    "tool.description": "داده‌های نمودار را مستقیماً از نقطه پایانی داخلی داده‌های صفحه nikkei225jp.com دریافت می‌کند. فیلدهای ارائه‌شده توسط صفحه و جدیدترین نقاط نمودار را برمی‌گرداند. این نقطه پایانی مستند نشده و API رسمی نیست. code شناسه داخلی سری در سایت است (111 برابر با Japan 225 است)، نه نماد سهام ژاپنی.",
+    "x_search_terms": ["داده Nikkei225jp", "نمودار Nikkei225jp", "شاخص Japan 225", "AJAX شاخص Nikkei 225", "داده بازارهای سهام جهان", "نمودار Nikkei 225"],
+    "param.code.description": "شناسه داخلی سری نمودار Nikkei225jp، نه نماد سهام. 111 برابر با Japan 225 است.",
+    "param.dataset.description": "پسوند داخلی فایل داده که وب‌سایت استفاده می‌کند (168 یا 24). این یک بازه زمانی مستندشده رسمی نیست.",
+    "param.max_points.description": "حداکثر تعداد نقاط جدید نمودار برای بازگرداندن (1 تا 500).",
+    "param.timeout.description": "مهلت درخواست HTTP بر حسب ثانیه (1 تا 30)."
+  },
+  "fi": {
+    "tool.description": "Hakee kaaviotiedot suoraan nikkei225jp.com-sivun sisäisestä tietopäätepisteestä. Palauttaa sivun tarjoamat kentät ja uusimmat kaaviopisteet. Tämä on dokumentoimaton päätepiste, ei virallinen API. code on sivuston sisäinen sarjatunnus (111 tarkoittaa Japan 225:tä), ei japanilaisen osakkeen tunnus.",
+    "x_search_terms": ["Nikkei225jp-tiedot", "Nikkei225jp-kaavio", "Japan 225 -indeksi", "Nikkei 225 AJAX", "maailman osakemarkkinoiden tiedot", "Nikkei 225 -kaavio"],
+    "param.code.description": "Nikkei225jp-kaavion sisäinen sarjatunnus, ei osaketunnus. 111 tarkoittaa Japan 225:tä.",
+    "param.dataset.description": "Sivuston käyttämä sisäinen datatiedoston pääte (168 tai 24). Se ei ole virallisesti dokumentoitu aikaväli.",
+    "param.max_points.description": "Palautettavien uusimpien kaaviopisteiden enimmäismäärä (1–500).",
+    "param.timeout.description": "HTTP-pyynnön aikakatkaisu sekunteina (1–30)."
+  },
+  "fil": {
+    "tool.description": "Kuninha ang datos ng chart nang direkta mula sa panloob na data endpoint ng pahina sa nikkei225jp.com. Ibinabalik nito ang mga field na ibinigay ng pahina at ang pinakabagong mga punto ng chart. Hindi dokumentado ang endpoint na ito at hindi ito opisyal na API. Ang code ay panloob na series ID ng site (ang 111 ay Japan 225), hindi ticker ng stock sa Japan.",
+    "x_search_terms": ["datos ng Nikkei225jp", "chart ng Nikkei225jp", "index ng Japan 225", "Nikkei 225 AJAX", "datos ng pandaigdigang stock market", "chart ng Nikkei 225"],
+    "param.code.description": "Panloob na chart series ID ng Nikkei225jp, hindi stock ticker. Ang 111 ay Japan 225.",
+    "param.dataset.description": "Panloob na suffix ng data file na ginagamit ng website (168 o 24). Hindi ito opisyal na dokumentadong pagitan ng oras.",
+    "param.max_points.description": "Pinakamaraming kamakailang chart point na ibabalik (1-500).",
+    "param.timeout.description": "Timeout ng HTTP request sa segundo (1-30)."
+  },
+  "fr": {
+    "tool.description": "Récupère les données du graphique directement depuis le point de terminaison de données interne de la page nikkei225jp.com. Renvoie les champs fournis par la page et les points de graphique les plus récents. Ce point de terminaison n’est pas documenté et ne constitue pas une API officielle. code est l’identifiant de série interne du site (111 correspond à Japan 225), et non le symbole d’une action japonaise.",
+    "x_search_terms": ["données Nikkei225jp", "graphique Nikkei225jp", "indice Japan 225", "AJAX Nikkei 225", "données des marchés boursiers mondiaux", "graphique Nikkei 225"],
+    "param.code.description": "Identifiant de série interne du graphique Nikkei225jp, pas un symbole boursier. 111 correspond à Japan 225.",
+    "param.dataset.description": "Suffixe interne du fichier de données utilisé par le site (168 ou 24). Il ne s’agit pas d’un intervalle officiellement documenté.",
+    "param.max_points.description": "Nombre maximal de points récents du graphique à renvoyer (1-500).",
+    "param.timeout.description": "Délai d’expiration de la requête HTTP en secondes (1-30)."
+  },
+  "he": {
+    "tool.description": "אחזור נתוני תרשים ישירות מנקודת הנתונים הפנימית של הדף nikkei225jp.com. הכלי מחזיר את השדות שהדף מספק ואת נקודות התרשים האחרונות. נקודת הקצה אינה מתועדת ואינה API רשמי. code הוא מזהה סדרה פנימי של האתר (111 הוא Japan 225), ולא סימול של מניה יפנית.",
+    "x_search_terms": ["נתוני Nikkei225jp", "תרשים Nikkei225jp", "מדד Japan 225", "AJAX של Nikkei 225", "נתוני שוקי מניות בעולם", "תרשים Nikkei 225"],
+    "param.code.description": "מזהה סדרת תרשים פנימי של Nikkei225jp, לא סימול מניה. 111 הוא Japan 225.",
+    "param.dataset.description": "סיומת פנימית של קובץ נתונים שבה האתר משתמש (168 או 24). זו אינה תדירות שמתועדת רשמית.",
+    "param.max_points.description": "המספר המרבי של נקודות התרשים האחרונות שיוחזרו (1–500).",
+    "param.timeout.description": "מגבלת זמן לבקשת HTTP בשניות (1–30)."
+  },
+  "hi": {
+    "tool.description": "nikkei225jp.com पृष्ठ के आंतरिक डेटा एंडपॉइंट से सीधे चार्ट डेटा प्राप्त करता है। यह पृष्ठ द्वारा दिए गए फ़ील्ड और नवीनतम चार्ट बिंदु लौटाता है। यह एक अप्रलेखित एंडपॉइंट है, आधिकारिक API नहीं। code साइट का आंतरिक श्रृंखला ID है (111 का अर्थ Japan 225 है), जापानी शेयर का टिकर नहीं।",
+    "x_search_terms": ["Nikkei225jp डेटा", "Nikkei225jp चार्ट डेटा", "Japan 225 सूचकांक", "Nikkei 225 AJAX", "विश्व शेयर बाज़ार डेटा", "Nikkei 225 चार्ट"],
+    "param.code.description": "Nikkei225jp का आंतरिक चार्ट श्रृंखला ID, शेयर टिकर नहीं। 111 का अर्थ Japan 225 है।",
+    "param.dataset.description": "वेबसाइट द्वारा उपयोग किया जाने वाला आंतरिक डेटा-फ़ाइल प्रत्यय (168 या 24)। यह आधिकारिक रूप से प्रलेखित अंतराल नहीं है।",
+    "param.max_points.description": "लौटाए जाने वाले नवीनतम चार्ट बिंदुओं की अधिकतम संख्या (1-500)।",
+    "param.timeout.description": "सेकंड में HTTP अनुरोध समयसीमा (1-30)।"
+  },
+  "hu": {
+    "tool.description": "Közvetlenül a nikkei225jp.com oldal belső adatvégpontjáról kéri le a diagramadatokat. Visszaadja az oldal által szolgáltatott mezőket és a legfrissebb diagramadatpontokat. Ez nem dokumentált végpont, nem hivatalos API. A code a webhely belső sorozatazonosítója (111 a Japan 225), nem japán részvényjelzés.",
+    "x_search_terms": ["Nikkei225jp-adatok", "Nikkei225jp-diagramadatok", "Japan 225 index", "Nikkei 225 AJAX", "világ tőzsdei adatai", "Nikkei 225 diagram"],
+    "param.code.description": "A Nikkei225jp diagram belső sorozatazonosítója, nem részvényjelzés. 111 a Japan 225.",
+    "param.dataset.description": "A webhely által használt belső adatfájl-utótag (168 vagy 24). Ez nem hivatalosan dokumentált időköz.",
+    "param.max_points.description": "A visszaadandó legfrissebb diagramadatpontok maximális száma (1–500).",
+    "param.timeout.description": "HTTP-kérés időkorlátja másodpercben (1–30)."
+  },
+  "id": {
+    "tool.description": "Mengambil data grafik langsung dari endpoint data internal halaman nikkei225jp.com. Mengembalikan kolom yang disediakan halaman dan titik grafik terbaru. Endpoint ini tidak terdokumentasi dan bukan API resmi. code adalah ID seri internal situs (111 adalah Japan 225), bukan ticker saham Jepang.",
+    "x_search_terms": ["data Nikkei225jp", "grafik Nikkei225jp", "indeks Japan 225", "AJAX Nikkei 225", "data pasar saham dunia", "grafik Nikkei 225"],
+    "param.code.description": "ID seri grafik internal Nikkei225jp, bukan ticker saham. 111 adalah Japan 225.",
+    "param.dataset.description": "Akhiran file data internal yang digunakan situs (168 atau 24). Ini bukan interval yang didokumentasikan secara resmi.",
+    "param.max_points.description": "Jumlah maksimum titik grafik terbaru yang dikembalikan (1-500).",
+    "param.timeout.description": "Batas waktu permintaan HTTP dalam detik (1-30)."
+  },
+  "it": {
+    "tool.description": "Recupera i dati del grafico direttamente dall’endpoint dati interno della pagina nikkei225jp.com. Restituisce i campi forniti dalla pagina e i punti più recenti del grafico. È un endpoint non documentato, non un’API ufficiale. code è l’ID di serie interno del sito (111 corrisponde a Japan 225), non il simbolo di un’azione giapponese.",
+    "x_search_terms": ["dati Nikkei225jp", "grafico Nikkei225jp", "indice Japan 225", "AJAX Nikkei 225", "dati dei mercati azionari mondiali", "grafico Nikkei 225"],
+    "param.code.description": "ID di serie interno del grafico Nikkei225jp, non un simbolo azionario. 111 corrisponde a Japan 225.",
+    "param.dataset.description": "Suffisso interno del file di dati usato dal sito (168 o 24). Non è un intervallo documentato ufficialmente.",
+    "param.max_points.description": "Numero massimo di punti recenti del grafico da restituire (1-500).",
+    "param.timeout.description": "Timeout della richiesta HTTP in secondi (1-30)."
+  },
+  "ja": {
+    "tool.description": "nikkei225jp.com のページ内データURLからチャートデータを取得します。ページが返す項目と直近のチャート点を返します。非公式の内部URLであり、公式APIではありません。code はサイト内の系列ID（111 は日本225）で、個別株の銘柄コードではありません。",
+    "x_search_terms": ["nikkei225jp データ", "日経225 チャートデータ", "日経平均 AJAX", "世界の株価 データ取得", "日本225 指数", "日経225 チャート"],
+    "param.code.description": "nikkei225jp 内部チャート系列ID。個別株の銘柄コードではありません。111 は日本225です。",
+    "param.dataset.description": "サイト内データファイルの末尾識別子（168 または 24）。公式に仕様公開された時間足ではありません。",
+    "param.max_points.description": "返す直近チャート点数の上限（1～500）。",
+    "param.timeout.description": "HTTPリクエストのタイムアウト秒数（1～30）。"
+  },
+  "ko": {
+    "tool.description": "nikkei225jp.com 페이지의 내부 데이터 엔드포인트에서 차트 데이터를 직접 가져옵니다. 페이지가 제공하는 필드와 최신 차트 포인트를 반환합니다. 문서화되지 않은 엔드포인트이며 공식 API가 아닙니다. code는 사이트 내부 시리즈 ID(111은 Japan 225)이며 일본 주식 티커가 아닙니다.",
+    "x_search_terms": ["Nikkei225jp 데이터", "nikkei225jp 차트 데이터", "Japan 225 지수", "Nikkei 225 AJAX", "세계 주식시장 데이터", "Nikkei 225 차트"],
+    "param.code.description": "Nikkei225jp 내부 차트 시리즈 ID이며 주식 티커가 아닙니다. 111은 Japan 225입니다.",
+    "param.dataset.description": "웹사이트에서 사용하는 내부 데이터 파일 접미사(168 또는 24)입니다. 공식적으로 문서화된 간격이 아닙니다.",
+    "param.max_points.description": "반환할 최신 차트 포인트의 최대 개수(1~500).",
+    "param.timeout.description": "HTTP 요청 제한 시간(초, 1~30)."
+  },
+  "mn": {
+    "tool.description": "nikkei225jp.com хуудасны дотоод өгөгдлийн төгсгөлийн цэгээс графикийн өгөгдлийг шууд авна. Хуудасны өгсөн талбарууд болон хамгийн сүүлийн графикийн цэгүүдийг буцаана. Энэ нь баримтжуулаагүй төгсгөлийн цэг бөгөөд албан ёсны API биш. code нь сайтын дотоод цувааны ID (111 нь Japan 225), Японы хувьцааны тикер биш.",
+    "x_search_terms": ["Nikkei225jp өгөгдөл", "Nikkei225jp график өгөгдөл", "Japan 225 индекс", "Nikkei 225 AJAX", "дэлхийн хөрөнгийн зах зээлийн өгөгдөл", "Nikkei 225 график"],
+    "param.code.description": "Nikkei225jp графикийн дотоод цувааны ID, хувьцааны тикер биш. 111 нь Japan 225.",
+    "param.dataset.description": "Вэбсайтын ашигладаг өгөгдлийн файлын дотоод дагавар (168 эсвэл 24). Энэ нь албан ёсоор баримтжуулсан интервал биш.",
+    "param.max_points.description": "Буцаах хамгийн сүүлийн графикийн цэгийн дээд тоо (1-500).",
+    "param.timeout.description": "HTTP хүсэлтийн хугацааны хязгаар, секундээр (1-30)."
+  },
+  "mr": {
+    "tool.description": "nikkei225jp.com पृष्ठाच्या अंतर्गत डेटा एंडपॉइंटवरून चार्ट डेटा थेट मिळवते. पृष्ठाने दिलेली फील्ड आणि अलीकडील चार्ट बिंदू परत करते. हा एंडपॉइंट दस्तऐवजीकृत नाही आणि अधिकृत API नाही. code हा साइटचा अंतर्गत मालिका ID आहे (111 म्हणजे Japan 225), जपानी समभागाचा टिकर नाही.",
+    "x_search_terms": ["Nikkei225jp डेटा", "Nikkei225jp चार्ट डेटा", "Japan 225 निर्देशांक", "Nikkei 225 AJAX", "जागतिक शेअर बाजार डेटा", "Nikkei 225 चार्ट"],
+    "param.code.description": "Nikkei225jp चा अंतर्गत चार्ट मालिका ID, समभागाचा टिकर नाही. 111 म्हणजे Japan 225.",
+    "param.dataset.description": "वेबसाइट वापरत असलेल्या अंतर्गत डेटा-फाइलचा प्रत्यय (168 किंवा 24). हा अधिकृतरीत्या दस्तऐवजीकृत कालावधी नाही.",
+    "param.max_points.description": "परत करावयाच्या अलीकडील चार्ट बिंदूंची कमाल संख्या (1-500).",
+    "param.timeout.description": "HTTP विनंतीची कालमर्यादा सेकंदांत (1-30)."
+  },
+  "ms": {
+    "tool.description": "Mendapatkan data carta terus daripada titik akhir data dalaman halaman nikkei225jp.com. Mengembalikan medan yang disediakan oleh halaman dan titik carta terkini. Titik akhir ini tidak didokumenkan dan bukan API rasmi. code ialah ID siri dalaman laman (111 ialah Japan 225), bukannya ticker saham Jepun.",
+    "x_search_terms": ["data Nikkei225jp", "carta Nikkei225jp", "indeks Japan 225", "AJAX Nikkei 225", "data pasaran saham dunia", "carta Nikkei 225"],
+    "param.code.description": "ID siri carta dalaman Nikkei225jp, bukannya ticker saham. 111 ialah Japan 225.",
+    "param.dataset.description": "Akhiran fail data dalaman yang digunakan oleh laman web (168 atau 24). Ini bukan selang yang didokumenkan secara rasmi.",
+    "param.max_points.description": "Bilangan maksimum titik carta terkini untuk dipulangkan (1-500).",
+    "param.timeout.description": "Had masa permintaan HTTP dalam saat (1-30)."
+  },
+  "nb": {
+    "tool.description": "Henter diagramdata direkte fra sidens interne dataendepunkt på nikkei225jp.com. Returnerer feltene siden oppgir og de nyeste diagramdatapunktene. Dette er et udokumentert endepunkt, ikke et offisielt API. code er nettstedets interne serie-ID (111 er Japan 225), ikke en japansk aksjeticker.",
+    "x_search_terms": ["Nikkei225jp-data", "Nikkei225jp-diagramdata", "Japan 225-indeks", "Nikkei 225 AJAX", "data om verdens aksjemarkeder", "Nikkei 225-diagram"],
+    "param.code.description": "Intern serie-ID for Nikkei225jp-diagrammet, ikke en aksjeticker. 111 er Japan 225.",
+    "param.dataset.description": "Internt suffiks for datafilen som nettstedet bruker (168 eller 24). Dette er ikke et offisielt dokumentert intervall.",
+    "param.max_points.description": "Maksimalt antall av de nyeste diagramdatapunktene som skal returneres (1–500).",
+    "param.timeout.description": "Tidsavbrudd for HTTP-forespørsel i sekunder (1–30)."
+  },
+  "nl": {
+    "tool.description": "Haalt grafiekgegevens rechtstreeks op via het interne gegevensendpoint van de pagina nikkei225jp.com. Geeft de velden van de pagina en de recentste grafiekpunten terug. Dit endpoint is niet gedocumenteerd en is geen officiële API. code is de interne reeks-ID van de site (111 is Japan 225), geen Japanse aandelenticker.",
+    "x_search_terms": ["Nikkei225jp-gegevens", "Nikkei225jp-grafiekgegevens", "Japan 225-index", "Nikkei 225 AJAX", "gegevens over wereldwijde aandelenmarkten", "Nikkei 225-grafiek"],
+    "param.code.description": "Interne reeks-ID van de Nikkei225jp-grafiek, geen aandelenticker. 111 is Japan 225.",
+    "param.dataset.description": "Intern achtervoegsel van het gegevensbestand dat de website gebruikt (168 of 24). Dit is geen officieel gedocumenteerd interval.",
+    "param.max_points.description": "Maximaal aantal recentste grafiekpunten dat wordt teruggegeven (1-500).",
+    "param.timeout.description": "Time-out voor HTTP-verzoeken in seconden (1-30)."
+  },
+  "nn": {
+    "tool.description": "Hentar diagramdata direkte frå det interne datapunktet til sida nikkei225jp.com. Returnerer felta som sida tilbyr, og dei nyaste diagrammålepunkta. Dette er eit udokumentert datapunkt, ikkje eit offisielt API. code er den interne serie-ID-en til nettstaden (111 er Japan 225), ikkje ein japansk aksjeticker.",
+    "x_search_terms": ["Nikkei225jp-data", "Nikkei225jp-diagramdata", "Japan 225-indeks", "Nikkei 225 AJAX", "data om verdas aksjemarknader", "Nikkei 225-diagram"],
+    "param.code.description": "Intern serie-ID for Nikkei225jp-diagrammet, ikkje ein aksjeticker. 111 er Japan 225.",
+    "param.dataset.description": "Internt suffiks for datafila som nettstaden bruker (168 eller 24). Dette er ikkje eit offisielt dokumentert intervall.",
+    "param.max_points.description": "Maksimalt tal på dei nyaste diagrammålepunkta som skal returnerast (1–500).",
+    "param.timeout.description": "Tidsavbrot for HTTP-førespurnad i sekund (1–30)."
+  },
+  "pl": {
+    "tool.description": "Pobiera dane wykresu bezpośrednio z wewnętrznego punktu danych strony nikkei225jp.com. Zwraca pola udostępniane przez stronę oraz najnowsze punkty wykresu. Jest to nieudokumentowany punkt końcowy, a nie oficjalne API. code to wewnętrzny identyfikator serii witryny (111 oznacza Japan 225), a nie ticker japońskiej akcji.",
+    "x_search_terms": ["dane Nikkei225jp", "wykres Nikkei225jp", "indeks Japan 225", "Nikkei 225 AJAX", "dane światowych rynków akcji", "wykres Nikkei 225"],
+    "param.code.description": "Wewnętrzny identyfikator serii wykresu Nikkei225jp, a nie ticker akcji. 111 oznacza Japan 225.",
+    "param.dataset.description": "Wewnętrzny sufiks pliku danych używany przez witrynę (168 lub 24). Nie jest to oficjalnie udokumentowany interwał.",
+    "param.max_points.description": "Maksymalna liczba najnowszych punktów wykresu do zwrócenia (1–500).",
+    "param.timeout.description": "Limit czasu żądania HTTP w sekundach (1–30)."
+  },
+  "pt": {
+    "tool.description": "Obtém dados do gráfico diretamente do endpoint de dados interno da página nikkei225jp.com. Devolve os campos fornecidos pela página e os pontos mais recentes do gráfico. Este endpoint não está documentado e não é uma API oficial. code é o ID interno da série do site (111 corresponde a Japan 225), não o símbolo de uma ação japonesa.",
+    "x_search_terms": ["dados Nikkei225jp", "gráfico Nikkei225jp", "índice Japan 225", "AJAX Nikkei 225", "dados dos mercados bolsistas mundiais", "gráfico Nikkei 225"],
+    "param.code.description": "ID interno da série do gráfico Nikkei225jp, não um símbolo bolsista. 111 corresponde a Japan 225.",
+    "param.dataset.description": "Sufixo interno do ficheiro de dados utilizado pelo site (168 ou 24). Não é um intervalo documentado oficialmente.",
+    "param.max_points.description": "Número máximo de pontos recentes do gráfico a devolver (1-500).",
+    "param.timeout.description": "Tempo limite do pedido HTTP em segundos (1-30)."
+  },
+  "pt_BR": {
+    "tool.description": "Busca dados do gráfico diretamente no endpoint interno de dados da página nikkei225jp.com. Retorna os campos fornecidos pela página e os pontos mais recentes do gráfico. Esse endpoint não é documentado e não é uma API oficial. code é o ID interno da série do site (111 corresponde a Japan 225), não o ticker de uma ação japonesa.",
+    "x_search_terms": ["dados do Nikkei225jp", "gráfico do Nikkei225jp", "índice Japan 225", "AJAX do Nikkei 225", "dados dos mercados de ações mundiais", "gráfico do Nikkei 225"],
+    "param.code.description": "ID interno da série do gráfico do Nikkei225jp, não ticker de ação. 111 corresponde a Japan 225.",
+    "param.dataset.description": "Sufixo interno do arquivo de dados usado pelo site (168 ou 24). Não é um intervalo documentado oficialmente.",
+    "param.max_points.description": "Número máximo de pontos recentes do gráfico a retornar (1-500).",
+    "param.timeout.description": "Tempo limite da solicitação HTTP em segundos (1-30)."
+  },
+  "ro": {
+    "tool.description": "Preia datele graficului direct de la punctul intern de date al paginii nikkei225jp.com. Returnează câmpurile furnizate de pagină și cele mai recente puncte ale graficului. Acesta este un punct final nedocumentat, nu un API oficial. code este ID-ul intern al seriei de pe site (111 este Japan 225), nu simbolul unei acțiuni japoneze.",
+    "x_search_terms": ["date Nikkei225jp", "grafic Nikkei225jp", "indicele Japan 225", "AJAX Nikkei 225", "date despre piețele bursiere mondiale", "graficul Nikkei 225"],
+    "param.code.description": "ID-ul intern al seriei graficului Nikkei225jp, nu un simbol bursier. 111 este Japan 225.",
+    "param.dataset.description": "Sufixul intern al fișierului de date folosit de site (168 sau 24). Nu este un interval documentat oficial.",
+    "param.max_points.description": "Numărul maxim de puncte recente ale graficului care vor fi returnate (1-500).",
+    "param.timeout.description": "Timeout-ul solicitării HTTP în secunde (1-30)."
+  },
+  "ru": {
+    "tool.description": "Получает данные графика непосредственно из внутренней конечной точки данных страницы nikkei225jp.com. Возвращает поля, предоставляемые страницей, и последние точки графика. Эта конечная точка не документирована и не является официальным API. code — внутренний идентификатор ряда сайта (111 — Japan 225), а не биржевой тикер японской акции.",
+    "x_search_terms": ["данные Nikkei225jp", "график Nikkei225jp", "индекс Japan 225", "AJAX Nikkei 225", "данные мировых фондовых рынков", "график Nikkei 225"],
+    "param.code.description": "Внутренний идентификатор ряда графика Nikkei225jp, а не тикер акции. 111 — Japan 225.",
+    "param.dataset.description": "Внутренний суффикс файла данных, используемый сайтом (168 или 24). Это не официально документированный интервал.",
+    "param.max_points.description": "Максимальное количество последних точек графика для возврата (1–500).",
+    "param.timeout.description": "Тайм-аут HTTP-запроса в секундах (1–30)."
+  },
+  "sv": {
+    "tool.description": "Hämtar diagramdata direkt från sidans interna dataändpunkt på nikkei225jp.com. Returnerar fälten som sidan tillhandahåller och de senaste diagramdatapunkterna. Detta är en odokumenterad ändpunkt, inte ett officiellt API. code är webbplatsens interna serie-ID (111 är Japan 225), inte en japansk aktieticker.",
+    "x_search_terms": ["Nikkei225jp-data", "Nikkei225jp-diagramdata", "Japan 225-index", "Nikkei 225 AJAX", "data om världens aktiemarknader", "Nikkei 225-diagram"],
+    "param.code.description": "Internt serie-ID för Nikkei225jp-diagrammet, inte en aktieticker. 111 är Japan 225.",
+    "param.dataset.description": "Internt datafilssuffix som webbplatsen använder (168 eller 24). Det är inte ett officiellt dokumenterat intervall.",
+    "param.max_points.description": "Högsta antal senaste diagramdatapunkter som ska returneras (1–500).",
+    "param.timeout.description": "Tidsgräns för HTTP-begäran i sekunder (1–30)."
+  },
+  "sw": {
+    "tool.description": "Hupata data za chati moja kwa moja kutoka kwenye sehemu ya ndani ya data ya ukurasa wa nikkei225jp.com. Hurejesha sehemu za data zinazotolewa na ukurasa pamoja na nukta za hivi karibuni za chati. Sehemu hii haijaandikwa kwenye nyaraka na si API rasmi. code ni kitambulisho cha ndani cha mfululizo wa tovuti (111 ni Japan 225), si alama ya hisa ya Japani.",
+    "x_search_terms": ["data za Nikkei225jp", "chati ya Nikkei225jp", "kiashiria cha Japan 225", "AJAX ya Nikkei 225", "data za masoko ya hisa duniani", "chati ya Nikkei 225"],
+    "param.code.description": "Kitambulisho cha ndani cha mfululizo wa chati ya Nikkei225jp, si alama ya hisa. 111 ni Japan 225.",
+    "param.dataset.description": "Kiambishi tamati cha ndani cha faili ya data kinachotumiwa na tovuti (168 au 24). Hiki si kipindi kilichoandikwa rasmi kwenye nyaraka.",
+    "param.max_points.description": "Idadi ya juu zaidi ya nukta za hivi karibuni za chati zitakazorejeshwa (1-500).",
+    "param.timeout.description": "Muda wa juu wa ombi la HTTP kwa sekunde (1-30)."
+  },
+  "th": {
+    "tool.description": "ดึงข้อมูลกราฟโดยตรงจากปลายทางข้อมูลภายในของหน้า nikkei225jp.com โดยส่งคืนฟิลด์ที่หน้าเว็บให้มาและจุดข้อมูลกราฟล่าสุด ปลายทางนี้ไม่มีเอกสารกำกับและไม่ใช่ API อย่างเป็นทางการ code คือรหัสชุดข้อมูลภายในเว็บไซต์ (111 คือ Japan 225) ไม่ใช่รหัสหุ้นญี่ปุ่น",
+    "x_search_terms": ["ข้อมูล Nikkei225jp", "กราฟ Nikkei225jp", "ดัชนี Japan 225", "AJAX Nikkei 225", "ข้อมูลตลาดหุ้นทั่วโลก", "กราฟ Nikkei 225"],
+    "param.code.description": "รหัสชุดข้อมูลกราฟภายใน Nikkei225jp ไม่ใช่รหัสหุ้น 111 คือ Japan 225",
+    "param.dataset.description": "ส่วนต่อท้ายไฟล์ข้อมูลภายในที่เว็บไซต์ใช้ (168 หรือ 24) ไม่ใช่ช่วงเวลาที่มีเอกสารระบุอย่างเป็นทางการ",
+    "param.max_points.description": "จำนวนจุดข้อมูลกราฟล่าสุดสูงสุดที่ต้องการส่งคืน (1-500)",
+    "param.timeout.description": "เวลาหมดอายุของคำขอ HTTP หน่วยเป็นวินาที (1-30)"
+  },
+  "tr": {
+    "tool.description": "Grafik verilerini doğrudan nikkei225jp.com sayfasının dahili veri uç noktasından alır. Sayfanın sağladığı alanları ve en yeni grafik noktalarını döndürür. Bu, belgelenmemiş bir uç noktadır; resmi API değildir. code, sitenin dahili seri kimliğidir (111, Japan 225 anlamına gelir); Japon hisse senedi kodu değildir.",
+    "x_search_terms": ["Nikkei225jp verileri", "Nikkei225jp grafiği", "Japan 225 endeksi", "Nikkei 225 AJAX", "dünya borsaları verileri", "Nikkei 225 grafiği"],
+    "param.code.description": "Nikkei225jp grafiğinin dahili seri kimliği, hisse senedi kodu değildir. 111, Japan 225 anlamına gelir.",
+    "param.dataset.description": "Web sitesinin kullandığı dahili veri dosyası soneki (168 veya 24). Resmî olarak belgelenmiş bir aralık değildir.",
+    "param.max_points.description": "Döndürülecek en yeni grafik noktalarının azami sayısı (1-500).",
+    "param.timeout.description": "HTTP isteği zaman aşımı, saniye cinsinden (1-30)."
+  },
+  "uk": {
+    "tool.description": "Отримує дані графіка безпосередньо з внутрішньої кінцевої точки даних сторінки nikkei225jp.com. Повертає поля, надані сторінкою, і найновіші точки графіка. Ця кінцева точка не задокументована й не є офіційним API. code — внутрішній ідентифікатор ряду сайту (111 — Japan 225), а не біржовий тикер японської акції.",
+    "x_search_terms": ["дані Nikkei225jp", "графік Nikkei225jp", "індекс Japan 225", "AJAX Nikkei 225", "дані світових фондових ринків", "графік Nikkei 225"],
+    "param.code.description": "Внутрішній ідентифікатор ряду графіка Nikkei225jp, а не тикер акції. 111 — Japan 225.",
+    "param.dataset.description": "Внутрішній суфікс файла даних, який використовує сайт (168 або 24). Це не офіційно задокументований інтервал.",
+    "param.max_points.description": "Максимальна кількість найновіших точок графіка для повернення (1–500).",
+    "param.timeout.description": "Час очікування HTTP-запиту в секундах (1–30)."
+  },
+  "vi": {
+    "tool.description": "Lấy dữ liệu biểu đồ trực tiếp từ điểm cuối dữ liệu nội bộ của trang nikkei225jp.com. Trả về các trường do trang cung cấp và những điểm biểu đồ mới nhất. Đây là điểm cuối chưa được tài liệu hóa, không phải API chính thức. code là ID chuỗi nội bộ của trang (111 là Japan 225), không phải mã cổ phiếu Nhật Bản.",
+    "x_search_terms": ["dữ liệu Nikkei225jp", "biểu đồ Nikkei225jp", "chỉ số Japan 225", "AJAX Nikkei 225", "dữ liệu thị trường chứng khoán thế giới", "biểu đồ Nikkei 225"],
+    "param.code.description": "ID chuỗi biểu đồ nội bộ của Nikkei225jp, không phải mã cổ phiếu. 111 là Japan 225.",
+    "param.dataset.description": "Hậu tố tệp dữ liệu nội bộ mà trang web sử dụng (168 hoặc 24). Đây không phải khoảng thời gian được tài liệu hóa chính thức.",
+    "param.max_points.description": "Số điểm biểu đồ mới nhất tối đa cần trả về (1-500).",
+    "param.timeout.description": "Thời gian chờ yêu cầu HTTP tính bằng giây (1-30)."
+  },
+  "zh_CN": {
+    "tool.description": "直接从 nikkei225jp.com 页面内部数据端点获取图表数据。返回页面提供的字段和最新图表点。此端点未公开说明，不是官方 API。code 是网站内部系列 ID（111 代表 Japan 225），不是日本股票代码。",
+    "x_search_terms": ["Nikkei225jp 数据", "Nikkei225jp 图表数据", "Japan 225 指数", "Nikkei 225 AJAX", "全球股票市场数据", "Nikkei 225 图表"],
+    "param.code.description": "Nikkei225jp 的内部图表系列 ID，不是股票代码。111 代表 Japan 225。",
+    "param.dataset.description": "网站使用的内部数据文件后缀（168 或 24）。这不是官方文档说明的时间间隔。",
+    "param.max_points.description": "返回的最新图表点数量上限（1-500）。",
+    "param.timeout.description": "HTTP 请求超时时间，单位为秒（1-30）。"
+  },
+  "zh_TW": {
+    "tool.description": "直接從 nikkei225jp.com 頁面的內部資料端點取得圖表資料。回傳頁面提供的欄位與最新圖表點。此端點未公開說明，並非官方 API。code 是網站內部序列 ID（111 代表 Japan 225），不是日本股票代碼。",
+    "x_search_terms": ["Nikkei225jp 資料", "Nikkei225jp 圖表資料", "Japan 225 指數", "Nikkei 225 AJAX", "全球股票市場資料", "Nikkei 225 圖表"],
+    "param.code.description": "Nikkei225jp 的內部圖表序列 ID，不是股票代碼。111 代表 Japan 225。",
+    "param.dataset.description": "網站使用的內部資料檔尾碼（168 或 24）。這不是官方文件說明的時間間隔。",
+    "param.max_points.description": "要回傳的最新圖表點數上限（1-500）。",
+    "param.timeout.description": "HTTP 要求逾時秒數（1-30）。"
+  }
+}
