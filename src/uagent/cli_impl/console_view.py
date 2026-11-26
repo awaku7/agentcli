@@ -1300,19 +1300,29 @@ class ConsoleView:
             def _edge_step(self, mouse_event: Any) -> int:
                 """-1 at the top edge, +1 at the bottom, else 0.
 
-                The event's y is already the document line under
-                the pointer (the window translates screen rows
-                before dispatch), so the edges are the first and
-                last visible lines of the latest render.
+                The event's position is the document (row, col)
+                under the pointer.  A wrapped line spans several
+                screen rows, so the row alone cannot tell the
+                first or last screen row from the line's other
+                segments; the render info's visible_line_to_row_col
+                gives each screen row's segment start, and the
+                pointer is at an edge only within the first or
+                last segment.
                 """
                 info = getattr(view._output_window, "render_info", None)
-                mapping = getattr(info, "visible_line_to_input_line", None)
-                if not mapping:
+                rows = getattr(info, "visible_line_to_row_col", None)
+                if not rows:
                     return 0
-                y = mouse_event.position.y
-                if y <= mapping[min(mapping)]:
-                    return -1
-                if y >= mapping[max(mapping)]:
+                row = mouse_event.position.y
+                col = mouse_event.position.x
+                first_key = min(rows)
+                first_row, first_col = rows[first_key]
+                if row == first_row and col >= first_col:
+                    second = rows.get(first_key + 1)
+                    if second is None or second[0] != first_row or col < second[1]:
+                        return -1
+                last_row, last_col = rows[max(rows)]
+                if row == last_row and col >= last_col:
                     return 1
                 return 0
 

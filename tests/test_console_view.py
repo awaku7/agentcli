@@ -1371,6 +1371,50 @@ def test_view_drag_released_outside_the_output_stops_edge_scrolling():
             view.stop()
 
 
+def test_view_drag_on_a_wrapped_lines_middle_row_is_not_the_edge():
+    # A wrapped line spans several screen rows.  Only its first
+    # screen row is the top edge: dragging on a middle segment
+    # must not start the edge-scroll repeat, while the true top
+    # row still does.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for _ in range(15):
+        document.append("answer", "W" * 183 + "\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;3M")  # press on the third screen row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;2M")  # middle segment of the top line
+            pipe.send_text("\x1b[<32;1;2M")
+            import time as _time
+
+            _time.sleep(0.8)  # past the repeat's initial delay
+            assert view._output_control._edge_task is None
+            assert window.vertical_scroll == top
+            # The true top row still starts the repeat.
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")
+            assert _wait_for(lambda: window.vertical_scroll < top)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 
