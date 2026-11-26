@@ -383,6 +383,13 @@ class ConsoleView:
                 pass
         if thread is not None and thread is not threading.current_thread():
             thread.join(timeout=1.0)
+            if thread.is_alive():
+                # The application did not unwind in time.  The real
+                # streams must be back before any legacy prompt owns
+                # the terminal, so restore the capture here; the run
+                # thread's own restore is identity-checked and will
+                # simply find nothing left to do.
+                self._restore_capture()
         with self._state_lock:
             if self._thread is thread:
                 self._thread = None

@@ -718,3 +718,43 @@ def test_view_status_follows_idle_transitions(monkeypatch):
 
     assert fake.status[0] == ("[STATE] BUSY [LLM]", True)
     assert fake.status[-1] == ("[STATE] IDLE", False)
+
+
+def test_stop_restores_streams_even_if_the_app_thread_lags(monkeypatch) -> None:
+    # Regression (PR #483 CI): suspend() joined the application
+    # thread with a 1s timeout and returned with the stream capture
+    # still installed whenever the thread was slower than that —
+    # the restored-terminal assert raced on loaded CI runners.
+    # stop() must hand the real streams back deterministically.
+    import sys
+    import threading
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    view = ConsoleView(document=OutputDocument())
+    release = threading.Event()
+
+    class _StubApp:
+        loop = None
+
+        def run(self) -> None:
+            release.wait(timeout=10)
+
+        def exit(self) -> None:
+            pass
+
+    monkeypatch.setattr(view, "_make_app", lambda: _StubApp())
+    real_stdout, real_stderr = sys.stdout, sys.stderr
+    try:
+        view.start()
+        assert _wait_for(lambda: isinstance(sys.stdout, console_view._ViewStreamProxy))
+        view.stop()
+        assert sys.stdout is real_stdout
+        assert sys.stderr is real_stderr
+    finally:
+        release.set()
+        thread = view._thread
+        if thread is not None:
+            thread.join(timeout=5)
+        console_view._set_active(None)
+    assert sys.stdout is real_stdout
