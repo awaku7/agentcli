@@ -170,6 +170,11 @@ class OutputDocument:
         self._max_chars = max_chars
         self._pending_escape = ""
         self._subscribers: list[Callable[[], None]] = []
+        # Char range (start, end) of the current snapshot region —
+        # the text an in-place snapshot redraw replaces.  Tracked so
+        # a redraw never eats segments appended after the snapshot.
+        self._snapshot_span: tuple[int, int] | None = None
+        self._snapshot_kind = ""
 
     # -- reading --------------------------------------------------------
 
@@ -201,13 +206,7 @@ class OutputDocument:
         if not text:
             return
         with self._lock:
-            text = self._pending_escape + text
-            self._pending_escape = ""
-            hold = _INCOMPLETE_ESCAPE_RE.search(text)
-            if hold is not None and hold.start() > 0:
-                self._pending_escape = hold.group(0)
-                text = text[: hold.start()]
-            text = _ANSI_RE.sub("", text)
+            text = self._strip_escapes_locked(text)
             # A redraw of the current line arriving as its own piece
             # (progress output flushed per update) starts with a lone
             # CR; the document's current last line goes away first.
@@ -219,12 +218,24 @@ class OutputDocument:
                 return
             if redraw:
                 self._truncate_last_line_locked()
+            old_total = self._total
             if self._segments and self._segments[-1].kind == kind:
                 last = self._segments[-1]
                 self._segments[-1] = Segment(kind, last.text + text)
             else:
                 self._segments.append(Segment(kind, text))
             self._total += len(text)
+            if (
+                self._snapshot_span is not None
+                and self._snapshot_span[1] == old_total
+                and kind == self._snapshot_kind
+            ):
+                # A plain append of the snapshot's own kind at its
+                # tail is not a snapshot redraw — the sequence is
+                # over, so stop tracking the region.  Appends of
+                # other kinds (a user line, a notice) leave the span
+                # valid mid-document instead.
+                self._snapshot_span = None
             self._version += 1
             self._trim_locked()
             subscribers = list(self._subscribers)
@@ -237,23 +248,99 @@ class OutputDocument:
     def replace_last_lines(
         self, count: int, text: str, *, kind: str = "answer"
     ) -> None:
-        """Replace the last ``count`` lines with ``text``.
+        """Replace the current snapshot region with ``text``.
 
         The document-side equivalent of the terminal's in-place
-        snapshot redraw (see :func:`split_snapshot_prefix`).
+        snapshot redraw (see :func:`split_snapshot_prefix`).  The
+        region replaced is the previous snapshot's own span —
+        tracked from the last replacement, or derived on a
+        sequence's first redraw as the last ``count`` lines up to
+        the end of the last segment of this kind.  Segments
+        appended after the snapshot (a user line submitted
+        mid-stream, a notice) are preserved; truncating the whole
+        document tail by ``count`` lines could delete them.
         """
-        if count > 0:
-            with self._lock:
-                full = "".join(segment.text for segment in self._segments)
-                lines = full.split("\n")
-                keep = lines[: max(0, len(lines) - count)]
-                kept_len = len("\n".join(keep)) + (1 if keep else 0)
-                self._truncate_to_locked(kept_len)
-                self._epoch += 1
-        # Reuse append for the payload (normalization + notify).
-        self.append(kind, text)
+        if count <= 0:
+            self.append(kind, text)
+            return
+        with self._lock:
+            payload = self._normalize_lines(self._strip_escapes_locked(text))
+            span = self._snapshot_span
+            if span is not None and self._snapshot_kind == kind:
+                start, end = span
+                if not (0 <= start <= end <= self._total):
+                    start, end = self._derive_snapshot_range_locked(count, kind)
+            else:
+                start, end = self._derive_snapshot_range_locked(count, kind)
+            self._replace_range_locked(start, end, kind, payload)
+            self._snapshot_span = (start, start + len(payload))
+            self._snapshot_kind = kind
+            self._version += 1
+            self._epoch += 1
+            self._trim_locked()
+            subscribers = list(self._subscribers)
+        for fn in subscribers:
+            try:
+                fn()
+            except Exception:
+                pass
+
+    def _derive_snapshot_range_locked(self, count: int, kind: str) -> tuple[int, int]:
+        """The last ``count`` lines up to the last segment of ``kind``."""
+        full = "".join(segment.text for segment in self._segments)
+        end = len(full)
+        pos = 0
+        for segment in self._segments:
+            seg_end = pos + len(segment.text)
+            if segment.kind == kind:
+                end = seg_end
+            pos = seg_end
+        lines = full[:end].split("\n")
+        keep = lines[: max(0, len(lines) - count)]
+        start = len("\n".join(keep)) + (1 if keep else 0)
+        return start, end
+
+    def _replace_range_locked(
+        self, start: int, end: int, kind: str, payload: str
+    ) -> None:
+        """Splice ``payload`` in as ``kind`` over the char range."""
+        before: list[Segment] = []
+        after: list[Segment] = []
+        pos = 0
+        for segment in self._segments:
+            seg_end = pos + len(segment.text)
+            if seg_end <= start:
+                before.append(segment)
+            elif pos >= end:
+                after.append(segment)
+            else:
+                if pos < start:
+                    before.append(Segment(segment.kind, segment.text[: start - pos]))
+                if seg_end > end:
+                    after.append(Segment(segment.kind, segment.text[end - pos :]))
+            pos = seg_end
+        middle: list[Segment] = [Segment(kind, payload)] if payload else []
+        if middle and before and before[-1].kind == kind:
+            middle = [Segment(kind, before.pop().text + payload)]
+        if middle and after and after[0].kind == kind:
+            middle = [Segment(kind, middle[0].text + after.pop(0).text)]
+        if not middle and before and after and before[-1].kind == after[0].kind:
+            before[-1] = Segment(before[-1].kind, before[-1].text + after[0].text)
+            after.pop(0)
+        self._segments = before + middle + after
+        self._total = sum(len(segment.text) for segment in self._segments)
 
     # -- internals ------------------------------------------------------
+
+    def _strip_escapes_locked(self, text: str) -> str:
+        """Join a held partial escape, drop complete escape sequences."""
+        text = self._pending_escape + text
+        self._pending_escape = ""
+        hold = _INCOMPLETE_ESCAPE_RE.search(text)
+        if hold is not None and hold.start() > 0:
+            self._pending_escape = hold.group(0)
+            text = text[: hold.start()]
+        return _ANSI_RE.sub("", text)
 
     @staticmethod
     def _normalize_lines(text: str) -> str:
@@ -268,6 +355,10 @@ class OutputDocument:
 
     def _truncate_to_locked(self, length: int) -> None:
         """Drop everything at or after ``length`` characters."""
+        if self._snapshot_span is not None and length < self._snapshot_span[1]:
+            # The truncation cuts into the tracked snapshot region;
+            # it can no longer be trusted.
+            self._snapshot_span = None
         remaining = length
         kept: list[Segment] = []
         for segment in self._segments:
@@ -310,6 +401,13 @@ class OutputDocument:
             segments.append(segment)
         self._segments = segments
         self._total = len(full) - drop
+        if self._snapshot_span is not None:
+            span_start, span_end = self._snapshot_span
+            if drop > span_start:
+                # The trim ate into (or past) the snapshot region.
+                self._snapshot_span = None
+            else:
+                self._snapshot_span = (span_start - drop, span_end - drop)
         self._epoch += 1
 
 

@@ -804,3 +804,59 @@ def test_view_capture_redirects_preexisting_stderr_handlers():
     finally:
         logger.removeHandler(handler)
         sys.stdout, sys.stderr = real_stdout, real_stderr
+
+
+def test_view_arrow_keys_navigate_history():
+    # The input buffer carries the legacy prompt's history: Up/Down
+    # walk it in place, like the legacy prompt.
+    from prompt_toolkit.history import InMemoryHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    history = InMemoryHistory()
+    history.append_string("first command")
+    history.append_string("second command")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            history=history,
+            document=dc.OutputDocument(),
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+        )
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            pipe.send_text("\x1b[A")
+            assert _wait_for(lambda: view._input_buffer.text == "second command")
+            pipe.send_text("\x1b[A")
+            assert _wait_for(lambda: view._input_buffer.text == "first command")
+            pipe.send_text("\x1b[B")
+            assert _wait_for(lambda: view._input_buffer.text == "second command")
+        finally:
+            view.stop()
+
+
+def test_view_bracketed_paste_inserts_without_submitting():
+    # A multi-line paste lands in the input buffer as one block —
+    # it does not submit line by line — and Enter then submits the
+    # whole block as a single item.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            document=dc.OutputDocument(),
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+        )
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            pipe.send_text("\x1b[200~line one\nline two\nline three\x1b[201~")
+            assert _wait_for(lambda: "line three" in view._input_buffer.text)
+            assert view._submissions.empty()
+            pipe.send_text("\r")
+            item = view._submissions.get(timeout=5)
+            assert item == "line one\nline two\nline three"
+        finally:
+            view.stop()

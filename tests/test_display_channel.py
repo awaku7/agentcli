@@ -510,3 +510,26 @@ def test_render_notice_in_view_starts_on_a_line_boundary(monkeypatch):
 
     text = "".join(s.text for s in document.snapshot()[0])
     assert text == "The result is \n[Nostr] New message\n"
+
+
+def test_document_snapshot_replace_preserves_intervening_user_segment():
+    # Regression (PR #483 Codex P2): replace_last_lines truncated
+    # the whole document tail by the snapshot's line count, so a
+    # user line submitted mid-stream (after the snapshot) was
+    # deleted by the next redraw.  The replacement now targets the
+    # snapshot's own span.
+    document = dc.OutputDocument()
+    document.append("answer", "snap one\nsnap two")
+    document.append("user", "User> follow-up\n")
+    document.replace_last_lines(2, "snap v2 one\nsnap v2 two", kind="answer")
+
+    segments, _v, _e = document.snapshot()
+    text = "".join(s.text for s in segments)
+    assert text == "snap v2 one\nsnap v2 twoUser> follow-up\n"
+
+    # The tracked span keeps later redraws on the snapshot too.
+    document.replace_last_lines(2, "snap v3 one\nsnap v3 two", kind="answer")
+    segments, _v, _e = document.snapshot()
+    text = "".join(s.text for s in segments)
+    assert text == "snap v3 one\nsnap v3 twoUser> follow-up\n"
+    assert [s.kind for s in segments] == ["answer", "user"]
