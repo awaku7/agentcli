@@ -103,7 +103,15 @@ DisplayEvent = StreamDelta | Notice | StatusRedraw
 
 #: The kinds of content a document segment can hold.  Kinds name what
 #: the content IS, never how it was captured or how it is coloured.
-SEGMENT_KINDS = ("answer", "reasoning", "notice", "tool", "output", "debug")
+SEGMENT_KINDS = (
+    "answer",
+    "reasoning",
+    "notice",
+    "tool",
+    "user",
+    "output",
+    "debug",
+)
 
 _MAX_DOCUMENT_CHARS = 200_000
 

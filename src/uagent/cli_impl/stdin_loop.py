@@ -69,6 +69,37 @@ def _console_view_ctrl_c() -> None:
     core.event_queue.put({"kind": "command", "text": ":exit"})
 
 
+def _console_view_f12() -> None:
+    """F12 inside the console view: the legacy interrupt key.
+
+    Mirrors the F12 monitor's busy-only semantics: cancel a
+    pending ask and request the interrupt. Idle F12 does nothing.
+    While the view owns the terminal, the legacy monitor does not
+    read stdin (see core_impl.interrupt), so this binding is the
+    only F12 path.
+    """
+    with core.human_ask_lock:
+        ask_active = bool(core.human_ask_active)
+        ask_queue = core.human_ask_queue if ask_active else None
+    if not ask_active and not getattr(core, "status_busy", False):
+        return
+    if ask_queue is not None:
+        try:
+            ask_queue.put("cancel")
+        except Exception:
+            pass
+    try:
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+    except Exception:
+        pass
+    try:
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+    except Exception:
+        pass
+
+
 def _get_console_view():
     """The session's full-screen console view, or None when unavailable."""
     global _console_view, _console_view_failed
@@ -86,6 +117,7 @@ def _get_console_view():
                 completer=getattr(session, "completer", None),
                 history=getattr(session, "history", None),
                 on_ctrl_c=_console_view_ctrl_c,
+                on_f12=_console_view_f12,
             )
         except Exception:
             _console_view_failed = True
@@ -376,6 +408,11 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                         and getattr(sys.stdin, "isatty", lambda: False)()
                     ):
                         _view = _get_console_view()
+                    if _chat_mode_active:
+                        # Chat mode reads manually; a view left
+                        # running from an earlier read must yield
+                        # the terminal first.
+                        _suspend_console_view()
                     if _view is not None:
                         line = _read_line_from_view(_view, prompt)
                     elif (

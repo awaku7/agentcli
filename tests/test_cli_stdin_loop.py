@@ -363,3 +363,54 @@ def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch) -> None:
     # And the loop's exit stopped the view exactly once.
     assert view.stop_calls == 1
     assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_chat_mode_suspends_a_running_view(monkeypatch) -> None:
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop, "is_chat_mode", lambda: "llm")
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert view.suspend_calls >= 1
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_console_view_f12_interrupts_only_when_busy(monkeypatch) -> None:
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "interrupt_requested", False)
+    monkeypatch.setattr(core, "auto_pilot_exit_requested", False)
+    monkeypatch.setattr(core, "status_busy", False)
+    with core.human_ask_lock:
+        monkeypatch.setattr(core, "human_ask_active", False)
+        monkeypatch.setattr(core, "human_ask_queue", None)
+
+    # Idle: F12 does nothing.
+    stdin_loop._console_view_f12()
+    assert core.interrupt_requested is False
+
+    # Busy: F12 requests the interrupt, like the legacy monitor.
+    monkeypatch.setattr(core, "status_busy", True)
+    stdin_loop._console_view_f12()
+    assert core.interrupt_requested is True
+    assert core.auto_pilot_exit_requested is True
+
+    # Ask pending: F12 cancels the ask and still interrupts.
+    monkeypatch.setattr(core, "interrupt_requested", False)
+    monkeypatch.setattr(core, "auto_pilot_exit_requested", False)
+    with core.human_ask_lock:
+        monkeypatch.setattr(core, "human_ask_active", True)
+        monkeypatch.setattr(core, "human_ask_queue", ask_queue)
+    stdin_loop._console_view_f12()
+    assert ask_queue.get_nowait() == "cancel"
+    assert core.interrupt_requested is True

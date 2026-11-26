@@ -8,11 +8,28 @@ import threading
 from .. import core as _core
 
 
+def _console_view_active() -> bool:
+    """True while the full-screen console view owns the terminal.
+
+    The view routes F12 through its own key bindings then; this
+    monitor must not read the same stdin concurrently, or the two
+    readers consume each other's keystrokes.
+    """
+    try:
+        from ..cli_impl.console_view import active_view
+
+        return active_view() is not None
+    except Exception:
+        return False
+
+
 def _check_key_win() -> None:
     """Check dedicated function keys without consuming normal text input."""
     with _core.human_ask_lock:
         if _core.human_ask_active or _core.input_prompt_active or not _core.status_busy:
             return
+    if _console_view_active():
+        return
     try:
         import msvcrt  # type: ignore
 
@@ -36,6 +53,8 @@ def _check_key_posix() -> None:
     with _core.human_ask_lock:
         if _core.human_ask_active or _core.input_prompt_active or not _core.status_busy:
             return
+    if _console_view_active():
+        return
     if not sys.stdin.isatty():
         return
     try:

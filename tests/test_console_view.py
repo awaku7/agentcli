@@ -52,9 +52,18 @@ def test_view_submits_lines_and_projects_document():
             document.append("answer", "assistant text")
             assert _wait_for(lambda: "assistant text" in view._output_text)
 
+            view.set_prompt_text("User> ")
             pipe.send_text("hello view\r")
             line = view.wait_line(abort=lambda: False)
             assert line == "hello view"
+            # The submission is recorded in the transcript, with
+            # its prompt, like the legacy terminal's scrollback.
+            assert _wait_for(
+                lambda: any(
+                    s.kind == "user" and s.text == "User> hello view\n"
+                    for s in document.snapshot()[0]
+                )
+            )
 
             view.set_spinner("LLM")
             fragments = view._spinner_fragments()
@@ -516,3 +525,59 @@ def test_tool_trace_line_posts_tool_segment(monkeypatch, capsys):
     assert "trace-marker-view" not in capsys.readouterr().out
     segments, _, _ = document.snapshot()
     assert any(s.kind == "tool" and "trace-marker-view" in s.text for s in segments)
+
+
+def test_view_f12_binding_fires_callback():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    hits: list[bool] = []
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            on_f12=lambda: hits.append(True),
+        )
+        view.start()
+        try:
+            pipe.send_text("\x1b[24~")
+            assert _wait_for(lambda: bool(hits))
+        finally:
+            view.stop()
+
+
+def test_interrupt_monitor_stays_out_while_view_active(monkeypatch):
+    import io
+    import select as select_module
+    import sys
+    import types
+
+    from uagent import core
+    from uagent.core_impl import interrupt
+
+    select_calls: list[bool] = []
+
+    def fake_select(r, _w, _x, _t):
+        select_calls.append(True)
+        return (r, [], [])
+
+    monkeypatch.setattr(select_module, "select", fake_select)
+    monkeypatch.setattr(core, "status_busy", True)
+    monkeypatch.setattr(core, "input_prompt_active", False)
+    monkeypatch.setattr(core, "human_ask_active", False)
+    fake_stdin = types.SimpleNamespace(
+        isatty=lambda: True,
+        fileno=lambda: -1,
+        buffer=io.BytesIO(b""),
+    )
+    monkeypatch.setattr(sys, "stdin", fake_stdin)
+
+    # View active: the monitor must not touch stdin at all.
+    monkeypatch.setattr(console_view, "_active_view", object())
+    interrupt._check_key_posix()
+    assert select_calls == []
+
+    # No view: the monitor proceeds to its read attempt.
+    monkeypatch.setattr(console_view, "_active_view", None)
+    interrupt._check_key_posix()
+    assert select_calls

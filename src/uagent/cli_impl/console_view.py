@@ -280,6 +280,7 @@ class ConsoleView:
         completer: Any = None,
         history: Any = None,
         on_ctrl_c: Callable[[], None] | None = None,
+        on_f12: Callable[[], None] | None = None,
         pt_input: Any = None,
         pt_output: Any = None,
         document: Any = None,
@@ -309,6 +310,7 @@ class ConsoleView:
         )
         self._submissions: queue.Queue[Any] = queue.Queue()
         self._on_ctrl_c = on_ctrl_c
+        self._on_f12 = on_f12
         self._pt_input = pt_input
         self._pt_output = pt_output
         self._prompt_text = ""
@@ -617,6 +619,14 @@ class ConsoleView:
                 pass
             buffer.reset()
             self._submissions.put(text)
+            # The legacy terminal keeps the submitted line in its
+            # scrollback; the transcript here is the document, so
+            # record the line (with its prompt) or it vanishes.
+            if self._document is not None:
+                try:
+                    self._document.append("user", f"{self._prompt_text}{text}\n")
+                except Exception:
+                    pass
 
         @bindings.add("c-j")
         def _newline(event: Any) -> None:
@@ -627,6 +637,16 @@ class ConsoleView:
             if self._on_ctrl_c is not None:
                 try:
                     self._on_ctrl_c()
+                except Exception:
+                    pass
+
+        @bindings.add("f12")
+        def _f12(event: Any) -> None:
+            # While the view owns the terminal it also owns the
+            # interrupt key; the legacy F12 monitor stays out.
+            if self._on_f12 is not None:
+                try:
+                    self._on_f12()
                 except Exception:
                     pass
 
