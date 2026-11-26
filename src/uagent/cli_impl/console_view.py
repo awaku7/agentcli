@@ -640,6 +640,7 @@ class ConsoleView:
         self._reply_draft: Any = None
         self._reply_completer: Any = None
         self._reply_history: Any = None
+        self._reply_macro_before: Any = None
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
         self._on_interrupt = on_interrupt
@@ -1188,6 +1189,20 @@ class ConsoleView:
                     from prompt_toolkit.history import InMemoryHistory
 
                     self._input_buffer.history = InMemoryHistory()
+                    if is_password:
+                        # An Emacs macro recording must never
+                        # capture password keystrokes (the macro
+                        # lives on the application, so the buffer
+                        # reset does not help): stop any recording
+                        # in progress — it is discarded, tainted
+                        # from here on — and remember the stored
+                        # macro, so the restore can drop a macro
+                        # completed during the reply.
+                        emacs = self._emacs_state()
+                        if emacs is not None:
+                            self._reply_macro_before = emacs.macro
+                            if emacs.is_recording:
+                                emacs.reset()
                     self._input_buffer.reset()
                 except Exception:
                     pass
@@ -1249,6 +1264,13 @@ class ConsoleView:
                 if not self._running:
                     return self.eof_sentinel
 
+    def _emacs_state(self) -> Any:
+        """The running application's Emacs state, if it has one."""
+        app = self._app
+        if app is None:
+            return None
+        return getattr(app, "emacs_state", None)
+
     def _restore_reply_buffer(self) -> None:
         """Undo begin_reply's buffer surgery (application thread).
 
@@ -1258,6 +1280,7 @@ class ConsoleView:
         """
         with self._state_lock:
             armed = self._reply_armed
+            was_password = self._reply_is_password
             self._reply_label = None
             self._reply_is_password = False
             self._reply_armed = False
@@ -1274,6 +1297,23 @@ class ConsoleView:
             # nothing to restore — resetting here would wipe it.
             self._invalidate()
             return
+        if was_password:
+            # Drop whatever macro state the reply could have
+            # tainted: a recording still in progress was started
+            # during the reply (the arm stopped any earlier one),
+            # and a stored macro whose identity changed was
+            # completed during it.  A macro stored before the ask
+            # and untouched since is clean and stays.
+            emacs = self._emacs_state()
+            if emacs is not None:
+                try:
+                    if emacs.is_recording:
+                        emacs.reset()
+                    if emacs.macro is not self._reply_macro_before:
+                        emacs.macro = []
+                except Exception:
+                    pass
+            self._reply_macro_before = None
         try:
             self._input_buffer.completer = completer
             if history is not None:

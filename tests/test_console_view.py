@@ -2053,6 +2053,51 @@ def test_view_password_reply_ctrl_o_never_reaches_the_file_history(tmp_path):
             view.stop()
 
 
+def test_view_password_reply_never_lands_in_an_emacs_macro():
+    # Regression (PR #491 Codex P2, fourth round): Emacs keyboard
+    # macros live on the application, not the buffer, so the
+    # reply's buffer reset left them untouched — a recording that
+    # captured the password keystrokes could be replayed with
+    # Ctrl+X e at the restored, unmasked prompt, inserting the
+    # secret in the clear.  Arming a password reply stops any
+    # recording in progress, and the restore drops macro state
+    # the reply could have tainted.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            # A recording started BEFORE the ask is stopped at
+            # arm time; its keys never reach a stored macro.
+            pipe.send_text("\x18(")  # Ctrl+X ( : start recording.
+            assert _wait_for(lambda: view._app.emacs_state.is_recording)
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert not view._app.emacs_state.is_recording
+            pipe.send_text("s3cret\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            pipe.send_text("\x18e")  # Ctrl+X e: replay — nothing comes back.
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+            # A recording started DURING the reply is dropped at
+            # the restore, even though it was properly ended.
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("\x18(hunter2\x18)")
+            assert _wait_for(lambda: view._app.emacs_state.macro)
+            pipe.send_text("\r")
+            assert view.wait_reply(abort=lambda: False) == "hunter2"
+            assert view._app.emacs_state.macro == []
+            pipe.send_text("\x18e")
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character
