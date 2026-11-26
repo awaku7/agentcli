@@ -134,6 +134,32 @@ def test_bitchat_room_turn_uses_the_noise_keyed_record(tmp_path, monkeypatch) ->
     sessions.close()
 
 
+def test_is_chat_room_session_recognizes_device_rooms(tmp_path) -> None:
+    from uagent.cli_impl.main import _is_chat_room_session
+
+    sessions_path = tmp_path / "sessions.sqlite3"
+    sessions = SessionStore(sessions_path)
+    main = sessions.create_session(project="proj", entry_point="cli")
+    with SQLitePairingStore(tmp_path / "pairings.sqlite3") as pairings:
+        pairings.pair(_pubkey(79), "phone", approved=True, binding="room")
+        core = _core(main.session_id, pairings)
+        messages = [{"role": "user", "content": "main history"}]
+        assert not _is_chat_room_session(core, main.session_id)
+        assert not _is_chat_room_session(core, "no-such-session")
+        ctx = _enter_chat_room_turn(
+            core, sessions, messages, {"store": "nostr", "peer_key": _pubkey(79)}
+        )
+        assert ctx is not None
+        assert _is_chat_room_session(core, core.session_id)
+        _leave_chat_room_turn(core, messages, ctx)
+        # Still recognized after the turn ends: finished job notices
+        # for the room are routed by this check.
+        record = pairings.record_for(_pubkey(79))
+        assert record is not None and record.room_session_id is not None
+        assert _is_chat_room_session(core, record.room_session_id)
+    sessions.close()
+
+
 def test_room_session_entry_point_matches_cli_job_owner(tmp_path) -> None:
     # With structured handoff enabled, the host policy requires the
     # job owner's entry point to equal the parent session's; a room

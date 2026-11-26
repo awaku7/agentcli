@@ -76,7 +76,7 @@ from .sub_agent_jobs import (
 from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_environment
 from ..runtime.sub_agent_cli_receipt import deliver_cli_finished_job_notice
 from ..runtime.sub_agent_receipt_context import queue_cli_sub_agent_receipt
-from ..runtime.sub_agent_jobs import SubAgentJobManager
+from ..runtime.sub_agent_jobs import SubAgentJobManager, SubAgentJobOwner
 
 
 def _start_cli_local_messaging(core_obj: Any) -> tuple[Any, list[dict[str, Any]]]:
@@ -459,6 +459,29 @@ def _chat_room_store_room_session(
                     store.ensure_room_session_id(peer_key, session_id)
     except Exception:
         pass
+
+
+def _is_chat_room_session(core: Any, session_id: str) -> bool:
+    """True when a session is a paired device's room session."""
+    if not session_id:
+        return False
+    try:
+        store = _room_nostr_pairing_store(core)
+        if store is not None and any(
+            record.room_session_id == session_id for record in store.list_devices()
+        ):
+            return True
+    except Exception:
+        pass
+    try:
+        from ..bitchat_pairing import open_bitchat_pairing_store
+
+        with open_bitchat_pairing_store() as store:
+            return any(
+                record.room_session_id == session_id for record in store.list_devices()
+            )
+    except Exception:
+        return False
 
 
 def _chat_room_clear_assignment(
@@ -1517,10 +1540,38 @@ def main() -> int:
                 notice = ev.get("notice") or {}
                 display_job_notice(core, notice)
                 if structured_handoff_enabled:
+                    delivery_owner = job_owner
+                    notice_owner = notice.get("owner")
+                    if (
+                        isinstance(notice_owner, dict)
+                        and notice_owner.get("session_id")
+                        and notice_owner.get("session_id") != job_owner.session_id
+                        and _is_chat_room_session(
+                            core, str(notice_owner.get("session_id"))
+                        )
+                    ):
+                        # The job belongs to a device room whose turn
+                        # has ended (the loop already restored the
+                        # operator's owner). Deliver under the room's
+                        # owner — the manager re-authorizes the pair —
+                        # so the receipt queues for the room session
+                        # and reaches the device's next turn instead of
+                        # being dropped by the owner check.
+                        def _owner_text(key: str) -> str | None:
+                            value = notice_owner.get(key)
+                            return value if isinstance(value, str) and value else None
+
+                        delivery_owner = SubAgentJobOwner(
+                            entry_point=_owner_text("entry_point") or "cli",
+                            session_id=str(notice_owner["session_id"]),
+                            room_id=_owner_text("room_id"),
+                            a2a_task_id=_owner_text("a2a_task_id"),
+                            principal_id=_owner_text("principal_id"),
+                        )
                     try:
                         receipt = deliver_cli_finished_job_notice(
                             manager=job_manager,
-                            owner=job_owner,
+                            owner=delivery_owner,
                             notice=notice,
                             store=session_store,
                         )
