@@ -1969,24 +1969,41 @@ def test_view_reply_end_then_begin_survives_a_stalled_app_loop():
         view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
         view.start()
         try:
-            # Wait for the real application: before it exists,
-            # _call_on_loop runs callbacks inline on the caller
-            # and there is no loop to stall.
-            assert _wait_for(lambda: view._app is not None and view.running)
+            # Wait for the real application AND its loop: before
+            # the loop exists, _call_on_loop runs callbacks inline
+            # on the caller and there is no loop to stall (on a
+            # slow machine the app object appears first).
+            assert _wait_for(
+                lambda: view._app is not None
+                and view._app.loop is not None
+                and view.running,
+                timeout=10,
+            )
             view.begin_reply("[REPLY] > ")
             assert _wait_for(lambda: view._reply_armed)
             # Stall the application loop: callbacks posted now
-            # (the restore included) queue behind this one.
-            view._call_on_loop(lambda: gate.wait(5))
+            # (the restore included) queue behind this one.  Wait
+            # until the stall is actually executing on the loop —
+            # posting alone does not prove the loop is blocked.
+            stall_started = threading.Event()
+
+            def _stall() -> None:
+                stall_started.set()
+                gate.wait(5)
+
+            view._call_on_loop(_stall)
+            assert _wait_for(lambda: stall_started.is_set(), timeout=10)
             worker = threading.Thread(
                 target=lambda: (view.end_reply(), view.begin_reply("[REPLY] > ")),
                 daemon=True,
             )
             worker.start()
-            time.sleep(0.3)
-            # end_reply cannot have returned: its restore is
-            # still queued behind the stall.
-            assert worker.is_alive()
+            # end_reply cannot return while its restore is queued
+            # behind the stall: sample the worker for a while and
+            # require it to stay blocked the whole time.
+            for _ in range(10):
+                time.sleep(0.05)
+                assert worker.is_alive()
             gate.set()
             worker.join(timeout=5)
             assert not worker.is_alive()
