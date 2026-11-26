@@ -208,3 +208,30 @@ def test_active_skill_path_detects_already_loaded_skill(repo_tmp_path: Path) -> 
     assert (
         _has_active_skill_path(messages, str(repo_tmp_path / "another-skill")) is False
     )
+
+
+def test_install_confirmation_uses_human_ask_only_with_a_view(monkeypatch) -> None:
+    # Regression (PR #483 Codex P2): the mandatory install
+    # confirmation fell back to input("") whenever no human_ask
+    # queue existed yet, racing the console view's stdin reading.
+    # With a view active it must go through human_ask; without one
+    # it returns None and the legacy paths apply.
+    from uagent.runtime import display_channel as dc
+    from uagent.tools import human_ask_tool, skills_install_tool
+
+    monkeypatch.setattr(dc, "_active_console_view", lambda: None)
+    assert skills_install_tool._ask_install_confirmation("Install? ") is None
+
+    monkeypatch.setattr(dc, "_active_console_view", lambda: object())
+    monkeypatch.setattr(
+        human_ask_tool,
+        "run_tool",
+        lambda _args: json.dumps({"user_reply": "y"}),
+    )
+    assert skills_install_tool._ask_install_confirmation("Install? ") == "y"
+
+    def _boom(_args):
+        raise RuntimeError("no ask available")
+
+    monkeypatch.setattr(human_ask_tool, "run_tool", _boom)
+    assert skills_install_tool._ask_install_confirmation("Install? ") == "n"

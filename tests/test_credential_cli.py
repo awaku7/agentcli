@@ -73,10 +73,21 @@ def test_git_credential_one_step_setup_and_status(monkeypatch, capsys) -> None:
         "stdin",
         type("TTY", (), {"isatty": lambda self: True})(),
     )
-    monkeypatch.setattr(commands.getpass, "getpass", lambda prompt: "PRIVATE_TOKEN")
+    asks: list[dict] = []
+
+    def _run_tool(name, args):
+        asks.append(dict(args))
+        return json.dumps({"user_reply": "PRIVATE_TOKEN"})
+
+    monkeypatch.setattr("uagent.tools.run_tool", _run_tool)
 
     handle_credential_command("git github.com", core=core, tr=_translate)
     handle_credential_command("git status", core=core, tr=_translate)
+
+    # The token is asked through human_ask as a password, never via a
+    # direct terminal read that would compete with the console view.
+    assert asks and asks[0].get("is_password") is True
+    assert "github.com" in asks[0].get("message", "")
 
     assert effective_git_credential_alias(scope, store=store).startswith("cli-")
     assert selected_git_https_host_for_scope(scope, store=store) == "github.com"
@@ -96,9 +107,8 @@ def test_git_setup_rejects_invalid_host_without_secret_prompt(
     core._sandbox_scope = _git_scope()
     monkeypatch.setattr(commands, "get_default_credential_store", lambda: store)
     monkeypatch.setattr(
-        commands.getpass,
-        "getpass",
-        lambda prompt: (_ for _ in ()).throw(AssertionError("must not prompt")),
+        "uagent.tools.run_tool",
+        lambda name, args: (_ for _ in ()).throw(AssertionError("must not prompt")),
     )
 
     handle_credential_command(
@@ -130,7 +140,10 @@ def test_git_setup_preserves_existing_session_override(monkeypatch, capsys) -> N
         "stdin",
         type("TTY", (), {"isatty": lambda self: True})(),
     )
-    monkeypatch.setattr(commands.getpass, "getpass", lambda prompt: "USER_TOKEN")
+    monkeypatch.setattr(
+        "uagent.tools.run_tool",
+        lambda name, args: json.dumps({"user_reply": "USER_TOKEN"}),
+    )
 
     handle_credential_command("git github.com", core=core, tr=_translate)
 
@@ -167,7 +180,10 @@ def test_git_credential_remove_revokes_only_selected_alias(monkeypatch, capsys) 
         "stdin",
         type("TTY", (), {"isatty": lambda self: True})(),
     )
-    monkeypatch.setattr("builtins.input", lambda prompt: "y")
+    monkeypatch.setattr(
+        "uagent.tools.run_tool",
+        lambda name, args: json.dumps({"user_reply": "y"}),
+    )
 
     handle_credential_command("git remove", core=core, tr=_translate)
 

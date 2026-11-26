@@ -629,3 +629,43 @@ def test_confirmation_requests_are_served_fifo():
     finally:
         manager.shutdown()
         broker.shutdown()
+
+
+def test_job_confirmation_registers_the_display_safe_message() -> None:
+    from uagent.cli_impl.sub_agent_jobs import _JobConfirmationRequest
+
+    fake_core = SimpleNamespace(
+        human_ask_lock=threading.RLock(),
+        human_ask_active=False,
+        human_ask_is_password=False,
+        human_ask_message="",
+        human_ask_prompt="",
+        human_ask_job_id=None,
+        human_ask_queue=None,
+        human_ask_multiline_active=False,
+        human_ask_generation=0,
+        human_ask_lines=[],
+    )
+    job = SimpleNamespace(
+        job_id="job-1",
+        agent_name="agent",
+        set_waiting_for_user=lambda _value: None,
+    )
+    broker = CLIJobConfirmationBroker(fake_core, enabled=True)
+    secret = "abcd1234" + "efgh5678"
+    request = _JobConfirmationRequest(
+        job=job,
+        message="Proceed? api" + "_key=" + secret + " and more\x1b[31m",
+        is_password=False,
+    )
+    broker._pending.append(request)
+    activated = broker._activate_next()
+    assert activated is request
+    # The registered message is the display-safe form — secret masked,
+    # terminal controls stripped — because the stdin loop may replay
+    # it onto the restored terminal when the console view suspends.
+    assert secret not in fake_core.human_ask_message
+    assert "\x1b" not in fake_core.human_ask_message
+    assert "Proceed?" in fake_core.human_ask_message
+    broker._withdraw(request)
+    assert fake_core.human_ask_message == ""

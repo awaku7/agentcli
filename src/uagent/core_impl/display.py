@@ -24,8 +24,22 @@ def _abandoned() -> bool:
         return False
 
 
+def _active_console_view():
+    """The full-screen console view rendering the terminal, if any."""
+    try:
+        from ..cli_impl.console_view import active_view
+
+        return active_view()
+    except Exception:
+        return None
+
+
 def _sync_spinner_to_status(busy: bool) -> None:
-    """Start/stop the spinner. No-op when disabled (UAGENT_SPINNER=0)."""
+    """Start/stop the spinner. No-op when disabled (UAGENT_SPINNER=0).
+
+    While the console view is active, spinner.start/stop drive the
+    view's spinner line instead of the stderr thread.
+    """
     try:
         from ..runtime import spinner as _spinner
 
@@ -87,10 +101,25 @@ def print_reasoning_delta(s: str) -> None:
         relay.post_stream(_display_channel.StreamDelta(text=s, kind="reasoning"))
         return
     _stop_spinner_quietly()
+    # This printer is the legacy terminal renderer for reasoning, so
+    # the gray is applied here — the producer's text carries none,
+    # and the console view grays reasoning by segment kind instead.
+    # Gray the whole delta and reset in the same write, so later
+    # assistant output cannot inherit reasoning's terminal color.
+    # The line-open flag is computed from the original text: the
+    # wrapped text ends with the reset sequence, not the newline.
+    line_open = not s.endswith(chr(10))
+    try:
+        from ..reasoning_display import _reasoning_ansi_enabled
+
+        if _reasoning_ansi_enabled(_core):
+            s = "\x1b[90m" + s + "\x1b[0m"
+    except Exception:
+        pass
     with _core.print_lock:
         print(s, end="", flush=True)
-        _core._stream_line_open = not s.endswith(chr(10))
-        _core._reasoning_stream_open = _core._stream_line_open
+        _core._stream_line_open = line_open
+        _core._reasoning_stream_open = line_open
 
 
 def _write_status_line(
@@ -140,6 +169,21 @@ def print_status_line() -> None:
     # interleave with assistant stream text).
     if bool(getattr(_core, "_is_web", False)):
         _stop_spinner_quietly()
+        return
+
+    # Full-screen console view: the status lives on the fixed bottom
+    # line; none of the line-boundary machinery below applies.
+    view = _active_console_view()
+    if view is not None:
+        with _core.status_lock:
+            busy = _core.status_busy
+            label = _core.status_label
+        _sync_spinner_to_status(bool(busy))
+        label_part = f" [{label}]" if label else ""
+        view.set_status(
+            f"[STATE] {'BUSY' if busy else 'IDLE'}{label_part}",
+            busy=bool(busy),
+        )
         return
 
     # Do not tear down or repaint a live CLI prompt merely to show BUSY/IDLE.

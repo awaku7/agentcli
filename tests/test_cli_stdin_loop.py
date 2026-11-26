@@ -39,8 +39,10 @@ def _patch_common(monkeypatch, fake_stdin) -> None:
     monkeypatch.setattr(stdin_loop, "_append_prompt_history_entry", lambda _text: None)
     monkeypatch.setattr(stdin_loop, "forward_to_mesh", lambda _text: None)
     monkeypatch.setattr(select, "select", lambda r, _w, _x, _t: (r, [], []))
-    # Manual-path tests opt out of the prompt_toolkit session read.
+    # Manual-path tests opt out of the prompt_toolkit session read
+    # and of the full-screen console view.
     monkeypatch.setattr(stdin_loop, "_get_prompt_session", lambda: None)
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: None)
 
 
 def test_prompt_input_is_not_read_while_status_is_busy(monkeypatch) -> None:
@@ -297,3 +299,191 @@ def test_chat_mode_llm_keeps_manual_prompt(monkeypatch) -> None:
 
     assert session.prompt_calls == []
     assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+class _LifecycleView:
+    """Console-view stand-in recording lifecycle calls."""
+
+    def __init__(self) -> None:
+        self.running = True
+        self.suspend_calls = 0
+        self.stop_calls = 0
+
+    def suspend(self) -> None:
+        self.suspend_calls += 1
+        self.running = False
+
+    def stop(self) -> None:
+        self.stop_calls += 1
+        self.running = False
+
+
+def test_reply_suspends_view_and_loop_exit_stops_it(monkeypatch, capsys) -> None:
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Proceed with the thing?")
+    _patch_common(monkeypatch, fake_stdin)
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = True
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+    monkeypatch.setattr(
+        stdin_loop, "_prompt_toolkit_input", lambda _prompt, **_kw: "answer"
+    )
+
+    def fake_sleep(seconds: float) -> None:
+        # The tool side consuming the reply clears the ask flag.
+        if seconds == 0.03:
+            with core.human_ask_lock:
+                core.human_ask_active = False
+
+    monkeypatch.setattr(stdin_loop.time, "sleep", fake_sleep)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    assert ask_queue.get_nowait() == "answer"
+    # The reply prompt owned the terminal: the view was suspended.
+    assert view.suspend_calls >= 1
+    # The question was printed into the (now hidden) view, so suspending
+    # for the reply replayed it onto the restored terminal.
+    assert "Proceed with the thing?" in capsys.readouterr().out
+    # And the loop's exit stopped the view exactly once.
+    assert view.stop_calls == 1
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_chat_mode_suspends_a_running_view(monkeypatch) -> None:
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop, "is_chat_mode", lambda: "llm")
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert view.suspend_calls >= 1
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_console_view_f12_interrupts_only_when_busy(monkeypatch) -> None:
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "interrupt_requested", False)
+    monkeypatch.setattr(core, "auto_pilot_exit_requested", False)
+    monkeypatch.setattr(core, "status_busy", False)
+    with core.human_ask_lock:
+        monkeypatch.setattr(core, "human_ask_active", False)
+        monkeypatch.setattr(core, "human_ask_queue", None)
+
+    # Idle: F12 does nothing.
+    stdin_loop._console_view_f12()
+    assert core.interrupt_requested is False
+
+    # Busy: F12 requests the interrupt, like the legacy monitor.
+    monkeypatch.setattr(core, "status_busy", True)
+    stdin_loop._console_view_f12()
+    assert core.interrupt_requested is True
+    assert core.auto_pilot_exit_requested is True
+
+    # Ask pending: F12 cancels the ask and still interrupts.
+    monkeypatch.setattr(core, "interrupt_requested", False)
+    monkeypatch.setattr(core, "auto_pilot_exit_requested", False)
+    with core.human_ask_lock:
+        monkeypatch.setattr(core, "human_ask_active", True)
+        monkeypatch.setattr(core, "human_ask_queue", ask_queue)
+    stdin_loop._console_view_f12()
+    assert ask_queue.get_nowait() == "cancel"
+    assert core.interrupt_requested is True
+
+
+def test_view_not_used_when_stdout_is_redirected(monkeypatch) -> None:
+    # Regression (PR #483 Codex P2): with stdin interactive but
+    # stdout redirected (uag > session.log), the full-screen view
+    # still took over — prompt_toolkit fell back to a plain output
+    # on the redirected stream and the log received rendered screen
+    # updates instead of the ordered output.  The view requires an
+    # output TTY as well as an input TTY.
+    import io
+
+    fake_stdin = _FakeStdin(["hello\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop.sys, "stdout", io.StringIO())
+    view_requests: list[bool] = []
+    monkeypatch.setattr(
+        stdin_loop,
+        "_get_console_view",
+        lambda: view_requests.append(True) or None,
+    )
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert view_requests == []
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+
+
+def test_multiline_editor_text_is_echoed_to_the_document(monkeypatch) -> None:
+    # Regression (PR #483 Codex P2): with the view active, the "f"
+    # editor runs while the view is suspended, and its accepted
+    # text was never appended to the document — the resumed
+    # transcript showed only "User> f".  The accepted text is now
+    # posted as a user segment before dispatch.
+    from uagent.runtime import display_channel as dc
+
+    view = _LifecycleView()
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+    fake_stdin = _FakeStdin(["f\n"])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(stdin_loop, "_can_use_textarea", lambda: True)
+    monkeypatch.setattr(stdin_loop, "_multiline_editor", lambda: "multiline\nquestion")
+
+    document = dc.default_document()
+    before = len(document.snapshot()[0])
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "multiline\nquestion"}
+    new_segments = document.snapshot()[0][before:]
+    assert any(
+        segment.kind == "user" and "multiline\nquestion" in segment.text
+        for segment in new_segments
+    )

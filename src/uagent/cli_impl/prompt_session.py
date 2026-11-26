@@ -780,6 +780,21 @@ def print_text_above_toolkit_prompt(core: Any, text: str) -> bool:
     prompt is running (or it refused the handoff), in which case the
     caller should fall back to its manual line-tracking print path.
     """
+    # Full-screen console view: the shared output document is the
+    # print target (the view renders it).
+    try:
+        from .console_view import active_view
+
+        view = active_view()
+    except Exception:
+        view = None
+    if view is not None:
+        from ..runtime import display_channel
+
+        display_channel.post_segment(
+            "output", text if text.endswith("\n") else text + "\n"
+        )
+        return True
     if not bool(getattr(core, "_cli_prompt_toolkit_active", False)):
         return False
     app = getattr(core, "_cli_prompt_app", None)

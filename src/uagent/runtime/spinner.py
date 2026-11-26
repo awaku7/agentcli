@@ -40,6 +40,20 @@ _DREW = False
 _last_len = 0
 _started_at: float | None = None
 _last_label = ""
+# Console-view mode: while the full-screen view renders the terminal,
+# start/stop drive the view's spinner line instead of the stderr
+# thread, and the done line goes to the view's output area.
+_view_started_at: float | None = None
+_view_label = ""
+
+
+def _active_console_view():
+    try:
+        from ..cli_impl.console_view import active_view
+
+        return active_view()
+    except Exception:
+        return None
 
 
 def _env_flag(name: str, *, default: bool = False) -> bool:
@@ -316,8 +330,16 @@ def _loop(interval: float, frames: tuple[str, ...]) -> None:
 
 def start(interval: float = 0.08) -> None:
     """Start the spinner thread (no-op when disabled)."""
-    global _thread, _started_at, _last_label
+    global _thread, _started_at, _last_label, _view_started_at, _view_label
     if not spinner_enabled():
+        return
+    view = _active_console_view()
+    if view is not None:
+        with _lock:
+            if _view_started_at is None:
+                _view_started_at = time.monotonic()
+            _view_label = _current_label()
+        view.set_spinner(_view_label)
         return
     with _lifecycle_lock:
         with _lock:
@@ -365,6 +387,16 @@ def _done_line_kept(label: str = "") -> bool:
     # synthetic "OK done [command_pending]" line makes :load/:cont appear to
     # leave a spinner behind after the command has completed.
     return label != "command_pending"
+
+
+def _done_line_text(label: str, elapsed: float | None) -> str:
+    """The plain text of the final line left when the spinner stops."""
+    msg = "done"
+    if label:
+        msg = msg + " [" + label + "]"
+    if elapsed is not None and elapsed >= 0:
+        msg = msg + " in " + ("%.1fs" % (elapsed,))
+    return "OK " + msg
 
 
 def _write_done_line(label: str, elapsed: float | None) -> None:
@@ -440,6 +472,27 @@ def _write_done_line(label: str, elapsed: float | None) -> None:
 def stop(*, clear: bool = True, keep_last_line: bool | None = None) -> None:
     """Stop the spinner and erase its line. Always safe to call."""
     global _thread, _DREW, _last_len, _started_at, _last_label
+    global _view_started_at, _view_label
+    view = _active_console_view()
+    if view is not None:
+        with _lock:
+            started = _view_started_at
+            label = str(_view_label or "").strip() or _current_label(default="")
+            _view_started_at = None
+            _view_label = ""
+        view.set_spinner(None)
+        if started is not None:
+            keep = keep_last_line
+            if keep is None:
+                keep = _done_line_kept(label)
+            if keep:
+                elapsed = time.monotonic() - started
+                from . import display_channel
+
+                display_channel.post_segment(
+                    "notice", _done_line_text(label, elapsed) + "\n"
+                )
+        return
     # Serialize start/stop transitions. Keep the worker reference until it is
     # joined so a concurrent start cannot clear _stop and revive an old thread.
     with _lifecycle_lock:

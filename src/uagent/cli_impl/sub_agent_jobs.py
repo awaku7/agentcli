@@ -138,6 +138,13 @@ class CLIJobConfirmationBroker:
                 self._active = request
                 self.core.human_ask_active = True
                 self.core.human_ask_is_password = request.is_password
+                # Register the display-safe form — the same masking
+                # and sanitization display_job_confirmation prints —
+                # because the stdin loop may replay this text onto the
+                # restored terminal when it suspends the console view.
+                self.core.human_ask_message = _safe_terminal_text(
+                    _mask_inline_secrets(request.message)
+                )
                 self.core.human_ask_prompt = f"[REPLY job:{request.job.job_id}] > "
                 self.core.human_ask_job_id = request.job.job_id
                 self.core.human_ask_queue = request.replies
@@ -162,6 +169,7 @@ class CLIJobConfirmationBroker:
                     if self.core.human_ask_job_id == request.job.job_id:
                         self.core.human_ask_active = False
                         self.core.human_ask_is_password = False
+                        self.core.human_ask_message = ""
                         self.core.human_ask_prompt = ""
                         self.core.human_ask_job_id = None
                         self.core.human_ask_queue = None

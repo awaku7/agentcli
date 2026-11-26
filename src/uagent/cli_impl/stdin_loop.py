@@ -26,6 +26,190 @@ from .input_ui import (
 )
 from .prompt_session import _get_prompt_session, _reset_prompt_sessions
 from .state import _CLI_SHUTDOWN
+
+_console_view = None
+_console_view_failed = False
+
+
+def _console_view_ctrl_c() -> None:
+    """Ctrl+C inside the console view (it arrives as a key, not SIGINT)."""
+    with core.human_ask_lock:
+        ask_active = bool(core.human_ask_active)
+        ask_queue = core.human_ask_queue if ask_active else None
+    if ask_active:
+        # Mirror the legacy Ctrl+C-during-ask behaviour.
+        if ask_queue is not None:
+            try:
+                ask_queue.put("cancel")
+            except Exception:
+                pass
+        return
+    if getattr(core, "status_busy", False):
+        # Interrupt the running turn, mirroring the F12 monitor and the
+        # round worker's KeyboardInterrupt path.
+        try:
+            with core.interrupt_lock:
+                core.interrupt_requested = True
+        except Exception:
+            pass
+        try:
+            with core.auto_pilot_exit_lock:
+                core.auto_pilot_exit_requested = True
+        except Exception:
+            pass
+        return
+    # Idle: the legacy prompt path starts the shutdown sequence.
+    if _console_view is not None:
+        from ..runtime import display_channel
+
+        display_channel.post_segment(
+            "notice",
+            "\n[INFO] " + _("Received Ctrl+C. Starting shutdown...") + "\n",
+        )
+    core.event_queue.put({"kind": "command", "text": ":exit"})
+
+
+def _console_view_f12() -> None:
+    """F12 inside the console view: the legacy interrupt key.
+
+    Mirrors the F12 monitor's busy-only semantics: cancel a
+    pending ask and request the interrupt. Idle F12 does nothing.
+    While the view owns the terminal, the legacy monitor does not
+    read stdin (see core_impl.interrupt), so this binding is the
+    only F12 path.
+    """
+    with core.human_ask_lock:
+        ask_active = bool(core.human_ask_active)
+        ask_queue = core.human_ask_queue if ask_active else None
+    if not ask_active and not getattr(core, "status_busy", False):
+        return
+    if ask_queue is not None:
+        try:
+            ask_queue.put("cancel")
+        except Exception:
+            pass
+    try:
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+    except Exception:
+        pass
+    try:
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+    except Exception:
+        pass
+
+
+def _get_console_view():
+    """The session's full-screen console view, or None when unavailable."""
+    global _console_view, _console_view_failed
+    if _console_view_failed:
+        return None
+    if _console_view is None:
+        try:
+            from .console_view import ConsoleView, view_enabled
+
+            if not view_enabled():
+                _console_view_failed = True
+                return None
+            session = _get_prompt_session()
+            _console_view = ConsoleView(
+                completer=getattr(session, "completer", None),
+                history=getattr(session, "history", None),
+                on_ctrl_c=_console_view_ctrl_c,
+                on_f12=_console_view_f12,
+            )
+        except Exception:
+            _console_view_failed = True
+            return None
+    return _console_view
+
+
+def _read_line_from_view(view, prompt: str):
+    """Read one normal-prompt line through the console view.
+
+    Returns the submitted line, or None when the wait was aborted
+    because a human_ask took stdin (the view is suspended so the
+    legacy reply path can own the terminal) or shutdown began.
+    Raises EOFError on Ctrl+D, like the legacy prompt paths.
+    """
+    if not view.running:
+        view.start()
+    view.set_prompt_text(prompt)
+    try:
+        core._prompt_line_open = True
+        core._cli_prompt_toolkit_active = True
+    except Exception:
+        pass
+
+    def _abort() -> bool:
+        if _CLI_SHUTDOWN.is_set():
+            return True
+        with core.human_ask_lock:
+            return bool(core.human_ask_active)
+
+    try:
+        item = view.wait_line(abort=_abort)
+    finally:
+        try:
+            core._prompt_line_open = False
+            core._cli_prompt_toolkit_active = False
+        except Exception:
+            pass
+    if item is None:
+        view.suspend()
+        return None
+    if item is view.eof_sentinel:
+        view.suspend()
+        raise EOFError
+    return tools_util.strip_surrogates(str(item))
+
+
+def _suspend_console_view() -> bool:
+    """Yield the terminal to a legacy prompt or editor, if the view runs.
+
+    The next normal read restarts the view, so callers only suspend.
+    Returns True when a running view was actually suspended.
+    """
+    view = _console_view
+    if view is not None and view.running:
+        try:
+            view.suspend()
+        except Exception:
+            return False
+        return True
+    return False
+
+
+def _replay_pending_question() -> None:
+    """Re-show the pending human_ask question on the restored terminal.
+
+    The question was printed while the console view owned the screen,
+    so it only exists inside the view's document; once the view is
+    suspended for a legacy reply prompt, the user would otherwise see
+    nothing but ``[REPLY] > ``.  The message is the one the ask
+    registered on the core (foreground asks and sub-agent job asks
+    alike).
+    """
+    try:
+        with core.human_ask_lock:
+            message = str(getattr(core, "human_ask_message", "") or "")
+    except Exception:
+        return
+    if message.strip():
+        print(message, flush=True)
+
+
+def _stop_console_view() -> None:
+    """Stop the console view for good (the stdin loop is exiting)."""
+    view = _console_view
+    if view is not None:
+        try:
+            view.stop()
+        except Exception:
+            pass
+
+
 from ..runtime.spinner import (
     paused as _spinner_paused,
     stop_quietly as _stop_spinner_quietly,
@@ -36,6 +220,16 @@ def stdin_loop(*, hook_runner=None) -> None:
     """
     Read standard input and push events to core.event_queue.
     """
+    try:
+        _stdin_loop_impl(hook_runner=hook_runner)
+    finally:
+        # The view is a separate daemon thread owning the terminal;
+        # every exit path (shutdown, EOF, error) must stop it so the
+        # terminal's raw mode and alternate screen are restored.
+        _stop_console_view()
+
+
+def _stdin_loop_impl(*, hook_runner=None) -> None:
     user_multiline_active = False
     user_lines: list[str] = []
     _last_ha_reply_mono = 0.0
@@ -60,6 +254,16 @@ def stdin_loop(*, hook_runner=None) -> None:
             # Prompt is resolved *only when we are ready to actually read input*.
             # If we compute it while BUSY and then loop/sleep, it can become stale
             # (e.g. show a normal prompt while a human_ask is actually active).
+
+            if is_reply:
+                # A legacy reply/password prompt is about to own the
+                # terminal — including asks opened during generation,
+                # where no view read is outstanding to abort. The
+                # next normal read restarts the view. The question was
+                # printed into the view's document, so replay it onto
+                # the restored terminal for the user to answer.
+                if _suspend_console_view():
+                    _replay_pending_question()
 
             if is_password:
                 # When replying to a prompt (human_ask password), flush any pending
@@ -219,7 +423,25 @@ def stdin_loop(*, hook_runner=None) -> None:
                     # Reasoning/アシスタント表示が乱れる。手動パスなら行の
                     # 追跡・再描画を制御できる。
                     _chat_mode_active = is_chat_mode() == "llm"
+                    # Full-screen console view (single-writer 2b): while
+                    # it is enabled it replaces the per-prompt
+                    # PromptSession read; submitted lines flow into the
+                    # same post-processing below either way.
+                    _view = None
                     if (
+                        not _chat_mode_active
+                        and getattr(sys.stdin, "isatty", lambda: False)()
+                        and getattr(sys.stdout, "isatty", lambda: False)()
+                    ):
+                        _view = _get_console_view()
+                    if _chat_mode_active:
+                        # Chat mode reads manually; a view left
+                        # running from an earlier read must yield
+                        # the terminal first.
+                        _suspend_console_view()
+                    if _view is not None:
+                        line = _read_line_from_view(_view, prompt)
+                    elif (
                         prompt_session is not None
                         and getattr(sys.stdin, "isatty", lambda: False)()
                         and not _chat_mode_active
@@ -685,6 +907,9 @@ def stdin_loop(*, hook_runner=None) -> None:
                 continue
 
             if line == "f" and _can_use_textarea():
+                # The editor opens its own application; the view
+                # must not compete with it for the terminal.
+                _suspend_console_view()
                 text = _multiline_editor()
                 if text is None:
                     continue
@@ -702,6 +927,15 @@ def stdin_loop(*, hook_runner=None) -> None:
                         )
                     continue
                 _append_prompt_history_entry(text)
+                if _console_view is not None:
+                    # The editor ran on the restored terminal while
+                    # the view was suspended; without this the resumed
+                    # transcript shows only the "f" line, not the
+                    # message itself.
+                    from ..runtime import display_channel
+
+                    prompt = getattr(core, "get_prompt", lambda: "User> ")()
+                    display_channel.post_segment("user", f"{prompt}{text}\n")
                 forward_to_mesh(text)
                 if is_chat_mode() == "on":
                     # "on" mode: forward to mesh only, not to LLM
