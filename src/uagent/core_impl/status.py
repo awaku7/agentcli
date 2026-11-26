@@ -124,6 +124,19 @@ def set_status(busy: bool, label: str = "") -> None:
         is_web = bool(getattr(_core, "_is_web", False))
         if busy or bool(getattr(_core, "IS_GUI", False)) or is_web:
             print_status_line()
+        elif not busy:
+            # The console view keeps a persistent status line instead of
+            # a prompt, so it must hear about IDLE transitions too —
+            # otherwise its bottom line stays BUSY after the turn ends.
+            # print_status_line() routes to the view and returns when
+            # one is active; with no view this branch never runs.
+            try:
+                from ..runtime.display_channel import _active_console_view
+
+                if _active_console_view() is not None:
+                    print_status_line()
+            except Exception:
+                pass
 
 
 def get_prompt() -> str:

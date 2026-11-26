@@ -698,3 +698,23 @@ def test_completion_menu_is_part_of_the_layout():
             assert any(isinstance(c, CompletionsMenu) for c in containers)
         finally:
             view.stop()
+
+
+def test_view_status_follows_idle_transitions(monkeypatch):
+    # Regression (PR #483 Codex P2): set_status() deliberately skips
+    # print_status_line() for CLI IDLE transitions (the next prompt is
+    # the legacy idle indicator), so the view only ever received BUSY
+    # and its bottom line stayed "[STATE] BUSY [LLM]" after the turn.
+    from uagent import core
+
+    fake = _FakeView()
+    console_view._set_active(fake)  # type: ignore[arg-type]
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "status_label", "")
+    monkeypatch.setattr(core, "human_ask_active", False)
+
+    core.set_status(True, "LLM")
+    core.set_status(False, "")
+
+    assert fake.status[0] == ("[STATE] BUSY [LLM]", True)
+    assert fake.status[-1] == ("[STATE] IDLE", False)
