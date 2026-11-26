@@ -1415,6 +1415,49 @@ def test_view_drag_on_a_wrapped_lines_middle_row_is_not_the_edge():
             view.stop()
 
 
+def test_view_drag_at_the_top_edge_when_the_view_starts_mid_line():
+    # When the viewport starts partway through a wrapped line,
+    # the render mapping also carries the off-screen segments
+    # above it (negative keys).  The first actual screen row
+    # must still count as the top edge.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(20):
+        document.append("answer", f"line {i:02d}\n")
+    document.append("answer", "W" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # The cursor sits on the huge last line, so the window
+            # scrolls inside it: the mapping carries the segments
+            # above the viewport under negative keys.
+            assert _wait_for(
+                lambda: min(window.render_info.visible_line_to_row_col) < 0
+            )
+            inner_top = window.vertical_scroll_2
+            assert inner_top > 0
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            assert _wait_for(lambda: window.vertical_scroll_2 < inner_top)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

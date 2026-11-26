@@ -1310,7 +1310,20 @@ class ConsoleView:
                 last segment.
                 """
                 info = getattr(view._output_window, "render_info", None)
-                rows = getattr(info, "visible_line_to_row_col", None)
+                all_rows = getattr(info, "visible_line_to_row_col", None)
+                if not all_rows:
+                    return 0
+                # The mapping also carries segments just outside
+                # the viewport (negative keys above, keys past the
+                # height below) when the view starts or ends
+                # partway through a wrapped line; only the actual
+                # screen rows decide the edges.
+                height = getattr(info, "window_height", None)
+                if not isinstance(height, int) or height <= 0:
+                    return 0
+                rows = {
+                    key: value for key, value in all_rows.items() if 0 <= key < height
+                }
                 if not rows:
                     return 0
                 row = mouse_event.position.y
