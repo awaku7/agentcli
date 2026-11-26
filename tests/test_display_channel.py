@@ -461,3 +461,52 @@ def test_split_snapshot_prefix_matches_host_renderer():
     assert dc.split_snapshot_prefix(one_line) == (1, "snap v2")
     assert dc.split_snapshot_prefix("plain delta") is None
     assert dc.split_snapshot_prefix("\rplain") is None
+
+
+def test_render_notice_in_view_waits_for_the_open_stream_line(monkeypatch):
+    # Regression (PR #483 Codex P2): with the console view active,
+    # render_notice appended the notice immediately, splitting the
+    # line an answer was still writing ("The result is [Nostr] New
+    # message\n42.").  The view path now keeps the legacy discipline:
+    # wait (draining the stream) for the line to close first.
+    document = dc.OutputDocument()
+    document.append("answer", "The result is ")
+    core = types.SimpleNamespace(_reasoning_stream_open=False, _stream_line_open=True)
+    monkeypatch.setattr(dc, "_active_console_view", lambda: object())
+    drained: list[bool] = []
+
+    def _drain() -> bool:
+        document.append("answer", "42.\n")
+        core._stream_line_open = False
+        drained.append(True)
+        return True
+
+    dc.render_notice(
+        core,
+        dc.Notice(text="[Nostr] New message", source="nostr", wait_for_stream=True),
+        stream_drain=_drain,
+        document=document,
+    )
+
+    assert drained
+    text = "".join(s.text for s in document.snapshot()[0])
+    assert text == "The result is 42.\n[Nostr] New message\n"
+
+
+def test_render_notice_in_view_starts_on_a_line_boundary(monkeypatch):
+    # When the open line outlives the grace period, the notice still
+    # starts on its own line instead of gluing onto the answer's.
+    document = dc.OutputDocument()
+    document.append("answer", "The result is ")
+    core = types.SimpleNamespace(_reasoning_stream_open=False, _stream_line_open=True)
+    monkeypatch.setattr(dc, "_active_console_view", lambda: object())
+    monkeypatch.setattr(dc, "STREAM_GRACE_SEC", 0.1)
+
+    dc.render_notice(
+        core,
+        dc.Notice(text="[Nostr] New message", source="nostr", wait_for_stream=True),
+        document=document,
+    )
+
+    text = "".join(s.text for s in document.snapshot()[0])
+    assert text == "The result is \n[Nostr] New message\n"

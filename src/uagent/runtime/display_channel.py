@@ -436,17 +436,7 @@ def _render_notice_after_stream(
     iteration first renders one queued stream delta, which is what
     advances the flags being waited on.
     """
-    deadline = time.time() + STREAM_GRACE_SEC
-    # Reasoning deltas are written without a trailing newline, so wait
-    # for the reasoning stream to close completely.
-    while getattr(core, "_reasoning_stream_open", False):
-        if stream_drain is not None and stream_drain():
-            continue
-        time.sleep(0.02)
-    while getattr(core, "_stream_line_open", False) and time.time() < deadline:
-        if stream_drain is not None and stream_drain():
-            continue
-        time.sleep(0.02)
+    _wait_for_stream_line(core, stream_drain=stream_drain)
     # Stop the spinner before acquiring print_lock (see the lock-order
     # note above), remembering whether it was active so it can be
     # restored afterwards.  Best-effort: a spinner failure must not
@@ -580,6 +570,28 @@ def _render_notice_now(core: Any, text: str) -> None:
                 pass
 
 
+def _wait_for_stream_line(core: Any, *, stream_drain: Any = None) -> None:
+    """Wait for the stream's current line to close before a notice.
+
+    Reasoning deltas are written without a trailing newline, so wait
+    for the reasoning stream to close completely; ordinary streamed
+    answer text gets a short grace period before the notice inserts
+    anyway.  ``stream_drain`` is the pump's callback that renders one
+    queued stream delta per call — the pump is the thread that renders
+    the stream being waited on, so waiting without draining would
+    stall the stream behind the notice.
+    """
+    deadline = time.time() + STREAM_GRACE_SEC
+    while getattr(core, "_reasoning_stream_open", False):
+        if stream_drain is not None and stream_drain():
+            continue
+        time.sleep(0.02)
+    while getattr(core, "_stream_line_open", False) and time.time() < deadline:
+        if stream_drain is not None and stream_drain():
+            continue
+        time.sleep(0.02)
+
+
 def render_notice(
     core: Any,
     notice: Notice,
@@ -587,14 +599,27 @@ def render_notice(
     stream_drain: Any = None,
     document: OutputDocument | None = None,
 ) -> None:
+    doc = document or default_channel().document
+    text = notice.text if notice.text.endswith("\n") else notice.text + "\n"
+    if _active_console_view() is not None:
+        # The view renders the document; the notice only has to land
+        # in it — but at a line boundary, with the same stream-wait
+        # discipline as the legacy insertion.  Appending immediately
+        # would split the line an answer is still writing, gluing the
+        # notice into the middle of that line when projected.
+        if notice.wait_for_stream:
+            _wait_for_stream_line(core, stream_drain=stream_drain)
+        segments, _version, _epoch = doc.snapshot()
+        if segments and not segments[-1].text.endswith("\n"):
+            # Close the open line as a continuation of its own
+            # segment, like the legacy insertion's bare newline.
+            doc.append(segments[-1].kind, "\n")
+        doc.append("notice", text)
+        return
     # Every notice gathers into the output document; the channel's
     # take order (stream before notices) already keeps a notice
     # behind the stream deltas queued ahead of it.
-    text = notice.text if notice.text.endswith("\n") else notice.text + "\n"
-    (document or default_channel().document).append("notice", text)
-    if _active_console_view() is not None:
-        # The view renders the document; nothing more to do.
-        return
+    doc.append("notice", text)
     if notice.wait_for_stream:
         _render_notice_after_stream(core, notice.text, stream_drain=stream_drain)
     else:
