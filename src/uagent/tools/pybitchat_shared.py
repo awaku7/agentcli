@@ -651,6 +651,32 @@ def _paired_nostr_route(recipient_hex: str) -> tuple[str, str] | None:
     return None
 
 
+def _routes_identify_same_peer(
+    route_a: dict[str, str], route_b: dict[str, str]
+) -> bool:
+    """True when two reply routes name the same paired peer across transports.
+
+    A turn can start on one transport and continue on the other: a
+    BLE peer who leaves the mesh still receives a forwarded question
+    over Nostr and answers there. The pairing store's linked Nostr
+    key is the shared identity — a ble route for a peer id and a
+    nostr route for its linked pubkey identify the same peer.
+    """
+    ble_peer: str | None = None
+    nostr_key: str | None = None
+    for route in (route_a, route_b):
+        via = route.get("via")
+        peer = route.get("peer") or ""
+        if via == "ble":
+            ble_peer = peer
+        elif via == "nostr":
+            nostr_key = peer
+    if ble_peer is None or nostr_key is None:
+        return False
+    linked = _paired_nostr_route(ble_peer)
+    return linked is not None and linked[0].lower() == nostr_key.lower()
+
+
 def _send_dm_via_nostr_fallback(text: str, recipient: str) -> bool:
     """Send a DM over Nostr because the peer is not on the BLE mesh.
 
@@ -2560,6 +2586,8 @@ def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
     Returns True when the DM was consumed as the ask's answer: it is
     neither displayed nor injected as a new turn. Only the active
     turn's peer can answer, and only the exact ask that was forwarded.
+    The answer may arrive over the other transport when the peer's
+    linked identity matches (see _routes_identify_same_peer).
     Control texts (/uag ...) are never consumed as answers. Callers
     recheck the sender's pairing immediately before calling, so a
     peer revoked while the ask was pending cannot answer it.
@@ -2572,7 +2600,7 @@ def _try_deliver_bitchat_ask_answer(route: dict[str, str], text: str) -> bool:
         forwarded = _ASK_FORWARDED_QUEUE
     if active_route is None or forwarded is None:
         return False
-    if route != active_route:
+    if route != active_route and not _routes_identify_same_peer(route, active_route):
         return False
     snapshot = _ask_state_snapshot()
     if not snapshot or not snapshot.get("active"):
