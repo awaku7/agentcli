@@ -1339,23 +1339,67 @@ class ConsoleView:
                     return 1
                 return 0
 
+            def _segment_bounds(self, row: int) -> tuple[list[int], int]:
+                """(segment start columns, wrap width) for a document
+                row, from the latest render's segment map (which
+                also lists the segments just outside the viewport).
+                The width is 0 when the row does not wrap anywhere
+                in the rendered range."""
+                info = getattr(view._output_window, "render_info", None)
+                mapping = getattr(info, "visible_line_to_row_col", None) or {}
+                starts = sorted({col for r, col in mapping.values() if r == row})
+                if 0 not in starts:
+                    starts = sorted(set(starts) | {0})
+                width = starts[1] - starts[0] if len(starts) >= 2 else 0
+                return starts, width
+
             def _extend_past_edge(self, step: int) -> bool:
-                """Scroll one line and step the selection endpoint
-                one document line in the same direction."""
+                """Scroll one screen row and step the selection
+                endpoint one screen row in the same direction.
+
+                A screen row is one wrapped segment: inside a
+                wrapped line the endpoint steps segment by
+                segment (the renderer scrolls within the line to
+                follow it); at the line's first/last segment it
+                steps to the neighbouring line.  False only at
+                the document's own beginning or end.
+                """
                 buffer = self.buffer
                 document = buffer.document
-                row, _col = document.translate_index_to_position(buffer.cursor_position)
-                target_row = row + step
-                if target_row < 0 or target_row >= document.line_count:
-                    return False
+                row, col = document.translate_index_to_position(buffer.cursor_position)
+                starts, width = self._segment_bounds(row)
                 if buffer.selection_state is None:
                     buffer.start_selection(selection_type=SelectionType.CHARACTERS)
                 if step < 0:
-                    target = document.translate_row_col_to_index(target_row, 0)
+                    earlier = [s for s in starts if s < col]
+                    if earlier:
+                        target_col = max(earlier)
+                        target = document.translate_row_col_to_index(row, target_col)
+                    elif width > 0 and col >= width:
+                        target = document.translate_row_col_to_index(row, col - width)
+                    elif row == 0:
+                        return False
+                    else:
+                        target = document.translate_row_col_to_index(row - 1, 0)
                 else:
-                    target = document.translate_row_col_to_index(
-                        target_row, len(document.lines[target_row])
-                    )
+                    line_end = len(document.lines[row])
+                    if width > 0:
+                        ends = sorted({min(s + width, line_end) for s in starts})
+                        later = [e for e in ends if e > col]
+                    else:
+                        later = [line_end] if col < line_end else []
+                    if later:
+                        target = document.translate_row_col_to_index(row, min(later))
+                    elif width > 0 and col < line_end:
+                        target = document.translate_row_col_to_index(
+                            row, min(col + width, line_end)
+                        )
+                    elif row + 1 >= document.line_count:
+                        return False
+                    else:
+                        target = document.translate_row_col_to_index(
+                            row + 1, len(document.lines[row + 1])
+                        )
                 view._scroll_output_wheel(step)
                 buffer.cursor_position = target
                 return True

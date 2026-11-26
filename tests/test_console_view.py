@@ -1458,6 +1458,47 @@ def test_view_drag_at_the_top_edge_when_the_view_starts_mid_line():
             view.stop()
 
 
+def test_view_drag_at_the_edge_of_a_single_huge_line_scrolls_within_it():
+    # A single paragraph taller than the viewport: the top edge
+    # must keep scrolling through its wrapped segments instead
+    # of stopping at the first visible one — the document row
+    # is already 0, but segments remain above.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            assert _wait_for(lambda: window.vertical_scroll_2 > 0)
+            inner_top = window.vertical_scroll_2
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            top_endpoint = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            # The repeat steps the endpoint segment by segment
+            # toward the paragraph's start, and the view follows.
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position < top_endpoint
+                and window.vertical_scroll_2 < inner_top
+            )
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 
