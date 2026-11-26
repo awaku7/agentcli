@@ -1336,6 +1336,46 @@ class ConsoleView:
                 buffer.cursor_position = target
                 return True
 
+            def _start_edge_scroll(self, step: int) -> None:
+                """Keep extending while the drag holds at an edge.
+
+                A stationary pointer sends no mouse events, so the
+                extension repeats on a background task (after a
+                short initial delay, like key repeat) until it is
+                stopped or the document's own edge is reached.
+                """
+                self._stop_edge_scroll()
+                import asyncio
+
+                holder: dict[str, Any] = {}
+
+                async def _repeat() -> None:
+                    try:
+                        await asyncio.sleep(0.3)
+                        while self._extend_past_edge(step):
+                            await asyncio.sleep(0.05)
+                    except asyncio.CancelledError:
+                        pass
+                    finally:
+                        if getattr(self, "_edge_task", None) is holder.get("task"):
+                            self._edge_task = None
+                            self._edge_scroll_step = 0
+
+                try:
+                    holder["task"] = get_app().create_background_task(_repeat())
+                    self._edge_task = holder["task"]
+                    self._edge_scroll_step = step
+                except Exception:
+                    self._edge_task = None
+                    self._edge_scroll_step = 0
+
+            def _stop_edge_scroll(self) -> None:
+                task = getattr(self, "_edge_task", None)
+                self._edge_task = None
+                self._edge_scroll_step = 0
+                if task is not None:
+                    task.cancel()
+
             def mouse_handler(self, mouse_event: Any) -> Any:
                 if mouse_event.event_type in (
                     MouseEventType.SCROLL_UP,
@@ -1352,7 +1392,7 @@ class ConsoleView:
                     mouse_event.position.y, xpos
                 )
                 if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
-                    self._latched_edge = 0
+                    self._stop_edge_scroll()
                     buffer.exit_selection()
                     buffer.cursor_position = index
                 elif (
@@ -1360,25 +1400,21 @@ class ConsoleView:
                     and mouse_event.button != MouseButton.NONE
                 ):
                     step = self._edge_step(mouse_event)
-                    if step and step == getattr(self, "_latched_edge", 0):
-                        # Still holding at the same edge: keep
-                        # extending without consulting the line
-                        # mapping, which still describes the
-                        # pre-scroll render.  At the document's own
-                        # edge the endpoint simply stays.
-                        self._extend_past_edge(step)
+                    if step and getattr(self, "_edge_scroll_step", 0) == step:
+                        # The repeat task is extending for as long
+                        # as the drag holds at this edge.
                         return None
-                    elif step and index == buffer.cursor_position:
+                    if step and index == buffer.cursor_position:
                         # The endpoint is pinned at the edge line:
-                        # start extending past it (or stay, at the
-                        # document's edge).  Falling through to the
+                        # extend once and let the repeat task take
+                        # over.  At the document's edge the endpoint
+                        # simply stays — falling through to the
                         # mapping below would use the pre-scroll
                         # render and yank the endpoint back.
                         if self._extend_past_edge(step):
-                            self._latched_edge = step
+                            self._start_edge_scroll(step)
                         return None
-                    else:
-                        self._latched_edge = 0
+                    self._stop_edge_scroll()
                     if (
                         buffer.selection_state is None
                         and abs(buffer.cursor_position - index) > 0
@@ -1386,7 +1422,7 @@ class ConsoleView:
                         buffer.start_selection(selection_type=SelectionType.CHARACTERS)
                     buffer.cursor_position = index
                 elif mouse_event.event_type == MouseEventType.MOUSE_UP:
-                    self._latched_edge = 0
+                    self._stop_edge_scroll()
                     if buffer.selection_state is not None:
                         try:
                             get_app().clipboard.set_data(buffer.copy_selection())
