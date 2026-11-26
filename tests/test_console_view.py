@@ -1740,6 +1740,364 @@ def test_view_completes_while_typing_like_the_legacy_prompt():
             view.stop()
 
 
+def test_view_reply_mode_delivers_the_answer_and_restores_the_draft():
+    # A human_ask is answered in the view: the screen never
+    # switches, the reply is not a submission (no document echo,
+    # no history entry), and the half-typed draft comes back.
+    from prompt_toolkit.history import InMemoryHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    document = OutputDocument()
+    history = InMemoryHistory()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            history=history,
+            document=document,
+        )
+        view.start()
+        try:
+            pipe.send_text("my draft")
+            assert _wait_for(lambda: view._input_buffer.text == "my draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._input_buffer.text == ""
+            assert view._rule_label() == "[REPLY]"
+            pipe.send_text("yes please\r")
+            assert view.wait_reply(abort=lambda: False) == "yes please"
+            assert _wait_for(lambda: view._input_buffer.text == "my draft")
+            assert history.get_strings() == []
+            segments, _version, _epoch = document.snapshot()
+            assert all("yes please" not in s.text for s in segments)
+        finally:
+            view.stop()
+
+
+def test_view_password_reply_is_masked_and_never_recorded():
+    # A password reply renders as asterisks, is delivered to the
+    # waiter, and leaves no trace in the document or the history.
+    from prompt_toolkit.history import InMemoryHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.runtime.display_channel import OutputDocument
+
+    document = OutputDocument()
+    document.append("output", "Enter the API key\n")
+    history = InMemoryHistory()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            history=history,
+            document=document,
+        )
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._rule_label() == "[PASSWORD]"
+            pipe.send_text("s3cret")
+            assert _wait_for(lambda: view._input_buffer.text == "s3cret")
+            control = None
+            for window in view._app.layout.find_all_windows():
+                candidate = getattr(window, "content", None)
+                if getattr(candidate, "buffer", None) is view._input_buffer:
+                    control = candidate
+            assert control is not None
+            line = control.create_content(80, 1).get_line(0)
+            assert "".join(text for _style, text, *_ in line).strip() == "******"
+            pipe.send_text("\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            assert history.get_strings() == []
+            segments, _version, _epoch = document.snapshot()
+            assert any("Enter the API key" in s.text for s in segments)
+            assert all("s3cret" not in s.text for s in segments)
+        finally:
+            view.stop()
+
+
+def test_view_reply_ctrl_c_cancels_and_restores_the_draft():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("partial\x03")
+            assert view.wait_reply(abort=lambda: False) is view.reply_cancelled
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+        finally:
+            view.stop()
+
+
+def test_view_reply_answered_elsewhere_drops_the_typed_text():
+    # The reader stops waiting (the ask was answered from another
+    # channel) and ends reply mode: the typed text is dropped, the
+    # draft returns, and nothing stale leaks into the next ask.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("stale")
+            assert _wait_for(lambda: view._input_buffer.text == "stale")
+            view.end_reply()
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("real\r")
+            assert view.wait_reply(abort=lambda: False) == "real"
+        finally:
+            view.stop()
+
+
+def test_view_password_reply_cannot_be_undone_back_into_the_prompt():
+    # Regression (PR #491 Codex P1): restoring the draft with
+    # set_document() left the reply in the buffer's undo stack —
+    # Ctrl+_ at the normal (unmasked) prompt brought the password
+    # back visibly, and Enter could then send it.  The restore
+    # now resets the buffer's editing state.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            pipe.send_text("draft")
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("s3cret\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            assert _wait_for(lambda: view._input_buffer.text == "draft")
+            pipe.send_text("\x1f")
+            assert _wait_for(lambda: view._input_buffer.text != "s3cret")
+            time.sleep(0.2)
+            assert view._input_buffer.text == "draft"
+        finally:
+            view.stop()
+
+
+def test_view_reply_opening_over_a_confirmation_does_not_restore_its_text():
+    # Regression (PR #491 Codex P2): begin_reply settled an open
+    # confirmation as a queue entry but left its text in the
+    # buffer, so the arming step stashed that already-queued text
+    # as the "draft" and the restore after the reply handed it
+    # back as editable input — Enter would submit it twice.
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("next task\r")
+            assert _wait_for(lambda: view._confirm_text == "next task")
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            # The confirmation settled as exactly one queue entry.
+            assert view.wait_line(abort=lambda: False) == "next task"
+            assert "next task (queued)" in _document_text(document)
+            pipe.send_text("the answer\r")
+            assert view.wait_reply(abort=lambda: False) == "the answer"
+            assert _wait_for(lambda: view._reply_label is None)
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
+def test_view_password_reply_keeps_text_out_of_the_clipboard():
+    # Regression (PR #491 Codex P1, second round): the mouse-copy
+    # guard did not cover prompt_toolkit's keyboard cut bindings —
+    # Ctrl+A / Ctrl+K during a password reply wrote the plaintext
+    # password to the (OS-mirroring) app clipboard, and Ctrl+Y
+    # after the reply pasted it back visibly.  Clipboard writes
+    # are frozen while a password reply is open.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("s3cret")
+            assert _wait_for(lambda: view._input_buffer.text == "s3cret")
+            pipe.send_text("\x01\x0b")  # Ctrl+A, Ctrl+K: kill the line.
+            assert _wait_for(lambda: view._input_buffer.text == "")
+            assert "s3cret" not in view._app.clipboard.get_data().text
+            pipe.send_text("\x19")  # Ctrl+Y must not bring it back.
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+            view.end_reply()
+        finally:
+            view.stop()
+
+
+def test_view_reply_end_then_begin_survives_a_stalled_app_loop():
+    # Regression (PR #491 Codex P2, second round): end_reply only
+    # POSTED the restore, so when the reader immediately opened
+    # the next ask's reply, begin_reply still saw the old label,
+    # skipped arming, and the queued restore then cleared the NEW
+    # mode's state — Enter submitted normal lines while the
+    # reader blocked in wait_reply.  end_reply now waits until
+    # the restore has run.
+    import threading
+
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    gate = threading.Event()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            # Wait for the real application AND its loop: before
+            # the loop exists, _call_on_loop runs callbacks inline
+            # on the caller and there is no loop to stall (on a
+            # slow machine the app object appears first).
+            assert _wait_for(
+                lambda: view._app is not None
+                and view._app.loop is not None
+                and view.running,
+                timeout=10,
+            )
+            view.begin_reply("[REPLY] > ")
+            assert _wait_for(lambda: view._reply_armed)
+            # Stall the application loop: callbacks posted now
+            # (the restore included) queue behind this one.  Wait
+            # until the stall is actually executing on the loop —
+            # posting alone does not prove the loop is blocked.
+            stall_started = threading.Event()
+
+            def _stall() -> None:
+                stall_started.set()
+                gate.wait(5)
+
+            view._call_on_loop(_stall)
+            assert _wait_for(lambda: stall_started.is_set(), timeout=10)
+            worker = threading.Thread(
+                target=lambda: (view.end_reply(), view.begin_reply("[REPLY] > ")),
+                daemon=True,
+            )
+            worker.start()
+            # end_reply cannot return while its restore is queued
+            # behind the stall: sample the worker for a while and
+            # require it to stay blocked the whole time.
+            for _ in range(10):
+                time.sleep(0.05)
+                assert worker.is_alive()
+            gate.set()
+            worker.join(timeout=5)
+            assert not worker.is_alive()
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("second answer\r")
+            assert view.wait_reply(abort=lambda: False) == "second answer"
+        finally:
+            gate.set()
+            view.stop()
+
+
+def test_view_password_reply_ctrl_o_never_reaches_the_file_history(tmp_path):
+    # Regression (PR #491 Codex P1, third round): the input buffer
+    # kept the prompt's file-backed history during a password
+    # reply, and prompt_toolkit's default Ctrl+O binding accepts
+    # the buffer through validate_and_handle() — appending the
+    # plaintext password to the history file and clearing the
+    # buffer without delivering the reply.  Reply mode now swaps
+    # in a throwaway history for the whole mode and treats
+    # Ctrl+O as Enter.
+    from prompt_toolkit.history import FileHistory
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    history_file = tmp_path / "history"
+    history = FileHistory(str(history_file))
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), history=history)
+        view.start()
+        try:
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert view._input_buffer.history is not history
+            pipe.send_text("s3cret\x0f")
+            deadline = time.monotonic() + 3
+            item = view.wait_reply(abort=lambda: time.monotonic() > deadline)
+            assert item == "s3cret"
+            assert _wait_for(lambda: view._input_buffer.history is history)
+            contents = (
+                history_file.read_text(encoding="utf-8")
+                if history_file.exists()
+                else ""
+            )
+            assert "s3cret" not in contents
+            assert "s3cret" not in history.get_strings()
+        finally:
+            view.stop()
+
+
+def test_view_password_reply_never_lands_in_an_emacs_macro():
+    # Regression (PR #491 Codex P2, fourth round): Emacs keyboard
+    # macros live on the application, not the buffer, so the
+    # reply's buffer reset left them untouched — a recording that
+    # captured the password keystrokes could be replayed with
+    # Ctrl+X e at the restored, unmasked prompt, inserting the
+    # secret in the clear.  Arming a password reply stops any
+    # recording in progress, and the restore drops macro state
+    # the reply could have tainted.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            # A recording started BEFORE the ask is stopped at
+            # arm time; its keys never reach a stored macro.
+            pipe.send_text("\x18(")  # Ctrl+X ( : start recording.
+            assert _wait_for(lambda: view._app.emacs_state.is_recording)
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            assert not view._app.emacs_state.is_recording
+            pipe.send_text("s3cret\r")
+            assert view.wait_reply(abort=lambda: False) == "s3cret"
+            pipe.send_text("\x18e")  # Ctrl+X e: replay — nothing comes back.
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+            # A recording started DURING the reply is dropped at
+            # the restore, even though it was properly ended.
+            view.begin_reply("[PASSWORD] > ", is_password=True)
+            assert _wait_for(lambda: view._reply_armed)
+            pipe.send_text("\x18(hunter2\x18)")
+            assert _wait_for(lambda: view._app.emacs_state.macro)
+            pipe.send_text("\r")
+            assert view.wait_reply(abort=lambda: False) == "hunter2"
+            assert view._app.emacs_state.macro == []
+            pipe.send_text("\x18e")
+            time.sleep(0.2)
+            assert view._input_buffer.text == ""
+        finally:
+            view.stop()
+
+
 def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
     # Tabs render as ^I (2 cells) but get_cwidth counts them as
     # 0, so converting segment offsets with plain character

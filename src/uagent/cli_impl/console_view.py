@@ -15,10 +15,14 @@ submitted input lines are handed to ``stdin_loop`` through a queue
 so every existing post-processing path (commands, human_ask
 routing, chat-mode forwarding) is unchanged.
 
-The view is a replaceable renderer: while it is suspended (a human_ask
-reply or password prompt owns stdin through the legacy paths) or not
-started, :func:`active_view` returns None and every producer falls
-back to the legacy terminal writers.
+The view is a replaceable renderer: while it is suspended (the
+multiline editor, or a legacy prompt in a mode the view does not
+serve) or not started, :func:`active_view` returns None and every
+producer falls back to the legacy terminal writers.  A human_ask
+does not suspend it: the question already sits in the output
+document, so the view switches its input row into reply mode and
+answers there (see :meth:`ConsoleView.begin_reply`); the legacy
+reply/password prompts serve only the modes where no view runs.
 
 Enablement: interactive TTY + prompt_toolkit available + chat mode
 off, unless ``UAGENT_CLI_VIEW=0`` (the one new switch; it is the
@@ -73,6 +77,8 @@ from ..env_utils import env_get
 from ..i18n import _
 
 _EOF = object()
+# A reply wait ended by Ctrl+C inside the view (see wait_reply).
+_REPLY_CANCELLED = object()
 # Cap on the prompt prefix: longer prompts are truncated with an
 # ellipsis so they cannot eat the whole input row.  The prompt
 # window itself hugs the (possibly truncated) text.
@@ -450,8 +456,16 @@ def _write_system_clipboard(text: str) -> bool:
         return False
 
 
-def _make_clipboard() -> Any:
-    """An app clipboard that also mirrors copies to the OS one."""
+def _make_clipboard(write_guard: Callable[[], bool] | None = None) -> Any:
+    """An app clipboard that also mirrors copies to the OS one.
+
+    ``write_guard``, when given, is consulted on every write: a
+    False verdict freezes the clipboard (the previous content is
+    kept, nothing is stored or mirrored).  The console view uses
+    it to keep a password reply's text out of the clipboard —
+    the keyboard cut bindings (Ctrl+K and friends) write through
+    here just like the mouse copy does.
+    """
     from prompt_toolkit.clipboard.base import Clipboard, ClipboardData
 
     class _SystemClipboard(Clipboard):
@@ -459,6 +473,12 @@ def _make_clipboard() -> Any:
             self._data = ClipboardData("")
 
         def set_data(self, data: Any) -> None:
+            if write_guard is not None:
+                try:
+                    if not write_guard():
+                        return
+                except Exception:
+                    pass
             self._data = data
             try:
                 _write_system_clipboard(data.text)
@@ -605,6 +625,22 @@ class ConsoleView:
         self._front: collections.deque[Any] = collections.deque()
         self._last_pending_token: Any = None
         self._last_line_priority: bool = False
+        # human_ask reply mode: while a question is open, the input
+        # row answers it instead of submitting a new line, so the
+        # view never has to suspend for the legacy reply prompt.
+        # _reply_label is the ask's prompt text (None = reply mode
+        # off); the buffer surgery (stash the draft, clear, mask)
+        # runs on the application thread and arms the mode — an
+        # Enter that lands before it runs must not turn the stashed
+        # draft into the reply.
+        self._reply_label: str | None = None
+        self._reply_is_password: bool = False
+        self._reply_armed: bool = False
+        self._reply_queue: queue.Queue[Any] = queue.Queue()
+        self._reply_draft: Any = None
+        self._reply_completer: Any = None
+        self._reply_history: Any = None
+        self._reply_macro_before: Any = None
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
         self._on_interrupt = on_interrupt
@@ -698,23 +734,16 @@ class ConsoleView:
         # queues, and the transcript says so.  This runs after the
         # application thread has unwound, so touching the input
         # buffer here cannot race it.
-        pending = self._take_confirmation()
-        if pending is not None:
-            self._finish_confirmation(pending, interrupt=False)
+        if self._resolve_open_confirmation_as_queue():
             self._reset_input_buffer()
-            if self._document is not None:
-                try:
-                    self._document.append(
-                        "notice",
-                        "\n[INFO] "
-                        + _(
-                            "The interrupt confirmation was cancelled, "
-                            "so the message was queued."
-                        )
-                        + "\n",
-                    )
-                except Exception:
-                    pass
+        # A reply wait still outstanding ends with the suspension:
+        # wait_reply sees the view stop running and reports EOF.
+        # Restore the stashed draft and completer here, while no
+        # application thread can race the buffer.
+        with self._state_lock:
+            reply_was_active = self._reply_label is not None
+        if reply_was_active:
+            self._restore_reply_buffer()
 
     def stop(self) -> None:
         self.suspend()
@@ -1066,6 +1095,256 @@ class ConsoleView:
             except Exception:
                 pass
 
+    def _resolve_open_confirmation_as_queue(self) -> bool:
+        """Settle an open interrupt confirmation on its safe side.
+
+        A terminal takeover (a suspension, or a human_ask opening
+        its reply mode) preempts the question: the message queues
+        and the transcript says so.  Returns True when a
+        confirmation was open (the caller then resets the input
+        buffer, on whichever thread owns it at that point).
+        """
+        pending = self._take_confirmation()
+        if pending is None:
+            return False
+        self._finish_confirmation(pending, interrupt=False)
+        if self._document is not None:
+            try:
+                self._document.append(
+                    "notice",
+                    "\n[INFO] "
+                    + _(
+                        "The interrupt confirmation was cancelled, "
+                        "so the message was queued."
+                    )
+                    + "\n",
+                )
+            except Exception:
+                pass
+        return True
+
+    # -- human_ask reply mode ------------------------------------------
+
+    @property
+    def reply_cancelled(self) -> object:
+        """The sentinel wait_reply returns when Ctrl+C ends a reply."""
+        return _REPLY_CANCELLED
+
+    def _reply_password_active(self) -> bool:
+        with self._state_lock:
+            return self._reply_label is not None and self._reply_is_password
+
+    def begin_reply(self, label: str, *, is_password: bool = False) -> None:
+        """Open reply mode for a human_ask (called by the reader).
+
+        The question already sits in the output document; the
+        input row now answers it.  An open interrupt confirmation
+        is settled as a queue first, exactly as a suspension would
+        settle it.  The buffer surgery runs on the application
+        thread: the half-typed draft and the completer are stashed
+        (a password must never be completed, and pre-ask typing
+        must never become part of the reply), the buffer is
+        cleared, and only then is the mode armed — an Enter that
+        lands earlier is ignored rather than submitting the draft
+        as the answer.
+        """
+        settled = self._resolve_open_confirmation_as_queue()
+        # Nothing stale may survive into this ask: a reply finished
+        # after its wait had already aborted belongs to no one.
+        while True:
+            try:
+                self._reply_queue.get_nowait()
+            except queue.Empty:
+                break
+        with self._state_lock:
+            already = self._reply_label is not None
+            self._reply_label = label
+            self._reply_is_password = bool(is_password)
+            if not already:
+                self._reply_armed = False
+
+        def _arm() -> None:
+            if not already:
+                try:
+                    if settled:
+                        # The settled confirmation's text was
+                        # queued by the helper but still sits in
+                        # the buffer; clear it BEFORE the draft is
+                        # stashed, or the restore after the reply
+                        # would hand it back as editable input and
+                        # Enter would submit it a second time.  The
+                        # suspension path clears it the same way.
+                        self._input_buffer.reset()
+                    self._reply_draft = self._input_buffer.document
+                    self._reply_completer = self._input_buffer.completer
+                    self._reply_history = self._input_buffer.history
+                    self._input_buffer.completer = None
+                    # Isolate the reply from the prompt's
+                    # (file-backed) history for the whole mode:
+                    # nothing typed as a reply — above all a
+                    # password — may be written to it by any
+                    # binding, and browsing stays off, exactly
+                    # like completion.  The reset below restarts
+                    # the history load against the throwaway.
+                    from prompt_toolkit.history import InMemoryHistory
+
+                    self._input_buffer.history = InMemoryHistory()
+                    if is_password:
+                        # An Emacs macro recording must never
+                        # capture password keystrokes (the macro
+                        # lives on the application, so the buffer
+                        # reset does not help): stop any recording
+                        # in progress — it is discarded, tainted
+                        # from here on — and remember the stored
+                        # macro, so the restore can drop a macro
+                        # completed during the reply.
+                        emacs = self._emacs_state()
+                        if emacs is not None:
+                            self._reply_macro_before = emacs.macro
+                            if emacs.is_recording:
+                                emacs.reset()
+                    self._input_buffer.reset()
+                except Exception:
+                    pass
+                with self._state_lock:
+                    self._reply_armed = True
+            self._invalidate()
+
+        self._call_on_loop(_arm)
+
+    def end_reply(self) -> None:
+        """Close reply mode without an answer (the ask ended).
+
+        The ask was answered or cancelled from another channel
+        while the reader waited: the typed text belongs to no one,
+        so it is dropped and the stashed draft comes back.  The
+        state is cleared by the restore itself, on the application
+        thread, so an Enter that lands in between is still treated
+        as a reply (and then dropped as stale by the next
+        begin_reply) instead of leaking out as a normal line.
+
+        This call waits until the restore has actually run.  The
+        reader goes on to open the NEXT ask's reply mode from this
+        same thread, and a restore still queued behind it would
+        observe the old label, skip arming, and then clear the
+        new mode's state when it finally ran — leaving the reader
+        blocked in wait_reply while Enter submits normal lines.
+        If the view stops first the state no longer matters, so
+        the wait ends there too.
+        """
+        with self._state_lock:
+            if self._reply_label is None:
+                return
+        done = threading.Event()
+
+        def _restore_and_signal() -> None:
+            try:
+                self._restore_reply_buffer()
+            finally:
+                done.set()
+
+        self._call_on_loop(_restore_and_signal)
+        while self._running and not done.wait(0.05):
+            pass
+
+    def wait_reply(self, *, abort: Callable[[], bool]) -> Any:
+        """Return the reply line, the EOF sentinel, or None.
+
+        Mirrors :meth:`wait_line`: ``abort`` is polled while
+        waiting and ends the wait with None (the caller unwinds
+        with :meth:`end_reply`).  Ctrl+C inside the view returns
+        :attr:`reply_cancelled`; Ctrl+D returns the EOF sentinel.
+        """
+        while True:
+            try:
+                return self._reply_queue.get(timeout=0.05)
+            except queue.Empty:
+                if abort():
+                    return None
+                if not self._running:
+                    return self.eof_sentinel
+
+    def _emacs_state(self) -> Any:
+        """The running application's Emacs state, if it has one."""
+        app = self._app
+        if app is None:
+            return None
+        return getattr(app, "emacs_state", None)
+
+    def _restore_reply_buffer(self) -> None:
+        """Undo begin_reply's buffer surgery (application thread).
+
+        The reply text is dropped, the stashed draft and completer
+        come back.  Also used by suspend(), once its application
+        thread has unwound.
+        """
+        with self._state_lock:
+            armed = self._reply_armed
+            was_password = self._reply_is_password
+            self._reply_label = None
+            self._reply_is_password = False
+            self._reply_armed = False
+            draft = self._reply_draft
+            completer = self._reply_completer
+            history = self._reply_history
+            self._reply_draft = None
+            self._reply_completer = None
+            self._reply_history = None
+        if not armed:
+            # The buffer surgery never ran (or a racing restore
+            # already undid it): the buffer still holds exactly
+            # what the user had typed before the ask, so there is
+            # nothing to restore — resetting here would wipe it.
+            self._invalidate()
+            return
+        if was_password:
+            # Drop whatever macro state the reply could have
+            # tainted: a recording still in progress was started
+            # during the reply (the arm stopped any earlier one),
+            # and a stored macro whose identity changed was
+            # completed during it.  A macro stored before the ask
+            # and untouched since is clean and stays.
+            emacs = self._emacs_state()
+            if emacs is not None:
+                try:
+                    if emacs.is_recording:
+                        emacs.reset()
+                    if emacs.macro is not self._reply_macro_before:
+                        emacs.macro = []
+                except Exception:
+                    pass
+            self._reply_macro_before = None
+        try:
+            self._input_buffer.completer = completer
+            if history is not None:
+                # The real history comes back BEFORE the reset,
+                # so the reset's history load repopulates the
+                # working lines from it (browsing works again
+                # immediately, as if no reply had happened).
+                self._input_buffer.history = history
+            # reset(), not set_document(): the reply's editing
+            # state (above all the undo stack, which still holds
+            # the reply text — a password in the clear) must not
+            # survive into the normal prompt, where Ctrl+_ would
+            # bring it back visibly and Enter could send it.
+            self._input_buffer.reset(document=draft)
+        except Exception:
+            pass
+        self._invalidate()
+
+    def _finish_reply(self, item: Any) -> None:
+        """End reply mode from a key binding and hand over ``item``.
+
+        Runs on the application thread, so the buffer is restored
+        synchronously: keys batched behind the answer start from
+        the restored draft, never from the reply text.  The item
+        (the reply text, or a cancel/EOF sentinel) is queued only
+        after the restore, so the reader never observes the reply
+        while the input row is still in reply mode.
+        """
+        self._restore_reply_buffer()
+        self._reply_queue.put(item)
+
     # -- interrupt confirmation (input during generation) -------------
 
     def _take_confirmation(self, *, defer_reset: bool = False) -> str | None:
@@ -1226,6 +1505,15 @@ class ConsoleView:
         style = "class:status.busy" if busy else "class:status.idle"
         return [(style, text)]
 
+    @staticmethod
+    def _trim_rule_label(text: str) -> str:
+        text = text.rstrip()
+        if text.endswith(">"):
+            text = text[:-1].rstrip()
+        if len(text) > _PREFIX_MAX_WIDTH:
+            text = text[: _PREFIX_MAX_WIDTH - 1] + "…"
+        return text
+
     def _rule_label(self) -> str:
         """The prompt's identifying text, carried by the upper rule.
 
@@ -1233,15 +1521,16 @@ class ConsoleView:
         trailing ">" — what remains names where the user is (the
         working directory at idle), which is all the rule shows.
         The input line itself carries no prompt, just the cursor.
+        While a human_ask reply is open, the rule carries the
+        ask's prompt ("[REPLY]", "[PASSWORD]", ...) instead, so
+        the input row says what it is answering.
         """
         with self._state_lock:
+            reply_label = self._reply_label
             text = self._prompt_text
-        text = text.rstrip()
-        if text.endswith(">"):
-            text = text[:-1].rstrip()
-        if len(text) > _PREFIX_MAX_WIDTH:
-            text = text[: _PREFIX_MAX_WIDTH - 1] + "…"
-        return text
+        if reply_label is not None:
+            return self._trim_rule_label(reply_label)
+        return self._trim_rule_label(text)
 
     def _upper_rule_fragments(self) -> list[tuple[str, str]]:
         return self._make_rule_fragments(self._rule_label())
@@ -1283,6 +1572,10 @@ class ConsoleView:
             BufferControl,
             FormattedTextControl,
         )
+        from prompt_toolkit.layout.processors import (
+            ConditionalProcessor,
+            PasswordProcessor,
+        )
         from prompt_toolkit.mouse_events import MouseButton, MouseEventType
         from prompt_toolkit.selection import SelectionType
         from prompt_toolkit.styles import Style
@@ -1291,6 +1584,19 @@ class ConsoleView:
 
         @bindings.add("enter")
         def _submit(event: Any) -> None:
+            if self._reply_label is not None:
+                # The input row is answering a human_ask: the line
+                # is the reply, never a submission — it is not
+                # echoed into the document and never enters the
+                # history.  Until the mode is armed the buffer may
+                # still hold the pre-ask draft, so an early Enter
+                # is ignored rather than submitting the draft as
+                # the answer.
+                with self._state_lock:
+                    armed = self._reply_armed
+                if armed:
+                    self._finish_reply(event.app.current_buffer.text)
+                return
             if self._confirm_text is not None:
                 # Enter answers the open confirmation (it means
                 # "interrupt"); the filtered binding below normally
@@ -1341,8 +1647,32 @@ class ConsoleView:
         def _newline(event: Any) -> None:
             event.app.current_buffer.insert_text("\n")
 
+        in_reply = Condition(lambda: self._reply_label is not None)
+
+        @bindings.add("c-o", filter=in_reply)
+        def _reply_operate_and_get_next(event: Any) -> None:
+            # prompt_toolkit's default Ctrl+O (operate-and-get-
+            # next) accepts the buffer through validate_and_handle:
+            # it appends the text to the history and clears the
+            # buffer WITHOUT delivering anything.  In reply mode
+            # that would swallow the reply (and, before the history
+            # isolation, persist a password to disk), so here it
+            # means exactly what Enter means.
+            _submit(event)
+
         @bindings.add("c-c")
         def _ctrl_c(event: Any) -> None:
+            if self._reply_label is not None:
+                # Ctrl+C cancels the question, not the turn: the
+                # reader turns the sentinel into the same
+                # KeyboardInterrupt the legacy prompt raises, and
+                # the loop's existing handler delivers the
+                # cancellation to the waiting tool.
+                with self._state_lock:
+                    armed = self._reply_armed
+                if armed:
+                    self._finish_reply(self.reply_cancelled)
+                return
             if self._confirm_text is not None:
                 # Ctrl+C at the confirmation cancels the question,
                 # not the turn: the message queues (the safe side).
@@ -1370,6 +1700,16 @@ class ConsoleView:
 
         @bindings.add("c-d")
         def _ctrl_d(event: Any) -> None:
+            if self._reply_label is not None:
+                # EOF at a reply prompt ends the input loop, like
+                # the legacy prompt's EOFError — but the view
+                # itself stays up; the reader unwinds it.
+                if not event.app.current_buffer.text:
+                    with self._state_lock:
+                        armed = self._reply_armed
+                    if armed:
+                        self._finish_reply(self.eof_sentinel)
+                return
             if not event.app.current_buffer.text:
                 self._submissions.put((_EOF, None))
                 event.app.exit()
@@ -1725,7 +2065,11 @@ class ConsoleView:
                     view._stop_output_edge_scroll()
                 result = super().mouse_handler(mouse_event)
                 if mouse_event.event_type == MouseEventType.MOUSE_UP:
-                    if self.buffer.selection_state is not None:
+                    # A password reply is masked on screen; its
+                    # selection must not reach the clipboard either.
+                    if self.buffer.selection_state is not None and (
+                        not view._reply_password_active()
+                    ):
                         try:
                             get_app().clipboard.set_data(self.buffer.copy_selection())
                         except Exception:
@@ -1794,9 +2138,22 @@ class ConsoleView:
                         ),
                         # One input line, no prompt text: the rule
                         # above carries the where-am-I label, and
-                        # the blinking cursor marks the input.
+                        # the blinking cursor marks the input.  A
+                        # password reply is masked with the standard
+                        # password processor, exactly like the
+                        # legacy prompt's is_password.
                         Window(
-                            content=_InputControl(buffer=self._input_buffer),
+                            content=_InputControl(
+                                buffer=self._input_buffer,
+                                input_processors=[
+                                    ConditionalProcessor(
+                                        PasswordProcessor(),
+                                        Condition(
+                                            lambda: self._reply_password_active()
+                                        ),
+                                    )
+                                ],
+                            ),
                             height=Dimension(min=1, max=1),
                         ),
                         Window(
@@ -1831,7 +2188,9 @@ class ConsoleView:
             "style": style,
             "refresh_interval": 0.12,
             "mouse_support": True,
-            "clipboard": _make_clipboard(),
+            "clipboard": _make_clipboard(
+                write_guard=lambda: not self._reply_password_active()
+            ),
         }
         if self._pt_input is not None:
             kwargs["input"] = self._pt_input

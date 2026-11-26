@@ -143,10 +143,11 @@ def _read_line_from_view(view, prompt: str):
     Returns ``(line, pending_token)``: the submitted line and the
     output document's pending-user segment when the line was queued
     during generation (else None).  Returns ``(None, None)`` when
-    the wait was aborted because a human_ask took stdin (the view is
-    suspended so the legacy reply path can own the terminal) or
-    shutdown began.  Raises EOFError on Ctrl+D, like the legacy
-    prompt paths.
+    the wait was aborted because a human_ask took stdin or shutdown
+    began.  On a human_ask abort the view stays up — the loop's
+    reply branch answers the ask inside it — while a shutdown
+    abort still suspends it for the legacy exit paths.  Raises
+    EOFError on Ctrl+D, like the legacy prompt paths.
     """
     if not view.running:
         view.start()
@@ -182,7 +183,10 @@ def _read_line_from_view(view, prompt: str):
         except Exception:
             pass
     if item is None:
-        view.suspend()
+        with core.human_ask_lock:
+            ask_active = bool(core.human_ask_active)
+        if not ask_active:
+            view.suspend()
         return None, None
     if item is view.eof_sentinel:
         view.suspend()
@@ -190,6 +194,55 @@ def _read_line_from_view(view, prompt: str):
     return tools_util.strip_surrogates(str(item)), getattr(
         view, "last_pending_token", None
     )
+
+
+def _read_reply_from_view(view, prompt: str, *, is_password: bool, reply_job_id):
+    """Read one human_ask reply line through the console view.
+
+    The view stays on screen: its input row switches to reply
+    mode (masked for a password) and the question remains visible
+    in the output document above it.  Returns the reply line, or
+    None when the wait was aborted — the ask was answered or
+    cancelled from another channel, or shutdown began — so the
+    caller's existing None handling decides what happens next.
+    Raises EOFError on Ctrl+D and KeyboardInterrupt on Ctrl+C,
+    exactly like the legacy reply prompt paths, so the loop's
+    handlers deliver the same outcomes.
+    """
+    view.begin_reply(prompt, is_password=is_password)
+    try:
+        core._prompt_line_open = True
+        core._cli_prompt_toolkit_active = True
+    except Exception:
+        pass
+
+    def _abort() -> bool:
+        if _CLI_SHUTDOWN.is_set():
+            return True
+        with core.human_ask_lock:
+            if reply_job_id:
+                return bool(
+                    not core.human_ask_active
+                    or getattr(core, "human_ask_job_id", None) != reply_job_id
+                )
+            return not core.human_ask_active
+
+    try:
+        item = view.wait_reply(abort=_abort)
+    finally:
+        try:
+            core._prompt_line_open = False
+            core._cli_prompt_toolkit_active = False
+        except Exception:
+            pass
+    if item is None:
+        view.end_reply()
+        return None
+    if item is view.eof_sentinel:
+        raise EOFError
+    if item is view.reply_cancelled:
+        raise KeyboardInterrupt
+    return tools_util.strip_surrogates(str(item))
 
 
 def _requeue_pending_line(view, line, token) -> bool:
@@ -348,7 +401,16 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             # If we compute it while BUSY and then loop/sleep, it can become stale
             # (e.g. show a normal prompt while a human_ask is actually active).
 
-            if is_reply:
+            # A console view that is already running answers the
+            # ask in place: no suspension, no screen switch.  Only
+            # an already-running view qualifies — one that was
+            # never started let the question print to the real
+            # terminal, and the legacy reply path owns it there.
+            reply_view = None
+            if is_reply and _console_view is not None and _console_view.running:
+                reply_view = _console_view
+
+            if is_reply and reply_view is None:
                 # A legacy reply/password prompt is about to own the
                 # terminal — including asks opened during generation,
                 # where no view read is outstanding to abort. The
@@ -361,12 +423,23 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             if is_password:
                 # When replying to a prompt (human_ask password), flush any pending
                 # typeahead to prevent unintended immediate submission.
-                if is_reply:
+                # The view path needs no flush: the view stashes the
+                # pre-ask draft itself, and draining the descriptor
+                # would eat keystrokes the view has not read yet.
+                if is_reply and reply_view is None:
                     _flush_stdin_input_buffer()
 
-                line = _prompt_toolkit_input(
-                    password_prompt, is_password=True, reply=True
-                )
+                if reply_view is not None:
+                    line = _read_reply_from_view(
+                        reply_view,
+                        password_prompt,
+                        is_password=True,
+                        reply_job_id=reply_job_id,
+                    )
+                else:
+                    line = _prompt_toolkit_input(
+                        password_prompt, is_password=True, reply=True
+                    )
                 if line is None:
                     with core.human_ask_lock:
                         reply_cancelled = bool(
@@ -377,7 +450,14 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                                 != reply_job_id
                             )
                         )
-                    if reply_cancelled:
+                        # The view wait ended because the ask was
+                        # answered from another channel; the legacy
+                        # fallbacks below would fight the running
+                        # view for the terminal, so just re-loop.
+                        answered_elsewhere = bool(
+                            reply_view is not None and not core.human_ask_active
+                        )
+                    if reply_cancelled or answered_elsewhere:
                         continue
                     if reply_job_id:
                         line = "cancel"
@@ -392,8 +472,12 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                 # to prevent unintended immediate submission. Skip the flush right
                 # after a previous reply (e.g. :skills number selection then 'y'
                 # confirmation) so fast consecutive replies are not discarded.
-                if is_reply and (
-                    is_password or time.monotonic() - _last_ha_reply_mono >= 2.0
+                # The view path skips it for the same reason as the
+                # password branch: the view owns the descriptor.
+                if (
+                    is_reply
+                    and reply_view is None
+                    and (is_password or time.monotonic() - _last_ha_reply_mono >= 2.0)
                 ):
                     _flush_stdin_input_buffer()
 
@@ -460,7 +544,15 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                 # Read input
                 core.input_prompt_active = True
                 if is_reply:
-                    line = _prompt_toolkit_input(reply_prompt, reply=True)
+                    if reply_view is not None:
+                        line = _read_reply_from_view(
+                            reply_view,
+                            reply_prompt,
+                            is_password=False,
+                            reply_job_id=reply_job_id,
+                        )
+                    else:
+                        line = _prompt_toolkit_input(reply_prompt, reply=True)
                     if line is None:
                         with core.human_ask_lock:
                             reply_cancelled = bool(
@@ -482,6 +574,14 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                                 not reply_job_id and not core.human_ask_active
                             )
                         if reply_cancelled or ask_answered_elsewhere:
+                            continue
+                        if reply_view is not None:
+                            # The view wait ends without a line only
+                            # for the causes handled above, or for
+                            # shutdown; the readline fallback below
+                            # would fight the running view for the
+                            # terminal, so just re-loop (the loop
+                            # head returns on shutdown).
                             continue
                         if reply_job_id:
                             line = "cancel"
@@ -883,6 +983,11 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                     and not is_job_confirmation
                     and _can_use_textarea()
                 ):
+                    # The editor opens its own application; a view
+                    # that served the reply in place must yield the
+                    # terminal first (a no-op when the legacy reply
+                    # path already suspended it).
+                    _suspend_console_view()
                     text = _multiline_editor()
                     if text is None:
                         _set_reply_status("replying_cancel")
