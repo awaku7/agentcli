@@ -1922,7 +1922,7 @@ def _cmd_nostr_pair(arg: str, **kwargs: Any) -> Any:
             _(
                 "nostr.pair_success",
                 default="Paired Nostr device: %(pubkey)s (%(label)s)",
-                pubkey=record.pubkey,
+                pubkey=encode_npub(record.pubkey),
                 label=record.label or "unnamed",
             )
         )
@@ -1938,7 +1938,7 @@ def _cmd_nostr_pair(arg: str, **kwargs: Any) -> Any:
 
 
 def _cmd_nostr_revoke(arg: str, **kwargs: Any) -> Any:
-    """Locally revoke a paired Nostr device by its x-only public-key hex."""
+    """Locally revoke a paired Nostr device by its pubkey hex or npub."""
     from ..nostr_remote_pairing import SQLitePairingStore
     from ..util_tools import CommandResult
 
@@ -1956,7 +1956,10 @@ def _cmd_nostr_revoke(arg: str, **kwargs: Any) -> Any:
         path = _pairing_database_path()
         os.makedirs(os.path.dirname(os.fspath(path)), exist_ok=True)
         with SQLitePairingStore(path) as store:
-            revoked = store.revoke(pubkey)
+            from ..nostr_setup import decode_pairing_pubkey
+
+            # Accept the npub form shown by :nostr devices, not just hex.
+            revoked = store.revoke(decode_pairing_pubkey(pubkey))
         print(
             _("nostr.device_revoked", default="Nostr device revoked.")
             if revoked
@@ -2009,7 +2012,7 @@ def _cmd_nostr_devices(arg: str, **kwargs: Any) -> Any:
                 _(
                     "nostr.device_status",
                     default="%(pubkey)s  %(label)s  [%(status)s]",
-                    pubkey=record.pubkey,
+                    pubkey=encode_npub(record.pubkey),
                     label=record.label or "unnamed",
                     status=status,
                 )

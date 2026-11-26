@@ -890,6 +890,10 @@ def main() -> int:
                             current_session_id=str(
                                 getattr(core, "session_id", "") or ""
                             ),
+                            # Only the foreground thread may ask the
+                            # operator to pair an unknown sender; the
+                            # status side worker dispatches without it.
+                            allow_pairing_prompt=True,
                         )
                     else:
                         from ..nostr_remote_dispatch import (

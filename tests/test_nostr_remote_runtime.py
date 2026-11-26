@@ -631,7 +631,7 @@ def test_remote_cli_echo_escapes_terminal_controls(capsys) -> None:
     assert core.prompt_needs_redraw is True
 
 
-def _make_runtime(tmp_path, *, ask_state_provider=None):
+def _make_runtime(tmp_path, *, ask_state_provider=None, pairing_asker=None):
     inbox, pairings, private_key, event = _setup_request(tmp_path)
     runtime = NostrRemoteRuntime(
         event_queue=queue.Queue(),
@@ -641,6 +641,7 @@ def _make_runtime(tmp_path, *, ask_state_provider=None):
         inbox_store=inbox,
         pairing_store=pairings,
         ask_state_provider=ask_state_provider,
+        pairing_asker=pairing_asker,
     )
     return inbox, pairings, private_key, event, runtime
 
@@ -1194,6 +1195,273 @@ def test_question_not_published_after_ask_ends(tmp_path, monkeypatch) -> None:
         assert published == []
         assert runtime._ask_forwarded_queue is None
         assert runtime._ask_queued_queue is None
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def _enqueue_request(inbox, sender_key, recipient_key, text):
+    """Enqueue one more verified request from an existing sender."""
+    now = int(time.time())
+    wrap = create_nip17_private_messages(
+        text, sender_key, _public_key_bytes(recipient_key), now=now
+    )[0]
+    rumor = unwrap_nip17_private_message(wrap, recipient_key)
+    inbox.enqueue_verified_wrap(
+        rumor["pubkey"],
+        rumor["id"],
+        wrap,
+        created_at=rumor["created_at"],
+        received_at=now,
+        session_id="active-session",
+    )
+    return {
+        "kind": "nostr_remote_request",
+        "sender_pubkey": rumor["pubkey"],
+        "rumor_id": rumor["id"],
+        "created_at": rumor["created_at"],
+        "session_id": "active-session",
+        "text": text,
+    }
+
+
+def test_dispatch_offers_pairing_and_processes_request_on_approval(
+    tmp_path,
+) -> None:
+    inbox, pairings, private_key, event = _setup_request(tmp_path)
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        offered: list[str] = []
+
+        def _approve(sender: str) -> bool:
+            offered.append(sender)
+            pairings.pair(sender, "phone", approved=True)
+            return True
+
+        action = dispatch_nostr_remote_inbox_event(
+            event,
+            inbox_store=inbox,
+            pairing_store=pairings,
+            private_key=private_key,
+            current_session_id="active-session",
+            on_unpaired_sender=_approve,
+        )
+        assert offered == [event["sender_pubkey"]]
+        assert action.kind == "user"
+        assert action.text == "hello"
+        # The request was not rejected; it stays claimed for the
+        # foreground turn, exactly like an already-paired dispatch.
+        record = inbox.get(event["sender_pubkey"], event["rumor_id"])
+        assert record is not None
+        assert record.status == "dispatching"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_dispatch_rejects_unpaired_sender_when_pairing_declined(
+    tmp_path,
+) -> None:
+    inbox, pairings, private_key, event = _setup_request(tmp_path)
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            dispatch_nostr_remote_inbox_event(
+                event,
+                inbox_store=inbox,
+                pairing_store=pairings,
+                private_key=private_key,
+                current_session_id="active-session",
+                on_unpaired_sender=lambda _sender: False,
+            )
+        record = inbox.get(event["sender_pubkey"], event["rumor_id"])
+        assert record is not None
+        assert record.status == "rejected"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_dispatch_does_not_offer_pairing_for_other_failures(tmp_path) -> None:
+    # A stale request from an unpaired sender fails freshness before
+    # the pairing check, so the operator is never prompted for it.
+    sender_key = _secret(1)
+    recipient_key = _secret(2)
+    stale = int(time.time()) - 10_000
+    wrap = create_nip17_private_messages(
+        "hello", sender_key, _public_key_bytes(recipient_key), now=stale
+    )[0]
+    rumor = unwrap_nip17_private_message(wrap, recipient_key)
+    inbox = SQLiteNostrInboxStore(tmp_path / "inbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "pairings.sqlite3")
+    try:
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=int(time.time()),
+            session_id="active-session",
+        )
+        event = {
+            "kind": "nostr_remote_request",
+            "sender_pubkey": rumor["pubkey"],
+            "rumor_id": rumor["id"],
+            "created_at": rumor["created_at"],
+            "session_id": "active-session",
+            "text": "hello",
+        }
+        offered: list[str] = []
+        with pytest.raises(RemoteCLIRequestError, match="stale"):
+            dispatch_nostr_remote_inbox_event(
+                event,
+                inbox_store=inbox,
+                pairing_store=pairings,
+                private_key=recipient_key,
+                current_session_id="active-session",
+                on_unpaired_sender=lambda sender: offered.append(sender) or True,
+            )
+        assert offered == []
+        record = inbox.get(rumor["pubkey"], rumor["id"])
+        assert record is not None
+        assert record.status == "rejected"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_prompt_approval_pairs_and_processes_the_message(
+    tmp_path,
+) -> None:
+    asked: list[str] = []
+
+    def _asker(npub: str) -> str:
+        asked.append(npub)
+        return "yes"
+
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, pairing_asker=_asker
+    )
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        action = runtime.dispatch_event(
+            event, current_session_id="active-session", allow_pairing_prompt=True
+        )
+        assert action.kind == "user"
+        assert action.text == "hello"
+        assert len(asked) == 1
+        assert asked[0].startswith("npub1")
+        assert pairings.is_authorized(event["sender_pubkey"])
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_prompt_requires_the_allow_flag(tmp_path) -> None:
+    asked: list[str] = []
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, pairing_asker=lambda npub: asked.append(npub) or "yes"
+    )
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            runtime.dispatch_event(event, current_session_id="active-session")
+        assert asked == []
+        assert not pairings.is_authorized(event["sender_pubkey"])
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_refusal_is_remembered_for_the_session(tmp_path) -> None:
+    asked: list[str] = []
+
+    def _asker(npub: str) -> str:
+        asked.append(npub)
+        return "no"
+
+    inbox, pairings, private_key, event, runtime = _make_runtime(
+        tmp_path, pairing_asker=_asker
+    )
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            runtime.dispatch_event(
+                event,
+                current_session_id="active-session",
+                allow_pairing_prompt=True,
+            )
+        second = _enqueue_request(inbox, _secret(1), private_key, "hello again")
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            runtime.dispatch_event(
+                second,
+                current_session_id="active-session",
+                allow_pairing_prompt=True,
+            )
+        # The second message from the refused sender did not prompt again.
+        assert len(asked) == 1
+        assert not pairings.is_authorized(event["sender_pubkey"])
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_prompt_without_an_answer_asks_again_next_time(
+    tmp_path,
+) -> None:
+    answers: list[str | None] = [None, "yes"]
+    asked: list[str] = []
+
+    def _asker(npub: str) -> str | None:
+        asked.append(npub)
+        return answers.pop(0)
+
+    inbox, pairings, private_key, event, runtime = _make_runtime(
+        tmp_path, pairing_asker=_asker
+    )
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            runtime.dispatch_event(
+                event,
+                current_session_id="active-session",
+                allow_pairing_prompt=True,
+            )
+        second = _enqueue_request(inbox, _secret(1), private_key, "hello again")
+        action = runtime.dispatch_event(
+            second,
+            current_session_id="active-session",
+            allow_pairing_prompt=True,
+        )
+        assert action.text == "hello again"
+        # No answer (timeout/cancel) is not a refusal: the operator
+        # was asked again for the next message.
+        assert len(asked) == 2
+        assert pairings.is_authorized(event["sender_pubkey"])
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_prompt_is_never_forwarded_to_a_remote_requester(
+    tmp_path,
+) -> None:
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "Register this device?",
+        "queue": queue.Queue(),
+    }
+    inbox, pairings, _key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: state
+    )
+    try:
+        # A paired request is active, so a pending question would
+        # normally be forwarded to its sender.
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._pairing_prompt_open = True
+        runtime._forward_pending_ask_once()
+        assert runtime._question_queue.empty()
     finally:
         inbox.close()
         pairings.close()

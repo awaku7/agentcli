@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import queue
 import threading
 import time
@@ -10,6 +11,7 @@ from typing import Any, Callable
 
 from .nostr_nip17 import unwrap_nip17_private_message
 from .nostr_remote_dispatch import (
+    NOT_PAIRED_MESSAGE,
     RemoteCLIRequestError,
     RemoteCLIAction,
     authorize_nostr_remote_request,
@@ -154,6 +156,7 @@ def dispatch_nostr_remote_inbox_event(
     pairing_store: SQLitePairingStore,
     private_key: bytes,
     current_session_id: str,
+    on_unpaired_sender: Callable[[str], bool] | None = None,
 ) -> RemoteCLIAction:
     """Claim, authenticate, reauthorize, and terminally record one inbox item."""
     if not isinstance(event, dict) or event.get("session_id") != current_session_id:
@@ -182,11 +185,27 @@ def dispatch_nostr_remote_inbox_event(
             or record.session_id != event.get("session_id")
         ):
             raise RemoteCLIRequestError("queued request does not match durable inbox")
-        action = authorize_nostr_remote_request(
-            event,
-            current_session_id=current_session_id,
-            authorize_sender=pairing_store.is_authorized,
-        )
+
+        def _authorize() -> RemoteCLIAction:
+            return authorize_nostr_remote_request(
+                event,
+                current_session_id=current_session_id,
+                authorize_sender=pairing_store.is_authorized,
+            )
+
+        try:
+            action = _authorize()
+        except RemoteCLIRequestError as exc:
+            if on_unpaired_sender is None or str(exc) != NOT_PAIRED_MESSAGE:
+                raise
+            # The request verified in every other respect; only the
+            # sender has no pairing. Give the local operator one
+            # chance to register the device on the spot: approval
+            # pairs it, so authorizing again lets this very request
+            # proceed instead of being recorded as rejected.
+            if not on_unpaired_sender(record.sender_pubkey):
+                raise
+            action = _authorize()
     except RemoteCLIRequestError:
         inbox_store.finish(record.sender_pubkey, record.rumor_id, "rejected")
         raise
@@ -218,6 +237,7 @@ class NostrRemoteRuntime:
         incoming_message_display: Callable[[dict[str, Any]], None] | None = None,
         ask_state_provider: Callable[[], dict[str, Any] | None] | None = None,
         ask_answer_deliverer: Callable[[Any, str], bool] | None = None,
+        pairing_asker: Callable[[str], str | None] | None = None,
     ) -> None:
         self.event_queue = event_queue
         self.private_key = private_key
@@ -233,6 +253,9 @@ class NostrRemoteRuntime:
         )
         self._ask_state_provider = ask_state_provider
         self._ask_answer_deliverer = ask_answer_deliverer
+        self._pairing_asker = pairing_asker
+        self._pairing_declined: set[str] = set()
+        self._pairing_prompt_open = False
         self._progress_lock = threading.Lock()
         self._active_request: dict[str, Any] | None = None
         self._progress_queue: queue.Queue[tuple[dict[str, Any], str]] = queue.Queue()
@@ -609,6 +632,10 @@ class NostrRemoteRuntime:
     def _forward_pending_ask_once(self) -> None:
         """Queue one pending human_ask question for the active requester."""
         with self._progress_lock:
+            if self._pairing_prompt_open:
+                # The open question is the local pairing prompt; it
+                # must never be forwarded to a remote requester.
+                return
             active = self._active_request
             forwarded = self._ask_forwarded_queue
             queued = self._ask_queued_queue
@@ -1453,8 +1480,57 @@ class NostrRemoteRuntime:
             self._loop = None
             self._stop_event = None
 
+    def _offer_pairing(self, sender_pubkey: str) -> bool:
+        """Ask the local operator whether to pair an unknown sender.
+
+        Runs on the foreground dispatch thread while the request is
+        claimed. Approval pairs the device, so the caller can
+        authorize the same request again and let it proceed. An
+        explicit refusal is remembered for the rest of the session so
+        a sender cannot keep re-triggering the prompt; no answer at
+        all (cancel, timeout, prompt unavailable) is not a refusal
+        and may be asked again on a later message.
+        """
+        if self._pairing_asker is None:
+            return False
+        with self._progress_lock:
+            if sender_pubkey in self._pairing_declined:
+                return False
+            if self._pairing_prompt_open:
+                return False
+            self._pairing_prompt_open = True
+        try:
+            try:
+                from .tools.nostr_transport import encode_npub
+
+                npub = encode_npub(sender_pubkey)
+            except Exception:
+                npub = sender_pubkey
+            try:
+                answer = self._pairing_asker(npub)
+            except Exception:
+                return False
+        finally:
+            with self._progress_lock:
+                self._pairing_prompt_open = False
+        if answer is None:
+            return False
+        if answer.strip().lower() in {"yes", "y", "はい"}:
+            try:
+                self.pairing_store.pair(sender_pubkey, "", approved=True)
+            except Exception:
+                return False
+            return True
+        with self._progress_lock:
+            self._pairing_declined.add(sender_pubkey)
+        return False
+
     def dispatch_event(
-        self, event: dict[str, Any], *, current_session_id: str
+        self,
+        event: dict[str, Any],
+        *,
+        current_session_id: str,
+        allow_pairing_prompt: bool = False,
     ) -> RemoteCLIAction:
         action = dispatch_nostr_remote_inbox_event(
             event,
@@ -1462,6 +1538,7 @@ class NostrRemoteRuntime:
             pairing_store=self.pairing_store,
             private_key=self.private_key,
             current_session_id=current_session_id,
+            on_unpaired_sender=(self._offer_pairing if allow_pairing_prompt else None),
         )
         # Status queries are also dispatched (by the side worker, possibly
         # while a turn is running); they must never take over the active
@@ -1722,6 +1799,62 @@ def create_nostr_remote_runtime(
         except Exception:
             return False
 
+    def _ask_pairing(npub: str) -> str | None:
+        """Ask the local operator about pairing, via the CLI ask channel.
+
+        Uses a private reply queue (like the session passphrase
+        prompt), so no Nostr DM can be routed in as the answer: the
+        remote answer path only delivers to the queue it forwarded,
+        which is never this one. Returns the typed answer, or None
+        when the prompt was cancelled, timed out, or unavailable.
+        """
+        lock = getattr(core, "human_ask_lock", None)
+        if lock is None:
+            return None
+        from .i18n import _
+
+        question = _(
+            "A Nostr DM arrived from an unregistered device (%(npub)s). "
+            "Register this device and process the message? "
+            "Answer yes or no.",
+            npub=npub,
+        )
+        reply_queue: queue.Queue = queue.Queue(maxsize=1)
+        with lock:
+            if getattr(core, "human_ask_active", False):
+                return None
+            core.human_ask_queue = reply_queue
+            core.human_ask_active = True
+            core.human_ask_is_password = False
+            core.human_ask_multiline_active = False
+            core.human_ask_message = question
+            core.human_ask_prompt = "[PAIRING] > "
+            lines = getattr(core, "human_ask_lines", None)
+            if lines is not None:
+                lines.clear()
+        try:
+            print(question, flush=True)
+            try:
+                timeout = float(os.environ.get("UAGENT_HUMAN_ASK_TIMEOUT_SEC", "300"))
+            except (TypeError, ValueError):
+                timeout = 300.0
+            if timeout <= 0:
+                timeout = 300.0
+            try:
+                value = reply_queue.get(timeout=timeout)
+            except queue.Empty:
+                return None
+            return None if value is None else str(value)
+        finally:
+            with lock:
+                if getattr(core, "human_ask_queue", None) is reply_queue:
+                    core.human_ask_active = False
+                    core.human_ask_is_password = False
+                    core.human_ask_multiline_active = False
+                    core.human_ask_message = ""
+                    core.human_ask_prompt = ""
+                    core.human_ask_queue = None
+
     runtime = NostrRemoteRuntime(
         event_queue=event_queue,
         private_key=private_key,
@@ -1735,6 +1868,7 @@ def create_nostr_remote_runtime(
         incoming_message_display=lambda rumor: _display_nostr_incoming(core, rumor),
         ask_state_provider=_ask_state_snapshot,
         ask_answer_deliverer=_deliver_ask_answer,
+        pairing_asker=_ask_pairing,
     )
     return runtime
 
