@@ -235,9 +235,31 @@ def _write_system_clipboard(text: str) -> bool:
     if sys.platform == "win32":
         try:
             import ctypes
+            from ctypes import wintypes
 
             user32 = ctypes.windll.user32
             kernel32 = ctypes.windll.kernel32
+            # ctypes defaults to C int for return values and
+            # arguments; the handles and pointers here are
+            # pointer-sized on 64-bit Windows, so declare the
+            # signatures — otherwise the values truncate, and
+            # memmove can write through a truncated pointer.
+            kernel32.GlobalAlloc.restype = wintypes.HGLOBAL
+            kernel32.GlobalAlloc.argtypes = [wintypes.UINT, ctypes.c_size_t]
+            kernel32.GlobalLock.restype = wintypes.LPVOID
+            kernel32.GlobalLock.argtypes = [wintypes.HGLOBAL]
+            kernel32.GlobalUnlock.restype = wintypes.BOOL
+            kernel32.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+            kernel32.GlobalFree.restype = wintypes.HGLOBAL
+            kernel32.GlobalFree.argtypes = [wintypes.HGLOBAL]
+            user32.OpenClipboard.restype = wintypes.BOOL
+            user32.OpenClipboard.argtypes = [wintypes.HWND]
+            user32.EmptyClipboard.restype = wintypes.BOOL
+            user32.EmptyClipboard.argtypes = []
+            user32.SetClipboardData.restype = wintypes.HANDLE
+            user32.SetClipboardData.argtypes = [wintypes.UINT, wintypes.HANDLE]
+            user32.CloseClipboard.restype = wintypes.BOOL
+            user32.CloseClipboard.argtypes = []
             if not user32.OpenClipboard(None):
                 return False
             try:
@@ -247,8 +269,13 @@ def _write_system_clipboard(text: str) -> bool:
                 if not handle:
                     return False
                 pointer = kernel32.GlobalLock(handle)
-                ctypes.memmove(pointer, data, len(data))
-                kernel32.GlobalUnlock(handle)
+                if not pointer:
+                    kernel32.GlobalFree(handle)
+                    return False
+                try:
+                    ctypes.memmove(pointer, data, len(data))
+                finally:
+                    kernel32.GlobalUnlock(handle)
                 if not user32.SetClipboardData(13, handle):
                     kernel32.GlobalFree(handle)
                     return False

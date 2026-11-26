@@ -997,6 +997,14 @@ def test_view_confirmation_queues_when_the_turn_ends():
             view.stop()
 
 
+def test_system_clipboard_write_never_raises():
+    # The OS clipboard write is best-effort: whatever the
+    # platform offers, the view must survive the attempt.
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    assert _write_system_clipboard("x") in (True, False)
+
+
 def test_view_submit_racing_the_turn_end_never_wedges_the_confirmation():
     # The busy check and the confirmation installation are one
     # atomic step.  If the turn ends in between, the BUSY->IDLE
