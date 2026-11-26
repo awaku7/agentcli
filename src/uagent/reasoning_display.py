@@ -121,19 +121,15 @@ def show_reasoning(
     )
     if callable(core_out_fn):
         out_fn = core_out_fn
-        writes_to_terminal = True
     elif print_fn is not None:
         out_fn = print_fn
-        writes_to_terminal = False
     else:
         out_fn = print
-        writes_to_terminal = True
     # Prevent fine-grained DeepSeek reasoning deltas from becoming one-character lines.
     # core.print_status_line checks _stream_line_open for [STATE] and
     # closes the line before displaying, preventing mid-line interruption.
+    # The text itself carries no colour: colouring reasoning is the
+    # renderer's decision (the legacy terminal printer grays it; the
+    # console view grays the reasoning segments of the document).
     safe_text = _safe_terminal_text(text)
-    if writes_to_terminal and _reasoning_ansi_enabled(core):
-        # Gray only the reasoning text and always reset in this same write, so
-        # later assistant output cannot inherit reasoning's terminal color.
-        safe_text = "\x1b[90m" + safe_text + "\x1b[0m"
     out_fn(label + safe_text)

@@ -29,11 +29,11 @@ def test_show_reasoning_strips_osc_terminal_controls(monkeypatch) -> None:
     assert output == ["beforeafter"]
 
 
-def test_show_reasoning_uses_gray_and_resets_terminal_color(monkeypatch) -> None:
+def test_show_reasoning_emits_plain_text_for_renderers(monkeypatch) -> None:
+    # Colouring reasoning is the renderer's decision: show_reasoning
+    # itself emits plain text (the input's own escapes are stripped
+    # by _safe_terminal_text, and none are added).
     monkeypatch.setattr(reasoning_display, "get_display_reasoning", lambda: True)
-    monkeypatch.setattr(
-        reasoning_display, "_reasoning_ansi_enabled", lambda core=None: True
-    )
     output: list[str] = []
 
     class Core:
@@ -48,7 +48,28 @@ def test_show_reasoning_uses_gray_and_resets_terminal_color(monkeypatch) -> None
         core=Core(),
     )
 
-    assert output == ["[Openai Reasoning] \x1b[90mthinking in gray\x1b[0m"]
+    assert output == ["[Openai Reasoning] thinking in gray"]
+
+
+def test_core_reasoning_printer_applies_gray_and_tracks_lines(
+    monkeypatch, capsys
+) -> None:
+    # The legacy terminal renderer (core_impl.display) applies the
+    # gray, and computes the line-open flag from the original text —
+    # the wrapped text ends with the reset sequence, not a newline.
+    from uagent import core
+    from uagent.core_impl import display as core_display
+
+    monkeypatch.setattr(
+        reasoning_display, "_reasoning_ansi_enabled", lambda core=None: True
+    )
+    core_display.print_reasoning_delta("thought")
+    assert capsys.readouterr().out == "\x1b[90mthought\x1b[0m"
+    assert core._reasoning_stream_open is True
+    core_display.print_reasoning_delta("done\n")
+    assert capsys.readouterr().out == "\x1b[90mdone\n\x1b[0m"
+    assert core._reasoning_stream_open is False
+    assert core._stream_line_open is False
 
 
 def test_reasoning_ansi_respects_no_color(monkeypatch) -> None:

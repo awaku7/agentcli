@@ -39,8 +39,10 @@ def _patch_common(monkeypatch, fake_stdin) -> None:
     monkeypatch.setattr(stdin_loop, "_append_prompt_history_entry", lambda _text: None)
     monkeypatch.setattr(stdin_loop, "forward_to_mesh", lambda _text: None)
     monkeypatch.setattr(select, "select", lambda r, _w, _x, _t: (r, [], []))
-    # Manual-path tests opt out of the prompt_toolkit session read.
+    # Manual-path tests opt out of the prompt_toolkit session read
+    # and of the full-screen console view.
     monkeypatch.setattr(stdin_loop, "_get_prompt_session", lambda: None)
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: None)
 
 
 def test_prompt_input_is_not_read_while_status_is_busy(monkeypatch) -> None:

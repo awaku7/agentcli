@@ -26,6 +26,113 @@ from .input_ui import (
 )
 from .prompt_session import _get_prompt_session, _reset_prompt_sessions
 from .state import _CLI_SHUTDOWN
+
+_console_view = None
+_console_view_failed = False
+
+
+def _console_view_ctrl_c() -> None:
+    """Ctrl+C inside the console view (it arrives as a key, not SIGINT)."""
+    with core.human_ask_lock:
+        ask_active = bool(core.human_ask_active)
+        ask_queue = core.human_ask_queue if ask_active else None
+    if ask_active:
+        # Mirror the legacy Ctrl+C-during-ask behaviour.
+        if ask_queue is not None:
+            try:
+                ask_queue.put("cancel")
+            except Exception:
+                pass
+        return
+    if getattr(core, "status_busy", False):
+        # Interrupt the running turn, mirroring the F12 monitor and the
+        # round worker's KeyboardInterrupt path.
+        try:
+            with core.interrupt_lock:
+                core.interrupt_requested = True
+        except Exception:
+            pass
+        try:
+            with core.auto_pilot_exit_lock:
+                core.auto_pilot_exit_requested = True
+        except Exception:
+            pass
+        return
+    # Idle: the legacy prompt path starts the shutdown sequence.
+    if _console_view is not None:
+        from ..runtime import display_channel
+
+        display_channel.post_segment(
+            "notice",
+            "\n[INFO] " + _("Received Ctrl+C. Starting shutdown...") + "\n",
+        )
+    core.event_queue.put({"kind": "command", "text": ":exit"})
+
+
+def _get_console_view():
+    """The session's full-screen console view, or None when unavailable."""
+    global _console_view, _console_view_failed
+    if _console_view_failed:
+        return None
+    if _console_view is None:
+        try:
+            from .console_view import ConsoleView, view_enabled
+
+            if not view_enabled():
+                _console_view_failed = True
+                return None
+            session = _get_prompt_session()
+            _console_view = ConsoleView(
+                completer=getattr(session, "completer", None),
+                history=getattr(session, "history", None),
+                on_ctrl_c=_console_view_ctrl_c,
+            )
+        except Exception:
+            _console_view_failed = True
+            return None
+    return _console_view
+
+
+def _read_line_from_view(view, prompt: str):
+    """Read one normal-prompt line through the console view.
+
+    Returns the submitted line, or None when the wait was aborted
+    because a human_ask took stdin (the view is suspended so the
+    legacy reply path can own the terminal) or shutdown began.
+    Raises EOFError on Ctrl+D, like the legacy prompt paths.
+    """
+    if not view.running:
+        view.start()
+    view.set_prompt_text(prompt)
+    try:
+        core._prompt_line_open = True
+        core._cli_prompt_toolkit_active = True
+    except Exception:
+        pass
+
+    def _abort() -> bool:
+        if _CLI_SHUTDOWN.is_set():
+            return True
+        with core.human_ask_lock:
+            return bool(core.human_ask_active)
+
+    try:
+        item = view.wait_line(abort=_abort)
+    finally:
+        try:
+            core._prompt_line_open = False
+            core._cli_prompt_toolkit_active = False
+        except Exception:
+            pass
+    if item is None:
+        view.suspend()
+        return None
+    if item is view.eof_sentinel:
+        view.suspend()
+        raise EOFError
+    return tools_util.strip_surrogates(str(item))
+
+
 from ..runtime.spinner import (
     paused as _spinner_paused,
     stop_quietly as _stop_spinner_quietly,
@@ -219,7 +326,19 @@ def stdin_loop(*, hook_runner=None) -> None:
                     # Reasoning/アシスタント表示が乱れる。手動パスなら行の
                     # 追跡・再描画を制御できる。
                     _chat_mode_active = is_chat_mode() == "llm"
+                    # Full-screen console view (single-writer 2b): while
+                    # it is enabled it replaces the per-prompt
+                    # PromptSession read; submitted lines flow into the
+                    # same post-processing below either way.
+                    _view = None
                     if (
+                        not _chat_mode_active
+                        and getattr(sys.stdin, "isatty", lambda: False)()
+                    ):
+                        _view = _get_console_view()
+                    if _view is not None:
+                        line = _read_line_from_view(_view, prompt)
+                    elif (
                         prompt_session is not None
                         and getattr(sys.stdin, "isatty", lambda: False)()
                         and not _chat_mode_active

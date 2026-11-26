@@ -275,7 +275,14 @@ def test_pump_renders_stream_deltas_by_kind(monkeypatch):
     channel.post_stream(dc.StreamDelta(text="answer"))
     dc.ensure_pump()
     assert channel.wait_for_stream_drain(timeout=5.0) is True
-    assert rendered == [("reasoning", "think"), ("answer", "answer")]
+    # The pump owns the line-state bookkeeping: it emits the
+    # reasoning -> answer separator as its own printer call (the
+    # real locked printer would insert the same newline itself).
+    assert rendered == [
+        ("reasoning", "think"),
+        ("answer", "\n"),
+        ("answer", "answer"),
+    ]
 
 
 def test_after_stream_wait_drains_queued_stream():
@@ -338,7 +345,11 @@ def test_pump_notice_wait_does_not_stall_the_stream(monkeypatch, capsys):
     _time.sleep(0.3)  # let the pump enter the notice's stream wait
     channel.post_stream(dc.StreamDelta(text="answer-text"))
     assert channel.wait_for_stream_drain(timeout=5.0) is True
-    assert rendered == [("reasoning", "think"), ("answer", "answer-text")]
+    assert rendered == [
+        ("reasoning", "think"),
+        ("answer", "\n"),
+        ("answer", "answer-text"),
+    ]
     deadline = _time.monotonic() + 5.0
     while "p2-notice-marker" not in capsys.readouterr().out:
         assert _time.monotonic() < deadline
@@ -362,3 +373,91 @@ def test_relay_binding_redirects_core_printers(capsys):
     assert (first.text, first.kind) == ("relayed answer", "answer")
     assert isinstance(second, dc.StreamDelta)
     assert (second.text, second.kind) == ("relayed thought", "reasoning")
+
+
+# ---------------------------------------------------------------------------
+# Output document (stage 2b)
+# ---------------------------------------------------------------------------
+
+
+def _doc_text(document) -> str:
+    segments, _version, _epoch = document.snapshot()
+    return "".join(segment.text for segment in segments)
+
+
+def test_document_merges_contiguous_same_kind():
+    document = dc.OutputDocument()
+    document.append("answer", "hel")
+    document.append("answer", "lo")
+    document.append("reasoning", "think")
+    document.append("answer", "!")
+    segments, _v, _e = document.snapshot()
+    assert [(s.kind, s.text) for s in segments] == [
+        ("answer", "hello"),
+        ("reasoning", "think"),
+        ("answer", "!"),
+    ]
+
+
+def test_document_strips_escapes_but_keeps_text():
+    document = dc.OutputDocument()
+    document.append("output", "\x1b[31mred\x1b[0m plain")
+    document.append("output", "a\x1b]8;;https://example.com\x07link\x1b]8;;\x07b")
+    assert _doc_text(document) == "red plainalinkb"
+    assert "\x1b" not in _doc_text(document)
+
+
+def test_document_holds_escape_split_across_appends():
+    document = dc.OutputDocument()
+    document.append("output", "a\x1b[3")
+    assert _doc_text(document) == "a"
+    document.append("output", "1mb")
+    assert _doc_text(document) == "ab"
+
+
+def test_document_cr_redraw_keeps_last_form():
+    document = dc.OutputDocument()
+    document.append("output", "working 10%\rworking 90%\n")
+    assert _doc_text(document) == "working 90%\n"
+    document.append("output", "a\r\nb")
+    assert _doc_text(document) == "working 90%\na\nb"
+
+
+def test_document_leading_cr_replaces_current_line():
+    document = dc.OutputDocument()
+    document.append("output", "done\nworking 10%")
+    _segments, _v, epoch_before = document.snapshot()
+    document.append("output", "\rworking 90%")
+    assert _doc_text(document) == "done\nworking 90%"
+    _segments, _v, epoch_after = document.snapshot()
+    assert epoch_after > epoch_before
+
+
+def test_document_replace_last_lines_keeps_earlier_text():
+    document = dc.OutputDocument()
+    document.append("answer", "intro\nsnap v1 line1\nsnap v1 line2")
+    _s, _v, epoch_before = document.snapshot()
+    document.replace_last_lines(2, "snap v2", kind="answer")
+    assert _doc_text(document) == "intro\nsnap v2"
+    _s, _v, epoch_after = document.snapshot()
+    assert epoch_after > epoch_before
+
+
+def test_document_trim_caps_and_bumps_epoch():
+    document = dc.OutputDocument(max_chars=20)
+    document.append("output", "line one\nline two\nline three\n")
+    text = _doc_text(document)
+    assert len(text) <= 20
+    assert text.startswith("line")
+    _s, _v, epoch = document.snapshot()
+    assert epoch > 0
+
+
+def test_split_snapshot_prefix_matches_host_renderer():
+    esc = "\x1b"
+    two_line = f"\r{esc}[1A{esc}[2K{esc}[1B\r{esc}[2K{esc}[1A\r" + "snap v2"
+    assert dc.split_snapshot_prefix(two_line) == (2, "snap v2")
+    one_line = f"\r{esc}[2K" + "snap v2"
+    assert dc.split_snapshot_prefix(one_line) == (1, "snap v2")
+    assert dc.split_snapshot_prefix("plain delta") is None
+    assert dc.split_snapshot_prefix("\rplain") is None

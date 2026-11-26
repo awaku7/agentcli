@@ -416,6 +416,31 @@ def _should_emit_tool_trace(name: str) -> bool:
     return _TOOL_TRACE_FLAGS.get(name, True)
 
 
+def _emit_trace_line(line: str) -> None:
+    """Show one tool trace line, typed as tool output.
+
+    The line always gathers into the shared output document under
+    the "tool" kind. When the console view is active it renders the
+    line from the document; otherwise the line is printed exactly
+    as before.
+    """
+    view = None
+    try:
+        from ..cli_impl.console_view import active_view
+
+        view = active_view()
+    except Exception:
+        view = None
+    try:
+        from ..runtime import display_channel
+
+        display_channel.post_segment("tool", line + "\n")
+    except Exception:
+        pass
+    if view is None:
+        print(line, flush=True)
+
+
 def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
     """Print the pre-execution tool trace, localized in mode 2."""
     try:
@@ -456,7 +481,7 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                 if bool(getattr(_core, "IS_GUI", False)):
                     return
                 with _core.print_lock:
-                    print(f"{trace_prefix}{ts} {body}", flush=True)
+                    _emit_trace_line(f"{trace_prefix}{ts} {body}")
             except Exception:
                 print(f"{trace_prefix}{ts} {body}", flush=True)
     except Exception:
