@@ -810,6 +810,12 @@ class NostrTransport:
         self._running = False
         self._tasks: list[asyncio.Task] = []
         self._relay_connections: dict[str, Any] = {}
+        # Relays whose connection failure has already been shown to
+        # the user.  A relay that keeps rejecting (or is down) fails
+        # every retry; repeating the same line each time buries the
+        # conversation, so only the first failure is displayed until
+        # the relay connects again.
+        self._relay_failure_reported: set[str] = set()
 
         # Outbound queue (thread-safe)
         self._outbound: queue.Queue = queue.Queue()
@@ -1141,6 +1147,7 @@ class NostrTransport:
                     kwargs["ssl"] = ssl_ctx
                 async with websockets.connect(url, **kwargs) as ws:
                     self._relay_connections[url] = ws
+                    self._relay_failure_reported.discard(url)
                     _notify_display(f"[nostr] Connected to {url}")
 
                     await self._send_subscriptions(ws)
@@ -1178,13 +1185,17 @@ class NostrTransport:
             except asyncio.CancelledError:
                 break
             except (_wse.WebSocketException, OSError, asyncio.TimeoutError) as e:
-                _notify_display(f"[nostr] Relay {url} disconnected: {e}")
+                if url not in self._relay_failure_reported:
+                    self._relay_failure_reported.add(url)
+                    _notify_display(f"[nostr] Relay {url} disconnected: {e}")
                 self._relay_connections.pop(url, None)
                 if not self._stop_event.is_set():
                     await asyncio.sleep(10)  # reconnect delay
                     continue
             except Exception as e:
-                _notify_display(f"[nostr] Relay {url} error: {e}")
+                if url not in self._relay_failure_reported:
+                    self._relay_failure_reported.add(url)
+                    _notify_display(f"[nostr] Relay {url} error: {e}")
                 self._relay_connections.pop(url, None)
                 if not self._stop_event.is_set():
                     await asyncio.sleep(30)
