@@ -1029,6 +1029,60 @@ def test_system_clipboard_write_never_raises():
     assert _write_system_clipboard("x") in (True, False)
 
 
+def test_system_clipboard_windows_uses_console_window_owner(monkeypatch):
+    # The Windows branch must open the clipboard with a real
+    # owner window (the console window): with a NULL owner,
+    # EmptyClipboard leaves the owner NULL and SetClipboardData
+    # fails — after the previous contents were already erased.
+    # The memory block is also filled before the clipboard is
+    # opened, so early failures never touch the clipboard.
+    import ctypes
+    import sys
+    import types
+
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    calls: list = []
+    buffer = ctypes.create_string_buffer(64)
+
+    class _Func:
+        def __init__(self, name, result):
+            self.name = name
+            self.result = result
+
+        def __call__(self, *args):
+            calls.append((self.name, args))
+            return self.result
+
+    kernel32 = types.SimpleNamespace(
+        GlobalAlloc=_Func("GlobalAlloc", 4242),
+        GlobalLock=_Func("GlobalLock", ctypes.addressof(buffer)),
+        GlobalUnlock=_Func("GlobalUnlock", True),
+        GlobalFree=_Func("GlobalFree", None),
+        GetConsoleWindow=_Func("GetConsoleWindow", 777),
+    )
+    user32 = types.SimpleNamespace(
+        OpenClipboard=_Func("OpenClipboard", True),
+        EmptyClipboard=_Func("EmptyClipboard", True),
+        SetClipboardData=_Func("SetClipboardData", 4242),
+        CloseClipboard=_Func("CloseClipboard", True),
+    )
+    monkeypatch.setattr(
+        ctypes,
+        "windll",
+        types.SimpleNamespace(user32=user32, kernel32=kernel32),
+        raising=False,
+    )
+    monkeypatch.setattr(sys, "platform", "win32")
+    assert _write_system_clipboard("hi") is True
+    names = [name for name, _args in calls]
+    assert names.index("GlobalAlloc") < names.index("OpenClipboard")
+    assert ("OpenClipboard", (777,)) in calls
+    assert ("SetClipboardData", (13, 4242)) in calls
+    written = buffer.raw[:6]
+    assert written == "hi".encode("utf-16-le") + b"\x00\x00"
+
+
 def test_system_clipboard_write_uses_a_native_tool(monkeypatch, tmp_path):
     # No third-party dependency is required: a native clipboard
     # tool on PATH (xclip here, standing in for pbcopy/wl-copy)

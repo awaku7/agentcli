@@ -262,22 +262,37 @@ def _write_system_clipboard(text: str) -> bool:
             user32.SetClipboardData.argtypes = [wintypes.UINT, wintypes.HANDLE]
             user32.CloseClipboard.restype = wintypes.BOOL
             user32.CloseClipboard.argtypes = []
-            if not user32.OpenClipboard(None):
+            kernel32.GetConsoleWindow.restype = wintypes.HWND
+            kernel32.GetConsoleWindow.argtypes = []
+            # Fill the memory block before touching the clipboard,
+            # so a failure up to here leaves the user's current
+            # clipboard contents alone.
+            data = text.encode("utf-16-le") + b"\x00\x00"
+            handle = kernel32.GlobalAlloc(0x0002, len(data))
+            if not handle:
+                return False
+            pointer = kernel32.GlobalLock(handle)
+            if not pointer:
+                kernel32.GlobalFree(handle)
+                return False
+            try:
+                ctypes.memmove(pointer, data, len(data))
+            finally:
+                kernel32.GlobalUnlock(handle)
+            # The clipboard needs a real owner window: opened
+            # with NULL, EmptyClipboard leaves the owner NULL and
+            # SetClipboardData then fails — after the previous
+            # contents were already erased.  The console window
+            # is this process's window.
+            owner = kernel32.GetConsoleWindow()
+            if not owner:
+                kernel32.GlobalFree(handle)
+                return False
+            if not user32.OpenClipboard(owner):
+                kernel32.GlobalFree(handle)
                 return False
             try:
                 user32.EmptyClipboard()
-                data = text.encode("utf-16-le") + b"\x00\x00"
-                handle = kernel32.GlobalAlloc(0x0002, len(data))
-                if not handle:
-                    return False
-                pointer = kernel32.GlobalLock(handle)
-                if not pointer:
-                    kernel32.GlobalFree(handle)
-                    return False
-                try:
-                    ctypes.memmove(pointer, data, len(data))
-                finally:
-                    kernel32.GlobalUnlock(handle)
                 if not user32.SetClipboardData(13, handle):
                     kernel32.GlobalFree(handle)
                     return False
