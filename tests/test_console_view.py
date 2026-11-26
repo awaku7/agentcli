@@ -1229,6 +1229,62 @@ def test_view_drag_on_the_output_copies_the_selection():
             view.stop()
 
 
+def test_view_drag_at_the_top_edge_autoscrolls_and_extends():
+    # Holding a drag at the output's top edge scrolls the view
+    # and keeps extending the selection upward, so text above
+    # the visible area can be selected and copied.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 41):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            top = window.vertical_scroll
+            assert top > 0  # the transcript starts scrolled to the tail
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second visible row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            press_row, _ = view._output_buffer.document.translate_index_to_position(
+                view._output_buffer.cursor_position
+            )
+            for _ in range(8):
+                pipe.send_text("\x1b[<32;1;1M")  # hold at the top edge
+            assert _wait_for(lambda: window.vertical_scroll < top - 2)
+            state = view._output_buffer.selection_state
+            assert state is not None
+            start = min(
+                state.original_cursor_position, view._output_buffer.cursor_position
+            )
+            start_row, _ = view._output_buffer.document.translate_index_to_position(
+                start
+            )
+            # The selection reached above the first visible row.
+            assert start_row < press_row - 1
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(
+                lambda: view._app.clipboard.get_data().text.startswith(
+                    f"line {start_row + 1:02d}"
+                )
+            )
+            copied = view._app.clipboard.get_data().text
+            # The press anchored the selection at the start of its
+            # line, so the copy ends with the line just above it.
+            assert copied.endswith(f"line {press_row:02d}\n")
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

@@ -1291,8 +1291,50 @@ class ConsoleView:
             the focused control, and this one never takes focus
             (the input keeps it), so selection is handled here
             directly: drag selects, and releasing the button
-            copies the selection to the clipboard.
+            copies the selection to the clipboard.  Holding the
+            drag at the top or bottom edge auto-scrolls, so a
+            selection can extend past what is on screen.
             """
+
+            def _edge_step(self, mouse_event: Any) -> int:
+                """-1 at the top edge, +1 at the bottom, else 0.
+
+                The event's y is already the document line under
+                the pointer (the window translates screen rows
+                before dispatch), so the edges are the first and
+                last visible lines of the latest render.
+                """
+                info = getattr(view._output_window, "render_info", None)
+                mapping = getattr(info, "visible_line_to_input_line", None)
+                if not mapping:
+                    return 0
+                y = mouse_event.position.y
+                if y <= mapping[min(mapping)]:
+                    return -1
+                if y >= mapping[max(mapping)]:
+                    return 1
+                return 0
+
+            def _extend_past_edge(self, step: int) -> bool:
+                """Scroll one line and step the selection endpoint
+                one document line in the same direction."""
+                buffer = self.buffer
+                document = buffer.document
+                row, _col = document.translate_index_to_position(buffer.cursor_position)
+                target_row = row + step
+                if target_row < 0 or target_row >= document.line_count:
+                    return False
+                if buffer.selection_state is None:
+                    buffer.start_selection(selection_type=SelectionType.CHARACTERS)
+                if step < 0:
+                    target = document.translate_row_col_to_index(target_row, 0)
+                else:
+                    target = document.translate_row_col_to_index(
+                        target_row, len(document.lines[target_row])
+                    )
+                view._scroll_output_wheel(step)
+                buffer.cursor_position = target
+                return True
 
             def mouse_handler(self, mouse_event: Any) -> Any:
                 if mouse_event.event_type in (
@@ -1310,12 +1352,33 @@ class ConsoleView:
                     mouse_event.position.y, xpos
                 )
                 if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
+                    self._latched_edge = 0
                     buffer.exit_selection()
                     buffer.cursor_position = index
                 elif (
                     mouse_event.event_type == MouseEventType.MOUSE_MOVE
                     and mouse_event.button != MouseButton.NONE
                 ):
+                    step = self._edge_step(mouse_event)
+                    if step and step == getattr(self, "_latched_edge", 0):
+                        # Still holding at the same edge: keep
+                        # extending without consulting the line
+                        # mapping, which still describes the
+                        # pre-scroll render.  At the document's own
+                        # edge the endpoint simply stays.
+                        self._extend_past_edge(step)
+                        return None
+                    elif step and index == buffer.cursor_position:
+                        # The endpoint is pinned at the edge line:
+                        # start extending past it (or stay, at the
+                        # document's edge).  Falling through to the
+                        # mapping below would use the pre-scroll
+                        # render and yank the endpoint back.
+                        if self._extend_past_edge(step):
+                            self._latched_edge = step
+                        return None
+                    else:
+                        self._latched_edge = 0
                     if (
                         buffer.selection_state is None
                         and abs(buffer.cursor_position - index) > 0
@@ -1323,6 +1386,7 @@ class ConsoleView:
                         buffer.start_selection(selection_type=SelectionType.CHARACTERS)
                     buffer.cursor_position = index
                 elif mouse_event.event_type == MouseEventType.MOUSE_UP:
+                    self._latched_edge = 0
                     if buffer.selection_state is not None:
                         try:
                             get_app().clipboard.set_data(buffer.copy_selection())
