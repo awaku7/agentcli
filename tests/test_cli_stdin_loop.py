@@ -1059,3 +1059,41 @@ def test_queued_line_survives_an_ask_opening_during_the_hold(monkeypatch) -> Non
 
 def test_queued_line_survives_an_ask_already_open_at_the_check(monkeypatch) -> None:
     _run_ask_requeue_scenario(monkeypatch, flip_early=True)
+
+
+def test_stdin_eof_releases_a_pending_human_ask(monkeypatch) -> None:
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    ask_queue: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    monkeypatch.setattr(core, "human_ask_message", "Register this device?")
+    _patch_common(monkeypatch, fake_stdin)
+    monkeypatch.setattr(
+        stdin_loop,
+        "_prompt_toolkit_input",
+        lambda _prompt, **_kw: (_ for _ in ()).throw(EOFError),
+    )
+    original_queue = core.human_ask_queue
+    with core.human_ask_lock:
+        core.human_ask_active = True
+        core.human_ask_is_password = False
+        core.human_ask_queue = ask_queue
+        core.human_ask_job_id = None
+        core.human_ask_prompt = ""
+        core.human_ask_multiline_active = False
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+        with core.human_ask_lock:
+            core.human_ask_active = False
+            core.human_ask_queue = original_queue
+
+    # EOF cancelled the pending ask (None) instead of leaving its
+    # waiter blocked until the ask timeout, and exit was requested.
+    assert ask_queue.get_nowait() is None
+    assert events.get_nowait() == {"kind": "command", "text": ":exit"}

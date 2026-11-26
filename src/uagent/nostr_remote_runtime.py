@@ -718,6 +718,16 @@ class NostrRemoteRuntime:
         rumor_id = rumor.get("id")
         if not isinstance(sender, str) or not isinstance(rumor_id, str):
             return False
+        # A device revoked after the question was forwarded must not
+        # resume the turn by answering it. Ingress is permissive for
+        # first contact, so recheck pairing before consuming a DM as
+        # an ask answer; an unauthorized DM keeps its normal routing
+        # (and is rejected, or offered for pairing, at dispatch).
+        try:
+            if not self.pairing_store.is_authorized(sender):
+                return False
+        except Exception:
+            return False
         try:
             record = self.inbox_store.claim(
                 sender, rumor_id, session_id=self.session_id

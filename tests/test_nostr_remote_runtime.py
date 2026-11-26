@@ -880,6 +880,51 @@ def test_ask_question_forwarded_and_answer_routed_to_ask_queue(
         pairings.close()
 
 
+def test_ask_answer_from_a_revoked_device_is_not_consumed(tmp_path) -> None:
+    ask_queue: queue.Queue = queue.Queue()
+    state = {
+        "active": True,
+        "is_password": False,
+        "message": "proceed?",
+        "queue": ask_queue,
+    }
+    inbox, pairings, recipient_key, event, runtime = _make_runtime(
+        tmp_path, ask_state_provider=lambda: dict(state)
+    )
+    try:
+        runtime.dispatch_event(event, current_session_id="active-session")
+        runtime._forward_pending_ask_once()
+        runtime._note_question_result(ask_queue, True)
+        # The device is revoked while the question is outstanding.
+        assert pairings.revoke(event["sender_pubkey"])
+
+        sender_key = _secret(1)
+        now = int(time.time())
+        wrap = create_nip17_private_messages(
+            "yes", sender_key, _public_key_bytes(recipient_key), now=now
+        )[0]
+        rumor = unwrap_nip17_private_message(wrap, recipient_key)
+        inbox.enqueue_verified_wrap(
+            rumor["pubkey"],
+            rumor["id"],
+            wrap,
+            created_at=rumor["created_at"],
+            received_at=now,
+            session_id="active-session",
+        )
+        runtime._queue_rumor(rumor)
+        # The revoked device's DM is not consumed as the ask answer;
+        # it keeps its normal routing as a fresh request event.
+        assert ask_queue.empty()
+        queued_event = runtime.event_queue.get_nowait()
+        assert queued_event["rumor_id"] == rumor["id"]
+        record = inbox.get(rumor["pubkey"], rumor["id"])
+        assert record is not None and record.status == "pending"
+    finally:
+        inbox.close()
+        pairings.close()
+
+
 def test_ask_password_is_never_forwarded_or_routed(tmp_path) -> None:
     ask_queue: queue.Queue = queue.Queue()
     state = {
