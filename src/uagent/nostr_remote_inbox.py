@@ -27,7 +27,7 @@ import threading
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Callable, Literal
 
 MAX_STORED_GIFT_WRAP_BYTES = 1_000_000
 MAX_PENDING_INBOX_ROWS = 1_000
@@ -480,3 +480,122 @@ class SQLiteNostrInboxStore:
 
     def __exit__(self, *_exc: object) -> None:
         self.close()
+
+
+class IsolatedIngressInboxStore:
+    """Inbox facade that isolates first-contact storage from paired traffic.
+
+    ``enqueue_verified_wrap`` routes by the sender's current
+    authorization: authorized senders persist in the primary store,
+    everyone else in a separate first-contact store with its own
+    small capacity. Unauthorized traffic can therefore exhaust only
+    the first-contact budget, never the paired-request inbox (whose
+    payload budget is cumulative and never refunded). All other
+    operations consult both stores, so a request stored as first
+    contact is claimed and finished normally once its sender pairs.
+    """
+
+    def __init__(
+        self,
+        primary: SQLiteNostrInboxStore,
+        first_contact: SQLiteNostrInboxStore,
+        is_authorized: Callable[[str], bool],
+    ) -> None:
+        if not callable(is_authorized):
+            raise TypeError("is_authorized must be callable")
+        self._primary = primary
+        self._first_contact = first_contact
+        self._is_authorized = is_authorized
+
+    def enqueue_verified_wrap(
+        self,
+        sender_pubkey_hex: str,
+        rumor_id_hex: str,
+        wrapped_event: dict[str, Any],
+        *,
+        created_at: int,
+        received_at: int | None = None,
+        session_id: str,
+    ) -> bool:
+        try:
+            authorized = bool(self._is_authorized(sender_pubkey_hex))
+        except Exception:
+            authorized = False
+        store = self._primary if authorized else self._first_contact
+        return store.enqueue_verified_wrap(
+            sender_pubkey_hex,
+            rumor_id_hex,
+            wrapped_event,
+            created_at=created_at,
+            received_at=received_at,
+            session_id=session_id,
+        )
+
+    def get(self, sender_pubkey_hex: str, rumor_id_hex: str) -> InboxRecord | None:
+        record = self._primary.get(sender_pubkey_hex, rumor_id_hex)
+        if record is None:
+            record = self._first_contact.get(sender_pubkey_hex, rumor_id_hex)
+        return record
+
+    def claim(
+        self,
+        sender_pubkey_hex: str,
+        rumor_id_hex: str,
+        *,
+        claimed_at: int | None = None,
+        session_id: str | None = None,
+    ) -> InboxRecord | None:
+        record = self._primary.claim(
+            sender_pubkey_hex,
+            rumor_id_hex,
+            claimed_at=claimed_at,
+            session_id=session_id,
+        )
+        if record is None:
+            record = self._first_contact.claim(
+                sender_pubkey_hex,
+                rumor_id_hex,
+                claimed_at=claimed_at,
+                session_id=session_id,
+            )
+        return record
+
+    def finish(
+        self,
+        sender_pubkey_hex: str,
+        rumor_id_hex: str,
+        outcome: TerminalStatus,
+        *,
+        finished_at: int | None = None,
+    ) -> bool:
+        if self._primary.finish(
+            sender_pubkey_hex, rumor_id_hex, outcome, finished_at=finished_at
+        ):
+            return True
+        return self._first_contact.finish(
+            sender_pubkey_hex, rumor_id_hex, outcome, finished_at=finished_at
+        )
+
+    def _merged(
+        self, method: str, *, limit: int, session_id: str | None
+    ) -> list[InboxRecord]:
+        records = getattr(self._primary, method)(limit=limit, session_id=session_id)
+        records += getattr(self._first_contact, method)(
+            limit=limit, session_id=session_id
+        )
+        records.sort(key=lambda r: (r.received_at, r.sender_pubkey, r.rumor_id))
+        return records[:limit]
+
+    def list_pending(
+        self, *, limit: int = 100, session_id: str | None = None
+    ) -> list[InboxRecord]:
+        return self._merged("list_pending", limit=limit, session_id=session_id)
+
+    def list_dispatching(
+        self, *, limit: int = 100, session_id: str | None = None
+    ) -> list[InboxRecord]:
+        return self._merged("list_dispatching", limit=limit, session_id=session_id)
+
+    def close(self) -> None:
+        self._primary.close()
+        self._first_contact.close()

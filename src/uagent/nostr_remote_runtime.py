@@ -18,7 +18,11 @@ from .nostr_remote_dispatch import (
     create_nostr_remote_request_event,
     is_nostr_remote_status_request,
 )
-from .nostr_remote_inbox import InboxRecord, SQLiteNostrInboxStore
+from .nostr_remote_inbox import (
+    InboxRecord,
+    IsolatedIngressInboxStore,
+    SQLiteNostrInboxStore,
+)
 from .nostr_remote_outbox import OutboxRecord, SQLiteNostrOutboxStore
 from .nostr_remote_pairing import SQLitePairingStore
 from .nostr_remote_transport import (
@@ -1782,6 +1786,12 @@ def create_nostr_remote_runtime(
     db_dir = get_dbs_dir()
     db_dir.mkdir(parents=True, exist_ok=True)
     inbox_store = SQLiteNostrInboxStore(db_dir / "nostr_remote_inbox.sqlite3")
+    first_contact_store = SQLiteNostrInboxStore(
+        db_dir / "nostr_remote_first_contact.sqlite3",
+        max_pending=100,
+        max_records=1_000,
+        max_total_payload_bytes=8 * 1024 * 1024,
+    )
     outbox_store = None
     pairing_store = None
     try:
@@ -1789,11 +1799,17 @@ def create_nostr_remote_runtime(
         pairing_store = SQLitePairingStore(db_dir / "nostr_remote_pairings.sqlite3")
     except Exception:
         inbox_store.close()
+        first_contact_store.close()
         if outbox_store is not None:
             outbox_store.close()
         if pairing_store is not None:
             pairing_store.close()
         raise
+    # First-contact requests persist in their own small store so
+    # unauthorized traffic cannot exhaust the paired inbox budget.
+    inbox_store = IsolatedIngressInboxStore(
+        inbox_store, first_contact_store, pairing_store.is_authorized
+    )
 
     def _ask_state_snapshot() -> dict[str, Any] | None:
         lock = getattr(core, "human_ask_lock", None)
@@ -1874,6 +1890,7 @@ def create_nostr_remote_runtime(
                 return None
             return None if value is None else str(value)
         finally:
+            cleaned_up = False
             with lock:
                 if getattr(core, "human_ask_queue", None) is reply_queue:
                     core.human_ask_active = False
@@ -1882,6 +1899,21 @@ def create_nostr_remote_runtime(
                     core.human_ask_message = ""
                     core.human_ask_prompt = ""
                     core.human_ask_queue = None
+                    cleaned_up = True
+            if cleaned_up:
+                # The reply path marks the CLI busy ("replying")
+                # before delivering the answer, and a following turn
+                # normally clears it. A pairing answer often leads
+                # to no turn (refusal or another rejection), so
+                # restore the idle status here; otherwise stdin
+                # stays blocked on the busy flag.
+                try:
+                    if getattr(core, "status_busy", False) and str(
+                        getattr(core, "status_label", "")
+                    ).startswith("replying"):
+                        core.set_status(False)
+                except Exception:
+                    pass
 
     runtime = NostrRemoteRuntime(
         event_queue=event_queue,

@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import queue
+import threading
 import time
 from types import SimpleNamespace
 
@@ -212,6 +213,60 @@ def test_listener_runtime_stops_cleanly(tmp_path, monkeypatch) -> None:
         assert stop_nostr_remote_runtime(core)["stopped"]
         assert runtime.status()["state"] == "stopped"
         assert not hasattr(core, "_nostr_remote_runtime")
+    finally:
+        if not runtime._closed:
+            stop_nostr_remote_runtime(core)
+
+
+def test_pairing_prompt_restores_idle_status_after_an_answer(
+    tmp_path, monkeypatch
+) -> None:
+    import uagent.nostr_remote_runtime as runtime_module
+
+    async def wait_for_stop(_relay, _key, _callback, *, stop_event, **_kwargs):
+        await stop_event.wait()
+
+    monkeypatch.setattr(runtime_module, "listen_nip17_messages", wait_for_stop)
+    monkeypatch.setattr("uagent.utils.paths.get_dbs_dir", lambda: tmp_path / "db")
+    core = SimpleNamespace(
+        event_queue=queue.Queue(),
+        session_id="active-session",
+        human_ask_lock=threading.Lock(),
+        human_ask_active=False,
+        human_ask_queue=None,
+        human_ask_message="",
+        human_ask_prompt="",
+        human_ask_multiline_active=False,
+        human_ask_lines=[],
+        status_busy=False,
+        status_label="",
+    )
+
+    def _set_status(busy, label=""):
+        core.status_busy = busy
+        core.status_label = label if busy else ""
+
+    core.set_status = _set_status
+    runtime = start_nostr_remote_runtime(
+        core, private_key=_secret(2), relays=["wss://relay.example.org"]
+    )
+    try:
+        answers: list[str | None] = []
+        thread = threading.Thread(
+            target=lambda: answers.append(runtime._pairing_asker("npub1example"))
+        )
+        thread.start()
+        deadline = time.time() + 5
+        while not core.human_ask_active and time.time() < deadline:
+            time.sleep(0.01)
+        assert core.human_ask_active
+        # The reply path marks the CLI busy before delivering the answer.
+        core.set_status(True, "replying")
+        core.human_ask_queue.put("no")
+        thread.join(timeout=5)
+        assert answers == ["no"]
+        # No turn follows a refusal, so the prompt itself restored idle.
+        assert core.status_busy is False
     finally:
         if not runtime._closed:
             stop_nostr_remote_runtime(core)
