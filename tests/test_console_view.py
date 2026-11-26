@@ -1005,6 +1005,27 @@ def test_system_clipboard_write_never_raises():
     assert _write_system_clipboard("x") in (True, False)
 
 
+def test_system_clipboard_write_uses_a_native_tool(monkeypatch, tmp_path):
+    # No third-party dependency is required: a native clipboard
+    # tool on PATH (xclip here, standing in for pbcopy/wl-copy)
+    # receives the text.
+    import os
+    import stat
+    import sys
+
+    if sys.platform == "win32":
+        return
+    from uagent.cli_impl.console_view import _write_system_clipboard
+
+    sink = tmp_path / "clipboard.txt"
+    tool = tmp_path / "xclip"
+    tool.write_text(f"#!/bin/sh\ncat > {sink}\n")
+    tool.chmod(tool.stat().st_mode | stat.S_IEXEC)
+    monkeypatch.setenv("PATH", f"{tmp_path}{os.pathsep}{os.environ['PATH']}")
+    assert _write_system_clipboard("copied text") is True
+    assert sink.read_text() == "copied text"
+
+
 def test_view_submit_racing_the_turn_end_never_wedges_the_confirmation():
     # The busy check and the confirmation installation are one
     # atomic step.  If the turn ends in between, the BUSY->IDLE

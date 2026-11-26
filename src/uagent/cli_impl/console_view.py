@@ -286,6 +286,37 @@ def _write_system_clipboard(text: str) -> bool:
                 user32.CloseClipboard()
         except Exception:
             return False
+    # The native command-line clipboard tools need no extra
+    # dependency: pbcopy always ships with macOS, and on Linux
+    # the Wayland and X11 tools are tried in turn.  pyperclip,
+    # when a user happens to have it, is the last resort.
+    import shutil
+    import subprocess
+
+    if sys.platform == "darwin":
+        candidates = [["pbcopy"]]
+    else:
+        candidates = [
+            ["wl-copy"],
+            ["xclip", "-selection", "clipboard"],
+            ["xsel", "--clipboard", "--input"],
+        ]
+    for command in candidates:
+        if shutil.which(command[0]) is None:
+            continue
+        try:
+            result = subprocess.run(
+                command,
+                input=text.encode("utf-8"),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=5,
+                check=False,
+            )
+            if result.returncode == 0:
+                return True
+        except Exception:
+            continue
     try:
         import pyperclip
 
