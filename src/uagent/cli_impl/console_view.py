@@ -1364,38 +1364,57 @@ class ConsoleView:
                     total += get_cwidth(char)
                 return len(self.buffer.document.lines[row])
 
+            def _cells_to_char_cols(self, row: int, cell_cols: list[int]) -> list[int]:
+                """Convert several cell offsets within a row to
+                character offsets in one walk over the line."""
+                from prompt_toolkit.utils import get_cwidth
+
+                line = self.buffer.document.lines[row]
+                converted: list[int] = []
+                targets = sorted(cell_cols)
+                target_index = 0
+                total = 0
+                for index, char in enumerate(line):
+                    while (
+                        target_index < len(targets) and total >= targets[target_index]
+                    ):
+                        converted.append(index)
+                        target_index += 1
+                    total += get_cwidth(char)
+                while target_index < len(targets):
+                    converted.append(len(line))
+                    target_index += 1
+                return converted
+
             def _segment_starts(self, row: int) -> list[int]:
-                """The wrapped segment start columns of a document
-                row, in character offsets: from the latest render's
-                segment map (converted from cell offsets) when the
-                row is rendered, else derived from the line's text
-                and the terminal width."""
+                """ALL wrapped segment start columns of a document
+                row, in character offsets.  The render map only
+                covers the rendered region of a long line, so its
+                starts (converted from cell offsets) are completed
+                by a walk over the line's text at the terminal
+                width; the union keeps the renderer's own break
+                points wherever it reported them."""
                 from prompt_toolkit.utils import get_cwidth
 
                 info = getattr(view._output_window, "render_info", None)
                 mapping = getattr(info, "visible_line_to_row_col", None) or {}
                 cells = sorted({c for r, c in mapping.values() if r == row})
-                if cells:
-                    starts = [self._cell_to_char_col(row, c) for c in cells]
-                    if starts[0] != 0:
-                        starts = [0] + starts
-                    return starts
+                starts = set(self._cells_to_char_cols(row, cells)) if cells else set()
+                starts.add(0)
                 try:
                     width = int(view._app.output.get_size().columns)
                 except Exception:
-                    return [0]
-                if width <= 0:
-                    return [0]
-                starts = [0]
-                segment = 0
-                for index, char in enumerate(self.buffer.document.lines[row]):
-                    char_width = get_cwidth(char)
-                    if segment + char_width > width:
-                        starts.append(index)
-                        segment = char_width
-                    else:
-                        segment += char_width
-                return starts
+                    width = 0
+                if width > 0:
+                    segment = 0
+                    for index, char in enumerate(self.buffer.document.lines[row]):
+                        char_width = get_cwidth(char)
+                        if segment + char_width > width:
+                            starts.add(index)
+                            segment = char_width
+                        else:
+                            segment += char_width
+                return sorted(starts)
 
             def _extend_past_edge(self, step: int) -> bool:
                 """Scroll one screen row and step the selection

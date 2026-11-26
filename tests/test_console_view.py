@@ -1578,6 +1578,47 @@ def test_view_drag_at_the_edge_of_a_wide_char_line_scrolls_within_it():
             view.stop()
 
 
+def test_view_drag_at_the_bottom_edge_steps_through_unrendered_segments():
+    # A wrapped line extending below the viewport: the render
+    # map covers only its rendered prefix, but the downward
+    # extension must still step segment by segment through the
+    # unrendered part instead of jumping to the line's end.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 10000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # Start from the line's beginning.
+            view._output_buffer.cursor_position = 0
+            assert _wait_for(lambda: window.vertical_scroll_2 == 0)
+            rows = view._app.output.get_size().rows
+            bottom_y = rows - 5  # the output area's last screen row
+            pipe.send_text("\x1b[<0;1;1M")  # press at the top
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")  # drag to the bottom edge
+            assert _wait_for(lambda: view._output_buffer.cursor_position > 0)
+            first_endpoint = view._output_buffer.cursor_position
+            assert first_endpoint < 10000
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")  # pin at the edge
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position > first_endpoint
+            )
+            # Stepping, not jumping to the end of the line.
+            assert view._output_buffer.cursor_position < 6000
+            pipe.send_text(f"\x1b[<0;1;{bottom_y}m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 
