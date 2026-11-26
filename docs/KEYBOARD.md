@@ -9,7 +9,7 @@ the legacy prompt (`UAGENT_CLI_VIEW=0`).
 | Key | What it does |
 | --- | --- |
 | Enter | Send the line |
-| Ctrl+J | Insert a line break, to write a multi-line message |
+| Ctrl+J | Insert a line break, to write a multi-line message (full-screen view only; in the legacy prompt Ctrl+J sends, like Enter) |
 | Paste (Ctrl+V / right-click, terminal permitting) | Inserts the pasted text; nothing is sent until you press Enter |
 
 While the agent is working, the full-screen view keeps the input
