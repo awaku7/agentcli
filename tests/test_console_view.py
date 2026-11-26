@@ -1619,6 +1619,44 @@ def test_view_drag_at_the_bottom_edge_steps_through_unrendered_segments():
             view.stop()
 
 
+def test_view_drag_on_a_tabbed_lines_interior_row_is_not_the_edge():
+    # Tabs render as ^I (2 cells) but get_cwidth counts them as
+    # 0, so converting segment offsets with plain character
+    # widths drifts: an interior wrapped row of a tabbed line
+    # must not be mistaken for the top edge, while the true
+    # first row still is the edge.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for _ in range(30):
+        document.append("answer", "abc\t" * 60 + "\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            view._output_buffer.cursor_position = 0
+            assert _wait_for(lambda: window.vertical_scroll == 0)
+            top = window.vertical_scroll
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second screen row
+            assert _wait_for(lambda: view._output_buffer.cursor_position == 64)
+            pipe.send_text("\x1b[<32;1;2M")  # drag within the interior row
+            pipe.send_text("\x1b[<32;1;2M")
+            import time as _time
+
+            _time.sleep(0.8)  # past the repeat's initial delay
+            assert view._output_control._edge_task is None
+            assert window.vertical_scroll == top
+            pipe.send_text("\x1b[<0;1;2m")
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

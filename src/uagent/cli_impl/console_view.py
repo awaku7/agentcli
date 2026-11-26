@@ -1349,19 +1349,31 @@ class ConsoleView:
                     return 1
                 return 0
 
+            @staticmethod
+            def _rendered_width(char: str) -> int:
+                """The width the renderer gives one character:
+                control characters are drawn as ^X (2 cells),
+                everything else follows get_cwidth (which counts
+                control characters as 0 and would skew every
+                offset past a tab)."""
+                from prompt_toolkit.utils import get_cwidth
+
+                code = ord(char)
+                if code < 32 or code == 127:
+                    return 2
+                return get_cwidth(char)
+
             def _cell_to_char_col(self, row: int, cell_col: int) -> int:
                 """Convert a terminal-cell offset within a document
                 row to a character offset, by walking the line's
-                character widths."""
-                from prompt_toolkit.utils import get_cwidth
-
+                rendered character widths."""
                 if cell_col <= 0:
                     return 0
                 total = 0
                 for index, char in enumerate(self.buffer.document.lines[row]):
                     if total >= cell_col:
                         return index
-                    total += get_cwidth(char)
+                    total += self._rendered_width(char)
                 return len(self.buffer.document.lines[row])
 
             def _cells_to_char_cols(self, row: int, cell_cols: list[int]) -> list[int]:
@@ -1394,8 +1406,6 @@ class ConsoleView:
                 by a walk over the line's text at the terminal
                 width; the union keeps the renderer's own break
                 points wherever it reported them."""
-                from prompt_toolkit.utils import get_cwidth
-
                 info = getattr(view._output_window, "render_info", None)
                 mapping = getattr(info, "visible_line_to_row_col", None) or {}
                 cells = sorted({c for r, c in mapping.values() if r == row})
@@ -1408,7 +1418,7 @@ class ConsoleView:
                 if width > 0:
                     segment = 0
                     for index, char in enumerate(self.buffer.document.lines[row]):
-                        char_width = get_cwidth(char)
+                        char_width = self._rendered_width(char)
                         if segment + char_width > width:
                             starts.add(index)
                             segment = char_width
