@@ -176,6 +176,115 @@ class _ViewStreamProxy(io.TextIOBase):
         return False
 
 
+# ---------------------------------------------------------------------
+# Pre-view startup output capture
+#
+# Startup prints (welcome, banner, [INFO], warnings) happen before
+# the full-screen view exists.  Once the view takes over the
+# terminal, that earlier output sits on the main screen buffer,
+# hidden for the whole session.  A transparent tee over
+# sys.stdout/sys.stderr keeps a bounded copy of everything printed
+# before the view starts; when the view is created, the copy seeds
+# its output document, so the startup output stays visible inside
+# the view like any other output.
+# ---------------------------------------------------------------------
+
+_STARTUP_CAPTURE_LIMIT = 100_000
+
+_startup_capture_lock = threading.Lock()
+_startup_stdout_parts: list[str] = []
+_startup_stderr_parts: list[str] = []
+_startup_stdout_len = 0
+_startup_stderr_len = 0
+
+
+class _StartupOutputTee(io.TextIOBase):
+    """Forward a stream unchanged while keeping a copy of writes."""
+
+    def __init__(self, original: Any, sink: list[str], is_stdout: bool) -> None:
+        super().__init__()
+        self._original = original
+        self._sink = sink
+        self._is_stdout = is_stdout
+
+    def write(self, text: str) -> int:
+        if not isinstance(text, str):
+            text = str(text)
+        global _startup_stdout_len, _startup_stderr_len
+        with _startup_capture_lock:
+            if self._is_stdout:
+                if _startup_stdout_len < _STARTUP_CAPTURE_LIMIT:
+                    self._sink.append(text)
+                    _startup_stdout_len += len(text)
+            else:
+                if _startup_stderr_len < _STARTUP_CAPTURE_LIMIT:
+                    self._sink.append(text)
+                    _startup_stderr_len += len(text)
+        return self._original.write(text)
+
+    def writelines(self, lines) -> None:
+        for line in lines:
+            self.write(line)
+
+    def flush(self) -> None:
+        return self._original.flush()
+
+    def isatty(self) -> bool:
+        try:
+            return bool(self._original.isatty())
+        except Exception:
+            return False
+
+    def fileno(self) -> int:
+        return self._original.fileno()
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._original, name)
+
+
+def install_startup_output_capture() -> None:
+    """Wrap sys.stdout/sys.stderr with the startup tee (idempotent).
+
+    The wrappers forward everything, so installing them changes
+    nothing unless a console view is later created and drains the
+    copies.  Best-effort: any failure leaves the streams as they
+    were.
+    """
+    try:
+        if not isinstance(sys.stdout, _StartupOutputTee):
+            sys.stdout = _StartupOutputTee(sys.stdout, _startup_stdout_parts, True)
+        if not isinstance(sys.stderr, _StartupOutputTee):
+            sys.stderr = _StartupOutputTee(sys.stderr, _startup_stderr_parts, False)
+    except Exception:
+        pass
+
+
+def take_startup_output() -> tuple[str, str]:
+    """Drain the captured pre-view startup output (stdout, stderr)."""
+    global _startup_stdout_len, _startup_stderr_len
+    with _startup_capture_lock:
+        out = "".join(_startup_stdout_parts)
+        err = "".join(_startup_stderr_parts)
+        _startup_stdout_parts.clear()
+        _startup_stderr_parts.clear()
+        _startup_stdout_len = 0
+        _startup_stderr_len = 0
+    return out, err
+
+
+def seed_document_from_startup_output() -> None:
+    """Post the captured startup output into the shared document."""
+    out, err = take_startup_output()
+    if not out and not err:
+        return
+    from ..runtime import display_channel
+
+    if out:
+        display_channel.post_segment("output", out)
+    if err:
+        display_channel.post_segment("debug", err)
+
+
 class _OutputLexer:
     """Applies the projected kind-colour ranges line by line.
 

@@ -122,6 +122,15 @@ def _get_console_view():
                 on_f12=_console_view_f12,
                 on_interrupt=_request_turn_interrupt,
             )
+            # Startup printed its welcome/banner before the view
+            # existed; seed the document with that output so it
+            # stays visible inside the view.
+            try:
+                from .console_view import seed_document_from_startup_output
+
+                seed_document_from_startup_output()
+            except Exception:
+                pass
         except Exception:
             _console_view_failed = True
             return None

@@ -1083,6 +1083,46 @@ def test_system_clipboard_windows_uses_console_window_owner(monkeypatch):
     assert written == "hi".encode("utf-16-le") + b"\x00\x00"
 
 
+def test_startup_output_capture_and_seed(monkeypatch):
+    # Startup prints happen before the view exists and would be
+    # hidden once the view takes over the terminal.  The tee
+    # forwards them unchanged and keeps a copy; seeding posts
+    # the copy into the document (stdout as output, stderr as
+    # debug), and draining empties the buffers.
+    import io
+    import sys
+
+    from uagent.cli_impl import console_view
+    from uagent.runtime import display_channel
+
+    out_sink = io.StringIO()
+    err_sink = io.StringIO()
+    monkeypatch.setattr(sys, "stdout", out_sink)
+    monkeypatch.setattr(sys, "stderr", err_sink)
+    try:
+        console_view.install_startup_output_capture()
+        console_view.install_startup_output_capture()  # idempotent
+        print("WELCOME BANNER")
+        print("a warning", file=sys.stderr)
+        assert out_sink.getvalue() == "WELCOME BANNER\n"
+        assert err_sink.getvalue() == "a warning\n"
+
+        posted: list = []
+        monkeypatch.setattr(
+            display_channel,
+            "post_segment",
+            lambda kind, text: posted.append((kind, text)),
+        )
+        console_view.seed_document_from_startup_output()
+        assert posted == [
+            ("output", "WELCOME BANNER\n"),
+            ("debug", "a warning\n"),
+        ]
+        assert console_view.take_startup_output() == ("", "")
+    finally:
+        console_view.take_startup_output()
+
+
 def test_system_clipboard_write_uses_a_native_tool(monkeypatch, tmp_path):
     # No third-party dependency is required: a native clipboard
     # tool on PATH (xclip here, standing in for pbcopy/wl-copy)

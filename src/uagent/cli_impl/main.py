@@ -420,6 +420,16 @@ def main() -> int:
     bind_event_context(session_id="cli", correlation_id="cli")
     log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")
+    # Keep a copy of everything startup prints from here on: once
+    # the full-screen console view starts it hides the pre-view
+    # terminal, so the view's document is seeded with this output
+    # (welcome, banner, [INFO], warnings) when it is created.
+    try:
+        from .console_view import install_startup_output_capture
+
+        install_startup_output_capture()
+    except Exception:
+        pass
     sandbox_manager = None
     sandbox_scope = None
     sandbox_mode = "off"
