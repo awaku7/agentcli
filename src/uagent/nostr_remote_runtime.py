@@ -301,6 +301,19 @@ class NostrRemoteRuntime:
     def authorize_sender(self):
         return self.pairing_store.is_authorized
 
+    def authorize_ingress_sender(self, sender_pubkey: str) -> bool:
+        """Ingress gate for the relay listener: admit any verified sender.
+
+        The NIP-17 unwrap has already authenticated the sender, so a
+        first-contact request may persist in the durable inbox.
+        Pairing is decided at dispatch time, not here: paired senders
+        execute, and an unpaired sender is offered to the operator
+        for pairing on the foreground path (and rejected on every
+        other path). Dropping unknown senders at ingress would make
+        that pairing prompt unreachable.
+        """
+        return True
+
     # -- Live progress and human_ask bridging for the active request --
 
     def _set_active_request(self, event: dict[str, Any] | None) -> None:
@@ -1038,7 +1051,7 @@ class NostrRemoteRuntime:
                     relay,
                     self.private_key,
                     self._queue_rumor,
-                    authorize_sender=self.authorize_sender,
+                    authorize_sender=self.authorize_ingress_sender,
                     inbox_store=self.inbox_store,
                     target_session_id=self.session_id,
                     stop_event=stop_event,
@@ -1514,6 +1527,11 @@ class NostrRemoteRuntime:
             with self._progress_lock:
                 self._pairing_prompt_open = False
         if answer is None:
+            return False
+        # Ctrl+C at the prompt reaches the asker as the ask channel's
+        # "cancel" sentinel; that is no answer, not a refusal, so the
+        # sender may be asked about again on a later message.
+        if answer.strip().lower() == "cancel":
             return False
         if answer.strip().lower() in {"yes", "y", "はい"}:
             try:

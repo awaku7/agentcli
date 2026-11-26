@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+import json
 import queue
 import time
 from types import SimpleNamespace
@@ -1462,6 +1464,116 @@ def test_pairing_prompt_is_never_forwarded_to_a_remote_requester(
         runtime._pairing_prompt_open = True
         runtime._forward_pending_ask_once()
         assert runtime._question_queue.empty()
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_pairing_prompt_cancel_sentinel_is_not_a_refusal(tmp_path) -> None:
+    answers: list[str | None] = ["cancel", "yes"]
+    asked: list[str] = []
+
+    def _asker(npub: str) -> str | None:
+        asked.append(npub)
+        return answers.pop(0)
+
+    inbox, pairings, private_key, event, runtime = _make_runtime(
+        tmp_path, pairing_asker=_asker
+    )
+    try:
+        assert pairings.revoke(event["sender_pubkey"])
+        with pytest.raises(RemoteCLIRequestError, match="not paired"):
+            runtime.dispatch_event(
+                event,
+                current_session_id="active-session",
+                allow_pairing_prompt=True,
+            )
+        second = _enqueue_request(inbox, _secret(1), private_key, "hello again")
+        action = runtime.dispatch_event(
+            second,
+            current_session_id="active-session",
+            allow_pairing_prompt=True,
+        )
+        assert action.text == "hello again"
+        # Ctrl+C at the prompt arrives as the ask channel's "cancel"
+        # sentinel: it is no answer, so the operator was asked again
+        # instead of the sender being remembered as refused.
+        assert len(asked) == 2
+        assert pairings.is_authorized(event["sender_pubkey"])
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+class _FakeListenSocket:
+    """Minimal relay socket: delivers one scripted event, then stops."""
+
+    def __init__(self, event: dict) -> None:
+        self.event = event
+        self.sent: list[list[object]] = []
+        self.delivered = False
+
+    async def __aenter__(self) -> "_FakeListenSocket":
+        return self
+
+    async def __aexit__(self, *_exc: object) -> None:
+        return None
+
+    async def send(self, raw: str) -> None:
+        self.sent.append(json.loads(raw))
+
+    async def recv(self) -> str:
+        if not self.delivered:
+            self.delivered = True
+            subscription_id = self.sent[0][1]
+            return json.dumps(["EVENT", subscription_id, self.event])
+        await asyncio.sleep(0.01)
+        raise RuntimeError("listener should stop after callback")
+
+
+def test_listener_persists_verified_unknown_sender_request(tmp_path) -> None:
+    from uagent.nostr_remote_transport import listen_nip17_messages
+
+    sender_key = _secret(3)
+    recipient_key = _secret(2)
+    now = int(time.time())
+    wrap = create_nip17_private_messages(
+        "hello", sender_key, _public_key_bytes(recipient_key), now=now
+    )[0]
+    rumor = unwrap_nip17_private_message(wrap, recipient_key)
+    inbox = SQLiteNostrInboxStore(tmp_path / "inbox.sqlite3")
+    pairings = SQLitePairingStore(tmp_path / "pairings.sqlite3")
+    runtime = NostrRemoteRuntime(
+        event_queue=queue.Queue(),
+        private_key=recipient_key,
+        relays=["wss://relay.example.org"],
+        session_id="active-session",
+        inbox_store=inbox,
+        pairing_store=pairings,
+    )
+    try:
+        # Dispatch authorization stays strict for the unpaired sender;
+        # only the ingress gate admits the verified first contact.
+        assert not runtime.authorize_sender(rumor["pubkey"])
+        assert runtime.authorize_ingress_sender(rumor["pubkey"])
+        socket = _FakeListenSocket(wrap)
+        delivered: list[dict] = []
+        with pytest.raises(RuntimeError, match="listener should stop"):
+            asyncio.run(
+                listen_nip17_messages(
+                    "wss://relay.example.org",
+                    recipient_key,
+                    delivered.append,
+                    authorize_sender=runtime.authorize_ingress_sender,
+                    inbox_store=inbox,
+                    target_session_id="active-session",
+                    now_fn=lambda: now,
+                    connect_factory=lambda _url, **_kwargs: socket,
+                )
+            )
+        pending = inbox.list_pending(limit=10, session_id="active-session")
+        assert [record.sender_pubkey for record in pending] == [rumor["pubkey"]]
+        assert delivered[0]["pubkey"] == rumor["pubkey"]
     finally:
         inbox.close()
         pairings.close()
