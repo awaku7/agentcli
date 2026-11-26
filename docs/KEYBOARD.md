@@ -50,8 +50,11 @@ The input line uses Emacs-style editing keys:
 - Tab opens the completion menu: `:` commands, file paths, and
   other candidates for the word being typed.
 - Candidates also appear on their own while you type.
-- In the menu, Up / Down move, Tab cycles, and Enter uses the
-  highlighted candidate.
+- In the menu, Up / Down move and Tab uses the highlighted
+  candidate. Enter does not stop at accepting a candidate: it
+  sends the line exactly as it stands, including a highlighted
+  candidate. Use Tab when you want to pick a candidate and keep
+  writing, for example to add arguments after a command.
 
 ## Input history
 
