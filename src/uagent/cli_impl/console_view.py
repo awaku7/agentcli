@@ -36,6 +36,18 @@ do not corrupt the full-screen rendering or vanish with the
 alternate screen.  The originals are restored whenever the view
 suspends or stops.  File-descriptor-level output (child processes
 inheriting the real terminal) is not captured.
+
+Input during generation (stage 2b, second half): the input area
+stays live while a turn runs.  A message submitted while busy opens
+an interrupt confirmation on its own line above the input area —
+Enter/y interrupts the turn and sends the message next, n queues
+it.  Commands (``:``-prefixed) skip the question and queue
+directly.  Queued lines dispatch in FIFO order once the turn ends;
+their document echo carries a pending marker until the moment they
+are dispatched.  The confirmation never interrupts by default: a
+human_ask preempting it (the view suspends) or the turn simply
+ending resolves it as "queue", with a notice in the transcript for
+the preempted case.
 """
 
 from __future__ import annotations
@@ -49,6 +61,7 @@ from typing import Any, Callable
 
 
 from ..env_utils import env_get
+from ..i18n import _
 
 _EOF = object()
 _PREFIX_WIDTH = 24
@@ -281,12 +294,14 @@ class ConsoleView:
         history: Any = None,
         on_ctrl_c: Callable[[], None] | None = None,
         on_f12: Callable[[], None] | None = None,
+        on_interrupt: Callable[[], None] | None = None,
         pt_input: Any = None,
         pt_output: Any = None,
         document: Any = None,
     ) -> None:
         from prompt_toolkit.buffer import Buffer
         from prompt_toolkit.document import Document
+        from prompt_toolkit.filters import Condition
 
         self._Document = Document
         self._output_buffer = Buffer(read_only=True)
@@ -302,15 +317,28 @@ class ConsoleView:
         self._proj_seg_count = 0
         self._proj_prefix_len = 0
         self._lexer = _OutputLexer(self)
+        # The text of a message submitted during generation, while
+        # its interrupt confirmation is unanswered (see _submit).
+        # The input buffer is read-only exactly while this is set.
+        self._confirm_text: str | None = None
         self._input_buffer = Buffer(
             completer=completer,
             history=history,
             multiline=True,
             complete_while_typing=False,
+            read_only=Condition(lambda: self._confirm_text is not None),
         )
+        # Queue items are (text, pending token) pairs; the token is
+        # the output document's pending-user segment for a line that
+        # was queued during generation, else None.
         self._submissions: queue.Queue[Any] = queue.Queue()
+        # Lines the user chose to interrupt for: wait_line returns
+        # them ahead of the ordinary queue.
+        self._priority: queue.Queue[Any] = queue.Queue()
+        self._last_pending_token: Any = None
         self._on_ctrl_c = on_ctrl_c
         self._on_f12 = on_f12
+        self._on_interrupt = on_interrupt
         self._pt_input = pt_input
         self._pt_output = pt_output
         self._prompt_text = ""
@@ -395,6 +423,28 @@ class ConsoleView:
                 self._thread = None
             if self._app is app:
                 self._app = None
+        # A human_ask (or another legacy prompt) taking the terminal
+        # preempts an open interrupt confirmation.  The message is
+        # never lost and never interrupts as a side effect: it
+        # queues, and the transcript says so.  This runs after the
+        # application thread has unwound, so touching the input
+        # buffer here cannot race it.
+        pending = self._take_confirmation()
+        if pending is not None:
+            self._finish_confirmation(pending, interrupt=False)
+            if self._document is not None:
+                try:
+                    self._document.append(
+                        "notice",
+                        "\n[INFO] "
+                        + _(
+                            "The interrupt confirmation was cancelled, "
+                            "so the message was queued."
+                        )
+                        + "\n",
+                    )
+                except Exception:
+                    pass
 
     def stop(self) -> None:
         self.suspend()
@@ -579,8 +629,17 @@ class ConsoleView:
     def set_status(self, text: str, *, busy: bool) -> None:
         """Set the bottom status line (e.g. ``[STATE] BUSY [LLM]``)."""
         with self._state_lock:
+            was_busy = self._status_busy
             self._status_text = text
             self._status_busy = busy
+        if was_busy and not busy:
+            # The turn ended while an interrupt confirmation was
+            # still open: the question is moot, so the message takes
+            # the safe side and queues (it dispatches next through
+            # the ordinary path).
+            pending = self._take_confirmation()
+            if pending is not None:
+                self._finish_confirmation(pending, interrupt=False)
         self._invalidate()
 
     def set_prompt_text(self, text: str) -> None:
@@ -595,12 +654,25 @@ class ConsoleView:
 
         ``abort`` is polled while waiting; when it turns true the wait
         ends with None (the caller decides why: human_ask took stdin,
-        shutdown, ...).  Submitted text is returned as ``str``.
+        shutdown, ...).  Submitted text is returned as ``str``.  A
+        line the user chose to interrupt for is returned ahead of
+        lines queued earlier.  After a ``str`` return,
+        :attr:`last_pending_token` holds the output document's
+        pending-user segment for the line when it was queued during
+        generation (else None), so the dispatcher can resolve the
+        marker at the moment the line is actually sent.
         """
         while True:
             try:
-                item = self._submissions.get(timeout=0.05)
-                return item
+                text, token = self._priority.get_nowait()
+                self._last_pending_token = token
+                return text
+            except queue.Empty:
+                pass
+            try:
+                text, token = self._submissions.get(timeout=0.05)
+                self._last_pending_token = token
+                return text
             except queue.Empty:
                 if abort():
                     return None
@@ -614,6 +686,103 @@ class ConsoleView:
     @property
     def eof_sentinel(self) -> object:
         return _EOF
+
+    @property
+    def last_pending_token(self) -> Any:
+        """The pending-user segment of the line wait_line returned."""
+        return self._last_pending_token
+
+    def resolve_pending(self, token: Any) -> None:
+        """Drop the queued marker from a pending line being sent."""
+        if token is not None and self._document is not None:
+            try:
+                self._document.resolve_pending_user(token)
+            except Exception:
+                pass
+
+    # -- interrupt confirmation (input during generation) -------------
+
+    def _take_confirmation(self) -> str | None:
+        """Pop the open confirmation's message, if one is open."""
+        with self._state_lock:
+            text = self._confirm_text
+            self._confirm_text = None
+            return text
+
+    def _resolve_confirmation(self, *, interrupt: bool) -> None:
+        """Answer the open confirmation (from a key binding)."""
+        text = self._take_confirmation()
+        if text is not None:
+            self._finish_confirmation(text, interrupt=interrupt)
+
+    def _finish_confirmation(self, text: str, *, interrupt: bool) -> None:
+        """Carry out a decided (or defaulted) confirmation outcome.
+
+        Interrupt: the line is echoed as an ordinary user line, the
+        turn interrupt is requested through the ``on_interrupt``
+        callback, and the line goes to the priority queue so it is
+        the next one dispatched once the turn winds down.  Queue:
+        the line joins the ordinary FIFO behind anything already
+        waiting, echoed with the pending marker until dispatched.
+        """
+        with self._state_lock:
+            prompt_text = self._prompt_text
+        if interrupt:
+            if self._document is not None:
+                try:
+                    self._document.append("user", f"{prompt_text}{text}\n")
+                except Exception:
+                    pass
+            self._priority.put((text, None))
+            if self._on_interrupt is not None:
+                try:
+                    self._on_interrupt()
+                except Exception:
+                    pass
+        else:
+            self._queue_line(text)
+        self._call_on_loop(self._reset_input_buffer)
+        self._invalidate()
+
+    def _queue_line(self, text: str) -> None:
+        """Queue a line submitted during generation (FIFO order).
+
+        The line is echoed into the document with the pending
+        marker; the marker is resolved when the line is dispatched.
+        """
+        with self._state_lock:
+            prompt_text = self._prompt_text
+        token = None
+        if self._document is not None:
+            try:
+                token = self._document.append_pending_user(
+                    f"{prompt_text}{text}{_(' (queued)')}\n",
+                    _(" (queued)"),
+                )
+            except Exception:
+                token = None
+        self._submissions.put((text, token))
+
+    def _reset_input_buffer(self) -> None:
+        try:
+            self._input_buffer.reset()
+        except Exception:
+            pass
+
+    def _confirm_fragments(self) -> list[tuple[str, str]]:
+        with self._state_lock:
+            active = self._confirm_text is not None
+        if not active:
+            return [("class:confirm", "")]
+        return [
+            (
+                "class:confirm",
+                _(
+                    "Interrupt the current response and send this "
+                    "message now?  Enter/y: interrupt   n: queue"
+                ),
+            )
+        ]
 
     # -- internals ------------------------------------------------------
 
@@ -677,8 +846,10 @@ class ConsoleView:
 
     def _make_app(self) -> Any:
         from prompt_toolkit.application import Application
+        from prompt_toolkit.filters import Condition
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.layout import (
+            ConditionalContainer,
             Dimension,
             Float,
             FloatContainer,
@@ -698,14 +869,36 @@ class ConsoleView:
 
         @bindings.add("enter")
         def _submit(event: Any) -> None:
+            if self._confirm_text is not None:
+                # Enter answers the open confirmation (it means
+                # "interrupt"); the filtered binding below normally
+                # wins, and this guard keeps the meaning if it does
+                # not.
+                self._resolve_confirmation(interrupt=True)
+                return
             buffer = event.app.current_buffer
             text = buffer.text
             try:
                 buffer.append_to_history()
             except Exception:
                 pass
+            with self._state_lock:
+                busy = self._status_busy
+            if busy and text.strip() and not text.startswith(":"):
+                # A message submitted during generation first asks:
+                # interrupt the turn for it, or queue it?  The text
+                # stays visible in the (now read-only) input buffer
+                # until the question is answered.  Commands skip the
+                # question and queue directly.
+                with self._state_lock:
+                    self._confirm_text = text
+                self._invalidate()
+                return
             buffer.reset()
-            self._submissions.put(text)
+            if busy:
+                self._queue_line(text)
+                return
+            self._submissions.put((text, None))
             # The legacy terminal keeps the submitted line in its
             # scrollback; the transcript here is the document, so
             # record the line (with its prompt) or it vanishes.
@@ -721,6 +914,11 @@ class ConsoleView:
 
         @bindings.add("c-c")
         def _ctrl_c(event: Any) -> None:
+            if self._confirm_text is not None:
+                # Ctrl+C at the confirmation cancels the question,
+                # not the turn: the message queues (the safe side).
+                self._resolve_confirmation(interrupt=False)
+                return
             if self._on_ctrl_c is not None:
                 try:
                     self._on_ctrl_c()
@@ -731,6 +929,10 @@ class ConsoleView:
         def _f12(event: Any) -> None:
             # While the view owns the terminal it also owns the
             # interrupt key; the legacy F12 monitor stays out.
+            if self._confirm_text is not None:
+                # F12 still interrupts the turn; the message whose
+                # confirmation was open queues behind it.
+                self._resolve_confirmation(interrupt=False)
             if self._on_f12 is not None:
                 try:
                     self._on_f12()
@@ -740,8 +942,26 @@ class ConsoleView:
         @bindings.add("c-d")
         def _ctrl_d(event: Any) -> None:
             if not event.app.current_buffer.text:
-                self._submissions.put(_EOF)
+                self._submissions.put((_EOF, None))
                 event.app.exit()
+
+        # Confirmation answers.  These are registered after the
+        # plain bindings so they win while a confirmation is open;
+        # the guards inside the plain handlers keep the meaning even
+        # if one of them is reached first.
+        confirming = Condition(lambda: self._confirm_text is not None)
+
+        @bindings.add("y", filter=confirming)
+        @bindings.add("Y", filter=confirming)
+        @bindings.add("enter", filter=confirming)
+        def _confirm_interrupt(event: Any) -> None:
+            self._resolve_confirmation(interrupt=True)
+
+        @bindings.add("n", filter=confirming)
+        @bindings.add("N", filter=confirming)
+        @bindings.add("escape", filter=confirming)
+        def _confirm_queue(event: Any) -> None:
+            self._resolve_confirmation(interrupt=False)
 
         @bindings.add("pageup")
         def _page_up(event: Any) -> None:
@@ -755,6 +975,7 @@ class ConsoleView:
             {
                 "rule": "#5f5f5f",
                 "prompt": "",
+                "confirm": "ansiyellow",
                 **_spinner_style(),
                 **_status_styles(),
             }
@@ -776,6 +997,18 @@ class ConsoleView:
                             style="class:spinner",
                         ),
                         Window(char="─", height=1, style="class:rule"),
+                        # The interrupt confirmation gets its own
+                        # line, visible only while it is open, so the
+                        # question never has to fight the spinner or
+                        # the status line for space.
+                        ConditionalContainer(
+                            content=Window(
+                                content=FormattedTextControl(self._confirm_fragments),
+                                height=1,
+                                style="class:confirm",
+                            ),
+                            filter=Condition(lambda: self._confirm_text is not None),
+                        ),
                         VSplit(
                             [
                                 Window(

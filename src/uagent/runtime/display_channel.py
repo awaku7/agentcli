@@ -169,6 +169,7 @@ class OutputDocument:
         self._epoch = 0
         self._max_chars = max_chars
         self._pending_escape = ""
+        self._pending_users: dict[int, str] = {}
         self._subscribers: list[Callable[[], None]] = []
         # Char range (start, end) of the current snapshot region —
         # the text an in-place snapshot redraw replaces.  Tracked so
@@ -219,7 +220,11 @@ class OutputDocument:
             if redraw:
                 self._truncate_last_line_locked()
             old_total = self._total
-            if self._segments and self._segments[-1].kind == kind:
+            if (
+                self._segments
+                and self._segments[-1].kind == kind
+                and id(self._segments[-1]) not in self._pending_users
+            ):
                 last = self._segments[-1]
                 self._segments[-1] = Segment(kind, last.text + text)
             else:
@@ -244,6 +249,79 @@ class OutputDocument:
                 fn()
             except Exception:
                 pass
+
+    def append_pending_user(self, text: str, marker: str) -> Segment | None:
+        """Append a ``user`` segment that is still waiting to be sent.
+
+        The segment's text ends with ``marker`` (before the trailing
+        newline), telling renderers the line was submitted but not
+        yet dispatched.  Unlike :meth:`append`, the segment never
+        merges with its neighbours — and later appends never merge
+        into it — so it stays individually resolvable through
+        :meth:`resolve_pending_user`.  Returns the segment (an
+        opaque token for the resolve call), or None when the text
+        sanitizes away to nothing.
+        """
+        if not text:
+            return None
+        with self._lock:
+            cleaned = self._normalize_lines(self._strip_escapes_locked(text))
+            if not cleaned:
+                return None
+            segment = Segment("user", cleaned)
+            self._segments.append(segment)
+            self._pending_users[id(segment)] = marker
+            self._total += len(cleaned)
+            self._version += 1
+            self._trim_locked()
+            subscribers = list(self._subscribers)
+        for fn in subscribers:
+            try:
+                fn()
+            except Exception:
+                pass
+        return segment
+
+    def resolve_pending_user(self, segment: Segment) -> bool:
+        """Remove the pending marker from a pending ``user`` segment.
+
+        Called when the queued line is actually dispatched.  The
+        text changes mid-document, so the epoch bumps and renderers
+        rebuild.  Returns False when the segment is no longer in the
+        document (trimmed or replaced away) — the marker is simply
+        gone with it.
+        """
+        with self._lock:
+            if id(segment) not in self._pending_users:
+                return False
+            for index, current in enumerate(self._segments):
+                if current is segment:
+                    break
+            else:
+                # The segment itself is gone (trimmed or replaced
+                # away); its marker went with it.  The registry
+                # entry is left for the trim path to prune rather
+                # than popped here: ids are memory addresses, and a
+                # popped-then-reused id must never unregister a
+                # different live segment.
+                return False
+            marker = self._pending_users.pop(id(segment))
+            text = current.text
+            if marker and text.endswith(marker + "\n"):
+                text = text[: -len(marker) - 1] + "\n"
+            elif marker and text.endswith(marker):
+                text = text[: -len(marker)]
+            self._segments[index] = Segment(current.kind, text)
+            self._total += len(text) - len(current.text)
+            self._version += 1
+            self._epoch += 1
+            subscribers = list(self._subscribers)
+        for fn in subscribers:
+            try:
+                fn()
+            except Exception:
+                pass
+        return True
 
     def replace_last_lines(
         self, count: int, text: str, *, kind: str = "answer"
@@ -371,6 +449,13 @@ class OutputDocument:
                 kept.append(Segment(segment.kind, segment.text[:remaining]))
                 remaining = 0
         self._segments = kept
+        if self._pending_users:
+            live = {id(segment) for segment in kept}
+            self._pending_users = {
+                key: marker
+                for key, marker in self._pending_users.items()
+                if key in live
+            }
         self._total = length
 
     def _truncate_last_line_locked(self) -> None:
@@ -400,6 +485,13 @@ class OutputDocument:
                 remaining_drop = 0
             segments.append(segment)
         self._segments = segments
+        if self._pending_users:
+            live = {id(segment) for segment in segments}
+            self._pending_users = {
+                key: marker
+                for key, marker in self._pending_users.items()
+                if key in live
+            }
         self._total = len(full) - drop
         if self._snapshot_span is not None:
             span_start, span_end = self._snapshot_span

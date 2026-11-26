@@ -487,3 +487,76 @@ def test_multiline_editor_text_is_echoed_to_the_document(monkeypatch) -> None:
         segment.kind == "user" and "multiline\nquestion" in segment.text
         for segment in new_segments
     )
+
+
+class _QueuedLineView:
+    """View stub handing the loop one line queued during generation."""
+
+    eof_sentinel = object()
+
+    def __init__(self, line: str, token) -> None:
+        self.running = True
+        self._line: str | None = line
+        self.last_pending_token = token
+        self.resolved: list = []
+        self.suspended = 0
+        self.stopped = 0
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.suspended += 1
+        self.running = False
+
+    def stop(self) -> None:
+        self.stopped += 1
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def wait_line(self, *, abort):
+        if self._line is not None:
+            line, self._line = self._line, None
+            return line
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def resolve_pending(self, token) -> None:
+        self.resolved.append(token)
+
+
+def test_queued_line_marker_resolved_at_dispatch(monkeypatch) -> None:
+    # A line the view queued during generation carries a pending
+    # token; the loop resolves the marker at the moment the line is
+    # dispatched, so the transcript stops calling it "queued" once
+    # it has actually been sent.
+    import io
+
+    token = object()
+    view = _QueuedLineView("queued message", token)
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "queued message"}
+    assert view.resolved == [token]

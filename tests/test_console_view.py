@@ -369,6 +369,8 @@ class _StubView:
     def set_prompt_text(self, text: str) -> None:
         pass
 
+    last_pending_token = None
+
     def wait_line(self, *, abort):
         if isinstance(self._item, BaseException):
             raise self._item
@@ -379,14 +381,14 @@ def test_read_line_from_view_returns_submitted_line():
     from uagent.cli_impl import stdin_loop
 
     view = _StubView("typed line")
-    assert stdin_loop._read_line_from_view(view, "prompt> ") == "typed line"  # type: ignore[arg-type]
+    assert stdin_loop._read_line_from_view(view, "prompt> ") == ("typed line", None)  # type: ignore[arg-type]
 
 
 def test_read_line_from_view_abort_suspends():
     from uagent.cli_impl import stdin_loop
 
     view = _StubView(None)
-    assert stdin_loop._read_line_from_view(view, "prompt> ") is None  # type: ignore[arg-type]
+    assert stdin_loop._read_line_from_view(view, "prompt> ") == (None, None)  # type: ignore[arg-type]
     assert view.suspended
 
 
@@ -857,6 +859,159 @@ def test_view_bracketed_paste_inserts_without_submitting():
             assert view._submissions.empty()
             pipe.send_text("\r")
             item = view._submissions.get(timeout=5)
-            assert item == "line one\nline two\nline three"
+            assert item == ("line one\nline two\nline three", None)
+        finally:
+            view.stop()
+
+
+def _busy_view(pipe, document, **kwargs):
+    """A started view whose status says a turn is running."""
+    from prompt_toolkit.output import DummyOutput
+
+    view = ConsoleView(
+        pt_input=pipe, pt_output=DummyOutput(), document=document, **kwargs
+    )
+    view.start()
+    assert _wait_for(lambda: view._app is not None and view.running)
+    view.set_prompt_text("User> ")
+    view.set_status("[STATE] BUSY [LLM]", busy=True)
+    return view
+
+
+def test_view_message_during_generation_queues_after_no():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("hello later\r")
+            # The confirmation opens; nothing is queued or echoed yet.
+            assert _wait_for(lambda: view._confirm_text == "hello later")
+            assert view._submissions.empty()
+            assert "hello later" not in _document_text(document)
+            pipe.send_text("n")
+            line = view.wait_line(abort=lambda: False)
+            assert line == "hello later"
+            token = view.last_pending_token
+            assert token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> hello later (queued)\n"
+                for s in document.snapshot()[0]
+            )
+            # Dispatch resolves the marker.
+            view.resolve_pending(token)
+            assert any(
+                s.kind == "user" and s.text == "User> hello later\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_message_during_generation_enter_interrupts():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    interrupts: list[bool] = []
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document, on_interrupt=lambda: interrupts.append(True))
+        try:
+            # Queue a command first so the priority order is visible.
+            pipe.send_text(":status\r")
+            assert _wait_for(lambda: not view._submissions.empty())
+            pipe.send_text("stop and do this\r")
+            assert _wait_for(lambda: view._confirm_text == "stop and do this")
+            pipe.send_text("\r")
+            assert _wait_for(lambda: interrupts == [True])
+            # The interrupt line is returned ahead of the queued one,
+            # and its echo is an ordinary user line (no marker).
+            assert view.wait_line(abort=lambda: False) == "stop and do this"
+            assert view.last_pending_token is None
+            assert view.wait_line(abort=lambda: False) == ":status"
+            assert view.last_pending_token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> stop and do this\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_command_during_generation_queues_without_confirmation():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text(":some command\r")
+            assert _wait_for(lambda: not view._submissions.empty())
+            assert view._confirm_text is None
+            assert view.wait_line(abort=lambda: False) == ":some command"
+            assert view.last_pending_token is not None
+            assert any(
+                s.kind == "user" and s.text == "User> :some command (queued)\n"
+                for s in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_confirmation_preempted_by_suspend_queues_with_notice():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("a question\r")
+            assert _wait_for(lambda: view._confirm_text == "a question")
+            # A human_ask taking the terminal suspends the view; the
+            # open confirmation is cancelled into the queue, never
+            # into an interrupt, and the transcript says so.
+            view.suspend()
+            assert view.wait_line(abort=lambda: False) == "a question"
+            assert view.last_pending_token is not None
+            text = _document_text(document)
+            assert "User> a question (queued)\n" in text
+            assert "confirmation was cancelled" in text
+        finally:
+            view.stop()
+
+
+def test_view_confirmation_queues_when_the_turn_ends():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            pipe.send_text("late message\r")
+            assert _wait_for(lambda: view._confirm_text == "late message")
+            view.set_status("[STATE] IDLE", busy=False)
+            assert view.wait_line(abort=lambda: False) == "late message"
+            assert view.last_pending_token is not None
+            assert view._confirm_text is None
+        finally:
+            view.stop()
+
+
+def test_view_ctrl_c_at_confirmation_queues_instead_of_cancelling():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    ctrl_c_calls: list[bool] = []
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document, on_ctrl_c=lambda: ctrl_c_calls.append(True))
+        try:
+            pipe.send_text("careful message\r")
+            assert _wait_for(lambda: view._confirm_text == "careful message")
+            pipe.send_text("\x03")
+            assert view.wait_line(abort=lambda: False) == "careful message"
+            assert view.last_pending_token is not None
+            # Ctrl+C answered the question (queue); it did not fall
+            # through to the turn-level Ctrl+C handler.
+            assert ctrl_c_calls == []
         finally:
             view.stop()
