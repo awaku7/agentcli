@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from .i18n import _
 
+import json
 import subprocess
 import sys
 import os
@@ -182,10 +183,31 @@ def _confirm_install(label: str) -> bool:
     if not sys.stdin.isatty() or not sys.stderr.isatty():
         _policy_message(label, "prompt-noninteractive")
         return False
-    answer = input(
-        _("Install %(package)s now? [y/N] ", default="Install %(package)s now? [y/N] ")
-        % {"package": label}
-    )
+    prompt = _(
+        "Install %(package)s now? [y/N] ", default="Install %(package)s now? [y/N] "
+    ) % {"package": label}
+    # While the full-screen console view owns the terminal, a direct
+    # input() races the view's own stdin reading: the answer can be
+    # swallowed into the view's submission queue and the turn blocks.
+    # Ask through human_ask instead — the input loop suspends the
+    # view and routes the reply, like every other coordinated prompt.
+    try:
+        from .runtime.display_channel import _active_console_view
+
+        view_active = _active_console_view() is not None
+    except Exception:
+        view_active = False
+    if view_active:
+        try:
+            from . import tools
+
+            result = tools.run_tool("human_ask", {"message": prompt})
+            payload = result if isinstance(result, dict) else json.loads(result)
+            reply = payload.get("user_reply") if isinstance(payload, dict) else None
+        except Exception:
+            return False
+        return str(reply or "").strip().lower() in {"y", "yes"}
+    answer = input(prompt)
     return answer.strip().lower() in {"y", "yes"}
 
 

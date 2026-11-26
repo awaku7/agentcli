@@ -758,3 +758,49 @@ def test_stop_restores_streams_even_if_the_app_thread_lags(monkeypatch) -> None:
             thread.join(timeout=5)
         console_view._set_active(None)
     assert sys.stdout is real_stdout
+
+
+def test_view_capture_redirects_preexisting_stderr_handlers():
+    # Regression (PR #483 Codex P2): a logging handler created before
+    # the view starts (the UAGENT_DEBUG_EVENTS event logger) holds
+    # the original stderr; replacing sys.stderr alone left it writing
+    # onto the full-screen terminal and out of the transcript.  The
+    # capture redirects such handlers to the proxy and restores them
+    # on stop.
+    import io
+    import logging
+    import sys
+
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    terminal = io.StringIO()
+    logger = logging.getLogger("uagent.test.capture_redirect")
+    handler = logging.StreamHandler(terminal)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    real_stdout, real_stderr = sys.stdout, sys.stderr
+    sys.stderr = terminal
+    try:
+        with create_pipe_input() as pipe:
+            view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+            view.start()
+            try:
+                assert _wait_for(
+                    lambda: isinstance(sys.stderr, console_view._ViewStreamProxy)
+                )
+                assert handler.stream is sys.stderr
+                logger.info("event while captured")
+                segments, _v, _e = dc.default_document().snapshot()
+                text = "".join(s.text for s in segments)
+                assert "event while captured" in text
+                assert "event while captured" not in terminal.getvalue()
+            finally:
+                view.stop()
+            assert handler.stream is terminal
+            logger.info("event after restore")
+            assert "event after restore" in terminal.getvalue()
+    finally:
+        logger.removeHandler(handler)
+        sys.stdout, sys.stderr = real_stdout, real_stderr

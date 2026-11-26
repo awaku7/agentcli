@@ -446,6 +446,7 @@ class ConsoleView:
             self._proxy_stderr = _ViewStreamProxy(sys.stderr, "debug")
             sys.stdout = self._proxy_stdout
             sys.stderr = self._proxy_stderr
+            self._redirect_stream_handlers()
 
     def _restore_capture(self) -> None:
         with self._capture_lock:
@@ -457,12 +458,60 @@ class ConsoleView:
                         proxy.flush_partial()
                     except Exception:
                         pass
+            self._restore_stream_handlers()
             if sys.stdout is self._proxy_stdout and self._orig_stdout is not None:
                 sys.stdout = self._orig_stdout
             if sys.stderr is self._proxy_stderr and self._orig_stderr is not None:
                 sys.stderr = self._orig_stderr
             self._proxy_stdout = None
             self._proxy_stderr = None
+
+    def _redirect_stream_handlers(self) -> None:
+        """Point pre-existing stderr logging handlers at the capture.
+
+        Handlers created before the view starts (the UAGENT_DEBUG_EVENTS
+        event logger, for one) hold the original stderr object, so
+        replacing sys.stderr alone leaves them writing onto the
+        full-screen terminal and out of the transcript.  Only handlers
+        bound to the very stream being captured are redirected.
+        """
+        try:
+            import logging
+
+            loggers = [logging.getLogger()]
+            loggers += [
+                logging.getLogger(name)
+                for name in list(logging.Logger.manager.loggerDict)
+            ]
+            for logger in loggers:
+                for handler in getattr(logger, "handlers", []):
+                    if (
+                        isinstance(handler, logging.StreamHandler)
+                        and getattr(handler, "stream", None) is self._orig_stderr
+                    ):
+                        handler.setStream(self._proxy_stderr)
+        except Exception:
+            pass
+
+    def _restore_stream_handlers(self) -> None:
+        """Undo :meth:`_redirect_stream_handlers` (identity-checked)."""
+        try:
+            import logging
+
+            loggers = [logging.getLogger()]
+            loggers += [
+                logging.getLogger(name)
+                for name in list(logging.Logger.manager.loggerDict)
+            ]
+            for logger in loggers:
+                for handler in getattr(logger, "handlers", []):
+                    if (
+                        isinstance(handler, logging.StreamHandler)
+                        and getattr(handler, "stream", None) is self._proxy_stderr
+                    ):
+                        handler.setStream(self._orig_stderr)
+        except Exception:
+            pass
 
     # -- document projection -------------------------------------------
 
