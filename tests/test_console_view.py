@@ -1538,6 +1538,46 @@ def test_view_drag_crossing_into_a_wrapped_line_enters_its_nearest_segment():
             view.stop()
 
 
+def test_view_drag_at_the_edge_of_a_wide_char_line_scrolls_within_it():
+    # Same as the huge-line case, but with double-width
+    # characters: the render map's segment starts are
+    # terminal-cell offsets while mouse events and the document
+    # use character offsets.  The edge detection must convert
+    # between them, or the top edge is never recognized.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "界" * 4000)
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            assert _wait_for(lambda: window.vertical_scroll_2 > 0)
+            inner_top = window.vertical_scroll_2
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            top_endpoint = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<32;1;1M")
+            pipe.send_text("\x1b[<32;1;1M")  # pin at the top edge
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position < top_endpoint
+                and window.vertical_scroll_2 < inner_top
+            )
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 

@@ -1328,40 +1328,74 @@ class ConsoleView:
                     return 0
                 row = mouse_event.position.y
                 col = mouse_event.position.x
+                # The mapping's columns are terminal-cell offsets;
+                # the event's are character offsets.  Convert
+                # before comparing (they differ on wide chars).
                 first_key = min(rows)
-                first_row, first_col = rows[first_key]
+                first_row, first_cell = rows[first_key]
+                first_col = self._cell_to_char_col(first_row, first_cell)
                 if row == first_row and col >= first_col:
                     second = rows.get(first_key + 1)
-                    if second is None or second[0] != first_row or col < second[1]:
+                    if (
+                        second is None
+                        or second[0] != first_row
+                        or col < self._cell_to_char_col(second[0], second[1])
+                    ):
                         return -1
-                last_row, last_col = rows[max(rows)]
-                if row == last_row and col >= last_col:
+                last_row, last_cell = rows[max(rows)]
+                if row == last_row and col >= self._cell_to_char_col(
+                    last_row, last_cell
+                ):
                     return 1
                 return 0
 
-            def _segment_bounds(self, row: int) -> tuple[list[int], int]:
-                """(segment start columns, wrap width) for a document
-                row, from the latest render's segment map (which
-                also lists the segments just outside the viewport).
-                The width is 0 when the row does not wrap anywhere
-                in the rendered range."""
+            def _cell_to_char_col(self, row: int, cell_col: int) -> int:
+                """Convert a terminal-cell offset within a document
+                row to a character offset, by walking the line's
+                character widths."""
+                from prompt_toolkit.utils import get_cwidth
+
+                if cell_col <= 0:
+                    return 0
+                total = 0
+                for index, char in enumerate(self.buffer.document.lines[row]):
+                    if total >= cell_col:
+                        return index
+                    total += get_cwidth(char)
+                return len(self.buffer.document.lines[row])
+
+            def _segment_starts(self, row: int) -> list[int]:
+                """The wrapped segment start columns of a document
+                row, in character offsets: from the latest render's
+                segment map (converted from cell offsets) when the
+                row is rendered, else derived from the line's text
+                and the terminal width."""
+                from prompt_toolkit.utils import get_cwidth
+
                 info = getattr(view._output_window, "render_info", None)
                 mapping = getattr(info, "visible_line_to_row_col", None) or {}
-                starts = sorted({col for r, col in mapping.values() if r == row})
-                if 0 not in starts:
-                    starts = sorted(set(starts) | {0})
-                width = starts[1] - starts[0] if len(starts) >= 2 else 0
+                cells = sorted({c for r, c in mapping.values() if r == row})
+                if cells:
+                    starts = [self._cell_to_char_col(row, c) for c in cells]
+                    if starts[0] != 0:
+                        starts = [0] + starts
+                    return starts
+                try:
+                    width = int(view._app.output.get_size().columns)
+                except Exception:
+                    return [0]
                 if width <= 0:
-                    # The row does not wrap in the rendered range
-                    # (it may not be rendered at all, e.g. the line
-                    # just above the viewport): the wrap width is
-                    # the window's content width, which spans the
-                    # terminal here.
-                    try:
-                        width = int(view._app.output.get_size().columns)
-                    except Exception:
-                        width = 0
-                return starts, width
+                    return [0]
+                starts = [0]
+                segment = 0
+                for index, char in enumerate(self.buffer.document.lines[row]):
+                    char_width = get_cwidth(char)
+                    if segment + char_width > width:
+                        starts.append(index)
+                        segment = char_width
+                    else:
+                        segment += char_width
+                return starts
 
             def _extend_past_edge(self, step: int) -> bool:
                 """Scroll one screen row and step the selection
@@ -1377,52 +1411,39 @@ class ConsoleView:
                 buffer = self.buffer
                 document = buffer.document
                 row, col = document.translate_index_to_position(buffer.cursor_position)
-                starts, width = self._segment_bounds(row)
+                starts = self._segment_starts(row)
                 if buffer.selection_state is None:
                     buffer.start_selection(selection_type=SelectionType.CHARACTERS)
                 if step < 0:
                     earlier = [s for s in starts if s < col]
                     if earlier:
-                        target_col = max(earlier)
-                        target = document.translate_row_col_to_index(row, target_col)
-                    elif width > 0 and col >= width:
-                        target = document.translate_row_col_to_index(row, col - width)
+                        target = document.translate_row_col_to_index(row, max(earlier))
                     elif row == 0:
                         return False
                     else:
                         # Enter the line above at its LAST segment,
                         # not its start: one screen row up.
                         prev = row - 1
-                        prev_len = len(document.lines[prev])
-                        _p_starts, prev_width = self._segment_bounds(prev)
-                        if prev_width > 0 and prev_len > 0:
-                            target_col = ((prev_len - 1) // prev_width) * prev_width
-                        else:
-                            target_col = 0
-                        target = document.translate_row_col_to_index(prev, target_col)
+                        target = document.translate_row_col_to_index(
+                            prev, self._segment_starts(prev)[-1]
+                        )
                 else:
                     line_end = len(document.lines[row])
-                    if width > 0:
-                        ends = sorted({min(s + width, line_end) for s in starts})
-                        later = [e for e in ends if e > col]
-                    else:
-                        later = [line_end] if col < line_end else []
+                    ends = starts[1:] + [line_end]
+                    later = [e for e in ends if e > col]
                     if later:
                         target = document.translate_row_col_to_index(row, min(later))
-                    elif width > 0 and col < line_end:
-                        target = document.translate_row_col_to_index(
-                            row, min(col + width, line_end)
-                        )
                     elif row + 1 >= document.line_count:
                         return False
                     else:
                         # Enter the line below at its FIRST
                         # segment's end, not the line's end.
                         nxt = row + 1
-                        next_len = len(document.lines[nxt])
-                        _starts, next_width = self._segment_bounds(nxt)
+                        next_starts = self._segment_starts(nxt)
                         target_col = (
-                            min(next_width, next_len) if next_width > 0 else next_len
+                            next_starts[1]
+                            if len(next_starts) > 1
+                            else len(document.lines[nxt])
                         )
                         target = document.translate_row_col_to_index(nxt, target_col)
                 view._scroll_output_wheel(step)
