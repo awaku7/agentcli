@@ -7,6 +7,7 @@ import os
 import queue
 import threading
 import time
+from dataclasses import replace
 from typing import Any, Callable
 
 from .nostr_nip17 import unwrap_nip17_private_message
@@ -258,6 +259,10 @@ class NostrRemoteRuntime:
         self._ask_state_provider = ask_state_provider
         self._ask_answer_deliverer = ask_answer_deliverer
         self._pairing_asker = pairing_asker
+        # Chat mode, aligned with BitChat: "llm" dispatches requests
+        # to the LLM as conversation; "on" only displays them. "off"
+        # is not a live-runtime mode — stopping the runtime is off.
+        self.mode = "llm"
         self._pairing_declined: set[str] = set()
         self._pairing_prompt_open = False
         self._progress_lock = threading.Lock()
@@ -1557,6 +1562,12 @@ class NostrRemoteRuntime:
             self._pairing_declined.add(sender_pubkey)
         return False
 
+    def set_mode(self, mode: str) -> None:
+        """Switch the live chat mode between "llm" and "on"."""
+        if mode not in ("llm", "on"):
+            raise ValueError("nostr remote mode must be 'llm' or 'on' while running")
+        self.mode = mode
+
     def dispatch_event(
         self,
         event: dict[str, Any],
@@ -1564,18 +1575,37 @@ class NostrRemoteRuntime:
         current_session_id: str,
         allow_pairing_prompt: bool = False,
     ) -> RemoteCLIAction:
+        # A room-bound device's requests are not tied to the
+        # operator's current session: they execute in the device's
+        # own session. Their session check therefore compares
+        # against this runtime's session (the stamp the request was
+        # queued under), not the operator's current one. Attach-bound
+        # requests keep the existing exact-session rule.
+        sender = event.get("sender_pubkey") if isinstance(event, dict) else None
+        record = (
+            self.pairing_store.record_for(sender) if isinstance(sender, str) else None
+        )
+        room_bound = bool(
+            record is not None and record.active and record.binding == "room"
+        )
         action = dispatch_nostr_remote_inbox_event(
             event,
             inbox_store=self.inbox_store,
             pairing_store=self.pairing_store,
             private_key=self.private_key,
-            current_session_id=current_session_id,
+            current_session_id=self.session_id if room_bound else current_session_id,
             on_unpaired_sender=(self._offer_pairing if allow_pairing_prompt else None),
         )
+        if room_bound:
+            action = replace(action, binding="room")
+        if self.mode == "on" and action.kind in ("user", "command"):
+            # Chat mode "on": the message is displayed to the
+            # operator and never executed (the BitChat "on" meaning).
+            action = replace(action, kind="display")
         # Status queries are also dispatched (by the side worker, possibly
         # while a turn is running); they must never take over the active
         # request that progress notes and human_ask forwarding belong to.
-        if action.kind != "status":
+        if action.kind not in ("status", "display"):
             self._set_active_request(event)
         return action
 

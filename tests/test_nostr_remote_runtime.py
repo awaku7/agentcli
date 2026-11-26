@@ -703,6 +703,51 @@ def _make_runtime(tmp_path, *, ask_state_provider=None, pairing_asker=None):
     return inbox, pairings, private_key, event, runtime
 
 
+def test_room_bound_sender_dispatches_against_the_runtime_session(
+    tmp_path,
+) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        assert pairings.set_binding(event["sender_pubkey"], "room")
+        # The operator has since switched the main session; an
+        # attach-bound request would be rejected, a room-bound one
+        # still dispatches and reports its binding.
+        action = runtime.dispatch_event(event, current_session_id="other-session")
+        assert action.kind == "user"
+        assert action.binding == "room"
+        assert runtime.finish_event(event, "completed")
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_attach_bound_sender_still_requires_the_current_session(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        with pytest.raises(RemoteCLIRequestError, match="different CLI session"):
+            runtime.dispatch_event(event, current_session_id="other-session")
+    finally:
+        inbox.close()
+        pairings.close()
+
+
+def test_on_mode_turns_requests_into_display_actions(tmp_path) -> None:
+    inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
+    try:
+        runtime.set_mode("on")
+        action = runtime.dispatch_event(event, current_session_id="active-session")
+        assert action.kind == "display"
+        assert action.text == event["text"]
+        # A display action never takes over progress routing.
+        assert runtime._active_request is None
+        assert runtime.finish_event(event, "completed")
+        with pytest.raises(ValueError):
+            runtime.set_mode("off")
+    finally:
+        inbox.close()
+        pairings.close()
+
+
 def test_progress_notes_queue_tool_and_reasoning_in_order(tmp_path) -> None:
     inbox, pairings, _key, event, runtime = _make_runtime(tmp_path)
     try:

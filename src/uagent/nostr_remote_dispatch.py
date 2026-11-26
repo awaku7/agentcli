@@ -34,13 +34,21 @@ NOT_PAIRED_MESSAGE = "remote sender is not paired"
 
 @dataclass(frozen=True)
 class RemoteCLIAction:
-    """Validated user action ready for the CLI's existing event handler."""
+    """Validated user action ready for the CLI's existing event handler.
 
-    kind: Literal["user", "command", "status"]
+    ``binding`` is the sender's per-device chat binding: ``attach``
+    (the action joins the operator's current session) or ``room``
+    (the action runs in the device's own session). ``display`` kind
+    actions are shown to the operator only (chat mode ``on``); they
+    never execute.
+    """
+
+    kind: Literal["user", "command", "status", "display"]
     text: str
     sender_pubkey: str
     rumor_id: str
     session_id: str
+    binding: str = "attach"
 
 
 def _valid_hex32(value: Any, field: str) -> str:
