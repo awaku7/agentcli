@@ -1499,6 +1499,45 @@ def test_view_drag_at_the_edge_of_a_single_huge_line_scrolls_within_it():
             view.stop()
 
 
+def test_view_drag_crossing_into_a_wrapped_line_enters_its_nearest_segment():
+    # Crossing a line boundary at the edge must enter the
+    # neighbouring wrapped line at its nearest segment — one
+    # screen row — not jump to its far end and select the
+    # whole paragraph in one tick.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "W" * 4000 + "\n")
+    for i in range(40):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            # Bring the first short line (document row 1, starting
+            # at index 4001) to the top of the viewport.
+            view._output_buffer.cursor_position = 4001
+            assert _wait_for(
+                lambda: window.render_info.visible_line_to_row_col.get(0) == (1, 0)
+            )
+            pipe.send_text("\x1b[<0;1;1M")  # press at its start
+            pipe.send_text("\x1b[<32;1;1M")  # pinned at the top edge
+            # The extension crosses into the paragraph's LAST
+            # segment (index 3920), then steps segment by
+            # segment; it never lands on 0 in one jump.
+            assert _wait_for(lambda: 0 < view._output_buffer.cursor_position < 4001)
+            pipe.send_text("\x1b[<0;1;1m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
+        finally:
+            view.stop()
+
+
 def test_view_resync_busy_after_suspend_clears_the_stale_flag():
     from prompt_toolkit.input import create_pipe_input
 
