@@ -771,6 +771,77 @@ def _run_ask_requeue_scenario(monkeypatch, *, flip_early: bool) -> None:
     assert view.resolved == [view.token]
 
 
+class _ResyncView:
+    """View stub recording the busy re-alignment at each read."""
+
+    eof_sentinel = object()
+
+    def __init__(self) -> None:
+        self.running = True
+        self.last_pending_token = None
+        self.resync_calls: list = []
+        self._line: str | None = "hello"
+
+    def start(self) -> None:
+        self.running = True
+
+    def suspend(self) -> None:
+        self.running = False
+
+    def stop(self) -> None:
+        self.running = False
+
+    def set_prompt_text(self, _text: str) -> None:
+        pass
+
+    def resync_busy(self, busy: bool) -> None:
+        self.resync_calls.append(busy)
+
+    def wait_line(self, *, abort):
+        if self._line is not None:
+            line, self._line = self._line, None
+            return line
+        stdin_loop._CLI_SHUTDOWN.set()
+        return None
+
+    def resolve_pending(self, token) -> None:
+        pass
+
+
+def test_view_read_resyncs_the_busy_flag(monkeypatch) -> None:
+    # Status updates reach the view only while it is active, so
+    # every read first re-aligns its cached busy flag with the
+    # core's current state.
+    import io
+
+    view = _ResyncView()
+    fake_stdin = _FakeStdin([])
+    events: Queue = Queue()
+    monkeypatch.setattr(core, "event_queue", events)
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "set_status", lambda _busy, _label="": None)
+    _patch_common(monkeypatch, fake_stdin)
+
+    class _TtyStringIO(io.StringIO):
+        @staticmethod
+        def isatty() -> bool:
+            return True
+
+    monkeypatch.setattr(stdin_loop.sys, "stdout", _TtyStringIO())
+    monkeypatch.setattr(stdin_loop, "_get_console_view", lambda: view)
+    monkeypatch.setattr(stdin_loop, "_console_view", view)
+
+    stdin_loop._CLI_SHUTDOWN.clear()
+    try:
+        stdin_loop.stdin_loop()
+    finally:
+        stdin_loop._CLI_SHUTDOWN.clear()
+
+    assert events.get_nowait() == {"kind": "user", "text": "hello"}
+    assert view.resync_calls
+    assert all(flag is False for flag in view.resync_calls)
+
+
 def test_queued_line_survives_an_ask_opening_during_the_hold(monkeypatch) -> None:
     _run_ask_requeue_scenario(monkeypatch, flip_early=False)
 

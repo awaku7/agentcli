@@ -639,16 +639,37 @@ class ConsoleView:
         with self._state_lock:
             was_busy = self._status_busy
             self._status_text = text
-            self._status_busy = busy
+            self._status_busy = bool(busy)
+        self._resolve_confirmation_on_idle(was_busy, busy)
+        self._invalidate()
+
+    def resync_busy(self, busy: bool) -> None:
+        """Re-align the cached busy flag with the core's truth.
+
+        Status updates only reach the view while it is active, so
+        a turn that ends while the view is suspended for a
+        human_ask leaves the cached flag stale — and submissions
+        are gated by it (an idle prompt would offer an interrupt
+        confirmation, or a running turn would look idle).  The
+        reader calls this on resume with the core's current flag.
+        The status text is left alone; the next status render
+        refreshes it.
+        """
+        with self._state_lock:
+            was_busy = self._status_busy
+            self._status_busy = bool(busy)
+        self._resolve_confirmation_on_idle(was_busy, busy)
+        self._invalidate()
+
+    def _resolve_confirmation_on_idle(self, was_busy: bool, busy: bool) -> None:
         if was_busy and not busy:
             # The turn ended while an interrupt confirmation was
-            # still open: the question is moot, so the message takes
-            # the safe side and queues (it dispatches next through
-            # the ordinary path).
+            # still open: the question is moot, so the message
+            # takes the safe side and queues (it dispatches next
+            # through the ordinary path).
             pending = self._take_confirmation()
             if pending is not None:
                 self._finish_confirmation(pending, interrupt=False)
-        self._invalidate()
 
     def set_prompt_text(self, text: str) -> None:
         with self._state_lock:

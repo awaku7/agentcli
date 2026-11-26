@@ -142,6 +142,16 @@ def _read_line_from_view(view, prompt: str):
     if not view.running:
         view.start()
     view.set_prompt_text(prompt)
+    # Status updates only reach the view while it is active; a
+    # turn that ended while the view was suspended for a human_ask
+    # leaves its cached busy flag stale.  Re-align it with the
+    # core before the flag gates any submission.
+    resync_busy = getattr(view, "resync_busy", None)
+    if resync_busy is not None:
+        try:
+            resync_busy(bool(getattr(core, "status_busy", False)))
+        except Exception:
+            pass
     try:
         core._prompt_line_open = True
         core._cli_prompt_toolkit_active = True

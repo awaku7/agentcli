@@ -997,6 +997,36 @@ def test_view_confirmation_queues_when_the_turn_ends():
             view.stop()
 
 
+def test_view_resync_busy_after_suspend_clears_the_stale_flag():
+    from prompt_toolkit.input import create_pipe_input
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = _busy_view(pipe, document)
+        try:
+            view.suspend()
+            # The turn ended while the view was suspended, so no
+            # status update reached it; on resume the reader
+            # re-aligns the cached flag before submissions gate.
+            view.start()
+            assert _wait_for(lambda: view._app is not None and view.running)
+            view.resync_busy(False)
+            pipe.send_text("ordinary now\r")
+            line = view.wait_line(abort=lambda: False)
+            assert line == "ordinary now"
+            # Idle path: no confirmation opened, no pending token.
+            assert view._confirm_text is None
+            assert view.last_pending_token is None
+            # The reverse direction re-arms the confirmation gate.
+            view.resync_busy(True)
+            pipe.send_text("while busy\r")
+            assert _wait_for(lambda: view._confirm_text == "while busy")
+            pipe.send_text("n")
+            assert view.wait_line(abort=lambda: False) == "while busy"
+        finally:
+            view.stop()
+
+
 def test_view_priority_line_overtakes_a_requeued_held_line():
     from prompt_toolkit.input import create_pipe_input
 
