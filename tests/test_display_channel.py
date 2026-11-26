@@ -388,15 +388,33 @@ def _doc_text(document) -> str:
 def test_document_merges_contiguous_same_kind():
     document = dc.OutputDocument()
     document.append("answer", "hel")
-    document.append("answer", "lo")
-    document.append("reasoning", "think")
+    document.append("answer", "lo\n")
+    document.append("reasoning", "think\n")
     document.append("answer", "!")
     segments, _v, _e = document.snapshot()
     assert [(s.kind, s.text) for s in segments] == [
-        ("answer", "hello"),
-        ("reasoning", "think"),
+        ("answer", "hello\n"),
+        ("reasoning", "think\n"),
         ("answer", "!"),
     ]
+
+
+def test_document_separates_a_new_kind_that_starts_mid_line():
+    # Reasoning streams rarely end with a newline; the tool line
+    # posted after it must not render glued to its last line.
+    document = dc.OutputDocument()
+    document.append("reasoning", "let me check the file.")
+    document.append("tool", "[TOOL] read_file を実行します\n")
+    assert (
+        _doc_text(document) == "let me check the file.\n[TOOL] read_file を実行します\n"
+    )
+    # Same-kind continuations stay glued (they are one stream),
+    # and a segment that brings its own leading newline does not
+    # gain a second one.
+    document.append("answer", "hel")
+    document.append("answer", "lo")
+    document.append("notice", "\nnoted\n")
+    assert _doc_text(document).endswith("hello\nnoted\n")
 
 
 def test_document_strips_escapes_but_keeps_text():
@@ -525,13 +543,13 @@ def test_document_snapshot_replace_preserves_intervening_user_segment():
 
     segments, _v, _e = document.snapshot()
     text = "".join(s.text for s in segments)
-    assert text == "snap v2 one\nsnap v2 twoUser> follow-up\n"
+    assert text == "snap v2 one\nsnap v2 two\nUser> follow-up\n"
 
     # The tracked span keeps later redraws on the snapshot too.
     document.replace_last_lines(2, "snap v3 one\nsnap v3 two", kind="answer")
     segments, _v, _e = document.snapshot()
     text = "".join(s.text for s in segments)
-    assert text == "snap v3 one\nsnap v3 twoUser> follow-up\n"
+    assert text == "snap v3 one\nsnap v3 two\nUser> follow-up\n"
     assert [s.kind for s in segments] == ["answer", "user"]
 
 

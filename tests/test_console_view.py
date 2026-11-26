@@ -49,7 +49,7 @@ def test_view_submits_lines_and_projects_document():
         view.start()
         try:
             assert console_view.active_view() is view
-            document.append("answer", "assistant text")
+            document.append("answer", "assistant text\n")
             assert _wait_for(lambda: "assistant text" in view._output_text)
 
             view.set_prompt_text("User> ")
@@ -136,17 +136,18 @@ def test_view_colours_reasoning_by_kind(monkeypatch):
         view.start()
         try:
             # The document holds no colour; the kind alone colours.
-            document.append("reasoning", "deep thought")
+            document.append("reasoning", "deep thought\n")
             document.append("answer", "the answer")
             assert _wait_for(lambda: "the answer" in view._output_text)
             segments, _v, _e = document.snapshot()
             assert [(s.kind, s.text) for s in segments] == [
-                ("reasoning", "deep thought"),
+                ("reasoning", "deep thought\n"),
                 ("answer", "the answer"),
             ]
             fragments = view._lexer.lex_document(Document(view._output_text))(0)
             assert ("ansibrightblack", "deep thought") in fragments
-            assert ("", "the answer") in fragments
+            answer_fragments = view._lexer.lex_document(Document(view._output_text))(1)
+            assert ("", "the answer") in answer_fragments
         finally:
             view.stop()
 

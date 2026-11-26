@@ -202,7 +202,10 @@ class OutputDocument:
 
         Contiguous segments of the same kind merge.  Escape sequences
         are removed, CRLF becomes LF, and a line redrawn with a lone
-        CR keeps only its final form.
+        CR keeps only its final form.  A new segment that would start
+        mid-line (the previous segment does not end with a newline)
+        gets a leading newline, so blocks of different kinds never
+        render glued together.
         """
         if not text:
             return
@@ -228,6 +231,16 @@ class OutputDocument:
                 last = self._segments[-1]
                 self._segments[-1] = Segment(kind, last.text + text)
             else:
+                if (
+                    self._segments
+                    and not self._segments[-1].text.endswith("\n")
+                    and not text.startswith("\n")
+                ):
+                    # A new block starting mid-line would render
+                    # glued to the previous one (reasoning that
+                    # ends without a newline, then a tool line);
+                    # the line break belongs to the boundary.
+                    text = "\n" + text
                 self._segments.append(Segment(kind, text))
             self._total += len(text)
             if (
@@ -268,6 +281,15 @@ class OutputDocument:
             cleaned = self._normalize_lines(self._strip_escapes_locked(text))
             if not cleaned:
                 return None
+            if (
+                self._segments
+                and not self._segments[-1].text.endswith("\n")
+                and not cleaned.startswith("\n")
+            ):
+                # Same mid-line boundary rule as append(): a line
+                # queued during generation must not glue onto the
+                # text still being streamed.
+                cleaned = "\n" + cleaned
             segment = Segment("user", cleaned)
             self._segments.append(segment)
             self._pending_users[id(segment)] = marker
