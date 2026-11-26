@@ -73,6 +73,41 @@ def test_command_completer_tool_create(monkeypatch: pytest.MonkeyPatch) -> None:
     assert "active" in completed(":skills a")
 
 
+def test_bare_argument_command_completes_its_argument(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Tab right after a bare ":cd" (no trailing space yet) offers
+    # the path candidates, each carrying the space with it; the
+    # same holds for the other argument-taking commands.
+    import uagent.cli as cli
+
+    class MockEvent:
+        pass
+
+    monkeypatch.setattr(cli, "_PROMPT_SESSION", None)
+
+    def mock_prompt_session(*args, **kwargs):
+        return kwargs["completer"]
+
+    monkeypatch.setattr("prompt_toolkit.PromptSession", mock_prompt_session)
+    completer = cli._get_prompt_session()
+    assert completer is not None
+
+    def completed(text: str) -> list[str]:
+        doc = Document(text=text, cursor_position=len(text))
+        return [c.text for c in completer.get_completions(doc, MockEvent())]
+
+    bare = completed(":cd")
+    spaced = completed(":cd ")
+    assert bare, "a bare :cd must offer path candidates"
+    assert bare == [" " + text for text in spaced]
+    assert " help" in completed(":env")
+    assert " all" in completed(":logs")
+    # Command-name completion is untouched.
+    assert ":help" in completed(":he")
+    assert completed("hello") == []
+
+
 def test_dynamic_map_block_false_never_loads(monkeypatch: pytest.MonkeyPatch) -> None:
     """block=False の get_dynamic_commands_map はプラグインロードをブロックしない."""
     import uagent.tools as tools_mod

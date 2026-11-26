@@ -585,7 +585,9 @@ class ConsoleView:
             completer=completer,
             history=history,
             multiline=True,
-            complete_while_typing=False,
+            # Like the legacy PromptSession: candidates appear
+            # while typing, not only on Tab.
+            complete_while_typing=True,
             read_only=Condition(
                 lambda: self._confirm_text is not None or self._reset_pending
             ),
