@@ -57,8 +57,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "nikkei225jp chart data",
                 "Japan 225 index",
                 "Nikkei 225 AJAX",
-                "世界の株価データ",
-                "日経225チャートデータ",
+                "world stock market data",
+                "Nikkei 225 chart data",
             ],
         ),
         "x_search_terms_en": [
@@ -66,6 +66,8 @@ TOOL_SPEC: dict[str, Any] = {
             "nikkei225jp chart data",
             "Japan 225 index",
             "Nikkei 225 AJAX",
+            "world stock market data",
+            "Nikkei 225 chart data",
         ],
         "parameters": {
             "type": "object",
