@@ -1692,12 +1692,20 @@ def run_llm_rounds(
                     "assistant_chars": len(str(_round_text or "")),
                     "summary": round_summary.to_dict(),
                 }
-                if (env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower() in {
-                    "1",
-                    "true",
-                    "yes",
-                    "on",
-                } and usage_delta:
+                usage_setting = (
+                    str(env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower()
+                )
+                usage_enabled = usage_setting not in {"0", "false", "no", "off"}
+                try:
+                    from .core_impl.display import set_usage_status
+
+                    shown_in_status = set_usage_status(usage_delta or None)
+                except Exception:
+                    shown_in_status = False
+                # Keep a visible fallback when the full-screen status line is
+                # unavailable; usage reporting is enabled unless explicitly
+                # disabled with UAGENT_SHOW_USAGE=0.
+                if usage_delta and not shown_in_status and usage_enabled:
                     print(
                         "[USAGE] "
                         + json.dumps(

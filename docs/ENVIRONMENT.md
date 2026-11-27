@@ -537,7 +537,7 @@ not the normal chat-completions endpoint.
 - `UAGENT_FILE_GREP_TURN_LIMIT`: Maximum actual `file_grep` executions per user turn (default: `8`). After the limit, the agent is directed to use `read_file`, an index section tool, or `code_map` instead.
 - `UAGENT_STARTUP_TIMING`: Set to `1` to print startup, stdin-loop, first-event, and first-LLM timing markers to stderr.
 - `UAGENT_SHOW_ROUND_STATUS`: Set to `1` to print machine-readable `[ROUND]` status lines to stderr for each LLM round. Public statuses are `completed`, `continue`, `failed`, `cancelled`, or `interrupted`.
-- `UAGENT_SHOW_USAGE`: Set to `1` to print opt-in `[USAGE]` token lines to stderr when provider usage is available.
+- `UAGENT_SHOW_USAGE`: Provider-reported token usage is shown by default in the full-screen CLI status line (or as `[USAGE]` on stderr when that view is unavailable). Set to `0` to hide it. This is separate from `:tokens`, which is a local estimate.
 - `UAGENT_MCP_SESSION_REUSE`: Reuse initialized Streamable HTTP MCP sessions and cached `tools/list` results within the process (default: `1`). Set to `0` to restore per-call connection creation.
 - `UAGENT_TOOL_RESULT_JSON_UNESCAPE`: Set to `1` to parse JSON-shaped tool results and reserialize them with `ensure_ascii=False` before passing them to the LLM. This converts escaped Unicode such as `\u65e5` into readable text. Default: `0`.
 - `UAGENT_AUTO_REVIEW_LANGUAGE`: Language or locale requested for auto-pilot reviewer feedback (for example `ja` or `en`). Defaults to the current UI locale; `COMPLETE` and `CONTINUE` remain fixed protocol tokens.
@@ -613,3 +613,4 @@ uag_envsec delete --format-version 0 --file .env.sec --key UAGENT_OPENAI_IMG_GEN
 ```
 
 Use `--key-file PATH` when the encryption key is stored at a non-default path. Restart uag after changing `.env.sec` so the updated environment is loaded.
+````

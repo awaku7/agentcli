@@ -73,9 +73,43 @@ def test_view_submits_lines_and_projects_document():
 
             view.set_status("[STATE] BUSY [LLM]", busy=True)
             assert view._status_fragments()[0][1] == "[STATE] BUSY [LLM]"
+
+            view.set_usage(
+                {
+                    "input_tokens_delta": 1234,
+                    "output_tokens_delta": 567,
+                    "total_tokens_delta": 1801,
+                }
+            )
+            status = view._status_fragments()
+            assert status[0][1] == "[STATE] BUSY [LLM]"
+            assert "Last: in 1,234 / out 567 / total 1,801" in status[1][1]
+            assert len(status) == 2
         finally:
             view.stop()
         assert console_view.active_view() is None
+
+
+def test_usage_status_defaults_on_and_can_be_disabled(monkeypatch):
+    from types import SimpleNamespace
+
+    import uagent.core  # noqa: F401  (load core before its display helper)
+    from uagent.core_impl import display
+
+    seen = []
+    view = SimpleNamespace(set_usage=lambda usage: seen.append(usage))
+    monkeypatch.setattr(display, "_active_console_view", lambda: view)
+    monkeypatch.setattr(display, "env_get", lambda _name, default="": default)
+
+    assert display.usage_display_enabled() is True
+    usage = {"input_tokens_delta": 12}
+    assert display.set_usage_status(usage) is True
+    assert seen == [usage]
+
+    monkeypatch.setattr(display, "env_get", lambda _name, _default="": "0")
+    assert display.usage_display_enabled() is False
+    assert display.set_usage_status(usage) is False
+    assert seen == [usage, None]
 
 
 def test_view_ctrl_c_and_ctrl_d_keys():

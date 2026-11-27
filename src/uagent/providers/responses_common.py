@@ -1263,40 +1263,39 @@ def parse_responses_stream(
 
             ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
 
-            if not _stream_response_id:
-                if ev_type == "response.created":
-                    ev_resp = getattr(ev, "response", None)
-                    if ev_resp is not None:
-                        rid = as_str(getattr(ev_resp, "id", None) or "")
-                        if rid:
-                            _stream_response_id = rid
-                            try:
-                                active_fn = getattr(
-                                    core or sys.modules.get("uagent.core"),
-                                    "set_active_response",
-                                    None,
-                                )
-                                if callable(active_fn):
-                                    active_fn(rid, status="in_progress")
-                            except Exception:
-                                pass
-                elif ev_type == "response.completed":
-                    ev_resp = getattr(ev, "response", None)
-                    if ev_resp is not None:
-                        rid = as_str(getattr(ev_resp, "id", None) or "")
-                        if rid:
-                            _stream_response_id = rid
+            if ev_type == "response.created" and not _stream_response_id:
+                ev_resp = getattr(ev, "response", None)
+                if ev_resp is not None:
+                    rid = as_str(getattr(ev_resp, "id", None) or "")
+                    if rid:
+                        _stream_response_id = rid
                         try:
-                            if core is not None:
-                                setattr(
-                                    core,
-                                    "_last_responses_usage",
-                                    responses_usage_to_dict(
-                                        getattr(ev_resp, "usage", None)
-                                    ),
-                                )
+                            active_fn = getattr(
+                                core or sys.modules.get("uagent.core"),
+                                "set_active_response",
+                                None,
+                            )
+                            if callable(active_fn):
+                                active_fn(rid, status="in_progress")
                         except Exception:
                             pass
+            elif ev_type == "response.completed":
+                ev_resp = getattr(ev, "response", None)
+                if ev_resp is not None:
+                    rid = as_str(getattr(ev_resp, "id", None) or "")
+                    if rid:
+                        _stream_response_id = rid
+                    try:
+                        if core is not None:
+                            setattr(
+                                core,
+                                "_last_responses_usage",
+                                responses_usage_to_dict(
+                                    getattr(ev_resp, "usage", None)
+                                ),
+                            )
+                    except Exception:
+                        pass
 
             if ev_type == "response.completed":
                 completed_response = getattr(ev, "response", None)

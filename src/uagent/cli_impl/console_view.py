@@ -2,8 +2,10 @@
 
 The view is the terminal renderer decided for stage 2b: a scrolling
 output area above a fixed bottom region — spinner line, rule, the
-1-line input area, rule, and the status line on the very bottom line,
-in the style of Claude Code's CLI.  The input line carries no prompt
+1-line input area, rule, and the status line on the very bottom line.
+The status line can also show the latest provider-reported token usage
+without adding a transcript line.  The layout follows Claude Code's CLI.
+The input line carries no prompt
 text, only the cursor; the prompt's identifying text (the working
 directory at idle) rides inside the upper rule instead.  The output area is a projection
 of the shared output document (``runtime.display_channel``): the
@@ -70,7 +72,7 @@ import queue
 import sys
 import threading
 import time
-from typing import Any, Callable
+from typing import Any, Callable, Mapping
 
 
 from ..env_utils import env_get
@@ -651,6 +653,8 @@ class ConsoleView:
         self._spinner_started = time.monotonic()
         self._status_text = ""
         self._status_busy = False
+        self._usage_text = ""
+        self._usage_compact_text = ""
         self._output_text = ""
         self._app: Any = None
         self._thread: threading.Thread | None = None
@@ -953,6 +957,28 @@ class ConsoleView:
             self._status_text = text
             self._status_busy = bool(busy)
         self._resolve_confirmation_on_idle(was_busy, busy)
+        self._invalidate()
+
+    def set_usage(self, usage: Mapping[str, Any] | None) -> None:
+        """Overlay the latest provider-reported token usage on the status line."""
+        labels = (
+            ("input_tokens_delta", "in"),
+            ("output_tokens_delta", "out"),
+            ("total_tokens_delta", "total"),
+        )
+        parts: list[str] = []
+        total: int | None = None
+        for key, label in labels:
+            value = usage.get(key) if isinstance(usage, Mapping) else None
+            if type(value) is int and value >= 0:
+                parts.append(f"{label} {value:,}")
+                if key == "total_tokens_delta":
+                    total = value
+        text = "Last: " + " / ".join(parts) if parts else ""
+        compact = f"Tok {total:,}" if total is not None else text
+        with self._state_lock:
+            self._usage_text = text
+            self._usage_compact_text = compact
         self._invalidate()
 
     def resync_busy(self, busy: bool) -> None:
@@ -1502,8 +1528,36 @@ class ConsoleView:
         with self._state_lock:
             text = self._status_text
             busy = self._status_busy
+            usage = self._usage_text
+            compact_usage = self._usage_compact_text
         style = "class:status.busy" if busy else "class:status.idle"
-        return [(style, text)]
+        if not usage:
+            return [(style, text)]
+
+        try:
+            from prompt_toolkit.utils import get_cwidth
+
+            width_fn = get_cwidth
+        except Exception:
+            width_fn = len
+        columns = 80
+        app = self._app
+        if app is not None:
+            try:
+                columns = max(1, int(app.output.get_size().columns))
+            except Exception:
+                pass
+
+        usage_text = usage
+        if width_fn(text) + 2 + width_fn(usage_text) > columns:
+            usage_text = compact_usage
+        if width_fn(text) + 2 + width_fn(usage_text) > columns:
+            available = max(0, columns - width_fn(text) - 1)
+            usage_text = usage_text[:available]
+        padding = max(2, columns - width_fn(text) - width_fn(usage_text))
+        if width_fn(text) + padding + width_fn(usage_text) > columns:
+            padding = 1
+        return [(style, text), (style, " " * padding + usage_text)]
 
     @staticmethod
     def _trim_rule_label(text: str) -> str:

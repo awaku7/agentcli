@@ -49,6 +49,34 @@ def test_parse_responses_stream_emits_compaction_done_notice() -> None:
     assert "compressed" in notices[0] or "圧縮" in notices[0]
 
 
+def test_parse_responses_stream_records_usage_after_created_event() -> None:
+    core = SimpleNamespace(_is_web=False, _last_responses_usage={})
+    usage = SimpleNamespace(input_tokens=321, output_tokens=45, total_tokens=366)
+    stream = [
+        SimpleNamespace(
+            type="response.created",
+            response=SimpleNamespace(id="resp_usage_1"),
+        ),
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_usage_1", usage=usage),
+        ),
+    ]
+
+    parse_responses_stream(
+        stream,
+        print_delta_fn=lambda _text: None,
+        core=core,
+        provider="openai",
+    )
+
+    assert core._last_responses_usage == {
+        "input_tokens": 321,
+        "output_tokens": 45,
+        "total_tokens": 366,
+    }
+
+
 def test_parse_responses_stream_emits_compaction_output_item_notice() -> None:
     notices: list[str] = []
     core = SimpleNamespace(_is_web=False, print_stream_delta=notices.append)

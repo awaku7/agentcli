@@ -39,7 +39,15 @@ def test_registry_simple_chat_round_is_default_on_and_parity_safe(
                                 )
                             )
                         ]
-                    )
+                    ),
+                    SimpleNamespace(
+                        choices=[],
+                        usage=SimpleNamespace(
+                            prompt_tokens=123,
+                            completion_tokens=17,
+                            total_tokens=140,
+                        ),
+                    ),
                 ]
             )
 
@@ -69,6 +77,11 @@ def test_registry_simple_chat_round_is_default_on_and_parity_safe(
     )
 
     assert result == (True, "registry-ok", "", [])
+    assert core._last_responses_usage == {
+        "input_tokens": 123,
+        "output_tokens": 17,
+        "total_tokens": 140,
+    }
 
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "off")
     assert (
@@ -265,7 +278,14 @@ def test_registry_responses_round_updates_legacy_response_state(
                     SimpleNamespace(type="response.output_text.delta", delta="hello"),
                     SimpleNamespace(
                         type="response.completed",
-                        response=SimpleNamespace(id="resp_new"),
+                        response=SimpleNamespace(
+                            id="resp_new",
+                            usage=SimpleNamespace(
+                                input_tokens=321,
+                                output_tokens=45,
+                                total_tokens=366,
+                            ),
+                        ),
                     ),
                 ]
             )
@@ -302,6 +322,11 @@ def test_registry_responses_round_updates_legacy_response_state(
 
     assert result == (True, "hello", "", [])
     assert core.responses_state["previous_response_id"] == "resp_new"
+    assert core._last_responses_usage == {
+        "input_tokens": 321,
+        "output_tokens": 45,
+        "total_tokens": 366,
+    }
     assert responses.calls[0]["reasoning"] == {"effort": "low", "summary": "auto"}
     assert "reasoning_effort" not in responses.calls[0]
 

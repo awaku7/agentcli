@@ -567,6 +567,10 @@ Key modules:
   - Standard input loop, `:cd` / `:ls` / `:cp` / `:mv` / `:head` / `:tail` / `:auto`, and startup-time workdir initialization (mode A initializes the workdir inside `main()`).
   - `:head <path> [n]` prints the first n lines (default 20), and `:tail <path> [n]` prints the last n lines (default 20).
   - `:cp` / `:mv` are treated as safe file operations inside the workdir.
+- Full-screen CLI renderer: `src/uagent/cli_impl/console_view.py`
+  - The bottom status line shows the latest provider-reported token usage by
+    default; `UAGENT_SHOW_USAGE=0` hides it. This is separate from `:tokens`,
+    which remains a local estimate.
 - LLM orchestration entrypoint: `src/uagent/uagent_llm.py`
   - Round/message/tool-call helpers are split into:
     - `src/uagent/llm_helpers.py`
@@ -713,11 +717,15 @@ The package also keeps the registry, `get_tool_specs()` and `run_tool()`; helper
 live in private submodules that the package re-exports:
 
 - `tools/_manifest.py`: cached tool-spec manifest for lazy plugin loading
+
 - `tools/_catalog.py`: `get_tool_catalog()` and CJK query tokenizers (imported on first search)
+
 - `tools/_trace.py`: tool trace lines and localized action sentences
+
 - `tools/_dynamic_commands.py`: `CMD_SPEC(S)` command registry (`_DYNAMIC_COMMANDS`)
 
 - Internal tools: discovered by `pkgutil.iter_modules([tools_dir])`
+
 - External tools (optional): loaded from `UAGENT_EXTERNAL_TOOLS_DIR` (each `*.py` file)
 
 ### 3.2 Callbacks injection (host → tools)

@@ -4,7 +4,7 @@ registered provider adapter (split out of uagent_llm).
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Mapping
 import os
 
 from .env_utils import env_get
@@ -562,6 +562,26 @@ def _try_registry_simple_chat_round(
         normalized_result = registry_result_to_legacy_tuple(result)
         if normalized_result is None:
             return None
+        # The compatibility round loop publishes usage from the legacy core
+        # snapshot after this adapter returns. Registry-backed rounds carry
+        # provider-reported usage in RoundSummary instead, so bridge that
+        # per-request delta back to the core or the CLI status line sees only
+        # stale/empty legacy usage.
+        summary = getattr(result, "summary", None)
+        usage_delta = getattr(summary, "usage_delta", None)
+        if isinstance(usage_delta, Mapping):
+            usage_snapshot = {
+                key[: -len("_delta")]: value
+                for key, value in usage_delta.items()
+                if isinstance(key, str)
+                and key.endswith("_delta")
+                and type(value) is int
+                and value >= 0
+            }
+            try:
+                core._last_responses_usage = usage_snapshot
+            except (AttributeError, TypeError):
+                pass
         if use_responses_api and result.tool_calls and result.reasoning_text:
             # Registry rounds collect stream events instead of displaying them
             # during execution. Preserve the reasoning summary on tool turns,

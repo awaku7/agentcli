@@ -34,6 +34,30 @@ def _active_console_view():
         return None
 
 
+def usage_display_enabled() -> bool:
+    """Whether provider-reported usage should be shown (default: enabled)."""
+    setting = str(env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower()
+    return setting not in {"0", "false", "no", "off"}
+
+
+def set_usage_status(usage: dict[str, int] | None) -> bool:
+    """Overlay provider-reported token usage on the active CLI status line.
+
+    Usage display is enabled by default and can be disabled with
+    ``UAGENT_SHOW_USAGE=0``.  The legacy ``[USAGE]`` diagnostic remains the
+    fallback when explicitly enabled but no full-screen view is active.
+    """
+    view = _active_console_view()
+    if not usage_display_enabled():
+        if view is not None:
+            view.set_usage(None)
+        return False
+    if view is None:
+        return False
+    view.set_usage(usage)
+    return True
+
+
 def _sync_spinner_to_status(busy: bool) -> None:
     """Start/stop the spinner. No-op when disabled (UAGENT_SPINNER=0).
 

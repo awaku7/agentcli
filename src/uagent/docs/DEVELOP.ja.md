@@ -29,6 +29,9 @@ ______________________________________________________________________
   - 標準入力ループ、`:cd`/`:ls`/`:cp`/`:mv`/`:head`/`:tail` 等のコマンド、起動時処理（Mode A では `main()` 内で workdir 初期化）
   - `:head <path> [n]` は先頭 n 行（既定 20 行）を表示し、`:tail <path> [n]` は末尾 n 行（既定 20 行）を表示する
   - `:cp` / `:mv` は workdir 内の安全なファイル操作を使うコマンドとして扱う
+- **フルスクリーン CLI 表示**: `src/uagent/cli_impl/console_view.py`
+  - 下端のステータス行に、プロバイダーが返した最新ラウンドのトークン使用量を
+    既定で表示する。`UAGENT_SHOW_USAGE=0` で非表示にできる。`:tokens` のローカル概算とは別。
 - **LLM Orchestration**: `src/uagent/uagent_llm.py`
   - 対話ラウンド実行、tool call の実行、429等のリトライ制御
   - ラウンド / メッセージ / tool call のヘルパは以下に分割済み
@@ -162,9 +165,7 @@ SQLite または JSONL へ保存する前に、Tool Message のコピーから�
 PDF・スクリーンショット・MCP バイナリのインラインデータを bounded marker
 へ置換します。メモリ上の UI / リモート向け attachment は変更しません。
 
-
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。
-
 
 ### 3.6.2 GPT-5.4+ / Responses API のツール送信フロー
 
