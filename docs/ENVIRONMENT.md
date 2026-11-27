@@ -81,7 +81,7 @@ Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an option
 
 OpenTelemetry support is opt-in and disabled by default. CLI flags override the environment:
 
-````text
+```text
 uag --otel                     # metadata-only Agent/LLM/Tool spans
 uag --otel --otel-content      # also capture reviewed conversation/Tool content
 uag --no-otel                  # disable all observability
