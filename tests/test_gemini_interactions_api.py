@@ -7,6 +7,7 @@ import pytest
 
 from uagent.providers import gemini_api_mode as mode_module
 from uagent.providers.llm_gemini_interactions import (
+    _dump,
     _build_interaction_input,
     gemini_interactions_chat_with_tools,
 )
@@ -24,11 +25,14 @@ def test_gemini_api_mode_defaults_and_normalizes(monkeypatch) -> None:
         lambda feature, model, provider, default=None: (
             True
             if (feature, model, provider)
-            == (
-                "interactions_api",
-                "gemini-4-carbon",
-                "gemini",
-            )
+            in {
+                (
+                    "interactions_api",
+                    "gemini-4-carbon",
+                    "gemini",
+                ),
+                ("tool_search", "gemini-3.8-flash", "gemini"),
+            }
             else (
                 False
                 if (feature, model, provider)
@@ -38,6 +42,7 @@ def test_gemini_api_mode_defaults_and_normalizes(monkeypatch) -> None:
         ),
     )
     assert mode_module.gemini_api_mode("gemini-4-carbon", "gemini") == "interactions"
+    assert mode_module.gemini_api_mode("gemini-3.8-flash", "gemini") == "interactions"
     assert (
         mode_module.gemini_api_mode("gemini-2.5-flash", "vertexai")
         == "generate_content"
@@ -53,6 +58,24 @@ def test_gemini_api_mode_defaults_and_normalizes(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_GEMINI_API_MODE", "responses")
     with pytest.raises(ValueError, match="UAGENT_GEMINI_API_MODE"):
         mode_module.gemini_api_mode()
+
+
+def test_gemini_api_mode_routes_from_llmcapa_tool_search_flag(monkeypatch) -> None:
+    from uagent import llmcapa_util
+
+    monkeypatch.delenv("UAGENT_GEMINI_API_MODE", raising=False)
+    monkeypatch.setattr(
+        llmcapa_util,
+        "supports_feature",
+        lambda *_args, **_kwargs: None,
+    )
+    monkeypatch.setattr(
+        llmcapa_util,
+        "get_capability",
+        lambda _model, _provider: SimpleNamespace(supports_tool_search=True),
+    )
+
+    assert mode_module.gemini_api_mode("gemini-3.8-flash", "gemini") == "interactions"
 
 
 def test_build_interactions_input_replays_native_steps_and_tool_result() -> None:
@@ -96,6 +119,26 @@ def test_build_interactions_input_replays_native_steps_and_tool_result() -> None
         "type": "user_input",
         "content": [{"type": "text", "text": "Continue with the result."}],
     }
+
+
+def test_unknown_interactions_step_keeps_original_wire_payload() -> None:
+    raw_step = {
+        "type": "tool_search_call",
+        "id": "search-1",
+        "arguments": {"function_names": ["lookup"]},
+        "signature": "opaque-signature",
+    }
+    unknown_step = SimpleNamespace(
+        is_unknown=True,
+        raw=raw_step,
+        model_dump=lambda **_kwargs: {
+            "type": "UNKNOWN",
+            "raw": raw_step,
+            "is_unknown": True,
+        },
+    )
+
+    assert _dump(unknown_step) == raw_step
 
 
 def test_interactions_request_is_stateless_and_normalizes_response(monkeypatch) -> None:
@@ -237,6 +280,159 @@ def test_interactions_request_is_stateless_and_normalizes_response(monkeypatch) 
         "cache_read_input_tokens": 3,
         "reasoning_output_tokens": 2,
     }
+
+
+def test_interactions_uses_llmcapa_tool_retrieval_when_supported(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_GEMINI_API_MODE", raising=False)
+    monkeypatch.setenv("UAGENT_GEMINI_WEB_SEARCH", "0")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_GEMINI_SAFETY_OFF", "0")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.supports_feature",
+        lambda feature, _model, _provider, default=None: (
+            True if feature in {"interactions_api", "tool_search"} else default
+        ),
+    )
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda _model, _provider: None
+    )
+    monkeypatch.setattr(
+        "uagent.providers.llm_gemini._llmcapa_reasoning_levels", lambda _model: None
+    )
+    from uagent import tools
+    from uagent.runtime import execution_broker
+
+    monkeypatch.setattr(execution_broker, "computer_use_allowed", lambda: False)
+    monkeypatch.setattr(
+        tools,
+        "get_tool_specs",
+        lambda: [
+            {
+                "type": "function",
+                "function": {
+                    "name": "lookup",
+                    "description": "Look up a value.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "another_tool",
+                    "description": "Another operation.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "tool_catalog",
+                    "description": "Internal discovery tool.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ],
+    )
+
+    class FakeInteractions:
+        request = None
+
+        def create(self, **kwargs):
+            self.request = kwargs
+            return {"steps": []}
+
+    api = FakeInteractions()
+    core = SimpleNamespace(
+        context_tool_specs=[
+            {
+                "type": "function",
+                "function": {
+                    "name": "lookup",
+                    "description": "Budget-selected version.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "mcp_extra",
+                    "description": "External tool.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ],
+        _gemini_tool_catalog_ready=False,
+    )
+
+    gemini_interactions_chat_with_tools(
+        SimpleNamespace(interactions=api),
+        "gemini-search-supported",
+        [{"role": "user", "content": "Use the right tool."}],
+        core=core,
+        provider="gemini",
+        send_tools=True,
+    )
+
+    assert "tools" not in api.request
+    assert api.request["extra_body"]["tools"] == [
+        {"type": "tool_search"},
+        {
+            "type": "function",
+            "name": "lookup",
+            "description": "Look up a value.",
+            "parameters": {"type": "object", "properties": {}},
+            "defer_loading": True,
+        },
+        {
+            "type": "function",
+            "name": "another_tool",
+            "description": "Another operation.",
+            "parameters": {"type": "object", "properties": {}},
+            "defer_loading": True,
+        },
+        {
+            "type": "function",
+            "name": "mcp_extra",
+            "description": "External tool.",
+            "parameters": {"type": "object", "properties": {}},
+            "defer_loading": True,
+        },
+    ]
+    assert "tool_choice" not in api.request.get("generation_config", {})
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "gemini")
+    monkeypatch.setenv("UAGENT_GEMINI_DEPNAME", "gemini-search-supported")
+    monkeypatch.delenv("UAGENT_RESPONSES", raising=False)
+    assert tools._should_preload_lazy_specs()
+    from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
+
+    assert not should_emit_catalog_steering(
+        provider="gemini",
+        depname="gemini-search-supported",
+        use_responses_api=False,
+    )
+
+
+def test_interactions_tool_retrieval_reads_llmcapa_flag(monkeypatch) -> None:
+    from uagent.runtime.tool_discovery import (
+        gemini_interactions_tool_retrieval_enabled,
+    )
+
+    monkeypatch.delenv("UAGENT_GEMINI_API_MODE", raising=False)
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.supports_feature",
+        lambda feature, _model, _provider, default=None: (
+            True if feature == "interactions_api" else default
+        ),
+    )
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability",
+        lambda _model, _provider: SimpleNamespace(supports_tool_search=True),
+    )
+
+    assert gemini_interactions_tool_retrieval_enabled(
+        "gemini", "gemini-search-supported"
+    )
 
 
 def test_interactions_continues_long_decode_and_preserves_all_steps(

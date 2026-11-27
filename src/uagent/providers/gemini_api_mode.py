@@ -19,9 +19,10 @@ _MODE_ALIASES = {
 def gemini_api_mode(model_name: str | None = None, provider: str | None = None) -> str:
     """Select the Google API transport, honoring an explicit environment override.
 
-    Without an override, Interactions is selected only when llmcapa positively
-    identifies the model/provider pair as supporting it. Unknown models and
-    unavailable capability data keep using the established GenerateContent API.
+    Without an override, Interactions is selected when llmcapa positively
+    identifies either the Interactions API or a feature that requires it
+    (currently native tool search). Unknown models and unavailable capability
+    data keep using the established GenerateContent API.
     """
     raw = (env_get(_ENV_NAME) or "").strip().lower()
     if raw:
@@ -41,18 +42,21 @@ def gemini_api_mode(model_name: str | None = None, provider: str | None = None) 
         "google",
     }:
         try:
-            from ..llmcapa_util import supports_feature
+            from ..llmcapa_util import get_capability, supports_feature
 
-            if (
-                supports_feature(
-                    "interactions_api",
+            for feature in ("interactions_api", "tool_search"):
+                supported = supports_feature(
+                    feature,
                     normalized_model,
                     normalized_provider,
                     default=None,
                 )
-                is True
-            ):
-                return "interactions"
+                if supported is True:
+                    return "interactions"
+                if feature == "tool_search" and supported is None:
+                    capability = get_capability(normalized_model, normalized_provider)
+                    if getattr(capability, "supports_tool_search", None) is True:
+                        return "interactions"
         except Exception:
             # llmcapa is optional; unknown capability must not change transport.
             pass

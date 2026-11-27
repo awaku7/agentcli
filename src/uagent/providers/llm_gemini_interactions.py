@@ -30,6 +30,13 @@ def _get(value: Any, name: str, default: Any = None) -> Any:
 def _dump(value: Any) -> dict[str, Any]:
     if isinstance(value, dict):
         return deepcopy(value)
+    if _get(value, "is_unknown") is True:
+        raw = _get(value, "raw")
+        if isinstance(raw, dict):
+            # Older google-genai generated schemas wrap newly introduced step
+            # types as UnknownStep. Rehydrate the original wire object so
+            # signatures and types survive UAG's stateless history replay.
+            return deepcopy(raw)
     model_dump = getattr(value, "model_dump", None)
     if callable(model_dump):
         for kwargs in (
@@ -233,12 +240,18 @@ def _build_interaction_input(
 
 
 def _build_interaction_tools(
-    *, core: Any, provider: str, send_tools: bool, use_google_search: bool
+    *,
+    core: Any,
+    provider: str,
+    send_tools: bool,
+    use_google_search: bool,
+    use_tool_retrieval: bool = False,
 ) -> tuple[list[dict[str, Any]], bool]:
     from ..runtime.execution_broker import (
         computer_use_allowed,
         is_computer_use_tool_spec,
     )
+    from ..runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
     from .llm_gemini import _gemini_round_tool_specs
 
     tools_list: list[dict[str, Any]] = []
@@ -274,9 +287,37 @@ def _build_interaction_tools(
                 context_specs = tools.get_tool_specs() or []
             except Exception:
                 context_specs = []
-        tool_specs = (
+        selected_specs = (
             list(context_specs) if isinstance(context_specs, (list, tuple)) else []
         )
+        if use_tool_retrieval:
+            # Native retrieval needs the complete eligible inventory, rather
+            # than the context-budgeted subset prepared for client-side search.
+            # Retain selected specs too because they may contain MCP/A2A tools
+            # outside the local plugin registry.
+            try:
+                from .. import tools
+
+                tool_specs = list(tools.get_tool_specs() or [])
+            except Exception:
+                tool_specs = []
+            tool_specs.extend(selected_specs)
+            filtered_specs: list[dict[str, Any]] = []
+            seen_names: set[str] = set()
+            for spec in tool_specs:
+                function = spec.get("function") if isinstance(spec, dict) else None
+                name = (
+                    str(function.get("name") or "").strip()
+                    if isinstance(function, dict)
+                    else ""
+                )
+                if not name or name in MANAGEMENT_TOOL_NAMES or name in seen_names:
+                    continue
+                seen_names.add(name)
+                filtered_specs.append(spec)
+            tool_specs = filtered_specs
+        else:
+            tool_specs = selected_specs
         if not computer_allowed:
             tool_specs = [
                 spec for spec in tool_specs if not is_computer_use_tool_spec(spec)
@@ -295,7 +336,7 @@ def _build_interaction_tools(
             ):
                 tool_specs.append(local_computer_tool_spec())
 
-        initial_discovery = (
+        initial_discovery = not use_tool_retrieval and (
             (provider or "").strip().lower() in {"gemini", "vertexai"}
             and core is not None
             and not getattr(core, "_gemini_tool_catalog_ready", False)
@@ -306,7 +347,10 @@ def _build_interaction_tools(
                 for spec in tool_specs
             )
         )
-        tool_specs = _gemini_round_tool_specs(tool_specs, core=core, provider=provider)
+        if not use_tool_retrieval:
+            tool_specs = _gemini_round_tool_specs(
+                tool_specs, core=core, provider=provider
+            )
         if use_google_search and not initial_discovery:
             tool_specs = [
                 spec
@@ -329,14 +373,15 @@ def _build_interaction_tools(
             parameters = function.get("parameters")
             if not isinstance(parameters, dict):
                 parameters = {"type": "object", "properties": {}}
-            tools_list.append(
-                {
-                    "type": "function",
-                    "name": name,
-                    "description": str(function.get("description") or ""),
-                    "parameters": deepcopy(parameters),
-                }
-            )
+            interaction_tool = {
+                "type": "function",
+                "name": name,
+                "description": str(function.get("description") or ""),
+                "parameters": deepcopy(parameters),
+            }
+            if use_tool_retrieval:
+                interaction_tool["defer_loading"] = True
+            tools_list.append(interaction_tool)
     elif (
         core is not None
         and computer_allowed
@@ -347,13 +392,18 @@ def _build_interaction_tools(
         tools_list.append(local_computer_tool_spec())
 
     initial_discovery = bool(
-        core is not None
+        not use_tool_retrieval
+        and core is not None
         and not getattr(core, "_gemini_tool_catalog_ready", False)
         and any(
             item.get("type") == "function" and item.get("name") == "tool_catalog"
             for item in tools_list
         )
     )
+    if use_tool_retrieval and any(
+        item.get("type") == "function" for item in tools_list
+    ):
+        tools_list.insert(0, {"type": "tool_search"})
     if use_google_search and not initial_discovery:
         tools_list.append({"type": "google_search", "search_types": ["web_search"]})
     return tools_list, initial_discovery
@@ -518,7 +568,7 @@ def gemini_interactions_chat_with_tools(
     if not callable(create):
         raise RuntimeError(
             "The configured google-genai client has no Interactions API; "
-            "upgrade google-genai to 2.3.0 or newer."
+            "install the supported google-genai 3.6.1+ SDK."
         )
 
     try:
@@ -528,6 +578,7 @@ def gemini_interactions_chat_with_tools(
         if (
             capability is not None
             and getattr(capability, "supports_interactions_api", None) is False
+            and getattr(capability, "supports_tool_search", None) is not True
         ):
             raise ValueError(
                 f"Model {model_name!r} is not listed as supporting the Interactions API "
@@ -546,11 +597,17 @@ def gemini_interactions_chat_with_tools(
         True if api_key_search == "" else api_key_search in {"1", "true", "yes", "on"}
     )
     input_steps, system_instruction = _build_interaction_input(messages)
+    from ..runtime.tool_discovery import gemini_interactions_tool_retrieval_enabled
+
+    use_tool_retrieval = gemini_interactions_tool_retrieval_enabled(
+        provider, model_name
+    )
     tools_list, initial_discovery = _build_interaction_tools(
         core=core,
         provider=provider,
         send_tools=send_tools,
         use_google_search=use_google_search,
+        use_tool_retrieval=use_tool_retrieval,
     )
     if not input_steps:
         input_steps = [
@@ -692,7 +749,20 @@ def gemini_interactions_chat_with_tools(
     def _create_interaction(request_client: Any) -> Any:
         nonlocal active_client
         active_client = request_client
-        return request_client.interactions.create(**request, extra_body=extra_body)
+        request_body = dict(request)
+        request_extra_body = dict(extra_body)
+        if use_tool_retrieval:
+            # google-genai versions whose generated Interactions schema does
+            # not yet know ``tool_search`` / ``defer_loading`` reject these
+            # values before sending the HTTP request. Put the tools array in
+            # extra_body so the SDK merges it into the serialized JSON after
+            # typed request validation; the API still receives the same body.
+            deferred_tools = request_body.pop("tools", None)
+            if deferred_tools is not None:
+                request_extra_body["tools"] = deferred_tools
+        return request_client.interactions.create(
+            **request_body, extra_body=request_extra_body
+        )
 
     try:
         from .util_providers import call_vertexai_with_region_fallback

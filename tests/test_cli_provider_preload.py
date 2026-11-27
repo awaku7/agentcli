@@ -9,6 +9,7 @@ from uagent.providers import util_providers
 
 
 def test_provider_sdk_module_mapping(monkeypatch):
+    monkeypatch.delenv("GOOGLE_GENAI_HTTP_CLIENT", raising=False)
     assert util_providers.provider_sdk_module("openai") == "openai"
     assert util_providers.provider_sdk_module("claude") == "anthropic"
     assert util_providers.provider_sdk_module("gemini") == "google.genai"

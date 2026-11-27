@@ -58,6 +58,29 @@ UAGENT_GPT54_TOOL_SEARCH=native
 - Management tools are omitted because server-side `tool_search` is used.
 - `_should_preload_lazy_specs()` becomes true, registering all available tool specs for server-side narrowing.
 
+### E. Gemini/Vertex Interactions API + llmcapa `tool_search`
+
+When the selected Gemini or Vertex model is routed through the Interactions API
+and llmcapa positively reports `tool_search`, UAG enables Google's Tool
+Retrieval automatically:
+
+- The request includes `{"type":"tool_search"}` and eligible function
+  declarations with `defer_loading: true`.
+- Registered local tools and the current context's additional tools are sent
+  as the searchable inventory; `tool_catalog`/`tool_load`/`unload_tool` are
+  omitted because the provider performs schema retrieval.
+- Unknown or negative llmcapa evidence keeps the existing catalog flow.
+- Function calls are still executed by UAG under the normal tool permissions;
+  provider-side retrieval does not grant execution access.
+- Lazy tool specs are pre-registered, and catalog steering/auto-unload are
+  disabled for this route.
+
+The `providers` extra requires `google-genai[httpx]>=3.6.1,<4`. Gemini
+Developer API requests using Tool Retrieval explicitly select `v1beta` because
+google-genai 3.x defaults to `v1`; Vertex AI keeps its SDK `v1beta1` default.
+UAG selects the SDK's `httpx` backend when it supplies its shared `httpx.Client`.
+This is independent of the OpenAI/Azure `UAGENT_GPT54_TOOL_SEARCH` setting.
+
 ## Mode selection
 
 | Mode | `_get_gpt54_tool_search_mode()` | `_should_preload_lazy_specs()` | Notes |
@@ -111,6 +134,7 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 | Responses API + GPT-5.4 or later (default) | No; all tools are sent and the server performs `tool_search` |
 | Responses API + GPT-5.4 or later + `legacy` | Yes; `_select_tool_specs_legacy()` uses it explicitly |
 | Responses API + GPT-5.4 or later + `native` | No; `tool_catalog` itself is omitted |
+| Gemini/Vertex Interactions + llmcapa `tool_search=true` | No; Gemini Tool Retrieval loads deferred schemas |
 
 ### Implementation
 
@@ -125,6 +149,10 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 | `UAGENT_GPT54_TOOL_SEARCH` | unset (`native`) | `native`, `legacy`, or `off` |
 | `UAGENT_RESPONSES` | automatic | Set to `1` to force Responses API support |
 | `UAGENT_AUTO_UNLOAD_ROUNDS` | `10` | Number of unused rounds before unloading a tool |
+
+Gemini Tool Retrieval is capability-gated by llmcapa and has no separate
+environment toggle; unknown capability data fails closed to the existing
+`tool_catalog` flow.
 
 # Responses API management and state
 

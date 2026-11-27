@@ -181,6 +181,8 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 
 **`UAGENT_GPT54_TOOL_SEARCH=native`**（明示指定）: デフォルトと同じですが、管理ツールが除外されます。`_should_preload_lazy_specs()` が True になり、サーバー側の絞り込み用に利用可能なツール定義が登録されます。
 
+**Gemini/Vertex Interactions Tool Retrieval**: 選択中のモデルについて llmcapa が `tool_search` を肯定し、Gemini API モードが `interactions` の場合、UAG は `{"type":"tool_search"}` と `defer_loading: true` を付けた関数定義を送ります。スキーマはプロバイダ側が必要時に取得しますが、関数の実行は通常の権限チェックを通して UAG が行います。能力情報が不明なら既存の `tool_catalog` フローを使います。`UAGENT_GPT54_TOOL_SEARCH` とは独立しています。Provider extra は `google-genai[httpx]>=3.6.1,<4` を使用します。SDK 3.x の既定が `v1` のため、Gemini Developer API の Tool Retrieval では `v1beta` を明示します。
+
 **その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは `tool_catalog` → `tool_load` で個別に発見・動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
 **発見の診断（オプトイン）**: `UAGENT_DEBUG_TOOL_DISCOVERY=1` を設定すると、ツールを送信するラウンドごとに JSON 1 行がログディレクトリの `tool_discovery.jsonl` に追記されます。各行には発見の判定（`mode`、`reason`）、プロバイダ/モデル、`tool_catalog` が送信ツールに含まれていたか（`catalog_sent`）が入るので、想定外に `tool_catalog` が呼ばれたラウンドを後から確認できます。デフォルトはオフで、オフ時は環境変数の確認だけです。
@@ -194,7 +196,7 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 - stale rid / `invalid_prompt` / `APIResponseValidationError`（文字列 `error.code` 等）時: rid クリア、`responses_state["_stale_rid_occurred"]` 設定、全履歴で 1 回リトライ。2 回目失敗で continuation クリア。
 - Compat 除去: `apply_openrouter_responses_compat` と `_normalize_openrouter_send_kwargs` は常に `previous_response_id` を pop。
 
-**auto-unload**: `previous_response_id` が設定されている場合（全プロバイダ）、または native GPT-5.4 tool_search が有効な場合はスキップされます。
+**auto-unload**: `previous_response_id` が設定されている場合（全プロバイダ）、または native GPT-5.4 tool_search / Gemini Interactions Tool Retrieval が有効な場合はスキップされます。
 
 詳細は `TOOL_FLOW.md` を参照してください。
 
@@ -222,6 +224,8 @@ workdir は次の優先順位で決定されます。
 起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。
 
 - `runtime.runtime_init.build_startup_banner()`（`src/uagent/runtime/runtime_banner.py` が実装）
+
+LLM API mode の表示は、Gemini Developer API / Vertex AI では選択中モデルと設定に応じて `Interactions API` または `GenerateContent API`、Claude では `Anthropic Messages API` を示します。OpenAI互換プロバイダーの `Responses` / `ChatCompletions` 表示も従来どおりです。
 
 ### 4.3 長期記憶/共有メモ
 

@@ -91,6 +91,60 @@ def get_tool_search_mode(raw: str | None = None) -> str:
     return "native"
 
 
+def gemini_interactions_tool_retrieval_enabled(
+    provider: str | None, depname: str | None
+) -> bool:
+    """Return True only when llmcapa documents Gemini Interactions retrieval.
+
+    Gemini's Interactions API uses the same ``tool_search`` capability name as
+    other provider APIs, but its transport and request format are different.
+    Keep this gate separate from the Responses API discovery decision below.
+    Unknown capability data is deliberately treated as unsupported.
+    """
+    provider_name = (provider or "").strip().lower()
+    model_name = (depname or "").strip()
+    if provider_name not in {"gemini", "vertexai", "vertex-ai", "google"}:
+        return False
+    if not model_name:
+        return False
+    try:
+        from ..providers.gemini_api_mode import gemini_api_mode
+
+        if gemini_api_mode(model_name, provider_name) != "interactions":
+            return False
+    except Exception:
+        return False
+    try:
+        from ..llmcapa_util import get_capability, supports_feature
+
+        feature_value = supports_feature(
+            "tool_search", model_name, provider_name, default=None
+        )
+        if feature_value is not None:
+            return feature_value is True
+        # Some llmcapa releases expose this provider-native field directly
+        # before including it in Capability.supports().
+        capability = get_capability(model_name, provider_name)
+        return getattr(capability, "supports_tool_search", None) is True
+    except Exception:
+        return False
+
+
+def gemini_interactions_tool_retrieval_enabled_from_environment() -> bool:
+    """Resolve Gemini tool retrieval from the active provider/model settings."""
+    try:
+        from ..env_utils import env_get
+        from ..llmcapa_util import current_model
+
+        provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+        if not provider:
+            return False
+        model = current_model(provider)
+        return gemini_interactions_tool_retrieval_enabled(provider, model)
+    except Exception:
+        return False
+
+
 def resolve_tool_discovery_from_environment(
     *,
     provider: str | None = None,

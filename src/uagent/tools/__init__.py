@@ -103,20 +103,25 @@ def _is_embedded_mode() -> bool:
 
 
 def _should_preload_lazy_specs() -> bool:
-    """Check if lazy tool specs should be pre-registered for server-side narrowing.
+    """Check if lazy specs should be pre-registered for server-side narrowing.
 
-    Returns True when GPT-5.4 native tool_search is active
-    (Responses API + OpenAI/Azure + GPT-5.4+ model, mode != off).
+    Returns True when native OpenAI Responses tool_search or a documented
+    Gemini Interactions tool_retrieval capability is active.
 
     NOTE: This only affects startup-time registration (TOOL_SPECS).
-          It is safe to keep False here; the GPT-5.4+ native mode
-          path in _call_openai_azure_round() dynamically loads all
-          tools from disk when needed.
+          The native provider paths need all eligible schemas registered so
+          the server can retrieve them without a local catalog round-trip.
     """
     try:
         from ..runtime.tool_discovery import resolve_tool_discovery_from_environment
 
-        return resolve_tool_discovery_from_environment().uses_native_search
+        if resolve_tool_discovery_from_environment().uses_native_search:
+            return True
+        from ..runtime.tool_discovery import (
+            gemini_interactions_tool_retrieval_enabled_from_environment,
+        )
+
+        return gemini_interactions_tool_retrieval_enabled_from_environment()
     except Exception:
         return False
 

@@ -22,6 +22,7 @@ def clean_vertex_env(monkeypatch: pytest.MonkeyPatch) -> None:
         "GOOGLE_CLOUD_PROJECT",
         "GOOGLE_CLOUD_LOCATION",
         "GOOGLE_APPLICATION_CREDENTIALS",
+        "GOOGLE_GENAI_HTTP_CLIENT",
     ):
         monkeypatch.delenv(key, raising=False)
 
@@ -128,6 +129,45 @@ def test_make_client_vertexai_with_project_and_adc(
             "location": "global",
         }
     ]
+
+
+def test_make_client_gemini_tool_retrieval_uses_v1beta_and_httpx(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER", "gemini")
+    monkeypatch.setenv("UAGENT_GEMINI_DEPNAME", "gemini-3.8-flash")
+    monkeypatch.setattr(util_providers, "_ensure_provider_dependency", lambda _p: None)
+    monkeypatch.setattr(util_providers, "_provider_api_key", lambda *_args: "test-key")
+    monkeypatch.setattr(util_providers, "_google_genai_http_backend", lambda: "httpx")
+    monkeypatch.setattr(util_providers, "make_httpx_client", lambda: "shared-httpx")
+    monkeypatch.setattr(
+        util_providers,
+        "_gemini_tool_retrieval_supported",
+        lambda _model, _provider: True,
+    )
+
+    captured: list[dict] = []
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            captured.append(kwargs)
+
+    fake_google = types.ModuleType("google")
+    fake_genai = types.ModuleType("google.genai")
+    fake_genai.Client = FakeClient
+    fake_google.genai = fake_genai
+    monkeypatch.setitem(__import__("sys").modules, "google", fake_google)
+    monkeypatch.setitem(__import__("sys").modules, "google.genai", fake_genai)
+
+    provider, _client, model_name = util_providers.make_client(SimpleNamespace())
+
+    assert provider == "gemini"
+    assert model_name == "gemini-3.8-flash"
+    assert captured[0]["api_key"] == "test-key"
+    assert captured[0]["http_options"] == {
+        "api_version": "v1beta",
+        "httpx_client": "shared-httpx",
+    }
 
 
 def test_make_client_vertexai_defaults_global_without_environment_project(

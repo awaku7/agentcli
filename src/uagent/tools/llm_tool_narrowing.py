@@ -10,7 +10,6 @@ from ..runtime.tool_discovery import (
     ToolDiscoveryMode,
     get_tool_search_mode,
     resolve_tool_discovery as _resolve_tool_discovery,
-    resolve_tool_discovery_from_environment as _resolve_tool_discovery_from_environment,
 )
 
 
@@ -97,10 +96,11 @@ def should_emit_catalog_steering(
     depname: str | None = None,
     use_responses_api: bool | None = None,
 ) -> bool:
-    """Return False when native tool_search is active.
+    """Return False when provider-native tool search/retrieval is active.
 
-    Under native tool_search the server narrows tools; catalog-before-answer
-    steering in system / tools-system prompts must not be emitted.
+    Under native search, the provider narrows tools or retrieves deferred
+    schemas; catalog-before-answer steering in system / tools-system prompts
+    must not be emitted.
     Keep steering for legacy / off / unsupported routes.
 
     Also returns False in embedded mode: tool management tools (tool_catalog,
@@ -112,10 +112,6 @@ def should_emit_catalog_steering(
     if _is_embedded_mode():
         return False
 
-    if provider is None and depname is None and use_responses_api is None:
-        discovery = _resolve_tool_discovery_from_environment()
-        return discovery.needs_catalog_steering()
-
     if provider is None or depname is None:
         env_provider, env_depname = _soft_provider_depname_from_env()
         if provider is None:
@@ -125,6 +121,14 @@ def should_emit_catalog_steering(
 
     provider_s = (provider or "").strip().lower()
     depname_s = (depname or "").strip()
+
+    try:
+        from ..runtime.tool_discovery import gemini_interactions_tool_retrieval_enabled
+
+        if gemini_interactions_tool_retrieval_enabled(provider_s, depname_s):
+            return False
+    except Exception:
+        pass
 
     if use_responses_api is None:
         use_responses_api = _soft_use_responses_api(

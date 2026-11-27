@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 import atexit
+import os
 from typing import Any, Callable, Iterator
 
 from ..i18n import _
@@ -28,10 +29,13 @@ def provider_sdk_module(provider: str) -> str | None:
         transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
         return "lmstudio" if transport == "sdk" else "openai"
 
+    if provider in {"gemini", "vertexai"}:
+        # Configure the SDK's HTTP backend before cli_startup preloads it.
+        _google_genai_http_backend()
+        return "google.genai"
+
     return {
         "claude": "anthropic",
-        "gemini": "google.genai",
-        "vertexai": "google.genai",
     }.get(provider, "openai")
 
 
@@ -69,6 +73,40 @@ _HTTPX_CLIENTS_REGISTERED = False
 # Optional OpenRouter SDK class. Tests may inject a stub via this name.
 # Runtime import is attempted lazily inside make_client when still None.
 _OpenRouterSDK: Any = None
+
+
+def _google_genai_http_backend() -> str:
+    """Select an SDK HTTP backend compatible with UAG's custom httpx client.
+
+    google-genai 3.x defaults to httpx2. UAG builds standard httpx.Client
+    instances for shared timeout and TLS handling, so prefer the SDK's httpx
+    backend when available. Respect an explicit user selection; callers must
+    not pass a standard httpx.Client when httpx2 is active.
+    """
+    configured = (env_get("GOOGLE_GENAI_HTTP_CLIENT") or "").strip().lower()
+    if configured:
+        return configured
+    try:
+        import httpx  # noqa: F401
+    except Exception:
+        # Keep the SDK's default backend when the optional httpx extra is not
+        # installed (for example, a minimal install using httpx2).
+        return ""
+    os.environ["GOOGLE_GENAI_HTTP_CLIENT"] = "httpx"
+    return "httpx"
+
+
+def _gemini_tool_retrieval_supported(model_name: str, provider: str) -> bool:
+    """Return whether the selected Google model needs the v1beta preview API."""
+    try:
+        from ..runtime.tool_discovery import (
+            gemini_interactions_tool_retrieval_enabled,
+        )
+
+        return gemini_interactions_tool_retrieval_enabled(provider, model_name)
+    except Exception:
+        return False
+
 
 # OpenRouter app attribution. These headers are intentionally scoped to the
 # OpenRouter provider below; they must not be sent to unrelated OpenAI-
@@ -580,6 +618,7 @@ def make_vertexai_client(
     location_override: str | None = None,
 ) -> Any:
     """Create a Vertex AI client, optionally pinned to a fallback location."""
+    http_backend = _google_genai_http_backend()
     from google import genai  # lazy
 
     if genai is None:
@@ -624,12 +663,13 @@ def make_vertexai_client(
         location = _vertexai_cached_location(core, model_name) or "global"
 
     http_options: dict[str, Any] = {}
-    try:
-        httpx_client = make_httpx_client()
-        if httpx_client is not None:
-            http_options["httpx_client"] = httpx_client
-    except Exception:
-        pass
+    if http_backend == "httpx":
+        try:
+            httpx_client = make_httpx_client()
+            if httpx_client is not None:
+                http_options["httpx_client"] = httpx_client
+        except Exception:
+            pass
 
     kwargs: dict[str, Any] = {"vertexai": True}
     if api_key:
@@ -816,6 +856,10 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
     with measure_detail("provider.detect"):
         provider = detect_provider()
+    if provider in {"gemini", "vertexai"}:
+        # Select google-genai 3.x's HTTP backend before dependency preloading
+        # imports the SDK; its backend choice is initialized with the module.
+        _google_genai_http_backend()
     with measure_detail("provider.dependency"):
         _ensure_provider_dependency(provider)
     with measure_detail("provider.model"):
@@ -1416,26 +1460,34 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "gemini":
+        http_backend = _google_genai_http_backend()
         from google import genai  # lazy
 
         api_key = _provider_api_key(core, "GEMINI")
         if genai is None:
             raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
-        # google-genai supports per-client HTTP options (custom httpx client, etc.).
-        # Keep timeout handling on the shared httpx client to avoid SDK-side timeout quirks.
+        # SDK v3 defaults to API v1; Tool Retrieval is preview-only on v1beta.
         http_options: dict[str, Any] = {}
+        if _gemini_tool_retrieval_supported(model_name, "gemini"):
+            http_options["api_version"] = "v1beta"
 
-        try:
-            httpx_client = make_httpx_client()
-            if httpx_client is not None:
-                http_options["httpx_client"] = httpx_client
-        except Exception:
-            pass
+        if http_backend == "httpx":
+            try:
+                httpx_client = make_httpx_client()
+                if httpx_client is not None:
+                    http_options["httpx_client"] = httpx_client
+            except Exception:
+                pass
 
         try:
             client = genai.Client(api_key=api_key, http_options=http_options)
         except TypeError:
+            if http_options.get("api_version") == "v1beta":
+                raise RuntimeError(
+                    "Gemini Tool Retrieval requires google-genai 3.6.1 or newer "
+                    "with per-client v1beta support."
+                )
             client = genai.Client(api_key=api_key)
 
         try:
