@@ -113,6 +113,109 @@ def test_view_submits_lines_and_projects_document():
             assert len(status) == 2
         finally:
             view.stop()
+
+
+def test_right_click_paste_replaces_selected_input_text(monkeypatch):
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.cli_impl import console_view
+
+    monkeypatch.setattr(console_view, "_read_system_clipboard", lambda: "replacement")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            pipe.send_text("draft text")
+            assert _wait_for(lambda: view._input_buffer.text == "draft text")
+            buffer = view._input_buffer
+            buffer.cursor_position = 0
+            buffer.start_selection()
+            buffer.cursor_position = len("draft")
+
+            input_y = view._app.output.get_size().rows - 2
+            pipe.send_text(f"\x1b[<2;1;{input_y}M")
+            pipe.send_text(f"\x1b[<2;1;{input_y}m")
+            assert _wait_for(lambda: buffer.text == "replacement text")
+        finally:
+            view.stop()
+
+
+@pytest.mark.parametrize("paste_method", ["ctrl-v", "right-click"])
+def test_input_pastes_system_clipboard(paste_method, monkeypatch):
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from uagent.cli_impl import console_view
+
+    monkeypatch.setattr(console_view, "_read_system_clipboard", lambda: "one\r\ntwo")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput())
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            if paste_method == "ctrl-v":
+                pipe.send_text("\x16")
+            else:
+                rows = view._app.output.get_size().rows
+                input_y = rows - 2
+                pipe.send_text(f"\x1b[<2;1;{input_y}M")
+                pipe.send_text(f"\x1b[<2;1;{input_y}m")
+            assert _wait_for(lambda: view._input_buffer.text == "one\ntwo")
+        finally:
+            view.stop()
+
+
+@pytest.mark.parametrize(
+    ("selection_target", "selected_text"),
+    [("input", "draft"), ("output", "history")],
+)
+def test_ctrl_c_copies_a_selection_without_interrupting(
+    selection_target, selected_text
+):
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    document.append("answer", "history text\n")
+    interrupts = []
+    with create_pipe_input() as pipe:
+        view = ConsoleView(
+            pt_input=pipe,
+            pt_output=DummyOutput(),
+            document=document,
+            on_ctrl_c=lambda: interrupts.append(True),
+        )
+        view.start()
+        try:
+            assert _wait_for(lambda: view._app is not None and view.running)
+            if selection_target == "input":
+                pipe.send_text("draft text")
+                assert _wait_for(lambda: view._input_buffer.text == "draft text")
+                buffer = view._input_buffer
+                end = len(selected_text)
+            else:
+                assert _wait_for(lambda: "history text" in view._output_text)
+                buffer = view._output_buffer
+                end = len(selected_text)
+
+            buffer.cursor_position = 0
+            buffer.start_selection()
+            buffer.cursor_position = end
+            pipe.send_text("\x03")
+
+            assert _wait_for(
+                lambda: view._app.clipboard.get_data().text == selected_text
+            )
+            assert buffer.selection_state is not None
+            assert interrupts == []
+
+            buffer.exit_selection()
+            pipe.send_text("\x03")
+            assert _wait_for(lambda: interrupts == [True])
+        finally:
+            view.stop()
         assert console_view.active_view() is None
 
 
@@ -1197,6 +1300,51 @@ def test_system_clipboard_windows_uses_console_window_owner(monkeypatch):
     assert ("SetClipboardData", (13, 4242)) in calls
     written = buffer.raw[:6]
     assert written == "hi".encode("utf-16-le") + b"\x00\x00"
+
+
+def test_system_clipboard_windows_reads_unicode_text(monkeypatch):
+    import ctypes
+    import sys
+    import types
+
+    from uagent.cli_impl.console_view import _read_system_clipboard
+
+    calls: list = []
+
+    class _Func:
+        def __init__(self, name, result):
+            self.name = name
+            self.result = result
+
+        def __call__(self, *args):
+            calls.append((self.name, args))
+            return self.result
+
+    kernel32 = types.SimpleNamespace(
+        GetConsoleWindow=_Func("GetConsoleWindow", 777),
+        GlobalLock=_Func("GlobalLock", 888),
+        GlobalUnlock=_Func("GlobalUnlock", True),
+    )
+    user32 = types.SimpleNamespace(
+        OpenClipboard=_Func("OpenClipboard", True),
+        GetClipboardData=_Func("GetClipboardData", 999),
+        CloseClipboard=_Func("CloseClipboard", True),
+    )
+    monkeypatch.setattr(
+        ctypes,
+        "windll",
+        types.SimpleNamespace(user32=user32, kernel32=kernel32),
+        raising=False,
+    )
+    monkeypatch.setattr(ctypes, "wstring_at", lambda _pointer: "clipboard 日本語")
+    monkeypatch.setattr(sys, "platform", "win32")
+
+    assert _read_system_clipboard() == "clipboard 日本語"
+    assert ("OpenClipboard", (777,)) in calls
+    assert ("GetClipboardData", (13,)) in calls
+    assert ("GlobalLock", (999,)) in calls
+    assert ("GlobalUnlock", (999,)) in calls
+    assert ("CloseClipboard", ()) in calls
 
 
 def test_startup_output_capture_and_seed(monkeypatch):

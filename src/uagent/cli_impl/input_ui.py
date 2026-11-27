@@ -384,6 +384,38 @@ def _normalize_multiline_text(text: str) -> str:
     return str(text).replace("\r\n", "\n").replace("\r", "\n")
 
 
+def _insert_multiline_paste(buffer: Any, text: str) -> None:
+    """Insert pasted text, replacing a selected range when present."""
+    pasted = _normalize_multiline_text(tools_util.strip_surrogates(str(text)))
+    if not pasted:
+        return
+    if buffer.selection_state is not None:
+        buffer.cut_selection()
+    buffer.insert_text(pasted)
+
+
+def _copy_multiline_selection(buffer: Any, clipboard: Any) -> bool:
+    """Copy the active text selection; return False when none exists."""
+    selection_state = buffer.selection_state
+    if selection_state is None:
+        return False
+    try:
+        clipboard.set_data(buffer.copy_selection())
+    finally:
+        # Buffer.copy_selection() clears the selection; keep it visible
+        # like a conventional editor's Ctrl+C behavior.
+        buffer.selection_state = selection_state
+    return True
+
+
+def _handle_multiline_ctrl_c(event: Any) -> None:
+    """Copy a selected range, or cancel the standalone editor."""
+    if not _copy_multiline_selection(event.app.current_buffer, event.app.clipboard):
+        # Preserve Ctrl+C as a cancel shortcut when nothing is selected;
+        # Esc remains the explicit cancel key.
+        event.app.exit(result=None)
+
+
 def _multiline_editor(initial_text: str = "") -> str | None:
     """Open a prompt_toolkit TextArea for multiline editing (non-fullscreen).
 
@@ -394,14 +426,35 @@ def _multiline_editor(initial_text: str = "") -> str | None:
     from prompt_toolkit.keys import Keys
     from prompt_toolkit.layout import HSplit, Layout, Window, WindowAlign
     from prompt_toolkit.layout.controls import FormattedTextControl
+    from prompt_toolkit.mouse_events import MouseButton, MouseEventType
     from prompt_toolkit.widgets import TextArea as TA
+    from .console_view import _make_clipboard, _read_system_clipboard
 
     kb = KeyBindings()
 
     @kb.add(Keys.BracketedPaste)
     def _safe_paste(event: Any) -> None:
-        pasted = _normalize_multiline_text(tools_util.strip_surrogates(event.data))
-        event.current_buffer.insert_text(pasted)
+        _insert_multiline_paste(event.current_buffer, event.data)
+
+    def _paste_from_clipboard(app: Any) -> None:
+        try:
+            pasted = _read_system_clipboard()
+        except Exception:
+            pasted = None
+        if pasted is None:
+            try:
+                pasted = app.clipboard.get_data().text
+            except Exception:
+                pasted = ""
+        _insert_multiline_paste(app.current_buffer, pasted)
+
+    @kb.add("c-v")
+    def _paste(event: Any) -> None:
+        _paste_from_clipboard(event.app)
+
+    @kb.add("c-c")
+    def _copy_or_cancel(event: Any) -> None:
+        _handle_multiline_ctrl_c(event)
 
     def _submit(event: Any) -> None:
         event.app.exit(result=_normalize_multiline_text(textarea.text))
@@ -421,6 +474,26 @@ def _multiline_editor(initial_text: str = "") -> str | None:
         height=10,
     )
 
+    # prompt_toolkit routes right-clicks to the focused control while
+    # mouse_support is enabled, so the terminal emulator never gets a
+    # chance to perform its usual right-click paste.  Preserve the
+    # TextArea's normal click/selection behavior and handle right-button
+    # release as a clipboard paste.
+    original_mouse_handler = textarea.control.mouse_handler
+    application: Any = None
+
+    def _mouse_handler(mouse_event: Any) -> Any:
+        if (
+            mouse_event.button == MouseButton.RIGHT
+            and mouse_event.event_type == MouseEventType.MOUSE_UP
+        ):
+            if application is not None:
+                _paste_from_clipboard(application)
+            return None
+        return original_mouse_handler(mouse_event)
+
+    textarea.control.mouse_handler = _mouse_handler
+
     footer = Window(
         FormattedTextControl(" [multiline] Ctrl+X: send  |  Esc: cancel"),
         height=1,
@@ -428,15 +501,34 @@ def _multiline_editor(initial_text: str = "") -> str | None:
         style="bg:#444444 #ffffff",
     )
 
-    layout = Layout(HSplit([textarea, footer]), focused_element=textarea)
+    rule_style = "bg:#444444 #ffffff"
+    upper_rule = Window(
+        FormattedTextControl(""),
+        height=1,
+        char="─",
+        style=rule_style,
+    )
+    lower_rule = Window(
+        FormattedTextControl(""),
+        height=1,
+        char="─",
+        style=rule_style,
+    )
+
+    layout = Layout(
+        HSplit([upper_rule, textarea, lower_rule, footer]),
+        focused_element=textarea,
+    )
 
     app = Application(
         layout=layout,
         key_bindings=kb,
         output=_create_prompt_output(),
+        clipboard=_make_clipboard(),
         full_screen=False,
         mouse_support=True,
     )
+    application = app
 
     try:
         return app.run()

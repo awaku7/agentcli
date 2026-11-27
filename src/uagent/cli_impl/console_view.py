@@ -61,7 +61,8 @@ Mouse: the view owns the mouse while it runs, so it provides the
 two things the terminal's own handling otherwise would — the
 wheel scrolls the output area no matter where the pointer is,
 and dragging over the output (or the input) selects text and
-copies it to the system clipboard on release.
+copies it to the system clipboard on release; right-click pastes
+into the input.
 """
 
 from __future__ import annotations
@@ -456,6 +457,80 @@ def _write_system_clipboard(text: str) -> bool:
         return True
     except Exception:
         return False
+
+
+def _read_system_clipboard() -> str | None:
+    """Best-effort read of plain text from the OS clipboard."""
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            from ctypes import wintypes
+
+            user32 = ctypes.windll.user32
+            kernel32 = ctypes.windll.kernel32
+            user32.OpenClipboard.restype = wintypes.BOOL
+            user32.OpenClipboard.argtypes = [wintypes.HWND]
+            user32.GetClipboardData.restype = wintypes.HANDLE
+            user32.GetClipboardData.argtypes = [wintypes.UINT]
+            user32.CloseClipboard.restype = wintypes.BOOL
+            user32.CloseClipboard.argtypes = []
+            kernel32.GetConsoleWindow.restype = wintypes.HWND
+            kernel32.GetConsoleWindow.argtypes = []
+            kernel32.GlobalLock.restype = wintypes.LPVOID
+            kernel32.GlobalLock.argtypes = [wintypes.HGLOBAL]
+            kernel32.GlobalUnlock.restype = wintypes.BOOL
+            kernel32.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+
+            if user32.OpenClipboard(kernel32.GetConsoleWindow()):
+                try:
+                    handle = user32.GetClipboardData(13)  # CF_UNICODETEXT
+                    if handle:
+                        pointer = kernel32.GlobalLock(handle)
+                        if pointer:
+                            try:
+                                return ctypes.wstring_at(pointer)
+                            finally:
+                                kernel32.GlobalUnlock(handle)
+                finally:
+                    user32.CloseClipboard()
+        except Exception:
+            pass
+
+    import shutil
+    import subprocess
+
+    if sys.platform == "darwin":
+        candidates = [["pbpaste"]]
+    elif sys.platform != "win32":
+        candidates = [
+            ["wl-paste", "--no-newline"],
+            ["xclip", "-selection", "clipboard", "-o"],
+            ["xsel", "--clipboard", "--output"],
+        ]
+    else:
+        candidates = []
+    for command in candidates:
+        if shutil.which(command[0]) is None:
+            continue
+        try:
+            result = subprocess.run(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                timeout=2,
+                check=False,
+            )
+            if result.returncode == 0:
+                return result.stdout.decode("utf-8", errors="replace")
+        except Exception:
+            continue
+    try:
+        import pyperclip
+
+        pasted = pyperclip.paste()
+        return pasted if isinstance(pasted, str) else None
+    except Exception:
+        return None
 
 
 def _make_clipboard(write_guard: Callable[[], bool] | None = None) -> Any:
@@ -1681,6 +1756,48 @@ class ConsoleView:
 
         bindings = KeyBindings()
 
+        def _copy_selection(buffer: Any, clipboard: Any) -> bool:
+            selection_state = buffer.selection_state
+            if selection_state is None:
+                return False
+            try:
+                data = buffer.copy_selection()
+            except Exception:
+                return True
+            finally:
+                # Keep the highlight visible after copying, like a
+                # conventional editor.  Ctrl+C can then copy again
+                # without turning into the interrupt shortcut.
+                buffer.selection_state = selection_state
+            try:
+                clipboard.set_data(data)
+            except Exception:
+                pass
+            return True
+
+        def _paste_clipboard(buffer: Any, clipboard: Any) -> None:
+            if self._confirm_text is not None or self._reset_pending:
+                return
+            try:
+                pasted = _read_system_clipboard()
+            except Exception:
+                pasted = None
+            if pasted is None:
+                try:
+                    pasted = clipboard.get_data().text
+                except Exception:
+                    pasted = ""
+            pasted = str(pasted).replace("\r\n", "\n").replace("\r", "\n")
+            if not pasted:
+                return
+            if buffer.selection_state is not None:
+                buffer.cut_selection()
+            buffer.insert_text(pasted)
+
+        @bindings.add("c-v")
+        def _paste(event: Any) -> None:
+            _paste_clipboard(event.app.current_buffer, event.app.clipboard)
+
         @bindings.add("enter")
         def _submit(event: Any) -> None:
             if self._reply_label is not None:
@@ -1776,6 +1893,14 @@ class ConsoleView:
                 # Ctrl+C at the confirmation cancels the question,
                 # not the turn: the message queues (the safe side).
                 self._resolve_confirmation(interrupt=False)
+                return
+            # In the ordinary prompt, Ctrl+C copies a selected input
+            # range or transcript range.  With no active selection it
+            # retains its existing interrupt/stop behavior.
+            clipboard = event.app.clipboard
+            if _copy_selection(self._input_buffer, clipboard):
+                return
+            if _copy_selection(self._output_buffer, clipboard):
                 return
             if self._on_ctrl_c is not None:
                 try:
@@ -2101,6 +2226,7 @@ class ConsoleView:
                 )
                 if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
                     self._stop_edge_scroll()
+                    view._input_buffer.exit_selection()
                     buffer.exit_selection()
                     buffer.cursor_position = index
                 elif (
@@ -2133,7 +2259,7 @@ class ConsoleView:
                     self._stop_edge_scroll()
                     if buffer.selection_state is not None:
                         try:
-                            get_app().clipboard.set_data(buffer.copy_selection())
+                            _copy_selection(buffer, get_app().clipboard)
                         except Exception:
                             pass
                 else:
@@ -2146,6 +2272,20 @@ class ConsoleView:
             drag copies the input's own selection."""
 
             def mouse_handler(self, mouse_event: Any) -> Any:
+                if (
+                    mouse_event.button == MouseButton.RIGHT
+                    and mouse_event.event_type == MouseEventType.MOUSE_DOWN
+                    and self.buffer.selection_state is not None
+                ):
+                    # A right-click paste should replace the active
+                    # selection rather than clearing it on mouse-down.
+                    return None
+                if (
+                    mouse_event.button == MouseButton.RIGHT
+                    and mouse_event.event_type == MouseEventType.MOUSE_UP
+                ):
+                    _paste_clipboard(self.buffer, get_app().clipboard)
+                    return None
                 if mouse_event.event_type == MouseEventType.SCROLL_UP:
                     view._scroll_output_wheel(-3)
                     return None
@@ -2162,6 +2302,8 @@ class ConsoleView:
                     # A drag that left the output area ends its
                     # edge scroll here, where its events land.
                     view._stop_output_edge_scroll()
+                if mouse_event.event_type == MouseEventType.MOUSE_DOWN:
+                    view._output_buffer.exit_selection()
                 result = super().mouse_handler(mouse_event)
                 if mouse_event.event_type == MouseEventType.MOUSE_UP:
                     # A password reply is masked on screen; its
@@ -2170,7 +2312,7 @@ class ConsoleView:
                         not view._reply_password_active()
                     ):
                         try:
-                            get_app().clipboard.set_data(self.buffer.copy_selection())
+                            _copy_selection(self.buffer, get_app().clipboard)
                         except Exception:
                             pass
                 return result
