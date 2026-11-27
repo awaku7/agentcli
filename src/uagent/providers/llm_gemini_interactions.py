@@ -158,6 +158,8 @@ def _tool_result_content(message: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _build_interaction_input(
     messages: list[dict[str, Any]],
+    *,
+    exclude_management_tool_history: bool = False,
 ) -> tuple[list[dict[str, Any]], str | None]:
     steps: list[dict[str, Any]] = []
     system_parts: list[str] = []
@@ -236,6 +238,31 @@ def _build_interaction_input(
             except Exception:
                 pass
             steps.append(step)
+    if exclude_management_tool_history:
+        from ..runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
+
+        management_call_ids = {
+            str(step.get("id") or "")
+            for step in steps
+            if step.get("type") == "function_call"
+            and str(step.get("name") or "") in MANAGEMENT_TOOL_NAMES
+            and step.get("id")
+        }
+        steps = [
+            step
+            for step in steps
+            if not (
+                step.get("type") == "function_call"
+                and str(step.get("name") or "") in MANAGEMENT_TOOL_NAMES
+            )
+            and not (
+                step.get("type") == "function_result"
+                and (
+                    str(step.get("name") or "") in MANAGEMENT_TOOL_NAMES
+                    or str(step.get("call_id") or "") in management_call_ids
+                )
+            )
+        ]
     return steps, "\n\n".join(system_parts) or None
 
 
@@ -596,11 +623,14 @@ def gemini_interactions_chat_with_tools(
     use_google_search = (
         True if api_key_search == "" else api_key_search in {"1", "true", "yes", "on"}
     )
-    input_steps, system_instruction = _build_interaction_input(messages)
     from ..runtime.tool_discovery import gemini_interactions_tool_retrieval_enabled
 
     use_tool_retrieval = gemini_interactions_tool_retrieval_enabled(
         provider, model_name
+    )
+    input_steps, system_instruction = _build_interaction_input(
+        messages,
+        exclude_management_tool_history=use_tool_retrieval,
     )
     tools_list, initial_discovery = _build_interaction_tools(
         core=core,

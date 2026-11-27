@@ -100,6 +100,66 @@ def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(
     assert appended[0]["tool_calls_list"][0]["function"]["name"] == "tool_catalog"
 
 
+def test_gemini_tool_retrieval_does_not_catalog_after_normal_tool(monkeypatch) -> None:
+    from uagent.runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
+
+    core = _Core()
+    core.context_tool_specs = [{"function": {"name": "tool_catalog"}}]
+    kwargs = _kwargs(core)
+    appended: list[dict[str, object]] = []
+    execution_payloads: list[dict[str, object]] = []
+    ordinary_call = {
+        "id": "lookup-1",
+        "type": "function",
+        "function": {"name": "lookup", "arguments": "{}"},
+    }
+    provider_responses = [
+        (True, "client", "", [ordinary_call], {}),
+        (True, "client", "answer", [], {}),
+    ]
+    kwargs["append_assistant_message_fn"] = lambda **payload: appended.append(payload)
+    monkeypatch.setattr(
+        legacy_gemini_round,
+        "call_legacy_gemini_round",
+        lambda **_kwargs: provider_responses.pop(0),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.tool_discovery.gemini_interactions_tool_retrieval_enabled",
+        lambda provider, model: provider == "gemini" and model == "gemini-model",
+    )
+    monkeypatch.setattr(
+        legacy_gemini_round,
+        "resolve_legacy_empty_round",
+        lambda **_kwargs: (None, 2),
+    )
+    monkeypatch.setattr(
+        legacy_gemini_round, "finish_legacy_without_tools", lambda **_kwargs: None
+    )
+    monkeypatch.setattr(
+        legacy_gemini_round,
+        "execute_legacy_tool_calls",
+        lambda **payload: execution_payloads.append(payload)
+        or (bool(payload["tool_calls"]), payload["tool_calls"]),
+    )
+
+    first_result = legacy_gemini_round.run_legacy_gemini_round(**kwargs)
+    assert first_result[0] == "ok"
+    assert not getattr(core, "_gemini_tool_catalog_ready", False)
+
+    second_result = legacy_gemini_round.run_legacy_gemini_round(**kwargs)
+
+    assert second_result[0] == "ok"
+    assert appended[0]["tool_calls_list"] == [ordinary_call]
+    assert appended[1]["tool_calls_list"] == []
+    assert execution_payloads[0]["tool_calls"] == [ordinary_call]
+    assert execution_payloads[1]["tool_calls"] == []
+    assert all(
+        payload["disallowed_tool_names"] == MANAGEMENT_TOOL_NAMES
+        for payload in execution_payloads
+    )
+    assert not getattr(core, "_gemini_tool_catalog_ready", False)
+
+
 def test_web_gemini_captures_appended_assistant_before_return(monkeypatch) -> None:
     core = _Core()
     core._is_web = True

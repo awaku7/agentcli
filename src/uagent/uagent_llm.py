@@ -1058,6 +1058,22 @@ def _execute_round_tools(ctx: _RoundContext) -> _RoundOutcome:
         enabled=response_tool_continuation,
         tool_calls=ctx.tool_calls_list,
     )
+    disallowed_tool_names: frozenset[str] = frozenset()
+    if ctx.provider in {"gemini", "vertexai"}:
+        try:
+            from .runtime.tool_discovery import (
+                MANAGEMENT_TOOL_NAMES,
+                gemini_interactions_tool_retrieval_enabled,
+            )
+
+            if gemini_interactions_tool_retrieval_enabled(ctx.provider, ctx.depname):
+                # These management functions are deliberately absent from the
+                # Gemini Tool Retrieval request. Reject a model-emitted or
+                # history-replayed call as well; never execute an unadvertised
+                # catalog/load/unload function on this route.
+                disallowed_tool_names = MANAGEMENT_TOOL_NAMES
+        except Exception:
+            pass
     executed_new_tool, fresh_tool_calls = execute_tool_continuation(
         tool_calls_list=ctx.tool_calls_list,
         messages=ctx.messages,
@@ -1065,6 +1081,7 @@ def _execute_round_tools(ctx: _RoundContext) -> _RoundOutcome:
         cache_mgr=ctx.cache_mgr,
         responses_api_continuation=response_tool_continuation,
         responses_runtime=getattr(ctx.core, "responses_runtime", None),
+        disallowed_tool_names=disallowed_tool_names,
     )
     if bool(getattr(ctx.core, "_session_resume_control_transfer", False)):
         try:

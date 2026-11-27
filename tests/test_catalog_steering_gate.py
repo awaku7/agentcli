@@ -133,6 +133,41 @@ class CatalogSteeringGateTests(unittest.TestCase):
         )
         self.assertIn("tool_catalog", legacy)
 
+    def test_gemini_interactions_retrieval_omits_catalog_guidance(self) -> None:
+        from uagent.core import build_tools_system_prompt, get_system_prompt
+
+        with (
+            mock.patch.dict(
+                os.environ,
+                {"UAGENT_GEMINI_API_MODE": "", "UAGENT_EMBEDDED": "0"},
+            ),
+            mock.patch(
+                "uagent.llmcapa_util.supports_feature",
+                side_effect=lambda feature, *_args, default=None: (
+                    True if feature in {"interactions_api", "tool_search"} else default
+                ),
+            ),
+        ):
+            system_prompt = get_system_prompt(
+                provider="gemini",
+                depname="gemini-3.8-flash",
+                use_responses_api=False,
+            )
+            tools_prompt = build_tools_system_prompt(
+                [
+                    {
+                        "type": "function",
+                        "function": {"name": "lookup", "description": "Look up."},
+                    }
+                ],
+                provider="gemini",
+                depname="gemini-3.8-flash",
+                use_responses_api=False,
+            )
+
+        self.assertNotIn("tool_catalog", system_prompt)
+        self.assertNotIn("tool_catalog", tools_prompt)
+
     def test_native_responses_registry_omits_management_tools_on_every_round(
         self,
     ) -> None:

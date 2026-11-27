@@ -761,6 +761,7 @@ def _execute_tool_calls(
     cache_mgr: Any,
     responses_api_continuation: bool = False,
     responses_runtime: Any = None,
+    disallowed_tool_names: frozenset[str] | set[str] = frozenset(),
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Execute tool calls.
 
@@ -780,6 +781,15 @@ def _execute_tool_calls(
     ]
     if session_resume_calls:
         tool_calls_list = [session_resume_calls[0]]
+
+    disallowed_names = frozenset(disallowed_tool_names)
+    disallowed_tool_indices = {
+        index
+        for index, tc in enumerate(tool_calls_list)
+        if isinstance(tc, dict)
+        and isinstance(tc.get("function"), dict)
+        and str(tc["function"].get("name") or "") in disallowed_names
+    }
 
     executed_new_tool = False
     fresh_tool_calls: list[dict[str, Any]] = []
@@ -825,7 +835,10 @@ def _execute_tool_calls(
 
     for call_index, tc in enumerate(tool_calls_list):
         name = tc["function"]["name"]
-        if str(tc.get("id") or "") in _blocked_file_grep_ids:
+        if (
+            call_index in disallowed_tool_indices
+            or str(tc.get("id") or "") in _blocked_file_grep_ids
+        ):
             continue
         arg_str = tc["function"].get("arguments") or "{}"
         try:
@@ -873,8 +886,23 @@ def _execute_tool_calls(
         arg_str = func.get("arguments") or "{}"
         parsed_args = parsed_args_by_index[call_index]
         tool_result = ""
+        provider_tool_blocked = call_index in disallowed_tool_indices
 
-        if str(tc.get("id") or "") in _blocked_file_grep_ids:
+        if provider_tool_blocked:
+            print(
+                "[WARN] Native Gemini tool retrieval blocked unadvertised "
+                f"management tool call: {name}"
+            )
+            tool_result = _(
+                "[tool policy] '%(name)s' is unavailable on this provider route. "
+                "Use the provider's native tool retrieval instead.",
+                default=(
+                    f"[tool policy] {name!r} is unavailable on this provider route. "
+                    "Use the provider's native tool retrieval instead."
+                ),
+            ) % {"name": name}
+            parsed_args = None
+        elif str(tc.get("id") or "") in _blocked_file_grep_ids:
             tool_result = json.dumps(
                 {
                     "ok": False,
@@ -889,7 +917,7 @@ def _execute_tool_calls(
                 ensure_ascii=False,
             )
 
-        if parsed_args is None:
+        if parsed_args is None and not provider_tool_blocked:
             try:
                 parsed_args = json.loads(arg_str)
                 if not isinstance(parsed_args, dict):
@@ -913,7 +941,10 @@ def _execute_tool_calls(
                 }
                 parsed_args = None
 
-        if str(tc.get("id") or "") in _blocked_file_grep_ids:
+        if (
+            not provider_tool_blocked
+            and str(tc.get("id") or "") in _blocked_file_grep_ids
+        ):
             parsed_args = None
 
         if parsed_args is not None:

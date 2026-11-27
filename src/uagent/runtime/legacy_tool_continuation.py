@@ -14,6 +14,7 @@ def execute_tool_continuation(
     cache_mgr: Any = None,
     responses_api_continuation: bool = False,
     responses_runtime: Any = None,
+    disallowed_tool_names: frozenset[str] | set[str] = frozenset(),
     judgment_mode: bool = False,
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Execute one legacy round's collected tool calls exactly once.
@@ -38,6 +39,7 @@ def execute_tool_continuation(
             if responses_runtime is not None
             else getattr(core, "responses_runtime", None)
         ),
+        disallowed_tool_names=disallowed_tool_names,
     )
 
 

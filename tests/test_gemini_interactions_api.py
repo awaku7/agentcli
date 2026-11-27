@@ -331,6 +331,22 @@ def test_interactions_uses_llmcapa_tool_retrieval_when_supported(monkeypatch) ->
                     "parameters": {"type": "object", "properties": {}},
                 },
             },
+            {
+                "type": "function",
+                "function": {
+                    "name": "tool_load",
+                    "description": "Internal tool loader.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "unload_tool",
+                    "description": "Internal tool unloader.",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
         ],
     )
 
@@ -367,13 +383,45 @@ def test_interactions_uses_llmcapa_tool_retrieval_when_supported(monkeypatch) ->
     gemini_interactions_chat_with_tools(
         SimpleNamespace(interactions=api),
         "gemini-search-supported",
-        [{"role": "user", "content": "Use the right tool."}],
+        [
+            {
+                "role": "system",
+                "content": "Keep the answer concise.",
+            },
+            {
+                "role": "assistant",
+                "content": "",
+                "_gemini_content": {
+                    "_gemini_interactions_steps": [
+                        {
+                            "type": "function_call",
+                            "id": "old-catalog-call",
+                            "name": "tool_catalog",
+                            "arguments": {"query": "weather"},
+                        }
+                    ]
+                },
+            },
+            {
+                "role": "tool",
+                "name": "tool_catalog",
+                "tool_call_id": "old-catalog-call",
+                "content": '{"tools": ["get_weather_wttr"]}',
+            },
+            {"role": "user", "content": "Use the right tool."},
+        ],
         core=core,
         provider="gemini",
         send_tools=True,
     )
 
     assert "tools" not in api.request
+    assert api.request["system_instruction"] == "Keep the answer concise."
+    assert not any(
+        item.get("type") in {"function_call", "function_result"}
+        and item.get("name") == "tool_catalog"
+        for item in api.request["input"]
+    )
     assert api.request["extra_body"]["tools"] == [
         {"type": "tool_search"},
         {

@@ -87,11 +87,24 @@ def run_legacy_gemini_round(
             assistant_text,
         )
 
+    try:
+        from .tool_discovery import gemini_interactions_tool_retrieval_enabled
+
+        use_tool_retrieval = gemini_interactions_tool_retrieval_enabled(
+            provider, depname
+        )
+    except Exception:
+        use_tool_retrieval = False
+
     # Some Vertex/Gemini models emit only thought parts even when ANY/tool
     # selection is requested. Complete the discovery boundary host-side rather
-    # than retrying the same thought-only request indefinitely.
+    # than retrying the same thought-only request indefinitely. Native Tool
+    # Retrieval has no tool_catalog discovery boundary; synthesizing one here
+    # would execute a management tool that was deliberately not advertised.
     if (
         provider in ("gemini", "vertexai")
+        and not use_tool_retrieval
+        and send_tools_this_round
         and not judgment_mode
         and not tool_calls_list
         and not getattr(core, "_gemini_tool_catalog_ready", False)
@@ -184,12 +197,18 @@ def run_legacy_gemini_round(
         return final_result
 
     if not judgment_mode:
+        disallowed_tool_names = frozenset()
+        if use_tool_retrieval:
+            from .tool_discovery import MANAGEMENT_TOOL_NAMES
+
+            disallowed_tool_names = MANAGEMENT_TOOL_NAMES
         _, fresh_tool_calls = execute_legacy_tool_calls(
             tool_calls=tool_calls_list,
             messages=messages,
             core=core,
             cache_mgr=_unused.get("cache_mgr"),
             responses_api_continuation=use_responses_api,
+            disallowed_tool_names=disallowed_tool_names,
         )
         if any(
             isinstance(tc, dict)

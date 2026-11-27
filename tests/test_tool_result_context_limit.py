@@ -47,3 +47,49 @@ def test_tool_result_is_limited_before_message_history(monkeypatch) -> None:
     assert len(messages) == 1
     assert len(messages[0]["content"]) == 100
     assert "original length=300" in messages[0]["content"]
+
+
+def test_provider_disallowed_management_calls_are_not_executed(
+    monkeypatch, capsys
+) -> None:
+    from uagent.runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
+
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *args: False
+    )
+    executed: list[str] = []
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool",
+        lambda name, _args: executed.append(name) or "should not run",
+    )
+    messages: list[dict] = []
+    core = SimpleNamespace(
+        show_tool_output=False,
+        set_status=lambda *args: None,
+        log_message=lambda _message: None,
+    )
+    calls = [
+        {
+            "id": f"call-{name}",
+            "type": "function",
+            "function": {"name": name, "arguments": json.dumps({})},
+        }
+        for name in sorted(MANAGEMENT_TOOL_NAMES)
+    ]
+
+    executed_new_tool, fresh_calls = _execute_tool_calls(
+        tool_calls_list=calls,
+        messages=messages,
+        core=core,
+        cache_mgr=_Cache(),
+        disallowed_tool_names=MANAGEMENT_TOOL_NAMES,
+    )
+
+    assert executed == []
+    assert executed_new_tool is False
+    assert fresh_calls == []
+    assert {message["name"] for message in messages} == MANAGEMENT_TOOL_NAMES
+    assert all("unavailable on this provider route" in m["content"] for m in messages)
+    warning_output = capsys.readouterr().out
+    assert "blocked unadvertised management tool call" in warning_output
+    assert all(name in warning_output for name in MANAGEMENT_TOOL_NAMES)
