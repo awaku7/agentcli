@@ -902,9 +902,7 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                 if core.human_ask_active:
                     print(
                         "\n[INFO] "
-                        + _(
-                            "Input cancelled (will be sent as a reply to human_ask)."
-                        )
+                        + _("Input cancelled (will be sent as a reply to human_ask).")
                     )
                     # Send an empty string or cancel to resume the tool side
                     if core.human_ask_queue:
@@ -1147,8 +1145,21 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
             if line == "f" and _can_use_textarea():
                 # The editor opens its own application; the view
                 # must not compete with it for the terminal.
-                _suspend_console_view()
-                text = _multiline_editor()
+                suspended_view = _console_view
+                view_was_suspended = _suspend_console_view()
+                try:
+                    text = _multiline_editor()
+                finally:
+                    # The normal prompt loop may wait for the submitted
+                    # response to finish before reading another line. Resume
+                    # the view now so its input/display mode is restored
+                    # immediately after Ctrl+X or Esc, including while the
+                    # response is running.
+                    if view_was_suspended and suspended_view is not None:
+                        try:
+                            suspended_view.start()
+                        except Exception:
+                            pass
                 if text is None:
                     continue
                 if not text.strip():

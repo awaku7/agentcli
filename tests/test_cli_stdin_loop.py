@@ -34,11 +34,20 @@ class _FakeStdin:
 def _patch_common(monkeypatch, fake_stdin) -> None:
     monkeypatch.setattr(core, "get_prompt", lambda: "User> ")
     monkeypatch.setattr(core, "human_ask_active", False)
+    monkeypatch.setattr(stdin_loop, "_flush_stdin_input_buffer", lambda: None)
     monkeypatch.setattr(stdin_loop.sys, "stdin", fake_stdin)
     monkeypatch.setattr(stdin_loop, "is_chat_mode", lambda: "off")
     monkeypatch.setattr(stdin_loop, "_append_prompt_history_entry", lambda _text: None)
     monkeypatch.setattr(stdin_loop, "forward_to_mesh", lambda _text: None)
     monkeypatch.setattr(select, "select", lambda r, _w, _x, _t: (r, [], []))
+    # On Windows the manual prompt polls msvcrt.kbhit() instead of select();
+    # make the fake stdin immediately readable or these tests spin forever.
+    try:
+        import msvcrt
+    except ImportError:
+        pass
+    else:
+        monkeypatch.setattr(msvcrt, "kbhit", lambda: True)
     # Manual-path tests opt out of the prompt_toolkit session read
     # and of the full-screen console view.
     monkeypatch.setattr(stdin_loop, "_get_prompt_session", lambda: None)
@@ -310,9 +319,14 @@ class _LifecycleView:
     def __init__(self) -> None:
         self.running = True
         self.suspend_calls = 0
+        self.start_calls = 0
         self.stop_calls = 0
         self.reply_begins: list = []
         self.reply_ends = 0
+
+    def start(self) -> None:
+        self.start_calls += 1
+        self.running = True
 
     def suspend(self) -> None:
         self.suspend_calls += 1
@@ -545,6 +559,8 @@ def test_multiline_editor_text_is_echoed_to_the_document(monkeypatch) -> None:
         segment.kind == "user" and "multiline\nquestion" in segment.text
         for segment in new_segments
     )
+    assert view.suspend_calls == 1
+    assert view.start_calls == 1
 
 
 class _QueuedLineView:
