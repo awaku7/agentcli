@@ -10,6 +10,7 @@ from uagent.runtime.telemetry import (
     reconcile_usage,
     xai_usage_to_dict,
 )
+from uagent.providers.responses_common import responses_usage_to_dict
 
 
 def test_reconcile_usage_returns_known_token_deltas_only() -> None:
@@ -46,6 +47,37 @@ def test_cache_read_usage_is_a_subset_not_a_second_input_total() -> None:
         "input_tokens_delta": 50,
         "cache_read_input_tokens_delta": 27,
     }
+
+
+def test_responses_usage_flattens_cached_input_tokens_without_double_counting() -> None:
+    usage = SimpleNamespace(
+        input_tokens=100,
+        output_tokens=20,
+        total_tokens=120,
+        input_tokens_details=SimpleNamespace(cached_tokens=35),
+    )
+
+    normalized = responses_usage_to_dict(usage)
+
+    assert normalized["input_tokens"] == 100
+    assert normalized["cache_read_input_tokens"] == 35
+    assert normalized["total_tokens"] == 120
+    assert reconcile_usage(None, normalized) == {
+        "input_tokens_delta": 100,
+        "cache_read_input_tokens_delta": 35,
+        "output_tokens_delta": 20,
+        "total_tokens_delta": 120,
+    }
+
+    sdk_usage = SimpleNamespace(
+        model_dump=lambda: {
+            "input_tokens": 100,
+            "output_tokens": 20,
+            "total_tokens": 120,
+            "input_tokens_details": {"cached_tokens": 35},
+        }
+    )
+    assert responses_usage_to_dict(sdk_usage)["cache_read_input_tokens"] == 35
 
 
 def test_context_breakdown_does_not_expose_message_bodies() -> None:

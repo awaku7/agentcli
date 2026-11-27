@@ -77,6 +77,7 @@ def test_view_submits_lines_and_projects_document():
             view.set_usage(
                 {
                     "input_tokens_delta": 1234,
+                    "cache_read_input_tokens_delta": 300,
                     "output_tokens_delta": 567,
                     "total_tokens_delta": 1801,
                 },
@@ -84,29 +85,31 @@ def test_view_submits_lines_and_projects_document():
             )
             status = view._status_fragments()
             assert status[0][1] == "[STATE] BUSY [LLM]"
-            assert "Session: in 1,234 / out 567 / total 1,801" in status[1][1]
+            assert "Session: in 1,234 / cached 300 / out 567" in status[1][1]
 
             view.set_usage(
                 {
                     "input_tokens_delta": 10,
+                    "cache_read_input_tokens_delta": 5,
                     "output_tokens_delta": 3,
                     "total_tokens_delta": 13,
                 },
                 session_id="session-a",
             )
             status = view._status_fragments()
-            assert "Session: in 1,244 / out 570 / total 1,814" in status[1][1]
+            assert "Session: in 1,244 / cached 305 / out 570" in status[1][1]
 
             view.set_usage(
                 {
                     "input_tokens_delta": 4,
+                    "cache_read_input_tokens_delta": 1,
                     "output_tokens_delta": 5,
                     "total_tokens_delta": 9,
                 },
                 session_id="session-b",
             )
             status = view._status_fragments()
-            assert "Session: in 4 / out 5 / total 9" in status[1][1]
+            assert "Session: in 4 / cached 1 / out 5" in status[1][1]
             assert len(status) == 2
         finally:
             view.stop()

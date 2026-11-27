@@ -275,29 +275,46 @@ def responses_usage_to_dict(usage: Any) -> dict[str, Any]:
     """Convert Responses API usage objects to JSON-friendly data."""
     if usage is None:
         return {}
+    result: dict[str, Any] = {}
     if hasattr(usage, "model_dump"):
         try:
             value = usage.model_dump()
-            return value if isinstance(value, dict) else {}
+            if isinstance(value, dict):
+                result = value
         except Exception:
             pass
-    result: dict[str, Any] = {}
-    for name in (
-        "input_tokens",
-        "output_tokens",
-        "total_tokens",
-        "input_tokens_details",
-        "output_tokens_details",
+    if not result:
+        for name in (
+            "input_tokens",
+            "output_tokens",
+            "total_tokens",
+            "input_tokens_details",
+            "output_tokens_details",
+        ):
+            value = getattr(usage, name, None)
+            if value is None:
+                continue
+            if hasattr(value, "model_dump"):
+                try:
+                    value = value.model_dump()
+                except Exception:
+                    pass
+            result[name] = value
+
+    # OpenAI Responses reports cached input tokens as a subset under
+    # input_tokens_details. Flatten it for the shared usage reconciler/UI,
+    # while keeping input_tokens unchanged so cached tokens are not double-counted.
+    input_details = result.get("input_tokens_details")
+    if isinstance(input_details, dict):
+        cached_tokens = input_details.get("cached_tokens")
+    else:
+        cached_tokens = getattr(input_details, "cached_tokens", None)
+    if (
+        "cache_read_input_tokens" not in result
+        and type(cached_tokens) is int
+        and 0 <= cached_tokens <= 10**12
     ):
-        value = getattr(usage, name, None)
-        if value is None:
-            continue
-        if hasattr(value, "model_dump"):
-            try:
-                value = value.model_dump()
-            except Exception:
-                pass
-        result[name] = value
+        result["cache_read_input_tokens"] = cached_tokens
     return result
 
 

@@ -658,8 +658,8 @@ class ConsoleView:
         self._usage_session_id: str | None = None
         self._usage_totals = {
             "input_tokens": 0,
+            "cache_read_input_tokens": 0,
             "output_tokens": 0,
-            "total_tokens": 0,
         }
         self._output_text = ""
         self._app: Any = None
@@ -988,42 +988,40 @@ class ConsoleView:
                 self._usage_session_id = clean_session_id
                 self._usage_totals = {
                     "input_tokens": 0,
+                    "cache_read_input_tokens": 0,
                     "output_tokens": 0,
-                    "total_tokens": 0,
                 }
 
             deltas: dict[str, int] = {}
             for source, target in (
                 ("input_tokens_delta", "input_tokens"),
+                ("cache_read_input_tokens_delta", "cache_read_input_tokens"),
                 ("output_tokens_delta", "output_tokens"),
-                ("total_tokens_delta", "total_tokens"),
             ):
                 value = usage.get(source)
                 if type(value) is int and value >= 0:
                     deltas[target] = value
-            if "total_tokens" not in deltas and {
-                "input_tokens",
-                "output_tokens",
-            }.issubset(deltas):
-                deltas["total_tokens"] = (
-                    deltas["input_tokens"] + deltas["output_tokens"]
-                )
             for key, value in deltas.items():
                 self._usage_totals[key] += value
 
             labels = (
                 ("input_tokens", "in"),
+                ("cache_read_input_tokens", "cached"),
                 ("output_tokens", "out"),
-                ("total_tokens", "total"),
             )
             parts = [
                 f"{label} {self._usage_totals[key]:,}"
                 for key, label in labels
                 if key in deltas or self._usage_totals[key] > 0
             ]
-            total = self._usage_totals["total_tokens"]
             text = "Session: " + " / ".join(parts) if parts else ""
-            compact = f"Tot {total:,}" if total > 0 else text
+            compact = (
+                f"in {self._usage_totals['input_tokens']:,} / "
+                f"c {self._usage_totals['cache_read_input_tokens']:,} / "
+                f"out {self._usage_totals['output_tokens']:,}"
+                if parts
+                else text
+            )
             self._usage_text = text
             self._usage_compact_text = compact
         self._invalidate()
