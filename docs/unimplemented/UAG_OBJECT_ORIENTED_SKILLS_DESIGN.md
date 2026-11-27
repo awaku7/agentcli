@@ -2,6 +2,7 @@
 
 - **文書状態**: 設計案（実装未着手）
 - **作成日**: 2026-10-18
+- **改訂**: 2026-11-27 — 継承・インターフェース・オーバーライドを初期仕様に含める（§5.5、§13）
 - **対象**: UAG / `awaku7/agentcli`
 - **基本方針**: 既存 Agent Skills および UAG 独自仕様との完全な後方互換性を保持し、オプトインでオブジェクト指向機能を追加する。
 
@@ -9,7 +10,7 @@
 
 従来の Agent Skill は、`SKILL.md` に書かれた説明と実行手順をLLMが読み込んで使う形式である。UAGはすでにSkillの一覧、読み込み、検証、インストール、`allowed-tools` によるツールのロード・保持、セッションへのSkill指示注入、Skillの審査・有効化を持つ。
 
-これらを再実装せず、**「Skill定義」「実行中のSkillインスタンス」「公開メソッド」「インスタンス固有状態」**を追加する。合成（Skillから別Skillを呼ぶ）はその次の段階で対応する。継承・インターフェース・ポリモーフィズムは将来の拡張点とし、初期実装には含めない。
+これらを再実装せず、**「Skill定義」「実行中のSkillインスタンス」「公開メソッド」「インスタンス固有状態」**を追加する。継承（単一継承）・インターフェース・オーバーライドも初期仕様に含める（§5.5）。合成（Skillから別Skillを呼ぶ）はその次の段階で対応する。多重継承は採用しない。
 
 最重要要件は**既存の `SKILL.md` に一文字も変更を加えず、従来の実行結果・外部API・CLI操作を変えない**ことである。
 
@@ -105,8 +106,9 @@ metadata:
 | 公開メソッド | SkillMethod | 入出力スキーマを持つ呼び出し可能な操作 |
 | カプセル化 | Private state | 他のSkillから直接書き換えられない状態 |
 | コンポジション | `skill`メソッド | 別Skillの操作を明示的に呼び出す（後続） |
-| 継承 | 未実装 | 初期段階では導入しない |
-| インターフェース | 未実装 | 必要性を検証して後続で定義 |
+| 継承 | `extends`（単一継承） | 親Skillのメソッド・状態・ツール宣言を引き継ぐ |
+| インターフェース | `implements`（複数可） | メソッド名と入出力スキーマの契約。定義ファイルはSkillフォルダ内に置く |
+| オーバーライド | 同名メソッドの再宣言 | 入出力スキーマは親と同一とし、実装（本文・ツール・状態更新）だけを差し替える |
 
 ### 4.1 定義とインスタンスを分ける
 
@@ -188,7 +190,7 @@ methods:
 
 `tool` 型は任意のPythonを評価・実行する形式にしない。入力からツール引数へのマッピングは宣言的で、入力スキーマとツールスキーマの検証後、**既存の実行ルーター**へ送る。セキュリティを迂回する `import` や `eval` は認めない。
 
-### 5.3 インターフェース（擬似API）
+### 5.3 実行API（擬似コード）
 
 以下は**設計上のAPIであり、現行UAGに実装されていない**。
 
@@ -218,6 +220,52 @@ MVPでは一つのランタイムサービス `SkillObjectRuntime` に `create /
 ```
 
 失敗時も例外メッセージを非構造化のまま返さず、機械判定可能な `error.code` を返す。想定: `SKILL_NOT_FOUND`, `OBJECT_SPEC_INVALID`, `METHOD_NOT_FOUND`, `ACCESS_DENIED`, `DEPENDENCY_UNAVAILABLE`, `REVISION_CONFLICT`, `DEFINITION_CHANGED`, `METHOD_FAILED`, `CANCELLED`。
+
+### 5.5 継承・インターフェース・オーバーライド
+
+```yaml
+# 子Skillの uag-object.yaml
+schema: "uag-object-skill/v1"
+
+extends: "python-review-base"          # 単一継承のみ。多重継承は不可
+implements:
+  - "review-contracts:interfaces/review.yaml"   # 複数可
+
+state:
+  add:                                  # 親の状態への追加分だけを書く
+    schema: "references/state-add.schema.json"
+    initial:
+      lint_score: null
+
+methods:
+  verify:                               # オーバーライド（同名メソッドの再宣言）
+    source: "references/verify-strict.md"
+    tools: [run_tests, lint_format]
+    state_update_schema: "references/verify.state-update.schema.json"
+    # input_schema / output_schema は書かない = 親と同一（書く場合は親と同一でなければならない）
+```
+
+```yaml
+# インターフェース定義ファイル（どれかのSkillフォルダ内に置く）
+schema: "uag-object-interface/v1"
+
+methods:
+  analyze:
+    input_schema: "analyze.input.schema.json"
+    output_schema: "analyze.output.schema.json"
+  verify:
+    input_schema: "verify.input.schema.json"
+    output_schema: "verify.output.schema.json"
+```
+
+規則:
+
+- **継承は単一継承のみ**とする。`extends` は通常のSkill解決で得た正規化済みSkillパスに固定し、継承チェーンの循環は検証エラー（`OBJECT_SPEC_INVALID`）とする。親のメソッド・状態・ツール宣言を引き継ぐ。
+- **状態スキーマは追加のみ**とする。子は新しいキーだけを追加でき、親のキーの削除と型変更は検証エラーとする。初期値は子で上書きできる。親のメソッドは親の状態の形を前提に書かれているため、この規則が引き継いだメソッドの動作を保証する。
+- **オーバーライドは入出力スキーマを親と同一**とする。`source`、`tools`、`state_update_schema` は差し替えできる。`input_schema` / `output_schema` を省略した場合は親のものを引き継ぎ、異なるスキーマを書いた場合は検証エラーとする。呼び出し側から見た契約は変わらない。
+- **インターフェースは複数実装できる**。定義ファイルはSkillフォルダ内に置き、`<skill>:<相対パス>` で参照する。検証時に、宣言した全メソッドが継承込みでそろっていることと、各メソッドの入出力スキーマが契約と一致することを照合する。1つでも欠ける・異なる場合は `OBJECT_SPEC_INVALID` とする。
+- `extends` / `implements` で参照した他Skillのファイルも、定義スナップショットの参照閉包（§6.1）に含める。親や契約側のファイルが変更された場合も、子のインスタンスは `DEFINITION_CHANGED` の対象になる。パスの規則は従来どおりで、到達できるのは参照したSkillのルート内だけとし、それ以外のルート外参照は拒否する。
+- 継承・インターフェースの解決と照合はすべて PR1（検証のみの段階）で実装する。実行時まで遅らせない。
 
 ## 6. インスタンス状態と永続化
 
@@ -280,7 +328,7 @@ is_tool_pinned(tool) = legacy_pin_exists OR any_active_lease
 
 ## 8. Skill合成（後続段階）
 
-継承に先立ち、Skillから別のSkillを呼ぶ明示的な合成を導入する。
+Skillから別のSkillを呼ぶ明示的な合成を導入する。
 
 ```yaml
 # 将来の uag-object.yaml（例）
@@ -298,7 +346,7 @@ methods:
 - Child Tool権限は親を超えず、`human_ask`を省略しない。
 - 親の中断・キャンセルが子に伝播する。別セッションのインスタンスは暗黙に参照しない。
 
-インターフェースと継承は、合成の使用実績を確認してから最小仕様を決める。複雑な多重継承は採用しない方向で評価する。
+継承・インターフェース・オーバーライドの仕様は §5.5 に定める。多重継承は採用しない。
 
 ## 9. 読み込み・実行時の契約
 
@@ -316,11 +364,12 @@ methods:
 
 ## 10. 段階的実装計画（PRを分離）
 
-### PR1: 拡張マニフェストの読み込み・検証だけ
+### PR1: 拡張マニフェストの読み込み・検証だけ（継承・インターフェースの解決を含む）
 
 - `uag-object.yaml` のスキーマと読み込み・検証モジュール。
 - メソッドの `input_schema` / `output_schema` / `state_update_schema` とローカル `$ref` の宣言・形式を検証。
-- 定義参照の閉包を解決できることを確認する。
+- `extends` / `implements` の解決と照合: 継承チェーンの循環検出、オーバーライドの入出力同一性の照合、状態スキーマの追加のみ規則の検証、インターフェースの全メソッド充足と入出力一致の照合。
+- 定義参照の閉包を、継承・インターフェースで参照した他Skillのファイルまで含めて解決できることを確認する。
 - `metadata.uag-object-spec` があるときだけオブジェクト定義を検証。
 - 既存 `skills_list` / `skills_load` の戻り値・振る舞いを変更しない。
 - 初期段階では実行APIを追加しない。
@@ -341,7 +390,7 @@ methods:
 - 既存Policy、`human_ask`、Sandbox、セッションログへの統合。
 - 同時実行・競合・危険操作・キャンセル・回帰テスト。
 
-### PR4: 合成と必要な公開インターフェース
+### PR4: 合成
 
 - `skill`メソッド、呼び出し深度制限、子の権限制限、循環参照検査。
 - UI/ツール経由の利用と多言語対応。
@@ -376,6 +425,15 @@ test_object_invalid_method_input_rejected
 test_object_invalid_method_output_does_not_mutate_state
 test_object_state_update_schema_and_cas_enforced
 test_object_external_or_undeclared_reference_rejected
+test_object_inheritance_chain_cycle_rejected
+test_object_override_io_schema_mismatch_rejected
+test_object_override_implementation_replaced
+test_object_state_schema_key_removal_rejected
+test_object_state_schema_retype_rejected
+test_object_state_schema_addition_accepted
+test_object_interface_missing_method_rejected
+test_object_interface_multiple_implements_accepted
+test_object_parent_definition_change_marks_child_changed
 test_object_methods_do_not_bypass_policy
 test_object_method_requires_human_ask_when_dangerous
 test_object_tool_leases_parallel_instances
@@ -404,8 +462,8 @@ test_composition_rejects_cycle_and_permission_escalation
 2. **採用**: 明示的なインスタンスID、プライベートな状態、メソッド公開。
 3. **採用**: 従来Skillは全く変えず、オブジェクト機能を明示選択。
 4. **採用**: Skill定義のライフサイクルと実行インスタンスのライフサイクルを分離。
-5. **採用**: 合成を継承より優先。
-6. **保留**: インターフェース/メソッドオーバーライド/継承の具体的な構文。
+5. **採用**: 単一継承とインターフェース（複数可）を初期仕様に含める。多重継承は採用しない。
+6. **採用**: オーバーライドは入出力スキーマを親と同一とし、実装だけを差し替える。状態スキーマは追加のみ（削除・型変更は禁止）。
 7. **禁止**: `allowed-tools`の宣言を実行権限の付与と解釈すること。
 8. **必須**: ツール保持の所有者管理。現行の単一共有辞書をそのまま複数インスタンスへ適用しない。
 
