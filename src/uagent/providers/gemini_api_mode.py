@@ -16,20 +16,47 @@ _MODE_ALIASES = {
 }
 
 
-def gemini_api_mode() -> str:
-    """Return the configured Google model API transport.
+def gemini_api_mode(model_name: str | None = None, provider: str | None = None) -> str:
+    """Select the Google API transport, honoring an explicit environment override.
 
-    The existing GenerateContent transport remains the default. Set
-    ``UAGENT_GEMINI_API_MODE=interactions`` to use the Interactions API for
-    either the ``gemini`` or ``vertexai`` provider.
+    Without an override, Interactions is selected only when llmcapa positively
+    identifies the model/provider pair as supporting it. Unknown models and
+    unavailable capability data keep using the established GenerateContent API.
     """
-    raw = (env_get(_ENV_NAME, "generate_content") or "generate_content").strip().lower()
-    mode = _MODE_ALIASES.get(raw)
-    if mode is None:
-        raise ValueError(
-            f"Invalid {_ENV_NAME}={raw!r}; expected 'generate_content' or 'interactions'."
-        )
-    return mode
+    raw = (env_get(_ENV_NAME) or "").strip().lower()
+    if raw:
+        mode = _MODE_ALIASES.get(raw)
+        if mode is None:
+            raise ValueError(
+                f"Invalid {_ENV_NAME}={raw!r}; expected 'generate_content' or 'interactions'."
+            )
+        return mode
+
+    normalized_provider = (provider or "").strip().lower()
+    normalized_model = (model_name or "").strip()
+    if normalized_model and normalized_provider in {
+        "gemini",
+        "vertexai",
+        "vertex-ai",
+        "google",
+    }:
+        try:
+            from ..llmcapa_util import supports_feature
+
+            if (
+                supports_feature(
+                    "interactions_api",
+                    normalized_model,
+                    normalized_provider,
+                    default=None,
+                )
+                is True
+            ):
+                return "interactions"
+        except Exception:
+            # llmcapa is optional; unknown capability must not change transport.
+            pass
+    return "generate_content"
 
 
 __all__ = ["gemini_api_mode"]

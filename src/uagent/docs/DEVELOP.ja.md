@@ -88,7 +88,7 @@ ______________________________________________________________________
 
 ### Gemini / Vertex API mode
 
-`UAGENT_GEMINI_API_MODE` は `gemini` と `vertexai` のメインチャット経路を切り替えます。既定の `generate_content` は従来どおりです。`interactions` は `providers/llm_gemini_interactions.py` にディスパッチし、`store=false` のステートレス要求でUAGの会話履歴を送ります。思考署名やツール呼び出し履歴を再送できるよう、Interactionsの生ステップをassistantメッセージの `_gemini_content` に保持します。このモードではGenerateContent用キャッシュを作成せず、ストリーミングが有効でもAPI応答完了後に既存コールバック経由で一括表示します。
+`UAGENT_GEMINI_API_MODE` は `gemini` と `vertexai` のメインチャット経路を明示的に上書きします。未設定時は `gemini_api_mode(model, provider)` が、llmcapaで該当モデル・プロバイダーの `interactions_api` 対応が確認できた場合のみInteractionsを選択し、不明・非対応なら従来の `generate_content` を使います。Interactionsを明示指定しても、カタログ上で非対応のモデルは拒否します。Interactionsは `providers/llm_gemini_interactions.py` にディスパッチし、`store=false` のステートレス要求でUAGの会話履歴を送ります。思考署名やツール呼び出し履歴を再送できるよう、Interactionsの生ステップをassistantメッセージの `_gemini_content` に保持します。このモードではGenerateContent用キャッシュを作成せず、ストリーミングが有効でもAPI応答完了後に既存コールバック経由で一括表示します。
 
 ______________________________________________________________________
 

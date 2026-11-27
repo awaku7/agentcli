@@ -305,7 +305,7 @@ Required if `UAGENT_PROVIDER=gemini`:
 
 - `UAGENT_GEMINI_API_KEY` (required)
 - `UAGENT_GEMINI_DEPNAME` (optional, default: `gemini-3.8-flash`)
-- `UAGENT_GEMINI_API_MODE` (optional): `generate_content` (default) or `interactions`.
+- `UAGENT_GEMINI_API_MODE` (optional): override transport with `generate_content` or `interactions`. If unset, llmcapa selects Interactions only when it marks the configured model/provider as supported; otherwise GenerateContent is used.
 
 #### Google Vertex AI
 
@@ -315,9 +315,13 @@ Required if `UAGENT_PROVIDER=vertexai`:
 - `UAGENT_VERTEXAI_LOCATION` (required, e.g. `us-central1`)
 - `UAGENT_VERTEXAI_DEPNAME` (required)
 - `UAGENT_VERTEXAI_CREDENTIALS` (required): Path to Google Cloud service account JSON.
-- `UAGENT_GEMINI_API_MODE` (optional): `generate_content` (default) or `interactions`.
+- `UAGENT_GEMINI_API_MODE` (optional): override transport with `generate_content` or `interactions`. If unset, llmcapa selects Interactions only when it marks the configured model/provider as supported; otherwise GenerateContent is used.
 
 The API-mode setting applies to the main Gemini/Vertex chat and tool-call path.
+When it is unset, llmcapa's `interactions_api` capability for the exact model
+and provider selects Interactions; unknown or unsupported entries retain the
+GenerateContent API. An explicit `interactions` setting requests Interactions,
+but catalogued models marked unsupported are still rejected.
 `interactions` uses the Google GenAI Interactions API in stateless mode
 (`store=false`), keeping conversation history in UAG. Use a model listed for
 Interactions by the selected provider. Interactions responses are buffered

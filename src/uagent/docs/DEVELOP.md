@@ -702,9 +702,13 @@ ______________________________________________________________________
 
 ### Gemini / Vertex API mode
 
-`UAGENT_GEMINI_API_MODE` selects the transport for the `gemini` and `vertexai`
-main-chat providers. The default `generate_content` path remains unchanged;
-`interactions` dispatches to `providers/llm_gemini_interactions.py`. That adapter
+`UAGENT_GEMINI_API_MODE` explicitly overrides transport for the `gemini` and
+`vertexai` main-chat providers. When unset, `gemini_api_mode(model, provider)`
+selects Interactions only if llmcapa positively reports `interactions_api` for
+that exact model/provider pair; unknown or unsupported models retain the
+`generate_content` path. An explicit Interactions request still rejects a
+catalogued model marked unsupported. The Interactions mode dispatches to
+`providers/llm_gemini_interactions.py`. That adapter
 serializes provider-native Interactions steps into `_gemini_content` so stateless
 follow-up requests (`store=false`) can replay thought signatures and tool-call
 history. `llm_message_helpers._init_gemini_cache()` must not create or clear

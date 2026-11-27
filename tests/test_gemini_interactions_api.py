@@ -13,11 +13,39 @@ from uagent.providers.llm_gemini_interactions import (
 
 
 def test_gemini_api_mode_defaults_and_normalizes(monkeypatch) -> None:
+    from uagent import llmcapa_util
+
     monkeypatch.delenv("UAGENT_GEMINI_API_MODE", raising=False)
     assert mode_module.gemini_api_mode() == "generate_content"
 
+    monkeypatch.setattr(
+        llmcapa_util,
+        "supports_feature",
+        lambda feature, model, provider, default=None: (
+            True
+            if (feature, model, provider)
+            == (
+                "interactions_api",
+                "gemini-4-carbon",
+                "gemini",
+            )
+            else (
+                False
+                if (feature, model, provider)
+                == ("interactions_api", "gemini-2.5-flash", "vertexai")
+                else default
+            )
+        ),
+    )
+    assert mode_module.gemini_api_mode("gemini-4-carbon", "gemini") == "interactions"
+    assert (
+        mode_module.gemini_api_mode("gemini-2.5-flash", "vertexai")
+        == "generate_content"
+    )
+    assert mode_module.gemini_api_mode("unknown-model", "gemini") == "generate_content"
+
     monkeypatch.setenv("UAGENT_GEMINI_API_MODE", "Interactions_API")
-    assert mode_module.gemini_api_mode() == "interactions"
+    assert mode_module.gemini_api_mode("unsupported-model", "gemini") == "interactions"
 
     monkeypatch.setenv("UAGENT_GEMINI_API_MODE", "generate-content")
     assert mode_module.gemini_api_mode() == "generate_content"
@@ -361,7 +389,7 @@ def test_interactions_transport_routes_from_gemini_adapter(monkeypatch) -> None:
     from uagent.providers import llm_gemini
     from uagent.providers import llm_gemini_interactions
 
-    monkeypatch.setattr(llm_gemini, "gemini_api_mode", lambda: "interactions")
+    monkeypatch.setattr(llm_gemini, "gemini_api_mode", lambda *_args: "interactions")
     monkeypatch.setattr(
         llm_gemini_interactions,
         "gemini_interactions_chat_with_tools",
@@ -383,7 +411,9 @@ def test_provider_projection_preserves_interactions_steps_only_for_google(
         "content": "answer",
         "_gemini_content": {"_gemini_interactions_steps": [{"type": "thought"}]},
     }
-    monkeypatch.setattr(provider_context, "gemini_api_mode", lambda: "interactions")
+    monkeypatch.setattr(
+        provider_context, "gemini_api_mode", lambda *_args: "interactions"
+    )
     projected = provider_context.project_messages_for_provider(
         [message], provider="gemini"
     )
@@ -405,7 +435,9 @@ def test_interactions_mode_skips_generate_content_cache_setup(monkeypatch) -> No
             pass
 
     monkeypatch.setattr(gemini_cache_mgr, "GeminiCacheManager", FakeCacheManager)
-    monkeypatch.setattr(llm_message_helpers, "gemini_api_mode", lambda: "interactions")
+    monkeypatch.setattr(
+        llm_message_helpers, "gemini_api_mode", lambda *_args: "interactions"
+    )
     monkeypatch.setattr(
         llm_message_helpers,
         "_lazy_gemini_types",

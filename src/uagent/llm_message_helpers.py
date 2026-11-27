@@ -36,7 +36,7 @@ def _init_gemini_cache(
     gemini_types = (
         _lazy_gemini_types()
         if provider in ("gemini", "vertexai")
-        and gemini_api_mode() != "interactions"
+        and gemini_api_mode(depname, provider) != "interactions"
         and use_cache_env not in ("0", "false", "no")
         else None
     )

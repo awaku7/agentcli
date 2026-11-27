@@ -805,7 +805,7 @@ def gemini_chat_with_tools(
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Run one Gemini/Vertex turn through its configured Google API transport."""
 
-    if gemini_api_mode() == "interactions":
+    if gemini_api_mode(model_name, provider) == "interactions":
         from .llm_gemini_interactions import gemini_interactions_chat_with_tools
 
         return gemini_interactions_chat_with_tools(

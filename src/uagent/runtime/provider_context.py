@@ -53,7 +53,6 @@ def project_messages_for_provider(
     Context classification and persistence happen before this boundary.  The
     adapter only normalizes the final message shape required by provider SDKs.
     """
-    del model  # Reserved for model-specific adapters.
     provider_name = str(provider or "").strip().lower()
     projected: list[dict[str, Any]] = []
     for message in messages:
@@ -64,7 +63,7 @@ def project_messages_for_provider(
             keep_gemini_interaction_history = (
                 key == "_gemini_content"
                 and provider_name in {"gemini", "vertexai"}
-                and gemini_api_mode() == "interactions"
+                and gemini_api_mode(model, provider_name) == "interactions"
             )
             # Sarashina requires its opaque reasoning token to be replayed in
             # the next assistant message. Keep the internal alias until its
