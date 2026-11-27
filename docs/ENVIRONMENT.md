@@ -613,4 +613,3 @@ uag_envsec delete --format-version 0 --file .env.sec --key UAGENT_OPENAI_IMG_GEN
 ```
 
 Use `--key-file PATH` when the encryption key is stored at a non-default path. Restart uag after changing `.env.sec` so the updated environment is loaded.
-````
