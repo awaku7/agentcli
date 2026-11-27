@@ -5160,3 +5160,7 @@ msgstr "브라우저를 열 수 없습니다: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "브라우저를 열었습니다."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "입력이 취소되었습니다(human_ask에 대한 응답으로 전송됩니다)."

@@ -5313,3 +5313,7 @@ msgstr "ไม่สามารถเปิดเบราว์เซอร์
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "เปิดเบราว์เซอร์แล้ว"
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "อินพุตถูกยกเลิก (จะถูกส่งเป็นการตอบกลับ human_ask)"

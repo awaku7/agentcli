@@ -5420,3 +5420,7 @@ msgstr "Nem sikerült megnyitni a böngészőt: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "A böngésző megnyílt."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "A bevitel megszakítva (válaszként lesz elküldve a human_ask címre)."

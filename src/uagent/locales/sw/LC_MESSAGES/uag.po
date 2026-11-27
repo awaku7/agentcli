@@ -5259,3 +5259,7 @@ msgstr "Imeshindwa kufungua kivinjari: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Kivinjari kimefunguliwa."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Ingizo limeghairiwa (itatumwa kama jibu kwa human_ask)."

@@ -5175,6 +5175,10 @@ msgstr "getch()をinput()にフォールバックしました"
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+Cを受信しました。終了処理を開始します..."
 
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "入力をキャンセルしました（human_ask への返信として送信します）。"
+
 msgid "Received multiline reply."
 msgstr "複数行の回答を受信しました。"
 

@@ -5345,3 +5345,7 @@ msgstr "ब्राउज़र नहीं खोला जा सका: %(d
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "ब्राउज़र खोल दिया गया।"
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "इनपुट रद्द किया गया (उत्तर के रूप में human_ask पर भेजा जाएगा)।"

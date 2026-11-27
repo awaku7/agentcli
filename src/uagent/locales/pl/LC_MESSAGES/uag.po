@@ -5430,3 +5430,7 @@ msgstr "Nie udało się otworzyć przeglądarki: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Otwarto przeglądarkę."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Wprowadzanie zostało anulowane (zostanie wysłane jako odpowiedź do human_ask)."

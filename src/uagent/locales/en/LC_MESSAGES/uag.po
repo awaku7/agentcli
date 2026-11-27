@@ -3895,3 +3895,7 @@ msgstr "Could not open the browser: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Opened the browser."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Input cancelled (will be sent as a reply to human_ask)."

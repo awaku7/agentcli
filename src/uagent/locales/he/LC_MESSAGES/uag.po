@@ -5254,3 +5254,7 @@ msgstr "לא ניתן היה לפתוח את הדפדפן: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "הדפדפן נפתח."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "הקלט בוטל (יישלח כתשובה ל-human_ask)."

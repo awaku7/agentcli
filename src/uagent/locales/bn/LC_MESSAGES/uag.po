@@ -5346,3 +5346,7 @@ msgstr "ব্রাউজার খোলা যায়নি: %(diagnostic)s
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "ব্রাউজার খোলা হয়েছে।"
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "ইনপুট বাতিল করা হয়েছে (human_ask এ একটি উত্তর হিসাবে পাঠানো হবে)।"

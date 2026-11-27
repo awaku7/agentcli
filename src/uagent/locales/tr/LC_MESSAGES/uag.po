@@ -5388,3 +5388,7 @@ msgstr "Tarayıcı açılamadı: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Tarayıcı açıldı."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Giriş iptal edildi (human_ask'a yanıt olarak gönderilecek)."

@@ -5149,3 +5149,7 @@ msgstr "Hindi mabuksan ang browser: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Nabuksan ang browser."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Kinansela ang input (ipapadala bilang tugon sa human_ask)."

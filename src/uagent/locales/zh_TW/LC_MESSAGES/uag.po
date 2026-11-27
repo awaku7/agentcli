@@ -5140,3 +5140,7 @@ msgstr "無法開啟瀏覽器：%(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "已開啟瀏覽器。"
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "輸入已取消（將作為回覆發送至 human_ask）。"

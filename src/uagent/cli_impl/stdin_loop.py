@@ -902,7 +902,9 @@ def _stdin_loop_impl(*, hook_runner=None) -> None:
                 if core.human_ask_active:
                     print(
                         "\n[INFO] "
-                        + "Input cancelled (will be sent as a reply to human_ask)."
+                        + _(
+                            "Input cancelled (will be sent as a reply to human_ask)."
+                        )
                     )
                     # Send an empty string or cancel to resume the tool side
                     if core.human_ask_queue:

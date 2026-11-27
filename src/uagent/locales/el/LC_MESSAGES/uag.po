@@ -5463,3 +5463,7 @@ msgstr "Δεν ήταν δυνατό το άνοιγμα του προγράμμ
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Το πρόγραμμα περιήγησης άνοιξε."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Η εισαγωγή ακυρώθηκε (θα σταλεί ως απάντηση στο human_ask)."

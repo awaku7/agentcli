@@ -5403,3 +5403,7 @@ msgstr "Хөтчийг нээж чадсангүй: %(diagnostic)s"
 #: src/uagent/uagent_llm.py
 msgid "Opened the browser."
 msgstr "Хөтчийг нээлээ."
+
+#: src/uagent/cli_impl/stdin_loop.py:905
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Оруулахыг цуцалсан (human_ask руу хариу илгээх болно)."
