@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import time
 import atexit
-from typing import Any
+from typing import Any, Callable, Iterator
 
 from ..i18n import _
 from ..env_utils import env_get
@@ -536,6 +536,279 @@ def _provider_api_key(core: Any, provider: str) -> str | None:
         store=store,
         env_getter=getter if callable(getter) else None,
     )
+
+
+_VERTEXAI_LOCATION_ENV_NAMES = (
+    "UAGENT_VERTEXAI_LOCATION",
+    "UAGENT_GOOGLE_LOCATION",
+    "GOOGLE_CLOUD_LOCATION",
+)
+
+
+def _vertexai_explicit_location() -> str | None:
+    for name in _VERTEXAI_LOCATION_ENV_NAMES:
+        location = env_get(name)
+        if location:
+            return location
+    return None
+
+
+def _vertexai_cached_location(core: Any, model_name: str) -> str | None:
+    try:
+        cache = getattr(core, "_vertexai_auto_location_cache", {})
+        value = cache.get(model_name) if isinstance(cache, dict) else None
+        return str(value).strip() if value else None
+    except Exception:
+        return None
+
+
+def _remember_vertexai_location(core: Any, model_name: str, location: str) -> None:
+    try:
+        cache = getattr(core, "_vertexai_auto_location_cache", None)
+        if not isinstance(cache, dict):
+            cache = {}
+            setattr(core, "_vertexai_auto_location_cache", cache)
+        cache[model_name] = location
+    except Exception:
+        pass
+
+
+def make_vertexai_client(
+    core: Any,
+    model_name: str,
+    *,
+    location_override: str | None = None,
+) -> Any:
+    """Create a Vertex AI client, optionally pinned to a fallback location."""
+    from google import genai  # lazy
+
+    if genai is None:
+        raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
+
+    api_key = _provider_api_key(core, "VERTEXAI")
+    project = (
+        env_get("UAGENT_VERTEXAI_PROJECT") or env_get("GOOGLE_CLOUD_PROJECT") or None
+    )
+    credentials_path = env_get("UAGENT_GOOGLE_CREDENTIALS") or None
+    credentials = None
+    if credentials_path and not api_key:
+        try:
+            import google.auth  # type: ignore[import-not-found]
+
+            credentials, detected_project = google.auth.load_credentials_from_file(
+                credentials_path,
+                scopes=["https://www.googleapis.com/auth/cloud-platform"],
+            )
+            if not project and detected_project:
+                project = detected_project
+        except Exception as exc:
+            raise RuntimeError(
+                "[FATAL] "
+                + _(
+                    "Failed to load Vertex AI credentials file %(path)s: %(err)s",
+                    default="Failed to load Vertex AI credentials file %(path)s: %(err)s",
+                )
+                % {"path": credentials_path, "err": str(exc)}
+            ) from exc
+
+    explicit_location = _vertexai_explicit_location()
+    if location_override:
+        location = location_override
+    elif explicit_location:
+        location = explicit_location
+    elif api_key and not project:
+        # API-key-only Vertex AI Express mode must not use a
+        # project-scoped location with an empty project.
+        location = None
+    else:
+        location = _vertexai_cached_location(core, model_name) or "global"
+
+    http_options: dict[str, Any] = {}
+    try:
+        httpx_client = make_httpx_client()
+        if httpx_client is not None:
+            http_options["httpx_client"] = httpx_client
+    except Exception:
+        pass
+
+    kwargs: dict[str, Any] = {"vertexai": True}
+    if api_key:
+        kwargs["api_key"] = api_key
+    if credentials is not None:
+        kwargs["credentials"] = credentials
+    if project:
+        kwargs["project"] = project
+    if location:
+        kwargs["location"] = location
+    if http_options:
+        kwargs["http_options"] = http_options
+
+    try:
+        client = genai.Client(**kwargs)
+    except Exception:
+        kwargs.pop("http_options", None)
+        try:
+            client = genai.Client(**kwargs)
+        except Exception:
+            fallback_kwargs: dict[str, Any] = {"vertexai": True}
+            if api_key:
+                fallback_kwargs["api_key"] = api_key
+            elif credentials is not None:
+                fallback_kwargs["credentials"] = credentials
+            if project:
+                fallback_kwargs["project"] = project
+            if location:
+                fallback_kwargs["location"] = location
+            client = genai.Client(**fallback_kwargs)
+
+    try:
+        from google.genai import models as gm
+
+        gm.Models._logged_afc_warning = True
+        if hasattr(gm, "AsyncModels"):
+            gm.AsyncModels._logged_afc_warning = True
+    except Exception:
+        pass
+    return client
+
+
+def _vertexai_auto_location_enabled(core: Any) -> bool:
+    if _vertexai_explicit_location():
+        return False
+    api_key = _provider_api_key(core, "VERTEXAI")
+    project = (
+        env_get("UAGENT_VERTEXAI_PROJECT") or env_get("GOOGLE_CLOUD_PROJECT") or None
+    )
+    return not (api_key and not project)
+
+
+def _vertexai_region_candidates(
+    model_name: str, current_location: str | None
+) -> list[str]:
+    """Return catalogued alternative locations for a Vertex model."""
+    try:
+        import llmcapa
+
+        regions = llmcapa.list_regions(
+            provider="vertex-ai",
+            model_id=model_name,
+            include_global=True,
+        )
+    except Exception:
+        return []
+    current = (current_location or "").strip().casefold()
+    result: list[str] = []
+    for region in regions or []:
+        value = str(region).strip()
+        if value and value.casefold() != current and value not in result:
+            result.append(value)
+    return result
+
+
+def _is_vertexai_not_found(error: BaseException) -> bool:
+    text = str(error).casefold()
+    code = getattr(error, "code", None)
+    if callable(code):
+        try:
+            code = code()
+        except Exception:
+            code = None
+    response = getattr(error, "response", None)
+    status_code = getattr(response, "status_code", None)
+    is_404 = code == 404 or status_code == 404 or "404" in text
+    is_not_found = (
+        "not_found" in text
+        or "not found" in text
+        or str(code).casefold().endswith("not_found")
+    )
+    return bool(is_404 and is_not_found)
+
+
+def call_vertexai_with_region_fallback(
+    core: Any,
+    client: Any,
+    model_name: str,
+    request: Callable[[Any], Any],
+    *,
+    provider: str,
+) -> Any:
+    """Retry a Vertex AI request in catalogued regions after a 404."""
+    if provider != "vertexai" or not _vertexai_auto_location_enabled(core):
+        return request(client)
+    original_error: Exception | None = None
+    try:
+        return request(client)
+    except Exception as error:
+        if not _is_vertexai_not_found(error):
+            raise
+        original_error = error
+    current_location = _vertexai_cached_location(core, model_name) or "global"
+    for location in _vertexai_region_candidates(model_name, current_location):
+        retry_client = make_vertexai_client(
+            core, model_name, location_override=location
+        )
+        try:
+            response = request(retry_client)
+        except Exception as retry_error:
+            if _is_vertexai_not_found(retry_error):
+                continue
+            raise
+        _remember_vertexai_location(core, model_name, location)
+        return response
+    if original_error is not None:
+        raise original_error
+    raise RuntimeError("Vertex AI region fallback ended without a response")
+
+
+def iter_vertexai_stream_with_region_fallback(
+    core: Any,
+    client: Any,
+    model_name: str,
+    request: Callable[[Any], Any],
+    *,
+    provider: str,
+) -> Iterator[Any]:
+    """Stream a Vertex response; retry only if a 404 occurs before any chunk."""
+    if provider != "vertexai" or not _vertexai_auto_location_enabled(core):
+        yield from request(client)
+        return
+
+    current_location = _vertexai_cached_location(core, model_name) or "global"
+    candidates: list[str] | None = None
+    tried = {current_location.casefold()}
+    original_error: Exception | None = None
+    active_client = client
+    active_location = current_location
+    while True:
+        yielded = False
+        try:
+            for chunk in request(active_client):
+                if not yielded:
+                    yielded = True
+                    if active_client is not client:
+                        _remember_vertexai_location(core, model_name, active_location)
+                yield chunk
+            if active_client is not client:
+                _remember_vertexai_location(core, model_name, active_location)
+            return
+        except Exception as error:
+            if yielded or not _is_vertexai_not_found(error):
+                raise
+            if original_error is None:
+                original_error = error
+            if candidates is None:
+                candidates = _vertexai_region_candidates(model_name, current_location)
+            next_location = next(
+                (item for item in candidates if item.casefold() not in tried),
+                None,
+            )
+            if next_location is None:
+                raise original_error
+            tried.add(next_location.casefold())
+            active_location = next_location
+            active_client = make_vertexai_client(
+                core, model_name, location_override=next_location
+            )
 
 
 def make_client(core: Any) -> tuple[str, Any, str]:
@@ -1177,97 +1450,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "vertexai":
-        from google import genai  # lazy
-
-        if genai is None:
-            raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
-
-        api_key = _provider_api_key(core, "VERTEXAI")
-        project = (
-            env_get("UAGENT_VERTEXAI_PROJECT")
-            or env_get("GOOGLE_CLOUD_PROJECT")
-            or None
-        )
-        # Default to the global endpoint only when a project is set: with an
-        # API key alone (express mode) a location would make the SDK build
-        # project-scoped paths with an empty project.
-        location = (
-            env_get("UAGENT_VERTEXAI_LOCATION")
-            or env_get("UAGENT_GOOGLE_LOCATION")
-            or env_get("GOOGLE_CLOUD_LOCATION")
-            or ("global" if project else None)
-        )
-        credentials_path = env_get("UAGENT_GOOGLE_CREDENTIALS") or None
-        credentials = None
-        if credentials_path and not api_key:
-            try:
-                import google.auth  # type: ignore[import-not-found]
-
-                credentials, detected_project = google.auth.load_credentials_from_file(
-                    credentials_path,
-                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
-                )
-                if not project and detected_project:
-                    project = detected_project
-                    if not location:
-                        location = "global"
-            except Exception as e:
-                raise RuntimeError(
-                    "[FATAL] "
-                    + _(
-                        "Failed to load Vertex AI credentials file %(path)s: %(err)s",
-                        default="Failed to load Vertex AI credentials file %(path)s: %(err)s",
-                    )
-                    % {"path": credentials_path, "err": str(e)}
-                ) from e
-
-        http_options: dict[str, Any] = {}
-        try:
-            httpx_client = make_httpx_client()
-            if httpx_client is not None:
-                http_options["httpx_client"] = httpx_client
-        except Exception:
-            pass
-
-        kwargs: dict[str, Any] = {"vertexai": True}
-        if api_key:
-            kwargs["api_key"] = api_key
-        if credentials is not None:
-            kwargs["credentials"] = credentials
-        if project:
-            kwargs["project"] = project
-        if location:
-            kwargs["location"] = location
-        if http_options:
-            kwargs["http_options"] = http_options
-
-        try:
-            client = genai.Client(**kwargs)
-        except Exception:
-            kwargs.pop("http_options", None)
-            try:
-                client = genai.Client(**kwargs)
-            except Exception:
-                fallback_kwargs: dict[str, Any] = {"vertexai": True}
-                if api_key:
-                    fallback_kwargs["api_key"] = api_key
-                elif credentials is not None:
-                    fallback_kwargs["credentials"] = credentials
-                if project:
-                    fallback_kwargs["project"] = project
-                if location:
-                    fallback_kwargs["location"] = location
-                client = genai.Client(**fallback_kwargs)
-
-        try:
-            from google.genai import models as gm
-
-            gm.Models._logged_afc_warning = True
-            if hasattr(gm, "AsyncModels"):
-                gm.AsyncModels._logged_afc_warning = True
-        except Exception:
-            pass
-
+        client = make_vertexai_client(core, model_name)
         return provider, client, model_name
 
     if provider == "claude":

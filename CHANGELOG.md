@@ -13,6 +13,9 @@
 - Run CLI rounds on a worker thread and route output through a display channel for coordinated terminal rendering.
 - Defer optional tool imports, register hidden tools from a cached manifest, and split the tool registry, LLM round loop, and session store into focused modules.
 - Improve interruption handling across LLM/provider streams, command processes, and monitor tools, including cleanup of abandoned streams.
+- Default Vertex AI to the global location for project/IAM/ADC authentication
+  when no location is configured, and retry 404 failures in model-supported
+  locations from llmcapa.
 
 ### Fixed
 

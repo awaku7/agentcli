@@ -270,13 +270,22 @@ llmcapaが設定モデルの対応を確認した場合、UAGはvLLMのOpenAI互
 
 #### Google Vertex AI
 
-`UAGENT_PROVIDER=vertexai` の場合に必要：
+`UAGENT_PROVIDER=vertexai` の場合：
 
-- `UAGENT_VERTEXAI_PROJECT`（必須）
-- `UAGENT_VERTEXAI_LOCATION`（必須、例: `us-central1`）
 - `UAGENT_VERTEXAI_DEPNAME`（必須）
-- `UAGENT_VERTEXAI_CREDENTIALS`（必須）: Google Cloud サービスアカウント JSON のパス。
+- `UAGENT_VERTEXAI_API_KEY`（IAM／ADC を使う場合は省略可）
+- `UAGENT_VERTEXAI_PROJECT`（`GOOGLE_CLOUD_PROJECT` または ADC から
+  プロジェクトを取得できる場合は省略可）
+- `UAGENT_VERTEXAI_LOCATION`（省略可。プロジェクト指定または IAM／ADC 認証では
+  既定値 `global`）
+- `UAGENT_GOOGLE_CREDENTIALS`（省略可）: Google Cloud サービスアカウント認証情報のパス。
+  `GOOGLE_APPLICATION_CREDENTIALS` と gcloud ADC も利用できます。
 - `UAGENT_GEMINI_API_MODE`（省略可）: `generate_content`または`interactions`でAPIを明示指定します。未設定時は、llmcapaが該当モデル・プロバイダーのInteractions対応を確認できた場合のみInteractionsを選び、それ以外はGenerateContentを使います。
+
+リージョンを明示指定していない場合、既定のVertex AIロケーションで404になると、
+llmcapaがそのモデルに示す他のロケーションを使って再試行します。成功した代替ロケーションは、
+プロセスの終了までモデルごとに記憶されます。ロケーションを明示設定すると自動切替は無効になります。
+APIキーのみのExpressモードではロケーションを指定しません。
 
 この設定はGemini／Vertex AIのメインのチャット・ツール呼び出し経路に適用されます。未設定時は、llmcapaの`interactions_api`情報を該当モデルとプロバイダーの組み合わせで確認し、対応が明示されている場合のみInteractionsを選択します。未登録・非対応のモデルは従来のGenerateContent APIを使います。`interactions`を明示指定した場合も、カタログ上で非対応と判定されたモデルは拒否します。Interactions APIはステートレス（`store=false`）で呼び出し、会話履歴はUAG側で保持します。Interactionsの応答は完了後にまとめてUAGの画面へ表示されます。GenerateContentモードでは従来のストリーミングとキャッシュ動作を維持します。ほかのGoogle関連ツールはそれぞれの既存API設定を引き続き使用します。
 

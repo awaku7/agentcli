@@ -309,13 +309,24 @@ Required if `UAGENT_PROVIDER=gemini`:
 
 #### Google Vertex AI
 
-Required if `UAGENT_PROVIDER=vertexai`:
+When `UAGENT_PROVIDER=vertexai`:
 
-- `UAGENT_VERTEXAI_PROJECT` (required)
-- `UAGENT_VERTEXAI_LOCATION` (required, e.g. `us-central1`)
 - `UAGENT_VERTEXAI_DEPNAME` (required)
-- `UAGENT_VERTEXAI_CREDENTIALS` (required): Path to Google Cloud service account JSON.
+- `UAGENT_VERTEXAI_API_KEY` (optional when using IAM/ADC)
+- `UAGENT_VERTEXAI_PROJECT` (optional when the project is supplied by
+  `GOOGLE_CLOUD_PROJECT` or ADC)
+- `UAGENT_VERTEXAI_LOCATION` (optional; defaults to `global` for project/IAM/ADC
+  authentication)
+- `UAGENT_GOOGLE_CREDENTIALS` (optional): Path to Google Cloud service-account
+  credentials. `GOOGLE_APPLICATION_CREDENTIALS` and gcloud ADC are also
+  supported.
 - `UAGENT_GEMINI_API_MODE` (optional): override transport with `generate_content` or `interactions`. If unset, llmcapa selects Interactions only when it marks the configured model/provider as supported; otherwise GenerateContent is used.
+
+If no location is explicitly configured, a 404 from the default Vertex AI location
+triggers retries in the other locations listed for the model by llmcapa. A
+successful fallback location is remembered for that model for the current
+process. Explicitly setting a location disables this automatic fallback.
+API-key-only Express mode leaves the location unset.
 
 The API-mode setting applies to the main Gemini/Vertex chat and tool-call path.
 When it is unset, llmcapa's `interactions_api` capability for the exact model

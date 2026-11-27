@@ -1544,7 +1544,17 @@ def gemini_chat_with_tools(
         latest_usage = None
         stream_complete = True
         try:
-            stream_iter = client.models.generate_content_stream(**gen_kwargs)
+            from .util_providers import iter_vertexai_stream_with_region_fallback
+
+            stream_iter = iter_vertexai_stream_with_region_fallback(
+                core,
+                client,
+                model_name,
+                lambda active_client: active_client.models.generate_content_stream(
+                    **gen_kwargs
+                ),
+                provider=provider,
+            )
             for response in iter_until_stopped(stream_iter, core):
                 if _first_chunk:
                     _first_chunk = False
@@ -1687,7 +1697,15 @@ def gemini_chat_with_tools(
         stream=False,
     )
     try:
-        response = client.models.generate_content(**gen_kwargs)
+        from .util_providers import call_vertexai_with_region_fallback
+
+        response = call_vertexai_with_region_fallback(
+            core,
+            client,
+            model_name,
+            lambda active_client: active_client.models.generate_content(**gen_kwargs),
+            provider=provider,
+        )
     except Exception as e:
         _vertex_debug(
             "request_error",

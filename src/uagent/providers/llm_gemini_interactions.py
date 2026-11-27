@@ -670,7 +670,17 @@ def gemini_interactions_chat_with_tools(
             pass
 
     try:
-        response = create(**request, extra_body=extra_body)
+        from .util_providers import call_vertexai_with_region_fallback
+
+        response = call_vertexai_with_region_fallback(
+            core,
+            client,
+            model_name,
+            lambda active_client: active_client.interactions.create(
+                **request, extra_body=extra_body
+            ),
+            provider=provider,
+        )
     except Exception:
         if stream:
             try:
