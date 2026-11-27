@@ -41,7 +41,7 @@ def usage_display_enabled() -> bool:
 
 
 def set_usage_status(usage: dict[str, int] | None) -> bool:
-    """Overlay provider-reported token usage on the active CLI status line.
+    """Accumulate provider-reported token usage on the active CLI status line.
 
     Usage display is enabled by default and can be disabled with
     ``UAGENT_SHOW_USAGE=0``.  The legacy ``[USAGE]`` diagnostic remains the
@@ -54,7 +54,17 @@ def set_usage_status(usage: dict[str, int] | None) -> bool:
         return False
     if view is None:
         return False
-    view.set_usage(usage)
+    if usage is None:
+        # Missing usage for one response should not erase the totals already
+        # observed for this session.
+        return True
+    session_id = None
+    for name in ("_session_store_active_id", "session_id", "SESSION_ID"):
+        value = getattr(_core, name, None)
+        if isinstance(value, str) and value.strip():
+            session_id = value.strip()
+            break
+    view.set_usage(usage, session_id=session_id)
     return True
 
 

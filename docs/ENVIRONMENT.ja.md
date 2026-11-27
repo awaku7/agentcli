@@ -289,6 +289,8 @@ APIキーのみのExpressモードではロケーションを指定しません�
 
 この設定はGemini／Vertex AIのメインのチャット・ツール呼び出し経路に適用されます。未設定時は、llmcapaの`interactions_api`情報を該当モデルとプロバイダーの組み合わせで確認し、対応が明示されている場合のみInteractionsを選択します。未登録・非対応のモデルは従来のGenerateContent APIを使います。`interactions`を明示指定した場合も、カタログ上で非対応と判定されたモデルは拒否します。Interactions APIはステートレス（`store=false`）で呼び出し、会話履歴はUAG側で保持します。Interactionsの応答は完了後にまとめてUAGの画面へ表示されます。GenerateContentモードでは従来のストリーミングとキャッシュ動作を維持します。ほかのGoogle関連ツールはそれぞれの既存API設定を引き続き使用します。
 
+Interactions APIが`requires_continuation`を返した場合、返却された継続トークンで最大16回まで生成を再開します。このアダプターで添付ファイルとして扱えるのは画像と音声です。動画と文書の添付には対応していません。
+
 #### Claude (Anthropic)
 
 `UAGENT_PROVIDER=claude` の場合に必要：

@@ -655,6 +655,12 @@ class ConsoleView:
         self._status_busy = False
         self._usage_text = ""
         self._usage_compact_text = ""
+        self._usage_session_id: str | None = None
+        self._usage_totals = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+        }
         self._output_text = ""
         self._app: Any = None
         self._thread: threading.Thread | None = None
@@ -959,24 +965,65 @@ class ConsoleView:
         self._resolve_confirmation_on_idle(was_busy, busy)
         self._invalidate()
 
-    def set_usage(self, usage: Mapping[str, Any] | None) -> None:
-        """Overlay the latest provider-reported token usage on the status line."""
-        labels = (
-            ("input_tokens_delta", "in"),
-            ("output_tokens_delta", "out"),
-            ("total_tokens_delta", "total"),
-        )
-        parts: list[str] = []
-        total: int | None = None
-        for key, label in labels:
-            value = usage.get(key) if isinstance(usage, Mapping) else None
-            if type(value) is int and value >= 0:
-                parts.append(f"{label} {value:,}")
-                if key == "total_tokens_delta":
-                    total = value
-        text = "Last: " + " / ".join(parts) if parts else ""
-        compact = f"Tok {total:,}" if total is not None else text
+    def set_usage(
+        self,
+        usage: Mapping[str, Any] | None,
+        *,
+        session_id: str | None = None,
+    ) -> None:
+        """Accumulate provider-reported token usage for the active session."""
+        if usage is None:
+            with self._state_lock:
+                self._usage_text = ""
+                self._usage_compact_text = ""
+            self._invalidate()
+            return
+
+        clean_session_id = str(session_id or "").strip() or None
         with self._state_lock:
+            if (
+                clean_session_id is not None
+                and clean_session_id != self._usage_session_id
+            ):
+                self._usage_session_id = clean_session_id
+                self._usage_totals = {
+                    "input_tokens": 0,
+                    "output_tokens": 0,
+                    "total_tokens": 0,
+                }
+
+            deltas: dict[str, int] = {}
+            for source, target in (
+                ("input_tokens_delta", "input_tokens"),
+                ("output_tokens_delta", "output_tokens"),
+                ("total_tokens_delta", "total_tokens"),
+            ):
+                value = usage.get(source)
+                if type(value) is int and value >= 0:
+                    deltas[target] = value
+            if "total_tokens" not in deltas and {
+                "input_tokens",
+                "output_tokens",
+            }.issubset(deltas):
+                deltas["total_tokens"] = (
+                    deltas["input_tokens"] + deltas["output_tokens"]
+                )
+            for key, value in deltas.items():
+                self._usage_totals[key] += value
+
+            labels = (
+                ("input_tokens", "in"),
+                ("output_tokens", "out"),
+                ("total_tokens", "total"),
+            )
+            parts = [
+                f"{label} {self._usage_totals[key]:,}"
+                for key, label in labels
+                if key in deltas or self._usage_totals[key] > 0
+            ]
+            total = self._usage_totals["total_tokens"]
+            text = "Session: " + " / ".join(parts) if parts else ""
+            compact = f"Tot {total:,}" if total > 0 else text
             self._usage_text = text
             self._usage_compact_text = compact
         self._invalidate()

@@ -79,11 +79,34 @@ def test_view_submits_lines_and_projects_document():
                     "input_tokens_delta": 1234,
                     "output_tokens_delta": 567,
                     "total_tokens_delta": 1801,
-                }
+                },
+                session_id="session-a",
             )
             status = view._status_fragments()
             assert status[0][1] == "[STATE] BUSY [LLM]"
-            assert "Last: in 1,234 / out 567 / total 1,801" in status[1][1]
+            assert "Session: in 1,234 / out 567 / total 1,801" in status[1][1]
+
+            view.set_usage(
+                {
+                    "input_tokens_delta": 10,
+                    "output_tokens_delta": 3,
+                    "total_tokens_delta": 13,
+                },
+                session_id="session-a",
+            )
+            status = view._status_fragments()
+            assert "Session: in 1,244 / out 570 / total 1,814" in status[1][1]
+
+            view.set_usage(
+                {
+                    "input_tokens_delta": 4,
+                    "output_tokens_delta": 5,
+                    "total_tokens_delta": 9,
+                },
+                session_id="session-b",
+            )
+            status = view._status_fragments()
+            assert "Session: in 4 / out 5 / total 9" in status[1][1]
             assert len(status) == 2
         finally:
             view.stop()
@@ -97,19 +120,24 @@ def test_usage_status_defaults_on_and_can_be_disabled(monkeypatch):
     from uagent.core_impl import display
 
     seen = []
-    view = SimpleNamespace(set_usage=lambda usage: seen.append(usage))
+    view = SimpleNamespace(
+        set_usage=lambda usage, **kwargs: seen.append((usage, kwargs))
+    )
     monkeypatch.setattr(display, "_active_console_view", lambda: view)
     monkeypatch.setattr(display, "env_get", lambda _name, default="": default)
+    monkeypatch.setattr(
+        display._core, "_session_store_active_id", "session-a", raising=False
+    )
 
     assert display.usage_display_enabled() is True
     usage = {"input_tokens_delta": 12}
     assert display.set_usage_status(usage) is True
-    assert seen == [usage]
+    assert seen == [(usage, {"session_id": "session-a"})]
 
     monkeypatch.setattr(display, "env_get", lambda _name, _default="": "0")
     assert display.usage_display_enabled() is False
     assert display.set_usage_status(usage) is False
-    assert seen == [usage, None]
+    assert seen == [(usage, {"session_id": "session-a"}), (None, {})]
 
 
 def test_view_ctrl_c_and_ctrl_d_keys():

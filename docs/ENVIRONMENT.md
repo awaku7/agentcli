@@ -336,8 +336,11 @@ but catalogued models marked unsupported are still rejected.
 `interactions` uses the Google GenAI Interactions API in stateless mode
 (`store=false`), keeping conversation history in UAG. Use a model listed for
 Interactions by the selected provider. Interactions responses are buffered
-before UAG renders them; the existing `generate_content` mode retains its
-current streaming and cache behavior. Other Google-backed tools keep using
+before UAG renders them; `requires_continuation` responses are resumed using the
+returned continuation token, up to 16 follow-up requests. The Interactions
+adapter currently maps image and audio attachments; video and document
+attachments are not yet supported. The existing `generate_content` mode retains
+its current streaming and cache behavior. Other Google-backed tools keep using
 their own configured API paths.
 
 #### Claude (Anthropic)

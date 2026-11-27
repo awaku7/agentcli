@@ -209,7 +209,14 @@ def test_interactions_request_is_stateless_and_normalizes_response(monkeypatch) 
     assert request["extra_body"]["generation_config"]["thinking_summaries"] == "none"
     assert request["safety_settings"][0] == {
         "type": "harassment",
-        "threshold": "block_none",
+        "threshold": "off",
+    }
+    assert {setting["type"] for setting in request["safety_settings"]} == {
+        "harassment",
+        "hate_speech",
+        "sexually_explicit",
+        "dangerous_content",
+        "jailbreak",
     }
     assert text == "Checking now."
     assert calls == [
@@ -230,6 +237,96 @@ def test_interactions_request_is_stateless_and_normalizes_response(monkeypatch) 
         "cache_read_input_tokens": 3,
         "reasoning_output_tokens": 2,
     }
+
+
+def test_interactions_continues_long_decode_and_preserves_all_steps(
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_GEMINI_WEB_SEARCH", "0")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_GEMINI_SAFETY_OFF", "0")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda _model, _provider: None
+    )
+    monkeypatch.setattr(
+        "uagent.providers.llm_gemini._llmcapa_reasoning_levels", lambda _model: None
+    )
+    from uagent.runtime import execution_broker
+
+    monkeypatch.setattr(execution_broker, "computer_use_allowed", lambda: False)
+
+    partial = {
+        "status": "requires_continuation",
+        "continuation_token": "opaque-token",
+        "steps": [
+            {
+                "type": "model_output",
+                "content": [{"type": "text", "text": "Partial "}],
+            }
+        ],
+    }
+    completed = {
+        "status": "completed",
+        "steps": [
+            {
+                "type": "model_output",
+                "content": [{"type": "text", "text": "answer."}],
+            }
+        ],
+    }
+
+    class FakeInteractions:
+        def __init__(self):
+            self.requests = []
+
+        def create(self, **kwargs):
+            self.requests.append(kwargs)
+            return partial if len(self.requests) == 1 else completed
+
+    api = FakeInteractions()
+    text, _calls, content_dump = gemini_interactions_chat_with_tools(
+        SimpleNamespace(interactions=api),
+        "gemini-4-hydrogen",
+        [{"role": "user", "content": "Continue the long answer."}],
+        provider="gemini",
+        send_tools=False,
+    )
+
+    assert text == "Partial answer."
+    assert api.requests[1] == {
+        "model": "gemini-4-hydrogen",
+        "continuation_token": "opaque-token",
+        "store": False,
+    }
+    assert len(content_dump["_gemini_interactions_steps"]) == 2
+
+
+def test_interactions_does_not_return_incomplete_response_as_complete(
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_GEMINI_SAFETY_OFF", "0")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda _model, _provider: None
+    )
+    monkeypatch.setattr(
+        "uagent.providers.llm_gemini._llmcapa_reasoning_levels", lambda _model: None
+    )
+    from uagent.runtime import execution_broker
+
+    monkeypatch.setattr(execution_broker, "computer_use_allowed", lambda: False)
+
+    class FakeInteractions:
+        def create(self, **_kwargs):
+            return {"status": "incomplete", "steps": []}
+
+    with pytest.raises(RuntimeError, match="status incomplete"):
+        gemini_interactions_chat_with_tools(
+            SimpleNamespace(interactions=FakeInteractions()),
+            "gemini-4-hydrogen",
+            [{"role": "user", "content": "Hello"}],
+            provider="gemini",
+            send_tools=False,
+        )
 
 
 def test_interactions_initial_discovery_forces_catalog_tool(monkeypatch) -> None:

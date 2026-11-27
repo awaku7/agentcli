@@ -631,13 +631,13 @@ def gemini_interactions_chat_with_tools(
     safety_off = (env_get("UAGENT_GEMINI_SAFETY_OFF") or "1").strip().lower()
     if safety_off in {"1", "true", "yes", "on"}:
         request["safety_settings"] = [
-            {"type": category, "threshold": "block_none"}
+            {"type": category, "threshold": "off"}
             for category in (
                 "harassment",
                 "hate_speech",
                 "sexually_explicit",
                 "dangerous_content",
-                "civic_integrity",
+                "jailbreak",
             )
         ]
 
@@ -669,6 +669,31 @@ def gemini_interactions_chat_with_tools(
         except Exception:
             pass
 
+    def _notify_stream_failure(status_value: str | None = None) -> None:
+        if not stream:
+            return
+        try:
+            if core is not None and bool(getattr(core, "_is_web", False)):
+                log_message = getattr(core, "log_message", None)
+                if callable(log_message):
+                    log_message({"type": "assistant_stream_end"})
+        except Exception:
+            pass
+        callback = getattr(callbacks, "on_terminal", None)
+        if callable(callback):
+            try:
+                data = {"status": status_value} if status_value else {}
+                callback("ResponseFailed", data)
+            except Exception:
+                pass
+
+    active_client = client
+
+    def _create_interaction(request_client: Any) -> Any:
+        nonlocal active_client
+        active_client = request_client
+        return request_client.interactions.create(**request, extra_body=extra_body)
+
     try:
         from .util_providers import call_vertexai_with_region_fallback
 
@@ -676,45 +701,93 @@ def gemini_interactions_chat_with_tools(
             core,
             client,
             model_name,
-            lambda active_client: active_client.interactions.create(
-                **request, extra_body=extra_body
-            ),
+            _create_interaction,
             provider=provider,
         )
     except Exception:
-        if stream:
-            try:
-                if core is not None and bool(getattr(core, "_is_web", False)):
-                    log_message = getattr(core, "log_message", None)
-                    if callable(log_message):
-                        log_message({"type": "assistant_stream_end"})
-            except Exception:
-                pass
-            callback = getattr(callbacks, "on_terminal", None)
-            if callable(callback):
-                try:
-                    callback("ResponseFailed", {})
-                except Exception:
-                    pass
+        _notify_stream_failure()
         raise
+
+    continuation_responses = [response]
+    stopped_before_continuation = False
+    for _ in range(16):
+        response_status = str(_get(response, "status") or "").strip().lower()
+        if response_status != "requires_continuation":
+            break
+        if stream and stream_stop_requested(core):
+            stopped_before_continuation = True
+            break
+        continuation_token = _get(response, "continuation_token") or _get(
+            response, "continuationToken"
+        )
+        if not isinstance(continuation_token, str) or not continuation_token:
+            _notify_stream_failure("requires_continuation")
+            raise RuntimeError(
+                "Gemini Interactions API requires continuation but returned no "
+                "continuation token."
+            )
+        try:
+            response = active_client.interactions.create(
+                model=model_name,
+                continuation_token=continuation_token,
+                store=False,
+            )
+        except Exception:
+            _notify_stream_failure()
+            raise
+        continuation_responses.append(response)
+    else:
+        if (
+            str(_get(response, "status") or "").strip().lower()
+            == "requires_continuation"
+        ):
+            _notify_stream_failure("requires_continuation")
+            raise RuntimeError(
+                "Gemini Interactions API exceeded UAG's continuation limit (16)."
+            )
+
+    if len(continuation_responses) > 1:
+        # Continuation responses can contain only the newly generated steps.
+        # Preserve the complete sequence so tool calls and thought signatures
+        # remain available to the next stateless request.
+        merged_response = _dump(response)
+        merged_steps: list[dict[str, Any]] = []
+        seen_steps: set[str] = set()
+        for continuation_response in continuation_responses:
+            for step in _get(continuation_response, "steps", []) or []:
+                step_data = _dump(step)
+                if not step_data:
+                    continue
+                signature = json.dumps(
+                    step_data, sort_keys=True, ensure_ascii=False, default=str
+                )
+                if signature not in seen_steps:
+                    seen_steps.add(signature)
+                    merged_steps.append(step_data)
+        merged_response["steps"] = merged_steps
+        response = merged_response
+
     status = str(_get(response, "status") or "").strip().lower()
-    if status in {"failed", "cancelled", "budget_exceeded"}:
+    if status == "requires_continuation" and not stopped_before_continuation:
+        _notify_stream_failure(status)
+        raise RuntimeError(
+            "Gemini Interactions API still requires continuation after UAG's "
+            "continuation limit."
+        )
+    if (
+        status
+        in {
+            "failed",
+            "cancelled",
+            "budget_exceeded",
+            "incomplete",
+            "in_progress",
+        }
+        and not stopped_before_continuation
+    ):
         errors = _get(response, "errors") or []
         error_text = "; ".join(str(_get(error, "message") or error) for error in errors)
-        if stream:
-            try:
-                if core is not None and bool(getattr(core, "_is_web", False)):
-                    log_message = getattr(core, "log_message", None)
-                    if callable(log_message):
-                        log_message({"type": "assistant_stream_end"})
-            except Exception:
-                pass
-            callback = getattr(callbacks, "on_terminal", None)
-            if callable(callback):
-                try:
-                    callback("ResponseFailed", {"status": status})
-                except Exception:
-                    pass
+        _notify_stream_failure(status)
         raise RuntimeError(
             f"Gemini Interactions API returned status {status}"
             + (f": {error_text}" if error_text else ".")

@@ -13,6 +13,7 @@
 - Run CLI rounds on a worker thread and route output through a display channel for coordinated terminal rendering.
 - Defer optional tool imports, register hidden tools from a cached manifest, and split the tool registry, LLM round loop, and session store into focused modules.
 - Improve interruption handling across LLM/provider streams, command processes, and monitor tools, including cleanup of abandoned streams.
+- Show cumulative input, output, and total token usage for the active session in the CLI status line.
 - Default Vertex AI to the global location for project/IAM/ADC authentication
   when no location is configured, and retry 404 failures in model-supported
   locations from llmcapa.
@@ -21,6 +22,7 @@
 
 - Improve console-view handling of prompts, completions, resizing, suspend/resume, queued input, and stream rendering.
 - Keep password replies out of clipboard/history and Emacs macro recordings, and make confirmation teardown and interrupt handling reliable.
+- Send valid Interactions API safety settings, resume long-decode continuations, and reject incomplete responses instead of treating them as completed.
 
 ## [0.7.56] - 2026-11-24
 
