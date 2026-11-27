@@ -7,6 +7,8 @@ import json
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+from ..providers.gemini_api_mode import gemini_api_mode
+
 _INTERNAL_KEYS = {
     "result_record",
     "persistent_history",
@@ -59,11 +61,17 @@ def project_messages_for_provider(
             continue
         item = copy.deepcopy(message)
         for key in list(item):
+            keep_gemini_interaction_history = (
+                key == "_gemini_content"
+                and provider_name in {"gemini", "vertexai"}
+                and gemini_api_mode() == "interactions"
+            )
             # Sarashina requires its opaque reasoning token to be replayed in
             # the next assistant message. Keep the internal alias until its
             # provider sanitizer maps it to the documented ``reasoning`` key.
             if (
                 key in _INTERNAL_KEYS
+                and not keep_gemini_interaction_history
                 and not (
                     provider_name == "sarashina"
                     and key in {"reasoning", "reasoning_content"}

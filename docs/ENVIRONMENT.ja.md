@@ -266,6 +266,7 @@ llmcapaが設定モデルの対応を確認した場合、UAGはvLLMのOpenAI互
 
 - `UAGENT_GEMINI_API_KEY`（必須）
 - `UAGENT_GEMINI_DEPNAME`（省略可、既定: `gemini-3.8-flash`）
+- `UAGENT_GEMINI_API_MODE`（省略可）: `generate_content`（既定）または`interactions`。
 
 #### Google Vertex AI
 
@@ -275,6 +276,9 @@ llmcapaが設定モデルの対応を確認した場合、UAGはvLLMのOpenAI互
 - `UAGENT_VERTEXAI_LOCATION`（必須、例: `us-central1`）
 - `UAGENT_VERTEXAI_DEPNAME`（必須）
 - `UAGENT_VERTEXAI_CREDENTIALS`（必須）: Google Cloud サービスアカウント JSON のパス。
+- `UAGENT_GEMINI_API_MODE`（省略可）: `generate_content`（既定）または`interactions`。
+
+この設定はGemini／Vertex AIのメインのチャット・ツール呼び出し経路に適用されます。`interactions`ではGoogle GenAI Interactions APIをステートレス（`store=false`）で呼び出し、会話履歴はUAG側で保持します。選択したプロバイダーの公式対応モデルを使用してください。Interactionsの応答は完了後にまとめてUAGの画面へ表示されます。既定の`generate_content`モードでは、従来のストリーミングとキャッシュ動作を維持します。ほかのGoogle関連ツールはそれぞれの既存API設定を引き続き使用します。
 
 #### Claude (Anthropic)
 

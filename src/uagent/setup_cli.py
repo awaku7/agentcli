@@ -192,6 +192,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     "gemini": [
         ("UAGENT_GEMINI_API_KEY", True, _("Gemini API key")),
         ("UAGENT_GEMINI_DEPNAME", False, _("Gemini model name (optional)")),
+        (
+            "UAGENT_GEMINI_API_MODE",
+            False,
+            _("Gemini API mode: generate_content (default) or interactions"),
+        ),
     ],
     "vertexai": [
         (
@@ -212,6 +217,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             _("Google location/region for Vertex AI (optional)"),
         ),
         ("UAGENT_VERTEXAI_DEPNAME", True, _("Vertex AI model/deployment name")),
+        (
+            "UAGENT_GEMINI_API_MODE",
+            False,
+            _("Gemini API mode: generate_content (default) or interactions"),
+        ),
     ],
     "grok": [
         ("UAGENT_GROK_API_KEY", True, _("Grok API key")),

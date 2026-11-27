@@ -86,6 +86,10 @@ ______________________________________________________________________
    - tool call があれば実行し、結果を履歴へ追加して再帰
    - 429 Rate Limit 等の backoff は `llm_errors.py` に実装
 
+### Gemini / Vertex API mode
+
+`UAGENT_GEMINI_API_MODE` は `gemini` と `vertexai` のメインチャット経路を切り替えます。既定の `generate_content` は従来どおりです。`interactions` は `providers/llm_gemini_interactions.py` にディスパッチし、`store=false` のステートレス要求でUAGの会話履歴を送ります。思考署名やツール呼び出し履歴を再送できるよう、Interactionsの生ステップをassistantメッセージの `_gemini_content` に保持します。このモードではGenerateContent用キャッシュを作成せず、ストリーミングが有効でもAPI応答完了後に既存コールバック経由で一括表示します。
+
 ______________________________________________________________________
 
 ## 3. Tools システム（仕組みの概要）

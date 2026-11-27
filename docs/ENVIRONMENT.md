@@ -305,6 +305,7 @@ Required if `UAGENT_PROVIDER=gemini`:
 
 - `UAGENT_GEMINI_API_KEY` (required)
 - `UAGENT_GEMINI_DEPNAME` (optional, default: `gemini-3.8-flash`)
+- `UAGENT_GEMINI_API_MODE` (optional): `generate_content` (default) or `interactions`.
 
 #### Google Vertex AI
 
@@ -314,6 +315,15 @@ Required if `UAGENT_PROVIDER=vertexai`:
 - `UAGENT_VERTEXAI_LOCATION` (required, e.g. `us-central1`)
 - `UAGENT_VERTEXAI_DEPNAME` (required)
 - `UAGENT_VERTEXAI_CREDENTIALS` (required): Path to Google Cloud service account JSON.
+- `UAGENT_GEMINI_API_MODE` (optional): `generate_content` (default) or `interactions`.
+
+The API-mode setting applies to the main Gemini/Vertex chat and tool-call path.
+`interactions` uses the Google GenAI Interactions API in stateless mode
+(`store=false`), keeping conversation history in UAG. Use a model listed for
+Interactions by the selected provider. Interactions responses are buffered
+before UAG renders them; the existing `generate_content` mode retains its
+current streaming and cache behavior. Other Google-backed tools keep using
+their own configured API paths.
 
 #### Claude (Anthropic)
 

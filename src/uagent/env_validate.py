@@ -7,6 +7,7 @@ from typing import Sequence
 from .env_utils import env_get
 from .i18n import _
 from .providers.provider_caps import ALL_PROVIDERS
+from .providers.gemini_api_mode import gemini_api_mode
 
 
 @dataclass(frozen=True)
@@ -56,6 +57,12 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             % {"provider": provider, "allowed": ", ".join(allowed)}
         )
         return provider, missing, warnings
+
+    if provider in {"gemini", "vertexai"}:
+        try:
+            gemini_api_mode()
+        except ValueError as exc:
+            warnings.append(str(exc))
 
     if provider == "azure":
         missing += _require(

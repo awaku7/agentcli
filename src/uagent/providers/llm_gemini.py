@@ -13,6 +13,7 @@ from ..i18n import _
 from .. import tools
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from .gemini_api_mode import gemini_api_mode
 from ..llm_helpers import (
     iter_until_stopped,
     stream_stop_requested,
@@ -802,7 +803,22 @@ def gemini_chat_with_tools(
     provider: str = "gemini",
     callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
-    """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
+    """Run one Gemini/Vertex turn through its configured Google API transport."""
+
+    if gemini_api_mode() == "interactions":
+        from .llm_gemini_interactions import gemini_interactions_chat_with_tools
+
+        return gemini_interactions_chat_with_tools(
+            client,
+            model_name,
+            messages,
+            stream=stream,
+            core=core,
+            force_thinking_level=force_thinking_level,
+            send_tools=send_tools,
+            provider=provider,
+            callbacks=callbacks,
+        )
 
     callbacks = callbacks or StreamCallbacks()
     try:

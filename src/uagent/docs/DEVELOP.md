@@ -700,6 +700,18 @@ ______________________________________________________________________
      observable inference/output/tool-call phases. Inline `<think>` boundaries,
      when emitted by a model, change the status only; the observer does not expose its text.
 
+### Gemini / Vertex API mode
+
+`UAGENT_GEMINI_API_MODE` selects the transport for the `gemini` and `vertexai`
+main-chat providers. The default `generate_content` path remains unchanged;
+`interactions` dispatches to `providers/llm_gemini_interactions.py`. That adapter
+serializes provider-native Interactions steps into `_gemini_content` so stateless
+follow-up requests (`store=false`) can replay thought signatures and tool-call
+history. `llm_message_helpers._init_gemini_cache()` must not create or clear
+GenerateContent caches in Interactions mode. The SDK call is currently buffered
+even when UAG streaming is enabled, then rendered through the existing stream
+callbacks after completion.
+
 ______________________________________________________________________
 
 ## 3. Tools system (how it works)

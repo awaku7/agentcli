@@ -11,6 +11,7 @@ from .tools.context import get_callbacks
 from .image_session import build_image_session_message
 from .i18n import _
 from .providers.llm_gemini import _message_content_text, _sanitize_gemini_parameters
+from .providers.gemini_api_mode import gemini_api_mode
 from .providers.responses_manager import is_server_side_compaction_enabled
 
 from ._lazy_sdk import gemini_types as _lazy_gemini_types
@@ -35,6 +36,7 @@ def _init_gemini_cache(
     gemini_types = (
         _lazy_gemini_types()
         if provider in ("gemini", "vertexai")
+        and gemini_api_mode() != "interactions"
         and use_cache_env not in ("0", "false", "no")
         else None
     )
