@@ -205,3 +205,39 @@ def test_startup_banner_llmcapa_timing_uses_existing_flag(monkeypatch, capsys):
     ):
         assert f"[startup-timing] detail.{detail}=" in output
     assert "LLM API mode = Responses (UAGENT_RESPONSES is enabled)" in banner
+
+
+@pytest.mark.parametrize(
+    "provider,google_mode,expected",
+    [
+        ("gemini", "interactions", "Gemini Interactions API"),
+        ("gemini", "generate_content", "Gemini GenerateContent API"),
+        ("vertexai", "interactions", "Vertex AI Interactions API"),
+        ("vertexai", "generate_content", "Vertex AI GenerateContent API"),
+        ("claude", "unused", "Anthropic Messages API"),
+    ],
+)
+def test_startup_banner_shows_google_and_anthropic_api_mode(
+    monkeypatch, provider, google_mode, expected
+):
+    from uagent import llmcapa_util
+    from uagent.providers import gemini_api_mode
+
+    monkeypatch.setenv("UAGENT_PROVIDER", provider)
+    monkeypatch.setenv("UAGENT_RESPONSES", "0")
+    monkeypatch.setattr(runtime_banner, "_", lambda text: text)
+    monkeypatch.setattr(runtime_banner, "_startup_optional_model_infos", lambda: [])
+    monkeypatch.setattr(llmcapa_util, "current_model", lambda *_: "test-model")
+    monkeypatch.setattr(llmcapa_util, "provider_allows_responses_api", lambda *_: False)
+    monkeypatch.setattr(llmcapa_util, "deprecated_model_warning", lambda *_: None)
+    monkeypatch.setattr(
+        gemini_api_mode,
+        "gemini_api_mode",
+        lambda *_args: google_mode,
+    )
+
+    banner = runtime_banner.build_startup_banner(
+        core=SimpleNamespace(), workdir="workspace", workdir_source="cli"
+    )
+
+    assert f"LLM API mode = {expected}" in banner

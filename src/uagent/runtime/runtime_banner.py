@@ -630,6 +630,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
+    _banner_model = ""
     with measure_detail("banner.llmcapa.total"):
         try:
             with measure_detail("banner.llmcapa.import"):
@@ -646,6 +647,13 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                         env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini")
                         or "phi-4-mini"
                     )
+            if provider in {"gemini", "vertexai"} and not _banner_model:
+                try:
+                    from ..providers.util_providers import get_model_name
+
+                    _banner_model = get_model_name()
+                except Exception:
+                    pass
             if provider == "lmstudio":
                 with measure_detail("banner.llmcapa.lmstudio_endpoint"):
                     from ..providers.llm_lmstudio import responses_endpoint_available
@@ -668,6 +676,37 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     )
     if provider == "lmstudio" and _lmstudio_transport == "sdk":
         _mode_msg = _("LM Studio Python SDK (ChatCompletions)")
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
+    elif provider in {"gemini", "vertexai"}:
+        try:
+            from ..providers.gemini_api_mode import gemini_api_mode
+
+            _google_api_mode = gemini_api_mode(_banner_model or None, provider)
+        except Exception:
+            _google_api_mode = "invalid"
+        if provider == "vertexai":
+            _mode_msg = (
+                "Vertex AI Interactions API"
+                if _google_api_mode == "interactions"
+                else (
+                    "Vertex AI GenerateContent API"
+                    if _google_api_mode == "generate_content"
+                    else "Invalid UAGENT_GEMINI_API_MODE"
+                )
+            )
+        else:
+            _mode_msg = (
+                "Gemini Interactions API"
+                if _google_api_mode == "interactions"
+                else (
+                    "Gemini GenerateContent API"
+                    if _google_api_mode == "generate_content"
+                    else "Invalid UAGENT_GEMINI_API_MODE"
+                )
+            )
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
+    elif provider == "claude":
+        _mode_msg = "Anthropic Messages API"
         lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
     elif _use_responses_flag and _responses_supported:
         _mode_msg = _("Responses (UAGENT_RESPONSES is enabled)")

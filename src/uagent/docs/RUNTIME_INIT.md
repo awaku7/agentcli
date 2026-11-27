@@ -112,7 +112,7 @@ Notes:
 
 - Secrets such as API keys are never printed.
 - `core.normalize_url()` is used when available; otherwise URLs are trimmed conservatively.
-- `build_startup_banner()` does **not** print the Responses/ChatCompletions mode line itself. CLI/Web/GUI may print that separately after the banner.
+- The returned banner includes the selected API mode: Responses/ChatCompletions for supported OpenAI-compatible routes, Interactions/GenerateContent for Gemini and Vertex AI, and Anthropic Messages for Claude. The caller is responsible for printing the returned text.
 
 ______________________________________________________________________
 
