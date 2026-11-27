@@ -1,6 +1,6 @@
 {
   "ja": {
-    "describe.python": "Pythonを実行",
+    "describe.python": "受け取ったPythonコードを一時スクリプトとして実行します。標準入力は閉じ、設定済みのタイムアウトを適用し、標準出力・標準エラーを返します。実行環境と作業ディレクトリはエージェントプロセスから引き継ぎます。",
     "param.code.description": "実行するPythonコード。計算やデータ処理などの短いスクリプトを入力します。",
     "x_search_terms": [
       "Pythonの実行",
@@ -15,10 +15,10 @@
       "pythonプログラム"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Python コードを制御された方法で実行します。計算、データ処理、または短いスクリプトの実行に利用できます。使用前に、`tool_catalog` で他の適切なツールを検索してください。"
+    "tool.description": "短い計算やデータ処理向けに、PythonコードをアクティブなPythonインタープリターで一時スクリプトとして実行します（対話型REPLではありません）。標準入力は閉じ、設定済みのタイムアウトを適用して、標準出力・標準エラーを返します。作業ディレクトリと環境変数はエージェントプロセスから引き継ぎます。専用ツールがある操作では、そちらを優先してください。"
   },
   "es": {
-    "describe.python": "Ejecutando Python",
+    "describe.python": "Ejecuta el código Python proporcionado como un script temporal con el intérprete activo. La entrada estándar se cierra, se aplica el tiempo de espera configurado y se devuelven la salida y los errores estándar. El script hereda el directorio de trabajo y el entorno del proceso del agente.",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "ejecutivo de Python",
@@ -33,10 +33,10 @@
       "programa python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Ejecute código Python de forma controlada. Utilice esta herramienta para cálculos, procesamiento de datos o ejecutar scripts cortos. Busque otras herramientas adecuadas a través de `tool_catalog` antes de usar esta herramienta."
+    "tool.description": "Ejecuta código Python breve como un script temporal con el intérprete activo (no es una REPL interactiva). La entrada estándar se cierra, se aplica el tiempo de espera configurado y se devuelven stdout/stderr. El script hereda el directorio de trabajo y el entorno del proceso del agente. Para las operaciones compatibles, prioriza las herramientas específicas; antes de usar esta herramienta, busca otras adecuadas en `tool_catalog`."
   },
   "fr": {
-    "describe.python": "Exécution de Python",
+    "describe.python": "Exécute le code Python fourni comme script temporaire avec l’interpréteur actif. L’entrée standard est fermée, le délai maximal configuré s’applique et la sortie standard ainsi que les erreurs sont renvoyées. Le script hérite du répertoire de travail et de l’environnement du processus de l’agent.",
     "param.code.description": "Code Python.",
     "x_search_terms": [
       "exécutable python",
@@ -51,10 +51,10 @@
       "programme python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Exécutez le code Python de manière contrôlée. Utilisez cet outil pour les calculs, le traitement des données ou l'exécution de scripts courts. Recherchez d'autres outils appropriés via `tool_catalog` avant d'utiliser cet outil."
+    "tool.description": "Exécutez du code Python court comme script temporaire avec l’interpréteur actif (pas dans une REPL interactive). L’entrée standard est fermée, le délai maximal configuré s’applique et stdout/stderr sont renvoyés. Le script hérite du répertoire de travail et de l’environnement du processus de l’agent. Pour les opérations prises en charge, privilégiez les outils dédiés et recherchez d’autres outils adaptés dans `tool_catalog` avant d’utiliser celui-ci."
   },
   "ko": {
-    "describe.python": "Python 실행 중",
+    "describe.python": "제공된 Python 코드를 활성 인터프리터로 임시 스크립트로 실행합니다. 표준 입력은 닫히고, 설정된 시간 제한이 적용되며, 표준 출력과 오류가 반환됩니다. 스크립트는 에이전트 프로세스의 작업 디렉터리와 환경을 상속합니다.",
     "param.code.description": "Python 코드.",
     "x_search_terms": [
       "파이썬 exec",
@@ -69,10 +69,10 @@
       "python 프로그램"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "통제된 방식으로 Python 코드를 실행하세요. 계산, 데이터 처리 또는 짧은 스크립트 실행에 이 도구를 사용하십시오. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요."
+    "tool.description": "짧은 Python 코드를 활성 인터프리터로 임시 스크립트로 실행하세요(대화형 REPL이 아닙니다). 표준 입력은 닫히고, 설정된 시간 제한이 적용되며, stdout/stderr가 반환됩니다. 스크립트는 에이전트 프로세스의 작업 디렉터리와 환경을 상속합니다. 지원되는 작업에는 전용 도구를 우선 사용하고, 이 도구를 사용하기 전에 `tool_catalog`에서 다른 적합한 도구를 검색하세요."
   },
   "de": {
-    "describe.python": "Python wird ausgeführt",
+    "describe.python": "Führt den übergebenen Python-Code mit dem aktiven Interpreter als temporäres Skript aus. Die Standardeingabe ist geschlossen, ein konfiguriertes Zeitlimit gilt, und Standardausgabe sowie Standardfehler werden zurückgegeben. Das Skript übernimmt Arbeitsverzeichnis und Umgebung des Agent-Prozesses.",
     "param.code.description": "Auszuführender Python-Code.",
     "x_search_terms": [
       "Python Exec",
@@ -87,10 +87,10 @@
       "Python-Programm"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Führen Sie Python-Code auf kontrollierte Weise aus. Verwenden Sie dieses Tool für Berechnungen, Datenverarbeitung oder die Ausführung kurzer Skripte. Suchen Sie über „tool_catalog“ nach anderen geeigneten Tools, bevor Sie dieses Tool verwenden."
+    "tool.description": "Führt kurzen Python-Code mit dem aktiven Interpreter als temporäres Skript aus (keine interaktive REPL). Die Standardeingabe ist geschlossen, ein konfiguriertes Zeitlimit gilt, und stdout/stderr werden zurückgegeben. Das Skript übernimmt Arbeitsverzeichnis und Umgebung des Agent-Prozesses. Verwende für unterstützte Vorgänge bevorzugt spezielle Tools und suche vor der Nutzung dieses Tools in `tool_catalog` nach anderen passenden Tools."
   },
   "it": {
-    "describe.python": "Esecuzione di Python",
+    "describe.python": "Esegue il codice Python fornito come script temporaneo usando l’interprete attivo. L’input standard è chiuso, si applica il timeout configurato e vengono restituiti l’output standard e gli errori. Lo script eredita la directory di lavoro e l’ambiente del processo dell’agente.",
     "param.code.description": "Codice Python.",
     "x_search_terms": [
       "Python esecutivo",
@@ -105,10 +105,10 @@
       "programma python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Esegui il codice Python in modo controllato. Utilizzare questo strumento per calcoli, elaborazione dati o esecuzione di brevi script. Cerca altri strumenti adatti tramite `tool_catalog` prima di utilizzare questo strumento."
+    "tool.description": "Esegui codice Python breve come script temporaneo usando l’interprete attivo (non come REPL interattiva). L’input standard è chiuso, si applica il timeout configurato e vengono restituiti stdout/stderr. Lo script eredita la directory di lavoro e l’ambiente del processo dell’agente. Per le operazioni supportate, preferisci gli strumenti dedicati e cerca altri strumenti adatti in `tool_catalog` prima di usare questo strumento."
   },
   "ru": {
-    "describe.python": "Выполнение Python",
+    "describe.python": "Запускает предоставленный код Python как временный скрипт с помощью активного интерпретатора. Стандартный ввод закрыт, действует настроенный лимит времени, стандартный вывод и ошибки возвращаются. Скрипт наследует рабочую папку и окружение процесса агента.",
     "param.code.description": "Код Python.",
     "x_search_terms": [
       "Python-исполнитель",
@@ -123,10 +123,10 @@
       "программа Python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Выполняйте код Python контролируемым образом. Используйте этот инструмент для вычислений, обработки данных или выполнения коротких сценариев. Прежде чем использовать этот инструмент, найдите другие подходящие инструменты через `tool_catalog`."
+    "tool.description": "Запускайте короткий код Python как временный скрипт с помощью активного интерпретатора (это не интерактивная REPL). Стандартный ввод закрыт, действует настроенный лимит времени, возвращаются stdout/stderr. Скрипт наследует рабочую папку и окружение процесса агента. Для поддерживаемых операций отдавайте предпочтение специализированным инструментам; перед использованием этого инструмента найдите другие подходящие варианты в `tool_catalog`."
   },
   "pt_BR": {
-    "describe.python": "Executando Python",
+    "describe.python": "Executa o código Python fornecido como um script temporário usando o interpretador ativo. A entrada padrão é fechada, o tempo limite configurado é aplicado e a saída e os erros padrão são retornados. O script herda o diretório de trabalho e o ambiente do processo do agente.",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "executivo python",
@@ -141,10 +141,10 @@
       "programa python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
+    "tool.description": "Execute código Python curto como um script temporário usando o interpretador ativo (não é uma REPL interativa). A entrada padrão é fechada, o tempo limite configurado é aplicado e stdout/stderr são retornados. O script herda o diretório de trabalho e o ambiente do processo do agente. Prefira ferramentas específicas para operações compatíveis e procure outras ferramentas adequadas em `tool_catalog` antes de usar esta ferramenta."
   },
   "pt": {
-    "describe.python": "A executar Python",
+    "describe.python": "Executa o código Python fornecido como um script temporário usando o interpretador ativo. A entrada padrão é fechada, aplica-se o tempo limite configurado e a saída e os erros padrão são devolvidos. O script herda o diretório de trabalho e o ambiente do processo do agente.",
     "param.code.description": "Código Python.",
     "x_search_terms": [
       "executivo python",
@@ -159,10 +159,10 @@
       "programa python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
+    "tool.description": "Execute código Python curto como um script temporário usando o interpretador ativo (não é uma REPL interativa). A entrada padrão é fechada, aplica-se o tempo limite configurado e stdout/stderr são devolvidos. O script herda o diretório de trabalho e o ambiente do processo do agente. Prefira ferramentas dedicadas para operações suportadas e procure outras ferramentas adequadas em `tool_catalog` antes de usar esta ferramenta."
   },
   "id": {
-    "describe.python": "Menjalankan Python",
+    "describe.python": "Menjalankan kode Python yang diberikan sebagai skrip sementara menggunakan interpreter aktif. Input standar ditutup, batas waktu yang dikonfigurasi berlaku, dan keluaran serta kesalahan standar dikembalikan. Skrip mewarisi direktori kerja dan lingkungan proses agen.",
     "param.code.description": "Kode Python.",
     "x_search_terms": [
       "eksekutif python",
@@ -177,10 +177,10 @@
       "program python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Jalankan kode Python dengan cara yang terkendali. Gunakan alat ini untuk penghitungan, pemrosesan data, atau menjalankan skrip pendek. Cari alat lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
+    "tool.description": "Jalankan kode Python singkat sebagai skrip sementara menggunakan interpreter aktif (bukan REPL interaktif). Input standar ditutup, batas waktu yang dikonfigurasi berlaku, dan stdout/stderr dikembalikan. Skrip mewarisi direktori kerja dan lingkungan proses agen. Utamakan alat khusus untuk operasi yang didukung; cari alat lain yang sesuai di `tool_catalog` sebelum menggunakan alat ini."
   },
   "vi": {
-    "describe.python": "Đang chạy Python",
+    "describe.python": "Chạy mã Python được cung cấp dưới dạng tập lệnh tạm thời bằng trình thông dịch đang hoạt động. Đầu vào chuẩn được đóng, áp dụng thời hạn đã cấu hình và trả về đầu ra chuẩn cùng lỗi chuẩn. Tập lệnh kế thừa thư mục làm việc và môi trường của tiến trình tác nhân.",
     "param.code.description": "Mã Python.",
     "x_search_terms": [
       "người thực thi python",
@@ -195,10 +195,10 @@
       "chương trình python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Thực thi mã Python theo cách được kiểm soát. Sử dụng công cụ này để tính toán, xử lý dữ liệu hoặc chạy các tập lệnh ngắn. Tìm kiếm các công cụ phù hợp khác thông qua `tool_catalog` trước khi sử dụng công cụ này."
+    "tool.description": "Chạy mã Python ngắn dưới dạng tập lệnh tạm thời bằng trình thông dịch đang hoạt động (không phải REPL tương tác). Đầu vào chuẩn được đóng, áp dụng thời hạn đã cấu hình và trả về stdout/stderr. Tập lệnh kế thừa thư mục làm việc và môi trường của tiến trình tác nhân. Ưu tiên công cụ chuyên dụng cho các thao tác được hỗ trợ; hãy tìm công cụ phù hợp khác trong `tool_catalog` trước khi dùng công cụ này."
   },
   "pl": {
-    "describe.python": "Uruchamianie Pythona",
+    "describe.python": "Uruchamia podany kod Python jako tymczasowy skrypt przy użyciu aktywnego interpretera. Standardowe wejście jest zamknięte, obowiązuje skonfigurowany limit czasu, a standardowe wyjście i błędy są zwracane. Skrypt dziedziczy katalog roboczy i środowisko procesu agenta.",
     "param.code.description": "Kod Pythona.",
     "x_search_terms": [
       "wykonanie Pythona",
@@ -213,10 +213,10 @@
       "program Pythona"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Wykonaj kod Pythona w kontrolowany sposób. Użyj tego narzędzia do obliczeń, przetwarzania danych lub uruchamiania krótkich skryptów. Przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia w `tool_catalog`."
+    "tool.description": "Uruchamiaj krótki kod Python jako tymczasowy skrypt przy użyciu aktywnego interpretera (nie jako interaktywną REPL). Standardowe wejście jest zamknięte, obowiązuje skonfigurowany limit czasu, a stdout/stderr są zwracane. Skrypt dziedziczy katalog roboczy i środowisko procesu agenta. W przypadku obsługiwanych operacji wybieraj dedykowane narzędzia; przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia w `tool_catalog`."
   },
   "hi": {
-    "describe.python": "Python चलाया जा रहा है",
+    "describe.python": "दिए गए Python कोड को सक्रिय इंटरप्रेटर से अस्थायी स्क्रिप्ट के रूप में चलाता है। मानक इनपुट बंद रहता है, निर्धारित समय-सीमा लागू होती है, और मानक आउटपुट/त्रुटि लौटाए जाते हैं। स्क्रिप्ट एजेंट प्रक्रिया की कार्य निर्देशिका और परिवेश विरासत में लेती है।",
     "param.code.description": "उपयोग के लिए पॉवरशेल निष्पादन योग्य: 'pwsh' (पावरशेल 7+) या 'पॉवरशेल'।",
     "x_search_terms": [
       "अजगर निष्पादन",
@@ -231,10 +231,10 @@
       "पायथन प्रोग्राम"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "पायथन कोड को नियंत्रित तरीके से निष्पादित करें। गणना, डेटा प्रोसेसिंग, या छोटी स्क्रिप्ट चलाने के लिए इस टूल का उपयोग करें। इसका उपयोग करने से पहले, अन्य उपयुक्त टूल के लिए tool_catalog खोजें।"
+    "tool.description": "छोटे Python कोड को सक्रिय इंटरप्रेटर से अस्थायी स्क्रिप्ट के रूप में चलाएँ (यह इंटरैक्टिव REPL नहीं है)। मानक इनपुट बंद रहता है, निर्धारित समय-सीमा लागू होती है, और stdout/stderr लौटाए जाते हैं। स्क्रिप्ट एजेंट प्रक्रिया की कार्य निर्देशिका और परिवेश विरासत में लेती है। समर्थित कार्यों के लिए समर्पित टूल को प्राथमिकता दें; इस टूल का उपयोग करने से पहले `tool_catalog` में अन्य उपयुक्त टूल खोजें।"
   },
   "ar": {
-    "describe.python": "تشغيل Python",
+    "describe.python": "شغّل كود Python المرسل كسكربت مؤقت باستخدام المفسّر النشط. يُغلق الإدخال القياسي، ويُطبّق حد زمني مضبوط، وتُعاد المخرجات القياسية والأخطاء القياسية. يرث السكربت مجلد العمل وبيئة عملية الوكيل.",
     "param.code.description": "كود بايثون.",
     "x_search_terms": [
       "بايثون إكسيك",
@@ -249,10 +249,10 @@
       "برنامج بايثون"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "تنفيذ كود Python بطريقة يمكن التحكم فيها. استخدم هذه الأداة لإجراء العمليات الحسابية أو معالجة البيانات أو تشغيل البرامج النصية القصيرة. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداة."
+    "tool.description": "شغّل مقاطع Python القصيرة كسكربت مؤقت باستخدام المفسّر النشط (وليس جلسة REPL تفاعلية). يُغلق الإدخال القياسي، ويُطبّق حد زمني مضبوط، وتُعاد stdout وstderr. يرث السكربت مجلد العمل ومتغيرات البيئة لعملية الوكيل. فضّل الأدوات المخصصة للعمليات المدعومة، وابحث في `tool_catalog` عن أدوات أخرى مناسبة قبل استخدام هذه الأداة."
   },
   "sv": {
-    "describe.python": "Kör Python",
+    "describe.python": "Kör den angivna Python-koden som ett tillfälligt skript med den aktiva tolken. Standardindata är stängd, en konfigurerad tidsgräns gäller och standardutdata/fel returneras. Skriptet ärver agentprocessens arbetskatalog och miljö.",
     "param.code.description": "Python-kod.",
     "x_search_terms": [
       "python exec",
@@ -267,10 +267,10 @@
       "pythonprogram"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Kör Python-koden på ett kontrollerat sätt. Använd det här verktyget för beräkningar, databearbetning eller köra korta skript. Sök efter andra lämpliga verktyg via `tool_catalog` innan du använder det här verktyget."
+    "tool.description": "Kör kort Python-kod som ett tillfälligt skript med den aktiva tolken (inte en interaktiv REPL). Standardindata är stängd, en konfigurerad tidsgräns gäller och stdout/stderr returneras. Skriptet ärver agentprocessens arbetskatalog och miljö. Föredra särskilda verktyg för åtgärder som stöds och sök efter andra lämpliga verktyg i `tool_catalog` innan du använder det här verktyget."
   },
   "sw": {
-    "describe.python": "Kuendesha Python",
+    "describe.python": "Huendesha msimbo wa Python uliotolewa kama hati ya muda kwa kutumia mkalimani amilifu. Ingizo sanifu hufungwa, muda wa mwisho uliosanidiwa hutumika, na matokeo na hitilafu sanifu hurudishwa. Hati hurithi saraka ya kazi na mazingira ya mchakato wa wakala.",
     "param.code.description": "Msimbo wa chatu.",
     "x_search_terms": [
       "chatu tekeleza",
@@ -285,10 +285,10 @@
       "mpango wa chatu"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Tekeleza msimbo wa Python kwa njia inayodhibitiwa. Tumia zana hii kwa hesabu, kuchakata data, au kuendesha hati fupi. Tafuta zana zingine zinazofaa kupitia `tool_catalog` kabla ya kutumia zana hii."
+    "tool.description": "Endesha msimbo mfupi wa Python kama hati ya muda kwa kutumia mkalimani amilifu (si REPL shirikishi). Ingizo sanifu hufungwa, muda wa mwisho uliosanidiwa hutumika, na stdout/stderr hurudishwa. Hati hurithi saraka ya kazi na mazingira ya mchakato wa wakala. Pendelea zana maalum kwa shughuli zinazotumika, na utafute zana nyingine zinazofaa katika `tool_catalog` kabla ya kutumia zana hii."
   },
   "nb": {
-    "describe.python": "Kjører Python",
+    "describe.python": "Kjører den angitte Python-koden som et midlertidig skript med den aktive tolken. Standard inndata er lukket, en konfigurert tidsgrense gjelder, og standard utdata/feil returneres. Skriptet arver agentprosessens arbeidsmappe og miljø.",
     "param.code.description": "Python-kode.",
     "x_search_terms": [
       "python exec",
@@ -303,10 +303,10 @@
       "python-program"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Kjør Python-koden på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
+    "tool.description": "Kjør kort Python-kode som et midlertidig skript med den aktive tolken (ikke en interaktiv REPL). Standard inndata er lukket, en konfigurert tidsgrense gjelder, og stdout/stderr returneres. Skriptet arver agentprosessens arbeidsmappe og miljø. Foretrekk dedikerte verktøy for støttede operasjoner, og søk etter andre egnede verktøy i `tool_catalog` før du bruker dette verktøyet."
   },
   "nl": {
-    "describe.python": "Python uitvoeren",
+    "describe.python": "Voert de opgegeven Python-code uit als tijdelijk script met de actieve interpreter. Standaardinvoer is gesloten, er geldt een ingestelde time-out en standaarduitvoer en -fouten worden teruggegeven. Het script neemt de werkmap en omgeving van het agentproces over.",
     "param.code.description": "Uit te voeren Python-code.",
     "x_search_terms": [
       "python-exec",
@@ -321,10 +321,10 @@
       "python programma"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Voer Python-code op een gecontroleerde manier uit. Gebruik deze tool voor berekeningen, gegevensverwerking of het uitvoeren van korte scripts. Zoek naar andere geschikte tools via `tool_catalog` voordat je deze tool gebruikt."
+    "tool.description": "Voer korte Python-code uit als tijdelijk script met de actieve interpreter (geen interactieve REPL). Standaardinvoer is gesloten, er geldt een ingestelde time-out en stdout/stderr worden teruggegeven. Het script neemt de werkmap en omgeving van het agentproces over. Gebruik voor ondersteunde bewerkingen bij voorkeur speciale tools en zoek vóór gebruik van deze tool in `tool_catalog` naar andere geschikte tools."
   },
   "fi": {
-    "describe.python": "Suoritetaan Python",
+    "describe.python": "Suorittaa annetun Python-koodin väliaikaisena skriptinä aktiivisella tulkilla. Vakiosyöte on suljettu, määritetty aikakatkaisu on voimassa ja vakiotuloste sekä virhetuloste palautetaan. Skripti perii agenttiprosessin työhakemiston ja ympäristön.",
     "param.code.description": "Python-koodi.",
     "x_search_terms": [
       "python exec",
@@ -339,10 +339,10 @@
       "python-ohjelma"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Suorita Python-koodi hallitusti. Käytä tätä työkalua laskelmiin, tietojenkäsittelyyn tai lyhyiden komentosarjojen suorittamiseen. Etsi muita sopivia työkaluja työkaluluettelon avulla ennen tämän työkalun käyttöä."
+    "tool.description": "Suorita lyhyt Python-koodi väliaikaisena skriptinä aktiivisella tulkilla (ei vuorovaikutteisena REPL-istuntona). Vakiosyöte on suljettu, määritetty aikakatkaisu on voimassa ja stdout/stderr palautetaan. Skripti perii agenttiprosessin työhakemiston ja ympäristön. Suosi tuettuja toimintoja varten niille tarkoitettuja työkaluja ja etsi muita sopivia työkaluja `tool_catalog`-luettelosta ennen tämän työkalun käyttöä."
   },
   "cs": {
-    "describe.python": "Spuštění Pythonu",
+    "describe.python": "Spusťte zadaný kód Pythonu jako dočasný skript pomocí aktivního interpretu. Standardní vstup je uzavřen, uplatní se nastavený časový limit a vrátí se standardní výstup i chybový výstup. Skript přebírá pracovní adresář a prostředí procesu agenta.",
     "param.code.description": "kód Pythonu.",
     "x_search_terms": [
       "python exec",
@@ -357,10 +357,10 @@
       "program python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Spouštějte kód Pythonu kontrolovaným způsobem. Tento nástroj použijte pro výpočty, zpracování dat nebo spouštění krátkých skriptů. Před použitím tohoto nástroje vyhledejte další vhodné nástroje prostřednictvím `tool_catalog`."
+    "tool.description": "Spouštějte krátký kód Pythonu jako dočasný skript pomocí aktivního interpretu (nejde o interaktivní REPL). Standardní vstup je uzavřen, uplatní se nastavený časový limit a vrátí se stdout/stderr. Skript přebírá pracovní adresář a prostředí procesu agenta. U podporovaných operací upřednostněte specializované nástroje; před použitím tohoto nástroje vyhledejte další vhodné nástroje v `tool_catalog`."
   },
   "uk": {
-    "describe.python": "Виконання Python",
+    "describe.python": "Запускає наданий код Python як тимчасовий скрипт за допомогою активного інтерпретатора. Стандартне введення закрите, застосовується налаштований ліміт часу, а стандартний вивід і помилки повертаються. Скрипт успадковує робочу теку та середовище процесу агента.",
     "param.code.description": "Код Python.",
     "x_search_terms": [
       "python exec",
@@ -375,10 +375,10 @@
       "програму python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Виконуйте код Python контрольованим способом. Використовуйте цей інструмент для обчислень, обробки даних або виконання коротких сценаріїв. Перш ніж використовувати цей інструмент, знайдіть інші відповідні інструменти за допомогою `tool_catalog`."
+    "tool.description": "Запускайте короткий код Python як тимчасовий скрипт за допомогою активного інтерпретатора (це не інтерактивна REPL). Стандартне введення закрите, застосовується налаштований ліміт часу, повертаються stdout/stderr. Скрипт успадковує робочу теку та середовище процесу агента. Для підтримуваних операцій віддавайте перевагу спеціалізованим інструментам і перед використанням цього інструмента шукайте інші відповідні засоби в `tool_catalog`."
   },
   "tr": {
-    "describe.python": "Python çalıştırılıyor",
+    "describe.python": "Verilen Python kodunu etkin yorumlayıcıyla geçici bir betik olarak çalıştırır. Standart girdi kapalıdır, yapılandırılmış zaman aşımı uygulanır ve standart çıktı/hata döndürülür. Betik, aracı sürecinin çalışma dizinini ve ortamını devralır.",
     "param.code.description": "Python kodu.",
     "x_search_terms": [
       "piton yöneticisi",
@@ -393,10 +393,10 @@
       "python programı"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Python kodunu kontrollü bir şekilde yürütün. Bu aracı hesaplamalar, veri işleme veya kısa komut dosyalarını çalıştırmak için kullanın. Bu aracı kullanmadan önce `tool_catalog' aracılığıyla diğer uygun araçları arayın."
+    "tool.description": "Kısa Python kodunu etkin yorumlayıcıyla geçici bir betik olarak çalıştırın (etkileşimli REPL değildir). Standart girdi kapalıdır, yapılandırılmış zaman aşımı uygulanır ve stdout/stderr döndürülür. Betik, aracı sürecinin çalışma dizinini ve ortamını devralır. Desteklenen işlemler için özel araçları tercih edin; bu aracı kullanmadan önce `tool_catalog` içinde başka uygun araçlar arayın."
   },
   "th": {
-    "describe.python": "กำลังเรียกใช้ Python",
+    "describe.python": "เรียกใช้โค้ด Python ที่ส่งมาเป็นสคริปต์ชั่วคราวด้วยตัวแปลภาษาที่ใช้งานอยู่ โดยปิดอินพุตมาตรฐาน ใช้เวลาจำกัดที่กำหนดไว้ และส่งคืนเอาต์พุตมาตรฐานกับข้อผิดพลาด สคริปต์จะสืบทอดไดเรกทอรีทำงานและสภาพแวดล้อมของโปรเซสเอเจนต์",
     "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "x_search_terms": [
       "หลามผู้บริหาร",
@@ -411,10 +411,10 @@
       "โปรแกรม python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "รันโค้ด Python ด้วยวิธีที่มีการควบคุม ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล หรือการเรียกใช้สคริปต์สั้นๆ ค้นหาเครื่องมืออื่นๆ ที่เหมาะสมผ่าน `tool_catalog` ก่อนที่จะใช้เครื่องมือนี้"
+    "tool.description": "เรียกใช้โค้ด Python สั้น ๆ เป็นสคริปต์ชั่วคราวด้วยตัวแปลภาษาที่ใช้งานอยู่ (ไม่ใช่ REPL แบบโต้ตอบ) โดยปิดอินพุตมาตรฐาน ใช้เวลาจำกัดที่กำหนดไว้ และส่งคืน stdout/stderr สคริปต์จะสืบทอดไดเรกทอรีทำงานและสภาพแวดล้อมของโปรเซสเอเจนต์ สำหรับงานที่รองรับ ให้เลือกใช้เครื่องมือเฉพาะก่อน และค้นหาเครื่องมืออื่นที่เหมาะสมใน `tool_catalog` ก่อนใช้เครื่องมือนี้"
   },
   "zh_CN": {
-    "describe.python": "运行 Python",
+    "describe.python": "使用当前 Python 解释器将提供的代码作为临时脚本运行。标准输入会关闭，并应用已配置的超时时间；随后返回标准输出和标准错误。脚本会继承代理进程的工作目录和环境。",
     "param.code.description": "Python代码。",
     "x_search_terms": [
       "蟒蛇执行",
@@ -429,10 +429,10 @@
       "python程序"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "以受控方式执行 Python 代码。使用此工具进行计算、数据处理或运行简短的脚本。使用此工具之前，请先通过“tool_catalog”搜索其他合适的工具。"
+    "tool.description": "使用当前 Python 解释器将简短代码作为临时脚本运行（不是交互式 REPL）。标准输入会关闭，并应用已配置的超时时间；随后返回 stdout/stderr。脚本会继承代理进程的工作目录和环境。对于受支持的操作，请优先使用专用工具；使用此工具前，请先在 `tool_catalog` 中查找其他合适的工具。"
   },
   "zh_TW": {
-    "describe.python": "執行 Python",
+    "describe.python": "使用目前的 Python 解譯器，將提供的程式碼作為暫存指令碼執行。標準輸入會關閉，並套用已設定的逾時限制；完成後會傳回標準輸出與標準錯誤。指令碼會繼承代理程式的工作目錄與環境。",
     "param.code.description": "Python代码。",
     "x_search_terms": [
       "蟒蛇執行",
@@ -447,10 +447,10 @@
       "python程式"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "以受控方式執行 Python 程式碼。使用此工具進行計算、資料處理或執行簡短的腳本。在使用此工具之前，請先透過「tool_catalog」搜尋其他合適的工具。 "
+    "tool.description": "使用目前的 Python 解譯器，將簡短程式碼作為暫存指令碼執行（不是互動式 REPL）。標準輸入會關閉，並套用已設定的逾時限制；完成後會傳回 stdout/stderr。指令碼會繼承代理程式的工作目錄與環境。支援的操作請優先使用專用工具；使用此工具前，請先在 `tool_catalog` 中搜尋其他合適工具。"
   },
   "bn": {
-    "describe.python": "Python চালানো হচ্ছে",
+    "describe.python": "দেওয়া Python কোডটি সক্রিয় ইন্টারপ্রেটার দিয়ে অস্থায়ী স্ক্রিপ্ট হিসেবে চালান। স্ট্যান্ডার্ড ইনপুট বন্ধ থাকে, নির্ধারিত সময়সীমা প্রযোজ্য হয়, এবং স্ট্যান্ডার্ড আউটপুট/এরর ফেরত দেওয়া হয়। স্ক্রিপ্টটি এজেন্ট প্রক্রিয়ার কাজের ডিরেক্টরি ও পরিবেশ উত্তরাধিকারসূত্রে পায়।",
     "param.code.description": "পাইথন কোড।",
     "x_search_terms": [
       "python exec",
@@ -465,10 +465,10 @@
       "পাইথন প্রোগ্রাম"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "নিয়ন্ত্রিত উপায়ে পাইথন কোড কার্যকর করুন। গণনা, ডেটা প্রসেসিং বা ছোট স্ক্রিপ্ট চালানোর জন্য এই টুলটি ব্যবহার করুন। এই টুলটি ব্যবহার করার আগে `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল খুঁজুন।"
+    "tool.description": "সক্রিয় ইন্টারপ্রেটার দিয়ে ছোট Python কোড অস্থায়ী স্ক্রিপ্ট হিসেবে চালান (এটি ইন্টারেক্টিভ REPL নয়)। স্ট্যান্ডার্ড ইনপুট বন্ধ থাকে, নির্ধারিত সময়সীমা প্রযোজ্য হয়, এবং stdout/stderr ফেরত দেওয়া হয়। স্ক্রিপ্টটি এজেন্ট প্রক্রিয়ার কাজের ডিরেক্টরি ও পরিবেশ উত্তরাধিকারসূত্রে পায়। সমর্থিত কাজের জন্য নির্দিষ্ট টুলকে অগ্রাধিকার দিন; এই টুল ব্যবহারের আগে `tool_catalog`-এ অন্য উপযুক্ত টুল খুঁজুন।"
   },
   "fa": {
-    "describe.python": "در حال اجرای Python",
+    "describe.python": "کد Python ارائه‌شده را با مفسر فعال به‌صورت یک اسکریپت موقت اجرا می‌کند. ورودی استاندارد بسته است، محدودیت زمانی پیکربندی‌شده اعمال می‌شود و خروجی و خطای استاندارد بازگردانده می‌شوند. اسکریپت، پوشهٔ کاری و محیط فرایند عامل را به ارث می‌برد.",
     "param.code.description": "کد پایتون.",
     "x_search_terms": [
       "اجرای پایتون",
@@ -483,10 +483,10 @@
       "برنامه پایتون"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "کد پایتون را به روشی کنترل شده اجرا کنید. از این ابزار برای محاسبات، پردازش داده ها یا اجرای اسکریپت های کوتاه استفاده کنید. قبل از استفاده از این ابزار، سایر ابزارهای مناسب را از طریق «tool_catalog» جستجو کنید."
+    "tool.description": "کد کوتاه Python را با مفسر فعال به‌صورت اسکریپت موقت اجرا کنید (نه یک REPL تعاملی). ورودی استاندارد بسته است، محدودیت زمانی پیکربندی‌شده اعمال می‌شود و stdout/stderr بازگردانده می‌شوند. اسکریپت، پوشهٔ کاری و محیط فرایند عامل را به ارث می‌برد. برای عملیات پشتیبانی‌شده، ابزارهای اختصاصی را ترجیح دهید و پیش از استفاده از این ابزار، ابزارهای مناسب دیگر را در `tool_catalog` جست‌وجو کنید."
   },
   "mn": {
-    "describe.python": "Python ажиллуулж байна",
+    "describe.python": "Өгсөн Python кодыг идэвхтэй интерпретатор ашиглан түр скрипт болгон ажиллуулна. Стандарт оролт хаалттай, тохируулсан хугацааны хязгаар үйлчилж, стандарт гаралт болон алдааны гаралтыг буцаана. Скрипт агентын процессын ажлын хавтас болон орчныг өвлөнө.",
     "param.code.description": "Python код.",
     "x_search_terms": [
       "python exec",
@@ -501,10 +501,10 @@
       "python программ"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Python кодыг хяналттай ажиллуулна уу. Тооцоолол хийх, өгөгдөл боловсруулах эсвэл богино скрипт ажиллуулахад энэ хэрэгслийг ашиглана уу. Энэ хэрэгслийг ашиглахаасаа өмнө `tool_catalog`-ээр өөр тохирох хэрэгслийг хайна уу."
+    "tool.description": "Богино Python кодыг идэвхтэй интерпретатор ашиглан түр скрипт болгон ажиллуулна (интерактив REPL биш). Стандарт оролт хаалттай, тохируулсан хугацааны хязгаар үйлчилж, stdout/stderr-ийг буцаана. Скрипт агентын процессын ажлын хавтас болон орчныг өвлөнө. Дэмжигдсэн үйлдэлд зориулалтын хэрэгслийг ашиглаж, энэ хэрэгслийг ашиглахаас өмнө `tool_catalog`-оос өөр тохирох хэрэгслийг хайна уу."
   },
   "mr": {
-    "describe.python": "Python चालवत आहे",
+    "describe.python": "दिलेला Python कोड सक्रिय इंटरप्रिटर वापरून तात्पुरत्या स्क्रिप्टच्या स्वरूपात चालवतो. मानक इनपुट बंद असतो, सेट केलेली वेळमर्यादा लागू होते आणि मानक आउटपुट/त्रुटी परत केल्या जातात. स्क्रिप्ट एजंट प्रक्रियेची कार्यरत निर्देशिका आणि पर्यावरण वारशाने घेते.",
     "param.code.description": "पायथन कोड.",
     "x_search_terms": [
       "python exec",
@@ -519,10 +519,10 @@
       "पायथन प्रोग्राम"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "पायथन कोड नियंत्रित मार्गाने कार्यान्वित करा. गणना, डेटा प्रोसेसिंग किंवा शॉर्ट स्क्रिप्ट चालवण्यासाठी हे साधन वापरा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा."
+    "tool.description": "लहान Python कोड सक्रिय इंटरप्रिटर वापरून तात्पुरत्या स्क्रिप्टच्या स्वरूपात चालवा (हे परस्परसंवादी REPL नाही). मानक इनपुट बंद असतो, सेट केलेली वेळमर्यादा लागू होते आणि stdout/stderr परत केले जातात. स्क्रिप्ट एजंट प्रक्रियेची कार्यरत निर्देशिका आणि पर्यावरण वारशाने घेते. समर्थित कामांसाठी समर्पित साधनांना प्राधान्य द्या; हे साधन वापरण्यापूर्वी `tool_catalog` मध्ये इतर योग्य साधने शोधा."
   },
   "el": {
-    "describe.python": "Εκτέλεση Python",
+    "describe.python": "Εκτελεί τον παρεχόμενο κώδικα Python ως προσωρινό σενάριο με τον ενεργό διερμηνευτή. Η τυπική είσοδος είναι κλειστή, εφαρμόζεται το ρυθμισμένο χρονικό όριο και επιστρέφονται η τυπική έξοδος και τα σφάλματα. Το σενάριο κληρονομεί τον κατάλογο εργασίας και το περιβάλλον της διεργασίας του agent.",
     "param.code.description": "Κώδικας Python.",
     "x_search_terms": [
       "python exec",
@@ -537,10 +537,10 @@
       "πρόγραμμα python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του \"tool_catalog\" πριν χρησιμοποιήσετε αυτό το εργαλείο."
+    "tool.description": "Εκτελέστε σύντομο κώδικα Python ως προσωρινό σενάριο με τον ενεργό διερμηνευτή (όχι ως διαδραστική REPL). Η τυπική είσοδος είναι κλειστή, εφαρμόζεται το ρυθμισμένο χρονικό όριο και επιστρέφονται stdout/stderr. Το σενάριο κληρονομεί τον κατάλογο εργασίας και το περιβάλλον της διεργασίας του agent. Προτιμήστε εξειδικευμένα εργαλεία για υποστηριζόμενες λειτουργίες και αναζητήστε άλλα κατάλληλα εργαλεία στο `tool_catalog` πριν χρησιμοποιήσετε αυτό το εργαλείο."
   },
   "he": {
-    "describe.python": "מריץ Python",
+    "describe.python": "מריץ את קוד Python שסופק כסקריפט זמני באמצעות המפרש הפעיל. הקלט הסטנדרטי סגור, מוחלת מגבלת הזמן שהוגדרה, והפלט והשגיאות הסטנדרטיים מוחזרים. הסקריפט יורש את תיקיית העבודה ואת הסביבה של תהליך הסוכן.",
     "param.code.description": "קוד Python.",
     "x_search_terms": [
       "מנהל פיתון",
@@ -555,10 +555,10 @@
       "python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה."
+    "tool.description": "הריצו קוד Python קצר כסקריפט זמני באמצעות המפרש הפעיל (לא REPL אינטראקטיבי). הקלט הסטנדרטי סגור, מוחלת מגבלת הזמן שהוגדרה, ו-stdout/stderr מוחזרים. הסקריפט יורש את תיקיית העבודה ואת הסביבה של תהליך הסוכן. לפעולות נתמכות, העדיפו כלים ייעודיים וחפשו כלים מתאימים נוספים ב-`tool_catalog` לפני השימוש בכלי זה."
   },
   "hu": {
-    "describe.python": "Python futtatása",
+    "describe.python": "A megadott Python-kódot ideiglenes szkriptként futtatja az aktív értelmezővel. A szabványos bemenet le van zárva, érvényesül a beállított időkorlát, és visszatér a szabványos kimenet és hibakimenet. A szkript örökli az ügynökfolyamat munkakönyvtárát és környezetét.",
     "param.code.description": "Python-kód.",
     "x_search_terms": [
       "python végrehajtó",
@@ -573,10 +573,10 @@
       "python program"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Futtassa a Python-kódot ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével."
+    "tool.description": "Futtasson rövid Python-kódot ideiglenes szkriptként az aktív értelmezővel (nem interaktív REPL-ként). A szabványos bemenet le van zárva, érvényesül a beállított időkorlát, és visszatér a stdout/stderr. A szkript örökli az ügynökfolyamat munkakönyvtárát és környezetét. A támogatott műveletekhez részesítse előnyben a célzott eszközöket; az eszköz használata előtt keressen további megfelelő eszközöket a `tool_catalog` katalógusban."
   },
   "ro": {
-    "describe.python": "Se rulează Python",
+    "describe.python": "Execută codul Python furnizat ca script temporar folosind interpretorul activ. Intrarea standard este închisă, se aplică limita de timp configurată, iar ieșirea și erorile standard sunt returnate. Scriptul moștenește directorul de lucru și mediul procesului agentului.",
     "param.code.description": "Cod Python.",
     "x_search_terms": [
       "python exec",
@@ -591,10 +591,10 @@
       "program python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
+    "tool.description": "Executați cod Python scurt ca script temporar folosind interpretorul activ (nu ca REPL interactiv). Intrarea standard este închisă, se aplică limita de timp configurată, iar stdout/stderr sunt returnate. Scriptul moștenește directorul de lucru și mediul procesului agentului. Pentru operațiunile acceptate, preferați instrumentele dedicate și căutați alte instrumente potrivite în `tool_catalog` înainte de a utiliza acest instrument."
   },
   "fil": {
-    "describe.python": "Pinapatakbo ang Python",
+    "describe.python": "Patakbuhin ang ibinigay na Python code bilang pansamantalang script gamit ang aktibong interpreter. Sarado ang standard input, ipinapatupad ang nakatakdang timeout, at ibinabalik ang standard output/error. Minamana ng script ang working directory at environment ng proseso ng agent.",
     "param.code.description": "Python code na ipapatakbo.",
     "x_search_terms": [
       "python exec",
@@ -609,10 +609,10 @@
       "programa ng python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Ipatupad ang Python code sa isang kinokontrol na paraan. Gamitin ang tool na ito para sa mga kalkulasyon, pagproseso ng data, o pagpapatakbo ng mga maiikling script. Maghanap ng iba pang naaangkop na tool sa pamamagitan ng `tool_catalog` bago gamitin ang tool na ito."
+    "tool.description": "Patakbuhin ang maiikling Python code bilang pansamantalang script gamit ang aktibong interpreter (hindi interactive na REPL). Sarado ang standard input, ipinapatupad ang nakatakdang timeout, at ibinabalik ang stdout/stderr. Minamana ng script ang working directory at environment ng proseso ng agent. Unahin ang mga nakalaang tool para sa mga suportadong operasyon; maghanap muna ng iba pang angkop na tool sa `tool_catalog` bago gamitin ito."
   },
   "ms": {
-    "describe.python": "Menjalankan Python",
+    "describe.python": "Jalankan kod Python yang diberikan sebagai skrip sementara menggunakan jurubahasa aktif. Input standard ditutup, had masa yang dikonfigurasikan dikenakan, dan output serta ralat standard dikembalikan. Skrip mewarisi direktori kerja dan persekitaran proses ejen.",
     "param.code.description": "Kod Python.",
     "x_search_terms": [
       "python exec",
@@ -627,10 +627,10 @@
       "program python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Jalankan kod Python dengan cara terkawal. Gunakan alat ini untuk pengiraan, pemprosesan data atau menjalankan skrip pendek. Cari alatan lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
+    "tool.description": "Jalankan kod Python ringkas sebagai skrip sementara menggunakan jurubahasa aktif (bukan REPL interaktif). Input standard ditutup, had masa yang dikonfigurasikan dikenakan, dan stdout/stderr dikembalikan. Skrip mewarisi direktori kerja dan persekitaran proses ejen. Utamakan alat khusus untuk operasi yang disokong; cari alat lain yang sesuai dalam `tool_catalog` sebelum menggunakan alat ini."
   },
   "da": {
-    "describe.python": "Kører Python",
+    "describe.python": "Kør den indsendte Python-kode som et midlertidigt script med den aktive fortolker. Standardinput er lukket, en konfigureret timeout gælder, og standardoutput/fejl returneres. Scriptet arver agentprocessens arbejdsmappe og miljø.",
     "param.code.description": "Python kode.",
     "x_search_terms": [
       "python exec",
@@ -645,10 +645,10 @@
       "python-program"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Udfør Python-kode på en kontrolleret måde. Brug dette værktøj til beregninger, databehandling eller til at køre korte scripts. Søg efter andre egnede værktøjer via `værktøjskatalog`, før du bruger dette værktøj."
+    "tool.description": "Kør korte Python-programmer som midlertidige scripts med den aktive fortolker (ikke en interaktiv REPL). Standardinput er lukket, en konfigureret timeout gælder, og stdout/stderr returneres. Scriptet arver agentprocessens arbejdsmappe og miljø. Foretræk dedikerede værktøjer til understøttede handlinger, og søg efter andre egnede værktøjer i `tool_catalog`, før dette værktøj bruges."
   },
   "nn": {
-    "describe.python": "Køyrer Python",
+    "describe.python": "Køyr den oppgitte Python-koden som eit mellombels skript med den aktive tolken. Standard innmating er stengd, ei konfigurert tidsgrense gjeld, og standard utmating/feil blir returnerte. Skriptet arvar arbeidsmappa og miljøet til agentprosessen.",
     "param.code.description": "Python-kode.",
     "x_search_terms": [
       "python exec",
@@ -663,6 +663,6 @@
       "python-program"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Utfør Python-kode på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du brukar dette verktøyet."
+    "tool.description": "Køyr kort Python-kode som eit mellombels skript med den aktive tolken (ikkje ein interaktiv REPL). Standard innmating er stengd, ei konfigurert tidsgrense gjeld, og stdout/stderr blir returnerte. Skriptet arvar arbeidsmappa og miljøet til agentprosessen. Bruk helst eigne verktøy for støtta operasjonar, og søk etter andre eigna verktøy i `tool_catalog` før du brukar dette verktøyet."
   }
 }

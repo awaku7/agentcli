@@ -561,9 +561,10 @@ def test_change_workdir_describer_includes_new_dir() -> None:
     assert change_workdir_tool.describe({}).count("?") == 1
 
 
-def test_python_exec_describer_does_not_echo_source_code() -> None:
+def test_python_exec_describer_does_not_echo_source_code(monkeypatch) -> None:
     from uagent.tools import python_exec_tool
 
+    monkeypatch.setattr(python_exec_tool, "_", lambda _key, default="": default)
     source = """password = 'SENSITIVE_SENTINEL_9381'
 print('not shown')"""
     text = python_exec_tool.describe({"code": source})
@@ -571,6 +572,10 @@ print('not shown')"""
     assert "SENSITIVE_SENTINEL_9381" not in text
     assert "password" not in text
     assert "print" not in text
+    assert "temporary script" in text
+    assert "Standard input is closed" in text
+    assert "timeout" in text
+    assert "standard output/error are returned" in text
 
 
 def test_python_exec_describer_translations_do_not_include_code_preview() -> None:
@@ -587,9 +592,15 @@ def test_python_exec_describer_translations_do_not_include_code_preview() -> Non
     for locale, messages in translations.items():
         description = messages.get("describe.python", "")
         assert description, f"missing describe.python translation for {locale}"
+        tool_description = messages.get("tool.description", "")
+        assert tool_description, f"missing tool.description translation for {locale}"
+        assert len(description) >= 80, f"describe.python too brief for {locale}"
+        assert len(tool_description) >= 150, f"tool.description too brief for {locale}"
         assert "describe.python_multi" not in messages, locale
         assert "%(code)s" not in description, locale
         assert "冒頭プレビュー" not in description, locale
+    assert "標準入力" in translations["ja"]["describe.python"]
+    assert "タイムアウト" in translations["ja"]["describe.python"]
 
 
 def test_analyze_image_describer_does_not_echo_path_or_prompt() -> None:

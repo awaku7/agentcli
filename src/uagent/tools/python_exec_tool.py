@@ -25,7 +25,12 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts. Search for other suitable tools via `tool_catalog` before using this tool."
+                "Run short Python code as a temporary script using the active interpreter "
+                "(not an interactive REPL). Standard input is closed, a configured "
+                "timeout applies, and stdout/stderr are returned. The script inherits "
+                "the agent process's working directory and environment. Prefer "
+                "dedicated tools for supported operations; search `tool_catalog` for "
+                "other suitable tools before using this tool."
             ),
         ),
         "x_search_terms": _(
@@ -153,7 +158,12 @@ def describe(_args: dict[str, Any]) -> str:
     return str(
         _(
             "describe.python",
-            default="Run Python",
+            default=(
+                "Run the supplied Python code as a temporary script using the active "
+                "interpreter. Standard input is closed, a configured timeout applies, "
+                "and standard output/error are returned. The script inherits the "
+                "agent process's working directory and environment."
+            ),
         )
     )
 
