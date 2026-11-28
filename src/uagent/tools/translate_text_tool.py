@@ -1036,7 +1036,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Translate text or files using Google Translate or DeepL. Supports 30+ languages, protects placeholders and terms, and preserves file encoding and newlines."
+                "Translate text or files using Google Translate or DeepL. Supports 30+ languages, protects placeholders and terms, and preserves file encoding and newlines. protect_placeholders is on by default and keeps placeholders untranslated."
             ),
         ),
         "x_search_terms": _(
