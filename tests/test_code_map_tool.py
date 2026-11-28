@@ -410,3 +410,36 @@ def test_pyproject_invalid_toml_yields_no_pip_dependencies(
 
 
 # Keep the test module free of generated code-map artifacts.
+
+
+def test_pyproject_malformed_metadata_types_are_skipped(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "project"
+    project.mkdir(parents=True)
+    (project / "pyproject.toml").write_text(
+        'project = "placeholder"\n', encoding="utf-8"
+    )
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    assert result["project"] is not None
+
+    (project / "pyproject.toml").write_text(
+        "[project]\n"
+        'name = "demo"\n'
+        "dependencies = 42\n"
+        "[project.optional-dependencies]\n"
+        "extra = 3\n"
+        "[dependency-groups]\n"
+        "dev = 7\n",
+        encoding="utf-8",
+    )
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    assert result["project"] is not None
+    pip_deps = [
+        dep for dep in result["project"]["dependencies"] if dep["manager"] == "pip"
+    ]
+    assert pip_deps == []

@@ -227,6 +227,13 @@ def extract_project_dependencies(
             except tomllib.TOMLDecodeError:
                 data = {}
             project_meta = data.get("project", {}) or {}
+            if not isinstance(project_meta, dict):
+                project_meta = {}
+
+            def _requirement_list(value: Any) -> list:
+                # Malformed metadata (a string/int where a list belongs)
+                # is skipped, never iterated into garbage or an exception.
+                return value if isinstance(value, list) else []
 
             def add_requirement(requirement: Any, group: str = "") -> None:
                 if not isinstance(requirement, str):
@@ -251,17 +258,17 @@ def extract_project_dependencies(
                     group=group,
                 )
 
-            for requirement in project_meta.get("dependencies", []) or []:
+            for requirement in _requirement_list(project_meta.get("dependencies")):
                 add_requirement(requirement)
             optional = project_meta.get("optional-dependencies", {}) or {}
             if isinstance(optional, dict):
                 for group, requirements in optional.items():
-                    for requirement in requirements or []:
+                    for requirement in _requirement_list(requirements):
                         add_requirement(requirement, group=str(group))
             dep_groups = data.get("dependency-groups", {}) or {}
             if isinstance(dep_groups, dict):
                 for group, entries in dep_groups.items():
-                    for entry in entries or []:
+                    for entry in _requirement_list(entries):
                         # {include-group = "..."} references are not
                         # resolved; only plain requirement strings count.
                         if isinstance(entry, str):
