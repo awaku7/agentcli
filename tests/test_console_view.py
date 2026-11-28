@@ -128,6 +128,66 @@ def test_view_submits_lines_and_projects_document():
             view.stop()
 
 
+def test_view_ignores_blank_enter_while_busy():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            view.set_status("[STATE] BUSY", busy=True)
+            pipe.send_text("  ")
+            assert _wait_for(lambda: view._input_buffer.text == "  ")
+            pipe.send_text("\r")
+            assert _wait_for(lambda: view._input_buffer.text == "")
+            # Let the input event finish before inspecting the queue/document.
+            time.sleep(0.1)
+            assert view._submissions.empty()
+            assert not any(
+                "(queued)" in segment.text for segment in document.snapshot()[0]
+            )
+        finally:
+            view.stop()
+
+
+def test_view_mouse_wheel_reaches_full_output_scrollback():
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 101):
+        document.append("answer", f"line {i:03d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            for _ in range(40):
+                pipe.send_text("\x1b[<64;1;2M")  # wheel up
+            assert _wait_for(
+                lambda: view._output_buffer.document.text[
+                    : view._output_buffer.cursor_position
+                ].count("\n")
+                <= 1
+            )
+
+            for _ in range(40):
+                pipe.send_text("\x1b[<65;1;2M")  # wheel down
+            assert _wait_for(
+                lambda: view._output_buffer.document.text[
+                    : view._output_buffer.cursor_position
+                ].count("\n")
+                >= 95
+            )
+        finally:
+            view.stop()
+
+
 def test_right_click_paste_replaces_selected_input_text(monkeypatch):
     from prompt_toolkit.input import create_pipe_input
     from prompt_toolkit.output import DummyOutput
@@ -1641,6 +1701,46 @@ def test_view_drag_held_at_the_edge_keeps_scrolling_without_events():
             assert _wait_for(
                 lambda: view._app.clipboard.get_data().text.startswith("line ")
             )
+        finally:
+            view.stop()
+
+
+def test_view_drag_held_at_bottom_edge_keeps_scrolling_without_events():
+    # The reverse edge must advance the viewport and the selection
+    # endpoint too; this catches asymmetric downward drag handling.
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    document = dc.OutputDocument()
+    for i in range(1, 81):
+        document.append("answer", f"line {i:02d}\n")
+    with create_pipe_input() as pipe:
+        view = ConsoleView(pt_input=pipe, pt_output=DummyOutput(), document=document)
+        view.start()
+        try:
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
+            window = view._output_window
+            view._scroll_output_lines(-1000)
+            assert _wait_for(lambda: window.vertical_scroll == 0)
+            initial_cursor = view._output_buffer.cursor_position
+            pipe.send_text("\x1b[<0;1;2M")  # press on the second visible row
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position != initial_cursor
+            )
+            bottom_y = window.render_info.window_height
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")
+            pipe.send_text(f"\x1b[<32;1;{bottom_y}M")  # pin, then hold at bottom
+            assert _wait_for(lambda: window.vertical_scroll >= 3)
+            assert view._output_buffer.selection_state is not None
+            cursor_row, _ = view._output_buffer.document.translate_index_to_position(
+                view._output_buffer.cursor_position
+            )
+            assert cursor_row > bottom_y
+            pipe.send_text(f"\x1b[<0;1;{bottom_y}m")
+            assert _wait_for(lambda: view._output_control._edge_task is None)
         finally:
             view.stop()
 

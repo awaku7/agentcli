@@ -69,6 +69,48 @@ def test_explicit_responses_flag_respects_negative_capability(monkeypatch) -> No
     ) == (False, False)
 
 
+def test_stateless_search_history_disables_local_projection(monkeypatch) -> None:
+    from uagent import uagent_llm
+    from uagent.runtime import tool_discovery
+
+    monkeypatch.setattr(
+        tool_discovery,
+        "openrouter_responses_tool_search_variant",
+        lambda *_args, **_kwargs: "regex",
+    )
+    openrouter_history = [
+        {
+            "role": "assistant",
+            "tool_calls": [{"id": "call_1"}],
+            "_responses_output_items": [{"type": "function_call", "call_id": "call_1"}],
+        }
+    ]
+
+    assert uagent_llm._responses_tool_search_history_locked(
+        provider="openrouter",
+        model_name="openrouter/free",
+        use_responses_api=True,
+        core=SimpleNamespace(),
+        messages=openrouter_history,
+    )
+
+    deepseek_history = [
+        {
+            "role": "assistant",
+            "_responses_output_items": [
+                {"type": "tool_search_call", "call_id": "search_1"}
+            ],
+        }
+    ]
+    assert uagent_llm._responses_tool_search_history_locked(
+        provider="deepseek",
+        model_name="deepseek-flash",
+        use_responses_api=True,
+        core=SimpleNamespace(),
+        messages=deepseek_history,
+    )
+
+
 def test_explicit_responses_flag_preserves_unknown_compatibility(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
@@ -120,3 +162,28 @@ def test_unknown_streaming_capability_preserves_requested_setting(monkeypatch) -
         depname="unknown-model",
         capability_resolver=_FailingResolver(),
     ) == (False, True)
+
+
+@pytest.mark.parametrize(
+    ("provider", "api_env"),
+    [
+        ("openrouter", "UAGENT_OPENROUTER_API"),
+        ("deepseek", "UAGENT_DEEPSEEK_API"),
+    ],
+)
+def test_explicit_messages_route_overrides_responses_and_streaming(
+    monkeypatch, provider, api_env
+) -> None:
+    monkeypatch.setenv(api_env, "messages")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_STREAMING", "1")
+
+    assert _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=_core(),
+        provider=provider,
+        depname="example-model",
+        capability_resolver=CapabilityResolver(
+            feature_lookup=lambda feature, *_: feature == "responses_api"
+        ),
+    ) == (False, False)

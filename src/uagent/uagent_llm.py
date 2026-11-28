@@ -363,6 +363,52 @@ def _completion_regex_matches(text: Any, pattern: Any) -> bool:
         return False
 
 
+def _responses_tool_search_history_locked(
+    *,
+    provider: str,
+    model_name: str,
+    use_responses_api: bool,
+    core: Any,
+    messages: list[dict[str, Any]],
+) -> bool:
+    """Whether local context projection could invalidate deferred-search state."""
+    provider_name = str(provider or "").strip().lower()
+    if not use_responses_api or provider_name not in {"openrouter", "deepseek"}:
+        return False
+    if getattr(core, "_responses_tool_search_history_provider", None) == provider_name:
+        return True
+
+    if provider_name == "openrouter":
+        try:
+            from .runtime.tool_discovery import openrouter_responses_tool_search_variant
+
+            if (
+                openrouter_responses_tool_search_variant(provider_name, model_name)
+                is None
+            ):
+                return False
+        except Exception:
+            return False
+        return any(
+            isinstance(message, dict)
+            and message.get("role") == "assistant"
+            and bool(message.get("tool_calls"))
+            and isinstance(message.get("_responses_output_items"), list)
+            and bool(message.get("_responses_output_items"))
+            for message in messages
+        )
+
+    return any(
+        isinstance(message, dict)
+        and message.get("role") == "assistant"
+        and any(
+            isinstance(item, dict) and item.get("type") == "tool_search_call"
+            for item in (message.get("_responses_output_items") or [])
+        )
+        for message in messages
+    )
+
+
 def _record_round_context_plan(
     *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
 ) -> Any | None:
@@ -547,6 +593,18 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
         stream_responses=ctx.stream_responses,
     )
 
+    # OpenRouter's native deferred-tool state is signed against the full
+    # Responses history; DeepSeek requires its tool_search_call/output loading
+    # records to be replayed as well. Once such a turn exists, local context
+    # projections must not remove or rewrite earlier messages.
+    responses_search_history_locked = _responses_tool_search_history_locked(
+        provider=ctx.provider,
+        model_name=ctx.depname,
+        use_responses_api=ctx.use_responses_api,
+        core=ctx.core,
+        messages=ctx.messages,
+    )
+
     # Build an optional LLM-summary projection before context selection. This
     # keeps auto-shrink on the same ContextPlan -> Projection path as the
     # uncompressed request and avoids rebuilding context after planning.
@@ -577,6 +635,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
     # continuation rounds must preserve their pending call_id/response_id chain.
     if (
         not ctx.judgment_mode
+        and not responses_search_history_locked
         and ctx.messages
         and ctx.messages[-1].get("role") in {"user", "tool"}
     ):
@@ -613,7 +672,11 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
             getattr(ctx.core, "memory_projection_snapshot", None),
             ctx.core,
         )
-    elif not ctx.judgment_mode and not _using_prev_rid:
+    elif (
+        not ctx.judgment_mode
+        and not _using_prev_rid
+        and not responses_search_history_locked
+    ):
         auto_shrink_projection = build_auto_shrink_projection(
             provider=ctx.provider,
             client=ctx.client,
@@ -641,7 +704,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                 ctx.core,
             )
 
-    if not ctx.judgment_mode:
+    if not ctx.judgment_mode and not responses_search_history_locked:
         context_manager = getattr(ctx.core, "context_manager", None)
         build_message_context = getattr(context_manager, "build_message_context", None)
         if callable(build_message_context):
@@ -660,7 +723,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
             ctx.core.active_context = active_context
             _persist_context_decision_log(active_context, ctx.core)
             call_messages = active_context.messages
-    if not ctx.judgment_mode:
+    if not ctx.judgment_mode and not responses_search_history_locked:
         round_plan = _record_round_context_plan(
             provider=ctx.provider,
             depname=ctx.depname,
@@ -684,7 +747,12 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
     )
     call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
     call_messages = project_messages_for_provider(
-        call_messages, provider=ctx.provider, model=ctx.depname
+        call_messages,
+        provider=ctx.provider,
+        model=ctx.depname,
+        preserve_responses_output_items=(
+            ctx.use_responses_api and ctx.provider in {"openrouter", "deepseek"}
+        ),
     )
 
     _begin_responses_runtime(
@@ -752,6 +820,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
     ctx.assistant_text: str = ""
 
     from .runtime.provider_round_dispatcher import (
+        RegistryRoundRoute,
         dispatch_provider_round,
         resolve_registry_round_route,
     )
@@ -777,11 +846,19 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                     ctx.use_responses_api and registry_discovery.uses_legacy_catalog
                 ),
                 transport_selection=transport_selection,
+                model_name=ctx.depname,
             )
         except Exception:
             # The registry route is advisory until all providers are migrated.
             # Let the compatibility runner retain its own safety gate.
             registry_route = None
+    try:
+        from .runtime.tool_discovery import provider_messages_api_enabled
+
+        if provider_messages_api_enabled(ctx.provider):
+            registry_route = RegistryRoundRoute(False, "messages_api_selected")
+    except Exception:
+        pass
 
     ctx.dispatch = dispatch_provider_round(
         registry_runner=_try_registry_simple_chat_round,
@@ -872,6 +949,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
         if not ctx.ok:
             ctx.core._last_round_reason = "error"
             return _round_outcome(ctx, _RS_RETURN, ctx.assistant_text)
+        responses_output_items = getattr(ctx.core, "_last_responses_output_items", None)
         # Same boundary as the OpenAI-compatible path: an interrupt that
         # arrived during the provider call must win before any tool runs.
         if _consume_post_response_interrupt(ctx.messages, ctx.core):
@@ -892,6 +970,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                     core=ctx.core,
                     assistant_text=ctx.assistant_text,
                     tool_calls_list=ctx.tool_calls_list,
+                    responses_output_items=responses_output_items,
                 )
             if not ctx.judgment_mode:
                 _emit_final_answer_if_any(
@@ -921,6 +1000,7 @@ def _prepare_round(ctx: _RoundContext) -> _RoundOutcome | None:
                 core=ctx.core,
                 assistant_text=ctx.assistant_text,
                 tool_calls_list=ctx.tool_calls_list,
+                responses_output_items=responses_output_items,
             )
         ctx.empty_no_tool_rounds = 0
 
@@ -1862,8 +1942,8 @@ def run_llm_rounds(
                         except Exception:
                             pass
 
-                # Skip auto-unload when server manages tool selection
-                # (native GPT-5.4 tool_search mode only)
+                # Keep the complete searchable inventory available while a
+                # provider-native search route is active.
                 if not (
                     _should_preload_lazy_specs()
                     or resolve_tool_discovery(

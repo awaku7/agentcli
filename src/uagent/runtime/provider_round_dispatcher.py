@@ -119,6 +119,7 @@ def resolve_registry_round_route(
     has_context_tools: bool,
     uses_legacy_catalog: bool,
     transport_selection: RoundTransportSelection | None = None,
+    model_name: str = "",
 ) -> RegistryRoundRoute:
     """Resolve registry eligibility once for a provider round."""
 
@@ -143,6 +144,39 @@ def resolve_registry_round_route(
         return RegistryRoundRoute(False, "responses_registry_disabled")
     if uses_legacy_catalog:
         return RegistryRoundRoute(False, "legacy_catalog_conflict")
+    provider_name = provider.strip().lower()
+    if (
+        use_responses_api
+        and send_tools
+        and tools_enabled
+        and has_context_tools
+        and provider_name
+        in {
+            "openrouter",
+            "deepseek",
+        }
+    ):
+        try:
+            from .tool_discovery import (
+                deepseek_responses_tool_search_enabled,
+                openrouter_responses_tool_search_variant,
+            )
+
+            native_search = (
+                openrouter_responses_tool_search_variant(provider_name, model_name)
+                is not None
+                if provider_name == "openrouter"
+                else deepseek_responses_tool_search_enabled(provider_name, model_name)
+            )
+            if native_search:
+                # These stateless deferred-tool protocols bind search state to
+                # the full message history. Keep them on the compatibility
+                # path, which replays the raw output items verbatim.
+                return RegistryRoundRoute(
+                    False, "native_tool_search_requires_full_history"
+                )
+        except Exception:
+            pass
     if send_tools and not tools_enabled:
         return RegistryRoundRoute(False, "tools_registry_disabled")
     if send_tools and not has_context_tools:

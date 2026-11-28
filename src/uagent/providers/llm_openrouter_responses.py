@@ -17,7 +17,7 @@ def apply_openrouter_responses_compat(
     Mutates resp_kwargs in-place.
 
     Observed OpenRouter Responses quirks:
-      - `input` must be a string (OpenAI/Azure-style list-of-messages is rejected).
+      - Non-native requests use string `input`; native Tool Search requests preserve structured Responses input for stateless history replay.
       - `tools` is validated as a strict union of:
           - function tool (flat): {type:"function", name, parameters, description?}
           - built-in tools: {type:"openrouter:web_search"} / {type:"openrouter:datetime"}
@@ -61,6 +61,15 @@ def apply_openrouter_responses_compat(
             resp_kwargs["reasoning"] = _reasoning_obj
     except Exception:
         pass
+
+    raw_tools = resp_kwargs.get("tools")
+    native_tool_search = bool(
+        isinstance(raw_tools, list)
+        and any(
+            isinstance(tool, dict) and tool.get("type") == "openrouter:tool_search"
+            for tool in raw_tools
+        )
+    )
 
     debug_env = (env_get("UAGENT_OPENROUTER_RESPONSES_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
@@ -142,7 +151,7 @@ def apply_openrouter_responses_compat(
                 return "\n".join([p for p in parts if (p or "").strip()])
             return str(it)
 
-        if isinstance(_in, list):
+        if isinstance(_in, list) and not native_tool_search:
             _debug_dump("input_before", _in)
 
             lines: list[str] = []
@@ -160,21 +169,25 @@ def apply_openrouter_responses_compat(
             flat = "\n\n".join(lines).strip()
             resp_kwargs["input"] = flat
             _debug_dump("input_after", flat)
-        elif isinstance(_in, dict):
+        elif isinstance(_in, dict) and not native_tool_search:
             resp_kwargs["input"] = json.dumps(_in, ensure_ascii=False, default=str)
     except Exception:
         pass
 
-    # Hard guarantee: never send list/dict/etc as input to OpenRouter.
-    try:
-        _in2 = resp_kwargs.get("input")
-        if not isinstance(_in2, str):
-            try:
-                resp_kwargs["input"] = json.dumps(_in2, ensure_ascii=False, default=str)
-            except Exception:
-                resp_kwargs["input"] = "" if _in2 is None else str(_in2)
-    except Exception:
-        resp_kwargs["input"] = ""
+    # Preserve typed input items only when the native server tool is present;
+    # they carry exact function/reasoning state required for stateless replay.
+    if not native_tool_search:
+        try:
+            _in2 = resp_kwargs.get("input")
+            if not isinstance(_in2, str):
+                try:
+                    resp_kwargs["input"] = json.dumps(
+                        _in2, ensure_ascii=False, default=str
+                    )
+                except Exception:
+                    resp_kwargs["input"] = "" if _in2 is None else str(_in2)
+        except Exception:
+            resp_kwargs["input"] = ""
 
     # Tools compat: normalize into OpenRouter's Responses union shapes.
     try:
@@ -242,8 +255,10 @@ def apply_openrouter_responses_compat(
                 "web_search": "openrouter:web_search",
                 "web_search_preview": "openrouter:web_search",
                 "datetime": "openrouter:datetime",
+                "tool_search": "openrouter:tool_search",
                 "openrouter:web_search": "openrouter:web_search",
                 "openrouter:datetime": "openrouter:datetime",
+                "openrouter:tool_search": "openrouter:tool_search",
             }
 
             new_tools: list[dict[str, Any]] = []

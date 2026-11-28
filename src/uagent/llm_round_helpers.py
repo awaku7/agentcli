@@ -333,6 +333,21 @@ def _resolve_round_runtime_flags(
             except Exception:
                 pass
 
+    try:
+        from .runtime.tool_discovery import provider_messages_api_enabled
+
+        if provider.strip().lower() in {
+            "openrouter",
+            "deepseek",
+        } and provider_messages_api_enabled(provider):
+            # The Anthropic SDK's Messages request path is not the OpenAI
+            # Responses streaming contract. Explicit Messages selection takes
+            # precedence over the global UAGENT_RESPONSES/UAGENT_STREAMING flags.
+            use_responses_api = False
+            stream_responses = False
+    except Exception:
+        pass
+
     return use_responses_api, stream_responses
 
 
@@ -684,6 +699,7 @@ def _call_openai_azure_round(
                         tool_specs=responses_tool_specs,
                         previous_response_id=_prev_rid,
                         core=core,
+                        model_name=depname,
                     )
 
                     resp_kwargs = {

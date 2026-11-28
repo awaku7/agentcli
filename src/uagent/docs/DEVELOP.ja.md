@@ -183,7 +183,17 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 
 **Gemini/Vertex Interactions Tool Retrieval**: 選択中のモデルについて llmcapa が `tool_search` を肯定し、Gemini API モードが `interactions` の場合、UAG は `{"type":"tool_search"}` と `defer_loading: true` を付けた関数定義を送ります。スキーマはプロバイダ側が必要時に取得しますが、関数の実行は通常の権限チェックを通して UAG が行います。能力情報が不明なら既存の `tool_catalog` フローを使います。`UAGENT_GPT54_TOOL_SEARCH` とは独立しています。Provider extra は `google-genai[httpx]>=3.6.1,<4` を使用します。SDK 3.x の既定が `v1` のため、Gemini Developer API の Tool Retrieval では `v1beta` を明示します。
 
-**その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは `tool_catalog` → `tool_load` で個別に発見・動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
+**Anthropic Messages の Tool Search**: 選択中の Claude モデルについて、llmcapa が Messages API 上のサーバー側 `tool_search` を肯定した場合、公式の `tool_search_tool_bm25_20251119` と登録済みツール定義を送りますが、冗長な管理用ブートストラップの `tool_catalog` / `tool_load` / `unload_tool` は除外します。遅延定義には `defer_loading: true` を付け、よく使うツールの一部は即時利用できる状態にします。`server_tool_use` / `tool_search_tool_result` を含む Anthropic の応答ブロックはそのまま履歴に保持して次のリクエストへ再送し、発見された通常の `tool_use` は従来どおり UAG の権限チェックを通して実行します。能力情報が不明なら既存フローにフォールバックします。`UAGENT_ANTHROPIC_TOOL_SEARCH` は `native`（デフォルト、BM25 優先）、`bm25`、`regex`、`off` を指定できます。選択された形式も llmcapa の能力情報で検証します。
+
+**OpenRouter Responses の Tool Search**: Responses API を使用し、llmcapa が選択中モデルのサーバー側 `tool_search` と `regex` variant を肯定した場合、UAG は `{"type":"openrouter:tool_search"}` と `defer_loading: true` を付けたツール定義を送ります。`human_ask` / `calculator` / `fetch_url` / `search_web` / `python_exec` は即時利用可能にし、`tool_catalog` / `tool_load` / `unload_tool` は除外します。ツール実行は従来どおり UAG が行い、通常の権限チェックを通します。応答がステートレスなため、型付き入力項目と生の Responses 出力項目（推論・検索状態を含む）、対応する `function_call_output` を次のリクエストへ再送します。OpenRouter側機能はベータで、現時点では `regex` variant のみです。`UAGENT_OPENROUTER_TOOL_SEARCH` は `native`（既定、llmcapaで対応確認時）、`legacy`、`off` を指定でき、`UAGENT_GPT54_TOOL_SEARCH` とは独立しています。能力情報が不明、または履歴の生出力がない場合は既存フローにフォールバックします。
+
+**OpenRouter Messages の Tool Search**: `UAGENT_OPENROUTER_API=messages` で Anthropic互換 Messages API 経路を選択します。Anthropic SDK の base URL は `https://openrouter.ai/api`（`UAGENT_OPENROUTER_MESSAGES_BASE_URL` で上書き可能）です。llmcapa が Messages のサーバー検索と `regex` を肯定した場合、UAG は `tool_search_tool_regex_20251119` と遅延関数定義を送り、Anthropic形式の応答ブロックをそのまま継続履歴に保持します。ツール実行は UAG の権限チェックを通します。この設定がなければ既存の Chat / Responses API 経路を維持します。
+
+**DeepSeek Responses の client-side Tool Search**: llmcapa が `deepseek-flash` の Responses API 上で client 実行を肯定した場合、UAG は `{"type":"tool_search","execution":"client"}` を送信します。返された `tool_search_call` をローカルの `tool_catalog` 検索に渡し、対応する `tool_search_output` と一致した関数スキーマを履歴へ追加します。実関数の実行は通常の UAG 権限チェックを通します。履歴はステートレスに再送し、`previous_response_id` は使いません。Chat Completionsでは非対応で、llmcapaが非対応とする `deepseek-v4-pro` では有効になりません。`UAGENT_DEEPSEEK_TOOL_SEARCH` は `native`（既定、llmcapaが対応確認時）、`legacy`、`off` を指定でき、GPT-5.4/OpenRouterの設定とは独立しています。
+
+**DeepSeek Messages の Tool Search**: `UAGENT_DEEPSEEK_API=messages` で Anthropic互換 Messages API を選択します。base URL は `https://api.deepseek.com/anthropic`（`UAGENT_DEEPSEEK_MESSAGES_BASE_URL` で上書き可能）です。llmcapa が対応を肯定する `deepseek-flash` では、`tool_catalog` によるローカル検索結果を `tool_reference` ブロックへ変換し、定義済みの遅延ツールを会話中に追加します。発見後の関数実行も UAG が通常の権限チェックを行います。`UAGENT_DEEPSEEK_TOOL_SEARCH=legacy` / `off` で遅延読み込みを無効にできます。`deepseek-v4-pro` は llmcapa が非対応とするため有効になりません。Chat Completions経路は変更しません。
+
+**その他のプロバイダ (Bedrock 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは `tool_catalog` → `tool_load` で個別に発見・動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
 **発見の診断（オプトイン）**: `UAGENT_DEBUG_TOOL_DISCOVERY=1` を設定すると、ツールを送信するラウンドごとに JSON 1 行がログディレクトリの `tool_discovery.jsonl` に追記されます。各行には発見の判定（`mode`、`reason`）、プロバイダ/モデル、`tool_catalog` が送信ツールに含まれていたか（`catalog_sent`）が入るので、想定外に `tool_catalog` が呼ばれたラウンドを後から確認できます。デフォルトはオフで、オフ時は環境変数の確認だけです。
 
@@ -192,11 +202,11 @@ PDF・スクリーンショット・MCP バイナリのインラインデータ�
 **`previous_response_id` 継続**:
 
 - OpenAI/Azure Responses: 有効な `resp_*` のときツールループ間で `previous_response_id` を保持。
-- **Grok / OpenRouter**: `previous_response_id` は送らない（OpenRouter は schema 上 null 必須、Grok は tools 併用が不安定）。継続はローカル全履歴 + OpenRouter の文字列化 `input`。
+- **Grok / OpenRouter / DeepSeek client Tool Search**: `previous_response_id` は送らず、ローカル全履歴を再送します。OpenRouter の通常経路は `input` を文字列化し、OpenRouter native Tool Search と DeepSeek client Tool Search は型付き Responses 項目と検索状態を再生します。
 - stale rid / `invalid_prompt` / `APIResponseValidationError`（文字列 `error.code` 等）時: rid クリア、`responses_state["_stale_rid_occurred"]` 設定、全履歴で 1 回リトライ。2 回目失敗で continuation クリア。
 - Compat 除去: `apply_openrouter_responses_compat` と `_normalize_openrouter_send_kwargs` は常に `previous_response_id` を pop。
 
-**auto-unload**: `previous_response_id` が設定されている場合（全プロバイダ）、または native GPT-5.4 tool_search / Gemini Interactions Tool Retrieval が有効な場合はスキップされます。
+**auto-unload**: `previous_response_id` が設定されている場合（全プロバイダ）、または native GPT-5.4 tool_search / Gemini Interactions Tool Retrieval / OpenRouter Responses Tool Search / DeepSeek Responses client Tool Search が有効な場合はスキップされます。
 
 詳細は `TOOL_FLOW.md` を参照してください。
 

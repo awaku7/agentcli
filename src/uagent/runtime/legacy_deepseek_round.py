@@ -49,6 +49,51 @@ def run_legacy_deepseek_round(
     **_unused: Any,
 ) -> RoundResult:
     """Run DeepSeek/MiMo and preserve the legacy round-result contract."""
+    if provider == "deepseek":
+        from .tool_discovery import provider_messages_api_enabled
+
+        if provider_messages_api_enabled(provider):
+            from .legacy_claude_round import run_legacy_claude_round
+
+            return run_legacy_claude_round(
+                client=client,
+                depname=depname,
+                call_messages=call_messages,
+                messages=messages,
+                gemini_cache_name=gemini_cache_name,
+                core=core,
+                make_client_fn=make_client_fn,
+                call_maybe_thread_fn=call_maybe_thread_fn,
+                append_result_to_outfile_fn=append_result_to_outfile_fn,
+                try_open_images_from_text_fn=try_open_images_from_text_fn,
+                empty_no_tool_rounds=empty_no_tool_rounds,
+                empty_no_tool_max=empty_no_tool_max,
+                tr_cfg=tr_cfg,
+                use_responses_api=use_responses_api,
+                stream_responses=stream_responses,
+                send_tools_this_round=send_tools_this_round,
+                max_retries_429=max_retries_429,
+                retry_base=retry_base,
+                retry_cap=retry_cap,
+                judgment_mode=judgment_mode,
+                inject_stop_prompt_fn=inject_stop_prompt_fn,
+                translate_assistant_fn=translate_assistant_fn,
+                should_keep_assistant_message_fn=should_keep_assistant_message_fn,
+                append_assistant_message_fn=_unused.get("append_assistant_message_fn"),
+                handle_empty_no_tool_fn=handle_empty_no_tool_fn,
+                emit_final_answer_fn=emit_final_answer_fn,
+                provider=provider,
+                **{
+                    key: value
+                    for key, value in _unused.items()
+                    if key
+                    not in {
+                        "append_assistant_message_fn",
+                        "provider",
+                    }
+                },
+            )
+
     ok, client, assistant_text, reasoning_content, tool_calls_list = (
         call_legacy_deepseek_round(
             provider=provider,

@@ -8,6 +8,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 
 from ..providers.gemini_api_mode import gemini_api_mode
+from .tool_discovery import provider_messages_api_enabled
 
 _INTERNAL_KEYS = {
     "result_record",
@@ -18,6 +19,7 @@ _INTERNAL_KEYS = {
     "reasoning",
     "_responses_output_items",
     "_gemini_content",
+    "_anthropic_content_blocks",
     "actor_id",
 }
 
@@ -46,7 +48,11 @@ def apply_recovery_projection(
 
 
 def project_messages_for_provider(
-    messages: list[dict[str, Any]], *, provider: str, model: str = ""
+    messages: list[dict[str, Any]],
+    *,
+    provider: str,
+    model: str = "",
+    preserve_responses_output_items: bool = False,
 ) -> list[dict[str, Any]]:
     """Return a provider-safe copy without changing runtime history.
 
@@ -65,12 +71,26 @@ def project_messages_for_provider(
                 and provider_name in {"gemini", "vertexai"}
                 and gemini_api_mode(model, provider_name) == "interactions"
             )
+            keep_anthropic_messages_history = key == "_anthropic_content_blocks" and (
+                provider_name == "claude"
+                or (
+                    provider_name in {"openrouter", "deepseek"}
+                    and provider_messages_api_enabled(provider_name)
+                )
+            )
+            keep_native_responses_output_items = (
+                key == "_responses_output_items"
+                and provider_name in {"openrouter", "deepseek"}
+                and preserve_responses_output_items
+            )
             # Sarashina requires its opaque reasoning token to be replayed in
             # the next assistant message. Keep the internal alias until its
             # provider sanitizer maps it to the documented ``reasoning`` key.
             if (
                 key in _INTERNAL_KEYS
                 and not keep_gemini_interaction_history
+                and not keep_anthropic_messages_history
+                and not keep_native_responses_output_items
                 and not (
                     provider_name == "sarashina"
                     and key in {"reasoning", "reasoning_content"}

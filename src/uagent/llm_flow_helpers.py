@@ -180,6 +180,7 @@ def _append_assistant_message(
     tool_calls_list: list[dict[str, Any]],
     gemini_content_dump: Any = None,
     responses_output_items: list[dict[str, Any]] | None = None,
+    anthropic_content_blocks: list[dict[str, Any]] | None = None,
     skip_log_when_web: bool = False,
 ) -> None:
     assistant_msg: dict[str, Any] = {
@@ -204,6 +205,8 @@ def _append_assistant_message(
         assistant_msg["_responses_output_items"] = responses_output_items
     if isinstance(gemini_content_dump, dict) and gemini_content_dump:
         assistant_msg["_gemini_content"] = gemini_content_dump
+    if isinstance(anthropic_content_blocks, list) and anthropic_content_blocks:
+        assistant_msg["_anthropic_content_blocks"] = anthropic_content_blocks
 
     messages.append(assistant_msg)
 

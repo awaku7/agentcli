@@ -237,6 +237,38 @@ def test_registry_round_gate_centralizes_route_policy() -> None:
     assert registry_round_allowed(**legacy_catalog) is False
 
 
+def test_registry_route_keeps_native_deferred_search_on_full_history_path(
+    monkeypatch,
+) -> None:
+    from uagent.providers import runtime_registry
+    from uagent.runtime import tool_discovery
+
+    monkeypatch.setattr(
+        runtime_registry, "supports_provider_runtime", lambda _provider: True
+    )
+    monkeypatch.setattr(
+        tool_discovery,
+        "openrouter_responses_tool_search_variant",
+        lambda *_args, **_kwargs: "regex",
+    )
+    gate = _registry_gate_defaults()
+    gate.update(
+        provider="openrouter",
+        use_responses_api=True,
+        responses_enabled=True,
+        send_tools=True,
+        tools_enabled=True,
+        has_context_tools=True,
+        model_name="openrouter/free",
+    )
+
+    route = resolve_registry_round_route(**gate)
+
+    assert route == RegistryRoundRoute(
+        False, "native_tool_search_requires_full_history"
+    )
+
+
 def test_registry_route_uses_transport_selection_as_the_shared_boundary() -> None:
     gate = _registry_gate_defaults()
     gate["responses_enabled"] = True

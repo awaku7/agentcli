@@ -13,6 +13,15 @@ def apply_deepseek_responses_compat(
     if provider != "deepseek":
         return
     resp_kwargs.pop("context_management", None)
+    tools = resp_kwargs.get("tools")
+    if isinstance(tools, list) and any(
+        isinstance(tool, dict)
+        and tool.get("type") == "tool_search"
+        and tool.get("execution") == "client"
+        for tool in tools
+    ):
+        # DeepSeek requires stateless full-history replay for client tool search.
+        resp_kwargs.pop("previous_response_id", None)
     text_cfg = resp_kwargs.get("text")
     if isinstance(text_cfg, dict):
         text_cfg.pop("verbosity", None)

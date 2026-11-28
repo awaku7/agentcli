@@ -199,6 +199,19 @@ def _extract_response_text(response: Any) -> str:
     return "".join(parts)
 
 
+def _serializable_responses_output_items(response: Any) -> list[dict[str, Any]] | None:
+    """Return complete API-shaped output items, or None if replay is unsafe."""
+    output = _mapping_value(response, "output")
+    if not isinstance(output, (list, tuple)) or not output:
+        return None
+    from .responses_common import responses_item_to_dict
+
+    converted = [responses_item_to_dict(item) for item in output]
+    if any(not isinstance(item, dict) for item in converted):
+        return None
+    return converted
+
+
 class OpenAICompatibleRuntime:
     """Adapt Chat Completions or Responses requests for registry execution."""
 
@@ -237,6 +250,24 @@ class OpenAICompatibleRuntime:
             plan.messages,
             session.get("recovery_hint"),
         )
+        openrouter_tool_search_variant = None
+        deepseek_tool_search_enabled = False
+        if self._provider == "openrouter" and self._transport == "responses":
+            from ..runtime.tool_discovery import (
+                openrouter_responses_tool_search_variant,
+            )
+
+            openrouter_tool_search_variant = openrouter_responses_tool_search_variant(
+                self._provider, self._model
+            )
+        elif self._provider == "deepseek" and self._transport == "responses":
+            from ..runtime.tool_discovery import (
+                deepseek_responses_tool_search_enabled,
+            )
+
+            deepseek_tool_search_enabled = deepseek_responses_tool_search_enabled(
+                self._provider, self._model
+            )
         transformed = MessageTransformPipeline().apply(
             source_messages,
             translator=session.get("translator"),
@@ -245,6 +276,10 @@ class OpenAICompatibleRuntime:
             [dict(message) for message in transformed.messages],
             provider=self._provider,
             model=self._model,
+            preserve_responses_output_items=(
+                openrouter_tool_search_variant is not None
+                or deepseek_tool_search_enabled
+            ),
         )
         if self._provider == "sarashina" and self._transport != "responses":
             messages = sanitize_sarashina_messages(messages)
@@ -302,6 +337,9 @@ class OpenAICompatibleRuntime:
                     tool_specs=list(tool_specs),
                     previous_response_id=options.get("previous_response_id"),
                     core=session.get("core"),
+                    model_name=self._model,
+                    openrouter_tool_search_variant=openrouter_tool_search_variant,
+                    deepseek_tool_search_enabled=deepseek_tool_search_enabled,
                 )
                 tool_specs = tuple(response_tools or ())
                 if instructions:
@@ -333,7 +371,11 @@ class OpenAICompatibleRuntime:
             messages=tuple(messages),
             tool_specs=tool_specs,
             options=options,
-            metadata={"transforms": transformed.applied},
+            metadata={
+                "transforms": transformed.applied,
+                "openrouter_tool_search_variant": openrouter_tool_search_variant,
+                "deepseek_tool_search_enabled": deepseek_tool_search_enabled,
+            },
         )
 
     def serialize(self, projection: ProviderProjection) -> SerializedRequest:
@@ -375,6 +417,14 @@ class OpenAICompatibleRuntime:
                 apply_openrouter_tool_schema_compat(
                     payload, provider=projection.provider
                 )
+        elif projection.provider == "deepseek" and projection.transport == "responses":
+            from .llm_deepseek_responses import apply_deepseek_responses_compat
+
+            apply_deepseek_responses_compat(
+                payload,
+                provider=projection.provider,
+                depname=projection.model,
+            )
         elif projection.provider == "ollama":
             if projection.transport == "responses":
                 from .llm_ollama_responses import apply_ollama_responses_compat
@@ -481,10 +531,40 @@ class OpenAICompatibleRuntime:
                     provider=self._provider,
                     stream=self._streaming,
                 )
+                native_openrouter_search = bool(
+                    self._provider == "openrouter"
+                    and self._transport == "responses"
+                    and any(
+                        isinstance(tool, Mapping)
+                        and tool.get("type") == "openrouter:tool_search"
+                        for tool in request_tools
+                    )
+                )
+                native_deepseek_search = bool(
+                    self._provider == "deepseek"
+                    and self._transport == "responses"
+                    and any(
+                        isinstance(tool, Mapping)
+                        and tool.get("type") == "tool_search"
+                        and tool.get("execution") == "client"
+                        for tool in request_tools
+                    )
+                )
+                preserve_output_items = (
+                    native_openrouter_search or native_deepseek_search
+                )
                 if self._streaming:
-                    yield from self._responses_events(stream, cancellation)
+                    yield from self._responses_events(
+                        stream,
+                        cancellation,
+                        preserve_output_items=preserve_output_items,
+                    )
                 else:
-                    yield from self._responses_response_events(stream, cancellation)
+                    yield from self._responses_response_events(
+                        stream,
+                        cancellation,
+                        preserve_output_items=preserve_output_items,
+                    )
             else:
                 chat_payload = {
                     key: value
@@ -593,7 +673,11 @@ class OpenAICompatibleRuntime:
         )
 
     def _responses_response_events(
-        self, response: Any, cancellation: CancellationToken
+        self,
+        response: Any,
+        cancellation: CancellationToken,
+        *,
+        preserve_output_items: bool = False,
     ) -> Iterator[StreamEvent]:
         if cancellation.is_cancelled():
             yield self._event("ResponseCancelled", {"reason": "cancelled"})
@@ -614,6 +698,20 @@ class OpenAICompatibleRuntime:
                 debug_summary_text.append(summary_text)
                 if summary_text:
                     yield self._event("ReasoningDelta", {"text": summary_text})
+                continue
+            if item_type == "tool_search_call" and self._provider == "deepseek":
+                if _mapping_value(item, "execution") != "client":
+                    continue
+                call_id = str(_mapping_value(item, "call_id") or "")
+                arguments = _mapping_value(item, "arguments")
+                if isinstance(arguments, dict):
+                    arguments = json.dumps(arguments, ensure_ascii=False)
+                if call_id:
+                    tool_calls[call_id] = {
+                        "id": call_id,
+                        "name": "tool_catalog",
+                        "arguments": str(arguments or "{}"),
+                    }
                 continue
             if item_type != "function_call":
                 continue
@@ -656,6 +754,10 @@ class OpenAICompatibleRuntime:
                 provider=self._provider,
             )
         )
+        if preserve_output_items:
+            output_items = _serializable_responses_output_items(response)
+            if output_items is not None:
+                data["_responses_output_items"] = output_items
         yield self._event("ResponseCompleted", data)
 
     def _event(self, event_type: str, data: Mapping[str, Any]) -> StreamEvent:
@@ -727,7 +829,11 @@ class OpenAICompatibleRuntime:
         yield self._event("ResponseCompleted", {"usage": usage} if usage else {})
 
     def _responses_events(
-        self, stream: Any, cancellation: CancellationToken
+        self,
+        stream: Any,
+        cancellation: CancellationToken,
+        *,
+        preserve_output_items: bool = False,
     ) -> Iterator[StreamEvent]:
         tool_calls: dict[str, dict[str, str]] = {}
         item_to_call: dict[str, str] = {}
@@ -757,14 +863,23 @@ class OpenAICompatibleRuntime:
         def record_function_item(
             item: Any, *, final: bool
         ) -> tuple[str, list[str]] | None:
-            if str(getattr(item, "type", "") or "") != "function_call":
+            item_type = str(getattr(item, "type", "") or "")
+            deepseek_search_call = (
+                item_type == "tool_search_call" and self._provider == "deepseek"
+            )
+            if item_type != "function_call" and not deepseek_search_call:
                 return None
             item_id = str(getattr(item, "id", "") or "")
             call_id = str(getattr(item, "call_id", "") or item_id)
             if not call_id:
                 return None
             call = bind_item(item_id, call_id) if item_id else ensure_call(call_id)
-            name = str(getattr(item, "name", "") or "")
+            name = (
+                "tool_catalog"
+                if deepseek_search_call
+                and _mapping_value(item, "execution") == "client"
+                else str(getattr(item, "name", "") or "")
+            )
             if name:
                 call["name"] = name
             arguments = getattr(item, "arguments", None)
@@ -890,6 +1005,7 @@ class OpenAICompatibleRuntime:
                 )
 
                 for output_item in response_output:
+                    record_function_item(output_item, final=True)
                     if _mapping_value(output_item, "type") != "reasoning":
                         continue
                     raw_text, summary_text = _reasoning_item_debug_texts(output_item)
@@ -936,6 +1052,10 @@ class OpenAICompatibleRuntime:
                         provider=self._provider,
                     )
                 )
+                if preserve_output_items:
+                    output_items = _serializable_responses_output_items(response)
+                    if output_items is not None:
+                        data["_responses_output_items"] = output_items
                 yield self._event("ResponseCompleted", data)
                 return
             elif event_type == "response.failed":

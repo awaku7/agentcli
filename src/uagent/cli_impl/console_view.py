@@ -1828,6 +1828,12 @@ class ConsoleView:
                 return
             buffer = event.app.current_buffer
             text = buffer.text
+            if not text.strip():
+                # A blank Enter is not a user message. In particular, do not
+                # turn it into an empty queued item while a generation is
+                # busy, which would show a misleading "(queued)" marker.
+                buffer.reset()
+                return
             try:
                 buffer.append_to_history()
             except Exception:
@@ -2220,7 +2226,13 @@ class ConsoleView:
                     MouseEventType.SCROLL_UP,
                     MouseEventType.SCROLL_DOWN,
                 ):
-                    return NotImplemented  # the window scrolls itself
+                    # Use the same full-document cursor path as PageUp/PgDn.
+                    # Window's native wheel handler can clamp to the current
+                    # render_info range, which is shorter than the scrollback.
+                    view._scroll_output_lines(
+                        -3 if mouse_event.event_type == MouseEventType.SCROLL_UP else 3
+                    )
+                    return None
                 get_processed_line = getattr(self, "_last_get_processed_line", None)
                 if get_processed_line is None:
                     return NotImplemented
@@ -2293,10 +2305,10 @@ class ConsoleView:
                     _paste_clipboard(self.buffer, get_app().clipboard)
                     return None
                 if mouse_event.event_type == MouseEventType.SCROLL_UP:
-                    view._scroll_output_wheel(-3)
+                    view._scroll_output_lines(-3)
                     return None
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
-                    view._scroll_output_wheel(3)
+                    view._scroll_output_lines(3)
                     return None
                 if mouse_event.event_type in (
                     MouseEventType.MOUSE_DOWN,
@@ -2330,10 +2342,10 @@ class ConsoleView:
 
             def mouse_handler(self, mouse_event: Any) -> Any:
                 if mouse_event.event_type == MouseEventType.SCROLL_UP:
-                    view._scroll_output_wheel(-3)
+                    view._scroll_output_lines(-3)
                     return None
                 if mouse_event.event_type == MouseEventType.SCROLL_DOWN:
-                    view._scroll_output_wheel(3)
+                    view._scroll_output_lines(3)
                     return None
                 if mouse_event.event_type in (
                     MouseEventType.MOUSE_DOWN,
@@ -2495,7 +2507,7 @@ class ConsoleView:
             control._stop_edge_scroll()
 
     def _scroll_output_wheel(self, lines: int) -> None:
-        """Scroll the output window by a few lines (mouse wheel).
+        """Move the rendered output viewport during drag edge-scroll.
 
         The renderer persistently honours the window's own scroll
         offset — moving the buffer cursor (the PageUp path) only

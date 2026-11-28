@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import re
 from typing import Any, Optional
@@ -8,6 +9,52 @@ from ..env_utils import env_get
 from ..i18n import _
 from .. import tools
 from ..reasoning_display import show_reasoning
+
+_ANTHROPIC_EAGER_TOOL_NAMES = (
+    "human_ask",
+    "calculator",
+    "fetch_url",
+    "search_web",
+    "python_exec",
+)
+
+
+def _anthropic_block_to_dict(block: Any) -> dict[str, Any] | None:
+    """Convert an Anthropic SDK content block to its API-shaped mapping."""
+    if isinstance(block, dict):
+        return copy.deepcopy(block)
+    dump = getattr(block, "model_dump", None)
+    if callable(dump):
+        try:
+            value = dump(mode="json", exclude_none=True)
+        except TypeError:
+            try:
+                value = dump(exclude_none=True)
+            except Exception:
+                value = None
+        except Exception:
+            value = None
+        if isinstance(value, dict):
+            return value
+    to_dict = getattr(block, "to_dict", None)
+    if callable(to_dict):
+        try:
+            value = to_dict()
+            if isinstance(value, dict):
+                return value
+        except Exception:
+            pass
+    try:
+        value = vars(block)
+    except Exception:
+        return None
+    if not isinstance(value, dict) or not isinstance(value.get("type"), str):
+        return None
+    return {
+        key: copy.deepcopy(item)
+        for key, item in value.items()
+        if not key.startswith("_") and item is not None
+    }
 
 
 def _parse_claude_model(
@@ -251,13 +298,14 @@ def claude_chat_with_tools(
     model_name: str,
     messages: list[dict[str, Any]],
     *,
+    provider: str = "claude",
     output_config: Optional[dict[str, Any]] = None,
     on_output_config_info: Optional[Any] = None,
     on_output_config_fallback: Optional[Any] = None,
     send_tools: bool = True,
     core: Any = None,
 ) -> tuple[str, list[dict[str, Any]]]:
-    """Anthropic Claude API を使って tool_calls 付き応答を生成する。
+    """Anthropic Messages API compatible routeで tool_calls 付き応答を生成する。
 
     OpenAI 形式の messages を Anthropic 形式に変換してからリクエストする。
 
@@ -272,6 +320,50 @@ def claude_chat_with_tools(
         Anthropic = None
     if Anthropic is None:
         raise RuntimeError(_("anthropic package is not installed."))
+    if core is not None:
+        try:
+            core._last_claude_content_blocks = None
+        except (AttributeError, TypeError):
+            pass
+
+    from ..runtime.tool_discovery import (
+        anthropic_messages_tool_search_variant,
+        deepseek_messages_tool_search_enabled,
+    )
+
+    tool_search_variant = (
+        anthropic_messages_tool_search_variant(provider, model_name)
+        if send_tools
+        else None
+    )
+    deepseek_client_tool_search = (
+        deepseek_messages_tool_search_enabled(provider, model_name)
+        if send_tools
+        else False
+    )
+    messages_tool_search_active = bool(
+        tool_search_variant is not None or deepseek_client_tool_search
+    )
+    tool_catalog_call_ids = {
+        str(tool_call.get("id") or "")
+        for message in messages
+        if isinstance(message, dict) and message.get("role") == "assistant"
+        for tool_call in (message.get("tool_calls") or [])
+        if isinstance(tool_call, dict)
+        and str(((tool_call.get("function") or {}).get("name") or "")) == "tool_catalog"
+        and str(tool_call.get("id") or "")
+    }
+    has_prior_server_search = any(
+        isinstance(message, dict)
+        and message.get("role") == "assistant"
+        and isinstance(message.get("_anthropic_content_blocks"), list)
+        and any(
+            isinstance(block, dict)
+            and block.get("type") in {"server_tool_use", "tool_search_tool_result"}
+            for block in message["_anthropic_content_blocks"]
+        )
+        for message in messages
+    )
 
     anthropic_messages: list[dict[str, Any]] = []
     system_content = ""
@@ -332,45 +424,56 @@ def claude_chat_with_tools(
 
         elif role == "assistant":
             new_role = "assistant"
-            if content:
-                new_content_blocks.append({"type": "text", "text": content})
+            native_blocks = m.get("_anthropic_content_blocks")
+            if (
+                isinstance(native_blocks, list)
+                and native_blocks
+                and all(isinstance(block, dict) for block in native_blocks)
+                and messages_tool_search_active
+            ):
+                # Messages endpoints require native blocks (including provider
+                # deferred-load state) to be replayed unchanged.
+                new_content_blocks.extend(copy.deepcopy(native_blocks))
+            else:
+                if content:
+                    new_content_blocks.append({"type": "text", "text": content})
 
-            tool_calls = m.get("tool_calls", [])
-            for tc in tool_calls:
-                fn = tc.get("function", {})
-                t_name = fn.get("name", "")
-                t_args = fn.get("arguments", "{}")
-                t_id = tc.get("id")
-                try:
-                    t_input = json.loads(t_args)
-                except Exception:
-                    t_input = {}
-                member = tc.get("computer_member_tool")
-                if tc.get("computer_toolset_name") == "computer" and member:
-                    original_member_input = tc.get("computer_member_input")
-                    if isinstance(original_member_input, dict):
-                        t_input = dict(original_member_input)
-                    elif isinstance(t_input, dict):
-                        t_input = dict(t_input)
-                        t_input.pop("action", None)
-                    new_content_blocks.append(
-                        {
-                            "type": "tool_use",
-                            "id": t_id,
-                            "name": str(member),
-                            "toolset_name": "computer",
-                            "input": t_input,
-                        }
-                    )
-                else:
-                    new_content_blocks.append(
-                        {
-                            "type": "tool_use",
-                            "id": t_id,
-                            "name": t_name,
-                            "input": t_input,
-                        }
-                    )
+                tool_calls = m.get("tool_calls", [])
+                for tc in tool_calls:
+                    fn = tc.get("function", {})
+                    t_name = fn.get("name", "")
+                    t_args = fn.get("arguments", "{}")
+                    t_id = tc.get("id")
+                    try:
+                        t_input = json.loads(t_args)
+                    except Exception:
+                        t_input = {}
+                    member = tc.get("computer_member_tool")
+                    if tc.get("computer_toolset_name") == "computer" and member:
+                        original_member_input = tc.get("computer_member_input")
+                        if isinstance(original_member_input, dict):
+                            t_input = dict(original_member_input)
+                        elif isinstance(t_input, dict):
+                            t_input = dict(t_input)
+                            t_input.pop("action", None)
+                        new_content_blocks.append(
+                            {
+                                "type": "tool_use",
+                                "id": t_id,
+                                "name": str(member),
+                                "toolset_name": "computer",
+                                "input": t_input,
+                            }
+                        )
+                    else:
+                        new_content_blocks.append(
+                            {
+                                "type": "tool_use",
+                                "id": t_id,
+                                "name": t_name,
+                                "input": t_input,
+                            }
+                        )
 
         elif role == "tool":
             new_role = "user"
@@ -466,6 +569,39 @@ def claude_chat_with_tools(
                     }
                 )
             else:
+                if (
+                    deepseek_client_tool_search
+                    and str(m.get("tool_call_id") or "") in tool_catalog_call_ids
+                    and isinstance(result_content, str)
+                ):
+                    try:
+                        catalog_result = json.loads(result_content)
+                    except Exception:
+                        catalog_result = None
+                    rows = (
+                        catalog_result.get("tools")
+                        if isinstance(catalog_result, dict)
+                        else None
+                    )
+                    declared_names = {
+                        str((spec.get("function") or {}).get("name") or "")
+                        for spec in (tools.get_tool_specs() or [])
+                        if isinstance(spec, dict)
+                        and isinstance(spec.get("function"), dict)
+                    }
+                    references = [
+                        {
+                            "type": "tool_reference",
+                            "tool_name": str(row.get("name") or ""),
+                        }
+                        for row in (rows or [])
+                        if isinstance(row, dict)
+                        and str(row.get("name") or "") in declared_names
+                    ]
+                    if references:
+                        result_content = references + [
+                            {"type": "text", "text": "Continue."}
+                        ]
                 new_content_blocks.append(
                     {
                         "type": "tool_result",
@@ -493,6 +629,10 @@ def claude_chat_with_tools(
             if context_tool_specs is not None
             else (tools.get_tool_specs() or [])
         )
+        if messages_tool_search_active:
+            # Native server search and DeepSeek's client-side reference loading
+            # both require the complete execution-policy-filtered inventory.
+            _tool_specs_iter = list(tools.get_tool_specs() or [])
         from ..runtime.execution_broker import (
             computer_use_allowed,
             is_computer_use_tool_spec,
@@ -528,6 +668,18 @@ def claude_chat_with_tools(
                 _tool_specs_iter.append(local_computer_tool_spec())
     else:
         _tool_specs_iter = []
+    unfiltered_tool_specs = _tool_specs_iter
+    if tool_search_variant is not None:
+        from ..runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
+
+        # Native server-side search replaces the local catalog/load bootstrap.
+        # Do not expose those management tools as searchable callable tools.
+        _tool_specs_iter = [
+            spec
+            for spec in _tool_specs_iter
+            if str((spec.get("function") or {}).get("name") or "")
+            not in MANAGEMENT_TOOL_NAMES
+        ]
     if (
         (
             getattr(core, "computer_use_runtime", None) is None
@@ -542,33 +694,98 @@ def claude_chat_with_tools(
         # Native tools use Anthropic's top-level tool shape, not JSON Schema.
         anthropic_tools.append(dict(native_tool))
 
+    function_tool_names = [
+        str(spec.get("function", {}).get("name") or "")
+        for spec in _tool_specs_iter
+        if isinstance(spec, dict) and isinstance(spec.get("function"), dict)
+    ]
+    eager_tool_names: set[str] = set()
+    if tool_search_variant is not None:
+        eager_tool_names = {
+            name for name in _ANTHROPIC_EAGER_TOOL_NAMES if name in function_tool_names
+        }
+        # Keep a small direct-call surface even when this environment has
+        # different built-ins loaded than the usual CLI set.
+        for name in function_tool_names:
+            if len(eager_tool_names) >= min(3, len(function_tool_names)):
+                break
+            eager_tool_names.add(name)
+        if not has_prior_server_search and not any(
+            name not in eager_tool_names for name in function_tool_names
+        ):
+            tool_search_variant = None
+            messages_tool_search_active = False
+            _tool_specs_iter = unfiltered_tool_specs
+            function_tool_names = [
+                str(spec.get("function", {}).get("name") or "")
+                for spec in _tool_specs_iter
+                if isinstance(spec, dict) and isinstance(spec.get("function"), dict)
+            ]
+            eager_tool_names = set()
+    elif deepseek_client_tool_search:
+        from ..runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
+
+        eager_tool_names = {
+            name
+            for name in (
+                *MANAGEMENT_TOOL_NAMES,
+                "human_ask",
+                *_ANTHROPIC_EAGER_TOOL_NAMES,
+            )
+            if name in function_tool_names
+        }
+        # DeepSeek's client-side Messages protocol needs a callable catalog
+        # tool whose result UAG converts to tool_reference blocks.
+        can_defer = "tool_catalog" in eager_tool_names and any(
+            name not in eager_tool_names for name in function_tool_names
+        )
+        if not can_defer:
+            deepseek_client_tool_search = False
+            messages_tool_search_active = tool_search_variant is not None
+            eager_tool_names = set()
+
+    if tool_search_variant is not None:
+        anthropic_tools.append(
+            {
+                "type": f"tool_search_tool_{tool_search_variant}_20251119",
+                "name": f"tool_search_tool_{tool_search_variant}",
+            }
+        )
+
     for spec in _tool_specs_iter:
         fn = spec.get("function", {})
         name = fn.get("name", "")
         desc = fn.get("description", "")
         params = fn.get("parameters", {})
-        anthropic_tools.append(
-            {
-                "name": name,
-                "description": desc,
-                "input_schema": params,
-            }
-        )
+        anthropic_tool = {
+            "name": name,
+            "description": desc,
+            "input_schema": params,
+        }
+        if "input_examples" in fn:
+            anthropic_tool["input_examples"] = fn["input_examples"]
+        if fn.get("strict") is not None:
+            anthropic_tool["strict"] = fn["strict"]
+        if messages_tool_search_active and name not in eager_tool_names:
+            anthropic_tool["defer_loading"] = True
+        anthropic_tools.append(anthropic_tool)
 
-    # システムプロンプトをキャッシュ対象にする
+    # Anthropic prompt-cache directives are provider-specific. Compatible
+    # gateways use their own cache policy and may reject this extension.
     system_blocks = []
     if system_content.strip():
-        system_blocks.append(
-            {
-                "type": "text",
-                "text": system_content.strip(),
-                "cache_control": {"type": "ephemeral"},
-            }
-        )
+        system_block = {"type": "text", "text": system_content.strip()}
+        if provider == "claude":
+            system_block["cache_control"] = {"type": "ephemeral"}
+        system_blocks.append(system_block)
 
-    # 最初の user メッセージの最初のテキストブロックにキャッシュを適用する
+    # The cache directive is only supported on the direct Anthropic route.
     first_user_msg = next((m for m in anthropic_messages if m["role"] == "user"), None)
-    if first_user_msg and isinstance(first_user_msg["content"], list):
+    if (
+        provider == "claude"
+        and first_user_msg
+        and isinstance(first_user_msg["content"], list)
+    ):
         for block in first_user_msg["content"]:
             if block.get("type") == "text":
                 block["cache_control"] = {"type": "ephemeral"}
@@ -839,13 +1056,26 @@ def claude_chat_with_tools(
     tool_calls_list: list[dict[str, Any]] = []
     thinking_text = ""
     _thinking_blocks = 0
+    if core is not None and messages_tool_search_active:
+        raw_blocks = [
+            serialized
+            for block in (getattr(response, "content", None) or [])
+            if (serialized := _anthropic_block_to_dict(block)) is not None
+        ]
+        if raw_blocks:
+            try:
+                core._last_claude_content_blocks = raw_blocks
+            except (AttributeError, TypeError):
+                pass
     _computer_tool_uses = [
         block
         for block in (getattr(response, "content", None) or [])
         if getattr(block, "type", None) == "tool_use"
         and getattr(block, "toolset_name", None) == "computer"
     ]
-    _batch_id = str(getattr(response, "id", None) or f"claude:{id(response)}")
+    _batch_id = str(
+        getattr(response, "id", None) or f"{provider}-messages:{id(response)}"
+    )
     _batch_positions = {
         id(block): index for index, block in enumerate(_computer_tool_uses)
     }

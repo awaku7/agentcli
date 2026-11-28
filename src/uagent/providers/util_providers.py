@@ -22,7 +22,18 @@ def provider_sdk_module(provider: str) -> str | None:
     # These providers already perform their own provider-specific lazy
     # installation/fallback handling in make_client(). Do not pre-install a
     # second SDK here.
-    if provider in {"grok", "zai", "together", "openrouter"}:
+    if provider in {"grok", "zai", "together"}:
+        return None
+
+    if provider in {"openrouter", "deepseek"}:
+        try:
+            from ..runtime.tool_discovery import provider_messages_api_enabled
+
+            if provider_messages_api_enabled(provider):
+                return "anthropic"
+        except Exception:
+            pass
+    if provider == "openrouter":
         return None
 
     if provider == "lmstudio":
@@ -45,7 +56,7 @@ def _ensure_provider_dependency(provider: str) -> None:
     if module_name is None:
         return
 
-    if provider == "claude":
+    if provider == "claude" or module_name == "anthropic":
         package_name = "anthropic"
     elif provider in {"gemini", "vertexai"}:
         package_name = "google-genai"
@@ -851,6 +862,38 @@ def iter_vertexai_stream_with_region_fallback(
             )
 
 
+def _make_anthropic_messages_client(
+    *, api_key: str, base_url: str, default_headers: dict[str, str] | None = None
+) -> Any:
+    """Create the Anthropic SDK client used by compatible Messages gateways."""
+    from anthropic import Anthropic
+
+    timeout = make_httpx_timeout()
+    http_client = make_httpx_client(timeout=timeout)
+    kwargs: dict[str, Any] = {
+        "api_key": api_key,
+        "base_url": base_url,
+    }
+    if timeout is not None:
+        kwargs["timeout"] = timeout
+    if http_client is not None:
+        kwargs["http_client"] = http_client
+    if default_headers:
+        kwargs["default_headers"] = default_headers
+    try:
+        return Anthropic(**kwargs)
+    except TypeError:
+        # Support older Anthropic SDK releases while retaining the explicit
+        # gateway endpoint and authentication settings.
+        kwargs.pop("http_client", None)
+        kwargs.pop("timeout", None)
+        try:
+            return Anthropic(**kwargs)
+        except TypeError:
+            kwargs.pop("default_headers", None)
+            return Anthropic(**kwargs)
+
+
 def make_client(core: Any) -> tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
@@ -1053,6 +1096,25 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "openrouter":
+        from ..runtime.tool_discovery import provider_messages_api_enabled
+
+        if provider_messages_api_enabled(provider):
+            api_key = _provider_api_key(core, "OPENROUTER") or "dummy"
+            base_url = core.get_env_url(
+                "UAGENT_OPENROUTER_MESSAGES_BASE_URL", "https://openrouter.ai/api"
+            )
+            headers = {
+                "HTTP-Referer": _OPENROUTER_HTTP_REFERER,
+                "X-OpenRouter-Title": _OPENROUTER_APP_TITLE,
+                "User-Agent": _OPENROUTER_USER_AGENT,
+            }
+            client = _make_anthropic_messages_client(
+                api_key=api_key,
+                base_url=base_url,
+                default_headers=headers,
+            )
+            return provider, client, model_name
+
         from openai import OpenAI  # lazy (fallback)
 
         # Prefer test/module injection, then optional official SDK.
@@ -1195,6 +1257,20 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "deepseek":
+        from ..runtime.tool_discovery import provider_messages_api_enabled
+
+        if provider_messages_api_enabled(provider):
+            api_key = _provider_api_key(core, "DEEPSEEK")
+            base_url = core.get_env_url(
+                "UAGENT_DEEPSEEK_MESSAGES_BASE_URL",
+                "https://api.deepseek.com/anthropic",
+            )
+            client = _make_anthropic_messages_client(
+                api_key=api_key,
+                base_url=base_url,
+            )
+            return provider, client, model_name
+
         from openai import OpenAI  # lazy
 
         api_key = _provider_api_key(core, "DEEPSEEK")

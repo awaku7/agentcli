@@ -67,7 +67,7 @@ def translate_and_append_legacy_assistant(
     )
     if should_keep_assistant_message_fn(
         translated, append_kwargs.get("tool_calls_list", ())
-    ):
+    ) or bool(append_kwargs.get("anthropic_content_blocks")):
         messages = append_kwargs.get("messages")
         message_count_before = len(messages) if isinstance(messages, list) else 0
         append_assistant_message_fn(

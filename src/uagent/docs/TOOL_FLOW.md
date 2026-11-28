@@ -81,6 +81,86 @@ google-genai 3.x defaults to `v1`; Vertex AI keeps its SDK `v1beta1` default.
 UAG selects the SDK's `httpx` backend when it supplies its shared `httpx.Client`.
 This is independent of the OpenAI/Azure `UAGENT_GPT54_TOOL_SEARCH` setting.
 
+### F. OpenRouter native Tool Search
+
+When `UAGENT_RESPONSES` selects the Responses transport and llmcapa confirms
+server-side `tool_search` with the `regex` variant for the selected OpenRouter
+model on the Responses API, UAG sends `{"type":"openrouter:tool_search"}` and marks non-eager
+function definitions with `defer_loading: true`. `human_ask`, `calculator`,
+`fetch_url`, `search_web`, and `python_exec` remain eager; management tools are
+omitted. UAG still executes returned function calls locally under its normal
+permission checks. OpenRouter documents the server tool as beta and currently
+supports only `regex`.
+
+OpenRouter Responses is stateless for this flow: UAG preserves structured
+Responses input, replays the assistant's complete raw output items (including
+reasoning and deferred-search state), then sends matching `function_call_output`
+items. `previous_response_id` is not used. If llmcapa does not positively
+confirm the capability, or the stored output items needed for replay are
+missing, UAG falls back to the existing selected-schema/catalog behavior.
+`UAGENT_OPENROUTER_TOOL_SEARCH=legacy` selects the legacy catalog path and
+`off` disables native discovery; this setting is independent of
+`UAGENT_GPT54_TOOL_SEARCH`.
+Once an assistant response has entered this native route, local shrink and
+context projections are paused so earlier signed history is not edited. If the
+provider context limit is reached, start a new conversation rather than
+rewriting the deferred-tool history.
+
+For OpenRouter's Anthropic-compatible Messages API, set
+`UAGENT_OPENROUTER_API=messages`. The Anthropic SDK base URL defaults to
+`https://openrouter.ai/api` (override with `UAGENT_OPENROUTER_MESSAGES_BASE_URL`).
+When llmcapa confirms server-side Messages search, UAG sends
+`tool_search_tool_regex_20251119` with deferred function definitions and
+replays the returned Anthropic content blocks unchanged. This route is opt-in;
+without the API setting, OpenRouter continues to use its existing Chat or
+Responses route.
+
+### G. Responses API + DeepSeek client-executed Tool Search
+
+When llmcapa confirms `deepseek-flash`-class support on the Responses API,
+UAG sends the DeepSeek `{"type":"tool_search","execution":"client"}`
+control tool and a small eager function set. Other local function definitions
+are not sent initially. The model returns a `tool_search_call`; UAG searches its
+local catalog, then replays that call with a matching `tool_search_output`
+containing the selected full function schemas. Subsequent tool calls use the
+normal UAG permission and execution path. This is client-side search, not
+server-side retrieval. The API is stateless, so UAG replays the full history
+and does not send `previous_response_id` for this route. Chat Completions does
+not support deferred loading, and llmcapa does not mark `deepseek-v4-pro` as
+supporting it.
+
+`UAGENT_DEEPSEEK_TOOL_SEARCH` accepts `native` (default when llmcapa confirms
+the model and Responses surface), `legacy`, or `off`. `legacy` keeps the
+existing `tool_catalog` / `tool_load` interaction; `off` sends the ordinary
+currently selected tool schemas. This switch is independent of the OpenAI and
+OpenRouter switches.
+
+For DeepSeek's Anthropic-compatible Messages API, set
+`UAGENT_DEEPSEEK_API=messages`. The endpoint defaults to
+`https://api.deepseek.com/anthropic` (override with
+`UAGENT_DEEPSEEK_MESSAGES_BASE_URL`). On `deepseek-flash`, UAG uses the
+client-side Messages deferral protocol: `tool_catalog` performs local search,
+and its result is converted into `tool_reference` content blocks while the
+declared tools remain deferred. Search results only reveal schemas; calls are
+still executed locally under UAG's permission checks. `deepseek-v4-pro` is
+not enabled because llmcapa does not mark its Messages surface as supported.
+`UAGENT_DEEPSEEK_TOOL_SEARCH=legacy` or `off` disables deferred Messages
+loading. Chat Completions remains unchanged and does not support this protocol.
+For the Responses client protocol, UAG likewise avoids local history projection
+once a `tool_search_call` has been recorded so the loading record can be replayed.
+
+### llmcapa 0.6.2 provider inventory
+
+The bundled capability metadata reports tool search for OpenAI and
+Azure Foundry (Responses, server/client), Anthropic (Messages, server/client),
+Google Gemini (Interactions, server/client), OpenRouter (Responses and
+Messages, server-side regex), and DeepSeek Flash (Responses and Messages,
+client-side). The current `vertex-ai` catalog has no `tool_search` entries.
+UAG routes OpenAI/Azure, Anthropic, and Google Gemini through their existing native handlers,
+OpenRouter through Responses and opt-in Messages, and DeepSeek Flash through
+Responses and opt-in Messages client protocols. Bedrock/`amazon` currently has no `tool_search` entry in
+llmcapa 0.6.2, so UAG does not infer support from model-card claims alone.
+
 ## Mode selection
 
 | Mode | `_get_gpt54_tool_search_mode()` | `_should_preload_lazy_specs()` | Notes |
@@ -88,6 +168,10 @@ This is independent of the OpenAI/Azure `UAGENT_GPT54_TOOL_SEARCH` setting.
 | Default (A/B) | `native` | `False` | See the native paths |
 | Legacy (C) | `legacy` | `False` | Must be explicitly selected |
 | Native (D) | `native` | `True` | Requires `UAGENT_GPT54_TOOL_SEARCH=native` |
+| OpenRouter Responses (F) | `native` | `True` | Requires llmcapa support and `regex`; `UAGENT_OPENROUTER_TOOL_SEARCH` controls it |
+| OpenRouter Messages | `native` | `True` | Opt-in via `UAGENT_OPENROUTER_API=messages`; regex server search |
+| DeepSeek Responses (G) | `native` | `True` | Requires llmcapa client execution on Responses; `UAGENT_DEEPSEEK_TOOL_SEARCH` controls it |
+| DeepSeek Messages | `native` | `True` | Opt-in via `UAGENT_DEEPSEEK_API=messages`; local search emits `tool_reference` blocks |
 
 ## Auto-unload skip conditions
 
@@ -104,8 +188,9 @@ if not (
 
 Auto-unload is skipped when any of these conditions is true:
 
-1. `_should_preload_lazy_specs()` is true (explicit native mode).
+1. `_should_preload_lazy_specs()` is true (a capability-gated native search route is active).
 1. `_is_gpt54_tool_search_target()` is true (OpenAI/Azure + GPT-5.4 or later Responses API).
+1. Gemini/Vertex Interactions Tool Retrieval, OpenRouter Responses/Messages Tool Search, or DeepSeek Responses/Messages Tool Search is active.
 1. `previous_response_id` is set (Responses API continuation for any provider).
 
 ## Dynamic loading with `tool_catalog`
@@ -135,6 +220,8 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 | Responses API + GPT-5.4 or later + `legacy` | Yes; `_select_tool_specs_legacy()` uses it explicitly |
 | Responses API + GPT-5.4 or later + `native` | No; `tool_catalog` itself is omitted |
 | Gemini/Vertex Interactions + llmcapa `tool_search=true` | No; Gemini Tool Retrieval loads deferred schemas |
+| OpenRouter Responses + llmcapa server `tool_search` | No; OpenRouter retrieves deferred schemas |
+| DeepSeek Responses + llmcapa client `tool_search` | No model-facing catalog call; UAG fulfills the client search locally |
 
 ### Implementation
 
@@ -147,6 +234,8 @@ Automatically loaded tools are also eligible for auto-unload because they are re
 | Variable | Default | Description |
 |---|---|---|
 | `UAGENT_GPT54_TOOL_SEARCH` | unset (`native`) | `native`, `legacy`, or `off` |
+| `UAGENT_OPENROUTER_TOOL_SEARCH` | unset (`native` when llmcapa allows) | OpenRouter Responses: `native`, `legacy`, or `off` |
+| `UAGENT_DEEPSEEK_TOOL_SEARCH` | unset (`native` when llmcapa allows) | DeepSeek Responses: `native`, `legacy`, or `off` |
 | `UAGENT_RESPONSES` | automatic | Set to `1` to force Responses API support |
 | `UAGENT_AUTO_UNLOAD_ROUNDS` | `10` | Number of unused rounds before unloading a tool |
 

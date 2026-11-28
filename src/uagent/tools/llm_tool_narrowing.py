@@ -13,15 +13,17 @@ from ..runtime.tool_discovery import (
 )
 
 
-def _get_gpt54_tool_search_mode() -> str:
+def _get_gpt54_tool_search_mode(provider: str | None = None) -> str:
     """Return the native tool-search mode.
 
-    Reads UAGENT_GPT54_TOOL_SEARCH env:
+    OpenAI/Azure reads UAGENT_GPT54_TOOL_SEARCH; OpenRouter reads
+    UAGENT_OPENROUTER_TOOL_SEARCH; DeepSeek reads
+    UAGENT_DEEPSEEK_TOOL_SEARCH:
       - "native" (default): Use provider-native tool_search when capabilities allow it
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
       - "off": Disable native tool-search handling
     """
-    return get_tool_search_mode()
+    return get_tool_search_mode(provider=provider)
 
 
 def resolve_tool_discovery(
@@ -37,7 +39,7 @@ def resolve_tool_discovery(
         provider=provider,
         depname=depname,
         use_responses_api=use_responses_api,
-        configured_mode=_get_gpt54_tool_search_mode(),
+        configured_mode=_get_gpt54_tool_search_mode(provider),
         capability_resolver=capability_resolver,
     )
 
@@ -121,6 +123,23 @@ def should_emit_catalog_steering(
 
     provider_s = (provider or "").strip().lower()
     depname_s = (depname or "").strip()
+
+    try:
+        from ..runtime.tool_discovery import (
+            anthropic_messages_tool_search_variant,
+            deepseek_messages_tool_search_enabled,
+            provider_messages_api_enabled,
+        )
+
+        if (
+            provider_s in {"claude", "openrouter"}
+            and provider_messages_api_enabled(provider_s)
+            and anthropic_messages_tool_search_variant(provider_s, depname_s)
+            is not None
+        ) or deepseek_messages_tool_search_enabled(provider_s, depname_s):
+            return False
+    except Exception:
+        pass
 
     try:
         from ..runtime.tool_discovery import gemini_interactions_tool_retrieval_enabled

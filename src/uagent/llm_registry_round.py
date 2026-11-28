@@ -62,6 +62,17 @@ def _registry_stream_event_observer(
 
     def observe(event: Any) -> None:
         nonlocal snapshot
+        event_type = str(getattr(event, "type", "") or "")
+        data = getattr(event, "data", {})
+        if event_type == "ResponseCompleted" and isinstance(data, Mapping):
+            output_items = data.get("_responses_output_items")
+            if isinstance(output_items, list) and all(
+                isinstance(item, dict) for item in output_items
+            ):
+                try:
+                    core._last_responses_output_items = output_items
+                except Exception:
+                    pass
         if callable(progress_observer):
             try:
                 progress_observer(event)
@@ -71,8 +82,6 @@ def _registry_stream_event_observer(
                 pass
         if not streaming:
             return
-        event_type = str(getattr(event, "type", "") or "")
-        data = getattr(event, "data", {})
         if not hasattr(data, "get"):
             return
         text = str(data.get("text") or "")
@@ -217,6 +226,7 @@ def _try_registry_simple_chat_round(
             tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
             has_context_tools=bool(getattr(core, "context_tool_specs", None)),
             uses_legacy_catalog=(use_responses_api and discovery.uses_legacy_catalog),
+            model_name=depname,
         ):
             return None
     elif not getattr(registry_route, "allowed", False):
@@ -357,6 +367,10 @@ def _try_registry_simple_chat_round(
             ),
             progress_observer=foundry_progress_observer,
         )
+        if provider.strip().lower() in {"openrouter", "deepseek"} and use_responses_api:
+            # Do not let a previous turn's output state satisfy native replay
+            # validation if this request returns no raw items.
+            core._last_responses_output_items = None
 
         cancellation = _CoreInterruptCancellationToken(
             core,

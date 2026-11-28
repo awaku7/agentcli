@@ -51,10 +51,36 @@ def test_startup_preload_rejects_nano_and_legacy_modes(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
     assert not _should_preload_lazy_specs()
-
     monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
     monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "legacy")
     assert not _should_preload_lazy_specs()
+
+
+def test_anthropic_messages_search_preloads_tools_and_removes_catalog_steering(
+    monkeypatch,
+) -> None:
+    from uagent import tools
+    from uagent.runtime import tool_discovery
+    from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
+
+    monkeypatch.setenv("UAGENT_EMBEDDED", "0")
+    monkeypatch.setenv("UAGENT_PROVIDER", "claude")
+    monkeypatch.setenv("UAGENT_CLAUDE_MODEL", "documented-model")
+    monkeypatch.setattr(
+        tool_discovery,
+        "anthropic_messages_tool_search_variant_from_environment",
+        lambda: "bm25",
+    )
+    monkeypatch.setattr(
+        tool_discovery,
+        "anthropic_messages_tool_search_variant",
+        lambda *_args, **_kwargs: "bm25",
+    )
+
+    assert tools._should_preload_lazy_specs()
+    assert not should_emit_catalog_steering(
+        provider="claude", depname="documented-model", use_responses_api=False
+    )
 
 
 def test_startup_preload_rejects_responses_disabled_and_other_provider(
@@ -70,6 +96,8 @@ def test_startup_preload_rejects_responses_disabled_and_other_provider(
 
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setenv("UAGENT_PROVIDER", "openrouter")
+    monkeypatch.setenv("UAGENT_OPENROUTER_DEPNAME", "unknown-openrouter-model")
+    monkeypatch.setenv("UAGENT_OPENROUTER_TOOL_SEARCH", "native")
     assert not _should_preload_lazy_specs()
 
 
@@ -317,3 +345,162 @@ def test_discovery_resolver_does_not_treat_gemini_as_native_search() -> None:
 
     assert decision.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
     assert not decision.uses_native_search
+
+
+def test_openrouter_responses_search_has_its_own_environment_switch(
+    monkeypatch,
+) -> None:
+    from uagent.runtime import tool_discovery
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery_from_environment,
+    )
+
+    monkeypatch.setattr(
+        tool_discovery,
+        "openrouter_responses_tool_search_variant",
+        lambda *_args, **_kwargs: "regex",
+    )
+    monkeypatch.setenv("UAGENT_OPENROUTER_TOOL_SEARCH", "native")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "off")
+
+    enabled = resolve_tool_discovery_from_environment(
+        provider="openrouter",
+        depname="provider/model",
+        use_responses_api=True,
+        capability_resolver=_tool_search_resolver(),
+    )
+    assert enabled.mode is ToolDiscoveryMode.NATIVE_SEARCH
+
+    monkeypatch.setenv("UAGENT_OPENROUTER_TOOL_SEARCH", "off")
+    disabled = resolve_tool_discovery_from_environment(
+        provider="openrouter",
+        depname="provider/model",
+        use_responses_api=True,
+        capability_resolver=_tool_search_resolver(),
+    )
+    assert disabled.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert disabled.reason == "disabled"
+
+    monkeypatch.setenv("UAGENT_OPENROUTER_TOOL_SEARCH", "legacy")
+    legacy = resolve_tool_discovery_from_environment(
+        provider="openrouter",
+        depname="unknown-openrouter-model",
+        use_responses_api=True,
+        capability_resolver=None,
+    )
+    assert legacy.mode is ToolDiscoveryMode.LEGACY_CATALOG
+
+
+def test_openrouter_search_variant_uses_llmcapa_server_responses_metadata() -> None:
+    from uagent.runtime.tool_discovery import (
+        openrouter_responses_tool_search_variant,
+    )
+
+    assert (
+        openrouter_responses_tool_search_variant(
+            "openrouter", "anthropic/claude-opus-5.5"
+        )
+        == "regex"
+    )
+    assert (
+        openrouter_responses_tool_search_variant("openai", "anthropic/claude-opus-5.5")
+        is None
+    )
+
+
+def test_gemini_interactions_search_normalizes_provider_name(
+    monkeypatch,
+) -> None:
+    import uagent.llmcapa_util as llmcapa_util
+    import uagent.providers.gemini_api_mode as gemini_api_mode_module
+    from uagent.runtime.tool_discovery import (
+        gemini_interactions_tool_retrieval_enabled,
+    )
+
+    monkeypatch.setattr(
+        gemini_api_mode_module,
+        "gemini_api_mode",
+        lambda _model, _provider: "interactions",
+    )
+    monkeypatch.setattr(
+        llmcapa_util,
+        "supports_feature",
+        lambda _feature, _model, _provider, default=None: True,
+    )
+
+    assert gemini_interactions_tool_retrieval_enabled(
+        "Gemini", "gemini-3-flash-preview"
+    )
+
+
+def test_deepseek_client_tool_search_is_responses_only_and_model_gated(
+    monkeypatch,
+) -> None:
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery_from_environment,
+    )
+
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "native")
+    supported = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-flash",
+        use_responses_api=True,
+    )
+    unsupported_model = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-v4-pro",
+        use_responses_api=True,
+    )
+    chat_completions = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-flash",
+        use_responses_api=False,
+    )
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "off")
+    disabled = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-flash",
+        use_responses_api=True,
+    )
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "legacy")
+    legacy = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-v4-pro",
+        use_responses_api=True,
+    )
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "native")
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    embedded = resolve_tool_discovery_from_environment(
+        provider="deepseek",
+        depname="deepseek-flash",
+        use_responses_api=True,
+    )
+
+    assert supported.mode is ToolDiscoveryMode.NATIVE_SEARCH
+    assert unsupported_model.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert chat_completions.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert disabled.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert legacy.mode is ToolDiscoveryMode.LEGACY_CATALOG
+    assert embedded.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+
+
+def test_deepseek_native_search_preloads_lazy_schemas_and_drops_catalog_steering(
+    monkeypatch,
+) -> None:
+    from uagent import tools
+    from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
+
+    monkeypatch.setenv("UAGENT_EMBEDDED", "0")
+    monkeypatch.setenv("UAGENT_PROVIDER", "deepseek")
+    monkeypatch.setenv("UAGENT_DEEPSEEK_DEPNAME", "deepseek-flash")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "native")
+
+    assert tools._should_preload_lazy_specs()
+    assert not should_emit_catalog_steering(
+        provider="deepseek",
+        depname="deepseek-flash",
+        use_responses_api=True,
+    )

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import copy
 import json
 import os
 import sys
@@ -32,6 +33,16 @@ _TOOL_CALLING_RULES: str = _("""[Tool calling rules]
         - Never call a tool with an empty object {} unless the tool has no required parameters.
         - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
         """)
+
+_OPENROUTER_EAGER_TOOL_NAMES = frozenset(
+    {"human_ask", "calculator", "fetch_url", "search_web", "python_exec"}
+)
+_OPENROUTER_MANAGEMENT_TOOL_NAMES = frozenset(
+    {"tool_catalog", "tool_load", "unload_tool"}
+)
+_DEEPSEEK_TOOL_SEARCH_EAGER_NAMES = _OPENROUTER_EAGER_TOOL_NAMES | frozenset(
+    {"computer"}
+)
 
 _WEB_SEARCH_RULES: str = _("""[Web search rules]
         - Use web search only when fresh or external information is necessary.
@@ -167,6 +178,52 @@ def _responses_tool_output(
     return {"type": "computer_call_output", "call_id": call_id, "output": output}
 
 
+def _deepseek_tool_search_result_tools(
+    query: str,
+    tool_specs: list[dict[str, Any]] | tuple[dict[str, Any], ...] | None,
+) -> list[dict[str, Any]]:
+    """Resolve a client-side DeepSeek search query to flat Responses tools."""
+    query = (query or "").strip()
+    if not query:
+        return []
+    raw_specs = list(tool_specs) if tool_specs is not None else tools.get_tool_specs()
+    try:
+        matches = tools.get_tool_catalog(
+            query=query,
+            max_results=12,
+            tool_specs=raw_specs,
+        )
+    except Exception:
+        matches = []
+    names = {
+        str(item.get("name") or "").strip()
+        for item in matches or []
+        if isinstance(item, dict)
+    }
+    names.discard("")
+    names.difference_update(_OPENROUTER_MANAGEMENT_TOOL_NAMES)
+    names.difference_update(_DEEPSEEK_TOOL_SEARCH_EAGER_NAMES)
+    selected = []
+    for spec in raw_specs:
+        if not isinstance(spec, dict):
+            continue
+        function = spec.get("function")
+        if not isinstance(function, dict):
+            continue
+        name = str(function.get("name") or "").strip()
+        if name in names:
+            selected.append(
+                {
+                    "type": "function",
+                    "name": name,
+                    "description": function.get("description") or "",
+                    "parameters": function.get("parameters")
+                    or {"type": "object", "properties": {}},
+                }
+            )
+    return selected
+
+
 def build_responses_request(
     call_messages: list[dict[str, Any]],
     *,
@@ -175,12 +232,150 @@ def build_responses_request(
     tool_specs: Optional[list[dict[str, Any]]] = None,
     previous_response_id: Optional[str] = None,
     core: Any = None,
+    model_name: str = "",
+    openrouter_tool_search_variant: str | None = None,
+    deepseek_tool_search_enabled: bool | None = None,
 ) -> tuple[Optional[str], list[dict[str, Any]], Optional[list[dict[str, Any]]]]:
     """Build payload for OpenAI/Azure Responses API.
 
     Returns:
       (instructions_str_or_none, input_msgs, tools_or_none)
     """
+    provider_name = (provider or "").strip().lower()
+    if provider_name == "openrouter" and model_name:
+        if openrouter_tool_search_variant is None:
+            from ..runtime.tool_discovery import (
+                openrouter_responses_tool_search_variant as _openrouter_search_variant,
+            )
+
+            openrouter_tool_search_variant = _openrouter_search_variant(
+                provider_name, model_name
+            )
+    native_openrouter_search = bool(
+        provider_name == "openrouter"
+        and send_tools_this_round
+        and openrouter_tool_search_variant == "regex"
+    )
+    if (
+        provider_name == "deepseek"
+        and model_name
+        and deepseek_tool_search_enabled is None
+    ):
+        from ..runtime.tool_discovery import (
+            deepseek_responses_tool_search_enabled,
+        )
+
+        deepseek_tool_search_enabled = deepseek_responses_tool_search_enabled(
+            provider_name, model_name
+        )
+    native_deepseek_search = bool(
+        provider_name == "deepseek"
+        and send_tools_this_round
+        and deepseek_tool_search_enabled
+    )
+
+    # OpenRouter Responses is stateless. Native tool search also signs the
+    # deferred-tool state into the returned output items, so full-history
+    # replay must retain each assistant output and matching function result.
+    if native_openrouter_search:
+        if previous_response_id is not None:
+            previous_response_id = None
+        expected_call_ids: set[str] = set()
+        raw_call_ids: set[str] = set()
+        result_call_ids: set[str] = set()
+        for message in call_messages:
+            if not isinstance(message, dict):
+                continue
+            if message.get("role") == "assistant" and message.get("tool_calls"):
+                tool_calls = message.get("tool_calls")
+                if not isinstance(tool_calls, list):
+                    native_openrouter_search = False
+                    break
+                output_items = message.get("_responses_output_items")
+                if (
+                    not isinstance(output_items, list)
+                    or not output_items
+                    or any(not isinstance(item, dict) for item in output_items)
+                ):
+                    native_openrouter_search = False
+                    break
+                for tool_call in tool_calls:
+                    call_id = (
+                        tool_call.get("id") or tool_call.get("call_id")
+                        if isinstance(tool_call, dict)
+                        else None
+                    )
+                    if not isinstance(call_id, str) or not call_id:
+                        native_openrouter_search = False
+                        break
+                    expected_call_ids.add(call_id)
+                raw_call_ids.update(
+                    str(item.get("call_id") or item.get("id"))
+                    for item in output_items
+                    if item.get("type") == "function_call"
+                    and isinstance(item.get("call_id") or item.get("id"), str)
+                    and (item.get("call_id") or item.get("id"))
+                )
+                if not native_openrouter_search:
+                    break
+            elif message.get("role") == "tool":
+                call_id = message.get("tool_call_id") or message.get("id")
+                if not isinstance(call_id, str) or not call_id:
+                    native_openrouter_search = False
+                    break
+                result_call_ids.add(call_id)
+        if native_openrouter_search and (
+            expected_call_ids != raw_call_ids or expected_call_ids != result_call_ids
+        ):
+            native_openrouter_search = False
+
+    deepseek_search_calls: dict[str, dict[str, Any]] = {}
+    if native_deepseek_search:
+        # DeepSeek's client-side search is stateless: every subsequent request
+        # must replay the call and its matching tool_search_output item.
+        previous_response_id = None
+        search_result_ids: set[str] = set()
+        for message in call_messages:
+            if not isinstance(message, dict):
+                continue
+            if message.get("role") == "assistant":
+                output_items = message.get("_responses_output_items")
+                for item in output_items if isinstance(output_items, list) else ():
+                    if (
+                        not isinstance(item, dict)
+                        or item.get("type") != "tool_search_call"
+                    ):
+                        continue
+                    call_id = item.get("call_id")
+                    if (
+                        item.get("execution") != "client"
+                        or not isinstance(call_id, str)
+                        or not call_id
+                        or not isinstance(item.get("arguments"), (dict, str))
+                    ):
+                        native_deepseek_search = False
+                        break
+                    deepseek_search_calls[call_id] = item
+            elif message.get("role") == "tool":
+                call_id = message.get("tool_call_id") or message.get("id")
+                if isinstance(call_id, str) and call_id in deepseek_search_calls:
+                    search_result_ids.add(call_id)
+            if not native_deepseek_search:
+                break
+        if native_deepseek_search and set(deepseek_search_calls) != search_result_ids:
+            native_deepseek_search = False
+        if not native_deepseek_search:
+            deepseek_search_calls.clear()
+
+    if core is not None and (native_openrouter_search or native_deepseek_search):
+        # Deferred-tool protocols bind their continuation state to the full
+        # history. The round preparer must not compact/reorder that history
+        # after this request has begun.
+        try:
+            core._responses_tool_search_history_provider = provider_name
+        except (AttributeError, TypeError):
+            pass
+
     instructions_list: list[str] = []
     input_msgs: list[dict[str, Any]] = []
     _latest_user: Optional[dict[str, Any]] = None
@@ -324,6 +519,51 @@ def build_responses_request(
                 except Exception:
                     pass
 
+        if role == "assistant" and native_deepseek_search:
+            raw_items = m_clean.get("_responses_output_items")
+            if isinstance(raw_items, list) and any(
+                isinstance(item, dict) and item.get("type") == "tool_search_call"
+                for item in raw_items
+            ):
+                for item in raw_items:
+                    if not isinstance(item, dict):
+                        continue
+                    if item.get("type") == "tool_search_call":
+                        call_id = item.get("call_id")
+                        if not isinstance(call_id, str) or not call_id:
+                            continue
+                        arguments = item.get("arguments")
+                        if isinstance(arguments, str):
+                            try:
+                                arguments = json.loads(arguments)
+                            except (TypeError, ValueError):
+                                arguments = {}
+                        input_msgs.append(
+                            {
+                                "type": "tool_search_call",
+                                "call_id": call_id,
+                                "execution": "client",
+                                "arguments": (
+                                    arguments if isinstance(arguments, dict) else {}
+                                ),
+                            }
+                        )
+                    else:
+                        input_msgs.append(copy.deepcopy(item))
+                continue
+
+        if role == "assistant" and native_deepseek_search:
+            raw_items = m_clean.get("_responses_output_items")
+            if (
+                isinstance(raw_items, list)
+                and raw_items
+                and all(isinstance(item, dict) for item in raw_items)
+            ):
+                # DeepSeek thinking responses require reasoning state to be
+                # replayed along with ordinary function_call items.
+                input_msgs.extend(copy.deepcopy(raw_items))
+                continue
+
         if role == "assistant" and m_clean.get("tool_calls"):
             from .llm_deepseek_responses import assistant_tool_turn_items
 
@@ -341,6 +581,13 @@ def build_responses_request(
                 continue
 
         _responses_items = m_clean.pop("_responses_output_items", None)
+        if (
+            native_openrouter_search
+            and isinstance(_responses_items, list)
+            and _responses_items
+        ):
+            input_msgs.extend(copy.deepcopy(_responses_items))
+            continue
         # Meta does not accept prior Responses output objects as input items.
         # Rebuild its fallback from the normalized assistant/tool text below.
         if (
@@ -407,6 +654,45 @@ def build_responses_request(
 
         if role == "tool":
             tool_name = m_clean.pop("name", "unknown")
+            deepseek_search_call_id = m.get("tool_call_id") or m.get("id")
+            if (
+                native_deepseek_search
+                and isinstance(deepseek_search_call_id, str)
+                and deepseek_search_call_id in deepseek_search_calls
+            ):
+                search_item = deepseek_search_calls[deepseek_search_call_id]
+                search_arguments = search_item.get("arguments")
+                if isinstance(search_arguments, str):
+                    try:
+                        search_arguments = json.loads(search_arguments)
+                    except (TypeError, ValueError):
+                        search_arguments = {}
+                query = (
+                    str(search_arguments.get("query") or "").strip()
+                    if isinstance(search_arguments, dict)
+                    else ""
+                )
+                raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
+                input_msgs.append(
+                    {
+                        "type": "tool_search_output",
+                        "call_id": deepseek_search_call_id,
+                        "execution": "client",
+                        "tools": _deepseek_tool_search_result_tools(query, raw_specs),
+                    }
+                )
+                continue
+            if native_openrouter_search:
+                call_id = m.get("tool_call_id") or m.get("id")
+                output = truncate_history_tool_result(m_clean.get("content", ""))
+                input_msgs.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": call_id,
+                        "output": as_str(output),
+                    }
+                )
+                continue
             if "tool_call_id" in m_clean:
                 try:
                     del m_clean["tool_call_id"]
@@ -514,6 +800,8 @@ def build_responses_request(
             name = fn.get("name")
             if not name:
                 continue
+            if native_openrouter_search and name in _OPENROUTER_MANAGEMENT_TOOL_NAMES:
+                continue
             if name in _excluded_local:
                 continue
             flat_tools.append(
@@ -586,6 +874,40 @@ def build_responses_request(
             except Exception:
                 pass
             meta_native_added = provider == "meta"
+        if native_openrouter_search:
+            deferred_any = False
+            for item in flat_tools:
+                if item.get("type") != "function":
+                    continue
+                name = str(item.get("name") or "")
+                if name in _OPENROUTER_EAGER_TOOL_NAMES:
+                    continue
+                item["defer_loading"] = True
+                deferred_any = True
+            if deferred_any:
+                flat_tools.insert(0, {"type": "openrouter:tool_search"})
+            else:
+                native_openrouter_search = False
+        if native_deepseek_search:
+            eager_tools = [
+                item
+                for item in flat_tools
+                if item.get("type") == "function"
+                and str(item.get("name") or "") in _DEEPSEEK_TOOL_SEARCH_EAGER_NAMES
+            ]
+            flat_tools = [
+                {
+                    "type": "tool_search",
+                    "execution": "client",
+                    "description": "Search for tools that can help with the user's request.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {"query": {"type": "string"}},
+                        "required": ["query"],
+                    },
+                },
+                *eager_tools,
+            ]
         req_tools = flat_tools
 
         if meta_native_added and previous_response_id is None:

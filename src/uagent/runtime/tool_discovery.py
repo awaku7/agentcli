@@ -41,6 +41,30 @@ class ToolDiscoveryMode(str, Enum):
 MANAGEMENT_TOOL_NAMES = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 
 
+def provider_messages_api_enabled(provider: str | None) -> bool:
+    """Return whether an explicitly selected Anthropic Messages route is active.
+
+    OpenRouter and DeepSeek use OpenAI-compatible clients by default. Their
+    Messages endpoints are opt-in so merely adding a Messages capability to
+    llmcapa cannot silently change the API used by an existing installation.
+    """
+    provider_name = (provider or "").strip().lower()
+    env_names = {
+        "openrouter": "UAGENT_OPENROUTER_API",
+        "deepseek": "UAGENT_DEEPSEEK_API",
+    }
+    env_name = env_names.get(provider_name)
+    if not env_name:
+        return provider_name in {"claude", "anthropic"}
+    try:
+        from ..env_utils import env_get
+
+        value = (env_get(env_name) or "").strip().lower()
+    except Exception:
+        return False
+    return value in {"messages", "anthropic", "anthropic_messages"}
+
+
 @dataclass(frozen=True)
 class ToolDiscoveryDecision:
     """The single discovery decision shared by round and command paths."""
@@ -73,14 +97,27 @@ class ToolDiscoveryDecision:
         return not self.uses_native_search
 
 
-def get_tool_search_mode(raw: str | None = None) -> str:
-    """Normalize the user-facing native tool-search mode setting."""
+def get_tool_search_mode(raw: str | None = None, *, provider: str | None = None) -> str:
+    """Normalize the user-facing native tool-search mode setting.
+
+    OpenRouter and DeepSeek have separate switches because their provider
+    protocols differ from the OpenAI GPT-5.4 tool-search mode.
+    """
 
     if raw is None:
         try:
             from ..env_utils import env_get
 
-            raw = env_get("UAGENT_GPT54_TOOL_SEARCH")
+            env_name = (
+                "UAGENT_OPENROUTER_TOOL_SEARCH"
+                if (provider or "").strip().lower() == "openrouter"
+                else (
+                    "UAGENT_DEEPSEEK_TOOL_SEARCH"
+                    if (provider or "").strip().lower() == "deepseek"
+                    else "UAGENT_GPT54_TOOL_SEARCH"
+                )
+            )
+            raw = env_get(env_name)
         except Exception:
             raw = None
     value = (raw or "").strip().lower()
@@ -128,6 +165,278 @@ def gemini_interactions_tool_retrieval_enabled(
         return getattr(capability, "supports_tool_search", None) is True
     except Exception:
         return False
+
+
+def anthropic_messages_tool_search_variant(
+    provider: str | None,
+    depname: str | None,
+    *,
+    configured_mode: str | None = None,
+) -> str | None:
+    """Return a documented Anthropic Messages search variant, if supported.
+
+    This is deliberately separate from the Responses and Gemini Interactions
+    routes: Anthropic's Messages API has its own server-tool names and requires
+    the complete tool catalog with ``defer_loading`` on deferred definitions.
+    Unknown llmcapa details fail closed rather than inferring support from a
+    model name.
+    """
+    provider_name = (provider or "").strip().lower()
+    if provider_name not in {"claude", "openrouter"}:
+        return None
+    model_name = (depname or "").strip()
+    if not model_name:
+        return None
+
+    if configured_mode is None and provider_name == "claude":
+        try:
+            from ..env_utils import env_get
+
+            configured_mode = env_get("UAGENT_ANTHROPIC_TOOL_SEARCH")
+        except Exception:
+            configured_mode = None
+    raw_mode = (configured_mode or "").strip().lower()
+    requested_variant = raw_mode if raw_mode in {"bm25", "regex"} else None
+    mode = get_tool_search_mode(configured_mode, provider=provider_name)
+    if mode in {"off", "0", "false", "no", "legacy", "old"}:
+        return None
+    if mode not in {"", "native", "auto"}:
+        return None
+
+    try:
+        from ..llmcapa_util import get_capability, supports_feature
+
+        if (
+            supports_feature("tool_search", model_name, provider_name, default=None)
+            is not True
+        ):
+            return None
+        capability = get_capability(model_name, provider_name)
+        details = getattr(capability, "tool_search", None)
+        if isinstance(details, dict):
+            execution = details.get("execution")
+            surfaces = details.get("api_surfaces")
+            variants = details.get("variants")
+        else:
+            execution = getattr(details, "execution", None)
+            surfaces = getattr(details, "api_surfaces", None)
+            variants = getattr(details, "variants", None)
+        if not details:
+            return None
+
+        def _values(value: Any) -> set[str]:
+            if isinstance(value, str):
+                return {value.strip().lower()}
+            if isinstance(value, (tuple, list, set, frozenset)):
+                return {str(item).strip().lower() for item in value}
+            return set()
+
+        if "server" not in _values(execution) or "messages" not in _values(surfaces):
+            return None
+        available = _values(variants)
+        if provider_name == "openrouter":
+            # OpenRouter's Messages alias is regex-only, even if the upstream
+            # model also advertises an Anthropic BM25 implementation.
+            return "regex" if "regex" in available else None
+        if requested_variant is not None:
+            return requested_variant if requested_variant in available else None
+        if "bm25" in available:
+            return "bm25"
+        if "regex" in available:
+            return "regex"
+    except Exception:
+        return None
+
+
+def openrouter_responses_tool_search_variant(
+    provider: str | None,
+    depname: str | None,
+    *,
+    configured_mode: str | None = None,
+) -> str | None:
+    """Return OpenRouter's documented Responses server-tool variant, if allowed."""
+    if (provider or "").strip().lower() != "openrouter":
+        return None
+    model_name = (depname or "").strip()
+    if not model_name:
+        return None
+    if get_tool_search_mode(configured_mode, provider="openrouter") != "native":
+        return None
+
+    try:
+        from ..llmcapa_util import get_capability, supports_feature
+
+        if (
+            supports_feature("tool_search", model_name, "openrouter", default=None)
+            is not True
+        ):
+            return None
+        capability = get_capability(model_name, "openrouter")
+        detail = getattr(capability, "tool_search", None)
+        if detail is None:
+            return None
+
+        def values(name: str) -> set[str]:
+            value = (
+                detail.get(name)
+                if isinstance(detail, Mapping)
+                else getattr(detail, name, None)
+            )
+            if isinstance(value, str):
+                return {value.strip().lower()}
+            if isinstance(value, (tuple, list, set, frozenset)):
+                return {str(item).strip().lower() for item in value}
+            return set()
+
+        if "server" not in values("execution"):
+            return None
+        if "responses" not in values("api_surfaces"):
+            return None
+        if "regex" not in values("variants"):
+            return None
+        return "regex"
+    except Exception:
+        return None
+    return None
+
+
+def deepseek_messages_tool_search_enabled(
+    provider: str | None,
+    depname: str | None,
+    *,
+    configured_mode: str | None = None,
+) -> bool:
+    """Return True for DeepSeek Flash's client-executed Messages deferral."""
+    if (provider or "").strip().lower() != "deepseek":
+        return False
+    model_name = (depname or "").strip()
+    if not model_name or not provider_messages_api_enabled("deepseek"):
+        return False
+    if get_tool_search_mode(configured_mode, provider="deepseek") != "native":
+        return False
+    try:
+        from ..env_utils import env_get
+
+        if (env_get("UAGENT_EMBEDDED") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }:
+            return False
+        from .execution_broker import current_sandbox_enabled
+
+        if current_sandbox_enabled():
+            return False
+    except Exception:
+        pass
+
+    try:
+        from ..llmcapa_util import get_capability, supports_feature
+
+        if (
+            supports_feature("tool_search", model_name, "deepseek", default=None)
+            is not True
+        ):
+            return False
+        capability = get_capability(model_name, "deepseek")
+        detail = getattr(capability, "tool_search", None)
+        if detail is None:
+            return False
+
+        def values(name: str) -> set[str]:
+            value = (
+                detail.get(name)
+                if isinstance(detail, Mapping)
+                else getattr(detail, name, None)
+            )
+            if isinstance(value, str):
+                return {value.strip().lower()}
+            if isinstance(value, (tuple, list, set, frozenset)):
+                return {str(item).strip().lower() for item in value}
+            return set()
+
+        return "client" in values("execution") and "messages" in values("api_surfaces")
+    except Exception:
+        return False
+
+
+def deepseek_responses_tool_search_enabled(
+    provider: str | None,
+    depname: str | None,
+    *,
+    configured_mode: str | None = None,
+) -> bool:
+    """Return True for DeepSeek's client-executed Responses tool search."""
+    if (provider or "").strip().lower() != "deepseek":
+        return False
+    model_name = (depname or "").strip()
+    if not model_name:
+        return False
+    if get_tool_search_mode(configured_mode, provider="deepseek") != "native":
+        return False
+    try:
+        from ..env_utils import env_get
+
+        if (env_get("UAGENT_EMBEDDED") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }:
+            return False
+        from .execution_broker import current_sandbox_enabled
+
+        if current_sandbox_enabled():
+            return False
+    except Exception:
+        # The ordinary non-sandbox route is still resolved from model metadata
+        # when the optional host execution policy is unavailable.
+        pass
+
+    try:
+        from ..llmcapa_util import get_capability, supports_feature
+
+        if (
+            supports_feature("tool_search", model_name, "deepseek", default=None)
+            is not True
+        ):
+            return False
+        capability = get_capability(model_name, "deepseek")
+        detail = getattr(capability, "tool_search", None)
+        if detail is None:
+            return False
+
+        def values(name: str) -> set[str]:
+            value = (
+                detail.get(name)
+                if isinstance(detail, Mapping)
+                else getattr(detail, name, None)
+            )
+            if isinstance(value, str):
+                return {value.strip().lower()}
+            if isinstance(value, (tuple, list, set, frozenset)):
+                return {str(item).strip().lower() for item in value}
+            return set()
+
+        return "client" in values("execution") and "responses" in values("api_surfaces")
+    except Exception:
+        return False
+
+
+def anthropic_messages_tool_search_variant_from_environment() -> str | None:
+    """Resolve Anthropic Messages tool search for the active provider/model."""
+    try:
+        from ..env_utils import env_get
+        from ..llmcapa_util import current_model
+
+        provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+        model = current_model(provider) if provider else ""
+        if provider == "openrouter" and not provider_messages_api_enabled(provider):
+            return None
+        return anthropic_messages_tool_search_variant(provider, model)
+    except Exception:
+        return None
 
 
 def gemini_interactions_tool_retrieval_enabled_from_environment() -> bool:
@@ -201,9 +510,26 @@ def resolve_tool_discovery_from_environment(
         provider=provider_name,
         depname=model_name,
         use_responses_api=bool(use_responses_api),
-        configured_mode=get_tool_search_mode(),
+        configured_mode=get_tool_search_mode(provider=provider_name),
         capability_resolver=capability_resolver,
     )
+
+
+def messages_tool_search_enabled_from_environment() -> bool:
+    """Return whether the selected Messages route has native/client deferral."""
+    try:
+        from ..env_utils import env_get
+        from ..llmcapa_util import current_model
+
+        provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+        if not provider_messages_api_enabled(provider):
+            return False
+        model = current_model(provider) if provider else ""
+        if provider == "deepseek":
+            return deepseek_messages_tool_search_enabled(provider, model)
+        return anthropic_messages_tool_search_variant(provider, model) is not None
+    except Exception:
+        return False
 
 
 def select_tool_specs_for_discovery(
@@ -227,7 +553,7 @@ def resolve_tool_discovery(
     provider: str,
     depname: str,
     use_responses_api: bool,
-    configured_mode: str = "native",
+    configured_mode: str | None = None,
     capability_resolver: CapabilityResolverPort | None = None,
 ) -> ToolDiscoveryDecision:
     """Resolve native search, legacy catalog, or selected schemas once.
@@ -244,6 +570,26 @@ def resolve_tool_discovery(
             ToolDiscoveryMode.SELECTED_SCHEMAS, "responses_api_disabled"
         )
     provider_name = (provider or "").strip().lower()
+    if (
+        provider_name == "openrouter"
+        and mode == "native"
+        and openrouter_responses_tool_search_variant(
+            provider_name, depname, configured_mode=mode
+        )
+        is None
+    ):
+        return ToolDiscoveryDecision(
+            ToolDiscoveryMode.SELECTED_SCHEMAS, "tool_search_unavailable"
+        )
+    if mode in {"legacy", "old"} and provider_name in {"openrouter", "deepseek"}:
+        return ToolDiscoveryDecision(ToolDiscoveryMode.LEGACY_CATALOG, "legacy_mode")
+    if provider_name == "deepseek":
+        if not deepseek_responses_tool_search_enabled(
+            provider_name, depname, configured_mode=mode
+        ):
+            return ToolDiscoveryDecision(
+                ToolDiscoveryMode.SELECTED_SCHEMAS, "tool_search_unavailable"
+            )
     try:
         if capability_resolver is None:
             from .capability_resolver import CapabilityResolver

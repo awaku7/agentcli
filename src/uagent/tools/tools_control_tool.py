@@ -138,10 +138,9 @@ def _tool_expire_display(
 def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
 
-    # Native GPT-5.4+ tool_search sends the complete tool inventory to the
-    # Responses API and performs server-side narrowing.  In that mode show
-    # the same inventory, including unloaded tools, while omitting the
-    # legacy management tools.
+    # Provider-native tool search needs the complete inventory available for
+    # server-side or client-side narrowing. In that mode show the inventory,
+    # including unloaded tools, while omitting legacy management tools.
     try:
         from ..runtime.tool_discovery import resolve_tool_discovery_from_environment
 

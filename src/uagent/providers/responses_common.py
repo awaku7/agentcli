@@ -1068,6 +1068,29 @@ def parse_responses_response(
                         },
                     }
                 )
+            elif (
+                item_type == "tool_search_call"
+                and (provider or "").strip().lower() == "deepseek"
+                and (item_dict or {}).get("execution") == "client"
+            ):
+                args_val = (item_dict or {}).get("arguments")
+                args_str = (
+                    json.dumps(args_val, ensure_ascii=False)
+                    if isinstance(args_val, dict)
+                    else as_str(args_val or "{}")
+                )
+                cid = as_str((item_dict or {}).get("call_id") or "")
+                if cid:
+                    tool_calls_list.append(
+                        {
+                            "id": cid,
+                            "type": "function",
+                            "function": {
+                                "name": "tool_catalog",
+                                "arguments": args_str,
+                            },
+                        }
+                    )
             elif getattr(item, "type", None) == "function_call":
                 args_val = getattr(item, "arguments", None)
                 if isinstance(args_val, dict):
@@ -1105,6 +1128,15 @@ def parse_responses_response(
 
             elif item_type == "compaction":
                 _emit_compaction_notice(core)
+
+    # OpenAI-compatible Responses implementations may populate the SDK's
+    # convenience ``output_text`` field without exposing a message item in
+    # ``output``. Match the streaming/registry adapter and retain that final
+    # text instead of treating a completed response as empty.
+    if not assistant_text:
+        convenience_text = getattr(resp, "output_text", None)
+        if isinstance(convenience_text, str):
+            assistant_text = convenience_text
 
     if not tool_calls_list:
         assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
@@ -1319,6 +1351,31 @@ def parse_responses_stream(
                 if completed_response is not None:
                     for output_item in getattr(completed_response, "output", []) or []:
                         _remember_output_item(output_item)
+                        if (
+                            provider.strip().lower() == "deepseek"
+                            and get_any(output_item, "type") == "tool_search_call"
+                            and get_any(output_item, "execution") == "client"
+                        ):
+                            call_id = as_str(
+                                get_any(output_item, "call_id")
+                                or get_any(output_item, "id")
+                                or ""
+                            )
+                            if call_id:
+                                search_call = ensure_tool_buf(tool_calls_buf, call_id)
+                                search_call["call_id"] = call_id
+                                search_call["item_id"] = as_str(
+                                    get_any(output_item, "id") or ""
+                                )
+                                search_call["name"] = "tool_catalog"
+                                arguments = get_any(output_item, "arguments")
+                                search_call["arguments_parts"] = [
+                                    (
+                                        json.dumps(arguments, ensure_ascii=False)
+                                        if isinstance(arguments, dict)
+                                        else as_str(arguments or "{}")
+                                    )
+                                ]
 
             if "web_search_call" in as_str(ev_type).lower():
                 info = extract_web_search_call_info(ev)
@@ -1401,14 +1458,25 @@ def parse_responses_stream(
                     info = extract_web_search_call_info(item)
                     if info:
                         emit_web_search_event(core, "update", **info)
-                if item is not None and getattr(item, "type", None) == "function_call":
+                item_type = getattr(item, "type", None) if item is not None else None
+                deepseek_search_call = (
+                    item_type == "tool_search_call"
+                    and provider.strip().lower() == "deepseek"
+                    and get_any(item, "execution") == "client"
+                )
+                if item is not None and (
+                    item_type == "function_call" or deepseek_search_call
+                ):
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:
                         cid_candidate = cid
                     iid = getattr(item, "id", None)
                     if iid:
                         iid_candidate = iid
-                    fn_name = fn_name or getattr(item, "name", None)
+                    if deepseek_search_call:
+                        fn_name = "tool_catalog"
+                    else:
+                        fn_name = fn_name or getattr(item, "name", None)
                     item_args = getattr(item, "arguments", None)
                     if isinstance(item_args, dict):
                         fn_args_delta = fn_args_delta or json.dumps(
@@ -1492,12 +1560,20 @@ def parse_responses_stream(
                         final_args["meta_safety_replay_receipt"] = (
                             meta_call.meta_safety_replay_receipt
                         )
-                if item and getattr(item, "type", None) == "function_call":
+                item_type = getattr(item, "type", None) if item is not None else None
+                deepseek_search_call = (
+                    item_type == "tool_search_call"
+                    and provider.strip().lower() == "deepseek"
+                    and get_any(item, "execution") == "client"
+                )
+                if item and (item_type == "function_call" or deepseek_search_call):
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:
                         cid_candidate = cid
                     final_args = getattr(item, "arguments", None)
-                    if getattr(item, "name", None):
+                    if deepseek_search_call:
+                        fn_name = "tool_catalog"
+                    elif getattr(item, "name", None):
                         fn_name = getattr(item, "name")
 
             if final_args is not None:

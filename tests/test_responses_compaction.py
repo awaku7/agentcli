@@ -30,6 +30,82 @@ def test_parse_responses_response_emits_compaction_notice() -> None:
     assert "compressed" in notices[0] or "圧縮" in notices[0]
 
 
+def test_parse_responses_response_falls_back_to_convenience_output_text() -> None:
+    response = SimpleNamespace(
+        id="resp_output_text_only",
+        output=[],
+        output_text="The weather is sunny.",
+        usage=None,
+    )
+
+    text, reasoning, tools, response_id, items = parse_responses_response(response)
+
+    assert text == "The weather is sunny."
+    assert (reasoning, tools, response_id, items) == (
+        "",
+        [],
+        "resp_output_text_only",
+        [],
+    )
+
+
+def test_deepseek_responses_tool_search_call_is_a_client_catalog_call() -> None:
+    item = SimpleNamespace(
+        type="tool_search_call",
+        id="tsc_1",
+        call_id="call_search_1",
+        execution="client",
+        status="completed",
+        arguments={"query": "read a file"},
+    )
+    response = SimpleNamespace(id="resp_search_1", output=[item], usage=None)
+
+    _, _, tool_calls, _, output_items = parse_responses_response(
+        response, provider="deepseek"
+    )
+
+    assert tool_calls == [
+        {
+            "id": "call_search_1",
+            "type": "function",
+            "function": {
+                "name": "tool_catalog",
+                "arguments": '{"query": "read a file"}',
+            },
+        }
+    ]
+    assert output_items[0]["type"] == "tool_search_call"
+
+
+def test_deepseek_responses_stream_tool_search_call_is_normalized() -> None:
+    item = SimpleNamespace(
+        type="tool_search_call",
+        id="tsc_1",
+        call_id="call_search_1",
+        execution="client",
+        arguments={"query": "read a file"},
+    )
+    stream = [SimpleNamespace(type="response.output_item.done", item=item)]
+
+    _, _, tool_calls, _, output_items = parse_responses_stream(
+        stream,
+        print_delta_fn=lambda _text: None,
+        provider="deepseek",
+    )
+
+    assert tool_calls == [
+        {
+            "id": "call_search_1",
+            "type": "function",
+            "function": {
+                "name": "tool_catalog",
+                "arguments": '{"query": "read a file"}',
+            },
+        }
+    ]
+    assert output_items[0]["type"] == "tool_search_call"
+
+
 def test_parse_responses_stream_emits_compaction_done_notice() -> None:
     notices: list[str] = []
     core = SimpleNamespace(_is_web=False, print_stream_delta=notices.append)

@@ -45,3 +45,32 @@ def test_provider_projection_isolated_and_normalizes_tool_content() -> None:
     assert "_uagent_internal" not in projected[0]
     assert projected[0]["attachments"] == [{"path": "result.png"}]
     assert source[0]["content"] == {"ok": True}
+
+
+def test_deepseek_responses_search_state_is_retained_for_legacy_replay() -> None:
+    source = [
+        {
+            "role": "assistant",
+            "content": "",
+            "_responses_output_items": [
+                {
+                    "type": "tool_search_call",
+                    "call_id": "call_search_1",
+                    "execution": "client",
+                    "arguments": {"query": "weather"},
+                }
+            ],
+        }
+    ]
+
+    projected = project_messages_for_provider(
+        source,
+        provider="deepseek",
+        preserve_responses_output_items=True,
+    )
+    stripped = project_messages_for_provider(source, provider="deepseek")
+
+    assert (
+        projected[0]["_responses_output_items"] == source[0]["_responses_output_items"]
+    )
+    assert "_responses_output_items" not in stripped[0]

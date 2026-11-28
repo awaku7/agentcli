@@ -674,6 +674,15 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     _lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
     )
+    try:
+        from .tool_discovery import provider_messages_api_enabled
+
+        _messages_api_selected = provider in {
+            "openrouter",
+            "deepseek",
+        } and provider_messages_api_enabled(provider)
+    except Exception:
+        _messages_api_selected = False
     if provider == "lmstudio" and _lmstudio_transport == "sdk":
         _mode_msg = _("LM Studio Python SDK (ChatCompletions)")
         lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
@@ -708,6 +717,14 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     elif provider == "claude":
         _mode_msg = "Anthropic Messages API"
         lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
+    elif _messages_api_selected:
+        _mode_msg = (
+            "OpenRouter Messages API"
+            if provider == "openrouter"
+            else "DeepSeek Anthropic Messages API"
+        )
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
+        _streaming_flag = False
     elif _use_responses_flag and _responses_supported:
         _mode_msg = _("Responses (UAGENT_RESPONSES is enabled)")
         lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})

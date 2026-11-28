@@ -64,7 +64,7 @@ def _call_claude_round(
 
             _claude_out_cfg = (
                 build_claude_output_config_for_effort(depname, _effort_used)
-                if _effort_used
+                if _effort_used and provider == "claude"
                 else None
             )
             _claude_structured = structured_output_request(call_messages)
@@ -111,6 +111,7 @@ def _call_claude_round(
                     on_output_config_fallback=lambda m: print(m),
                     send_tools=send_tools,
                     core=core,
+                    provider=provider,
                 )
             )
             break

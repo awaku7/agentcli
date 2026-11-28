@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 from uagent.runtime import legacy_claude_round
 
 
@@ -90,6 +92,58 @@ def test_claude_round_executes_tool_calls_before_returning_ok(monkeypatch) -> No
     assert len(executed) == 1
     assert executed[0]["tool_calls_list"] == [tool_call]
     assert executed[0]["messages"] is kwargs["messages"]
+
+
+def test_claude_round_persists_native_search_blocks_even_without_text(
+    monkeypatch,
+) -> None:
+    raw_blocks = [
+        {
+            "type": "server_tool_use",
+            "id": "srvtoolu_1",
+            "name": "tool_search_tool_bm25",
+        },
+        {"type": "tool_search_tool_result", "tool_use_id": "srvtoolu_1"},
+    ]
+    appended = []
+    kwargs = _kwargs()
+    kwargs["core"] = SimpleNamespace(_last_claude_content_blocks=raw_blocks)
+    kwargs["should_keep_assistant_message_fn"] = lambda *_args: False
+    kwargs["append_assistant_message_fn"] = lambda **values: appended.append(values)
+    monkeypatch.setattr(
+        legacy_claude_round,
+        "call_legacy_claude_round",
+        lambda **_kwargs: (True, "new-client", "", []),
+    )
+
+    result = legacy_claude_round.run_legacy_claude_round(**kwargs)
+
+    assert result == ("break", "new-client", "cache-name", 0, "!")
+    assert len(appended) == 1
+    assert appended[0]["anthropic_content_blocks"] == raw_blocks
+
+
+def test_assistant_message_stores_anthropic_content_for_roundtrip() -> None:
+    from uagent.llm_flow_helpers import _append_assistant_message
+
+    raw_blocks = [
+        {"type": "server_tool_use", "id": "srvtoolu_1"},
+        {"type": "tool_search_tool_result", "tool_use_id": "srvtoolu_1"},
+    ]
+    messages = []
+    logged = []
+    core = SimpleNamespace(log_message=logged.append)
+
+    _append_assistant_message(
+        messages=messages,
+        core=core,
+        assistant_text="",
+        tool_calls_list=[],
+        anthropic_content_blocks=raw_blocks,
+    )
+
+    assert messages[0]["_anthropic_content_blocks"] == raw_blocks
+    assert logged == messages
 
 
 __all__ = []

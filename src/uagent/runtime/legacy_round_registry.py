@@ -48,6 +48,7 @@ _LEGACY_ROUND_HANDLERS = {
     "gemini": run_legacy_gemini_round,
     "vertexai": run_legacy_gemini_round,
     "claude": run_legacy_claude_round,
+    "openrouter": run_legacy_claude_round,
     "deepseek": run_legacy_deepseek_round,
     "mimo": run_legacy_deepseek_round,
     "zai": run_legacy_zai_round,
@@ -104,6 +105,8 @@ def run_legacy_provider_outcome(
 
     started = time.perf_counter()
     result = handler(provider=provider, **kwargs)
+    if result is None:
+        return None
     assistant_text = str(result[4] or "") if len(result) > 4 else ""
     action = str(result[0] or "").strip().lower() if result else ""
     interrupted = bool(

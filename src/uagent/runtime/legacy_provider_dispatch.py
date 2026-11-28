@@ -148,15 +148,15 @@ def call_legacy_gemini_round(*, provider: str, **kwargs: Any) -> Any:
     )
 
 
-def call_legacy_claude_round(**kwargs: Any) -> Any:
-    """Dispatch Claude rounds through the compatibility registry."""
+def call_legacy_claude_round(*, provider: str = "claude", **kwargs: Any) -> Any:
+    """Dispatch Anthropic Messages-compatible rounds through the adapter."""
     from .. import llm_round_helpers
 
     kwargs.setdefault("claude_chat_fn", llm_round_helpers.claude_chat_with_tools)
     return _call_with_fallback_chat_span(
-        provider="claude",
+        provider=provider,
         caller=_call_claude_round,
-        kwargs=kwargs,
+        kwargs={**kwargs, "provider": provider},
     )
 
 

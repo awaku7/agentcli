@@ -1412,3 +1412,474 @@ def test_provider_usage_reports_cached_input_without_double_counting() -> None:
         "output_tokens": 8,
         "cache_read_input_tokens": 32,
     }
+
+
+def _openrouter_function_spec(name: str) -> dict:
+    return {
+        "type": "function",
+        "function": {
+            "name": name,
+            "description": name,
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+            },
+        },
+    }
+
+
+def test_openrouter_responses_native_tool_search_preserves_typed_input_and_output(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from uagent.runtime import tool_discovery
+
+    monkeypatch.setattr(
+        tool_discovery,
+        "openrouter_responses_tool_search_variant",
+        lambda *_args, **_kwargs: "regex",
+    )
+    output_item = SimpleNamespace(
+        id="fc_item_1",
+        type="function_call",
+        call_id="call_1",
+        name="read_file",
+        arguments='{"filename":"README.md"}',
+        status="completed",
+    )
+    response = SimpleNamespace(
+        id="resp_openrouter_1",
+        output=[output_item],
+        output_text="",
+        usage={"input_tokens": 12, "output_tokens": 3},
+    )
+    client = _Client(events=response)
+    specs = [
+        _openrouter_function_spec(name)
+        for name in (
+            "human_ask",
+            "calculator",
+            "fetch_url",
+            "search_web",
+            "python_exec",
+            "read_file",
+            "tool_catalog",
+            "tool_load",
+            "unload_tool",
+        )
+    ]
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[{"role": "user", "content": "Read README"}],
+        tool_specs=specs,
+        policy={"provider": "openrouter", "model": "test-model"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openrouter",
+        model="test-model",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=False,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert isinstance(request.payload["input"], list)
+    tools = request.payload["tools"]
+    assert {tool["type"] for tool in tools} >= {
+        "openrouter:tool_search",
+        "function",
+    }
+    functions = {tool["name"]: tool for tool in tools if tool["type"] == "function"}
+    assert functions["read_file"]["defer_loading"] is True
+    assert all(
+        "defer_loading" not in functions[name]
+        for name in (
+            "human_ask",
+            "calculator",
+            "fetch_url",
+            "search_web",
+            "python_exec",
+        )
+    )
+    assert not {"tool_catalog", "tool_load", "unload_tool"} & set(functions)
+
+    events = list(runtime.run(request, _Cancellation()))
+    completed = events[-1]
+    assert completed.type == "ResponseCompleted"
+    assert completed.data["_responses_output_items"] == [
+        {
+            "id": "fc_item_1",
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "read_file",
+            "arguments": '{"filename":"README.md"}',
+            "status": "completed",
+        }
+    ]
+    from uagent.llm_registry_round import _registry_stream_event_observer
+
+    core = SimpleNamespace()
+    observer = _registry_stream_event_observer(core, streaming=False)
+    observer(completed)
+    assert (
+        core._last_responses_output_items == completed.data["_responses_output_items"]
+    )
+
+
+def test_openrouter_native_tool_search_replays_raw_output_and_matching_tool_result() -> (
+    None
+):
+    from uagent.providers.llm_openai_responses import build_responses_request
+
+    raw_output = [
+        {
+            "id": "fc_item_1",
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "read_file",
+            "arguments": '{"filename":"README.md"}',
+        },
+        {
+            "id": "reasoning_1",
+            "type": "reasoning",
+            "summary": [{"type": "summary_text", "text": "Inspect file."}],
+        },
+    ]
+    _instructions, input_items, response_tools = build_responses_request(
+        [
+            {"role": "user", "content": "Read README"},
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": "call_1",
+                        "type": "function",
+                        "function": {
+                            "name": "read_file",
+                            "arguments": '{"filename":"README.md"}',
+                        },
+                    }
+                ],
+                "_responses_output_items": raw_output,
+            },
+            {
+                "role": "tool",
+                "tool_call_id": "call_1",
+                "name": "read_file",
+                "content": "README content",
+            },
+        ],
+        send_tools_this_round=True,
+        provider="openrouter",
+        model_name="test-model",
+        openrouter_tool_search_variant="regex",
+        tool_specs=[_openrouter_function_spec("read_file")],
+    )
+
+    assert input_items[1:4] == raw_output + [
+        {
+            "type": "function_call_output",
+            "call_id": "call_1",
+            "output": "README content",
+        }
+    ]
+    assert response_tools is not None
+    assert {tool["type"] for tool in response_tools} == {
+        "openrouter:tool_search",
+        "function",
+    }
+
+
+def test_openrouter_native_search_marks_history_immutable(monkeypatch) -> None:
+    from uagent.providers.llm_openai_responses import build_responses_request
+
+    monkeypatch.setenv("UAGENT_OPENROUTER_TOOL_SEARCH", "native")
+    core = SimpleNamespace()
+
+    build_responses_request(
+        [{"role": "user", "content": "Today's weather"}],
+        send_tools_this_round=True,
+        provider="openrouter",
+        tool_specs=[_openrouter_function_spec("get_weather")],
+        core=core,
+        model_name="openrouter/free",
+        openrouter_tool_search_variant="regex",
+    )
+
+    assert core._responses_tool_search_history_provider == "openrouter"
+
+
+def test_deepseek_responses_tool_search_uses_client_call_and_replays_definitions(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from uagent import tools
+    from uagent.providers.llm_openai_responses import build_responses_request
+
+    monkeypatch.setenv("UAGENT_DEEPSEEK_TOOL_SEARCH", "native")
+    specs = [
+        _openrouter_function_spec(name)
+        for name in (
+            "human_ask",
+            "calculator",
+            "fetch_url",
+            "search_web",
+            "python_exec",
+            "read_file",
+            "tool_catalog",
+            "tool_load",
+            "unload_tool",
+        )
+    ]
+    monkeypatch.setattr(
+        tools,
+        "get_tool_catalog",
+        lambda **_kwargs: [{"name": "read_file"}],
+    )
+    response = SimpleNamespace(
+        id="resp_deepseek_1",
+        output=[
+            SimpleNamespace(
+                type="tool_search_call",
+                id="tsc_1",
+                call_id="call_search_1",
+                execution="client",
+                status="completed",
+                arguments={"query": "read a file"},
+            ),
+            SimpleNamespace(
+                type="reasoning",
+                id="rsn_search_1",
+                summary=[{"type": "summary_text", "text": "Find a file tool."}],
+            ),
+        ],
+        output_text="",
+        usage=None,
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(events=response),
+        provider="deepseek",
+        model="deepseek-flash",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=False,
+        options={"previous_response_id": "resp_previous"},
+    )
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[{"role": "user", "content": "Read the file"}],
+        tool_specs=specs,
+        policy={"provider": "deepseek", "model": "deepseek-flash"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert {tool["type"] for tool in request.payload["tools"]} == {
+        "tool_search",
+        "function",
+    }
+    search_tool = next(
+        tool for tool in request.payload["tools"] if tool["type"] == "tool_search"
+    )
+    assert search_tool["execution"] == "client"
+    assert search_tool["parameters"]["required"] == ["query"]
+    assert "previous_response_id" not in request.payload
+    names = {
+        tool["name"]
+        for tool in request.payload["tools"]
+        if tool.get("type") == "function"
+    }
+    assert "read_file" not in names
+    assert "tool_catalog" not in names
+    assert {
+        "human_ask",
+        "calculator",
+        "fetch_url",
+        "search_web",
+        "python_exec",
+    } <= names
+
+    events = list(runtime.run(request, _Cancellation()))
+    search_call = next(event for event in events if event.type == "ToolCallCompleted")
+    assert search_call.data["name"] == "tool_catalog"
+    assert search_call.data["validated_arguments"] == {"query": "read a file"}
+    completed = events[-1]
+    assert completed.data["_responses_output_items"][0]["type"] == "tool_search_call"
+
+    _instructions, replayed_input, _response_tools = build_responses_request(
+        [
+            {"role": "user", "content": "Read the file"},
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": "call_search_1",
+                        "type": "function",
+                        "function": {
+                            "name": "tool_catalog",
+                            "arguments": '{"query":"read a file"}',
+                        },
+                    }
+                ],
+                "_responses_output_items": completed.data["_responses_output_items"],
+            },
+            {
+                "role": "tool",
+                "tool_call_id": "call_search_1",
+                "name": "tool_catalog",
+                "content": '{"ok":true,"tools":[{"name":"read_file"}]}',
+            },
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": "call_file_1",
+                        "type": "function",
+                        "function": {
+                            "name": "read_file",
+                            "arguments": '{"filename":"README.md"}',
+                        },
+                    }
+                ],
+                "_responses_output_items": [
+                    {
+                        "type": "function_call",
+                        "call_id": "call_file_1",
+                        "name": "read_file",
+                        "arguments": '{"filename":"README.md"}',
+                    }
+                ],
+            },
+            {
+                "role": "tool",
+                "tool_call_id": "call_file_1",
+                "name": "read_file",
+                "content": "README contents",
+            },
+        ],
+        send_tools_this_round=True,
+        provider="deepseek",
+        model_name="deepseek-flash",
+        deepseek_tool_search_enabled=True,
+        tool_specs=specs,
+    )
+    assert replayed_input[1] == {
+        "type": "tool_search_call",
+        "call_id": "call_search_1",
+        "execution": "client",
+        "arguments": {"query": "read a file"},
+    }
+    assert replayed_input[2] == {
+        "type": "reasoning",
+        "id": "rsn_search_1",
+        "summary": [{"type": "summary_text", "text": "Find a file tool."}],
+    }
+    assert replayed_input[3] == {
+        "type": "tool_search_output",
+        "call_id": "call_search_1",
+        "execution": "client",
+        "tools": [
+            {
+                "type": "function",
+                "name": "read_file",
+                "description": "read_file",
+                "parameters": {
+                    "type": "object",
+                    "properties": {},
+                    "required": [],
+                },
+            }
+        ],
+    }
+    function_call_index = next(
+        index
+        for index, item in enumerate(replayed_input)
+        if isinstance(item, dict) and item.get("type") == "function_call"
+    )
+    assert replayed_input[function_call_index] == {
+        "type": "function_call",
+        "call_id": "call_file_1",
+        "name": "read_file",
+        "arguments": '{"filename":"README.md"}',
+    }
+    assert replayed_input[function_call_index + 1] == {
+        "type": "function_call_output",
+        "call_id": "call_file_1",
+        "output": "README contents",
+    }
+
+
+def test_deepseek_responses_stream_tool_search_call_is_emitted_and_preserved() -> None:
+    item = SimpleNamespace(
+        type="tool_search_call",
+        id="tsc_stream_1",
+        call_id="call_stream_1",
+        execution="client",
+        arguments={"query": "read a file"},
+    )
+    response = SimpleNamespace(
+        id="resp_stream_1",
+        output=[item],
+        output_text="",
+        usage=None,
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="deepseek",
+        model="deepseek-flash",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=True,
+    )
+    events = list(
+        runtime._responses_events(
+            [
+                SimpleNamespace(type="response.output_item.added", item=item),
+                SimpleNamespace(type="response.output_item.done", item=item),
+                SimpleNamespace(type="response.completed", response=response),
+            ],
+            _Cancellation(),
+            preserve_output_items=True,
+        )
+    )
+
+    tool_call = next(event for event in events if event.type == "ToolCallCompleted")
+    assert tool_call.data["name"] == "tool_catalog"
+    assert tool_call.data["validated_arguments"] == {"query": "read a file"}
+    assert events[-1].data["_responses_output_items"][0]["type"] == "tool_search_call"
+
+
+def test_deepseek_native_search_preserves_output_items_at_provider_boundary() -> None:
+    from uagent.runtime.provider_context import project_messages_for_provider
+
+    output_items = [
+        {
+            "type": "tool_search_call",
+            "call_id": "call_search_1",
+            "execution": "client",
+            "arguments": {"query": "read a file"},
+        }
+    ]
+    message = {
+        "role": "assistant",
+        "content": "",
+        "_responses_output_items": output_items,
+    }
+
+    projected = project_messages_for_provider(
+        [message], provider="deepseek", preserve_responses_output_items=True
+    )
+    stripped = project_messages_for_provider([message], provider="deepseek")
+
+    assert projected[0]["_responses_output_items"] == output_items
+    assert "_responses_output_items" not in stripped[0]

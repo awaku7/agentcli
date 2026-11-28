@@ -44,8 +44,9 @@ def run_legacy_claude_round(
     append_assistant_message_fn: Callable[..., Any],
     handle_empty_no_tool_fn: Callable[..., tuple[str, int]],
     emit_final_answer_fn: Callable[..., Any],
+    provider: str = "claude",
     **_unused: Any,
-) -> RoundResult:
+) -> RoundResult | None:
     """Run Claude's compatibility round and its provider-neutral postprocess.
 
     The tuple field order intentionally matches the ``_RoundOutcome``
@@ -53,6 +54,15 @@ def run_legacy_claude_round(
     All UI and loop callbacks are injected so this module does not import the
     main round loop or own persistent conversation state.
     """
+    provider = (provider or "claude").strip().lower()
+    if provider != "claude":
+        from .tool_discovery import provider_messages_api_enabled
+
+        if provider not in {
+            "openrouter",
+            "deepseek",
+        } or not provider_messages_api_enabled(provider):
+            return None
     ok, client, assistant_text, tool_calls_list = call_legacy_claude_round(
         client=client,
         depname=depname,
@@ -64,7 +74,7 @@ def run_legacy_claude_round(
         retry_base=retry_base,
         retry_cap=retry_cap,
         send_tools=send_tools_this_round,
-        provider="claude",
+        provider=provider,
     )
     if not ok:
         return (
@@ -98,6 +108,9 @@ def run_legacy_claude_round(
             "messages": messages,
             "core": core,
             "tool_calls_list": tool_calls_list,
+            "anthropic_content_blocks": getattr(
+                core, "_last_claude_content_blocks", None
+            ),
         },
         judgment_mode=judgment_mode,
     )
@@ -108,7 +121,7 @@ def run_legacy_claude_round(
         tool_calls_list=tool_calls_list,
         empty_no_tool_rounds=empty_no_tool_rounds,
         empty_no_tool_max=empty_no_tool_max,
-        provider="claude",
+        provider=provider,
         depname=depname,
         messages=messages,
         core=core,
@@ -130,7 +143,7 @@ def run_legacy_claude_round(
             "append_result_to_outfile_fn": append_result_to_outfile_fn,
             "try_open_images_from_text_fn": try_open_images_from_text_fn,
             "core": core,
-            "provider": "claude",
+            "provider": provider,
         },
         client=client,
         cache_name=gemini_cache_name,

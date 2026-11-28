@@ -103,14 +103,15 @@ def _is_embedded_mode() -> bool:
 
 
 def _should_preload_lazy_specs() -> bool:
-    """Check if lazy specs should be pre-registered for server-side narrowing.
+    """Check if lazy specs should be pre-registered for provider tool search.
 
-    Returns True when native OpenAI Responses tool_search or a documented
-    Gemini Interactions tool_retrieval capability is active.
+    Returns True when native OpenAI Responses or OpenRouter Responses/Messages
+    tool_search, DeepSeek client-side Responses/Messages tool_search, Anthropic
+    Messages tool_search, or Gemini Interactions retrieval is active.
 
     NOTE: This only affects startup-time registration (TOOL_SPECS).
-          The native provider paths need all eligible schemas registered so
-          the server can retrieve them without a local catalog round-trip.
+          Native provider paths need all eligible schemas registered so the
+          server or client can retrieve them without a catalog round-trip.
     """
     try:
         from ..runtime.tool_discovery import resolve_tool_discovery_from_environment
@@ -121,7 +122,19 @@ def _should_preload_lazy_specs() -> bool:
             gemini_interactions_tool_retrieval_enabled_from_environment,
         )
 
-        return gemini_interactions_tool_retrieval_enabled_from_environment()
+        if gemini_interactions_tool_retrieval_enabled_from_environment():
+            return True
+        from ..runtime.tool_discovery import (
+            anthropic_messages_tool_search_variant_from_environment,
+        )
+
+        if anthropic_messages_tool_search_variant_from_environment() is not None:
+            return True
+        from ..runtime.tool_discovery import (
+            messages_tool_search_enabled_from_environment,
+        )
+
+        return messages_tool_search_enabled_from_environment()
     except Exception:
         return False
 
@@ -682,8 +695,8 @@ def _open_manifest_session(pkg_dir: str) -> Optional[_ManifestSession]:
 
     if not _manifest.manifest_enabled():
         return None
-    # Native tool_search sends every tool spec to the server and needs every
-    # module's real registration; keep the eager path there.
+    # Native tool search needs every module's real registration for server- or
+    # client-side lookup; keep the eager path there.
     if _should_preload_lazy_specs():
         return None
     try:
@@ -757,8 +770,8 @@ def _load_plugins() -> None:
         # (e.g. when an on-demand tool is loaded individually).
         if m.name in _LAZY_TOOL_MODULES:
             lazy_spec = _load_lazy_tool_spec(m.name)
-            # In native GPT-5.4 tool_search mode, pre-register lazy tool specs
-            # so the full tool set is sent to the server for server-side narrowing.
+            # Pre-register lazy specs when the active provider searches the
+            # complete catalog server-side or client-side.
             if lazy_spec and _should_preload_lazy_specs():
                 with _TOOLS_LOCK:
                     TOOL_SPECS.append(lazy_spec)
