@@ -39,6 +39,19 @@ def _document_text(document) -> str:
     return "".join(segment.text for segment in segments)
 
 
+def test_stream_proxy_does_not_import_during_interpreter_finalization(monkeypatch):
+    proxy = console_view._ViewStreamProxy(object(), "output")
+    monkeypatch.setattr(console_view.sys, "is_finalizing", lambda: True)
+
+    # A newline posts immediately; a partial line posts when TextIOBase
+    # finalizes and flushes the proxy. Neither may import during shutdown.
+    proxy.write("complete line\n")
+    proxy.write("partial line")
+    proxy.flush()
+
+    assert proxy._pending == ""
+
+
 def test_view_submits_lines_and_projects_document():
     from prompt_toolkit.input import create_pipe_input
     from prompt_toolkit.output import DummyOutput

@@ -144,6 +144,12 @@ class _ViewStreamProxy(io.TextIOBase):
                 self._post(pending)
 
     def _post(self, text: str) -> None:
+        # TextIOBase may call flush() while its proxy is being finalized,
+        # after Python has torn down the import machinery.  At that point
+        # there is no live view to receive output, and importing the display
+        # channel raises ``ImportError: sys.meta_path is None``.
+        if sys.is_finalizing():
+            return
         from ..runtime import display_channel
 
         display_channel.post_segment(self._kind, text)
