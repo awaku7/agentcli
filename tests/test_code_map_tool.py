@@ -348,4 +348,65 @@ def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
     )
 
 
+def test_pyproject_dependencies_are_extracted(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    project.mkdir(parents=True)
+    (project / "pyproject.toml").write_text(
+        "[project]\n"
+        "name = 'demo'\n"
+        "dependencies = [\n"
+        "  'requests>=2.0',\n"
+        "  'uvicorn[standard]>=0.20; python_version > \"3.8\"',\n"
+        "]\n"
+        "[project.optional-dependencies]\n"
+        "test = ['pytest>=8', 'pytest>=7; python_version < \"3.12\"']\n"
+        "docs = ['sphinx']\n"
+        "[dependency-groups]\n"
+        "dev = ['ruff==0.1', {include-group = 'test'}]\n",
+        encoding="utf-8",
+    )
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    deps = [dep for dep in result["project"]["dependencies"] if dep["manager"] == "pip"]
+    by_name = {}
+    for dep in deps:
+        by_name.setdefault(dep["name"], []).append(dep)
+    assert by_name["requests"][0]["version"] == ">=2.0"
+    assert by_name["requests"][0]["requirement"] == "requests>=2.0"
+    assert "group" not in by_name["requests"][0]
+    uvicorn = by_name["uvicorn"][0]
+    assert uvicorn["version"] == ">=0.20"
+    assert uvicorn["requirement"] == 'uvicorn[standard]>=0.20; python_version > "3.8"'
+    # Same package under different conditions is not collapsed.
+    pytest_reqs = {dep["requirement"] for dep in by_name["pytest"]}
+    assert pytest_reqs == {"pytest>=8", 'pytest>=7; python_version < "3.12"'}
+    assert all(dep["group"] == "test" for dep in by_name["pytest"])
+    assert by_name["sphinx"][0]["group"] == "docs"
+    # dependency-groups entries keep their group; include-group is skipped.
+    assert by_name["ruff"][0]["group"] == "dev"
+    assert by_name["ruff"][0]["version"] == "==0.1"
+
+
+def test_pyproject_invalid_toml_yields_no_pip_dependencies(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "project"
+    project.mkdir(parents=True)
+    (project / "pyproject.toml").write_text(
+        "[project\nname = 'broken'\n", encoding="utf-8"
+    )
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    pip_deps = [
+        dep for dep in result["project"]["dependencies"] if dep["manager"] == "pip"
+    ]
+    assert pip_deps == []
+
+
 # Keep the test module free of generated code-map artifacts.

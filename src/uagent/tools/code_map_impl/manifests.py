@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import tomllib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -34,23 +35,40 @@ def extract_project_dependencies(
     remote artifacts. Local project references are represented as paths/names.
     """
     deps: list[dict[str, Any]] = []
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[str, ...]] = set()
 
-    def add(project: Path, manager: str, name: str, version: str = ""):
+    def add(
+        project: Path,
+        manager: str,
+        name: str,
+        version: str = "",
+        *,
+        requirement: str = "",
+        group: str = "",
+    ):
         name = name.strip()
         if not name:
             return
-        key = (str(project.resolve()), name)
+        # Entries that carry a full requirement string (PEP 508) dedupe on
+        # the requirement and group as well, so the same package under
+        # different conditions or groups is not collapsed into one entry.
+        if requirement or group:
+            key = (str(project.resolve()), name, requirement, group)
+        else:
+            key = (str(project.resolve()), name)
         if key not in seen:
             seen.add(key)
-            deps.append(
-                {
-                    "project": str(project.resolve()),
-                    "manager": manager,
-                    "name": name,
-                    "version": version.strip(),
-                }
-            )
+            entry: dict[str, Any] = {
+                "project": str(project.resolve()),
+                "manager": manager,
+                "name": name,
+                "version": version.strip(),
+            }
+            if requirement:
+                entry["requirement"] = requirement
+            if group:
+                entry["group"] = group
+            deps.append(entry)
 
     for project in project_files:
         suffix = project.suffix.lower()
@@ -203,6 +221,51 @@ def extract_project_dependencies(
                         add(project, "Composer", name, str(ver))
             except Exception:
                 pass
+        elif filename == "pyproject.toml":
+            try:
+                data = tomllib.loads(text)
+            except tomllib.TOMLDecodeError:
+                data = {}
+            project_meta = data.get("project", {}) or {}
+
+            def add_requirement(requirement: Any, group: str = "") -> None:
+                if not isinstance(requirement, str):
+                    return
+                requirement = requirement.strip()
+                match = re.match(
+                    r"([A-Za-z0-9][A-Za-z0-9._-]*[A-Za-z0-9]|[A-Za-z0-9])", requirement
+                )
+                if not match:
+                    return
+                rest = requirement[match.end() :].strip()
+                if rest.startswith("["):
+                    closing = rest.find("]")
+                    rest = rest[closing + 1 :].strip() if closing >= 0 else ""
+                version = rest.split(";", 1)[0].strip()
+                add(
+                    project,
+                    "pip",
+                    match.group(0),
+                    version,
+                    requirement=requirement,
+                    group=group,
+                )
+
+            for requirement in project_meta.get("dependencies", []) or []:
+                add_requirement(requirement)
+            optional = project_meta.get("optional-dependencies", {}) or {}
+            if isinstance(optional, dict):
+                for group, requirements in optional.items():
+                    for requirement in requirements or []:
+                        add_requirement(requirement, group=str(group))
+            dep_groups = data.get("dependency-groups", {}) or {}
+            if isinstance(dep_groups, dict):
+                for group, entries in dep_groups.items():
+                    for entry in entries or []:
+                        # {include-group = "..."} references are not
+                        # resolved; only plain requirement strings count.
+                        if isinstance(entry, str):
+                            add_requirement(entry, group=str(group))
         elif filename == "gemfile":
             for m in re.finditer(r"\bgem\s+['\"]([^'\"]+)", text):
                 add(project, "RubyGems", m.group(1))

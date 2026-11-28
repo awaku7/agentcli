@@ -16,7 +16,18 @@ def normalize_dependency_versions(
     """Choose a deterministic highest local version and report conflicts."""
     groups = {}
     for dep in dependencies:
-        key = (dep.get("manager", ""), dep.get("name", ""))
+        if dep.get("requirement"):
+            # A full requirement string (PEP 508) pins its own conditions:
+            # the same package under different markers or groups is a set
+            # of conditional requirements, not a version conflict.
+            key = (
+                dep.get("manager", ""),
+                dep.get("name", ""),
+                dep.get("requirement", ""),
+                dep.get("group", ""),
+            )
+        else:
+            key = (dep.get("manager", ""), dep.get("name", ""))
         groups.setdefault(key, []).append(dep)
     normalized = []
     conflicts = []
