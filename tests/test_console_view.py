@@ -39,6 +39,12 @@ def _document_text(document) -> str:
     return "".join(segment.text for segment in segments)
 
 
+def _queued_marker() -> str:
+    from uagent.i18n import _
+
+    return _(" (queued)")
+
+
 def test_stream_proxy_does_not_import_during_interpreter_finalization(monkeypatch):
     proxy = console_view._ViewStreamProxy(object(), "output")
     monkeypatch.setattr(console_view.sys, "is_finalizing", lambda: True)
@@ -146,7 +152,7 @@ def test_view_ignores_blank_enter_while_busy():
             time.sleep(0.1)
             assert view._submissions.empty()
             assert not any(
-                "(queued)" in segment.text for segment in document.snapshot()[0]
+                _queued_marker() in segment.text for segment in document.snapshot()[0]
             )
         finally:
             view.stop()
@@ -772,6 +778,8 @@ def test_view_thread_name_and_single_start():
             assert first_thread.name == "uagent-console-view"
         finally:
             view.stop()
+        assert first_thread is not None
+        assert _wait_for(lambda: not first_thread.is_alive())
 
 
 def test_tool_trace_line_posts_tool_segment(monkeypatch, capsys):
@@ -816,9 +824,13 @@ def test_view_f12_binding_fires_callback():
 
 def test_interrupt_monitor_stays_out_while_view_active(monkeypatch):
     import io
+    import os
     import select as select_module
     import sys
     import types
+
+    if os.name == "nt":
+        pytest.skip("POSIX interrupt monitor is not used on Windows")
 
     from uagent import core
     from uagent.core_impl import interrupt
@@ -902,7 +914,7 @@ def test_wait_line_returns_eof_when_the_app_died(monkeypatch) -> None:
     view = ConsoleView(document=OutputDocument())
 
     class _DyingApp:
-        def run(self) -> None:
+        def run(self, pre_run=None) -> None:
             return None
 
         def exit(self) -> None:
@@ -974,12 +986,16 @@ def test_view_status_follows_idle_transitions(monkeypatch):
     # the legacy idle indicator), so the view only ever received BUSY
     # and its bottom line stayed "[STATE] BUSY [LLM]" after the turn.
     from uagent import core
+    from uagent.core_impl import status as core_status
 
     fake = _FakeView()
     console_view._set_active(fake)  # type: ignore[arg-type]
     monkeypatch.setattr(core, "status_busy", False)
     monkeypatch.setattr(core, "status_label", "")
     monkeypatch.setattr(core, "human_ask_active", False)
+    monkeypatch.setattr(
+        core_status, "normalize_status_label", lambda _busy, label: label
+    )
 
     core.set_status(True, "LLM")
     core.set_status(False, "")
@@ -1005,7 +1021,9 @@ def test_stop_restores_streams_even_if_the_app_thread_lags(monkeypatch) -> None:
     class _StubApp:
         loop = None
 
-        def run(self) -> None:
+        def run(self, pre_run=None) -> None:
+            if pre_run is not None:
+                pre_run()
             release.wait(timeout=10)
 
         def exit(self) -> None:
@@ -1144,6 +1162,10 @@ def test_view_arrow_keys_navigate_history():
         view.start()
         try:
             assert _wait_for(lambda: view._app is not None and view.running)
+            assert _wait_for(
+                lambda: view._output_window is not None
+                and view._output_window.render_info is not None
+            )
             pipe.send_text("\x1b[A")
             assert _wait_for(lambda: view._input_buffer.text == "second command")
             pipe.send_text("\x1b[A")
@@ -1212,7 +1234,7 @@ def test_view_message_during_generation_queues_after_no():
             token = view.last_pending_token
             assert token is not None
             assert any(
-                s.kind == "user" and s.text == "User> hello later (queued)\n"
+                s.kind == "user" and s.text == f"User> hello later{_queued_marker()}\n"
                 for s in document.snapshot()[0]
             )
             # Dispatch resolves the marker.
@@ -1267,7 +1289,8 @@ def test_view_command_during_generation_queues_without_confirmation():
             assert view.wait_line(abort=lambda: False) == ":some command"
             assert view.last_pending_token is not None
             assert any(
-                s.kind == "user" and s.text == "User> :some command (queued)\n"
+                s.kind == "user"
+                and s.text == f"User> :some command{_queued_marker()}\n"
                 for s in document.snapshot()[0]
             )
         finally:
@@ -1290,8 +1313,16 @@ def test_view_confirmation_preempted_by_suspend_queues_with_notice():
             assert view.wait_line(abort=lambda: False) == "a question"
             assert view.last_pending_token is not None
             text = _document_text(document)
-            assert "User> a question (queued)\n" in text
-            assert "confirmation was cancelled" in text
+            assert f"User> a question{_queued_marker()}\n" in text
+            from uagent.i18n import _
+
+            assert (
+                _(
+                    "The interrupt confirmation was cancelled, "
+                    "so the message was queued."
+                )
+                in text
+            )
         finally:
             view.stop()
 
@@ -1572,12 +1603,18 @@ def test_view_wheel_over_the_input_scrolls_the_output():
             assert top > 0  # the transcript starts scrolled to the tail
             rows = view._app.output.get_size().rows
             input_y = rows - 2  # the single input line
+            cursor_before = view._output_buffer.cursor_position
             for _ in range(2):
                 pipe.send_text(f"\x1b[<64;5;{input_y}M")
-            assert _wait_for(lambda: window.vertical_scroll < top)
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position < cursor_before
+            )
+            cursor_after_up = view._output_buffer.cursor_position
             for _ in range(2):
                 pipe.send_text(f"\x1b[<65;5;{input_y}M")
-            assert _wait_for(lambda: window.vertical_scroll == top)
+            assert _wait_for(
+                lambda: view._output_buffer.cursor_position > cursor_after_up
+            )
         finally:
             view.stop()
 
@@ -2239,7 +2276,7 @@ def test_view_reply_opening_over_a_confirmation_does_not_restore_its_text():
             assert _wait_for(lambda: view._reply_armed)
             # The confirmation settled as exactly one queue entry.
             assert view.wait_line(abort=lambda: False) == "next task"
-            assert "next task (queued)" in _document_text(document)
+            assert f"next task{_queued_marker()}" in _document_text(document)
             pipe.send_text("the answer\r")
             assert view.wait_reply(abort=lambda: False) == "the answer"
             assert _wait_for(lambda: view._reply_label is None)

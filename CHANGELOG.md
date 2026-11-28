@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.8.1] - 2026-11-28
+
+### Added
+
+- Expand provider-side tool discovery and tool narrowing across Claude, OpenAI Responses, OpenRouter, DeepSeek, and OpenAI-compatible providers.
+
+### Changed
+
+- Raise the minimum `llmcapa` version to `0.6.2`.
+
+### Fixed
+
+- Avoid importing stream support during interpreter finalization.
+- Ensure the full-screen console view exits when suspension races with prompt_toolkit startup, preventing a lingering input worker from blocking process shutdown.
+
 ## [0.8.0] - 2026-11-26
 
 ### Added

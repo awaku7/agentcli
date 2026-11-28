@@ -800,8 +800,17 @@ class ConsoleView:
             try:
                 loop = app.loop
                 if loop is not None:
-                    loop.call_soon_threadsafe(lambda: app.exit())
-                else:
+
+                    def _exit_if_running() -> None:
+                        # Application.exit() is a no-op failure before
+                        # Application.run() has initialized its future. The
+                        # pre_run callback below handles that startup window.
+                        future = getattr(app, "future", None)
+                        if future is not None and not future.done():
+                            app.exit()
+
+                    loop.call_soon_threadsafe(_exit_if_running)
+                elif getattr(app, "future", None) is not None:
                     app.exit()
             except Exception:
                 pass
@@ -865,8 +874,18 @@ class ConsoleView:
         self._install_capture()
         installed = sys.stdout is self._proxy_stdout
         self._project_document()
+
+        def _exit_if_superseded() -> None:
+            # prompt_toolkit initializes Application.future immediately
+            # before calling pre_run. If suspend() raced with startup, this
+            # is the first point at which exit() is guaranteed to work.
+            with self._state_lock:
+                superseded = generation != self._generation or not self._running
+            if superseded:
+                app.exit()
+
         try:
-            app.run()
+            app.run(pre_run=_exit_if_superseded)
         except Exception:
             pass
         finally:
