@@ -680,7 +680,14 @@ def _find_project_files(root: str) -> dict[str, Any]:
         projects.extend(str(f.resolve()) for f in cargo_files)
         for cargo in cargo_files:
             base = cargo.parent / "src"
-            sources.extend(str(f) for f in bounded_rglob(base, "*.rs") if base.is_dir())
+            # Rust binary crates live in src/bin by convention; "bin" is
+            # a generated-tree name elsewhere, so exempt it for this
+            # source scan.
+            sources.extend(
+                str(f)
+                for f in bounded_rglob(base, "*.rs", allow_generated={"bin"})
+                if base.is_dir()
+            )
 
     go_mod_files = bounded_rglob(root_path, "go.mod")
     if go_mod_files:

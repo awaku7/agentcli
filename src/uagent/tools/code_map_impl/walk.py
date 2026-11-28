@@ -41,6 +41,7 @@ def bounded_rglob(
     *,
     skip_generated: bool = True,
     allow_hidden: frozenset[str] | set[str] | tuple[str, ...] = (),
+    allow_generated: frozenset[str] | set[str] | tuple[str, ...] = (),
 ) -> list[Path]:
     """Find files under ``root`` matching ``pattern`` without entering
     hidden or (unless ``skip_generated`` is false) generated trees.
@@ -56,7 +57,9 @@ def bounded_rglob(
     ``allow_hidden`` names hidden directories that may still be entered;
     it exists for files that live under a hidden directory by design,
     such as the Xcode-managed Swift ``Package.resolved`` under
-    ``.swiftpm``.
+    ``.swiftpm``. ``allow_generated`` does the same for generated-tree
+    names that are source directories in some layouts, such as Rust's
+    ``src/bin`` binary crates.
     """
     matches: list[Path] = []
     if not root.is_dir():
@@ -66,7 +69,9 @@ def bounded_rglob(
             name
             for name in dirnames
             if (not name.startswith(".") or name in allow_hidden)
-            and not (skip_generated and name in SKIP_DIRS)
+            and not (
+                skip_generated and name in SKIP_DIRS and name not in allow_generated
+            )
         ]
         for filename in filenames:
             if fnmatch.fnmatchcase(filename, pattern):

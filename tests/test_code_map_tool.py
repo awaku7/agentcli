@@ -526,3 +526,22 @@ def test_swift_package_resolved_under_swiftpm_is_found(repo_tmp_path: Path) -> N
     dep_names = {dep["name"] for dep in extract_lock_dependencies(project)}
     assert "alamofire" in dep_names
     assert "decoy" not in dep_names
+
+
+def test_project_only_collects_rust_src_bin_sources(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    (project / "src" / "bin").mkdir(parents=True)
+    (project / "Cargo.toml").write_text(
+        '[package]\nname = "demo"\nversion = "0.1.0"\n', encoding="utf-8"
+    )
+    (project / "src" / "lib.rs").write_text("pub fn lib() {}\n", encoding="utf-8")
+    (project / "src" / "bin" / "tool.rs").write_text("fn main() {}\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    paths = {entry["relative_path"].replace("\\", "/") for entry in result["files"]}
+    assert "src/lib.rs" in paths
+    # Binary crates live in src/bin; the generated-tree pruning of a
+    # directory named "bin" must not drop them.
+    assert "src/bin/tool.rs" in paths
