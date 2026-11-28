@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import atexit
-import json
 import queue
 import threading
 import time
@@ -122,66 +121,6 @@ class WebLocalMessagingAdapter:
     def list_peers(self) -> list[dict[str, Any]]:
         return self.runtime.list_peers() if self.runtime is not None else []
 
-    def _ask(self, prompt: str) -> str:
-        from .io import web_human_ask
-        from .rooms import web_manager
-
-        connection = _connection_for_principal(self.room, self.principal_id)
-        if connection is None:
-            return "n"
-        try:
-            connection.validate_authentication_configuration()
-            connection.validate_room_access(touch_activity=False)
-        except (IdentityConfigurationError, IdentityResolutionError):
-            return "n"
-        policy_revision = None
-        if getattr(web_manager, "execution_profile", "remote") != "local_trusted":
-            try:
-                from ..runtime.policy_engine import PolicyDecision, UnifiedPolicy
-
-                policy = UnifiedPolicy.from_environment()
-                ask_args = {"message": prompt, "is_password": False}
-                if policy.decide("human_ask", ask_args) is not PolicyDecision.ALLOW:
-                    return "n"
-                policy_revision = policy.revision
-            except Exception:
-                return "n"
-        raw = web_human_ask(
-            self.room,
-            {
-                "message": prompt,
-                "_expected_principal_id": self.principal_id,
-                "_cancel_event": self._ask_cancel,
-            },
-        )
-        try:
-            result = json.loads(raw)
-        except (TypeError, ValueError):
-            return "n"
-        if result.get("cancelled"):
-            return "n"
-        try:
-            connection.validate_authentication_configuration()
-            connection.validate_room_access(touch_activity=False)
-        except (IdentityConfigurationError, IdentityResolutionError):
-            return "n"
-        if policy_revision is not None:
-            try:
-                from ..runtime.policy_engine import PolicyDecision, UnifiedPolicy
-
-                fresh_policy = UnifiedPolicy.from_environment()
-                if (
-                    fresh_policy.revision != policy_revision
-                    or fresh_policy.decide(
-                        "human_ask", {"message": prompt, "is_password": False}
-                    )
-                    is not PolicyDecision.ALLOW
-                ):
-                    return "n"
-            except Exception:
-                return "n"
-        return str(result.get("user_reply") or "")
-
     def _run(self) -> None:
         while not self._stop.is_set():
             try:
@@ -263,7 +202,7 @@ class WebLocalMessagingAdapter:
             )
             return
 
-        accepted = accept_incoming_message(self.runtime, message, self._ask)
+        accepted = accept_incoming_message(self.runtime, message)
         if accepted is None:
             return
         if self._stop.is_set():

@@ -260,54 +260,25 @@ def test_cli_endpoint_natural_tool_list_and_send(tmp_path, monkeypatch) -> None:
     assert not hasattr(core, "_local_messaging_runtime")
 
 
-def test_incoming_message_confirmation_y_n_all(tmp_path) -> None:
+def test_incoming_messages_are_accepted_automatically(tmp_path) -> None:
     store = LocalMessageStore(tmp_path / "messages.sqlite3")
     _register(store, "peer")
     runtime = LocalMessageRuntime(queue.Queue(), store=store, poll_interval=0.05)
     runtime.start()
     core = SimpleNamespace(set_status=lambda *_args: None)
     try:
-
-        def ask(reply: str):
-            def run_cli_turn(_runner, name, _args):
-                assert name == "human_ask"
-                return json.dumps({"user_reply": reply})
-
-            return run_cli_turn
-
-        first_id = store.send_message("peer", runtime.endpoint_id, "accept one")
-        first = store.claim_messages(runtime.endpoint_id)[0]
-        assert first["message_id"] == first_id
-        accepted = _accept_cli_local_message(core, runtime, first, ask("y"), object())
-        assert accepted is not None
-        assert accepted["kind"] == "user"
-        assert "accept one" in accepted["text"]
+        # Every peer message becomes a user turn with no confirmation,
+        # including the very first one from a new sender.
+        for body in ("first", "second", "third"):
+            message_id = store.send_message("peer", runtime.endpoint_id, body)
+            claimed = store.claim_messages(runtime.endpoint_id)[0]
+            assert claimed["message_id"] == message_id
+            accepted = _accept_cli_local_message(core, runtime, claimed)
+            assert accepted is not None
+            assert accepted["kind"] == "user"
+            assert accepted["src"] == "local_messaging"
+            assert body in accepted["text"]
+        # Sender approval state plays no role in acceptance.
         assert not runtime.is_sender_approved("peer")
-
-        second_id = store.send_message("peer", runtime.endpoint_id, "reject one")
-        second = store.claim_messages(runtime.endpoint_id)[0]
-        assert second["message_id"] == second_id
-        assert (
-            _accept_cli_local_message(core, runtime, second, ask("n"), object()) is None
-        )
-
-        third_id = store.send_message("peer", runtime.endpoint_id, "accept all")
-        third = store.claim_messages(runtime.endpoint_id)[0]
-        assert third["message_id"] == third_id
-        accepted = _accept_cli_local_message(core, runtime, third, ask("all"), object())
-        assert accepted is not None
-        assert runtime.is_sender_approved("peer")
-
-        fourth_id = store.send_message("peer", runtime.endpoint_id, "no prompt")
-        fourth = store.claim_messages(runtime.endpoint_id)[0]
-        assert fourth["message_id"] == fourth_id
-
-        def fail_if_asked(*_args):
-            raise AssertionError("all should suppress further confirmation")
-
-        accepted = _accept_cli_local_message(
-            core, runtime, fourth, fail_if_asked, object()
-        )
-        assert accepted is not None
     finally:
         runtime.stop()

@@ -83,9 +83,7 @@ def test_rejected_incoming_local_message_notice_is_translated(
     monkeypatch.setattr(cli_main, "accept_incoming_message", lambda *_args: None)
     token = set_contextvar_locale("ja")
     try:
-        result = cli_main._accept_cli_local_message(
-            SimpleNamespace(), None, {}, None, None
-        )
+        result = cli_main._accept_cli_local_message(SimpleNamespace(), None, {})
     finally:
         reset_contextvar_locale(token)
 
