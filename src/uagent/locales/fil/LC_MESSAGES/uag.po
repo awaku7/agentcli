@@ -2671,8 +2671,8 @@ msgstr "[logs] Paggamit: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:242
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[mga log] Di-wastong argumento: %(arg)r (tukuyin ang lahat / --lahat / -a / "
 "numero / pdf <index>)"

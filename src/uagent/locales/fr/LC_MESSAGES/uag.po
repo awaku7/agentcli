@@ -2816,8 +2816,8 @@ msgstr "[journaux] Utilisation : logs pdf <index> [output_path]"
 #: src/uagent/util_cmd_files.py:242
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[logs] Argument non valide : %(arg)r (spécifiez all / --all / -a / number / "
 "pdf <index>)"

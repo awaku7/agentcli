@@ -211,6 +211,24 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
     return True
 
 
+def _logs_scope_workdir(core: Any) -> str:
+    """Default :logs scope: the bound Web room's base_dir, else the cwd.
+
+    A Web room can sit in a different directory from the server process
+    (``Room.set_base_dir()`` never chdirs), so the process cwd is only
+    the fallback for non-Web callers.
+    """
+    owner = core
+    try:
+        from .util_cmd_session import _session_selection_owner
+
+        owner = _session_selection_owner(core)
+    except Exception:
+        owner = core
+    base_dir = str(getattr(owner, "base_dir", "") or "").strip()
+    return base_dir or os.getcwd()
+
+
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     # In sqlite-only mode, :logs is backed by the session store. The legacy
     # JSONL path remains available in dual/jsonl mode.
@@ -248,7 +266,7 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                         % {"arg": a}
                     )
                     return True
-            workdir = None if global_scope else os.getcwd()
+            workdir = None if global_scope else _logs_scope_workdir(core)
             rows = store.list_sessions(
                 limit=None if show_all else limit,
                 exclude_session_id=getattr(selection_owner, "session_id", None),
@@ -314,14 +332,17 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                 return True
 
     if export_pdf_index is not None:
-        files = []
+        # Resolve against the displayed listing when one was shown
+        # (even an empty one); only fall back to every log file when
+        # no listing exists yet.
+        files = None
         view = getattr(core, "last_log_view", None)
         if callable(view):
             try:
                 files = view()
             except Exception:
-                files = []
-        if not files:
+                files = None
+        if files is None:
             files = core.find_log_files(exclude_current=True)
         if not files:
             print(_("[logs] No log files found."))
@@ -354,7 +375,7 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     core.list_logs(
         limit=limit,
         show_all=show_all,
-        workdir=None if global_scope else os.getcwd(),
+        workdir=None if global_scope else _logs_scope_workdir(core),
     )
     return True
 

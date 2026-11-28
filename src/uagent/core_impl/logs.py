@@ -116,13 +116,18 @@ _LOG_WORKDIR_CACHE: dict[str, tuple[float, int, str]] = {}
 # The file list most recently displayed by list_logs, in display order.
 # :load resolves numeric indices against this view so the number the
 # user saw opens the file they saw, even when the view was filtered.
-_LAST_LOG_VIEW: list[str] = []
+_LAST_LOG_VIEW: list[str] | None = None
 
 
-def last_log_view() -> list[str]:
-    """Return the files shown by the most recent :logs listing."""
+def last_log_view() -> list[str] | None:
+    """Return the files shown by the most recent :logs listing.
 
-    return list(_LAST_LOG_VIEW)
+    ``None`` means no listing has been shown yet; an empty list is a
+    real listing that happened to show nothing. Index resolution must
+    preserve the empty listing instead of falling back to every log.
+    """
+
+    return None if _LAST_LOG_VIEW is None else list(_LAST_LOG_VIEW)
 
 
 def log_final_workdir(path: str) -> str:

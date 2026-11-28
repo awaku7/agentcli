@@ -2159,8 +2159,8 @@ msgstr ""
 #: src/uagent/util_cmd_files.py:305
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf"
-" <index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 
 #: src/uagent/util_cmd_files.py:314

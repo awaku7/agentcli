@@ -2748,8 +2748,8 @@ msgstr "[लॉग] वापर: :logs pdf <index> [output_path]"
 #: src/uagent/util_cmd_files.py:242
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[लॉग] अवैध युक्तिवाद: %(arg)r (सर्व निर्दिष्ट करा / --all / -a / number / "
 "pdf <index>)"

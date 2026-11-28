@@ -157,3 +157,57 @@ def test_list_logs_workdir_marker_wins_over_metadata(tmp_path, monkeypatch):
 
     assert ucore.list_logs(limit=10, show_all=True, workdir="/work/a") == []
     assert ucore.list_logs(limit=10, show_all=True, workdir="/work/b") == [str(moved)]
+
+
+def test_load_index_preserves_empty_displayed_view(tmp_path, monkeypatch, capsys):
+    from types import SimpleNamespace
+
+    from uagent.util_cmd_session import _handle_cmd_load
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "jsonl")
+    unrelated = tmp_path / "scheck_log_20260101_000000.jsonl"
+    unrelated.write_text("{}\n", encoding="utf-8")
+    loaded: list[str] = []
+    core = SimpleNamespace(
+        session_store=None,
+        last_log_view=lambda: [],
+        find_log_files=lambda exclude_current=True: [str(unrelated)],
+        load_conversation_from_log=lambda path: loaded.append(path) or [],
+    )
+    messages: list = []
+    assert _handle_cmd_load("0", messages, core=core, tr=lambda text, **_: text)
+    # The empty displayed view is a real listing: index 0 is out of
+    # range, and the unrelated log is never loaded.
+    assert loaded == []
+    assert "out of range" in capsys.readouterr().out
+
+
+def test_load_index_ignores_displayed_view_when_opted_out(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.util_cmd_session import _handle_cmd_load
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "jsonl")
+    newest = tmp_path / "scheck_log_20260102_000000.jsonl"
+    newest.write_text("{}\n", encoding="utf-8")
+    older = tmp_path / "scheck_log_20260101_000000.jsonl"
+    older.write_text("{}\n", encoding="utf-8")
+    loaded: list[str] = []
+    core = SimpleNamespace(
+        session_store=None,
+        last_log_view=lambda: [str(older)],
+        find_log_files=lambda exclude_current=True: [str(newest), str(older)],
+        load_conversation_from_log=lambda path: loaded.append(path)
+        or [{"role": "user", "content": "hi"}],
+    )
+    messages: list = []
+    # :cont passes use_last_displayed_view=False: index 0 is the newest
+    # log overall, not the first row of the displayed listing.
+    assert _handle_cmd_load(
+        "0",
+        messages,
+        core=core,
+        tr=lambda text, **_: text,
+        use_last_displayed_view=False,
+    )
+    assert loaded == [str(newest)]

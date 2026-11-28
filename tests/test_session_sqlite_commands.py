@@ -738,3 +738,39 @@ def test_logs_defaults_to_current_workdir_and_global_lists_all(
         assert messages
     finally:
         db.close()
+
+
+def test_logs_scopes_to_bound_room_base_dir(monkeypatch, tmp_path, capsys):
+    from uagent.util_cmd_session import bind_session_selection_context
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    server_dir = tmp_path / "server"
+    server_dir.mkdir()
+    monkeypatch.chdir(server_dir)
+    room_dir = tmp_path / "room"
+    room_dir.mkdir()
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        in_room = db.create_session(
+            project="room", entry_point="web", project_path=str(room_dir)
+        )
+        db.append_message(in_room.session_id, "user", "room session")
+        in_server = db.create_session(
+            project="server", entry_point="web", project_path=str(server_dir)
+        )
+        db.append_message(in_server.session_id, "user", "server session")
+        active = db.create_session(
+            project="active", entry_point="web", project_path=str(room_dir)
+        )
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        room = SimpleNamespace(base_dir=str(room_dir), session_id=active.session_id)
+        messages = []
+        with bind_session_selection_context(room):
+            assert handle_command(":logs", messages, None, "", core=core)
+        out = capsys.readouterr().out
+        assert str(room_dir) in out
+        # The room's directory scopes the listing, not the server cwd.
+        assert room._session_search_results == {0: in_room.session_id}
+    finally:
+        db.close()
