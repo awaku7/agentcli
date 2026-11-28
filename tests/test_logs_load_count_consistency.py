@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
@@ -105,3 +106,54 @@ def test_load_restores_cwd_from_raw_log_lines(tmp_path):
     # Normalized/loaded messages no longer contain the [CWD] marker.
     loaded = ucore.load_conversation_from_log(str(log))
     assert ut._extract_last_cwd_from_messages(loaded) is None
+
+
+def test_list_logs_filters_by_workdir(tmp_path, monkeypatch):
+    log_dir = tmp_path / "logs"
+    log_dir.mkdir()
+    monkeypatch.setattr(ucore, "BASE_LOG_DIR", str(log_dir))
+    monkeypatch.setattr(ucore, "LOG_FILE", str(log_dir / "current_session.jsonl"))
+
+    base = [
+        {"role": "user", "content": "hi"},
+        {"role": "assistant", "content": "yo"},
+    ]
+    fa = log_dir / "scheck_log_20260102_000000.jsonl"
+    _write_log(fa, [{"role": "system", "content": _cwd_content("/work/a")}] + base)
+    fb = log_dir / "scheck_log_20260101_000000.jsonl"
+    _write_log(fb, [{"role": "system", "content": _cwd_content("/work/b")}] + base)
+    fmeta = log_dir / "scheck_log_20251231_000000.jsonl"
+    _write_log(fmeta, [{"type": "session_metadata", "project_path": "/work/a"}] + base)
+    fnone = log_dir / "scheck_log_20251230_000000.jsonl"
+    _write_log(fnone, base)
+    for index, path in enumerate([fnone, fmeta, fb, fa]):
+        stamp = 1_700_000_000 + index * 100
+        os.utime(path, (stamp, stamp))
+
+    view = ucore.list_logs(limit=10, show_all=True, workdir="/work/a")
+    assert view == [str(fa), str(fmeta)]
+    # The displayed view is what :load indices resolve against.
+    assert ucore.last_log_view() == view
+
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/b") == [str(fb)]
+    # Unknown-workdir logs appear only in the unfiltered listing.
+    assert len(ucore.list_logs(limit=10, show_all=True)) == 4
+
+
+def test_list_logs_workdir_marker_wins_over_metadata(tmp_path, monkeypatch):
+    log_dir = tmp_path / "logs"
+    log_dir.mkdir()
+    monkeypatch.setattr(ucore, "BASE_LOG_DIR", str(log_dir))
+    monkeypatch.setattr(ucore, "LOG_FILE", str(log_dir / "current_session.jsonl"))
+
+    base = [{"role": "user", "content": "hi"}]
+    moved = log_dir / "scheck_log_20260102_000000.jsonl"
+    _write_log(
+        moved,
+        [{"type": "session_metadata", "project_path": "/work/a"}]
+        + [{"role": "system", "content": _cwd_content("/work/b")}]
+        + base,
+    )
+
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/a") == []
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/b") == [str(moved)]

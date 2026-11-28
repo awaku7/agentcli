@@ -2303,13 +2303,27 @@ msgstr "[ログ] 使用法: :logs pdf <インデックス> [output_path]"
 #: src/uagent/util_cmd_files.py:305
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
-msgstr "[ログ] 無効な引数: %(arg)r (all / --all / -a /number/pdf <index> を指定)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
+msgstr "[ログ] 無効な引数: %(arg)r (all / --all / -a /number/--global/pdf <index> を指定)"
 
 #: src/uagent/util_cmd_files.py:314
 msgid "[logs] No log files found."
 msgstr "[logs] ログ ファイルが見つかりません。"
+
+#, python-format
+msgid "[logs] workdir: %(path)s"
+msgstr "[logs] workdir: %(path)s"
+
+msgid "[logs] all workdirs"
+msgstr "[logs] 全workdir"
+
+msgid ""
+"[logs] No sessions found for this workdir. Use :logs --global to list all "
+"workdirs."
+msgstr ""
+"[logs] このworkdirのセッションはありません。:logs --global "
+"で全workdirを表示できます。"
 
 #: src/uagent/util_cmd_files.py:318
 #, python-format
@@ -3481,6 +3495,13 @@ msgstr "例: :ls | :ls .. | :ls ~ | :ls C:\\パス"
 #: src/uagent/util_help.py:135
 msgid "Show conversation log file list"
 msgstr "会話ログファイルリストを表示"
+
+msgid ""
+"Lists sessions from the current workdir, newest first. --global lists all "
+"workdirs; all lifts the count limit."
+msgstr ""
+"現在のworkdirのセッションを新しい順に表示します。--global "
+"で全workdirが対象になり、all で件数制限がなくなります。"
 
 #: src/uagent/util_help.py:137
 msgid "Load a past log (overwrites current conversation history)"

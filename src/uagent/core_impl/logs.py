@@ -110,6 +110,65 @@ def find_log_files(exclude_current: bool = False) -> list[str]:
     return files
 
 
+# path -> (mtime, size, final workdir); invalidated when the file changes.
+_LOG_WORKDIR_CACHE: dict[str, tuple[float, int, str]] = {}
+
+# The file list most recently displayed by list_logs, in display order.
+# :load resolves numeric indices against this view so the number the
+# user saw opens the file they saw, even when the view was filtered.
+_LAST_LOG_VIEW: list[str] = []
+
+
+def last_log_view() -> list[str]:
+    """Return the files shown by the most recent :logs listing."""
+
+    return list(_LAST_LOG_VIEW)
+
+
+def log_final_workdir(path: str) -> str:
+    """Return the final workdir recorded in a JSONL log ("" if unknown).
+
+    The last ``[CWD]`` marker wins; the session-metadata record's
+    project path is the fallback. Results are cached per file and
+    invalidated when the file's mtime or size changes.
+    """
+
+    try:
+        stat = os.stat(path)
+        stamp = (stat.st_mtime, stat.st_size)
+    except OSError:
+        return ""
+    cached = _LOG_WORKDIR_CACHE.get(path)
+    if cached is not None and cached[0] == stamp[0] and cached[1] == stamp[1]:
+        return cached[2]
+
+    from ..runtime.session_store import cwd_path_from_content
+    from ..util_message import _read_session_metadata
+
+    workdir = ""
+    try:
+        with open(path, encoding="utf-8") as handle:
+            for line in handle:
+                if '"[CWD] ' not in line:
+                    continue
+                try:
+                    record = json.loads(line)
+                except Exception:
+                    continue
+                if not isinstance(record, dict) or record.get("role") != "system":
+                    continue
+                found = cwd_path_from_content(record.get("content"))
+                if found:
+                    workdir = found
+    except OSError:
+        workdir = ""
+    if not workdir:
+        metadata = _read_session_metadata(path)
+        workdir = str(metadata.get("project_path") or "")
+    _LOG_WORKDIR_CACHE[path] = (stamp[0], stamp[1], workdir)
+    return workdir
+
+
 def read_responses_state_records(path: str) -> list[dict[str, Any]]:
     """Read Responses API metadata records from a JSONL conversation log."""
     records: list[dict[str, Any]] = []
@@ -328,7 +387,9 @@ def guess_topics_from_content(content: str) -> set[str]:
     return topics
 
 
-def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
+def list_logs(
+    *, limit: int = 10, show_all: bool = False, workdir: str | None = None
+) -> list[str]:
     """Display a list of logs.
 
     Purpose:
@@ -341,17 +402,45 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
     - Number of messages :load would load (matches "Conversation message count")
     - First user utterance (shortened)
     - Topics (estimated) shortened to top few items
+
+    When ``workdir`` is given, only logs whose final recorded workdir
+    equals it (after path normalization) are listed; the limit applies
+    after filtering, and logs with an unknown workdir are excluded.
     """
+
+    global _LAST_LOG_VIEW
 
     files = find_log_files(exclude_current=True)
     if not files:
         print(_("No log files found."))
+        _LAST_LOG_VIEW = []
         return []
+
+    if workdir is not None:
+        from ..runtime.session_store import normalize_workdir_key
+
+        target_key = normalize_workdir_key(workdir)
+        files = [
+            path
+            for path in files
+            if normalize_workdir_key(log_final_workdir(path)) == target_key
+        ]
+        print(_("[logs] workdir: %(path)s") % {"path": workdir})
+        if not files:
+            print(
+                _(
+                    "[logs] No sessions found for this workdir. "
+                    "Use :logs --global to list all workdirs."
+                )
+            )
+            _LAST_LOG_VIEW = []
+            return []
 
     if show_all or limit <= 0:
         view = files
     else:
         view = files[:limit]
+    _LAST_LOG_VIEW = list(view)
 
     def _shorten(s: str, n: int) -> str:
         s = " ".join((s or "").strip().splitlines())
@@ -564,4 +653,4 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
             }
         )
 
-    return files
+    return view

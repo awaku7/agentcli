@@ -2062,7 +2062,15 @@ def _handle_cmd_load(
         print(_(":load <index|path>"))
         return True
 
-    files = core.find_log_files(exclude_current=True)
+    # Numeric indices refer to the most recent :logs listing when one
+    # exists (it may be filtered by workdir); otherwise to all log files.
+    files = []
+    try:
+        files = core.last_log_view()
+    except Exception:
+        files = []
+    if not files:
+        files = core.find_log_files(exclude_current=True)
     if arg.isdigit():
         idx = int(arg)
         if idx < 0 or idx >= len(files):
