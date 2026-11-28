@@ -59,8 +59,9 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
                     add("RubyGems", m.group(1), m.group(2), str(path))
         except OSError:
             pass
-    # Swift Package.resolved (v1/v2/v3)
-    for path in bounded_rglob(root, "Package.resolved"):
+    # Swift Package.resolved (v1/v2/v3). Xcode keeps a managed copy under
+    # the hidden .swiftpm tree, so that directory is exempt from pruning.
+    for path in bounded_rglob(root, "Package.resolved", allow_hidden={".swiftpm"}):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             pins = obj.get("pins", obj.get("object", {}).get("pins", [])) or []

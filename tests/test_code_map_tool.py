@@ -470,3 +470,59 @@ def test_project_source_collection_skips_venv(repo_tmp_path: Path) -> None:
 
 
 # Keep the test module free of generated code-map artifacts.
+
+
+def test_swift_package_resolved_under_swiftpm_is_found(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    workspace = (
+        project
+        / ".swiftpm"
+        / "xcode"
+        / "package.xcworkspace"
+        / "xcshareddata"
+        / "swiftpm"
+    )
+    workspace.mkdir(parents=True)
+    (project / "Package.swift").write_text(
+        "// swift-tools-version:5.9\nimport PackageDescription\n", encoding="utf-8"
+    )
+    (workspace / "Package.resolved").write_text(
+        json.dumps(
+            {
+                "pins": [
+                    {
+                        "identity": "alamofire",
+                        "kind": "remoteSourceControl",
+                        "location": "https://github.com/Alamofire/Alamofire.git",
+                        "state": {"version": "5.9.1"},
+                    }
+                ],
+                "version": 2,
+            }
+        ),
+        encoding="utf-8",
+    )
+    # Other hidden trees stay pruned even for Package.resolved.
+    (project / ".hidden").mkdir()
+    (project / ".hidden" / "Package.resolved").write_text(
+        json.dumps(
+            {
+                "pins": [
+                    {
+                        "identity": "decoy",
+                        "kind": "remoteSourceControl",
+                        "location": "https://example.com/decoy.git",
+                        "state": {"version": "0.0.1"},
+                    }
+                ],
+                "version": 2,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    from uagent.tools.code_map_impl.lockfiles import extract_lock_dependencies
+
+    dep_names = {dep["name"] for dep in extract_lock_dependencies(project)}
+    assert "alamofire" in dep_names
+    assert "decoy" not in dep_names
