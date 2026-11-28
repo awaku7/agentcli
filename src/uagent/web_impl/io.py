@@ -60,6 +60,12 @@ def _web_human_ask_for_principal(room: WebRoom, args: dict[str, Any]) -> str:
 
 
 def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
+    from ..tools.human_ask_tool import (
+        clean_choices,
+        format_choices,
+        resolve_choice_reply,
+    )
+
     message = args.get("message", "")
     is_password = bool(args.get("is_password", False))
     allow_empty = bool(args.get("allow_empty", False))
@@ -70,7 +76,14 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
     sync_event = threading.Event()
     room.human_ask_sync_event = sync_event
     room.human_ask_is_password = is_password
+    choices = clean_choices(args, is_password=bool(is_password))
+    ask_message = (
+        str(message or "") + "\n" + format_choices(choices)
+        if choices
+        else str(message or "")
+    )
     room.human_ask_message = str(message or "")
+    room.human_ask_choices = choices
     room.human_ask_job_id = job_id
     room.human_ask_result = None  # None = no answer yet
     room.human_ask_cancelled = False
@@ -93,6 +106,7 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
             "type": "human_ask",
             "message": str(message or ""),
             "is_password": is_password,
+            "choices": choices,
         }
         # The spawned worker's authenticated TurnContext is server supplied.
         # Carry its binding over the private IPC relay, but strip it before any
@@ -110,7 +124,7 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
                         room.add_message(
                             {
                                 "role": "assistant",
-                                "content": str(message or ""),
+                                "content": ask_message,
                             }
                         )
                     except Exception:
@@ -235,6 +249,8 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
         cancelled = True
 
     user_reply = "" if cancelled else str(room.human_ask_result or "")
+    if not cancelled:
+        user_reply = resolve_choice_reply(user_reply, choices)
     display_reply = "[SECRET]" if is_password else user_reply
 
     try:
@@ -250,6 +266,7 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
             "user_reply": user_reply,
             "display_reply": display_reply,
             "cancelled": cancelled,
+            "choices": choices,
         }
     )
 

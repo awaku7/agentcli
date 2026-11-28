@@ -27,6 +27,60 @@ def confirmation_short_answer_hint(include_all: bool = True) -> str:
 BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init__.py)
 _HUMAN_ASK_SERIAL_LOCK = threading.RLock()
 
+_MAX_CHOICES = 20
+
+
+def clean_choices(args: dict[str, Any], *, is_password: bool = False) -> list[str]:
+    """Return the validated answer choices for one ask, or ``[]``.
+
+    Choices are plain string labels: non-strings, blanks, and duplicates
+    are dropped, and the list is capped. A single surviving label is not
+    a choice, and password asks never carry choices (masked free-text
+    entry stays the only input there).
+    """
+    if is_password:
+        return []
+    raw = args.get("choices")
+    if not isinstance(raw, (list, tuple)):
+        return []
+    cleaned: list[str] = []
+    for item in raw:
+        if not isinstance(item, str):
+            continue
+        label = item.strip()
+        if label and label not in cleaned:
+            cleaned.append(label)
+        if len(cleaned) >= _MAX_CHOICES:
+            break
+    return cleaned if len(cleaned) >= 2 else []
+
+
+def format_choices(choices: list[str]) -> str:
+    """Render the numbered choice list shown under the question."""
+    return "\n".join(
+        f"  {index}. {label}" for index, label in enumerate(choices, start=1)
+    )
+
+
+def resolve_choice_reply(reply: str, choices: list[str]) -> str:
+    """Map a reply to the chosen label when it names one of the choices.
+
+    A bare 1-based number selects by position; an exact label selects
+    itself. Anything else is a free-text reply and passes through
+    unchanged.
+    """
+    if not choices:
+        return reply
+    text = str(reply or "").strip()
+    if text.isdigit():
+        index = int(text)
+        if 1 <= index <= len(choices):
+            return choices[index - 1]
+    if text in choices:
+        return text
+    return reply
+
+
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_level": 1,
@@ -76,6 +130,16 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": False,
                 },
+                "choices": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.choices.description",
+                        default=(
+                            "Optional list of answer choices. The user can reply with a choice number or with the label itself, and the chosen label is returned as the reply. Ignored when asking for a password."
+                        ),
+                    ),
+                },
             },
             "required": ["message"],
         },
@@ -101,6 +165,9 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
 
     is_password = bool(args.get("is_password", False))
 
+    choices = clean_choices(args, is_password=bool(is_password))
+    ask_message = message + "\n" + format_choices(choices) if choices else message
+
     # Background Jobs use the owner-aware CLI broker. Never fall through to
     # the legacy process-global human_ask path, which cannot safely attribute
     # a reply or cancel an individual Job.
@@ -115,7 +182,7 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
         if job is not None:
             job.raise_if_cancelled()
             try:
-                user_reply = job.ask_user(message, is_password=is_password)
+                user_reply = job.ask_user(ask_message, is_password=is_password)
             except SubAgentConfirmationUnavailable as exc:
                 blocked_message = f"Background Job {job.job_id} blocked: {exc}"
                 return json.dumps(
@@ -131,11 +198,14 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
                     ensure_ascii=False,
                 )
             cancelled = user_reply.strip().lower() in {"c", "cancel"}
+            if not cancelled:
+                user_reply = resolve_choice_reply(user_reply, choices)
             return json.dumps(
                 {
                     "tool": "human_ask",
                     "status": "cancelled" if cancelled else "completed",
                     "message": message,
+                    "choices": choices,
                     "user_reply": user_reply,
                     "display_reply": (
                         "[SECRET]" if is_password and not cancelled else user_reply
@@ -246,6 +316,8 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
 
     print(_("ui.title", default="=== Human request (human_ask) ==="), flush=True)
     print(message, flush=True)
+    if choices:
+        print(format_choices(choices), flush=True)
     print(_("ui.footer", default="=== /human_ask ==="), flush=True)
 
     # For GUI, do not print extra how-to text (GUI has its own controls).
@@ -327,7 +399,11 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
         if cb.human_ask_set_message is not None:
             # Expose the question text so other frontends (e.g. the Nostr
             # remote bridge) can forward it while the answer is pending.
-            cb.human_ask_set_message(message)
+            # With choices, the exposed text carries the numbered list so
+            # every frontend shows the options the user can pick by number.
+            cb.human_ask_set_message(ask_message)
+        if cb.human_ask_set_choices is not None:
+            cb.human_ask_set_choices(list(choices))
 
         lines = cb.human_ask_lines_ref()
         try:
@@ -431,10 +507,14 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
         ur = user_reply.strip().lower()
         cancelled = ur in ("c", "cancel")
 
+        if not cancelled:
+            user_reply = resolve_choice_reply(user_reply, choices)
+
         display_reply = "[SECRET]" if is_password and not cancelled else user_reply
         payload = {
             "tool": "human_ask",
             "message": message,
+            "choices": choices,
             "user_reply": user_reply,
             "display_reply": display_reply,
             "cancelled": cancelled,
@@ -449,6 +529,8 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
             cb.human_ask_set_multiline_active(False)
             if cb.human_ask_set_message is not None:
                 cb.human_ask_set_message("")
+            if cb.human_ask_set_choices is not None:
+                cb.human_ask_set_choices([])
 
 
 def run_tool(args: dict[str, Any]) -> str:

@@ -183,6 +183,11 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "human_ask_message")
             else None
         ),
+        human_ask_set_choices=(
+            (lambda v: setattr(core, "human_ask_choices", list(v)))
+            if hasattr(core, "human_ask_choices")
+            else None
+        ),
         is_auto_pilot_active=(
             (lambda: getattr(core, "auto_pilot_active", False))
             if hasattr(core, "auto_pilot_active")
