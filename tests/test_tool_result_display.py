@@ -8,9 +8,31 @@ import pytest
 
 from uagent.llm_flow_helpers import (
     _cli_tool_result_display_enabled,
+    _cli_tree_result_display_enabled,
     _host_tool_result_display_enabled,
     _tool_result_status,
 )
+
+
+def test_tree_result_display_is_mode2_and_cli_only(monkeypatch) -> None:
+    core = SimpleNamespace(_is_web=False, IS_GUI=False)
+
+    monkeypatch.delenv("UAGENT_SHOW_TOOL_RESULTS", raising=False)
+    assert _cli_tree_result_display_enabled(core) is True
+
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "1")
+    assert _cli_tree_result_display_enabled(core) is False
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "0")
+    assert _cli_tree_result_display_enabled(core) is False
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    assert (
+        _cli_tree_result_display_enabled(SimpleNamespace(_is_web=True, IS_GUI=False))
+        is False
+    )
+    assert (
+        _cli_tree_result_display_enabled(SimpleNamespace(_is_web=False, IS_GUI=True))
+        is False
+    )
 
 
 def test_tool_result_display_is_opt_in_and_cli_only(monkeypatch) -> None:
@@ -325,6 +347,61 @@ def test_trace_body_switches_with_display_mode(monkeypatch) -> None:
         assert "private content" not in generic
     finally:
         tools_pkg._TOOL_DESCRIBERS.pop("trace_probe", None)
+
+
+def test_tree_display_nests_content_and_result_tiers(monkeypatch) -> None:
+    from uagent import core, tools as tools_pkg
+
+    lines: list[str] = []
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(
+        tools_pkg._trace, "_emit_trace_line", lambda line: lines.append(line)
+    )
+    monkeypatch.setitem(
+        tools_pkg._TOOL_DESCRIBERS,
+        "tree_probe",
+        lambda _args: "Reading the file.",
+    )
+    tools_pkg._trace._PENDING_TRACES.clear()
+
+    tools_pkg._emit_tool_trace(
+        "tree_probe", {"path": "src/a.py", "content": "private payload"}
+    )
+    assert lines[0].startswith("[TOOL] ")
+    assert "Reading the file." in lines[0]
+    # Content tier: important arguments only; payloads stay sizes.
+    assert lines[1] == '└ path="src/a.py"; content=<15 chars>'
+    assert "private payload" not in lines[1]
+
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "42 lines")
+    assert lines[2] == "  └ success: 42 lines"
+    # The nesting slot is consumed; a repeated result stands alone.
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "again")
+    assert lines[3] == "└ tree_probe: success: again"
+    # A different tool's result names the tool (parallel-batch shape).
+    tools_pkg.emit_tool_result_tree_line("other_tool", "failed", "boom")
+    assert lines[4] == "└ other_tool: failed: boom"
+
+
+def test_tree_display_has_no_content_tier_without_describer(monkeypatch) -> None:
+    from uagent import core, tools as tools_pkg
+
+    lines: list[str] = []
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(
+        tools_pkg._trace, "_emit_trace_line", lambda line: lines.append(line)
+    )
+
+    tools_pkg._emit_tool_trace("mystery", {"path": "src/a.py"})
+    # The generic sentence already carries the arguments inline.
+    assert len(lines) == 1
+    assert 'path="src/a.py"' in lines[0]
 
 
 def test_web_tool_trace_uses_the_cli_description_without_raw_results(
@@ -1086,3 +1163,56 @@ def test_safe_display_url_hides_credentials_query_values_and_fragments() -> None
         "https://example.test/items/1234567890abcdef1234567890abcdef"
     )
     assert opaque_id == "https://example.test/items/[redacted]"
+
+
+def test_tree_display_never_nests_parallel_same_tool_results(monkeypatch) -> None:
+    from uagent import core, tools as tools_pkg
+
+    lines: list[str] = []
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(
+        tools_pkg._trace, "_emit_trace_line", lambda line: lines.append(line)
+    )
+    monkeypatch.setitem(
+        tools_pkg._TOOL_DESCRIBERS,
+        "tree_probe",
+        lambda _args: "Reading the file.",
+    )
+    tools_pkg._trace._PENDING_TRACES.clear()
+
+    # A parallel batch: both traces are emitted before any result, and
+    # their order need not match the call order.
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/a.py"})
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/b.py"})
+    lines.clear()
+
+    # Neither result may nest: nesting would attribute it to whichever
+    # trace happened to be printed last.
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "a done")
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "failed", "b boom")
+    assert lines == [
+        "└ tree_probe: success: a done",
+        "└ tree_probe: failed: b boom",
+    ]
+
+    # A later sequential call nests again.
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/c.py"})
+    lines.clear()
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "c done")
+    assert lines == ["  └ success: c done"]
+    tools_pkg._trace._PENDING_TRACES.clear()
+
+
+def test_bound_display_text_masks_multiline_authorization_header() -> None:
+    from uagent.runtime.tool_result_display import bound_display_text
+
+    summary = "request failed\nAuthorization: Bearer abcdef0123456789\nretrying"
+    text = bound_display_text(f"failed: {summary}")
+    assert "abcdef0123456789" not in text
+    assert "Authorization:" in text
+
+    cookie = bound_display_text("ok\nCookie: session=supersecretvalue\nbody")
+    assert "supersecretvalue" not in cookie
