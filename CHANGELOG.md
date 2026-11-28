@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.8.2] - 2026-11-28
+
+### Changed
+
+- Raise the minimum `llmcapa` version to `0.6.4`.
+
+### Fixed
+
+- Keep Claude's `tool_catalog`, `tool_load`, and `unload_tool` bootstrap available when native tool search falls back.
+- Honor caller-supplied capability resolvers for OpenRouter tool-search decisions while retaining the documented wire-variant check in the default path.
+
 ## [0.8.1] - 2026-11-28
 
 ### Added

@@ -1,5 +1,16 @@
 # 変更履歴
 
+## [0.8.2] - 2026-11-28
+
+### 変更
+
+- `llmcapa`の最低バージョンを`0.6.4`へ引き上げ。
+
+### 修正
+
+- Claudeのnative tool_searchがフォールバックした場合に、`tool_catalog`、`tool_load`、`unload_tool`によるツール探索を維持。
+- OpenRouterのtool_search判定で、呼び出し元から渡された能力リゾルバーを尊重しつつ、既定経路では文書化されたwire variantの確認を維持。
+
 ## [0.8.1] - 2026-11-28
 
 ### 追加
