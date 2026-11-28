@@ -365,6 +365,7 @@ def test_tree_display_nests_content_and_result_tiers(monkeypatch) -> None:
         "tree_probe",
         lambda _args: "Reading the file.",
     )
+    tools_pkg._trace._PENDING_TRACES.clear()
 
     tools_pkg._emit_tool_trace(
         "tree_probe", {"path": "src/a.py", "content": "private payload"}
@@ -1163,3 +1164,44 @@ def test_safe_display_url_hides_credentials_query_values_and_fragments() -> None
         "https://example.test/items/1234567890abcdef1234567890abcdef"
     )
     assert opaque_id == "https://example.test/items/[redacted]"
+
+
+def test_tree_display_never_nests_parallel_same_tool_results(monkeypatch) -> None:
+    from uagent import core, tools as tools_pkg
+
+    lines: list[str] = []
+    monkeypatch.setenv("UAGENT_SHOW_TOOL_RESULTS", "2")
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "IS_GUI", False, raising=False)
+    monkeypatch.setattr(tools_pkg._trace, "_spinner_stop_quietly", lambda: None)
+    monkeypatch.setattr(
+        tools_pkg._trace, "_emit_trace_line", lambda line: lines.append(line)
+    )
+    monkeypatch.setitem(
+        tools_pkg._TOOL_DESCRIBERS,
+        "tree_probe",
+        lambda _args: "Reading the file.",
+    )
+    tools_pkg._trace._PENDING_TRACES.clear()
+
+    # A parallel batch: both traces are emitted before any result, and
+    # their order need not match the call order.
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/a.py"})
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/b.py"})
+    lines.clear()
+
+    # Neither result may nest: nesting would attribute it to whichever
+    # trace happened to be printed last.
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "a done")
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "failed", "b boom")
+    assert lines == [
+        "└ tree_probe: success: a done",
+        "└ tree_probe: failed: b boom",
+    ]
+
+    # A later sequential call nests again.
+    tools_pkg._emit_tool_trace("tree_probe", {"path": "src/c.py"})
+    lines.clear()
+    tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "c done")
+    assert lines == ["  └ success: c done"]
+    tools_pkg._trace._PENDING_TRACES.clear()

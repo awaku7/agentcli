@@ -23,10 +23,15 @@ _ = make_tool_translator(Path(__file__).resolve().parent / "__init__.py")
 
 _TRACE_LOCK = Lock()
 
-# The most recent CLI tool trace, used to nest the result line under its
-# call in the tree display. ``consumed`` flips once a result line has
-# been nested under it, so a later same-name result cannot reuse it.
-_LAST_TRACE: dict[str, Any] = {"name": "", "consumed": True}
+# CLI tool traces whose result line has not been emitted yet, used to
+# nest the result line under its own call in the tree display. A trace
+# is nestable only while it is the sole outstanding trace: parallel
+# batches emit several traces before any result, and their emission
+# order need not match the call order, so a result must never nest
+# under another call's trace (notably a same-name call with different
+# arguments). Batched traces are marked non-nestable and their results
+# print flat, naming the tool.
+_PENDING_TRACES: list[dict[str, Any]] = []
 
 
 def _localized_tool_action(name: str, args: dict[str, Any]) -> str:
@@ -459,10 +464,11 @@ def _emit_trace_line(line: str) -> None:
 def emit_tool_result_tree_line(name: str, status: str, summary: str) -> None:
     """Print one tool result as the result tier of the tree display.
 
-    When the immediately preceding tool trace belongs to the same tool,
-    the line nests under that call (``  └ ...``). Otherwise — notably
-    for parallel batches, whose traces are all emitted before any
-    result — the line stands on its own and names the tool.
+    The line nests under its own call (``  └ ...``) only when that call
+    is the sole outstanding trace. Otherwise — notably for parallel
+    batches, whose traces are all emitted before any result in an order
+    that need not match the calls — the line stands on its own and
+    names the tool, so a result is never attributed to the wrong call.
     """
     try:
         from ..runtime.tool_result_display import bound_display_text
@@ -470,8 +476,13 @@ def emit_tool_result_tree_line(name: str, status: str, summary: str) -> None:
         text = bound_display_text(f"{status}: {summary}" if summary else status)
         with _TRACE_LOCK:
             _spinner_stop_quietly()
-            if _LAST_TRACE["name"] == name and not _LAST_TRACE["consumed"]:
-                _LAST_TRACE["consumed"] = True
+            nest = False
+            for index, pending in enumerate(_PENDING_TRACES):
+                if pending["name"] == name:
+                    nest = bool(pending["nestable"])
+                    del _PENDING_TRACES[index]
+                    break
+            if nest:
                 _emit_trace_line(f"  └ {text}")
             else:
                 _emit_trace_line(f"└ {name}: {text}")
@@ -529,8 +540,20 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                     return
                 with _core.print_lock:
                     _emit_trace_line(f"{trace_prefix}{ts_prefix}{body}")
-                    _LAST_TRACE["name"] = name
-                    _LAST_TRACE["consumed"] = False
+                    if _PENDING_TRACES:
+                        # A trace emitted while another is outstanding
+                        # belongs to a batch; no result in the batch may
+                        # nest, because emission order need not match
+                        # call order.
+                        for pending in _PENDING_TRACES:
+                            pending["nestable"] = False
+                        _PENDING_TRACES.append({"name": name, "nestable": False})
+                    else:
+                        _PENDING_TRACES.append({"name": name, "nestable": True})
+                    # Results are only consumed in the tree display mode;
+                    # bound the backlog so other modes cannot grow it
+                    # without limit when a result line never arrives.
+                    del _PENDING_TRACES[:-64]
                     if localized:
                         # Content tier: the important arguments, under
                         # the describer's action sentence. Tools without
