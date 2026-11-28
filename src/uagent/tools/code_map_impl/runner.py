@@ -902,7 +902,10 @@ def run_tool(args: dict[str, Any]) -> str:
     project_info = _find_project_files(str(root))
     if project_info["project_type"]:
         result["project"] = {
+            # "type" is only the first detected type; "project_types"
+            # carries every detected type in detection order.
             "type": project_info["project_type"],
+            "project_types": project_info.get("project_types", []),
             "files": project_info["projects"],
             "dependencies": project_info.get("dependencies", []),
             "dependency_conflicts": project_info.get("dependency_conflicts", []),

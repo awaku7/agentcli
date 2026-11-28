@@ -320,6 +320,7 @@ def build_ontology(
                 "@id": "uag:project",
                 "@type": "uag:Project",
                 "uag:project_type": project_info.get("type"),
+                "uag:project_types": project_info.get("project_types", []),
                 "uag:root": root,
                 "uag:total_files": core_result.get("total_files", 0),
             }

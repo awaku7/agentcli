@@ -348,51 +348,54 @@ def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
     )
 
 
-def test_manifest_discovery_skips_hidden_and_generated_trees(
-    repo_tmp_path: Path,
-) -> None:
+def test_project_types_lists_all_detected_types(repo_tmp_path: Path) -> None:
     project = repo_tmp_path / "project"
-    (project / ".git").mkdir(parents=True)
-    (project / ".hidden").mkdir()
-    (project / "node_modules" / "somepkg").mkdir(parents=True)
-    (project / "build").mkdir()
-    (project / "package.json").write_text(
-        '{"dependencies": {"real-dep": "1.0.0"}}\n', encoding="utf-8"
+    (project / "src").mkdir(parents=True)
+    (project / "Cargo.toml").write_text("[package]\nname='demo'\n", encoding="utf-8")
+    (project / "src" / "lib.rs").write_text("pub fn f() {}\n", encoding="utf-8")
+    (project / "package.json").write_text("{}\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
     )
-    # Git metadata whose name collides with the R manifest on
-    # case-insensitive filesystems.
-    (project / ".git" / "description").write_text(
-        "Package: decoy\nImports: decoylib\n", encoding="utf-8"
-    )
-    (project / ".hidden" / "package.json").write_text(
-        '{"dependencies": {"hidden-dep": "1.0.0"}}\n', encoding="utf-8"
-    )
-    (project / "node_modules" / "somepkg" / "package.json").write_text(
-        '{"dependencies": {"nm-dep": "1.0.0"}}\n', encoding="utf-8"
-    )
-    (project / "build" / "package.json").write_text(
-        '{"dependencies": {"build-dep": "1.0.0"}}\n', encoding="utf-8"
-    )
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
 
     result = _json_result(
-        run_tool({"path": str(project), "format": "json", "include_relations": True})
+        run_tool({"path": str(project), "format": "json", "project_only": True})
     )
-    project_files = result["project"]["files"]
-    assert any(
-        path.endswith("package.json") and ".git" not in path for path in project_files
+    # Detection order is fixed: rust before node before python. The
+    # single "type" stays the first detected one.
+    assert result["project"]["type"] == "rust"
+    assert result["project"]["project_types"] == ["rust", "node", "python"]
+
+    ontology = _json_result(run_tool({"path": str(project), "format": "ontology"}))
+    project_nodes = [
+        node for node in ontology["@graph"] if node.get("@type") == "uag:Project"
+    ]
+    assert len(project_nodes) == 1
+    assert project_nodes[0]["uag:project_type"] == "rust"
+    assert project_nodes[0]["uag:project_types"] == ["rust", "node", "python"]
+
+
+def test_project_types_single_type_and_no_project(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    project.mkdir(parents=True)
+    (project / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
     )
-    assert not any(".git" in path for path in project_files)
-    assert not any(".hidden" in path for path in project_files)
-    assert not any("node_modules" in path for path in project_files)
-    assert not any(
-        f"{Path('build')}" in path.split("/")[-2:-1] for path in project_files
-    )
-    dep_names = {dep["name"] for dep in result["project"]["dependencies"]}
-    assert "real-dep" in dep_names
-    assert "hidden-dep" not in dep_names
-    assert "nm-dep" not in dep_names
-    assert "build-dep" not in dep_names
-    assert "decoylib" not in dep_names
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    result = _json_result(run_tool({"path": str(project), "format": "json"}))
+    assert result["project"]["type"] == "python"
+    assert result["project"]["project_types"] == ["python"]
+
+    plain = repo_tmp_path / "plain"
+    plain.mkdir()
+    (plain / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+    result = _json_result(run_tool({"path": str(plain), "format": "json"}))
+    assert result["project"] is None
+
+
+# Keep the test module free of generated code-map artifacts.
 
 
 def test_description_manifest_requires_exact_case(repo_tmp_path: Path) -> None:
@@ -449,6 +452,72 @@ def test_lockfile_discovery_skips_generated_trees_but_keeps_obj_assets(
     assert ("Composer", "real/pkg") in names
     assert ("Composer", "decoy/pkg") not in names
     assert ("NuGet", "Newtonsoft.Json") in names
+
+
+def test_manifest_discovery_skips_hidden_and_generated_trees(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "project"
+    (project / ".git").mkdir(parents=True)
+    (project / ".hidden").mkdir()
+    (project / "node_modules" / "somepkg").mkdir(parents=True)
+    (project / "build").mkdir()
+    (project / "package.json").write_text(
+        '{"dependencies": {"real-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    # Git metadata whose name collides with the R manifest on
+    # case-insensitive filesystems.
+    (project / ".git" / "description").write_text(
+        "Package: decoy\nImports: decoylib\n", encoding="utf-8"
+    )
+    (project / ".hidden" / "package.json").write_text(
+        '{"dependencies": {"hidden-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    (project / "node_modules" / "somepkg" / "package.json").write_text(
+        '{"dependencies": {"nm-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    (project / "build" / "package.json").write_text(
+        '{"dependencies": {"build-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    project_files = result["project"]["files"]
+    assert any(
+        path.endswith("package.json") and ".git" not in path for path in project_files
+    )
+    assert not any(".git" in path for path in project_files)
+    assert not any(".hidden" in path for path in project_files)
+    assert not any("node_modules" in path for path in project_files)
+    assert not any(
+        f"{Path('build')}" in path.split("/")[-2:-1] for path in project_files
+    )
+    dep_names = {dep["name"] for dep in result["project"]["dependencies"]}
+    assert "real-dep" in dep_names
+    assert "hidden-dep" not in dep_names
+    assert "nm-dep" not in dep_names
+    assert "build-dep" not in dep_names
+    assert "decoylib" not in dep_names
+
+
+def test_project_only_collects_rust_src_bin_sources(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    (project / "src" / "bin").mkdir(parents=True)
+    (project / "Cargo.toml").write_text(
+        '[package]\nname = "demo"\nversion = "0.1.0"\n', encoding="utf-8"
+    )
+    (project / "src" / "lib.rs").write_text("pub fn lib() {}\n", encoding="utf-8")
+    (project / "src" / "bin" / "tool.rs").write_text("fn main() {}\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    paths = {entry["relative_path"].replace("\\", "/") for entry in result["files"]}
+    assert "src/lib.rs" in paths
+    # Binary crates live in src/bin; the generated-tree pruning of a
+    # directory named "bin" must not drop them.
+    assert "src/bin/tool.rs" in paths
 
 
 def test_project_source_collection_skips_venv(repo_tmp_path: Path) -> None:
@@ -526,22 +595,3 @@ def test_swift_package_resolved_under_swiftpm_is_found(repo_tmp_path: Path) -> N
     dep_names = {dep["name"] for dep in extract_lock_dependencies(project)}
     assert "alamofire" in dep_names
     assert "decoy" not in dep_names
-
-
-def test_project_only_collects_rust_src_bin_sources(repo_tmp_path: Path) -> None:
-    project = repo_tmp_path / "project"
-    (project / "src" / "bin").mkdir(parents=True)
-    (project / "Cargo.toml").write_text(
-        '[package]\nname = "demo"\nversion = "0.1.0"\n', encoding="utf-8"
-    )
-    (project / "src" / "lib.rs").write_text("pub fn lib() {}\n", encoding="utf-8")
-    (project / "src" / "bin" / "tool.rs").write_text("fn main() {}\n", encoding="utf-8")
-
-    result = _json_result(
-        run_tool({"path": str(project), "format": "json", "project_only": True})
-    )
-    paths = {entry["relative_path"].replace("\\", "/") for entry in result["files"]}
-    assert "src/lib.rs" in paths
-    # Binary crates live in src/bin; the generated-tree pruning of a
-    # directory named "bin" must not drop them.
-    assert "src/bin/tool.rs" in paths

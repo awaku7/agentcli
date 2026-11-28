@@ -154,10 +154,9 @@ def describe(_args: dict[str, Any]) -> str:
         _(
             "describe.python",
             default=(
-                "Run the supplied Python code as a temporary script using the active "
-                "interpreter. Standard input is closed, a configured timeout applies, "
-                "and standard output/error are returned. The script inherits the "
-                "agent process's working directory and environment."
+                "Run Python code as a temporary script. Standard input is "
+                "closed, a timeout applies, and standard output/error are "
+                "returned."
             ),
         )
     )
