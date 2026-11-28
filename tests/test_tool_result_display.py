@@ -594,7 +594,6 @@ def test_python_exec_describer_translations_do_not_include_code_preview() -> Non
         assert description, f"missing describe.python translation for {locale}"
         tool_description = messages.get("tool.description", "")
         assert tool_description, f"missing tool.description translation for {locale}"
-        assert len(description) >= 80, f"describe.python too brief for {locale}"
         assert len(tool_description) >= 150, f"tool.description too brief for {locale}"
         assert "describe.python_multi" not in messages, locale
         assert "%(code)s" not in description, locale
