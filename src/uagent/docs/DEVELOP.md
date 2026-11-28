@@ -766,9 +766,14 @@ Important details:
 By default (`UAGENT_SHOW_TOOL_RESULTS=2`), a localized action line is printed
 to stdout before tool execution. Tools with a `TOOL_DESCRIBER` supply the line;
 other tools use a short generic summary of the action and main target. Free-form
-payloads are represented by size, and secrets are masked. Mode `0` restores the
-classic `[TOOL] 2025-... name=<tool> args=<masked-json>` trace; mode `1` adds a
-bounded result summary after execution.
+payloads are represented by size, and secrets are masked. On the CLI the mode-2
+display is a tree: when a describer supplied the action line, a content tier
+under it lists the important arguments (the same masked, size-bounded summary
+the generic sentence uses), and the bounded result summary follows as the third
+tier — nested under its call when that call's trace was the last one printed,
+otherwise as a standalone line naming the tool (the parallel-batch shape).
+Mode `0` restores the classic `[TOOL] 2025-... name=<tool> args=<masked-json>`
+trace; mode `1` adds a bounded result summary after execution.
 
 The trace line's timestamp is opt-in: it is omitted by default and shown
 only with `UAGENT_TOOL_TRACE_TIMESTAMP=1`.

@@ -7,8 +7,12 @@
 * ``1``: the classic trace plus the bounded
   ``[TOOL-RESULT] ... summary=<derived>`` line after execution.
 * ``2`` (default): a localized pre-execution action replaces the
-  ``name=/args=`` trace body, and no result line is printed. Tools with a
-  ``TOOL_DESCRIBER`` supply the action; other tools use the generic summary.
+  ``name=/args=`` trace body. Tools with a ``TOOL_DESCRIBER`` supply the
+  action; other tools use the generic summary. On the CLI the display is
+  a tree: when a describer supplied the action, a content tier under it
+  lists the important arguments, and the result follows as the third
+  tier (nested under its call, or naming the tool when other traces
+  intervened, as with parallel batches).
 
 Displayed text is flattened, secret-masked, and length-bounded so raw secrets
 are not exposed through the display path.

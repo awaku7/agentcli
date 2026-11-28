@@ -21,6 +21,7 @@ from .runtime.context_manager import ContextManager
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .runtime.tool_result_display import (
     MODE_DEFAULT,
+    MODE_LOCALIZED,
     tool_result_display_mode,
 )
 
@@ -701,6 +702,18 @@ def _cli_tool_result_display_enabled(core: Any) -> bool:
     return tool_result_display_mode() == MODE_DEFAULT
 
 
+def _cli_tree_result_display_enabled(core: Any) -> bool:
+    """Return whether the CLI tree display's result tier is enabled."""
+
+    if core is None or bool(getattr(core, "_is_web", False)):
+        return False
+    if bool(getattr(core, "IS_GUI", False)):
+        return False
+    # Mode 2 renders the result as the tree's third tier instead of the
+    # flat [TOOL-RESULT] line.
+    return tool_result_display_mode() == MODE_LOCALIZED
+
+
 def _host_ui_active(core: Any) -> bool:
     """Return whether the current host is the GUI or Web UI."""
 
@@ -1239,6 +1252,15 @@ def _execute_tool_calls(
         )
         if _cli_tool_result_display_enabled(core):
             print(projections.ui_display)
+        elif _cli_tree_result_display_enabled(core):
+            try:
+                from .tools._trace import emit_tool_result_tree_line
+
+                emit_tool_result_tree_line(
+                    name, result_status, str(result_record.summary or "")
+                )
+            except Exception:
+                pass
         host_ui_active = _host_ui_active(core)
         host_tool_result_display = (
             projections.ui_display if _host_tool_result_display_enabled(core) else ""

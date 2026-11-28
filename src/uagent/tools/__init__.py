@@ -246,6 +246,7 @@ from ._trace import (  # noqa: E402,F401
     _localized_tool_action,
     _should_emit_tool_trace,
     _tool_trace_body,
+    emit_tool_result_tree_line,
     tool_action_sentence,
 )
 

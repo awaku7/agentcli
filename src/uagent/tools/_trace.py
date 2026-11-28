@@ -23,6 +23,11 @@ _ = make_tool_translator(Path(__file__).resolve().parent / "__init__.py")
 
 _TRACE_LOCK = Lock()
 
+# The most recent CLI tool trace, used to nest the result line under its
+# call in the tree display. ``consumed`` flips once a result line has
+# been nested under it, so a later same-name result cannot reuse it.
+_LAST_TRACE: dict[str, Any] = {"name": "", "consumed": True}
+
 
 def _localized_tool_action(name: str, args: dict[str, Any]) -> str:
     """Return the tool's localized pre-execution action line, or ``""``.
@@ -245,12 +250,12 @@ def _tool_function_spec_for_action(name: str) -> dict[str, Any]:
     return {}
 
 
-def _generic_tool_action(name: str, args: dict[str, Any]) -> str:
-    """Build an i18n-aware action summary for tools without a describer.
+def _generic_action_details(name: str, args: dict[str, Any]) -> list[str]:
+    """Return the formatted important-argument summaries for a tool call.
 
-    The registered tool schema supplies the localized purpose and parameter
-    descriptions. Unknown/plugin tools still get a summary from their arguments.
-    Free-form payloads are represented by their size, not printed verbatim.
+    Shared by the generic action sentence and the tree display's content
+    tier. Free-form payloads are represented by their size, not printed
+    verbatim, and values are secret-masked before formatting.
     """
 
     try:
@@ -298,8 +303,18 @@ def _generic_tool_action(name: str, args: dict[str, Any]) -> str:
         details.append(_format_generic_action_value(key, value, parameter))
         if len(details) >= 3:
             break
+    return details
 
-    summary = "; ".join(details) or name
+
+def _generic_tool_action(name: str, args: dict[str, Any]) -> str:
+    """Build an i18n-aware action summary for tools without a describer.
+
+    The registered tool schema supplies the localized purpose and parameter
+    descriptions. Unknown/plugin tools still get a summary from their arguments.
+    Free-form payloads are represented by their size, not printed verbatim.
+    """
+
+    summary = "; ".join(_generic_action_details(name, args)) or name
     return str(
         _(
             "trace.generic_action",
@@ -441,9 +456,33 @@ def _emit_trace_line(line: str) -> None:
         print(line, flush=True)
 
 
+def emit_tool_result_tree_line(name: str, status: str, summary: str) -> None:
+    """Print one tool result as the result tier of the tree display.
+
+    When the immediately preceding tool trace belongs to the same tool,
+    the line nests under that call (``  └ ...``). Otherwise — notably
+    for parallel batches, whose traces are all emitted before any
+    result — the line stands on its own and names the tool.
+    """
+    try:
+        from ..runtime.tool_result_display import bound_display_text
+
+        text = bound_display_text(f"{status}: {summary}" if summary else status)
+        with _TRACE_LOCK:
+            _spinner_stop_quietly()
+            if _LAST_TRACE["name"] == name and not _LAST_TRACE["consumed"]:
+                _LAST_TRACE["consumed"] = True
+                _emit_trace_line(f"  └ {text}")
+            else:
+                _emit_trace_line(f"└ {name}: {text}")
+    except Exception:
+        return
+
+
 def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
     """Print the pre-execution tool trace, localized in mode 2."""
     try:
+        localized = _localized_tool_action(name, args)
         body = _tool_trace_body(name, args)
 
         # The timestamp is opt-in (UAGENT_TOOL_TRACE_TIMESTAMP);
@@ -490,6 +529,15 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                     return
                 with _core.print_lock:
                     _emit_trace_line(f"{trace_prefix}{ts_prefix}{body}")
+                    _LAST_TRACE["name"] = name
+                    _LAST_TRACE["consumed"] = False
+                    if localized:
+                        # Content tier: the important arguments, under
+                        # the describer's action sentence. Tools without
+                        # a describer already carry them in the sentence.
+                        details = _generic_action_details(name, args)
+                        if details:
+                            _emit_trace_line("└ " + "; ".join(details))
             except Exception:
                 print(f"{trace_prefix}{ts_prefix}{body}", flush=True)
     except Exception:
