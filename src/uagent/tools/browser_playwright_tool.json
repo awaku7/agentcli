@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "Playwright を使って一連のブラウザ操作を実行します。ナビゲーション、操作、抽出、マウス/キーボード制御、セッション、ネットワーク、マルチページ、アクセシビリティ、コンソール、アップロード、モバイルエミュレーションなどに対応しています。",
+    "tool.description": "Playwrightでブラウザーを操作します。移動・入力・情報取得・撮影・セッション管理に対応します。終了時はセッションを閉じます。",
     "x_search_terms": [
       "ブラウザ自動化",
       "スクリーンショット",
@@ -111,7 +111,7 @@
     "trace.browser_action": "%(mode)s：%(steps)s（全%(count)s件）。"
   },
   "es": {
-    "tool.description": "Ejecute una secuencia de acciones del navegador usando Playwright. Admite navegación, interacción, extracción, control de mouse/teclado, sesión, red, páginas múltiples, accesibilidad, consola, cargas, emulación móvil y más.",
+    "tool.description": "Controle un navegador con Playwright: navegue, interactúe, inspeccione páginas, tome capturas de pantalla y administre sesiones. Cierre las sesiones persistentes cuando termine.",
     "x_search_terms": [
       "automatización del navegador",
       "captura de pantalla",
@@ -222,7 +222,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s acciones)."
   },
   "fr": {
-    "tool.description": "Exécutez une séquence d'actions du navigateur à l'aide de Playwright. Prend en charge la navigation, l'interaction, l'extraction, le contrôle souris/clavier, la session, le réseau, le multipage, l'accessibilité, la console, les téléchargements, l'émulation mobile, etc.",
+    "tool.description": "Contrôlez un navigateur avec Playwright : naviguez, interagissez, inspectez les pages, prenez des captures d'écran et gérez les sessions. Fermez les sessions persistantes une fois terminées.",
     "x_search_terms": [
       "automatisation du navigateur",
       "capture d'écran",
@@ -333,7 +333,7 @@
     "trace.browser_action": "%(mode)s : %(steps)s (%(count)s actions)."
   },
   "ko": {
-    "tool.description": "Playwright를 사용하여 일련의 브라우저 작업을 실행합니다. 탐색, 상호 작용, 추출, 마우스/키보드 제어, 세션, 네트워크, 다중 페이지, 접근성, 콘솔, 업로드, 모바일 에뮬레이션 등을 지원합니다.",
+    "tool.description": "Playwright로 브라우저를 제어하세요. 페이지 탐색, 상호작용, 검사, 스크린샷 찍기, 세션 관리 등이 가능합니다. 완료되면 영구 세션을 닫습니다.",
     "x_search_terms": [
       "브라우저 자동화",
       "스크린샷",
@@ -444,7 +444,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s(%(count)s개 작업)."
   },
   "de": {
-    "tool.description": "Führen Sie mit Playwright eine Folge von Browseraktionen aus. Unterstützt Navigation, Interaktion, Extraktion, Maus-/Tastatursteuerung, Sitzung, Netzwerk, Mehrseite, Barrierefreiheit, Konsole, Uploads, mobile Emulation und mehr.",
+    "tool.description": "Steuern Sie einen Browser mit Playwright: Navigieren, interagieren, Seiten überprüfen, Screenshots erstellen und Sitzungen verwalten. Schließen Sie persistente Sitzungen, wenn Sie fertig sind.",
     "x_search_terms": [
       "Browser-Automatisierung",
       "Screenshot",
@@ -555,7 +555,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s Aktionen)."
   },
   "it": {
-    "tool.description": "Esegui una sequenza di azioni del browser utilizzando Playwright. Supporta navigazione, interazione, estrazione, controllo mouse/tastiera, sessione, rete, multipagina, accessibilità, console, caricamenti, emulazione mobile e altro ancora.",
+    "tool.description": "Controlla un browser con Playwright: naviga, interagisci, esamina le pagine, acquisisci screenshot e gestisci le sessioni. Al termine, chiudi le sessioni persistenti.",
     "x_search_terms": [
       "automazione del browser",
       "screenshot",
@@ -666,7 +666,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s azioni)."
   },
   "ru": {
-    "tool.description": "Выполните последовательность действий браузера с помощью Playwright. Поддерживает навигацию, взаимодействие, извлечение, управление мышью/клавиатурой, сеанс, сеть, многостраничность, специальные возможности, консоль, загрузку, эмуляцию мобильных устройств и многое другое.",
+    "tool.description": "Управляйте браузером с помощью Playwright: перемещайтесь, взаимодействуйте, просматривайте страницы, делайте снимки экрана и управляйте сеансами. Закройте постоянные сеансы после завершения.",
     "x_search_terms": [
       "автоматизация браузера",
       "скриншот",
@@ -777,7 +777,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s действий)."
   },
   "pt": {
-    "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
+    "tool.description": "Controle um navegador com Playwright: navegue, interaja, inspecione páginas, faça capturas de tela e gerencie sessões. Feche as sessões persistentes quando terminar.",
     "x_search_terms": [
       "automação do navegador",
       "captura de tela",
@@ -888,7 +888,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s ações)."
   },
   "id": {
-    "tool.description": "Jalankan serangkaian tindakan browser menggunakan Playwright. Mendukung navigasi, interaksi, ekstraksi, kontrol mouse/keyboard, sesi, jaringan, multi-halaman, aksesibilitas, konsol, unggahan, emulasi seluler, dan banyak lagi.",
+    "tool.description": "Kontrol browser dengan Playwright: bernavigasi, berinteraksi, memeriksa halaman, mengambil tangkapan layar, dan mengelola sesi. Tutup sesi persisten setelah selesai.",
     "x_search_terms": [
       "otomatisasi browser",
       "tangkapan layar",
@@ -999,7 +999,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s tindakan)."
   },
   "vi": {
-    "tool.description": "Thực hiện một chuỗi các hành động của trình duyệt bằng Playwright. Hỗ trợ điều hướng, tương tác, trích xuất, điều khiển chuột/bàn phím, phiên, mạng, nhiều trang, khả năng truy cập, bảng điều khiển, tải lên, mô phỏng trên thiết bị di động, v.v.",
+    "tool.description": "Điều khiển trình duyệt bằng Playwright: điều hướng, tương tác, kiểm tra trang, chụp ảnh màn hình và quản lý phiên. Đóng các phiên liên tục khi hoàn tất.",
     "x_search_terms": [
       "tự động hóa trình duyệt",
       "ảnh chụp màn hình",
@@ -1110,7 +1110,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s hành động)."
   },
   "pl": {
-    "tool.description": "Wykonaj sekwencję działań przeglądarki za pomocą Playwright. Obsługuje nawigację, interakcję, ekstrakcję, sterowanie myszą/klawiaturą, sesję, sieć, wielostronicowość, dostępność, konsolę, przesyłanie, emulację mobilną i wiele innych.",
+    "tool.description": "Steruj przeglądarką za pomocą Playwright: nawiguj, wchodź w interakcję, przeglądaj strony, rób zrzuty ekranu i zarządzaj sesjami. Po zakończeniu zamknij trwałe sesje.",
     "x_search_terms": [
       "automatyzacja przeglądarki",
       "zrzut ekranu",
@@ -1221,7 +1221,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s działania)."
   },
   "hi": {
-    "tool.description": "Playwright का उपयोग करके ब्राउज़र क्रियाओं का अनुक्रम निष्पादित करें। नेविगेशन, इंटरैक्शन, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, एक्सेसिबिलिटी, कंसोल, अपलोड, मोबाइल इम्यूलेशन और बहुत कुछ का समर्थन करता है।",
+    "tool.description": "Playwright के साथ ब्राउज़र को नियंत्रित करें: नेविगेट करें, इंटरैक्ट करें, पृष्ठों का निरीक्षण करें, स्क्रीनशॉट लें और सत्र प्रबंधित करें। समाप्त होने पर लगातार सत्र बंद करें।",
     "x_search_terms": [
       "ब्राउज़र ऑटोमेशन",
       "स्क्रीनशॉट",
@@ -1332,7 +1332,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s क्रियाएं)।"
   },
   "ar": {
-    "tool.description": "قم بتنفيذ سلسلة من إجراءات المتصفح باستخدام Playwright. يدعم التنقل والتفاعل والاستخراج والتحكم في الماوس/لوحة المفاتيح والجلسة والشبكة والصفحات المتعددة وإمكانية الوصول ووحدة التحكم والتحميلات ومحاكاة الهاتف المحمول والمزيد.",
+    "tool.description": "التحكم في المتصفح باستخدام Playwright: التنقل والتفاعل وفحص الصفحات والتقاط لقطات الشاشة وإدارة الجلسات. إغلاق الجلسات المستمرة عند الانتهاء.",
     "x_search_terms": [
       "أتمتة المتصفح ",
       " لقطة شاشة ",
@@ -1443,7 +1443,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s إجراءات)."
   },
   "sv": {
-    "tool.description": "Utför en sekvens av webbläsaråtgärder med Playwright. Stöder navigering, interaktion, extraktion, mus/tangentbordskontroll, session, nätverk, flersidor, tillgänglighet, konsol, uppladdningar, mobilemulering och mer.",
+    "tool.description": "Styr en webbläsare med Playwright: navigera, interagera, inspektera sidor, ta skärmdumpar och hantera sessioner. Stäng ihållande sessioner när du är klar.",
     "x_search_terms": [
       "webbläsarautomation",
       "skärmdump",
@@ -1554,7 +1554,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s åtgärder)."
   },
   "sw": {
-    "tool.description": "Tekeleza mlolongo wa vitendo vya kivinjari kwa kutumia Playwright. Inaauni urambazaji, mwingiliano, uchimbaji, udhibiti wa kipanya/kibodi, kipindi, mtandao, kurasa nyingi, ufikivu, dashibodi, upakiaji, uigaji wa simu, na zaidi.",
+    "tool.description": "Dhibiti kivinjari ukitumia Playwright: vinjari, ingiliana, kagua kurasa, piga picha za skrini na udhibiti vipindi. Funga vipindi vinavyoendelea ukimaliza.",
     "x_search_terms": [
       "kivinjari kiotomatiki",
       "picha ya skrini",
@@ -1665,7 +1665,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s vitendo)."
   },
   "nb": {
-    "tool.description": "Utfør en sekvens av nettleserhandlinger ved å bruke Playwright. Støtter navigasjon, interaksjon, utvinning, mus/tastaturkontroll, økt, nettverk, flersidet, tilgjengelighet, konsoll, opplastinger, mobilemulering og mer.",
+    "tool.description": "Kontroller en nettleser med Playwright: naviger, samhandle, inspiser sider, ta skjermbilder og administrer økter. Lukk vedvarende økter når du er ferdig.",
     "x_search_terms": [
       "nettleserautomatisering",
       "skjermbilde",
@@ -1776,7 +1776,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s handlinger)."
   },
   "nl": {
-    "tool.description": "Voer een reeks browseracties uit met Playwright. Ondersteunt navigatie, interactie, extractie, muis-/toetsenbordbediening, sessie, netwerk, meerdere pagina's, toegankelijkheid, console, uploads, mobiele emulatie en meer.",
+    "tool.description": "Bedien een browser met Playwright: navigeer, communiceer, inspecteer pagina's, maak schermafbeeldingen en beheer sessies. Sluit permanente sessies als u klaar bent.",
     "x_search_terms": [
       "browserautomatisering",
       "screenshot",
@@ -1887,7 +1887,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s acties)."
   },
   "fi": {
-    "tool.description": "Suorita sarja selaintoimintoja Playwrightilla. Tukee navigointia, vuorovaikutusta, purkamista, hiiren/näppäimistön ohjausta, istuntoa, verkkoa, monisivua, saavutettavuutta, konsolia, latauksia, mobiiliemulointia ja paljon muuta.",
+    "tool.description": "Ohjaa selainta Playwright:llä: navigoi, ole vuorovaikutuksessa, tarkasta sivuja, ota kuvakaappauksia ja hallitse istuntoja. Sulje jatkuvat istunnot, kun olet valmis.",
     "x_search_terms": [
       "selaimen automaatio",
       "kuvakaappaus",
@@ -1998,7 +1998,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s toimintoa)."
   },
   "cs": {
-    "tool.description": "Proveďte sekvenci akcí prohlížeče pomocí Playwright. Podporuje navigaci, interakci, extrakci, ovládání myší/klávesnicí, relaci, síť, více stránek, přístupnost, konzoli, nahrávání, mobilní emulaci a další.",
+    "tool.description": "Ovládejte prohlížeč pomocí Playwright: procházejte, pracujte, kontrolujte stránky, pořizujte snímky obrazovky a spravujte relace. Po dokončení ukončete trvalé relace.",
     "x_search_terms": [
       "automatizace prohlížeče",
       "snímek obrazovky",
@@ -2109,7 +2109,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s akce)."
   },
   "uk": {
-    "tool.description": "Виконайте послідовність дій браузера за допомогою Playwright. Підтримує навігацію, взаємодію, видобування, керування мишею/клавіатурою, сеанс, мережу, багатосторінковий доступ, консоль, завантаження, мобільну емуляцію тощо.",
+    "tool.description": "Керуйте браузером за допомогою Playwright: переходьте, взаємодійте, перевіряйте сторінки, робіть знімки екрана та керуйте сеансами. Закрийте постійні сесії після завершення.",
     "x_search_terms": [
       "автоматизація браузера",
       "скріншот",
@@ -2220,7 +2220,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s дії)."
   },
   "tr": {
-    "tool.description": "Playwright'ı kullanarak bir dizi tarayıcı eylemi gerçekleştirin. Gezinme, etkileşim, çıkarma, fare/klavye kontrolü, oturum, ağ, çoklu sayfa, erişilebilirlik, konsol, yüklemeler, mobil emülasyon ve daha fazlasını destekler.",
+    "tool.description": "Playwright ile bir tarayıcıyı kontrol edin: gezinin, etkileşimde bulunun, sayfaları inceleyin, ekran görüntüleri alın ve oturumları yönetin. Bittiğinde kalıcı oturumları kapatın.",
     "x_search_terms": [
       "tarayıcı otomasyonu",
       "ekran görüntüsü",
@@ -2331,7 +2331,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s işlem)."
   },
   "th": {
-    "tool.description": "ดำเนินการตามลำดับการกระทำของเบราว์เซอร์โดยใช้ Playwright รองรับการนำทาง การโต้ตอบ การแตกไฟล์ การควบคุมเมาส์/คีย์บอร์ด เซสชัน เครือข่าย หลายหน้า การเข้าถึง คอนโซล การอัปโหลด การจำลองมือถือ และอื่นๆ",
+    "tool.description": "ควบคุมเบราว์เซอร์ด้วย Playwright: นำทาง โต้ตอบ ตรวจสอบหน้าเว็บ ถ่ายภาพหน้าจอ และจัดการเซสชัน ปิดเซสชันถาวรเมื่อเสร็จสิ้น",
     "x_search_terms": [
       "ระบบอัตโนมัติของเบราว์เซอร์",
       "ภาพหน้าจอ",
@@ -2442,7 +2442,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s การกระทำ)"
   },
   "zh_CN": {
-    "tool.description": "使用 Playwright 执行一系列浏览器操作。支持导航、交互、提取、鼠标/键盘控制、会话、网络、多页面、无障碍、控制台、上传、移动模拟等。",
+    "tool.description": "使用 Playwright 控制浏览器：导航、交互、检查页面、截屏和管理会话。完成后关闭持久会话。",
     "x_search_terms": [
       "浏览器自动化",
       "截图",
@@ -2553,7 +2553,7 @@
     "trace.browser_action": "%(mode)s：%(steps)s（%(count)s 操作）。"
   },
   "zh_TW": {
-    "tool.description": "使用 Playwright 執行一系列瀏覽器操作。支援導覽、互動、提取、滑鼠/鍵盤控制、工作階段、網路、多頁面、無障礙、主控臺、上傳、行動模擬等。",
+    "tool.description": "使用 Playwright 控制瀏覽器：導覽、互動、檢查頁面、截圖和管理會話。完成後關閉持久會話。",
     "x_search_terms": [
       "瀏覽器自動化",
       "螢幕截圖",
@@ -2664,7 +2664,7 @@
     "trace.browser_action": "%(mode)s：%(steps)s（%(count)s 操作）。"
   },
   "bn": {
-    "tool.description": "নাট্যকার ব্যবহার করে ব্রাউজার অ্যাকশনের একটি সিকোয়েন্স এক্সিকিউট করুন। নেভিগেশন, মিথস্ক্রিয়া, নিষ্কাশন, মাউস/কীবোর্ড নিয়ন্ত্রণ, সেশন, নেটওয়ার্ক, মাল্টি-পেজ, অ্যাক্সেসিবিলিটি, কনসোল, আপলোড, মোবাইল এমুলেশন এবং আরও অনেক কিছু সমর্থন করে।",
+    "tool.description": "Playwright এর সাথে একটি ব্রাউজার নিয়ন্ত্রণ করুন: নেভিগেট করুন, ইন্টারঅ্যাক্ট করুন, পৃষ্ঠাগুলি পরিদর্শন করুন, স্ক্রিনশট নিন এবং সেশন পরিচালনা করুন৷ শেষ হলে অবিরাম সেশন বন্ধ করুন।",
     "x_search_terms": [
       "ব্রাউজার অটোমেশন",
       "স্ক্রিনশট",
@@ -2775,7 +2775,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s অ্যাকশন)।"
   },
   "fa": {
-    "tool.description": "دنباله ای از اقدامات مرورگر را با استفاده از Playwright اجرا کنید. از ناوبری، تعامل، استخراج، کنترل ماوس/صفحه کلید، جلسه، شبکه، چند صفحه، قابلیت دسترسی، کنسول، آپلود، شبیه سازی موبایل و موارد دیگر پشتیبانی می کند.",
+    "tool.description": "با Playwright یک مرورگر را کنترل کنید: پیمایش، تعامل، بازرسی صفحات، گرفتن اسکرین شات، و مدیریت جلسات. پس از اتمام جلسات مداوم را ببندید.",
     "x_search_terms": [
       "اتوماسیون مرورگر",
       "عکس صفحه",
@@ -2886,7 +2886,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s اقدام)."
   },
   "mn": {
-    "tool.description": "Playwright ашиглан хөтчийн дараалсан үйлдлийг гүйцэтгэнэ. Навигац, харилцан үйлдэл, олборлолт, хулгана/гарын удирдлага, сесс, сүлжээ, олон хуудас, хүртээмж, консол, байршуулалт, гар утасны эмуляц болон бусад зүйлийг дэмждэг.",
+    "tool.description": "Playwright ашиглан хөтчөө удирдах: навигаци хийх, харилцах, хуудсуудыг шалгах, дэлгэцийн агшинг авах, сешнүүдийг удирдах. Дуусмагц байнгын сешнүүдийг хаа.",
     "x_search_terms": [
       "хөтчийн автоматжуулалт",
       "дэлгэцийн агшин",
@@ -2997,7 +2997,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s үйлдэл)."
   },
   "mr": {
-    "tool.description": "प्लेराइट वापरून ब्राउझर क्रियांचा क्रम चालवा. नेव्हिगेशन, परस्परसंवाद, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, प्रवेशयोग्यता, कन्सोल, अपलोड, मोबाइल इम्युलेशन आणि बरेच काही समर्थित करते.",
+    "tool.description": "Playwright सह ब्राउझर नियंत्रित करा: नेव्हिगेट करा, संवाद साधा, पृष्ठांची तपासणी करा, स्क्रीनशॉट घ्या आणि सत्र व्यवस्थापित करा. पूर्ण झाल्यावर सक्तीची सत्रे बंद करा.",
     "x_search_terms": [
       "ब्राउझर ऑटोमेशन",
       "स्क्रीनशॉट",
@@ -3108,7 +3108,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s क्रिया)."
   },
   "el": {
-    "tool.description": "Εκτελέστε μια ακολουθία ενεργειών του προγράμματος περιήγησης χρησιμοποιώντας το Playwright. Υποστηρίζει πλοήγηση, αλληλεπίδραση, εξαγωγή, έλεγχο ποντικιού/πληκτρολογίου, περίοδο λειτουργίας, δίκτυο, πολυσέλιδο, προσβασιμότητα, κονσόλα, μεταφορτώσεις, εξομοίωση κινητού και πολλά άλλα.",
+    "tool.description": "Ελέγξτε ένα πρόγραμμα περιήγησης με Playwright: πλοήγηση, αλληλεπίδραση, επιθεώρηση σελίδων, λήψη στιγμιότυπων οθόνης και διαχείριση περιόδων σύνδεσης. Κλείστε τις επίμονες συνεδρίες όταν τελειώσετε.",
     "x_search_terms": [
       "αυτοματοποίηση προγράμματος περιήγησης",
       "στιγμιότυπο οθόνης",
@@ -3219,7 +3219,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s ενέργειες)."
   },
   "he": {
-    "tool.description": "בצע רצף של פעולות דפדפן באמצעות Playwright. תומך בניווט, אינטראקציה, חילוץ, שליטה בעכבר/מקלדת, הפעלה, רשת, ריבוי עמודים, נגישות, קונסולה, העלאות, אמולציה לנייד ועוד.",
+    "tool.description": "שלוט בדפדפן באמצעות Playwright: נווט, אינטראקציה, בדוק דפים, צלם צילומי מסך ונהל הפעלות. סגור הפעלות מתמשכות בסיום.",
     "x_search_terms": [
       "אוטומציה של דפדפן",
       "צילום מסך",
@@ -3330,7 +3330,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s פעולות)."
   },
   "hu": {
-    "tool.description": "Hajtsa végre a böngészőműveletek sorozatát a Playwright segítségével. Támogatja a navigációt, interakciót, kibontást, egér/billentyűzet vezérlést, munkamenetet, hálózatot, többoldalas, kisegítő lehetőségeket, konzolt, feltöltéseket, mobil emulációt stb.",
+    "tool.description": "Irányítsd a böngészőt a Playwright segítségével: navigálj, lépj kapcsolatba, nézd meg az oldalakat, készíts képernyőképeket és kezeld a munkameneteket. Ha végzett, zárja be a tartós munkameneteket.",
     "x_search_terms": [
       "böngésző automatizálás",
       "screenshot",
@@ -3441,7 +3441,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s művelet)."
   },
   "ro": {
-    "tool.description": "Executați o secvență de acțiuni din browser folosind Playwright. Suportă navigare, interacțiune, extracție, control mouse/tastatură, sesiune, rețea, mai multe pagini, accesibilitate, consolă, încărcări, emulare mobilă și multe altele.",
+    "tool.description": "Controlați un browser cu Playwright: navigați, interacționați, inspectați paginile, faceți capturi de ecran și gestionați sesiunile. Închideți sesiunile persistente când ați terminat.",
     "x_search_terms": [
       "automatizare browser",
       "captură de ecran",
@@ -3552,7 +3552,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s acțiuni)."
   },
   "pt_BR": {
-    "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
+    "tool.description": "Controle um navegador com Playwright: navegue, interaja, inspecione páginas, faça capturas de tela e gerencie sessões. Feche as sessões persistentes quando terminar.",
     "x_search_terms": [
       "automação do navegador",
       "captura de tela",
@@ -3663,7 +3663,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s ações)."
   },
   "fil": {
-    "tool.description": "Magsagawa ng pagkakasunod-sunod ng mga pagkilos sa browser gamit ang Playwright. Sinusuportahan ang nabigasyon, pakikipag-ugnayan, pagkuha, kontrol ng mouse/keyboard, session, network, multi-page, accessibility, console, pag-upload, mobile emulation, at higit pa.",
+    "tool.description": "Kontrolin ang isang browser gamit ang Playwright: mag-navigate, makipag-ugnayan, suriin ang mga pahina, kumuha ng mga screenshot, at pamahalaan ang mga session. Isara ang mga paulit-ulit na session kapag natapos na.",
     "x_search_terms": [
       "pag-automate ng browser",
       "screenshot",
@@ -3774,7 +3774,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s na pagkilos)."
   },
   "ms": {
-    "tool.description": "Laksanakan urutan tindakan penyemak imbas menggunakan Playwright. Menyokong navigasi, interaksi, pengekstrakan, kawalan tetikus/papan kekunci, sesi, rangkaian, berbilang halaman, kebolehaksesan, konsol, muat naik, emulasi mudah alih dan banyak lagi.",
+    "tool.description": "Kawal penyemak imbas dengan Playwright: menavigasi, berinteraksi, memeriksa halaman, mengambil tangkapan skrin dan mengurus sesi. Tutup sesi berterusan apabila selesai.",
     "x_search_terms": [
       "automasi penyemak imbas",
       "tangkapan skrin",
@@ -3885,7 +3885,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s tindakan)."
   },
   "da": {
-    "tool.description": "Udfør en sekvens af browserhandlinger ved hjælp af Playwright. Understøtter navigation, interaktion, udtræk, mus/tastatur kontrol, session, netværk, multi-side, tilgængelighed, konsol, uploads, mobil emulering og mere.",
+    "tool.description": "Styr en browser med Playwright: naviger, interager, inspicér sider, tag skærmbilleder og administrer sessioner. Luk vedvarende sessioner, når du er færdig.",
     "x_search_terms": [
       "browserautomatisering",
       "skærmbillede",
@@ -3996,7 +3996,7 @@
     "trace.browser_action": "%(mode)s: %(steps)s (%(count)s handlinger)."
   },
   "nn": {
-    "tool.description": "Utfør en sekvens av nettleserhandlinger ved å bruke Playwright. Støtter navigasjon, interaksjon, utvinning, mus/tastaturkontroll, økt, nettverk, flersidet, tilgjengelighet, konsoll, opplastinger, mobilemulering og mer.",
+    "tool.description": "Styr ein nettlesar med Playwright: naviger, samhandle, undersøk sider, ta skjermbilete og administrer økter. Lukk vedvarande økter når du er ferdig.",
     "x_search_terms": [
       "nettleserautomatisering",
       "skjermbilde",

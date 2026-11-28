@@ -36,15 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "AP2 (Agent Payments Protocol) — autonomous payment management.\n\n"
-                "mode='mandate_create' — Create a new open payment mandate. "
-                "This authorizes the agent to make autonomous purchases up to "
-                "a specified limit. The user must approve this via continue_url.\n\n"
-                "mode='mandate_list' — List all active payment mandates.\n\n"
-                "mode='execute' — Execute a payment token using an existing mandate "
-                "for a specific checkout. Returns a signed AP2 token that can be "
-                "passed to ucp_checkout mode='complete' as ap2_token.\n\n"
-                "mode='verify' — Verify an AP2 payment token and return its details."
+                "Manage payment mandates and tokens for AP2: create/list mandates, execute payments, or verify tokens. Creation requires user approval; execution returns a signed token for the ucp_checkout tool."
             ),
         ),
         "parameters": {

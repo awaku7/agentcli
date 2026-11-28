@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "JSO ファイルをセクション分割し、番号付きインデックスまたは特定のセクションを返します。",
+    "tool.description": "JSONのキー階層や構造を要約し、指定したノードを取得します。",
     "x_search_terms": [
       "JSOファイルを読む",
       "JSOインデックス",
@@ -23,7 +23,7 @@
     "param.max_depth.description": "インデックスに含めるキー パスの最大ネストの深さ (デフォルトは 3)。"
   },
   "zh_CN": {
-    "tool.description": "将文件解析为多个部分并返回 json2idx 的编号索引或特定部分。",
+    "tool.description": "总结 JSON 关键路径和结构并检索选定的节点。",
     "x_search_terms": [
       "读取jso文件",
       "jso索引",
@@ -46,7 +46,7 @@
     "param.max_depth.description": "要包含在索引中的关键路径的最大嵌套深度（默认为 3）。"
   },
   "zh_TW": {
-    "tool.description": "將檔案解析為多個部分並傳回 json2idx 的編號索引或特定部分。",
+    "tool.description": "總結 JSON 關鍵路徑和結構並檢索選定的節點。",
     "x_search_terms": [
       "讀取jso檔",
       "jso索引",
@@ -69,7 +69,7 @@
     "param.max_depth.description": "要包含在索引中的關鍵路徑的最大嵌套深度（預設為 3）。"
   },
   "ko": {
-    "tool.description": "파일을 섹션으로 구문 분석하고 json2idx에 대한 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다.",
+    "tool.description": "JSON 키 경로 및 구조를 요약하고 선택한 노드를 검색합니다.",
     "x_search_terms": [
       "Jso 파일",
       "JSO 인덱스",
@@ -92,7 +92,7 @@
     "param.max_depth.description": "인덱스에 포함할 키 경로의 최대 중첩 깊이(기본값 3)"
   },
   "fr": {
-    "tool.description": "Analysez le fichier en sections et renvoyez un index numéroté ou une section spécifique pour json2idx.",
+    "tool.description": "Résumez les chemins et la structure des clés JSON et récupérez les nœuds sélectionnés.",
     "x_search_terms": [
       "lire le fichier jso",
       "index jso",
@@ -115,7 +115,7 @@
     "param.max_depth.description": "Profondeur d'imbrication maximale des chemins de clés à inclure dans l'index (3 par défaut)."
   },
   "de": {
-    "tool.description": "Analysieren Sie die Datei in Abschnitte und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt für json2idx zurück.",
+    "tool.description": "Fasst JSON Schlüsselpfade und Struktur zusammen und ruft ausgewählte Knoten ab.",
     "x_search_terms": [
       "JSO-Datei lesen",
       "JSO-Index",
@@ -138,7 +138,7 @@
     "param.max_depth.description": "Maximale Verschachtelungstiefe der Schlüsselpfade, die in den Index aufgenommen werden sollen (Standard 3)."
   },
   "es": {
-    "tool.description": "Analiza el archivo en secciones y devuelve un índice numerado o una sección específica para json2idx.",
+    "tool.description": "Resume JSON rutas clave y estructura y recupera los nodos seleccionados.",
     "x_search_terms": [
       "leer archivo jso ",
       " índice jso ",
@@ -161,7 +161,7 @@
     "param.max_depth.description": "Profundidad máxima de anidamiento de rutas clave para incluir en el índice (predeterminado 3)."
   },
   "it": {
-    "tool.description": "Analizza il file in sezioni e restituisce un indice numerato o una sezione specifica per json2idx.",
+    "tool.description": "Riepiloga JSON i percorsi chiave e la struttura e recupera i nodi selezionati.",
     "x_search_terms": [
       "leggi file jso",
       "indice jso",
@@ -184,7 +184,7 @@
     "param.max_depth.description": "Profondità di nidificazione massima dei percorsi chiave da includere nell'indice (impostazione predefinita 3)."
   },
   "pt_BR": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
+    "tool.description": "Resuma JSON caminhos-chave e estrutura e recupere os nós selecionados.",
     "x_search_terms": [
       "leia arquivo jso",
       "índice jso",
@@ -207,7 +207,7 @@
     "param.max_depth.description": "Profundidade máxima de aninhamento de caminhos-chave a serem incluídos no índice (padrão 3)."
   },
   "pt": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
+    "tool.description": "Resuma JSON caminhos-chave e estrutura e recupere os nós selecionados.",
     "x_search_terms": [
       "leia arquivo jso",
       "índice jso",
@@ -230,7 +230,7 @@
     "param.max_depth.description": "Profundidade máxima de aninhamento de caminhos-chave a serem incluídos no índice (padrão 3)."
   },
   "ru": {
-    "tool.description": "Разберите файл на разделы и верните пронумерованный индекс или конкретный раздел для json2idx.",
+    "tool.description": "Обобщить JSON ключевые пути и структуру и извлечь выбранные узлы.",
     "x_search_terms": [
       "прочитать файл jso",
       "индекс jso",
@@ -253,7 +253,7 @@
     "param.max_depth.description": "Максимальная глубина вложенности ключевых путей для включения в индекс (по умолчанию 3)."
   },
   "id": {
-    "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk json2idx.",
+    "tool.description": "Ringkas JSON jalur dan struktur kunci dan ambil node yang dipilih.",
     "x_search_terms": [
       "membaca file jso",
       "jso indeks",
@@ -276,7 +276,7 @@
     "param.max_depth.description": "Kedalaman sarang maksimum jalur kunci untuk disertakan dalam indeks (default 3)."
   },
   "vi": {
-    "tool.description": "Phân tích tệp thành các phần và trả về chỉ mục được đánh số hoặc phần cụ thể cho json2idx.",
+    "tool.description": "Tóm tắt JSON đường dẫn và cấu trúc chính và truy xuất các nút đã chọn.",
     "x_search_terms": [
       "đọc tệp jso",
       "chỉ mục jso",
@@ -299,7 +299,7 @@
     "param.max_depth.description": "Độ sâu lồng tối đa của các đường dẫn chính cần đưa vào chỉ mục (mặc định 3)."
   },
   "pl": {
-    "tool.description": "Podziel plik na sekcje i zwróć numerowany indeks lub określoną sekcję dla json2idx.",
+    "tool.description": "Podsumuj JSON kluczowe ścieżki i strukturę oraz pobierz wybrane węzły.",
     "x_search_terms": [
       "przeczytaj plik jso",
       "jso indeks",
@@ -322,7 +322,7 @@
     "param.max_depth.description": "Maksymalna głębokość zagnieżdżenia ścieżek kluczy do uwzględnienia w indeksie (domyślnie 3)."
   },
   "hi": {
-    "tool.description": "फ़ाइल को अनुभागों में पार्स करें और json2idx के लिए एक क्रमांकित अनुक्रमणिका या विशिष्ट अनुभाग लौटाएँ।",
+    "tool.description": "JSON मुख्य पथों और संरचना को सारांशित करें और चयनित नोड्स को पुनः प्राप्त करें।",
     "x_search_terms": [
       "जेएसओ फ़ाइल",
       "जेएसओ इंडेक्स",
@@ -345,7 +345,7 @@
     "param.max_depth.description": "सूचकांक में शामिल करने के लिए मुख्य पथों की अधिकतम नेस्टिंग गहराई (डिफ़ॉल्ट 3)।"
   },
   "ar": {
-    "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ json2idx.",
+    "tool.description": "تلخيص JSON المسارات الرئيسية والبنية واسترداد العقد المحددة.",
     "x_search_terms": [
       "قراءة ملف jso",
       "فهرس jso",
@@ -368,7 +368,7 @@
     "param.max_depth.description": "الحد الأقصى لتداخل مسارات المفاتيح المراد تضمينها في الفهرس (الافتراضي 3)."
   },
   "sv": {
-    "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller ett specifikt avsnitt för json2idx.",
+    "tool.description": "Sammanfatta JSON nyckelvägar och struktur och hämta valda noder.",
     "x_search_terms": [
       "läs jso file",
       "jso index",
@@ -391,7 +391,7 @@
     "param.max_depth.description": "Maximalt kapdjup för nyckelvägar som ska inkluderas i indexet (standard 3)."
   },
   "sw": {
-    "tool.description": "Changanua faili katika sehemu na urudishe faharasa yenye nambari au sehemu mahususi ya json2idx.",
+    "tool.description": "Fanya muhtasari JSON njia kuu na muundo na urejeshe nodi zilizochaguliwa.",
     "x_search_terms": [
       "soma faili ya jso",
       "jso index",
@@ -414,7 +414,7 @@
     "param.max_depth.description": "Upeo wa kina cha njia kuu za kujumuisha kwenye faharasa (chaguo-msingi 3)."
   },
   "nb": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for json2idx.",
+    "tool.description": "Oppsummer JSON nøkkelbaner og struktur og hent valgte noder.",
     "x_search_terms": [
       "les jso file",
       "jso-indeksen",
@@ -437,7 +437,7 @@
     "param.max_depth.description": "Maksimal hekkedybde for nøkkelbaner som skal inkluderes i indeksen (standard 3)."
   },
   "nl": {
-    "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor json2idx.",
+    "tool.description": "Vat JSON sleutelpaden samen en structureer en haal geselecteerde knooppunten op.",
     "x_search_terms": [
       "lees jso file",
       "jso-index",
@@ -460,7 +460,7 @@
     "param.max_depth.description": "Maximale nestdiepte van sleutelpaden die in de index moeten worden opgenomen (standaard 3)."
   },
   "fi": {
-    "tool.description": "Jäsennä tiedosto osiin ja palauta numeroitu hakemisto tai tietty osio json2idx:lle.",
+    "tool.description": "Tee yhteenveto JSON avainpolusta ja -rakenteesta ja nouta valitut solmut.",
     "x_search_terms": [
       "lue jso-tiedosto",
       "jso-indeksi",
@@ -483,7 +483,7 @@
     "param.max_depth.description": "Indeksiin sisällytettävien avainpolkujen suurin sisäkkäisyyden syvyys (oletusarvo 3)."
   },
   "cs": {
-    "tool.description": "Analyzujte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro json2idx.",
+    "tool.description": "Shrnutí JSON klíčových cest a struktury a načtení vybraných uzlů.",
     "x_search_terms": [
       "číst jso soubor",
       "index jso",
@@ -506,7 +506,7 @@
     "param.max_depth.description": "Maximální hloubka vnoření cest klíčů k zahrnutí do indexu (výchozí 3)."
   },
   "uk": {
-    "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для json2idx.",
+    "tool.description": "Узагальніть JSON ключові шляхи та структуру та отримайте вибрані вузли.",
     "x_search_terms": [
       "читати файл jso",
       "індекс jso",
@@ -529,7 +529,7 @@
     "param.max_depth.description": "Максимальна глибина вкладеності ключових шляхів для включення в індекс (за замовчуванням 3)."
   },
   "tr": {
-    "tool.description": "Dosyayı bölümlere ayırın ve json2idx için numaralandırılmış bir dizin veya belirli bir bölüm döndürün.",
+    "tool.description": "JSON anahtar yolu özetleyin ve seçilen düğümleri yapılandırın ve alın.",
     "x_search_terms": [
       "jso dosyasını oku",
       "jso indeksi",
@@ -552,7 +552,7 @@
     "param.max_depth.description": "Dizine dahil edilecek anahtar yolların maksimum iç içe geçme derinliği (varsayılan 3)."
   },
   "th": {
-    "tool.description": "แยกไฟล์ออกเป็นส่วนต่างๆ และส่งกลับดัชนีตัวเลขหรือส่วนเฉพาะสำหรับ json2idx",
+    "tool.description": "สรุป JSON เส้นทางหลักและโครงสร้าง และเรียกข้อมูลโหนดที่เลือก",
     "x_search_terms": [
       "อ่านไฟล์ jso",
       "jso ดัชนี",
@@ -575,7 +575,7 @@
     "param.max_depth.description": "ความลึกของการซ้อนสูงสุดของเส้นทางคีย์ที่จะรวมไว้ในดัชนี (ค่าเริ่มต้น 3)"
   },
   "bn": {
-    "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং json2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
+    "tool.description": "JSON মূল পথ এবং গঠন সংক্ষিপ্ত করুন এবং নির্বাচিত নোড পুনরুদ্ধার করুন।",
     "x_search_terms": [
       "jso ফাইল পড়ুন",
       "jso সূচক",
@@ -598,7 +598,7 @@
     "param.max_depth.description": "সূচকে অন্তর্ভুক্ত করার জন্য কী পাথগুলির সর্বাধিক নেস্টিং গভীরতা (ডিফল্ট 3)।"
   },
   "fa": {
-    "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی برای json2idx برگردانید.",
+    "tool.description": "JSON مسیرهای کلیدی و ساختار را خلاصه کنید و گره های انتخاب شده را بازیابی کنید.",
     "x_search_terms": [
       "فایل jso را بخوانید",
       "شاخص jso",
@@ -621,7 +621,7 @@
     "param.max_depth.description": "حداکثر عمق تودرتو مسیرهای کلیدی برای گنجاندن در فهرست (پیش‌فرض 3)."
   },
   "mn": {
-    "tool.description": "Файлыг хэсэг болгон задалж, дугаарласан индекс эсвэл json2idx-ийн тодорхой хэсгийг буцаана уу.",
+    "tool.description": "JSON гол зам, бүтцийг нэгтгэн дүгнэж, сонгосон зангилаануудыг сэргээнэ үү.",
     "x_search_terms": [
       "jso файлыг уншина уу",
       "jso индекс",
@@ -644,7 +644,7 @@
     "param.max_depth.description": "Индексэд оруулах гол замуудын хамгийн их үүрлэх гүн (өгөгдмөл 3)."
   },
   "mr": {
-    "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि json2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
+    "tool.description": "सारांशित करा JSON मुख्य मार्ग आणि संरचना आणि निवडलेल्या नोड्स पुनर्प्राप्त करा.",
     "x_search_terms": [
       "jso फाइल वाचा",
       "jso निर्देशांक",
@@ -667,7 +667,7 @@
     "param.max_depth.description": "निर्देशांकामध्ये समाविष्ट करण्यासाठी मुख्य मार्गांची कमाल नेस्टिंग खोली (डिफॉल्ट 3)."
   },
   "el": {
-    "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το json2idx.",
+    "tool.description": "Συνοψίστε JSON βασικές διαδρομές και δομή και ανακτήστε επιλεγμένους κόμβους.",
     "x_search_terms": [
       "διαβάστε το αρχείο jso",
       "ευρετήριο jso",
@@ -690,7 +690,7 @@
     "param.max_depth.description": "Μέγιστο βάθος ένθεσης των μονοπατιών κλειδιών που θα συμπεριληφθούν στο ευρετήριο (προεπιλογή 3)."
   },
   "he": {
-    "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור json2idx.",
+    "tool.description": "סכם JSON נתיבים ומבנה מפתח ואחזר צמתים נבחרים.",
     "x_search_terms": [
       "קרא את מפצל ה-jso file",
       "אינדקס jso",
@@ -713,7 +713,7 @@
     "param.max_depth.description": "עומק קינון מקסימלי של נתיבי מפתח לכלול באינדקס (ברירת מחדל 3)."
   },
   "hu": {
-    "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy adott szakaszt a json2idx számára.",
+    "tool.description": "Összefoglalja JSON kulcsútvonalakat és -struktúrát, és lekérheti a kiválasztott csomópontokat.",
     "x_search_terms": [
       "jso fájl",
       "jso index",
@@ -736,7 +736,7 @@
     "param.max_depth.description": "Az indexbe foglalandó kulcsútvonalak maximális beágyazási mélysége (alapértelmezett 3)."
   },
   "ro": {
-    "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru json2idx.",
+    "tool.description": "Rezumați JSON căi cheie și structurați și preluați nodurile selectate.",
     "x_search_terms": [
       "citește fișierul jso",
       "index jso",
@@ -759,7 +759,7 @@
     "param.max_depth.description": "Adâncimea maximă de imbricare a căilor cheie de inclus în index (implicit 3)."
   },
   "fil": {
-    "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may bilang na index o partikular na seksyon para sa json2idx.",
+    "tool.description": "Ibuod ang JSON key path at structure at kunin ang mga napiling node.",
     "x_search_terms": [
       "basahin ang jso file",
       "jso index",
@@ -782,7 +782,7 @@
     "param.max_depth.description": "Maximum nesting depth ng mga pangunahing path na isasama sa index (default 3)."
   },
   "ms": {
-    "tool.description": "Parsing fail ke dalam bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk json2idx.",
+    "tool.description": "Ringkaskan JSON laluan utama dan struktur dan dapatkan semula nod yang dipilih.",
     "x_search_terms": [
       "baca jso file",
       "indeks jso",
@@ -805,7 +805,7 @@
     "param.max_depth.description": "Kedalaman bersarang maksimum laluan utama untuk disertakan dalam indeks (lalai 3)."
   },
   "da": {
-    "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for json2idx.",
+    "tool.description": "Opsummer JSON nøglestier og struktur og hent valgte noder.",
     "x_search_terms": [
       "læs jso file",
       "jso indeks",
@@ -828,7 +828,7 @@
     "param.max_depth.description": "Maksimal indlejringsdybde for nøglestier, der skal inkluderes i indekset (standard 3)."
   },
   "nn": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for json2idx.",
+    "tool.description": "Oppsummer JSON-nøkkelstiar og struktur, og hent valde nodar.",
     "x_search_terms": [
       "les jso file",
       "jso-indeks",

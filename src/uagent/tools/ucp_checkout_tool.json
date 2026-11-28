@@ -1,6 +1,6 @@
 {
   "ar": {
-    "tool.description": "إدارة جلسة الخروج UCP. mode='create' — بدء عملية دفع جديدة. \nmode='get' — جلب حالة الخروج الحالية. \nmode='update' — تعديل حقول الخروج.\nmode='Complete' — إنهاء الطلب. إذا قامت الشركة بإرجاع require_escalation باستخدام continue_url، فيجب على المستخدم فتح عنوان URL هذا في المتصفح لإكمال الدفع. بعد أن يدفع المستخدم في المتصفح، استخدم mode='poll' لانتظار الاكتمال. \nmode='poll' — حالة الخروج من الاستطلاع حتى اكتماله أو انتهاء المهلة. يُستخدم بعد إكمال المستخدم للدفع عبر continue_url.",
+    "tool.description": "إدارة عمليات سحب UCP: إنشاء أو استرداد أو تحديث أو إكمال أو استقصاء. إذا أعاد تدفق الدفع الرابط continue_url، فيجب على المستخدم فتحه؛ الاستطلاع بعد ذلك.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري.",
     "param.checkout_id.description": "معرف جلسة الخروج (مطلوب للحصول على/تحديث/إكمال/استطلاع).",
@@ -33,7 +33,7 @@
     "describe.summary": "%(action)s في %(business_url)s (الدفع: %(checkout_id)s؛ سلة التسوق: %(cart_id)s؛ العناصر: %(items)s؛ العملة: %(currency)s).%(warning)s"
   },
   "bn": {
-    "tool.description": "একটি UCP চেকআউট সেশন পরিচালনা করুন। mode='create' — একটি নতুন চেকআউট শুরু করুন। \nmode='get' — বর্তমান চেকআউট স্থিতি আনুন। \nmode='update' — চেকআউট ক্ষেত্রগুলি পরিবর্তন করুন। \nmode='complete' — অর্ডার চূড়ান্ত করুন। যদি ব্যবসায় একটি continue_url এর সাথে প্রয়োজন_এসকেলেশন ফেরত দেয়, তাহলে পেমেন্ট সম্পূর্ণ করতে ব্যবহারকারীকে অবশ্যই একটি ব্রাউজারে সেই URL খুলতে হবে। ব্যবহারকারী ব্রাউজারে অর্থ প্রদান করার পরে, সমাপ্তির জন্য অপেক্ষা করতে mode='poll' ব্যবহার করুন। \nmode='poll' — পোল চেকআউট স্থিতি সম্পূর্ণ না হওয়া পর্যন্ত বা সময় শেষ না হওয়া পর্যন্ত। ব্যবহারকারী continue_url এর মাধ্যমে অর্থপ্রদান সম্পূর্ণ করার পরে ব্যবহার করুন।",
+    "tool.description": "UCP চেকআউট পরিচালনা করুন: তৈরি করুন, পুনরুদ্ধার করুন, আপডেট করুন, সম্পূর্ণ করুন বা পোল করুন৷ যদি অর্থপ্রদানের প্রবাহ continue_url লিঙ্কটি ফেরত দেয়, ব্যবহারকারীকে অবশ্যই এটি খুলতে হবে; পোল পরে।",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "ব্যবসার মূল URL।",
     "param.checkout_id.description": "চেকআউট সেশন আইডি (গেট/আপডেট/সম্পূর্ণ/পোলের জন্য প্রয়োজনীয়)।",
@@ -66,7 +66,7 @@
     "describe.summary": "%(business_url)s এ %(action)s (চেকআউট: %(checkout_id)s; কার্ট: %(cart_id)s; আইটেম: %(items)s; মুদ্রা: %(currency)s)।%(warning)s"
   },
   "cs": {
-    "tool.description": "Spravujte relaci pokladny UCP. mode='create' — spuštění nové pokladny.\nmode='get' — načtení aktuálního stavu pokladny.\nmode='update' — úprava polí pokladny.\nmode='complete' — dokončení objednávky. Pokud firma vrátí require_escalation s continue_url, MUSÍ uživatel tuto adresu URL otevřít v prohlížeči, aby mohl dokončit platbu. Poté, co uživatel zaplatí v prohlížeči, počkejte na dokončení pomocí mode='poll'.\nmode='poll' — stav zaplacení ankety do dokončení nebo do vypršení časového limitu. Použijte poté, co uživatel dokončí platbu prostřednictvím continue_url.",
+    "tool.description": "Správa pokladen UCP: vytvoření, načtení, aktualizace, dokončení nebo dotazování. Pokud platební tok vrátí odkaz continue_url, uživatel jej musí otevřít; anketa následně.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Základní adresa URL firmy.",
     "param.checkout_id.description": "ID relace pokladny (vyžadováno pro get/update/complete/polll).",
@@ -99,7 +99,7 @@
     "describe.summary": "%(action)s v %(business_url)s (pokladna: %(checkout_id)s; košík: %(cart_id)s; položky: %(items)s; měna: %(currency)s).%(warning)s"
   },
   "da": {
-    "tool.description": "Administrer en UCP checkout session. mode='create' — start en ny kasse.\nmode='get' — hent den aktuelle kassestatus.\nmode='update' — modificer kassefelter.\nmode='complete' — færdiggør ordren. Hvis virksomheden returnerer requires_escalation med en continu_url, SKAL brugeren åbne denne URL i en browser for at gennemføre betalingen. Når brugeren har betalt i browseren, skal du bruge mode='afstemning' for at vente på fuldførelse.\nmode='afstemning' — status for afstemningscheck, indtil den er afsluttet eller timeout. Brug efter brugeren har gennemført betaling via continu_url.",
+    "tool.description": "Administrer UCP-udbetalinger: Opret, hent, opdater, fuldfør eller afstemning. Hvis betalingsstrømmen returnerer linket continue_url, skal brugeren åbne det; afstemning bagefter.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Virksomhedens basis-URL.",
     "param.checkout_id.description": "Checkout session ID (påkrævet for get/update/complete/poll).",
@@ -132,7 +132,7 @@
     "describe.summary": "%(action)s ved %(business_url)s (kasse: %(checkout_id)s; kurv: %(cart_id)s; varer: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "de": {
-    "tool.description": "Verwalten Sie eine UCP-Checkout-Sitzung. mode='create' – einen neuen Checkout starten.\nmode='get' – aktuellen Checkout-Status abrufen.\nmode='update' – Checkout-Felder ändern.\nmode='complete' – Bestellung abschließen. Wenn das Unternehmen „requires_escalation“ mit einer continue_url zurückgibt, MUSS der Benutzer diese URL in einem Browser öffnen, um die Zahlung abzuschließen. Nachdem der Benutzer im Browser bezahlt hat, verwenden Sie mode='poll', um auf den Abschluss zu warten.\nmode='poll' – Checkout-Status bis zum Abschluss oder Zeitüberschreitung abfragen. Wird verwendet, nachdem der Benutzer die Zahlung über continue_url abgeschlossen hat.",
+    "tool.description": "UCP-Checkouts verwalten: erstellen, abrufen, aktualisieren, abschließen oder abfragen. Wenn der Zahlungsfluss den Link continue_url zurückgibt, muss der Benutzer ihn öffnen; Umfrage danach.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL des Unternehmens.",
     "param.checkout_id.description": "Checkout-Sitzungs-ID (erforderlich für get/update/complete/poll).",
@@ -165,7 +165,7 @@
     "describe.summary": "%(action)s um %(business_url)s (Kasse: %(checkout_id)s; Warenkorb: %(cart_id)s; Artikel: %(items)s; Währung: %(currency)s).%(warning)s"
   },
   "el": {
-    "tool.description": "Διαχειριστείτε μια περίοδο ολοκλήρωσης αγοράς UCP. mode='create' — έναρξη νέας ολοκλήρωσης αγοράς.\nmode='get' — ανάκτηση της τρέχουσας κατάστασης ολοκλήρωσης αγοράς.\nmode='update' — τροποποίηση πεδίων ολοκλήρωσης αγοράς.\nmode='complete' — οριστικοποίηση της παραγγελίας. Εάν η επιχείρηση επιστρέφει requests_escalation με συνεχή_url, ο χρήστης ΠΡΕΠΕΙ να ανοίξει αυτήν τη διεύθυνση URL σε ένα πρόγραμμα περιήγησης για να ολοκληρώσει την πληρωμή. Αφού ο χρήστης πληρώσει στο πρόγραμμα περιήγησης, χρησιμοποιήστε τη λειτουργία='poll' για να περιμένετε την ολοκλήρωση.\nmode='poll' — κατάσταση ολοκλήρωσης ψηφοφορίας έως ότου ολοκληρωθεί ή λήξει. Χρησιμοποιήστε το αφού ο χρήστης ολοκληρώσει την πληρωμή μέσω του continue_url.",
+    "tool.description": "Διαχείριση ολοκλήρωσης αγοράς UCP: δημιουργία, ανάκτηση, ενημέρωση, ολοκλήρωση ή δημοσκόπηση. Εάν η ροή πληρωμής επιστρέψει τον σύνδεσμο continue_url, ο χρήστης πρέπει να τον ανοίξει. δημοσκόπηση μετά.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Βασική διεύθυνση URL της επιχείρησης.",
     "param.checkout_id.description": "Αναγνωριστικό περιόδου ολοκλήρωσης αγοράς (απαιτείται για λήψη/ενημέρωση/ολοκλήρωση/ δημοσκόπηση).",
@@ -198,7 +198,7 @@
     "describe.summary": "%(action)s στο %(business_url)s (ταμείο: %(checkout_id)s; καλάθι: %(cart_id)s; είδη: %(items)s; νόμισμα: %(currency)s).%(warning)s"
   },
   "es": {
-    "tool.description": "Administrar una sesión de pago UCP. mode='create' - iniciar un nuevo pago.\nmode='get' - obtener el estado de pago actual.\nmode='update' - modificar los campos de pago.\nmode='complete' - finalizar el pedido. Si la empresa devuelve require_escalation con continue_url, el usuario DEBE abrir esa URL en un navegador para completar el pago. Después de que el usuario pague en el navegador, use mode='poll' para esperar a que se complete. \nmode='poll': estado de pago de la encuesta hasta que se complete o se agote el tiempo de espera. Úselo después de que el usuario complete el pago a través de continue_url.",
+    "tool.description": "Administrar pagos de UCP: crear, recuperar, actualizar, completar o sondear. Si el flujo de pago devuelve el enlace continue_url, el usuario deberá abrirlo; encuesta después.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base del negocio.",
     "param.checkout_id.description": "ID de sesión de pago (obligatorio para obtener/actualizar/completar/encuesta).",
@@ -231,7 +231,7 @@
     "describe.summary": "%(action)s en %(business_url)s (pagar: %(checkout_id)s; carrito: %(cart_id)s; artículos: %(items)s; moneda: %(currency)s).%(warning)s"
   },
   "fa": {
-    "tool.description": "یک جلسه پرداخت UCP را مدیریت کنید. mode='create' — شروع تسویه حساب جدید.\nmode='get' — واکشی وضعیت پرداخت فعلی.\nmode='update' — اصلاح فیلدهای تسویه حساب.\nmode='complete' - سفارش را نهایی کنید. اگر کسب‌وکار دارای requires_escalation با یک continue_url است، کاربر باید برای تکمیل پرداخت، آن URL را در مرورگر باز کند. پس از اینکه کاربر در مرورگر پول پرداخت کرد، از mode='poll' استفاده کنید تا منتظر تکمیل شدن بمانید.\nmode='poll' — وضعیت پرداخت نظرسنجی تا تکمیل یا اتمام زمان. پس از تکمیل پرداخت توسط کاربر از طریق continue_url استفاده کنید.",
+    "tool.description": "تسویه حساب های UCP را مدیریت کنید: ایجاد، بازیابی، به روز رسانی، تکمیل یا نظرسنجی. اگر جریان پرداخت پیوند continue_url را برگرداند، کاربر باید آن را باز کند. نظرسنجی بعد",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL پایه کسب و کار.",
     "param.checkout_id.description": "شناسه جلسه پرداخت (برای دریافت/به‌روزرسانی/تکمیل/نظرسنجی لازم است).",
@@ -264,7 +264,7 @@
     "describe.summary": "%(action)s در %(business_url)s (تسویه حساب: %(checkout_id)s؛ سبد خرید: %(cart_id)s؛ موارد: %(items)s؛ واحد پول: %(currency)s).%(warning)s"
   },
   "fi": {
-    "tool.description": "Hallinnoi UCP checkout istuntoa. mode='create' — aloita uusi kassa.\nmode='get' — hae nykyinen kassatila.\nmode='update' — muokkaa kassakenttiä.\nmode='complete' — viimeistele tilaus. Jos yritys palauttaa request_escalation ja jatka_url-osoitetta, käyttäjän PITÄÄ avata URL-osoite selaimessa suorittaakseen maksun loppuun. Kun käyttäjä on maksanut selaimessa, odota valmistumista käyttämällä mode='poll'.\nmode='poll' — kyselyn tila, kunnes se on valmis tai aikakatkaisu. Käytä sen jälkeen, kun käyttäjä on suorittanut maksun jatka_url-osoitteen kautta.",
+    "tool.description": "Hallitse UCP-maksuja: luo, hae, päivitä, täydennä tai tee kysely. Jos maksuvirta palauttaa linkin continue_url, käyttäjän on avattava se; kyselyn jälkeen.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Yrityksen perus-URL-osoite.",
     "param.checkout_id.description": "Checkout-istunnon tunnus (pakollinen get/update/complete/poll varten).",
@@ -297,7 +297,7 @@
     "describe.summary": "%(action)s klo %(business_url)s (kassalle: %(checkout_id)s; ostoskori: %(cart_id)s; tuotteet: %(items)s; valuutta: %(currency)s).%(warning)s"
   },
   "fil": {
-    "tool.description": "Pamahalaan ang isang UCP checkout session. mode='create' — magsimula ng bagong checkout.\nmode='get' — kunin ang kasalukuyang status ng checkout.\nmode='update' — baguhin ang checkout fields.\nmode='complete' — tapusin ang order. Kung ang pagbabalik ng negosyo ay nangangailangan ng_escalation na may continue_url, DAPAT buksan ng user ang URL na iyon sa isang browser upang makumpleto ang pagbabayad. Pagkatapos magbayad ng user sa browser, gamitin ang mode='poll' upang maghintay para sa pagkumpleto.\nmode='poll' — status ng pag-checkout ng poll hanggang sa makumpleto o mag-timeout. Gamitin pagkatapos makumpleto ng user ang pagbabayad sa pamamagitan ng continue_url.",
+    "tool.description": "Pamahalaan ang mga pag-checkout ng UCP: gumawa, kunin, i-update, kumpletuhin, o poll. Kung ibabalik ng daloy ng pagbabayad ang link na continue_url, dapat itong buksan ng user; poll pagkatapos.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Base URL ng negosyo.",
     "param.checkout_id.description": "Checkout session ID (kinakailangan para sa pagkuha/pag-update/pagkumpleto/poll).",
@@ -330,7 +330,7 @@
     "describe.summary": "%(action)s sa %(business_url)s (checkout: %(checkout_id)s; cart: %(cart_id)s; item: %(items)s; currency: %(currency)s).%(warning)s"
   },
   "fr": {
-    "tool.description": "Gérer une session de paiement UCP. mode='create' — démarrer une nouvelle caisse.\nmode='get' — récupérer l'état actuel de la caisse.\nmode='update' — modifier les champs de caisse.\nmode='complete' — finaliser la commande. Si l'entreprise renvoie require_escalation avec une URL continue, l'utilisateur DOIT ouvrir cette URL dans un navigateur pour finaliser le paiement. Une fois que l'utilisateur a payé dans le navigateur, utilisez mode='poll' pour attendre la fin.\nmode='poll' — interroge l'état du paiement jusqu'à ce qu'il soit terminé ou expire. À utiliser une fois que l'utilisateur a terminé le paiement via continue_url.",
+    "tool.description": "Gérer les extractions UCP : créer, récupérer, mettre à jour, compléter ou interroger. Si le flux de paiement renvoie le lien continue_url, l'utilisateur doit l'ouvrir ; sondage par la suite.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL de base de l'entreprise.",
     "param.checkout_id.description": "ID de session de paiement (obligatoire pour get/update/complete/poll).",
@@ -363,7 +363,7 @@
     "describe.summary": "%(action)s à %(business_url)s (caisse : %(checkout_id)s ; panier : %(cart_id)s ; articles : %(items)s ; devise : %(currency)s).%(warning)s"
   },
   "he": {
-    "tool.description": "נהל סשן קופה של UCP. mode='create' — התחל קופה חדשה.\nmode='get' — אחזר את מצב הקופה הנוכחי.\nmode='update' — שנה שדות קופה.\nmode='complete' — סיים את ההזמנה. אם העסק חוזר requires_escalation עם continue_url, המשתמש חייב לפתוח את כתובת האתר בדפדפן כדי להשלים את התשלום. לאחר שהמשתמש משלם בדפדפן, השתמש ב-mode='poll' כדי להמתין לסיום. השתמש לאחר שהמשתמש משלים תשלום באמצעות continue_url.",
+    "tool.description": "נהל תשלומים של UCP: צור, אחזר, עדכן, השלם או סקר. אם תזרים התשלום מחזיר את הקישור continue_url, המשתמש חייב לפתוח אותו; סקר לאחר מכן.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "כתובת האתר הבסיסית של העסק.",
     "param.checkout_id.description": "מזהה הפעלה בקופה (נדרש לקבלת/עדכון/השלמה/סקר).",
@@ -396,7 +396,7 @@
     "describe.summary": "%(action)s ב-%(business_url)s (תשלום: %(checkout_id)s; עגלה: %(cart_id)s; פריטים: %(items)s; מטבע: %(currency)s).%(warning)s"
   },
   "hi": {
-    "tool.description": "यूसीपी चेकआउट सत्र प्रबंधित करें। mode='create' — एक नया चेकआउट शुरू करें।\nmode='get' — वर्तमान चेकआउट स्थिति प्राप्त करें।\nmode='update' — चेकआउट फ़ील्ड को संशोधित करें।\nmode='complete' — ऑर्डर को अंतिम रूप दें। यदि व्यवसाय जारी_यूआरएल के साथ आवश्यकता_एस्केलेशन लौटाता है, तो भुगतान पूरा करने के लिए उपयोगकर्ता को ब्राउज़र में उस यूआरएल को खोलना होगा। उपयोगकर्ता द्वारा ब्राउज़र में भुगतान करने के बाद, पूरा होने की प्रतीक्षा करने के लिए mode='poll' का उपयोग करें।\nmode='poll' - पूरा होने या समय समाप्त होने तक पोल चेकआउट स्थिति। उपयोगकर्ता द्वारा जारी_यूआरएल के माध्यम से भुगतान पूरा करने के बाद उपयोग करें।",
+    "tool.description": "यूसीपी चेकआउट प्रबंधित करें: बनाएं, पुनः प्राप्त करें, अद्यतन करें, पूर्ण करें, या मतदान करें। यदि भुगतान प्रवाह लिंक continue_url लौटाता है, तो उपयोगकर्ता को इसे खोलना होगा; बाद में मतदान.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "व्यवसाय का आधार URL.",
     "param.checkout_id.description": "चेकआउट सत्र आईडी (प्राप्त/अद्यतन/पूर्ण/मतदान के लिए आवश्यक)।",
@@ -429,7 +429,7 @@
     "describe.summary": "%(action)s पर %(business_url)s (चेकआउट: %(checkout_id)s; कार्ट: %(cart_id)s; आइटम: %(items)s; मुद्रा: %(currency)s).%(warning)s"
   },
   "hu": {
-    "tool.description": "UCP fizetési munkamenet kezelése. mode='create' — új fizetés indítása.\nmode='get' — aktuális fizetési állapot lekérése.\nmode='update' — fizetési mezők módosítása.\nmode='complete' — a megrendelés véglegesítése. Ha a vállalkozás a request_escalation-t a következővel adja vissza, akkor a felhasználónak meg KELL nyitnia ezt az URL-t egy böngészőben a fizetés befejezéséhez. Miután a felhasználó fizetett a böngészőben, a mode='poll' használatával várja meg a befejezést.\nmode='poll' – a szavazás fizetési állapota a befejezésig vagy időtúllépésig. Használja, miután a felhasználó befejezte a fizetést a jatka_url címen keresztül.",
+    "tool.description": "UCP-pénztárak kezelése: létrehozás, visszakeresés, frissítés, befejezés vagy szavazás. Ha a fizetési folyamat a continue_url hivatkozást adja vissza, a felhasználónak meg kell nyitnia azt; szavazás utána.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "A vállalkozás alap URL-je.",
     "param.checkout_id.description": "Checkout munkamenet-azonosító (szükséges a get/update/complete/poll).",
@@ -462,7 +462,7 @@
     "describe.summary": "%(action)s, %(business_url)s (pénztár: %(checkout_id)s; kosár: %(cart_id)s; tételek: %(items)s; pénznem: %(currency)s).%(warning)s"
   },
   "id": {
-    "tool.description": "Kelola sesi checkout UCP. mode='buat' — memulai pembayaran baru.\nmode='dapatkan' — mengambil status pembayaran saat ini.\nmode='perbarui' — mengubah kolom pembayaran.\nmode='selesai' — menyelesaikan pesanan. Jika bisnis mengembalikan require_escalation dengan continue_url, pengguna HARUS membuka URL tersebut di browser untuk menyelesaikan pembayaran. Setelah pengguna membayar di browser, gunakan mode='poll' untuk menunggu penyelesaian.\nmode='poll' — status checkout polling hingga selesai atau batas waktu habis. Gunakan setelah pengguna menyelesaikan pembayaran melalui continue_url.",
+    "tool.description": "Kelola pembayaran UCP: buat, ambil, perbarui, selesaikan, atau jajak pendapat. Jika aliran pembayaran mengembalikan tautan continue_url, pengguna harus membukanya; jajak pendapat sesudahnya.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL Dasar bisnis.",
     "param.checkout_id.description": "ID sesi checkout (diperlukan untuk mendapatkan/memperbarui/menyelesaikan/jajak pendapat).",
@@ -495,7 +495,7 @@
     "describe.summary": "%(action)s di %(business_url)s (checkout: %(checkout_id)s; keranjang: %(cart_id)s; item: %(items)s; mata uang: %(currency)s).%(warning)s"
   },
   "it": {
-    "tool.description": "Gestisci una sessione di pagamento UCP. mode='create' — avvia un nuovo checkout.\nmode='get' — recupera lo stato corrente del checkout.\nmode='update' — modifica i campi del checkout.\nmode='complete' — finalizza l'ordine. Se l'azienda restituisce require_escalation con un continue_url, l'utente DEVE aprire quell'URL in un browser per completare il pagamento. Dopo che l'utente ha pagato nel browser, utilizza mode='poll' per attendere il completamento.\nmode='poll': sondaggi sullo stato del pagamento fino al completamento o timeout. Da utilizzare dopo che l'utente ha completato il pagamento tramite continue_url.",
+    "tool.description": "Gestisci i checkout UCP: crea, recupera, aggiorna, completa o esegui sondaggi. Se il flusso di pagamento restituisce il collegamento continue_url, l'utente deve aprirlo; sondaggio dopo.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL di base dell'attività.",
     "param.checkout_id.description": "ID sessione di pagamento (richiesto per ottenere/aggiornare/completare/sondaggio).",
@@ -528,7 +528,7 @@
     "describe.summary": "%(action)s alle %(business_url)s (pagamento: %(checkout_id)s; carrello: %(cart_id)s; articoli: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "ja": {
-    "tool.description": "UCP チェックアウト セッションを管理します。 mode='create' — 新しいチェックアウトを開始します。\nmode='get' — 現在のチェックアウト ステータスを取得します。\nmode='update' — チェックアウト フィールドを変更します。\nmode='complete' — 注文を確定します。ビジネスが continue_url を含む require_escalation を返した場合、ユーザーはブラウザでその URL を開いて支払いを完了する必要があります。ユーザーがブラウザで支払いを行った後、mode='poll' を使用して完了を待ちます。\nmode='poll' — 完了するかタイムアウトになるまでチェックアウト ステータスをポーリングします。ユーザーが continue_url 経由で支払いを完了した後に使用します。",
+    "tool.description": "UCPチェックアウトを作成・取得・更新・確定・ポーリングします。決済時にcontinue_urlが返った場合はユーザーが開き、その後pollで完了を確認します。",
     "param.mode.description": "モード: 'create' / 'get' / 'update' / 'complete' / 'poll'。",
     "param.business_url.description": "ビジネスのベース URL。",
     "param.checkout_id.description": "チェックアウト セッション ID (取得/更新/完了/ポーリングに必要)。",
@@ -561,7 +561,7 @@
     "describe.summary": "%(business_url)sで%(action)sします（チェックアウトID: %(checkout_id)s、カートID: %(cart_id)s、商品: %(items)s、通貨: %(currency)s）。%(warning)s"
   },
   "ko": {
-    "tool.description": "UCP 체크아웃 세션을 관리합니다. mode='create' — 새 체크아웃을 시작합니다.\nmode='get' — 현재 체크아웃 상태를 가져옵니다.\nmode='update' — 체크아웃 필드를 수정합니다.\nmode='complete' — 주문을 완료합니다. 비즈니스가 continue_url과 함께 require_escalation을 반환하는 경우 사용자는 결제를 완료하기 위해 브라우저에서 해당 URL을 열어야 합니다. 사용자가 브라우저에서 결제한 후 mode='poll'을 사용하여 완료될 때까지 기다립니다.\nmode='poll' — 완료되거나 시간 초과될 때까지 체크아웃 상태를 폴링합니다. continue_url을 통해 사용자가 결제를 완료한 후 사용하세요.",
+    "tool.description": "UCP 체크아웃 관리: 생성, 검색, 업데이트, 완료 또는 폴링. 결제 흐름에서 continue_url 링크를 반환하는 경우 사용자는 해당 링크를 열어야 합니다. 나중에 여론조사하세요.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "비즈니스의 기본 URL입니다.",
     "param.checkout_id.description": "Checkout 세션 ID(가져오기/업데이트/완료/폴링에 필요)",
@@ -594,7 +594,7 @@
     "describe.summary": "%(action)s, %(business_url)s(결제: %(checkout_id)s, 장바구니: %(cart_id)s, 품목: %(items)s, 통화: %(currency)s).%(warning)s"
   },
   "mn": {
-    "tool.description": "UCP тооцооны сессийг удирдах. mode='create' — шинэ тооцоо эхлүүлэх.\nmode='get' — одоогийн төлбөрийн төлөвийг дуудах.\nmode='update' — төлбөрийн талбаруудыг өөрчлөх.\nmode='complete' — захиалгыг дуусгах. Хэрэв бизнес нь үргэлжлүүлэх_url-тай_өсгөх шаардлагатай гэж буцаавал хэрэглэгч төлбөрөө дуусгахын тулд тэр URL-г хөтөч дээрээ нээх ЗААВАЛ ЗААВАЛ. Хэрэглэгч хөтчөөр төлбөрөө төлсний дараа дуусгахыг хүлээхийн тулд mode='poll'-г ашиглана уу.\nmode='poll' — санал асуулга дуусах хүртэл эсвэл хугацаа дуусах хүртэл санал асуулга. Хэрэглэгч continue_url-ээр төлбөрөө хийж дууссаны дараа ашиглана уу.",
+    "tool.description": "UCP тооцоог удирдах: үүсгэх, авах, шинэчлэх, дуусгах, санал асуулга хийх. Хэрэв төлбөрийн урсгал continue_url холбоосыг буцаавал хэрэглэгч үүнийг нээх ёстой; дараа нь санал асуулга.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Бизнесийн үндсэн URL.",
     "param.checkout_id.description": "Тооцоо хийх сесс ID (авах/шинэчлэх/бүрэн/санал асуулга явуулахад шаардлагатай).",
@@ -627,7 +627,7 @@
     "describe.summary": "%(action)s %(business_url)s (төлбөр хийх: %(checkout_id)s; сагс: %(cart_id)s; зүйлс: %(items)s; валют: %(currency)s).%(warning)s"
   },
   "mr": {
-    "tool.description": "UCP चेकआउट सत्र व्यवस्थापित करा. mode='create' — एक नवीन चेकआउट सुरू करा.\nmode='get' — वर्तमान चेकआउट स्थिती आणा.\nmode='update' — चेकआउट फील्ड सुधारित करा.\nmode='complete' — ऑर्डर अंतिम करा. जर व्यवसायाने continue_url द्वारे Requis_escalation परत केले, तर पेमेंट पूर्ण करण्यासाठी वापरकर्त्याने ती URL ब्राउझरमध्ये उघडली पाहिजे. वापरकर्त्याने ब्राउझरमध्ये पैसे दिल्यानंतर, पूर्ण होण्याची प्रतीक्षा करण्यासाठी mode='poll' वापरा.\nmode='poll' — मतदान चेकआउट स्थिती पूर्ण होईपर्यंत किंवा कालबाह्य होईपर्यंत. वापरकर्त्याने continue_url द्वारे पेमेंट पूर्ण केल्यानंतर वापरा.",
+    "tool.description": "UCP चेकआउट व्यवस्थापित करा: तयार करा, पुनर्प्राप्त करा, अपडेट करा, पूर्ण करा किंवा मतदान करा. जर देयक प्रवाह continue_url लिंक परत करत असेल, तर वापरकर्त्याने तो उघडणे आवश्यक आहे; नंतर मतदान.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "व्यवसायाची मूळ URL.",
     "param.checkout_id.description": "चेकआउट सत्र आयडी (गेट/अपडेट/पूर्ण/पोलसाठी आवश्यक).",
@@ -660,7 +660,7 @@
     "describe.summary": "%(business_url)s वाजता %(action)s (चेकआउट: %(checkout_id)s; कार्ट: %(cart_id)s; आयटम: %(items)s; चलन: %(currency)s).%(warning)s"
   },
   "ms": {
-    "tool.description": "Uruskan sesi pembayaran UCP. mod='create' — mulakan pembayaran baharu.\nmode='get' — ambil status pembayaran semasa.\nmode='update' — ubah suai medan pembayaran.\nmode='complete' — memuktamadkan pesanan. Jika perniagaan kembali memerlukan_escalation dengan continue_url, pengguna MESTI membuka URL tersebut dalam penyemak imbas untuk menyelesaikan pembayaran. Selepas pengguna membayar dalam penyemak imbas, gunakan mode='poll' untuk menunggu selesai.\nmode='poll' — status daftar keluar tinjauan pendapat sehingga selesai atau tamat masa. Gunakan selepas pengguna menyelesaikan pembayaran melalui continue_url.",
+    "tool.description": "Urus pembayaran UCP: buat, dapatkan semula, kemas kini, lengkapkan atau tinjauan pendapat. Jika aliran pembayaran mengembalikan pautan continue_url, pengguna mesti membukanya; undian selepas itu.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL asas perniagaan.",
     "param.checkout_id.description": "ID sesi pembayaran (diperlukan untuk mendapatkan/kemas kini/lengkap/pendapatan pendapat).",
@@ -693,7 +693,7 @@
     "describe.summary": "%(action)s di %(business_url)s (daftar keluar: %(checkout_id)s; troli: %(cart_id)s; item: %(items)s; mata wang: %(currency)s).%(warning)s"
   },
   "nb": {
-    "tool.description": "Administrer en UCP-utsjekkingsøkt. mode='create' — start en ny kasse.\nmode='get' — hent gjeldende kassestatus.\nmode='update' — endre kassefelt.\nmode='complete' — fullfør bestillingen. Hvis virksomheten returnerer requires_escalation med en continu_url, MÅ brukeren åpne denne URL-en i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.\nmode='poll' — avstemningsutsjekkingsstatus til fullført eller tidsavbrudd. Bruk etter at brukeren har fullført betaling via continu_url.",
+    "tool.description": "Administrer UCP-utsjekker: opprett, hent, oppdater, fullfør eller avstemning. Hvis betalingsflyten returnerer koblingen continue_url, må brukeren åpne den; avstemning etterpå.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Grunnadressen til bedriften.",
     "param.checkout_id.description": "Checkout økt-ID (påkrevd for å få/oppdatere/fullføre/avstemning).",
@@ -726,7 +726,7 @@
     "describe.summary": "%(action)s på %(business_url)s (kasse: %(checkout_id)s; handlekurv: %(cart_id)s; varer: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "nl": {
-    "tool.description": "Beheer een UCP-afrekensessie. mode='create' — start een nieuwe checkout.\nmode='get' — haal de huidige checkout-status op.\nmode='update' — wijzig de checkout-velden.\nmode='complete' — voltooi de bestelling. Als het bedrijf retourneert_escalatie vereist met een continue_url, MOET de gebruiker die URL in een browser openen om de betaling te voltooien. Nadat de gebruiker in de browser heeft betaald, gebruikt u mode='poll' om te wachten op voltooiing.\nmode='poll' — afrekenstatus van poll tot voltooiing of time-out. Gebruiken nadat de gebruiker de betaling heeft voltooid via continue_url.",
+    "tool.description": "Beheer UCP-afrekeningen: aanmaken, ophalen, bijwerken, voltooien of peilen. Als de betalingsstroom de link continue_url retourneert, moet de gebruiker deze openen; daarna peilen.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL van het bedrijf.",
     "param.checkout_id.description": "Afrekensessie-ID (vereist voor ophalen/update/voltooien/poll).",
@@ -759,7 +759,7 @@
     "describe.summary": "%(action)s om %(business_url)s (afrekenen: %(checkout_id)s; winkelwagen: %(cart_id)s; artikelen: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "nn": {
-    "tool.description": "Administrer en UCP-utsjekkingssesjon. mode='create' — start en ny utsjekkingssesjon.modus='get' — hent gjeldende utsjekkingsstatus.modus='update' — modifiser utsjekkingsfelt. modus='complete' — fullfør bestillingen. Hvis bedriften returnerer requires_escalation med en continue_url, MÅ brukeren åpne denne nettadressen i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.timeout. Bruk etter at brukeren har fullført betalingen via continue_url.",
+    "tool.description": "Administrer UCP-utsjekkingar: opprett, hent, oppdater, fullfør eller spør etter status. Dersom betalingsflyten returnerer lenkja continue_url, må brukaren opne henne; spør etter status etterpå.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL for virksomheten.",
     "param.checkout_id.description": "ID for checkout-økta (påkravd for get/update/complete/poll).",
@@ -792,7 +792,7 @@
     "describe.summary": "%(action)s at %(business_url)s (checkout: %(checkout_id)s; cart: %(cart_id)s; items: %(items)s; currency: %(currency)s).%(warning)s"
   },
   "pl": {
-    "tool.description": "Zarządzaj sesją realizacji transakcji UCP. mode='create' — rozpocznij nową transakcję.\nmode='get' — pobierz bieżący stan realizacji transakcji.\nmode='update' — zmodyfikuj pola kasy.\nmode='complete' — sfinalizuj zamówienie. Jeśli firma zwraca wymaga_eskalacji z adresem URL_kontynuacji, użytkownik MUSI otworzyć ten adres URL w przeglądarce, aby dokończyć płatność. Gdy użytkownik zapłaci w przeglądarce, użyj mode='poll', aby poczekać na zakończenie.\nmode='poll' — stan sprawdzania ankiety do zakończenia lub przekroczenia limitu czasu. Użyj, gdy użytkownik dokona płatności za pośrednictwem Continuous_url.",
+    "tool.description": "Zarządzaj kasami UCP: twórz, pobieraj, aktualizuj, kompletuj lub sonduj. Jeśli przepływ płatności zwróci link continue_url, użytkownik musi go otworzyć; ankieta później.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Podstawowy adres URL firmy.",
     "param.checkout_id.description": "Identyfikator sesji realizacji transakcji (wymagany do pobrania/aktualizacji/ukończenia/ankiety).",
@@ -825,7 +825,7 @@
     "describe.summary": "%(action)s o %(business_url)s (zamówienie: %(checkout_id)s; koszyk: %(cart_id)s; produkty: %(items)s; waluta: %(currency)s).%(warning)s"
   },
   "pt": {
-    "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
+    "tool.description": "Gerenciar checkouts UCP: criar, recuperar, atualizar, concluir ou pesquisar. Caso o fluxo de pagamento retorne o link continue_url, o usuário deverá abri-lo; enquete depois.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base da empresa.",
     "param.checkout_id.description": "ID da sessão de checkout (obrigatório para obter/atualizar/concluir/enquete).",
@@ -858,7 +858,7 @@
     "describe.summary": "%(action)s em %(business_url)s (checkout: %(checkout_id)s; carrinho: %(cart_id)s; itens: %(items)s; moeda: %(currency)s).%(warning)s"
   },
   "pt_BR": {
-    "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
+    "tool.description": "Gerenciar checkouts UCP: criar, recuperar, atualizar, concluir ou pesquisar. Caso o fluxo de pagamento retorne o link continue_url, o usuário deverá abri-lo; enquete depois.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base da empresa.",
     "param.checkout_id.description": "ID da sessão de checkout (obrigatório para obter/atualizar/concluir/enquete).",
@@ -891,7 +891,7 @@
     "describe.summary": "%(action)s em %(business_url)s (checkout: %(checkout_id)s; carrinho: %(cart_id)s; itens: %(items)s; moeda: %(currency)s).%(warning)s"
   },
   "ro": {
-    "tool.description": "Gestionați o sesiune de plată UCP. mode='create' — începeți o nouă casă.\nmode='get' — obțineți starea curentă de plată.\nmode='update' — modificați câmpurile de finalizare a plății.\nmode='complete' — finalizați comanda. Dacă afacerea revine requires_escalation cu un continue_url, utilizatorul TREBUIE să deschidă acea adresă URL într-un browser pentru a finaliza plata. După ce utilizatorul plătește în browser, utilizați mode='poll' pentru a aștepta finalizarea.\nmode='poll' — starea de verificare a sondajului până la finalizare sau expirare. Utilizați după ce utilizatorul finalizează plata prin continue_url.",
+    "tool.description": "Gestionați plățile UCP: creați, preluați, actualizați, completați sau sondaj. Dacă fluxul de plată returnează linkul continue_url, utilizatorul trebuie să îl deschidă; sondaj după aceea.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Adresa URL de bază a companiei.",
     "param.checkout_id.description": "ID-ul sesiunii de finalizare a plății (necesar pentru obținere/actualizare/finalizare/sondare).",
@@ -924,7 +924,7 @@
     "describe.summary": "%(action)s la %(business_url)s (checkout: %(checkout_id)s; coș: %(cart_id)s; articole: %(items)s; moneda: %(currency)s).%(warning)s"
   },
   "ru": {
-    "tool.description": "Управляйте сеансом оформления заказа UCP. mode='create' — начать новую проверку.\nmode='get' — получить текущий статус оформления заказа.\nmode='update' — изменить поля оформления заказа.\nmode='complete' — завершить заказ. Если бизнес возвращает require_escalation с continue_url, пользователь ДОЛЖЕН открыть этот URL-адрес в браузере для завершения платежа. После того, как пользователь оплатит в браузере, используйте mode='poll', чтобы дождаться завершения.\nmode='poll' — статус проверки опроса до завершения или истечения времени ожидания. Используйте после того, как пользователь завершит оплату через continue_url.",
+    "tool.description": "Управляйте проверками UCP: создавайте, получайте, обновляйте, завершайте или опрашивайте. Если поток платежей возвращает ссылку continue_url, пользователь должен открыть ее; опрос потом.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Базовый URL компании.",
     "param.checkout_id.description": "Идентификатор сеанса оформления заказа (требуется для получения/обновления/завершения/опроса).",
@@ -957,7 +957,7 @@
     "describe.summary": "%(action)s в %(business_url)s (оформление заказа: %(checkout_id)s; корзина: %(cart_id)s; товары: %(items)s; валюта: %(currency)s).%(warning)s"
   },
   "sv": {
-    "tool.description": "Hantera en UCP-utcheckningssession. mode='skapa' — starta en ny utcheckning.\nmode='get' — hämta aktuell kassastatus.\nmode='uppdatera' — ändra kassafält.\nmode='komplett' — slutföra beställningen. Om företaget returnerar requires_escalation med en continu_url, MÅSTE användaren öppna den webbadressen i en webbläsare för att slutföra betalningen. Efter att användaren har betalat i webbläsaren, använd mode='poll' för att vänta på slutförandet.\nmode='poll' — omröstningsutcheckningsstatus tills den är klar eller timeout. Använd efter att användaren har slutfört betalningen via continu_url.",
+    "tool.description": "Hantera UCP-utcheckningar: skapa, hämta, uppdatera, slutföra eller omrösta. Om betalningsflödet returnerar länken continue_url måste användaren öppna den; omröstning efteråt.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Företagets basadress.",
     "param.checkout_id.description": "Utcheckningssessions-ID (krävs för att hämta/uppdatera/slutföra/omröstning).",
@@ -990,7 +990,7 @@
     "describe.summary": "%(action)s vid %(business_url)s (utcheckning: %(checkout_id)s; kundvagn: %(cart_id)s; varor: %(items)s; valuta: %(currency)s).%(warning)s"
   },
   "sw": {
-    "tool.description": "Dhibiti kipindi cha malipo cha UCP. mode='unda' - anza malipo mapya.\nmode='pata' - pata hali ya sasa ya kulipa.\nmode='sasisha' - rekebisha sehemu za kulipa.\nmode='complete' — kamilisha agizo. Ikiwa biashara inarejesha inahitaji_kupanda kwa kuendelea na url, ni LAZIMA mtumiaji afungue URL hiyo kwenye kivinjari ili kukamilisha malipo. Baada ya mtumiaji kulipa katika kivinjari, tumia mode='poll' kusubiri kukamilika.\nmode='poll' — hali ya kulipa kura hadi ikamilike au kuisha. Tumia baada ya mtumiaji kukamilisha malipo kupitia kuendelea_url.",
+    "tool.description": "Dhibiti malipo ya UCP: unda, rudisha, sasisha, kamilisha au piga kura. Mtiririko wa malipo ukirejesha kiungo continue_url, ni lazima mtumiaji akifungue; uchaguzi baadaye.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL ya msingi ya biashara.",
     "param.checkout_id.description": "Kitambulisho cha kipindi cha Malipo (kinahitajika kupata/kusasisha/kamilisha/kupiga kura).",
@@ -1023,7 +1023,7 @@
     "describe.summary": "%(action)s kwa %(business_url)s (kulipa: %(checkout_id)s; rukwama: %(cart_id)s; vitu: %(items)s; sarafu: %(currency)s).%(warning)s"
   },
   "th": {
-    "tool.description": "จัดการเซสชันการชำระเงิน UCP mode='create' — เริ่มการชำระเงินใหม่ \nmode='get' — ดึงข้อมูลสถานะการชำระเงินปัจจุบัน \nmode='update' — แก้ไขฟิลด์การชำระเงิน \nmode='complete' — เสร็จสิ้นการสั่งซื้อ หากธุรกิจส่งคืน need_escalation ด้วย Continue_url ผู้ใช้จะต้องเปิด URL นั้นในเบราว์เซอร์เพื่อชำระเงินให้เสร็จสิ้น หลังจากที่ผู้ใช้ชำระเงินในเบราว์เซอร์ ให้ใช้ mode='poll' เพื่อรอจนเสร็จสิ้น\nmode='poll' — สถานะการชำระเงินของโพลจนกว่าจะเสร็จสิ้นหรือหมดเวลา ใช้หลังจากที่ผู้ใช้ชำระเงินผ่าน Continue_url เรียบร้อยแล้ว",
+    "tool.description": "จัดการการชำระเงิน UCP: สร้าง ดึงข้อมูล อัปเดต ดำเนินการให้เสร็จสิ้น หรือสำรวจความคิดเห็น หากขั้นตอนการชำระเงินส่งคืนลิงก์ continue_url ผู้ใช้จะต้องเปิดลิงก์ดังกล่าว สำรวจความคิดเห็นในภายหลัง",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL พื้นฐานของธุรกิจ",
     "param.checkout_id.description": "รหัสเซสชันการชำระเงิน (จำเป็นสำหรับการรับ/อัปเดต/กรอก/โพล)",
@@ -1056,7 +1056,7 @@
     "describe.summary": "%(action)s ที่ %(business_url)s (ชำระเงิน: %(checkout_id)s; รถเข็น: %(cart_id)s; รายการ: %(items)s; สกุลเงิน: %(currency)s).%(warning)s"
   },
   "tr": {
-    "tool.description": "UCP ödeme oturumunu yönetin. mode='create' — yeni bir ödeme başlat.\nmode='get' — mevcut ödeme durumunu getir.\nmode='update' — ödeme alanlarını değiştir.\nmode='complete' — siparişi sonlandır. İşletme, bir devam_url'si ile require_escalation değerini döndürürse, kullanıcının ödemeyi tamamlamak için bu URL'yi bir tarayıcıda açması GEREKİR. Kullanıcı tarayıcıda ödeme yaptıktan sonra, tamamlanmasını beklemek için mode='poll' komutunu kullanın.\nmode='poll' — tamamlanana veya zaman aşımına uğrayana kadar anket ödeme durumu. Kullanıcı devam_url yoluyla ödemeyi tamamladıktan sonra kullanın.",
+    "tool.description": "UCP kontrollerini yönetin: oluşturun, alın, güncelleyin, tamamlayın veya yoklayın. Ödeme akışı continue_url bağlantısını döndürürse kullanıcının bu bağlantıyı açması gerekir; sonrasında anket yapın.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "İşletmenin temel URL'si.",
     "param.checkout_id.description": "Ödeme oturumu kimliği (alma/güncelleme/tamamlama/anket için gereklidir).",
@@ -1089,7 +1089,7 @@
     "describe.summary": "%(action)s, %(business_url)s (ödeme: %(checkout_id)s; sepet: %(cart_id)s; öğeler: %(items)s; para birimi: %(currency)s).%(warning)s"
   },
   "uk": {
-    "tool.description": "Керуйте сеансом оформлення UCP. mode='create' — почати нову перевірку.\nmode='get' — отримати поточний статус перевірки.\nmode='update' — змінити поля перевірки.\nmode='complete' — завершити замовлення. Якщо компанія повертає запит requires_escalation із continue_url, користувач ПОВИНЕН відкрити цю URL-адресу в браузері, щоб завершити платіж. Після того, як користувач оплатить у браузері, використовуйте mode='poll', щоб дочекатися завершення.\nmode='poll' — статус перевірки опитування до завершення або час очікування. Використовуйте після того, як користувач завершить оплату через continue_url.",
+    "tool.description": "Керуйте перевірками UCP: створюйте, витягуйте, оновлюйте, завершуйте чи опитуйте. Якщо потік платежу повертає посилання continue_url, користувач повинен відкрити його; опитування потім.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Основна URL-адреса компанії.",
     "param.checkout_id.description": "Ідентифікатор сеансу перевірки (необхідний для отримання/оновлення/завершення/опитування).",
@@ -1122,7 +1122,7 @@
     "describe.summary": "%(action)s о %(business_url)s (оплата: %(checkout_id)s; кошик: %(cart_id)s; товари: %(items)s; валюта: %(currency)s).%(warning)s"
   },
   "vi": {
-    "tool.description": "Quản lý phiên thanh toán UCP. mode='create' — bắt đầu một lần thanh toán mới.\nmode='get' — tìm nạp trạng thái thanh toán hiện tại.\nmode='update' — sửa đổi các trường thanh toán.\nmode='complete' — hoàn tất đơn hàng. Nếu doanh nghiệp trả về require_escalation bằng continue_url, người dùng PHẢI mở URL đó trong trình duyệt để hoàn tất thanh toán. Sau khi người dùng thanh toán trên trình duyệt, hãy sử dụng mode='poll' để chờ hoàn thành.\nmode='poll' — trạng thái kiểm tra cuộc thăm dò ý kiến ​​cho đến khi hoàn thành hoặc hết thời gian chờ. Sử dụng sau khi người dùng hoàn tất thanh toán qua continue_url.",
+    "tool.description": "Quản lý thanh toán UCP: tạo, truy xuất, cập nhật, hoàn thành hoặc thăm dò ý kiến. Nếu luồng thanh toán trả về liên kết continue_url, người dùng phải mở liên kết đó; thăm dò ý kiến ​​sau đó.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL cơ sở của doanh nghiệp.",
     "param.checkout_id.description": "ID phiên thanh toán (bắt buộc để nhận/cập nhật/hoàn thành/thăm dò ý kiến).",
@@ -1155,7 +1155,7 @@
     "describe.summary": "%(action)s tại %(business_url)s (thanh toán: %(checkout_id)s; giỏ hàng: %(cart_id)s; mặt hàng: %(items)s; tiền tệ: %(currency)s).%(warning)s"
   },
   "zh_CN": {
-    "tool.description": "管理 UCP 结帐会话。 mode='create' — 开始新的结帐。\nmode='get' — 获取当前结帐状态。\nmode='update' — 修改结帐字段。\nmode='complete' — 完成订单。如果企业返回带有 continue_url 的 require_escalation，则用户必须在浏览器中打开该 URL 才能完成付款。用户在浏览器中付款后，使用 mode='poll' 等待完成。\nmode='poll' — 轮询结帐状态，直到完成或超时。用户通过 continue_url 完成支付后使用。",
+    "tool.description": "管理 UCP 签出：创建、检索、更新、完成或轮询。如果支付流程返回链接continue_url，则用户必须打开它；之后进行民意调查。",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "企业的基本 URL。",
     "param.checkout_id.description": "签出会话 ID（获取/更新/完成/轮询所需）。",
@@ -1188,7 +1188,7 @@
     "describe.summary": "%(action)s，%(business_url)s（结账：%(checkout_id)s；购物车：%(cart_id)s；商品：%(items)s；货币：%(currency)s）.%(warning)s"
   },
   "zh_TW": {
-    "tool.description": "管理 UCP 結帳會話。 mode='create' — 開始新的結帳。 \nmode='get' — 取得目前結帳狀態。 \nmode='update' — 修改結帳欄位。 \nmode='complete' — 完成訂單。如果企業傳回帶有 continue_url 的 require_escalation，則使用者必須在瀏覽器中開啟該 URL 才能完成付款。用戶在瀏覽器中付款後，使用 mode='poll' 等待完成。 \nmode='poll' — 輪詢結帳狀態，直到完成或逾時。使用者透過 continue_url 完成付款後使用。",
+    "tool.description": "管理 UCP 簽出：建立、檢索、更新、完成或輪詢。如果支付流程返回連結continue_url，則使用者必須打開它；之後進行民意調查。",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "企業的基本 URL。",
     "param.checkout_id.description": "簽出會話 ID（取得/更新/完成/輪詢所需）。",

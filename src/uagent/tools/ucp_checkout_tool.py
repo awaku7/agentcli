@@ -31,16 +31,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Manage a UCP checkout session. "
-                "mode='create' — start a new checkout.\n"
-                "mode='get' — fetch current checkout status.\n"
-                "mode='update' — modify checkout fields.\n"
-                "mode='complete' — finalize the order. "
-                "If the business returns requires_escalation with a continue_url, "
-                "the user MUST open that URL in a browser to complete payment. "
-                "After the user pays in the browser, use mode='poll' to wait for completion.\n"
-                "mode='poll' — poll checkout status until completed or timeout. "
-                "Use after the user completes payment via continue_url."
+                "Manage UCP checkouts: create, retrieve, update, complete, or poll. If the payment flow returns the link continue_url, the user must open it; poll afterward."
             ),
         ),
         "parameters": {

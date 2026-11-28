@@ -38,10 +38,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a Word document (.docx) into headings and paragraph sections, "
-                "returning a numbered index or a specific section. Use this when reading large Word files: "
-                "call with mode='index' to get heading table of contents and previews, then call with "
-                "mode='section' and section=N to retrieve the content under that heading."
+                "Parse Word headings and paragraphs and retrieve selected sections."
             ),
         ),
         "x_search_terms": _(

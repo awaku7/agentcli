@@ -17,12 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a Java (.java) file into classes, interfaces, enums, records, "
-                "methods, constructors, and fields and return a numbered index or a "
-                "specific definition section. Use this when you need to read a large "
-                ".java file: first call with mode='index' to get the table of contents, "
-                "then call with mode='section' and the section number to retrieve only "
-                "the definition you need. This saves tokens compared to reading the entire file."
+                "Parse Java files to find types and members and extract selected definitions."
             ),
         ),
         "x_search_terms": _(

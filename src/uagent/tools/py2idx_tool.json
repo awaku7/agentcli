@@ -25,7 +25,7 @@
     "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n定義の合計: {total}\n定義を取得するには、mode='section' とセクション番号を指定して py2idx を呼び出します。",
     "param.mode.description": "「index」は、行番号を含む番号付きの目次を返します。「セクション」は、特定の定義を番号で返します。",
     "param.section.description": "取得するセクション番号 (mode='section' の場合にのみ使用)。インデックス出力から数値を取得します。",
-    "tool.description": "Python ファイルを関数、クラス、メソッドに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな Python ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。これにより、ファイル全体を読み取る場合と比較してトークンが節約されます。"
+    "tool.description": "Pythonファイルから関数・クラスを探し、指定した定義を取得します。"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -53,7 +53,7 @@
     "param.mode.description": "“index”返回带有行号的编号目录。 “section”按数字返回特定定义。",
     "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 py2idx。",
-    "tool.description": "将 Python 文件解析为函数、类和方法，并返回编号索引或特定定义部分。当您需要读取大型 Python 文件时，请使用此方法：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的定义。与读取整个文件相比，这可以节省令牌。"
+    "tool.description": "解析 Python 文件以查找类和函数并提取选定的定义。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -81,7 +81,7 @@
     "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按數字返回特定定義。",
     "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 py2idx。",
-    "tool.description": "將 Python 檔案解析為函數、類別和方法，並傳回編號索引或特定定義部分。當您需要讀取大型 Python 檔案時，請使用此方法：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅檢索您需要的定義。與讀取整個文件相比，這可以節省令牌。"
+    "tool.description": "解析 Python 檔案以尋找類別和函數並提取選定的定義。"
   },
   "ko": {
     "x_search_terms": [
@@ -109,7 +109,7 @@
     "param.mode.description": "\"index\"는 줄 번호와 함께 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
     "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
     "msg.index_output": "색인: {path}\n---\n{toc}\n---\n전체 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 py2idx를 호출하세요.",
-    "tool.description": "Python 파일을 함수, 클래스 및 메서드로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 큰 Python 파일을 읽어야 할 때 이것을 사용하십시오. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 정의만 검색하십시오. 이렇게 하면 전체 파일을 읽는 것에 비해 토큰이 절약됩니다."
+    "tool.description": "Python 파일을 구문 분석하여 클래스와 함수를 찾고 선택한 정의를 추출합니다."
   },
   "fr": {
     "x_search_terms": [
@@ -137,7 +137,7 @@
     "param.mode.description": "\"index\" renvoie une table des matières numérotée avec des numéros de ligne. \"section\" renvoie une définition spécifique par numéro.",
     "param.section.description": "Numéro de section à récupérer (utilisé uniquement lorsque mode='section'). Obtenez le numéro de la sortie d’index.",
     "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez py2idx avec mode='section' et le numéro de section.",
-    "tool.description": "Analysez un fichier Python en fonctions, classes et méthodes et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire un gros fichier Python : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement la définition dont vous avez besoin. Cela permet d'économiser des jetons par rapport à la lecture de l'intégralité du fichier."
+    "tool.description": "Analyser les fichiers Python pour rechercher des classes et des fonctions et extraire les définitions sélectionnées."
   },
   "de": {
     "x_search_terms": [
@@ -165,7 +165,7 @@
     "param.mode.description": "„index“ gibt ein nummeriertes Inhaltsverzeichnis mit Zeilennummern zurück. „Abschnitt“ gibt eine bestimmte Definition anhand der Nummer zurück.",
     "param.section.description": "Nummer des abzurufenden Abschnitts (wird nur verwendet, wenn mode='section'). Rufen Sie die Nummer aus der Indexausgabe ab.",
     "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie py2idx mit mode='section' und der Abschnittsnummer auf.",
-    "tool.description": "Analysieren Sie eine Python-Datei in Funktionen, Klassen und Methoden und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große Python-Datei lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die Definition abzurufen, die Sie benötigen. Dies spart Token im Vergleich zum Lesen der gesamten Datei."
+    "tool.description": "Analysieren Sie Python-Dateien, um Klassen und Funktionen zu finden und ausgewählte Definitionen zu extrahieren."
   },
   "es": {
     "x_search_terms": [
@@ -193,7 +193,7 @@
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a py2idx con mode='sección' y el número de sección.",
     "param.mode.description": "\"índice\" devuelve una tabla de contenido numerada con números de línea. \"sección\" devuelve una definición específica por número.",
     "param.section.description": "Número de sección a recuperar (usado solo cuando modo='sección'). Obtenga el número de la salida del índice.",
-    "tool.description": "Analiza un archivo Python en funciones, clases y métodos y devuelve un índice numerado o una sección de definición específica. Use esto cuando necesite leer un archivo Python grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo la definición que necesita. Esto ahorra tokens en comparación con leer el archivo completo."
+    "tool.description": "Analiza archivos Python para encontrar clases y funciones y extraer definiciones seleccionadas."
   },
   "it": {
     "x_search_terms": [
@@ -221,7 +221,7 @@
     "param.mode.description": "\"index\" restituisce un sommario numerato con numeri di riga. \"sezione\" restituisce una definizione specifica per numero.",
     "param.section.description": "Numero di sezione da recuperare (utilizzato solo quando mode='section'). Ottieni il numero dall'output dell'indice.",
     "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nDefinizioni totali: {total}\nPer recuperare una definizione, chiama py2idx con mode='section' e il numero della sezione.",
-    "tool.description": "Analizza un file Python in funzioni, classi e metodi e restituisce un indice numerato o una sezione di definizione specifica. Usalo quando devi leggere un file Python di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo la definizione che ti serve. Ciò consente di risparmiare token rispetto alla lettura dell'intero file."
+    "tool.description": "Analizza i file Python per trovare classi e funzioni ed estrarre le definizioni selezionate."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -249,7 +249,7 @@
     "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame py2idx com mode='section' e o número da seção.",
-    "tool.description": "Analise um arquivo Python em funções, classes e métodos e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo Python grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
+    "tool.description": "Analise arquivos Python para encontrar classes e funções e extrair definições selecionadas."
   },
   "pt": {
     "x_search_terms": [
@@ -277,7 +277,7 @@
     "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame py2idx com mode='section' e o número da seção.",
-    "tool.description": "Analise um arquivo Python em funções, classes e métodos e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo Python grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
+    "tool.description": "Analise arquivos Python para encontrar classes e funções e extrair definições selecionadas."
   },
   "ru": {
     "x_search_terms": [
@@ -305,7 +305,7 @@
     "param.mode.description": "«index» возвращает пронумерованное оглавление с номерами строк. «раздел» возвращает конкретное определение по номеру.",
     "param.section.description": "Номер раздела, который требуется получить (используется только в том случае, если mode='section'). Получите число из вывода индекса.",
     "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите py2idx с mode='section' и номером раздела.",
-    "tool.description": "Разберите файл Python на функции, классы и методы и верните нумерованный индекс или конкретный раздел определения. Используйте это, когда вам нужно прочитать большой файл Python: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только то определение, которое вам нужно. Это экономит токены по сравнению с чтением всего файла."
+    "tool.description": "Анализируйте файлы Python, чтобы найти классы и функции и извлечь выбранные определения."
   },
   "id": {
     "x_search_terms": [
@@ -333,7 +333,7 @@
     "param.mode.description": "\"indeks\" mengembalikan daftar isi bernomor dengan nomor baris. \"bagian\" mengembalikan definisi spesifik berdasarkan nomor.",
     "param.section.description": "Nomor bagian yang akan diambil (hanya digunakan ketika mode='bagian'). Dapatkan nomor dari output indeks.",
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal definisi: {total}\nUntuk mengambil definisi, panggil py2idx dengan mode='section' dan nomor bagian.",
-    "tool.description": "Parsing file Python menjadi fungsi, kelas, dan metode dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca file Python besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, kemudian panggil dengan mode='section' dan nomor bagian untuk mengambil definisi yang Anda perlukan saja. Ini menghemat token dibandingkan dengan membaca seluruh file."
+    "tool.description": "Parsing file Python untuk menemukan kelas dan fungsi serta mengekstrak definisi yang dipilih."
   },
   "vi": {
     "x_search_terms": [
@@ -361,7 +361,7 @@
     "param.mode.description": "\"index\" trả về một mục lục được đánh số cùng với số dòng. \"phần\" trả về một định nghĩa cụ thể theo số.",
     "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
     "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi py2idx với mode='section' và số phần.",
-    "tool.description": "Phân tích tệp Python thành các hàm, lớp và phương thức rồi trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Sử dụng tính năng này khi bạn cần đọc một tệp Python lớn: trước tiên hãy gọi bằng mode='index' để lấy mục lục, sau đó gọi bằng mode='section' và số phần để chỉ truy xuất định nghĩa bạn cần. Điều này tiết kiệm mã thông báo so với việc đọc toàn bộ tệp."
+    "tool.description": "Phân tích cú pháp các tệp Python để tìm các lớp và hàm cũng như trích xuất các định nghĩa đã chọn."
   },
   "pl": {
     "x_search_terms": [
@@ -389,7 +389,7 @@
     "param.mode.description": "„indeks” zwraca numerowany spis treści z numerami wierszy. „sekcja” zwraca konkretną definicję według numeru.",
     "param.section.description": "Numer sekcji do pobrania (używany tylko wtedy, gdy tryb = „sekcja”). Pobierz liczbę z wyniku indeksu.",
     "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nWszystkie definicje: {total}\nAby pobrać definicję, wywołaj py2idx z mode='section' i numerem sekcji.",
-    "tool.description": "Przeanalizuj plik Pythona na funkcje, klasy i metody i zwróć numerowany indeks lub określoną sekcję definicji. Użyj tego, gdy chcesz przeczytać duży plik Pythona: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną definicję. Oszczędza to tokeny w porównaniu do odczytu całego pliku."
+    "tool.description": "Analizuj pliki Pythona, aby znaleźć klasy i funkcje oraz wyodrębnić wybrane definicje."
   },
   "hi": {
     "x_search_terms": [
@@ -417,7 +417,7 @@
     "param.mode.description": "\"सूचकांक\" पंक्ति संख्याओं के साथ सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
     "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
     "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, py2idx को mode='section' और सेक्शन नंबर के साथ कॉल करें।",
-    "tool.description": "पायथन फ़ाइल को फ़ंक्शंस, कक्षाओं और विधियों में पार्स करें और एक क्रमांकित इंडेक्स या एक विशिष्ट परिभाषा अनुभाग लौटाएं। जब आपको एक बड़ी पायथन फ़ाइल को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री की तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही परिभाषा प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है। यह संपूर्ण फ़ाइल को पढ़ने की तुलना में टोकन बचाता है।"
+    "tool.description": "कक्षाओं और कार्यों को खोजने और चयनित परिभाषाओं को निकालने के लिए पायथन फ़ाइलों को पार्स करें।"
   },
   "ar": {
     "x_search_terms": [
@@ -445,7 +445,7 @@
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم بأرقام الأسطر. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
     "param.section.description": "رقم القسم المطلوب استرداده (يُستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
     "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ py2idx مع mode='section' ورقم القسم.",
-    "tool.description": "قم بتحليل ملف Python إلى وظائف وفئات وأساليب وإرجاع فهرس مرقّم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة ملف بايثون كبير: اتصل أولاً بـ mode='index' للحصول على جدول المحتويات، ثم اتصل بـ mode='section' ورقم القسم لاسترداد التعريف الذي تحتاجه فقط. يؤدي هذا إلى حفظ الرموز المميزة مقارنة بقراءة الملف بأكمله."
+    "tool.description": "تحليل ملفات Python للعثور على الفئات والوظائف واستخراج التعريفات المحددة."
   },
   "sv": {
     "x_search_terms": [
@@ -473,7 +473,7 @@
     "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning med radnummer. \"sektion\" returnerar en specifik definition med nummer.",
     "param.section.description": "Sektionsnummer att hämta (används endast när mode='sektion'). Få numret från indexutgången.",
     "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotala definitioner: {total}\nFör att hämta en definition, ring py2idx med mode='section' och sektionsnumret.",
-    "tool.description": "Analysera en Python-fil i funktioner, klasser och metoder och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor Python-fil: anrop först med mode='index' för att få innehållsförteckningen, ring sedan med mode='section' och sektionsnumret för att bara hämta den definition du behöver. Detta sparar tokens jämfört med att läsa hela filen."
+    "tool.description": "Analysera Python-filer för att hitta klasser och funktioner och extrahera valda definitioner."
   },
   "sw": {
     "x_search_terms": [
@@ -501,7 +501,7 @@
     "param.mode.description": "\"index\" hurejesha jedwali la yaliyomo lenye nambari na nambari za mstari. \"sehemu\" inarudisha ufafanuzi maalum kwa nambari.",
     "param.section.description": "Nambari ya sehemu ya kurejesha (inatumika tu wakati mode='sehemu'). Pata nambari kutoka kwa matokeo ya faharisi.",
     "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\n Jumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga py2idx ukitumia mode='section' na nambari ya sehemu.",
-    "tool.description": "Changanua faili ya Python kuwa kazi, madarasa, na mbinu na urudishe faharisi iliyohesabiwa au sehemu maalum ya ufafanuzi. Tumia hii unapohitaji kusoma faili kubwa ya Python: kwanza piga simu na mode='index' ili kupata jedwali la yaliyomo, kisha piga simu na mode='sehemu' na nambari ya sehemu ili kupata ufafanuzi unaohitaji tu. Hii huokoa tokeni ikilinganishwa na kusoma faili nzima."
+    "tool.description": "Changanua faili za Python ili kupata madarasa na vitendakazi na kutoa ufafanuzi uliochaguliwa."
   },
   "nb": {
     "x_search_terms": [
@@ -529,7 +529,7 @@
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
     "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring py2idx med mode='section' og seksjonsnummeret.",
-    "tool.description": "Parse en Python-fil i funksjoner, klasser og metoder og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk dette når du trenger å lese en stor Python-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger. Dette sparer tokens sammenlignet med å lese hele filen."
+    "tool.description": "Parse Python-filer for å finne klasser og funksjoner og trekke ut utvalgte definisjoner."
   },
   "nl": {
     "x_search_terms": [
@@ -557,7 +557,7 @@
     "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave met regelnummers. \"sectie\" retourneert een specifieke definitie op nummer.",
     "param.section.description": "Op te halen sectienummer (alleen gebruikt wanneer mode='sectie'). Haal het nummer op uit de indexuitvoer.",
     "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal definities: {total}\nOm een definitie op te halen, roept u py2idx aan met mode='section' en het sectienummer.",
-    "tool.description": "Parseer een Python-bestand in functies, klassen en methoden en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit als je een groot Python-bestand moet lezen: roep eerst aan met mode='index' om de inhoudsopgave te krijgen, roep vervolgens aan met mode='section' en het sectienummer om alleen de definitie op te halen die je nodig hebt. Dit bespaart tokens in vergelijking met het lezen van het hele bestand."
+    "tool.description": "Parseer Python-bestanden om klassen en functies te vinden en geselecteerde definities te extraheren."
   },
   "fi": {
     "x_search_terms": [
@@ -585,7 +585,7 @@
     "param.mode.description": "\"indeksi\" palauttaa numeroidun sisällysluettelon rivinumeroineen. \"osio\" palauttaa tietyn määritelmän numerolla.",
     "param.section.description": "Haettavan osan numero (käytetään vain, kun mode='osio'). Hanki numero indeksitulosteesta.",
     "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nHae määritelmä soittamalla py2idx:lle mode='section' ja osion numero.",
-    "tool.description": "Jäsennä Python-tiedosto funktioiksi, luokiksi ja menetelmiksi ja palauta numeroitu indeksi tai tietty määritelmäosio. Käytä tätä, kun sinun on luettava suuri Python-tiedosto: soita ensin mode='index' saadaksesi sisällysluettelon, sitten mode='section' ja osion numero hakeaksesi vain tarvitsemasi määritelmän. Tämä säästää tunnuksia verrattuna koko tiedoston lukemiseen."
+    "tool.description": "Jäsennä Python-tiedostoja löytääksesi luokat ja funktiot ja purkaa valitut määritelmät."
   },
   "cs": {
     "x_search_terms": [
@@ -613,7 +613,7 @@
     "param.mode.description": "\"index\" vrátí očíslovaný obsah s čísly řádků. \"sekce\" vrátí konkrétní definici podle čísla.",
     "param.section.description": "Číslo sekce k načtení (používá se pouze při mode='section'). Získejte číslo z výstupu indexu.",
     "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li načíst definici, zavolejte py2idx s mode='section' a číslem sekce.",
-    "tool.description": "Analyzujte soubor Pythonu na funkce, třídy a metody a vraťte očíslovaný index nebo konkrétní sekci definice. Použijte to, když potřebujete přečíst velký soubor Python: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze definici, kterou potřebujete. To šetří tokeny ve srovnání s čtením celého souboru."
+    "tool.description": "Analyzujte soubory Pythonu, abyste našli třídy a funkce a extrahovali vybrané definice."
   },
   "uk": {
     "x_search_terms": [
@@ -641,7 +641,7 @@
     "param.mode.description": "\"index\" повертає пронумерований зміст із номерами рядків. \"section\" повертає конкретне визначення за номером.",
     "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
     "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте py2idx з mode='section' і номером розділу.",
-    "tool.description": "Розберіть файл Python на функції, класи та методи та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати великий файл Python: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібне визначення. Це зберігає токени порівняно з читанням усього файлу."
+    "tool.description": "Проаналізуйте файли Python, щоб знайти класи та функції та видобути вибрані визначення."
   },
   "tr": {
     "x_search_terms": [
@@ -669,7 +669,7 @@
     "param.mode.description": "\"index\", satır numaralarıyla birlikte numaralandırılmış bir içindekiler tablosu döndürür. \"bölüm\" sayıya göre belirli bir tanımı döndürür.",
     "param.section.description": "Alınacak bölüm numarası (yalnızca mode='bölüm' olduğunda kullanılır). Dizin çıktısından numarayı alın.",
     "msg.index_output": "Dizin: {path}\n---\n{toc}\n---\nToplam tanımlar: {total}\nBir tanımı almak için mode='section' ve bölüm numarasıyla py2idx'i çağırın.",
-    "tool.description": "Bir Python dosyasını işlevlere, sınıflara ve yöntemlere ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir Python dosyasını okumanız gerektiğinde bunu kullanın: önce içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan tanımı almak için mode='section' ve bölüm numarasıyla çağrı yapın. Bu, dosyanın tamamını okumaya kıyasla belirteçlerden tasarruf sağlar."
+    "tool.description": "Sınıfları ve işlevleri bulmak ve seçilen tanımları çıkarmak için Python dosyalarını ayrıştırın."
   },
   "th": {
     "x_search_terms": [
@@ -697,7 +697,7 @@
     "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีตัวเลขพร้อมหมายเลขบรรทัด \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
     "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
     "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก py2idx ด้วย mode='section' และหมายเลขส่วน",
-    "tool.description": "แยกไฟล์ Python ออกเป็นฟังก์ชัน คลาส และเมธอด แล้วส่งคืนดัชนีที่เป็นตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านไฟล์ Python ขนาดใหญ่ ขั้นแรกให้เรียกด้วย mode='index' เพื่อรับสารบัญ จากนั้นจึงเรียกด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะคำจำกัดความที่คุณต้องการ วิธีนี้จะช่วยประหยัดโทเค็นเมื่อเทียบกับการอ่านไฟล์ทั้งหมด"
+    "tool.description": "แยกวิเคราะห์ไฟล์ Python เพื่อค้นหาคลาสและฟังก์ชัน และแยกคำจำกัดความที่เลือก"
   },
   "bn": {
     "x_search_terms": [
@@ -725,7 +725,7 @@
     "param.mode.description": "\"সূচী\" লাইন সংখ্যা সহ বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" সংখ্যা দ্বারা একটি নির্দিষ্ট সংজ্ঞা প্রদান করে।",
     "param.section.description": "পুনরুদ্ধার করার জন্য বিভাগ নম্বর (শুধুমাত্র যখন মোড = 'বিভাগ' ব্যবহার করা হয়)। সূচক আউটপুট থেকে নম্বর পান।",
     "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\nএকটি সংজ্ঞা পুনরুদ্ধার করতে, mode='section' এবং সেকশন নম্বর সহ py2idx কল করুন।",
-    "tool.description": "একটি পাইথন ফাইলকে ফাংশন, ক্লাস এবং পদ্ধতিতে পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগ প্রদান করুন। যখন আপনার একটি বড় পাইথন ফাইল পড়ার প্রয়োজন হয় তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর আপনার প্রয়োজনীয় সংজ্ঞাটি পুনরুদ্ধার করতে mode='section' এবং সেকশন নম্বর দিয়ে কল করুন। এটি সম্পূর্ণ ফাইল পড়ার তুলনায় টোকেন সংরক্ষণ করে।"
+    "tool.description": "ক্লাস এবং ফাংশন খুঁজে পেতে পাইথন ফাইল পার্স করুন এবং নির্বাচিত সংজ্ঞা বের করুন।"
   },
   "fa": {
     "x_search_terms": [
@@ -753,7 +753,7 @@
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
     "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
     "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، py2idx را با mode='section' و شماره بخش فراخوانی کنید.",
-    "tool.description": "یک فایل پایتون را به توابع، کلاس ها و متدها تجزیه کنید و یک شاخص شماره گذاری شده یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل بزرگ پایتون دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط تعریف مورد نیاز خود را بازیابی کنید. این توکن ها را در مقایسه با خواندن کل فایل ذخیره می کند."
+    "tool.description": "فایل های پایتون را برای یافتن کلاس ها و توابع و استخراج تعاریف انتخاب شده تجزیه کنید."
   },
   "mn": {
     "x_search_terms": [
@@ -781,7 +781,7 @@
     "param.mode.description": "\"индекс\" нь мөрийн дугаар бүхий дугаарлагдсан агуулгын хүснэгтийг буцаана. \"хэсэг\" нь тоогоор тодорхой тодорхойлолтыг буцаана.",
     "param.section.description": "Татаж авах хэсгийн дугаар (зөвхөн mode='section' үед хэрэглэнэ). Индекс гаралтаас дугаарыг авна уу.",
     "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт тодорхойлолт: {total}\nТодорхойлолтыг сэргээхийн тулд mode='section' болон хэсгийн дугаартай py2idx руу залгана уу.",
-    "tool.description": "Python файлыг функц, анги, арга болгон задалж, дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана уу. Том хэмжээний Python файлыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаж зөвхөн хэрэгтэй тодорхойлолтыг аваарай. Энэ нь файлыг бүхэлд нь уншихтай харьцуулахад жетоныг хэмнэдэг."
+    "tool.description": "Python файлуудыг задлан анги, функцуудыг хайж, сонгосон тодорхойлолтыг задлана."
   },
   "mr": {
     "x_search_terms": [
@@ -809,7 +809,7 @@
     "param.mode.description": "\"इंडेक्स\" ओळ क्रमांकांसह सामग्रीची क्रमांकित सारणी मिळवते. \"विभाग\" संख्येनुसार विशिष्ट व्याख्या देतो.",
     "param.section.description": "पुनर्प्राप्त करण्यासाठी विभाग क्रमांक (केवळ मोड='विभाग' तेव्हाच वापरला जातो). इंडेक्स आउटपुटमधून नंबर मिळवा.",
     "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\n व्याख्या पुनर्प्राप्त करण्यासाठी, मोड='विभाग' आणि विभाग क्रमांकासह py2idx वर कॉल करा.",
-    "tool.description": "फंक्शन्स, क्लासेस आणि पद्धतींमध्ये पायथन फाइल पार्स करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला एक मोठी Python फाइल वाचायची असेल तेव्हा याचा वापर करा: सामग्री सारणी मिळवण्यासाठी प्रथम mode='index' सह कॉल करा, नंतर mode='section' सह कॉल करा आणि तुम्हाला आवश्यक असलेली व्याख्या पुनर्प्राप्त करण्यासाठी विभाग क्रमांक. संपूर्ण फाइल वाचण्याच्या तुलनेत हे टोकन वाचवते."
+    "tool.description": "वर्ग आणि कार्ये शोधण्यासाठी पायथन फाइल्स पार्स करा आणि निवडलेल्या व्याख्या काढा."
   },
   "el": {
     "x_search_terms": [
@@ -837,7 +837,7 @@
     "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων με αριθμούς γραμμών. Το \"section\" επιστρέφει έναν συγκεκριμένο ορισμό με αριθμό.",
     "param.section.description": "Αριθμός ενότητας για ανάκτηση (χρησιμοποιείται μόνο όταν mode='section'). Λάβετε τον αριθμό από την έξοδο ευρετηρίου.",
     "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣυνολικοί ορισμοί: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το py2idx με mode='section' και τον αριθμό ενότητας.",
-    "tool.description": "Αναλύστε ένα αρχείο Python σε συναρτήσεις, κλάσεις και μεθόδους και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο αρχείο Python: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τον ορισμό που χρειάζεστε. Αυτό εξοικονομεί διακριτικά σε σύγκριση με την ανάγνωση ολόκληρου του αρχείου."
+    "tool.description": "Αναλύστε τα αρχεία Python για να βρείτε κλάσεις και συναρτήσεις και να εξαγάγετε επιλεγμένους ορισμούς."
   },
   "he": {
     "x_search_terms": [
@@ -865,7 +865,7 @@
     "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר עם מספרי שורות. \"קטע\" מחזיר הגדרה ספציפית לפי מספר.",
     "param.section.description": "מספר סעיף לאחזור (משמש רק כאשר mode='section'). קבל את המספר מפלט האינדקס.",
     "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {total}\nכדי לאחזר הגדרה, התקשר ל-py2idx עם mode='section' ומספר הקטע.",
-    "tool.description": "נתח קובץ Python לפונקציות, מחלקות ושיטות והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא קובץ Python גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את ההגדרה שאתה צריך. זה חוסך אסימונים בהשוואה לקריאת הקובץ כולו."
+    "tool.description": "נתח קבצי Python כדי למצוא מחלקות ופונקציות ולחלץ הגדרות נבחרות."
   },
   "hu": {
     "x_search_terms": [
@@ -893,7 +893,7 @@
     "param.mode.description": "Az \"index\" számozott tartalomjegyzéket ad vissza sorszámokkal. A \"szakasz\" egy adott definíciót ad vissza szám szerint.",
     "param.section.description": "A lekérendő szakasz száma (csak akkor használatos, ha mode='szakasz'). Szerezze le a számot az indexkimenetből.",
     "msg.index_output": "Index a következőhöz: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nDefiníció lekéréséhez hívja a py2idx-et a mode='section' paraméterrel és a szakaszszámmal.",
-    "tool.description": "Elemezze a Python-fájlt függvényekké, osztályokká és metódusokká, és adja vissza a számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha nagy Python-fájlt kell olvasnia: először hívja meg a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja meg a mode='section' és a szakaszszámot, hogy csak a szükséges definíciót kérje le. Ez a tokeneket menti a teljes fájl elolvasásához képest."
+    "tool.description": "A Python-fájlok elemzése osztályok és függvények kereséséhez, valamint a kiválasztott definíciók kibontásához."
   },
   "ro": {
     "x_search_terms": [
@@ -921,7 +921,7 @@
     "param.mode.description": "„index” returnează un cuprins numerotat cu numere de rând. „secțiune” returnează o definiție specifică prin număr.",
     "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
     "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați py2idx cu mode='section' și numărul secțiunii.",
-    "tool.description": "Analizați un fișier Python în funcții, clase și metode și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier Python mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua doar definiția de care aveți nevoie. Acest lucru economisește jetoane în comparație cu citirea întregului fișier."
+    "tool.description": "Analizați fișierele Python pentru a găsi clase și funcții și pentru a extrage definițiile selectate."
   },
   "fil": {
     "x_search_terms": [
@@ -949,7 +949,7 @@
     "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga kahulugan: {total}\nUpang kumuha ng kahulugan, tawagan ang py2idx na may mode='section' at ang numero ng seksyon.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng isang may bilang na talaan ng mga nilalaman na may mga numero ng linya. Ang \"seksyon\" ay nagbabalik ng isang tiyak na kahulugan ayon sa numero.",
     "param.section.description": "Numero ng seksyon na kukunin (ginagamit lamang kapag ang mode='section'). Kunin ang numero mula sa index output.",
-    "tool.description": "I-parse ang isang Python file sa mga function, klase, at pamamaraan at ibalik ang isang may bilang na index o isang partikular na seksyon ng kahulugan. Gamitin ito kapag kailangan mong magbasa ng malaking file ng Python: tumawag muna gamit ang mode='index' para makuha ang talaan ng mga nilalaman, pagkatapos ay tumawag gamit ang mode='section' at ang numero ng seksyon upang makuha lamang ang kahulugan na kailangan mo. Nagse-save ito ng mga token kumpara sa pagbabasa ng buong file."
+    "tool.description": "I-parse ang mga file ng Python upang mahanap ang mga klase at function at i-extract ang mga napiling kahulugan."
   },
   "ms": {
     "x_search_terms": [
@@ -977,7 +977,7 @@
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah takrifan: {total}\nUntuk mendapatkan semula definisi, panggil py2idx dengan mod='section' dan nombor bahagian.",
     "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor dengan nombor baris. \"bahagian\" mengembalikan definisi khusus mengikut nombor.",
     "param.section.description": "Nombor bahagian untuk diambil (hanya digunakan apabila mod='section'). Dapatkan nombor daripada output indeks.",
-    "tool.description": "Parsing fail Python ke dalam fungsi, kelas dan kaedah dan kembalikan indeks bernombor atau bahagian definisi tertentu. Gunakan ini apabila anda perlu membaca fail Python yang besar: mula-mula panggil dengan mode='index' untuk mendapatkan jadual kandungan, kemudian panggil dengan mod='section' dan nombor bahagian untuk mendapatkan definisi yang anda perlukan sahaja. Ini menjimatkan token berbanding membaca keseluruhan fail."
+    "tool.description": "Menghuraikan fail Python untuk mencari kelas dan fungsi serta mengekstrak definisi yang dipilih."
   },
   "da": {
     "x_search_terms": [
@@ -1005,7 +1005,7 @@
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nDefinitioner i alt: {total}\nFor at hente en definition skal du ringe til py2idx med mode='section' og sektionsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse med linjenumre. \"sektion\" returnerer en specifik definition ved tal.",
     "param.section.description": "Sektionsnummer at hente (bruges kun når mode='sektion'). Få tallet fra indeksoutput.",
-    "tool.description": "Parse en Python-fil i funktioner, klasser og metoder og returner et nummereret indeks eller en specifik definitionssektion. Brug dette, når du skal læse en stor Python-fil: ring først med mode='index' for at få indholdsfortegnelsen, kald derefter med mode='section' og sektionsnummeret for kun at hente den definition, du har brug for. Dette sparer tokens sammenlignet med at læse hele filen."
+    "tool.description": "Parse Python-filer for at finde klasser og funktioner og udtrække udvalgte definitioner."
   },
   "nn": {
     "x_search_terms": [
@@ -1033,6 +1033,6 @@
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring py2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
     "param.section.description": "Seksjonsnummer å hente (vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",
-    "tool.description": "Parse en Python-fil i funksjoner, klasser og metoder og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk dette når du trenger å lese en stor Python-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger. Dette sparer tokens sammenlignet med å lese hele filen."
+    "tool.description": "Analyser Python-filer for å finne klassar og funksjonar og hente ut valde definisjonar."
   }
 }

@@ -38,10 +38,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse an HTML or XML file (.html/.xml) into headings, sections, and structural elements, "
-                "returning a numbered index or a specific section. Use this when reading large HTML/XML files: "
-                "call with mode='index' to get heading/element tree previews, then call with "
-                "mode='section' and section=N to retrieve the text content of that section."
+                "Parse HTML/XML headings and structure; retrieve selected sections."
             ),
         ),
         "x_search_terms": _(

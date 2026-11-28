@@ -81,11 +81,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute browser actions with Playwright. "
-                "One-shot mode runs actions and closes. "
-                "Session mode (session_action=start/act/snapshot/list/close) keeps the same browser across calls. "
-                "New tabs/popups appear in pages[]/events; switch explicitly unless auto_focus_new_page=true. "
-                "Always close sessions when finished."
+                "Control a browser with Playwright: navigate, interact, inspect pages, take screenshots, and manage sessions. Close persistent sessions when finished."
             ),
         ),
         "x_search_terms": _(

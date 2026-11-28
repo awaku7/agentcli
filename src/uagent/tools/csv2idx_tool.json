@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "CSV ファイルをセクション分割し、番号付きインデックスまたは特定のセクションを返します。",
+    "tool.description": "CSV/TSVのヘッダーと行ブロックを要約し、指定した行を取得します。",
     "x_search_terms": [
       "CSVファイルを読む",
       "CSVインデックス",
@@ -23,7 +23,7 @@
     "param.block_size.description": "ブロックあたりの行数 (デフォルトは 100)。"
   },
   "zh_CN": {
-    "tool.description": "将文件解析为多个部分并返回 csv2idx 的编号索引或特定部分。",
+    "tool.description": "汇总 CSV/TSV 标头和行块并检索选定的行。",
     "x_search_terms": [
       "读取 csv 文件",
       "csv 索引",
@@ -46,7 +46,7 @@
     "param.block_size.description": "每个块的行数（默认 100）。"
   },
   "zh_TW": {
-    "tool.description": "將檔案解析為多個部分並傳回 csv2idx 的編號索引或特定部分。",
+    "tool.description": "匯總 CSV/TSV 標頭和行塊並檢索選取的行。",
     "x_search_terms": [
       "讀取 csv 檔案",
       "csv 索引",
@@ -69,7 +69,7 @@
     "param.block_size.description": "每個區塊的行數（預設 100）。"
   },
   "ko": {
-    "tool.description": "파일을 섹션으로 구문 분석하고 csv2idx에 대한 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다.",
+    "tool.description": "CSV/TSV 헤더와 행 블록을 요약하고 선택한 행을 검색합니다.",
     "x_search_terms": [
       "csv 파일 읽기",
       "csv 인덱스",
@@ -92,7 +92,7 @@
     "param.block_size.description": "블록당 행 수(기본값 100)"
   },
   "fr": {
-    "tool.description": "Analysez le fichier en sections et renvoyez un index numéroté ou une section spécifique pour csv2idx.",
+    "tool.description": "Résumez les en-têtes CSV/TSV et les blocs de lignes et récupérez les lignes sélectionnées.",
     "x_search_terms": [
       "lire le fichier csv",
       "index csv",
@@ -115,7 +115,7 @@
     "param.block_size.description": "Nombre de lignes par bloc (100 par défaut)."
   },
   "de": {
-    "tool.description": "Analysieren Sie die Datei in Abschnitte und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt für csv2idx zurück.",
+    "tool.description": "CSV/TSV-Header und Zeilenblöcke zusammenfassen und ausgewählte Zeilen abrufen.",
     "x_search_terms": [
       "CSV-Datei lesen",
       "CSV-Index",
@@ -138,7 +138,7 @@
     "param.block_size.description": "Anzahl der Zeilen pro Block (Standard 100)."
   },
   "es": {
-    "tool.description": "Analiza el archivo en secciones y devuelve un índice numerado o una sección específica para csv2idx.",
+    "tool.description": "Resumir encabezados CSV/TSV y bloques de filas y recuperar filas seleccionadas.",
     "x_search_terms": [
       "leer archivo csv ",
       " índice csv ",
@@ -161,7 +161,7 @@
     "param.block_size.description": "Número de filas por bloque (predeterminado 100)."
   },
   "it": {
-    "tool.description": "Analizza il file in sezioni e restituisce un indice numerato o una sezione specifica per csv2idx.",
+    "tool.description": "Riepiloga le intestazioni CSV/TSV e i blocchi di righe e recupera le righe selezionate.",
     "x_search_terms": [
       "leggi file csv",
       "indice csv",
@@ -184,7 +184,7 @@
     "param.block_size.description": "Numero di righe per blocco (predefinito 100)."
   },
   "pt_BR": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou uma seção específica para csv2idx.",
+    "tool.description": "Resuma cabeçalhos CSV/TSV e blocos de linhas e recupere as linhas selecionadas.",
     "x_search_terms": [
       "ler arquivo csv",
       "índice csv",
@@ -207,7 +207,7 @@
     "param.block_size.description": "Número de linhas por bloco (padrão 100)."
   },
   "pt": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou uma seção específica para csv2idx.",
+    "tool.description": "Resuma cabeçalhos CSV/TSV e blocos de linhas e recupere as linhas selecionadas.",
     "x_search_terms": [
       "ler arquivo csv",
       "índice csv",
@@ -230,7 +230,7 @@
     "param.block_size.description": "Número de linhas por bloco (padrão 100)."
   },
   "ru": {
-    "tool.description": "Разберите файл на разделы и верните пронумерованный индекс или конкретный раздел для csv2idx.",
+    "tool.description": "Обобщить заголовки CSV/TSV и блоки строк и получить выбранные строки.",
     "x_search_terms": [
       "прочитать файл csv",
       "индекс csv",
@@ -253,7 +253,7 @@
     "param.block_size.description": "Количество строк в блоке (по умолчанию 100)."
   },
   "id": {
-    "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk csv2idx.",
+    "tool.description": "Ringkas header CSV/TSV dan blok baris dan ambil baris yang dipilih.",
     "x_search_terms": [
       "membaca file csv",
       "indeks csv",
@@ -276,7 +276,7 @@
     "param.block_size.description": "Jumlah baris per blok (default 100)."
   },
   "vi": {
-    "tool.description": "Phân tích tệp thành các phần và trả về chỉ mục được đánh số hoặc phần cụ thể cho csv2idx.",
+    "tool.description": "Tóm tắt các tiêu đề và khối hàng CSV/TSV và truy xuất các hàng đã chọn.",
     "x_search_terms": [
       "đọc tệp csv",
       "chỉ mục csv",
@@ -299,7 +299,7 @@
     "param.block_size.description": "Số hàng trên mỗi khối (mặc định là 100)."
   },
   "pl": {
-    "tool.description": "Przeanalizuj plik na sekcje i zwróć numerowany indeks lub określoną sekcję dla csv2idx.",
+    "tool.description": "Podsumuj nagłówki CSV/TSV i bloki wierszy oraz pobierz wybrane wiersze.",
     "x_search_terms": [
       "czytaj plik csv",
       "indeks csv",
@@ -322,7 +322,7 @@
     "param.block_size.description": "Liczba wierszy na blok (domyślnie 100)."
   },
   "hi": {
-    "tool.description": "फ़ाइल को अनुभागों में पार्स करें और csv2idx के लिए एक क्रमांकित अनुक्रमणिका या विशिष्ट अनुभाग लौटाएँ।",
+    "tool.description": "CSV/TSV शीर्षलेखों और पंक्ति ब्लॉकों को सारांशित करें और चयनित पंक्तियों को पुनः प्राप्त करें।",
     "x_search_terms": [
       "सीएसवी फ़ाइल",
       "सीएसवी इंडेक्स",
@@ -345,7 +345,7 @@
     "param.block_size.description": "प्रति ब्लॉक पंक्तियों की संख्या (डिफ़ॉल्ट 100)।"
   },
   "ar": {
-    "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ csv2idx.",
+    "tool.description": "تلخيص رؤوس CSV/TSV وكتل الصفوف واسترداد الصفوف المحددة.",
     "x_search_terms": [
       "قراءة ملف CSV - فهرس CSV - محلل CSV - مقسم الأقسام",
       "مؤشر CSV",
@@ -368,7 +368,7 @@
     "param.block_size.description": "عدد الصفوف لكل كتلة (الافتراضي 100)."
   },
   "sv": {
-    "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller en specifik sektion för csv2idx.",
+    "tool.description": "Sammanfatta CSV/TSV-rubriker och radblock och hämta valda rader.",
     "x_search_terms": [
       "läs csv file",
       "csv-index",
@@ -391,7 +391,7 @@
     "param.block_size.description": "Antal rader per block (standard 100)."
   },
   "sw": {
-    "tool.description": "Changanua faili katika sehemu na urudishe faharasa yenye nambari au sehemu mahususi ya csv2idx.",
+    "tool.description": "Fanya muhtasari wa vichwa vya CSV/TSV na vizuizi vya safu mlalo na urejeshe safu mlalo zilizochaguliwa.",
     "x_search_terms": [
       "soma faili ya csv",
       " csv index",
@@ -414,7 +414,7 @@
     "param.block_size.description": "Idadi ya safu mlalo kwa kila block (chaguo-msingi 100)."
   },
   "nb": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for csv2idx.",
+    "tool.description": "Oppsummer CSV/TSV-overskrifter og radblokker og hent valgte rader.",
     "x_search_terms": [
       "les csv file",
       "csv-indeks",
@@ -437,7 +437,7 @@
     "param.block_size.description": "Antall rader per blokk (standard 100)."
   },
   "nl": {
-    "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor csv2idx.",
+    "tool.description": "Vat CSV/TSV-koppen en rijblokken samen en haal geselecteerde rijen op.",
     "x_search_terms": [
       "csv-bestand",
       "csv-index",
@@ -460,7 +460,7 @@
     "param.block_size.description": "Aantal rijen per blok (standaard 100)."
   },
   "fi": {
-    "tool.description": "Jäsennä tiedosto osiin ja palauta numeroitu hakemisto tai tietty osio csv2idx:lle.",
+    "tool.description": "Tee yhteenveto CSV/TSV-otsikoista ja rivilohkoista ja nouta valitut rivit.",
     "x_search_terms": [
       "lue csv-tiedosto",
       "csv-hakemisto",
@@ -483,7 +483,7 @@
     "param.block_size.description": "Rivien määrä lohkoa kohden (oletus 100)."
   },
   "cs": {
-    "tool.description": "Rozložte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro csv2idx.",
+    "tool.description": "Shrňte záhlaví CSV/TSV a bloky řádků a načtěte vybrané řádky.",
     "x_search_terms": [
       "číst soubor csv",
       "csv index",
@@ -506,7 +506,7 @@
     "param.block_size.description": "Počet řádků na blok (výchozí 100)."
   },
   "uk": {
-    "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для csv2idx.",
+    "tool.description": "Узагальнення заголовків CSV/TSV і блоків рядків і отримання вибраних рядків.",
     "x_search_terms": [
       "читати файл csv",
       "індекс csv",
@@ -529,7 +529,7 @@
     "param.block_size.description": "Кількість рядків у блоці (за замовчуванням 100)."
   },
   "tr": {
-    "tool.description": "Dosyayı bölümlere ayırın ve csv2idx için numaralandırılmış bir dizin veya belirli bir bölüm döndürün.",
+    "tool.description": "CSV/TSV başlıklarını ve satır bloklarını özetleyin ve seçilen satırları alın.",
     "x_search_terms": [
       "csv dosyasını oku",
       "csv indeksi",
@@ -552,7 +552,7 @@
     "param.block_size.description": "Blok başına satır sayısı (varsayılan 100)."
   },
   "th": {
-    "tool.description": "แยกไฟล์ออกเป็นส่วนต่างๆ และส่งกลับดัชนีตัวเลขหรือส่วนเฉพาะสำหรับ csv2idx",
+    "tool.description": "สรุปส่วนหัว CSV/TSV และบล็อกแถว และเรียกข้อมูลแถวที่เลือก",
     "x_search_terms": [
       "อ่านไฟล์ csv",
       "ดัชนี csv",
@@ -575,7 +575,7 @@
     "param.block_size.description": "จำนวนแถวต่อบล็อก (ค่าเริ่มต้น 100)"
   },
   "bn": {
-    "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং csv2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
+    "tool.description": "CSV/TSV শিরোনাম এবং সারি ব্লকগুলিকে সংক্ষিপ্ত করুন এবং নির্বাচিত সারিগুলি পুনরুদ্ধার করুন৷",
     "x_search_terms": [
       "csv ফাইল পড়ুন",
       "csv সূচক",
@@ -598,7 +598,7 @@
     "param.block_size.description": "ব্লক প্রতি সারির সংখ্যা (ডিফল্ট 100)।"
   },
   "fa": {
-    "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی را برای csv2idx برگردانید.",
+    "tool.description": "سرصفحه‌های CSV/TSV و بلوک‌های ردیف را خلاصه کنید و ردیف‌های انتخابی را بازیابی کنید.",
     "x_search_terms": [
       "خواندن فایل csv",
       " csv index",
@@ -621,7 +621,7 @@
     "param.block_size.description": "تعداد ردیف در هر بلوک (پیش‌فرض 100)."
   },
   "mn": {
-    "tool.description": "Файлыг хэсэг болгон задалж, дугаарласан индекс эсвэл csv2idx-ийн тодорхой хэсгийг буцаана уу.",
+    "tool.description": "CSV/TSV толгой болон мөрийн блокуудыг нэгтгэн дүгнэж, сонгосон мөрүүдийг сэргээнэ үү.",
     "x_search_terms": [
       "csv файлыг унших",
       "csv индекс",
@@ -644,7 +644,7 @@
     "param.block_size.description": "Блок бүрт мөрийн тоо (өгөгдмөл 100)."
   },
   "mr": {
-    "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि csv2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
+    "tool.description": "CSV/TSV शीर्षलेख आणि पंक्ती ब्लॉक्सचा सारांश द्या आणि निवडलेल्या पंक्ती पुनर्प्राप्त करा.",
     "x_search_terms": [
       "csv फाइल वाचा",
       "csv अनुक्रमणिका",
@@ -667,7 +667,7 @@
     "param.block_size.description": "प्रति ब्लॉक पंक्तींची संख्या (डिफॉल्ट 100)."
   },
   "el": {
-    "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το csv2idx.",
+    "tool.description": "Συνοψίστε τις κεφαλίδες CSV/TSV και τα μπλοκ σειρών και ανακτήστε επιλεγμένες σειρές.",
     "x_search_terms": [
       "ανάγνωση αρχείου csv",
       "ευρετήριο csv",
@@ -690,7 +690,7 @@
     "param.block_size.description": "Αριθμός σειρών ανά μπλοκ (προεπιλογή 100)."
   },
   "he": {
-    "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור csv2idx.",
+    "tool.description": "סיכום כותרות CSV/TSV ובלוקי שורות ואחזר שורות נבחרות.",
     "x_search_terms": [
       "קרא את מפצל ה-csv file",
       "אינדקס csv",
@@ -713,7 +713,7 @@
     "param.block_size.description": "מספר שורות לכל בלוק (ברירת מחדל 100)."
   },
   "hu": {
-    "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy adott szakaszt a csv2idx számára.",
+    "tool.description": "CSV/TSV fejlécek és sorblokkok összegzése és a kijelölt sorok lekérése.",
     "x_search_terms": [
       "csv fájl",
       "csv index",
@@ -736,7 +736,7 @@
     "param.block_size.description": "Sorok száma blokkonként (alapértelmezett 100)."
   },
   "ro": {
-    "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru csv2idx.",
+    "tool.description": "Rezumați anteturile CSV/TSV și blocurile de rânduri și preluați rândurile selectate.",
     "x_search_terms": [
       "citiți fișierul csv",
       "index csv",
@@ -759,7 +759,7 @@
     "param.block_size.description": "Numărul de rânduri pe bloc (implicit 100)."
   },
   "fil": {
-    "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may numerong index o partikular na seksyon para sa csv2idx.",
+    "tool.description": "Ibuod ang mga CSV/TSV header at row block at kunin ang mga napiling row.",
     "x_search_terms": [
       "basahin ang csv file",
       "csv index",
@@ -782,7 +782,7 @@
     "param.block_size.description": "Bilang ng mga hilera sa bawat bloke (default 100)."
   },
   "ms": {
-    "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk csv2idx.",
+    "tool.description": "Ringkaskan pengepala CSV/TSV dan blok baris dan dapatkan semula baris yang dipilih.",
     "x_search_terms": [
       "baca fail csv",
       "indeks csv",
@@ -805,7 +805,7 @@
     "param.block_size.description": "Bilangan baris setiap blok (lalai 100)."
   },
   "da": {
-    "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for csv2idx.",
+    "tool.description": "Opsummer CSV/TSV-overskrifter og rækkeblokke, og hent valgte rækker.",
     "x_search_terms": [
       "læs csv file",
       "csv indeks",
@@ -828,7 +828,7 @@
     "param.block_size.description": "Antal rækker pr. blok (standard 100)."
   },
   "nn": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for csv2idx.",
+    "tool.description": "Oppsummer CSV/TSV-overskrifter og radblokker, og hent valde rader.",
     "x_search_terms": [
       "les csv file",
       "csv-indeks",

@@ -17,10 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a SQL script file (.sql) into CREATE TABLE, VIEW, PROCEDURE, and statement blocks, "
-                "returning a numbered index or a specific section. Use this when reading large SQL scripts: "
-                "call with mode='index' to get statement summaries and line numbers, then call with "
-                "mode='section' and section=N to retrieve the SQL definition."
+                "Parse SQL statements and object definitions and retrieve selected blocks."
             ),
         ),
         "x_search_terms": _(

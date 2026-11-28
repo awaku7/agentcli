@@ -17,10 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a JSON file (.json) into key paths, array counts, and structural summaries, "
-                "returning a numbered index or a specific section. Use this when reading large JSON files: "
-                "call with mode='index' to get key paths and node summaries, then call with "
-                "mode='section' and section=N to retrieve the content of that node."
+                "Summarize JSON key paths and structure and retrieve selected nodes."
             ),
         ),
         "x_search_terms": _(

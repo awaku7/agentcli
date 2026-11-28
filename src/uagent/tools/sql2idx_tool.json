@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "SQL ファイルをセクション分割し、番号付きインデックスまたは特定のセクションを返します。",
+    "tool.description": "SQLの文やオブジェクト定義を解析し、指定したブロックを取得します。",
     "x_search_terms": [
       "SQLファイルを読む",
       "SQLインデックス",
@@ -23,7 +23,7 @@
     "msg.no_statements": "(SQL ステートメントが見つかりません)"
   },
   "zh_CN": {
-    "tool.description": "将文件解析为多个部分并返回 sql2idx 的编号索引或特定部分。",
+    "tool.description": "解析 SQL 语句和对象定义并检索选定的块。",
     "x_search_terms": [
       "读取sql文件",
       "sql索引",
@@ -46,7 +46,7 @@
     "msg.no_statements": "（未找到 SQL 语句）"
   },
   "zh_TW": {
-    "tool.description": "將檔案解析為多個部分並傳回 sql2idx 的編號索引或特定部分。",
+    "tool.description": "解析 SQL 語句和物件定義並檢索選定的區塊。",
     "x_search_terms": [
       "讀取sql檔",
       "sql索引",
@@ -69,7 +69,7 @@
     "msg.no_statements": "（找不到 SQL 語句）"
   },
   "ko": {
-    "tool.description": "파일을 섹션으로 구문 분석하고 번호가 매겨진 인덱스 또는 sql2idx에 대한 특정 섹션을 반환합니다.",
+    "tool.description": "SQL 문과 개체 정의를 구문 분석하고 선택한 블록을 검색합니다.",
     "x_search_terms": [
       "SQL 파일",
       "SQL 인덱스",
@@ -92,7 +92,7 @@
     "msg.no_statements": "(SQL 문을 찾을 수 없음)"
   },
   "fr": {
-    "tool.description": "Analysez le fichier en sections et renvoyez un index numéroté ou une section spécifique pour sql2idx.",
+    "tool.description": "Analyse les instructions SQL et les définitions d'objets et récupère les blocs sélectionnés.",
     "x_search_terms": [
       "lire le fichier SQL",
       "index SQL",
@@ -115,7 +115,7 @@
     "msg.no_statements": "(aucune instruction SQL trouvée)"
   },
   "de": {
-    "tool.description": "Analysieren Sie die Datei in Abschnitte und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt für sql2idx zurück.",
+    "tool.description": "Analysieren Sie SQL-Anweisungen und Objektdefinitionen und rufen Sie ausgewählte Blöcke ab.",
     "x_search_terms": [
       "Lesen Sie die SQL-Datei",
       "SQL-Index",
@@ -138,7 +138,7 @@
     "msg.no_statements": "(keine SQL-Anweisungen gefunden)"
   },
   "es": {
-    "tool.description": "Analiza el archivo en secciones y devuelve un índice numerado o una sección específica para sql2idx.",
+    "tool.description": "Analiza sentencias SQL y definiciones de objetos y recupera bloques seleccionados.",
     "x_search_terms": [
       "leer archivo sql ",
       " índice sql ",
@@ -161,7 +161,7 @@
     "msg.no_statements": "(no se encontraron sentencias SQL)"
   },
   "it": {
-    "tool.description": "Analizza il file in sezioni e restituisce un indice numerato o una sezione specifica per sql2idx.",
+    "tool.description": "Analizza le istruzioni SQL e le definizioni degli oggetti e recupera i blocchi selezionati.",
     "x_search_terms": [
       "legge file SQL",
       "indice SQL",
@@ -184,7 +184,7 @@
     "msg.no_statements": "(nessuna istruzione SQL trovata)"
   },
   "pt_BR": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para sql2idx.",
+    "tool.description": "Analise instruções SQL e definições de objetos e recupere blocos selecionados.",
     "x_search_terms": [
       "leia arquivo sql",
       "índice sql",
@@ -207,7 +207,7 @@
     "msg.no_statements": "(nenhuma instrução SQL encontrada)"
   },
   "pt": {
-    "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para sql2idx.",
+    "tool.description": "Analise instruções SQL e definições de objetos e recupere blocos selecionados.",
     "x_search_terms": [
       "leia arquivo sql",
       "índice sql",
@@ -230,7 +230,7 @@
     "msg.no_statements": "(não foram encontradas instruções SQL)"
   },
   "ru": {
-    "tool.description": "Разберите файл на разделы и верните пронумерованный индекс или конкретный раздел для sql2idx.",
+    "tool.description": "Анализируйте операторы SQL и определения объектов и извлекайте выбранные блоки.",
     "x_search_terms": [
       "прочитать файл sql",
       "индекс sql",
@@ -253,7 +253,7 @@
     "msg.no_statements": "(SQL-инструкции не найдены)"
   },
   "id": {
-    "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk sql2idx.",
+    "tool.description": "Parsing pernyataan SQL dan definisi objek dan ambil blok yang dipilih.",
     "x_search_terms": [
       "membaca file sql",
       "indeks sql",
@@ -276,7 +276,7 @@
     "msg.no_statements": "(tidak ada pernyataan SQL ditemukan)"
   },
   "vi": {
-    "tool.description": "Phân tích tệp thành các phần và trả về chỉ mục được đánh số hoặc phần cụ thể cho sql2idx.",
+    "tool.description": "Phân tích câu lệnh SQL và định nghĩa đối tượng, đồng thời truy xuất các khối đã chọn.",
     "x_search_terms": [
       "đọc tệp sql",
       "chỉ mục sql",
@@ -299,7 +299,7 @@
     "msg.no_statements": "(không tìm thấy câu lệnh SQL)"
   },
   "pl": {
-    "tool.description": "Przeanalizuj plik na sekcje i zwróć numerowany indeks lub określoną sekcję dla sql2idx.",
+    "tool.description": "Analizuj instrukcje SQL i definicje obiektów oraz pobieraj wybrane bloki.",
     "x_search_terms": [
       "czytaj plik sql",
       "indeks sql",
@@ -322,7 +322,7 @@
     "msg.no_statements": "(nie znaleziono instrukcji SQL)"
   },
   "hi": {
-    "tool.description": "फ़ाइल को अनुभागों में पार्स करें और sql2idx के लिए एक क्रमांकित अनुक्रमणिका या विशिष्ट अनुभाग लौटाएँ।",
+    "tool.description": "SQL कथनों और ऑब्जेक्ट परिभाषाओं को पार्स करें और चयनित ब्लॉक पुनर्प्राप्त करें।",
     "x_search_terms": [
       "एसक्यूएल फ़ाइल",
       "एसक्यूएल इंडेक्स",
@@ -345,7 +345,7 @@
     "msg.no_statements": "(कोई SQL statements नहीं मिले)"
   },
   "ar": {
-    "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ sql2idx.",
+    "tool.description": "تحليل عبارات SQL وتعريفات الكائنات واسترداد الكتل المحددة.",
     "x_search_terms": [
       "قراءة ملف SQL، فهرس SQL، محلل SQL، مقسم القسم",
       "مؤشر SQL",
@@ -368,7 +368,7 @@
     "msg.no_statements": "(لم يتم العثور على عبارات SQL)"
   },
   "sv": {
-    "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller en specifik sektion för sql2idx.",
+    "tool.description": "Analysera SQL-satser och objektdefinitioner och hämta valda block.",
     "x_search_terms": [
       "läs sql-fil",
       "sql index",
@@ -391,7 +391,7 @@
     "msg.no_statements": "(inga SQL-satser hittades)"
   },
   "sw": {
-    "tool.description": "Changanua faili katika sehemu na urudishe faharasa yenye nambari au sehemu mahususi ya sql2idx.",
+    "tool.description": "Changanua taarifa za SQL na ufafanuzi wa vitu na urejeshe vizuizi vilivyochaguliwa.",
     "x_search_terms": [
       "soma faili ya sql",
       "sql index",
@@ -414,7 +414,7 @@
     "msg.no_statements": "(hakuna kauli za SQL zilizopatikana)"
   },
   "nb": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for sql2idx.",
+    "tool.description": "Parse SQL-setninger og objektdefinisjoner og hent valgte blokker.",
     "x_search_terms": [
       "les sql file",
       "sql-indeks",
@@ -437,7 +437,7 @@
     "msg.no_statements": "(ingen SQL-setninger funnet)"
   },
   "nl": {
-    "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor sql2idx.",
+    "tool.description": "Parseer SQL-instructies en objectdefinities en haal geselecteerde blokken op.",
     "x_search_terms": [
       "lees sql file",
       "sql-index",
@@ -460,7 +460,7 @@
     "msg.no_statements": "(geen SQL-instructies gevonden)"
   },
   "fi": {
-    "tool.description": "Jäsennä tiedosto osiin ja palauta numeroitu hakemisto tai tietty osio sql2idx:lle.",
+    "tool.description": "Jäsentää SQL-käskyjä ja objektimäärityksiä ja noutaa valitut lohkot.",
     "x_search_terms": [
       "lue sql-tiedosto",
       "sql-indeksi",
@@ -483,7 +483,7 @@
     "msg.no_statements": "(SQL-lauseita ei löytynyt)"
   },
   "cs": {
-    "tool.description": "Analyzujte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro sql2idx.",
+    "tool.description": "Analyzujte příkazy SQL a definice objektů a načtěte vybrané bloky.",
     "x_search_terms": [
       "číst sql soubor",
       "sql index",
@@ -506,7 +506,7 @@
     "msg.no_statements": "(nebyly nalezeny žádné příkazy SQL)"
   },
   "uk": {
-    "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для sql2idx.",
+    "tool.description": "Аналіз операторів SQL і визначень об’єктів і отримання вибраних блоків.",
     "x_search_terms": [
       "читати sql файл",
       "індекс sql",
@@ -529,7 +529,7 @@
     "msg.no_statements": "(SQL-інструкцій не знайдено)"
   },
   "tr": {
-    "tool.description": "Dosyayı bölümlere ayırın ve sql2idx için numaralandırılmış bir dizin veya belirli bir bölüm döndürün.",
+    "tool.description": "SQL ifadelerini ve nesne tanımlarını ayrıştırın ve seçilen blokları alın.",
     "x_search_terms": [
       "sql dosyasını oku",
       "sql indeksi",
@@ -552,7 +552,7 @@
     "msg.no_statements": "(SQL ifadeleri bulunamadı)"
   },
   "th": {
-    "tool.description": "แยกไฟล์ออกเป็นส่วนๆ และส่งคืนดัชนีที่มีหมายเลขหรือส่วนเฉพาะสำหรับ sql2idx",
+    "tool.description": "แยกวิเคราะห์คำสั่ง SQL และคำจำกัดความของวัตถุและดึงบล็อกที่เลือก",
     "x_search_terms": [
       "อ่านไฟล์ sql",
       "ดัชนี sql",
@@ -575,7 +575,7 @@
     "msg.no_statements": "(ไม่พบคำสั่ง SQL)"
   },
   "bn": {
-    "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং sql2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
+    "tool.description": "SQL বিবৃতি এবং বস্তুর সংজ্ঞা পার্স করুন এবং নির্বাচিত ব্লক পুনরুদ্ধার করুন।",
     "x_search_terms": [
       "sql ফাইল পড়ুন",
       "sql সূচক",
@@ -598,7 +598,7 @@
     "msg.no_statements": "(কোনো SQL statement পাওয়া যায়নি)"
   },
   "fa": {
-    "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی را برای sql2idx برگردانید.",
+    "tool.description": "عبارات SQL و تعاریف شی را تجزیه و بلوک های انتخاب شده را بازیابی کنید.",
     "x_search_terms": [
       "خواندن فایل sql",
       " نمایه sql",
@@ -621,7 +621,7 @@
     "msg.no_statements": "(هیچ عبارت SQL یافت نشد)"
   },
   "mn": {
-    "tool.description": "Файлыг хэсэг болгон задалж, дугаарласан индекс эсвэл sql2idx-ийн тодорхой хэсгийг буцаана уу.",
+    "tool.description": "SQL хэллэг болон объектын тодорхойлолтыг задлан шинжилж, сонгосон блокуудыг татаж авах.",
     "x_search_terms": [
       "sql файлыг унших",
       "sql индекс",
@@ -644,7 +644,7 @@
     "msg.no_statements": "(SQL statement олдсонгүй)"
   },
   "mr": {
-    "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि sql2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
+    "tool.description": "SQL विधाने आणि ऑब्जेक्ट व्याख्या पार्स करा आणि निवडलेले ब्लॉक पुनर्प्राप्त करा.",
     "x_search_terms": [
       "sql फाइल वाचा",
       "sql निर्देशांक",
@@ -667,7 +667,7 @@
     "msg.no_statements": "(SQL statements आढळले नाहीत)"
   },
   "el": {
-    "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το sql2idx.",
+    "tool.description": "Ανάλυση δηλώσεων SQL και ορισμών αντικειμένων και ανάκτηση επιλεγμένων μπλοκ.",
     "x_search_terms": [
       "ανάγνωση αρχείου sql",
       "ευρετήριο sql",
@@ -690,7 +690,7 @@
     "msg.no_statements": "(δεν βρέθηκαν εντολές SQL)"
   },
   "he": {
-    "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור sql2idx.",
+    "tool.description": "נתח הצהרות SQL והגדרות אובייקט ואחזר בלוקים נבחרים.",
     "x_search_terms": [
       "קרא קובץ sql",
       "אינדקס sql",
@@ -713,7 +713,7 @@
     "msg.no_statements": "(לא נמצאו משפטי SQL)"
   },
   "hu": {
-    "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy meghatározott szakaszt az sql2idx számára.",
+    "tool.description": "SQL utasítások és objektumdefiníciók elemzése és kiválasztott blokkok lekérése.",
     "x_search_terms": [
       "sql fájl olvasása",
       "sql index",
@@ -736,7 +736,7 @@
     "msg.no_statements": "(nem találhatók SQL-utasítások)"
   },
   "ro": {
-    "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru sql2idx.",
+    "tool.description": "Analizați instrucțiunile SQL și definițiile obiectelor și preluați blocurile selectate.",
     "x_search_terms": [
       "citiți fișierul sql",
       "indexul sql",
@@ -759,7 +759,7 @@
     "msg.no_statements": "(nu au fost găsite instrucțiuni SQL)"
   },
   "fil": {
-    "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may bilang na index o partikular na seksyon para sa sql2idx.",
+    "tool.description": "I-parse ang mga SQL statement at mga kahulugan ng object at kunin ang mga napiling block.",
     "x_search_terms": [
       "basahin ang sql file",
       "sql index",
@@ -782,7 +782,7 @@
     "msg.no_statements": "(walang nakitang SQL statements)"
   },
   "ms": {
-    "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk sql2idx.",
+    "tool.description": "Menghuraikan pernyataan SQL dan definisi objek dan mendapatkan semula blok yang dipilih.",
     "x_search_terms": [
       "baca sql file",
       "indeks sql",
@@ -805,7 +805,7 @@
     "msg.no_statements": "(tiada pernyataan SQL ditemui)"
   },
   "da": {
-    "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for sql2idx.",
+    "tool.description": "Parse SQL-sætninger og objektdefinitioner, og hent valgte blokke.",
     "x_search_terms": [
       "læs sql-fil",
       "sql-indeks",
@@ -828,7 +828,7 @@
     "msg.no_statements": "(ingen SQL-sætninger fundet)"
   },
   "nn": {
-    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for sql2idx.",
+    "tool.description": "Analyser SQL-uttrykk og objektdefinisjonar, og hent valde blokker.",
     "x_search_terms": [
       "les sql file",
       "sql-indeks",

@@ -37,12 +37,7 @@ TOOL_SPEC = {
         "name": "pdf2idx",
         "description": _(
             "tool.description",
-            default=(
-                "Parse a PDF document (.pdf) into page summaries and text previews, "
-                "returning a numbered index or a specific page section. Use this when reading large PDF files: "
-                "call with mode='index' to get the list of pages with preview text, then call with "
-                "mode='section' and section=N to retrieve the full text content of that page."
-            ),
+            default=("Summarize PDF pages and retrieve selected page text."),
         ),
         "x_search_terms": _(
             "x_search_terms",

@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "過去の会話セッションから、ユーザーが前に話したと言っている内容を探します。ユーザーが以前の会話に触れていて、今の会話で使える長期記憶では足りないときにだけ使ってください。一致した過去セッションから短い抜粋を返します。これはセッションの再開ではありません。再開には session_resume を使ってください。",
+    "tool.description": "過去の会話から、ユーザーが以前話した内容を検索して一致箇所を返します。再開にはsession_resumeを使います。",
     "x_search_terms": [
       "過去セッションの検索",
       "過去の会話",
@@ -16,7 +16,7 @@
     "describe.search": "過去セッションを検索しています"
   },
   "es": {
-    "tool.description": "Busca en sesiones de conversación anteriores algo que el usuario dice que ya se habló. Úsalo solo cuando el usuario se refiera a una conversación anterior y la memoria a largo plazo disponible en esta conversación no lo cubra. Devuelve extractos cortos de las sesiones anteriores coincidentes. Esto no reanuda una sesión; para reabrir una usa session_resume.",
+    "tool.description": "Buscar conversaciones pasadas para temas que el usuario dice que discutieron; devolver extractos coincidentes. Utilice session_resume para reabrir uno.",
     "x_search_terms": [
       "buscar sesiones anteriores",
       "conversaciones pasadas",
@@ -32,7 +32,7 @@
     "describe.search": "Buscando sesiones anteriores"
   },
   "fr": {
-    "tool.description": "Recherche dans les sessions de conversation passées ce que l'utilisateur dit avoir déjà abordé. À utiliser uniquement lorsque l'utilisateur fait référence à une conversation antérieure et que la mémoire à long terme disponible dans cette conversation ne le couvre pas. Renvoie de courts extraits des sessions passées correspondantes. Cela ne reprend pas une session ; pour en rouvrir une, utilisez session_resume.",
+    "tool.description": "Recherchez dans les conversations passées les sujets dont l'utilisateur dit avoir discuté ; renvoyer les extraits correspondants. Utilisez session_resume pour en rouvrir un.",
     "x_search_terms": [
       "rechercher les sessions passées",
       "conversations passées",
@@ -48,7 +48,7 @@
     "describe.search": "Recherche des sessions passées"
   },
   "ko": {
-    "tool.description": "사용자가 이전에 이야기했다고 말하는 내용을 지난 대화 세션에서 검색합니다. 사용자가 이전 대화를 언급하는데 이 대화에서 사용할 수 있는 장기 기억으로 부족할 때만 사용하세요. 일치하는 지난 세션에서 짧은 발췌를 반환합니다. 이것은 세션 재개가 아닙니다. 세션을 다시 열려면 session_resume을 사용하세요.",
+    "tool.description": "사용자가 토론했다고 말한 주제에 대한 과거 대화를 검색합니다. 일치하는 발췌문을 반환합니다. 다시 열려면 session_resume을 사용하세요.",
     "x_search_terms": [
       "지난 세션 검색",
       "과거 대화",
@@ -64,7 +64,7 @@
     "describe.search": "지난 세션을 검색 중"
   },
   "de": {
-    "tool.description": "Durchsucht vergangene Gesprächssitzungen nach etwas, von dem der Benutzer sagt, es sei schon besprochen worden. Nur verwenden, wenn der Benutzer auf ein früheres Gespräch verweist und das in diesem Gespräch verfügbare Langzeitgedächtnis es nicht abdeckt. Gibt kurze Auszüge aus übereinstimmenden früheren Sitzungen zurück. Dies setzt keine Sitzung fort; zum erneuten Öffnen session_resume verwenden.",
+    "tool.description": "Durchsuchen Sie vergangene Konversationen nach Themen, über die der Benutzer angeblich gesprochen hat. passende Auszüge zurückgeben. Verwenden Sie session_resume, um eine erneut zu öffnen.",
     "x_search_terms": [
       "vergangene Sitzungen suchen",
       "frühere Gespräche",
@@ -80,7 +80,7 @@
     "describe.search": "Vergangene Sitzungen werden gesucht"
   },
   "it": {
-    "tool.description": "Cerca nelle sessioni di conversazione passate qualcosa che l'utente dice di aver già discusso. Usalo solo quando l'utente si riferisce a una conversazione precedente e la memoria a lungo termine disponibile in questa conversazione non lo copre. Restituisce brevi estratti dalle sessioni passate corrispondenti. Questo non riprende una sessione; per riaprirne una usa session_resume.",
+    "tool.description": "Cerca nelle conversazioni passate gli argomenti che l'utente dice di aver discusso; restituire estratti corrispondenti. Utilizzare session_resume per riaprirne uno.",
     "x_search_terms": [
       "cerca sessioni passate",
       "conversazioni passate",
@@ -96,7 +96,7 @@
     "describe.search": "Ricerca delle sessioni passate"
   },
   "ru": {
-    "tool.description": "Ищет в прошлых сессиях разговора то, о чём пользователь говорит, что это уже обсуждалось. Использовать только когда пользователь ссылается на более ранний разговор, а доступная в этом разговоре долговременная память этого не покрывает. Возвращает короткие выдержки из совпавших прошлых сессий. Это не возобновление сессии; чтобы открыть сессию заново, используйте session_resume.",
+    "tool.description": "Найдите в прошлых беседах темы, которые, по словам пользователя, они обсуждали; вернуть соответствующие отрывки. Используйте session_resume, чтобы снова открыть его.",
     "x_search_terms": [
       "поиск прошлых сессий",
       "прошлые разговоры",
@@ -112,7 +112,7 @@
     "describe.search": "Поиск прошлых сессий"
   },
   "pt_BR": {
-    "tool.description": "Pesquisa em sessões de conversa anteriores algo que o usuário diz já ter sido discutido. Use apenas quando o usuário se referir a uma conversa anterior e a memória de longo prazo disponível nesta conversa não cobrir isso. Retorna trechos curtos das sessões anteriores correspondentes. Isso não retoma uma sessão; para reabrir uma, use session_resume.",
+    "tool.description": "Pesquise conversas anteriores sobre tópicos que o usuário diz ter discutido; retornar trechos correspondentes. Use session_resume para reabrir um.",
     "x_search_terms": [
       "pesquisar sessões anteriores",
       "conversas passadas",
@@ -128,7 +128,7 @@
     "describe.search": "Pesquisando sessões anteriores"
   },
   "pt": {
-    "tool.description": "Pesquisa em sessões de conversa anteriores algo que o utilizador diz já ter sido discutido. Utilize apenas quando o utilizador se referir a uma conversa anterior e a memória de longo prazo disponível nesta conversa não o cobrir. Devolve excertos curtos das sessões anteriores correspondentes. Isto não retoma uma sessão; para reabrir uma, use session_resume.",
+    "tool.description": "Pesquise conversas anteriores sobre tópicos que o usuário diz ter discutido; retornar trechos correspondentes. Use session_resume para reabrir um.",
     "x_search_terms": [
       "pesquisar sessões anteriores",
       "conversas passadas",
@@ -144,7 +144,7 @@
     "describe.search": "A pesquisar sessões anteriores"
   },
   "id": {
-    "tool.description": "Mencari di sesi percakapan lampau sesuatu yang menurut pengguna sudah pernah dibahas. Gunakan hanya ketika pengguna merujuk ke percakapan sebelumnya dan memori jangka panjang yang tersedia dalam percakapan ini tidak mencakupnya. Mengembalikan kutipan pendek dari sesi lampau yang cocok. Ini tidak melanjutkan sesi; untuk membuka kembali sesi gunakan session_resume.",
+    "tool.description": "Telusuri percakapan sebelumnya untuk topik yang menurut pengguna telah mereka diskusikan; mengembalikan kutipan yang cocok. Gunakan session_resume untuk membukanya kembali.",
     "x_search_terms": [
       "cari sesi lampau",
       "percakapan lalu",
@@ -160,7 +160,7 @@
     "describe.search": "Mencari sesi lampau"
   },
   "vi": {
-    "tool.description": "Tìm trong các phiên trò chuyện trước đây điều mà người dùng nói đã thảo luận rồi. Chỉ dùng khi người dùng nhắc tới một cuộc trò chuyện trước đó và bộ nhớ dài hạn có trong cuộc trò chuyện này không bao quát được. Trả về các đoạn trích ngắn từ các phiên trước khớp. Việc này không tiếp tục một phiên; để mở lại một phiên hãy dùng session_resume.",
+    "tool.description": "Tìm kiếm các chủ đề trong cuộc trò chuyện trước đây mà người dùng cho biết họ đã thảo luận; trả lại đoạn trích phù hợp. Sử dụng session_resume để mở lại một cái.",
     "x_search_terms": [
       "tìm phiên trước",
       "cuộc trò chuyện cũ",
@@ -176,7 +176,7 @@
     "describe.search": "Đang tìm các phiên trước"
   },
   "pl": {
-    "tool.description": "Przeszukuje minione sesje rozmów w poszukiwaniu tego, o czym użytkownik mówi, że już było omawiane. Używaj tylko, gdy użytkownik odnosi się do wcześniejszej rozmowy, a pamięć długoterminowa dostępna w tej rozmowie tego nie obejmuje. Zwraca krótkie fragmenty z pasujących minionych sesji. To nie wznawia sesji; aby otworzyć sesję ponownie, użyj session_resume.",
+    "tool.description": "Przeszukuj wcześniejsze rozmowy pod kątem tematów, które według użytkownika omawiał; zwróć pasujące fragmenty. Użyj session_resume, aby ponownie je otworzyć.",
     "x_search_terms": [
       "szukaj minionych sesji",
       "przeszłe rozmowy",
@@ -192,7 +192,7 @@
     "describe.search": "Przeszukiwanie minionych sesji"
   },
   "hi": {
-    "tool.description": "पिछले वार्तालाप सत्रों में वह खोजता है जिसके बारे में उपयोगकर्ता कहता है कि पहले चर्चा हो चुकी है। केवल तब उपयोग करें जब उपयोगकर्ता किसी पुरानी बातचीत का उल्लेख करे और इस बातचीत में उपलब्ध दीर्घकालिक स्मृति उसे कवर न करती हो। मेल खाने वाले पिछले सत्रों के छोटे अंश देता है। यह किसी सत्र को फिर से शुरू नहीं करता; सत्र फिर से खोलने के लिए session_resume का उपयोग करें।",
+    "tool.description": "उन विषयों के लिए पिछली बातचीत खोजें जिनके बारे में उपयोगकर्ता कहता है कि उन्होंने चर्चा की; मिलान अंश लौटाएँ। किसी को दोबारा खोलने के लिए session_resume का उपयोग करें।",
     "x_search_terms": [
       "पिछले सत्र खोजें",
       "पुरानी बातचीत",
@@ -208,7 +208,7 @@
     "describe.search": "पिछले सत्र खोजे जा रहे हैं"
   },
   "ar": {
-    "tool.description": "يبحث في جلسات المحادثة السابقة عمّا يقول المستخدم إنه نوقش من قبل. استخدمه فقط عندما يشير المستخدم إلى محادثة سابقة ولا تغطيها الذاكرة طويلة الأمد المتاحة في هذه المحادثة. يعيد مقتطفات قصيرة من الجلسات السابقة المطابقة. هذا لا يستأنف جلسة؛ لإعادة فتح جلسة استخدم session_resume.",
+    "tool.description": "البحث في المحادثات السابقة عن المواضيع التي يقول المستخدم إنه ناقشها؛ إرجاع مقتطفات مطابقة. استخدم session_resume لإعادة فتح واحد.",
     "x_search_terms": [
       "بحث الجلسات السابقة",
       "المحادثات الماضية",
@@ -224,7 +224,7 @@
     "describe.search": "جارٍ البحث في الجلسات السابقة"
   },
   "sv": {
-    "tool.description": "Söker i tidigare samtalssessioner efter något som användaren säger redan har diskuterats. Använd bara när användaren hänvisar till ett tidigare samtal och långtidsminnet i det här samtalet inte täcker det. Returnerar korta utdrag från matchande tidigare sessioner. Detta återupptar inte en session; använd session_resume för att öppna en igen.",
+    "tool.description": "Sök efter tidigare konversationer efter ämnen som användaren säger att de diskuterat; returnera matchande utdrag. Använd session_resume för att öppna en igen.",
     "x_search_terms": [
       "sök tidigare sessioner",
       "tidigare samtal",
@@ -240,7 +240,7 @@
     "describe.search": "Söker tidigare sessioner"
   },
   "sw": {
-    "tool.description": "Hutafuta katika vikao vya mazungumzo vilivyopita kitu ambacho mtumiaji anasema kilijadiliwa awali. Tumia tu wakati mtumiaji anarejelea mazungumzo ya awali na kumbukumbu ya muda mrefu iliyopo katika mazungumzo haya haijafunika. Hurejesha dondoo fupi kutoka vikao vilivyopita vinavyolingana. Hii haiendelezi kikao; kufungua kikao tena tumia session_resume.",
+    "tool.description": "Tafuta mazungumzo ya awali kwa mada ambazo mtumiaji anasema walijadili; rudisha dondoo zinazolingana. Tumia session_resume kufungua tena moja.",
     "x_search_terms": [
       "tafuta vikao vilivyopita",
       "mazungumzo ya zamani",
@@ -256,7 +256,7 @@
     "describe.search": "Inatafuta vikao vilivyopita"
   },
   "nb": {
-    "tool.description": "Søker i tidligere samtaløkter etter noe brukeren sier har blitt diskutert før. Bruk bare når brukeren viser til en tidligere samtale og langtidsminnet i denne samtalen ikke dekker det. Returnerer korte utdrag fra treff i tidligere økter. Dette gjenopptar ikke en økt; bruk session_resume for å åpne en på nytt.",
+    "tool.description": "Søk i tidligere samtaler etter emner brukeren sier de har diskutert; returnere samsvarende utdrag. Bruk session_resume for å åpne en på nytt.",
     "x_search_terms": [
       "søk tidligere økter",
       "tidligere samtaler",
@@ -272,7 +272,7 @@
     "describe.search": "Søker i tidligere økter"
   },
   "nl": {
-    "tool.description": "Doorzoekt eerdere gesprekssessies naar iets waarvan de gebruiker zegt dat het al besproken is. Alleen gebruiken wanneer de gebruiker naar een eerder gesprek verwijst en het langetermijngeheugen in dit gesprek het niet dekt. Geeft korte fragmenten uit overeenkomende eerdere sessies terug. Dit hervat geen sessie; gebruik session_resume om er een opnieuw te openen.",
+    "tool.description": "Zoek in eerdere gesprekken naar onderwerpen die de gebruiker zegt te hebben besproken; overeenkomende fragmenten retourneren. Gebruik session_resume om er een te heropenen.",
     "x_search_terms": [
       "eerdere sessies zoeken",
       "eerdere gesprekken",
@@ -288,7 +288,7 @@
     "describe.search": "Eerdere sessies zoeken"
   },
   "fi": {
-    "tool.description": "Hakee menneistä keskusteluistunnoista sitä, minkä käyttäjä sanoo jo käsitellyn. Käytä vain, kun käyttäjä viittaa aiempaan keskusteluun eikä tämän keskustelun pitkäkestoinen muisti kata sitä. Palauttaa lyhyitä otteita vastaavista menneistä istunnoista. Tämä ei jatka istuntoa; avaa istunto uudelleen komennolla session_resume.",
+    "tool.description": "Hae aiemmista keskusteluista aiheita, joita käyttäjä sanoo keskustelleensa; palauttaa vastaavia otteita. Avaa se uudelleen käyttämällä session_resumea.",
     "x_search_terms": [
       "hae menneitä istuntoja",
       "menneet keskustelut",
@@ -304,7 +304,7 @@
     "describe.search": "Haetaan menneitä istuntoja"
   },
   "cs": {
-    "tool.description": "Prohledává minulé konverzační relace a hledá to, o čem uživatel říká, že už se probíralo. Používejte pouze, když uživatel odkazuje na dřívější konverzaci a dlouhodobá paměť dostupná v této konverzaci to nepokrývá. Vrací krátké úryvky z odpovídajících minulých relací. Tím se relace neobnovuje; k jejímu opětovnému otevření použijte session_resume.",
+    "tool.description": "Hledat v minulých konverzacích témata, o kterých uživatel říká, že diskutovali; vrátit odpovídající úryvky. K opětovnému otevření použijte session_resume.",
     "x_search_terms": [
       "hledat minulé relace",
       "minulé konverzace",
@@ -320,7 +320,7 @@
     "describe.search": "Prohledávání minulých relací"
   },
   "uk": {
-    "tool.description": "Шукає в минулих сесіях розмов те, про що користувач каже, що це вже обговорювалося. Використовувати лише коли користувач посилається на ранішу розмову, а довготривала пам'ять, доступна в цій розмові, цього не покриває. Повертає короткі уривки з минулих сесій, що збігаються. Це не відновлює сесію; щоб відкрити сесію заново, використовуйте session_resume.",
+    "tool.description": "Шукайте в минулих розмовах теми, які, за словами користувача, вони обговорювали; повернути відповідні уривки. Використовуйте session_resume, щоб повторно відкрити його.",
     "x_search_terms": [
       "пошук минулих сесій",
       "минулі розмови",
@@ -336,7 +336,7 @@
     "describe.search": "Пошук минулих сесій"
   },
   "tr": {
-    "tool.description": "Kullanıcının daha önce konuşulduğunu söylediği şeyi geçmiş konuşma oturumlarında arar. Yalnızca kullanıcı daha önceki bir konuşmaya atıfta bulunduğunda ve bu konuşmadaki uzun süreli bellek bunu kapsamadığında kullanın. Eşleşen geçmiş oturumlardan kısa alıntılar döndürür. Bu bir oturumu sürdürmez; bir oturumu yeniden açmak için session_resume kullanın.",
+    "tool.description": "Kullanıcının tartıştığını söylediği konular için geçmiş konuşmalarda arama yapın; eşleşen alıntıları döndür. Birini yeniden açmak için session_resume kullanın.",
     "x_search_terms": [
       "geçmiş oturumları ara",
       "geçmiş konuşmalar",
@@ -352,7 +352,7 @@
     "describe.search": "Geçmiş oturumlar aranıyor"
   },
   "th": {
-    "tool.description": "ค้นหาในเซสชันการสนทนาที่ผ่านมา สำหรับสิ่งที่ผู้ใช้บอกว่าเคยคุยกันแล้ว ใช้เฉพาะเมื่อผู้ใช้อ้างถึงการสนทนาครั้งก่อน และความจำระยะยาวที่มีในบทสนทนานี้ไม่ครอบคลุม จะคืนข้อความตัดสั้น ๆ จากเซสชันเก่าที่ตรงกัน การทำเช่นนี้ไม่ใช่การกลับไปเปิดเซสชัน หากต้องการเปิดเซสชันอีกครั้งให้ใช้ session_resume",
+    "tool.description": "ค้นหาการสนทนาที่ผ่านมาสำหรับหัวข้อที่ผู้ใช้บอกว่าพวกเขาพูดคุยกัน ส่งคืนข้อความที่ตัดตอนมาตรงกัน ใช้ session_resume เพื่อเปิดใหม่อีกครั้ง",
     "x_search_terms": [
       "ค้นหาเซสชันที่ผ่านมา",
       "การสนทนาในอดีต",
@@ -368,7 +368,7 @@
     "describe.search": "กำลังค้นหาเซสชันที่ผ่านมา"
   },
   "zh_CN": {
-    "tool.description": "在过去的对话会话中搜索用户表示以前讨论过的内容。仅当用户提及更早的对话、而本次对话中可用的长期记忆未涵盖时使用。返回匹配的过往会话的简短摘录。这不会恢复会话；如需重新打开会话，请使用 session_resume。",
+    "tool.description": "在过去的对话中搜索用户所说的讨论过的主题；返回匹配的摘录。使用 session_resume 重新打开一个会话。",
     "x_search_terms": [
       "搜索过往会话",
       "过去的对话",
@@ -384,7 +384,7 @@
     "describe.search": "正在搜索过往会话"
   },
   "zh_TW": {
-    "tool.description": "在過去的對話工作階段中搜尋使用者表示以前討論過的內容。僅當使用者提及更早的對話、而本次對話中可用的長期記憶未涵蓋時使用。傳回相符的過往工作階段的簡短摘錄。這不會恢復工作階段；如需重新開啟工作階段，請使用 session_resume。",
+    "tool.description": "在過去的對話中搜尋使用者所說的討論過的主題；傳回符合的摘錄。使用 session_resume 重新開啟一個會話。",
     "x_search_terms": [
       "搜尋過往工作階段",
       "過去的對話",
@@ -400,7 +400,7 @@
     "describe.search": "正在搜尋過往工作階段"
   },
   "bn": {
-    "tool.description": "অতীতের কথোপকথন সেশনগুলিতে এমন কিছু খোঁজে যা ব্যবহারকারী বলছেন আগে আলোচনা হয়েছে। শুধুমাত্র তখনই ব্যবহার করুন যখন ব্যবহারকারী আগের কথোপকথনের উল্লেখ করেন এবং এই কথোপকথনে উপলব্ধ দীর্ঘমেয়াদী স্মৃতি তা কভার করে না। মিলে যাওয়া অতীত সেশন থেকে ছোট অংশ ফেরত দেয়। এটি কোনো সেশন পুনরায় শুরু করে না; সেশন আবার খুলতে session_resume ব্যবহার করুন।",
+    "tool.description": "ব্যবহারকারী যে বিষয়গুলি নিয়ে আলোচনা করেছেন তার জন্য অতীতের কথোপকথনগুলি অনুসন্ধান করুন; মেলা উদ্ধৃতাংশ ফেরত. একটি পুনরায় খুলতে session_resume ব্যবহার করুন।",
     "x_search_terms": [
       "অতীত সেশন খুঁজুন",
       "পুরনো কথোপকথন",
@@ -416,7 +416,7 @@
     "describe.search": "অতীত সেশন খোঁজা হচ্ছে"
   },
   "fa": {
-    "tool.description": "در جلسه‌های گفت‌وگوی گذشته چیزی را جست‌وجو می‌کند که کاربر می‌گوید قبلاً درباره‌اش صحبت شده است. فقط وقتی استفاده کنید که کاربر به گفت‌وگوی زودتری اشاره می‌کند و حافظهٔ بلندمدت موجود در این گفت‌وگو آن را پوشش نمی‌دهد. گزیده‌های کوتاهی از جلسه‌های گذشتهٔ منطبق برمی‌گرداند. این کار جلسه‌ای را از سر نمی‌گیرد؛ برای باز کردن دوبارهٔ جلسه از session_resume استفاده کنید.",
+    "tool.description": "گفتگوهای گذشته را برای موضوعاتی که کاربر می گوید در مورد آنها بحث کرده است جستجو کنید. برگردان گزیده های منطبق برای باز کردن مجدد یکی از session_resume استفاده کنید.",
     "x_search_terms": [
       "جست‌وجوی جلسه‌های گذشته",
       "گفت‌وگوهای گذشته",
@@ -432,7 +432,7 @@
     "describe.search": "در حال جست‌وجوی جلسه‌های گذشته"
   },
   "mn": {
-    "tool.description": "Хэрэглэгчийн өмнө нь ярилцсан гэж хэлсэн зүйлийг өнгөрсөн ярианы сешнүүдээс хайна. Хэрэглэгч өмнөх яриаг дурдаж, энэ ярианд байгаа урт хугацааны санах ойд байхгүй үед л хэрэглэнэ үү. Тохирсон өнгөрсөн сешнүүдээс богино ишлэл буцаана. Энэ нь сешнийг үргэлжлүүлэхгүй; сешнийг дахин нээх бол session_resume хэрэглэнэ үү.",
+    "tool.description": "Хэрэглэгчийн ярилцсан сэдвүүдийг өнгөрсөн харилцан ярианаас хайх; тохирох ишлэлүүдийг буцаана. Нэгийг дахин нээхийн тулд session_resume ашиглана уу.",
     "x_search_terms": [
       "өнгөрсөн сешн хайх",
       "өнгөрсөн яриа",
@@ -448,7 +448,7 @@
     "describe.search": "Өнгөрсөн сешнүүдийг хайж байна"
   },
   "mr": {
-    "tool.description": "वापरकर्ता म्हणतो की आधी चर्चा झाली होती ती गोष्ट मागील संभाषण सत्रांमध्ये शोधते. वापरकर्ता जुन्या संभाषणाचा उल्लेख करत असेल आणि या संभाषणात उपलब्ध दीर्घकालीन स्मृतीत ती नसेल तेव्हाच वापरा. जुळणाऱ्या मागील सत्रांचे छोटे उतारे परत करते. हे सत्र पुन्हा सुरू करत नाही; सत्र पुन्हा उघडण्यासाठी session_resume वापरा.",
+    "tool.description": "वापरकर्त्याने ज्या विषयांवर चर्चा केली त्या विषयांसाठी मागील संभाषणे शोधा; जुळणारे उतारे परत करा. एक पुन्हा उघडण्यासाठी session_resume वापरा.",
     "x_search_terms": [
       "मागील सत्रे शोधा",
       "जुनी संभाषणे",
@@ -464,7 +464,7 @@
     "describe.search": "मागील सत्रे शोधत आहे"
   },
   "el": {
-    "tool.description": "Αναζητά σε προηγούμενες συνεδρίες συνομιλίας κάτι που ο χρήστης λέει ότι έχει ήδη συζητηθεί. Χρησιμοποιήστε το μόνο όταν ο χρήστης αναφέρεται σε παλαιότερη συνομιλία και η μακροπρόθεσμη μνήμη που είναι διαθέσιμη σε αυτή τη συνομιλία δεν το καλύπτει. Επιστρέφει σύντομα αποσπάσματα από προηγούμενες συνεδρίες που ταιριάζουν. Αυτό δεν συνεχίζει μια συνεδρία· για να ανοίξετε ξανά μια συνεδρία χρησιμοποιήστε το session_resume.",
+    "tool.description": "Αναζήτηση προηγούμενων συνομιλιών για θέματα που ο χρήστης λέει ότι συζήτησαν. επιστροφή ταιριαστών αποσπασμάτων. Χρησιμοποιήστε session_resume για να ανοίξετε ξανά ένα.",
     "x_search_terms": [
       "αναζήτηση προηγούμενων συνεδριών",
       "παλιές συνομιλίες",
@@ -480,7 +480,7 @@
     "describe.search": "Αναζήτηση προηγούμενων συνεδριών"
   },
   "he": {
-    "tool.description": "מחפש במפגשי שיחה קודמים משהו שהמשתמש אומר שכבר נדון. השתמשו רק כאשר המשתמש מתייחס לשיחה מוקדמת יותר והזיכרון לטווח ארוך הזמין בשיחה זו אינו מכסה זאת. מחזיר קטעים קצרים ממפגשים קודמים תואמים. זה לא מחדש מפגש; כדי לפתוח מפגש מחדש השתמשו ב-session_resume.",
+    "tool.description": "חפש בשיחות קודמות נושאים שהמשתמש אומר שהם דנו בהם; להחזיר קטעים תואמים. השתמש ב-session_resume כדי לפתוח אחד מחדש.",
     "x_search_terms": [
       "חיפוש מפגשים קודמים",
       "שיחות קודמות",
@@ -496,7 +496,7 @@
     "describe.search": "מחפש מפגשים קודמים"
   },
   "hu": {
-    "tool.description": "A korábbi beszélgetési munkamenetekben keresi azt, amiről a felhasználó azt mondja, hogy már volt szó róla. Csak akkor használja, ha a felhasználó egy korábbi beszélgetésre hivatkozik, és az ebben a beszélgetésben elérhető hosszú távú memória nem fedi le. Rövid részleteket ad vissza a találó korábbi munkamenetekből. Ez nem folytat munkamenetet; munkamenet újranyitásához használja a session_resume parancsot.",
+    "tool.description": "Keresés a múltbeli beszélgetésekben olyan témák után, amelyeket a felhasználó megvitatott; vissza egyező kivonatokat. A session_resume használatával nyissa meg újra az egyiket.",
     "x_search_terms": [
       "korábbi munkamenetek keresése",
       "korábbi beszélgetések",
@@ -512,7 +512,7 @@
     "describe.search": "Korábbi munkamenetek keresése"
   },
   "ro": {
-    "tool.description": "Caută în sesiunile de conversație anterioare ceva despre care utilizatorul spune că s-a discutat deja. Folosiți doar când utilizatorul se referă la o conversație anterioară și memoria pe termen lung disponibilă în această conversație nu o acoperă. Returnează fragmente scurte din sesiunile anterioare care se potrivesc. Aceasta nu reia o sesiune; pentru a redeschide una folosiți session_resume.",
+    "tool.description": "Căutați în conversațiile anterioare subiecte despre care utilizatorul spune că le-a discutat; returnează extrase potrivite. Folosiți session_resume pentru a redeschide unul.",
     "x_search_terms": [
       "caută sesiuni anterioare",
       "conversații trecute",
@@ -528,7 +528,7 @@
     "describe.search": "Se caută sesiunile anterioare"
   },
   "fil": {
-    "tool.description": "Hahanapin sa mga nakaraang sesyon ng usapan ang sinasabi ng user na napag-usapan na. Gamitin lamang kapag tumutukoy ang user sa mas naunang usapan at hindi ito saklaw ng pangmatagalang alaala sa usapang ito. Nagbabalik ng maiikling sipi mula sa mga nakaraang sesyong tumugma. Hindi nito ipinagpapatuloy ang sesyon; para muling buksan ang sesyon, gamitin ang session_resume.",
+    "tool.description": "Maghanap sa mga nakaraang pag-uusap para sa mga paksang sinasabi ng user na kanilang tinalakay; ibalik ang mga tugmang sipi. Gamitin ang session_resume upang muling buksan ang isa.",
     "x_search_terms": [
       "maghanap ng nakaraang sesyon",
       "mga nakaraang usapan",
@@ -544,7 +544,7 @@
     "describe.search": "Naghahanap ng nakaraang sesyon"
   },
   "ms": {
-    "tool.description": "Mencari dalam sesi perbualan lepas sesuatu yang dikatakan pengguna telah dibincangkan sebelum ini. Gunakan hanya apabila pengguna merujuk kepada perbualan terdahulu dan ingatan jangka panjang yang tersedia dalam perbualan ini tidak meliputinya. Mengembalikan petikan pendek daripada sesi lepas yang sepadan. Ini tidak menyambung sesi; untuk membuka semula sesi gunakan session_resume.",
+    "tool.description": "Cari perbualan lepas untuk topik yang dikatakan pengguna mereka bincangkan; pulangkan petikan yang sepadan. Gunakan session_resume untuk membuka semula satu.",
     "x_search_terms": [
       "cari sesi lepas",
       "perbualan lalu",
@@ -560,7 +560,7 @@
     "describe.search": "Mencari sesi lepas"
   },
   "da": {
-    "tool.description": "Søger i tidligere samtalesessioner efter noget, brugeren siger allerede er blevet diskuteret. Brug kun, når brugeren henviser til en tidligere samtale, og langtidshukommelsen i denne samtale ikke dækker det. Returnerer korte uddrag fra matchende tidligere sessioner. Dette genoptager ikke en session; brug session_resume til at genåbne en.",
+    "tool.description": "Søg i tidligere samtaler efter emner, som brugeren siger, de har diskuteret; returnere matchende uddrag. Brug session_resume til at genåbne en.",
     "x_search_terms": [
       "søg tidligere sessioner",
       "tidligere samtaler",
@@ -576,7 +576,7 @@
     "describe.search": "Søger i tidligere sessioner"
   },
   "nn": {
-    "tool.description": "Søkjer i tidlegare samtalesessionar etter noko brukaren seier allereie er diskutert. Bruk berre når brukaren viser til ein tidlegare samtale og langtidsminnet i denne samtalen ikkje dekkjer det. Returnerer korte utdrag frå treff i tidlegare sessionar. Dette held ikkje fram ein session; bruk session_resume for å opne ein på nytt.",
+    "tool.description": "Søk i tidlegare samtalar etter emne som brukaren seier dei har diskutert; returner treffande utdrag. Bruk session_resume for å opne ei att.",
     "x_search_terms": [
       "søk tidlegare sessionar",
       "tidlegare samtalar",

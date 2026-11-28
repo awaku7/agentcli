@@ -24,11 +24,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Split a Markdown file into heading-level sections and return a numbered index "
-                "or a specific section. Use this when you need to read a large Markdown document: "
-                "first call with mode='index' to get the table of contents, then call with "
-                "mode='section' and the section number to retrieve only the content you need. "
-                "This saves tokens compared to reading the entire file."
+                "Split Markdown files by headings and retrieve selected sections."
             ),
         ),
         "x_search_terms": _(

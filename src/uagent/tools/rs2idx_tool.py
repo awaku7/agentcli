@@ -17,12 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a Rust (.rs) file into functions, structs, enums, traits, impls, "
-                "and macros and return a numbered index or a specific definition section. "
-                "Use this when you need to read a large .rs file: first call with "
-                "mode='index' to get the table of contents, then call with mode='section' "
-                "and the section number to retrieve only the definition you need. "
-                "This saves tokens compared to reading the entire file."
+                "Parse Rust files to find types, functions, impl blocks, and macros and extract selected definitions."
             ),
         ),
         "x_search_terms": _(

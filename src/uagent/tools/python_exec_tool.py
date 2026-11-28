@@ -25,12 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Run short Python code as a temporary script using the active interpreter "
-                "(not an interactive REPL). Standard input is closed, a configured "
-                "timeout applies, and stdout/stderr are returned. The script inherits "
-                "the agent process's working directory and environment. Prefer "
-                "dedicated tools for supported operations; search `tool_catalog` for "
-                "other suitable tools before using this tool."
+                "Run short Python code as a temporary script and return output. stdin is closed and a timeout applies; prefer dedicated tools when available."
             ),
         ),
         "x_search_terms": _(

@@ -17,10 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a CSV or TSV file (.csv/.tsv) into header previews and row block summaries, "
-                "returning a numbered index or a specific section. Use this when reading large CSV files: "
-                "call with mode='index' to get headers and row block ranges, then call with "
-                "mode='section' and section=N to retrieve the rows of that block."
+                "Summarize CSV/TSV headers and row blocks and retrieve selected rows."
             ),
         ),
         "x_search_terms": _(

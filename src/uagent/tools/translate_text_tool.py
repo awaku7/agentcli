@@ -1036,12 +1036,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Translate one or more texts using Google Translate or DeepL. Supports 30+ languages. "
-                "Multiple texts are joined and translated as a single block to preserve context. "
-                "Max 10000 characters per element for texts[]; longer file content is auto-chunked. "
-                "Do NOT truncate text before sending. When protect_placeholders is enabled (default), "
-                "placeholders (%(name)s, {name}, ${name}, etc.) are protected. Brand/product terms can be protected via protect_terms/extra_protect_terms. "
-                "Optional path/output_path enable file-to-file translation with encoding/newline preservation."
+                "Translate text or files using Google Translate or DeepL. Supports 30+ languages, protects placeholders and terms, and preserves file encoding and newlines."
             ),
         ),
         "x_search_terms": _(

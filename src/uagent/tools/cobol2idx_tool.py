@@ -17,11 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a COBOL (.cbl/.cob/.cpy) file into divisions, sections, paragraphs, "
-                "data definitions, and copybooks and return a numbered index or a specific "
-                "definition section. Use this when you need to read a large COBOL file: "
-                "first call with mode='index' to get the table of contents, then call with "
-                "mode='section' and the section number to retrieve only the definition you need."
+                "Parse COBOL divisions, data definitions, paragraphs, and copybooks and extract selected sections."
             ),
         ),
         "x_search_terms": _(

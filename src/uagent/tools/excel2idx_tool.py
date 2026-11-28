@@ -38,10 +38,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse an Excel workbook (.xlsx/.xlsm) into worksheet summaries and table structures, "
-                "returning a numbered index or a specific worksheet section. Use this when reading large Excel files: "
-                "call with mode='index' to get the list of worksheets with row/column counts and header previews, then call with "
-                "mode='section' and section=N to retrieve the cell data from that worksheet."
+                "List Excel workbook sheets and retrieve data from a selected sheet."
             ),
         ),
         "x_search_terms": _(

@@ -17,10 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a log file (.log/.txt) into timestamp blocks, error/warning events, and line ranges, "
-                "returning a numbered index or a specific section. Use this when reading large log files: "
-                "call with mode='index' to get log block summaries and error event locations, then call with "
-                "mode='section' and section=N to retrieve that log block."
+                "Group log entries by time and notable events; retrieve selected blocks."
             ),
         ),
         "x_search_terms": _(

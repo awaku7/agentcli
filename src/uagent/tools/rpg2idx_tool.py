@@ -17,12 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse an IBM i RPG/RPGLE/SQLRPGLE (.rpg/.rpgle/.sqlrpgle) file into control "
-                "options, files, definitions, procedures, subroutines, copy/include, embedded "
-                "SQL (EXEC SQL), conditional compile (/IF /DEFINE), and fixed-form specs, "
-                "and return a numbered index or a specific definition section. Use this when "
-                "you need to read a large RPG source: first call with mode='index', then "
-                "mode='section'."
+                "Find declarations and procedures in IBM i RPG/RPGLE source files; extract selected definitions."
             ),
         ),
         "x_search_terms": _(

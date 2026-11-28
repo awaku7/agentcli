@@ -37,11 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Search past conversation sessions for something the user says was "
-                "discussed before. Use this only when the user refers to an earlier "
-                "conversation and the long-term memory available in this conversation "
-                "does not cover it. Returns short excerpts from matching past sessions. "
-                "This does not resume a session; use session_resume to reopen one."
+                "Search past conversations for topics the user says they discussed; return matching excerpts. Use session_resume to reopen one."
             ),
         ),
         "x_search_terms": _(

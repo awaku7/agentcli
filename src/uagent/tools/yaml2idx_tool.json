@@ -28,7 +28,7 @@
     "err.invalid_mode": "エラー: 無効なモード '{mode}'。'index' または 'section' を使用してください。",
     "msg.no_entries": "(構造化された YAML キーが見つかりません)",
     "msg.index_output": "インデックス対象: {path}\n---\n{toc}\n---\n合計セクション数: {total}\nセクションを取得するには mode='section' と section=N を指定して yaml2idx を呼び出してください。",
-    "tool.description": "YAML ファイルを解析してキーパス、ドキュメントブロック、および構造サマリーを抽出し、目次または指定セクションを返します。大きな YAML、Kubernetes マニフェスト、Docker Compose、OpenAPI、GitHub Actions ファイルを読む際に使用します。"
+    "tool.description": "YAMLのキーや文書構造を要約し、指定箇所を取得します。Kubernetes、Compose、OpenAPI、ワークフロー等に対応します。"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -59,7 +59,7 @@
     "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
     "msg.no_entries": "（未找到结构 YAML 键）",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总节数：{total}\n要检索节，请使用 mode='section' 和section=N 调用 yaml2idx。",
-    "tool.description": "将 YAML 文件解析为关键路径、文档块和结构摘要，返回编号索引或特定部分。在读取大型 YAML、Kubernetes 清单、Docker Compose、OpenAPI 或 GitHub 操作文件时使用此选项：使用 mode='index' 调用以获取具有 JSONPath 样式键路径的目录，然后使用 mode='section' 和节号调用以仅检索所需的行。"
+    "tool.description": "总结 YAML 键和文档结构；检索选定的部分。对于 Kubernetes、Compose、OpenAPI 和工作流程文件很有用。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -90,7 +90,7 @@
     "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
     "msg.no_entries": "（未找到結構 YAML 鍵）",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總節數：{total}\n要檢索節，請使用 mode='section' 和section=N 呼叫 yaml2idx。",
-    "tool.description": "將 YAML 檔案解析為關鍵路徑、文件區塊和結構摘要，傳回編號索引或特定部分。在讀取大型 YAML、Kubernetes 清單、Docker Compose、OpenAPI 或 GitHub 作業檔案時使用此選項：使用 mode='index' 呼叫以取得具有 JSONPath 樣式鍵路徑的目錄，然後使用 mode='section' 和節號呼叫以僅擷取所需的行。"
+    "tool.description": "總結 YAML 鍵和文件結構；檢索選定的部分。對於 Kubernetes、Compose、OpenAPI 和工作流程文件很有用。"
   },
   "ko": {
     "x_search_terms": [
@@ -121,7 +121,7 @@
     "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
     "msg.no_entries": "(구조적 YAML 키를 찾을 수 없음)",
     "msg.index_output": "색인: {path}\n---\n{toc}\n---\n총 섹션: {total}\n섹션을 검색하려면 mode='section' 및 section=N으로 yaml2idx를 호출합니다.",
-    "tool.description": "YAML 파일을 키 경로, 문서 블록 및 구조적 요약으로 구문 분석하여 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다. 대규모 YAML, Kubernetes 매니페스트, Docker Compose, OpenAPI 또는 GitHub 작업 파일을 읽을 때 이것을 사용하세요. mode='index'로 호출하여 JSONPath 스타일 키 경로가 있는 목차를 가져온 다음 mode='section' 및 섹션 번호로 호출하여 필요한 줄만 검색하세요."
+    "tool.description": "YAML 키와 문서 구조를 요약합니다. 선택한 섹션을 검색합니다. Kubernetes, Compose, OpenAPI 및 워크플로 파일에 유용합니다."
   },
   "fr": {
     "x_search_terms": [
@@ -152,7 +152,7 @@
     "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section ».",
     "msg.no_entries": "(aucune clé YAML structurelle trouvée)",
     "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des sections : {total}\nPour récupérer une section, appelez yaml2idx avec mode='section' et section=N.",
-    "tool.description": "Analysez un fichier YAML en chemins clés, blocs de documents et résumés structurels, en renvoyant un index numéroté ou une section spécifique. Utilisez-le lors de la lecture de grands fichiers YAML, Kubernetes, Docker Compose, OpenAPI ou GitHub Actions : appelez avec mode='index' pour obtenir la table des matières avec les chemins de clés de style JSONPath, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement les lignes requises."
+    "tool.description": "Résumer les clés YAML et la structure du document ; récupérer les sections sélectionnées. Utile pour les fichiers Kubernetes, Compose, OpenAPI et workflow."
   },
   "de": {
     "x_search_terms": [
@@ -183,7 +183,7 @@
     "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
     "msg.no_entries": "(keine strukturellen YAML-Schlüssel gefunden)",
     "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nAbschnitte insgesamt: {total}\nUm einen Abschnitt abzurufen, rufen Sie yaml2idx mit mode='section' und section=N auf.",
-    "tool.description": "Analysieren Sie eine YAML-Datei in Schlüsselpfade, Dokumentblöcke und Strukturzusammenfassungen und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt zurück. Verwenden Sie dies beim Lesen großer YAML-, Kubernetes-Manifeste, Docker Compose-, OpenAPI- oder GitHub-Aktionsdateien: Rufen Sie mit mode='index' auf, um das Inhaltsverzeichnis mit Schlüsselpfaden im JSONPath-Stil abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die erforderlichen Zeilen abzurufen."
+    "tool.description": "YAML-Schlüssel und Dokumentstruktur zusammenfassen; ausgewählte Abschnitte abrufen. Nützlich für Kubernetes-, Compose-, OpenAPI- und Workflow-Dateien."
   },
   "es": {
     "x_search_terms": [
@@ -214,7 +214,7 @@
     "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
     "msg.no_entries": "(no se encontraron claves YAML estructurales)",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nSecciones totales: {total}\nPara recuperar una sección, llame a yaml2idx con mode='sección' y sección=N.",
-    "tool.description": "Analice un archivo YAML en rutas clave, bloques de documentos y resúmenes estructurales, devolviendo un índice numerado o una sección específica. Utilice esto cuando lea archivos grandes YAML, Kubernetes manifiestos, Docker Compose, OpenAPI o GitHub Actions: llame con mode='index' para obtener la tabla de contenido con rutas clave de estilo JSONPath, luego llame con mode='section' y el número de sección para recuperar solo las líneas requeridas."
+    "tool.description": "Resumir las claves YAML y la estructura del documento; recuperar secciones seleccionadas. Útil para archivos Kubernetes, Compose, OpenAPI y flujo de trabajo."
   },
   "it": {
     "x_search_terms": [
@@ -245,7 +245,7 @@
     "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
     "msg.no_entries": "(nessuna chiave YAML strutturale trovata)",
     "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nSezioni totali: {total}\nPer recuperare una sezione, chiama yaml2idx con mode='section' e sezione=N.",
-    "tool.description": "Analizza un file YAML in percorsi chiave, blocchi di documenti e riepiloghi strutturali, restituendo un indice numerato o una sezione specifica. Utilizzalo durante la lettura di file YAML, Kubernetes manifest di grandi dimensioni, Docker Compose, OpenAPI o GitHub Actions: chiama con mode='index' per ottenere il sommario con percorsi chiave in stile JSONPath, quindi chiama con mode='section' e il numero di sezione per recuperare solo le righe richieste."
+    "tool.description": "Riepiloga le chiavi YAML e la struttura del documento; recuperare le sezioni selezionate. Utile per file Kubernetes, Compose, OpenAPI e flussi di lavoro."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -276,7 +276,7 @@
     "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
     "msg.no_entries": "(nenhuma chave YAML estrutural encontrada)",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de seções: {total}\nPara recuperar uma seção, chame yaml2idx com mode='section' e section=N.",
-    "tool.description": "Analise um arquivo YAML em caminhos-chave, blocos de documentos e resumos estruturais, retornando um índice numerado ou uma seção específica. Use isso ao ler arquivos grandes de ações YAML, Kubernetes, Docker Compose, OpenAPI ou GitHub Actions: chame com mode='index' para obter o índice com caminhos de chave no estilo JSONPath e, em seguida, chame com mode='section' e o número da seção para recuperar apenas as linhas necessárias."
+    "tool.description": "Resuma as chaves YAML e a estrutura do documento; recuperar seções selecionadas. Útil para arquivos Kubernetes, Compose, OpenAPI e fluxo de trabalho."
   },
   "pt": {
     "x_search_terms": [
@@ -307,7 +307,7 @@
     "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
     "msg.no_entries": "(nenhuma chave YAML estrutural encontrada)",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de seções: {total}\nPara recuperar uma seção, chame yaml2idx com mode='section' e section=N.",
-    "tool.description": "Analise um arquivo YAML em caminhos-chave, blocos de documentos e resumos estruturais, retornando um índice numerado ou uma seção específica. Use isso ao ler arquivos grandes de ações YAML, Kubernetes, Docker Compose, OpenAPI ou GitHub Actions: chame com mode='index' para obter o índice com caminhos de chave no estilo JSONPath e, em seguida, chame com mode='section' e o número da seção para recuperar apenas as linhas necessárias."
+    "tool.description": "Resuma as chaves YAML e a estrutura do documento; recuperar seções selecionadas. Útil para arquivos Kubernetes, Compose, OpenAPI e fluxo de trabalho."
   },
   "ru": {
     "x_search_terms": [
@@ -338,7 +338,7 @@
     "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
     "msg.no_entries": "(структурные ключи YAML не найдены)",
     "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего разделов: {total}\nЧтобы получить раздел, вызовите yaml2idx с mode='section' иsection=N.",
-    "tool.description": "Разберите файл YAML на ключевые пути, блоки документов и структурные сводки, возвращая нумерованный индекс или определенный раздел. Используйте это при чтении больших файлов YAML, Kubernetes, Docker Compose, OpenAPI или GitHub Actions: вызовите с mode='index', чтобы получить оглавление с путями ключей в стиле JSONPath, затем вызовите с mode='section' и номером раздела, чтобы получить только необходимые строки."
+    "tool.description": "Обобщить ключи YAML и структуру документа; получить выбранные разделы. Полезно для файлов Kubernetes, Compose, OpenAPI и рабочих процессов."
   },
   "id": {
     "x_search_terms": [
@@ -369,7 +369,7 @@
     "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
     "msg.no_entries": "(tidak ditemukan kunci YAML struktural)",
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal bagian: {total}\nUntuk mengambil bagian, panggil yaml2idx dengan mode='section' dan section=N.",
-    "tool.description": "Parsing file YAML menjadi jalur utama, blok dokumen, dan ringkasan struktural, sehingga menghasilkan indeks bernomor atau bagian tertentu. Gunakan ini saat membaca file Tindakan YAML, Kubernetes, Docker Compose, OpenAPI, atau GitHub berukuran besar: panggil dengan mode='index' untuk mendapatkan daftar isi dengan jalur kunci bergaya JSONPath, lalu panggil dengan mode='section' dan nomor bagian untuk mengambil baris yang diperlukan saja."
+    "tool.description": "Meringkas kunci YAML dan struktur dokumen; mengambil bagian yang dipilih. Berguna untuk file Kubernetes, Compose, OpenAPI, dan alur kerja."
   },
   "vi": {
     "x_search_terms": [
@@ -400,7 +400,7 @@
     "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
     "msg.no_entries": "(không tìm thấy khóa YAML cấu trúc)",
     "msg.index_output": "Lập chỉ mục cho: {path}\n---\n{toc}\n---\nTổng số phần: {total}\nĐể truy xuất một phần, hãy gọi yaml2idx với mode='section' và part=N.",
-    "tool.description": "Phân tích tệp YAML thành các đường dẫn chính, khối tài liệu và tóm tắt cấu trúc, trả về chỉ mục được đánh số hoặc một phần cụ thể. Sử dụng tính năng này khi đọc các tệp kê khai YAML, Kubernetes lớn, Docker Compose, OpenAPI hoặc GitHub: gọi bằng mode='index' để lấy mục lục có các đường dẫn khóa kiểu JSONPath, sau đó gọi bằng mode='section' và số phần để chỉ truy xuất các dòng được yêu cầu."
+    "tool.description": "Tóm tắt các khóa YAML và cấu trúc tài liệu; truy xuất các phần đã chọn. Hữu ích cho các tệp Kubernetes, Compose, OpenAPI và quy trình làm việc."
   },
   "pl": {
     "x_search_terms": [
@@ -431,7 +431,7 @@
     "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
     "msg.no_entries": "(nie znaleziono kluczy strukturalnych YAML)",
     "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nŁączna liczba sekcji: {total}\nAby pobrać sekcję, wywołaj yaml2idx z trybami='sekcja' i sekcja=N.",
-    "tool.description": "Analizuj plik YAML na ścieżki kluczy, bloki dokumentów i podsumowania strukturalne, zwracając numerowany indeks lub określoną sekcję. Użyj tego podczas czytania dużych manifestów YAML, Kubernetes, plików Docker Compose, OpenAPI lub GitHub Actions: wywołaj z mode='index', aby uzyskać spis treści ze ścieżkami kluczy w stylu JSONPath, następnie wywołaj z mode='section' i numerem sekcji, aby pobrać tylko wymagane linie."
+    "tool.description": "Podsumuj klucze YAML i strukturę dokumentu; pobrać wybrane sekcje. Przydatne w przypadku plików Kubernetes, Compose, OpenAPI i przepływu pracy."
   },
   "hi": {
     "x_search_terms": [
@@ -462,7 +462,7 @@
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
     "msg.no_entries": "(कोई संरचनात्मक YAML कुंजी नहीं मिली)",
     "msg.index_output": "इनके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल अनुभाग: {total}\n किसी अनुभाग को पुनः प्राप्त करने के लिए, mode='section' और section=N के साथ yaml2idx पर कॉल करें।",
-    "tool.description": "एक YAML फ़ाइल को मुख्य पथों, दस्तावेज़ ब्लॉकों और संरचनात्मक सारांशों में पार्स करें, एक क्रमांकित सूचकांक या एक विशिष्ट अनुभाग लौटाएँ। बड़े YAML, Kubernetes मेनिफ़ेस्ट, Docker कंपोज़, OpenAPI, या GitHub एक्शन फ़ाइलों को पढ़ते समय इसका उपयोग करें: JSONPath-शैली कुंजी पथों के साथ सामग्री की तालिका प्राप्त करने के लिए mode='index' के साथ कॉल करें, फिर केवल आवश्यक पंक्तियों को पुनः प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें।"
+    "tool.description": "YAML कुंजियों और दस्तावेज़ संरचना को सारांशित करें; चयनित अनुभाग पुनः प्राप्त करें. Kubernetes, कंपोज़, ओपनएपीआई और वर्कफ़्लो फ़ाइलों के लिए उपयोगी।"
   },
   "ar": {
     "x_search_terms": [
@@ -493,7 +493,7 @@
     "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
     "msg.no_entries": "(لم يتم العثور على مفاتيح YAML هيكلية)",
     "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي الأقسام: {total}\nلاسترداد قسم، اتصل بـ yaml2idx مع الوضع='section' والقسم=N.",
-    "tool.description": "قم بتحليل ملف YAML إلى مسارات رئيسية وكتل مستندية وملخصات هيكلية، مما يؤدي إلى إرجاع فهرس مرقّم أو قسم محدد. استخدم هذا عند قراءة ملفات YAML الكبيرة، أو Kubernetes، أو Docker Compose، أو OpenAPI، أو GitHub Actions: اتصل باستخدام mode='index' للحصول على جدول المحتويات باستخدام مسارات المفاتيح بنمط JSONPath، ثم اتصل باستخدام mode='section' ورقم القسم لاسترداد الأسطر المطلوبة فقط."
+    "tool.description": "تلخيص مفاتيح YAML وبنية المستند؛ استرداد الأقسام المحددة. مفيد لملفات Kubernetes وCompose وOpenAPI وسير العمل."
   },
   "sv": {
     "x_search_terms": [
@@ -524,7 +524,7 @@
     "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
     "msg.no_entries": "(inga strukturella YAML-nycklar hittades)",
     "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotalt antal sektioner: {total}\nFör att hämta ett avsnitt, anrop yaml2idx med mode='section' och section=N.",
-    "tool.description": "Analysera en YAML-fil i nyckelsökvägar, dokumentblock och strukturella sammanfattningar, vilket returnerar ett numrerat index eller en specifik sektion. Använd detta när du läser stora YAML-, Kubernetes-manifester, Docker Compose-, OpenAPI- eller GitHub Actions-filer: ring med mode='index' för att få innehållsförteckningen med JSONPath-nyckelsökvägar, ring sedan med mode='section' och sektionsnumret för att bara hämta de rader som krävs."
+    "tool.description": "Sammanfatta YAML-nycklar och dokumentstruktur; hämta valda avsnitt. Användbar för Kubernetes, Compose, OpenAPI och arbetsflödesfiler."
   },
   "sw": {
     "x_search_terms": [
@@ -555,7 +555,7 @@
     "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
     "msg.no_entries": "(hakuna funguo za muundo za YAML zilizopatikana)",
     "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\nJumla ya sehemu: {total}\nIli kupata sehemu, piga simu yaml2idx ukitumia mode='section' na section=N.",
-    "tool.description": "Changanua faili ya YAML katika njia kuu, vizuizi vya hati, na muhtasari wa muundo, ukirejesha faharasa yenye nambari au sehemu mahususi. Tumia hii unaposoma faili kubwa za YAML, Kubernetes, Docker Tunga, OpenAPI, au faili GitHub za Vitendo: piga simu ukitumia modi='index' ili upate jedwali la yaliyomo ukitumia njia kuu za mtindo wa JSONPath, kisha piga simu ukitumia mode='section' na nambari ya sehemu ili kupata laini zinazohitajika pekee."
+    "tool.description": "Fanya muhtasari wa vitufe vya YAML na muundo wa hati; pata sehemu zilizochaguliwa. Inafaa kwa Kubernetes, Tunga, OpenAPI, na faili za mtiririko wa kazi."
   },
   "nb": {
     "x_search_terms": [
@@ -586,7 +586,7 @@
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
     "msg.no_entries": "(ingen strukturelle YAML-nøkler funnet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall seksjoner: {total}\nFor å hente en seksjon, ring yaml2idx med mode='section' og section=N.",
-    "tool.description": "Parse en YAML-fil i nøkkelbaner, dokumentblokker og strukturelle sammendrag, og returner en nummerert indeks eller en spesifikk seksjon. Bruk dette når du leser store YAML-, Kubernetes-manifester, Docker Compose, OpenAPI eller GitHub Actions-filer: ring med mode='index' for å få innholdsfortegnelsen med nøkkelbaner i JSONPath-stil, ring deretter med mode='section' og seksjonsnummeret for å hente bare de nødvendige linjene."
+    "tool.description": "Oppsummer YAML-nøkler og dokumentstruktur; hente valgte seksjoner. Nyttig for Kubernetes-, Compose-, OpenAPI- og arbeidsflytfiler."
   },
   "nl": {
     "x_search_terms": [
@@ -617,7 +617,7 @@
     "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
     "msg.no_entries": "(geen structurele YAML-sleutels gevonden)",
     "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal aantal secties: {total}\nOm een sectie op te halen, roept u yaml2idx aan met mode='section' en sectie=N.",
-    "tool.description": "Parseer een YAML-bestand in sleutelpaden, documentblokken en structurele samenvattingen, waarbij een genummerde index of een specifieke sectie wordt geretourneerd. Gebruik dit bij het lezen van grote YAML-, Kubernetes-manifesten, Docker Compose-, OpenAPI- of GitHub Actions-bestanden: roep aan met mode='index' om de inhoudsopgave op te halen met sleutelpaden in JSONPath-stijl en roep vervolgens aan met mode='section' en het sectienummer om alleen de vereiste regels op te halen."
+    "tool.description": "Vat YAML-sleutels en documentstructuur samen; geselecteerde secties ophalen. Handig voor Kubernetes, Compose, OpenAPI en workflowbestanden."
   },
   "fi": {
     "x_search_terms": [
@@ -648,7 +648,7 @@
     "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'.",
     "msg.no_entries": "(rakenteellisia YAML-avaimia ei löytynyt)",
     "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nOsioita yhteensä: {total}\nJos haluat hakea osan, soita yaml2idx:lle mode='section' ja section=N.",
-    "tool.description": "Jäsennä YAML-tiedosto avainpoluiksi, asiakirjalohkoiksi ja rakenteellisiksi yhteenvetoiksi palauttaen numeroidun hakemiston tai tietyn osan. Käytä tätä, kun luet suuria YAML-, Kubernetes-luetteloita, Docker Compose-, OpenAPI- tai GitHub Actions-tiedostoja: soita mode='index' saadaksesi sisällysluettelon JSONPath-tyylisillä avainpoluilla, ja soita sitten mode='section' ja osion numerolla hakeaksesi vain vaaditut rivit."
+    "tool.description": "YAML-avainten ja asiakirjan rakenteen yhteenveto; hakea valitut osat. Hyödyllinen Kubernetes-, Compose-, OpenAPI- ja työnkulkutiedostoille."
   },
   "cs": {
     "x_search_terms": [
@@ -679,7 +679,7 @@
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
     "msg.no_entries": "(nenalezeny žádné strukturální klíče YAML)",
     "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkem sekcí: {total}\nChcete-li načíst sekci, zavolejte yaml2idx s mode='section' a section=N.",
-    "tool.description": "Analyzujte soubor YAML do klíčových cest, bloků dokumentů a strukturálních souhrnů a vraťte očíslovaný index nebo konkrétní sekci. Použijte toto při čtení velkých souborů YAML, Kubernetes manifestů, Docker Compose, OpenAPI nebo GitHub Actions: voláním s mode='index' získáte obsah s cestami klíčů ve stylu JSONPath, poté voláním s mode='section' a číslem sekce pro načtení pouze požadovaných řádků."
+    "tool.description": "Shrnutí klíčů YAML a struktury dokumentu; načíst vybrané sekce. Užitečné pro soubory Kubernetes, Compose, OpenAPI a workflow."
   },
   "uk": {
     "x_search_terms": [
@@ -710,7 +710,7 @@
     "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
     "msg.no_entries": "(не знайдено структурних ключів YAML)",
     "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nУсього розділів: {total}\nЩоб отримати розділ, викличте yaml2idx з mode='section' і section=N.",
-    "tool.description": "Розбирайте файл YAML на ключові шляхи, блоки документів і структурні підсумки, повертаючи нумерований індекс або певний розділ. Використовуйте це під час читання великих файлів YAML, Kubernetes, Docker Compose, OpenAPI або GitHub Actions: викликайте з mode='index', щоб отримати зміст із шляхами до ключів у стилі JSONPath, потім викликайте з mode='section' і номером розділу, щоб отримати лише необхідні рядки."
+    "tool.description": "Узагальнити ключі YAML і структуру документа; отримати вибрані розділи. Корисно для файлів Kubernetes, Compose, OpenAPI та робочих процесів."
   },
   "tr": {
     "x_search_terms": [
@@ -741,7 +741,7 @@
     "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
     "msg.no_entries": "(yapısal YAML anahtarı bulunamadı)",
     "msg.index_output": "Dizin için: {path}\n---\n{toc}\n---\nToplam bölümler: {total}\nBir bölümü almak için mode='section' vesection=N ile yaml2idx'i çağırın.",
-    "tool.description": "Bir YAML dosyasını anahtar yollara, belge bloklarına ve yapısal özetlere ayrıştırarak numaralandırılmış bir dizin veya belirli bir bölüm döndürün. Büyük YAML, Kubernetes bildirimleri, Docker Compose, OpenAPI veya GitHub Actions dosyalarını okurken bunu kullanın: JSONPath tarzı anahtar yollarıyla içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca gerekli satırları almak için mode='section' ve bölüm numarasıyla çağrı yapın."
+    "tool.description": "YAML anahtarlarını ve belge yapısını özetleyin; seçilen bölümleri geri alın. Kubernetes, Compose, OpenAPI ve iş akışı dosyaları için kullanışlıdır."
   },
   "th": {
     "x_search_terms": [
@@ -772,7 +772,7 @@
     "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
     "msg.no_entries": "(ไม่พบคีย์ YAML ที่มีโครงสร้าง)",
     "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\nส่วนทั้งหมด: {total}\nหากต้องการดึงข้อมูลส่วน ให้เรียก yaml2idx ด้วย mode='section' และsection=N",
-    "tool.description": "แยกไฟล์ YAML ออกเป็นเส้นทางคีย์ บล็อกเอกสาร และสรุปโครงสร้าง โดยส่งคืนดัชนีที่มีหมายเลขหรือส่วนเฉพาะ ใช้สิ่งนี้เมื่ออ่าน YAML, Kubernetes Manifest, Docker Compose, OpenAPI หรือ GitHub Actions ขนาดใหญ่: โทรด้วย mode='index' เพื่อรับสารบัญที่มีพาธคีย์สไตล์ JSONPath จากนั้นโทรด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะบรรทัดที่ต้องการ"
+    "tool.description": "สรุปคีย์ YAML และโครงสร้างเอกสาร ดึงข้อมูลส่วนที่เลือก มีประโยชน์สำหรับ Kubernetes, เขียน, OpenAPI และไฟล์เวิร์กโฟลว์"
   },
   "bn": {
     "x_search_terms": [
@@ -803,7 +803,7 @@
     "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
     "msg.no_entries": "(কোন কাঠামোগত YAML কী পাওয়া যায়নি)",
     "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট বিভাগ: {total}\nএকটি বিভাগ পুনরুদ্ধার করতে, yaml2idx কে মোড='বিভাগ' এবং বিভাগ=N সহ কল করুন।",
-    "tool.description": "একটি YAML ফাইলকে কী পাথ, ডকুমেন্ট ব্লক এবং স্ট্রাকচারাল সারাংশে পার্স করুন, একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট বিভাগে ফেরত দিন। বড় YAML, Kubernetes ম্যানিফেস্ট, Docker রচনা, OpenAPI, বা GitHub অ্যাকশন ফাইল পড়ার সময় এটি ব্যবহার করুন: JSONPath-স্টাইল কী পাথগুলির সাথে বিষয়বস্তুর সারণী পেতে mode='index' দিয়ে কল করুন, তারপর শুধুমাত্র প্রয়োজনীয় লাইনগুলি পুনরুদ্ধার করতে mode='section' এবং বিভাগ নম্বর দিয়ে কল করুন৷"
+    "tool.description": "YAML কী এবং নথির গঠন সংক্ষিপ্ত করুন; নির্বাচিত বিভাগ পুনরুদ্ধার করুন। Kubernetes, রচনা, OpenAPI, এবং ওয়ার্কফ্লো ফাইলের জন্য দরকারী৷"
   },
   "fa": {
     "x_search_terms": [
@@ -834,7 +834,7 @@
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
     "msg.no_entries": "(هیچ کلید ساختاری YAML یافت نشد)",
     "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، yaml2idx را با mode='section' و section=N فراخوانی کنید.",
-    "tool.description": "یک فایل YAML را به مسیرهای کلیدی، بلوک‌های سند و خلاصه‌های ساختاری تجزیه کنید و یک فهرست شماره‌دار یا یک بخش خاص را برگردانید. هنگام خواندن فایل‌های YAML بزرگ، Kubernetes مانیفست، Docker نوشتن، OpenAPI یا GitHub Action از آن استفاده کنید: با mode='index' تماس بگیرید تا فهرست مطالب را با مسیرهای کلیدی به سبک JSONPath دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط خطوط مورد نیاز را بازیابی کنید."
+    "tool.description": "کلیدهای YAML و ساختار سند را خلاصه کنید. بازیابی بخش های انتخاب شده برای فایل های Kubernetes، Compose، OpenAPI و گردش کار مفید است."
   },
   "mn": {
     "x_search_terms": [
@@ -865,7 +865,7 @@
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
     "msg.no_entries": "(бүтцийн YAML түлхүүр олдсонгүй)",
     "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт хэсэг: {total}\nХэсгийг сэргээхийн тулд mode='section' болон section=N-тэй yaml2idx гэж залгана уу.",
-    "tool.description": "YAML файлыг үндсэн замууд, баримт бичгийн блокууд болон бүтцийн хураангуй болгон задлан, дугаарласан индекс эсвэл тодорхой хэсгийг буцаана. Томоохон YAML, Kubernetes манифест, Docker Compose, OpenAPI, эсвэл GitHub Үйлдлийн файлуудыг уншихдаа үүнийг ашиглана уу: JSONPath маягийн түлхүүр замууд бүхий агуулгын хүснэгтийг авахын тулд mode='index'-ээр залгаж, дараа нь mode='section' болон хэсгийн дугаараар залгаж зөвхөн шаардлагатай мөрүүдийг аваарай."
+    "tool.description": "YAML түлхүүрүүд болон баримт бичгийн бүтцийг нэгтгэн дүгнэх; сонгосон хэсгүүдийг татаж авах. Kubernetes, Зохиох, OpenAPI болон ажлын урсгалын файлуудад хэрэгтэй."
   },
   "mr": {
     "x_search_terms": [
@@ -896,7 +896,7 @@
     "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
     "msg.no_entries": "(कोणत्याही स्ट्रक्चरल YAML की आढळल्या नाहीत)",
     "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण विभाग: {total}\n विभाग पुनर्प्राप्त करण्यासाठी, मोड='विभाग' आणि विभाग=N सह yaml2idx वर कॉल करा.",
-    "tool.description": "क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करून, मुख्य मार्ग, दस्तऐवज ब्लॉक आणि संरचनात्मक सारांशांमध्ये YAML फाइलचे विश्लेषण करा. मोठ्या YAML, Kubernetes मॅनिफेस्ट, Docker कंपोझ, OpenAPI किंवा GitHub क्रिया फायली वाचताना याचा वापर करा: JSONPath-शैलीतील की पथांसह सामग्री सारणी मिळविण्यासाठी mode='index' सह कॉल करा, नंतर फक्त आवश्यक ओळी पुनर्प्राप्त करण्यासाठी mode='section' आणि विभाग क्रमांकासह कॉल करा."
+    "tool.description": "YAML की आणि दस्तऐवज संरचना सारांशित करा; निवडलेले विभाग पुनर्प्राप्त करा. Kubernetes, कंपोझ, OpenAPI आणि वर्कफ्लो फायलींसाठी उपयुक्त."
   },
   "el": {
     "x_search_terms": [
@@ -927,7 +927,7 @@
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
     "msg.no_entries": "(δεν βρέθηκαν δομικά κλειδιά YAML)",
     "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣύνολο ενοτήτων: {total}\nΓια να ανακτήσετε μια ενότητα, καλέστε το yaml2idx με mode='section' και section=N.",
-    "tool.description": "Αναλύστε ένα αρχείο YAML σε μονοπάτια κλειδιών, μπλοκ εγγράφων και δομικές περιλήψεις, επιστρέφοντας ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα. Χρησιμοποιήστε το όταν διαβάζετε μεγάλα αρχεία YAML, Kubernetes μανιφέστων, Docker Compose, OpenAPI ή GitHub Actions: καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων με βασικές διαδρομές τύπου JSONPath και μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τις απαιτούμενες γραμμές."
+    "tool.description": "Συνοψίστε τα κλειδιά YAML και τη δομή του εγγράφου. ανάκτηση επιλεγμένων ενοτήτων. Χρήσιμο για αρχεία Kubernetes, Compose, OpenAPI και ροής εργασίας."
   },
   "he": {
     "x_search_terms": [
@@ -958,7 +958,7 @@
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
     "msg.no_entries": "(לא נמצאו מפתחות YAML מבניים)",
     "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ קטעים: {total}\nכדי לאחזר קטע, התקשר ל-yaml2idx עם mode='section' ו-section=N.",
-    "tool.description": "נתח קובץ YAML לנתיבי מפתח, בלוקים של מסמכים וסיכומים מבניים, תוך החזרת אינדקס ממוספר או קטע מסוים. השתמש בזה בעת קריאת מניפסטים גדולים של YAML, Kubernetes, Docker Compose, OpenAPI או GitHub קובצי פעולות: התקשר עם mode='index' כדי לקבל את תוכן העניינים עם נתיבי מפתח בסגנון JSONPath, ואז התקשר עם mode='section' ומספר המקטע כדי לאחזר רק את השורות הנדרשות."
+    "tool.description": "סיכום מפתחות YAML ומבנה המסמך; לאחזר קטעים נבחרים. שימושי עבור קבצי Kubernetes, Compose, OpenAPI וזרימת עבודה."
   },
   "hu": {
     "x_search_terms": [
@@ -989,7 +989,7 @@
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
     "msg.no_entries": "(nem található strukturális YAML kulcs)",
     "msg.index_output": "Index ehhez: {path}\n---\n{toc}\n---\nÖsszes szakasz: {total}\nEgy szakasz lekéréséhez hívja a yaml2idx-et mode='section' és section=N paraméterrel.",
-    "tool.description": "Elemezze a YAML-fájlt kulcsútvonalakra, dokumentumblokkokra és szerkezeti összefoglalókra, visszaadva egy számozott indexet vagy egy adott szakaszt. Használja ezt nagy YAML-, Kubernetes-jegyzék-, Docker Compose-, OpenAPI- vagy GitHub-műveleti fájlok olvasásakor: hívja a mode='index' paramétert, hogy megkapja a tartalomjegyzéket JSONPath-stílusú kulcsútvonalakkal, majd hívja a mode='section'-t és a szakaszszámot, hogy csak a szükséges sorokat kérje le."
+    "tool.description": "A YAML-kulcsok és a dokumentumstruktúra összefoglalása; kiválasztott szakaszok lekérése. Hasznos Kubernetes, Compose, OpenAPI és munkafolyamat-fájlokhoz."
   },
   "ro": {
     "x_search_terms": [
@@ -1020,7 +1020,7 @@
     "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”.",
     "msg.no_entries": "(nu au fost găsite chei structurale YAML)",
     "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal secțiuni: {total}\nPentru a prelua o secțiune, apelați yaml2idx cu mode='section' și section=N.",
-    "tool.description": "Analizați un fișier YAML în căi cheie, blocuri de documente și rezumate structurale, returnând un index numerotat sau o secțiune specifică. Utilizați acest lucru când citiți fișiere mari YAML, Kubernetes, Docker Compose, OpenAPI sau GitHub Actions: apelați cu mode='index' pentru a obține cuprinsul cu căile cheilor în stil JSONPath, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua numai liniile necesare."
+    "tool.description": "Rezumați cheile YAML și structura documentului; recuperați secțiunile selectate. Util pentru fișierele Kubernetes, Compose, OpenAPI și flux de lucru."
   },
   "fil": {
     "x_search_terms": [
@@ -1051,7 +1051,7 @@
     "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
     "msg.no_entries": "(walang nakitang structural YAML keys)",
     "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga seksyon: {total}\nUpang kunin ang isang seksyon, tumawag sa yaml2idx na may mode='section' at section=N.",
-    "tool.description": "I-parse ang isang YAML file sa mga pangunahing landas, mga bloke ng dokumento, at mga buod ng istruktura, na nagbabalik ng isang may bilang na index o isang partikular na seksyon. Gamitin ito kapag nagbabasa ng malalaking YAML, Kubernetes manifests, Docker Compose, OpenAPI, o GitHub Actions file: call with mode='index' para makuha ang talaan ng nilalaman na may JSONPath-style na key path, pagkatapos ay tumawag gamit ang mode='section' at ang section number para makuha lang ang mga kinakailangang linya."
+    "tool.description": "Ibuod ang mga YAML key at istraktura ng dokumento; kunin ang mga napiling seksyon. Kapaki-pakinabang para sa Kubernetes, Compose, OpenAPI, at mga file ng workflow."
   },
   "ms": {
     "x_search_terms": [
@@ -1082,7 +1082,7 @@
     "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'.",
     "msg.no_entries": "(tiada kunci YAML struktur ditemui)",
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah bahagian: {total}\nUntuk mendapatkan semula bahagian, hubungi yaml2idx dengan mode='section' dan section=N.",
-    "tool.description": "Parsing fail YAML ke dalam laluan utama, blok dokumen dan ringkasan struktur, mengembalikan indeks bernombor atau bahagian tertentu. Gunakan ini apabila membaca fail YAML, Kubernetes yang besar, Docker Compose, OpenAPI atau GitHub Actions: call with mode='index' untuk mendapatkan jadual kandungan dengan laluan kekunci gaya JSONPath, kemudian panggil dengan mode='section' dan nombor bahagian untuk mendapatkan hanya baris yang diperlukan."
+    "tool.description": "Ringkaskan kunci YAML dan struktur dokumen; mendapatkan semula bahagian yang dipilih. Berguna untuk fail Kubernetes, Karang, OpenAPI dan aliran kerja."
   },
   "da": {
     "x_search_terms": [
@@ -1113,7 +1113,7 @@
     "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
     "msg.no_entries": "(ingen strukturelle YAML-nøgler fundet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nSektioner i alt: {total}\nFor at hente en sektion skal du kalde yaml2idx med mode='section' og section=N.",
-    "tool.description": "Parse en YAML-fil i nøglestier, dokumentblokke og strukturelle oversigter, og returnere et nummereret indeks eller en specifik sektion. Brug dette, når du læser store YAML-, Kubernetes-manifester, Docker Compose, OpenAPI eller GitHub Actions-filer: ring med mode='index' for at få indholdsfortegnelsen med JSONPath-lignende nøglestier, ring derefter med mode='section' og sektionsnummeret for kun at hente de nødvendige linjer."
+    "tool.description": "Opsummer YAML-nøgler og dokumentstruktur; hente valgte sektioner. Nyttigt til Kubernetes, Compose, OpenAPI og workflow-filer."
   },
   "nn": {
     "x_search_terms": [
@@ -1144,6 +1144,6 @@
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
     "msg.no_entries": "(ingen strukturelle YAML-nøkler funnet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall seksjoner: {total}\nFor å hente en seksjon, ring yaml2idx med mode='section' og section=N.",
-    "tool.description": "Parse en YAML-fil i nøkkelbaner, dokumentblokker og strukturelle sammendrag, og returner en nummerert indeks eller en spesifikk seksjon. Bruk dette når du leser store YAML-, Kubernetes-manifester, Docker Compose, OpenAPI eller GitHub Actions-filer: ring med mode='index' for å få innholdsfortegnelsen med nøkkelbaner i JSONPath-stil, ring deretter med mode='section' og seksjonsnummeret for å hente berre de naudsynte linjene."
+    "tool.description": "Oppsummer YAML-nøklar og dokumentstruktur; hent valde delar. Nyttig for Kubernetes-, Compose-, OpenAPI- og arbeidsflytfiler."
   }
 }

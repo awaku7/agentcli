@@ -38,10 +38,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a PowerPoint presentation (.pptx) into slide titles and text summaries, "
-                "returning a numbered index or a specific slide section. Use this when reading large PowerPoint files: "
-                "call with mode='index' to get the list of slides with titles and preview text, then call with "
-                "mode='section' and section=N to retrieve the full text content of that slide."
+                "Summarize PowerPoint slides and retrieve selected slide text and notes."
             ),
         ),
         "x_search_terms": _(

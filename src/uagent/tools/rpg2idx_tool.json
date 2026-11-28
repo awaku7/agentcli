@@ -25,7 +25,7 @@
     "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n定義の合計: {total}\n定義を取得するには、mode='section' とセクション番号を指定して rpg2idx を呼び出します。",
     "param.mode.description": "「index」は、行番号を含む番号付きの目次を返します。「section」は、特定の定義を番号で返します。",
     "param.section.description": "取得するセクション番号 (mode='section' の場合にのみ使用)。インデックス出力から数値を取得します。",
-    "tool.description": "IBM i の RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ファイルを制御オプション、ファイル、定義、プロシージャ、サブルーチン、copy/include に解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな RPG ソースを読むときは、まず mode='index'、続けて mode='section' を使います。"
+    "tool.description": "IBM i RPG/RPGLEのソースから宣言やプロシージャを探し、指定した定義を取得します。"
   },
   "es": {
     "x_search_terms": [
@@ -53,7 +53,7 @@
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a rpg2idx con mode='sección' y el número de sección.",
     "param.mode.description": "\"índice\" devuelve una tabla de contenido numerada con números de línea. \"sección\" devuelve una definición específica por número.",
     "param.section.description": "Número de sección a recuperar (usado solo cuando modo='sección'). Obtenga el número de la salida del índice.",
-    "tool.description": "Analiza un archivo IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) en opciones de control, archivos, definiciones, procedimientos, subrutinas y directivas de copia/inclusión, y devuelve un índice numerado o una sección de definición específica. Úselo cuando necesite leer una fuente RPG grande: primero llame con mode='index', luego mode='section'."
+    "tool.description": "Buscar declaraciones y procedimientos en archivos fuente IBM i RPG/RPGLE; extraer definiciones seleccionadas."
   },
   "fr": {
     "x_search_terms": [
@@ -81,7 +81,7 @@
     "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez rpg2idx avec mode='section' et le numéro de section.",
     "param.mode.description": "\"index\" renvoie une table des matières numérotée avec des numéros de ligne. \"section\" renvoie une définition spécifique par numéro.",
     "param.section.description": "Numéro de section à récupérer (utilisé uniquement lorsque mode='section'). Obtenez le numéro de la sortie d’index.",
-    "tool.description": "Analysez un fichier IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) en options de contrôle, fichiers, définitions, procédures, sous-programmes et directives de copie/inclusion, et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire une source RPG volumineuse : appelez d'abord avec mode='index', puis mode='section'."
+    "tool.description": "Rechercher des déclarations et des procédures dans les fichiers source IBM i RPG/RPGLE ; extraire les définitions sélectionnées."
   },
   "ko": {
     "x_search_terms": [
@@ -109,7 +109,7 @@
     "msg.index_output": "색인: {path}\n---\n{toc}\n---\n전체 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 rpg2idx를 호출하세요.",
     "param.mode.description": "\"index\"는 줄 번호와 함께 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
     "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
-    "tool.description": "IBM i RPG/RPGLE(.rpg/.rpgle/.sqlrpgle) 파일을 제어 옵션, 파일, 정의, 프로시저, 서브루틴 및 복사/포함 지시어로 구문 분석하고 번호가 매겨진 색인 또는 특정 정의 섹션을 리턴합니다. 대규모 RPG 소스를 읽어야 할 때 이를 사용하십시오. 먼저 mode='index'로 호출한 다음 mode='section'으로 호출하십시오."
+    "tool.description": "IBM i RPG/RPGLE 소스 파일에서 선언 및 프로시저를 찾습니다. 선택된 정의를 추출합니다."
   },
   "de": {
     "x_search_terms": [
@@ -137,7 +137,7 @@
     "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie rpg2idx mit mode='section' und der Abschnittsnummer auf.",
     "param.mode.description": "„index“ gibt ein nummeriertes Inhaltsverzeichnis mit Zeilennummern zurück. „Abschnitt“ gibt eine bestimmte Definition anhand der Nummer zurück.",
     "param.section.description": "Nummer des abzurufenden Abschnitts (wird nur verwendet, wenn mode='section'). Rufen Sie die Nummer aus der Indexausgabe ab.",
-    "tool.description": "Analysieren Sie eine IBM i RPG/RPGLE-Datei (.rpg/.rpgle/.sqlrpgle) in Steueroptionen, Dateien, Definitionen, Prozeduren, Unterroutinen und Copy/Include-Anweisungen und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große RPG-Quelle lesen müssen: Rufen Sie zuerst mit mode='index' auf, dann mit mode='section'."
+    "tool.description": "Deklarationen und Prozeduren in IBM i RPG/RPGLE-Quelldateien suchen; Ausgewählte Definitionen extrahieren."
   },
   "it": {
     "x_search_terms": [
@@ -165,7 +165,7 @@
     "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nDefinizioni totali: {total}\nPer recuperare una definizione, chiamare rpg2idx con mode='section' e il numero della sezione.",
     "param.mode.description": "\"index\" restituisce un sommario numerato con numeri di riga. \"sezione\" restituisce una definizione specifica per numero.",
     "param.section.description": "Numero di sezione da recuperare (utilizzato solo quando mode='section'). Ottieni il numero dall'output dell'indice.",
-    "tool.description": "Analizzare un file IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) in opzioni di controllo, file, definizioni, procedure, subroutine e direttive di copia/include e restituisce un indice numerato o una sezione di definizione specifica. Usalo quando devi leggere un sorgente di giochi di ruolo di grandi dimensioni: prima chiama con mode='index', quindi mode='section'."
+    "tool.description": "Trova dichiarazioni e procedure nei file di origine IBM i RPG/RPGLE; estrarre le definizioni selezionate."
   },
   "ru": {
     "x_search_terms": [
@@ -193,7 +193,7 @@
     "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите rpg2idx с mode='section' и номером раздела.",
     "param.mode.description": "«index» возвращает пронумерованное оглавление с номерами строк. «раздел» возвращает конкретное определение по номеру.",
     "param.section.description": "Номер раздела для получения (используется только в случае, если mode='section'). Получите число из вывода индекса.",
-    "tool.description": "Разберите файл IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) на параметры управления, файлы, определения, процедуры, подпрограммы и директивы копирования/включения и верните пронумерованный индекс или конкретный раздел определения. Используйте это, когда вам нужно прочитать большой исходный код RPG: сначала вызовите с mode='index', затем mode='section'."
+    "tool.description": "Найдите объявления и процедуры в исходных файлах IBM i RPG/RPGLE; извлечь выбранные определения."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -221,7 +221,7 @@
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame rpg2idx com mode='section' e o número da seção.",
     "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
-    "tool.description": "Analise um arquivo RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) do IBM i em opções de controle, arquivos, definições, procedimentos, sub-rotinas e diretivas de cópia/inclusão e retorne um índice numerado ou uma seção de definição específica. Use isto quando você precisar ler uma fonte grande de RPG: primeiro chame com mode='index', depois mode='section'."
+    "tool.description": "Localize declarações e procedimentos nos arquivos de origem RPG/RPGLE do IBM i; extrair definições selecionadas."
   },
   "pt": {
     "x_search_terms": [
@@ -249,7 +249,7 @@
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame rpg2idx com mode='section' e o número da seção.",
     "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
-    "tool.description": "Analise um arquivo RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) do IBM i em opções de controle, arquivos, definições, procedimentos, sub-rotinas e diretivas de cópia/inclusão e retorne um índice numerado ou uma seção de definição específica. Use isto quando você precisar ler uma fonte grande de RPG: primeiro chame com mode='index', depois mode='section'."
+    "tool.description": "Localize declarações e procedimentos nos arquivos de origem RPG/RPGLE do IBM i; extrair definições selecionadas."
   },
   "id": {
     "x_search_terms": [
@@ -277,7 +277,7 @@
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal definisi: {total}\nUntuk mengambil definisi, panggil rpg2idx dengan mode='section' dan nomor bagian.",
     "param.mode.description": "\"indeks\" mengembalikan daftar isi bernomor dengan nomor baris. \"bagian\" mengembalikan definisi spesifik berdasarkan nomor.",
     "param.section.description": "Nomor bagian yang akan diambil (hanya digunakan ketika mode='bagian'). Dapatkan nomor dari output indeks.",
-    "tool.description": "Parsing file IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ke dalam opsi kontrol, file, definisi, prosedur, subrutin, dan arahan salin/sertakan, dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca sumber RPG besar: panggilan pertama dengan mode='index', lalu mode='section'."
+    "tool.description": "Temukan deklarasi dan prosedur dalam file sumber IBM i RPG/RPGLE; ekstrak definisi yang dipilih."
   },
   "vi": {
     "x_search_terms": [
@@ -305,7 +305,7 @@
     "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi rpg2idx với mode='section' và số phần.",
     "param.mode.description": "\"index\" trả về một mục lục được đánh số cùng với số dòng. \"phần\" trả về một định nghĩa cụ thể theo số.",
     "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
-    "tool.description": "Phân tích tệp IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) thành các tùy chọn điều khiển, tệp, định nghĩa, thủ tục, chương trình con và lệnh sao chép/bao gồm, đồng thời trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Hãy sử dụng tính năng này khi bạn cần đọc một nguồn RPG lớn: đầu tiên gọi bằng mode='index', sau đó gọi mode='section'."
+    "tool.description": "Tìm các khai báo và thủ tục trong các tệp nguồn IBM i RPG/RPGLE; trích xuất các định nghĩa đã chọn."
   },
   "pl": {
     "x_search_terms": [
@@ -333,7 +333,7 @@
     "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nWszystkie definicje: {total}\nAby pobrać definicję, wywołaj rpg2idx z mode='section' i numerem sekcji.",
     "param.mode.description": "„indeks” zwraca numerowany spis treści z numerami wierszy. „sekcja” zwraca konkretną definicję według numeru.",
     "param.section.description": "Numer sekcji do pobrania (używany tylko wtedy, gdy tryb = „sekcja”). Pobierz liczbę z wyniku indeksu.",
-    "tool.description": "Analizuj plik RPG/RPGLE systemu IBM i (.rpg/.rpgle/.sqlrpgle) na opcje sterujące, pliki, definicje, procedury, podprogramy i dyrektywy kopiowania/włączania, a następnie zwracaj numerowany indeks lub określoną sekcję definicji. Użyj tego, jeśli chcesz przeczytać duże źródło RPG: najpierw wywołaj tryb='indeks', a następnie tryb='sekcja'."
+    "tool.description": "Znajdź deklaracje i procedury w plikach źródłowych RPG/RPGLE systemu IBM i; wyodrębnij wybrane definicje."
   },
   "hi": {
     "x_search_terms": [
@@ -361,7 +361,7 @@
     "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, mode='section' और अनुभाग संख्या के साथ rpg2idx पर कॉल करें।",
     "param.mode.description": "\"सूचकांक\" पंक्ति संख्याओं के साथ सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
     "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
-    "tool.description": "IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) फ़ाइल को नियंत्रण विकल्पों, फ़ाइलों, परिभाषाओं, प्रक्रियाओं, सबरूटीन्स में पार्स करें और निर्देशों को कॉपी/शामिल करें, और एक क्रमांकित सूचकांक या एक विशिष्ट परिभाषा अनुभाग लौटाएँ। जब आपको किसी बड़े आरपीजी स्रोत को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: पहले mode='index' से कॉल करें, फिर mode='section' से कॉल करें।"
+    "tool.description": "IBM i RPG/RPGLE स्रोत फ़ाइलों में घोषणाएँ और प्रक्रियाएँ खोजें; चयनित परिभाषाएँ निकालें."
   },
   "ar": {
     "x_search_terms": [
@@ -389,7 +389,7 @@
     "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ rpg2idx مع الوضع='section' ورقم القسم.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم بأرقام الأسطر. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
     "param.section.description": "رقم القسم المطلوب استرداده (يستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
-    "tool.description": "قم بتحليل ملف IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) إلى خيارات التحكم والملفات والتعريفات والإجراءات والمسارات الفرعية وتوجيهات النسخ/التضمين، وإرجاع فهرس مرقم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة مصدر RPG كبير: اتصل أولاً بـ mode='index'، ثم mode='section'."
+    "tool.description": "ابحث عن الإعلانات والإجراءات في ملفات مصدر IBM i RPG/RPGLE؛ استخراج التعريفات المختارة."
   },
   "sv": {
     "x_search_terms": [
@@ -417,7 +417,7 @@
     "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotala definitioner: {total}\nFör att hämta en definition, ring rpg2idx med mode='sektion' och sektionsnumret.",
     "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning med radnummer. \"sektion\" returnerar en specifik definition med nummer.",
     "param.section.description": "Sektionsnummer att hämta (används endast när mode='sektion'). Få numret från indexutgången.",
-    "tool.description": "Analysera en IBM i RPG/RPGLE-fil (.rpg/.rpgle/.sqlrpgle) till kontrollalternativ, filer, definitioner, procedurer, underrutiner och kopiera/inkludera direktiv och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor RPG-källa: anrop först med mode='index', sedan mode='sektion'."
+    "tool.description": "Hitta deklarationer och procedurer i IBM i RPG/RPGLE-källfiler; extrahera valda definitioner."
   },
   "sw": {
     "x_search_terms": [
@@ -445,7 +445,7 @@
     "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\n Jumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga rpg2idx ukitumia mode='section' na nambari ya sehemu.",
     "param.mode.description": "\"index\" hurejesha jedwali la yaliyomo lenye nambari na nambari za mstari. \"sehemu\" inarudisha ufafanuzi maalum kwa nambari.",
     "param.section.description": "Nambari ya sehemu ya kurejesha (inatumika tu wakati mode='sehemu'). Pata nambari kutoka kwa matokeo ya faharisi.",
-    "tool.description": "Changanua faili ya IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) katika chaguo za udhibiti, faili, ufafanuzi, taratibu, subroutines, na nakala/jumuishe maagizo, na urudishe faharasa yenye nambari au sehemu mahususi ya ufafanuzi. Tumia hii unapohitaji kusoma chanzo kikubwa cha RPG: piga simu kwanza kwa mode='index', kisha mode='section'."
+    "tool.description": "Pata matamko na taratibu katika faili chanzo za IBM i RPG/RPGLE; toa ufafanuzi uliochaguliwa."
   },
   "nb": {
     "x_search_terms": [
@@ -473,7 +473,7 @@
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring rpg2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
     "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
-    "tool.description": "Parse en IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle)-fil til kontrollalternativer, filer, definisjoner, prosedyrer, underrutiner og kopier/inkluder-direktiver, og returner en nummerert indeks eller en spesifikk definisjonsdel. Bruk dette når du trenger å lese en stor rollespillkilde: ring først med mode='index', deretter mode='section'."
+    "tool.description": "Finn erklæringer og prosedyrer i IBM i RPG/RPGLE kildefiler; trekke ut utvalgte definisjoner."
   },
   "nl": {
     "x_search_terms": [
@@ -501,7 +501,7 @@
     "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal definities: {total}\nOm een definitie op te halen, roept u rpg2idx aan met mode='section' en het sectienummer.",
     "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave met regelnummers. \"sectie\" retourneert een specifieke definitie op nummer.",
     "param.section.description": "Op te halen sectienummer (alleen gebruikt wanneer mode='sectie'). Haal het nummer op uit de indexuitvoer.",
-    "tool.description": "Parseer een IBM i RPG/RPGLE-bestand (.rpg/.rpgle/.sqlrpgle) in besturingsopties, bestanden, definities, procedures, subroutines en kopieer/include-richtlijnen, en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit als je een grote RPG-bron moet lezen: roep eerst met mode='index', dan mode='section'."
+    "tool.description": "Vind declaraties en procedures in IBM i RPG/RPGLE bronbestanden; geselecteerde definities extraheren."
   },
   "fi": {
     "x_search_terms": [
@@ -529,7 +529,7 @@
     "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nJos haluat hakea määritelmän, kutsu rpg2idx, jossa on mode='section' ja osion numero.",
     "param.mode.description": "\"indeksi\" palauttaa numeroidun sisällysluettelon rivinumeroineen. \"osio\" palauttaa tietyn määritelmän numerolla.",
     "param.section.description": "Haettavan osan numero (käytetään vain, kun mode='osio'). Hanki numero indeksitulosteesta.",
-    "tool.description": "Jäsennä IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) -tiedosto ohjausvaihtoehdoiksi, tiedostoiksi, määrityksiksi, proseduureiksi, aliohjelmiksi ja kopioi/sisällytä käskyt ja palauta numeroitu hakemisto tai tietty määritysosio. Käytä tätä, kun sinun on luettava suuri RPG-lähde: ensin kutsu mode='index', sitten mode='section'."
+    "tool.description": "Hae ilmoitukset ja menettelyt IBM i RPG/RPGLE -lähdetiedostoista; poimi valitut määritelmät."
   },
   "cs": {
     "x_search_terms": [
@@ -557,7 +557,7 @@
     "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li načíst definici, zavolejte rpg2idx s mode='section' a číslem sekce.",
     "param.mode.description": "\"index\" vrátí očíslovaný obsah s čísly řádků. \"sekce\" vrátí konkrétní definici podle čísla.",
     "param.section.description": "Číslo sekce k načtení (používá se pouze při mode='section'). Získejte číslo z výstupu indexu.",
-    "tool.description": "Analyzujte soubor IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) do ovládacích voleb, souborů, definic, procedur, podprogramů a direktiv kopírování/zahrnutí a vraťte očíslovaný index nebo specifickou sekci definice. Použijte to, když potřebujete přečíst velký zdroj RPG: nejprve zavolejte s mode='index', poté mode='section'."
+    "tool.description": "Najít deklarace a procedury ve zdrojových souborech IBM i RPG/RPGLE; extrahovat vybrané definice."
   },
   "uk": {
     "x_search_terms": [
@@ -585,7 +585,7 @@
     "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте rpg2idx з mode='section' і номером розділу.",
     "param.mode.description": "\"index\" повертає пронумерований зміст із номерами рядків. \"section\" повертає конкретне визначення за номером.",
     "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
-    "tool.description": "Проаналізуйте файл IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) на параметри керування, файли, визначення, процедури, підпрограми та директиви копіювання/включення та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати велике джерело RPG: спочатку викликайте mode='index', потім mode='section'."
+    "tool.description": "Знайти оголошення та процедури у вихідних файлах IBM i RPG/RPGLE; витягти вибрані визначення."
   },
   "tr": {
     "x_search_terms": [
@@ -613,7 +613,7 @@
     "msg.index_output": "Dizin: {path}\n---\n{toc}\n---\nToplam tanımlar: {total}\nBir tanımı almak için mode='section' ve bölüm numarasıyla rpg2idx'i arayın.",
     "param.mode.description": "\"index\", satır numaralarıyla birlikte numaralandırılmış bir içindekiler tablosu döndürür. \"bölüm\" sayıya göre belirli bir tanımı döndürür.",
     "param.section.description": "Alınacak bölüm numarası (yalnızca mode='bölüm' olduğunda kullanılır). Dizin çıktısından numarayı alın.",
-    "tool.description": "Bir IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) dosyasını kontrol seçeneklerine, dosyalara, tanımlara, prosedürlere, alt rutinlere ve copy/include yönergelerine ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir RPG kaynağını okumanız gerektiğinde bunu kullanın: önce mode='index' ile çağırın, ardından mode='section' ile çağırın."
+    "tool.description": "IBM i RPG/RPGLE kaynak dosyalarındaki bildirimleri ve prosedürleri bulun; Seçilen tanımları çıkarın."
   },
   "th": {
     "x_search_terms": [
@@ -641,7 +641,7 @@
     "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก rpg2idx ด้วย mode='section' และหมายเลขส่วน",
     "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีตัวเลขพร้อมหมายเลขบรรทัด \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
     "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
-    "tool.description": "แยกวิเคราะห์ไฟล์ IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ลงในอ็อพชันการควบคุม ไฟล์ คำจำกัดความ โพรซีเดอร์ รูทีนย่อย และคำสั่งคัดลอก/รวม และส่งคืนดัชนีลำดับเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านแหล่ง RPG ขนาดใหญ่: เรียกครั้งแรกด้วย mode='index' จากนั้นจึงเรียก mode='section'"
+    "tool.description": "ค้นหาการประกาศและขั้นตอนในไฟล์ต้นฉบับ IBM i RPG/RPGLE แยกคำจำกัดความที่เลือก"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -669,7 +669,7 @@
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 rpg2idx。",
     "param.mode.description": "“index”返回带有行号的编号目录。 “section”按编号返回特定定义。",
     "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
-    "tool.description": "将 IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) 文件解析为控制选项、文件、定义、过程、子例程和复制/包含指令，并返回编号索引或特定定义部分。当您需要读取大型 RPG 源代码时使用此选项：首先使用 mode='index' 调用，然后使用 mode='section' 调用。"
+    "tool.description": "在 IBM i RPG/RPGLE 源文件中查找声明和过程；提取选定的定义。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -697,7 +697,7 @@
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 rpg2idx。",
     "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按編號返回特定定義。",
     "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
-    "tool.description": "將 IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) 檔案解析為控制選項、檔案、定義、程序、子程式和複製/包含指令，並傳回編號索引或特定定義部分。當您需要讀取大型 RPG 原始程式碼時使用此選項：首先使用 mode='index' 調用，然後使用 mode='section' 呼叫。"
+    "tool.description": "在 IBM i RPG/RPGLE 原始檔案中尋找聲明和流程；提取選定的定義。"
   },
   "bn": {
     "x_search_terms": [
@@ -725,7 +725,7 @@
     "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\nএকটি সংজ্ঞা পুনরুদ্ধার করতে, মোড='বিভাগ' এবং বিভাগ নম্বর সহ rpg2idx কল করুন৷",
     "param.mode.description": "\"সূচী\" লাইন সংখ্যা সহ বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" সংখ্যা দ্বারা একটি নির্দিষ্ট সংজ্ঞা প্রদান করে।",
     "param.section.description": "পুনরুদ্ধার করার জন্য বিভাগ নম্বর (শুধুমাত্র যখন মোড = 'বিভাগ' ব্যবহার করা হয়)। সূচক আউটপুট থেকে নম্বর পান।",
-    "tool.description": "একটি IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ফাইলকে নিয়ন্ত্রণ বিকল্প, ফাইল, সংজ্ঞা, পদ্ধতি, সাবরুটিন এবং কপি/অন্তর্ভুক্ত নির্দেশাবলীতে পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগে ফেরত দিন। আপনি যখন একটি বড় আরপিজি উৎস পড়তে হবে তখন এটি ব্যবহার করুন: প্রথমে মোড='ইনডেক্স' দিয়ে কল করুন, তারপর মোড='বিভাগ'।"
+    "tool.description": "IBM i RPG/RPGLE সোর্স ফাইলে ঘোষণা এবং পদ্ধতি খুঁজুন; নির্বাচিত সংজ্ঞা বের করুন।"
   },
   "fa": {
     "x_search_terms": [
@@ -753,7 +753,7 @@
     "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، rpg2idx را با mode='section' و شماره بخش تماس بگیرید.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
     "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
-    "tool.description": "یک فایل IBM i RPG/RPGLE (rpg/.rpgle/.sqlrpgle) را در گزینه‌های کنترل، فایل‌ها، تعاریف، رویه‌ها، برنامه‌های فرعی و دستورالعمل‌ها کپی/شامل کنید و یک فهرست شماره‌دار یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک منبع RPG بزرگ دارید از این استفاده کنید: ابتدا با mode='index' و سپس mode='section' تماس بگیرید."
+    "tool.description": "اعلان ها و رویه ها را در فایل های منبع IBM i RPG/RPGLE بیابید. استخراج تعاریف انتخاب شده"
   },
   "mn": {
     "x_search_terms": [
@@ -781,7 +781,7 @@
     "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт тодорхойлолт: {total}\nТодорхойлолтыг сэргээхийн тулд mode='section' болон хэсгийн дугаартай rpg2idx руу залгана уу.",
     "param.mode.description": "\"индекс\" нь мөрийн дугаар бүхий дугаарлагдсан агуулгын хүснэгтийг буцаана. \"хэсэг\" нь тоогоор тодорхой тодорхойлолтыг буцаана.",
     "param.section.description": "Татаж авах хэсгийн дугаар (зөвхөн mode='section' үед хэрэглэнэ). Индекс гаралтаас дугаарыг авна уу.",
-    "tool.description": "IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) файлыг хяналтын сонголтууд, файлууд, тодорхойлолтууд, процедурууд, дэд програмууд болон хуулбарлах/оруулах заавар болгон задлан, дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана уу. Том хэмжээний RPG эх сурвалжийг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд mode='index', дараа нь mode='section'-ээр залга."
+    "tool.description": "IBM i RPG/RPGLE эх файлаас мэдүүлэг болон журмыг олох; сонгосон тодорхойлолтуудыг гаргаж авах."
   },
   "mr": {
     "x_search_terms": [
@@ -809,7 +809,7 @@
     "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\n व्याख्या पुनर्प्राप्त करण्यासाठी, मोड='विभाग' आणि विभाग क्रमांकासह rpg2idx वर कॉल करा.",
     "param.mode.description": "\"इंडेक्स\" ओळ क्रमांकांसह सामग्रीची क्रमांकित सारणी मिळवते. \"विभाग\" संख्येनुसार विशिष्ट व्याख्या देतो.",
     "param.section.description": "पुनर्प्राप्त करण्यासाठी विभाग क्रमांक (केवळ मोड='विभाग' तेव्हाच वापरला जातो). इंडेक्स आउटपुटमधून नंबर मिळवा.",
-    "tool.description": "IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) फाइलचे नियंत्रण पर्याय, फाइल्स, व्याख्या, कार्यपद्धती, सबरूटीन्स आणि कॉपी/इनक्लूड डायरेक्टिव्हमध्ये पार्स करा आणि क्रमांकित निर्देशांक किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला मोठा RPG स्रोत वाचण्याची आवश्यकता असेल तेव्हा याचा वापर करा: प्रथम mode='index', नंतर mode='section' सह कॉल करा."
+    "tool.description": "IBM i RPG/RPGLE स्त्रोत फायलींमध्ये घोषणा आणि प्रक्रिया शोधा; निवडलेल्या व्याख्या काढा."
   },
   "el": {
     "x_search_terms": [
@@ -837,7 +837,7 @@
     "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣυνολικοί ορισμοί: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το rpg2idx με mode='section' και τον αριθμό ενότητας.",
     "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων με αριθμούς γραμμών. Το \"section\" επιστρέφει έναν συγκεκριμένο ορισμό με αριθμό.",
     "param.section.description": "Αριθμός ενότητας για ανάκτηση (χρησιμοποιείται μόνο όταν mode='section'). Λάβετε τον αριθμό από την έξοδο ευρετηρίου.",
-    "tool.description": "Αναλύστε ένα αρχείο IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) σε επιλογές ελέγχου, αρχεία, ορισμούς, διαδικασίες, υπορουτίνες και αντιγράψτε/συμπεριλάβετε οδηγίες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε μια μεγάλη πηγή RPG: πρώτα καλέστε με mode='index' και μετά mode='section'."
+    "tool.description": "Βρείτε δηλώσεις και διαδικασίες σε αρχεία πηγής IBM i RPG/RPGLE. εξαγωγή επιλεγμένων ορισμών."
   },
   "he": {
     "x_search_terms": [
@@ -865,7 +865,7 @@
     "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {total}\nכדי לאחזר הגדרה, התקשר ל-rpg2idx עם mode='section' ומספר הקטע.",
     "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר עם מספרי שורות. \"קטע\" מחזיר הגדרה ספציפית לפי מספר.",
     "param.section.description": "מספר סעיף לאחזור (משמש רק כאשר mode='section'). קבל את המספר מפלט האינדקס.",
-    "tool.description": "נתח קובץ IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) לאפשרויות בקרה, קבצים, הגדרות, נהלים, תתי שגרות, והעתק/כלול הנחיות, והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא מקור RPG גדול: תחילה התקשר עם mode='index', ואז mode='section'."
+    "tool.description": "מצא הצהרות ונהלים בקובצי מקור של IBM i RPG/RPGLE; לחלץ הגדרות נבחרות."
   },
   "hu": {
     "x_search_terms": [
@@ -893,7 +893,7 @@
     "msg.index_output": "Index a következőhöz: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nDefiníció lekéréséhez hívja az rpg2idx-et mode='section' paraméterrel és a szakaszszámmal.",
     "param.mode.description": "Az \"index\" számozott tartalomjegyzéket ad vissza sorszámokkal. A \"szakasz\" egy adott definíciót ad vissza szám szerint.",
     "param.section.description": "A lekérendő szakasz száma (csak akkor használatos, ha mode='szakasz'). Szerezze le a számot az indexkimenetből.",
-    "tool.description": "Elemezze az IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) fájlt vezérlőbeállításokba, fájlokba, definíciókba, eljárásokba, szubrutinokba és másolja/befoglalja a direktívákat, és adja vissza a számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha nagy RPG-forrást kell olvasnia: először hívja a mode='index', majd a mode='section' beállítást."
+    "tool.description": "Deklarációk és eljárások keresése az IBM i RPG/RPGLE forrásfájlokban; kivonja a kiválasztott definíciókat."
   },
   "ro": {
     "x_search_terms": [
@@ -921,7 +921,7 @@
     "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați rpg2idx cu mode='section' și numărul secțiunii.",
     "param.mode.description": "„index” returnează un cuprins numerotat cu numere de rând. „secțiune” returnează o definiție specifică prin număr.",
     "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
-    "tool.description": "Analizați un fișier IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) în opțiuni de control, fișiere, definiții, proceduri, subrutine și directive de copiere/includere și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când aveți nevoie să citiți o sursă RPG mare: mai întâi apelați cu mode='index', apoi mode='section'."
+    "tool.description": "Găsiți declarații și proceduri în fișierele sursă IBM i RPG/RPGLE; extrageți definițiile selectate."
   },
   "fil": {
     "x_search_terms": [
@@ -949,7 +949,7 @@
     "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga kahulugan: {total}\nUpang makuha ang isang kahulugan, tawagan ang rpg2idx na may mode='section' at ang numero ng seksyon.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng isang may bilang na talaan ng mga nilalaman na may mga numero ng linya. Ang \"seksyon\" ay nagbabalik ng isang tiyak na kahulugan ayon sa numero.",
     "param.section.description": "Numero ng seksyon na kukunin (ginagamit lamang kapag ang mode='section'). Kunin ang numero mula sa index output.",
-    "tool.description": "I-parse ang isang IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) file sa mga opsyon sa kontrol, mga file, mga kahulugan, mga pamamaraan, mga subroutine, at kopyahin/isama ang mga direktiba, at ibalik ang isang may bilang na index o isang partikular na seksyon ng kahulugan. Gamitin ito kapag kailangan mong magbasa ng malaking pinagmulan ng RPG: unang tumawag gamit ang mode='index', pagkatapos ay mode='section'."
+    "tool.description": "Maghanap ng mga deklarasyon at pamamaraan sa IBM i RPG/RPGLE source file; kunin ang mga napiling kahulugan."
   },
   "ms": {
     "x_search_terms": [
@@ -977,7 +977,7 @@
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah takrifan: {total}\nUntuk mendapatkan semula definisi, hubungi rpg2idx dengan mod='section' dan nombor bahagian.",
     "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor dengan nombor baris. \"bahagian\" mengembalikan definisi khusus mengikut nombor.",
     "param.section.description": "Nombor bahagian untuk diambil (hanya digunakan apabila mod='section'). Dapatkan nombor daripada output indeks.",
-    "tool.description": "Parsing fail IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ke dalam pilihan kawalan, fail, takrifan, prosedur, subrutin dan salin/termasuk arahan, dan kembalikan indeks bernombor atau bahagian definisi tertentu. Gunakan ini apabila anda perlu membaca sumber RPG yang besar: panggilan pertama dengan mod='index', kemudian mod='section'."
+    "tool.description": "Cari pengisytiharan dan prosedur dalam fail sumber IBM i RPG/RPGLE; ekstrak definisi yang dipilih."
   },
   "da": {
     "x_search_terms": [
@@ -1005,7 +1005,7 @@
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nDefinitioner i alt: {total}\nFor at hente en definition skal du kalde rpg2idx med mode='sektion' og sektionsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse med linjenumre. \"sektion\" returnerer en specifik definition ved tal.",
     "param.section.description": "Sektionsnummer at hente (bruges kun når mode='sektion'). Få tallet fra indeksoutput.",
-    "tool.description": "Parse en IBM i RPG/RPGLE-fil (.rpg/.rpgle/.sqlrpgle) i kontrolindstillinger, filer, definitioner, procedurer, underrutiner og kopier/inkluder-direktiver, og returner et nummereret indeks eller en specifik definitionssektion. Brug dette, når du skal læse en stor RPG-kilde: kald først med mode='index', derefter mode='sektion'."
+    "tool.description": "Find erklæringer og procedurer i IBM i RPG/RPGLE-kildefiler; udtrække udvalgte definitioner."
   },
   "nn": {
     "x_search_terms": [
@@ -1033,6 +1033,6 @@
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring rpg2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
     "param.section.description": "Seksjonsnummer å hente (vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",
-    "tool.description": "Parse en IBM i RPG/RPGLE (.rpg/.rpgle/.sqlrpgle)-fil til kontrollalternativer, filer, definisjoner, prosedyrer, underrutiner og kopier/inkluder-direktiver, og returner en nummerert indeks eller en spesifikk definisjonsdel. Bruk denne når du trenger å lese en stor rollespillkilde: ring først med mode='index', deretter mode='section'."
+    "tool.description": "Finn deklarasjonar og prosedyrar i IBM i RPG/RPGLE-kjeldefiler; hent ut valde definisjonar."
   }
 }

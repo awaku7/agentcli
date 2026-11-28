@@ -17,12 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a C# (.cs) file into classes, interfaces, structs, enums, "
-                "methods, and properties and return a numbered index or a specific "
-                "definition section. Use this when you need to read a large .cs file: "
-                "first call with mode='index' to get the table of contents, then call "
-                "with mode='section' and the section number to retrieve only the "
-                "definition you need. This saves tokens compared to reading the entire file."
+                "Parse C# files to find types, methods, and properties and extract selected definitions."
             ),
         ),
         "x_search_terms": _(

@@ -24,7 +24,7 @@
     "msg.no_entries": "(定義が見つかりません)",
     "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n定義の合計: {total}\n定義を取得するには、mode='section' とセクション番号を指定して go2idx を呼び出します。",
     "param.mode.description": "「index」は番号付きの目次を返します。「セクション」は、特定の定義を番号で返します。",
-    "tool.description": "Go (.go) ファイルを関数、構造体、インターフェイス、メソッド、const/var/type 宣言に解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .go ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。",
+    "tool.description": "Goの宣言を解析し、指定した定義を取得します。",
     "msg.brace_imbalance": "波括弧の不均衡: 開き {open} vs 閉じ {close}"
   },
   "zh_CN": {
@@ -53,7 +53,7 @@
     "msg.brace_imbalance": "花括号不平衡: 打开 {open} 个 vs 关闭 {close} 个",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 go2idx。",
     "param.mode.description": "“index”返回一个编号的目录。 “section”按数字返回特定定义。",
-    "tool.description": "将 Go (.go) 文件解析为函数、结构、接口、方法和 const/var/type 声明，并返回编号索引或特定定义部分。当您需要读取大型 .go 文件时，请使用此方法：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的定义。"
+    "tool.description": "解析 Go 声明并检索选定的定义。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -81,7 +81,7 @@
     "msg.brace_imbalance": "花括號不平衡: 開啟 {open} 個 vs 關閉 {close} 個",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 go2idx。",
     "param.mode.description": "「index」回傳一個編號的目錄。 “section”按數字返回特定定義。",
-    "tool.description": "將 Go (.go) 檔案解析為函數、結構、介面、方法和 const/var/type 聲明，並傳回編號索引或特定定義部分。當您需要讀取大型 .go 檔案時，請使用此方法：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅擷取您需要的定義。"
+    "tool.description": "解析 Go 宣告並檢索選定的定義。"
   },
   "ko": {
     "x_search_terms": [
@@ -109,7 +109,7 @@
     "msg.brace_imbalance": "중괄호 불균형: 열림 {open} 개 vs 닫힘 {close} 개",
     "msg.index_output": "색인: {path}\n---\n{toc}\n---\n총 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 go2idx를 호출하세요.",
     "param.mode.description": "\"index\"는 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
-    "tool.description": "Go(.go) 파일을 함수, 구조체, 인터페이스, 메서드 및 const/var/type 선언으로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 큰 .go 파일을 읽어야 할 때 이것을 사용하십시오. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 정의만 검색하십시오."
+    "tool.description": "Go 선언을 구문 분석하고 선택한 정의를 검색합니다."
   },
   "fr": {
     "x_search_terms": [
@@ -137,7 +137,7 @@
     "msg.brace_imbalance": "déséquilibre d'accolades: {open} ouvertes vs {close} fermées",
     "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez go2idx avec mode='section' et le numéro de section.",
     "param.mode.description": "\"index\" renvoie une table des matières numérotée. \"section\" renvoie une définition spécifique par numéro.",
-    "tool.description": "Analysez un fichier Go (.go) en fonctions, structures, interfaces, méthodes et déclarations const/var/type et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire un gros fichier .go : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement la définition dont vous avez besoin."
+    "tool.description": "Analyser les déclarations Go et récupérer les définitions sélectionnées."
   },
   "de": {
     "x_search_terms": [
@@ -165,7 +165,7 @@
     "msg.brace_imbalance": "Klammerungleichgewicht: {open} offen vs {close} geschlossen",
     "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie go2idx mit mode='section' und der Abschnittsnummer auf.",
     "param.mode.description": "„index“ gibt ein nummeriertes Inhaltsverzeichnis zurück. „Abschnitt“ gibt eine bestimmte Definition anhand der Nummer zurück.",
-    "tool.description": "Analysieren Sie eine Go-Datei (.go) in Funktionen, Strukturen, Schnittstellen, Methoden und const/var/type-Deklarationen und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große .go-Datei lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die Definition abzurufen, die Sie benötigen."
+    "tool.description": "Go-Deklarationen analysieren und ausgewählte Definitionen abrufen."
   },
   "es": {
     "x_search_terms": [
@@ -193,7 +193,7 @@
     "msg.brace_imbalance": "desequilibrio de llaves: {open} abiertas vs {close} cerradas",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a go2idx con mode='sección' y el número de sección.",
     "param.mode.description": "\"índice\" devuelve una tabla de contenidos numerada. \"sección\" devuelve una definición específica por número.",
-    "tool.description": "Analiza un archivo Go (.go) en funciones, estructuras, interfaces, métodos y declaraciones const/var/type y devuelve un índice numerado o una sección de definición específica. Utilice esto cuando necesite leer un archivo .go grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo la definición que necesita."
+    "tool.description": "Analizar declaraciones de Go y recuperar definiciones seleccionadas."
   },
   "it": {
     "x_search_terms": [
@@ -221,7 +221,7 @@
     "msg.brace_imbalance": "sbilanciamento di parentesi graffe: {open} aperte vs {close} chiuse",
     "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nDefinizioni totali: {total}\nPer recuperare una definizione, chiama go2idx con mode='section' e il numero della sezione.",
     "param.mode.description": "\"index\" restituisce un sommario numerato. \"sezione\" restituisce una definizione specifica per numero.",
-    "tool.description": "Analizza un file Go (.go) in funzioni, strutture, interfacce, metodi e dichiarazioni const/var/type e restituisce un indice numerato o una sezione di definizione specifica. Usalo quando devi leggere un file .go di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo la definizione che ti serve."
+    "tool.description": "Analizza le dichiarazioni Go e recupera le definizioni selezionate."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -249,7 +249,7 @@
     "msg.brace_imbalance": "desequilíbrio de chaves: {open} abertas vs {close} fechadas",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame go2idx com mode='section' e o número da seção.",
     "param.mode.description": "\"índice\" retorna um índice numerado. \"seção\" retorna uma definição específica por número.",
-    "tool.description": "Analise um arquivo Go (.go) em funções, estruturas, interfaces, métodos e declarações const/var/type e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo .go grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária."
+    "tool.description": "Analise declarações Go e recupere as definições selecionadas."
   },
   "pt": {
     "x_search_terms": [
@@ -277,7 +277,7 @@
     "msg.brace_imbalance": "desequilíbrio de chavetas: {open} abertas vs {close} fechadas",
     "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame go2idx com mode='section' e o número da seção.",
     "param.mode.description": "\"índice\" retorna um índice numerado. \"seção\" retorna uma definição específica por número.",
-    "tool.description": "Analise um arquivo Go (.go) em funções, estruturas, interfaces, métodos e declarações const/var/type e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo .go grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária."
+    "tool.description": "Analise declarações Go e recupere as definições selecionadas."
   },
   "ru": {
     "x_search_terms": [
@@ -305,7 +305,7 @@
     "msg.brace_imbalance": "дисбаланс скобок: {open} открыто vs {close} закрыто",
     "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите go2idx с mode='section' и номером раздела.",
     "param.mode.description": "«index» возвращает пронумерованное оглавление. «раздел» возвращает конкретное определение по номеру.",
-    "tool.description": "Разберите файл Go (.go) на функции, структуры, интерфейсы, методы и объявления const/var/type и верните нумерованный индекс или конкретный раздел определения. Используйте это, когда вам нужно прочитать большой файл .go: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только то определение, которое вам нужно."
+    "tool.description": "Анализ объявлений Go и получение выбранных определений."
   },
   "id": {
     "x_search_terms": [
@@ -333,7 +333,7 @@
     "msg.brace_imbalance": "ketidakseimbangan kurung kurawal: {open} buka vs {close} tutup",
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal definisi: {total}\nUntuk mengambil definisi, panggil go2idx dengan mode='section' dan nomor bagian.",
     "param.mode.description": "\"indeks\" mengembalikan daftar isi bernomor. \"bagian\" mengembalikan definisi spesifik berdasarkan nomor.",
-    "tool.description": "Parsing file Go (.go) menjadi fungsi, struct, antarmuka, metode, dan deklarasi const/var/type dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca file .go yang besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, lalu panggil dengan mode='section' dan nomor bagian untuk mengambil definisi yang Anda perlukan saja."
+    "tool.description": "Parsing deklarasi Go dan ambil definisi yang dipilih."
   },
   "vi": {
     "x_search_terms": [
@@ -361,7 +361,7 @@
     "msg.brace_imbalance": "mất cân bằng dấu ngoặc nhọn: {open} mở vs {close} đóng",
     "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi go2idx với mode='section' và số phần.",
     "param.mode.description": "\"index\" trả về một mục lục được đánh số. \"phần\" trả về một định nghĩa cụ thể theo số.",
-    "tool.description": "Phân tích cú pháp tệp Go (.go) thành các hàm, cấu trúc, giao diện, phương thức và khai báo const/var/type và trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Hãy sử dụng tính năng này khi bạn cần đọc một tệp .go lớn: trước tiên hãy gọi với mode='index' để lấy mục lục, sau đó gọi bằng mode='section' và số phần để chỉ truy xuất định nghĩa bạn cần."
+    "tool.description": "Phân tích cú pháp các khai báo và truy xuất các định nghĩa đã chọn."
   },
   "pl": {
     "x_search_terms": [
@@ -389,7 +389,7 @@
     "msg.brace_imbalance": "nierównowaga nawiasów klamrowych: {open} otwartych vs {close} zamkniętych",
     "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nWszystkie definicje: {total}\nAby pobrać definicję, wywołaj go2idx z mode='section' i numerem sekcji.",
     "param.mode.description": "„indeks” zwraca numerowany spis treści. „sekcja” zwraca konkretną definicję według numeru.",
-    "tool.description": "Przeanalizuj plik Go (.go) na funkcje, struktury, interfejsy, metody i deklaracje const/var/type i zwróć numerowany indeks lub określoną sekcję definicji. Użyj tej opcji, gdy chcesz przeczytać duży plik .go: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną definicję."
+    "tool.description": "Przeanalizuj deklaracje Go i pobierz wybrane definicje."
   },
   "hi": {
     "x_search_terms": [
@@ -417,7 +417,7 @@
     "msg.brace_imbalance": "ब्रैकेट असंतुलन: {open} खुले vs {close} बंद",
     "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, mode='section' और अनुभाग संख्या के साथ go2idx पर कॉल करें।",
     "param.mode.description": "\"सूचकांक\" सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
-    "tool.description": "गो (.go) फ़ाइल को फ़ंक्शंस, स्ट्रक्चर्स, इंटरफ़ेस, विधियों और कॉन्स्ट/var/प्रकार की घोषणाओं में पार्स करें और एक क्रमांकित इंडेक्स या एक विशिष्ट परिभाषा अनुभाग लौटाएं। जब आपको एक बड़ी .go फ़ाइल को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री की तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही परिभाषा प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है।"
+    "tool.description": "पार्स गो घोषणाएँ और चयनित परिभाषाएँ पुनः प्राप्त करें।"
   },
   "ar": {
     "x_search_terms": [
@@ -445,7 +445,7 @@
     "msg.brace_imbalance": "عدم توازن الأقواس: {open} مفتوحة vs {close} مغلقة",
     "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ go2idx مع mode='section' ورقم القسم.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
-    "tool.description": "قم بتحليل ملف Go (.go) إلى وظائف وبنيات وواجهات وأساليب وإعلانات const/var/type وإرجاع فهرس مرقّم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة ملف .go كبير: اتصل أولاً بـ mode='index' للحصول على جدول المحتويات، ثم اتصل بـ mode='section' ورقم القسم لاسترداد التعريف الذي تحتاجه فقط."
+    "tool.description": "تحليل تصريحات Go واسترداد التعريفات المحددة."
   },
   "sv": {
     "x_search_terms": [
@@ -473,7 +473,7 @@
     "msg.brace_imbalance": "balansfel i klamrar: {open} öppna vs {close} stängda",
     "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotala definitioner: {total}\nFör att hämta en definition, ring go2idx med mode='section' och sektionsnumret.",
     "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning. \"sektion\" returnerar en specifik definition med nummer.",
-    "tool.description": "Analysera en Go-fil (.go) i funktioner, strukturer, gränssnitt, metoder och const/var/type-deklarationer och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor .go-fil: ring först med mode='index' för att få innehållsförteckningen, ring sedan med mode='section' och sektionsnumret för att bara hämta den definition du behöver."
+    "tool.description": "Analysera Go-deklarationer och hämta valda definitioner."
   },
   "sw": {
     "x_search_terms": [
@@ -501,7 +501,7 @@
     "msg.brace_imbalance": "kutokuwa na usawa wa mabano: {open} wazi vs {close} funga",
     "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\n Jumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga go2idx ukitumia mode='section' na nambari ya sehemu.",
     "param.mode.description": "\"index\" hurejesha jedwali la yaliyomo lenye nambari. \"sehemu\" inarudisha ufafanuzi maalum kwa nambari.",
-    "tool.description": "Changanua faili ya Go (.go) katika vitendakazi, miundo, violesura, mbinu, na matamko ya const/var/aina na urudishe faharasa yenye nambari au sehemu mahususi ya ufafanuzi. Tumia hii unapohitaji kusoma faili kubwa ya .go: kwanza piga simu kwa mode='index' ili kupata jedwali la yaliyomo, kisha piga simu kwa mode='section' na nambari ya sehemu ili kupata ufafanuzi unaohitaji pekee."
+    "tool.description": "Changanua matamko ya Go na urejeshe ufafanuzi uliochaguliwa."
   },
   "nb": {
     "x_search_terms": [
@@ -529,7 +529,7 @@
     "msg.brace_imbalance": "ubalanse i klammeparenteser: {open} åpne vs {close} lukkede",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring go2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
-    "tool.description": "Parse en Go (.go)-fil i funksjoner, strukturer, grensesnitt, metoder og const/var/type-deklarasjoner og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk denne når du trenger å lese en stor .go-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger."
+    "tool.description": "Parse Go-erklæringer og hent valgte definisjoner."
   },
   "nl": {
     "x_search_terms": [
@@ -557,7 +557,7 @@
     "msg.brace_imbalance": "onevenwicht in accolades: {open} open vs {close} gesloten",
     "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal definities: {total}\nOm een ​​definitie op te halen, roept u go2idx aan met mode='section' en het sectienummer.",
     "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave. \"sectie\" retourneert een specifieke definitie op nummer.",
-    "tool.description": "Parseer een Go-bestand (.go) in functies, structuren, interfaces, methoden en const/var/type-declaraties en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit wanneer u een groot .go-bestand moet lezen: roep eerst met mode='index' aan om de inhoudsopgave te krijgen, roep vervolgens aan met mode='section' en het sectienummer om alleen de definitie op te halen die u nodig heeft."
+    "tool.description": "Parseer Go-declaraties en haal geselecteerde definities op."
   },
   "fi": {
     "x_search_terms": [
@@ -585,7 +585,7 @@
     "msg.brace_imbalance": "aaltosulkeiden epätasapaino: {open} auki vs {close} kiinni",
     "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nHae määritelmä soittamalla go2idx:lle mode='section' ja osion numero.",
     "param.mode.description": "\"indeksi\" palauttaa numeroidun sisällysluettelon. \"osio\" palauttaa tietyn määritelmän numerolla.",
-    "tool.description": "Jäsennä Go (.go) -tiedosto funktioiksi, rakenteiksi, rajapinnoiksi, menetelmiksi ja const/var/type-lausekkeiksi ja palauta numeroitu indeksi tai tietty määritelmäosio. Käytä tätä, kun sinun on luettava suuri .go-tiedosto: soita ensin mode='index' saadaksesi sisällysluettelon, sitten mode='section' ja osion numero hakeaksesi vain tarvitsemasi määritelmän."
+    "tool.description": "Jäsennä Go-ilmoitukset ja nouta valitut määritelmät."
   },
   "cs": {
     "x_search_terms": [
@@ -613,7 +613,7 @@
     "msg.brace_imbalance": "nevyváženost složených závorek: {open} otevřených vs {close} uzavřených",
     "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li načíst definici, zavolejte go2idx s mode='section' a číslem sekce.",
     "param.mode.description": "\"index\" vrátí očíslovaný obsah. \"sekce\" vrátí konkrétní definici podle čísla.",
-    "tool.description": "Analyzujte soubor Go (.go) na funkce, struktury, rozhraní, metody a deklarace const/var/type a vraťte očíslovaný index nebo konkrétní sekci definice. Použijte toto, když potřebujete přečíst velký soubor .go: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze definici, kterou potřebujete."
+    "tool.description": "Parse Go deklarace a načtení vybraných definic."
   },
   "uk": {
     "x_search_terms": [
@@ -641,7 +641,7 @@
     "msg.brace_imbalance": "дисбаланс фігурних дужок: {open} відкрито vs {close} закрито",
     "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте go2idx з mode='section' і номером розділу.",
     "param.mode.description": "\"index\" повертає пронумерований зміст. \"section\" повертає конкретне визначення за номером.",
-    "tool.description": "Розберіть файл Go (.go) на функції, структури, інтерфейси, методи та оголошення const/var/type і поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати великий файл .go: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібне визначення."
+    "tool.description": "Проаналізувати оголошення Go та отримати вибрані визначення."
   },
   "tr": {
     "x_search_terms": [
@@ -669,7 +669,7 @@
     "msg.brace_imbalance": "süslü parantez dengesizliği: {open} açık vs {close} kapalı",
     "msg.index_output": "Dizin: {path}\n---\n{toc}\n---\nToplam tanımlar: {total}\nBir tanımı almak için go2idx'i mode='section' ve bölüm numarasıyla çağırın.",
     "param.mode.description": "\"index\" numaralandırılmış bir içindekiler tablosu döndürür. \"bölüm\" sayıya göre belirli bir tanımı döndürür.",
-    "tool.description": "Bir Go (.go) dosyasını işlevlere, yapılara, arayüzlere, yöntemlere ve const/var/type bildirimlerine ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir .go dosyasını okumanız gerektiğinde bunu kullanın: önce içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan tanımı almak için mode='section' ve bölüm numarasıyla çağrı yapın."
+    "tool.description": "Go bildirimlerini ayrıştırın ve seçilen tanımları alın."
   },
   "th": {
     "x_search_terms": [
@@ -697,7 +697,7 @@
     "msg.brace_imbalance": "ความไม่สมดุลของวงเล็บปีกกา: เปิด {open} vs ปิด {close}",
     "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก go2idx ด้วย mode='section' และหมายเลขส่วน",
     "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีหมายเลขกำกับ \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
-    "tool.description": "แยกไฟล์ Go (.go) ออกเป็นฟังก์ชัน โครงสร้าง อินเทอร์เฟซ เมธอด และการประกาศ const/var/type และส่งคืนดัชนีที่เป็นตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านไฟล์ .go ขนาดใหญ่: ขั้นแรกให้โทรด้วย mode='index' เพื่อรับสารบัญ จากนั้นโทรด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะคำจำกัดความที่คุณต้องการ"
+    "tool.description": "ประกาศ Parse Go และดึงคำจำกัดความที่เลือก"
   },
   "bn": {
     "x_search_terms": [
@@ -725,7 +725,7 @@
     "msg.brace_imbalance": "বন্ধনীর অসমতা: {open} খোলা vs {close} বন্ধ",
     "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\nএকটি সংজ্ঞা পুনরুদ্ধার করতে, go2idx-এ mode='section' এবং সেকশন নম্বর দিয়ে কল করুন।",
     "param.mode.description": "\"সূচী\" বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" সংখ্যা দ্বারা একটি নির্দিষ্ট সংজ্ঞা প্রদান করে।",
-    "tool.description": "একটি Go (.go) ফাইলকে ফাংশন, স্ট্রাকট, ইন্টারফেস, পদ্ধতি এবং const/var/type ঘোষণায় পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগে ফেরত দিন। আপনার যখন একটি বড় .go ফাইল পড়তে হবে তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর mode='section' এবং আপনার প্রয়োজনীয় সংজ্ঞাটি পুনরুদ্ধার করতে বিভাগ নম্বর দিয়ে কল করুন।"
+    "tool.description": "Go ঘোষণা পার্স করুন এবং নির্বাচিত সংজ্ঞা পুনরুদ্ধার করুন।"
   },
   "fa": {
     "x_search_terms": [
@@ -753,7 +753,7 @@
     "msg.brace_imbalance": "عدم تعادل براکت: {open} باز vs {close} بسته",
     "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، go2idx را با mode='section' و شماره بخش فراخوانی کنید.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
-    "tool.description": "یک فایل Go (.go) را به توابع، ساختارها، رابط‌ها، متدها و اعلان‌های const/var/type تجزیه کنید و یک فهرست شماره‌دار یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل .go بزرگ دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط تعریف مورد نیاز خود را بازیابی کنید."
+    "tool.description": "اعلان های Go را تجزیه کنید و تعاریف انتخاب شده را بازیابی کنید."
   },
   "mn": {
     "x_search_terms": [
@@ -781,7 +781,7 @@
     "msg.brace_imbalance": "буржгар хаалтны тэнцвэргүй байдал: {open} нээлттэй vs {close} хаалттай",
     "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт тодорхойлолт: {total}\nТодорхойлолтыг сэргээхийн тулд go2idx руу mode='section' болон хэсгийн дугаарыг залгана уу.",
     "param.mode.description": "\"индекс\" нь дугаарлагдсан агуулгын хүснэгтийг буцаана. \"хэсэг\" нь тоогоор тодорхой тодорхойлолтыг буцаана.",
-    "tool.description": "Go (.go) файлыг функц, бүтэц, интерфэйс, аргууд болон const/var/type мэдэгдлүүд болгон задлан дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана. Том хэмжээтэй .go файлыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаад зөвхөн хэрэгтэй тодорхойлолтыг аваарай."
+    "tool.description": "Go мэдэгдлүүдийг задлан шинжилж, сонгосон тодорхойлолтуудыг татаж авах."
   },
   "mr": {
     "x_search_terms": [
@@ -809,7 +809,7 @@
     "msg.brace_imbalance": "ब्रॅकेट असंतुलन: {open} उघडा vs {close} बंद",
     "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\n व्याख्या पुनर्प्राप्त करण्यासाठी, go2idx ला मोड='विभाग' आणि विभाग क्रमांकासह कॉल करा.",
     "param.mode.description": "\"इंडेक्स\" सामग्रीची क्रमांकित सारणी मिळवते. \"विभाग\" संख्येनुसार विशिष्ट व्याख्या देतो.",
-    "tool.description": "Go (.go) फाइल फंक्शन्स, स्ट्रक्चर्स, इंटरफेस, पद्धती आणि const/var/type घोषणांमध्ये पार्स करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला मोठी .go फाईल वाचण्याची आवश्यकता असेल तेव्हा याचा वापर करा: सामग्री सारणी मिळवण्यासाठी प्रथम mode='index' सह कॉल करा, नंतर mode='section' सह कॉल करा आणि तुम्हाला आवश्यक असलेली व्याख्या पुनर्प्राप्त करण्यासाठी विभाग क्रमांक."
+    "tool.description": "गो घोषणा पार्स करा आणि निवडलेल्या व्याख्या पुनर्प्राप्त करा."
   },
   "el": {
     "x_search_terms": [
@@ -837,7 +837,7 @@
     "msg.brace_imbalance": "ανισορροπία αγκυλών: {open} ανοιχτές vs {close} κλειστές",
     "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣυνολικοί ορισμοί: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το go2idx με mode='section' και τον αριθμό ενότητας.",
     "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων. Το \"section\" επιστρέφει έναν συγκεκριμένο ορισμό με αριθμό.",
-    "tool.description": "Αναλύστε ένα αρχείο Go (.go) σε συναρτήσεις, δομές, διεπαφές, μεθόδους και δηλώσεις const/var/type και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια ενότητα συγκεκριμένου ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο αρχείο .go: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τον ορισμό που χρειάζεστε."
+    "tool.description": "Ανάλυση δηλώσεων Go και ανάκτηση επιλεγμένων ορισμών."
   },
   "he": {
     "x_search_terms": [
@@ -865,7 +865,7 @@
     "msg.brace_imbalance": "חוסר איזון בסוגריים מסולסלים: {open} פתוחים vs {close} סגורים",
     "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {total}\nכדי לאחזר הגדרה, התקשר ל-go2idx עם mode='section' ומספר המדור.",
     "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר. \"קטע\" מחזיר הגדרה ספציפית לפי מספר.",
-    "tool.description": "נתח קובץ Go (.go) לפונקציות, מבנים, ממשקים, שיטות והצהרות const/var/type והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא קובץ .go גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את ההגדרה שאתה צריך."
+    "tool.description": "נתח הצהרות Go ואחזר הגדרות נבחרות."
   },
   "hu": {
     "x_search_terms": [
@@ -893,7 +893,7 @@
     "msg.brace_imbalance": "kapcsos zárójelek egyensúlyhiánya: {open} nyitott vs {close} zárt",
     "msg.index_output": "Index ehhez: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nDefiníció lekéréséhez hívja a go2idx-et a mode='section' paraméterrel és a szakaszszámmal.",
     "param.mode.description": "Az \"index\" számozott tartalomjegyzéket ad vissza. A \"szakasz\" egy adott definíciót ad vissza szám szerint.",
-    "tool.description": "Elemezze a Go (.go) fájlt függvényekké, struktúrákká, interfészekké, metódusokká és const/var/type deklarációkká, és adja vissza a számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha egy nagy .go fájlt kell olvasnia: először hívja meg a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja a mode='section' és a szakaszszámot, hogy csak a szükséges definíciót kérje le."
+    "tool.description": "Go deklarációk elemzése és kiválasztott definíciók lekérése."
   },
   "ro": {
     "x_search_terms": [
@@ -921,7 +921,7 @@
     "msg.brace_imbalance": "dezechilibru de acolade: {open} deschise vs {close} închise",
     "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați go2idx cu mode='section' și numărul secțiunii.",
     "param.mode.description": "„index” returnează un cuprins numerotat. „secțiune” returnează o definiție specifică prin număr.",
-    "tool.description": "Analizați un fișier Go (.go) în funcții, structuri, interfețe, metode și declarații const/var/type și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier .go mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua doar definiția de care aveți nevoie."
+    "tool.description": "Analizați declarațiile Go și preluați definițiile selectate."
   },
   "fil": {
     "x_search_terms": [
@@ -948,7 +948,7 @@
     "msg.no_entries": "(walang nahanap na mga kahulugan)",
     "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga kahulugan: {total}\nUpang kumuha ng kahulugan, tawagan ang go2idx na may mode='section' at ang numero ng seksyon.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang tiyak na kahulugan ayon sa numero.",
-    "tool.description": "I-parse ang isang Go (.go) na file sa mga function, struct, interface, pamamaraan, at const/var/type na mga deklarasyon at ibalik ang isang may bilang na index o isang partikular na seksyon ng kahulugan. Gamitin ito kapag kailangan mong magbasa ng isang malaking .go file: tumawag muna gamit ang mode='index' upang makuha ang talaan ng mga nilalaman, pagkatapos ay tumawag gamit ang mode='section' at ang numero ng seksyon upang makuha lamang ang kahulugan na kailangan mo.",
+    "tool.description": "I-parse Go ang mga deklarasyon at kunin ang mga napiling kahulugan.",
     "msg.brace_imbalance": "imbalance ng brace: {open} open vs {close} close"
   },
   "ms": {
@@ -976,7 +976,7 @@
     "msg.no_entries": "(tiada definisi ditemui)",
     "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah takrifan: {total}\nUntuk mendapatkan semula definisi, hubungi go2idx dengan mod='section' dan nombor bahagian.",
     "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor. \"bahagian\" mengembalikan definisi khusus mengikut nombor.",
-    "tool.description": "Parsing fail Go (.go) ke dalam fungsi, struct, antara muka, kaedah dan pengisytiharan const/var/type dan kembalikan indeks bernombor atau bahagian definisi tertentu. Gunakan ini apabila anda perlu membaca fail .go yang besar: mula-mula panggil dengan mode='index' untuk mendapatkan jadual kandungan, kemudian panggil dengan mode='section' dan nombor bahagian untuk mendapatkan definisi yang anda perlukan sahaja.",
+    "tool.description": "Parse Go dan dapatkan semula definisi yang dipilih.",
     "msg.brace_imbalance": "ketidakseimbangan pendakap: {open} buka lwn {close} tutup"
   },
   "da": {
@@ -1004,7 +1004,7 @@
     "msg.no_entries": "(ingen definitioner fundet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nDefinitioner i alt: {total}\nFor at hente en definition skal du kalde go2idx med mode='sektion' og sektionsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse. \"sektion\" returnerer en specifik definition ved tal.",
-    "tool.description": "Parse en Go-fil (.go) i funktioner, strukturer, grænseflader, metoder og const/var/type-deklarationer og returner et nummereret indeks eller en specifik definitionssektion. Brug dette, når du skal læse en stor .go-fil: ring først med mode='index' for at få indholdsfortegnelsen, ring derefter med mode='section' og sektionsnummeret for kun at hente den definition, du har brug for.",
+    "tool.description": "Parse Go-erklæringer og hent valgte definitioner.",
     "msg.brace_imbalance": "spændingsubalance: {open} åben vs {close} tæt"
   },
   "nn": {
@@ -1032,7 +1032,7 @@
     "msg.no_entries": "(ingen definisjoner funnet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring go2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
-    "tool.description": "Parse en Go (.go)-fil i funksjoner, strukturer, grensesnitt, metoder og const/var/type-deklarasjoner og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk denne når du trenger å lese en stor .go-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger.",
+    "tool.description": "Analyser Go-deklarasjonar og hent ut valde definisjonar.",
     "msg.brace_imbalance": "avstivningsubalanse: {open} åpen vs {close} lukke"
   }
 }

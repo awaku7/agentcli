@@ -27,9 +27,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Forget one saved long-term memory note, addressed by its memory_id (see get_long_memory). "
-                "The note is tombstoned: it stops being used immediately but can be restored from :mem if it was deleted by mistake. "
-                "Use this when the user asks you to forget something, or when a saved note is no longer true and should not be replaced."
+                "Delete a saved long-term memory by ID when requested or obsolete; it can be restored."
             ),
         ),
         "x_search_terms": _(

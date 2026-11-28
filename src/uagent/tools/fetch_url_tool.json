@@ -20,7 +20,7 @@
     "param.ptr.description": "extract=json の場合に使用されるオプションの RFC 6901 JSON ポインター (例: /items/0/title)。",
     "param.save_as.description": "設定すると、生の応答 (バイナリ) が指定されたファイル パスに保存されます。extract/selector/ptr/maxc をオーバーライドします。コンテンツの代わりに JSON メタデータを返します。",
     "param.selector.description": "オプションの CSS セレクター。指定した場合、extract=text/html/markdown に対して最初に一致した要素が抽出されます。",
-    "tool.description": "HTTP GET 経由で指定された URL にアクセスし、応答の先頭をテキストとして返します。HTML または JSON を取得して検査するのに役立ちます。save_as が設定されている場合、生の応答がファイルに保存され、"
+    "tool.description": "HTTP/HTTPSの応答冒頭をテキスト・HTML・Markdown・JSONで取得します。必要なら生データを保存します。"
   },
   "es": {
     "param.url.description": "URL a la que acceder.",
@@ -43,7 +43,7 @@
     "param.ptr.description": "Puntero JSON RFC 6901 opcional (por ejemplo, /items/0/title) utilizado cuando extract=json.",
     "param.save_as.description": "Si se establece, guarda la respuesta sin formato (binaria) en la ruta del archivo especificada. Anula extract/selector/ptr/maxc. Devuelve metadatos JSON en lugar de contenido.",
     "param.selector.description": "Selector CSS opcional. Si se proporciona, el primer elemento coincidente se extrae para extract=text/html/markdown.",
-    "tool.description": "Acceda a la URL especificada a través de HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para buscar e inspeccionar HTML o JSON. Cuando se establece save_as, la respuesta sin procesar se guarda en un archivo y en su lugar se devuelven metadatos. Para páginas con mucho JavaScript que requieren renderizado del navegador, utilice browser_playwright en su lugar."
+    "tool.description": "Recupera e inspecciona el comienzo de las respuestas HTTP/HTTPS como texto, HTML, Markdown o JSON; Opcionalmente, guarde la respuesta sin formato."
   },
   "fr": {
     "param.url.description": "URL à consulter.",
@@ -66,7 +66,7 @@
     "param.ptr.description": "Pointeur JSON RFC 6901 facultatif (par exemple, /items/0/title) utilisé lorsque extract=json.",
     "param.save_as.description": "Si défini, enregistre la réponse brute (binaire) dans le chemin de fichier spécifié. Remplace extract/selector/ptr/maxc. Renvoie les métadonnées JSON au lieu du contenu.",
     "param.selector.description": "Sélecteur CSS facultatif. S'il est fourni, le premier élément correspondant est extrait pour extract=text/html/markdown.",
-    "tool.description": "Accédez à l'URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON. Lorsque save_as est défini, la réponse brute est enregistrée dans un fichier et les métadonnées sont renvoyées à la place. Pour les pages contenant beaucoup de JavaScript qui nécessitent un rendu dans le navigateur, utilisez plutôt browser_playwright."
+    "tool.description": "Récupère et inspecte le début des réponses HTTP/HTTPS sous forme de texte, HTML, Markdown ou JSON ; enregistrez éventuellement la réponse brute."
   },
   "ko": {
     "param.url.description": "접속할 URL입니다.",
@@ -89,7 +89,7 @@
     "param.ptr.description": "extract=json일 때 사용되는 선택적 RFC 6901 JSON 포인터(예: /items/0/title)입니다.",
     "param.save_as.description": "설정된 경우 원시 응답(바이너리)을 지정된 파일 경로에 저장합니다. 추출/선택기/ptr/maxc를 재정의합니다. 콘텐츠 대신 JSON 메타데이터를 반환합니다.",
     "param.selector.description": "선택적 CSS 선택기. 제공된 경우 extract=text/html/markdown에 대해 첫 번째로 일치하는 요소가 추출됩니다.",
-    "tool.description": "HTTP GET을 통해 지정된 URL에 액세스하고 응답의 시작 부분을 텍스트로 반환합니다. HTML 또는 JSON을 가져오고 검사하는 데 유용합니다. save_as가 설정되면 원시 응답이 파일에 저장되고 대신 메타데이터가 반환됩니다. 브라우저 렌더링이 필요한 JavaScript가 많은 페이지의 경우 대신 browser_playwright를 사용하세요."
+    "tool.description": "HTTP/HTTPS 응답의 시작 부분을 텍스트, HTML, 마크다운 또는 JSON으로 가져오고 검사합니다. 선택적으로 원시 응답을 저장합니다."
   },
   "de": {
     "param.url.description": "Aufzurufende URL.",
@@ -112,7 +112,7 @@
     "param.ptr.description": "Optionaler RFC 6901 JSON-Zeiger (z. B. /items/0/title), der verwendet wird, wenn extract=json.",
     "param.save_as.description": "Wenn festgelegt, wird die Rohantwort (binär) im angegebenen Dateipfad gespeichert. Überschreibt extract/selector/ptr/maxc. Gibt JSON-Metadaten anstelle von Inhalten zurück.",
     "param.selector.description": "Optionaler CSS-Selektor. Falls angegeben, wird das erste übereinstimmende Element für extract=text/html/markdown extrahiert.",
-    "tool.description": "Greifen Sie über HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück. Nützlich zum Abrufen und Überprüfen von HTML oder JSON. Wenn save_as festgelegt ist, wird die Rohantwort in einer Datei gespeichert und stattdessen werden Metadaten zurückgegeben. Für JavaScript-lastige Seiten, die Browser-Rendering erfordern, verwenden Sie stattdessen browser_playwright."
+    "tool.description": "Rufen Sie den Anfang von HTTP/HTTPS Antworten ab und prüfen Sie ihn als Text, HTML, Markdown oder JSON; Speichern Sie optional die Rohantwort."
   },
   "it": {
     "param.url.description": "URL a cui accedere.",
@@ -135,7 +135,7 @@
     "param.ptr.description": "Puntatore JSON RFC 6901 opzionale (ad esempio, /items/0/title) utilizzato quando extract=json.",
     "param.save_as.description": "Se impostato, salva la risposta non elaborata (binaria) nel percorso file specificato. Sostituisce extract/selector/ptr/maxc. Restituisce metadati JSON anziché contenuto.",
     "param.selector.description": "Selettore CSS opzionale. Se fornito, il primo elemento corrispondente viene estratto per extract=text/html/markdown.",
-    "tool.description": "Accedi all'URL specificato tramite HTTP GET e restituisci l'inizio della risposta come testo. Utile per recuperare e controllare HTML o JSON. Quando è impostato save_as, la risposta non elaborata viene salvata in un file e vengono invece restituiti i metadati. Per le pagine con molti JavaScript che richiedono il rendering del browser, utilizza invece browser_playwright."
+    "tool.description": "Recupera e controlla l'inizio delle risposte HTTP/HTTPS come testo, HTML, Markdown o JSON; facoltativamente salvare la risposta grezza."
   },
   "ru": {
     "param.url.description": "URL для доступа.",
@@ -158,7 +158,7 @@
     "param.ptr.description": "Необязательный указатель JSON RFC 6901 (например, /items/0/title), используемый, когда extract=json.",
     "param.save_as.description": "Если установлено, необработанный ответ (двоичный) сохраняется по указанному пути к файлу. Переопределяет extract/selector/ptr/maxc. Возвращает метаданные JSON вместо содержимого.",
     "param.selector.description": "Необязательный селектор CSS. Если указано, первый совпадающий элемент извлекается для Extract=text/html/markdown.",
-    "tool.description": "Получите доступ к указанному URL-адресу через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON. Если задан параметр save_as, необработанный ответ сохраняется в файл и вместо него возвращаются метаданные. Для страниц с большим количеством JavaScript, требующих рендеринга в браузере, используйте вместо этого браузер_playwright."
+    "tool.description": "Получите и проверьте начало ответов HTTP/HTTPS в виде текста, HTML, Markdown или JSON; при необходимости сохраните необработанный ответ."
   },
   "pt_BR": {
     "param.url.description": "URL a acessar.",
@@ -181,7 +181,7 @@
     "param.ptr.description": "Ponteiro JSON RFC 6901 opcional (por exemplo, /items/0/title) usado quando extract=json.",
     "param.save_as.description": "Se definido, salva a resposta bruta (binária) no caminho de arquivo especificado. Substitui extrato/seletor/ptr/maxc. Retorna metadados JSON em vez de conteúdo.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente será extraído para extract=text/html/markdown.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados. Para páginas com muito JavaScript que exigem renderização no navegador, use browser_playwright."
+    "tool.description": "Busque e inspecione o início das respostas HTTP/HTTPS como texto, HTML, Markdown ou JSON; opcionalmente, salve a resposta bruta."
   },
   "pt": {
     "param.url.description": "URL para acessar.",
@@ -204,7 +204,7 @@
     "param.ptr.description": "Ponteiro JSON RFC 6901 opcional (por exemplo, /items/0/title) usado quando extract=json.",
     "param.save_as.description": "Se definido, salva a resposta bruta (binária) no caminho de arquivo especificado. Substitui extrato/seletor/ptr/maxc. Retorna metadados JSON em vez de conteúdo.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente será extraído para extract=text/html/markdown.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados. Para páginas com muito JavaScript que exigem renderização no navegador, use browser_playwright."
+    "tool.description": "Busque e inspecione o início das respostas HTTP/HTTPS como texto, HTML, Markdown ou JSON; opcionalmente, salve a resposta bruta."
   },
   "id": {
     "param.url.description": "URL yang akan diakses.",
@@ -227,7 +227,7 @@
     "param.ptr.description": "Pointer JSON RFC 6901 opsional (mis., /items/0/title) digunakan saat ekstrak=json.",
     "param.save_as.description": "Jika disetel, simpan respons mentah (biner) ke jalur file yang ditentukan. Menggantikan ekstrak/pemilih/ptr/maxc. Mengembalikan metadata JSON, bukan konten.",
     "param.selector.description": "Pemilih CSS opsional. Jika disediakan, elemen pertama yang cocok akan diekstraksi untuk ekstrak=teks/html/penurunan harga.",
-    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Saat save_as disetel, respons mentah disimpan ke file dan metadata dikembalikan. Untuk halaman dengan banyak JavaScript yang memerlukan rendering browser, gunakan browser_playwright sebagai gantinya."
+    "tool.description": "Ambil dan periksa awal HTTP/HTTPS tanggapan sebagai teks, HTML, Penurunan Harga, atau JSON; secara opsional menyimpan respons mentah."
   },
   "vi": {
     "param.url.description": "URL để truy cập.",
@@ -250,7 +250,7 @@
     "param.ptr.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi extract=json.",
     "param.save_as.description": "Nếu được đặt, hãy lưu phản hồi thô (nhị phân) vào đường dẫn tệp đã chỉ định. Ghi đè extract/selector/ptr/maxc. Trả về siêu dữ liệu JSON thay vì nội dung.",
     "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html/markdown.",
-    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON. Khi save_as được đặt, phản hồi thô sẽ được lưu vào một tệp và thay vào đó siêu dữ liệu sẽ được trả về. Đối với các trang nặng về JavaScript yêu cầu hiển thị trình duyệt, thay vào đó hãy sử dụng browser_playwright."
+    "tool.description": "Tìm nạp và kiểm tra phần đầu của câu trả lời HTTP/HTTPS dưới dạng văn bản, HTML, Markdown hoặc JSON; tùy ý lưu phản hồi thô."
   },
   "pl": {
     "param.url.description": "Adres URL, do którego można uzyskać dostęp",
@@ -273,7 +273,7 @@
     "param.ptr.description": "Opcjonalny wskaźnik JSON RFC 6901 (np. /items/0/title) używany, gdy ekstrakt=json.",
     "param.save_as.description": "Jeśli jest ustawione, zapisuje surową odpowiedź (binarnie) w określonej ścieżce pliku. Zastępuje ekstrakt/selektor/ptr/maxc. Zwraca metadane JSON zamiast treści.",
     "param.selector.description": "Opcjonalny selektor CSS. Jeśli zostanie podany, pierwszy dopasowany element zostanie wyodrębniony dla ekstraktu=tekst/html/markdown.",
-    "tool.description": "Uzyskaj dostęp do określonego adresu URL za pośrednictwem protokołu HTTP GET i zwróć początek odpowiedzi w postaci tekstu. Przydatne do pobierania i sprawdzania kodu HTML lub JSON. Jeśli ustawiono opcję save_as, surowa odpowiedź jest zapisywana w pliku, a zamiast niej zwracane są metadane. W przypadku stron z dużą ilością JavaScript, które wymagają renderowania w przeglądarce, użyj zamiast tego opcji Browser_playwright."
+    "tool.description": "Pobierz i sprawdź początek odpowiedzi HTTP/HTTPS jako tekst, HTML, Markdown lub JSON; opcjonalnie zapisz surową odpowiedź."
   },
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
@@ -296,7 +296,7 @@
     "param.ptr.description": "वैकल्पिक RFC 6901 JSON पॉइंटर (उदाहरण के लिए, /आइटम/0/शीर्षक) का उपयोग तब किया जाता है जब एक्सट्रैक्ट = json होता है।",
     "param.save_as.description": "यदि सेट किया गया है, तो निर्दिष्ट फ़ाइल पथ पर कच्ची प्रतिक्रिया (बाइनरी) सहेजता है। एक्सट्रैक्ट/चयनकर्ता/पीटीआर/मैक्ससी को ओवरराइड करता है। सामग्री के बजाय JSON मेटाडेटा लौटाता है।",
     "param.selector.description": "वैकल्पिक सीएसएस चयनकर्ता. यदि प्रदान किया गया है, तो पहला मिलान किया गया तत्व एक्स्ट्रेक्ट=टेक्स्ट/एचटीएमएल/मार्कडाउन के लिए निकाला जाता है।",
-    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी। जब save_as सेट किया जाता है, तो कच्ची प्रतिक्रिया एक फ़ाइल में सहेजी जाती है और इसके बजाय मेटाडेटा वापस कर दिया जाता है। जावास्क्रिप्ट-भारी पृष्ठों के लिए जिन्हें ब्राउज़र रेंडरिंग की आवश्यकता होती है, इसके बजाय ब्राउज़र_प्लेराइट का उपयोग करें।"
+    "tool.description": "टेक्स्ट, HTML, मार्कडाउन, या JSON के रूप में HTTP/HTTPS प्रतिक्रियाओं की शुरुआत प्राप्त करें और निरीक्षण करें; वैकल्पिक रूप से कच्ची प्रतिक्रिया सहेजें।"
   },
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
@@ -319,7 +319,7 @@
     "param.ptr.description": "يُستخدم مؤشر RFC 6901 JSON الاختياري (على سبيل المثال، /items/0/title) عند extract=json.",
     "param.save_as.description": "إذا تم تعيينه، فسيتم حفظ الاستجابة الأولية (الثنائية) إلى مسار الملف المحدد. يتجاوز الاستخراج/المحدد/ptr/maxc. إرجاع بيانات تعريف JSON بدلاً من المحتوى.",
     "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج العنصر المطابق الأول لـ extract=text/html/markdown.",
-    "tool.description": "يمكنك الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب وفحص HTML أو JSON. عند تعيين save_as، يتم حفظ الاستجابة الأولية في ملف ويتم إرجاع البيانات التعريفية بدلاً من ذلك. بالنسبة للصفحات التي تحتوي على الكثير من JavaScript والتي تتطلب عرضًا من المتصفح، استخدم browser_playwright بدلاً من ذلك."
+    "tool.description": "جلب وفحص بداية استجابات HTTP/HTTPS كنص أو HTML أو Markdown أو JSON؛ اختياريًا، قم بحفظ الاستجابة الأولية."
   },
   "sv": {
     "param.url.description": "URL att öppna.",
@@ -342,7 +342,7 @@
     "param.ptr.description": "Valfri RFC 6901 JSON-pekare (t.ex. /items/0/title) används när extract=json.",
     "param.save_as.description": "Om inställt, sparas råsvaret (binärt) till den angivna filsökvägen. Åsidosätter extrahera/väljare/ptr/maxc. Returnerar JSON-metadata istället för innehåll.",
     "param.selector.description": "Valfri CSS-väljare. Om det tillhandahålls extraheras det första matchade elementet för extract=text/html/markdown.",
-    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbar för att hämta och inspektera HTML eller JSON. När save_as är inställt, sparas råsvaret i en fil och metadata returneras istället. För JavaScript-tunga sidor som kräver webbläsarrendering, använd browser_playwright istället."
+    "tool.description": "Hämta och inspektera början av HTTP/HTTPS svar som text, HTML, Markdown eller JSON; spara eventuellt råsvaret."
   },
   "sw": {
     "param.url.description": "URL ya kufikia.",
@@ -365,7 +365,7 @@
     "param.ptr.description": "Hiari RFC 6901 JSON Pointer (k.m., /items/0/title) kutumika wakati extract=json.",
     "param.save_as.description": "Ikiwekwa, huhifadhi jibu ghafi (binary) kwa njia iliyobainishwa ya faili. Inabatilisha extract/selector/ptr/maxc. Hurejesha metadata ya JSON badala ya maudhui.",
     "param.selector.description": "Chaguo la kuchagua CSS. Ikitolewa, kipengele cha kwanza kinacholingana kitatolewa kwa extract=text/html/markdown.",
-    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuleta na kukagua HTML au JSON. Wakati save_as imewekwa, jibu ghafi huhifadhiwa kwenye faili na metadata inarudishwa badala yake. Kwa kurasa nzito za JavaScript zinazohitaji uwasilishaji wa kivinjari, tumia browser_playwright badala yake."
+    "tool.description": "Leta na ukague mwanzo wa majibu HTTP/HTTPS kama maandishi, HTML, Markdown, au JSON; kwa hiari hifadhi jibu ghafi."
   },
   "nb": {
     "param.url.description": "URL som skal åpnes.",
@@ -388,7 +388,7 @@
     "param.ptr.description": "Valgfri RFC 6901 JSON-peker (f.eks. /items/0/title) brukt når extract=json.",
     "param.save_as.description": "Hvis angitt, lagres råsvaret (binært) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON-metadata i stedet for innhold.",
     "param.selector.description": "Valgfri CSS-velger. Hvis det er gitt, trekkes det første samsvarende elementet ut for extract=text/html/markdown.",
-    "tool.description": "Få tilgang til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når lagre_som er satt, lagres råsvaret i en fil og metadata returneres i stedet. For JavaScript-tunge sider som krever nettlesergjengivelse, bruk browser_playwright i stedet."
+    "tool.description": "Hent og inspiser begynnelsen av HTTP/HTTPS svar som tekst, HTML, Markdown eller JSON; lagre eventuelt råsvaret."
   },
   "nl": {
     "param.url.description": "Te benaderen URL.",
@@ -411,7 +411,7 @@
     "param.ptr.description": "Optionele RFC 6901 JSON-aanwijzer (bijvoorbeeld /items/0/title) gebruikt wanneer extract=json.",
     "param.save_as.description": "Indien ingesteld, wordt het onbewerkte antwoord (binair) opgeslagen in het opgegeven bestandspad. Overschrijft extract/selector/ptr/maxc. Retourneert JSON-metagegevens in plaats van inhoud.",
     "param.selector.description": "Optionele CSS-selector. Indien opgegeven, wordt het eerste overeenkomende element geëxtraheerd voor extract=text/html/markdown.",
-    "tool.description": "Ga naar de opgegeven URL via HTTP GET en retourneer het begin van het antwoord als tekst. Handig voor het ophalen en inspecteren van HTML of JSON. Wanneer save_as is ingesteld, wordt het onbewerkte antwoord opgeslagen in een bestand en worden in plaats daarvan metagegevens geretourneerd. Voor pagina's met veel JavaScript waarvoor browserweergave vereist is, gebruikt u in plaats daarvan browser_playwright."
+    "tool.description": "Haal en inspecteer het begin van HTTP/HTTPS reacties als tekst, HTML, Markdown of JSON; sla eventueel het onbewerkte antwoord op."
   },
   "fi": {
     "param.url.description": "Avattava URL.",
@@ -434,7 +434,7 @@
     "param.ptr.description": "Valinnainen RFC 6901 JSON-osoitin (esim. /items/0/title), jota käytetään, kun ekstrakti=json.",
     "param.save_as.description": "Jos asetettu, tallentaa raakavastauksen (binääri) määritettyyn tiedostopolkuun. Ohittaa extract/selector/ptr/maxc. Palauttaa JSON-metatiedot sisällön sijaan.",
     "param.selector.description": "Valinnainen CSS-valitsin. Jos tarjotaan, ensimmäinen vastaava elementti puretaan tiedostolle extract=text/html/markdown.",
-    "tool.description": "Käytä määritettyä URL-osoitetta HTTP GET:n kautta ja palauta vastauksen alku tekstinä. Hyödyllinen HTML- tai JSON-tiedostojen hakemiseen ja tarkistamiseen. Kun save_as on asetettu, raaka vastaus tallennetaan tiedostoon ja sen sijaan palautetaan metatiedot. Jos käytät paljon JavaScriptiä sisältäviä sivuja, jotka vaativat selaimen renderöinnin, käytä sen sijaan browser_playwrightia."
+    "tool.description": "Hae ja tarkasta HTTP/HTTPS vastauksen alku tekstinä, HTML-koodina, merkintänä tai JSON; valinnaisesti tallenna raaka vastaus."
   },
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
@@ -457,7 +457,7 @@
     "param.ptr.description": "Volitelný ukazatel RFC 6901 JSON (např. /items/0/title) použitý při extract=json.",
     "param.save_as.description": "Je-li nastaveno, uloží nezpracovanou odpověď (binární) do zadané cesty k souboru. Přepíše extrakt/selektor/ptr/maxc. Místo obsahu vrátí metadata JSON.",
     "param.selector.description": "Volitelný selektor CSS. Pokud je zadán, je extrahován první odpovídající prvek pro extract=text/html/markdown.",
-    "tool.description": "Přistupte k zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Užitečné pro načítání a kontrolu HTML nebo JSON. Když je nastaveno save_as, nezpracovaná odpověď se uloží do souboru a místo toho se vrátí metadata. Pro stránky s vysokým obsahem JavaScriptu, které vyžadují vykreslování prohlížečem, použijte místo toho browser_playwright."
+    "tool.description": "Načíst a zkontrolovat začátek odpovědí HTTP/HTTPS jako text, HTML, Markdown nebo JSON; volitelně uložit nezpracovanou odpověď."
   },
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
@@ -480,7 +480,7 @@
     "param.ptr.description": "Додатковий вказівник RFC 6901 JSON (наприклад, /items/0/title), який використовується, коли extract=json.",
     "param.save_as.description": "Якщо встановлено, зберігає необроблену відповідь (двійкову) до вказаного шляху до файлу. Перевизначає екстракт/селектор/ptr/maxc. Повертає метадані JSON замість вмісту.",
     "param.selector.description": "Додатковий селектор CSS. Якщо вказано, перший відповідний елемент витягується для extract=text/html/markdown.",
-    "tool.description": "Отримайте доступ до вказаної URL-адреси через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання та перевірки HTML або JSON. Якщо встановлено save_as, необроблена відповідь зберігається у файлі, а замість нього повертаються метадані. Для сторінок із інтенсивним використанням JavaScript, які вимагають візуалізації в браузері, замість цього використовуйте browser_playwright."
+    "tool.description": "Отримати та перевірити початок HTTP/HTTPS відповідей у ​​вигляді тексту, HTML, Markdown або JSON; за бажанням збережіть необроблену відповідь."
   },
   "tr": {
     "param.url.description": "Erişmek için URL.",
@@ -503,7 +503,7 @@
     "param.ptr.description": "extract=json olduğunda kullanılan isteğe bağlı RFC 6901 JSON İşaretçisi (ör. /items/0/title).",
     "param.save_as.description": "Ayarlanırsa ham yanıtı (ikili) belirtilen dosya yoluna kaydeder. Extract/selector/ptr/maxc'yi geçersiz kılar. İçerik yerine JSON meta verilerini döndürür.",
     "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html/markdown için çıkarılır.",
-    "tool.description": "Belirtilen URL'ye HTTP GET aracılığıyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON'u almak ve incelemek için kullanışlıdır. save_as ayarlandığında ham yanıt bir dosyaya kaydedilir ve bunun yerine meta veriler döndürülür. Tarayıcının görüntülenmesini gerektiren, JavaScript ağırlıklı sayfalar için bunun yerine tarayıcı_playwright'ı kullanın."
+    "tool.description": "HTTP/HTTPS yanıtlarının başlangıcını metin, HTML, Markdown veya JSON olarak getirin ve inceleyin; isteğe bağlı olarak ham yanıtı kaydedin."
   },
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
@@ -526,7 +526,7 @@
     "param.ptr.description": "ตัวชี้ JSON RFC 6901 ที่ไม่บังคับ (เช่น /items/0/title) ใช้เมื่อ extract=json",
     "param.save_as.description": "หากตั้งค่าไว้ จะบันทึกการตอบสนองแบบดิบ (ไบนารี) ไปยังเส้นทางไฟล์ที่ระบุ แทนที่ extract/selector/ptr/maxc ส่งคืนข้อมูลเมตา JSON แทนเนื้อหา",
     "param.selector.description": "ตัวเลือก CSS เสริม หากระบุไว้ องค์ประกอบแรกที่ตรงกันจะถูกแยกออกมาสำหรับ extract=text/html/markdown",
-    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนจุดเริ่มต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON เมื่อตั้งค่า save_as การตอบกลับแบบ Raw จะถูกบันทึกลงในไฟล์และส่งคืนข้อมูลเมตาแทน สำหรับหน้าเว็บที่มี JavaScript จำนวนมากซึ่งต้องมีการแสดงผลของเบราว์เซอร์ ให้ใช้ browser_playwright แทน"
+    "tool.description": "ดึงข้อมูลและตรวจสอบจุดเริ่มต้นของการตอบกลับ HTTP/HTTPS ในรูปแบบข้อความ, HTML, Markdown หรือ JSON เลือกที่จะบันทึกการตอบกลับแบบดิบ"
   },
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
@@ -549,7 +549,7 @@
     "param.ptr.description": "当 extract=json 时使用可选的 RFC 6901 JSON 指针（例如 /items/0/title）。",
     "param.save_as.description": "如果设置，则将原始响应（二进制）保存到指定的文件路径。覆盖 extract/selector/ptr/maxc。返回 JSON 元数据而不是内容。",
     "param.selector.description": "可选的 CSS 选择器。如果提供，则提取第一个匹配的元素：extract=text/html/markdown。",
-    "tool.description": "通过 HTTP GET 访问指定的 URL 并以文本形式返回响应的开头。对于获取和检查 HTML 或 JSON 很有用。设置 save_as 后，原始响应将保存到文件中，并返回元数据。对于需要浏览器渲染的 JavaScript 密集型页面，请改用 browser_playwright。"
+    "tool.description": "以文本、HTML、Markdown 或 JSON 形式获取并检查 HTTP/HTTPS 响应的开头； （可选）保存原始响应。"
   },
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
@@ -572,7 +572,7 @@
     "param.ptr.description": "當 extract=json 時使用可選的 RFC 6901 JSON 指標（例如 /items/0/title）。",
     "param.save_as.description": "如果設置，則將原始回應（二進位）儲存到指定的檔案路徑。覆寫 extract/selector/ptr/maxc。傳回 JSON 元資料而不是內容。",
     "param.selector.description": "可選的 CSS 選擇器。如果提供，則提取第一個符合的元素：extract=text/html/markdown。",
-    "tool.description": "透過 HTTP GET 存取指定的 URL 並以文字形式傳回回應的開頭。對於取得和檢查 HTML 或 JSON 很有用。設定 save_as 後，原始回應將儲存到檔案中，並傳回元資料。對於需要瀏覽器渲染的 JavaScript 密集型頁面，請改用 browser_playwright。"
+    "tool.description": "以文字、HTML、Markdown 或 JSON 形式取得並檢查 HTTP/HTTPS 回應的開頭； （選用）儲存原始回應。"
   },
   "bn": {
     "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
@@ -595,7 +595,7 @@
     "param.ptr.description": "ঐচ্ছিক RFC 6901 JSON পয়েন্টার (যেমন, /items/0/title) extract=json ব্যবহার করার সময়।",
     "param.save_as.description": "সেট করা হলে, নির্দিষ্ট ফাইল পাথে কাঁচা প্রতিক্রিয়া (বাইনারী) সংরক্ষণ করে। extract/selector/ptr/maxc ওভাররাইড করে। বিষয়বস্তুর পরিবর্তে JSON মেটাডেটা প্রদান করে।",
     "param.selector.description": "ঐচ্ছিক CSS নির্বাচক। প্রদান করা হলে, extract=text/html/markdown এর জন্য প্রথম মিলে যাওয়া উপাদানটি বের করা হয়।",
-    "tool.description": "HTTP GET এর মাধ্যমে নির্দিষ্ট URL অ্যাক্সেস করুন এবং পাঠ্য হিসাবে প্রতিক্রিয়ার শুরুতে ফেরত দিন। HTML বা JSON আনয়ন এবং পরিদর্শনের জন্য দরকারী। save_as সেট করা হলে, কাঁচা প্রতিক্রিয়া একটি ফাইলে সংরক্ষণ করা হয় এবং এর পরিবর্তে মেটাডেটা ফেরত দেওয়া হয়। JavaScript-ভারী পৃষ্ঠাগুলির জন্য ব্রাউজার রেন্ডারিং প্রয়োজন, পরিবর্তে browser_playwright ব্যবহার করুন।"
+    "tool.description": "পাঠ্য, HTML, মার্কডাউন, বা JSON হিসাবে HTTP/HTTPS প্রতিক্রিয়াগুলির শুরুতে আনুন এবং পরিদর্শন করুন; ঐচ্ছিকভাবে কাঁচা প্রতিক্রিয়া সংরক্ষণ করুন।"
   },
   "fa": {
     "param.url.description": "نشانی URL برای دسترسی.",
@@ -618,7 +618,7 @@
     "param.ptr.description": "نشانگر JSON اختیاری RFC 6901 (به عنوان مثال، /items/0/title) در هنگام extract=json استفاده می‌شود.",
     "param.save_as.description": "در صورت تنظیم، پاسخ خام (باینری) را در مسیر فایل مشخص شده ذخیره می کند. استخراج/انتخابگر/ptr/maxc را لغو می کند. فراداده JSON را به جای محتوا برمی گرداند.",
     "param.selector.description": "انتخابگر CSS اختیاری. در صورت ارائه، اولین عنصر منطبق برای extract=text/html/markdown استخراج می شود.",
-    "tool.description": "از طریق HTTP GET به URL مشخص شده دسترسی پیدا کنید و ابتدای پاسخ را به صورت متن برگردانید. برای واکشی و بازرسی HTML یا JSON مفید است. هنگامی که save_as تنظیم شده است، پاسخ خام در یک فایل ذخیره می شود و به جای آن ابرداده برگردانده می شود. برای صفحاتی با جاوا اسکریپت سنگین که نیاز به رندر مرورگر دارند، به جای آن از browser_playwright استفاده کنید."
+    "tool.description": "شروع پاسخ های HTTP/HTTPS را به صورت متن، HTML، Markdown یا JSON واکشی و بررسی کنید. به صورت اختیاری پاسخ خام را ذخیره کنید."
   },
   "mn": {
     "param.url.description": "Хандах URL.",
@@ -641,7 +641,7 @@
     "param.ptr.description": "Extract=json үед нэмэлт RFC 6901 JSON заагчийг (жишээ нь, /items/0/title) ашигладаг.",
     "param.save_as.description": "Хэрэв тохируулсан бол тодорхойлсон файлын зам руу түүхий хариултыг (хоёртын хувилбар) хадгална. Extract/selector/ptr/maxc-г хүчингүй болгодог. Агуулгын оронд JSON мета өгөгдлийг буцаана.",
     "param.selector.description": "Нэмэлт CSS сонгогч. Хэрэв өгөгдсөн бол эхний тохирох элементийг extract=text/html/markdown-д задлана.",
-    "tool.description": "HTTP GET-ээр заасан URL руу нэвтэрч, хариултын эхлэлийг текст болгон буцаана уу. HTML эсвэл JSON-г татаж авах, шалгахад хэрэгтэй. Save_as тохируулагдсан үед түүхий хариулт файлд хадгалагдаж оронд нь мета өгөгдлийг буцаана. Хөтчөөр дүрслэх шаардлагатай JavaScript-н ачаалал ихтэй хуудсуудын оронд browser_playwright-г ашиглана уу."
+    "tool.description": "HTTP/HTTPS хариултын эхлэлийг текст, HTML, Markdown эсвэл JSON хэлбэрээр авч, шалгах; сонголтоор түүхий хариултыг хадгалах."
   },
   "mr": {
     "param.url.description": "ज्याला access करायचे तो URL.",
@@ -664,7 +664,7 @@
     "param.ptr.description": "पर्यायी RFC 6901 JSON पॉइंटर (उदा. /items/0/title) extract=json करताना वापरले.",
     "param.save_as.description": "सेट केल्यास, निर्दिष्ट फाइल मार्गावर रॉ प्रतिसाद (बायनरी) जतन करते. अर्क/निवडक/ptr/maxc ओव्हरराइड करते. सामग्रीऐवजी JSON मेटाडेटा देते.",
     "param.selector.description": "पर्यायी CSS निवडकर्ता. प्रदान केल्यास, प्रथम जुळलेला घटक extract=text/html/markdown साठी काढला जातो.",
-    "tool.description": "HTTP GET द्वारे निर्दिष्ट URL मध्ये प्रवेश करा आणि प्रतिसादाची सुरुवात मजकूर म्हणून परत करा. HTML किंवा JSON आणण्यासाठी आणि तपासण्यासाठी उपयुक्त. save_as सेट केल्यावर, रॉ प्रतिसाद फाईलमध्ये सेव्ह केला जातो आणि त्याऐवजी मेटाडेटा परत येतो. JavaScript-हेवी पृष्ठांसाठी ज्यांना ब्राउझर रेंडरिंग आवश्यक आहे, त्याऐवजी browser_playwright वापरा."
+    "tool.description": "मजकूर, HTML, मार्कडाउन किंवा JSON म्हणून HTTP/HTTPS प्रतिसादांची सुरुवात आणा आणि तपासणी करा; वैकल्पिकरित्या कच्चा प्रतिसाद जतन करा."
   },
   "el": {
     "param.url.description": "URL για πρόσβαση.",
@@ -687,7 +687,7 @@
     "param.ptr.description": "Προαιρετικός δείκτης RFC 6901 JSON (π.χ. /items/0/title) που χρησιμοποιείται όταν extract=json.",
     "param.save_as.description": "Εάν οριστεί, αποθηκεύει την ακατέργαστη απόκριση (δυαδική) στην καθορισμένη διαδρομή αρχείου. Αντικαθιστά την εξαγωγή/επιλογέα/ptr/maxc. Επιστρέφει μεταδεδομένα JSON αντί για περιεχόμενο.",
     "param.selector.description": "Προαιρετικός επιλογέας CSS. Εάν παρέχεται, το πρώτο αντιστοιχισμένο στοιχείο εξάγεται για extract=text/html/markdown.",
-    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON. Όταν έχει οριστεί το save_as, η πρωτογενής απάντηση αποθηκεύεται σε ένα αρχείο και αντ' αυτού επιστρέφονται τα μεταδεδομένα. Για σελίδες με JavaScript που απαιτούν απόδοση του προγράμματος περιήγησης, χρησιμοποιήστε το browser_playwright."
+    "tool.description": "Λήψη και επιθεώρηση της αρχής των απαντήσεων HTTP/HTTPS ως κείμενο, HTML, Markdown ή JSON. προαιρετικά αποθηκεύστε την ακατέργαστη απόκριση."
   },
   "he": {
     "param.url.description": "כתובת אתר לגישה.",
@@ -710,7 +710,7 @@
     "param.ptr.description": "מצביע RFC 6901 JSON אופציונלי (לדוגמה, /items/0/title) בשימוש כאשר extract=json.",
     "param.save_as.description": "אם מוגדר, שומר את התגובה הגולמית (בינארי) בנתיב הקובץ שצוין. עוקף את החילוץ/בורר/ptr/maxc. מחזיר מטא נתונים של JSON במקום תוכן.",
     "param.selector.description": "בורר CSS אופציונלי. אם מסופק, הרכיב המותאם הראשון חולץ עבור extract=text/html/markdown.",
-    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON. כאשר save_as מוגדר, התגובה הגולמית נשמרת בקובץ ומטא נתונים מוחזרים במקום זאת. עבור דפים עתירי JavaScript הדורשים עיבוד דפדפן, השתמש במקום זאת ב-browser_playwright."
+    "tool.description": "אחזר ובדוק את ההתחלה של HTTP/HTTPS תגובות כטקסט, HTML, Markdown או JSON; אופציונלי לשמור את התגובה הגולמית."
   },
   "hu": {
     "param.url.description": "URL a hozzáféréshez.",
@@ -733,7 +733,7 @@
     "param.ptr.description": "Opcionális RFC 6901 JSON-mutató (pl. /items/0/title) akkor használatos, ha kivonat=json.",
     "param.save_as.description": "Ha be van állítva, elmenti a nyers választ (binárisan) a megadott fájlútvonalra. Felülbírálja a kivonat/választó/ptr/maxc. A tartalom helyett JSON-metaadatokat ad vissza.",
     "param.selector.description": "Opcionális CSS-választó. Ha meg van adva, akkor az első egyező elemet a rendszer kivonja a következőhöz: extract=text/html/markdown.",
-    "tool.description": "Érje el a megadott URL-t HTTP GET-en keresztül, és adja vissza a válasz elejét szövegként. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez. Ha a save_as be van állítva, a nyers válasz egy fájlba kerül mentésre, és helyette metaadatokat ad vissza. A JavaScriptet erősen használó oldalak esetén, amelyek böngészőben történő megjelenítést igényelnek, használja helyette a browser_playwright parancsot."
+    "tool.description": "HTTP/HTTPS válasz elejének lekérése és ellenőrzése szövegként, HTML-ként, Markdown-ként vagy JSON-ként; opcionálisan mentse a nyers választ."
   },
   "ro": {
     "param.url.description": "URL de acces.",
@@ -756,7 +756,7 @@
     "param.ptr.description": "Pointer opțional RFC 6901 JSON (de exemplu, /items/0/title) utilizat când extract=json.",
     "param.save_as.description": "Dacă este setat, salvează răspunsul brut (binar) în calea fișierului specificată. Ignoră extract/selector/ptr/maxc. Returnează metadatele JSON în loc de conținut.",
     "param.selector.description": "Selector CSS opțional. Dacă este furnizat, primul element potrivit este extras pentru extract=text/html/markdown.",
-    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON. Când save_as este setat, răspunsul brut este salvat într-un fișier și metadatele sunt returnate. Pentru paginile cu JavaScript care necesită randare în browser, utilizați browser_playwright."
+    "tool.description": "Preluați și inspectați începutul răspunsurilor HTTP/HTTPS ca text, HTML, Markdown sau JSON; opțional salvați răspunsul brut."
   },
   "fil": {
     "param.url.description": "URL upang ma-access.",
@@ -779,7 +779,7 @@
     "param.ptr.description": "Opsyonal RFC 6901 JSON Pointer (hal., /items/0/title) na ginagamit kapag extract=json.",
     "param.save_as.description": "Kung nakatakda, ise-save ang hilaw na tugon (binary) sa tinukoy na landas ng file. Ino-override ang extract/selector/ptr/maxc. Nagbabalik ng JSON metadata sa halip na nilalaman.",
     "param.selector.description": "Opsyonal na tagapili ng CSS. Kung ibinigay, ang unang katugmang elemento ay kinukuha para sa extract=text/html/markdown.",
-    "tool.description": "I-access ang tinukoy na URL sa pamamagitan ng HTTP GET at ibalik ang simula ng tugon bilang text. Kapaki-pakinabang para sa pagkuha at pagsisiyasat ng HTML o JSON. Kapag itinakda ang save_as, ise-save ang hilaw na tugon sa isang file at ibabalik ang metadata sa halip. Para sa mga pahinang mabigat sa JavaScript na nangangailangan ng pag-render ng browser, gamitin na lang ang browser_playwright."
+    "tool.description": "Kunin at suriin ang simula ng HTTP/HTTPS na mga tugon bilang text, HTML, Markdown, o JSON; opsyonal na i-save ang hilaw na tugon."
   },
   "ms": {
     "param.url.description": "URL untuk diakses.",
@@ -802,7 +802,7 @@
     "param.ptr.description": "Pilihan RFC 6901 JSON Penunjuk (cth., /items/0/title) digunakan apabila extract=json.",
     "param.save_as.description": "Jika ditetapkan, simpan respons mentah (perduaan) ke laluan fail yang ditentukan. Mengatasi ekstrak/pemilih/ptr/maxc. Mengembalikan JSON metadata dan bukannya kandungan.",
     "param.selector.description": "Pemilih CSS pilihan. Jika disediakan, elemen dipadankan pertama diekstrak untuk extract=text/html/markdown.",
-    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan permulaan respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Apabila save_as ditetapkan, respons mentah disimpan pada fail dan metadata dikembalikan. Untuk halaman JavaScript-berat yang memerlukan pemaparan penyemak imbas, sebaliknya gunakan browser_playwright."
+    "tool.description": "Ambil dan semak permulaan HTTP/HTTPS respons sebagai teks, HTML, Markdown atau JSON; menyimpan respons mentah secara pilihan."
   },
   "da": {
     "param.url.description": "URL til adgang.",
@@ -825,7 +825,7 @@
     "param.ptr.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) bruges når extract=json.",
     "param.save_as.description": "Hvis indstillet, gemmer det rå svar (binært) til den angivne filsti. Tilsidesætter extract/selector/ptr/maxc. Returnerer JSON metadata i stedet for indhold.",
     "param.selector.description": "Valgfri CSS-vælger. Hvis det er angivet, udtrækkes det første matchede element for extract=text/html/markdown.",
-    "tool.description": "Få adgang til den angivne URL via HTTP GET og returner begyndelsen af ​​svaret som tekst. Nyttigt til at hente og inspicere HTML eller JSON. Når save_as er indstillet, gemmes råsvaret i en fil, og metadata returneres i stedet. For JavaScript-tunge sider, der kræver browsergengivelse, skal du bruge browser_playwright i stedet."
+    "tool.description": "Hent og undersøg begyndelsen af ​​HTTP/HTTPS svar som tekst, HTML, Markdown eller JSON; gem eventuelt det rå svar."
   },
   "nn": {
     "param.url.description": "URL for tilgang.",
@@ -848,6 +848,6 @@
     "param.ptr.description": "Valgfri RFC 6901 JSON-peker (f.eks. /items/0/title) brukt når extract=json.",
     "param.save_as.description": "Hvis angitt, lagres råsvaret (binært) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON metadata i staden for innhold.",
     "param.selector.description": "Valgfri CSS-velger. Hvis det er gitt, trekkes det første samsvarende elementet ut for extract=text/html/markdown.",
-    "tool.description": "Få tilgang til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når lagre_som er satt, lagres råsvaret i en fil og metadata returneres i stedet. For JavaScript-tunge sider som krever nettlesergjengivelse, bruk browser_playwright i stedet."
+    "tool.description": "Hent og undersøk starten av HTTP/HTTPS-svar som tekst, HTML, Markdown eller JSON; lagre eventuelt råsvaret."
   }
 }

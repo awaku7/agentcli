@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "PowerPoint プレゼンテーション (.pptx) をスライドのタイトルとテキストの概要に分解し、番号付きインデックスまたは特定の操作スライドセクションを返します。大きな PowerPoint ファイルを読むときに使用します。mode='index' でタイトルとプレビューテキストを含むスライドのリストを取得し、mode='section' と section=N でそのスライドのフルテキストコンテンツを取得します。",
+    "tool.description": "PowerPointのスライドを要約し、指定したスライドの本文・ノートを取得します。",
     "x_search_terms": [
       "PowerPointインデックス",
       "PPTXファイルを読む",
@@ -29,7 +29,7 @@
     "err.optional_dependency_missing": "エラー: オプション依存関係をインストールまたはインポートできませんでした。"
   },
   "zh_CN": {
-    "tool.description": "将 PowerPoint 演示文稿 (.pptx) 解析为幻灯片标题和文本摘要，返回编号索引或特定幻灯片部分。阅读大型 PowerPoint 文件时使用此功能：使用 mode='index' 调用以获取包含标题和预览文本的幻灯片列表，然后使用 mode='section' 和section=N 调用以检索该幻灯片的全文内容。",
+    "tool.description": "总结 PowerPoint 幻灯片并检索选定的幻灯片文本和注释。",
     "x_search_terms": [
       "读取pptx文件",
       "powerpoint索引",
@@ -58,7 +58,7 @@
     "err.optional_dependency_missing": "错误：无法安装或导入可选依赖项。"
   },
   "zh_TW": {
-    "tool.description": "將 PowerPoint 簡報 (.pptx) 解析為投影片標題和文字摘要，傳回編號索引或特定投影片部分。閱讀大型 PowerPoint 文件時使用此功能：使用 mode='index' 呼叫以獲取包含標題和預覽文本的幻燈片列表，然後使用 mode='section' 和section=N 呼叫以檢索該幻燈片的全文內容。",
+    "tool.description": "總結 PowerPoint 投影片並擷取選取的投影片文字和註解。",
     "x_search_terms": [
       "讀取pptx檔",
       "powerpoint索引",
@@ -87,7 +87,7 @@
     "err.optional_dependency_missing": "錯誤：無法安裝或匯入選用相依項。"
   },
   "ko": {
-    "tool.description": "PowerPoint 프레젠테이션(.pptx)을 슬라이드 제목과 텍스트 요약으로 구문 분석하여 번호가 매겨진 색인이나 특정 슬라이드 섹션을 반환합니다. 큰 PowerPoint 파일을 읽을 때 이 방법을 사용하세요. 제목과 미리보기 텍스트가 있는 슬라이드 목록을 가져오려면 mode='index'로 호출하고, 해당 슬라이드의 전체 텍스트 내용을 검색하려면 mode='section' 및 section=N으로 호출하세요.",
+    "tool.description": "PowerPoint 슬라이드를 요약하고 선택한 슬라이드 텍스트와 메모를 검색합니다.",
     "x_search_terms": [
       "pptx 파일 읽기",
       "powerpoint 색인",
@@ -116,7 +116,7 @@
     "err.optional_dependency_missing": "오류: 선택적 종속성을 설치하거나 가져올 수 없습니다."
   },
   "fr": {
-    "tool.description": "Analysez une présentation PowerPoint (.pptx) en titres de diapositives et résumés de texte, en renvoyant un index numéroté ou une section de diapositive spécifique. Utilisez-le lors de la lecture de gros fichiers PowerPoint : appelez avec mode='index' pour obtenir la liste des diapositives avec les titres et le texte d'aperçu, puis appelez avec mode='section' et section=N pour récupérer le contenu intégral de cette diapositive.",
+    "tool.description": "Résumez les diapositives PowerPoint et récupérez le texte et les notes des diapositives sélectionnées.",
     "x_search_terms": [
       "lire le fichier pptx",
       "index powerpoint",
@@ -145,7 +145,7 @@
     "err.optional_dependency_missing": "Erreur : la dépendance facultative n’a pas pu être installée ou importée."
   },
   "de": {
-    "tool.description": "Analysieren Sie eine PowerPoint-Präsentation (.pptx) in Folientitel und Textzusammenfassungen und geben Sie einen nummerierten Index oder einen bestimmten Folienabschnitt zurück. Verwenden Sie dies beim Lesen großer PowerPoint-Dateien: Rufen Sie mit mode='index' auf, um die Liste der Folien mit Titeln und Vorschautext abzurufen, und rufen Sie dann mit mode='section' und section=N auf, um den vollständigen Textinhalt dieser Folie abzurufen.",
+    "tool.description": "Fassen Sie PowerPoint-Folien zusammen und rufen Sie ausgewählte Folientexte und Notizen ab.",
     "x_search_terms": [
       "pptx-Datei lesen",
       "PowerPoint-Index",
@@ -174,7 +174,7 @@
     "err.optional_dependency_missing": "Fehler: Optionale Abhängigkeit konnte nicht installiert oder importiert werden."
   },
   "es": {
-    "tool.description": "Analice una presentación de PowerPoint (.pptx) en títulos de diapositivas y resúmenes de texto, obteniendo un índice numerado o una sección de diapositiva específica. Use esto cuando lea archivos grandes de PowerPoint: llame con mode='index' para obtener la lista de diapositivas con títulos y texto de vista previa, luego llame con mode='section' y sección=N para recuperar el contenido de texto completo de esa diapositiva.",
+    "tool.description": "Resuma diapositivas de PowerPoint y recupere el texto y las notas de las diapositivas seleccionadas.",
     "x_search_terms": [
       "leer archivo pptx",
       "índice de powerpoint",
@@ -203,7 +203,7 @@
     "err.optional_dependency_missing": "Error: no se pudo instalar o importar la dependencia opcional."
   },
   "it": {
-    "tool.description": "Analizza una presentazione PowerPoint (.pptx) in titoli di diapositive e riepiloghi di testo, restituendo un indice numerato o una sezione specifica della diapositiva. Utilizzalo durante la lettura di file PowerPoint di grandi dimensioni: chiama con mode='index' per ottenere l'elenco delle diapositive con titoli e anteprima del testo, quindi chiama con mode='section' esection=N per recuperare il contenuto del testo completo di quella diapositiva.",
+    "tool.description": "Riepiloga le diapositive di PowerPoint e recupera il testo e le note della diapositiva selezionata.",
     "x_search_terms": [
       "leggi file pptx",
       "indice powerpoint",
@@ -232,7 +232,7 @@
     "err.optional_dependency_missing": "Errore: impossibile installare o importare la dipendenza facoltativa."
   },
   "pt_BR": {
-    "tool.description": "Analise uma apresentação do PowerPoint (.pptx) em títulos de slides e resumos de texto, retornando um índice numerado ou uma seção de slide específica. Use isto ao ler arquivos grandes do PowerPoint: chame com mode='index' para obter a lista de slides com títulos e texto de visualização e, em seguida, chame com mode='section' e section=N para recuperar o conteúdo de texto completo desse slide.",
+    "tool.description": "Resuma os slides do PowerPoint e recupere o texto e as notas dos slides selecionados.",
     "x_search_terms": [
       "ler arquivo pptx",
       "índice do powerpoint",
@@ -261,7 +261,7 @@
     "err.optional_dependency_missing": "Erro: não foi possível instalar ou importar a dependência opcional."
   },
   "pt": {
-    "tool.description": "Analise uma apresentação do PowerPoint (.pptx) em títulos de slides e resumos de texto, retornando um índice numerado ou uma seção de slide específica. Use isto ao ler arquivos grandes do PowerPoint: chame com mode='index' para obter a lista de slides com títulos e texto de visualização e, em seguida, chame com mode='section' e section=N para recuperar o conteúdo de texto completo desse slide.",
+    "tool.description": "Resuma os slides do PowerPoint e recupere o texto e as notas dos slides selecionados.",
     "x_search_terms": [
       "ler arquivo pptx",
       "índice do powerpoint",
@@ -290,7 +290,7 @@
     "err.optional_dependency_missing": "Erro: não foi possível instalar ou importar a dependência opcional."
   },
   "ru": {
-    "tool.description": "Разберите презентацию PowerPoint (.pptx) на заголовки слайдов и текстовые описания, возвращая нумерованный указатель или конкретный раздел слайда. Используйте это при чтении больших файлов PowerPoint: вызовите с mode='index', чтобы получить список слайдов с заголовками и текстом предварительного просмотра, затем вызовите с mode='section' иsection=N, чтобы получить полное текстовое содержимое этого слайда.",
+    "tool.description": "Обобщение слайдов PowerPoint и получение выделенного текста и примечаний слайда.",
     "x_search_terms": [
       "читать файл pptx",
       "индекс PowerPoint",
@@ -319,7 +319,7 @@
     "err.optional_dependency_missing": "Ошибка: не удалось установить или импортировать необязательную зависимость."
   },
   "id": {
-    "tool.description": "Parsing presentasi PowerPoint (.pptx) menjadi judul slide dan ringkasan teks, sehingga menghasilkan indeks bernomor atau bagian slide tertentu. Gunakan ini saat membaca file PowerPoint berukuran besar: panggil dengan mode='index' untuk mendapatkan daftar slide dengan judul dan teks pratinjau, lalu panggil dengan mode='section' dan section=N untuk mengambil konten teks lengkap dari slide itu.",
+    "tool.description": "Ringkas slide PowerPoint dan ambil teks dan catatan slide yang dipilih.",
     "x_search_terms": [
       "membaca file pptx",
       "indeks powerpoint",
@@ -348,7 +348,7 @@
     "err.optional_dependency_missing": "Error: dependensi opsional tidak dapat dipasang atau diimpor."
   },
   "vi": {
-    "tool.description": "Phân tích bản trình bày PowerPoint (.pptx) thành tiêu đề trang chiếu và tóm tắt văn bản, trả về chỉ mục được đánh số hoặc phần trang chiếu cụ thể. Sử dụng tính năng này khi đọc các tệp PowerPoint lớn: gọi với mode='index' để lấy danh sách các trang chiếu có tiêu đề và văn bản xem trước, sau đó gọi với mode='section' vàsection=N để truy xuất toàn bộ nội dung văn bản của trang chiếu đó.",
+    "tool.description": "Tóm tắt các trang chiếu PowerPoint và truy xuất văn bản và ghi chú trên trang chiếu đã chọn.",
     "x_search_terms": [
       "đọc tệp pptx",
       "chỉ mục powerpoint",
@@ -377,7 +377,7 @@
     "err.optional_dependency_missing": "Lỗi: không thể cài đặt hoặc nhập dependency tùy chọn."
   },
   "pl": {
-    "tool.description": "Przeanalizuj prezentację programu PowerPoint (.pptx) w tytuły slajdów i podsumowania tekstu, zwracając numerowany indeks lub określoną sekcję slajdu. Użyj tej opcji podczas czytania dużych plików programu PowerPoint: wywołaj z mode='index', aby uzyskać listę slajdów z tytułami i podglądem tekstu, następnie wywołaj z mode='section' isection=N, aby pobrać pełną zawartość tekstową tego slajdu.",
+    "tool.description": "Podsumuj slajdy programu PowerPoint i pobierz wybrany tekst slajdu oraz notatki.",
     "x_search_terms": [
       "przeczytaj plik pptx ",
       "indeks programu PowerPoint",
@@ -406,7 +406,7 @@
     "err.optional_dependency_missing": "Błąd: opcjonalnej zależności nie udało się zainstalować ani zaimportować."
   },
   "hi": {
-    "tool.description": "पावरपॉइंट प्रेजेंटेशन (.pptx) को स्लाइड शीर्षकों और टेक्स्ट सारांशों में पार्स करें, एक क्रमांकित इंडेक्स या एक विशिष्ट स्लाइड अनुभाग लौटाएं। बड़ी पावरपॉइंट फ़ाइलों को पढ़ते समय इसका उपयोग करें: शीर्षक और पूर्वावलोकन पाठ के साथ स्लाइड की सूची प्राप्त करने के लिए mode='index' के साथ कॉल करें, फिर उस स्लाइड की पूर्ण पाठ सामग्री को पुनः प्राप्त करने के लिए mode='section' और section=N के साथ कॉल करें।",
+    "tool.description": "PowerPoint स्लाइड को सारांशित करें और चयनित स्लाइड टेक्स्ट और नोट्स को पुनः प्राप्त करें।",
     "x_search_terms": [
       "पीपीटीएक्स फ़ाइल पढ़ें",
       "पावरपॉइंट इंडेक्स",
@@ -435,7 +435,7 @@
     "err.optional_dependency_missing": "त्रुटि: वैकल्पिक निर्भरता इंस्टॉल या इम्पोर्ट नहीं की जा सकी।"
   },
   "ar": {
-    "tool.description": "قم بتحليل عرض PowerPoint التقديمي (.pptx) إلى عناوين الشرائح وملخصات النص، مما يؤدي إلى إرجاع فهرس مرقّم أو قسم شريحة محدد. استخدم هذا عند قراءة ملفات PowerPoint كبيرة الحجم: اتصل بالوضع='الفهرس' للحصول على قائمة الشرائح بالعناوين ومعاينة النص، ثم اتصل بالوضع='section' والقسم=N لاسترداد محتوى النص الكامل لتلك الشريحة.",
+    "tool.description": "تلخيص شرائح PowerPoint واسترداد نص الشريحة المحددة والملاحظات.",
     "x_search_terms": [
       "قراءة ملف pptx",
       "فهرس powerpoint",
@@ -464,7 +464,7 @@
     "err.optional_dependency_missing": "خطأ: تعذر تثبيت أو استيراد التبعية الاختيارية."
   },
   "sv": {
-    "tool.description": "Analysera en PowerPoint-presentation (.pptx) till bildrubriker och textsammanfattningar, och returnera ett numrerat index eller ett specifikt bildavsnitt. Använd detta när du läser stora PowerPoint-filer: ring med mode='index' för att få listan över bilder med titlar och förhandsgranska text, ring sedan med mode='section' och section=N för att hämta hela textinnehållet på den bilden.",
+    "tool.description": "Sammanfatta PowerPoint-bilder och hämta vald bildtext och anteckningar.",
     "x_search_terms": [
       "läs pptx-fil",
       "powerpoint index",
@@ -493,7 +493,7 @@
     "err.optional_dependency_missing": "Fel: det valfria beroendet kunde inte installeras eller importeras."
   },
   "sw": {
-    "tool.description": "Changanua wasilisho la PowerPoint (.pptx) katika vichwa vya slaidi na muhtasari wa maandishi, ukirudisha faharasa yenye nambari au sehemu mahususi ya slaidi. Tumia hii unaposoma faili kubwa za PowerPoint: piga simu kwa mode='index' ili kupata orodha ya slaidi zilizo na mada na maandishi ya onyesho la kukagua, kisha piga simu kwa mode='section' na section=N ili kurudisha maandishi kamili ya slaidi hiyo.",
+    "tool.description": "Fanya muhtasari wa slaidi za PowerPoint na urejeshe maandishi na madokezo ya slaidi yaliyochaguliwa.",
     "x_search_terms": [
       "soma faili ya pptx",
       "kielezo cha powerpoint",
@@ -522,7 +522,7 @@
     "err.optional_dependency_missing": "Hitilafu: utegemezi wa hiari haukuweza kusakinishwa au kuingizwa."
   },
   "nb": {
-    "tool.description": "Parse a PowerPoint presentation (.pptx) into slide titles and text summaries, returning a numbered index or a specific slide section. Bruk dette når du leser store PowerPoint-filer: ring med mode='index' for å få listen over lysbilder med titler og forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet i det lysbildet.",
+    "tool.description": "Oppsummer PowerPoint-lysbilder og hent valgt lysbildetekst og notater.",
     "x_search_terms": [
       "les pptx-filen",
       "powerpoint-indeks",
@@ -551,7 +551,7 @@
     "err.optional_dependency_missing": "Feil: valgfri avhengighet kunne ikke installeres eller importeres."
   },
   "nl": {
-    "tool.description": "Parseer een PowerPoint-presentatie (.pptx) in diatitels en tekstsamenvattingen, waarbij een genummerde index of een specifiek diagedeelte wordt geretourneerd. Gebruik dit bij het lezen van grote PowerPoint-bestanden: roep aan met mode='index' om de lijst met dia's met titels en voorbeeldtekst op te halen, roep vervolgens aan met mode='section' en section=N om de volledige tekstinhoud van die dia op te halen.",
+    "tool.description": "Vat PowerPoint-dia's samen en haal geselecteerde diatekst en notities op.",
     "x_search_terms": [
       "pptx-bestand lezen",
       "powerpoint-index",
@@ -580,7 +580,7 @@
     "err.optional_dependency_missing": "Fout: optionele afhankelijkheid kon niet worden geïnstalleerd of geïmporteerd."
   },
   "fi": {
-    "tool.description": "Jäsennä PowerPoint-esitys (.pptx) diojen otsikoiksi ja tekstiyhteenvedoksi palauttaen numeroidun hakemiston tai tietyn diaosan. Käytä tätä, kun luet suuria PowerPoint-tiedostoja: soita komennolla mode='index' saadaksesi luettelon dioista, joissa on otsikot ja esikatseluteksti, ja soita sitten mode='section'- ja section=N-komennoilla noutaaksesi dian koko tekstisisällön.",
+    "tool.description": "Tee yhteenveto PowerPoint-dioista ja nouta valitun dian tekstiä ja muistiinpanoja.",
     "x_search_terms": [
       "lue pptx-tiedosto",
       "powerpoint-hakemisto",
@@ -609,7 +609,7 @@
     "err.optional_dependency_missing": "Virhe: valinnaista riippuvuutta ei voitu asentaa tai tuoda."
   },
   "cs": {
-    "tool.description": "Analyzujte prezentaci PowerPoint (.pptx) do názvů snímků a textových souhrnů a vraťte očíslovaný rejstřík nebo konkrétní sekci snímku. Použijte toto při čtení velkých souborů PowerPoint: volání s mode='index' pro získání seznamu snímků s názvy a náhledem textu, poté volání s mode='section' a section=N pro načtení plného textového obsahu tohoto snímku.",
+    "tool.description": "Shrňte snímky aplikace PowerPoint a načtěte vybraný text snímku a poznámky.",
     "x_search_terms": [
       "čtení souboru pptx",
       "index powerpoint",
@@ -638,7 +638,7 @@
     "err.optional_dependency_missing": "Chyba: volitelnou závislost se nepodařilo nainstalovat nebo importovat."
   },
   "uk": {
-    "tool.description": "Розберіть презентацію PowerPoint (.pptx) на заголовки слайдів і текстові підсумки, повертаючи нумерований індекс або певний розділ слайда. Використовуйте це під час читання великих файлів PowerPoint: виклик за допомогою mode='index', щоб отримати список слайдів із заголовками та текстом попереднього перегляду, потім виклик за допомогою mode='section' і section=N, щоб отримати повний текстовий вміст цього слайда.",
+    "tool.description": "Узагальнення слайдів PowerPoint і отримання вибраного тексту слайда та приміток.",
     "x_search_terms": [
       "читати файл pptx",
       "індекс PowerPoint",
@@ -667,7 +667,7 @@
     "err.optional_dependency_missing": "Помилка: не вдалося встановити або імпортувати необов’язкову залежність."
   },
   "tr": {
-    "tool.description": "Bir PowerPoint sunumunu (.pptx) slayt başlıklarına ve metin özetlerine ayrıştırarak numaralandırılmış bir dizine veya belirli bir slayt bölümüne dönün. Büyük PowerPoint dosyalarını okurken bunu kullanın: başlıkları ve önizleme metnini içeren slaytların listesini almak için mode='index' ile çağrı yapın, ardından o slaydın tam metin içeriğini almak için mode='section' vesection=N ile çağrı yapın.",
+    "tool.description": "PowerPoint slaytlarını özetleyin ve seçilen slayt metnini ve notlarını alın.",
     "x_search_terms": [
       "pptx dosyasını oku",
       "powerpoint indeksi",
@@ -696,7 +696,7 @@
     "err.optional_dependency_missing": "Hata: isteğe bağlı bağımlılık yüklenemedi veya içe aktarılamadı."
   },
   "th": {
-    "tool.description": "แยกวิเคราะห์งานนำเสนอ PowerPoint (.pptx) ลงในชื่อสไลด์และข้อความสรุป โดยส่งคืนดัชนีที่มีตัวเลขหรือส่วนสไลด์เฉพาะ ใช้สิ่งนี้เมื่ออ่านไฟล์ PowerPoint ขนาดใหญ่: โทรด้วย mode='index' เพื่อรับรายการสไลด์ที่มีชื่อเรื่องและข้อความแสดงตัวอย่าง จากนั้นโทรด้วย mode='section' และsection=N เพื่อดึงเนื้อหาข้อความแบบเต็มของสไลด์นั้น",
+    "tool.description": "สรุปสไลด์ PowerPoint และดึงข้อความและบันทึกย่อของสไลด์ที่เลือก",
     "x_search_terms": [
       "อ่านไฟล์ pptx",
       "ดัชนี powerpoint",
@@ -725,7 +725,7 @@
     "err.optional_dependency_missing": "ข้อผิดพลาด: ไม่สามารถติดตั้งหรือนำเข้า dependency เสริมได้"
   },
   "bn": {
-    "tool.description": "একটি পাওয়ারপয়েন্ট প্রেজেন্টেশন (.pptx) স্লাইড শিরোনাম এবং পাঠ্য সারাংশে পার্স করুন, একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট স্লাইড বিভাগ প্রদান করুন। বড় পাওয়ারপয়েন্ট ফাইলগুলি পড়ার সময় এটি ব্যবহার করুন: শিরোনাম এবং পূর্বরূপ পাঠ্য সহ স্লাইডগুলির তালিকা পেতে mode='index' দিয়ে কল করুন, তারপর সেই স্লাইডের সম্পূর্ণ পাঠ্য সামগ্রী পুনরুদ্ধার করতে mode='section' এবং section=N দিয়ে কল করুন।",
+    "tool.description": "পাওয়ারপয়েন্ট স্লাইডগুলিকে সংক্ষিপ্ত করুন এবং নির্বাচিত স্লাইড পাঠ্য এবং নোটগুলি পুনরুদ্ধার করুন৷",
     "x_search_terms": [
       "pptx ফাইল পড়ুন",
       "পাওয়ারপয়েন্ট সূচক",
@@ -754,7 +754,7 @@
     "err.optional_dependency_missing": "ত্রুটি: ঐচ্ছিক নির্ভরতা ইনস্টল বা ইমপোর্ট করা যায়নি।"
   },
   "fa": {
-    "tool.description": "یک ارائه پاورپوینت (pptx.) را به عنوان اسلاید و خلاصه متن تجزیه کنید و یک فهرست شماره گذاری شده یا یک بخش اسلاید خاص را برگردانید. هنگام خواندن فایل‌های پاورپوینت بزرگ از این استفاده کنید: با mode='index' تماس بگیرید تا لیست اسلایدها را با عنوان و پیش‌نمایش متن دریافت کنید، سپس با mode='section' و section=N تماس بگیرید تا محتوای متن کامل آن اسلاید را بازیابی کنید.",
+    "tool.description": "اسلایدهای پاورپوینت را خلاصه کنید و متن و یادداشت های اسلاید انتخاب شده را بازیابی کنید.",
     "x_search_terms": [
       "خواندن فایل pptx",
       "شاخص پاورپوینت",
@@ -783,7 +783,7 @@
     "err.optional_dependency_missing": "خطا: وابستگی اختیاری قابل نصب یا import نبود."
   },
   "mn": {
-    "tool.description": "PowerPoint үзүүлэнг (.pptx) слайдын гарчиг болон текстийн хураангуй болгон задлан, дугаарласан индекс эсвэл слайдын тодорхой хэсгийг буцаана уу. Томоохон PowerPoint файлуудыг уншихдаа үүнийг ашиглана уу: гарчиг бүхий слайдуудын жагсаалтыг авах ба текстийг урьдчилан үзэхийн тулд mode='index'-ээр залгаж, дараа нь mode='section' болон section=N-ээр залгаж слайдын бүрэн текстийг авна уу.",
+    "tool.description": "PowerPoint слайдуудыг нэгтгэн дүгнэж, сонгосон слайдын текст болон тэмдэглэлүүдийг татаж авах.",
     "x_search_terms": [
       "pptx файлыг унших",
       "powerpoint индекс",
@@ -812,7 +812,7 @@
     "err.optional_dependency_missing": "Алдаа: нэмэлт хамаарлыг суулгах эсвэл import хийх боломжгүй байв."
   },
   "mr": {
-    "tool.description": "पॉवरपॉइंट प्रेझेंटेशन (.pptx) स्लाइड शीर्षक आणि मजकूर सारांशांमध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट स्लाइड विभाग परत करा. मोठ्या PowerPoint फाइल्स वाचताना याचा वापर करा: शीर्षक आणि पूर्वावलोकन मजकूर असलेल्या स्लाइड्सची सूची मिळवण्यासाठी mode='index' सह कॉल करा, नंतर त्या स्लाइडची संपूर्ण मजकूर सामग्री पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",
+    "tool.description": "PowerPoint स्लाइड्सचा सारांश द्या आणि निवडलेल्या स्लाइड मजकूर आणि नोट्स पुनर्प्राप्त करा.",
     "x_search_terms": [
       "pptx फाइल वाचा",
       " powerpoint index",
@@ -841,7 +841,7 @@
     "err.optional_dependency_missing": "त्रुटी: ऐच्छिक dependency स्थापित किंवा import करता आली नाही."
   },
   "el": {
-    "tool.description": "Αναλύστε μια παρουσίαση PowerPoint (.pptx) σε τίτλους διαφανειών και περιλήψεις κειμένων, επιστρέφοντας ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα διαφάνειας. Χρησιμοποιήστε το κατά την ανάγνωση μεγάλων αρχείων PowerPoint: καλέστε με mode='index' για να λάβετε τη λίστα των διαφανειών με τίτλους και προεπισκόπηση κειμένου και, στη συνέχεια, καλέστε με mode='section' και section=N για να ανακτήσετε το πλήρες περιεχόμενο κειμένου αυτής της διαφάνειας.",
+    "tool.description": "Συνοψίστε τις διαφάνειες του PowerPoint και ανακτήστε επιλεγμένο κείμενο διαφάνειας και σημειώσεις.",
     "x_search_terms": [
       "ανάγνωση αρχείου pptx",
       " ευρετήριο powerpoint",
@@ -870,7 +870,7 @@
     "err.optional_dependency_missing": "Σφάλμα: δεν ήταν δυνατή η εγκατάσταση ή εισαγωγή της προαιρετικής εξάρτησης."
   },
   "he": {
-    "tool.description": "נתח מצגת PowerPoint (.pptx) לכותרות שקופיות וסיכומי טקסט, החזרת אינדקס ממוספר או קטע שקופיות ספציפי. השתמש בזה בעת קריאת קבצי PowerPoint גדולים: התקשר עם mode='index' כדי לקבל את רשימת השקופיות עם כותרות וטקסט תצוגה מקדימה, ואז התקשר עם mode='section' ו-section=N כדי לאחזר את תוכן הטקסט המלא של השקופית הזו.",
+    "tool.description": "סכם שקופיות PowerPoint ואחזר טקסט והערות בשקופית שנבחרו.",
     "x_search_terms": [
       "קרא קובץ pptx",
       "מדד פאוור פוינט",
@@ -899,7 +899,7 @@
     "err.optional_dependency_missing": "שגיאה: לא ניתן להתקין או לייבא את התלות האופציונלית."
   },
   "hu": {
-    "tool.description": "Elemezze a PowerPoint-prezentációt (.pptx) diacímekké és szöveges összefoglalókká, visszaadva egy számozott indexet vagy egy adott diaszakaszt. Használja ezt a nagy PowerPoint-fájlok olvasásakor: hívja a mode='index' paramétert a címekkel és előnézeti szöveggel ellátott diák listájának lekéréséhez, majd hívja a mode='section' és section=N parancsot a dia teljes szöveges tartalmának lekéréséhez.",
+    "tool.description": "Összefoglalja a PowerPoint diákat, és lekérheti a kiválasztott dia szövegét és jegyzeteit.",
     "x_search_terms": [
       "pptx fájl olvasása",
       "powerpoint index",
@@ -928,7 +928,7 @@
     "err.optional_dependency_missing": "Hiba: az opcionális függőséget nem sikerült telepíteni vagy importálni."
   },
   "ro": {
-    "tool.description": "Analizați o prezentare PowerPoint (.pptx) în titluri de diapozitive și rezumate text, returnând un index numerotat sau o anumită secțiune de diapozitive. Utilizați acest lucru când citiți fișiere PowerPoint mari: apelați cu mode='index' pentru a obține lista de diapozitive cu titluri și previzualizare text, apoi apelați cu mode='section' și section=N pentru a prelua conținutul text integral al acelui diapozitiv.",
+    "tool.description": "Rezumați diapozitivele PowerPoint și preluați textul și notele din diapozitive selectate.",
     "x_search_terms": [
       "citiți fișierul pptx",
       "indexul powerpoint",
@@ -957,7 +957,7 @@
     "err.optional_dependency_missing": "Eroare: dependența opțională nu a putut fi instalată sau importată."
   },
   "fil": {
-    "tool.description": "I-parse ang isang PowerPoint presentation (.pptx) sa mga pamagat ng slide at mga buod ng teksto, na nagbabalik ng isang may bilang na index o isang partikular na seksyon ng slide. Gamitin ito kapag nagbabasa ng malalaking PowerPoint file: tumawag gamit ang mode='index' upang makuha ang listahan ng mga slide na may mga pamagat at preview na teksto, pagkatapos ay tumawag gamit ang mode='section' at section=N upang makuha ang buong nilalaman ng teksto ng slide na iyon.",
+    "tool.description": "Ibuod ang mga PowerPoint slide at kunin ang napiling slide text at mga tala.",
     "x_search_terms": [
       "basahin ang pptx file",
       "index ng powerpoint",
@@ -986,7 +986,7 @@
     "err.optional_dependency_missing": "Error: hindi ma-install o ma-import ang opsyonal na dependency."
   },
   "ms": {
-    "tool.description": "Menghuraikan persembahan PowerPoint (.pptx) ke dalam tajuk slaid dan ringkasan teks, mengembalikan indeks bernombor atau bahagian slaid tertentu. Gunakan ini semasa membaca fail PowerPoint yang besar: panggil dengan mod='index' untuk mendapatkan senarai slaid dengan tajuk dan teks pratonton, kemudian panggil dengan mod='section' dan section=N untuk mendapatkan semula kandungan teks penuh slaid itu.",
+    "tool.description": "Ringkaskan slaid PowerPoint dan dapatkan semula teks dan nota slaid yang dipilih.",
     "x_search_terms": [
       "baca fail pptx",
       "indeks powerpoint",
@@ -1015,7 +1015,7 @@
     "err.optional_dependency_missing": "Ralat: kebergantungan pilihan tidak dapat dipasang atau diimport."
   },
   "da": {
-    "tool.description": "Parse en PowerPoint-præsentation (.pptx) i diastitler og tekstresuméer, og returner et nummereret indeks eller en specifik diassektion. Brug dette, når du læser store PowerPoint-filer: ring med mode='index' for at få listen over dias med titler og forhåndsvisningstekst, ring derefter med mode='section' og section=N for at hente det fulde tekstindhold på det dias.",
+    "tool.description": "Opsummer PowerPoint-slides og hent valgt slidetekst og noter.",
     "x_search_terms": [
       "læs pptx-fil",
       "powerpoint-indeks",
@@ -1044,7 +1044,7 @@
     "err.optional_dependency_missing": "Fejl: valgfri afhængighed kunne ikke installeres eller importeres."
   },
   "nn": {
-    "tool.description": "Parse en PowerPoint-presentasjon (.pptx) til lysbildetitler og tekstsammendrag, og returner en nummerert indeks eller en bestemt lysbildeseksjon. Bruk dette når du leser store PowerPoint-filer: ring med mode='index' for å få listen over lysbilder med titler og forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet i det lysbildet.",
+    "tool.description": "Oppsummer PowerPoint-lysbilete og hent tekst og notat frå eit valt lysbilete.",
     "x_search_terms": [
       "les pptx-fil",
       "powerpoint-indeks",

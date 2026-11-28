@@ -37,11 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Save a single long-term memory note about the user/environment that may be useful in future conversations. "
-                "Save durable facts, preferences, constraints, decisions and commitments stated by the user; "
-                "do not save one-off task details, guesses, or anything containing passwords, tokens or other credentials. "
-                "If a similar note already exists, update it with update_long_memory instead of adding a duplicate. "
-                "When a fact has changed, save the new note with supersedes set to the old note's memory_id so the old fact stays retired, instead of editing it in place."
+                "Store durable user/environment facts as long-term memory. Do not save secrets or one-off details; update duplicates and set supersedes when facts change."
             ),
         ),
         "x_search_terms": _(

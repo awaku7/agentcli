@@ -20,11 +20,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a YAML file into key paths, document blocks, and structural summaries, "
-                "returning a numbered index or a specific section. Use this when reading large YAML, "
-                "Kubernetes manifests, Docker Compose, OpenAPI, or GitHub Actions files: call with "
-                "mode='index' to get the table of contents with JSONPath-style key paths, then call with "
-                "mode='section' and the section number to retrieve only the required lines."
+                "Summarize YAML keys and document structure; retrieve selected sections. Useful for Kubernetes, Compose, OpenAPI, and workflow files."
             ),
         ),
         "x_search_terms": _(

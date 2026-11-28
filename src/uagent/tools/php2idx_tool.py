@@ -17,11 +17,7 @@ TOOL_SPEC = {
         "description": _(
             "tool.description",
             default=(
-                "Parse a PHP (.php) file into namespaces, classes, interfaces, traits, enums, "
-                "functions, methods, constants, and properties and return a numbered index or a "
-                "specific definition section. Use this when you need to read a large .php file: "
-                "first call with mode='index' to get the table of contents, then call with "
-                "mode='section' and the section number to retrieve only the definition you need."
+                "Parse PHP files to find namespaces, types, functions, and members and extract selected definitions."
             ),
         ),
         "x_search_terms": _(
