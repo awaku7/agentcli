@@ -176,3 +176,13 @@ def test_human_ask_choices_end_to_end(monkeypatch):
     assert result["cancelled"] is False
     assert state["message"] == ""
     assert state["choices"] == []
+
+
+def test_resolve_choice_reply_passes_unicode_digits_through():
+    from uagent.tools.human_ask_tool import resolve_choice_reply
+
+    choices = ["Red", "Blue"]
+    # isdigit() accepts these but int() rejects them; they are
+    # free-text replies, not position selections.
+    assert resolve_choice_reply("²", choices) == "²"
+    assert resolve_choice_reply("①", choices) == "①"

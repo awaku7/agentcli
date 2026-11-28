@@ -72,7 +72,9 @@ def resolve_choice_reply(reply: str, choices: list[str]) -> str:
     if not choices:
         return reply
     text = str(reply or "").strip()
-    if text.isdigit():
+    # isdigit() also accepts non-ASCII digits (e.g. superscripts) that
+    # int() rejects; only ASCII digits select by position.
+    if text.isascii() and text.isdigit():
         index = int(text)
         if 1 <= index <= len(choices):
             return choices[index - 1]
