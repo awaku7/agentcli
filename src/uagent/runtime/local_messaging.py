@@ -615,6 +615,14 @@ class LocalMessageRuntime:
             purpose if purpose is not None else env_get("UAGENT_WORK_PURPOSE", "")
         )
         self.host: Any | None = None
+        # Set whenever a peer message is enqueued for the host, so a host
+        # watcher can react while its event loop is busy elsewhere.
+        self.message_arrived = threading.Event()
+        # Message ids enqueued for the host but not yet taken in by it.
+        # A watcher may interrupt current work only for an unconsumed
+        # arrival; once the host is running the message's own turn, the
+        # arrival must not interrupt it.
+        self._unconsumed_peer_ids: set[str] = set()
         self.poll_interval = max(0.1, float(poll_interval))
         self.receive_messages = bool(receive_messages)
         self.announce_peers = bool(announce_peers)
@@ -714,7 +722,16 @@ class LocalMessageRuntime:
             self.endpoint_id, str(message_id), accepted=accepted
         )
         self._inflight.discard(str(message_id))
+        self._unconsumed_peer_ids.discard(str(message_id))
         return decided
+
+    def note_peer_message_consumed(self, message_id: str) -> None:
+        """Mark an enqueued arrival as taken in by the host's loop."""
+        self._unconsumed_peer_ids.discard(str(message_id))
+
+    def has_unconsumed_peer_message(self) -> bool:
+        """Whether an arrival is still waiting for the host to take it in."""
+        return bool(self._unconsumed_peer_ids)
 
     def _run(self) -> None:
         last_heartbeat = 0.0
@@ -758,9 +775,11 @@ class LocalMessageRuntime:
                         if message_id in self._inflight:
                             continue
                         self._inflight.add(message_id)
+                        self._unconsumed_peer_ids.add(message_id)
                         self.event_queue.put(
                             {"kind": "local_message_received", "message": message}
                         )
+                        self.message_arrived.set()
                     self.store.renew_claims(self.endpoint_id, self._inflight)
             except Exception:
                 # Local messaging is optional and must not terminate the host.
@@ -870,9 +889,14 @@ def classify_message_confirmation(value: Any) -> str:
 def accept_incoming_message(
     runtime: LocalMessageRuntime | None,
     message: dict[str, Any],
-    ask_user: Any,
 ) -> dict[str, str] | None:
-    """Confirm and acknowledge a local message, returning a user-turn event."""
+    """Acknowledge a local message and convert it to a user-turn event.
+
+    Local peers are same-machine, same-user UAG processes and the mailbox
+    is a transport, not an authorization boundary, so no confirmation is
+    requested: the message is accepted automatically. The returned text
+    keeps the sender visible and frames the body as untrusted data.
+    """
     if runtime is None:
         return None
     message_id = str(message.get("message_id") or "")
@@ -882,34 +906,11 @@ def accept_incoming_message(
         return None
 
     try:
-        decision = "all" if runtime.is_sender_approved(sender) else "no"
-    except Exception:
-        decision = "no"
-    if decision != "all":
-        prompt = (
-            f"Local UAG peer {safe_message_preview(sender)} sent a message:\n\n"
-            f"{safe_message_preview(body)}\n\n"
-            "Add this untrusted message to the conversation?\n"
-            "Reply y = this message / n = reject / all = accept future messages "
-            "from this peer for this UI session."
-        )
-        try:
-            decision = classify_message_confirmation(ask_user(prompt))
-        except Exception:
-            decision = "no"
-
-    accepted = decision in {"yes", "all"}
-    try:
-        decided = runtime.decide_message(message_id, accepted=accepted)
+        decided = runtime.decide_message(message_id, accepted=True)
     except Exception:
         return None
-    if not decided or not accepted:
+    if not decided:
         return None
-    if decision == "all":
-        try:
-            runtime.approve_sender_for_lifetime(sender)
-        except Exception:
-            pass
     return {
         "kind": "user",
         "src": "local_messaging",

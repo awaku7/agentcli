@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-import json
 import sys
 import threading
 from typing import Any, Optional
@@ -458,17 +457,7 @@ class ScheckWorker(QtCore.QObject):
                             else {}
                         )
 
-                        def _ask_local_message(_prompt: str) -> str:
-                            _answer = self._run_gui_turn(
-                                self.tools.run_tool,
-                                "human_ask",
-                                {"message": _prompt, "is_password": False},
-                            )
-                            return str(json.loads(_answer).get("user_reply", ""))
-
-                        _accepted_event = accept_incoming_message(
-                            _runtime, _message, _ask_local_message
-                        )
+                        _accepted_event = accept_incoming_message(_runtime, _message)
                         if _accepted_event is None:
                             print(
                                 _("[LOCAL] Incoming message was rejected or expired.")

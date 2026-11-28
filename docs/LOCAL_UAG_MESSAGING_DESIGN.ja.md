@@ -1,6 +1,6 @@
 # 同一ユーザー内 UAG プロセス間プレゼンス・メッセージング設計
 
-Status: **CLI/GUI/Web/A2A の初期対応を実装済み。** CLI/GUI は対話確認付き、Web は認証 principal・private room・project 単位、A2A は管理者 opt-in と明示的 inbox pull に限定する。実プロバイダーを使う複数プロセス間の手動 UI smoke test は未実施。
+Status: **CLI/GUI/Web/A2A の初期対応を実装済み。** Web は認証 principal・private room・project 単位、A2A は管理者 opt-in と明示的 inbox pull に限定する。受信は全ホストで確認なしの全自動取り込み（Issue #509 で方針変更。CLI では実行中ラウンドへの割り込みと自動再開を含む）。実プロバイダーを使う複数プロセス間の手動 UI smoke test は未実施。
 
 ## 1. 目的
 
@@ -9,8 +9,8 @@ Status: **CLI/GUI/Web/A2A の初期対応を実装済み。** CLI/GUI は対話�
 - 新しい UAG が起動したとき、既存の UAG を一覧表示できる。
 - 既存の UAG は後から起動した UAG を検知できる。
 - 送信先を指定してメッセージを送れる。
-- 対話型 UI では受信内容を会話へ取り込む前にユーザーへ確認する。
-- 既存のプロセス登録、イベントキュー、`human_ask`、認証・認可の仕組みを活用する。
+- 受信内容は確認なしで自動的に会話へ取り込む（送信元は表示と履歴で分かる形にする）。実行中のラウンドがある場合は割り込んで処理し、終わったら自動で前の作業を再開する。
+- 既存のプロセス登録、イベントキュー、認証・認可の仕組みを活用する。
 
 本設計はローカルの複数 UAG プロセスを対象とする。現行のプロセス登録簿や A2A を、そのままメッセージング機能とみなすものではない。
 
@@ -20,7 +20,7 @@ Status: **CLI/GUI/Web/A2A の初期対応を実装済み。** CLI/GUI は対話�
 |---|---|---|
 | `runtime/process_registry.py` | CLI/GUI/Web/A2A がユーザー専用状態ディレクトリへ自己登録する。記録は `instance_id`、entrypoint、PID、プロセス生成時刻など。 | UAG Admin 監視向けに現行どおり維持する。メッセージ機能の宛先一覧・認可には使わない。 |
 | `core.event_queue` | CLI の入力やバックグラウンドイベントをメインループへ渡す。 | CLI の受信通知をフォアグラウンド処理へ渡す。GUI/Web は各 UI のイベント機構へ渡す。 |
-| `human_ask` | ホスト UI に人間への確認を依頼する既存ツール。 | CLI の受信確認で再利用する。バックグラウンド監視スレッドから直接呼ばない。 |
+| `human_ask` | ホスト UI に人間への確認を依頼する既存ツール。 | 受信取り込みでは使わない（Issue #509 で確認を廃止）。 |
 | Web identity / room policy | Web は複数の認証済みユーザー、room、project を扱える。OIDC と trusted proxy 経由の企業認証構成がある。 | Web の送受信先を process だけでなく principal/room に束縛する。 |
 | A2A | 別プロセスの HTTP エンドポイントで、Bearer 認証とタスク実行を行う。 | A2A は対話 UI と別の受信アダプターとして扱う。ローカル同一ユーザーであることだけを認可に使わない。 |
 
@@ -44,14 +44,14 @@ Status: **CLI/GUI/Web/A2A の初期対応を実装済み。** CLI/GUI は対話�
 
 - 同じ OS ユーザー、同じローカル UAG state directory を使うプロセス間の存在確認とテキストメッセージ。
 - Web の場合は、OS ユーザー境界に加えて既存の Web principal/room/project 認可を維持する。
-- CLI/GUI/Web の受信内容をユーザーの確認後に会話へ投入する。
+- CLI/GUI/Web の受信内容を確認なしで自動的に会話へ投入する。
 - ユーザーの明示的な指示に応じた送信 Tool。
 
 ### 既定参加 / オプトアウト方針
 
-同一OSユーザー内での自然な peer 発見を優先し、`UAGENT_LOCAL_MESSAGING` は既定で `on` とする。参加したくない UAG では `UAGENT_LOCAL_MESSAGING=off` を設定して再起動する。参加しても、受信メッセージは既存の `human_ask` で人間が承認するまで会話へ入らない。
+同一OSユーザー内での自然な peer 発見を優先し、`UAGENT_LOCAL_MESSAGING` は既定で `on` とする。参加したくない UAG では `UAGENT_LOCAL_MESSAGING=off` を設定して再起動する。受信メッセージは承認を挟まず自動で会話へ入る。メールボックスは運ぶ仕組みであり認可の境界ではない、という位置づけに基づく（Issue #509）。
 
-- CLI/GUI は対話実行時に自動で endpoint を登録する。非対話 CLI は人間確認できないため登録しない。
+- CLI/GUI は対話実行時に自動で endpoint を登録する。非対話 CLI は登録しない。
 - Web は認証済み private room の初回接続時に自動登録し、principal/room/project の範囲に限定する。公開 room は対象外。
 - A2A は既定では参加しない。`UAGENT_LOCAL_MESSAGING_A2A=on` も明示された場合だけ endpoint を登録し、受信は task からの明示的 inbox 呼び出しに限る。
 - `UAGENT_LOCAL_MESSAGING=off` の場合は endpoint と poller を起動せず、Tool からも送受信できない。再び `on` に戻すにはプロセスを再起動する。
@@ -148,34 +148,26 @@ Web 対応時は `principal_id` / `room_id` 等の認証・配送スコープを
 
 1. 参加中 endpoint の各ホストはバックグラウンド poller を起動し、`endpoints` の heartbeat と自分宛て inbox を確認する。
 1. メッセージを検知したら、`local_message_received` などの型付きイベントをホストのイベントキューへ入れる。
-1. poller は確認 UI を開かず、LLM を起動せず、イベントの表示/承認状態を自分で決めない。
-1. フォアグラウンド側がイベントを処理し、送信元と本文を明示した確認を行う。
-1. 承認時だけ、送信元ラベル付き user turn として会話へ投入する。本文は明示的に外部コンテンツとして区別し、system/developer 指示へ昇格させない。
-1. 拒否時は `rejected` として記録し、会話へ投入しない。
-1. 現在の LLM/tool 処理中に届いたイベントはキューに保持し、安全なターン境界で確認する。処理中の呼び出しを中断しない。
+1. poller は確認 UI を開かず、LLM を起動せず、イベントの表示状態を自分で決めない。
+1. フォアグラウンド側がイベントを処理し、確認なしで受理する。送信元ラベル付き user turn として会話へ投入する。本文は明示的に外部コンテンツとして区別し、system/developer 指示へ昇格させない。
+1. CLI では、現在の LLM/tool 処理中に届いたメッセージは監視スレッドが検知してラウンドへ割り込み、ピアのターンを処理したあと、自動の再開ターンを差して前の作業を続ける。割り込みは `human_ask` や入力プロンプトが使われている間は行わない。
 
-### `y / n / all` の意味
+### 確認フローの廃止（Issue #509）
 
-- `y`: このメッセージだけ承認する。
-- `n`: このメッセージを拒否する。
-- `all`: この UI endpoint の実行中に限り、同じ送信元 process key からの後続メッセージを確認なしで取り込む。
-
-`all` は永続化しない。送信元プロセスが再起動すれば process key が変わり、再確認する。Web では grant を principal/room/session に束縛し、別ユーザー・room へ広げない。`all` はメッセージ取り込み確認だけを省略し、通常の ToolPolicy、Tool 確認、Enterprise Policy を変更しない。
-
-`human_ask` は既存の確認機構を使う。CLI ではフォアグラウンドのイベント処理から既存の `human_ask` 呼び出し経路へ渡す。汎用 `human_ask` の返答は文字列なので、受信側で `y/n/all` を分類し、grant と状態遷移を管理する。バックグラウンドスレッドから `human_ask` を直接呼び出してはならない。
+初期版では `human_ask` による `y / n / all` 確認と送信元単位の grant があったが、同一マシン・同一ユーザーのピアに対しては運ぶ仕組みと認可を分ける位置づけと合わず、Issue #509 の方針で全ホストとも確認なしの自動取り込みに変更した。取り込み確認の廃止は、通常の ToolPolicy、Tool 確認、Enterprise Policy には影響しない。
 
 ## 9. エントリポイント別アダプター
 
 | エントリポイント | 受信通知・確認 | 宛先/認可 |
 |---|---|---|
-| CLI | `core.event_queue` へ enqueue。メインループで `human_ask` により確認。承認後に会話 turn として処理。 | process key。 |
-| GUI | GUI worker のイベントキューへ渡し、既存の GUI `human_ask` UI で確認。承認後に会話 turn として処理。 | process key。 |
-| Web | 対象 private room 専用の受信スレッドから `web_human_ask` で確認し、その room の worker へ渡す。 | 認証 principal・room・project の完全一致が必要。OIDC/AD等の既存 connection identity を再検証する。公開roomとWebプロセス全体へのbroadcastは禁止。 |
+| CLI | `core.event_queue` へ enqueue。メインループで確認なしに会話 turn として処理。実行中は割り込み＋自動再開。 | process key。 |
+| GUI | GUI worker のイベントキューへ渡し、確認なしに会話 turn として処理。 | process key。 |
+| Web | 対象 private room 専用の受信スレッドで確認なしに受理し、その room の worker へ渡す。 | 認証 principal・room・project の完全一致が必要。OIDC/AD等の既存 connection identity を再検証する。公開roomとWebプロセス全体へのbroadcastは禁止。 |
 | A2A | 非対話サービスのため人間向け `human_ask` は使用しない。認証済み task が `local_messaging(action=inbox)` を明示的に呼び出した場合だけ受信し、未信頼データとして返す。自動 inbox listener は持たない。 | 管理者の `UAGENT_LOCAL_MESSAGING=on` と `UAGENT_LOCAL_MESSAGING_A2A=on` の両方が必要。さらにA2A Bearer認証、task context、ToolPolicyを維持する。 |
 
 ### A2A の初期方針
 
-A2A endpoint は既定で無効とする。両管理者設定が有効な場合でも、バックグラウンドで自動受信・会話投入は行わない。認証済み A2A task が `local_messaging(action=inbox)` を呼んだ時点で初めて inbox item を claim し、明示的な Tool 結果として未信頼マーカー付きで返す。A2A endpoint はCLI/GUIと同じローカルOSユーザーのメッセージ領域を使うため、管理者がA2A連携を有効化した場合、認証済みA2A taskはopt-in済みCLI/GUI peerを一覧・宛先指定できる。CLI/GUI側では従来どおり受信時に人間の確認を行う。人間確認を必要とする処理をA2A側で暗黙に自動承認しない。
+A2A endpoint は既定で無効とする。両管理者設定が有効な場合でも、バックグラウンドで自動受信・会話投入は行わない。認証済み A2A task が `local_messaging(action=inbox)` を呼んだ時点で初めて inbox item を claim し、明示的な Tool 結果として未信頼マーカー付きで返す。A2A endpoint はCLI/GUIと同じローカルOSユーザーのメッセージ領域を使うため、管理者がA2A連携を有効化した場合、認証済みA2A taskはopt-in済みCLI/GUI peerを一覧・宛先指定できる。CLI/GUI/Web 側は受信時に人間の確認を行わない（Issue #509）。A2A 側の受信は従来どおり明示的な inbox 呼び出しに限る。
 
 ## 10. 送信 API / Tool 案
 

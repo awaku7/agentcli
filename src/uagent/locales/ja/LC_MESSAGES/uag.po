@@ -757,6 +757,15 @@ msgid "[LOCAL] Incoming message was rejected or expired."
 msgstr "[LOCAL] 受信メッセージは拒否されたか、有効期限切れです。"
 
 #: src/uagent/cli_impl/main.py
+msgid ""
+"[LOCAL] (automatic) A local peer message interrupted the previous work and "
+"has been handled. Continue the previous work from where it stopped, using "
+"the conversation history."
+msgstr ""
+"[LOCAL] (自動) ローカルピアのメッセージが前の作業に割り込み、処理が終わりました。"
+"会話履歴をもとに、前の作業を止まったところから続けてください。"
+
+#: src/uagent/cli_impl/main.py
 #, python-format
 msgid "[LOCAL] Local messaging could not start: %(error)s"
 msgstr "[LOCAL] ローカルメッセージングを開始できませんでした: %(error)s"

@@ -61,7 +61,7 @@ from .startup import (
     _env_workdir,
 )
 from .state import _CLI_SHUTDOWN
-from .stdin_loop import stdin_loop
+from .stdin_loop import _request_turn_interrupt, stdin_loop
 from .sub_agent_receipt_review import dispatch_cli_receipt_command_event
 from .sub_agent_jobs import (
     CLIJobConfirmationBroker,
@@ -124,24 +124,83 @@ def _accept_cli_local_message(
     core_obj: Any,
     runtime: LocalMessageRuntime | None,
     message: dict[str, Any],
-    run_cli_turn: Any,
-    tool_runner: Any,
 ) -> dict[str, str] | None:
-    """Confirm one queued inbox item and convert approval to a user turn."""
+    """Convert one queued inbox item to a user turn (no confirmation)."""
 
-    def ask_user(prompt: str) -> str:
-        core_obj.set_status(False, "")
-        result = run_cli_turn(
-            tool_runner,
-            "human_ask",
-            {"message": prompt, "is_password": False},
-        )
-        return str(json.loads(result).get("user_reply", ""))
-
-    result = accept_incoming_message(runtime, message, ask_user)
+    result = accept_incoming_message(runtime, message)
     if result is None:
         print(_("[LOCAL] Incoming message was rejected or expired."))
     return result
+
+
+def _interrupt_for_local_peer(core_obj: Any, runtime: Any = None) -> bool:
+    """Interrupt the running round for an arriving local peer message.
+
+    Mirrors the F12 monitor's guards: never interrupt while a human_ask
+    or the input prompt owns the user, and only while a round is busy.
+    Records that a resume turn is owed once the peer message is handled.
+
+    The interrupt is tied to an unconsumed arrival: if the foreground
+    loop already took the message in, the busy round IS that message's
+    own turn and must not be interrupted. Chat-room turns are also left
+    alone — their session binding cannot be restored by the resume
+    turn, which runs in the operator's session.
+    """
+    if runtime is not None and not runtime.has_unconsumed_peer_message():
+        return False
+    try:
+        with core_obj.human_ask_lock:
+            if (
+                core_obj.human_ask_active
+                or core_obj.input_prompt_active
+                or not core_obj.status_busy
+                or getattr(core_obj, "_chat_room_turn_active", False)
+            ):
+                return False
+    except Exception:
+        return False
+    core_obj._local_peer_resume_pending = True
+    _request_turn_interrupt()
+    return True
+
+
+def _start_local_peer_interrupt_watcher(
+    core_obj: Any, runtime: LocalMessageRuntime | None
+) -> None:
+    """Watch for peer arrivals while a round runs and interrupt for them."""
+    if runtime is None or getattr(core_obj, "_local_peer_watcher_started", False):
+        return
+    core_obj._local_peer_watcher_started = True
+
+    def _watch() -> None:
+        stop = getattr(runtime, "_stop", None)
+        while stop is None or not stop.is_set():
+            if runtime.message_arrived.wait(0.5):
+                runtime.message_arrived.clear()
+                _interrupt_for_local_peer(core_obj, runtime)
+
+    threading.Thread(
+        target=_watch, name="uag-local-peer-interrupt", daemon=True
+    ).start()
+
+
+def _enqueue_local_peer_resume(core_obj: Any) -> bool:
+    """Queue the automatic resume turn owed after a peer interruption."""
+    if not getattr(core_obj, "_local_peer_resume_pending", False):
+        return False
+    core_obj._local_peer_resume_pending = False
+    core_obj.event_queue.put(
+        {
+            "kind": "user",
+            "src": "local_messaging_resume",
+            "text": _(
+                "[LOCAL] (automatic) A local peer message interrupted the "
+                "previous work and has been handled. Continue the previous "
+                "work from where it stopped, using the conversation history."
+            ),
+        }
+    )
+    return True
 
 
 def _exit_code_for_round_outcome(core: Any) -> int:
@@ -659,6 +718,9 @@ def _enter_chat_room_turn(
         else:
             room_owner = current_cli_job_owner(core, "")
             core._sub_agent_job_owner = room_owner
+        # A room turn's context cannot be restored by the local peer
+        # resume, so the peer interrupt watcher leaves room turns alone.
+        core._chat_room_turn_active = True
         return {
             "binding": binding,
             "saved_messages": saved_messages,
@@ -696,6 +758,10 @@ def _leave_chat_room_turn(
             pass
     try:
         messages[:] = room_ctx["saved_messages"]
+    except Exception:
+        pass
+    try:
+        core._chat_room_turn_active = False
     except Exception:
         pass
 
@@ -995,6 +1061,7 @@ def main() -> int:
     if not UAGENT_NON_INTERACTIVE and local_messaging_enabled():
         try:
             _local_runtime, _local_peers = _start_cli_local_messaging(core)
+            _start_local_peer_interrupt_watcher(core, _local_runtime)
             _print_local_message_peers(_local_peers)
         except Exception as exc:
             log_event("local_messaging.start_failed", error_type=type(exc).__name__)
@@ -1191,15 +1258,24 @@ def main() -> int:
                 message = (
                     ev.get("message") if isinstance(ev.get("message"), dict) else {}
                 )
+                if runtime is not None:
+                    # The foreground owns this arrival now; the interrupt
+                    # watcher must not stop the turn it is about to run.
+                    runtime.note_peer_message_consumed(
+                        str(message.get("message_id") or "")
+                    )
                 accepted_event = _accept_cli_local_message(
                     core,
                     runtime,
                     message,
-                    _run_cli_turn,
-                    tools.run_tool,
                 )
                 if accepted_event is None:
                     continue
+                # If this message interrupted a running round, queue the
+                # automatic resume turn behind whatever is already waiting;
+                # it runs after the peer turn (and any other queued peer
+                # messages) completes.
+                _enqueue_local_peer_resume(core)
                 kind = accepted_event["kind"]
                 ev = accepted_event
 

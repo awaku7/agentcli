@@ -72,9 +72,12 @@ process-local poller. Interactive CLI/GUI processes participate automatically
 unless `UAGENT_LOCAL_MESSAGING=off`; authenticated Web private rooms also get a
 room/principal/project-scoped endpoint. A2A participation additionally requires
 `UAGENT_LOCAL_MESSAGING_A2A=on` and only retrieves inbox messages on an explicit
-task-level Tool call. Pollers enqueue typed events; the host UI owns
-`human_ask` confirmation and conversation injection. `all` grants temporary
-acceptance for one sender endpoint in that UI lifetime. Use natural-language
+task-level Tool call. Pollers enqueue typed events; hosts accept peer messages
+automatically (the mailbox is a transport, not an authorization boundary) and
+inject them as user turns with the sender visible. On the CLI, a watcher
+interrupts the running round when a peer message arrives mid-round, and an
+automatic resume turn is queued behind the peer turn so the interrupted work
+continues from the conversation history. Use natural-language
 requests to list peers or send messages; there are no messaging colon commands.
 Run `tests/test_local_messaging.py`, `tests/test_local_messaging_tool.py`, and
 `tests/test_web_local_messaging.py` when changing this path. Design:

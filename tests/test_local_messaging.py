@@ -299,3 +299,163 @@ def test_local_messaging_is_enabled_by_default_and_can_be_opted_out(
     assert not local_messaging_enabled()
     monkeypatch.setenv("UAGENT_LOCAL_MESSAGING", "on")
     assert local_messaging_enabled()
+
+
+def test_accept_incoming_message_auto_accepts_without_confirmation(tmp_path) -> None:
+    from uagent.runtime.local_messaging import accept_incoming_message
+
+    store = LocalMessageStore(tmp_path / "messages.sqlite3")
+    events: queue.Queue[dict] = queue.Queue()
+    runtime = LocalMessageRuntime(events, store=store, poll_interval=0.05)
+    runtime.start()
+    try:
+        _register(store, "peer")
+        message_id = store.send_message("peer", runtime.endpoint_id, "hello peer")
+        message = None
+        for _ in range(4):
+            delivered = events.get(timeout=2)
+            if delivered["kind"] == "local_message_received":
+                message = delivered["message"]
+                break
+        assert message is not None
+        assert message["message_id"] == message_id
+        accepted = accept_incoming_message(runtime, message)
+        assert accepted is not None
+        assert accepted["kind"] == "user"
+        assert accepted["src"] == "local_messaging"
+        assert "hello peer" in accepted["text"]
+        assert "peer" in accepted["text"]
+        # The message is decided exactly once; a replay does not re-deliver.
+        assert accept_incoming_message(runtime, message) is None
+        # Missing identity fields are refused without asking anyone.
+        assert accept_incoming_message(runtime, {"body": "x"}) is None
+        assert accept_incoming_message(None, message) is None
+    finally:
+        runtime.stop()
+
+
+def test_runtime_sets_message_arrived_when_a_message_is_enqueued(tmp_path) -> None:
+    store = LocalMessageStore(tmp_path / "messages.sqlite3")
+    events: queue.Queue[dict] = queue.Queue()
+    runtime = LocalMessageRuntime(events, store=store, poll_interval=0.05)
+    runtime.start()
+    try:
+        _register(store, "peer")
+        assert not runtime.message_arrived.is_set()
+        store.send_message("peer", runtime.endpoint_id, "ping")
+        assert runtime.message_arrived.wait(timeout=2)
+    finally:
+        runtime.stop()
+
+
+def test_cli_peer_interrupt_guards_and_resume_queue() -> None:
+    import threading
+    from types import SimpleNamespace
+
+    from uagent import core as core_module
+    from uagent.cli_impl.main import (
+        _enqueue_local_peer_resume,
+        _interrupt_for_local_peer,
+    )
+
+    def _fake_core(**overrides):
+        state = {
+            "human_ask_lock": threading.Lock(),
+            "human_ask_active": False,
+            "input_prompt_active": False,
+            "status_busy": True,
+            "event_queue": queue.Queue(),
+        }
+        state.update(overrides)
+        return SimpleNamespace(**state)
+
+    try:
+        # Busy round: interrupt is requested and a resume is owed.
+        fake = _fake_core()
+        assert _interrupt_for_local_peer(fake) is True
+        assert fake._local_peer_resume_pending is True
+        assert core_module.interrupt_requested is True
+
+        assert _enqueue_local_peer_resume(fake) is True
+        resume = fake.event_queue.get_nowait()
+        assert resume["kind"] == "user"
+        assert resume["src"] == "local_messaging_resume"
+        # The resume is queued exactly once.
+        assert _enqueue_local_peer_resume(fake) is False
+
+        # Idle: no interrupt, no resume owed.
+        core_module.interrupt_requested = False
+        idle = _fake_core(status_busy=False)
+        assert _interrupt_for_local_peer(idle) is False
+        assert getattr(idle, "_local_peer_resume_pending", False) is False
+        assert core_module.interrupt_requested is False
+
+        # A human_ask owns the user: never interrupt it for a peer message.
+        asking = _fake_core(human_ask_active=True)
+        assert _interrupt_for_local_peer(asking) is False
+        assert core_module.interrupt_requested is False
+    finally:
+        core_module.interrupt_requested = False
+        core_module.auto_pilot_exit_requested = False
+
+
+def test_cli_peer_interrupt_requires_unconsumed_arrival_and_skips_room_turns() -> None:
+    import threading
+    from types import SimpleNamespace
+
+    from uagent import core as core_module
+    from uagent.cli_impl.main import _interrupt_for_local_peer
+
+    def _fake_core(**overrides):
+        state = {
+            "human_ask_lock": threading.Lock(),
+            "human_ask_active": False,
+            "input_prompt_active": False,
+            "status_busy": True,
+            "event_queue": queue.Queue(),
+        }
+        state.update(overrides)
+        return SimpleNamespace(**state)
+
+    class _Runtime:
+        def __init__(self, unconsumed: bool) -> None:
+            self._unconsumed = unconsumed
+
+        def has_unconsumed_peer_message(self) -> bool:
+            return self._unconsumed
+
+    try:
+        # The foreground already took the message in: the busy round is
+        # the peer message's own turn and must not be interrupted.
+        consumed = _fake_core()
+        assert _interrupt_for_local_peer(consumed, _Runtime(False)) is False
+        assert getattr(consumed, "_local_peer_resume_pending", False) is False
+        assert core_module.interrupt_requested is False
+
+        # An unconsumed arrival interrupts the preceding work as before.
+        waiting = _fake_core()
+        assert _interrupt_for_local_peer(waiting, _Runtime(True)) is True
+        assert waiting._local_peer_resume_pending is True
+        core_module.interrupt_requested = False
+
+        # A chat-room turn's session cannot be restored by the resume,
+        # so it is never interrupted for a peer message.
+        room = _fake_core(_chat_room_turn_active=True)
+        assert _interrupt_for_local_peer(room, _Runtime(True)) is False
+        assert getattr(room, "_local_peer_resume_pending", False) is False
+        assert core_module.interrupt_requested is False
+    finally:
+        core_module.interrupt_requested = False
+        core_module.auto_pilot_exit_requested = False
+
+
+def test_runtime_tracks_unconsumed_peer_messages(tmp_path) -> None:
+    store = LocalMessageStore(tmp_path / "mailbox.sqlite3")
+    runtime = LocalMessageRuntime(queue.Queue(), store=store, poll_interval=0.05)
+    runtime._unconsumed_peer_ids.add("m1")
+    assert runtime.has_unconsumed_peer_message()
+    runtime.note_peer_message_consumed("m1")
+    assert not runtime.has_unconsumed_peer_message()
+    runtime._unconsumed_peer_ids.add("m2")
+    runtime.decide_message("m2", accepted=True)
+    assert not runtime.has_unconsumed_peer_message()
