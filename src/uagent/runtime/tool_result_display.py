@@ -81,9 +81,16 @@ def tool_trace_timestamp_enabled() -> bool:
 
 
 def bound_display_text(text: Any, *, max_chars: int = DEFAULT_MAX_CHARS) -> str:
-    """Flatten, secret-mask, and bound one display line."""
+    """Secret-mask, flatten, and bound one display line.
+
+    Masking runs on the raw text first: several header patterns anchor
+    to line boundaries, which flattening would destroy (a multi-line
+    summary's ``Authorization:`` line would slip past them). It runs
+    again after flattening to catch anything the join creates.
+    """
 
     if max_chars <= 0:
         return ""
-    flat = " ".join(str("" if text is None else text).split())
+    masked = _mask_inline_secrets(str("" if text is None else text))
+    flat = " ".join(masked.split())
     return _mask_inline_secrets(flat)[:max_chars]

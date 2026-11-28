@@ -1205,3 +1205,15 @@ def test_tree_display_never_nests_parallel_same_tool_results(monkeypatch) -> Non
     tools_pkg.emit_tool_result_tree_line("tree_probe", "success", "c done")
     assert lines == ["  └ success: c done"]
     tools_pkg._trace._PENDING_TRACES.clear()
+
+
+def test_bound_display_text_masks_multiline_authorization_header() -> None:
+    from uagent.runtime.tool_result_display import bound_display_text
+
+    summary = "request failed\nAuthorization: Bearer abcdef0123456789\nretrying"
+    text = bound_display_text(f"failed: {summary}")
+    assert "abcdef0123456789" not in text
+    assert "Authorization:" in text
+
+    cookie = bound_display_text("ok\nCookie: session=supersecretvalue\nbody")
+    assert "supersecretvalue" not in cookie
