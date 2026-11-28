@@ -504,7 +504,7 @@
     "param.extra_protect_terms.description": "Dodatkowe ustalone terminy, które należy zachować bez zmian (np. identyfikatory głosowe alloy/eve, nazwy modeli). Stosowane dodatkowo do terminów wbudowanych, gdy protect_terms ma wartość true; nadal stosowane, gdy protect_terms ma wartość fałszywą."
   },
   "hi": {
-    "tool.description": "Google Translate या DeepL का उपयोग करके टेक्स्ट या फ़ाइलों का अनुवाद करें। 30 से अधिक भाषाओं का समर्थन करता है, प्लेसहोल्डर्स और शर्तों की सुरक्षा करता है, और फ़ाइल एन्कोडिंग और न्यूलाइन्स को संरक्षित करता है। protect_placeholders डिफ़ॉल्ट रूप से चालू रहता है और प्लेसहोल्डर्स को अनूदित नहीं रखता है।",
+    "tool.description": "Google Translate या DeepL का उपयोग करके टेक्स्ट या फ़ाइलों का अनुवाद करें। 30 से अधिक भाषाओं का समर्थन करता है, प्लेसहोल्डर्स और शर्तों की सुरक्षा करता है, और फ़ाइल एन्कोडिंग और न्यूलाइन्स को संरक्षित करता है। protect_placeholders डिफ़ॉल्ट रूप से चालू रहता है और प्लेसहोल्डर्स को अनुवाद किए बिना रखता है।",
     "param.provider.description": "अनुवाद प्रदाता: auto (कॉन्फ़िगर होने पर DeepL का उपयोग करें, अन्यथा Google), google, या deepl।",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "स्रोत भाषा कोड. यदि छोड़ा गया हो तो स्वतः पता लगाया जाता है।",
@@ -1050,7 +1050,7 @@
     "param.extra_protect_terms.description": "保持不變的附加固定術語（例如語音 ID alloy/eve、型號名稱）。當 protect_terms 為 true 時，除內建術語外還套用；當 protect_terms 為 false 時仍然適用。"
   },
   "bn": {
-    "tool.description": "Google Translate বা DeepL ব্যবহার করে পাঠ্য বা ফাইল অনুবাদ করুন। 30+ ভাষা সমর্থন করে, স্থানধারক এবং পদ রক্ষা করে এবং ফাইল এনকোডিং এবং নতুন লাইন সংরক্ষণ করে। protect_placeholders ডিফল্টভাবে চালু থাকে এবং স্থানধারকদের অনূদিত রাখে।",
+    "tool.description": "Google Translate বা DeepL ব্যবহার করে পাঠ্য বা ফাইল অনুবাদ করুন। 30+ ভাষা সমর্থন করে, স্থানধারক এবং পদ রক্ষা করে এবং ফাইল এনকোডিং এবং নতুন লাইন সংরক্ষণ করে। protect_placeholders ডিফল্টভাবে চালু থাকে এবং স্থানধারকদের অনুবাদ না করে রাখে।",
     "param.provider.description": "অনুবাদ প্রদানকারী: auto (কনফিগার করা হলে DeepL ব্যবহার করুন, অন্যথায় Google), google, বা deepl।",
     "param.target_lang.description": "লক্ষ্য ভাষার কোড (যেমন ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "উৎস ভাষার কোড। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
