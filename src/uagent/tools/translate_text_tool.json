@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "Google翻訳またはDeepLでテキストやファイルを翻訳します。30以上の言語に対応し、プレースホルダーや用語の保護、ファイルの文字コード・改行保持ができます。",
+    "tool.description": "Google翻訳またはDeepLでテキストやファイルを翻訳します。30以上の言語に対応し、プレースホルダーや用語の保護、ファイルの文字コード・改行保持ができます。protect_placeholders は既定で有効で、プレースホルダーを翻訳から守ります。",
     "param.provider.description": "翻訳プロバイダー: auto（設定済みなら DeepL、それ以外は Google）、google、deepl。",
     "param.target_lang.description": "ターゲット言語コード (例: ja、en、zh_CN、pt_BR、fr、de、es、ko)。",
     "param.source_lang.description": "ソース言語コード。省略した場合は自動検出されます。",
@@ -42,7 +42,7 @@
     "param.extra_protect_terms.description": "追加で保護する固定用語（例: 音声 ID の alloy/eve、モデル名）。protect_terms が true のときは組み込みに追加、false のときでも適用されます。"
   },
   "es": {
-    "tool.description": "Traduce texto o archivos usando Google Translate o DeepL. Admite más de 30 idiomas, protege marcadores de posición y términos, y conserva la codificación de archivos y las nuevas líneas.",
+    "tool.description": "Traduce texto o archivos usando Google Translate o DeepL. Admite más de 30 idiomas, protege marcadores de posición y términos, y conserva la codificación de archivos y las nuevas líneas. protect_placeholders está activado por defecto y mantiene los marcadores sin traducir.",
     "param.provider.description": "Proveedor de traducción: auto (use DeepL cuando esté configurado; de lo contrario, Google), google o deepl.",
     "param.target_lang.description": "Código de idioma de destino (por ejemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código del idioma fuente. Detectado automáticamente si se omite.",
@@ -84,7 +84,7 @@
     "param.extra_protect_terms.description": "Términos fijos adicionales que se deben mantener sin cambios (por ejemplo, identificadores de voz alloy/eve, nombres de modelos). Se aplica además de los términos integrados cuando protect_terms es verdadero; todavía se aplica cuando protect_terms es falso."
   },
   "fr": {
-    "tool.description": "Traduisez du texte ou des fichiers à l'aide de Google Translate ou DeepL. Prend en charge plus de 30 langues, protège les espaces réservés et les termes, et préserve l'encodage des fichiers et les nouvelles lignes.",
+    "tool.description": "Traduisez du texte ou des fichiers à l'aide de Google Translate ou DeepL. Prend en charge plus de 30 langues, protège les espaces réservés et les termes, et préserve l'encodage des fichiers et les nouvelles lignes. protect_placeholders est activé par défaut et garde les espaces réservés non traduits.",
     "param.provider.description": "Fournisseur de traduction : auto (utilisez DeepL une fois configuré, sinon Google), google ou deepl.",
     "param.target_lang.description": "Code de la langue cible (par exemple ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Code de la langue source. Détecté automatiquement en cas d'omission.",
@@ -126,7 +126,7 @@
     "param.extra_protect_terms.description": "Termes fixes supplémentaires à conserver inchangés (par exemple, identifiants vocaux alloy/eve, noms de modèles). Appliqué en plus des termes intégrés lorsque protect_terms est vrai ; toujours appliqué lorsque protect_terms est faux."
   },
   "ko": {
-    "tool.description": "Google Translate 또는 DeepL을 사용하여 텍스트나 파일을 번역하세요. 30개 이상의 언어를 지원하고 자리 표시자와 용어를 보호하며 파일 인코딩과 줄 바꿈을 보존합니다.",
+    "tool.description": "Google Translate 또는 DeepL을 사용하여 텍스트나 파일을 번역하세요. 30개 이상의 언어를 지원하고 자리 표시자와 용어를 보호하며 파일 인코딩과 줄 바꿈을 보존합니다. protect_placeholders는 기본으로 켜져 있어 자리 표시자를 번역하지 않고 유지합니다.",
     "param.provider.description": "번역 공급자: auto(구성된 경우 DeepL 사용, 그렇지 않으면 Google), google 또는 deepl.",
     "param.target_lang.description": "대상 언어 코드(예: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "소스 언어 코드. 생략되면 자동 감지됩니다.",
@@ -168,7 +168,7 @@
     "param.extra_protect_terms.description": "변경하지 않고 유지할 추가 고정 용어(예: 음성 ID alloy/eve, 모델 이름) protect_terms이 true인 경우 내장 용어에 추가로 적용됩니다. protect_terms이 false인 경우에도 계속 적용됩니다."
   },
   "de": {
-    "tool.description": "Übersetzen Sie Texte oder Dateien mit Google Translate oder DeepL. Unterstützt über 30 Sprachen, schützt Platzhalter und Begriffe und behält Dateikodierung und Zeilenumbrüche bei.",
+    "tool.description": "Übersetzen Sie Texte oder Dateien mit Google Translate oder DeepL. Unterstützt über 30 Sprachen, schützt Platzhalter und Begriffe und behält Dateikodierung und Zeilenumbrüche bei. protect_placeholders ist standardmäßig aktiviert und hält Platzhalter unübersetzt.",
     "param.provider.description": "Übersetzungsanbieter: auto (verwenden Sie DeepL, wenn konfiguriert, andernfalls Google), google oder deepl.",
     "param.target_lang.description": "Code der Zielsprache (z. B. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Quellsprachcode. Wird automatisch erkannt, wenn es weggelassen wird.",
@@ -210,7 +210,7 @@
     "param.extra_protect_terms.description": "Zusätzliche feste Begriffe, die unverändert bleiben sollen (z. B. Sprach-IDs alloy/eve, Modellnamen). Wird zusätzlich zu integrierten Begriffen angewendet, wenn protect_terms wahr ist; wird weiterhin angewendet, wenn protect_terms falsch ist."
   },
   "it": {
-    "tool.description": "Traduci testo o file utilizzando Google Translate o DeepL. Supporta oltre 30 lingue, protegge segnaposto e termini e preserva la codifica dei file e i ritorni a capo.",
+    "tool.description": "Traduci testo o file utilizzando Google Translate o DeepL. Supporta oltre 30 lingue, protegge segnaposto e termini e preserva la codifica dei file e i ritorni a capo. protect_placeholders è attivo per impostazione predefinita e mantiene i segnaposto non tradotti.",
     "param.provider.description": "Fornitore di traduzione: auto (usa DeepL quando configurato, altrimenti Google), google o deepl.",
     "param.target_lang.description": "Codice della lingua di destinazione (ad esempio ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Codice della lingua di origine. Rilevato automaticamente se omesso.",
@@ -252,7 +252,7 @@
     "param.extra_protect_terms.description": "Termini fissi aggiuntivi da mantenere invariati (ad esempio ID vocali alloy/eve, nomi dei modelli). Applicato in aggiunta ai termini incorporati quando protect_terms è vero; ancora applicato quando protect_terms è falso."
   },
   "ru": {
-    "tool.description": "Переведите текст или файлы с помощью Google Translate или DeepL. Поддерживает более 30 языков, защищает заполнители и термины, а также сохраняет кодировку файлов и символы новой строки.",
+    "tool.description": "Переведите текст или файлы с помощью Google Translate или DeepL. Поддерживает более 30 языков, защищает заполнители и термины, а также сохраняет кодировку файлов и символы новой строки. protect_placeholders включён по умолчанию и сохраняет заполнители без перевода.",
     "param.provider.description": "Поставщик перевода: auto (используйте DeepL, если настроено, иначе Google), google или deepl.",
     "param.target_lang.description": "Код целевого языка (например, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Код исходного языка. Определяется автоматически, если опущено.",
@@ -294,7 +294,7 @@
     "param.extra_protect_terms.description": "Дополнительные фиксированные термины, которые следует оставить без изменений (например, голосовые идентификаторы alloy/eve, названия моделей). Применяется в дополнение к встроенным терминам, когда protect_terms истинно; все еще применяется, когда protect_terms имеет значение false."
   },
   "pt_BR": {
-    "tool.description": "Traduza texto ou arquivos usando Google Translate ou DeepL. Suporta mais de 30 idiomas, protege espaços reservados e termos e preserva a codificação de arquivos e novas linhas.",
+    "tool.description": "Traduza texto ou arquivos usando Google Translate ou DeepL. Suporta mais de 30 idiomas, protege espaços reservados e termos e preserva a codificação de arquivos e novas linhas. protect_placeholders está ativado por padrão e mantém os espaços reservados sem tradução.",
     "param.provider.description": "Provedor de tradução: auto (use DeepL quando configurado, caso contrário Google), google ou deepl.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
@@ -336,7 +336,7 @@
     "param.extra_protect_terms.description": "Termos fixos adicionais a serem mantidos inalterados (por exemplo, IDs de voz alloy/eve, nomes de modelos). Aplicado além dos termos integrados quando protect_terms é verdadeiro; ainda aplicado quando protect_terms é falso."
   },
   "pt": {
-    "tool.description": "Traduza texto ou arquivos usando Google Translate ou DeepL. Suporta mais de 30 idiomas, protege espaços reservados e termos e preserva a codificação de arquivos e novas linhas.",
+    "tool.description": "Traduza texto ou arquivos usando Google Translate ou DeepL. Suporta mais de 30 idiomas, protege espaços reservados e termos e preserva a codificação de arquivos e novas linhas. protect_placeholders está ativado por predefinição e mantém os espaços reservados sem tradução.",
     "param.provider.description": "Provedor de tradução: auto (use DeepL quando configurado, caso contrário Google), google ou deepl.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
@@ -378,7 +378,7 @@
     "param.extra_protect_terms.description": "Termos fixos adicionais a serem mantidos inalterados (por exemplo, IDs de voz alloy/eve, nomes de modelos). Aplicado além dos termos integrados quando protect_terms é verdadeiro; ainda aplicado quando protect_terms é falso."
   },
   "id": {
-    "tool.description": "Terjemahkan teks atau file menggunakan Google Translate atau DeepL. Mendukung 30+ bahasa, melindungi placeholder dan istilah, serta mempertahankan pengkodean file dan baris baru.",
+    "tool.description": "Terjemahkan teks atau file menggunakan Google Translate atau DeepL. Mendukung 30+ bahasa, melindungi placeholder dan istilah, serta mempertahankan pengkodean file dan baris baru. protect_placeholders aktif secara default dan menjaga placeholder tetap tidak diterjemahkan.",
     "param.provider.description": "Penyedia terjemahan: auto (gunakan DeepL saat dikonfigurasi, jika tidak Google), google, atau deepl.",
     "param.target_lang.description": "Kode bahasa target (misalnya ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kode bahasa sumber. Terdeteksi otomatis jika dihilangkan.",
@@ -420,7 +420,7 @@
     "param.extra_protect_terms.description": "Persyaratan tetap tambahan yang tidak boleh diubah (misalnya, ID suara alloy/eve, nama model). Diterapkan sebagai tambahan terhadap ketentuan bawaan jika protect_terms benar; masih diterapkan ketika protect_terms salah."
   },
   "vi": {
-    "tool.description": "Dịch văn bản hoặc tệp bằng Google Translate hoặc DeepL. Hỗ trợ hơn 30 ngôn ngữ, bảo vệ phần giữ chỗ và thuật ngữ, đồng thời duy trì mã hóa tệp và dòng mới.",
+    "tool.description": "Dịch văn bản hoặc tệp bằng Google Translate hoặc DeepL. Hỗ trợ hơn 30 ngôn ngữ, bảo vệ phần giữ chỗ và thuật ngữ, đồng thời duy trì mã hóa tệp và dòng mới. protect_placeholders được bật theo mặc định và giữ phần giữ chỗ không bị dịch.",
     "param.provider.description": "Nhà cung cấp dịch vụ dịch: auto (sử dụng DeepL khi được định cấu hình, nếu không thì Google), google hoặc deepl.",
     "param.target_lang.description": "Mã ngôn ngữ đích (ví dụ: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Mã ngôn ngữ nguồn. Tự động phát hiện nếu bỏ qua.",
@@ -462,7 +462,7 @@
     "param.extra_protect_terms.description": "Các thuật ngữ cố định bổ sung không thay đổi (ví dụ: id giọng nói alloy/eve, tên kiểu máy). Được áp dụng cùng với các thuật ngữ có sẵn khi protect_terms là đúng; vẫn được áp dụng khi protect_terms sai."
   },
   "pl": {
-    "tool.description": "Tłumacz tekst lub pliki za pomocą Google Translate lub DeepL. Obsługuje ponad 30 języków, chroni symbole zastępcze i terminy oraz zachowuje kodowanie plików i znaki nowej linii.",
+    "tool.description": "Tłumacz tekst lub pliki za pomocą Google Translate lub DeepL. Obsługuje ponad 30 języków, chroni symbole zastępcze i terminy oraz zachowuje kodowanie plików i znaki nowej linii. protect_placeholders jest domyślnie włączone i zachowuje symbole zastępcze bez tłumaczenia.",
     "param.provider.description": "Dostawca tłumaczeń: auto (użyj DeepL, jeśli jest skonfigurowany, w przeciwnym razie Google), google lub deepl.",
     "param.target_lang.description": "Kod języka docelowego (np. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kod języka źródłowego. Wykrywane automatycznie w przypadku pominięcia.",
@@ -504,7 +504,7 @@
     "param.extra_protect_terms.description": "Dodatkowe ustalone terminy, które należy zachować bez zmian (np. identyfikatory głosowe alloy/eve, nazwy modeli). Stosowane dodatkowo do terminów wbudowanych, gdy protect_terms ma wartość true; nadal stosowane, gdy protect_terms ma wartość fałszywą."
   },
   "hi": {
-    "tool.description": "Google Translate या DeepL का उपयोग करके टेक्स्ट या फ़ाइलों का अनुवाद करें। 30 से अधिक भाषाओं का समर्थन करता है, प्लेसहोल्डर्स और शर्तों की सुरक्षा करता है, और फ़ाइल एन्कोडिंग और न्यूलाइन्स को संरक्षित करता है।",
+    "tool.description": "Google Translate या DeepL का उपयोग करके टेक्स्ट या फ़ाइलों का अनुवाद करें। 30 से अधिक भाषाओं का समर्थन करता है, प्लेसहोल्डर्स और शर्तों की सुरक्षा करता है, और फ़ाइल एन्कोडिंग और न्यूलाइन्स को संरक्षित करता है। protect_placeholders डिफ़ॉल्ट रूप से चालू रहता है और प्लेसहोल्डर्स को अनुवाद किए बिना रखता है।",
     "param.provider.description": "अनुवाद प्रदाता: auto (कॉन्फ़िगर होने पर DeepL का उपयोग करें, अन्यथा Google), google, या deepl।",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "स्रोत भाषा कोड. यदि छोड़ा गया हो तो स्वतः पता लगाया जाता है।",
@@ -546,7 +546,7 @@
     "param.extra_protect_terms.description": "अपरिवर्तित रखने के लिए अतिरिक्त निश्चित शर्तें (जैसे वॉयस आईडी alloy/eve, मॉडल नाम)। protect_terms सत्य होने पर अंतर्निहित शर्तों के अतिरिक्त लागू किया जाता है; protect_terms गलत होने पर भी लागू होता है।"
   },
   "ar": {
-    "tool.description": "ترجمة النصوص أو الملفات باستخدام Google Translate أو DeepL. يدعم أكثر من 30 لغة، ويحمي العناصر النائبة والمصطلحات، ويحافظ على تشفير الملفات والأسطر الجديدة.",
+    "tool.description": "ترجمة النصوص أو الملفات باستخدام Google Translate أو DeepL. يدعم أكثر من 30 لغة، ويحمي العناصر النائبة والمصطلحات، ويحافظ على تشفير الملفات والأسطر الجديدة. protect_placeholders مفعّل افتراضيًا ويبقي العناصر النائبة دون ترجمة.",
     "param.provider.description": "موفر الترجمة: auto (استخدم DeepL عند تكوينه، وإلا Google)، أو google، أو deepl.",
     "param.target_lang.description": "رمز اللغة المستهدفة (مثل ja وen وzh_CN وpt_BR وfr وde وes وko).",
     "param.source_lang.description": "كود اللغة المصدر. يتم اكتشافه تلقائيًا إذا تم حذفه.",
@@ -588,7 +588,7 @@
     "param.extra_protect_terms.description": "الشروط الإضافية الثابتة التي يجب الاحتفاظ بها دون تغيير (مثل المعرفات الصوتية alloy/eve وأسماء النماذج). يتم تطبيقه بالإضافة إلى المصطلحات المضمنة عندما يكون protect_terms صحيحًا؛ لا يزال مطبقًا عندما يكون protect_terms خطأ."
   },
   "sv": {
-    "tool.description": "Översätt text eller filer med Google Translate eller DeepL. Stöder 30+ språk, skyddar platshållare och termer och bevarar filkodning och nyrader.",
+    "tool.description": "Översätt text eller filer med Google Translate eller DeepL. Stöder 30+ språk, skyddar platshållare och termer och bevarar filkodning och nyrader. protect_placeholders är aktiverat som standard och håller platshållare oöversatta.",
     "param.provider.description": "Översättningsleverantör: auto (använd DeepL när den är konfigurerad, annars Google), google eller deepl.",
     "param.target_lang.description": "Målspråkskod (t.ex. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Källspråkskod. Upptäcks automatiskt om den utelämnas.",
@@ -630,7 +630,7 @@
     "param.extra_protect_terms.description": "Ytterligare fasta villkor att förbli oförändrade (t.ex. röst-ID alloy/eve, modellnamn). Tillämpas utöver inbyggda termer när protect_terms är sant; tillämpas fortfarande när protect_terms är falskt."
   },
   "sw": {
-    "tool.description": "Tafsiri maandishi au faili ukitumia Google Translate au DeepL. Hutumia lugha 30+, hulinda vishikilia nafasi na masharti, na huhifadhi usimbaji wa faili na laini mpya.",
+    "tool.description": "Tafsiri maandishi au faili ukitumia Google Translate au DeepL. Hutumia lugha 30+, hulinda vishikilia nafasi na masharti, na huhifadhi usimbaji wa faili na laini mpya. protect_placeholders imewashwa kwa chaguo-msingi na huweka vishikilia nafasi bila kutafsiriwa.",
     "param.provider.description": "Mtoa huduma wa tafsiri: auto (tumia DeepL inaposanidiwa, vinginevyo Google), google, au deepl.",
     "param.target_lang.description": "Msimbo wa lugha lengwa (k.m. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Msimbo wa lugha ya asili. Imegunduliwa kiotomatiki ikiwa imeachwa.",
@@ -672,7 +672,7 @@
     "param.extra_protect_terms.description": "Sheria na masharti ya ziada yasiyobadilika ili uendelee bila kubadilika (k.m. vitambulisho vya sauti alloy/eve, majina ya miundo). Imetumika pamoja na masharti yaliyojengewa ndani wakati protect_terms ni kweli; bado inatumika wakati protect_terms si kweli."
   },
   "nb": {
-    "tool.description": "Oversett tekst eller filer med Google Translate eller DeepL. Støtter 30+ språk, beskytter plassholdere og termer, og bevarer filkoding og nylinjer.",
+    "tool.description": "Oversett tekst eller filer med Google Translate eller DeepL. Støtter 30+ språk, beskytter plassholdere og termer, og bevarer filkoding og nylinjer. protect_placeholders er på som standard og holder plassholdere uoversatt.",
     "param.provider.description": "Oversettelsesleverandør: auto (bruk DeepL når den er konfigurert, ellers Google), google eller deepl.",
     "param.target_lang.description": "Målspråkkode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kildespråkkode. Automatisk oppdaget hvis utelatt.",
@@ -714,7 +714,7 @@
     "param.extra_protect_terms.description": "Ytterligere faste vilkår som skal beholdes uendret (f.eks. tale-ID-er alloy/eve, modellnavn). Brukes i tillegg til innebygde termer når protect_terms er sann; fortsatt brukt når protect_terms er usann."
   },
   "nl": {
-    "tool.description": "Vertaal tekst of bestanden met Google Translate of DeepL. Ondersteunt meer dan 30 talen, beschermt tijdelijke aanduidingen en termen, en behoudt bestandscodering en nieuwe regels.",
+    "tool.description": "Vertaal tekst of bestanden met Google Translate of DeepL. Ondersteunt meer dan 30 talen, beschermt tijdelijke aanduidingen en termen, en behoudt bestandscodering en nieuwe regels. protect_placeholders staat standaard aan en houdt tijdelijke aanduidingen onvertaald.",
     "param.provider.description": "Vertaalprovider: auto (gebruik DeepL indien geconfigureerd, anders Google), google of deepl.",
     "param.target_lang.description": "Doeltaalcode (bijvoorbeeld ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Brontaalcode. Wordt automatisch gedetecteerd indien weggelaten.",
@@ -756,7 +756,7 @@
     "param.extra_protect_terms.description": "Aanvullende vaste termen die ongewijzigd moeten blijven (bijvoorbeeld stem-ID's alloy/eve, modelnamen). Toegepast als aanvulling op ingebouwde termen wanneer protect_terms waar is; wordt nog steeds toegepast als protect_terms onwaar is."
   },
   "fi": {
-    "tool.description": "Käännä tekstiä tai tiedostoja Google Translate:n tai DeepL:n avulla. Tukee yli 30 kieltä, suojaa paikkamerkit ja termit sekä säilyttää tiedostojen koodauksen ja rivinvaihdot.",
+    "tool.description": "Käännä tekstiä tai tiedostoja Google Translate:n tai DeepL:n avulla. Tukee yli 30 kieltä, suojaa paikkamerkit ja termit sekä säilyttää tiedostojen koodauksen ja rivinvaihdot. protect_placeholders on oletuksena käytössä ja pitää paikkamerkit kääntämättöminä.",
     "param.provider.description": "Käännöspalvelu: auto (käytä DeepL:ää määritettynä, muuten Google), google tai deepl.",
     "param.target_lang.description": "Kohdekielikoodi (esim. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Lähdekielen koodi. Havaitsee automaattisesti, jos se jätetään pois.",
@@ -798,7 +798,7 @@
     "param.extra_protect_terms.description": "Muut kiinteät ehdot, jotka pidetään ennallaan (esim. äänitunnukset alloy/eve, mallien nimet). Käytetään sisäänrakennettujen ehtojen lisäksi, kun protect_terms on tosi; edelleen käytössä, kun protect_terms on epätosi."
   },
   "cs": {
-    "tool.description": "Přeložte text nebo soubory pomocí Google Translate nebo DeepL. Podporuje více než 30 jazyků, chrání zástupné symboly a termíny a zachovává kódování souborů a nové řádky.",
+    "tool.description": "Přeložte text nebo soubory pomocí Google Translate nebo DeepL. Podporuje více než 30 jazyků, chrání zástupné symboly a termíny a zachovává kódování souborů a nové řádky. protect_placeholders je ve výchozím nastavení zapnuté a zachovává zástupné symboly bez překladu.",
     "param.provider.description": "Poskytovatel překladu: auto (při konfiguraci použijte DeepL, jinak Google), google nebo deepl.",
     "param.target_lang.description": "Kód cílového jazyka (např. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kód zdrojového jazyka. Automaticky zjištěno, pokud je vynecháno.",
@@ -840,7 +840,7 @@
     "param.extra_protect_terms.description": "Další pevné podmínky, které mají zůstat nezměněny (např. hlasová ID alloy/eve, názvy modelů). Použije se navíc k vestavěným podmínkám, když je protect_terms pravdivé; stále platí, když je protect_terms nepravda."
   },
   "uk": {
-    "tool.description": "Перекладайте текст або файли за допомогою Google Translate або DeepL. Підтримує понад 30 мов, захищає заповнювачі та терміни, зберігає кодування файлів і символи нового рядка.",
+    "tool.description": "Перекладайте текст або файли за допомогою Google Translate або DeepL. Підтримує понад 30 мов, захищає заповнювачі та терміни, зберігає кодування файлів і символи нового рядка. protect_placeholders увімкнено за замовчуванням і зберігає заповнювачі без перекладу.",
     "param.provider.description": "Постачальник послуг перекладу: auto (використовуйте DeepL, якщо налаштовано, інакше Google), google або deepl.",
     "param.target_lang.description": "Код цільової мови (наприклад, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Вихідний код мови. Визначається автоматично, якщо опущено.",
@@ -882,7 +882,7 @@
     "param.extra_protect_terms.description": "Додаткові фіксовані терміни, які потрібно залишити без змін (наприклад, голосові ідентифікатори alloy/eve, назви моделей). Застосовується на додаток до вбудованих термінів, коли protect_terms має значення true; все ще застосовується, коли protect_terms невірно."
   },
   "tr": {
-    "tool.description": "Metin veya dosyaları Google Translate veya DeepL kullanarak çevirin. 30'dan fazla dili destekler, yer tutucuları ve terimleri korur, dosya kodlamasını ve yeni satırları korur.",
+    "tool.description": "Metin veya dosyaları Google Translate veya DeepL kullanarak çevirin. 30'dan fazla dili destekler, yer tutucuları ve terimleri korur, dosya kodlamasını ve yeni satırları korur. protect_placeholders varsayılan olarak açıktır ve yer tutucuları çevrilmeden korur.",
     "param.provider.description": "Çeviri sağlayıcı: auto (yapılandırıldığında DeepL'yi kullanın, aksi takdirde Google), google veya deepl.",
     "param.target_lang.description": "Hedef dil kodu (ör. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kaynak dil kodu. Atlanırsa otomatik olarak algılanır.",
@@ -924,7 +924,7 @@
     "param.extra_protect_terms.description": "Değiştirilmeyecek ek sabit terimler (ör. ses kimlikleri alloy/eve, model adları). protect_terms doğru olduğunda yerleşik terimlere ek olarak uygulanır; protect_terms yanlış olduğunda hâlâ uygulanır."
   },
   "th": {
-    "tool.description": "แปลข้อความหรือไฟล์โดยใช้ Google Translate หรือ DeepL รองรับภาษามากกว่า 30 ภาษา ปกป้องตัวยึดตำแหน่งและคำศัพท์ และรักษาการเข้ารหัสไฟล์และการขึ้นบรรทัดใหม่",
+    "tool.description": "แปลข้อความหรือไฟล์โดยใช้ Google Translate หรือ DeepL รองรับภาษามากกว่า 30 ภาษา ปกป้องตัวยึดตำแหน่งและคำศัพท์ และรักษาการเข้ารหัสไฟล์และการขึ้นบรรทัดใหม่ protect_placeholders เปิดใช้งานเป็นค่าเริ่มต้นและรักษาตัวยึดตำแหน่งไว้โดยไม่แปล",
     "param.provider.description": "ผู้ให้บริการแปล: auto (ใช้ DeepL เมื่อกำหนดค่า มิฉะนั้น Google), google หรือ deepl",
     "param.target_lang.description": "รหัสภาษาเป้าหมาย (เช่น ja, en, zh_CN, pt_BR, fr, de, es, ko)",
     "param.source_lang.description": "รหัสภาษาต้นฉบับ ตรวจพบอัตโนมัติหากละเว้น",
@@ -966,7 +966,7 @@
     "param.extra_protect_terms.description": "ข้อกำหนดคงที่เพิ่มเติมที่จะคงไว้ไม่เปลี่ยนแปลง (เช่น รหัสเสียง alloy/eve ชื่อรุ่น) ใช้เพิ่มเติมจากเงื่อนไขที่มีอยู่แล้วภายในเมื่อ protect_terms เป็นจริง ยังคงใช้เมื่อ protect_terms เป็นเท็จ"
   },
   "zh_CN": {
-    "tool.description": "使用 Google Translate 或 DeepL 翻译文本或文件。支持 30 多种语言，保护占位符和术语，并保留文件编码和换行符。",
+    "tool.description": "使用 Google Translate 或 DeepL 翻译文本或文件。支持 30 多种语言，保护占位符和术语，并保留文件编码和换行符。protect_placeholders 默认开启，使占位符保持不被翻译。",
     "param.provider.description": "翻译提供程序：auto（配置时使用 DeepL，否则 Google）、google 或 deepl。",
     "param.target_lang.description": "目标语言代码（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
     "param.source_lang.description": "源语言代码。如果省略则自动检测。",
@@ -1008,7 +1008,7 @@
     "param.extra_protect_terms.description": "保持不变的附加固定术语（例如语音 ID alloy/eve、型号名称）。当 protect_terms 为 true 时，除内置术语外还应用；当 protect_terms 为 false 时仍然适用。"
   },
   "zh_TW": {
-    "tool.description": "使用 Google Translate 或 DeepL 翻譯文字或檔案。支援 30 多種語言，保護佔位符和術語，並保留文件編碼和換行符。",
+    "tool.description": "使用 Google Translate 或 DeepL 翻譯文字或檔案。支援 30 多種語言，保護佔位符和術語，並保留文件編碼和換行符。protect_placeholders 預設開啟，使佔位符保持不被翻譯。",
     "param.provider.description": "翻譯提供者：auto（配置時使用 DeepL，否則 Google）、google 或 deepl。",
     "param.target_lang.description": "目標語言代碼（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
     "param.source_lang.description": "原始語言代碼。如果省略則自動偵測。",
@@ -1050,7 +1050,7 @@
     "param.extra_protect_terms.description": "保持不變的附加固定術語（例如語音 ID alloy/eve、型號名稱）。當 protect_terms 為 true 時，除內建術語外還套用；當 protect_terms 為 false 時仍然適用。"
   },
   "bn": {
-    "tool.description": "Google Translate বা DeepL ব্যবহার করে পাঠ্য বা ফাইল অনুবাদ করুন। 30+ ভাষা সমর্থন করে, স্থানধারক এবং পদ রক্ষা করে এবং ফাইল এনকোডিং এবং নতুন লাইন সংরক্ষণ করে।",
+    "tool.description": "Google Translate বা DeepL ব্যবহার করে পাঠ্য বা ফাইল অনুবাদ করুন। 30+ ভাষা সমর্থন করে, স্থানধারক এবং পদ রক্ষা করে এবং ফাইল এনকোডিং এবং নতুন লাইন সংরক্ষণ করে। protect_placeholders ডিফল্টভাবে চালু থাকে এবং স্থানধারকদের অনুবাদ না করে রাখে।",
     "param.provider.description": "অনুবাদ প্রদানকারী: auto (কনফিগার করা হলে DeepL ব্যবহার করুন, অন্যথায় Google), google, বা deepl।",
     "param.target_lang.description": "লক্ষ্য ভাষার কোড (যেমন ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "উৎস ভাষার কোড। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
@@ -1092,7 +1092,7 @@
     "param.extra_protect_terms.description": "অপরিবর্তিত রাখার জন্য অতিরিক্ত নির্দিষ্ট শর্তাবলী (যেমন ভয়েস আইডি alloy/eve, মডেলের নাম)। protect_terms সত্য হলে অন্তর্নির্মিত শর্তাবলী ছাড়াও প্রয়োগ করা হয়; এখনও প্রয়োগ করা হয় যখন protect_terms মিথ্যা হয়।"
   },
   "fa": {
-    "tool.description": "متن یا فایل‌ها را با استفاده از Google Translate یا DeepL ترجمه کنید. پشتیبانی از بیش از 30 زبان، محافظت از متغیرها و اصطلاحات، و حفظ رمزگذاری فایل و خطوط جدید.",
+    "tool.description": "متن یا فایل‌ها را با استفاده از Google Translate یا DeepL ترجمه کنید. پشتیبانی از بیش از 30 زبان، محافظت از متغیرها و اصطلاحات، و حفظ رمزگذاری فایل و خطوط جدید. protect_placeholders به‌طور پیش‌فرض فعال است و متغیرها را ترجمه‌نشده نگه می‌دارد.",
     "param.provider.description": "ارائه دهنده ترجمه: auto (از DeepL هنگام پیکربندی استفاده کنید، در غیر این صورت Google)، google یا deepl.",
     "param.target_lang.description": "کد زبان مقصد (به عنوان مثال ja، en، zh_CN، pt_BR، fr، de، es، ko).",
     "param.source_lang.description": "کد زبان مبدأ در صورت حذف به صورت خودکار شناسایی می شود.",
@@ -1134,7 +1134,7 @@
     "param.extra_protect_terms.description": "شرایط ثابت اضافی که باید بدون تغییر باقی بمانند (مانند شناسه‌های صوتی alloy/eve، نام مدل). زمانی که protect_terms درست باشد، علاوه بر اصطلاحات داخلی اعمال می شود. زمانی که protect_terms نادرست است همچنان اعمال می شود."
   },
   "mn": {
-    "tool.description": "Google Translate эсвэл DeepL ашиглан текст эсвэл файлыг орчуулна уу. 30+ хэлийг дэмждэг, орлуулагч, нэр томъёог хамгаалж, файлын кодчилол болон шинэ мөрүүдийг хадгалдаг.",
+    "tool.description": "Google Translate эсвэл DeepL ашиглан текст эсвэл файлыг орчуулна уу. 30+ хэлийг дэмждэг, орлуулагч, нэр томъёог хамгаалж, файлын кодчилол болон шинэ мөрүүдийг хадгалдаг. protect_placeholders нь анхдагчаар асаалттай бөгөөд орлуулагчийг орчуулахгүй хадгалдаг.",
     "param.provider.description": "Орчуулгын үйлчилгээ үзүүлэгч: auto (тохируулсан үед DeepL-г ашиглана уу, үгүй ​​бол Google), google эсвэл deepl.",
     "param.target_lang.description": "Зорилтот хэлний код (жишээ нь: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Эх хэлний код. Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
@@ -1176,7 +1176,7 @@
     "param.extra_protect_terms.description": "Өөрчлөлтгүй хэвээр үлдээх нэмэлт тогтмол нөхцөлүүд (жишээ нь дуут id alloy/eve, загварын нэр). protect_terms үнэн үед суурилагдсан нөхцлөөс гадна хэрэгжинэ; protect_terms худал үед хэрэгжсэн хэвээр байна."
   },
   "mr": {
-    "tool.description": "Google Translate किंवा DeepL वापरून मजकूर किंवा फाइल्सचे भाषांतर करा. 30+ भाषांना समर्थन देते, प्लेसहोल्डर आणि अटींचे संरक्षण करते आणि फाइल एन्कोडिंग आणि नवीन रेषा जतन करते.",
+    "tool.description": "Google Translate किंवा DeepL वापरून मजकूर किंवा फाइल्सचे भाषांतर करा. 30+ भाषांना समर्थन देते, प्लेसहोल्डर आणि अटींचे संरक्षण करते आणि फाइल एन्कोडिंग आणि नवीन रेषा जतन करते. protect_placeholders हे डीफॉल्टनुसार चालू असते आणि प्लेसहोल्डर भाषांतरित न करता ठेवते.",
     "param.provider.description": "भाषांतर प्रदाता: auto (कॉन्फिगर केल्यावर DeepL वापरा, अन्यथा Google), google किंवा deepl.",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "स्त्रोत भाषा कोड. वगळल्यास स्वयं आढळले.",
@@ -1218,7 +1218,7 @@
     "param.extra_protect_terms.description": "अपरिवर्तित ठेवण्यासाठी अतिरिक्त निश्चित अटी (उदा. व्हॉइस आयडी alloy/eve, मॉडेल नावे). जेव्हा protect_terms सत्य असते तेव्हा अंगभूत अटींव्यतिरिक्त लागू केले जाते; protect_terms असत्य असतानाही लागू होते."
   },
   "el": {
-    "tool.description": "Μεταφράστε κείμενο ή αρχεία χρησιμοποιώντας Google Translate ή DeepL. Υποστηρίζει 30+ γλώσσες, προστατεύει σύμβολα κράτησης θέσης και όρους και διατηρεί την κωδικοποίηση αρχείων και τις νέες γραμμές.",
+    "tool.description": "Μεταφράστε κείμενο ή αρχεία χρησιμοποιώντας Google Translate ή DeepL. Υποστηρίζει 30+ γλώσσες, προστατεύει σύμβολα κράτησης θέσης και όρους και διατηρεί την κωδικοποίηση αρχείων και τις νέες γραμμές. Το protect_placeholders είναι ενεργό από προεπιλογή και διατηρεί τα σύμβολα κράτησης θέσης αμετάφραστα.",
     "param.provider.description": "Πάροχος μετάφρασης: auto (χρησιμοποιήστε το DeepL όταν έχει ρυθμιστεί, διαφορετικά Google), google ή deepl.",
     "param.target_lang.description": "Κωδικός γλώσσας-στόχου (π.χ. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Κωδικός γλώσσας πηγής. Αν παραλειφθεί, ανιχνεύεται αυτόματα.",
@@ -1260,7 +1260,7 @@
     "param.extra_protect_terms.description": "Πρόσθετοι σταθεροί όροι που θα παραμείνουν αμετάβλητοι (π.χ. φωνητικά αναγνωριστικά alloy/eve, ονόματα μοντέλων). Εφαρμόζεται επιπλέον των ενσωματωμένων όρων όταν protect_terms είναι αληθές. εξακολουθεί να εφαρμόζεται όταν το protect_terms είναι ψευδές."
   },
   "he": {
-    "tool.description": "תרגם טקסט או קבצים באמצעות Google Translate או DeepL. תומך ב-30+ שפות, מגן על מצייני מיקום ומונחים, ושומר על קידוד קבצים ושורות חדשות.",
+    "tool.description": "תרגם טקסט או קבצים באמצעות Google Translate או DeepL. תומך ב-30+ שפות, מגן על מצייני מיקום ומונחים, ושומר על קידוד קבצים ושורות חדשות. protect_placeholders פעיל כברירת מחדל ושומר על מצייני המיקום ללא תרגום.",
     "param.provider.description": "ספק תרגום: auto (השתמש ב-DeepL כשמוגדר, אחרת Google), google או deepl.",
     "param.target_lang.description": "קוד שפת יעד (לדוגמה ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "קוד שפת מקור. מזוהה אוטומטית אם הושמט.",
@@ -1302,7 +1302,7 @@
     "param.extra_protect_terms.description": "תנאים קבועים נוספים שיישארו ללא שינוי (לדוגמה, מזהים קוליים alloy/eve, שמות דגמים). מיושם בנוסף למונחים המובנים כאשר protect_terms נכון; עדיין מיושם כאשר protect_terms הוא false."
   },
   "hu": {
-    "tool.description": "Szöveg vagy fájlok fordítása Google Translate vagy DeepL használatával. Több mint 30 nyelvet támogat, védi a helyőrzőket és kifejezéseket, valamint megőrzi a fájlkódolást és az újsorokat.",
+    "tool.description": "Szöveg vagy fájlok fordítása Google Translate vagy DeepL használatával. Több mint 30 nyelvet támogat, védi a helyőrzőket és kifejezéseket, valamint megőrzi a fájlkódolást és az újsorokat. A protect_placeholders alapértelmezetten be van kapcsolva, és a helyőrzőket fordítás nélkül tartja.",
     "param.provider.description": "Fordításszolgáltató: auto (beállításkor használja a DeepL-t, egyébként Google), google vagy deepl.",
     "param.target_lang.description": "Célnyelv kódja (pl. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Forrásnyelv kódja. Ha kihagyja, automatikusan észleli.",
@@ -1344,7 +1344,7 @@
     "param.extra_protect_terms.description": "További rögzített feltételek, amelyek változatlanok maradnak (pl. hangazonosítók alloy/eve, modellnevek). A beépített feltételek mellett alkalmazva, ha a protect_terms igaz; továbbra is érvényes, ha a protect_terms hamis."
   },
   "ro": {
-    "tool.description": "Traduceți text sau fișiere folosind Google Translate sau DeepL. Acceptă peste 30 de limbi, protejează substituenții și termenii și păstrează codificarea fișierelor și liniile noi.",
+    "tool.description": "Traduceți text sau fișiere folosind Google Translate sau DeepL. Acceptă peste 30 de limbi, protejează substituenții și termenii și păstrează codificarea fișierelor și liniile noi. protect_placeholders este activat implicit și păstrează substituenții netraduși.",
     "param.provider.description": "Furnizor de traducere: auto (utilizați DeepL când este configurat, altfel Google), google sau deepl.",
     "param.target_lang.description": "Codul limbii țintă (de ex. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Codul limbii sursă. Detectat automat dacă este omis.",
@@ -1386,7 +1386,7 @@
     "param.extra_protect_terms.description": "Termeni fixe suplimentari de păstrat neschimbați (de exemplu, ID-uri vocale alloy/eve, nume de model). Se aplică în plus față de termenii încorporați atunci când protect_terms este adevărat; încă aplicat când protect_terms este fals."
   },
   "fil": {
-    "tool.description": "Magsalin ng text o mga file gamit ang Google Translate o DeepL. Sinusuportahan ang 30+ na wika, pinoprotektahan ang mga placeholder at termino, at pinapanatili ang pag-encode ng file at mga bagong linya.",
+    "tool.description": "Magsalin ng text o mga file gamit ang Google Translate o DeepL. Sinusuportahan ang 30+ na wika, pinoprotektahan ang mga placeholder at termino, at pinapanatili ang pag-encode ng file at mga bagong linya. Ang protect_placeholders ay naka-on bilang default at pinapanatiling hindi isinalin ang mga placeholder.",
     "param.provider.description": "Provider ng pagsasalin: auto (gamitin ang DeepL kapag na-configure, kung hindi man ay Google), google, o deepl.",
     "param.target_lang.description": "Target na code ng wika (hal. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Code ng pinagmulang wika. Awtomatikong natukoy kung tinanggal.",
@@ -1428,7 +1428,7 @@
     "param.extra_protect_terms.description": "Karagdagang mga nakapirming tuntunin upang manatiling hindi nagbabago (hal. mga voice id alloy/eve, mga pangalan ng modelo). Inilapat bilang karagdagan sa mga built-in na termino kapag ang protect_terms ay totoo; inilapat pa rin kapag ang protect_terms ay hindi totoo."
   },
   "ms": {
-    "tool.description": "Terjemah teks atau fail menggunakan Google Translate atau DeepL. Menyokong 30+ bahasa, melindungi ruang letak dan istilah serta mengekalkan pengekodan fail dan baris baharu.",
+    "tool.description": "Terjemah teks atau fail menggunakan Google Translate atau DeepL. Menyokong 30+ bahasa, melindungi ruang letak dan istilah serta mengekalkan pengekodan fail dan baris baharu. protect_placeholders dihidupkan secara lalai dan mengekalkan ruang letak tanpa diterjemahkan.",
     "param.provider.description": "Pembekal terjemahan: auto (gunakan DeepL apabila dikonfigurasikan, jika tidak Google), google atau deepl.",
     "param.target_lang.description": "Kod bahasa sasaran (cth. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kod bahasa sumber. Auto dikesan jika ditinggalkan.",
@@ -1470,7 +1470,7 @@
     "param.extra_protect_terms.description": "Syarat tetap tambahan untuk kekal tidak berubah (mis. id suara alloy/eve, nama model). Digunakan sebagai tambahan kepada istilah terbina dalam apabila protect_terms adalah benar; masih digunakan apabila protect_terms adalah palsu."
   },
   "da": {
-    "tool.description": "Oversæt tekst eller filer ved hjælp af Google Translate eller DeepL. Understøtter 30+ sprog, beskytter pladsholdere og termer og bevarer filkodning og nye linjer.",
+    "tool.description": "Oversæt tekst eller filer ved hjælp af Google Translate eller DeepL. Understøtter 30+ sprog, beskytter pladsholdere og termer og bevarer filkodning og nye linjer. protect_placeholders er slået til som standard og holder pladsholdere uoversatte.",
     "param.provider.description": "Oversættelsesudbyder: auto (brug DeepL, når den er konfigureret, ellers Google), google eller deepl.",
     "param.target_lang.description": "Målsprogskode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kildesprogskode. Auto-detekteret hvis udeladt.",
@@ -1512,7 +1512,7 @@
     "param.extra_protect_terms.description": "Yderligere faste vilkår, der skal forblive uændrede (f.eks. stemme-id'er alloy/eve, modelnavne). Anvendes i tillæg til indbyggede termer, når protect_terms er sandt; stadig anvendt, når protect_terms er falsk."
   },
   "nn": {
-    "tool.description": "Omset tekst eller filer med Google Translate eller DeepL. Støttar meir enn 30 språk, vernar plasshaldarar og omgrep, og bevarer filkoding og linjeskift.",
+    "tool.description": "Omset tekst eller filer med Google Translate eller DeepL. Støttar meir enn 30 språk, vernar plasshaldarar og omgrep, og bevarer filkoding og linjeskift. protect_placeholders er på som standard og held plasshaldarar uomsette.",
     "param.provider.description": "Oversettelsesleverandør: auto (bruk DeepL når konfigurert, ellers Google), google eller deepl.",
     "param.target_lang.description": "Målspråkkode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kildespråkkode. Automatisk oppdaget hvis utelatt.",

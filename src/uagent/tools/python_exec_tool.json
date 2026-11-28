@@ -15,7 +15,7 @@
       "pythonプログラム"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "短いPythonコードを一時スクリプトとして実行し、出力を返します。stdinは閉じられ、タイムアウトが適用されます。専用ツールを優先してください。"
+    "tool.description": "短いPythonコードを一時スクリプトとして実行し、出力を返します。stdinは閉じられ、タイムアウトが適用されます。専用ツールを優先してください。対話型REPLではなく、エージェントの作業ディレクトリと環境変数を引き継ぎます。使う前にtool_catalogで専用ツールを探してください。実行は毎回独立で、状態は残りません。"
   },
   "es": {
     "describe.python": "Ejecuta el código Python proporcionado como un script temporal con el intérprete activo. La entrada estándar se cierra, se aplica el tiempo de espera configurado y se devuelven la salida y los errores estándar. El script hereda el directorio de trabajo y el entorno del proceso del agente.",
@@ -69,7 +69,7 @@
       "python 프로그램"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "짧은 Python 코드를 임시 스크립트로 실행하고 출력을 반환합니다. stdin이(가) 닫혀 있고 시간 초과가 적용됩니다. 가능하다면 전용 도구를 선호하세요."
+    "tool.description": "짧은 Python 코드를 임시 스크립트로 실행하고 출력을 반환합니다. stdin이(가) 닫혀 있고 시간 초과가 적용됩니다. 가능하다면 전용 도구를 선호하세요. 대화형 REPL이 아니며 에이전트의 작업 디렉터리와 환경을 상속합니다. 사용 전에 tool_catalog에서 전용 도구를 먼저 확인하세요."
   },
   "de": {
     "describe.python": "Führt den übergebenen Python-Code mit dem aktiven Interpreter als temporäres Skript aus. Die Standardeingabe ist geschlossen, ein konfiguriertes Zeitlimit gilt, und Standardausgabe sowie Standardfehler werden zurückgegeben. Das Skript übernimmt Arbeitsverzeichnis und Umgebung des Agent-Prozesses.",
@@ -231,7 +231,7 @@
       "पायथन प्रोग्राम"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "एक अस्थायी स्क्रिप्ट के रूप में लघु पायथन कोड चलाएँ और आउटपुट लौटाएँ। stdin बंद है और टाइमआउट लागू है; उपलब्ध होने पर समर्पित टूल को प्राथमिकता दें।"
+    "tool.description": "एक अस्थायी स्क्रिप्ट के रूप में लघु पायथन कोड चलाएँ और आउटपुट लौटाएँ। stdin बंद है और टाइमआउट लागू है; उपलब्ध होने पर समर्पित टूल को प्राथमिकता दें।यह इंटरैक्टिव REPL नहीं है; यह एजेंट की कार्य निर्देशिका और वातावरण को इनहेरिट करता है।"
   },
   "ar": {
     "describe.python": "شغّل كود Python المرسل كسكربت مؤقت باستخدام المفسّر النشط. يُغلق الإدخال القياسي، ويُطبّق حد زمني مضبوط، وتُعاد المخرجات القياسية والأخطاء القياسية. يرث السكربت مجلد العمل وبيئة عملية الوكيل.",
@@ -249,7 +249,7 @@
       "برنامج بايثون"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "قم بتشغيل كود Python القصير كبرنامج نصي مؤقت وإرجاع الإخراج. stdin مغلق ويتم تطبيق المهلة؛ تفضل الأدوات المخصصة عندما تكون متاحة."
+    "tool.description": "قم بتشغيل كود Python القصير كبرنامج نصي مؤقت وإرجاع الإخراج. stdin مغلق ويتم تطبيق المهلة؛ تفضل الأدوات المخصصة عندما تكون متاحة. ليس REPL تفاعليًا؛ يرث دليل عمل الوكيل وبيئته. تحقق أولًا من tool_catalog بحثًا عن أداة مخصصة."
   },
   "sv": {
     "describe.python": "Kör den angivna Python-koden som ett tillfälligt skript med den aktiva tolken. Standardindata är stängd, en konfigurerad tidsgräns gäller och standardutdata/fel returneras. Skriptet ärver agentprocessens arbetskatalog och miljö.",
@@ -285,7 +285,7 @@
       "mpango wa chatu"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Tumia msimbo mfupi wa Python kama hati ya muda na urejeshe matokeo. stdin imefungwa na muda wa kuisha unatumika; pendelea zana maalum zinapopatikana."
+    "tool.description": "Tumia msimbo mfupi wa Python kama hati ya muda na urejeshe matokeo. stdin imefungwa na muda wa kuisha unatumika; pendelea zana maalum zinapopatikana. Si REPL shirikishi; hurithi saraka ya kazi na mazingira ya wakala."
   },
   "nb": {
     "describe.python": "Kjører den angitte Python-koden som et midlertidig skript med den aktive tolken. Standard inndata er lukket, en konfigurert tidsgrense gjelder, og standard utdata/feil returneres. Skriptet arver agentprosessens arbeidsmappe og miljø.",
@@ -411,7 +411,7 @@
       "โปรแกรม python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "เรียกใช้โค้ด Python แบบสั้นเป็นสคริปต์ชั่วคราวและส่งคืนเอาต์พุต stdin ถูกปิดและมีการหมดเวลา ต้องการเครื่องมือเฉพาะเมื่อมีให้"
+    "tool.description": "เรียกใช้โค้ด Python แบบสั้นเป็นสคริปต์ชั่วคราวและส่งคืนเอาต์พุต stdin ถูกปิดและมีการหมดเวลา ต้องการเครื่องมือเฉพาะเมื่อมีให้ ไม่ใช่ REPL แบบโต้ตอบ โดยสืบทอดไดเรกทอรีทำงานและสภาพแวดล้อมของเอเจนต์ ตรวจสอบ tool_catalog เพื่อหาเครื่องมือเฉพาะก่อน"
   },
   "zh_CN": {
     "describe.python": "使用当前 Python 解释器将提供的代码作为临时脚本运行。标准输入会关闭，并应用已配置的超时时间；随后返回标准输出和标准错误。脚本会继承代理进程的工作目录和环境。",
@@ -429,7 +429,7 @@
       "python程序"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "将简短的 Python 代码作为临时脚本运行并返回输出。 stdin 已关闭且超时；更喜欢可用的专用工具。"
+    "tool.description": "将简短的 Python 代码作为临时脚本运行并返回输出。 stdin 已关闭且超时；更喜欢可用的专用工具。它不是交互式 REPL；脚本继承代理进程的工作目录和环境变量。运行前请先在 tool_catalog 中搜索是否有更合适的专用工具，并优先使用专用工具完成相应操作。每次运行都是独立的，不会保留上一次的状态。"
   },
   "zh_TW": {
     "describe.python": "使用目前的 Python 解譯器，將提供的程式碼作為暫存指令碼執行。標準輸入會關閉，並套用已設定的逾時限制；完成後會傳回標準輸出與標準錯誤。指令碼會繼承代理程式的工作目錄與環境。",
@@ -447,7 +447,7 @@
       "python程式"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "將簡短的 Python 程式碼作為臨時腳本運行並傳回輸出。 stdin 已關閉且逾時；偏好可用的專用工具。"
+    "tool.description": "將簡短的 Python 程式碼作為臨時腳本運行並傳回輸出。 stdin 已關閉且逾時；偏好可用的專用工具。它不是互動式 REPL；腳本繼承代理程序的工作目錄和環境變數。運行前請先在 tool_catalog 中搜尋是否有更合適的專用工具，並優先使用專用工具完成相應操作。每次運行都是獨立的，不會保留上一次的狀態。"
   },
   "bn": {
     "describe.python": "দেওয়া Python কোডটি সক্রিয় ইন্টারপ্রেটার দিয়ে অস্থায়ী স্ক্রিপ্ট হিসেবে চালান। স্ট্যান্ডার্ড ইনপুট বন্ধ থাকে, নির্ধারিত সময়সীমা প্রযোজ্য হয়, এবং স্ট্যান্ডার্ড আউটপুট/এরর ফেরত দেওয়া হয়। স্ক্রিপ্টটি এজেন্ট প্রক্রিয়ার কাজের ডিরেক্টরি ও পরিবেশ উত্তরাধিকারসূত্রে পায়।",
@@ -465,7 +465,7 @@
       "পাইথন প্রোগ্রাম"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "একটি অস্থায়ী স্ক্রিপ্ট হিসাবে ছোট পাইথন কোড চালান এবং আউটপুট ফেরত দিন। stdin বন্ধ এবং একটি সময়সীমা প্রযোজ্য; উপলভ্য হলে ডেডিকেটেড টুল পছন্দ করুন।"
+    "tool.description": "একটি অস্থায়ী স্ক্রিপ্ট হিসাবে ছোট পাইথন কোড চালান এবং আউটপুট ফেরত দিন। stdin বন্ধ এবং একটি সময়সীমা প্রযোজ্য; উপলভ্য হলে ডেডিকেটেড টুল পছন্দ করুন।এটি REPL নয়; এজেন্টের কার্যকরী ডিরেক্টরি উত্তরাধিকার সূত্রে পায়।"
   },
   "fa": {
     "describe.python": "کد Python ارائه‌شده را با مفسر فعال به‌صورت یک اسکریپت موقت اجرا می‌کند. ورودی استاندارد بسته است، محدودیت زمانی پیکربندی‌شده اعمال می‌شود و خروجی و خطای استاندارد بازگردانده می‌شوند. اسکریپت، پوشهٔ کاری و محیط فرایند عامل را به ارث می‌برد.",
@@ -555,7 +555,7 @@
       "python"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "הרץ קוד Python קצר כסקריפט זמני והחזר פלט. stdin סגור וחל פסק זמן; העדיפו כלים ייעודיים כאשר הם זמינים."
+    "tool.description": "הרץ קוד Python קצר כסקריפט זמני והחזר פלט. stdin סגור וחל פסק זמן; העדיפו כלים ייעודיים כאשר הם זמינים. זה אינו REPL אינטראקטיבי; הוא יורש את ספריית העבודה והסביבה של הסוכן. בדקו תחילה ב-tool_catalog אם קיים כלי ייעודי."
   },
   "hu": {
     "describe.python": "A megadott Python-kódot ideiglenes szkriptként futtatja az aktív értelmezővel. A szabványos bemenet le van zárva, érvényesül a beállított időkorlát, és visszatér a szabványos kimenet és hibakimenet. A szkript örökli az ügynökfolyamat munkakönyvtárát és környezetét.",
