@@ -618,6 +618,11 @@ class LocalMessageRuntime:
         # Set whenever a peer message is enqueued for the host, so a host
         # watcher can react while its event loop is busy elsewhere.
         self.message_arrived = threading.Event()
+        # Message ids enqueued for the host but not yet taken in by it.
+        # A watcher may interrupt current work only for an unconsumed
+        # arrival; once the host is running the message's own turn, the
+        # arrival must not interrupt it.
+        self._unconsumed_peer_ids: set[str] = set()
         self.poll_interval = max(0.1, float(poll_interval))
         self.receive_messages = bool(receive_messages)
         self.announce_peers = bool(announce_peers)
@@ -717,7 +722,16 @@ class LocalMessageRuntime:
             self.endpoint_id, str(message_id), accepted=accepted
         )
         self._inflight.discard(str(message_id))
+        self._unconsumed_peer_ids.discard(str(message_id))
         return decided
+
+    def note_peer_message_consumed(self, message_id: str) -> None:
+        """Mark an enqueued arrival as taken in by the host's loop."""
+        self._unconsumed_peer_ids.discard(str(message_id))
+
+    def has_unconsumed_peer_message(self) -> bool:
+        """Whether an arrival is still waiting for the host to take it in."""
+        return bool(self._unconsumed_peer_ids)
 
     def _run(self) -> None:
         last_heartbeat = 0.0
@@ -761,6 +775,7 @@ class LocalMessageRuntime:
                         if message_id in self._inflight:
                             continue
                         self._inflight.add(message_id)
+                        self._unconsumed_peer_ids.add(message_id)
                         self.event_queue.put(
                             {"kind": "local_message_received", "message": message}
                         )

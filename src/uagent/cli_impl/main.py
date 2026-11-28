@@ -133,19 +133,28 @@ def _accept_cli_local_message(
     return result
 
 
-def _interrupt_for_local_peer(core_obj: Any) -> bool:
+def _interrupt_for_local_peer(core_obj: Any, runtime: Any = None) -> bool:
     """Interrupt the running round for an arriving local peer message.
 
     Mirrors the F12 monitor's guards: never interrupt while a human_ask
     or the input prompt owns the user, and only while a round is busy.
     Records that a resume turn is owed once the peer message is handled.
+
+    The interrupt is tied to an unconsumed arrival: if the foreground
+    loop already took the message in, the busy round IS that message's
+    own turn and must not be interrupted. Chat-room turns are also left
+    alone — their session binding cannot be restored by the resume
+    turn, which runs in the operator's session.
     """
+    if runtime is not None and not runtime.has_unconsumed_peer_message():
+        return False
     try:
         with core_obj.human_ask_lock:
             if (
                 core_obj.human_ask_active
                 or core_obj.input_prompt_active
                 or not core_obj.status_busy
+                or getattr(core_obj, "_chat_room_turn_active", False)
             ):
                 return False
     except Exception:
@@ -168,7 +177,7 @@ def _start_local_peer_interrupt_watcher(
         while stop is None or not stop.is_set():
             if runtime.message_arrived.wait(0.5):
                 runtime.message_arrived.clear()
-                _interrupt_for_local_peer(core_obj)
+                _interrupt_for_local_peer(core_obj, runtime)
 
     threading.Thread(
         target=_watch, name="uag-local-peer-interrupt", daemon=True
@@ -709,6 +718,9 @@ def _enter_chat_room_turn(
         else:
             room_owner = current_cli_job_owner(core, "")
             core._sub_agent_job_owner = room_owner
+        # A room turn's context cannot be restored by the local peer
+        # resume, so the peer interrupt watcher leaves room turns alone.
+        core._chat_room_turn_active = True
         return {
             "binding": binding,
             "saved_messages": saved_messages,
@@ -746,6 +758,10 @@ def _leave_chat_room_turn(
             pass
     try:
         messages[:] = room_ctx["saved_messages"]
+    except Exception:
+        pass
+    try:
+        core._chat_room_turn_active = False
     except Exception:
         pass
 
@@ -1242,6 +1258,12 @@ def main() -> int:
                 message = (
                     ev.get("message") if isinstance(ev.get("message"), dict) else {}
                 )
+                if runtime is not None:
+                    # The foreground owns this arrival now; the interrupt
+                    # watcher must not stop the turn it is about to run.
+                    runtime.note_peer_message_consumed(
+                        str(message.get("message_id") or "")
+                    )
                 accepted_event = _accept_cli_local_message(
                     core,
                     runtime,
