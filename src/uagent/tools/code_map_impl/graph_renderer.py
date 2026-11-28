@@ -142,6 +142,10 @@ def generate_ontology_html(
         ]
         if "uag:language" in item:
             tooltip_lines.append(f"Language: {item['uag:language']}")
+        if item.get("uag:project_types"):
+            tooltip_lines.append(
+                f"Project types: {', '.join(item['uag:project_types'])}"
+            )
         if "uag:line" in item:
             tooltip_lines.append(
                 f"Lines: {item['uag:line']} - {item.get('uag:end_line', item['uag:line'])}"
