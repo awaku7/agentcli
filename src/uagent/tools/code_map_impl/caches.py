@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
+from .walk import bounded_rglob
+
 
 def resolve_dependency_cache(dep: dict[str, Any], root: Path) -> list[str]:
     """Resolve declared dependencies against local, read-only caches."""
@@ -78,7 +80,7 @@ def resolve_dependency_cache(dep: dict[str, Any], root: Path) -> list[str]:
 
 def project_target_frameworks(root: Path) -> list[str]:
     frameworks = []
-    for csproj in root.rglob("*.csproj"):
+    for csproj in bounded_rglob(root, "*.csproj"):
         try:
             xml = ET.parse(csproj).getroot()
             for node in xml.iter():

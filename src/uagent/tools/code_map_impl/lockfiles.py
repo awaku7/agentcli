@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .walk import bounded_rglob
+
 
 def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
     """Read lock/asset manifests without invoking package managers."""
@@ -19,7 +21,7 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
             )
 
     # Composer lock
-    for path in root.rglob("composer.lock"):
+    for path in bounded_rglob(root, "composer.lock"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             for section in ("packages", "packages-dev"):
@@ -32,9 +34,10 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
                     )
         except Exception:
             pass
-    # NuGet lock/assets files
-    for path in list(root.rglob("packages.lock.json")) + list(
-        root.rglob("project.assets.json")
+    # NuGet lock/assets files. project.assets.json lives under obj/ by
+    # design, so its search keeps generated trees (hidden ones are pruned).
+    for path in bounded_rglob(root, "packages.lock.json") + bounded_rglob(
+        root, "project.assets.json", skip_generated=False
     ):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
@@ -48,7 +51,7 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
         except Exception:
             pass
     # Bundler lock: GEM specs and dependencies
-    for path in root.rglob("Gemfile.lock"):
+    for path in bounded_rglob(root, "Gemfile.lock"):
         try:
             for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
                 m = re.match(r"\s{4}([A-Za-z0-9_.-]+) \(([^)]+)\)", line)
@@ -57,7 +60,7 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
         except OSError:
             pass
     # Swift Package.resolved (v1/v2/v3)
-    for path in root.rglob("Package.resolved"):
+    for path in bounded_rglob(root, "Package.resolved"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             pins = obj.get("pins", obj.get("object", {}).get("pins", [])) or []
@@ -72,7 +75,7 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
         except Exception:
             pass
     # Gradle dependency lock files
-    for path in root.rglob("gradle.lockfile"):
+    for path in bounded_rglob(root, "gradle.lockfile"):
         try:
             for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
                 if "=" in line and not line.lstrip().startswith("#"):
@@ -87,7 +90,7 @@ def extract_lock_dependencies(root: Path) -> list[dict[str, Any]]:
         except OSError:
             pass
     # Lua rockspec dependency declarations
-    for path in root.rglob("*.rockspec"):
+    for path in bounded_rglob(root, "*.rockspec"):
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
             m = re.search(r"dependencies\\s*=\\s*\\{(.*?)\\}", text, re.S)

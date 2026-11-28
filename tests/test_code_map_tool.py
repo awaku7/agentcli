@@ -348,4 +348,125 @@ def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
     )
 
 
+def test_manifest_discovery_skips_hidden_and_generated_trees(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "project"
+    (project / ".git").mkdir(parents=True)
+    (project / ".hidden").mkdir()
+    (project / "node_modules" / "somepkg").mkdir(parents=True)
+    (project / "build").mkdir()
+    (project / "package.json").write_text(
+        '{"dependencies": {"real-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    # Git metadata whose name collides with the R manifest on
+    # case-insensitive filesystems.
+    (project / ".git" / "description").write_text(
+        "Package: decoy\nImports: decoylib\n", encoding="utf-8"
+    )
+    (project / ".hidden" / "package.json").write_text(
+        '{"dependencies": {"hidden-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    (project / "node_modules" / "somepkg" / "package.json").write_text(
+        '{"dependencies": {"nm-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+    (project / "build" / "package.json").write_text(
+        '{"dependencies": {"build-dep": "1.0.0"}}\n', encoding="utf-8"
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    project_files = result["project"]["files"]
+    assert any(
+        path.endswith("package.json") and ".git" not in path for path in project_files
+    )
+    assert not any(".git" in path for path in project_files)
+    assert not any(".hidden" in path for path in project_files)
+    assert not any("node_modules" in path for path in project_files)
+    assert not any(
+        f"{Path('build')}" in path.split("/")[-2:-1] for path in project_files
+    )
+    dep_names = {dep["name"] for dep in result["project"]["dependencies"]}
+    assert "real-dep" in dep_names
+    assert "hidden-dep" not in dep_names
+    assert "nm-dep" not in dep_names
+    assert "build-dep" not in dep_names
+    assert "decoylib" not in dep_names
+
+
+def test_description_manifest_requires_exact_case(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    (project / "docs").mkdir(parents=True)
+    (project / "rpkg").mkdir()
+    (project / "package.json").write_text("{}\n", encoding="utf-8")
+    # A lowercase "description" file is not an R package manifest, even
+    # though the dependency extractor keys on the lowercased name.
+    (project / "docs" / "description").write_text(
+        "Imports: notanrpackage\n", encoding="utf-8"
+    )
+    (project / "rpkg" / "DESCRIPTION").write_text(
+        "Package: realr\nImports: realdep\n", encoding="utf-8"
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    project_files = result["project"]["files"]
+    assert any(path.endswith("DESCRIPTION") for path in project_files)
+    assert not any(path.endswith("description") for path in project_files)
+    dep_names = {dep["name"] for dep in result["project"]["dependencies"]}
+    assert "realdep" in dep_names
+    assert "notanrpackage" not in dep_names
+
+
+def test_lockfile_discovery_skips_generated_trees_but_keeps_obj_assets(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "project"
+    (project / "node_modules").mkdir(parents=True)
+    (project / "obj").mkdir()
+    (project / "package.json").write_text("{}\n", encoding="utf-8")
+    (project / "composer.lock").write_text(
+        '{"packages": [{"name": "real/pkg", "version": "1.0.0"}]}',
+        encoding="utf-8",
+    )
+    (project / "node_modules" / "composer.lock").write_text(
+        '{"packages": [{"name": "decoy/pkg", "version": "9.9.9"}]}',
+        encoding="utf-8",
+    )
+    # NuGet assets live under obj/ by design and must still be read.
+    (project / "obj" / "project.assets.json").write_text(
+        '{"libraries": {"Newtonsoft.Json/13.0.0": {}}, "targets": {}}',
+        encoding="utf-8",
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    transitive = result["project"]["transitive_dependencies"]
+    names = {(dep["manager"], dep["name"]) for dep in transitive}
+    assert ("Composer", "real/pkg") in names
+    assert ("Composer", "decoy/pkg") not in names
+    assert ("NuGet", "Newtonsoft.Json") in names
+
+
+def test_project_source_collection_skips_venv(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    package = project / "pkg"
+    (package / ".venv" / "lib").mkdir(parents=True)
+    (package / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
+    )
+    (package / "mod.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (package / ".venv" / "lib" / "decoy.py").write_text("VALUE = 2\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    paths = {entry["relative_path"].replace("\\", "/") for entry in result["files"]}
+    assert "pkg/mod.py" in paths
+    assert not any("decoy.py" in path for path in paths)
+
+
 # Keep the test module free of generated code-map artifacts.
