@@ -51,6 +51,50 @@ _SQLITE_LOCK_RETRIES = 3
 _SQLITE_LOCK_RETRY_DELAY = 0.25
 
 
+def normalize_workdir_key(path: Any) -> str:
+    """Return the comparison key for a workdir path (``""`` when unknown).
+
+    The key is the absolute, normalized path; ``os.path.normcase`` folds
+    case on Windows only, matching each platform's path semantics.
+    """
+
+    text = str(path or "").strip()
+    if not text:
+        return ""
+    return os.path.normcase(os.path.abspath(os.path.normpath(text)))
+
+
+def cwd_path_from_content(content: Any) -> str:
+    """Extract the path from a ``[CWD]`` system message, or ``""``."""
+
+    if not isinstance(content, str) or not content.startswith("[CWD] "):
+        return ""
+    try:
+        obj = json.loads(content[len("[CWD] ") :].strip())
+    except Exception:
+        return ""
+    if isinstance(obj, dict):
+        path = obj.get("path")
+        if isinstance(path, str) and path.strip():
+            return path
+    return ""
+
+
+def final_workdir_from_messages(messages: Any, project_path: Any = None) -> str:
+    """Return a session's final workdir: its last ``[CWD]`` path.
+
+    Falls back to the recorded project path when no marker exists, and
+    to ``""`` (unknown) when neither is recorded — never a guess.
+    """
+
+    for message in reversed(list(messages or [])):
+        if isinstance(message, dict) and message.get("role") == "system":
+            path = cwd_path_from_content(message.get("content"))
+            if path:
+                return path
+    return str(project_path or "")
+
+
 class SessionStore(
     _ToolRecordsMixin,
     _AgentStateMixin,
@@ -149,6 +193,8 @@ class SessionStore(
                     project TEXT,
                     project_key TEXT NOT NULL,
                     project_path TEXT,
+                    final_workdir TEXT,
+                    final_workdir_key TEXT,
                     entry_point TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     last_used_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -358,6 +404,19 @@ class SessionStore(
                 )
             if "room_id" not in columns:
                 self._connection.execute("ALTER TABLE sessions ADD COLUMN room_id TEXT")
+            if "final_workdir" not in columns:
+                self._connection.execute(
+                    "ALTER TABLE sessions ADD COLUMN final_workdir TEXT"
+                )
+            if "final_workdir_key" not in columns:
+                self._connection.execute(
+                    "ALTER TABLE sessions ADD COLUMN final_workdir_key TEXT"
+                )
+            self._connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_sessions_final_workdir_key "
+                "ON sessions(final_workdir_key)"
+            )
+            self._backfill_final_workdir()
             self._connection.execute(
                 "CREATE INDEX IF NOT EXISTS idx_sessions_last_used "
                 "ON sessions(last_used_at DESC)"
@@ -574,6 +633,35 @@ class SessionStore(
             (session_id, session_seq, kind, stable_id, ordering_quality),
         )
         return session_seq
+
+    def _backfill_final_workdir(self) -> None:
+        """Fill final_workdir for sessions recorded before it existed.
+
+        Uses each session's last ``[CWD]`` marker, falling back to its
+        project path. Sessions with neither stay unknown (empty key) —
+        the value is never guessed.
+        """
+
+        rows = self._connection.execute(
+            "SELECT session_id, project_path FROM sessions "
+            "WHERE final_workdir_key IS NULL"
+        ).fetchall()
+        for row in rows:
+            session_id = row["session_id"]
+            marker = self._connection.execute(
+                "SELECT content FROM messages WHERE session_id = ? "
+                "AND role = 'system' AND content LIKE '[CWD] %' "
+                "ORDER BY message_id DESC LIMIT 1",
+                (session_id,),
+            ).fetchone()
+            path = cwd_path_from_content(marker["content"]) if marker else ""
+            if not path:
+                path = str(row["project_path"] or "")
+            self._connection.execute(
+                "UPDATE sessions SET final_workdir = ?, final_workdir_key = ? "
+                "WHERE session_id = ?",
+                (path or None, normalize_workdir_key(path), session_id),
+            )
 
     def _backfill_session_items(self) -> None:
         """Backfill stable message order and conservatively mark unlinked rows."""
@@ -827,8 +915,16 @@ class SessionStore(
         )
         project_key = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
         self._execute(
-            "INSERT INTO sessions(session_id, project, project_key, project_path, entry_point) VALUES (?, ?, ?, ?, ?)",
-            (session_id, project, project_key, path_value, entry_point),
+            "INSERT INTO sessions(session_id, project, project_key, project_path, final_workdir, final_workdir_key, entry_point) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (
+                session_id,
+                project,
+                project_key,
+                path_value,
+                path_value,
+                normalize_workdir_key(path_value),
+                entry_point,
+            ),
         )
         return Session(session_id, project, entry_point, project_key, path_value)
 
@@ -957,6 +1053,14 @@ class SessionStore(
         self._record_session_item_unlocked(
             session_id, "message", str(message_id), ordering_quality="exact"
         )
+        if role == "system":
+            cwd_path = cwd_path_from_content(safe_content)
+            if cwd_path:
+                self._execute(
+                    "UPDATE sessions SET final_workdir = ?, final_workdir_key = ? "
+                    "WHERE session_id = ?",
+                    (cwd_path, normalize_workdir_key(cwd_path), session_id),
+                )
         if role == "assistant" and safe_payload:
             try:
                 stored_payload = json.loads(safe_payload)
@@ -1186,11 +1290,18 @@ class SessionStore(
         principal_id: str | None = None,
         limit: int | None = None,
         exclude_session_id: str | None = None,
+        workdir: str | None = None,
     ) -> list[dict[str, Any]]:
         """List stored sessions, most recently used first.
 
         ``limit`` is applied in SQL rather than after fetching every session.
         This keeps the interactive ``:logs`` command fast on large histories.
+
+        ``workdir`` restricts the listing to sessions whose final workdir
+        (last ``[CWD]`` marker, else the project path) equals the given
+        directory after path normalization; sessions with an unknown
+        workdir never match. The filter is part of the WHERE clause, so
+        ``limit`` applies after filtering.
         """
         clauses: list[str] = []
         params: list[Any] = []
@@ -1200,6 +1311,9 @@ class SessionStore(
         if principal_id is not None:
             clauses.append("s.principal_id = ?")
             params.append(principal_id)
+        if workdir is not None:
+            clauses.append("s.final_workdir_key = ?")
+            params.append(normalize_workdir_key(workdir))
         if exclude_session_id is not None:
             clauses.append("s.session_id <> ?")
             params.append(exclude_session_id)
@@ -1210,7 +1324,7 @@ class SessionStore(
             params.append(max(0, int(limit)))
 
         rows = self._execute(
-            "SELECT s.session_id, s.project, s.project_path, s.entry_point, "
+            "SELECT s.session_id, s.project, s.project_path, s.final_workdir, s.entry_point, "
             "s.created_at, s.last_used_at, s.principal_id, s.room_id, "
             "MAX(s.created_at, COALESCE(s.last_used_at, s.created_at), COALESCE((SELECT MAX(m.created_at) FROM messages m WHERE m.session_id = s.session_id), s.created_at)) AS last_activity_at, "
             "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "

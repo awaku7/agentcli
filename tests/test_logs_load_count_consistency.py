@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
@@ -105,3 +106,108 @@ def test_load_restores_cwd_from_raw_log_lines(tmp_path):
     # Normalized/loaded messages no longer contain the [CWD] marker.
     loaded = ucore.load_conversation_from_log(str(log))
     assert ut._extract_last_cwd_from_messages(loaded) is None
+
+
+def test_list_logs_filters_by_workdir(tmp_path, monkeypatch):
+    log_dir = tmp_path / "logs"
+    log_dir.mkdir()
+    monkeypatch.setattr(ucore, "BASE_LOG_DIR", str(log_dir))
+    monkeypatch.setattr(ucore, "LOG_FILE", str(log_dir / "current_session.jsonl"))
+
+    base = [
+        {"role": "user", "content": "hi"},
+        {"role": "assistant", "content": "yo"},
+    ]
+    fa = log_dir / "scheck_log_20260102_000000.jsonl"
+    _write_log(fa, [{"role": "system", "content": _cwd_content("/work/a")}] + base)
+    fb = log_dir / "scheck_log_20260101_000000.jsonl"
+    _write_log(fb, [{"role": "system", "content": _cwd_content("/work/b")}] + base)
+    fmeta = log_dir / "scheck_log_20251231_000000.jsonl"
+    _write_log(fmeta, [{"type": "session_metadata", "project_path": "/work/a"}] + base)
+    fnone = log_dir / "scheck_log_20251230_000000.jsonl"
+    _write_log(fnone, base)
+    for index, path in enumerate([fnone, fmeta, fb, fa]):
+        stamp = 1_700_000_000 + index * 100
+        os.utime(path, (stamp, stamp))
+
+    view = ucore.list_logs(limit=10, show_all=True, workdir="/work/a")
+    assert view == [str(fa), str(fmeta)]
+    # The displayed view is what :load indices resolve against.
+    assert ucore.last_log_view() == view
+
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/b") == [str(fb)]
+    # Unknown-workdir logs appear only in the unfiltered listing.
+    assert len(ucore.list_logs(limit=10, show_all=True)) == 4
+
+
+def test_list_logs_workdir_marker_wins_over_metadata(tmp_path, monkeypatch):
+    log_dir = tmp_path / "logs"
+    log_dir.mkdir()
+    monkeypatch.setattr(ucore, "BASE_LOG_DIR", str(log_dir))
+    monkeypatch.setattr(ucore, "LOG_FILE", str(log_dir / "current_session.jsonl"))
+
+    base = [{"role": "user", "content": "hi"}]
+    moved = log_dir / "scheck_log_20260102_000000.jsonl"
+    _write_log(
+        moved,
+        [{"type": "session_metadata", "project_path": "/work/a"}]
+        + [{"role": "system", "content": _cwd_content("/work/b")}]
+        + base,
+    )
+
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/a") == []
+    assert ucore.list_logs(limit=10, show_all=True, workdir="/work/b") == [str(moved)]
+
+
+def test_load_index_preserves_empty_displayed_view(tmp_path, monkeypatch, capsys):
+    from types import SimpleNamespace
+
+    from uagent.util_cmd_session import _handle_cmd_load
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "jsonl")
+    unrelated = tmp_path / "scheck_log_20260101_000000.jsonl"
+    unrelated.write_text("{}\n", encoding="utf-8")
+    loaded: list[str] = []
+    core = SimpleNamespace(
+        session_store=None,
+        last_log_view=lambda: [],
+        find_log_files=lambda exclude_current=True: [str(unrelated)],
+        load_conversation_from_log=lambda path: loaded.append(path) or [],
+    )
+    messages: list = []
+    assert _handle_cmd_load("0", messages, core=core, tr=lambda text, **_: text)
+    # The empty displayed view is a real listing: index 0 is out of
+    # range, and the unrelated log is never loaded.
+    assert loaded == []
+    assert "out of range" in capsys.readouterr().out
+
+
+def test_load_index_ignores_displayed_view_when_opted_out(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.util_cmd_session import _handle_cmd_load
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "jsonl")
+    newest = tmp_path / "scheck_log_20260102_000000.jsonl"
+    newest.write_text("{}\n", encoding="utf-8")
+    older = tmp_path / "scheck_log_20260101_000000.jsonl"
+    older.write_text("{}\n", encoding="utf-8")
+    loaded: list[str] = []
+    core = SimpleNamespace(
+        session_store=None,
+        last_log_view=lambda: [str(older)],
+        find_log_files=lambda exclude_current=True: [str(newest), str(older)],
+        load_conversation_from_log=lambda path: loaded.append(path)
+        or [{"role": "user", "content": "hi"}],
+    )
+    messages: list = []
+    # :cont passes use_last_displayed_view=False: index 0 is the newest
+    # log overall, not the first row of the displayed listing.
+    assert _handle_cmd_load(
+        "0",
+        messages,
+        core=core,
+        tr=lambda text, **_: text,
+        use_last_displayed_view=False,
+    )
+    assert loaded == [str(newest)]

@@ -142,7 +142,14 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             usage=(":ls [path]"),
             detail=tr("Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"),
         ),
-        "logs": e(tr("Show conversation log file list"), usage=(":logs")),
+        "logs": e(
+            tr("Show conversation log file list"),
+            usage=(":logs [N|all] [--global]"),
+            detail=tr(
+                "Lists sessions from the current workdir, newest first. "
+                "--global lists all workdirs; all lifts the count limit."
+            ),
+        ),
         "load": e(
             tr("Load a past log (overwrites current conversation history)"),
             usage=(":load <idx|path>"),

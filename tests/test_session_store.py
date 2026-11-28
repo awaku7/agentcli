@@ -700,3 +700,95 @@ def test_import_jsonl_is_idempotent_and_preserves_payload(tmp_path):
     assert first.session_id == second.session_id
     assert store.list_sessions() and len(store.list_sessions()) == 1
     assert store.list_messages(first.session_id)[0]["response_id"] == "resp_1"
+
+
+def _cwd_marker_content(path: str) -> str:
+    return "[CWD] " + json.dumps({"event": "cd", "path": path})
+
+
+def test_list_sessions_filters_by_final_workdir(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        in_a = store.create_session(
+            project="a", entry_point="cli", project_path="/work/a"
+        )
+        in_b = store.create_session(
+            project="b", entry_point="cli", project_path="/work/b"
+        )
+        unknown = store.create_session(project="u", entry_point="cli")
+        store.append_message(in_a.session_id, "user", "in a")
+        store.append_message(in_b.session_id, "user", "in b")
+        store.append_message(unknown.session_id, "user", "no workdir")
+
+        assert [r["session_id"] for r in store.list_sessions(workdir="/work/a")] == [
+            in_a.session_id
+        ]
+        # A trailing slash normalizes to the same directory.
+        assert [r["session_id"] for r in store.list_sessions(workdir="/work/b/")] == [
+            in_b.session_id
+        ]
+        # Parent directories and same-name directories do not match.
+        assert store.list_sessions(workdir="/work") == []
+        assert store.list_sessions(workdir="/other/b") == []
+        # Unknown-workdir sessions never match a workdir filter.
+        assert all(
+            r["session_id"] != unknown.session_id
+            for r in store.list_sessions(workdir="/work/a")
+        )
+        assert len(store.list_sessions()) == 3
+
+        # A later [CWD] marker (a :cd) moves the session's final workdir.
+        store.append_message(in_a.session_id, "system", _cwd_marker_content("/work/c"))
+        assert store.list_sessions(workdir="/work/a") == []
+        assert [r["session_id"] for r in store.list_sessions(workdir="/work/c")] == [
+            in_a.session_id
+        ]
+        row = store.list_sessions(workdir="/work/c")[0]
+        assert row["final_workdir"] == "/work/c"
+    finally:
+        store.close()
+
+
+def test_list_sessions_workdir_limit_applies_after_filtering(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        first_a = store.create_session(
+            project="a1", entry_point="cli", project_path="/work/a"
+        )
+        second_a = store.create_session(
+            project="a2", entry_point="cli", project_path="/work/a"
+        )
+        in_b = store.create_session(
+            project="b", entry_point="cli", project_path="/work/b"
+        )
+        # Make the B session the most recently used overall.
+        store.touch_session(first_a.session_id)
+        store.touch_session(second_a.session_id)
+        store.touch_session(in_b.session_id)
+
+        rows = store.list_sessions(workdir="/work/a", limit=1)
+        assert [r["session_id"] for r in rows] == [second_a.session_id]
+    finally:
+        store.close()
+
+
+def test_final_workdir_backfilled_on_reopen(tmp_path):
+    db_path = tmp_path / "sessions.sqlite3"
+    store = SessionStore(db_path)
+    moved = store.create_session(project="a", entry_point="cli", project_path="/work/a")
+    store.append_message(moved.session_id, "system", _cwd_marker_content("/work/moved"))
+    store.close()
+
+    # Simulate a database recorded before final_workdir existed.
+    conn = sqlite3.connect(db_path)
+    conn.execute("UPDATE sessions SET final_workdir = NULL, final_workdir_key = NULL")
+    conn.commit()
+    conn.close()
+
+    reopened = SessionStore(db_path)
+    try:
+        rows = reopened.list_sessions(workdir="/work/moved")
+        assert [r["session_id"] for r in rows] == [moved.session_id]
+        assert rows[0]["final_workdir"] == "/work/moved"
+    finally:
+        reopened.close()

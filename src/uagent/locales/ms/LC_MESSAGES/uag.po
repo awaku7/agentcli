@@ -2642,8 +2642,8 @@ msgstr "[log] Penggunaan: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:242
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[log] Argumen tidak sah: %(arg)r (nyatakan semua / --semua / -a / nombor / "
 "pdf <index>)"

@@ -211,6 +211,24 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
     return True
 
 
+def _logs_scope_workdir(core: Any) -> str:
+    """Default :logs scope: the bound Web room's base_dir, else the cwd.
+
+    A Web room can sit in a different directory from the server process
+    (``Room.set_base_dir()`` never chdirs), so the process cwd is only
+    the fallback for non-Web callers.
+    """
+    owner = core
+    try:
+        from .util_cmd_session import _session_selection_owner
+
+        owner = _session_selection_owner(core)
+    except Exception:
+        owner = core
+    base_dir = str(getattr(owner, "base_dir", "") or "").strip()
+    return base_dir or os.getcwd()
+
+
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     # In sqlite-only mode, :logs is backed by the session store. The legacy
     # JSONL path remains available in dual/jsonl mode.
@@ -227,13 +245,37 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             from .util_cmd_session import _session_selection_owner
 
             selection_owner = _session_selection_owner(core)
+            # Default scope is the current workdir; --global lists every
+            # workdir. "all"/--all only lifts the count limit.
+            global_scope = False
+            show_all = False
             limit = 10
-            if a and a.lower() not in {"all", "-a", "--all"}:
-                limit = max(1, int(a))
+            for token in a.split():
+                low = token.lower()
+                if low == "--global":
+                    global_scope = True
+                elif low in {"all", "-a", "--all"}:
+                    show_all = True
+                elif token.isdigit():
+                    limit = max(1, int(token))
+                else:
+                    print(
+                        tr(
+                            "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / --global / pdf <index>)"
+                        )
+                        % {"arg": a}
+                    )
+                    return True
+            workdir = None if global_scope else _logs_scope_workdir(core)
             rows = store.list_sessions(
-                limit=None if a.lower() in {"all", "-a", "--all"} else limit,
+                limit=None if show_all else limit,
                 exclude_session_id=getattr(selection_owner, "session_id", None),
+                workdir=workdir,
             )
+            if global_scope:
+                print(tr("[logs] all workdirs"))
+            else:
+                print(tr("[logs] workdir: %(path)s") % {"path": workdir})
             from .util_cmd_session import _print_session_list_row as _print_row
 
             selection_owner._session_search_results = {
@@ -241,6 +283,12 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             }
             for index, row in enumerate(rows):
                 _print_row(index, row)
+            if not rows and not global_scope:
+                print(
+                    tr(
+                        "[logs] No sessions found for this workdir. Use :logs --global to list all workdirs."
+                    )
+                )
             return True
         except Exception as exc:
             print("[logs] SQLite session listing failed: " + str(exc))
@@ -248,11 +296,15 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
 
     show_all = False
     limit = 10
+    global_scope = False
     export_pdf_index = None
 
     a = (arg or "").strip()
-    if a:
-        parts = a.split()
+    parts = a.split() if a else []
+    if any(part.lower() == "--global" for part in parts):
+        global_scope = True
+        parts = [part for part in parts if part.lower() != "--global"]
+    if parts:
         cmd = parts[0].lower()
 
         if cmd == "pdf":
@@ -273,14 +325,25 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             except Exception:
                 print(
                     tr(
-                        "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf <index>)"
+                        "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / --global / pdf <index>)"
                     )
                     % {"arg": a}
                 )
                 return True
 
     if export_pdf_index is not None:
-        files = core.find_log_files(exclude_current=True)
+        # Resolve against the displayed listing when one was shown
+        # (even an empty one); only fall back to every log file when
+        # no listing exists yet.
+        files = None
+        view = getattr(core, "last_log_view", None)
+        if callable(view):
+            try:
+                files = view()
+            except Exception:
+                files = None
+        if files is None:
+            files = core.find_log_files(exclude_current=True)
         if not files:
             print(_("[logs] No log files found."))
             return True
@@ -309,7 +372,11 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
         print(result)
         return True
 
-    core.list_logs(limit=limit, show_all=show_all)
+    core.list_logs(
+        limit=limit,
+        show_all=show_all,
+        workdir=None if global_scope else _logs_scope_workdir(core),
+    )
     return True
 
 

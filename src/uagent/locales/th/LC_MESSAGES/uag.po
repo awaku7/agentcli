@@ -2754,8 +2754,8 @@ msgstr "[บันทึก] การใช้งาน: :logs pdf <index> [out
 #: src/uagent/util_cmd_files.py:242
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[บันทึก] อาร์กิวเมนต์ไม่ถูกต้อง: %(arg)r (ระบุทั้งหมด / --all / -a / number "
 "/ pdf <index>)"

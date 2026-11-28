@@ -2760,8 +2760,8 @@ msgstr "[लॉग्स] उपयोग: :लॉग्स पीडीएफ <
 #: src/uagent/util_cmd_files.py:242
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr ""
 "[लॉग] अमान्य तर्क: %(arg)r (सभी / --सभी / -ए / संख्या / पीडीएफ <सूचकांक> "
 "निर्दिष्ट करें)"

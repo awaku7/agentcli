@@ -26,6 +26,18 @@ continuation, tool context and agent state are temporarily installed on core.
 The worker saves updated state back to the room and restores the previous core
 and callback bindings on exit, including error exits. Displayed views are
 authoritative: numbers absent from the view are rejected.
+
+`:logs` defaults to the current workdir in both backends: a session's final
+workdir is its last recorded `[CWD]` marker, falling back to the recorded
+project path (`project_path` / the JSONL session-metadata record); unknown
+workdirs are excluded from the default view. `:logs --global` lists all
+workdirs, and `all`/`--all` only lifts the count limit. SQLite stores the
+final workdir on the session row (`final_workdir` / `final_workdir_key`,
+indexed, maintained on every `[CWD]` append and backfilled once at
+migration) and filters in SQL before LIMIT; the JSONL side resolves it per
+file with an mtime/size-invalidated cache. `:load <index>` on the JSONL
+side resolves against the most recent `:logs` view (`core.last_log_view()`),
+matching the SQLite selection-state behavior above.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 

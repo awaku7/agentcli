@@ -2680,8 +2680,8 @@ msgstr "[로그] 사용법: :logs pdf <색인> [output_path]"
 #: src/uagent/util_cmd_files.py:242
 #, python-format
 msgid ""
-"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
-"<index>)"
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / "
+"--global / pdf <index>)"
 msgstr "[로그] 잘못된 인수: %(arg)r(all / --all / -a / number / pdf <index> 지정)"
 
 #: src/uagent/util_cmd_files.py:251

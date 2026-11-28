@@ -197,6 +197,7 @@ from .core_impl.responses_state import (
 from .core_impl.logs import (
     find_log_files,
     guess_topics_from_content,
+    last_log_view,
     latest_responses_state,
     latest_tool_context,
     list_logs,
@@ -332,6 +333,7 @@ __all__ = [
     "input_prompt_active",
     "interrupt_lock",
     "interrupt_requested",
+    "last_log_view",
     "last_reasoning_label",
     "latest_responses_state",
     "latest_tool_context",

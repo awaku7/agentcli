@@ -23,9 +23,14 @@ def test_logs_replaces_previous_session_selection(loader, monkeypatch, tmp_path)
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
     db = SessionStore(tmp_path / "sessions.sqlite3")
     try:
-        old = db.create_session(project="old", entry_point="cli")
+        monkeypatch.chdir(tmp_path)
+        old = db.create_session(
+            project="old", entry_point="cli", project_path=str(tmp_path)
+        )
         db.append_message(old.session_id, "user", "old")
-        active = db.create_session(project="active", entry_point="cli")
+        active = db.create_session(
+            project="active", entry_point="cli", project_path=str(tmp_path)
+        )
         core = SimpleNamespace(session_store=db, session_id=active.session_id)
         messages = []
         assert handle_command(":sessions list", messages, None, "", core=core)
@@ -231,12 +236,17 @@ def test_cont_ignores_displayed_indices_and_loads_newest_inactive(
 
 def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.chdir(tmp_path)
     db = SessionStore(tmp_path / "sessions.sqlite3")
-    old = db.create_session(project="old", entry_point="cli")
+    old = db.create_session(
+        project="old", entry_point="cli", project_path=str(tmp_path)
+    )
     db.append_message(old.session_id, "user", "old question")
     db.append_message(old.session_id, "assistant", "old answer")
     db.save_session_summary(old.session_id, "Summary should be visible")
-    current = db.create_session(project="current", entry_point="cli")
+    current = db.create_session(
+        project="current", entry_point="cli", project_path=str(tmp_path)
+    )
     core = SimpleNamespace(session_store=db, session_id=current.session_id)
     messages: list[dict] = []
 
@@ -682,3 +692,85 @@ def test_sessions_summarize_debug_reports_missing_summary_without_content(
     assert "PRIVATE_USER_TEXT" not in captured.err
     assert "PRIVATE_ASSISTANT_TEXT" not in captured.err
     db.close()
+
+
+def test_logs_defaults_to_current_workdir_and_global_lists_all(
+    monkeypatch, tmp_path, capsys
+):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    workdir = tmp_path / "work"
+    workdir.mkdir()
+    monkeypatch.chdir(workdir)
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        here = db.create_session(
+            project="here", entry_point="cli", project_path=str(workdir)
+        )
+        db.append_message(here.session_id, "user", "here")
+        elsewhere = db.create_session(
+            project="else", entry_point="cli", project_path=str(tmp_path / "else")
+        )
+        db.append_message(elsewhere.session_id, "user", "elsewhere")
+        active = db.create_session(
+            project="active", entry_point="cli", project_path=str(workdir)
+        )
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = []
+
+        assert handle_command(":logs", messages, None, "", core=core)
+        out = capsys.readouterr().out
+        assert "workdir:" in out
+        # Only the current workdir's session is listed and selectable.
+        assert core._session_search_results == {0: here.session_id}
+
+        assert handle_command(":logs --global", messages, None, "", core=core)
+        out = capsys.readouterr().out
+        assert "all workdirs" in out
+        assert set(core._session_search_results.values()) == {
+            here.session_id,
+            elsewhere.session_id,
+        }
+
+        # :load 0 opens the row shown by the last (global) listing.
+        assert handle_command(":load 0", messages, None, "", core=core)
+        assert messages
+    finally:
+        db.close()
+
+
+def test_logs_scopes_to_bound_room_base_dir(monkeypatch, tmp_path, capsys):
+    from uagent.util_cmd_session import bind_session_selection_context
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    server_dir = tmp_path / "server"
+    server_dir.mkdir()
+    monkeypatch.chdir(server_dir)
+    room_dir = tmp_path / "room"
+    room_dir.mkdir()
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        in_room = db.create_session(
+            project="room", entry_point="web", project_path=str(room_dir)
+        )
+        db.append_message(in_room.session_id, "user", "room session")
+        in_server = db.create_session(
+            project="server", entry_point="web", project_path=str(server_dir)
+        )
+        db.append_message(in_server.session_id, "user", "server session")
+        active = db.create_session(
+            project="active", entry_point="web", project_path=str(room_dir)
+        )
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        room = SimpleNamespace(base_dir=str(room_dir), session_id=active.session_id)
+        messages = []
+        with bind_session_selection_context(room):
+            assert handle_command(":logs", messages, None, "", core=core)
+        out = capsys.readouterr().out
+        assert str(room_dir) in out
+        # The room's directory scopes the listing, not the server cwd.
+        assert room._session_search_results == {0: in_room.session_id}
+    finally:
+        db.close()
