@@ -1548,6 +1548,7 @@ class RoomWorkerPool:
             elif kind == "human_ask":
                 room.human_ask_pending = True
                 room.human_ask_message = event["message"]
+                room.human_ask_choices = list(event.get("choices") or [])
                 room.human_ask_is_password = event.get("is_password", False)
                 room._human_ask_expected_principal_id = str(ask_principal_id or "")
                 room.human_ask_job_id = str(ask_job_id or "")

@@ -1758,3 +1758,18 @@ def test_release_room_ignores_stale_room_incarnation(monkeypatch, tmp_path):
         assert not bound.process.is_alive()
     finally:
         pool.shutdown()
+
+
+def test_relay_copies_human_ask_choices_to_parent_room():
+    room = WebRoom("relay-choices")
+    RoomWorkerPool._relay(
+        room,
+        {
+            "type": "human_ask",
+            "message": "pick one\n 1. Red\n 2. Blue",
+            "is_password": False,
+            "choices": ["Red", "Blue"],
+        },
+    )
+    assert room.human_ask_pending
+    assert room.human_ask_choices == ["Red", "Blue"]

@@ -99,6 +99,7 @@ class WebRoom:
         self.human_ask_is_password = False
         self.human_ask_pending = False
         self.human_ask_message = ""
+        self.human_ask_choices: list[str] = []
         self.human_ask_job_id = ""
         self.human_ask_cancelled = False
         # Trusted principal for the currently pending confirmation. This stays
@@ -355,6 +356,9 @@ class WebRoom:
                         {
                             "type": "human_ask",
                             "message": getattr(self, "human_ask_message", "") or "",
+                            "choices": list(
+                                getattr(self, "human_ask_choices", []) or []
+                            ),
                             "is_password": bool(
                                 getattr(self, "human_ask_is_password", False)
                             ),
