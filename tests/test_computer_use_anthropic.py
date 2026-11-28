@@ -354,9 +354,41 @@ def test_prepare_native_anthropic_toolset_allows_guarded_runtime(monkeypatch):
 def test_claude_requests_native_toolset_alongside_guarded_runtime(monkeypatch):
     from types import SimpleNamespace
 
+    from uagent import tools
     from uagent.providers.llm_claude import claude_chat_with_tools
+    from uagent.runtime import tool_discovery
 
     _fake_anthropic_module(monkeypatch)
+    management_specs = [
+        {
+            "type": "function",
+            "function": {
+                "name": name,
+                "description": "Management tool",
+                "parameters": {"type": "object", "properties": {}},
+            },
+        }
+        for name in ("tool_catalog", "tool_load", "unload_tool")
+    ]
+    search_inventory = [
+        *management_specs,
+        {
+            "type": "function",
+            "function": {
+                "name": "local_tool",
+                "description": "A regular tool",
+                "parameters": {"type": "object", "properties": {}},
+            },
+        },
+    ]
+    monkeypatch.setattr(tools, "get_tool_specs", lambda: search_inventory)
+    # With no deferred user tools, Claude falls back to UAG's management tools
+    # rather than receiving the full inventory directly.
+    monkeypatch.setattr(
+        tool_discovery,
+        "anthropic_messages_tool_search_variant",
+        lambda *_args, **_kwargs: "regex",
+    )
     response = SimpleNamespace(content=[])
 
     class Messages:
@@ -380,7 +412,16 @@ def test_claude_requests_native_toolset_alongside_guarded_runtime(monkeypatch):
     claude_chat_with_tools(client, "claude-sonnet-5-5", [], core=core)
 
     sent_tools = messages_api.kwargs["tools"]
-    assert sent_tools == [
-        {"type": "computer_toolset_20260801", "configs": {"zoom": {"enabled": False}}}
-    ]
+    assert sent_tools[0] == {
+        "type": "computer_toolset_20260801",
+        "configs": {"zoom": {"enabled": False}},
+    }
+    assert {item["name"] for item in sent_tools[1:]} == {
+        "tool_catalog",
+        "tool_load",
+        "unload_tool",
+    }
+    assert not any(
+        item.get("type", "").startswith("tool_search_tool_") for item in sent_tools
+    )
     assert "extra_headers" not in messages_api.kwargs

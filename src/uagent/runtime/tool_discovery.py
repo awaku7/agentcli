@@ -559,7 +559,7 @@ def resolve_tool_discovery(
     """Resolve native search, legacy catalog, or selected schemas once.
 
     Native search is fail-closed and requires a Responses route plus positive
-    llmcapa ``tool_search`` evidence for the selected provider/model.
+    ``tool_search`` evidence from the selected capability resolver.
     """
 
     mode = (configured_mode or "native").strip().lower()
@@ -573,11 +573,14 @@ def resolve_tool_discovery(
     if (
         provider_name == "openrouter"
         and mode == "native"
+        and capability_resolver is None
         and openrouter_responses_tool_search_variant(
             provider_name, depname, configured_mode=mode
         )
         is None
     ):
+        # A caller-supplied resolver is authoritative for this decision. The
+        # default path still requires OpenRouter's documented wire variant.
         return ToolDiscoveryDecision(
             ToolDiscoveryMode.SELECTED_SCHEMAS, "tool_search_unavailable"
         )

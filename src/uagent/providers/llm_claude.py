@@ -327,6 +327,7 @@ def claude_chat_with_tools(
             pass
 
     from ..runtime.tool_discovery import (
+        MANAGEMENT_TOOL_NAMES,
         anthropic_messages_tool_search_variant,
         deepseek_messages_tool_search_enabled,
     )
@@ -670,8 +671,6 @@ def claude_chat_with_tools(
         _tool_specs_iter = []
     unfiltered_tool_specs = _tool_specs_iter
     if tool_search_variant is not None:
-        from ..runtime.tool_discovery import MANAGEMENT_TOOL_NAMES
-
         # Native server-side search replaces the local catalog/load bootstrap.
         # Do not expose those management tools as searchable callable tools.
         _tool_specs_iter = [
@@ -715,7 +714,14 @@ def claude_chat_with_tools(
         ):
             tool_search_variant = None
             messages_tool_search_active = False
-            _tool_specs_iter = unfiltered_tool_specs
+            # Once native search is abandoned, use the catalog bootstrap rather
+            # than exposing the full inventory directly.
+            _tool_specs_iter = [
+                spec
+                for spec in unfiltered_tool_specs
+                if str((spec.get("function") or {}).get("name") or "")
+                in MANAGEMENT_TOOL_NAMES
+            ]
             function_tool_names = [
                 str(spec.get("function", {}).get("name") or "")
                 for spec in _tool_specs_iter
