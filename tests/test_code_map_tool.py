@@ -348,4 +348,51 @@ def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
     )
 
 
+def test_project_types_lists_all_detected_types(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    (project / "src").mkdir(parents=True)
+    (project / "Cargo.toml").write_text("[package]\nname='demo'\n", encoding="utf-8")
+    (project / "src" / "lib.rs").write_text("pub fn f() {}\n", encoding="utf-8")
+    (project / "package.json").write_text("{}\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
+    )
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    # Detection order is fixed: rust before node before python. The
+    # single "type" stays the first detected one.
+    assert result["project"]["type"] == "rust"
+    assert result["project"]["project_types"] == ["rust", "node", "python"]
+
+    ontology = _json_result(run_tool({"path": str(project), "format": "ontology"}))
+    project_nodes = [
+        node for node in ontology["@graph"] if node.get("@type") == "uag:Project"
+    ]
+    assert len(project_nodes) == 1
+    assert project_nodes[0]["uag:project_type"] == "rust"
+    assert project_nodes[0]["uag:project_types"] == ["rust", "node", "python"]
+
+
+def test_project_types_single_type_and_no_project(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "project"
+    project.mkdir(parents=True)
+    (project / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
+    )
+    (project / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    result = _json_result(run_tool({"path": str(project), "format": "json"}))
+    assert result["project"]["type"] == "python"
+    assert result["project"]["project_types"] == ["python"]
+
+    plain = repo_tmp_path / "plain"
+    plain.mkdir()
+    (plain / "app.py").write_text("VALUE = 1\n", encoding="utf-8")
+    result = _json_result(run_tool({"path": str(plain), "format": "json"}))
+    assert result["project"] is None
+
+
 # Keep the test module free of generated code-map artifacts.
