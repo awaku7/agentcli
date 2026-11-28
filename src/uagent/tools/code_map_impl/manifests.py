@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .cmake import cmake_active_source
+from .walk import bounded_rglob
 
 _MSBUILD_PROJECT_EXTENSIONS = {
     ".csproj",
@@ -413,7 +414,7 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
             edges.append({"manager": manager, "source": source, "target": target})
 
     # Composer PSR-4/classmap declarations
-    for path in root.rglob("composer.json"):
+    for path in bounded_rglob(root, "composer.json"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             autoload = obj.get("autoload", {}) or {}
@@ -428,7 +429,7 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
         except Exception:
             pass
     # Composer generated classmap: map fully-qualified classes to concrete files.
-    for path in root.rglob("autoload_classmap.php"):
+    for path in bounded_rglob(root, "autoload_classmap.php"):
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
             for m in re.finditer(r'"([^"]+)"\s*=>\s*"([^"]+\.php)"', text):
@@ -442,8 +443,8 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
             pass
 
     # Composer generated PSR-4/PSR-0 maps.
-    for path in list(root.rglob("autoload_psr4.php")) + list(
-        root.rglob("autoload_psr0.php")
+    for path in bounded_rglob(root, "autoload_psr4.php") + bounded_rglob(
+        root, "autoload_psr0.php"
     ):
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
@@ -457,7 +458,7 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
             pass
 
     # Swift Package.swift local/URL package declarations and Package.resolved pins
-    for path in root.rglob("Package.swift"):
+    for path in bounded_rglob(root, "Package.swift"):
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
             for m in re.finditer(
@@ -466,10 +467,12 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
                 add("SwiftPM", str(path), m.group(1))
         except OSError:
             pass
-    # NuGet target-framework and dependency groups from assets files
-    for path in list(root.rglob("project.assets.json")) + list(
-        root.rglob("packages.lock.json")
-    ):
+    # NuGet target-framework and dependency groups from assets files.
+    # project.assets.json lives under obj/ by design, so its search keeps
+    # generated trees (hidden directories are still pruned).
+    for path in bounded_rglob(
+        root, "project.assets.json", skip_generated=False
+    ) + bounded_rglob(root, "packages.lock.json"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             for framework, libs in (obj.get("targets", {}) or {}).items():
@@ -480,7 +483,7 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
         except Exception:
             pass
     # Swift Package.resolved pins are linked to the package manifest when present.
-    for path in root.rglob("Package.resolved"):
+    for path in bounded_rglob(root, "Package.resolved"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             pins = obj.get("pins", obj.get("object", {}).get("pins", [])) or []
@@ -528,7 +531,7 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
             except OSError:
                 pass
     # Local rockspec dependency edges
-    for path in root.rglob("*.rockspec"):
+    for path in bounded_rglob(root, "*.rockspec"):
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
             m = re.search(r"dependencies\\s*=\\s*\\{(.*?)\\}", text, re.S)
@@ -555,7 +558,7 @@ def extract_dependency_edges(root: Path) -> list[dict[str, str]]:
         if source and target:
             edges.append({"manager": manager, "source": source, "target": target})
 
-    for path in root.rglob("composer.lock"):
+    for path in bounded_rglob(root, "composer.lock"):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
             for section in ("packages", "packages-dev"):
@@ -565,8 +568,8 @@ def extract_dependency_edges(root: Path) -> list[dict[str, str]]:
                         add("Composer", source, str(target))
         except Exception:
             pass
-    for path in list(root.rglob("packages.lock.json")) + list(
-        root.rglob("project.assets.json")
+    for path in bounded_rglob(root, "packages.lock.json") + bounded_rglob(
+        root, "project.assets.json", skip_generated=False
     ):
         try:
             obj = json.loads(path.read_text(encoding="utf-8", errors="replace"))
@@ -577,7 +580,7 @@ def extract_dependency_edges(root: Path) -> list[dict[str, str]]:
                         add("NuGet", source_name, str(target))
         except Exception:
             pass
-    for path in root.rglob("Gemfile.lock"):
+    for path in bounded_rglob(root, "Gemfile.lock"):
         try:
             source = ""
             for line in path.read_text(encoding="utf-8", errors="replace").splitlines():

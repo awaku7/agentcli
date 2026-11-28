@@ -25,6 +25,7 @@ from .manifests import (
 )
 from .caches import resolve_dependency_cache, dependency_classpath_paths
 from .lockfiles import extract_lock_dependencies
+from .walk import SKIP_DIRS, bounded_rglob
 from .renderers import (
     build_ontology,
     build_tree,
@@ -201,24 +202,6 @@ def _report_progress(message: str) -> None:
 # Language detection
 # ---------------------------------------------------------------------------
 # Languages supporting import/relation extraction
-SKIP_DIRS = {
-    ".git",
-    ".svn",
-    "__pycache__",
-    "node_modules",
-    "bin",
-    "obj",
-    "build",
-    "dist",
-    ".gradle",
-    "target",
-    ".next",
-    ".nuxt",
-    ".output",
-    "venv",
-    ".venv",
-    ".tox",
-}
 RELATION_LANGUAGES: set[str] = {
     "Python",
     "TypeScript",
@@ -675,10 +658,10 @@ def _find_project_files(root: str) -> dict[str, Any]:
     if solution_files and not types:
         types.append("visual-studio")
 
-    # The rest of the project-aware discovery is intentionally unchanged for
-    # non-Visual-Studio ecosystems.
-    gradle_files = list(root_path.rglob("build.gradle.kts")) + list(
-        root_path.rglob("build.gradle")
+    # The rest of the project-aware discovery covers the
+    # non-Visual-Studio ecosystems, using the same bounded traversal.
+    gradle_files = bounded_rglob(root_path, "build.gradle.kts") + bounded_rglob(
+        root_path, "build.gradle"
     )
     if gradle_files:
         types.append("gradle")
@@ -688,25 +671,32 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 base = project.parent / dirname
                 for ext in (".java", ".kt"):
                     sources.extend(
-                        str(f) for f in base.rglob(f"*{ext}") if base.is_dir()
+                        str(f) for f in bounded_rglob(base, f"*{ext}") if base.is_dir()
                     )
 
-    cargo_files = list(root_path.rglob("Cargo.toml"))
+    cargo_files = bounded_rglob(root_path, "Cargo.toml")
     if cargo_files:
         types.append("rust")
         projects.extend(str(f.resolve()) for f in cargo_files)
         for cargo in cargo_files:
             base = cargo.parent / "src"
-            sources.extend(str(f) for f in base.rglob("*.rs") if base.is_dir())
+            # Rust binary crates live in src/bin by convention; "bin" is
+            # a generated-tree name elsewhere, so exempt it for this
+            # source scan.
+            sources.extend(
+                str(f)
+                for f in bounded_rglob(base, "*.rs", allow_generated={"bin"})
+                if base.is_dir()
+            )
 
-    go_mod_files = list(root_path.rglob("go.mod"))
+    go_mod_files = bounded_rglob(root_path, "go.mod")
     if go_mod_files:
         types.append("go")
         projects.extend(str(f.resolve()) for f in go_mod_files)
         for go_mod in go_mod_files:
-            sources.extend(str(f) for f in go_mod.parent.rglob("*.go"))
+            sources.extend(str(f) for f in bounded_rglob(go_mod.parent, "*.go"))
 
-    cmake_files = list(root_path.rglob("CMakeLists.txt"))
+    cmake_files = bounded_rglob(root_path, "CMakeLists.txt")
     if cmake_files:
         types.append("cmake")
         projects.extend(str(f.resolve()) for f in cmake_files)
@@ -722,7 +712,9 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 for filename in re.findall(r"[\w./]+\.\w+", match.group(1)):
                     sources.append(str(cmake.parent / filename))
 
-    makefiles = list(root_path.rglob("Makefile")) + list(root_path.rglob("makefile"))
+    makefiles = bounded_rglob(root_path, "Makefile") + bounded_rglob(
+        root_path, "makefile"
+    )
     if makefiles:
         types.append("make")
         projects.extend(str(f.resolve()) for f in makefiles)
@@ -739,7 +731,7 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 for filename in re.findall(r"[\w./]+\.\w+", match.group(1)):
                     sources.append(str(makefile.parent / filename))
 
-    package_files = list(root_path.rglob("package.json"))
+    package_files = bounded_rglob(root_path, "package.json")
     if package_files:
         types.append("node")
         projects.extend(str(f.resolve()) for f in package_files)
@@ -748,10 +740,10 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 base = package.parent / dirname
                 for ext in (".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"):
                     sources.extend(
-                        str(f) for f in base.rglob(f"*{ext}") if base.is_dir()
+                        str(f) for f in bounded_rglob(base, f"*{ext}") if base.is_dir()
                     )
 
-    pyproject_files = list(root_path.rglob("pyproject.toml"))
+    pyproject_files = bounded_rglob(root_path, "pyproject.toml")
     if pyproject_files:
         types.append("python")
         projects.extend(str(f.resolve()) for f in pyproject_files)
@@ -761,7 +753,9 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 dirs.append(".")
             for dirname in dirs:
                 base = pyproject.parent / dirname
-                sources.extend(str(f) for f in base.rglob("*.py") if base.is_dir())
+                sources.extend(
+                    str(f) for f in bounded_rglob(base, "*.py") if base.is_dir()
+                )
 
     target_frameworks: list[str] = []
     for project in project_files:
@@ -780,14 +774,14 @@ def _find_project_files(root: str) -> dict[str, Any]:
             pass
 
     manifest_candidates = (
-        list(root_path.rglob("pom.xml"))
-        + list(root_path.rglob("composer.json"))
-        + list(root_path.rglob("Gemfile"))
-        + list(root_path.rglob("Package.swift"))
-        + list(root_path.rglob("pubspec.yaml"))
-        + list(root_path.rglob("build.sbt"))
-        + list(root_path.rglob("DESCRIPTION"))
-        + list(root_path.rglob("*.rockspec"))
+        bounded_rglob(root_path, "pom.xml")
+        + bounded_rglob(root_path, "composer.json")
+        + bounded_rglob(root_path, "Gemfile")
+        + bounded_rglob(root_path, "Package.swift")
+        + bounded_rglob(root_path, "pubspec.yaml")
+        + bounded_rglob(root_path, "build.sbt")
+        + bounded_rglob(root_path, "DESCRIPTION")
+        + bounded_rglob(root_path, "*.rockspec")
     )
     project_paths = [
         Path(x)
